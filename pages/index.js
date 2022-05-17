@@ -5,7 +5,9 @@ import { getReposAsync } from "features/repoSearch/repoSearchSlice";
 import DoughnutCart from "../src/components/DoughnutCart/index";
 import Leads from "../src/components/Leads/index";
 import styles from "./index.module.scss";
-
+import Commodities from "../src/components/Commodities/index";
+import Exposure from "../src/components/Exposure/index";
+import Countries from "../src/components/Countries/index";
 import "bootstrap/dist/css/bootstrap.css";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
@@ -20,18 +22,12 @@ const IndexPage = () => {
         </div>
         <div className={styles.bottom_Container}>
           <div className={styles.left_Container}>
-            <Card
-              style={{ width: "406px", height: "401px" }}
-              className={styles.card}
-            />
-            <Card
-              style={{ width: "406px", height: "247px" }}
-              className={styles.card}
-            />
+            <Commodities />
+            <Exposure />
           </div>
           <div className={styles.right_Container}>
             <div className={styles.upper_Container}>
-              <DoughnutCart />
+              <Countries />
               <DoughnutCart />
             </div>
             <div className={styles.bottom_Container}>
