@@ -34,7 +34,9 @@
                 span{
                    margin-left:1.5rem
                 }
+                
             }
+                        
             .icon{
                 width: 26px;
                 height: 26px;
@@ -42,6 +44,9 @@
         }
         .sub_wrapper{
             // display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
         .sub_header {
             background-color: #102141;
                 width: 100%;
@@ -73,9 +78,20 @@
       
          }
         }
+                .openlist {
+                    max-height: 180px;
+                }
+        
+                .closelist {
+                    max-height: 0px;
+                    overflow: hidden;
+                }
       
     }
 }
 
-
+.selected {
+    color: #F3BF4E;
+    background-color: #1C3362;
+}
 

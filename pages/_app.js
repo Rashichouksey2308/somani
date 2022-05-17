@@ -2,7 +2,7 @@ import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { Helmet } from "react-helmet";
 import { Provider } from "react-redux";
 import styledNormalize from "styled-normalize";
-
+import Layout from "../src/components/Layout";
 import { useStore } from "store";
 
 import theme from "theme";
@@ -25,7 +25,9 @@ export default function MyApp(props) {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Provider store={store}>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </Provider>
       </ThemeProvider>
     </>

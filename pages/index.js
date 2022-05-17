@@ -7,17 +7,14 @@ import DoughnutCart from "../src/components/DoughnutCart/index";
 import Leads from "../src/components/Leads/index";
 import Breadcrum from "../src/components/Breadcrum/index";
 import Footer from "../src/components/Footer/index";
+import Layout from "../src/components/Layout";
 
 const IndexPage = () => {
   const router = useRouter();
   return (
     <>
-      <Breadcrum />
-      <Footer />
       <Leads />
       <DoughnutCart />
-
-      <SideBar />
     </>
   );
 };
