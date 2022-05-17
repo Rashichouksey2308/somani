@@ -2,19 +2,16 @@ import RepoSearch from "features/repoSearch/RepoSearch";
 import { useRouter } from "next/router";
 import { createStore } from "store";
 import { getReposAsync } from "features/repoSearch/repoSearchSlice";
-import SideBar from "../src/components/Sidebar/index";
 import DoughnutCart from "../src/components/DoughnutCart/index";
 import Leads from "../src/components/Leads/index";
-import Breadcrum from "../src/components/Breadcrum/index";
-import Footer from "../src/components/Footer/index";
-import Layout from "../src/components/Layout";
+
+import "bootstrap/dist/css/bootstrap.css";
 
 const IndexPage = () => {
   const router = useRouter();
   return (
     <>
-      <Leads />
-      <DoughnutCart />
+      <div className={styles.root_Container}></div>
     </>
   );
 };
