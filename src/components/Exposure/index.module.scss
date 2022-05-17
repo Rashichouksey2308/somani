@@ -10,7 +10,8 @@
         align-items: flex-start;
         flex-direction: column;
         font-family: Helvetica;
-        padding: 15px;
+        padding: 10px;
+        
     
         .header {
             height: 150px;
@@ -23,6 +24,9 @@
             letter-spacing: 0px;
             color: #111111;
             text-transform: capitalize;
+                background-color: rgba(0, 0, 0, 0.00);
+                    border-bottom: none;
+                        padding-left: 0px;
         }
     
         .hr {
@@ -38,6 +42,7 @@
             height: 700px;
             padding-top: 20px;
             width:100%;
+            padding: 0px;
             
             
             .progress_container{
@@ -79,6 +84,7 @@
                 text-transform: capitalize;
                 font-family: Helvetica ;
                 font-weight: bold;
+                    text-align: right;
               }
             .total {
                 letter-spacing: var(--unnamed-character-spacing-0);
@@ -86,10 +92,13 @@
                 font-size:14px ;
                 // padding: 15px;
                 padding-top: 25px;
-                font-family: Helvetica Neue;
+                font-family: Helvetica ;
                 letter-spacing: 0px;
                 color: #8492A6;
                 text-transform: uppercase;
+                span{
+                    font-weight: bolder;
+                }
 
             }
         }

@@ -47,7 +47,7 @@ function index() {
                 "Credit Queue",
                 "Termsheets",   
             ],
-              image:"/static/Dashboard.svg"
+              image:"/static/Warehouse.svg"
         },
           {
             main:"Masters",
@@ -56,7 +56,7 @@ function index() {
                 "Credit Queue",
                 "Termsheets",   
             ],
-              image:"/static/Dashboard.svg"
+                image:"/static/Masters.svg"
         },
      
     ]

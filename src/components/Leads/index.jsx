@@ -1,19 +1,19 @@
 import React from 'react'
 import {Card} from 'react-bootstrap'
 import styles from './index.module.scss'
-function index() {
+function index(props) {
   return (
        <Card className={styles.card}>
-        <Card.Header className={styles.header}> Leads </Card.Header>
+        <Card.Header className={styles.header}> {props.header} </Card.Header>
         <hr className={styles.hr}/>
          <Card.Body className={styles.body}>
           <div className={styles.leads}>
            <div  className={styles.leadsSub}>
-             <img src=""></img>
+             <img src={`${props.image}`} className={styles.image}></img>
            </div>
            <div  className={styles.lead_headContainer}>
             <div  className={styles.lead_header}>
-            TOTAL LEADS
+           {props.subHeader}
            </div>
              <div  className={styles.lead_value}>
              3,200
@@ -24,7 +24,7 @@ function index() {
           <div className={styles.verticalLine}></div>
            <div  className={styles.lead_headContainer}>
             <div  className={styles.lead_header}>
-          APPROVED
+            {props.content[0]}
            </div>
              <div  className={styles.lead_value}  style={{color:"#43C34D"}}>
             1,400
@@ -32,7 +32,7 @@ function index() {
            </div>
            <div  className={styles.lead_headContainer}>
             <div  className={styles.lead_header}>
-          IN PROCESS
+           {props.content[1]}
            </div>
              <div  className={styles.lead_value} style={{color:"#FF9D00"}}>
           648
@@ -40,7 +40,7 @@ function index() {
            </div>
            <div  className={styles.lead_headContainer}>
             <div  className={styles.lead_header} >
-          REJECTED
+           {props.content[2]}
            </div>
              <div  className={styles.lead_value}  style={{color:"#EA3F3F"}}>
             800

@@ -20,8 +20,8 @@ function index() {
          
           
 
-          <div className={styles.total}>TOTAL    ...........................................................    50,00,000</div>
-          <div className={styles.total}>UTILISED ........................................................  3,20,000</div>
+          <div className={styles.total}>TOTAL    .....................................................................    <span>50,00,000</span></div>
+          <div className={styles.total}>UTILISED .................................................................  <span>3,20,000</span></div>
           
          </Card.Body>
        

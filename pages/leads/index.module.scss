@@ -1,0 +1,103 @@
+.leads {
+    border-radius: 6px;
+    background: #FFFFFF;
+    border: 1px solid #D2D7E5;
+    box-shadow: 0 3px 6px #CAD0E2;
+}
+
+.leads .tableFilter {
+    padding: 0 15px 0 35px;
+}
+
+.leads .tableFilter h3 {
+    font-size: 22px;
+    color: #111111;
+    font-weight: bold;
+    line-height: 27px;
+    margin: 24px 0;
+    text-transform: capitalize;
+}
+
+.leads .pageList span {
+    font-size: 18px;
+    color: #718096;
+    font-weight: 500;
+    line-height: 23px;
+    margin-right: 38px;
+}
+
+.leads .pageList .arrow {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 8px;
+    background: #FAFAFB;
+    display: inline-block;
+    border: 1px solid #F2F5F9;
+}
+
+.leads .pageList .rightArrow img {
+    transform: rotate(180deg);
+}
+
+.leads .table thead {
+    background: #FAFAFB;
+}
+
+.leads .table th {
+    font-size: 15px;
+    color: #8492A6;
+    font-weight: bold;
+    line-height: 18px;
+    padding: 24px 15px;
+    text-transform: uppercase;
+    border-top: 2px solid #F2F5F9;
+    border-bottom: 2px solid #F2F5F9;
+}
+
+.leads .table th:first-child {
+    padding-left: 35px;
+}
+
+.leads .table td {
+    font-size: 19px;
+    color: rgba(17, 17, 17, 0.7);
+    font-weight: 500;
+    line-height: 24px;
+    padding: 24px 15px;
+    border-top: none;
+    border-bottom: 2px solid #F2F5F9;
+}
+
+.leads .table td:first-child {
+    padding-left: 35px;
+}
+
+.leads .table td.buyerName {
+    color: #3687E8;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.leads .table td .status {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.leads .table td .approved {
+    background: #26DD73;
+}
+
+.leads .table td .rejected {
+    background: #ED714C;
+}
+
+.leads .table td .review {
+    background: #FFCE00;
+}
