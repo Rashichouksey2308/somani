@@ -3,33 +3,26 @@ import Navbar from "./NavBar/index";
 import Sidebar from "./Sidebar/index";
 import Breadcrum from "./Breadcrum/index";
 import Footer from "./Footer/index";
+import styles from "./index.module.scss";
 import { Container, Row, Col } from "react-bootstrap";
 
 function Layout({ children }) {
   return (
-    <Container>
-      <Row>
-        <Col>
-          <Navbar />
-        </Col>
-      </Row>
-      <Row style={{ width: "345px", display: "inline-flex" }}>
-        <Col>
+    <div className={styles.root_Container}>
+      <div className={styles.navContainer}>
+        <Navbar />
+      </div>
+      <div className={styles.wrapper}>
+        <div className={styles.sidebarContainer}>
           <Sidebar />
-        </Col>
-        <Col>
-          <Row>
-            <Col>
-              <Breadcrum />
-            </Col>
-            <Col> {children}</Col>
-            <Col>
-              <Footer />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+        <div className={styles.mainView_Container}>
+          <Breadcrum />
+          {children}
+          <Footer />
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -48,5 +41,53 @@ export default Layout;
 //     )
 //   }
 // }
-
+//  <Container>
+//    <Row>
+//      <Col>
+//        <Navbar />
+//      </Col>
+//    </Row>
+//    <Row></Row>
+//  </Container>;
 // export default Layout
+// <Container>
+//   <Row>
+//     <Col>
+//       <Navbar />
+//     </Col>
+//   </Row>
+//   <Row
+//     style={{
+//       width: "345px",
+//       display: "inline-flex",
+//       height: "calc(100vh - 76px);",
+//     }}
+//   >
+//     <Col style={{ height: "100%" }}>
+//       <Sidebar />
+//     </Col>
+//     <Col
+//       style={{
+//         height: "calc(100vh - 76px);",
+//       }}
+//     >
+//       <Row style={{ height: "100%" }}>
+//         <Col
+//           style={{
+//             width: "calc(100vw - 345px);",
+//           }}
+//         >
+//           <Breadcrum />
+//         </Col>
+//         <Col>{children}</Col>
+//         <Col
+//           style={{
+//             width: "calc(100vw - 345px);",
+//           }}
+//         >
+//           <Footer />
+//         </Col>
+//       </Row>
+//     </Col>
+//   </Row>
+// </Container>;
