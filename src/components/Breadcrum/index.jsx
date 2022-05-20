@@ -4,7 +4,7 @@ export default function index() {
   return (
     <div className={styles.main_container}>
         <div>
-            <img src="#"></img> 
+            <img src="/static/home.svg"></img> 
         <span>/ Dashboard</span>
         </div>
     </div>

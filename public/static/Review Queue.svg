@@ -1,0 +1,4 @@
+<svg id="Review_Queue" data-name="Review Queue" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <rect id="Rectangle_143" data-name="Rectangle 143" width="30" height="30" fill="none"/>
+  <path id="clock" d="M17,8a9,9,0,1,0,9,9A9,9,0,0,0,17,8Zm0,16.258A7.258,7.258,0,1,1,24.258,17,7.256,7.256,0,0,1,17,24.258Zm2.243-3.789L16.162,18.23a.438.438,0,0,1-.178-.352V11.919a.437.437,0,0,1,.435-.435h1.161a.437.437,0,0,1,.435.435v5.142l2.424,1.764a.435.435,0,0,1,.094.61l-.682.94a.438.438,0,0,1-.61.094Z" transform="translate(-2 -2)" fill="#3687e8"/>
+</svg>

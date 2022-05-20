@@ -9,16 +9,20 @@
         justify-content: center;
         align-items: flex-start;
         flex-direction: column;
+        padding:10px;
     .header{
-            margin: 0.5rem;
+        margin: 0.5rem;
         text-align: left;
         font-family: Helvetica;
-            font-weight: bold;
-            font-size: 18px;
-            line-height: 23px;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 23px;
         letter-spacing: 0px;
         color: #111111;
         text-transform: capitalize;
+        background-color: rgba(0, 0, 0, 0.00);
+        border-bottom: none;
+        padding-left: 0px;
     }
     .hr{
         margin-top:0px;
@@ -31,37 +35,37 @@
         align-items: center;
         width: 100%;
         height: 100%;
+        padding:0px;
         .name{
             width: 50%;
             height: 100%;
             display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
                 .name_wrapper{
                     width: 90%;
                     height: 100%;
                     display: flex;
-                        justify-content: flex-start;
-                        align-items: center;
+                    justify-content: flex-start;
+                    align-items: center;
                        
                     .round{
-                      width: 16px;
+                        width: 16px;
                         height: 16px;
                         border-radius: 100px;
                     }
                     span{
                         text-align: left;
                         font-weight: bold;
-                            
-                            font-size: 16px;
-                            line-height: 19px;
-                            font-family: Helvetica;
-                            letter-spacing: 0px;
-                            color: #111111;
-                            text-transform: capitalize;
-                            opacity: 0.7;
-                            margin-left: 0.5rem;
+                        font-size: 16px;
+                        line-height: 19px;
+                        font-family: Helvetica;
+                        letter-spacing: 0px;
+                        color: #111111;
+                        text-transform: capitalize;
+                        opacity: 0.7;
+                        margin-left: 0.5rem;
                     }
                 }
 
@@ -75,7 +79,7 @@
                       position: relative;
                       canvas{
                        height: 177px !important;
-                    width: 177px !important;
+                       width: 177px !important;
                       }
                       .total_value{
                           width: 100%;

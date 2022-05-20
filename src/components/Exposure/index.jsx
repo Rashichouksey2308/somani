@@ -1,0 +1,32 @@
+import ProgressBar from '@ramonak/react-progress-bar'
+import React from 'react'
+import {Card} from 'react-bootstrap'
+import styles from './index.module.scss'
+function index() {
+  return (
+       <Card className={styles.card}>
+        <Card.Header className={styles.header}> Exposure </Card.Header>
+        <hr className={styles.hr}/>
+         <Card.Body className={styles.body}>
+          <div className={styles.progress_container}>
+          <ProgressBar
+              completed={75.20}
+              barContainerClassName={styles.container}
+              completedClassName={styles.barCompleted}
+              isLabelVisible={false}
+            />
+              <div className={styles.percent}>75.20%</div>
+            </div>
+         
+          
+
+          <div className={styles.total}>TOTAL    .....................................................................    <span>50,00,000</span></div>
+          <div className={styles.total}>UTILISED .................................................................  <span>3,20,000</span></div>
+          
+         </Card.Body>
+       
+   </Card>
+  )
+}
+
+export default index

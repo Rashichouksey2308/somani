@@ -2,19 +2,128 @@ import RepoSearch from "features/repoSearch/RepoSearch";
 import { useRouter } from "next/router";
 import { createStore } from "store";
 import { getReposAsync } from "features/repoSearch/repoSearchSlice";
-import SideBar from "../src/components/Sidebar/index";
 import DoughnutCart from "../src/components/DoughnutCart/index";
 import Leads from "../src/components/Leads/index";
-import Breadcrum from "../src/components/Breadcrum/index";
-import Footer from "../src/components/Footer/index";
-import Layout from "../src/components/Layout";
+import styles from "./index.module.scss";
+import Commodities from "../src/components/Commodities/index";
+import Exposure from "../src/components/Exposure/index";
+import Countries from "../src/components/Countries/index";
+import "bootstrap/dist/css/bootstrap.css";
+import { Container, Row, Col, Card } from "react-bootstrap";
 
 const IndexPage = () => {
   const router = useRouter();
   return (
     <>
-      <Leads />
-      <DoughnutCart />
+      <div className={styles.root_Container}>
+        <div className={styles.head_Container}>
+          <Leads
+            header={"Leads"}
+            subHeader={"TOTAL LEADS"}
+            image={"/static/clipboard-list.svg"}
+            content={["APPROVED", "IN PROCESS", "REJECTED"]}
+          />
+          <Leads
+            header={"Procurement Orders"}
+            subHeader={"ORDER PLACED"}
+            image={"/static/box-open.svg"}
+            content={["COMPLETED", "IN PROCESS", "REJECTED"]}
+          />
+        </div>
+        <div className={styles.bottom_Container}>
+          <div className={styles.left_Container}>
+            <Commodities />
+            <Exposure />
+          </div>
+          <div className={styles.right_Container}>
+            <div className={styles.upper_Container}>
+              <Countries />
+              <DoughnutCart />
+            </div>
+            <div className={styles.bottom_Container}>
+              <div className={styles.leads}>
+                <div
+                  className={`${styles.tableFilter} d-flex justify-content-between`}
+                >
+                  <h3>BL Date</h3>
+                  <div
+                    className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
+                  >
+                    <span>Showing Page 1 out of 10</span>
+                    <a href="#" className={`${styles.arrow} ${`leftArrow`}`}>
+                      {" "}
+                      <img
+                        src="/static/keyboard_arrow_right-3.svg"
+                        alt="arrow right"
+                        className="img-fluid"
+                      />
+                    </a>
+                    <a href="#" className={`${styles.arrow} ${`rightArrow`}`}>
+                      <img
+                        src="/static/keyboard_arrow_right-3.svg"
+                        alt="arrow right"
+                        className="img-fluid"
+                      />
+                    </a>
+                  </div>
+                </div>
+                <table
+                  className={styles.table}
+                  cellpadding="0"
+                  cellspacing="0"
+                  border="0"
+                >
+                  <thead>
+                    <tr>
+                      <th>CORDER NO.</th>
+                      <th>CUSTOMER NAME</th>
+                      <th>COMMODITY</th>
+                      <th>DUE DATE</th>
+                      <th>DAYS TO GO</th>
+
+                      <th>DUE AMOUNT</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>124621</td>
+                      <td className={styles.buyerName}>Bhutani Traders</td>
+                      <td>Iron</td>
+                      <td>12/05/2022</td>
+                      <td>7</td>
+                      <td>₹ 3,45,000</td>
+                    </tr>
+                    <tr>
+                      <td>124621</td>
+                      <td className={styles.buyerName}>Bhutani Traders</td>
+                      <td>Iron</td>
+                      <td>12/05/2022</td>
+                      <td>7</td>
+                      <td>₹ 3,45,000</td>
+                    </tr>
+                    <tr>
+                      <td>124621</td>
+                      <td className={styles.buyerName}>Bhutani Traders</td>
+                      <td>Iron</td>
+                      <td>12/05/2022</td>
+                      <td>7</td>
+                      <td>₹ 3,45,000</td>
+                    </tr>
+                    <tr>
+                      <td>124621</td>
+                      <td className={styles.buyerName}>Bhutani Traders</td>
+                      <td>Iron</td>
+                      <td>12/05/2022</td>
+                      <td>7</td>
+                      <td>₹ 3,45,000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

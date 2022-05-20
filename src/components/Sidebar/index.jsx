@@ -14,11 +14,12 @@ function index() {
         {
             main:"Leads",
             Other:[
-                "Review Queue",
-                "Credit Queue",
-                "Termsheets",   
+               {name: "Review Queue",image:"/static/Review Queue.svg"},
+                {name: "Credit Queue",image:"/static/Credit Queue.svg"},
+                 {name: "Termsheets",image:"/static/Termsheets.svg"},
+                  
             ],
-              image:"/static/Dashboard.svg"
+              image:"/static/Leads.svg"
 
         },
         {
@@ -28,7 +29,7 @@ function index() {
                 "Credit Queue",
                 "Termsheets",   
             ],
-              image:"/static/Dashboard.svg"
+              image:"/static/Loading, Transit & Unloading.svg"
         },
           {
             main:"Agreement & Lc Module",
@@ -37,7 +38,7 @@ function index() {
                 "Credit Queue",
                 "Termsheets",   
             ],
-              image:"/static/Dashboard.svg"
+              image:"/static/Agreement&LCModule.svg"
         },
           {
             main:"Custom Clearance & WareHouse",
@@ -46,7 +47,7 @@ function index() {
                 "Credit Queue",
                 "Termsheets",   
             ],
-              image:"/static/Dashboard.svg"
+              image:"/static/Warehouse.svg"
         },
           {
             main:"Masters",
@@ -55,14 +56,18 @@ function index() {
                 "Credit Queue",
                 "Termsheets",   
             ],
-              image:"/static/Dashboard.svg"
+                image:"/static/Masters.svg"
         },
      
     ]
  const [className,setClassName] =useState("")
  const [category,setcategory] =useState("Dashboard")
-  const [index12,setIndex] =useState("")
+ const [index12,setIndex] =useState("")
   const handleOpen=(val,index)=>{
+    if(index12==index){
+   setIndex("")
+   return
+    }
    console.log("open",val)
    setClassName(`${styles.openlist}`)
    setcategory(val)
@@ -82,11 +87,11 @@ console.log(category)
                   handleOpen(val.main,index)
                 }}>
                    <div>
-                    <img src='/static/Dashboard.svg'></img>
+                    <img src={`${val.image}`}></img>
                     <span >{val.main}</span>
                    </div>
                    {val.Other.length>0?
-                   <img src={accord} className={styles.icon}></img>
+                   <img src="/static/Accordion - menu.svg" className={styles.icon}></img>
                    : <div className={styles.icon}></div>}
                    
                 </div>
@@ -98,8 +103,8 @@ console.log(category)
                      <>
                       <div index={index2} className={`${styles.sub_header} ${className12}`}>
                       <div>
-                      <img src={accord}></img>
-                      <span>{other}</span>
+                      <img src={`${other.image}`}></img>
+                      <span>{other.name}</span>
                       </div>
                      </div>
                      </>

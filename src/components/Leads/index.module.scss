@@ -1,5 +1,5 @@
 .card {
-width: 748px;
+    width:49%;
     height: 168px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 12px #E5E7ED;
@@ -10,17 +10,20 @@ width: 748px;
     align-items: flex-start;
     flex-direction: column;
     font-family: Helvetica;
+    padding: 10px;
 
     .header {
         margin: 0.5rem;
         text-align: left;
-        font-family: Helvetica;
+       
         font-weight: bold;
         font-size: 18px;
         line-height: 23px;
-        letter-spacing: 0px;
+      
         color: #111111;
         text-transform: capitalize;
+        background-color: rgba(0, 0, 0, 0.00);
+        border-bottom:none;
     }
 
     .hr {
@@ -32,14 +35,14 @@ width: 748px;
 
     .body {
         display: flex;
-        justify-content: space-around;
+    justify-content: space-between;
         align-items: center;
         width: 100%;
         height: 100%;
         padding-top:1rem;
         padding-bottom: 1rem;
        .leads{
-            width: 25%;
+            width: 30%;
             height: 100%;
             display: flex;
                 justify-content: space-between;
@@ -47,11 +50,23 @@ width: 748px;
            .leadsSub{
             width: 58px;
                 height: 58px;
-            background: #2884DE 0% 0% no-repeat padding-box;
+            background: #2883de3e 0% 0% no-repeat padding-box;
                 border-radius: 8px;
-                opacity: 0.2;
+                
+                display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    
+                .image{
+                    
+                    width: 21px;
+                        height: 28px;
+                        z-index: 2;
+                        opacity: 1;
+                }
            } 
            .lead_headContainer{
+                margin-right: 1rem;
                 display: flex;
                     justify-content: center;
                     align-items: flex-start;
