@@ -5,8 +5,10 @@
         display: flex;
 
         .check_box {
-              margin-top: -10px;
-           
+              margin-top:30px ;
+              width: 24px;
+              height: 24px;
+              background-color: transparent
         }
         .term_para {
             color: var(--unnamed-color-111111);
