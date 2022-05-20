@@ -5,8 +5,9 @@ const index = () => {
   return (
     <div className={styles.main}>
         <div className={styles.term_container}>
-            <img className={styles.check_box} src="/static/check_box_24px.svg"/>
-            <p className={styles.term_para}>By clicking on sign-up, you agree to Simport's Terms and
+        <input className={styles.check_box}
+         type="checkbox" name="check1"/>
+        <p className={styles.term_para}>By clicking on sign-up, you agree to Simport's Terms and
                 Conditions of Use. To learn more about how Spotify collects
                 uses, shares and protects your personal data, please see Simport's
                 Privacy Policy.
