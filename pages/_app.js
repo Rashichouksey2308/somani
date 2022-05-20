@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import styledNormalize from "styled-normalize";
 import Layout from "../src/components/Layout";
 import { useStore } from "store";
+import "bootstrap/dist/css/bootstrap.css";
 
 import theme from "theme";
 

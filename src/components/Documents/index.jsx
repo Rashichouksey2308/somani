@@ -35,7 +35,7 @@ const index = () => {
                 <div className={styles.each_input}>
                   <div className={styles.image_card}
                   style={{margin:19}}>
-                  <img className={styles.image_delete} src="/static/noun-delete-4801059.svg"/>  
+                  <img className={styles.image_delete} src="/static/delete.svg"/>  
                   </div>
 
                 </div>
@@ -64,7 +64,7 @@ const index = () => {
                 >
                 <div className={styles.image_card}
                    style={{marginLeft:60}}>
-                  <img className={styles.image_delete} src="/static/noun-delete-4801059.svg"/>  
+                  <img className={styles.image_delete} src="/static/delete.svg"/>  
                   </div>
 
 

@@ -8,7 +8,7 @@ import Terms from '../Terms'
 
 const index = () => {
   return (
-    <div>
+  
       <Card className={styles.card}>
         <Card.Header className={styles.head_container}> 
         <div className={styles.head_header}>
@@ -33,7 +33,7 @@ const index = () => {
          </Card.Body>
        
    </Card>
-    </div>
+    
   )
 }
 

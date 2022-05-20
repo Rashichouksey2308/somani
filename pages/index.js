@@ -9,6 +9,7 @@ import Commodities from "../src/components/Commodities/index";
 import Exposure from "../src/components/Exposure/index";
 import Countries from "../src/components/Countries/index";
 import "bootstrap/dist/css/bootstrap.css";
+import Footer from "../src/components/Footer/index";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
 const IndexPage = () => {
