@@ -5,6 +5,7 @@ import CompanyDetails from '../CompanyDetails'
 import OrderDetails from '../OrderDetails'
 import Documents from '../Documents'
 import Terms from '../Terms'
+import {Card} from 'react-bootstrap'
 
 const index = () => {
   return (
