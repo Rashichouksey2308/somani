@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
+import Router from "next/router";
 
 const index = () => {
   return (
@@ -16,7 +17,7 @@ const index = () => {
 
         <div className={styles.btn_container}>
             <button className={styles.cancel_btn}>Cancel</button>
-            <button className={styles.submit_btn}>Submit</button>
+            <button className={styles.submit_btn} onClick={()=> Router.push("/leads")}>Submit</button>
         </div>
        
     </div>

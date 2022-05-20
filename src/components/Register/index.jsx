@@ -1,5 +1,4 @@
 import React from 'react'
-import Card from 'react-bootstrap/Card'
 import styles from './index.module.scss'
 import CompanyDetails from '../CompanyDetails'
 import OrderDetails from '../OrderDetails'
