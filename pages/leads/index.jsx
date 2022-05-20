@@ -1,9 +1,13 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
+import CompanyProfile from '../../src/components/CompanyProfile'
+import ReviewProfile from '../../src/components/ReviewProfile'
+import ApproveBar from '../../src/components/ApproveBar'
 function index() {
   return (
- <div className={styles.leads}>
+    <>
+ {/* <div className={styles.leads}>
           <div className="tableFilter d-flex justify-content-between">
             <h3>Leads</h3>
             <div className={`${styles.pageList}  d-flex justify-content-end align-items-center`}>
@@ -82,7 +86,10 @@ function index() {
               </tr>
             </tbody>
           </table>        
-        </div>
+        </div> */}
+        <ReviewProfile/>
+         {/* <ApproveBar/> */}
+        </>
   )
 }
 
