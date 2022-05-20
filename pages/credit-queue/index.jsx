@@ -1,6 +1,7 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './creditqueue.module.scss'
+import Router from "next/router";
 function index() {
     return (
       <div className='container-fluid'>
@@ -104,7 +105,7 @@ function index() {
                 <td>Amar Singh</td>
                 <td>Yes</td>
                 <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" /></td>
+                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
               </tr>
               <tr>
                 <td>124621</td>
@@ -113,7 +114,7 @@ function index() {
                 <td>Sameer Soni</td>
                 <td>Yes</td>
                 <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" /></td>
+                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
               </tr>
               <tr>
                 <td>124621</td>
@@ -122,7 +123,7 @@ function index() {
                 <td>Sachin Shiv</td>
                 <td>Yes</td>
                 <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" /></td>
+                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
               </tr>
               <tr>
                 <td>124621</td>
@@ -131,7 +132,7 @@ function index() {
                 <td>Mahendra Singh</td>
                 <td>Yes</td>
                 <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" /></td>
+                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
               </tr>
               <tr>
                 <td>124621</td>
@@ -140,7 +141,7 @@ function index() {
                 <td>Amar Singh</td>
                 <td>Yes</td>
                 <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" /></td>
+                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
               </tr>
               <tr>
                 <td>124621</td>
@@ -149,7 +150,7 @@ function index() {
                 <td>Rama Dev</td>
                 <td>Yes</td>
                 <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" /></td>
+                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
               </tr>
               <tr>
                 <td>124621</td>
@@ -158,7 +159,7 @@ function index() {
                 <td>Sameer Soni</td>
                 <td>Yes</td>
                 <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" /></td>
+                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
               </tr>
             </tbody>
           </table>
