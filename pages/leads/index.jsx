@@ -1,9 +1,7 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
-import CompanyProfile from '../../src/components/CompanyProfile'
-import ReviewProfile from '../../src/components/ReviewProfile'
-import ApproveBar from '../../src/components/ApproveBar'
+import Router from "next/router";
 function index() {
   return (
     <>  <div className='container-fluid'>
@@ -20,7 +18,7 @@ function index() {
             <a className={styles.filterIcon}><img src="/static/filter.svg" className="img-fluid" alt="Filter" /></a>
             <a href="#" className={styles.filterList}>Ramesh Shetty<img src="/static/close.svg" className="img-fluid" alt="Close" /></a>
             <a href="#" className={styles.filterList}>Raj Traders<img src="/static/close.svg" className="img-fluid" alt="Close" /></a>
-            <button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>
+            <button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`} onClick={()=>Router.push('/leads/12')}>Add</button>
           </div>
 
           {/*status Box*/}
@@ -105,7 +103,7 @@ function index() {
               <tbody>
                 <tr>
                   <td>124621</td>
-                  <td className={styles.buyerName}>Bhutani Traders</td>
+                  <td className={styles.buyerName} onClick={()=>Router.push('/review-queue/id')}>Bhutani Traders</td>
                   <td>RM-Sales</td>
                   <td>Amar Singh</td>
                   <td>Yes</td>
@@ -113,7 +111,7 @@ function index() {
                 </tr>
                 <tr>
                   <td>124621</td>
-                  <td className={styles.buyerName}>Ramakrishna Traders</td>
+                  <td className={styles.buyerName} onClick={()=>Router.push('/review-queue/id')}>Ramakrishna Traders</td>
                   <td>Customer</td>
                   <td>Sameer Soni</td>
                   <td>Yes</td>
@@ -121,7 +119,7 @@ function index() {
                 </tr>
                 <tr>
                   <td>124621</td>
-                  <td  className={styles.buyerName}>Somani Traders</td>
+                  <td  className={styles.buyerName} onClick={()=>Router.push('/review-queue/id')}>Somani Traders</td>
                   <td>RM-Sales</td>
                   <td>Sachin Shiv</td>
                   <td>Yes</td>
@@ -129,7 +127,7 @@ function index() {
                 </tr>
                 <tr>
                   <td>124621</td>
-                  <td  className={styles.buyerName}>Bhutani Traders</td>
+                  <td  className={styles.buyerName} onClick={()=>Router.push('/review-queue/id')}>Bhutani Traders</td>
                   <td>Customer</td>
                   <td>Mahendra Singh</td>
                   <td>Yes</td>
@@ -137,7 +135,7 @@ function index() {
                 </tr>
                 <tr>
                   <td>124621</td>
-                  <td  className={styles.buyerName}>Emerging Traders</td>
+                  <td  className={styles.buyerName} onClick={()=>Router.push('/review-queue/id')}>Emerging Traders</td>
                   <td>RM-Sales</td>
                   <td>Amar Singh</td>
                   <td>Yes</td>
@@ -145,7 +143,7 @@ function index() {
                 </tr>
                 <tr>
                   <td>124621</td>
-                  <td  className={styles.buyerName}>Raj Traders</td>
+                  <td  className={styles.buyerName} onClick={()=>Router.push('/review-queue/id')}>Raj Traders</td>
                   <td>Customer</td>
                   <td>Rama Dev</td>
                   <td>Yes</td>
@@ -153,7 +151,7 @@ function index() {
                 </tr>
                 <tr>
                   <td>124621</td>
-                  <td  className={styles.buyerName}>Krishna Traders</td>
+                  <td  className={styles.buyerName} onClick={()=>Router.push('/review-queue/id')}>Krishna Traders</td>
                   <td>Customer</td>
                   <td>Sameer Soni</td>
                   <td>Yes</td>
@@ -163,8 +161,7 @@ function index() {
             </table>        
           </div>
         </div>
-        <ReviewProfile/>
-         {/* <ApproveBar/> */}
+     
         </>
   )
 }

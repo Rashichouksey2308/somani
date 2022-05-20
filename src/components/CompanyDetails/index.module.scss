@@ -1,0 +1,178 @@
+.main {
+    padding: 20px;
+    font-family:  Helvetica Neue;
+
+    //display: flex;
+    //flex-direction: column;
+    
+
+    .heading {
+        text-align: left;
+        font-weight: bold;
+        font-size: 20px;
+        color: #111111;
+        text-transform: capitalize;
+        padding-top: 15px;
+        padding-left: 12px;
+
+
+    }
+
+    .radio_form {
+        padding-top: 20px;
+        width: 460px;
+        padding-left: 12px;
+
+
+            .radio_group {
+              display: flex;
+
+              .radio{
+                    padding-right: 25px;
+                    text-align: left;
+                    font-size:20px ;
+                    font-family: Helvetica Neue;
+                    letter-spacing: 0.19px;
+                    color: #111111;
+                    text-transform: capitalize;
+              }
+            }
+
+           .sub_heading {
+            padding-top: 10px;
+            text-align: left;
+            letter-spacing: 0.53px;
+            color: #00000080;
+            text-transform: capitalize;
+            font-size: 16px;
+            padding-bottom: 15px;
+
+        }
+    }
+ 
+    .input_container {
+        margin-top: 50px;
+        display: flex;
+        margin-bottom: 10px;
+        padding-bottom: 14px;
+
+
+        .each_input {
+            margin-left: 10px;
+            margin-right: 10px;
+            position: relative;
+
+            .slidecontainer {
+              width: 100%;
+              margin-top: 40px;
+
+              .slider {
+                -webkit-appearance: none;  /* Override default CSS styles */
+                width: 100%; /* Full-width */
+                opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+                -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+                transition: opacity .2s;
+                outline: none;
+                background-color: #C3C3C31F;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                width: 459px;
+                height: 13px; 
+              }
+
+              datalist {
+                display: flex;
+                justify-content: space-between;
+                text-align: left;
+                font-size:16px;
+                letter-spacing: 0.15px;
+                color: #666666;
+                text-transform: capitalize;
+                width: 100%;
+              }
+              .slider::-moz-range-thumb {
+                width: 29px;
+                height: 16px;
+                border-radius: 4px;
+                background: #4CAF50;
+                cursor: pointer;
+              }
+              
+              .slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 29px;
+                height: 16px;
+                background: transparent;
+                box-shadow: 0px 3px 6px #697AB429;
+                border: 3px solid #3579F6;
+                border-radius: 4px;
+
+              }
+
+              .slider::-moz-range-track {
+                background-color: #ddd;
+              }
+              .slider::-moz-range-progress {
+                background-color: #3687E8;
+              }
+              .slider::-ms-fill-upper {
+                background-color: #ddd;
+              }
+              .slider::-ms-fill-lower {
+                background-color: #3687E8;
+              }
+
+            }
+
+              .label_heading {
+                text-align: left;
+                font-size: 16px;
+                letter-spacing: 0.53px;
+                color: #00000080;
+                position: absolute;
+                left: 15px;
+                top: -10px;
+                background: #ffffff;
+                
+              }
+
+              .phone_card{
+                  display: flex;
+                  width: 480px;
+
+                  .code_phone {
+                    border: 1px solid #0000001F;
+                    border-radius: 4px;
+                    background-color: #C3C3C31F;
+                    text-align: left;
+                    font-size: 19px;
+                    letter-spacing: 0.18px;
+                    color: #3687E8;
+                    text-transform: capitalize;
+                  }
+              }
+            
+              .range_field {
+                background-color: #3687E8;
+                border-radius: 4px;
+
+              }
+
+            .input_field {
+                width: 460px;
+                height: 60px;
+                background-color: #C3C3C31F;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                color: #111111;
+                text-align: left;
+                font-size: 20px;
+                padding-left: 12px;
+
+            }
+        }
+
+    }
+}
+
+

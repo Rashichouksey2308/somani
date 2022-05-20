@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import styles from "./index.module.scss";
 import dash from '../../../public/static/Dashboard.svg'
 import accord from '../../../public/static/next-logo.png'
+import Router from "next/router";
 
 function index() {
 
@@ -9,17 +10,19 @@ function index() {
         {
             main:"Dashboard",
             Other:[],
-            image:"/static/Dashboard.svg"
+            image:"/static/Dashboard.svg",
+            route:"/"
         },
         {
             main:"Leads",
             Other:[
-               {name: "Review Queue",image:"/static/Review Queue.svg"},
+               {name: "Review Queue",image:"/static/Review Queue.svg",route:""},
                 {name: "Credit Queue",image:"/static/Credit Queue.svg"},
                  {name: "Termsheets",image:"/static/Termsheets.svg"},
                   
             ],
-              image:"/static/Leads.svg"
+              image:"/static/Leads.svg",
+               route:"/leads"
 
         },
         {
@@ -85,6 +88,8 @@ console.log(category)
                 <div key={index} className={styles.wrapper}>
                 <div className={`${styles.header} ${className1}`} onClick={(e)=>{
                   handleOpen(val.main,index)
+                  console.log("router",val.route)
+                    Router.push(val.route);
                 }}>
                    <div>
                     <img src={`${val.image}`}></img>

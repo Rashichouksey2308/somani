@@ -9,6 +9,7 @@ import Commodities from "../src/components/Commodities/index";
 import Exposure from "../src/components/Exposure/index";
 import Countries from "../src/components/Countries/index";
 import "bootstrap/dist/css/bootstrap.css";
+import Footer from "../src/components/Footer/index";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
 const IndexPage = () => {
@@ -62,7 +63,7 @@ const IndexPage = () => {
                       <img
                         src="/static/keyboard_arrow_right-3.svg"
                         alt="arrow right"
-                        className="img-fluid"
+                        className={`${styles.image_reverse} img-fluid`}
                       />
                     </a>
                   </div>

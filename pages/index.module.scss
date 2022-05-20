@@ -100,6 +100,13 @@
         width: 8px;
         height: 13px;
     }
+   
+        .image_reverse {
+                transform: rotate(180deg);
+                width: 8px;
+                height: 13px;
+            }
+    
 }
 
 .leads .pageList .rightArrow img {
