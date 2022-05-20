@@ -7,7 +7,8 @@
     border: 1px solid #D2D7E5;
     border-radius: 8px;
     padding: 10px;
-    opacity: 1;
+    
+    margin-right: 1rem;
 
   .top_container{
    display: flex;
@@ -20,11 +21,10 @@
     text-align: left;
     font-weight: bold;
     font-size:18px;
-    letter-spacing: 0px;
     color: #111111;
     text-transform: capitalize;
-    opacity: 1;
-    font-family: Helvetica;
+    
+   
     }
 
     .image_main_container{
@@ -77,9 +77,9 @@
         letter-spacing: var(--unnamed-character-spacing-0);
         text-align: left;
         font-size:14px;
-        letter-spacing: 0px;
+        
         color: #8492A6;
-        font-family: Helvetica;
+       
         text-transform: uppercase;
         
     }
@@ -130,11 +130,11 @@
         letter-spacing: var(--unnamed-character-spacing-0);
         text-align: left;
         font-size:16px;
-        letter-spacing: 0px;
+        
         color: #8492A6;
         text-transform: capitalize;
         margin-top: -5px;
-        font-family: Helvetica;
+       
         
         
          }
@@ -144,11 +144,11 @@
         letter-spacing: var(--unnamed-character-spacing-0);
         font-size:18px;
         font-weight: bold;
-        letter-spacing: 0px;
+        
         color: #111111CC;
         text-transform: capitalize;
         margin-top: -7px;
-        font-family: Helvetica;
+       
         
         }
       }

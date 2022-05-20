@@ -2,6 +2,8 @@ import React from 'react'
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
 import CompanyProfile from '../../src/components/CompanyProfile'
+import ReviewProfile from '../../src/components/ReviewProfile'
+import ApproveBar from '../../src/components/ApproveBar'
 function index() {
   return (
     <>
@@ -85,7 +87,8 @@ function index() {
             </tbody>
           </table>        
         </div> */}
-        <CompanyProfile></CompanyProfile>
+        <ReviewProfile/>
+         {/* <ApproveBar/> */}
         </>
   )
 }
