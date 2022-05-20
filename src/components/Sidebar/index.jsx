@@ -16,7 +16,7 @@ function index() {
         {
             main:"Leads",
             Other:[
-               {name: "Review Queue",image:"/static/Review Queue.svg"},
+               {name: "Review Queue",image:"/static/Review Queue.svg",route:""},
                 {name: "Credit Queue",image:"/static/Credit Queue.svg"},
                  {name: "Termsheets",image:"/static/Termsheets.svg"},
                   
