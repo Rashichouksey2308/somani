@@ -1,0 +1,5 @@
+<svg id="Approved_-_Disapproved" data-name="Approved - Disapproved" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <path id="check_circle" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Z" transform="translate(-2 -2)" fill="#3ad88f"/>
+  <path id="check_circle-2" data-name="check_circle" d="M10.738,17.53l-4.8-4.565,1.353-1.287,3.445,3.269,7.282-6.93,1.353,1.3Z" transform="translate(-2.607 -3.016)" fill="#fff"/>
+  <path id="close-2" d="M15,6.007,13.993,5,10,8.993,6.007,5,5,6.007,8.993,10,5,13.993,6.007,15,10,11.007,13.993,15,15,13.993,11.007,10Z" transform="translate(-0.094 -0.094)" fill="none"/>
+</svg>
