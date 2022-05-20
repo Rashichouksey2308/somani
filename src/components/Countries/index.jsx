@@ -19,7 +19,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
           />
           </div>
           <div className={styles.image_container}>
-         <img className={styles.image}
+         <img className={styles.image_reverse}
          src="/static/keyboard_arrow_right-3.svg"
          alt="arrow"
          />
