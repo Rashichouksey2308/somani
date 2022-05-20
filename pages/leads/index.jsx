@@ -82,7 +82,7 @@ function index() {
             </div>
           </div>
           {/*leads table*/}
-          <div className={styles.leads}>
+          <div className={styles.datatable}>
             <div className={`${styles.tableFilter} d-flex justify-content-between`}>
               <h3>Leads</h3>
               <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
