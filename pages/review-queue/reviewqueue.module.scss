@@ -1,5 +1,6 @@
 /*-----Dashboard Tab------*/
 .dashboardTab {
+  
     .tabHeader {
         padding: 25px 30px 0;
         background: #FFFFFF;
@@ -311,6 +312,127 @@
                     }
                 }
             }
+            .cardBody_compliance{
+                overflow-y: auto;
+                height:300px;
+              
+                .row{
+                    min-height: 60px;
+                    border-bottom: 2px solid rgba(217, 217, 217, 0.316);
+                    .col{
+                        span {
+                                font-size: 16px;
+                                line-height: 18px;
+                                font-weight: bold;
+                                margin-top: 0.5rem;
+                            }
+
+                            .val {
+                               
+                                flex-grow: 1;
+                                flex-wrap: wrap;
+
+                            }
+                    }
+                 
+                }
+                .card_compliance_wrapper{
+                    // height: 70px;
+                   
+                 
+                }
+            }
+        }
+    }
+        
+         
+}
+
+.compliance_purple{
+    width: fit-content;
+    background: #F4EBFF 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    height: 30px;
+    padding:0.5rem;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    
+    .purple_dot{
+        width: 14px;
+        height: 14px;
+        background: #9675CE 0% 0% no-repeat padding-box;
+        border-radius: 100px;
+        .compliance_content{
+            font-size: 16px;
+            line-height: 18px;
         }
     }
 }
+.compliance_red {
+    width: fit-content;
+    background: #FEE4E2 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    height: 30px;
+    padding: 0.5rem;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+
+    .red_dot {
+        width: 14px;
+        height: 14px;
+        background: #EA3F3F 0% 0% no-repeat padding-box;
+        border-radius: 100px;
+
+        .compliance_content {
+            font-size: 16px;
+            line-height: 18px;
+        }
+    }
+}
+.compliance_yellow {
+    width: fit-content;
+    background: #FFFACF 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    height: 30px;
+    padding: 0.5rem;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+
+    .yellow_dot {
+        width: 14px;
+        height: 14px;
+        background: #FFE438 0% 0% no-repeat padding-box;
+        border-radius: 100px;
+
+        .compliance_content {
+            font-size: 16px;
+            line-height: 18px;
+        }
+    }
+}
+.compliance_orange {
+    width: fit-content;
+    background: #FEF0C7 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    height: 30px;
+    padding: 0.5rem;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+
+    .orange_dot {
+        width: 14px;
+        height: 14px;
+        background: #FF9D00 0% 0% no-repeat padding-box;
+        border-radius: 100px;
+
+        .compliance_content {
+            font-size: 16px;
+            line-height: 18px;
+        }
+    }
+}
+
