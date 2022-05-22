@@ -5,6 +5,8 @@ import styledNormalize from "styled-normalize";
 import Layout from "../src/components/Layout";
 import { useStore } from "store";
 import "../src/components/styles/globals.scss";
+import React, { useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.css";
 
 import theme from "theme";
 
@@ -13,6 +15,10 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function MyApp(props) {
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap.js");
+  }, []);
+
   const { Component, pageProps } = props;
   const store = useStore(pageProps.state);
   const title = "Somani";
