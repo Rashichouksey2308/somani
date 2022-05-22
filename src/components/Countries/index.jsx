@@ -10,6 +10,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
   return (
     <div className={styles.main}>
       <div className={styles.top_container}>
+      
       <h1 className={styles.heading}>Top 5 Countries Of Origin </h1>
       <div className={styles.image_main_container}>
       <div className={styles.image_container}>
@@ -19,14 +20,14 @@ import ProgressBar from "@ramonak/react-progress-bar";
           />
           </div>
           <div className={styles.image_container}>
-         <img className={styles.image}
+         <img className={styles.image_reverse}
          src="/static/keyboard_arrow_right-3.svg"
          alt="arrow"
          />
         </div> 
       </div>
       </div>
-      <hr className={styles.line}></hr>
+      <hr className={styles.hr}/>
       <div className={styles.country_container}>
         <div className={styles.each_progress }>
           <h1 className={styles.country}>INDIA</h1>
