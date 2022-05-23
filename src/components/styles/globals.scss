@@ -1,3 +1,27 @@
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, #D2D7E5, 10%)) {
+    ::-webkit-scrollbar {
+        width: $size;
+        height: $size;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: $foreground-color;
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: $background-color;
+        border-radius: 0px 0px 6px 0px;
+    }
+
+    // For Internet Explorer
+    body {
+        scrollbar-face-color: $foreground-color;
+        scrollbar-track-color: $background-color;
+    }
+}
+
+@include scrollbars(10px, #3687E8);
 body {    
     font-family: 'Helvetica Neue';
     background: #F3F4F7
