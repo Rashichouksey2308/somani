@@ -3,7 +3,6 @@ import ReviewProfile from '../../src/components/ReviewProfile'
 import CompanyProfile from '../../src/components/CompanyProfile'
 import ApproveBar from '../../src/components/ApproveBar'
 import Router from "next/router";
-
 import styles from './profile.module.scss'
 
 
@@ -21,7 +20,7 @@ const index = () => {
      <CompanyProfile></CompanyProfile>
      <CompanyProfile></CompanyProfile>
     </div>
-      <div className={styles.approve_Container} onClick={()=>{Router.push('/leads')}} >
+      <div className={styles.approve_Container} onClick={()=>{Router.push('/credit-queue')}} >
          <ApproveBar/>
      </div>
     

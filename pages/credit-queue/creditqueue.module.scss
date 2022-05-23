@@ -127,6 +127,11 @@
                 background: rgba(234, 63, 63, 0.2);
             }
         }
+        &.pending {
+            .iconBox {
+                background: rgba(195, 63, 234, 0.2);
+            }
+        }
         &.saved {
             .iconBox {
                 background: rgba(202, 208, 214, 0.2);
@@ -134,7 +139,6 @@
         }
     }
 }
-
 .datatable {
     border-radius: 6px;
     background: #FFFFFF;
@@ -227,4 +231,3 @@
         }
     }
 }
-
