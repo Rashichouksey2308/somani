@@ -1,6 +1,5 @@
 .main {
     padding: 20px;
-    font-family:  Helvetica Neue;
 
     //display: flex;
     //flex-direction: column;
@@ -20,7 +19,6 @@
 
     .radio_form {
         padding-top: 20px;
-        width: 460px;
         padding-left: 12px;
 
 
@@ -31,7 +29,6 @@
                     padding-right: 25px;
                     text-align: left;
                     font-size:20px ;
-                    font-family: Helvetica Neue;
                     letter-spacing: 0.19px;
                     color: #111111;
                     text-transform: capitalize;
@@ -52,15 +49,13 @@
  
     .input_container {
         margin-top: 50px;
-        display: flex;
         margin-bottom: 10px;
         padding-bottom: 14px;
 
 
         .each_input {
-            margin-left: 10px;
-            margin-right: 10px;
             position: relative;
+            margin-bottom: 50px;
 
             .slidecontainer {
               width: 100%;
@@ -76,7 +71,6 @@
                 background-color: #C3C3C31F;
                 border: 1px solid #0000001F;
                 border-radius: 4px;
-                width: 459px;
                 height: 13px; 
               }
 
@@ -127,18 +121,18 @@
               .label_heading {
                 text-align: left;
                 font-size: 16px;
+                line-height: 1;
                 letter-spacing: 0.53px;
                 color: #00000080;
                 position: absolute;
-                left: 15px;
-                top: -10px;
+                left: 30px;
+                top: -8px;
                 background: #ffffff;
                 
               }
 
               .phone_card{
                   display: flex;
-                  width: 480px;
 
                   .code_phone {
                     border: 1px solid #0000001F;
@@ -159,7 +153,6 @@
               }
 
             .input_field {
-                width: 460px;
                 height: 60px;
                 background-color: #C3C3C31F;
                 border: 1px solid #0000001F;

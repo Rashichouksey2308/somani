@@ -1,11 +1,10 @@
 .card {
-    width: 1560px;
-    height: 1850px;
-    background-color: #f3f4f7;
     padding: 20px;
+    background: none;
 
     .head_container {
         display: flex;
+        background: none;
         flex-direction: row;
         justify-content: space-between;
 
@@ -22,7 +21,6 @@
             }
             .heading {
                 padding-left: 18px;
-                font-family: Helvetica Neue;
                 font-weight: bold;
                 font-size: 30px;
                 text-align: left;
@@ -42,15 +40,12 @@
             border-radius: 8px;
             color: #3687e8;
             text-align: center;
-            font-family: Helvetica Neue;
             font-weight: bold;
             font-size: 16px;
         }
     }
 
     .body {
-        width: 1518px;
-        height: 1700px;
         background-color: #ffffff;
         box-shadow: 0px 3px 12px #CAD0E2;
         border: 1px solid #D2D7E5;
