@@ -1,103 +1,230 @@
-.leads {
+.filter {
+    margin: 15px 0;
+    .search {
+        width: 492px;
+        .inputGroupPrepend {
+            top: 50%;
+            left: 31px;
+            z-index: 1;
+            position: absolute;
+            transform: translateY(-50%);
+        }
+        .formControl {
+            font-size: 18px !important;
+            color: rgba(17, 17, 17, 0.45) !important;
+            font-weight: 500 !important;
+            line-height: 23px !important;
+            height: 48px !important;
+            z-index: 0 !important;
+            position: relative !important;
+            box-shadow: none !important;
+            padding-left: 65px !important;
+            background: #FFFFFF !important;
+            border-radius: 24px !important;
+            border: 2px solid #D2D7E5 !important;
+        }
+    }
+    .filterIcon {
+        width: 48px;
+        height: 48px;
+        margin: 0 20px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 5px;
+        display: inline-block;
+        border: 3px solid #3687E8;
+    }
+    .filterList {
+        font-size: 18px;
+        color: #111111;
+        font-weight: 500;
+        line-height: 25px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        background: #FFFFFF;
+        margin: 0 10px 0 5px;
+        letter-spacing: 0.17px;
+        display: inline-block;
+        border: 1px solid #D2D7E5;
+        text-transform: capitalize;
+        box-shadow: 0px 3px 12px #E5E7ED;
+        img {
+            width: 10px;
+            margin-left: 12px;
+            display: inline-block;
+        }
+    }
+    .btnPrimary {
+        font-size: 20px;
+        color: #FFFFFF;
+        font-weight: bold;
+        line-height: 25px;
+        width: 188px;
+        height: 48px;
+        padding: 12px 0;
+        box-shadow: none;
+        text-align: center;
+        border-radius: 5px;
+        background: #3687E8;
+        display: inline-block;
+        text-transform: capitalize;
+    }
+}
+.statusBox {
+	margin: 20px 0;
+	border-radius: 8px;
+	background: #FFFFFF;
+	border: 1px solid #D2D7E5;
+	box-shadow: 0 3px 12px #E5E7ED;
+    .boxInner {
+        width: 20%;
+        padding: 21px 24px;
+        border-right: 1px solid #D2D7E5;
+        &:last-child {
+            border-right: none;
+        }
+        h3 {
+            font-size: 28px;
+            color: #111111;
+            font-weight: bold;
+            line-height: 34px;
+            margin: 0 0 0 18px;
+            text-transform: capitalize;
+            span {
+                font-size: 15px;
+                color: #8492A6;
+                font-weight: bold;
+                line-height: 18px;
+                display: block;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+            }
+        }
+        .iconBox {
+            height: 58px;
+            min-width: 58px;
+            line-height: 55px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        &.all {
+            .iconBox {
+                background: rgba(40, 132, 222, 0.2);
+            }
+        }
+        &.approved {
+            .iconBox {
+                background: rgba(76, 175, 80, 0.2);
+            }
+        }
+        &.review {
+            .iconBox {
+                background: rgba(255, 157, 0, 0.2);
+            }
+        }
+        &.rejected {
+            .iconBox {
+                background: rgba(234, 63, 63, 0.2);
+            }
+        }
+        &.saved {
+            .iconBox {
+                background: rgba(202, 208, 214, 0.2);
+            }
+        }
+    }
+}
+
+.datatable {
     border-radius: 6px;
     background: #FFFFFF;
     border: 1px solid #D2D7E5;
     box-shadow: 0 3px 6px #CAD0E2;
+    .tableFilter {
+        padding: 0 15px 0 35px;
+        h3 {
+            font-size: 22px;
+            color: #111111;
+            font-weight: bold;
+            line-height: 27px;
+            margin: 24px 0;
+            text-transform: capitalize;
+        }
+        .pageList {
+            span {
+                font-size: 18px;
+                color: #718096;
+                font-weight: 500;
+                line-height: 23px;
+                margin-right: 38px;
+            }
+            .arrow {
+                width: 50px;
+                height: 50px;
+                margin-left: 10px;
+                line-height: 45px;
+                text-align: center;
+                border-radius: 8px;
+                background: #FAFAFB;
+                display: inline-block;
+                border: 1px solid #F2F5F9;
+            }
+            .rightArrow {
+                img {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+    .table {
+        th {
+            font-size: 15px;
+            color: #8492A6;
+            font-weight: bold;
+            line-height: 18px;
+            padding: 24px 15px;
+            background: #FAFAFB;
+            text-transform: uppercase;
+            border-top: 2px solid #F2F5F9;
+            border-bottom: 2px solid #F2F5F9;
+            &:first-child {
+                padding-left: 35px;
+            }
+        }
+        td {
+            font-size: 19px;
+            color: rgba(17, 17, 17, 0.7);
+            font-weight: 500;
+            line-height: 24px;
+            padding: 24px 15px;
+            border-top: none;
+            border-bottom: 2px solid #F2F5F9;
+            &:first-child {
+                padding-left: 35px;
+            }
+        }
+        .buyerName {
+            color: #3687E8;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+        .status {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+        }        
+        .approved {
+            background: #26DD73;
+        }
+        .rejected {
+            background: #ED714C;
+        }
+        .review {
+            background: #FFCE00;
+        }
+    }
 }
 
-.leads .tableFilter {
-    padding: 0 15px 0 35px;
-}
-
-.leads .tableFilter h3 {
-    font-size: 22px;
-    color: #111111;
-    font-weight: bold;
-    line-height: 27px;
-    margin: 24px 0;
-    text-transform: capitalize;
-}
-
-.leads .pageList span {
-    font-size: 18px;
-    color: #718096;
-    font-weight: 500;
-    line-height: 23px;
-    margin-right: 38px;
-}
-
-.leads .pageList .arrow {
-    width: 50px;
-    height: 50px;
-    margin-left: 10px;
-    line-height: 45px;
-    text-align: center;
-    border-radius: 8px;
-    background: #FAFAFB;
-    display: inline-block;
-    border: 1px solid #F2F5F9;
-}
-
-.leads .pageList .rightArrow img {
-    transform: rotate(180deg);
-}
-
-.leads .table thead {
-    background: #FAFAFB;
-}
-
-.leads .table th {
-    font-size: 15px;
-    color: #8492A6;
-    font-weight: bold;
-    line-height: 18px;
-    padding: 24px 15px;
-    text-transform: uppercase;
-    border-top: 2px solid #F2F5F9;
-    border-bottom: 2px solid #F2F5F9;
-}
-
-.leads .table th:first-child {
-    padding-left: 35px;
-}
-
-.leads .table td {
-    font-size: 19px;
-    color: rgba(17, 17, 17, 0.7);
-    font-weight: 500;
-    line-height: 24px;
-    padding: 24px 15px;
-    border-top: none;
-    border-bottom: 2px solid #F2F5F9;
-}
-
-.leads .table td:first-child {
-    padding-left: 35px;
-}
-
-.leads .table td.buyerName {
-    color: #3687E8;
-    font-weight: bold;
-    text-transform: capitalize;
-}
-
-.leads .table td .status {
-    width: 15px;
-    height: 15px;
-    margin-right: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.leads .table td .approved {
-    background: #26DD73;
-}
-
-.leads .table td .rejected {
-    background: #ED714C;
-}
-
-.leads .table td .review {
-    background: #FFCE00;
-}

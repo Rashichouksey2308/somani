@@ -15,13 +15,12 @@ function index() {
               completedClassName={styles.barCompleted}
               isLabelVisible={false}
             />
-              <div className={styles.percent}>75.20%</div>
             </div>
-         
+           <div className={styles.percent}>75.20%</div>
           
 
-          <div className={styles.total}>TOTAL    .....................................................................    <span>50,00,000</span></div>
-          <div className={styles.total}>UTILISED .................................................................  <span>3,20,000</span></div>
+          <div className={styles.total}>TOTAL    ...........................................................    50,00,000</div>
+          <div className={styles.total}>UTILISED ........................................................  3,20,000</div>
           
          </Card.Body>
        

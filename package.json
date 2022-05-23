@@ -10,6 +10,7 @@
     "helmet": "^3.20.0",
     "humps": "^2.0.1",
     "next": "^11.1.2",
+    "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.4.0",
@@ -20,7 +21,8 @@
     "redux-logger": "^3.0.6",
     "sass": "^1.51.0",
     "styled-components": "^5.3.1",
-    "styled-normalize": "^8.0.6"
+    "styled-normalize": "^8.0.6",
+    "yarn": "^1.22.18"
   },
   "name": "nextjs-redux-starter",
   "version": "1.0.0",
@@ -35,6 +37,7 @@
     "babel-plugin-inline-dotenv": "^1.1.2",
     "babel-plugin-module-resolver": "^4.0.0",
     "jest": "^25.1.0",
+    "jquery": "^3.6.0",
     "lint-staged": "^10.0.8",
     "nodemon": "^2.0.1",
     "pre-commit": "^1.2.2",
