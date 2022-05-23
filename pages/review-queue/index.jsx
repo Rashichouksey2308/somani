@@ -1,6 +1,7 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './reviewqueue.module.scss'
+import {Row,Col} from 'react-bootstrap'
 function index() {
     return (
         <div className={`${styles.dashboardTab} w-100`}>
@@ -518,7 +519,178 @@ function index() {
                                 <div className={`${styles.card} card`}>GST</div>
                             </div>
                             <div className="tab-pane fade" id="Compliance" role="tabpanel">
-                                <div className={`${styles.card} card`}>Compliance</div>
+                                <div className={`${styles.card} card`}>
+                                   
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#compliance" aria-expanded="true" aria-controls="compliance">
+                                            <h2 className="mb-0">Compliance</h2>
+                                            <span>+</span>
+                                        </div>
+                                        <div id="compliance" className="collapse" aria-labelledby="compliance" data-parent="#profileAccordion">
+                                            <div className={` ${styles.cardBody_compliance} card-body`}>
+                                              <Row className={` ${styles.row} mt-1 mb-1`}>
+                                                <Col className={`${styles.col}`}  sm={2}>
+                                                <span className={`${styles.head} d-flex align-items-center justify-content-flex-start`}>
+                                                  Severe Risk (1)
+                                                </span></Col>
+                                                <Col className={`${styles.col}`}>
+                                                 <div className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}>
+                                              
+                                                <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                                  <div className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.purple_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                       IBBB
+                                                     </div>
+                                                  </div>
+                                                 
+                                               
+                                                </div>
+                                              </div>
+                                                </Col>
+                                              </Row>
+                                               <Row className={` ${styles.row} mt-1 mb-1`} >
+                                                <Col className={`${styles.col}`} sm={2}>
+                                                <span className={styles.head}>
+                                                 High Risk (4)
+                                                </span></Col>
+                                                <Col className={`${styles.col}`} >
+                                                 <div className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}>
+                                              
+                                                <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                                <div className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.red_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                      EPF Transaction Default
+                                                     </div>
+                                                  </div>
+                                                   <div className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.red_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     Credit Rating Suspended
+                                                     </div>
+                                                  </div>
+                                                   <div className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.red_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                      Credit Rating Withdrawn
+                                                     </div>
+                                                  </div>
+                                                   <div className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.red_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     Qualified Opinion
+                                                     </div>
+                                                  </div>
+                                                 
+                                               
+                                                </div>
+                                              </div>
+                                                </Col>
+                                              </Row>
+                                                <Row className={` ${styles.row} mt-1 mb-1`} >
+                                                <Col className={`${styles.col}`} sm={2}>
+                                                <span className={styles.head}>
+                                                 Medium Risk (2)
+                                                </span></Col>
+                                                <Col className={`${styles.col}`} >
+                                                 <div className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}>
+                                              
+                                                <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                                <div className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.yellow_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                      Generic Address
+                                                     </div>
+                                                  </div>
+                                                   <div className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.yellow_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                   GST Transaction Delay
+                                                     </div>
+                                                  </div>
+                                              
+                                                 
+                                               
+                                                </div>
+                                              </div>
+                                                </Col>
+                                              </Row>
+                                                <Row className={` ${styles.row} mt-1 mb-1`} >
+                                                <Col className={`${styles.col}`} sm={2}>
+                                                <span className={styles.head}>
+                                                 High Risk (4)
+                                                </span></Col>
+                                                <Col className={`${styles.col}`} >
+                                                 <div className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}>
+                                              
+                                                <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                                <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.orange_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     GST Inactive
+                                                     </div>
+                                                  </div>
+                                                   <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.orange_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     GST Transaction Default
+                                                     </div>
+                                                  </div>
+                                                   <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.orange_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                      IEC In Denied Entity List
+                                                     </div>
+                                                  </div>
+                                                   <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.orange_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     TDS Payment Delay
+                                                     </div>
+                                                  </div>
+                                                    <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.orange_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                    EPF Closed
+                                                     </div>
+                                                  </div>
+                                                    <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.orange_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                  EPF Transaction Delay
+                                                     </div>
+                                                  </div>
+                                                      <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
+                                                    <div className={styles.orange_dot}></div>
+                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                 Credit Rating Outlook Negative
+                                                     </div>
+                                                  </div>
+                                                 
+                                               
+                                                </div>
+                                              </div>
+                                                </Col>
+                                              </Row>
+                                             
+                                              
+
+                                             
+
+                                             
+                                             
+                                              
+                                            
+                                              
+                                            </div>
+                                             
+                                              
+                                            
+                                              
+                                              
+                                      
+                                    </div>
+                                </div>
                             </div>
                             <div className="tab-pane fade" id="Orders" role="tabpanel">
                                 <div className={`${styles.card} card`}>Orders</div>
