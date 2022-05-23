@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 
@@ -6,6 +6,20 @@ import { Form } from 'react-bootstrap'
 
 
 const index = () => {
+
+    const [companyDetails, setCompanyDetails] = useState({
+        companyName: "", 
+        companyPan: "",
+        transactionType: "",
+        gst: "",
+        typeOfBusiness: "",
+        
+    })
+
+
+    const handleInputChange = (e) => {
+
+    }
 
     return (
         <div className={styles.main}>
