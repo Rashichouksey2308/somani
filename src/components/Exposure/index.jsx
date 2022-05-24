@@ -4,6 +4,7 @@ import {Card} from 'react-bootstrap'
 import styles from './index.module.scss'
 function index() {
   return (
+    
        <Card className={styles.card}>
         <Card.Header className={styles.header}> Exposure </Card.Header>
         <hr className={styles.hr}/>
@@ -25,6 +26,7 @@ function index() {
          </Card.Body>
        
    </Card>
+  
   )
 }
 
