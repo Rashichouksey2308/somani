@@ -691,6 +691,149 @@ function index() {
                                       
                                     </div>
                                 </div>
+                                {/* details */}
+                                 <div className={`${styles.card} card`}>
+                                   
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#details" aria-expanded="true" aria-controls="details">
+                                            <div className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}>
+                                              <h2 className="mb-0 w-100 ">Details</h2>
+                                              <h2 className="mb-0  d-flex align-items-center justify-content-between ">
+                                                <label>Categories:</label>
+                                                <select class="form-control">
+                                                  <option>Statutory Compliance</option>
+                                                </select>
+                                              </h2>
+                                            </div>
+                                            <span>+</span>
+                                        </div>
+                                        <div id="details" className="collapse" aria-labelledby="details" data-parent="#profileAccordion">
+                                            <div className={` ${styles.cardBody_details} card-body`}>
+                                           
+                                              
+                                            {table2()}
+                                             
+
+                                             
+                                             
+                                              
+                                            
+                                              
+                                            </div>
+                                             
+                                              
+                                            
+                                              
+                                              
+                                      
+                                    </div>
+                                </div>
+                                 <div className={`${styles.card} card`}>
+                                   
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations" aria-expanded="true" aria-controls="litigations">
+                                            <h2 className="mb-0">Litigations</h2>
+                                            <span>+</span>
+                                        </div>
+                                        <div id="litigations" className="collapse" aria-labelledby="litigations" data-parent="#profileAccordion">
+                                          <div className={` ${styles.cardBody_litigations} card-body`}>
+                                           <div className={`${styles.checkbox_Container} d-flex align-items-center justify-content-between`} data-toggle="collapse">
+                                             <div className={`${styles.leftGroup}  d-flex align-items-center justify-content-start`}>
+                                               <div className="form-check">
+                                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                                <label className="form-check-label" for="flexCheckDefault">
+                                                 Pending (4)
+                                                </label>
+                                              </div>
+                                               <div className="form-check ml-4">
+                                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                                <label className="form-check-label" for="flexCheckDefault">
+                                                 Disposed (2)
+                                                </label>
+                                              </div>
+                                               <div className="form-check  ml-4">
+                                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                                <label className="form-check-label" for="flexCheckDefault">
+                                                 Total Cases (5)
+                                                </label>
+                                              </div>
+                                             </div>
+                                              <div className={`${styles.rightGroup} d-flex align-items-center justify-content-start`}>
+                                           <div className="form-check mr-4">
+                                              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                                              <label className="form-check-label" for="flexRadioDefault1">
+                                                Respondent
+                                              </label>
+                                            </div>
+                                            <div className="form-check">
+                                              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+                                              <label className="form-check-label" for="flexRadioDefault2">
+                                               Petitioner
+                                              </label>
+                                            </div>
+
+                                              </div>
+                                            
+                                           </div>
+                                           <div className={`${styles.risk_Container} d-flex align-items-center justify-content-between mt-4 mb-4`}>
+                                             <div className={`${styles.risk}  d-flex align-items-center`}>
+                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}>
+                                                 <img src="#"></img>
+                                               </div>
+                                               <div className={`ml-4`}>
+                                                 <div>High Risk (5)</div>
+                                                 <span>Pending Case: 4 Disposed Case: 4</span>
+                                               </div>
+
+                                               
+                                             </div>
+                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`}>
+                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}>
+                                                 <img src="#"></img>
+                                               </div>
+                                               <div className={`ml-4`}>
+                                                 <div>High Risk (5)</div>
+                                                 <span>Pending Case: 4 Disposed Case: 4</span>
+                                               </div>
+
+                                               
+                                             </div>
+                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`}>
+                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}>
+                                                 <img src="#"></img>
+                                               </div>
+                                               <div className={`ml-4`}>
+                                                 <div>High Risk (5)</div>
+                                                 <span>Pending Case: 4 Disposed Case: 4</span>
+                                               </div>
+
+                                               
+                                             </div>
+                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`}>
+                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}>
+                                                 <img src="#"></img>
+                                               </div>
+                                               <div className={`ml-4`}>
+                                                 <div>High Risk (5)</div>
+                                                 <span>Pending Case: 4 Disposed Case: 4</span>
+                                               </div>
+
+                                               
+                                             </div>
+                                           </div>
+
+                                           <div>
+                                           {ligitations()}
+                                           </div>
+                                         
+
+                                          </div>
+                                             
+                                              
+                                            
+                                              
+                                              
+                                      
+                                    </div>
+                                </div>
                             </div>
                             <div className="tab-pane fade" id="Orders" role="tabpanel">
                                 <div className={`${styles.card} card`}>Orders</div>
@@ -712,3 +855,324 @@ function index() {
     )
 }
 export default index
+
+const ligitations=()=>{
+  return(
+     <div className={`${styles.card_litigations} card`}>
+                                   
+                                        <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
+                                            <Row className={`${styles.row}`}>
+                                              <Col><div className="mb-0">Tribunals</div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Pending Case</span><span className={styles.lower}>4</span></div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={styles.lower}>4</span></div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center`}><span>Total cases</span>
+                                              <div className={styles.chart}>
+                                                <div className={styles.container}>
+                                                  <div className={styles.fill}></div>
+                                                  <span>11</span>
+                                                </div>
+                                                
+                                              </div>
+                                              </div>
+                                             </Col>
+                                            
+                                             
+                                            </Row>
+                                              <h2 className="mb-0" sm={1}>+</h2>
+                                        </div>
+                                        <div id="Tribunals" className="collapse" aria-labelledby="Tribunals" data-parent="#profileAccordion">
+                                          <div className={` ${styles.cardBody_Tribunals} card-body`}>
+                                         
+                                               <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                                <thead>
+                                                  <tr>
+                                                   
+                                                    <th className="">S.NO</th>
+                                                    <th className="">CINO.</th>
+                                                    <th className="">CASE NO.</th>
+                                                    <th className="">CASE TYPE</th>
+                                                    <th className="">SECTION</th>
+                                                    <th className="">PETITIONER</th>
+                                                    <th className="">RESPONDENT</th>
+                                                    <th className="">PREVIEW</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td>1.</td>
+                                                    <td className="">DLND0201</td>
+                                                    <td className="">CC NI ACT/4476/2021</td>
+                                                    <td className="">CC NI ACT</td>
+                                                    <td className="">U/S 7 lbc 2016</td>
+                                                    <td className="">Ms. Juhi Singh</td>
+                                                    <td className="">Ms. Juhi Singh</td>
+                                                     <td className="text-center"><img src="static/eye"></img></td>
+                                                  </tr>
+                                                 
+                                                </tbody>
+                                              </table>
+                           
+                                       
+
+                                           <div>
+                                            
+                                           </div>
+                                         
+
+                                          </div>
+                                             
+                                              
+                                            
+                                              
+                                              
+                                      
+                                    </div>
+                                            </div>
+  )
+}
+
+const table2=()=>{
+return(
+    <table className={`${styles.table_details} table`} cellpadding="0" cellspacing="0" border="1">
+                                                <thead>
+                                                  <tr>
+                                                   
+                                                    <th className=""></th>
+                                                    <th className="">ALERT</th>
+                                                    <th className="">SEVERITY</th>
+                                                    <th className="">SOURCE</th>
+                                                    <th className="">ID TYPE</th>
+                                                    <th className="">VALUE</th>
+                                                    
+                                                  </tr>
+                                                </thead>
+                                                <tbody >
+                                                  <tr>
+                                                    <td rowspan="3">Statutory Compliance</td>
+                                                   
+                                                       <td> EPF Transaction Default</td>
+                                                          <td> EPF Transaction Default</td>
+                                                             <td> EPF Transaction Default</td>
+                                                                <td> EPF Transaction Default</td>
+                                                                   <td> EPF Transaction Default</td>
+                                                        
+                                                      
+                                                   </tr>
+                                                   <tr>
+                                                   
+                                                      <td> EPF Transaction D</td>
+                                                          <td> EPF Transaction D</td>
+                                                             <td> EPF Transaction D</td>
+                                                                <td> EPF Transaction D</td>
+                                                                   <td> EPF Transaction D</td>
+                                                   </tr>
+
+                                                    <tr>
+                                                    {/* <td rowspan="3">Statutory Compliance</td> */}
+                                                   
+                                                       <td> EPF Transaction Default</td>
+                                                          <td> EPF Transaction Default</td>
+                                                             <td> EPF Transaction Default</td>
+                                                                <td> EPF Transaction Default</td>
+                                                                   <td> EPF Transaction Default</td>
+                                                        
+                                                      
+                                                   </tr>
+                                                  
+                                                   <tr>
+                                                     <td rowspan="6">this</td>
+                                                        <td> EPF Transaction Default</td>
+                                                          <td> EPF Transaction Default</td>
+                                                             <td> EPF Transaction Default</td>
+                                                                <td> EPF Transaction Default</td>
+                                                                   <td> EPF Transaction Default</td>
+                                                   </tr>
+                                                     <tr>
+                                                  
+                                                        <td> EPF Default</td>
+                                                          <td> EPF Default</td>
+                                                             <td> EPF Default</td>
+                                                                <td> EPF Default</td>
+                                                                   <td> EPF Default</td>
+                                                   </tr>
+                                                      <tr>
+                                                  
+                                                        <td> EPF Default</td>
+                                                          <td> EPF Default</td>
+                                                             <td> EPF Default</td>
+                                                                <td> EPF Default</td>
+                                                                   <td> EPF Default</td>
+                                                   </tr>
+                                                      <tr>
+                                                  
+                                                        <td> EPF Default</td>
+                                                          <td> EPF Default</td>
+                                                             <td> EPF Default</td>
+                                                                <td> EPF Default</td>
+                                                                   <td> EPF Default</td>
+                                                   </tr>
+
+                                                      <tr>
+                                                  
+                                                        <td> EPF Default</td>
+                                                          <td> EPF Default</td>
+                                                             <td> EPF Default</td>
+                                                                <td> EPF Default</td>
+                                                                   <td> EPF Default</td>
+                                                   </tr>
+                                                      <tr>
+                                                  
+                                                        <td> EPF Default</td>
+                                                          <td> EPF Default</td>
+                                                             <td> EPF Default</td>
+                                                                <td> EPF Default</td>
+                                                                   <td> EPF Default</td>
+                                                   </tr>
+                                                 
+
+                                                    {/* <td className={styles.test}>
+                                                        <tr>
+                                                        <td> High</td>
+                                                       </tr>
+                                                       <tr>
+                                                         <td> High</td>
+                                                       </tr>
+                                                       <tr>
+                                                         <td> Medium</td>
+                                                       </tr>
+
+                                                    </td>
+                                                    <td  className={styles.test}>  
+                                                     <p>
+                                                            EPF
+                                                            </p>
+                                                             <p>
+                                                           GST
+                                                            </p>
+                                                             <p>
+                                                          GST
+                                                            </p>
+                                                            </td>
+                                                    <td className={styles.test}>
+
+                                                        <p>
+                                                            Establishment ID
+                                                            </p>
+                                                             <p>
+                                                           GST
+                                                            </p>
+                                                             <p>
+                                                        GSTIN
+                                                        </p>
+                                                    </td>
+                                                      <td className={styles.test}>
+
+                                                        <p>
+                                                           MRMRT0015543000, UKDDN0020827000
+                                                            </p>
+                                                             <p>
+                                                         05AAGCS8808K2ZY, 09AAGCS8808K1ZR
+                                                            </p>
+                                                             <p>
+                                                      MRMRT0015543000, UKDDN0020827000
+                                                        </p>
+                                                    </td>
+                                                   
+                                                  </tr> */}
+                                                    {/* <tr>
+                                                    <td rowspan="5">Banking Defaults</td>
+                                                    <td className={styles.test}>
+                                                       <p>IBBI
+                                                            </p>
+                                                             <p>
+                                                            Credit Rating Suspended
+                                                            </p>
+                                                             <p>
+                                                          Credit Rating Withdrawn
+                                                            </p>
+                                                      
+                                                    </td>
+                                                    <td className={styles.test}>
+                                                        <p>
+                                                            Severe
+                                                            </p>
+                                                             <p>
+                                                           High
+                                                            </p>
+                                                             <p>
+                                                         High
+                                                            </p>
+
+                                                    </td>
+                                                    <td  className={styles.test}>  
+                                                     <p>
+                                                           
+                                                            </p>
+                                                             <p>
+                                                        ICRA
+                                                            </p>
+                                                             <p>
+                                                        BRICKWORK
+                                                            </p>
+                                                              <p>
+                                                        BRICKWORK
+                                                            </p>
+                                                              <p>
+                                                        BRICKWORK
+                                                            </p>
+                                                              <p>
+                                                        BRICKWORK
+                                                            </p>
+                                                            </td>
+                                                    <td className={styles.test}>
+
+                                                        <p>
+                                                          
+                                                            </p>
+                                                             <p>
+                                                             Establishment ID
+                                                            </p>
+                                                             <p>
+                                                      Date Of Issuance
+                                                        </p>
+                                                              <p>
+                                                      Date Of Issuance
+                                                        </p>
+                                                              <p>
+                                                      Date Of Issuance
+                                                        </p>
+                                                              <p>
+                                                      Date Of Issuance
+                                                        </p>
+                                                    </td>
+                                                      <td className={styles.test}>
+
+                                                        <p>
+                                                          
+                                                            </p>
+                                                             <p>
+                                                         MRMRT0015543000, UKDDN0020827000
+                                                            </p>
+                                                             <p>
+                                                    30-04-2020
+                                                        </p>
+                                                              <p>
+                                                    30-04-2020
+                                                        </p>
+                                                              <p>
+                                                    30-04-2020
+                                                        </p>
+                                                              <p>
+                                                    30-04-2020
+                                                        </p>
+                                                    </td>
+                                                   
+                                                  </tr> */}
+                                                 
+                                                </tbody>
+                                              </table>
+)
+}
