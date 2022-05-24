@@ -1,6 +1,6 @@
 .card {
-    width:49%;
-    height: 168px;
+    // width:49%;
+    // height: 168px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 12px #E5E7ED;
     border: 1px solid #D2D7E5;
@@ -11,6 +11,7 @@
     flex-direction: column;
     font-family: Helvetica;
     padding: 10px;
+    margin-bottom: 24px;
 
     .header {
         margin: 0.5rem;

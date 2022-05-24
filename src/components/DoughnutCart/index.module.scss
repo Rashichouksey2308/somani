@@ -1,10 +1,12 @@
 .card{
-    width: 534px;
-    height: 279px;
+    // width: 534px;
+    min-height: 280px;
+    // height: 279px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 12px #E5E7ED;
     border: 1px solid #D2D7E5;
     border-radius: 8px;
+    margin-bottom: 24px;
     display: flex;
         justify-content: center;
         align-items: flex-start;
