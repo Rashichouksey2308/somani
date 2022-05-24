@@ -12,7 +12,7 @@ function index() {
   return (
     <Card className={styles.card}>
         <Card.Header className={styles.header}>Top 5 Commodities </Card.Header>
-        <hr className={styles.hr}/>
+        {/* <hr className={styles.hr}/> */}
          <Card.Body className={styles.body}>
            {tempArr.map((val,index)=>{
                   return(
