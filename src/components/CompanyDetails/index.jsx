@@ -41,7 +41,7 @@ const index = () => {
                         <input
                             type="text"
                             id="textInput"
-                            value="IDKOP3409G"
+                            placeholder="IDKOP3409G"
                             className={`${styles.input_field} form-control`} />
 
                     </div>
@@ -50,7 +50,7 @@ const index = () => {
                         <label className={styles.label_heading} id="textInput">Company Name</label>
                         <input
                             type="text"
-                            value="Ramakrishna Traders"
+                            placeholder="Ramakrishna Traders"
                             id="textInput"
                             className={`${styles.input_field} form-control`} />
 
@@ -75,7 +75,7 @@ const index = () => {
                         <input
                             type="text"
                             id="textInput"
-                            value="Manufacturer"
+                            placeholder="Manufacturer"
                             className={`${styles.input_field} form-control`} />
 
                     </div>
@@ -92,7 +92,7 @@ const index = () => {
 
                             </select>
                             <input type="text"
-                                value="9876543210"
+                                placeholder="9876543210"
                                 id="textNumber"
                                 className={`${styles.input_field} form-control`} />
 
@@ -103,7 +103,7 @@ const index = () => {
                         <label className={styles.label_heading} id="textInput">Email ID</label>
                         <input
                             type="text"
-                            value="johndow@email.com"
+                            placeholder="johndow@email.com"
                             id="textInput"
                             className={`${styles.input_field} form-control`} />
 
@@ -180,7 +180,7 @@ const index = () => {
 
                             </select>
                             <input type="text"
-                                value="9876543210"
+                                placeholder="9876543210"
                                 id="textNumber"
                                 className={`${styles.input_field} form-control`} />
 

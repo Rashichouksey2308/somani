@@ -25,7 +25,7 @@ const index = () => {
                 <Form.Group className={`${styles.form_group} col-md-4`} >
                     <Form.Label className={styles.label}>Commodity</Form.Label>
                     <div className='d-flex'>
-                    <Form.Control className={`${styles.value} form-control`} type="text" value="Iron" 
+                    <Form.Control className={`${styles.value} form-control`} type="text" placeholder="Iron" 
                     
                     /> <img className={styles.search_image} src = "/static/Group 58.svg"/>
                      </div>
@@ -33,18 +33,18 @@ const index = () => {
 
                 <Form.Group className={`${styles.form_group} col-md-4`}>
                     <Form.Label className={styles.label}>Quantity in MT</Form.Label>
-                    <Form.Control className={`${styles.value} form-control`} type="text" value="50 MT" />
+                    <Form.Control className={`${styles.value} form-control`} type="text" placeholder="50 MT" />
             
                     </Form.Group>
                 <Form.Group className={`${styles.form_group} col-md-4`} >
                     <Form.Label className={styles.label}>Order Value</Form.Label>
-                    <Form.Control className={`${styles.value} form-control`} type="text" value="1000000 CR"   />
+                    <Form.Control className={`${styles.value} form-control`} type="text" placeholder="1000000 CR"   />
                 </Form.Group>
                
                 
                 <Form.Group className={`${styles.form_group} col-md-4`} >
                     <Form.Label className={styles.label}>Grade</Form.Label>
-                    <Form.Control className={`${styles.value} form-control`} type="text" value="46"  />
+                    <Form.Control className={`${styles.value} form-control`} type="text" placeholder="46"  />
                 </Form.Group>
                 
                 
@@ -60,7 +60,7 @@ const index = () => {
 
                 <Form.Group className={`${styles.form_group} col-md-4`}>
                     <Form.Label className={styles.label}>Tolerance (+/-) Percentage</Form.Label>
-                    <Form.Control className={`${styles.value} form-control`} type="text" value="±10%" />
+                    <Form.Control className={`${styles.value} form-control`} type="text" placeholder="±10%" />
                 </Form.Group>
                
                 
@@ -96,11 +96,11 @@ const index = () => {
                     </Form.Group>
                 <Form.Group className={`${styles.form_group} col-md-4`}>
                     <Form.Label className={styles.label}>Expected Date Of Shipment</Form.Label>
-                    <input className={`${styles.value} form-control`} type="date" value="22-02-2022"  />
+                    <input className={`${styles.value} form-control`} type="date" placeholder="22-02-2022"  />
                 </Form.Group>
                 <Form.Group className={`${styles.form_group} col-md-4`}>
                     <Form.Label className={styles.label}>Transaction Period (Days)</Form.Label>
-                    <Form.Control className={`${styles.value} form-control`} type="text" value="90"  />
+                    <Form.Control className={`${styles.value} form-control`} type="text" placeholder="90"  />
                 </Form.Group>
                
                 </div>

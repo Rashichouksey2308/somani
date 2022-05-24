@@ -26,19 +26,19 @@ const index = () => {
 
                 <Form.Group className={`${styles.form_group} col-md-4`}>
                     <Form.Label className={styles.label}>Laycan at Load Port</Form.Label>
-                    <Form.Control className={`${styles.value} form-control`} type="text" value="50 MT" />
+                    <Form.Control className={`${styles.value} form-control`} type="text" placeholder="50 MT" />
             
                     </Form.Group>
                 <Form.Group className={`${styles.form_group} col-md-4`} >
                     <Form.Label className={styles.label}>Last date of shipment</Form.Label>
-                    <input className={`${styles.value} form-control`} type="date" value=""   />
+                    <input className={`${styles.value} form-control`} type="date" placeholder=""   />
                 </Form.Group>
                
                 
                 <Form.Group className={`${styles.form_group} col-md-4`} >
                     <Form.Label className={styles.label}>ETA at Discharge Port</Form.Label>
                     <div>
-                    <Form.Control className={`${styles.value} form-control`} type="date" value="22-01-2022"  />
+                    <Form.Control className={`${styles.value} form-control`} type="date" placeholders="22-01-2022"  />
 
                     </div>
                 </Form.Group>

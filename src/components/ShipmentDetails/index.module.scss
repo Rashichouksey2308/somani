@@ -3,13 +3,15 @@
     border: 1px solid #D2D7E5;
     border-radius: 6px;
     margin-top: 20px;
-    padding-top: 10px;
+    font-family: Helvetica Neue;
+    //padding-top: 10px;
     background-color: #ffffff;
 
 
 .heading{
     text-align: left;
-    font: normal normal bold 22px Helvetica Neue;
+    font-size:22px;
+    font-weight: bold;
     letter-spacing: 0px;
     color: #3687E8;
     text-transform: capitalize;
@@ -18,10 +20,9 @@
 
  .dashboard_form { 
     
-     margin: 15px;
-
+    margin: 15px;
     .form_group {
-    font-family: Helvetica Neue;
+    
     position: relative;
     margin-bottom: 20px;
     margin-top: 20px;

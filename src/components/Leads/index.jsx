@@ -5,7 +5,6 @@ function index(props) {
   return (
        <Card className={styles.card}>
         <Card.Header className={styles.header}> {props.header} </Card.Header>
-        <hr className={styles.hr}/>
          <Card.Body className={styles.body}>
           <div className={styles.leads}>
            <div  className={styles.leadsSub}>
