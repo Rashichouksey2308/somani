@@ -1,6 +1,11 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './reviewqueue.module.scss'
+import Order from '../../src/components/Order';
+import ShipmentDetails from '../../src/components/ShipmentDetails'
+
+
+
 import {Row,Col} from 'react-bootstrap'
 function index() {
     return (
@@ -693,7 +698,12 @@ function index() {
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="Orders" role="tabpanel">
-                                <div className={`${styles.card} card`}>Orders</div>
+                                <div>
+                                 
+                                  <Order/>
+                                  <ShipmentDetails/>
+                                 
+                                </div>
                             </div>
                             <div className="tab-pane fade" id="Credit" role="tabpanel">
                                 <div className={`${styles.card} card`}>Credit</div>
