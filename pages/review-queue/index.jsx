@@ -527,7 +527,15 @@ function index() {
                                 <div className={`${styles.card} card`}>
                                    
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#compliance" aria-expanded="true" aria-controls="compliance">
-                                            <h2 className="mb-0">Compliance</h2>
+                                            <div className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}>
+                                              <h2 className="mb-0 w-100 ">Compliance</h2>
+                                              <div className={`${styles.categories} mb-0  d-flex align-items-center justify-content-end `}>
+                                                <label className={styles.label}>Status:</label>
+                                                <div className={`${styles.status} d-flex align-items-center justify-content-between`}>
+                                                  <span> NON-COMPLIANT HIGH RISK</span>
+                                                </div>
+                                              </div>
+                                            </div>
                                             <span>+</span>
                                         </div>
                                         <div id="compliance" className="collapse" aria-labelledby="compliance" data-parent="#profileAccordion">
@@ -702,12 +710,12 @@ function index() {
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#details" aria-expanded="true" aria-controls="details">
                                             <div className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}>
                                               <h2 className="mb-0 w-100 ">Details</h2>
-                                              <h2 className="mb-0  d-flex align-items-center justify-content-between ">
-                                                <label>Categories:</label>
+                                              <div className={`${styles.categories} mb-0  d-flex align-items-center justify-content-between `}>
+                                                <label className={styles.label}>Categories:</label>
                                                 <select class="form-control">
                                                   <option>Statutory Compliance</option>
                                                 </select>
-                                              </h2>
+                                              </div>
                                             </div>
                                             <span>+</span>
                                         </div>
@@ -790,34 +798,34 @@ function index() {
 
                                                
                                              </div>
-                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`}>
-                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}>
+                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`} style={{backgroundColor:"#FFE9C5"}}>
+                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`} style={{backgroundColor:"#FF9D00"}}>
                                                  <img src="#"></img>
                                                </div>
                                                <div className={`ml-4`}>
-                                                 <div>High Risk (5)</div>
+                                                 <div>Medium Risk (5)</div>
                                                  <span>Pending Case: 4 Disposed Case: 4</span>
                                                </div>
 
                                                
                                              </div>
-                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`}>
-                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}>
+                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`}  style={{backgroundColor:"#F3F4F7"}}>
+                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}  style={{backgroundColor:"#9EB6FF"}}>
                                                  <img src="#"></img>
                                                </div>
                                                <div className={`ml-4`}>
-                                                 <div>High Risk (5)</div>
+                                                 <div>High Priority (5)</div>
                                                  <span>Pending Case: 4 Disposed Case: 4</span>
                                                </div>
 
                                                
                                              </div>
-                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`}>
-                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}>
+                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`} style={{backgroundColor:"#FFE8E8"}}>
+                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}  style={{backgroundColor:"#EA3F3F"}}>
                                                  <img src="#"></img>
                                                </div>
                                                <div className={`ml-4`}>
-                                                 <div>High Risk (5)</div>
+                                                 <div>Stagnant Cases (5))</div>
                                                  <span>Pending Case: 4 Disposed Case: 4</span>
                                                </div>
 
@@ -855,7 +863,7 @@ function index() {
                                 <div className={`${styles.card} card`}>CAM</div>
                             </div>
                             <div className="tab-pane fade" id="Documents" role="tabpanel">
-                                <div className={`${styles.card} card`}>Documents</div>
+                            <div className={`${styles.card} card`}>Documents</div>
                             </div>
                         </div>
                     </div>
@@ -868,9 +876,11 @@ export default index
 
 const ligitations=()=>{
   return(
-     <div className={`${styles.card_litigations} card`}>
+    <>
+       <div className={`${styles.card_litigations} card`}>
                                    
-                                        <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
+                                         <div className={`${styles.card_ligitations_holder}`}>
+                                             <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
                                             <Row className={`${styles.row}`}>
                                               <Col><div className="mb-0">Tribunals</div>
                                              </Col>
@@ -939,8 +949,254 @@ const ligitations=()=>{
                                               
                                               
                                       
-                                    </div>
-                                            </div>
+                                         </div>
+                                         </div>
+                                      
+                                        
+
+
+    </div>
+      <div className={`${styles.card_litigations} card`}>
+                                   
+                                         <div className={`${styles.card_ligitations_holder}`}>
+                                             <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
+                                            <Row className={`${styles.row}`}>
+                                              <Col><div className="mb-0">Tribunals</div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Pending Case</span><span className={styles.lower}>4</span></div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={styles.lower}>4</span></div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center`}><span>Total cases</span>
+                                              <div className={styles.chart}>
+                                                <div className={styles.container}>
+                                                  <div className={styles.fill}></div>
+                                                  <span>11</span>
+                                                </div>
+                                                
+                                              </div>
+                                              </div>
+                                             </Col>
+                                            
+                                             
+                                            </Row>
+                                              <h2 className="mb-0" sm={1}>+</h2>
+                                        </div>
+                                        <div id="Tribunals" className="collapse" aria-labelledby="Tribunals" data-parent="#profileAccordion">
+                                          <div className={` ${styles.cardBody_Tribunals} card-body`}>
+                                         
+                                               <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                                <thead>
+                                                  <tr>
+                                                   
+                                                    <th className="">S.NO</th>
+                                                    <th className="">CINO.</th>
+                                                    <th className="">CASE NO.</th>
+                                                    <th className="">CASE TYPE</th>
+                                                    <th className="">SECTION</th>
+                                                    <th className="">PETITIONER</th>
+                                                    <th className="">RESPONDENT</th>
+                                                    <th className="">PREVIEW</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td>1.</td>
+                                                    <td className="">DLND0201</td>
+                                                    <td className="">CC NI ACT/4476/2021</td>
+                                                    <td className="">CC NI ACT</td>
+                                                    <td className="">U/S 7 lbc 2016</td>
+                                                    <td className="">Ms. Juhi Singh</td>
+                                                    <td className="">Ms. Juhi Singh</td>
+                                                     <td className="text-center"><img src="static/eye"></img></td>
+                                                  </tr>
+                                                 
+                                                </tbody>
+                                              </table>
+                           
+                                       
+
+                                           <div>
+                                            
+                                           </div>
+                                         
+
+                                          </div>
+                                             
+                                              
+                                            
+                                              
+                                              
+                                      
+                                         </div>
+                                         </div>
+                                      
+                                        
+
+
+    </div>
+      <div className={`${styles.card_litigations} card`}>
+                                   
+                                         <div className={`${styles.card_ligitations_holder}`}>
+                                             <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
+                                            <Row className={`${styles.row}`}>
+                                              <Col><div className="mb-0">Tribunals</div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Pending Case</span><span className={styles.lower}>4</span></div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={styles.lower}>4</span></div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center`}><span>Total cases</span>
+                                              <div className={styles.chart}>
+                                                <div className={styles.container}>
+                                                  <div className={styles.fill}></div>
+                                                  <span>11</span>
+                                                </div>
+                                                
+                                              </div>
+                                              </div>
+                                             </Col>
+                                            
+                                             
+                                            </Row>
+                                              <h2 className="mb-0" sm={1}>+</h2>
+                                        </div>
+                                        <div id="Tribunals" className="collapse" aria-labelledby="Tribunals" data-parent="#profileAccordion">
+                                          <div className={` ${styles.cardBody_Tribunals} card-body`}>
+                                         
+                                               <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                                <thead>
+                                                  <tr>
+                                                   
+                                                    <th className="">S.NO</th>
+                                                    <th className="">CINO.</th>
+                                                    <th className="">CASE NO.</th>
+                                                    <th className="">CASE TYPE</th>
+                                                    <th className="">SECTION</th>
+                                                    <th className="">PETITIONER</th>
+                                                    <th className="">RESPONDENT</th>
+                                                    <th className="">PREVIEW</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td>1.</td>
+                                                    <td className="">DLND0201</td>
+                                                    <td className="">CC NI ACT/4476/2021</td>
+                                                    <td className="">CC NI ACT</td>
+                                                    <td className="">U/S 7 lbc 2016</td>
+                                                    <td className="">Ms. Juhi Singh</td>
+                                                    <td className="">Ms. Juhi Singh</td>
+                                                     <td className="text-center"><img src="static/eye"></img></td>
+                                                  </tr>
+                                                 
+                                                </tbody>
+                                              </table>
+                           
+                                       
+
+                                           <div>
+                                            
+                                           </div>
+                                         
+
+                                          </div>
+                                             
+                                              
+                                            
+                                              
+                                              
+                                      
+                                         </div>
+                                         </div>
+                                      
+                                        
+
+
+    </div>
+      <div className={`${styles.card_litigations} card`}>
+                                   
+                                         <div className={`${styles.card_ligitations_holder}`}>
+                                             <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
+                                            <Row className={`${styles.row}`}>
+                                              <Col><div className="mb-0">Tribunals</div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Pending Case</span><span className={styles.lower}>4</span></div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={styles.lower}>4</span></div>
+                                             </Col>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center`}><span>Total cases</span>
+                                              <div className={styles.chart}>
+                                                <div className={styles.container}>
+                                                  <div className={styles.fill}></div>
+                                                  <span>11</span>
+                                                </div>
+                                                
+                                              </div>
+                                              </div>
+                                             </Col>
+                                            
+                                             
+                                            </Row>
+                                              <h2 className="mb-0" sm={1}>+</h2>
+                                        </div>
+                                        <div id="Tribunals" className="collapse" aria-labelledby="Tribunals" data-parent="#profileAccordion">
+                                          <div className={` ${styles.cardBody_Tribunals} card-body`}>
+                                         
+                                               <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                                <thead>
+                                                  <tr>
+                                                   
+                                                    <th className="">S.NO</th>
+                                                    <th className="">CINO.</th>
+                                                    <th className="">CASE NO.</th>
+                                                    <th className="">CASE TYPE</th>
+                                                    <th className="">SECTION</th>
+                                                    <th className="">PETITIONER</th>
+                                                    <th className="">RESPONDENT</th>
+                                                    <th className="">PREVIEW</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td>1.</td>
+                                                    <td className="">DLND0201</td>
+                                                    <td className="">CC NI ACT/4476/2021</td>
+                                                    <td className="">CC NI ACT</td>
+                                                    <td className="">U/S 7 lbc 2016</td>
+                                                    <td className="">Ms. Juhi Singh</td>
+                                                    <td className="">Ms. Juhi Singh</td>
+                                                     <td className="text-center"><img src="static/eye"></img></td>
+                                                  </tr>
+                                                 
+                                                </tbody>
+                                              </table>
+                           
+                                       
+
+                                           <div>
+                                            
+                                           </div>
+                                         
+
+                                          </div>
+                                             
+                                              
+                                            
+                                              
+                                              
+                                      
+                                         </div>
+                                         </div>
+                                      
+                                        
+
+
+    </div>
+     
+
+    </>
+                                            
   )
 }
 
@@ -961,227 +1217,88 @@ return(
                                                 </thead>
                                                 <tbody >
                                                   <tr>
-                                                    <td rowspan="3">Statutory Compliance</td>
-                                                   
-                                                       <td> EPF Transaction Default</td>
-                                                          <td> EPF Transaction Default</td>
-                                                             <td> EPF Transaction Default</td>
-                                                                <td> EPF Transaction Default</td>
-                                                                   <td> EPF Transaction Default</td>
+                                                    <td className={styles.firstCell} rowspan="3">Statutory Compliance</td>
+                                                    <td> EPF Transaction Default</td>
+                                                       <td> High</td>
+                                                          <td> EPF</td>
+                                                             <td> Establishment ID</td>
+                                                                <td> MRMRT0015543000, UKDDN0020827000</td>
+                                                                  
                                                         
                                                       
                                                    </tr>
                                                    <tr>
                                                    
-                                                      <td> EPF Transaction D</td>
-                                                          <td> EPF Transaction D</td>
-                                                             <td> EPF Transaction D</td>
-                                                                <td> EPF Transaction D</td>
-                                                                   <td> EPF Transaction D</td>
+                                                      <td> IEC In Denied Entity List</td>
+                                                          <td> Medium</td>
+                                                             <td> IEC</td>
+                                                                <td> IEC</td>
+                                                                   <td> 290000291</td>
                                                    </tr>
 
                                                     <tr>
                                                     {/* <td rowspan="3">Statutory Compliance</td> */}
                                                    
-                                                       <td> EPF Transaction Default</td>
-                                                          <td> EPF Transaction Default</td>
-                                                             <td> EPF Transaction Default</td>
-                                                                <td> EPF Transaction Default</td>
-                                                                   <td> EPF Transaction Default</td>
+                                                       <td> GST Transaction Default</td>
+                                                          <td> Medium</td>
+                                                             <td> GST</td>
+                                                                <td> GSTIN</td>
+                                                                   <td>05AAGCS8808K2ZY, 09AAGCS8808K1ZR</td>
                                                         
                                                       
                                                    </tr>
                                                   
                                                    <tr>
-                                                     <td rowspan="6">this</td>
-                                                        <td> EPF Transaction Default</td>
-                                                          <td> EPF Transaction Default</td>
-                                                             <td> EPF Transaction Default</td>
-                                                                <td> EPF Transaction Default</td>
-                                                                   <td> EPF Transaction Default</td>
+                                                     <td className={styles.firstCell} rowspan="6">Banking Defaults</td>
+                                                        <td> IBBI</td>
+                                                          <td>Severe</td>
+                                                             <td> </td>
+                                                                <td> </td>
+                                                                   <td> </td>
                                                    </tr>
                                                      <tr>
                                                   
-                                                        <td> EPF Default</td>
-                                                          <td> EPF Default</td>
-                                                             <td> EPF Default</td>
-                                                                <td> EPF Default</td>
-                                                                   <td> EPF Default</td>
+                                                        <td> Credit Rating Suspended</td>
+                                                          <td> High</td>
+                                                             <td>ICRA</td>
+                                                                <td>Establishment ID</td>
+                                                                   <td>MRMRT0015543000, UKDDN0020827000</td>
                                                    </tr>
                                                       <tr>
                                                   
-                                                        <td> EPF Default</td>
-                                                          <td> EPF Default</td>
-                                                             <td> EPF Default</td>
-                                                                <td> EPF Default</td>
-                                                                   <td> EPF Default</td>
+                                                        <td> Credit Rating Withdrawn</td>
+                                                          <td>High</td>
+                                                             <td> BRICKWORK</td>
+                                                                <td> Date Of Issuance</td>
+                                                                   <td>30-04-2020</td>
                                                    </tr>
                                                       <tr>
                                                   
-                                                        <td> EPF Default</td>
-                                                          <td> EPF Default</td>
-                                                             <td> EPF Default</td>
-                                                                <td> EPF Default</td>
-                                                                   <td> EPF Default</td>
+                                                        <td> </td>
+                                                          <td> </td>
+                                                             <td> BRICKWORK</td>
+                                                                <td> Date Of Issuance</td>
+                                                                   <td>30-04-2020</td>
                                                    </tr>
 
                                                       <tr>
                                                   
-                                                        <td> EPF Default</td>
-                                                          <td> EPF Default</td>
-                                                             <td> EPF Default</td>
-                                                                <td> EPF Default</td>
-                                                                   <td> EPF Default</td>
+                                                         <td> </td>
+                                                          <td> </td>
+                                                             <td> BRICKWORK</td>
+                                                                <td> Date Of Issuance</td>
+                                                                   <td>30-04-2020</td>
                                                    </tr>
                                                       <tr>
                                                   
-                                                        <td> EPF Default</td>
-                                                          <td> EPF Default</td>
-                                                             <td> EPF Default</td>
-                                                                <td> EPF Default</td>
-                                                                   <td> EPF Default</td>
+                                                         <td> </td>
+                                                          <td> </td>
+                                                             <td> BRICKWORK</td>
+                                                                <td> Date Of Issuance</td>
+                                                                   <td>30-04-2020</td>
                                                    </tr>
                                                  
 
-                                                    {/* <td className={styles.test}>
-                                                        <tr>
-                                                        <td> High</td>
-                                                       </tr>
-                                                       <tr>
-                                                         <td> High</td>
-                                                       </tr>
-                                                       <tr>
-                                                         <td> Medium</td>
-                                                       </tr>
-
-                                                    </td>
-                                                    <td  className={styles.test}>  
-                                                     <p>
-                                                            EPF
-                                                            </p>
-                                                             <p>
-                                                           GST
-                                                            </p>
-                                                             <p>
-                                                          GST
-                                                            </p>
-                                                            </td>
-                                                    <td className={styles.test}>
-
-                                                        <p>
-                                                            Establishment ID
-                                                            </p>
-                                                             <p>
-                                                           GST
-                                                            </p>
-                                                             <p>
-                                                        GSTIN
-                                                        </p>
-                                                    </td>
-                                                      <td className={styles.test}>
-
-                                                        <p>
-                                                           MRMRT0015543000, UKDDN0020827000
-                                                            </p>
-                                                             <p>
-                                                         05AAGCS8808K2ZY, 09AAGCS8808K1ZR
-                                                            </p>
-                                                             <p>
-                                                      MRMRT0015543000, UKDDN0020827000
-                                                        </p>
-                                                    </td>
-                                                   
-                                                  </tr> */}
-                                                    {/* <tr>
-                                                    <td rowspan="5">Banking Defaults</td>
-                                                    <td className={styles.test}>
-                                                       <p>IBBI
-                                                            </p>
-                                                             <p>
-                                                            Credit Rating Suspended
-                                                            </p>
-                                                             <p>
-                                                          Credit Rating Withdrawn
-                                                            </p>
-                                                      
-                                                    </td>
-                                                    <td className={styles.test}>
-                                                        <p>
-                                                            Severe
-                                                            </p>
-                                                             <p>
-                                                           High
-                                                            </p>
-                                                             <p>
-                                                         High
-                                                            </p>
-
-                                                    </td>
-                                                    <td  className={styles.test}>  
-                                                     <p>
-                                                           
-                                                            </p>
-                                                             <p>
-                                                        ICRA
-                                                            </p>
-                                                             <p>
-                                                        BRICKWORK
-                                                            </p>
-                                                              <p>
-                                                        BRICKWORK
-                                                            </p>
-                                                              <p>
-                                                        BRICKWORK
-                                                            </p>
-                                                              <p>
-                                                        BRICKWORK
-                                                            </p>
-                                                            </td>
-                                                    <td className={styles.test}>
-
-                                                        <p>
-                                                          
-                                                            </p>
-                                                             <p>
-                                                             Establishment ID
-                                                            </p>
-                                                             <p>
-                                                      Date Of Issuance
-                                                        </p>
-                                                              <p>
-                                                      Date Of Issuance
-                                                        </p>
-                                                              <p>
-                                                      Date Of Issuance
-                                                        </p>
-                                                              <p>
-                                                      Date Of Issuance
-                                                        </p>
-                                                    </td>
-                                                      <td className={styles.test}>
-
-                                                        <p>
-                                                          
-                                                            </p>
-                                                             <p>
-                                                         MRMRT0015543000, UKDDN0020827000
-                                                            </p>
-                                                             <p>
-                                                    30-04-2020
-                                                        </p>
-                                                              <p>
-                                                    30-04-2020
-                                                        </p>
-                                                              <p>
-                                                    30-04-2020
-                                                        </p>
-                                                              <p>
-                                                    30-04-2020
-                                                        </p>
-                                                    </td>
-                                                   
-                                                  </tr> */}
-                                                 
                                                 </tbody>
                                               </table>
 )

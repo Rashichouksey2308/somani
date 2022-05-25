@@ -11,6 +11,7 @@ import Countries from "../src/components/Countries/index";
 import "bootstrap/dist/css/bootstrap.css";
 import Footer from "../src/components/Footer/index";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import TermsheetPopUp from "../src/components/TermsheetPopUp";
 
 const IndexPage = () => {
   const router = useRouter();
@@ -135,6 +136,7 @@ const IndexPage = () => {
           </div>
         </div>
       </div>
+     
     </>
   );
 };
