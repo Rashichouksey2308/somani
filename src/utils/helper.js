@@ -1,4 +1,4 @@
-const panValidation = (e) => {
+export const panValidation = (e) => {
   var panValue = e.toUpperCase();
   var regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
 

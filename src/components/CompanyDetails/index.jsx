@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
+import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 
 
 
@@ -13,13 +14,23 @@ const index = () => {
         transactionType: "",
         gst: "",
         typeOfBusiness: "",
-        
+        phone: "",
+        emailId: "",
+        turnOver: "",
+        communicationMode: "",
+        whatsAppNumber: "",
     })
 
+    const [state, setState] = useState(companyDetails)
 
-    const handleInputChange = (e) => {
+  
 
+    const saveData=(name,value)=>{
+        
+        state[name] = value;
+        setState({ ...state });
     }
+ 
 
     return (
         <div className={styles.main}>
@@ -56,6 +67,14 @@ const index = () => {
                             type="text"
                             id="textInput"
                             value="IDKOP3409G"
+                            name="PAN"
+                            onChange={e=> {if(panValidation(e.target.value)){
+                                saveData(e.target.name,e.target.value)
+                            }
+                            else{
+                                //red mark
+                            }
+                          }}
                             className={`${styles.input_field} form-control`} />
 
                     </div>
@@ -64,8 +83,10 @@ const index = () => {
                         <label className={styles.label_heading} id="textInput">Company Name</label>
                         <input
                             type="text"
-                            value="Ramakrishna Traders"
+                            defaultValue={companyDetails.companyName}
+                            onChange={(e)=>onTextChange(e)}
                             id="textInput"
+                            name="companyName"
                             className={`${styles.input_field} form-control`} />
 
                     </div>
@@ -86,11 +107,12 @@ const index = () => {
                     </div>
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
                         <label className={styles.label_heading} id="textInput">Type Of Business</label>
-                        <input
-                            type="text"
-                            id="textInput"
-                            value="Manufacturer"
-                            className={`${styles.input_field} form-control`} />
+                        <select id="Code" className={`${styles.input_field} form-control`}>
+                                <option>Manufacturer</option>
+                                <option>Retailer</option>
+                                <option>Trading</option>
+
+                            </select>
 
                     </div>
 
@@ -106,8 +128,18 @@ const index = () => {
 
                             </select>
                             <input type="text"
-                                value="9876543210"
+                                defaultValue={phoneValidation(companyDetails.phone)}
                                 id="textNumber"
+                                name='phone'
+                                onChange={(e)=>{if(phoneValidation(e.target.value)){
+                                    saveData(e.target.name,e.target.value)
+                                    //green tick
+                                }
+                                else{
+                                    //red mark
+                                }
+                                
+                              }}
                                 className={`${styles.input_field} form-control`} />
 
                         </div>
@@ -117,8 +149,18 @@ const index = () => {
                         <label className={styles.label_heading} id="textInput">Email ID</label>
                         <input
                             type="text"
-                            value="johndow@email.com"
+                            defaultValue={companyDetails.emailId}
                             id="textInput"
+                            onChange={(e)=>{if(emailValidation(e.target.value)){
+                                saveData(e.target.name,e.target.value)
+                                //green tick
+                            }
+                            else{
+                                //red mark
+                            }
+                            
+                          }}
+                            name="emailId"
                             className={`${styles.input_field} form-control`} />
 
                     </div>
@@ -146,12 +188,13 @@ const index = () => {
                             style={{ paddingLeft: 10 }}>
                             <div className={styles.sub_heading}
                             >Communication Mode</div>
-                            <Form>
+                            <Form selected="">
                                 {['checkbox'].map((type) => (
                                     <div key={`inline-${type}`} className={styles.radio_group}>
                                         <Form.Check
                                             className={styles.radio}
                                             inline
+                                            defaultChecked={true}
                                             label="Email ID"
                                             name="group1"
                                             type={type}
@@ -194,7 +237,9 @@ const index = () => {
 
                             </select>
                             <input type="text"
-                                value="9876543210"
+                                defaultValue={companyDetails.whatsAppNumber}
+                                name="whatsAppNumber"
+                                onChange={(e)=>onTextChange(e)}
                                 id="textNumber"
                                 className={`${styles.input_field} form-control`} />
 
