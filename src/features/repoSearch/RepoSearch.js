@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { selectRepoSearch, getReposAsync } from 'features/repoSearch/repoSearchSlice'
-import SearchResults from 'components/SearchResults'
+
 import { useAppDispatch, useAppSelector } from 'store'
 
 const languages = ['javascript', 'python', 'ruby']

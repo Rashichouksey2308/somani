@@ -1,0 +1,37 @@
+.root_Container{
+    // width:100vw;
+    // height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+ 
+    .navContainer{
+        width:100%;
+        height: 76px;
+    }
+    .wrapper{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        .sidebarContainer{
+            height: 100%;
+            width:20%;
+            height: 100vh;
+            position: fixed;
+        }
+        .mainView_Container{
+            flex-grow: 1;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            background: #F3F4F7;
+            margin-left:20%;
+        }
+    }
+}
