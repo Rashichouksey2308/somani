@@ -1,0 +1,32 @@
+ .risk {
+
+     width: 25%;
+     height: 114px;
+     background: #E3F0FF 0% 0% no-repeat padding-box;
+     border-radius: 5px;
+     padding: 0.5rem;
+     margin-right: 0.5rem;
+
+     .risk_icon {
+         width: 78px;
+         height: 78px;
+         border-radius: 100%;
+         background: #3687E8 0% 0% no-repeat padding-box
+     }
+
+     div {
+         width: 50%;
+
+         div {
+             width: 100%;
+             font-weight: bold;
+             font-size: 20px;
+          }
+
+         span {
+             font-size: 16px;
+             letter-spacing: 0.53px;
+             color: #00000080;
+         }
+     }
+ }

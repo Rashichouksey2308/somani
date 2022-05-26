@@ -1,0 +1,104 @@
+
+
+.card_litigations {
+    margin-bottom: 0.5rem;
+.card_ligitations_holder {
+
+        .cardHeader_litigations {
+            font-weight: bold;
+            font-size: 19px;
+
+
+            .row {
+                flex-grow: 1;
+
+                .head {
+                    font-weight: normal;
+                    font-size: 16px;
+                    color: #00000080;
+                    flex-direction: column;
+
+                    span {
+                        width: 100%;
+                    }
+
+                    .lower {
+                        width: 100%;
+                        color: black;
+                        font-size: 20px;
+                    }
+
+
+                    .chart {
+                        width: 100%;
+                        font-size: 19px;
+                        color: black;
+
+                        .container {
+                            margin-top: 0.5rem;
+                            width: 267px;
+                            height: 8px;
+                            background: #E2E2E2 0% 0% no-repeat padding-box;
+                            border-radius: 2px;
+                            position: relative;
+
+                            .fill {
+                                background: #3687E8 0% 0% no-repeat padding-box;
+                                border-radius: 2px;
+                                top: 0;
+                                left: 0;
+                                height: 100%;
+                                width: 20%;
+
+
+                            }
+
+                            span {
+                                width: fit-content;
+                                position: absolute;
+                                right: -23px;
+                                top: -13px;
+
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+    .cardBody_Tribunals {
+        height: 300px;
+        overflow-y: auto;
+        padding: 0px;
+
+        table {
+            padding-right: 15px !important;
+            padding-left: 15px !important;
+
+            thead {
+                tr {
+                    th {
+                        &:first-child {
+                            padding-left: 15px;
+                        }
+
+                        font-weight:bold;
+                        font-size: 15px;
+                        color: #3687E8;
+                        height: 67px;
+                        background: #F3F4F7 0% 0% no-repeat padding-box;
+                    }
+
+                    td {
+                        &:first-child {
+                            padding-left: 15px;
+                        }
+
+                        font-size: 19px;
+                    }
+                }
+            }
+        }
+    }
+}
