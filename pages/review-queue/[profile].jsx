@@ -3,7 +3,6 @@ import ReviewProfile from '../../src/components/ReviewProfile'
 import CompanyProfile from '../../src/components/CompanyProfile'
 import ApproveBar from '../../src/components/ApproveBar'
 import Router from "next/router";
-
 import styles from './profile.module.scss'
 
 

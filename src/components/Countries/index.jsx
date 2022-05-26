@@ -9,7 +9,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 
   return (
     <div className={styles.main}>
-      <div className={styles.top_container}>
+      <div className={`${styles.top_container} d-flex align-items-center justify-content-between`}>
       
       <h1 className={styles.heading}>Top 5 Countries Of Origin </h1>
       <div className={styles.image_main_container}>
@@ -27,7 +27,6 @@ import ProgressBar from "@ramonak/react-progress-bar";
         </div> 
       </div>
       </div>
-      <hr className={styles.hr}/>
       <div className={styles.country_container}>
         <div className={styles.each_progress }>
           <h1 className={styles.country}>INDIA</h1>

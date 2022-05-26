@@ -11,35 +11,46 @@ import Countries from "../src/components/Countries/index";
 import "bootstrap/dist/css/bootstrap.css";
 import Footer from "../src/components/Footer/index";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import TermsheetPopUp from "../src/components/TermsheetPopUp";
 
 const IndexPage = () => {
   const router = useRouter();
   return (
     <>
-      <div className={styles.root_Container}>
-        <div className={styles.head_Container}>
-          <Leads
-            header={"Leads"}
-            subHeader={"TOTAL LEADS"}
-            image={"/static/clipboard-list.svg"}
-            content={["APPROVED", "IN PROCESS", "REJECTED"]}
-          />
-          <Leads
-            header={"Procurement Orders"}
-            subHeader={"ORDER PLACED"}
-            image={"/static/box-open.svg"}
-            content={["COMPLETED", "IN PROCESS", "REJECTED"]}
-          />
+      <div className={`${styles.root_Container} container-fluid`}>
+        <div className={`${styles.head_Container} row`}>
+          <div className="col-sm-6">
+            <Leads
+              header={"Leads"}
+              subHeader={"TOTAL LEADS"}
+              image={"/static/clipboard-list.svg"}
+              content={["APPROVED", "IN PROCESS", "REJECTED"]}
+            />
+          </div>
+          <div className="col-sm-6">
+            <Leads
+              header={"Procurement Orders"}
+              subHeader={"ORDER PLACED"}
+              image={"/static/box-open.svg"}
+              content={["COMPLETED", "IN PROCESS", "REJECTED"]}
+            />
+          </div>
         </div>
-        <div className={styles.bottom_Container}>
-          <div className={styles.left_Container}>
+        <div className={`${styles.bottom_Container} row`}>
+          <div className={`${styles.left_Container} col-sm-3`}>
             <Commodities />
             <Exposure />
           </div>
-          <div className={styles.right_Container}>
+          <div className={`${styles.right_Container} col-sm-9`}>
             <div className={styles.upper_Container}>
-              <Countries />
-              <DoughnutCart />
+              <div className="row">
+                <div className={`${styles.commonCard} col-sm-6`}>
+                  <Countries />
+                </div>
+                <div className={`${styles.commonCard} col-sm-6`}>
+                  <DoughnutCart />
+                </div>
+              </div>
             </div>
             <div className={styles.bottom_Container}>
               <div className={styles.leads}>
@@ -125,6 +136,7 @@ const IndexPage = () => {
           </div>
         </div>
       </div>
+     
     </>
   );
 };

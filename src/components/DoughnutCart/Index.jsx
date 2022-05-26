@@ -57,8 +57,7 @@ const options = {
 }
   return (
     <Card className={styles.card}>
-        <Card.Header className={styles.header}>Top 5 Customers </Card.Header>
-        <hr className={styles.hr}/>
+        <Card.Header className={styles.header}>Top 5 Customers</Card.Header>
          <Card.Body className={styles.body}>
           <div className={styles.name}>
               {tempArr.map((val,index)=>{
