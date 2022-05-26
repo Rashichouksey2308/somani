@@ -5,7 +5,7 @@ import Breadcrum from "./Breadcrum/index";
 import Footer from "./Footer/index";
 import styles from "./index.module.scss";
 import { Container, Row, Col } from "react-bootstrap";
-import TermsheetPopUp from "../components/TermsheetPopUp";
+import TermSheetPreview from "../components/TermSheetPreview";
 
 function Layout({ children }) {
   return (
@@ -30,67 +30,3 @@ function Layout({ children }) {
 }
 
 export default Layout;
-
-// import React, { PureComponent } from 'react'
-// import Link from 'next/link'
-
-// class Layout extends PureComponent {
-//   render () {
-//     return (
-//       <div className='layout'>
-
-//         { this.props.children }
-//       </div>
-//     )
-//   }
-// }
-//  <Container>
-//    <Row>
-//      <Col>
-//        <Navbar />
-//      </Col>
-//    </Row>
-//    <Row></Row>
-//  </Container>;
-// export default Layout
-// <Container>
-//   <Row>
-//     <Col>
-//       <Navbar />
-//     </Col>
-//   </Row>
-//   <Row
-//     style={{
-//       width: "345px",
-//       display: "inline-flex",
-//       height: "calc(100vh - 76px);",
-//     }}
-//   >
-//     <Col style={{ height: "100%" }}>
-//       <Sidebar />
-//     </Col>
-//     <Col
-//       style={{
-//         height: "calc(100vh - 76px);",
-//       }}
-//     >
-//       <Row style={{ height: "100%" }}>
-//         <Col
-//           style={{
-//             width: "calc(100vw - 345px);",
-//           }}
-//         >
-//           <Breadcrum />
-//         </Col>
-//         <Col>{children}</Col>
-//         <Col
-//           style={{
-//             width: "calc(100vw - 345px);",
-//           }}
-//         >
-//           <Footer />
-//         </Col>
-//       </Row>
-//     </Col>
-//   </Row>
-// </Container>;
