@@ -41,16 +41,12 @@ function index() {
                             <button className={`${styles.signin} btn btn-primary btn-block`}>Sign in</button>
                         </div>
                     </form>
+                    <ul className={styles.footerLinks}>
+                        <li><a href='#'>Help</a></li>
+                        <li><a href='#'>Privacy</a></li>
+                        <li><a href='#'>Terms</a></li>
+                    </ul>
                 </div>
-                        {/* <div color='col-sm-12'>
-                            <ul>
-                                <li>Help</li>
-                                <li>Privacy</li>
-                                <li>Terms</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> */}
             </div>
         </div>
     )
