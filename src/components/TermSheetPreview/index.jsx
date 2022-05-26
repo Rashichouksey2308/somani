@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import {Row,Col,Container,Card} from 'react-bootstrap'
+import Paginatebar from '../Paginatebar'
 function index() {
     let tempArr=[
         {head:"Commodity Details",details:[
@@ -11,7 +12,9 @@ function index() {
     }
     ]
   return (
-    <div className={styles.root_container}>
+      
+      <>
+       <div className={styles.root_container}>
       <div  className={styles.head_container}>
         <div className={styles.head_header}>
           <img className={styles.arrow}
@@ -285,6 +288,9 @@ function index() {
       </Card>
       
     </div>
+    <Paginatebar/>
+      </>
+   
   )
 }
 

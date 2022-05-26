@@ -18,10 +18,10 @@ function Layout({ children }) {
           <Sidebar />
         </div>
         <div className={styles.mainView_Container}>
-          {/* <Breadcrum />
+          <Breadcrum />
           {children}
-          <Footer /> */}
-          <TermSheetPreview />
+          <Footer />
+          {/* <TermSheetPreview /> */}
           {/* <TermsheetPopUp /> */}
         </div>
       </div>
