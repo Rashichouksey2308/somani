@@ -1,33 +1,28 @@
 .card{
-    width: 534px;
-    height: 279px;
+    // width: 534px;
+    min-height: 280px;
+    // height: 279px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 12px #E5E7ED;
     border: 1px solid #D2D7E5;
     border-radius: 8px;
-    display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        flex-direction: column;
-        padding:10px;
+    margin-bottom: 24px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: flex-start;
+    // flex-direction: column;
+    // padding:10px;
     .header{
-        margin: 0.5rem;
-        text-align: left;
-        font-family: Helvetica;
+        // margin: 0.5rem;
         font-weight: bold;
         font-size: 18px;
         line-height: 23px;
-        letter-spacing: 0px;
         color: #111111;
         text-transform: capitalize;
-        background-color: rgba(0, 0, 0, 0.00);
-        border-bottom: none;
-        padding-left: 0px;
-    }
-    .hr{
-        margin-top:0px;
-        width: 100%;
-        border-top: 2px solid rgb(242 243 244);;
+        background: none;
+        border-bottom: 2px solid #F2F5F9;
+        padding: 16px 22px;
+        margin: 0 0 20px;
     }
     .body{
         display: flex;
@@ -35,7 +30,7 @@
         align-items: center;
         width: 100%;
         height: 100%;
-        padding:0px;
+        padding: 0 27px 27px;
         .name{
             width: 50%;
             height: 100%;
@@ -44,28 +39,25 @@
             align-items: center;
             flex-direction: column;
                 .name_wrapper{
-                    width: 90%;
+                    width: 100%;
                     height: 100%;
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
-                       
+                    margin-bottom: 19px;
                     .round{
                         width: 16px;
                         height: 16px;
                         border-radius: 100px;
                     }
                     span{
-                        text-align: left;
                         font-weight: bold;
                         font-size: 16px;
                         line-height: 19px;
-                        font-family: Helvetica;
-                        letter-spacing: 0px;
                         color: #111111;
                         text-transform: capitalize;
                         opacity: 0.7;
-                        margin-left: 0.5rem;
+                        margin-left: 16px;
                     }
                 }
 

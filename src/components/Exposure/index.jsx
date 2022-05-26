@@ -4,9 +4,9 @@ import {Card} from 'react-bootstrap'
 import styles from './index.module.scss'
 function index() {
   return (
+    
        <Card className={styles.card}>
         <Card.Header className={styles.header}> Exposure </Card.Header>
-        <hr className={styles.hr}/>
          <Card.Body className={styles.body}>
           <div className={styles.progress_container}>
           <ProgressBar
@@ -25,6 +25,7 @@ function index() {
          </Card.Body>
        
    </Card>
+  
   )
 }
 

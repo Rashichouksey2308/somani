@@ -95,6 +95,42 @@
                     font-weight: normal;
                     line-height: 20px;
                 }
+                                   .label {
+                                       font-size: 16px;
+                                       color: #00000080;
+                                       font-weight: 500;
+                                       line-height: 17px;
+                                       margin-bottom: 10px;
+                                       letter-spacing: 0.53px;
+                                   }
+                                   .categories{
+                                    margin-right: 1rem;
+                                        width: 30%;
+                                        .label{
+                                            margin-right: 1rem;
+                                            margin-bottom: 0px;
+                                        }
+                                        .status{
+                                       
+                                            height: 31px;
+                                           
+                                            background: #ea3f3f42 0% 0% no-repeat padding-box;
+                                            letter-spacing: 0px;
+                                         
+                                            
+                                            span{
+                                                padding-left:0.5rem;
+                                                padding-right: 0.5rem;
+                                                width: 100%;
+                                                opacity: 1 !important;
+                                                 font-size: 16px;
+                                                font-weight: bold;
+                                                height: 19px;
+                                                color: #EA3F3F
+                                            }
+                                        }
+                                   }
+                                        
             }
             .cardBody {
                 padding: 25px 35px;
@@ -315,7 +351,7 @@
             .cardBody_compliance{
                 overflow-y: auto;
                 height:300px;
-              
+            padding-left: 42px !important;
                 .row{
                     min-height: 60px;
                     border-bottom: 2px solid rgba(217, 217, 217, 0.316);
@@ -342,11 +378,55 @@
                  
                 }
             }
+            .cardBody_litigations{
+                padding-left: 35px;
+                .checkbox_Container{
+                   
+                 
+                }
+                                 .risk_Container {
+                                     
+                                     .risk {
+                                        
+                                         width: 25%;
+                                         height: 114px;
+                                         background: #E3F0FF 0% 0% no-repeat padding-box;
+                                         border-radius: 5px;
+                                         padding: 0.5rem;
+                                         .risk_icon{
+                                            width: 78px;
+                                            height: 78px;
+                                            border-radius: 100%;
+                                            background: #3687E8 0% 0% no-repeat padding-box
+                                         }
+                                         div{
+                                            width: 50%;
+                                            div{
+                                                width: 100%;
+                                                font-weight: bold;
+                                                font-size: 20px;
+                                              
+                                               
+                                            }
+                                            span{
+                                                font-size: 16px;
+                                              
+                                                    letter-spacing: 0.53px;
+                                                    color: #00000080;
+                                            }
+                                         }
+                                     }
+                                 }
+            }
+            .cardBody_details{
+                padding-left: 35px;
+            }
         }
     }
         
          
 }
+
 
 .compliance_purple{
     width: fit-content;
@@ -436,3 +516,126 @@
     }
 }
 
+.card_ligitations_holder {
+    
+    .cardHeader_litigations {
+            font-weight: bold;
+            font-size: 19px;
+    
+    
+            .row {
+                flex-grow: 1;
+    
+                .head {
+                    font-weight: normal;
+                    font-size: 16px;
+                    color: #00000080;
+                    flex-direction: column;
+    
+                    span {
+                        width: 100%;
+                    }
+    
+                    .lower {
+                        width: 100%;
+                        color: black;
+                        font-size: 20px;
+                    }
+    
+    
+                    .chart {
+                        width: 100%;
+                        font-size: 19px;
+                        color: black;
+    
+                        .container {
+                            margin-top: 0.5rem;
+                            width: 267px;
+                            height: 8px;
+                            background: #E2E2E2 0% 0% no-repeat padding-box;
+                            border-radius: 2px;
+                            position: relative;
+    
+                            .fill {
+                                background: #3687E8 0% 0% no-repeat padding-box;
+                                border-radius: 2px;
+                                top: 0;
+                                left: 0;
+                                height: 100%;
+                                width: 20%;
+    
+    
+                            }
+    
+                            span {
+                                width: fit-content;
+                                position: absolute;
+                                right: -23px;
+                                top: -13px;
+    
+                            }
+                        }
+    
+                    }
+                }
+            }
+        }
+}
+
+.card_litigations{
+    margin-bottom: 0.5rem;
+    .cardBody_Tribunals{
+        height:300px;
+        overflow-y:auto;
+        padding:0px;
+        table{
+                padding-right: 15px !important;
+                    padding-left: 15px !important;
+            thead{
+                tr{
+                    th{
+                        &:first-child {
+                            padding-left: 15px;
+                        }
+                        font-weight:bold;
+                        font-size: 15px;
+                        color: #3687E8;
+                        height: 67px;
+                        background: #F3F4F7 0% 0% no-repeat padding-box;
+                    }
+                    td{
+                        &:first-child {
+                                padding-left: 15px;
+                            }
+                        font-size: 19px;
+                    }
+                }
+            }
+        }
+    }
+}
+.table_details{
+        border: 1px solid #D2D7E5;
+    border-collapse: collapse;
+    thead{
+        tr{
+            th {
+                background: #FAFAFB 0% 0% no-repeat padding-box;
+                    // border: none;
+                    font-weight: bold;
+                    font-size: 15px;
+                    color: #3687E8;
+                }
+        }
+    }
+    tbody{
+    tr{
+    border: none;
+    font-size: 19px;
+    .firstCell{
+      
+        font-weight: bold;  
+    }
+    }
+}
+}

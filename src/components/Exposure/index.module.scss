@@ -1,28 +1,31 @@
 .card {
-        width: 406px;
-        height: 247px;
+        // width: 406px;
+        // height: 247px;
         background: #FFFFFF 0% 0% no-repeat padding-box;
         box-shadow: 0px 3px 12px #E5E7ED;
         border: 1px solid #D2D7E5;
         border-radius: 8px;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        flex-direction: column;
-        font-family: Helvetica;
-        padding: 15px;
+        // display: flex;
+        // justify-content: center;
+        // align-items: flex-start;
+        // flex-direction: column;
+        // font-family: Helvetica;
+        // padding: 15px;
+        margin-bottom: 24px;
     
         .header {
-            height: 150px;
-            margin: 0.5rem;
-            text-align: left;
-            font-family: Helvetica;
+            // height: 150px;
+            // margin: 0.5rem;
             font-weight: bold;
             font-size: 18px;
             line-height: 23px;
-            letter-spacing: 0px;
             color: #111111;
             text-transform: capitalize;
+            background: none;
+            border-bottom: 2px solid #F2F5F9;
+            padding: 16px 22px;
+            margin: 0 0 20px;
+
         }
     
         .hr {
@@ -35,8 +38,9 @@
         .body {
             display: flex; 
             flex-direction: column; 
-            height: 700px;
-            padding-top: 20px;
+            // height: 700px;
+            padding: 0 22px 22px;
+          
             
             
             .progress_container{
@@ -44,8 +48,8 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                width: 280px;
-                padding-left: 15px;
+                 width: 70%;
+                // padding-left: 15px;
 
                 .container {
                     height: 9px;
@@ -64,20 +68,16 @@
             .percent{
                 text-align: right;
                 font-size: 23px;
-                margin-top: -15px;
-                letter-spacing: 0px;
+                margin-top: -23px;
                 color: #2884DE;
                 text-transform: capitalize;
-                font-family: Helvetica Neue;
                 font-weight: bold;
               }
             .total {
                 text-align: left;
                 font-size:14px ;
-                padding: 15px;
+                // padding: 15px;
                 padding-top: 25px;
-                font-family: Helvetica Neue;
-                letter-spacing: 0px;
                 color: #8492A6;
                 text-transform: uppercase;
 

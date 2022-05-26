@@ -5,6 +5,7 @@ import Breadcrum from "./Breadcrum/index";
 import Footer from "./Footer/index";
 import styles from "./index.module.scss";
 import { Container, Row, Col } from "react-bootstrap";
+import TermsheetPopUp from "../components/TermsheetPopUp";
 
 function Layout({ children }) {
   return (
@@ -20,6 +21,7 @@ function Layout({ children }) {
           <Breadcrum />
           {children}
           <Footer />
+          {/* <TermsheetPopUp /> */}
         </div>
       </div>
     </div>

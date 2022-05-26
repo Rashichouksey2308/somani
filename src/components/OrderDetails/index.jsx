@@ -16,7 +16,7 @@ const index = () => {
           <input
             type="text"
             id="textInput"
-            value="Iron"
+            placeholder="Iron"
             className={`${styles.input_field} form-control`} />
 
         </div>
@@ -25,7 +25,7 @@ const index = () => {
           <input
             type="number"
             id="textInput"
-            value="500"
+            placeholder="500"
             className={`${styles.input_field} form-control`} />
         </div>
         <div className={`${styles.each_input} col-md-2 col-sm-3`}>
@@ -49,7 +49,7 @@ const index = () => {
           <label className={styles.label_heading} id="textInput">Supplier Name</label>
           <input
             type="text"
-            value="Camilog International"
+            placeholder="Camilog International"
             id="textInput"
             className={`${styles.input_field} form-control`} />
 
@@ -79,7 +79,7 @@ const index = () => {
           <label className={styles.label_heading} id="textDate">Expected Date Of Shipment</label>
           <input
             type="date"
-            value="22-02-2022"
+            placeholder="22-02-2022"
             id="textDate"
             onChange={(e)=>{
               
