@@ -143,4 +143,23 @@
             }
         }
     }
+    .footerLinks {
+        right: 5%;
+        bottom: 2rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        position: absolute;
+        li {
+            margin: 0 8px;
+            display: inline-block;
+            a {                
+                font-size: 14px;
+                font-weight: bold;
+                color: #667085;
+                line-height: 17px;
+                text-decoration: none;
+            }
+        }
+    }
 }

@@ -1,0 +1,110 @@
+.main {
+    box-shadow: 0px 3px 6px #CAD0E2;
+    border: 1px solid #D2D7E5;
+    border-radius: 6px;
+    background-color: #ffffff;
+    margin-top: 15px;
+   
+  
+
+    .head_container {
+        border-bottom: 2px solid #F2F5F9;
+
+    .heading{
+    text-align: left;
+    font-size:22px;
+    font-weight: bold;
+    color: #3687E8;
+    text-transform: capitalize;
+    padding: 15px;
+    line-height: 27px;
+
+
+    }
+    }
+
+    .unit_container {
+
+        padding-right: 15px;
+
+         .unit_label{
+        font-size:18px;
+        color: #2837566A;
+        text-transform: capitalize;
+        font-weight: bold;
+        margin-top: 10px;
+        padding-right: 15px;
+    }
+           .options {
+            font-size:18px;
+            color: #3687E8;
+            text-transform: capitalize;
+            margin-right: 10px;
+            background: #F3F4F7;
+            border-radius: 14px;
+            border: none;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 8px;
+            padding-right: 6px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            margin-right: 50px;
+            }
+        }
+ .dashboard_form { 
+     margin:40px 30px 40px 30px;
+
+     .sub_heading {
+        text-align: left;
+        font-size:20px;
+        font-weight: bold;
+        letter-spacing: 0px;
+        color: #111111;
+        text-transform: capitalize;
+     }
+
+    .form_group {
+    font-family: Helvetica Neue;
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    
+    
+    .search_image {
+        margin-left: -40px;
+
+    }
+
+    .label {
+        text-align: left;
+        font-size:16px ;
+        letter-spacing: 0.53px;
+        color: #00000080;
+        text-transform: capitalize;
+        position: absolute;
+        line-height: 1;
+        left: 30px;
+        top: -8px;
+        background:#ffffff;
+
+    }
+
+    .value {
+        text-align: left;
+        font-size:20px;
+        letter-spacing: 0.19px;
+        color: #111111;
+        text-transform: capitalize;
+        background-color: #C3C3C31F;
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        height: 60px;
+        //line-height: 25px;
+
+    }
+    
+}
+ }
+
+}

@@ -1,21 +1,12 @@
 .card {
-        // width: 406px;
-        // height: 247px;
         background: #FFFFFF 0% 0% no-repeat padding-box;
         box-shadow: 0px 3px 12px #E5E7ED;
         border: 1px solid #D2D7E5;
         border-radius: 8px;
-        // display: flex;
-        // justify-content: center;
-        // align-items: flex-start;
-        // flex-direction: column;
-        // font-family: Helvetica;
-        // padding: 15px;
         margin-bottom: 24px;
     
         .header {
-            // height: 150px;
-            // margin: 0.5rem;
+            
             font-weight: bold;
             font-size: 18px;
             line-height: 23px;
@@ -38,7 +29,6 @@
         .body {
             display: flex; 
             flex-direction: column; 
-            // height: 700px;
             padding: 0 22px 22px;
           
             
@@ -49,7 +39,6 @@
                 flex-direction: column;
                 justify-content: space-between;
                  width: 70%;
-                // padding-left: 15px;
 
                 .container {
                     height: 9px;
@@ -76,7 +65,6 @@
             .total {
                 text-align: left;
                 font-size:14px ;
-                // padding: 15px;
                 padding-top: 25px;
                 color: #8492A6;
                 text-transform: uppercase;

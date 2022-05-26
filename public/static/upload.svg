@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="Group_1782" data-name="Group 1782" transform="translate(-1034 -1293)">
+    <g id="_Container_l_Color" data-name="🔲🎨 Container l Color" transform="translate(1034 1293)" fill="rgba(195,195,195,0.12)" stroke="rgba(0,0,0,0.12)" stroke-width="1">
+      <rect width="40" height="40" rx="4" stroke="none"/>
+      <rect x="0.5" y="0.5" width="39" height="39" rx="3.5" fill="none"/>
+    </g>
+    <path id="ios_share" d="M17.488,5.5l-1.6,1.6L14.1,5.305V17.86H11.879V5.305L10.092,7.092,8.5,5.5l4.5-4.5Zm4.5,5.62V23.48a2.255,2.255,0,0,1-2.248,2.248H6.248A2.248,2.248,0,0,1,4,23.48V11.116A2.24,2.24,0,0,1,6.248,8.868H9.62v2.248H6.248V23.48H19.736V11.116H16.364V8.868h3.372A2.248,2.248,0,0,1,21.984,11.116Z" transform="translate(1041.008 1300.136)" fill="#3687e8"/>
+  </g>
+</svg>
