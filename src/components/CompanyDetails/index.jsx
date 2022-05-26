@@ -128,7 +128,7 @@ const index = () => {
 
                             </select>
                             <input type="text"
-                                defaultValue={phoneValidation(companyDetails.phone)}
+                                defaultValue={companyDetails.phone}
                                 id="textNumber"
                                 name='phone'
                                 onChange={(e)=>{if(phoneValidation(e.target.value)){
@@ -239,7 +239,15 @@ const index = () => {
                             <input type="text"
                                 defaultValue={companyDetails.whatsAppNumber}
                                 name="whatsAppNumber"
-                                onChange={(e)=>onTextChange(e)}
+                                onChange={(e)=>{if(phoneValidation(e.target.value)){
+                                    saveData(e.target.name,e.target.value)
+                                    //green tick
+                                }
+                                else{
+                                    //red mark
+                                }
+                                
+                              }}
                                 id="textNumber"
                                 className={`${styles.input_field} form-control`} />
 
