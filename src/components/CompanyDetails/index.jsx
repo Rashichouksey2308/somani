@@ -38,50 +38,40 @@ const index = () => {
                 <div className={`${styles.input_container} row`}>
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
                         <input type="text"
-                            id="textInput"
-                            placeholder="IDKOP3409G"
-                            className={`${styles.input_field} form-control`} />
-                        <label className={styles.label_heading} id="textInput">Company PAN</label>
+                            className={`${styles.input_field} form-control`} required />
+                        <label className={styles.label_heading}>Company PAN<strong className="text-danger">*</strong></label>
                     </div>
 
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                        <label className={styles.label_heading} id="textInput">Company Name</label>
                         <input
                             type="text"
-                            placeholder="Ramakrishna Traders"
-                            id="textInput"
-                            className={`${styles.input_field} form-control`} />
+                            className={`${styles.input_field} form-control`} required />
+                            <label className={styles.label_heading}>Company Name<strong className="text-danger">*</strong></label>
 
                     </div>
 
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                        <label className={styles.label_heading} id="drop">GST</label>
                         <select
-                            id="drop"
-                            className={`${styles.input_field} form-control`} >
-                            <option value="gst">27AAATW4183C2ZG</option>
+                            className={`${styles.input_field} form-control`} required>
+                            <option value="gst">Select GST No.</option>
                             <option value="gst1">282176JDEJ88UD</option>
                             <option value="gst2">27AAATW46786C2ZG</option>
                             <option value="gst3">VW5688TW4183C2ZG</option>
-
-
                         </select>
+                        <label className={styles.label_heading}>GST<strong className="text-danger">*</strong></label>
 
                     </div>
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                        <label className={styles.label_heading} id="textInput">Type Of Business</label>
                         <input
                             type="text"
-                            id="textInput"
-                            placeholder="Manufacturer"
-                            className={`${styles.input_field} form-control`} />
+                            className={`${styles.input_field} form-control`}  required />
+                            <label className={styles.label_heading}>Type Of Business<strong className="text-danger">*</strong></label>
 
                     </div>
 
-                    <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                        <label className={styles.label_heading} id="textNumber">Phone</label>
+                    <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
                         <div className={styles.phone_card}>
-                            <select id="Code" className={styles.code_phone}>
+                            <select className={styles.code_phone}>
                                 <option>+91</option>
                                 <option>+1</option>
                                 <option>+92</option>
@@ -90,9 +80,8 @@ const index = () => {
 
                             </select>
                             <input type="text"
-                                placeholder="9876543210"
-                                id="textNumber"
-                                className={`${styles.input_field} form-control`} />
+                                className={`${styles.input_field} form-control`} required/>
+                                <label className={styles.label_heading}>Phone<strong className="text-danger">*</strong></label>
 
                         </div>
                     </div>
@@ -166,10 +155,9 @@ const index = () => {
                         </div>
                     </div>
 
-                    <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                        <label className={styles.label_heading} id="drop">Whatsapp Number(Optional)</label>
+                    <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
                         <div className={styles.phone_card}>
-                            <select id="Code" className={styles.code_phone}>
+                            <select className={styles.code_phone}>
                                 <option>+91</option>
                                 <option>+1</option>
                                 <option>+92</option>
@@ -178,10 +166,8 @@ const index = () => {
 
                             </select>
                             <input type="text"
-                                placeholder="9876543210"
-                                id="textNumber"
-                                className={`${styles.input_field} form-control`} />
-
+                                className={`${styles.input_field} form-control`}  required/>
+                                <label className={styles.label_heading}>Whatsapp Number(Optional)</label>
                         </div>
 
                     </div>
