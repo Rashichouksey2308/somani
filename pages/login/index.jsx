@@ -12,7 +12,7 @@ function index() {
 
   const dispatch = useDispatch()
 
-    const token = Cookies.get("token");
+    // const token = Cookies.get("token");
 
   const onShowPasswordHandler = () => {
     setShowPassword(!showPassword)

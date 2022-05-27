@@ -5,9 +5,17 @@ const assetPrefix = ASSET_HOST || ''
 
 module.exports = {
   assetPrefix,
-  webpack: (config, { dev }) => {
-    config.output.publicPath = `${assetPrefix}${config.output.publicPath}`
-
+  webpack: (config) => {
+    config.resolve = {
+      ...config.resolve,
+      fallback: {
+        "fs": false,
+        "path": false,
+        "os": false,
+        "zlib": false,
+        "crypto": false,
+      }
+    }
     return config
   },
 }
