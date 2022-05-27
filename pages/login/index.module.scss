@@ -91,8 +91,8 @@
                     }
                     &:focus {
                         & + label {
-                            background: #FFFFFF;
                             transform:translateY(-29px);
+                            text-shadow: 1px 1px 0 #ffffff;
                         }
                     }
                 }
@@ -120,12 +120,12 @@
             }
             .password {
                 label {
-                    top: 20px;
-                    background: #FFFFFF;
+                    top: 20px;                    
+                    text-shadow: 1px 1px 0 #ffffff;
                 }
                 .formControl {       
                     &:invalid + label {
-                        background: none;
+                        text-shadow: none;
                     }
                 }
             }

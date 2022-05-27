@@ -25,7 +25,7 @@ const index = () => {
                             />
                             <Form.Check
                                 className={styles.radio}
-                                inline                                
+                                inline
                                 label="Domestic"
                                 name="group1"
                                 type={type}
@@ -37,13 +37,11 @@ const index = () => {
 
                 <div className={`${styles.input_container} row`}>
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                        <label className={styles.label_heading} id="textInput">Company PAN</label>
-                        <input
-                            type="text"
+                        <input type="text"
                             id="textInput"
                             placeholder="IDKOP3409G"
                             className={`${styles.input_field} form-control`} />
-
+                        <label className={styles.label_heading} id="textInput">Company PAN</label>
                     </div>
 
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
