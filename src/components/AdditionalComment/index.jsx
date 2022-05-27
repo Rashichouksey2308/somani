@@ -25,12 +25,11 @@ const index = () => { 
                 <Form.Group className={`${styles.form_group} col-md-9`}>
                     <div className='d-flex justify-content-between'>
                     <Form.Label className={styles.label}>Comment</Form.Label>
-                    <Form.Control className={`${styles.value} form-control`} type="text" placeholder="Lorem Ipsum Is A Name For A Common Type Of Placeholder Text. Also Known As Filler Or Dummy Text, This Is Simply Text Copy That Serves To Fill A Space Without Actually Saying Anything Meaningful. It's Essentially Nonsense Text That" />
-                   <div className='p-2'> 
-                   <img src= "/static/add-btn.svg"
-                   className='img-fluid'
-                   alt="Add"/>
-                   </div>
+                    <Form.Control className={`${styles.value} form-control`} type="text" 
+                     />
+                    <div className='p-2'> 
+                    <img src="/static/add-btn.svg" className='img-fluid' alt="Add"/>
+                    </div>
                     </div> 
                     </Form.Group>
 

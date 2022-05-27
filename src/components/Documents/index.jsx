@@ -11,7 +11,6 @@ const index = () => {
       <div className={`${styles.input_container} row`}>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
           <label className={styles.label_heading}
-
             id="dropDoc">Type Of Document</label>
           <select
             id="dropDoc"
@@ -22,13 +21,11 @@ const index = () => {
 
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <div className={styles.label_heading}
-          >
-            Attach Document</div>
+          <div className={styles.label_heading}>Attach Document</div>
           <div
             className={styles.certificate}>
             Incorporation_Certification267576332.pdf
-            <img className={styles.close_image} src="/static/close.svg" /> </div>
+            <img className={styles.close_image} src="/static/close.svg" alt="Close" /> </div>
         </div>
 
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>

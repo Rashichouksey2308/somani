@@ -1,11 +1,11 @@
 .main {
     padding: 20px;
+    font-family: "Helvetica Neue";
     //display: flex;
     //flex-direction: column;
     
 
     .heading {
-        text-align: left;
         font-weight: bold;
         font-size: 20px;
         color: #111111;
@@ -23,7 +23,6 @@
               .radio{
                     
                     padding-right: 25px;
-                    text-align: left;
                     font-size:20px ;
                     letter-spacing: 0.19px;
                     color: #111111;
@@ -54,7 +53,6 @@
           margin-bottom: 50px;
 
               .label_heading {
-                text-align: left;
                 font-size: 16px;
                 letter-spacing: 0.53px;
                 color: #00000080;
@@ -73,7 +71,6 @@
                     border-radius: 4px;
                     background-color: #C3C3C31F;
                     color: var(--unnamed-color-3687e8);
-                    text-align: left;
                     font-size: 19px;
                     letter-spacing: 0.18px;
                     color: #3687E8;
@@ -87,7 +84,6 @@
                 border: 1px solid #0000001F;
                 border-radius: 4px;
                 color: #111111;
-                text-align: left;
                 font-size: 20px;
 
             }
