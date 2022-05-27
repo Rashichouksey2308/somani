@@ -18,12 +18,12 @@ function index() {
          Share termsheet with buyer
          
         </Modal.Title>
-        <img src="static/close-2.svg"></img>
+        <img src="/static/close-2.svg"></img>
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`} >
        <Row>
             <Col md={6}className={`${styles.left} `}>
-                <img src="static/icons8-whatsapp.svg" className={`mb-3`}/>
+                <img src="/static/icons8-whatsapp.svg" className={`mb-3`}/>
                 <InputGroup className="mb-3">
                     <DropdownButton
                     variant="outline-secondary"
@@ -44,12 +44,12 @@ function index() {
                 </div>
             </Col>
             <Col md={6} className={`${styles.right}`}>
-            <img src="static/icons8-email-open-48.png" className = "mb-3" />
+            <img src="/static/icons8-email-open-48.png" className = "mb-3" />
             <Form.Control
                 type="text"
                 id="inputPassword5"
-    aria-describedby="passwordHelpBlock"
-    className="mb-3"
+                aria-describedby="passwordHelpBlock"
+                className="mb-3"
   />
              <div className={`${styles.button} d-flex justify-content-center align-content-center`}>
                   <span> { `Share on Email`}</span>
