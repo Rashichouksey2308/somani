@@ -29,7 +29,8 @@ const index = () => {
           <div className={styles.phone_card}>
             <select className={styles.code_phone}>
               <option>Select order values</option>
-              <option>$</option>
+              <option selected>$</option>
+              <option>INR</option>
             </select>
             <input type="text"
               className={`${styles.input_field} form-control`} />
