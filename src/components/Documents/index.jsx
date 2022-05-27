@@ -39,7 +39,8 @@ const index = () => {
 
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
           <div className={styles.btn_container}>
-            <button className={styles.button_upload}>Upload</button>
+          <input className={styles.upload} type="file" name="myfile" />
+            <button className={`${styles.button_upload} btn`} >Upload</button>
           </div>
         </div>
 

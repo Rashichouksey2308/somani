@@ -3,11 +3,11 @@ import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 
-const index = () => {
+const index = ({saveData}) => {
   return (
     <>
       <div className={styles.main}>
-        <Form>
+        <form id=" ">
           <div className={styles.heading}>Company Profile</div>
           <div className={styles.radio_form}>
             <div className={styles.sub_heading}>Transaction Type</div>
@@ -41,11 +41,10 @@ const index = () => {
               <input
                 type="text"
                 id="textInput"
-                value="IDKOP3409G"
-                name="PAN"
+                name="companyPan"
                 onChange={(e) => {
                   if (panValidation(e.target.value)) {
-                    saveData(e.target.name, e.target.value)
+                    saveData(e)
                   } else {
                     //red mark
                   }
@@ -60,8 +59,7 @@ const index = () => {
               </label>
               <input
                 type="text"
-                defaultValue={companyDetails.companyName}
-                onChange={(e) => onTextChange(e)}
+                onChange={(e) => saveData(e)}
                 id="textInput"
                 name="companyName"
                 className={`${styles.input_field} form-control`}
@@ -88,11 +86,13 @@ const index = () => {
               </label>
               <select
                 id="Code"
+                onChange={(e)=>{saveData(e)}}
+                name="typeOfBusiness"
                 className={`${styles.input_field} form-control`}
               >
-                <option>Manufacturer</option>
-                <option>Retailer</option>
-                <option>Trading</option>
+                <option value="Manufacturer">Manufacturer</option>
+                <option value="Retailer">Retailer</option>
+                <option value="Trading">Trading</option>
               </select>
             </div>
 
@@ -109,16 +109,17 @@ const index = () => {
                   <option>+24</option>
                 </select>
                 <input
-                  type="text"
-                  defaultValue={phoneValidation(companyDetails.phone)}
+                  type="number"
                   id="textNumber"
                   name="phone"
                   onChange={(e) => {
                     if (phoneValidation(e.target.value)) {
-                      saveData(e.target.name, e.target.value)
+                      saveData(e)
                       //green tick
+                      console.log("is it validating?")
                     } else {
                       //red mark
+                      console.log("phone formaat invalid")
                     }
                   }}
                   className={`${styles.input_field} form-control`}
@@ -132,11 +133,10 @@ const index = () => {
               </label>
               <input
                 type="text"
-                defaultValue={companyDetails.emailId}
                 id="textInput"
                 onChange={(e) => {
                   if (emailValidation(e.target.value)) {
-                    saveData(e.target.name, e.target.value)
+                    saveData(e)
                     //green tick
                   } else {
                     //red mark
@@ -156,7 +156,9 @@ const index = () => {
                   min="0"
                   max="100"
                   step="20"
+                  name="turnOver"
                   list="tickmarks"
+                  onChange={(e)=>saveData(e)}
                   className={`${styles.slider} form-control`}
                   id="myRange"
                 />
@@ -224,17 +226,25 @@ const index = () => {
                   <option>+24</option>
                 </select>
                 <input
-                  type="text"
-                  defaultValue={companyDetails.whatsAppNumber}
+                  type="number"
                   name="whatsAppNumber"
-                  onChange={(e) => onTextChange(e)}
+                  onChange={(e) => {
+                    if (phoneValidation(e.target.value)) {
+                      saveData(e)
+                      //green tick
+                      console.log("is it validating?")
+                    } else {
+                      //red mark
+                      console.log("phone formaat invalid")
+                    }
+                  }}
                   id="textNumber"
                   className={`${styles.input_field} form-control`}
                 />
               </div>
             </div>
           </div>
-        </Form>
+        </form>
       </div>
     </>
   )

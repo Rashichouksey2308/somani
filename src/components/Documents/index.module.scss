@@ -139,6 +139,19 @@
           text-transform: capitalize;
         }
       }
+      .btn_container {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        .upload {
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          opacity: 0;
+        }
+      }
     }
   }
 }

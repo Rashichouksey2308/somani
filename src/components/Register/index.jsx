@@ -13,30 +13,41 @@ const index = () => {
     transactionType: '',
     gst: '',
     typeOfBusiness: '',
-    phone: '',
+    phone: null,
     emailId: '',
     turnOver: '',
     communicationMode: '',
-    whatsAppNumber: '',
+    whatsAppNumber: null,
     commodity: '',
-    quantity: '',
-    orderValue: '',
+    quantity: null,
+    orderValue: null,
     supplierName: '',
     countryOfOrigin: '',
     portOfDischarge: '',
-    expectedDateOfShipment: '',
+    expectedDateOfShipment: null,
     incoTerms: '',
     document: '',
     tnc: '',
   })
 
-  const [state, setState] = useState(companyDetails)
 
-  const saveData = (name, value) => {
-    state[name] = value
-    setState({ ...state })
+  const saveData = (e) => {
+    const newInput = { ...companyDetails };
+    newInput[e.target.name] = e.target.value;
+    setCompanyDetails(newInput);
+  }
+  
+  const submitData=()=>{
+    //register api call
+
   }
 
+  const clearData=()=>{
+    document.getElementById("CompanyDetailsForm").reset()
+    document.getElementById("OrderDetailsForm").reset()
+
+  }
+  
   return (
     <Card className={styles.card}>
       <Card.Header className={styles.head_container}>
@@ -48,18 +59,18 @@ const index = () => {
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
-          <button className={styles.clear_btn}>Clear All</button>
+          <button onClick={clearData} className={styles.clear_btn}>Clear All</button>
         </div>
       </Card.Header>
 
       <Card.Body className={styles.body}>
-        <CompanyDetails />
+        <CompanyDetails saveData={saveData}/>
         <hr className={styles.line}></hr>
-        <OrderDetails />
+        <OrderDetails saveData={saveData}/>
         <hr className={styles.line}></hr>
-        <Documents />
+        <Documents saveData={saveData} />
         <hr className={styles.line}></hr>
-        <Terms />
+        <Terms submitData={submitData} />
       </Card.Body>
     </Card>
   )

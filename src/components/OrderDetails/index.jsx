@@ -2,11 +2,11 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 
-const index = () => {
+const index = ({saveData}) => {
   return (
     <div className={styles.main}>
       <div className={styles.heading}>Order Details</div>
-
+    <form id="OrderDetailsForm">
       <div className={`${styles.input_container} row`}>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
           <label className={styles.label_heading} id="textInput">
@@ -15,7 +15,9 @@ const index = () => {
           <input
             type="text"
             id="textInput"
-            placeholder="Iron"
+            name='commodity'
+            defaultValue='Iron'
+            onChange={(e)=>{saveData(e)}}
             className={`${styles.input_field} form-control`}
           />
         </div>
@@ -26,7 +28,8 @@ const index = () => {
           <input
             type="number"
             id="textInput"
-            placeholder="500"
+            name='quantity'
+            onChange={(e)=>{saveData(e)}}
             className={`${styles.input_field} form-control`}
           />
         </div>
@@ -41,7 +44,8 @@ const index = () => {
             </select>
             <input
               type="number"
-              value="9876543210"
+              name='orderValue'
+              onChange={(e)=>{saveData(e)}}
               id="textInput"
               className={`${styles.input_field} form-control`}
             />
@@ -54,7 +58,8 @@ const index = () => {
           </label>
           <input
             type="text"
-            placeholder="Camilog International"
+            name='supplierName'
+            onChange={(e)=>{saveData(e)}}
             id="textInput"
             className={`${styles.input_field} form-control`}
           />
@@ -65,10 +70,12 @@ const index = () => {
           </label>
           <select
             id="dropCountry"
+            name='countryOfOrigin'
+            onChange={(e)=>{saveData(e)}}
             className={`${styles.input_field} form-control`}
           >
-            <option value="country">India</option>
-            <option value="countryt1">America</option>
+            <option value="India">India</option>
+            <option value="America">America</option>
           </select>
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
@@ -77,10 +84,12 @@ const index = () => {
           </label>
           <select
             id="dropPort"
+            name='portOfDischarge'
+            onChange={(e)=>{saveData(e)}}
             className={`${styles.input_field} form-control`}
           >
-            <option value="port1">Vishakapatnam</option>
-            <option value="port2">Mumbai</option>
+            <option value="Vishakapatnam">Vishakapatnam</option>
+            <option value="Mumbai">Mumbai</option>
           </select>
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
@@ -89,9 +98,9 @@ const index = () => {
           </label>
           <input
             type="date"
-            placeholder="22-02-2022"
+            name='expectedDateOfShipment'
             id="textDate"
-            onChange={(e) => {}}
+            onChange={(e) => {saveData(e)}}
             className={`${styles.input_field} form-control`}
           />
         </div>
@@ -132,6 +141,7 @@ const index = () => {
           </Form>
         </div>
       </div>
+      </form>
     </div>
   )
 }
