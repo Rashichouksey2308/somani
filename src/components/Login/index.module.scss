@@ -1,9 +1,11 @@
 .login {
     .loginBanner {
         position: relative;
+
         img {
             object-fit: cover;
         }
+
         .pattern {
             top: -30px;
             left: -30px;
@@ -12,6 +14,7 @@
             max-width: 648px;
             position: absolute;
         }
+
         .caption {
             left: 50%;
             width: 70%;
@@ -23,6 +26,7 @@
             position: absolute;
             transform: translateX(-50%);
         }
+
         &::after {
             top: 0;
             left: 0;
@@ -33,12 +37,15 @@
             background: rgba(10, 61, 122, 0.66);
         }
     }
+
     .loginForm {
         width: 60%;
+
         .form {
             .logo {
                 margin-bottom: 112px;
             }
+
             .title {
                 font-size: 34px;
                 color: #111111;
@@ -46,6 +53,7 @@
                 font-weight: bold;
                 margin: 0 0 9px;
             }
+
             p {
                 font-size: 18px;
                 color: #667085;
@@ -53,10 +61,12 @@
                 font-weight: normal;
                 margin-bottom: 2rem;
             }
+
             .labelFloat {
                 padding-top: 13px;
                 position: relative;
                 margin: 30px 0 20px;
+
                 label {
                     top: 34px;
                     left: 15px;
@@ -71,6 +81,7 @@
                     transform: translateY(-29px);
                     transition: 0.3s all ease-in-out;
                 }
+
                 .formControl {
                     font-size: 20px;
                     color: #111111;
@@ -86,22 +97,26 @@
                     background: #C3C3C31F;
                     padding: 13px 30px 13px 17px;
                     border: 1px solid #0000001F;
-                    &:invalid + label {
-                        transform:translateY(0);
+
+                    &:invalid+label {
+                        transform: translateY(0);
                     }
+
                     &:focus {
-                        & + label {
-                            transform:translateY(-29px);
-                            text-shadow: 1px 1px 0 #ffffff;
+                        &+label {
+                            background: #FFFFFF;
+                            transform: translateY(-29px);
                         }
                     }
                 }
+
                 img {
                     top: 50%;
                     right: 14px;
                     position: absolute;
                     transform: translateY(-50%);
                 }
+
                 .signin {
                     font-size: 18px;
                     color: #FFFFFF;
@@ -113,28 +128,33 @@
                     border-radius: 5px;
                     background: #3687E8;
                     box-sizing: border-box;
+
                     &:focus {
                         box-shadow: none;
                     }
                 }
             }
+
             .password {
                 label {
-                    top: 20px;                    
-                    text-shadow: 1px 1px 0 #ffffff;
+                    top: 20px;
+                    background: #FFFFFF;
                 }
-                .formControl {       
-                    &:invalid + label {
-                        text-shadow: none;
+
+                .formControl {
+                    &:invalid+label {
+                        background: none;
                     }
                 }
             }
+
             .remember {
                 label {
                     font-size: 14px;
                     color: #344054;
                     line-height: 1;
                 }
+
                 .forgotPassword {
                     font-size: 18px;
                     color: #3687E8;
@@ -143,6 +163,7 @@
             }
         }
     }
+
     .footerLinks {
         right: 5%;
         bottom: 2rem;
@@ -150,10 +171,12 @@
         padding: 0;
         list-style: none;
         position: absolute;
+
         li {
             margin: 0 8px;
             display: inline-block;
-            a {                
+
+            a {
                 font-size: 14px;
                 font-weight: bold;
                 color: #667085;
