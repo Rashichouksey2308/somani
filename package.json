@@ -56,7 +56,9 @@
     "clean": "rimraf node_modules/.cache .next",
     "lint": "standard --verbose | snazzy",
     "now-start": "yarn serve",
-    "lint:fix": "standard --fix --verbose | snazzy"
+    "lint:fix": "standard --fix --verbose | snazzy",
+    "format": "prettier --check --ignore-path",
+    "format:fix": "prettier --write --ignore-path"
   },
   "pre-commit": "lint-staged",
   "lint-staged": {

@@ -8,31 +8,7 @@ import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 
 const index = () => {
 
-    const [companyDetails, setCompanyDetails] = useState({
-        companyName: "", 
-        companyPan: "",
-        transactionType: "",
-        gst: "",
-        typeOfBusiness: "",
-        phone: "",
-        emailId: "",
-        turnOver: "",
-        communicationMode: "",
-        whatsAppNumber: "",
-    })
-
-    const [state, setState] = useState(companyDetails)
-
-  
-
-    const saveData=(name,value)=>{
-        
-        state[name] = value;
-        setState({ ...state });
-    }
- 
-
-    return (
+   return (
         <div className={styles.main}>
             <Form>
                 <div className={styles.heading}>Company Profile</div>

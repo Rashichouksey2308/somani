@@ -9,23 +9,23 @@ import TermSheetPreview from "../components/TermSheetPreview";
 
 function Layout({ children }) {
   return (
-    <div className={styles.root_Container}>
-      <div className={styles.navContainer}>
-        <Navbar />
-      </div>
-      <div className={styles.wrapper}>
-        <div className={styles.sidebarContainer}>
-          <Sidebar />
-        </div>
-        <div className={styles.mainView_Container}>
-          <Breadcrum />
-          {children}
-          <Footer />
-          {/* <TermsheetPopUp /> */}
-        </div>
-      </div>
-    </div>
-    // <div>{children}</div>
+    // <div className={styles.root_Container}>
+    //   <div className={styles.navContainer}>
+    //     <Navbar />
+    //   </div>
+    //   <div className={styles.wrapper}>
+    //     <div className={styles.sidebarContainer}>
+    //       <Sidebar />
+    //     </div>
+    //     <div className={styles.mainView_Container}>
+    //       <Breadcrum />
+    //       {children}
+    //       <Footer />
+    //       {/* <TermsheetPopUp /> */}
+    //     </div>
+    //   </div>
+    // </div>
+    <div>{children}</div>
   );
 }
 
