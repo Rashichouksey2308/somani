@@ -788,7 +788,7 @@ function index() {
                                            </div>
                                            <div className={`${styles.risk_Container} d-flex align-items-center justify-content-between mt-4 mb-4`}>
                                             <ComplianceLigitations 
-                                            icon={"./"} 
+                                            icon={"/static/danger.svg"} 
                                             backColor={"#E3F0FF"} 
                                             iconBackGroudColor={"#3687E8 "}
                                             heading={"High Risk (5)"}
@@ -796,7 +796,7 @@ function index() {
 
                                             />
                                               <ComplianceLigitations 
-                                            icon={"./"} 
+                                            icon={"/static/danger.svg"} 
                                             backColor={"#FFE9C5"} 
                                             iconBackGroudColor={"#FF9D00"}
                                             heading={"Medium Risk (5)"}
@@ -804,7 +804,7 @@ function index() {
 
                                             />
                                               <ComplianceLigitations 
-                                            icon={"./"} 
+                                            icon={"/static/Path 3369.svg"} 
                                             backColor={"#F3F4F7"} 
                                             iconBackGroudColor={"#9EB6FF"}
                                             heading={"High Priority (5)"}
@@ -812,7 +812,7 @@ function index() {
 
                                             />
                                               <ComplianceLigitations 
-                                            icon={"./"} 
+                                            icon={"/static/Group 1240.svg"} 
                                             backColor={"#FFE8E8"} 
                                             iconBackGroudColor={"#EA3F3F"}
                                             heading={"Stagnant Cases (5)"}

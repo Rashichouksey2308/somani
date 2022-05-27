@@ -3,10 +3,10 @@ import {Modal,Row,Col,InputGroup,DropdownButton,Dropdown,FormControl,Form} from 
 import styles from './index.module.scss'
 
 
-function index() {
+function index(props) {
   return (
     <Modal
-     show={true}
+     show={props.open}
      size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -18,7 +18,9 @@ function index() {
          Share termsheet with buyer
          
         </Modal.Title>
-        <img src="static/close-2.svg"></img>
+        <img src="static/close-2.svg" onClick={()=>{
+          props.close()
+        }}></img>
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`} >
        <Row>

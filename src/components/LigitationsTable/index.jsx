@@ -56,7 +56,7 @@ function index() {
                                                     <td className="">U/S 7 lbc 2016</td>
                                                     <td className="">Ms. Juhi Singh</td>
                                                     <td className="">Ms. Juhi Singh</td>
-                                                     <td className="text-center"><img src="static/eye"></img></td>
+                                                     <td className="text-center"><img src="./static/Component 71 – 11 (1).svg"></img></td>
                                                   </tr>
                                                  
                                                 </tbody>

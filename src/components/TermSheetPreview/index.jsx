@@ -16,6 +16,9 @@ function index() {
     const openbar=()=>{
         setOpen(true)
     }
+    const close=()=>{
+        setOpen(false)
+    }
   return (
       
       <>
@@ -294,7 +297,7 @@ function index() {
       
     </div>
     <Paginatebar openbar={openbar} />
-     {open ? <TermsheetPopUp/>:null}
+     {open ? <TermsheetPopUp close={close} open={open}/>:null}
       </>
    
   )

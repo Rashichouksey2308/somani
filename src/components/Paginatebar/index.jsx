@@ -16,7 +16,7 @@ function index({openbar}) {
             
         </div>
         <div className={styles.approve} onClick={
-       openbar()
+       ()=>{ openbar()}
         }><span>Sent to Buyer</span></div>
     </div>
   )
