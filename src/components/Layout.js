@@ -26,6 +26,7 @@ function Layout({ children }) {
         </div>
       </div>
     </div>
+    // <div>{children}</div>
   );
 }
 

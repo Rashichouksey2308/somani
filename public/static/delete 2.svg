@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="Group_1870" data-name="Group 1870" transform="translate(-1034 -1293)">
+    <g id="noun-delete-4801059" transform="translate(1043 1300)">
+      <path id="Path_3358" data-name="Path 3358" d="M168.181,32.019V48.948a1.906,1.906,0,0,1-1.9,1.9H153.749a1.906,1.906,0,0,1-1.9-1.9V32.019h16.333ZM156.394,23.96h7.241v2.85h5.958a.953.953,0,0,1,.95.95v1.951a.953.953,0,0,1-.95.95H150.436a.953.953,0,0,1-.95-.95V27.76a.953.953,0,0,1,.95-.95h5.958Zm-1.012,10.311a.678.678,0,0,1,1.357,0V47.394a.678.678,0,0,1-1.357,0Zm8.166,0a.678.678,0,1,1,1.357,0V47.394a.678.678,0,1,1-1.357,0Zm-4.084,0a.678.678,0,1,1,1.357,0V47.394a.678.678,0,1,1-1.357,0Z" transform="translate(-149.486 -23.96)" fill="#ed714c" fill-rule="evenodd"/>
+    </g>
+    <g id="_Container_l_Color" data-name="🔲🎨 Container l Color" transform="translate(1034 1293)" fill="rgba(195,195,195,0.12)" stroke="rgba(0,0,0,0.12)" stroke-width="1">
+      <rect width="40" height="40" rx="4" stroke="none"/>
+      <rect x="0.5" y="0.5" width="39" height="39" rx="3.5" fill="none"/>
+    </g>
+  </g>
+</svg>

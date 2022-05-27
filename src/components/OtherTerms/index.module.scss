@@ -1,0 +1,87 @@
+.main {
+    box-shadow: 0px 3px 6px #CAD0E2;
+    border: 1px solid #D2D7E5;
+    border-radius: 6px;
+    margin-top: 20px;
+    font-family: Helvetica Neue;
+    //padding-top: 10px;
+    background-color: #ffffff;
+
+
+    .head_container {
+        border-bottom: 2px solid #F2F5F9;
+
+    .heading{
+    text-align: left;
+    font-size:22px;
+    font-weight: bold;
+    color: #3687E8;
+    text-transform: capitalize;
+    padding: 15px;
+    line-height: 27px;
+
+
+    }
+    }
+
+ .dashboard_form { 
+    
+    margin:40px 30px 40px 30px;
+
+    .terms_para{
+        text-align: left;
+        font-size: 20px;
+        letter-spacing: 0.19px;
+        color: #111111;
+        line-height: 30px;
+
+    }
+    .igpl_para{
+        background-color: #C3C3C31F;
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        padding: 5px 15px 5px 8px;
+        margin: 0 10px 0 0;
+        line-height: 30px;
+
+    }
+
+    .form_group {
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    
+
+    .other_heading{
+        text-align: left;
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 27px;
+        color: #111111;
+        background-color: #FAFAFB;
+        padding: 15px;
+        margin-bottom: 25px;
+
+    }
+
+    .checkbox_container {
+        padding: 15px;
+
+        .checkbox_label {
+            text-align: left;
+            font-size:20px;
+            letter-spacing: 0.19px;
+            line-height: 25px;
+            color: #111111;
+        }
+        .checkbox{
+                  margin-right: 25px;
+                 
+
+        }
+    }
+    
+}
+ }
+
+}

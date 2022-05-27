@@ -1,0 +1,67 @@
+.card {
+  padding: 25px;
+  background-color: #F3F4F7;
+  font-family: Helvetica Neue;
+}
+
+.card .head_header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+.card .head_header .arrow {
+  width: 13px;
+  height: 21px;
+  background: transparent;
+  margin-top: 10px;
+}
+
+.card .head_header .heading {
+  padding-left: 18px;
+  font-weight: bold;
+  font-size: 34px;
+  text-align: left;
+  letter-spacing: 0px;
+  color: #111111;
+  text-transform: capitalize;
+  margin-top: 0;
+}
+
+.card .card_body {
+  background-color: #ffffff;
+  padding: 20px 0 0 25px;
+  border-top: 2px solid #EFF2F7;
+  -webkit-box-shadow: 0px 3px 12px #E5E7ED;
+          box-shadow: 0px 3px 12px #E5E7ED;
+  border: 1px solid #D2D7E5;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.card .card_body .form_group .label {
+  font-size: 16px;
+  color: #00000080;
+  margin-bottom: 10px;
+  letter-spacing: 0.53px;
+  line-height: 17px;
+}
+
+.card .card_body .form_group .value {
+  font-size: 20px;
+  color: #111111;
+  line-height: 25px;
+}
+
+.card .card_body .form_group .status {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  background: #26DD73;
+}
+/*# sourceMappingURL=index.module.css.map */

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="57" height="25" viewBox="0 0 57 25">
+  <g id="Group_1725" data-name="Group 1725" transform="translate(-779 -468)">
+    <g id="Group_1724" data-name="Group 1724">
+      <g id="Rectangle_461" data-name="Rectangle 461" transform="translate(779 468)" fill="#3687e8" stroke="#3687e8" stroke-width="1.5">
+        <rect width="57" height="25" rx="4" stroke="none"/>
+        <rect x="0.75" y="0.75" width="55.5" height="23.5" rx="3.25" fill="none"/>
+      </g>
+    </g>
+    <text id="PDF" transform="translate(808 486)" fill="#fff" font-size="15" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="-15" y="0">PDF</tspan></text>
+  </g>
+</svg>
