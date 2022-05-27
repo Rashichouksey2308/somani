@@ -49,7 +49,7 @@ const tableRow=()=>{
                 <td>Transaction Type</td>
                 <td >Domestic</td>
                 <td ><div className={styles.tick} >
-                    <img src="/static/check.svg"></img>
+                    <img src="/static/check.svg" alt="Check"></img>
                     </div></td>
                 <td><input className={styles.checkBox} type="checkbox"/></td>
                 <td>

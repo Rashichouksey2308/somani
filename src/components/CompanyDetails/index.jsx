@@ -88,35 +88,34 @@ const index = () => {
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
                         <input
                             type="text"
-                            className={`${styles.input_field} form-control`} />
-                            <label className={styles.label_heading} >Email ID</label>
+                            className={`${styles.input_field} form-control`} required/>
+                            <label className={styles.label_heading} >Email ID<strong className="text-danger">*</strong></label>
 
 
                     </div>
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
                         <div className={styles.label_heading}
-                            style={{ marginTop: 10 }}>Turn Over(in Crores)</div>
-                        <div className={styles.slidecontainer}>
-                            <input type="range" min="0" max="100" step="20"
+                            style={{ marginTop: 10 }}>Turn Over(in Crores)<strong className="text-danger">*</strong></div>
+                            <div className={styles.slidecontainer}>
+                            <input type="range" min="0" max="100" step="20" id="sliderRange"
                                 list="tickmarks"
-                                className={`${styles.slider} form-control`} id="myRange" />
-                            <datalist id="tickmarks">
+                                className={`${styles.slider} form-control`} required/>
+                                <datalist id="tickmarks">
                                 <option value="0" label="0"></option>
                                 <option value="20" label="20"></option>
                                 <option value="40" label="40"></option>
                                 <option value="60" label="60"></option>
                                 <option value="80" label="80"></option>
                                 <option value="100" label="100"></option>
-                            </datalist>
-                        </div>
+                                </datalist>
+                            </div>
 
                     </div>
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}
                         style={{ marginTop: -30 }}>
                         <div className={styles.radio_form}
                             style={{ paddingLeft: 10 }}>
-                            <div className={styles.sub_heading}
-                            >Communication Mode</div>
+                            <div className={styles.sub_heading}>Communication Mode<strong className="text-danger">*</strong></div>
                             <Form>
                                 {['checkbox'].map((type) => (
                                     <div key={`inline-${type}`} className={styles.radio_group}>
