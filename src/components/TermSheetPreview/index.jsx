@@ -157,36 +157,85 @@ function index() {
                </div>
                <div>
                    <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
+                   <span>Wharfage Charges</span>
                </div>
                <div>
                    <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
+                   <span>Wharfage Charges</span>
                </div>
                <div>
                    <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
+                   <span>Royalty and Penalty Charges</span>
                </div>
                <div>
                    <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
+                   <span>Tarpaulin Coverage Charges</span>
                </div>
                <div>
                    <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
+                   <span>Wheighment & Weighment Survey Charges</span>
                </div>
                <div>
                    <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
+                   <span>Draught Survey Chargese</span>
                </div>
                <div>
                    <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
+                   <span>Boating while Draught Survey Charges</span>
                </div>
                <div>
                    <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
+                   <span>HMC Charges</span>
                </div>
+               <div>
+                   <input type="checkbox"/>
+                   <span>Security Charges</span>
+               </div>
+               <div>
+                   <input type="checkbox"/>
+                   <span>Plot Rental & Storage Charges</span>
+               </div>
+               <div>
+                   <input type="checkbox"/>
+                   <span>Bonding of Cargo Charges</span>
+               </div>
+                <div>
+                   <input type="checkbox"/>
+                   <span>Ex - Bond Documentation Charges</span>
+               </div>
+                <div>
+                   <input type="checkbox"/>
+                   <span>Transfer of Ownership Charges</span>
+               </div>
+                <div>
+                   <input type="checkbox"/>
+                   <span>Customs Bond Officer Overtime Charges</span>
+               </div>
+                <div>
+                   <input type="checkbox"/>
+                   <span>Grab Hire Charges ( if any )</span>
+               </div>
+                <div>
+                   <input type="checkbox"/>
+                   <span>Crane Hire Charges</span>
+               </div>
+                <div>
+                   <input type="checkbox"/>
+                   <span>Handling Losses</span>
+               </div>
+                 <div>
+                   <input type="checkbox"/>
+                   <span>Insurance Charges ( While transferring the material to customs bonded ware house )</span>
+               </div>
+                 <div>
+                   <input type="checkbox"/>
+                   <span>Water Sprinkling Charges</span>
+               </div>
+                 <div>
+                   <input type="checkbox"/>
+                   <span>Others, if any</span>
+               </div>
+
            </div>
        </div>
        <div className={styles.right} >
@@ -202,33 +251,45 @@ function index() {
                </div>
                <div>
                    <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
+                   <span>CMA Fees including supervision and survey</span>
                </div>
                <div>
                    <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
+                   <span>Bank DO Issuance charges</span>
+               </div>
+                  <div>
+                   <input type="checkbox"/>
+                   <span>Remmittance Charges</span>
+               </div>
+                  <div>
+                   <input type="checkbox"/>
+                   <span>Usance Interest</span>
                </div>
                <div>
                   <div className={styles.subhead}>Other Charges</div>
                    <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>Demurrage / Detention Charges of Vessel</span>
+               </div>
+                <div>
+                   <input type="checkbox"/>
+                   <span>Transportation Charges</span>
+               </div>
+                <div>
+                   <input type="checkbox"/>
+                   <span>Wagon Haulage Charges ( in case of delivery through railways )s</span>
+               </div>
+                <div>
+                   <input type="checkbox"/>
+                   <span>3rd Party Inspection Charges</span>
                </div>
                 <div>
                    <input type="checkbox"/>
                    <span>Hedging Charges</span>
                </div>
-                <div>
+               <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>Any other cost incurred on behalf of Buyer</span>
                </div>
                </div>
                 <div>
