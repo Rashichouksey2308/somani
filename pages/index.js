@@ -1,38 +1,38 @@
-import RepoSearch from "features/repoSearch/RepoSearch";
-import { useRouter } from "next/router";
-import { createStore } from "store";
-import { getReposAsync } from "features/repoSearch/repoSearchSlice";
-import DoughnutCart from "../src/components/DoughnutCart/index";
-import Leads from "../src/components/Leads/index";
-import styles from "./index.module.scss";
-import Commodities from "../src/components/Commodities/index";
-import Exposure from "../src/components/Exposure/index";
-import Countries from "../src/components/Countries/index";
-import "bootstrap/dist/css/bootstrap.css";
-import Footer from "../src/components/Footer/index";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import TermsheetPopUp from "../src/components/TermsheetPopUp";
+import RepoSearch from 'features/repoSearch/RepoSearch'
+import { useRouter } from 'next/router'
+import { createStore } from 'store'
+import { getReposAsync } from 'features/repoSearch/repoSearchSlice'
+import DoughnutCart from '../src/components/DoughnutCart/index'
+import Leads from '../src/components/Leads/index'
+import styles from './index.module.scss'
+import Commodities from '../src/components/Commodities/index'
+import Exposure from '../src/components/Exposure/index'
+import Countries from '../src/components/Countries/index'
+import 'bootstrap/dist/css/bootstrap.css'
+import Footer from '../src/components/Footer/index'
+import { Container, Row, Col, Card } from 'react-bootstrap'
+import TermsheetPopUp from '../src/components/TermsheetPopUp'
 
 const IndexPage = () => {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <>
       <div className={`${styles.root_Container} container-fluid`}>
         <div className={`${styles.head_Container} row`}>
           <div className="col-sm-6">
             <Leads
-              header={"Leads"}
-              subHeader={"TOTAL LEADS"}
-              image={"/static/clipboard-list.svg"}
-              content={["APPROVED", "IN PROCESS", "REJECTED"]}
+              header={'Leads'}
+              subHeader={'TOTAL LEADS'}
+              image={'/static/clipboard-list.svg'}
+              content={['APPROVED', 'IN PROCESS', 'REJECTED']}
             />
           </div>
           <div className="col-sm-6">
             <Leads
-              header={"Procurement Orders"}
-              subHeader={"ORDER PLACED"}
-              image={"/static/box-open.svg"}
-              content={["COMPLETED", "IN PROCESS", "REJECTED"]}
+              header={'Procurement Orders'}
+              subHeader={'ORDER PLACED'}
+              image={'/static/box-open.svg'}
+              content={['COMPLETED', 'IN PROCESS', 'REJECTED']}
             />
           </div>
         </div>
@@ -63,7 +63,7 @@ const IndexPage = () => {
                   >
                     <span>Showing Page 1 out of 10</span>
                     <a href="#" className={`${styles.arrow} ${`leftArrow`}`}>
-                      {" "}
+                      {' '}
                       <img
                         src="/static/keyboard_arrow_right-3.svg"
                         alt="arrow right"
@@ -136,20 +136,19 @@ const IndexPage = () => {
           </div>
         </div>
       </div>
-     
     </>
-  );
-};
+  )
+}
 
 export async function getStaticProps() {
-  const store = createStore();
-  await store.dispatch(getReposAsync("python"));
+  const store = createStore()
+  await store.dispatch(getReposAsync('python'))
 
   return {
     props: {
       state: store.getState(),
     },
-  };
+  }
 }
 
-export default IndexPage;
+export default IndexPage

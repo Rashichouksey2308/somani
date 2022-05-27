@@ -1,11 +1,11 @@
-import React from "react";
-import Navbar from "./NavBar/index";
-import Sidebar from "./Sidebar/index";
-import Breadcrum from "./Breadcrum/index";
-import Footer from "./Footer/index";
-import styles from "./index.module.scss";
-import { Container, Row, Col } from "react-bootstrap";
-import TermsheetPopUp from "../components/TermsheetPopUp";
+import React from 'react'
+import Navbar from './NavBar/index'
+import Sidebar from './Sidebar/index'
+import Breadcrum from './Breadcrum/index'
+import Footer from './Footer/index'
+import styles from './index.module.scss'
+import { Container, Row, Col } from 'react-bootstrap'
+import TermsheetPopUp from '../components/TermsheetPopUp'
 
 function Layout({ children }) {
   return (
@@ -25,10 +25,10 @@ function Layout({ children }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Layout;
+export default Layout
 
 // import React, { PureComponent } from 'react'
 // import Link from 'next/link'

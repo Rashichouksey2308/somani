@@ -1,29 +1,27 @@
 .root_Container {
-    width: 100%;
-    height: 90%;
-   
-   
-    overflow-y: scroll;
-    position: relative;
-    .wrapper{
-        padding: 10px;
-.head {
-        padding: 0 15px 0 22px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
+  width: 100%;
+  height: 90%;
 
-        h1 {
-            margin-left: 1rem;
-        }
+  overflow-y: scroll;
+  position: relative;
+  .wrapper {
+    padding: 10px;
+    .head {
+      padding: 0 15px 0 22px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      h1 {
+        margin-left: 1rem;
+      }
     }
-    }
-    
-   .approve_Container {
-    
-       width: 87%;
-       position: absolute;
-       bottom: 0;
-       position: fixed
-   }
+  }
+
+  .approve_Container {
+    width: 87%;
+    position: absolute;
+    bottom: 0;
+    position: fixed;
+  }
 }

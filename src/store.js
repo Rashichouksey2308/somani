@@ -10,7 +10,7 @@ export const createStore = (preloadedState) => {
   if (config.env === 'development' && typeof window !== 'undefined') {
     const logger = createLogger({
       level: 'info',
-      collapsed: true
+      collapsed: true,
     })
 
     middlewares.push(logger)
@@ -18,11 +18,12 @@ export const createStore = (preloadedState) => {
 
   return configureStore({
     reducer: {
-      repoSearch: repoSearchReducer
+      repoSearch: repoSearchReducer,
     },
     preloadedState,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),
-    devTools: config.env === 'development'
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(...middlewares),
+    devTools: config.env === 'development',
   })
 }
 

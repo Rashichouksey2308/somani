@@ -8,12 +8,13 @@ import { Card } from 'react-bootstrap'
 
 const index = () => {
   return (
-
     <Card className={styles.card}>
       <Card.Header className={styles.head_container}>
         <div className={styles.head_header}>
-          <img className={styles.arrow}
-            src="/static/keyboard_arrow_right-3.svg" />
+          <img
+            className={styles.arrow}
+            src="/static/keyboard_arrow_right-3.svg"
+          />
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
@@ -22,7 +23,6 @@ const index = () => {
       </Card.Header>
 
       <Card.Body className={styles.body}>
-
         <CompanyDetails />
         <hr className={styles.line}></hr>
         <OrderDetails />
@@ -31,9 +31,7 @@ const index = () => {
         <hr className={styles.line}></hr>
         <Terms />
       </Card.Body>
-
     </Card>
-
   )
 }
 
