@@ -4,8 +4,6 @@ import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 
 
-
-
 const index = () => {
 
     const [companyDetails, setCompanyDetails] = useState({
@@ -128,7 +126,7 @@ const index = () => {
 
                             </select>
                             <input type="text"
-                                defaultValue={companyDetails.phone}
+                                defaultValue={phoneValidation(companyDetails.phone)}
                                 id="textNumber"
                                 name='phone'
                                 onChange={(e)=>{if(phoneValidation(e.target.value)){
@@ -239,15 +237,7 @@ const index = () => {
                             <input type="text"
                                 defaultValue={companyDetails.whatsAppNumber}
                                 name="whatsAppNumber"
-                                onChange={(e)=>{if(phoneValidation(e.target.value)){
-                                    saveData(e.target.name,e.target.value)
-                                    //green tick
-                                }
-                                else{
-                                    //red mark
-                                }
-                                
-                              }}
+                                onChange={(e)=>onTextChange(e)}
                                 id="textNumber"
                                 className={`${styles.input_field} form-control`} />
 
