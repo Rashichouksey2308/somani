@@ -102,7 +102,7 @@ function index() {
             </Col>
         </Row>
        </div>
-        <div>
+       <div>
         <Row className={styles.row_head}>
             <Col md={4} className={`${styles.content_header} d-flex justify-content-center align-content-center`}>
              
@@ -123,6 +123,72 @@ function index() {
             <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>90 days from the date of arrival of vessel/containers at discharge port or 120 days from the BL date, whichever is earlier, through TT or LC (in the case of LC all Bank charges to be borne and paid by the Buyer). LC Discounting rate Presently @ 4.75% for 90 days usance LC in case of 120 days usance LC Discounting it is subject to actual discounting charges a per the discounting Bank done with proof of charges.</li>
+                 
+             </ul>
+            </Col>
+        </Row>
+       </div>
+        <div>
+        <Row className={styles.row_head}>
+            <Col md={4} className={`${styles.content_header} d-flex justify-content-center align-content-center`}>
+             
+            <span>Storage Of Goods</span>
+            
+            </Col>
+            <Col md={8}>{""}</Col>
+          </Row>
+          <Row>
+            <Col md={4} className={`${styles.sub_content} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+             
+             <ol>
+                 <li>8. Storage of Good</li>
+          
+             </ol>
+            
+            </Col>
+            <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+                 <ul>
+                 <li>Cargo to be stored in Custom Bonded warehouse at the port of Discharge (Vizag India) under CMA with Dr. Amin Controllers. "lGM and Into Bond Bill of Entry" shall be filled by the lndo's nominated party and all expenses/charges to be born and paid by the Buyer.</li>
+                 
+             </ul>
+            </Col>
+        </Row>
+       </div>
+        <div>
+        <Row className={styles.row_head}>
+            <Col md={4} className={`${styles.content_header} d-flex justify-content-center align-content-center`}>
+             
+            <span>Commercials</span>
+            
+            </Col>
+            <Col md={8}>{""}</Col>
+          </Row>
+          <Row>
+            <Col md={4} className={`${styles.sub_content} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+             
+             <ol>
+                 <li>10. Trade Margin (%)</li>
+                  <li>11. LC Opening Charges (Minimum)</li>
+                   <li>12. LC Opening Charges (%)</li>
+                    <li>13. Usance Interest (%) For 90 Days</li>
+                     <li>14. Overdue Interest per Month (%)</li>
+                      <li>15. Exchange Fluctuation</li>
+                       <li>16. Other Terms</li>
+          
+             </ol>
+            
+            </Col>
+            <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+                 <ul>
+               <li>2.25%</li>
+               <li>USD 1500</li>
+               <li>1.5 - 2.25%</li>
+               <li>4%</li>
+               <li>1.5%</li>
+               <li>All actual exchange fluctuation if applicable is on Buyer's account</li>
+               <li>Other terms and conditions as per Sales Contract</li>
+              
+               
                  
              </ul>
             </Col>
