@@ -12,7 +12,7 @@ import { Router } from "next/router";
 function Layout({ children }) {
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
-    // setIsLogin(localStorage.getItem("login"));
+    setIsLogin(localStorage.getItem("login"));
   }, [isLogin]);
   console.log(isLogin);
   function login() {

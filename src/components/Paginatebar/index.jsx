@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-function index() {
+function index({openbar}) {
   return (
     <div className={styles.root}>
         <div className={styles.reject}><span>Termsheet</span>
@@ -15,7 +15,9 @@ function index() {
              <img src="#"></img>
             
         </div>
-        <div className={styles.approve}><span>Sent to Buyer</span></div>
+        <div className={styles.approve} onClick={
+       openbar()
+        }><span>Sent to Buyer</span></div>
     </div>
   )
 }

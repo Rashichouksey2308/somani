@@ -1,7 +1,8 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styles from './index.module.scss'
 import {Row,Col,Container,Card} from 'react-bootstrap'
 import Paginatebar from '../Paginatebar'
+import TermsheetPopUp from '../TermsheetPopUp'
 function index() {
     let tempArr=[
         {head:"Commodity Details",details:[
@@ -11,6 +12,10 @@ function index() {
         ]
     }
     ]
+    const [open,setOpen] =useState(false)
+    const openbar=()=>{
+        setOpen(true)
+    }
   return (
       
       <>
@@ -288,7 +293,8 @@ function index() {
       </Card>
       
     </div>
-    <Paginatebar/>
+    <Paginatebar openbar={openbar} />
+     {open ? <TermsheetPopUp/>:null}
       </>
    
   )
