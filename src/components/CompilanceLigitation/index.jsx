@@ -1,15 +1,15 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-function index() {
+function index(props) {
  return (
-     <div className={`${styles.risk}  d-flex align-items-center`}>
-         <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}>
+     <div className={`${styles.risk}  d-flex align-items-center`} style={{backgroundColor:`${props.backColor}`}}>
+         <div style={{backgroundColor:`${props.iconBackGroudColor}`}} className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}>
                 <img src="#"></img>
          </div>
          <div className={`ml-4`}>
-         <div>High Risk (5)</div>
-         <span>Pending Case: 4 Disposed Case: 4</span>
+         <div>{props.heading}</div>
+         <span>{props.content}</span>
       </div>
     </div>
   )
