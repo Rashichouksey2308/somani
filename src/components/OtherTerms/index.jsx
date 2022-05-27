@@ -28,88 +28,88 @@ const index = () => {
                     <h3 className={styles.other_heading}>CHA / Stevedoring Charges</h3>
                     <div className={`${styles.checkbox_container} d-flex flex-column`}>
                     <div>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle1">Customs clearing charges / handling charges / CHA Fee</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Customs clearing charges / handling charges / CHA Fee</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle2"  value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle2">Wharfage Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Wharfage Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle3" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle3">Pollution charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Pollution charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle4" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle4">Royalty and Penalty Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Royalty and Penalty Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle5" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle5">Tarpaulin Coverage Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Tarpaulin Coverage Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle6" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle6">Wheighment & Weighment Survey Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Wheighment & Weighment Survey Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle7" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle7">Draught Survey Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Draught Survey Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle8"  value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle8">Boating while Draught Survey Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Boating while Draught Survey Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle9"  value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle9">HMC Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>HMC Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle10" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle10">Security Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Security Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle11" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle11">Plot Rental & Storage Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Plot Rental & Storage Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle12" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle12">Bonding of Cargo Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Bonding of Cargo Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle13" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle13">Ex - Bond Documentation Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Ex - Bond Documentation Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle14" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle14">Transfer of Ownership Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Transfer of Ownership Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle15" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle15">Customs Bond Officer Overtime Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Customs Bond Officer Overtime Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle16"  value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle16">Grab Hire Charges ( if any )</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Grab Hire Charges ( if any )</label>
                     </div>
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle17" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle17">Crane Hire Charges</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Crane Hire Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input  className={styles.checkbox} type="checkbox" id="vehicle18" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle18">Handling Losses</label>
+                    <input  className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Handling Losses</label>
                     </div>
                     <div className='pt-4'>
-                    <input  className={styles.checkbox} type="checkbox" id="vehicle19" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle19">Insurance Charges ( While transferring the material to customs bonded ware house )</label>
+                    <input  className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Insurance Charges ( While transferring the material to customs bonded ware house )</label>
                     </div>
                     <div className='pt-4'>
-                    <input  className={styles.checkbox} type="checkbox" id="vehicle20" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle20">Water Sprinkling Charges</label>
+                    <input  className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Water Sprinkling Charges</label>
                     </div>
                     <div className='pt-4'>
-                    <input  className={styles.checkbox} type="checkbox" id="vehicle21" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle21">Others, if any</label>
+                    <input  className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>Others, if any</label>
                     </div>
                     </div>
 
@@ -123,12 +123,12 @@ const index = () => {
                     <h3 className={styles.other_heading}>LC Opening Charges</h3>
                     <div className={`${styles.checkbox_container} d-flex flex-column`}>
                     <div>   
-                    <input  className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                    <input  className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
                     </div> 
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle2"  value="Bike"/>
-                    <label className={styles.checkbox_label} for="vehicle2">LC Amendment Cost</label>
+                    <input className={styles.checkbox} type="checkbox"/>
+                    <label className={styles.checkbox_label}>LC Amendment Cost</label>
                     </div>
                     <div className='pt-4'>
                     <input  className={styles.checkbox} type="checkbox" id="vehicle3" value="Bike"/>
@@ -154,11 +154,11 @@ const index = () => {
                     <h3 className={styles.other_heading}>Other Charges</h3>
                     <div className={`${styles.checkbox_container} d-flex flex-column`}>
                     <div>   
-                    <input  className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
+                    <input  className={styles.checkbox} type="checkbox"/>
                     <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
                     </div> 
                     <div className='pt-4'>
-                    <input className={styles.checkbox} type="checkbox" id="vehicle2"  value="Bike"/>
+                    <input className={styles.checkbox} type="checkbox"/>
                     <label className={styles.checkbox_label} for="vehicle2">Demurrage / Detention Charges of Vessel</label>
                     </div>
                     <div className='pt-4'>

@@ -77,7 +77,6 @@ const index = () => {
                                 <option>+92</option>
                                 <option>+95</option>
                                 <option>+24</option>
-
                             </select>
                             <input type="text"
                                 className={`${styles.input_field} form-control`} required/>
@@ -87,12 +86,11 @@ const index = () => {
                     </div>
 
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                        <label className={styles.label_heading} id="textInput">Email ID</label>
                         <input
                             type="text"
-                            placeholder="johndow@email.com"
-                            id="textInput"
                             className={`${styles.input_field} form-control`} />
+                            <label className={styles.label_heading} >Email ID</label>
+
 
                     </div>
                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>

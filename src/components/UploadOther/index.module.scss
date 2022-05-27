@@ -4,14 +4,12 @@
     border-radius: 6px;
     margin-top: 20px;
     font-family: Helvetica Neue;
-    //padding-top: 10px;
     background-color: #ffffff;
 
     .head_container {
         border-bottom: 2px solid #F2F5F9;
 
     .heading{
-    text-align: left;
     font-size:22px;
     font-weight: bold;
     color: #3687E8;
@@ -38,7 +36,6 @@
             line-height: 83px;
         }
         .drop_para{
-            text-align: center;
             font-size: 19px;
             line-height: 24px;
             font-weight: 500;
@@ -72,7 +69,6 @@
     
 
     .label {
-        text-align: left;
         font-size:16px ;
         letter-spacing: 0.53px;
         color: #00000080;
@@ -88,7 +84,6 @@
     }
 
     .value {
-        text-align: left;
         font-size:20px;
         letter-spacing: 0.19px;
         color: #111111;
@@ -138,7 +133,6 @@
     .module {
         margin-left: -15px;
         background: #8492A6;
-        text-align: left;
         font-size: 15px;
         line-height: 18px;
         font-weight: bold;
@@ -147,7 +141,6 @@
         padding: 10px;
     }
     .doc_name {
-        text-align: left;
         color: #111111;
         font-weight: bold;
         line-height: 25px;
@@ -157,7 +150,6 @@
 
     }
     .doc_row {
-        text-align: left;
         font-size: 19px;
         line-height: 24px;
         color: #111111;

@@ -8,7 +8,7 @@ const index = () => {
     <div className={`${styles.main} container-fluid`}>
         <div className='d-flex justify-content-between'>
         <h3 className={styles.heading}>Shipment Details</h3>
-        <img className='pr-3' src = "/static/Group 550.svg"/>
+        <img className='pr-3 img-fluid' src = "/static/add.svg" alt="Add"/>
         </div>
         <hr></hr>
         <div className={styles.dashboard_form}>
@@ -43,9 +43,6 @@ const index = () => {
                     </div>
                 </Form.Group>
                 
-                
-                
-               
                 </div>
                 </Form>
 
