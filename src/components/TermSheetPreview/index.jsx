@@ -293,37 +293,18 @@ function index() {
                </div>
                </div>
                 <div>
-                  <div className={styles.subhead}>Other Charges</div>
+                  <div className={styles.subhead}>Duty & Taxes</div>
                    <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>Customs Duty with all Govt Cess</span>
                </div>
                 <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>IGST with Cess, if applicable</span>
                </div>
                 <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-               </div>
-                <div>
-                  <div className={styles.subhead}>{"Duty & Taxes"}</div>
-                   <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>CIMS Charges ( incase commodity is Coal )</span>
                </div>
                 <div>
                    <input type="checkbox"/>
@@ -331,16 +312,20 @@ function index() {
                </div>
               
                </div>
+                <div>
+             
+              
+               </div>
 
                 <div>
                   <div className={styles.subhead}>Insurance</div>
                    <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>Marine Insurance ( if applicable )</span>
                </div>
                 <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>{`Storage Insurance ( Fire & Burglary )`}s</span>
                </div>
                
               
