@@ -18,7 +18,7 @@ function index() {
             Other:[
                {name: "Review Queue",image:"/static/Review Queue.svg",route:""},
                 {name: "Credit Queue",image:"/static/Credit Queue.svg"},
-                 {name: "Termsheets",image:"/static/Termsheets.svg"},
+                 {name: "Termsheets",image:"/static/Termsheets.svg",route:"/termsheet"},
                   
             ],
               image:"/static/Leads.svg",
@@ -106,7 +106,11 @@ console.log(category)
                          const className12 = index12==index?`${styles.openlist}`:null
                      return(
                      <>
-                      <div index={index2} className={`${styles.sub_header} ${className12}`}>
+                      <div index={index2} className={`${styles.sub_header} ${className12}`}
+                      onClick={()=>{
+                         Router.push(other.route);
+                      }}
+                      >
                       <div>
                       <img src={`${other.image}`}></img>
                       <span>{other.name}</span>

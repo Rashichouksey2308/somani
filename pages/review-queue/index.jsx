@@ -3,8 +3,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import styles from './reviewqueue.module.scss'
 import Order from '../../src/components/Order';
 import ShipmentDetails from '../../src/components/ShipmentDetails'
-
-
+import ComplianceLigitations from '../../src/components/CompilanceLigitation'
+import LigitationsTable from '../../src/components/LigitationsTable'
 
 import {Row,Col} from 'react-bootstrap'
 function index() {
@@ -787,50 +787,39 @@ function index() {
                                             
                                            </div>
                                            <div className={`${styles.risk_Container} d-flex align-items-center justify-content-between mt-4 mb-4`}>
-                                             <div className={`${styles.risk}  d-flex align-items-center`}>
-                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}>
-                                                 <img src="#"></img>
-                                               </div>
-                                               <div className={`ml-4`}>
-                                                 <div>High Risk (5)</div>
-                                                 <span>Pending Case: 4 Disposed Case: 4</span>
-                                               </div>
+                                            <ComplianceLigitations 
+                                            icon={"./"} 
+                                            backColor={"#E3F0FF"} 
+                                            iconBackGroudColor={"#3687E8 "}
+                                            heading={"High Risk (5)"}
+                                            content={"Pending Case: 4 Disposed Case: 4"}
 
-                                               
-                                             </div>
-                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`} style={{backgroundColor:"#FFE9C5"}}>
-                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`} style={{backgroundColor:"#FF9D00"}}>
-                                                 <img src="#"></img>
-                                               </div>
-                                               <div className={`ml-4`}>
-                                                 <div>Medium Risk (5)</div>
-                                                 <span>Pending Case: 4 Disposed Case: 4</span>
-                                               </div>
+                                            />
+                                              <ComplianceLigitations 
+                                            icon={"./"} 
+                                            backColor={"#FFE9C5"} 
+                                            iconBackGroudColor={"#FF9D00"}
+                                            heading={"Medium Risk (5)"}
+                                            content={"Pending Case: 4 Disposed Case: 4"}
 
-                                               
-                                             </div>
-                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`}  style={{backgroundColor:"#F3F4F7"}}>
-                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}  style={{backgroundColor:"#9EB6FF"}}>
-                                                 <img src="#"></img>
-                                               </div>
-                                               <div className={`ml-4`}>
-                                                 <div>High Priority (5)</div>
-                                                 <span>Pending Case: 4 Disposed Case: 4</span>
-                                               </div>
+                                            />
+                                              <ComplianceLigitations 
+                                            icon={"./"} 
+                                            backColor={"#F3F4F7"} 
+                                            iconBackGroudColor={"#9EB6FF"}
+                                            heading={"High Priority (5)"}
+                                            content={"Pending Case: 4 Disposed Case: 4"}
 
-                                               
-                                             </div>
-                                              <div className={`${styles.risk}  d-flex align-items-center ml-2`} style={{backgroundColor:"#FFE8E8"}}>
-                                               <div className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}  style={{backgroundColor:"#EA3F3F"}}>
-                                                 <img src="#"></img>
-                                               </div>
-                                               <div className={`ml-4`}>
-                                                 <div>Stagnant Cases (5))</div>
-                                                 <span>Pending Case: 4 Disposed Case: 4</span>
-                                               </div>
+                                            />
+                                              <ComplianceLigitations 
+                                            icon={"./"} 
+                                            backColor={"#FFE8E8"} 
+                                            iconBackGroudColor={"#EA3F3F"}
+                                            heading={"Stagnant Cases (5)"}
+                                            content={"Pending Case: 4 Disposed Case: 4"}
 
-                                               
-                                             </div>
+                                            />
+                                            
                                            </div>
 
                                            <div>
@@ -877,322 +866,11 @@ export default index
 const ligitations=()=>{
   return(
     <>
-       <div className={`${styles.card_litigations} card`}>
-                                   
-                                         <div className={`${styles.card_ligitations_holder}`}>
-                                             <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
-                                            <Row className={`${styles.row}`}>
-                                              <Col><div className="mb-0">Tribunals</div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Pending Case</span><span className={styles.lower}>4</span></div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={styles.lower}>4</span></div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center`}><span>Total cases</span>
-                                              <div className={styles.chart}>
-                                                <div className={styles.container}>
-                                                  <div className={styles.fill}></div>
-                                                  <span>11</span>
-                                                </div>
-                                                
-                                              </div>
-                                              </div>
-                                             </Col>
-                                            
-                                             
-                                            </Row>
-                                              <h2 className="mb-0" sm={1}>+</h2>
-                                        </div>
-                                        <div id="Tribunals" className="collapse" aria-labelledby="Tribunals" data-parent="#profileAccordion">
-                                          <div className={` ${styles.cardBody_Tribunals} card-body`}>
-                                         
-                                               <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                                                <thead>
-                                                  <tr>
-                                                   
-                                                    <th className="">S.NO</th>
-                                                    <th className="">CINO.</th>
-                                                    <th className="">CASE NO.</th>
-                                                    <th className="">CASE TYPE</th>
-                                                    <th className="">SECTION</th>
-                                                    <th className="">PETITIONER</th>
-                                                    <th className="">RESPONDENT</th>
-                                                    <th className="">PREVIEW</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  <tr>
-                                                    <td>1.</td>
-                                                    <td className="">DLND0201</td>
-                                                    <td className="">CC NI ACT/4476/2021</td>
-                                                    <td className="">CC NI ACT</td>
-                                                    <td className="">U/S 7 lbc 2016</td>
-                                                    <td className="">Ms. Juhi Singh</td>
-                                                    <td className="">Ms. Juhi Singh</td>
-                                                     <td className="text-center"><img src="static/eye"></img></td>
-                                                  </tr>
-                                                 
-                                                </tbody>
-                                              </table>
-                           
-                                       
-
-                                           <div>
-                                            
-                                           </div>
-                                         
-
-                                          </div>
-                                             
-                                              
-                                            
-                                              
-                                              
-                                      
-                                         </div>
-                                         </div>
-                                      
-                                        
-
-
-    </div>
-      <div className={`${styles.card_litigations} card`}>
-                                   
-                                         <div className={`${styles.card_ligitations_holder}`}>
-                                             <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
-                                            <Row className={`${styles.row}`}>
-                                              <Col><div className="mb-0">Tribunals</div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Pending Case</span><span className={styles.lower}>4</span></div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={styles.lower}>4</span></div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center`}><span>Total cases</span>
-                                              <div className={styles.chart}>
-                                                <div className={styles.container}>
-                                                  <div className={styles.fill}></div>
-                                                  <span>11</span>
-                                                </div>
-                                                
-                                              </div>
-                                              </div>
-                                             </Col>
-                                            
-                                             
-                                            </Row>
-                                              <h2 className="mb-0" sm={1}>+</h2>
-                                        </div>
-                                        <div id="Tribunals" className="collapse" aria-labelledby="Tribunals" data-parent="#profileAccordion">
-                                          <div className={` ${styles.cardBody_Tribunals} card-body`}>
-                                         
-                                               <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                                                <thead>
-                                                  <tr>
-                                                   
-                                                    <th className="">S.NO</th>
-                                                    <th className="">CINO.</th>
-                                                    <th className="">CASE NO.</th>
-                                                    <th className="">CASE TYPE</th>
-                                                    <th className="">SECTION</th>
-                                                    <th className="">PETITIONER</th>
-                                                    <th className="">RESPONDENT</th>
-                                                    <th className="">PREVIEW</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  <tr>
-                                                    <td>1.</td>
-                                                    <td className="">DLND0201</td>
-                                                    <td className="">CC NI ACT/4476/2021</td>
-                                                    <td className="">CC NI ACT</td>
-                                                    <td className="">U/S 7 lbc 2016</td>
-                                                    <td className="">Ms. Juhi Singh</td>
-                                                    <td className="">Ms. Juhi Singh</td>
-                                                     <td className="text-center"><img src="static/eye"></img></td>
-                                                  </tr>
-                                                 
-                                                </tbody>
-                                              </table>
-                           
-                                       
-
-                                           <div>
-                                            
-                                           </div>
-                                         
-
-                                          </div>
-                                             
-                                              
-                                            
-                                              
-                                              
-                                      
-                                         </div>
-                                         </div>
-                                      
-                                        
-
-
-    </div>
-      <div className={`${styles.card_litigations} card`}>
-                                   
-                                         <div className={`${styles.card_ligitations_holder}`}>
-                                             <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
-                                            <Row className={`${styles.row}`}>
-                                              <Col><div className="mb-0">Tribunals</div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Pending Case</span><span className={styles.lower}>4</span></div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={styles.lower}>4</span></div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center`}><span>Total cases</span>
-                                              <div className={styles.chart}>
-                                                <div className={styles.container}>
-                                                  <div className={styles.fill}></div>
-                                                  <span>11</span>
-                                                </div>
-                                                
-                                              </div>
-                                              </div>
-                                             </Col>
-                                            
-                                             
-                                            </Row>
-                                              <h2 className="mb-0" sm={1}>+</h2>
-                                        </div>
-                                        <div id="Tribunals" className="collapse" aria-labelledby="Tribunals" data-parent="#profileAccordion">
-                                          <div className={` ${styles.cardBody_Tribunals} card-body`}>
-                                         
-                                               <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                                                <thead>
-                                                  <tr>
-                                                   
-                                                    <th className="">S.NO</th>
-                                                    <th className="">CINO.</th>
-                                                    <th className="">CASE NO.</th>
-                                                    <th className="">CASE TYPE</th>
-                                                    <th className="">SECTION</th>
-                                                    <th className="">PETITIONER</th>
-                                                    <th className="">RESPONDENT</th>
-                                                    <th className="">PREVIEW</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  <tr>
-                                                    <td>1.</td>
-                                                    <td className="">DLND0201</td>
-                                                    <td className="">CC NI ACT/4476/2021</td>
-                                                    <td className="">CC NI ACT</td>
-                                                    <td className="">U/S 7 lbc 2016</td>
-                                                    <td className="">Ms. Juhi Singh</td>
-                                                    <td className="">Ms. Juhi Singh</td>
-                                                     <td className="text-center"><img src="static/eye"></img></td>
-                                                  </tr>
-                                                 
-                                                </tbody>
-                                              </table>
-                           
-                                       
-
-                                           <div>
-                                            
-                                           </div>
-                                         
-
-                                          </div>
-                                             
-                                              
-                                            
-                                              
-                                              
-                                      
-                                         </div>
-                                         </div>
-                                      
-                                        
-
-
-    </div>
-      <div className={`${styles.card_litigations} card`}>
-                                   
-                                         <div className={`${styles.card_ligitations_holder}`}>
-                                             <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
-                                            <Row className={`${styles.row}`}>
-                                              <Col><div className="mb-0">Tribunals</div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Pending Case</span><span className={styles.lower}>4</span></div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={styles.lower}>4</span></div>
-                                             </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center`}><span>Total cases</span>
-                                              <div className={styles.chart}>
-                                                <div className={styles.container}>
-                                                  <div className={styles.fill}></div>
-                                                  <span>11</span>
-                                                </div>
-                                                
-                                              </div>
-                                              </div>
-                                             </Col>
-                                            
-                                             
-                                            </Row>
-                                              <h2 className="mb-0" sm={1}>+</h2>
-                                        </div>
-                                        <div id="Tribunals" className="collapse" aria-labelledby="Tribunals" data-parent="#profileAccordion">
-                                          <div className={` ${styles.cardBody_Tribunals} card-body`}>
-                                         
-                                               <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                                                <thead>
-                                                  <tr>
-                                                   
-                                                    <th className="">S.NO</th>
-                                                    <th className="">CINO.</th>
-                                                    <th className="">CASE NO.</th>
-                                                    <th className="">CASE TYPE</th>
-                                                    <th className="">SECTION</th>
-                                                    <th className="">PETITIONER</th>
-                                                    <th className="">RESPONDENT</th>
-                                                    <th className="">PREVIEW</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  <tr>
-                                                    <td>1.</td>
-                                                    <td className="">DLND0201</td>
-                                                    <td className="">CC NI ACT/4476/2021</td>
-                                                    <td className="">CC NI ACT</td>
-                                                    <td className="">U/S 7 lbc 2016</td>
-                                                    <td className="">Ms. Juhi Singh</td>
-                                                    <td className="">Ms. Juhi Singh</td>
-                                                     <td className="text-center"><img src="static/eye"></img></td>
-                                                  </tr>
-                                                 
-                                                </tbody>
-                                              </table>
-                           
-                                       
-
-                                           <div>
-                                            
-                                           </div>
-                                         
-
-                                          </div>
-                                             
-                                              
-                                            
-                                              
-                                              
-                                      
-                                         </div>
-                                         </div>
-                                      
-                                        
-
-
-    </div>
+     <LigitationsTable/>
+     <LigitationsTable/>
+     <LigitationsTable/>
+     <LigitationsTable/>
+  
      
 
     </>

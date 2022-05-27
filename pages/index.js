@@ -12,9 +12,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import Footer from "../src/components/Footer/index";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import TermsheetPopUp from "../src/components/TermsheetPopUp";
+import React, { useState, useEffect } from "react";
 
 const IndexPage = () => {
   const router = useRouter();
+
   return (
     <>
       <div className={`${styles.root_Container} container-fluid`}>
@@ -136,7 +138,6 @@ const IndexPage = () => {
           </div>
         </div>
       </div>
-     
     </>
   );
 };
