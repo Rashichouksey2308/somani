@@ -3,7 +3,6 @@
     border: 1px solid #D2D7E5;
     border-radius: 6px;
     background-color: #ffffff;
-    font-family: "Helvetica Neue";
     margin-top: 15px;
   
 
@@ -53,37 +52,49 @@
     position: relative;
     margin-bottom: 20px;
     margin-top: 20px;
-    
-    
+     
     .search_image {
         margin-left: -40px;
 
     }
 
     .label {
-        font-size:16px ;
+        top: 27px;
+        left: 30px;
+        font-size: 16px;
+        line-height: 0.5;
+        margin-bottom: 0;
         letter-spacing: 0.53px;
         color: #00000080;
-        text-transform: capitalize;
         position: absolute;
-        line-height: 1;
-        left: 30px;
-        top: -8px;
-        background:#ffffff;
-
-    }
-
-    .value {
-        font-size:20px;
-        letter-spacing: 0.19px;
-        color: #111111;
-        text-transform: capitalize;
+        pointer-events: none;
+        box-sizing: border-box;
+        background: #ffffff;
+        transform: translateY(-31px);
+        transition: 0.3s all ease-in-out;
+      }
+      .value {
+        height: 60px;
         background-color: #C3C3C31F;
         border: 1px solid #0000001F;
         border-radius: 4px;
-        height: 60px;
-       
-
+        color: #111111;
+        font-size: 20px;
+        font-weight: 500;
+        outline: none;
+        box-shadow: none;
+        position: relative;
+        box-sizing: border-box;
+        &:invalid + label {
+            background: none;
+            transform:translateY(0);
+        }
+        &:focus {
+            & + label {
+                background: #ffffff;
+                transform:translateY(-31px);
+            }
+        }
     }
     
 }

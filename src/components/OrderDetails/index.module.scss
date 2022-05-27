@@ -1,10 +1,6 @@
 .main {
     padding: 20px;
-    font-family: "Helvetica Neue";
-    //display: flex;
-    //flex-direction: column;
-    
-
+   
     .heading {
         font-weight: bold;
         font-size: 20px;
@@ -52,16 +48,49 @@
           position: relative;
           margin-bottom: 50px;
 
-              .label_heading {
-                font-size: 16px;
-                letter-spacing: 0.53px;
-                color: #00000080;
-                position: absolute;
-                left: 15px;
-                top: -10px;
-                background: #ffffff;
-                
-              }
+          .label_heading {
+            top: 27px;
+            left: 30px;
+            font-size: 16px;
+            line-height: 0.5;
+            margin-bottom: 0;
+            letter-spacing: 0.53px;
+            color: #00000080;
+            position: absolute;
+            pointer-events: none;
+            box-sizing: border-box;
+            background: #ffffff;
+            transform: translateY(-31px);
+            transition: 0.3s all ease-in-out;
+          }
+          .input_field {
+            height: 60px;
+            background-color: #C3C3C31F;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            color: #111111;
+            font-size: 20px;
+            font-weight: 500;
+            outline: none;
+            box-shadow: none;
+            position: relative;
+            box-sizing: border-box;
+            &:invalid + label {
+                background: none;
+                transform:translateY(0);
+            }
+            &:focus {
+                & + label {
+                    background: #ffffff;
+                    transform:translateY(-31px);
+                }
+            }
+        }
+
+        .search_image {
+          margin-left: -40px;
+  
+      }
 
               .phone_card{
                   display: flex;
@@ -78,15 +107,7 @@
                   }
               }
             
-            .input_field {
-                height: 60px;
-                background-color: #C3C3C31F;
-                border: 1px solid #0000001F;
-                border-radius: 4px;
-                color: #111111;
-                font-size: 20px;
-
-            }
+            
         }
 
     }
