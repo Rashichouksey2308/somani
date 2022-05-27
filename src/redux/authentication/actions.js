@@ -1,8 +1,9 @@
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+import { Router } from 'express'
 import API from '../../utils/endpoints'
 import * as types from './actionType'
-import { toast } from 'react-toastify'
-import history from '../../history'
+// import { toast } from 'react-toastify'
+// import history from '../../history'
 
 const errorMessage = {
   status: 400,
@@ -211,9 +212,10 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
     api.post(API.login, payload).then((response) => {
       if (response.status === 200) {
         dispatch(loggingUserSuccess(response.data.data))
+        Router.push("/")
       } else {
         dispatch(loggingUserFailed(response.data))
-        Cookies.remove('token')
+        // Cookies.remove('token')
       }
     })
   } catch (error) {

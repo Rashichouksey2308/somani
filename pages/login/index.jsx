@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styles from './index.module.scss'
+import styles from './index.module.scss';
+import {loginUser} from "../../src/redux/authentication/actions"
 
 function index() {
   const [loginDetails, setLoginDetails] = useState({
@@ -11,7 +12,7 @@ function index() {
 
   const dispatch = useDispatch()
 
-  //   const token = Cookies.get("token");
+    const token = Cookies.get("token");
 
   const onShowPasswordHandler = () => {
     setShowPassword(!showPassword)
@@ -43,9 +44,9 @@ function index() {
     }
   }, [loginDetails])
 
-  //   if(token){
-  //     return <Redirect to ="/dashboard" />
-  //   }
+    // if(token){
+    //   return <Redirect to ="/" />
+    // }
 
   return (
     <div className={styles.login}>
