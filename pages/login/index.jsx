@@ -1,16 +1,30 @@
-import React from 'react';
-import styles from './index.module.scss';
+import React from 'react'
+import styles from './index.module.scss'
 
 function index() {
-    return (
-        <div className={styles.login}>
-            <div className='row no-gutters'>
-                <div className={`${styles.loginBanner} col-sm-6`}>
-                    <img src='/static/login.png' alt='Login Banner' className='img-fluid'/>
-                    <div className={styles.pattern}><img src='/static/login-pattern.png' alt='banner pattern' className='img-fluid' /></div>
-                    <div className={styles.caption}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</div>
-                </div>
-                {/* <div className='col-sm-6'>
+  return (
+    <div className={styles.login}>
+      <div className="row no-gutters">
+        <div className={`${styles.loginBanner} col-sm-6`}>
+          <img
+            src="/static/login.png"
+            alt="Login Banner"
+            className="img-fluid"
+          />
+          <div className={styles.pattern}>
+            <img
+              src="/static/login-pattern.png"
+              alt="banner pattern"
+              className="img-fluid"
+            />
+          </div>
+          <div className={styles.caption}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s
+          </div>
+        </div>
+        {/* <div className='col-sm-6'>
                     <div className='row no-gutters'> */}
                 <div className={`${styles.loginForm} d-flex col-sm-6 align-items-center justify-content-around`}> 
                     <form className={styles.form}>
@@ -51,4 +65,4 @@ function index() {
         </div>
     )
 }
-export default index;
+export default index

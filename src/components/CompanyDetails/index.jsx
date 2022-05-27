@@ -3,12 +3,10 @@ import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 
-
-
-
 const index = () => {
 
    return (
+       <>
         <div className={styles.main}>
             <Form>
                 <div className={styles.heading}>Company Profile</div>
@@ -228,9 +226,11 @@ const index = () => {
             </Form>
 
         </div>
-    );
+
+     
+    </>
+    
+  )
 }
-
-
 
 export default index

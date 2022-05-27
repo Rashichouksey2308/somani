@@ -1,64 +1,55 @@
 .main {
-    box-shadow: 0px 3px 6px #CAD0E2;
-    border: 1px solid #D2D7E5;
-    border-radius: 6px;
-    margin-top: 20px;
-    font-family: Helvetica Neue;
-    //padding-top: 10px;
-    background-color: #ffffff;
+  box-shadow: 0px 3px 6px #cad0e2;
+  border: 1px solid #d2d7e5;
+  border-radius: 6px;
+  margin-top: 20px;
+  font-family: Helvetica Neue;
+  //padding-top: 10px;
+  background-color: #ffffff;
 
-
-.heading{
+  .heading {
     text-align: left;
-    font-size:22px;
+    font-size: 22px;
     font-weight: bold;
     letter-spacing: 0px;
-    color: #3687E8;
+    color: #3687e8;
     text-transform: capitalize;
     padding: 15px;
-    }
+  }
 
- .dashboard_form { 
-    
+  .dashboard_form {
     margin: 15px;
     .form_group {
-    
-    position: relative;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    
+      position: relative;
+      margin-bottom: 20px;
+      margin-top: 20px;
 
-    .label {
+      .label {
         text-align: left;
-        font-size:16px ;
+        font-size: 16px;
         letter-spacing: 0.53px;
         color: #00000080;
         text-transform: capitalize;
         position: absolute;
         left: 15px;
         top: -10px;
-        background:#ffffff;
+        background: #ffffff;
         line-height: 1;
         left: 30px;
         top: -8px;
+      }
 
-    }
-
-    .value {
+      .value {
         text-align: left;
-        font-size:20px;
+        font-size: 20px;
         letter-spacing: 0.19px;
         color: #111111;
         text-transform: capitalize;
-        background-color: #C3C3C31F;
-        border: 1px solid #0000001F;
+        background-color: #c3c3c31f;
+        border: 1px solid #0000001f;
         border-radius: 4px;
         height: 60px;
-
-
+      }
     }
-    
-}
- }
-
+  }
 }

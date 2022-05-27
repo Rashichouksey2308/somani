@@ -9,5 +9,5 @@ module.exports = {
     config.output.publicPath = `${assetPrefix}${config.output.publicPath}`
 
     return config
-  }
+  },
 }

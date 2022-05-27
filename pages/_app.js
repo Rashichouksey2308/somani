@@ -1,27 +1,27 @@
-import { ThemeProvider, createGlobalStyle } from "styled-components";
-import { Helmet } from "react-helmet";
-import { Provider } from "react-redux";
-import styledNormalize from "styled-normalize";
-import Layout from "../src/components/Layout";
-import { useStore } from "store";
-import "../src/components/styles/globals.scss";
-import React, { useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.css";
+import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import { Helmet } from 'react-helmet'
+import { Provider } from 'react-redux'
+import styledNormalize from 'styled-normalize'
+import Layout from '../src/components/Layout'
+import { useStore } from 'store'
+import '../src/components/styles/globals.scss'
+import React, { useEffect } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
 
-import theme from "theme";
+import theme from 'theme'
 
 const GlobalStyle = createGlobalStyle`
   ${styledNormalize}
-`;
+`
 
 export default function MyApp(props) {
   useEffect(() => {
-    import("bootstrap/dist/js/bootstrap.js");
-  }, []);
+    import('bootstrap/dist/js/bootstrap.js')
+  }, [])
 
-  const { Component, pageProps } = props;
-  const store = useStore(pageProps.state);
-  const title = "Somani";
+  const { Component, pageProps } = props
+  const store = useStore(pageProps.state)
+  const title = 'Somani'
   return (
     <>
       <Helmet>
@@ -38,5 +38,5 @@ export default function MyApp(props) {
         </Provider>
       </ThemeProvider>
     </>
-  );
+  )
 }

@@ -11,6 +11,7 @@
     "humps": "^2.0.1",
     "next": "^11.1.2",
     "popper.js": "^1.16.1",
+    "prettier": "^2.6.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.4.0",
@@ -57,8 +58,8 @@
     "lint": "standard --verbose | snazzy",
     "now-start": "yarn serve",
     "lint:fix": "standard --fix --verbose | snazzy",
-    "format": "prettier --check --ignore-path",
-    "format:fix": "prettier --write --ignore-path"
+    "format": "prettier --check --ignore-path .gitignore .",
+    "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "pre-commit": "lint-staged",
   "lint-staged": {
