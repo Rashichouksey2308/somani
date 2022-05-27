@@ -102,7 +102,7 @@ function index() {
   )
 }
 
-export default index;
+export default index
 
 const tableRow = () => {
   return (

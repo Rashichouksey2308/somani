@@ -1,9 +1,5 @@
-import config from "./config";
+import config from './config'
 
 export default {
-	baseUrl: `${config.serverUrl}`,
-
-    
-
-
+  baseUrl: `${config.serverUrl}`,
 }

@@ -1,11 +1,11 @@
-import React from "react";
-import Navbar from "./NavBar/index";
-import Sidebar from "./Sidebar/index";
-import Breadcrum from "./Breadcrum/index";
-import Footer from "./Footer/index";
-import styles from "./index.module.scss";
-import { Container, Row, Col } from "react-bootstrap";
-import TermSheetPreview from "../components/TermSheetPreview";
+import React from 'react'
+import Navbar from './NavBar/index'
+import Sidebar from './Sidebar/index'
+import Breadcrum from './Breadcrum/index'
+import Footer from './Footer/index'
+import styles from './index.module.scss'
+import { Container, Row, Col } from 'react-bootstrap'
+import TermSheetPreview from '../components/TermSheetPreview'
 
 function Layout({ children }) {
   return (
@@ -26,7 +26,7 @@ function Layout({ children }) {
     //   </div>
     // </div>
     <div>{children}</div>
-  );
+  )
 }
 
-export default Layout;
+export default Layout

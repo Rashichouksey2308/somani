@@ -39,7 +39,8 @@ const index = () => {
               <option>INR</option>
               <option>$</option>
             </select>
-            <input type="number"
+            <input
+              type="number"
               value="9876543210"
               id="textInput"
               className={`${styles.input_field} form-control`}
@@ -90,11 +91,9 @@ const index = () => {
             type="date"
             placeholder="22-02-2022"
             id="textDate"
-            onChange={(e)=>{
-              
-            }}
-            className={`${styles.input_field} form-control`} />
-
+            onChange={(e) => {}}
+            className={`${styles.input_field} form-control`}
+          />
         </div>
         <div className={`${styles.radio_form} col-md-12`}>
           <div className={styles.sub_heading}>INCO Terms</div>

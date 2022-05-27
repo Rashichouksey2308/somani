@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import CompanyDetails from '../CompanyDetails'
 import OrderDetails from '../OrderDetails'
@@ -7,40 +7,35 @@ import Terms from '../Terms'
 import { Card } from 'react-bootstrap'
 
 const index = () => {
-
   const [companyDetails, setCompanyDetails] = useState({
-    companyName: "", 
-    companyPan: "",
-    transactionType: "",
-    gst: "",
-    typeOfBusiness: "",
-    phone: "",
-    emailId: "",
-    turnOver: "",
-    communicationMode: "",
-    whatsAppNumber: "",
-    commodity: "",
-    quantity: "",
-    orderValue: "",
-    supplierName: "",
-    countryOfOrigin: "",
-    portOfDischarge: "",
-    expectedDateOfShipment: "",
-    incoTerms: "",
-    document: "",
-    tnc: ""
-})
+    companyName: '',
+    companyPan: '',
+    transactionType: '',
+    gst: '',
+    typeOfBusiness: '',
+    phone: '',
+    emailId: '',
+    turnOver: '',
+    communicationMode: '',
+    whatsAppNumber: '',
+    commodity: '',
+    quantity: '',
+    orderValue: '',
+    supplierName: '',
+    countryOfOrigin: '',
+    portOfDischarge: '',
+    expectedDateOfShipment: '',
+    incoTerms: '',
+    document: '',
+    tnc: '',
+  })
 
-const [state, setState] = useState(companyDetails)
+  const [state, setState] = useState(companyDetails)
 
-
-
-const saveData=(name,value)=>{
-    
-    state[name] = value;
-    setState({ ...state });
-}
-
+  const saveData = (name, value) => {
+    state[name] = value
+    setState({ ...state })
+  }
 
   return (
     <Card className={styles.card}>
