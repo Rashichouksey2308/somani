@@ -4,10 +4,12 @@ import TermDetails from '../TermDetails'
 import AdditionalComment from '../AdditionalComment'
 import OtherTerms from '../OtherTerms'
 import UploadOther from  '../UploadOther'
+import ApproveBar from '../ApproveBar'
 
 const index = () => {
   return (
 
+  <>
     <div className={`${styles.card}`}>
       <div className={styles.head_header}>
           <img className={`${styles.arrow} img-fluid`}
@@ -54,6 +56,8 @@ const index = () => {
       </div>
 
     </div>
+    <ApproveBar button={"Save"} button2={"Preview"}/>
+  </>
 
   )
 }
