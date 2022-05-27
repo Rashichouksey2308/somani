@@ -47,22 +47,22 @@ const index = () => {
         </div>
 
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <div className={styles.btn_container}>
-            <button className={styles.button_upload}>Upload</button>
-          </div>
+        <div className={styles.uploadBtnWrapper}>
+                  <input type="file" name="myfile" />
+                  <button className={`${styles.button_upload} btn`}>Upload</button>
+                   </div>
         </div>
 
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
           <div className={styles.image_card}>
-            <img className={styles.image_delete} src="/static/delete.svg" />
+            <img className={styles.image_delete} src="/static/delete.svg" alt="Delete"/>
           </div>
 
         </div>
         <hr className={styles.hr_line}></hr>
         <div className={`${styles.add_document} col-md-12`}>
-          <img className={styles.add_image} src="/static/Group 550.svg" />
+          <img className={styles.add_image} src="/static/add.svg" alt="Add"/>
           <p className={styles.add_para}>Add More Documents</p>
-
         </div>
       </div>
     </div>
