@@ -11,11 +11,11 @@ const index = () => {
 
       <div className={`${styles.input_container} row`}>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-        <div className='d-flex'>
-          <input className={`${styles.input_field} form-control`} required type="text"/> 
-          <img className={`${styles.search_image} img-fluid`} src = "/static/search-grey.svg" alt="Search"/>
-            </div>
-            <label className={styles.label_heading}>Commodity<strong className="text-danger">*</strong></label>
+          <div className='d-flex'>
+              <input className={`${styles.input_field} form-control`} required type="text"/> 
+              <label className={styles.label_heading}>Commodity<strong className="text-danger">*</strong></label>
+              <img className={`${styles.search_image} img-fluid`} src = "/static/search-grey.svg" alt="Search"/>
+          </div>
         </div>
 
         <div className={`${styles.each_input} col-md-2 col-sm-3`}>
