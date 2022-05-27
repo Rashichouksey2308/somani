@@ -27,7 +27,7 @@ const index = () => {
 
         <div className={`${styles.each_input} col-md-2 col-sm-3`}>
           <div className={styles.phone_card}>
-            <select className={styles.code_phone}>
+            <select className={`${styles.code_phone} w-50`}>
               <option>Select order values</option>
               <option selected>$</option>
               <option>INR</option>
