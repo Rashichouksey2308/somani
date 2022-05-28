@@ -17,7 +17,11 @@ function index() {
       Other: [
         { name: 'Review Queue', image: '/static/Review Queue.svg', route: '' },
         { name: 'Credit Queue', image: '/static/Credit Queue.svg' },
-        { name: 'Termsheets', image: '/static/Termsheets.svg' },
+        {
+          name: 'Termsheets',
+          image: '/static/Termsheets.svg',
+          route: '/termsheet',
+        },
       ],
       image: '/static/Leads.svg',
       route: '/leads',
@@ -46,6 +50,7 @@ function index() {
   const [className, setClassName] = useState('')
   const [category, setcategory] = useState('Dashboard')
   const [index12, setIndex] = useState('')
+
   const handleOpen = (val, index) => {
     if (index12 == index) {
       setIndex('')
@@ -58,33 +63,24 @@ function index() {
     return index
   }
   console.log(category)
+
   return (
     <div className={styles.main_container}>
       {tempArr.map((val, index) => {
         const className1 = category == val.main ? `${styles.selected}` : null
         return (
-          <>
-            <div key={index} className={styles.wrapper}>
-              <div
-                className={`${styles.header} ${className1}`}
-                onClick={(e) => {
-                  handleOpen(val.main, index)
-                  console.log('router', val.route)
-                  Router.push(val.route)
-                }}
-              >
-                <div>
-                  <img src={`${val.image}`}></img>
-                  <span>{val.main}</span>
-                </div>
-                {val.Other.length > 0 ? (
-                  <img
-                    src="/static/Accordion - menu.svg"
-                    className={styles.icon}
-                  ></img>
-                ) : (
-                  <div className={styles.icon}></div>
-                )}
+          <div key={index} className={styles.wrapper}>
+            <div
+              className={`${styles.header} ${className1}`}
+              onClick={(e) => {
+                handleOpen(val.main, index)
+                console.log('router', val.route)
+                Router.push(val.route)
+              }}
+            >
+              <div>
+                <img src={`${val.image}`}></img>
+                <span>{val.main}</span>
               </div>
               <div
                 className={`${styles.sub_wrapper} ${
@@ -100,6 +96,9 @@ function index() {
                           <div
                             index={index2}
                             className={`${styles.sub_header} ${className12}`}
+                            onClick={() => {
+                              Router.push(other.route)
+                            }}
                           >
                             <div>
                               <img src={`${other.image}`}></img>
@@ -112,7 +111,7 @@ function index() {
                   : null}
               </div>
             </div>
-          </>
+          </div>
         )
       })}
     </div>

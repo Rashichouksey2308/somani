@@ -7,29 +7,24 @@ import styles from './profile.module.scss'
 
 const index = () => {
   return (
-    <>
-      <div className={styles.root_Container}>
-        <div className={styles.wrapper}>
-          <div className={styles.head}>
-            <img
-              className={styles.arrow}
-              src="/static/keyboard_arrow_right-3.svg"
-            />
-            <h1 className={styles.heading}>Ramakrishna Traders</h1>
-          </div>
-          <ReviewProfile></ReviewProfile>
-          <CompanyProfile></CompanyProfile>
-          <CompanyProfile></CompanyProfile>
-        </div>
-        <div
-          className={styles.approve_Container}
-          onClick={() => {
-            Router.push('/credit-queue')
-          }}
-        >
-          <ApproveBar />
-        </div>
-      </div>
+      <>
+    <div className={styles.root_Container}>
+    <div className={styles.wrapper}>
+         <div className={styles.head}>
+        <img className={styles.arrow} 
+        src="/static/keyboard_arrow_right-3.svg"/>
+        <h1 className={styles.heading}>Ramakrishna Traders</h1>
+     </div>
+     <ReviewProfile></ReviewProfile>
+     <CompanyProfile></CompanyProfile>
+     <CompanyProfile></CompanyProfile>
+    </div>
+      <div className={styles.approve_Container} onClick={()=>{Router.push('/credit-queue')}} >
+         <ApproveBar button={"Save"} button2={"Preview"}/>
+     </div>
+    
+    </div>
+   
     </>
   )
 }

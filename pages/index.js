@@ -1,20 +1,22 @@
-import RepoSearch from 'features/repoSearch/RepoSearch'
-import { useRouter } from 'next/router'
-import { createStore } from 'store'
-import { getReposAsync } from 'features/repoSearch/repoSearchSlice'
-import DoughnutCart from '../src/components/DoughnutCart/index'
-import Leads from '../src/components/Leads/index'
-import styles from './index.module.scss'
-import Commodities from '../src/components/Commodities/index'
-import Exposure from '../src/components/Exposure/index'
-import Countries from '../src/components/Countries/index'
-import 'bootstrap/dist/css/bootstrap.css'
-import Footer from '../src/components/Footer/index'
-import { Container, Row, Col, Card } from 'react-bootstrap'
-import TermsheetPopUp from '../src/components/TermsheetPopUp'
+import RepoSearch from "features/repoSearch/RepoSearch";
+import { useRouter } from "next/router";
+import { createStore } from "store";
+import { getReposAsync } from "features/repoSearch/repoSearchSlice";
+import DoughnutCart from "../src/components/DoughnutCart/index";
+import Leads from "../src/components/Leads/index";
+import styles from "./index.module.scss";
+import Commodities from "../src/components/Commodities/index";
+import Exposure from "../src/components/Exposure/index";
+import Countries from "../src/components/Countries/index";
+import "bootstrap/dist/css/bootstrap.css";
+import Footer from "../src/components/Footer/index";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import TermsheetPopUp from "../src/components/TermsheetPopUp";
+import React, { useState, useEffect } from "react";
 
 const IndexPage = () => {
-  const router = useRouter()
+  const router = useRouter();
+
   return (
     <>
       <div className={`${styles.root_Container} container-fluid`}>

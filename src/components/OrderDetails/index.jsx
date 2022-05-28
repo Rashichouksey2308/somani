@@ -33,13 +33,14 @@ const index = ({saveData}) => {
             className={`${styles.input_field} form-control`}
           />
         </div>
+
         <div className={`${styles.each_input} col-md-2 col-sm-3`}>
           <label className={styles.label_heading} id="textInput">
             Order values
           </label>
           <div className={styles.phone_card}>
-            <select id="Code" className={styles.code_phone}>
-              <option>INR</option>
+            <select className={styles.code_phone}>
+              <option>Select order values</option>
               <option>$</option>
             </select>
             <input
@@ -78,6 +79,7 @@ const index = ({saveData}) => {
             <option value="America">America</option>
           </select>
         </div>
+
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
           <label className={styles.label_heading} id="dropPort">
             Port Of Discharge
@@ -91,6 +93,8 @@ const index = ({saveData}) => {
             <option value="Vishakapatnam">Vishakapatnam</option>
             <option value="Mumbai">Mumbai</option>
           </select>
+          <label className={styles.label_heading}>Port Of Discharge<strong className="text-danger">*</strong></label>
+
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
           <label className={styles.label_heading} id="textDate">
@@ -104,6 +108,7 @@ const index = ({saveData}) => {
             className={`${styles.input_field} form-control`}
           />
         </div>
+
         <div className={`${styles.radio_form} col-md-12`}>
           <div className={styles.sub_heading}>INCO Terms</div>
           <Form>
@@ -120,7 +125,6 @@ const index = ({saveData}) => {
                 <Form.Check
                   className={styles.radio}
                   inline
-                  disabled
                   label="CFR"
                   name="group1"
                   type={type}
@@ -130,7 +134,6 @@ const index = ({saveData}) => {
                 <Form.Check
                   className={styles.radio}
                   inline
-                  disabled
                   label="CIF"
                   name="group1"
                   type={type}

@@ -1,133 +1,66 @@
-import React, { Component } from 'react'
-import { Button, Form, FormGroup, Input, Label, Row } from 'reactstrap'
-import { Link } from 'react-router-dom'
+import React from 'react'
+import styles from './index.module.scss'
+import "bootstrap/dist/css/bootstrap.css";
 
-import '../../assets/css/components/login.css'
-import Config from '../../utils/config'
-import Image from '../ImageComponent'
-import axios from 'axios'
-
-export default class Login extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      username: '',
-      password: '',
+function index(props) {
+    // console.log(login)
+    const lo=()=>{
+        props.login()
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-  }
-
-  handleChange(e) {
-    e.preventDefault()
-    let state = { ...this.state }
-    state[e.target.name] = e.target.value
-    this.setState({ ...state })
-  }
-
-  handleSubmit(e) {
-    e.preventDefault()
-    let state = this.state
-    this.props.loginUser(state)
-  }
-
-  //  handleSubmit(e) {
-  //   e.preventDefault();
-  //   try {
-  //     // const user = await signInWithEmailAndPassword(auth, username, password);
-  //     // console.log(user);
-  //     // setUser(user);
-  //     // setUserState(true);
-
-  //     // const token = await auth.currentUser.getIdToken();
-  //     // console.log("why is this not running");
-  //     // console.log(token);
-  //     const response =  axios.post(
-  //       "http://localhost:4000/api/authentication",
-  //       { username: "harsh12@mail.com", password: "12345678" }
-  //     );
-
-  //     console.log(response);
-
-  //   } catch (error) {
-
-  //     console.log(error.message);
-  //   }
-  // }
-
-  render() {
-    let { username, password } = this.state
-    return (
-      <div>
-        <div className="logo">
-          <a>
-            <Image
-              tag="false"
-              src={`${Config.imageBaseUrl}/content/dam/re-platform-images/logo.svg`}
-              alt="Royal Enfield"
-            />
-          </a>
-        </div>
-        <div className="FullScreen">
-          <div className="re-image">
-            <div className="container formSection">
-              <Form onSubmit={this.handleSubmit}>
-                <FormGroup>
-                  <Label className="highlight labelColor" for="email">
-                    Email
-                  </Label>
-                  <Input
-                    type="text"
-                    name="username"
-                    placeholder="Email / Mobile"
-                    className="inputText"
-                    required
-                    title="Please enter your registered Email or Phone no."
-                    value={username}
-                    onChange={(e) => this.handleChange(e)}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label className="highlight labelColor" for="password">
-                    Password
-                  </Label>
-                  <Input
-                    type="password"
-                    name="password"
-                    id="password"
-                    required
-                    title="Please enter your password"
-                    className="inputText"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => this.handleChange(e)}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Row className="d-flex justify-content-center">
-                    <Button className="loginbtn btn btn-lg" type="submit">
-                      LOGIN
-                      <i
-                        className="fa fa-sign-in icon_margin"
-                        aria-hidden="true"
-                      ></i>
-                    </Button>
-                  </Row>
-                </FormGroup>
-                <Row className="d-flex justify-content-center">
-                  <Link
-                    to="/forgot-password"
-                    className="labelColor forgot_password_font"
-                  >
-                    Forgot Password?
-                  </Link>
-                </Row>
-              </Form>
+  return (
+          <div className={styles.login}>
+            <div className='row no-gutters'>
+                <div className={`${styles.loginBanner} col-sm-6`}>
+                    <img src='/static/login.png' alt='Login Banner' className='img-fluid'/>
+                    <div className={styles.pattern}><img src='/static/login-pattern.png' alt='banner pattern' className='img-fluid' /></div>
+                    <div className={styles.caption}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</div>
+                </div>
+                {/* <div className='col-sm-6'>
+                    <div className='row no-gutters'> */}
+                <div className={`${styles.loginForm} d-flex col-sm-6 align-items-center justify-content-around`}> 
+                    <form className={styles.form}>
+                        <div className={styles.logo}>
+                            <img src='/static/login-logo.svg' alt='login logo' className='img-fluid' />
+                        </div>
+                        <h1 className={styles.title}>Log In To Your Account</h1>
+                        <p>Welcome back! Please enter your details.</p>
+                        <div className={`${styles.labelFloat} form-group`}>
+                            <input type='text' id='email' className={`${styles.formControl} form-control`} required />
+                            <label for='email'>Email</label>
+                        </div>
+                        <div className={`${styles.labelFloat} ${styles.password} form-group`}>
+                            <div className='input-group align-items-center' id='password'>
+                                <input type='password' className={`${styles.formControl} form-control`} required />
+                                <label for='password'>Password</label>
+                                <img src='/static/eye.svg' alt='Show Password' className='img-fluid' />
+                            </div>
+                        </div>
+                        <div className={`${styles.remember} form-group`}>
+                            <div className='input-group align-items-center'>
+                                <input type="checkbox" id="remember" name="remember" value="Remember for 30 days" />
+                                <label for="remember" className='mb-0 ml-2'>Remember for 30 days</label>
+                                <a href='#' className={`${styles.forgotPassword} ml-auto`}>Forgot Password</a>
+                            </div>
+                        </div>
+                        <div className={`${styles.labelFloat} form-group`}>
+                            <button className={`${styles.signin} btn btn-primary btn-block`} onClick={(e)=>{
+                                e.preventDefault()
+                                lo()
+                               
+                              
+                           
+                            }}>Sign in</button>
+                        </div>
+                    </form>
+                    <ul className={styles.footerLinks}>
+                        <li><a href='#'>Help</a></li>
+                        <li><a href='#'>Privacy</a></li>
+                        <li><a href='#'>Terms</a></li>
+                    </ul>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    )
-  }
+  )
 }
-Login.propTypes = {}
+
+export default index

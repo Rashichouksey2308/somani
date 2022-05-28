@@ -52,10 +52,8 @@ const index = () => {
     <Card className={styles.card}>
       <Card.Header className={styles.head_container}>
         <div className={styles.head_header}>
-          <img
-            className={styles.arrow}
-            src="/static/keyboard_arrow_right-3.svg"
-          />
+          <img className={`${styles.arrow} img-fluid`}
+            src="/static/keyboard_arrow_right-3.svg" alt="ArrowRight"/>
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>

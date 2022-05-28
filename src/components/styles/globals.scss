@@ -25,8 +25,8 @@
   }
 }
 
-@include scrollbars(10px, #3687e8);
-body {
-  font-family: 'Helvetica Neue';
-  background: #f3f4f7;
+@include scrollbars(10px, #3687E8);
+body {    
+    font-family: 'Helvetica';
+    background: #F3F4F7
 }

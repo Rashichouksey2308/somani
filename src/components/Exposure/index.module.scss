@@ -27,11 +27,33 @@
     margin: 0 0 20px;
   }
 
-  .hr {
-    margin: 0px;
-    width: 100%;
-    border-top: 2px solid rgb(242 243 244);
-  }
+                .container {
+                    height: 9px;
+                    background-color: #E4ECF7;
+                    border-radius: 2px;
+                  }
+                  
+                  .barCompleted {
+                    height: 9px;
+                    background-color: #2884DE;
+                    border-radius: 2px;
+                    width: 80%;
+                  }
+                  
+            }
+            .percent{
+                text-align: right;
+                font-size: 23px;
+                margin-top: -23px;
+                color: #2884DE;
+                text-transform: capitalize;
+                font-weight: bold;
+              }
+            .total {
+                font-size:14px ;
+                padding-top: 25px;
+                color: #8492A6;
+                text-transform: uppercase;
 
   .body {
     display: flex;

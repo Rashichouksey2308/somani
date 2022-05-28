@@ -1,37 +1,28 @@
 .main_container {
   height: 42px;
   width: 100%;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 12px #cad0e2;
-  border: 1px solid #d2d7e5;
-  // position: fixed;
-  font-family: Helvetica;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  div {
-    height: 100%;
-    width: 100%;
-    padding-left: 1rem;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 12px #CAD0E2;
+    border: 1px solid #D2D7E5;
+    // position: fixed;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 
-    img {
-      width: 17px;
-      height: 15px;
-    }
-
-    span {
-      // width: 84px;
-      height: 19px;
-
-      letter-spacing: 0px;
-      color: #3687e8;
-      font-weight: bold;
-      font-size: 16px;
-      line-height: 19px;
-      margin-left: 1rem;
-    }
+        img {
+                width: 17px;
+                height: 15px;
+            }
+        
+            span {
+                height: 19px;
+        
+                letter-spacing: 0px;
+                color: #3687E8;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 19px;
+                margin-left: 1rem;
+            }
   }
-}
+
