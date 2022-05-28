@@ -7,8 +7,8 @@ function index() {
     let tempArr=[
         {head:"Commodity Details",details:[
             {subhead:"1. Commodity Name",val:"Chrome Ore"},
-             {subhead:"2. Quantity",val:"5000 MT (± 10%)"},
-              {subhead:"3. Unit Price",val:"USD 243/MT"},
+            {subhead:"2. Quantity",val:"5000 MT (± 10%)"},
+            {subhead:"3. Unit Price",val:"USD 243/MT"},
         ]
     }
     ]
@@ -26,11 +26,11 @@ function index() {
       <div  className={styles.head_container}>
         <div className={styles.head_header}>
           <img className={styles.arrow}
-            src="/static/keyboard_arrow_right-3.svg" />
+            src="/static/keyboard_arrow_right-3.svg" alt="Arrow" />
           <h1 className={styles.heading}>Termsheet Preview</h1>
         </div>
       </div>
-      <div  className={`${styles.term_container} mb-3 mt-3 container-fluid `}>
+      <div  className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
        <Row className={`h-50`}>
            <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
            <span>TERMSHEET</span>
@@ -54,22 +54,22 @@ function index() {
             
             </Col>
             <Col md={8}>{""}</Col>
-          </Row>
-          <Row>
+            </Row>
+            <Row>
             <Col md={4} className={`${styles.sub_content} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
-                 <li>Commodity Name</li>
-                  <li>Quantity</li>
-                   <li>Unit Price</li>
+                   <li>1. Commodity Name</li>
+                   <li>2. Quantity</li>
+                   <li>3. Unit Price</li>
              </ol>
             
             </Col>
             <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>Chrome Ore</li>
-                  <li>5000 MT (± 10%)</li>
-                   <li>USD 243/MT</li>
+                <li>5000 MT (± 10%)</li>
+                <li>USD 243/MT</li>
              </ul>
             </Col>
         </Row>
@@ -138,7 +138,7 @@ function index() {
             <Col md={8}>{""}</Col>
           </Row>
           <Row>
-            <Col md={12} className={`${styles.sub_content_other} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={12} className={`${styles.sub_content_other} d-flex justify-content-start align-content-center`}>
              Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. Indo German International Private Limited (IGPL) will provide proof of all expenses to the Buyer.
             
             
@@ -292,42 +292,20 @@ function index() {
                    <span>Any other cost incurred on behalf of Buyer</span>
                </div>
                </div>
-                <div>
-                  <div className={styles.subhead}>Other Charges</div>
-                   <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-               </div>
+                
                 <div>
                   <div className={styles.subhead}>{"Duty & Taxes"}</div>
                    <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>Customs Duty with all Govt Cess</span>
                </div>
                 <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>IGST with Cess, if applicable</span>
                </div>
                 <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>CIMS Charges (incase commodity is Coal)</span>
                </div>
               
                </div>
@@ -336,11 +314,11 @@ function index() {
                   <div className={styles.subhead}>Insurance</div>
                    <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>Marine Insurance (if applicable)</span>
                </div>
                 <div>
                    <input type="checkbox"/>
-                   <span>Hedging Charges</span>
+                   <span>Storage Insurance (Fire Burglary)</span>
                </div>
                
               

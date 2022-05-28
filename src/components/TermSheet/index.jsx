@@ -13,7 +13,7 @@ const index = () => {
     <div className={`${styles.card}`}>
       <div className={styles.head_header}>
           <img className={`${styles.arrow} img-fluid`}
-            src="/static/keyboard_arrow_right-3.svg" alt=""arrow/>
+            src="/static/keyboard_arrow_right-3.svg" alt="arrow"/>
           <h1 className={styles.heading}>Termsheet</h1>
        
       </div>
