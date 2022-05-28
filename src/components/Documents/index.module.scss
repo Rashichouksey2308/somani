@@ -92,6 +92,20 @@
 
             }
 
+            .uploadBtnWrapper {
+                overflow: hidden;
+                position: relative;
+                display: inline-block;
+                input {
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    opacity: 0;
+                    cursor: pointer;
+                    position: absolute;
+                }
+            }
             .button_upload {
                 width: 106px;
                 height: 38px;

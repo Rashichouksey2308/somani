@@ -39,9 +39,10 @@ const index = ({saveData}) => {
             Order values
           </label>
           <div className={styles.phone_card}>
-            <select className={styles.code_phone}>
+            <select className={`${styles.code_phone} w-50`}>
               <option>Select order values</option>
-              <option>$</option>
+              <option selected>$</option>
+              <option>INR</option>
             </select>
             <input
               type="number"
