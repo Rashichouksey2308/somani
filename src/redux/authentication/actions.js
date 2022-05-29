@@ -1,5 +1,5 @@
 // import Cookies from 'js-cookie'
-import { Router } from 'express'
+import Router from "next/router";
 import API from '../../utils/endpoints'
 import * as types from './actionType'
 // import { toast } from 'react-toastify'
@@ -212,7 +212,7 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
     api.post(API.login, payload).then((response) => {
       if (response.status === 200) {
         dispatch(loggingUserSuccess(response.data.data))
-        Router.push("/")
+        // Router.push("/")
       } else {
         dispatch(loggingUserFailed(response.data))
         // Cookies.remove('token')
