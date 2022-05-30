@@ -6,7 +6,6 @@
     "bootstrap": "^4.6.1",
     "chart.js": "^3.7.1",
     "compression": "^1.7.1",
-    "eslint": "^8.16.0",
     "express": "^4.16.2",
     "fs": "^0.0.1-security",
     "helmet": "^3.20.0",
@@ -39,6 +38,8 @@
     "babel-jest": "^25.1.0",
     "babel-plugin-inline-dotenv": "^1.1.2",
     "babel-plugin-module-resolver": "^4.0.0",
+    "eslint": "8.16.0",
+    "eslint-config-next": "12.1.6",
     "jest": "^25.1.0",
     "jquery": "^3.6.0",
     "lint-staged": "^10.0.8",
@@ -57,11 +58,11 @@
     "start": "nodemon -w server server/index.js",
     "serve": "NODE_ENV=development node server/index.js",
     "clean": "rimraf node_modules/.cache .next",
-    "lint": "standard --verbose | snazzy",
     "now-start": "yarn serve",
     "lint:fix": "standard --fix --verbose | snazzy",
     "format": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore ."
+    "format:fix": "prettier --write --ignore-path .gitignore .",
+    "lint": "next lint"
   },
   "pre-commit": "lint-staged",
   "lint-staged": {

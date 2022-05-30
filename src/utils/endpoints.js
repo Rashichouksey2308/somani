@@ -3,7 +3,9 @@ import config from './config'
 export default {
   baseUrl: `${config.serverUrl}`,
 
-  login: "/login"
+  login: "/api/login",
+  registerCompany: "/api/companyForm"
+
 }
 
 
