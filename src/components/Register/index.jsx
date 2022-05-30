@@ -5,8 +5,13 @@ import OrderDetails from '../OrderDetails'
 import Documents from '../Documents'
 import Terms from '../Terms'
 import { Card } from 'react-bootstrap'
+import Router from 'next/router'
+import { CreateBuyer } from 'redux/registerBuyer/action'
+import { useDispatch } from 'react-redux'
+
 
 const index = () => {
+  const dispatch= useDispatch();
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
     companyPan: '',
@@ -18,6 +23,9 @@ const index = () => {
     turnOver: '',
     communicationMode: '',
     whatsAppNumber: null,
+  })
+
+  const [orderDetails, setOrderDetails]  = useState({
     commodity: '',
     quantity: null,
     orderValue: null,
@@ -25,22 +33,51 @@ const index = () => {
     countryOfOrigin: '',
     portOfDischarge: '',
     expectedDateOfShipment: null,
-    incoTerms: '',
-    document: '',
-    tnc: '',
+    incoTerms: ''
   })
 
+  const [documents, setDocuments] = useState({
+    typeOfDocument: [null],
+    document1: '',
+    document2: ''
+  })
 
-  const saveData = (e) => {
+  console.log(companyDetails, "companyDetails")
+
+
+  const saveCompanyData = (name,value) => {
     const newInput = { ...companyDetails };
-    newInput[e.target.name] = e.target.value;
+    newInput[name] = value;
     setCompanyDetails(newInput);
+  }
+
+  const saveOrderData = (name,value) => {
+    const newInput = { ...orderDetails };
+    newInput[name] = value;
+    setOrderDetails(newInput);
+  }
+
+  const saveDocument = (e) => {
+    let newDocument = {...documents}
+    console.log(newDocument)
+    newDocument.typeOfDocument[e.target.name]=(e.target.value)
+    console.log(newDocument,"newdocument")
+    // setDocuments(newDocument)}
+
   }
   
   const submitData=()=>{
     //register api call
-
+    const payload={
+      companyProfile: companyDetails,
+      orderDetails: orderDetails,
+      documentType: documents.typeOfDocument
+    }
+    console.log(payload)
+    dispatch(CreateBuyer(payload))
+    Router.push('/leads')
   }
+
 
   const clearData=()=>{
     document.getElementById("CompanyDetailsForm").reset()
@@ -62,11 +99,11 @@ const index = () => {
       </Card.Header>
 
       <Card.Body className={styles.body}>
-        <CompanyDetails saveData={saveData}/>
+        <CompanyDetails saveCompanyData={saveCompanyData} />
         <hr className={styles.line}></hr>
-        <OrderDetails saveData={saveData}/>
+        <OrderDetails saveOrderData={saveOrderData}/>
         <hr className={styles.line}></hr>
-        <Documents saveData={saveData} />
+        <Documents saveDocument={saveDocument} />
         <hr className={styles.line}></hr>
         <Terms submitData={submitData} />
       </Card.Body>

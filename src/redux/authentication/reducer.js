@@ -30,7 +30,7 @@ const initialState = {
   },
 }
 
-function authReducer(state = initialState, action) {
+function AuthReducer(state = initialState, action) {
   switch (action.type) {
     case types.LOGIN_USER:
       return {
@@ -127,4 +127,4 @@ function authReducer(state = initialState, action) {
   }
 }
 
-export default authReducer
+export default AuthReducer;

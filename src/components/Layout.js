@@ -11,7 +11,7 @@ import Login from '../components/Login'
 
 
 function Layout({ children }) {
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(true)
  
   function login() {
     localStorage.setItem('login', true)

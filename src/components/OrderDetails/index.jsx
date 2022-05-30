@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 
-const index = ({saveData}) => {
+const index = ({saveOrderData}) => {
   return (
     <div className={styles.main}>
       <div className={styles.heading}>Order Details</div>
@@ -17,7 +17,7 @@ const index = ({saveData}) => {
             id="textInput"
             name='commodity'
             defaultValue='Iron'
-            onChange={(e)=>{saveData(e)}}
+            onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
           />
         </div>
@@ -29,7 +29,7 @@ const index = ({saveData}) => {
             type="number"
             id="textInput"
             name='quantity'
-            onChange={(e)=>{saveData(e)}}
+            onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
           />
         </div>
@@ -47,7 +47,7 @@ const index = ({saveData}) => {
             <input
               type="number"
               name='orderValue'
-              onChange={(e)=>{saveData(e)}}
+              onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
               id="textInput"
               className={`${styles.input_field} form-control`}
             />
@@ -61,7 +61,7 @@ const index = ({saveData}) => {
           <input
             type="text"
             name='supplierName'
-            onChange={(e)=>{saveData(e)}}
+            onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
             id="textInput"
             className={`${styles.input_field} form-control`}
           />
@@ -73,7 +73,7 @@ const index = ({saveData}) => {
           <select
             id="dropCountry"
             name='countryOfOrigin'
-            onChange={(e)=>{saveData(e)}}
+            onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
           >
             <option value="India">India</option>
@@ -88,7 +88,7 @@ const index = ({saveData}) => {
           <select
             id="dropPort"
             name='portOfDischarge'
-            onChange={(e)=>{saveData(e)}}
+            onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
           >
             <option value="Vishakapatnam">Vishakapatnam</option>
@@ -105,7 +105,7 @@ const index = ({saveData}) => {
             type="date"
             name='expectedDateOfShipment'
             id="textDate"
-            onChange={(e) => {saveData(e)}}
+            onChange={(e) => {saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
           />
         </div>
@@ -119,6 +119,7 @@ const index = ({saveData}) => {
                   className={styles.radio}
                   inline
                   label="FOB"
+                  onChange={() => saveOrderData("incoTerms","FOB")}
                   name="group1"
                   type={type}
                   id={`inline-${type}-1`}
@@ -127,6 +128,7 @@ const index = ({saveData}) => {
                   className={styles.radio}
                   inline
                   label="CFR"
+                  onChange={() => saveOrderData("incoTerms","CFR")}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}
@@ -136,6 +138,7 @@ const index = ({saveData}) => {
                   className={styles.radio}
                   inline
                   label="CIF"
+                  onChange={() => saveOrderData("incoTerms","CIF")}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}

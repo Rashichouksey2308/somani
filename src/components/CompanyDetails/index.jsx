@@ -3,11 +3,11 @@ import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 
-const index = ({saveData}) => {
+const index = ({saveCompanyData,setCheckbox}) => {
   return (
     <>
       <div className={styles.main}>
-        <form id=" ">
+        <form id="CompanyDetailsForm">
           <div className={styles.heading}>Company Profile</div>
           <div className={styles.radio_form}>
             <div className={styles.sub_heading}>Transaction Type</div>
@@ -16,6 +16,7 @@ const index = ({saveData}) => {
                 <Form.Check
                   className={styles.radio}
                   inline
+                  onChange={() => saveCompanyData("transactionType","Import")}
                   label="Import"
                   name="group1"
                   type={type}
@@ -26,6 +27,7 @@ const index = ({saveData}) => {
                   inline
                   label="Domestic"
                   name="group1"
+                  onChange={() => saveCompanyData("transactionType","Domestic")}
                   type={type}
                   id={`inline-${type}-2`}
                 />
@@ -44,9 +46,10 @@ const index = ({saveData}) => {
                 name="companyPan"
                 onChange={(e) => {
                   if (panValidation(e.target.value)) {
-                    saveData(e)
+                    saveCompanyData(e.target.name,e.target.value)
                   } else {
                     //red mark
+                    console.log("Invalid Pan")
                   }
                 }}
                 className={`${styles.input_field} form-control`}
@@ -59,7 +62,7 @@ const index = ({saveData}) => {
               </label>
               <input
                 type="text"
-                onChange={(e) => saveData(e)}
+                onChange={(e) => saveCompanyData(e.target.name,e.target.value)}
                 id="textInput"
                 name="companyName"
                 className={`${styles.input_field} form-control`}
@@ -86,7 +89,7 @@ const index = ({saveData}) => {
               </label>
               <select
                 id="Code"
-                onChange={(e)=>{saveData(e)}}
+                onChange={(e)=>{saveCompanyData(e.target.name,e.target.value)}}
                 name="typeOfBusiness"
                 className={`${styles.input_field} form-control`}
               >
@@ -114,7 +117,7 @@ const index = ({saveData}) => {
                   name="phone"
                   onChange={(e) => {
                     if (phoneValidation(e.target.value)) {
-                      saveData(e)
+                      saveCompanyData(e.target.name,e.target.value)
                       //green tick
                       console.log("is it validating?")
                     } else {
@@ -136,7 +139,7 @@ const index = ({saveData}) => {
                 id="textInput"
                 onChange={(e) => {
                   if (emailValidation(e.target.value)) {
-                    saveData(e)
+                    saveCompanyData(e.target.name,e.target.value)
                     //green tick
                   } else {
                     //red mark
@@ -158,7 +161,7 @@ const index = ({saveData}) => {
                   step="20"
                   name="turnOver"
                   list="tickmarks"
-                  onChange={(e)=>saveData(e)}
+                  onChange={(e)=>saveCompanyData(e.target.name,e.target.value)}
                   className={`${styles.slider} form-control`}
                   id="myRange"
                 />
@@ -186,6 +189,7 @@ const index = ({saveData}) => {
                         inline
                         defaultChecked={true}
                         label="Email ID"
+                        onChange={() => saveCompanyData("communicationMode","email id")}
                         name="group1"
                         type={type}
                         id={`inline-${type}-1`}
@@ -195,6 +199,7 @@ const index = ({saveData}) => {
                         inline
                         label="SMS"
                         name="group1"
+                        onChange={() => saveCompanyData("communicationMode","SMS")}
                         type={type}
                         id={`inline-${type}-2`}
                       />
@@ -203,6 +208,7 @@ const index = ({saveData}) => {
                         className={styles.radio}
                         inline
                         label="Whatsapp"
+                        onChange={() => saveCompanyData("communicationMode","Whatsapp")}
                         name="group1"
                         type={type}
                         id={`inline-${type}-2`}
@@ -230,7 +236,7 @@ const index = ({saveData}) => {
                   name="whatsAppNumber"
                   onChange={(e) => {
                     if (phoneValidation(e.target.value)) {
-                      saveData(e)
+                      saveCompanyData(e.target.name,e.target.value)
                       //green tick
                       console.log("is it validating?")
                     } else {
