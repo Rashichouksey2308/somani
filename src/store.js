@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import config from 'config'
 import { repoSearchReducer } from 'features/repoSearch/repoSearchSlice'
+import reducer from './redux/rootReducer';
+import authReducer from 'redux/authentication/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -19,6 +21,7 @@ export const createStore = (preloadedState) => {
   return configureStore({
     reducer: {
       repoSearch: repoSearchReducer,
+      auth: authReducer
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

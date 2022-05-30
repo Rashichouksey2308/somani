@@ -1,12 +1,63 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.scss'
 import "bootstrap/dist/css/bootstrap.css";
+import { loginUser } from 'redux/authentication/actions';
 
 function index(props) {
-    // console.log(login)
-    const lo=()=>{
-        props.login()
-    }
+ 
+    const loggingInUser= useSelector(state=>state.auth.loggingInUser)
+    
+    useEffect(()=>{
+        if(loggingInUser){
+            props.login()
+        }
+        else{
+            //display error msg
+        }
+    },[loggingInUser])
+    const [loginDetails, setLoginDetails] = useState({
+        email: '',
+        password: '',
+      })
+      const [showPassword, setShowPassword] = useState(false)
+    
+      const dispatch = useDispatch()
+    
+        // const token = Cookies.get("token");
+    
+      const onShowPasswordHandler = () => {
+        setShowPassword(!showPassword)
+      }
+    
+      const onInputDataHandler = (e) => {
+        const credentials = { ...loginDetails }
+        credentials[e.target.name] = e.target.value
+        setLoginDetails(credentials)
+      }
+    
+      const onSubmitHandler = (e) => {
+        // e.preventDefault();
+        // console.log("details", loginDetails.username, loginDetails.password);
+        dispatch(loginUser(loginDetails))
+     
+      }
+    
+      const listener = (event) => {
+        if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+          event.preventDefault()
+          onSubmitHandler()
+        }
+      }
+    
+      useEffect(() => {
+        document.addEventListener('keydown', listener)
+        return () => {
+          document.removeEventListener('keydown', listener)
+        }
+      }, [loginDetails])
+    
+
   return (
           <div className={styles.login}>
             <div className='row no-gutters'>
@@ -25,14 +76,14 @@ function index(props) {
                         <h1 className={styles.title}>Log In To Your Account</h1>
                         <p>Welcome back! Please enter your details.</p>
                         <div className={`${styles.labelFloat} form-group`}>
-                            <input type='text' id='email' className={`${styles.formControl} form-control`} required />
+                            <input type='text' id='email' name="email"  onChange={(e)=>onInputDataHandler(e)} className={`${styles.formControl} form-control`} required />
                             <label for='email'>Email</label>
                         </div>
                         <div className={`${styles.labelFloat} ${styles.password} form-group`}>
                             <div className='input-group align-items-center' id='password'>
-                                <input type='password' className={`${styles.formControl} form-control`} required />
+                                <input type={showPassword ? 'text' : 'password'} name="password" onChange={(e)=>{onInputDataHandler(e)}} className={`${styles.formControl} form-control`} required />
                                 <label for='password'>Password</label>
-                                <img src='/static/eye.svg' alt='Show Password' className='img-fluid' />
+                                <img src='/static/eye.svg'  onClick={onShowPasswordHandler} alt='Show Password' className='img-fluid' />
                             </div>
                         </div>
                         <div className={`${styles.remember} form-group`}>
@@ -45,7 +96,7 @@ function index(props) {
                         <div className={`${styles.labelFloat} form-group`}>
                             <button className={`${styles.signin} btn btn-primary btn-block`} onClick={(e)=>{
                                 e.preventDefault()
-                                lo()
+                                onSubmitHandler()
                                
                               
                            

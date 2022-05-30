@@ -1,4 +1,5 @@
 // import Cookies from 'js-cookie'
+import Axios from "axios";
 import Router from "next/router";
 import API from '../../utils/endpoints'
 import * as types from './actionType'
@@ -206,12 +207,11 @@ export function setnewPasswordFailed() {
 
 export const loginUser = (payload) => async (dispatch, getState, api) => {
   dispatch(loggingUser())
-
   try {
     // let response = await api.post(API.login, payload);
-    api.post(API.login, payload).then((response) => {
+    Axios.post(`${API.baseUrl}${API.login}`, payload).then((response) => {
       if (response.status === 200) {
-        dispatch(loggingUserSuccess(response.data.data))
+        dispatch(loggingUserSuccess(response.data))
         // Router.push("/")
       } else {
         dispatch(loggingUserFailed(response.data))

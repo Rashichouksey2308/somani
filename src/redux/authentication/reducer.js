@@ -42,7 +42,7 @@ function authReducer(state = initialState, action) {
     case types.LOGIN_USER_SUCCESS: {
       return {
         ...state,
-        token: action.payload.jwtAccessToken,
+        token: action.payload.token,
         loggingInUser: false,
         loggingUserMessage: null,
       }

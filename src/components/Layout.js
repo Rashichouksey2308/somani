@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "./NavBar/index";
-import Sidebar from "./Sidebar/index";
-import Breadcrum from "./Breadcrum/index";
-import Footer from "./Footer/index";
-import styles from "./index.module.scss";
-import { Container, Row, Col } from "react-bootstrap";
-import TermSheetPreview from "../components/TermSheetPreview";
-import Login from "../components/Login";
-import { createImmutableStateInvariantMiddleware } from "@reduxjs/toolkit";
-import { Router } from "next/router";
+import React, { useState } from 'react'
+import Navbar from './NavBar/index'
+import Sidebar from './Sidebar/index'
+import Breadcrum from './Breadcrum/index'
+import Footer from './Footer/index'
+import styles from './index.module.scss'
+import TermSheetPreview from '../components/TermSheetPreview'
+import Login from '../components/Login'
+
+
+
+
 function Layout({ children }) {
-  const [isLogin, setIsLogin] = useState(false);
-  useEffect(() => {
-    setIsLogin(localStorage.getItem("login"));
-  }, [isLogin]);
-  console.log(isLogin);
+  const [isLogin, setIsLogin] = useState(false)
+ 
   function login() {
-    localStorage.setItem("login", true);
-    setIsLogin(true);
+    localStorage.setItem('login', true)
+    setIsLogin(true)
   }
   return (
     <>
@@ -40,12 +38,11 @@ function Layout({ children }) {
           </div>
         </div>
       ) : (
-        <Login login={login} />
+        <Login login={login}/>
       )}
     </>
 
-    // <div>{children}</div>
-  );
+  )
 }
 
 export default Layout
