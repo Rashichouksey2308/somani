@@ -9,84 +9,69 @@ const index = () => {
     <div className={styles.main}>
       <div className={styles.heading}>Order Details</div>
 
-
       <div className={`${styles.input_container} row`}>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <label className={styles.label_heading} id="textInput">Commodity</label>
-          <input
-            type="text"
-            id="textInput"
-            placeholder="Iron"
-            className={`${styles.input_field} form-control`} />
+          <div className='d-flex'>
+              <input className={`${styles.input_field} form-control`} required type="text"/> 
+              <label className={styles.label_heading}>Commodity<strong className="text-danger">*</strong></label>
+              <img className={`${styles.search_image} img-fluid`} src = "/static/search-grey.svg" alt="Search"/>
+          </div>
+        </div>
 
-        </div>
         <div className={`${styles.each_input} col-md-2 col-sm-3`}>
-          <label className={styles.label_heading} id="textInput">Quantity (in MT)</label>
           <input
             type="text"
-            id="textInput"
-            placeholder="500"
-            className={`${styles.input_field} form-control`} />
+            className={`${styles.input_field} form-control`} required/>
+            <label className={styles.label_heading}>Quantity (in MT)<strong className="text-danger">*</strong></label>
         </div>
+
         <div className={`${styles.each_input} col-md-2 col-sm-3`}>
-          <label className={styles.label_heading} id="textInput">Order values</label>
           <div className={styles.phone_card}>
-            <select id="Code" className={styles.code_phone}>
+            <select className={`${styles.code_phone} w-50`}>
+              <option>Select order values</option>
+              <option selected>$</option>
               <option>INR</option>
-              <option>$</option>
-
             </select>
             <input type="text"
-              placeholder="9876543210"
-              id="textInput"
               className={`${styles.input_field} form-control`} />
-
+              <label className={styles.label_heading}>Order values<strong className="text-danger">*</strong></label>
           </div>
-
         </div>
 
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <label className={styles.label_heading} id="textInput">Supplier Name</label>
           <input
             type="text"
-            placeholder="Camilog International"
-            id="textInput"
-            className={`${styles.input_field} form-control`} />
-
+            className={`${styles.input_field} form-control`} required/>
+            <label className={styles.label_heading}>Supplier Name<strong className="text-danger">*</strong></label>
+        
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <label className={styles.label_heading} id="dropCountry">Country Of Origin</label>
           <select
-            id="dropCountry"
-            className={`${styles.input_field} form-control`} >
-            <option value="country">India</option>
-            <option value="countryt1">America</option>
-
+            className={`${styles.input_field} form-control`}>
+            <option value="I">Select Country</option>
+            <option value="India">America</option>
           </select>
-
+          <label className={styles.label_heading}>Country Of Origin<strong className="text-danger">*</strong></label>
         </div>
+
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <label className={styles.label_heading} id="dropPort">Port Of Discharge</label>
           <select
-            id="dropPort"
             className={`${styles.input_field} form-control`} >
-            <option value="port1">Vishakapatnam</option>
+            <option value="port1">Select Port</option>
             <option value="port2">Mumbai</option>
-
           </select>
+          <label className={styles.label_heading}>Port Of Discharge<strong className="text-danger">*</strong></label>
+
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <label className={styles.label_heading} id="textDate">Expected Date Of Shipment</label>
           <input
             type="date"
-            placeholder="22-02-2022"
-            id="textDate"
-            className={`${styles.input_field} form-control`} />
-
+            className={`${styles.input_field} form-control`}/>
+            <label className={styles.label_heading}>Expected Date Of Shipment<strong className="text-danger">*</strong></label>
         </div>
+
         <div className={`${styles.radio_form} col-md-12`}>
-          <div className={styles.sub_heading}
-          >INCO Terms</div>
+          <div className={styles.sub_heading}>INCO Terms<strong className="text-danger">*</strong></div>
           <Form>
             {['radio'].map((type) => (
               <div key={`inline-${type}`} className={styles.radio_group}>
@@ -101,7 +86,6 @@ const index = () => {
                 <Form.Check
                   className={styles.radio}
                   inline
-                  disabled
                   label="CFR"
                   name="group1"
                   type={type}
@@ -111,7 +95,6 @@ const index = () => {
                 <Form.Check
                   className={styles.radio}
                   inline
-                  disabled
                   label="CIF"
                   name="group1"
                   type={type}

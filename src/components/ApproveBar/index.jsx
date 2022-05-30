@@ -5,10 +5,10 @@ import styles from './index.module.scss'
 function index(props) {
   return (
     <div className={styles.root}>
-        <div className={styles.reject}><span>{props.button}</span></div>
+        <div className={styles.reject}><span>Reject</span></div>
         <div className={styles.approve} onClick={()=>{
           Router.push("/termsheet/123")
-        }}><span>{props.button2}</span></div>
+        }}><span>Approve</span></div>
     </div>
   )
 }
