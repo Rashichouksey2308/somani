@@ -83,6 +83,35 @@
                 cursor: pointer;
                 border-bottom: none;
                 padding: 25px 35px !important;
+                .unit_container {
+
+                    padding-right: 15px;
+            
+                     .unit_label{
+                    font-size:18px;
+                    color: #2837566A;
+                    text-transform: capitalize;
+                    font-weight: bold;
+                    margin-top: 10px;
+                    padding-right: 15px;
+                }
+                       .options {
+                        font-size:18px;
+                        color: #3687E8;
+                        text-transform: capitalize;
+                        margin-right: 10px;
+                        background: #F3F4F7;
+                        border-radius: 14px;
+                        border: none;
+                        font-weight: bold;
+                        text-align: center;
+                        padding-left: 8px;
+                        padding-right: 6px;
+                        padding-top: 4px;
+                        padding-bottom: 4px;
+                        margin-right: 50px;
+                        }
+                    }
                 h2 {
                     font-size: 22px;
                     color: #3687E8;
