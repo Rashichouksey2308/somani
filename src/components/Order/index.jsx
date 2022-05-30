@@ -5,8 +5,8 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={`${styles.main} container-fluid`}>
-    <div className='d-flex justify-content-between'>
+    <div className={`${styles.main}`}>
+        <div className={`${styles.head_container} d-flex justify-content-between`}>
         <h3 className={styles.heading}>Order Summary</h3>
         <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={styles.unit_label}>Units : </h5>
@@ -17,7 +17,6 @@ const index = () => {
                 className="img-fluid" alt="Add"/>
                 </div>
                 </div>        
-                <hr></hr>
                 <div className={styles.dashboard_form}>
                 
             <Form>

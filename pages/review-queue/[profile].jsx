@@ -2,6 +2,7 @@ import React from 'react'
 import ReviewProfile from '../../src/components/ReviewProfile'
 import CompanyProfile from '../../src/components/CompanyProfile'
 import ApproveBar from '../../src/components/ApproveBar'
+import OrderProfile from '../../src/components/OrderProfile'
 import Router from "next/router";
 import styles from './profile.module.scss'
 
@@ -16,7 +17,7 @@ const index = () => {
                 </div>
                 <ReviewProfile></ReviewProfile>
                 <CompanyProfile></CompanyProfile>
-                <CompanyProfile></CompanyProfile>
+                <OrderProfile></OrderProfile>
             </div>
             <div className={styles.approve_Container} onClick={()=>{Router.push('/credit-queue')}} >
                 <ApproveBar button={"Save"} button2={"Preview"}/>

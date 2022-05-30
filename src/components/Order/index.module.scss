@@ -5,16 +5,19 @@
     background-color: #ffffff;
     margin-top: 15px;
   
+    .head_container {
+        padding: 10px 0px 0px 20px;
 
-.heading{
-    font-weight:bold;
-    font-size: 22px;
-    color: #3687E8;
-    text-transform: capitalize;
-    padding: 15px;
-    margin-top: 15px;
+        border-bottom: 3px solid #D9DDE8;
+        .heading{
+            font-weight:bold;
+            font-size: 22px;
+            color: #3687E8;
+            text-transform: capitalize;
+            padding: 15px;
+            margin-top: 15px;
+     }
     }
-
     .unit_container {
 
         padding-right: 15px;
@@ -45,7 +48,8 @@
             }
         }
  .dashboard_form { 
-    
+    padding: 10px 0px 0px 20px;
+
      margin: 15px;
 
     .form_group {
