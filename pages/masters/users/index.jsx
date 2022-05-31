@@ -51,7 +51,7 @@ const index = () => {
                   <td>9034894802</td>
                   <td>Finance</td>
                   <td>22-02-2022</td>
-                  <td><img src="/static/approved.svg" className='img-fluid' alt="active"/>
+                  <td><img src="/static/active.svg" className='img-fluid' alt="active"/>
                   <span className='m-3'>Active</span>
                   </td>                
                   </tr>
@@ -61,7 +61,7 @@ const index = () => {
                   <td>9034894802</td>
                   <td>Finance</td>
                   <td>22-02-2022</td>
-                  <td><img src="/static/approved.svg" className='img-fluid' alt="active"/>
+                  <td><img src="/static/active.svg" className='img-fluid' alt="active"/>
                   <span className='m-3'>Active</span>
                   </td>                
                   </tr>
@@ -71,7 +71,7 @@ const index = () => {
                   <td>9034894802</td>
                   <td>Finance</td>
                   <td>22-02-2022</td>
-                  <td><img src="/static/approved.svg" className='img-fluid' alt="active"/>
+                  <td><img src="/static/active.svg" className='img-fluid' alt="active"/>
                   <span className='m-3'>Active</span>
                   </td>
                    </tr>
@@ -81,7 +81,7 @@ const index = () => {
                   <td>9034894802</td>
                   <td>Finance</td>
                   <td>22-02-2022</td>
-                  <td><img src="/static/approved.svg" className='img-fluid' alt="active"/>
+                  <td><img src="/static/active.svg" className='img-fluid' alt="active"/>
                   <span className='m-3'>Active</span>
                   </td>
                  </tr>
@@ -91,7 +91,7 @@ const index = () => {
                   <td>9034894802</td>
                   <td>Finance</td>
                   <td>22-02-2022</td>
-                  <td><img src="/static/status-icon.svg" className='img-fluid' alt="inactive"/>
+                  <td><img src="/static/inactive.svg" className='img-fluid' alt="inactive"/>
                   <span className='m-3'>Inactive</span>
                   </td>
                   </tr>
@@ -101,7 +101,7 @@ const index = () => {
                   <td>9034894802</td>
                   <td>Finance</td>
                   <td>22-02-2022</td>
-                  <td><img src="/static/status-icon.svg" className='img-fluid' alt="blacklist"/>
+                  <td><img src="/static/blacklisted.svg" className='img-fluid' alt="blacklisted"/>
                   <span className='m-3'>Blacklisted</span>
                   </td>                
                   </tr>
@@ -111,7 +111,7 @@ const index = () => {
                   <td>9034894802</td>
                   <td>Finance</td>
                   <td>22-02-2022</td>
-                  <td><img src="/static/status-icon.svg" className='img-fluid' alt="Status"/>
+                  <td><img src="/static/notice.svg" className='img-fluid' alt="Notice Period"/>
                   <span className='m-3'>Notice Period</span>
                   </td>
                 </tr>
