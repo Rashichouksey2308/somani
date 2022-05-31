@@ -7,11 +7,16 @@ import Terms from '../Terms'
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
 import { CreateBuyer, GetBuyer } from 'redux/registerBuyer/action'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const index = () => {
+
+
   const dispatch= useDispatch();
+
+  const {document} = useSelector(state => state.buyer)
+
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
     companyPan: '',
@@ -62,18 +67,42 @@ const index = () => {
     console.log(newDocument)
     newDocument.typeOfDocument[e.target.name]=(e.target.value)
     console.log(newDocument,"newdocument")
-    // setDocuments(newDocument)}
+    setDocuments(newDocument)
+
+  }
+
+  const uploadDocument1 = (e) => {
+    const formData = new FormData()
+    formData.append('document1', e.target.files[0], 'document1.doc')
+    const newUploadDoc = {...documents}
+    newUploadDoc.document1 = formData
+    console.log(newUploadDoc,"newuploaddocument")
+    setDocuments(newUploadDoc)
+
+  }
+  const uploadDocument2 = (e) => {
+    const formData = new FormData()
+    formData.append('document2', e.target.files[0], 'document2.doc')
+    const newUploadDoc1 = {...documents}
+    newUploadDoc1.document2 = formData
+    console.log(newUploadDoc1,"newuploaddocument1")
+    setDocuments(newUploadDoc1)
 
   }
   
   const submitData=()=>{
     //register api call
+    console.log(documents, "these are the docs")
     const payload={
       companyProfile: companyDetails,
       orderDetails: orderDetails,
-      documentType: documents.typeOfDocument
+      documentType: documents.typeOfDocument,
+      document1: documents.document1,
+      document2: documents.document2
+      
     }
-    console.log(payload)
+    console.log(payload, "this is payload")
+
     dispatch(CreateBuyer(payload))
     Router.push('/leads')
   }
@@ -109,7 +138,7 @@ const index = () => {
         <hr className={styles.line}></hr>
         <OrderDetails saveOrderData={saveOrderData}/>
         <hr className={styles.line}></hr>
-        <Documents saveDocument={saveDocument} />
+        <Documents saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
         <hr className={styles.line}></hr>
         <Terms submitData={submitData} />
       </Card.Body>
