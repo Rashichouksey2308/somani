@@ -8,80 +8,29 @@ Chart.register(LineController, LineElement, PointElement, LinearScale, Title, Ca
 // Chart.register(linear);
 function index() {
 const data = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul"],
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
   datasets: [
     {
-      label: "My First dataset",
+      label: "First dataset",
+      data: [33, 53, 85, 41, 44, 65],
+      fill: true,
+      backgroundColor: "rgba(75,192,192,0.2)",
+      borderColor: "rgba(75,192,192,1)"
+    },
+    {
+      label: "Second dataset",
+      data: [33, 25, 35, 51, 54, 76],
       fill: false,
-      lineTension: 0.1,
-      backgroundColor: "rgba(75,192,192,0.4)",
-      borderColor: "rgba(75,192,192,1)",
-      borderCapStyle: "butt",
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: "miter",
-      pointBorderColor: "rgba(75,192,192,1)",
-      pointBackgroundColor: "#fff",
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(75,192,192,1)",
-      pointHoverBorderColor: "rgba(220,220,220,1)",
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: [1500000, 3900000, 3000000, 4100000, 2300000, 1800000, 2000000]
+      borderColor: "#742774"
     }
   ]
-};
-const lineOptions = {
-  onClick: (e, element) => {
-    if (element.length > 0) {
-      var ind = element[0]._index;
-      alert(ind);
-    }
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          display: false
-        }
-      }
-    ],
-    yAxes: [
-      {
-        // stacked: true,
-        gridLines: {
-          display: false
-        },
-        ticks: {
-          beginAtZero: true,
-          // Return an empty string to draw the tick line but hide the tick label
-          // Return `null` or `undefined` to hide the tick line entirely
-          userCallback(value) {
-            // Convert the number to a string and splite the string every 3 charaters from the end
-            value = value.toString();
-            value = value.split(/(?=(?:...)*$)/);
-
-            // Convert the array to a string and format the output
-            value = value.join(".");
-            return `Rp.${value}`;
-          }
-        }
-      }
-    ]
-  },
-  legend: {
-    display: false
-  },
-  tooltips: {
-    enabled: false
-  }
 };
 
   return (
     <>
-        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations" aria-expanded="true" aria-controls="litigations">
+    
+       <div className={styles.wrapper}>
+         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations" aria-expanded="true" aria-controls="litigations">
             <h2 className="mb-0">Summary Information</h2>
             <span>+</span>
         </div>
@@ -290,127 +239,131 @@ const lineOptions = {
             </div>
            </div>
            </div>            
-        </div>    
+        </div>  
+        </div>  
 
        
-        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations1" aria-expanded="true" aria-controls="litigations1">
+        <div  className={styles.wrapper}>
+          <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations1" aria-expanded="true" aria-controls="litigations1">
             <h2 className="mb-0">Summary Chart</h2>
             <span>+</span>
         </div>
         <div id="litigations1" className="collapse" aria-labelledby="litigations1" data-parent="#profileAccordion">
          <div className={` ${styles.cardBody} card-body`}>
-           <Row>
-             <Col md={6}>
+           <Row className={styles.row}>
+             <Col md={6} className={styles.col}>
+              <div className={styles.chart_container}>
+              <div className={` ${styles.header}  d-flex align-items-center justify-content-start`}>
+              <span>Revenue Summary</span>  
+              <span className={styles.light}>(Cr)</span> 
+            </div>
+             <div  className={styles.chart}>
+                <Line data={data} />
+             </div>
+              </div>
+             </Col>
+              <Col md={6} className={styles.col2}>
               <div className={styles.chart_container}>
               <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
               <span>Revenue Summary</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
-            <Line
-                datasetIdKey='id'
-                data={{
-                  labels: ['Jun', 'Jul', 'Aug'],
-                  datasets: [
-                    {
-                      id: 1,
-                      label: '',
-                      data: [5, 6, 7],
-                    },
-                    {
-                      id: 2,
-                      label: '',
-                      data: [3, 2, 1],
-                    },
-                  ],
-                }}
-              />
+             <div  className={styles.chart}>
+                <Line data={data} />
+             </div>
               </div>
              </Col>
-              <Col md={6}>
+              <Col md={6} className={styles.col}>
               <div className={styles.chart_container}>
               <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
               <span>Revenue Summary</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
-            <Line
-                datasetIdKey='id'
-                data={{
-                  labels: ['Jun', 'Jul', 'Aug'],
-                  datasets: [
-                    {
-                      id: 1,
-                      label: '',
-                      data: [5, 6, 7],
-                    },
-                    {
-                      id: 2,
-                      label: '',
-                      data: [3, 2, 1],
-                    },
-                  ],
-                }}
-              />
+             <div  className={styles.chart}>
+                <Line data={data} />
+             </div>
               </div>
              </Col>
-             <Col md={6}>
+              <Col md={6} className={styles.col2}>
               <div className={styles.chart_container}>
               <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
               <span>Revenue Summary</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
-            <Line
-                datasetIdKey='id'
-                data={{
-                  labels: ['Jun', 'Jul', 'Aug'],
-                  datasets: [
-                    {
-                      id: 1,
-                      label: '',
-                      data: [5, 6, 7],
-                    },
-                    {
-                      id: 2,
-                      label: '',
-                      data: [3, 2, 1],
-                    },
-                  ],
-                }}
-              />
+             <div  className={styles.chart}>
+                <Line data={data} />
+             </div>
               </div>
              </Col>
-             <Col md={6}>
-              <div className={styles.chart_container}>
-              <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
-              <span>Revenue Summary</span>  
-              <span className={styles.light}>(Cr)</span> 
-            </div>
-            <Line
-                datasetIdKey='id'
-                data={{
-                  labels: ['Jun', 'Jul', 'Aug'],
-                  datasets: [
-                    {
-                      id: 1,
-                      label: '',
-                      data: [5, 6, 7],
-                    },
-                    {
-                      id: 2,
-                      label: '',
-                      data: [3, 2, 1],
-                    },
-                  ],
-                }}
-              />
-              </div>
-             </Col>
+           
            </Row>
           
            </div>            
-        </div>                                   
-                                            
+        </div>
+          </div>                                   
+
+
+
+          <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations2" aria-expanded="true" aria-controls="litigations2">
+            <h2 className="mb-0">Sales Details</h2>
+            <span>+</span>
+        </div>
+        <div id="litigations2" className="collapse" aria-labelledby="litigations2" data-parent="#profileAccordion">
+         <div className={` ${styles.cardBody} card-body`}>
+           <table className={`${styles.table}  table`}cellpadding="0" cellspacing="0" border="1">
+            <tr>
+            <th colspan={2}>Annual Summary</th>
+            <th  colspan={2}>MAR 2020 - APR 2021</th>
+            <th  colspan={2}>MAR 2021 - APR 2022</th>
+            </tr>
+             <tr>
+            <td  colspan={2} ></td>
+             <td>VALUE</td>
+              <td>% ON GROSS REVENUE</td>
+                <td>VALUE</td>
+              <td>% ON GROSS REVENUE</td>
+             {/* <td    className=" d-flex align-items-center justify-content-between">
+               <span>VALUE</span>
+               <span >% ON GROSS REVENUE</span>
+             </td>
+              <td    className=" d-flex align-items-center justify-content-between">
+               <span>VALUE</span>
+               <span >% ON GROSS REVENUE</span>
+             </td> */}
+            
+             
+            
+             
+           
+            
+            
+            </tr>
+             <tr>
+            <td  colspan={2} >Gross Revenue</td>
+             <td>1,900.00</td>
+              <td>80%</td>
+                <td>1,900.00</td>
+              <td>80%</td>
+        
+            
+             
+            
+             
+           
+            
+            
+            </tr>
+           </table>
+          
+           </div>            
+        </div>                                      
                                               
-                                              
+
+           {/* CistomerDetail                                    */}
+
+      {gstCustomerDetail()}
+        {gstSupplierDetail()}
+         {gstSales()}
                                       
                                     
     </>
@@ -418,3 +371,701 @@ const lineOptions = {
 }
 
 export default index
+
+const gstCustomerDetail = () => {
+  return(
+    <>
+            <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
+            <h2 className="mb-0">Customer Details</h2>
+            <span>+</span>
+        </div>
+        <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
+         <div className={` ${styles.CustomercardBody} card-body`}>
+         <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Recurring Party Sales In Last 12 Months</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Related Party Sales In Last 12 Monthss</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Top 10 Customers</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Statewise Sales</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          
+        </div>            
+        </div>  
+    </>
+  )
+}
+
+const gstSupplierDetail = () => {
+  return(
+    <>
+            <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
+            <h2 className="mb-0">Customer Details</h2>
+            <span>+</span>
+        </div>
+        <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
+         <div className={` ${styles.CustomercardBody} card-body`}>
+         <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Recurring Party Sales In Last 12 Months</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Related Party Sales In Last 12 Monthss</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Top 10 Customers</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Statewise Sales</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          
+        </div>            
+        </div>  
+    </>
+  )
+}
+
+const gstSales = () => {
+  return(
+    <>
+            <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
+            <h2 className="mb-0">Sales</h2>
+            <span>+</span>
+        </div>
+        <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
+         <div className={` ${styles.CustomercardBody} card-body`}>
+         <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Financial Period 2020- 2021</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>REVENUE BREAKUP</th>
+            <th >FEB’ 22</th>
+            <th >JAN’ 22</th>
+             <th >DEC’21</th>
+            <th >NOV’21</th>
+            <th >OCT’21</th>
+             <th >SEP’21</th>
+              <th >AUG’21</th>
+               <th >JUL’21</th>
+                <th >JUN’21</th>
+                 <th >MAY’21</th>
+                  <th >APR’21</th>
+                   <th >MAR’21</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>Total Sales</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>22</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Related Party Sales In Last 12 Monthss</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Top 10 Customers</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          <div className={` ${styles.content}`}>
+            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <span>Statewise Sales</span>  
+            
+            </div>
+            <div className={` ${styles.body}`}>
+             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+            <tr>
+            <th>CUSTOMER NAME</th>
+            <th >PAN</th>
+            <th >SALES</th>
+             <th >% OF TOTAL SALES</th>
+            <th >OF INVOICES</th>
+            <th >SALES PER INVOICE</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+               <tr>
+                <td>Abs International Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+            
+           </table>
+            </div>
+         </div>
+          
+        </div>            
+        </div>  
+    </>
+  )
+}
