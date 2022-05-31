@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import CompanyDetails from '../CompanyDetails'
 import OrderDetails from '../OrderDetails'
@@ -6,7 +6,7 @@ import Documents from '../Documents'
 import Terms from '../Terms'
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
-import { CreateBuyer } from 'redux/registerBuyer/action'
+import { CreateBuyer, GetBuyer } from 'redux/registerBuyer/action'
 import { useDispatch } from 'react-redux'
 
 
@@ -17,23 +17,23 @@ const index = () => {
     companyPan: '',
     transactionType: '',
     gst: '',
-    typeOfBusiness: '',
-    phone: null,
+    typeOfBussiness: '',
+    phoneNumber: null,
     emailId: '',
     turnOver: '',
     communicationMode: '',
-    whatsAppNumber: null,
+    whatsappNumber: null,
   })
 
   const [orderDetails, setOrderDetails]  = useState({
     commodity: '',
-    quantity: null,
+    Quantity: null,
     orderValue: null,
     supplierName: '',
     countryOfOrigin: '',
     portOfDischarge: '',
-    expectedDateOfShipment: null,
-    incoTerms: ''
+    ExpectedDateOfShipment: null,
+    IncoTerms: ''
   })
 
   const [documents, setDocuments] = useState({
@@ -84,6 +84,12 @@ const index = () => {
     document.getElementById("OrderDetailsForm").reset()
 
   }
+
+  useEffect(() => {
+    console.log("in use effect")
+    GetBuyer("765e0a87-e2c3-4e0c-b5cb-f0b6082bd6ad")
+  }, [])
+  
   
   return (
     <Card className={styles.card}>

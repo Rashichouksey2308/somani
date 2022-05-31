@@ -90,7 +90,7 @@ const index = ({saveCompanyData,setCheckbox}) => {
               <select
                 id="Code"
                 onChange={(e)=>{saveCompanyData(e.target.name,e.target.value)}}
-                name="typeOfBusiness"
+                name="typeOfBussiness"
                 className={`${styles.input_field} form-control`}
               >
                 <option value="Manufacturer">Manufacturer</option>
@@ -114,7 +114,7 @@ const index = ({saveCompanyData,setCheckbox}) => {
                 <input
                   type="number"
                   id="textNumber"
-                  name="phone"
+                  name="phoneNumber"
                   onChange={(e) => {
                     if (phoneValidation(e.target.value)) {
                       saveCompanyData(e.target.name,e.target.value)
@@ -187,7 +187,7 @@ const index = ({saveCompanyData,setCheckbox}) => {
                       <Form.Check
                         className={styles.radio}
                         inline
-                        defaultChecked={true}
+                        // defaultChecked={true}
                         label="Email ID"
                         onChange={() => saveCompanyData("communicationMode","email id")}
                         name="group1"
@@ -233,7 +233,7 @@ const index = ({saveCompanyData,setCheckbox}) => {
                 </select>
                 <input
                   type="number"
-                  name="whatsAppNumber"
+                  name="whatsappNumber"
                   onChange={(e) => {
                     if (phoneValidation(e.target.value)) {
                       saveCompanyData(e.target.name,e.target.value)

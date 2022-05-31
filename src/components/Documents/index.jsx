@@ -6,6 +6,10 @@ const index = ({ saveDocument }) => {
 
   const [secondDocName, setSecondDocName] = useState(null)
 
+  const [document1, setDocument1] = useState('')
+
+  const [document2, setDocument2] = useState('')
+
   // let formData = new FormData();
 
   const handleMultimediaChange = (e) => {
@@ -14,18 +18,31 @@ const index = ({ saveDocument }) => {
     //   "🚀 ~ file: index.jsx ~ line 72 ~ handleMultimediaChange ~ e",
     //   e
     // );
-
+    console.log(e.target.files[0], "handlechange file")
+    
+    
     let formData = new FormData();
     var fileTypes = ['.doc', '.pdf', '.txt']
+    const file = e.target.files[0]
     if (e.target.files[0]) {
-      var extension = e.target.files[0].name.split('.').pop().toLowerCase(),
-        isSuccess = fileTypes.indexOf(extension) > -1
-      if (isSuccess) {
-        let file = e.target.files[0]
-        let name = e.target.name
-        formData.append(name, file)
+      var extension = e.target.files[0].name.split('.').pop().toLowerCase()
+        // isSuccess = fileTypes.indexOf(extension) > -1
+      if (extension === ".txt"  || extension === ".pdf" || extension === ".doc" || extension === ".docx") {
+        // let file = e.target.files[0]
+        // let name = e.target.name
+        // formData.append(name, file)
+        console.log("failure")
+        console.log(file.type, "file type2")
+        // return false
       } else {
         //error message
+        console.log("inside else block")
+        console.log(extension, "ext")
+        console.log(file.type, "file type")
+        // console.log(isSuccess, "succ")
+        setDocument1(e.target.files[0])
+        setName(e.target.files[0].name)
+        
       }
     }
     console.log(formData.values(),"values")
@@ -64,8 +81,9 @@ const index = ({ saveDocument }) => {
                 type="file"
                 name="myfile"
                 onChange={(e) => {
-                  setName(e.target.files[0].name)
                   handleMultimediaChange(e)
+                 
+                
                 }}
               />
               <button className={`${styles.button_upload} btn`}>Upload</button>
@@ -109,7 +127,7 @@ const index = ({ saveDocument }) => {
               name="myfile"
               onChange={(e) => {
                 setSecondDocName(e.target.files[0].name)
-                handleMultimediaChange(e)
+                
               }}
             />
             <button className={`${styles.button_upload} btn`}>Upload</button>

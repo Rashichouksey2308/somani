@@ -91,7 +91,7 @@ const index = ({saveOrderData}) => {
             onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
           >
-            <option value="Vishakapatnam">Vishakapatnam</option>
+            <option value="VishakaPatnam">Visakhapatnam</option>
             <option value="Mumbai">Mumbai</option>
           </select>
           <label className={styles.label_heading}>Port Of Discharge<strong className="text-danger">*</strong></label>
@@ -119,7 +119,7 @@ const index = ({saveOrderData}) => {
                   className={styles.radio}
                   inline
                   label="FOB"
-                  onChange={() => saveOrderData("incoTerms","FOB")}
+                  onChange={() => saveOrderData("IncoTerms","FOB")}
                   name="group1"
                   type={type}
                   id={`inline-${type}-1`}
@@ -128,7 +128,7 @@ const index = ({saveOrderData}) => {
                   className={styles.radio}
                   inline
                   label="CFR"
-                  onChange={() => saveOrderData("incoTerms","CFR")}
+                  onChange={() => saveOrderData("IncoTerms","CFR")}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}
@@ -138,7 +138,7 @@ const index = ({saveOrderData}) => {
                   className={styles.radio}
                   inline
                   label="CIF"
-                  onChange={() => saveOrderData("incoTerms","CIF")}
+                  onChange={() => saveOrderData("IncoTerms","CIF")}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}

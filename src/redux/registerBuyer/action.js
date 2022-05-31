@@ -75,9 +75,10 @@ function getBuyerFailed() {
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(createBuyer());
   try {
-    const response = await Axios.post(`${API.baseUrl}${API.registerCompany}`, payload);
+   Axios.post(`${API.baseUrl}${API.registerCompany}`, payload).then((response)=>{
+    console.log(payload, "in action2")
     if (response.data.code === 200) {
-      dispatch(createBuyerSuccess(response.data.data));
+      dispatch(createBuyerSuccess(response.data));
       // payload.history.goBack()
       
     } else {
@@ -85,6 +86,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
       dispatch(createBuyerFailed(response.data.data));
     
     }
+  })
   } catch (error) {
     dispatch(createBuyerFailed());
 
@@ -116,12 +118,11 @@ export const settingSelectBuyer = (payload) => {
   };
 };
 
-export const GetBuyer = () => async (dispatch, getState, api) => {
+export const GetBuyer = (companyId) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
   try {
-    const response = await api.get(
-      `${API.createBuyer}`
-    );
+    console.log("in getbuyer")
+    Axios.get(`${API.baseUrl}${API.registerCompany}?companyId=${companyId}`).then((response)=>{
     if (response.data.code === 200) {
       dispatch(getBuyerSuccess(response.data.data));
       // toast.error("Buyers fetched")
@@ -129,6 +130,7 @@ export const GetBuyer = () => async (dispatch, getState, api) => {
       dispatch(getBuyerFailed(response.data.data));
     
     }
+  })
   } catch (error) {
     dispatch(getBuyerFailed());
     

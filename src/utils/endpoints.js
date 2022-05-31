@@ -4,7 +4,7 @@ export default {
   baseUrl: `${config.serverUrl}`,
 
   login: "/api/login",
-  registerCompany: "/api/companyForm"
+  registerCompany: "/api/lead/company-details"
 
 }
 
