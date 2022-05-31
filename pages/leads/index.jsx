@@ -85,7 +85,7 @@ function index() {
               <h3>Leads</h3>
               <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                 <span>Showing Page 1 out of 10</span>
-                <a href="#" className={`${styles.arrow} ${styles.leftArrow}`}> <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid"/></a>
+                <a href="#" className={`${styles.arrow} ${styles.leftArrow}`}> <img src="/static/keyboard_arrow_right-3.svg" alt="arrow left" className="img-fluid"/></a>
                 <a href="#" className={`${styles.arrow} ${styles.rightArrow}`}><img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid"/></a>
               </div>
             </div>
