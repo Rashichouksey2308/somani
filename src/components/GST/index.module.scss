@@ -1,0 +1,85 @@
+ .cardHeader {
+     cursor: pointer;
+     border-bottom: none;
+     padding: 25px 35px !important;
+
+     h2 {
+         font-size: 22px;
+         color: #3687E8;
+         font-weight: bold;
+         line-height: 27px;
+     }
+
+     span {
+         font-size: 45px;
+         color: #3687E8;
+         font-weight: normal;
+         line-height: 20px;
+     }
+    
+}
+ .cardBody {
+     padding:0px;
+    
+     .content{
+         .header{
+             
+          padding: 25px 35px !important;
+          font-weight: bold;
+          font-size: 22px;
+          line-height:27px;
+          height: 67px;
+          background: #FAFAFB 0% 0% no-repeat padding-box;
+          .light{
+            color: #2837566A;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 23px;
+            margin-right: 1rem;
+          }
+         }
+     }
+     .body{
+        padding: 25px 35px !important;
+        
+        .col_header{
+            font-weight: medium;
+                font-size: 16px;
+                line-height: 17px;
+               margin-top: 1.5rem;
+                letter-spacing: 0.53px;
+                color: #00000080;
+        }
+        .col_body{
+            font-weight: bold;
+                font-size: 20px;
+                line-height: 25px;
+                color: #111111;
+                margin-top:0.5rem;
+         
+        }
+     }
+ }
+
+                .gst_cancelled {
+                    background: #ea3f3f22 0% 0% no-repeat padding-box;
+                    border-radius: 5px;
+                    width: 186px;
+                    height: 38px;
+        
+                    .dot {
+                        width: 16px;
+                        height: 16px;
+                        background: #EA3F3F 0% 0% no-repeat padding-box;
+                        border-radius: 100px;
+                        opacity: 1;
+                    }
+        
+                    span {
+                        font-weight: medium;
+                        font-size: 19px;
+                        line-height: 24px;
+                        opacity: 1;
+                    }
+        
+                }
