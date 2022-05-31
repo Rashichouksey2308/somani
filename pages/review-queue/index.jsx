@@ -5,6 +5,7 @@ import Order from '../../src/components/Order';
 import ShipmentDetails from '../../src/components/ShipmentDetails'
 import ComplianceLigitations from '../../src/components/CompilanceLigitation'
 import LigitationsTable from '../../src/components/LigitationsTable'
+import GST from '../../src/components/GST'
 
 import {Row,Col} from 'react-bootstrap'
 function index() {
@@ -866,7 +867,7 @@ function index() {
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="gst" role="tabpanel">
-                                <div className={`${styles.card} card`}>GST</div>
+                                <div className={`${styles.card} card`}><GST/></div>
                             </div>
                             <div className="tab-pane fade" id="Compliance" role="tabpanel">
                                 <div className={`${styles.card} card`}>
