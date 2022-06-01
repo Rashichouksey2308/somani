@@ -4,7 +4,7 @@ import styles from './creditqueue.module.scss'
 import Router from "next/router";
 function index() {
     return (
-      <div className='container-fluid'>
+      <div className='container-fluid mb-4'> 
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
             <div className="input-group">
