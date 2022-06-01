@@ -1,9 +1,8 @@
 import React from 'react'
-import {Form} from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
- 
-const index = () => { 
+const index = () => {
   return (
     <div className={styles.main}>
         <div className={`${styles.head_container} d-flex justify-content-between`}>

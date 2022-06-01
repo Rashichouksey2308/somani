@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { selectRepoSearch, getReposAsync } from 'features/repoSearch/repoSearchSlice'
+import {
+  selectRepoSearch,
+  getReposAsync,
+} from 'features/repoSearch/repoSearchSlice'
 
 import { useAppDispatch, useAppSelector } from 'store'
 
@@ -15,14 +18,19 @@ const RepoSearch = () => {
       <SearchResults
         repos={store.repos}
         totalRepoCount={store.totalRepoCount}
-        language={store.language} />
+        language={store.language}
+      />
       <hr />
       {store.status === 'loading' && <Overlay>🦆...</Overlay>}
       <h3>Switch language</h3>
       <Languages>
         {languages.map((lang) => {
           const getRepos = () => dispatch(getReposAsync(lang))
-          return <Option key={lang} onClick={getRepos}>{lang}</Option>
+          return (
+            <Option key={lang} onClick={getRepos}>
+              {lang}
+            </Option>
+          )
         })}
       </Languages>
     </Container>
@@ -55,7 +63,7 @@ const Overlay = styled.div`
   top: 0;
   left: 0;
   background: #fff;
-  opacity: .9;
+  opacity: 0.9;
   width: 100%;
   height: 76%;
   display: flex;

@@ -4,105 +4,96 @@
     border-radius: 6px;
     background-color: #ffffff;
     //margin-top: 15px;
-    margin: 20px 15px 20px 15px ;
-  
+    margin: 20px 15px 20px 15px;  
     .head_container {
         padding: 10px 0px 0px 20px;
-
         border-bottom: 3px solid #D9DDE8;
-           .heading{
+        .heading {
             font-weight:bold;
             font-size: 22px;
             color: #3687E8;
             text-transform: capitalize;
             padding: 15px;
             margin-top: 15px;
-     }
+        }
     }
     .unit_container {
-
-        padding-right: 15px;
-
-         .unit_label{
-        font-size:18px;
-        color: #2837566A;
-        text-transform: capitalize;
-        font-weight: bold;
-        margin-top: 10px;
-        padding-right: 15px;
-    }
-           .options {
-            font-size:18px;
-            color: #3687E8;
-            text-transform: capitalize;
-            margin-right: 10px;
-            background: #F3F4F7;
-            border-radius: 14px;
-            border: none;
-            font-weight: bold;
-            text-align: center;
-            padding-left: 8px;
-            padding-right: 6px;
-            padding-top: 4px;
-            padding-bottom: 4px;
-            margin-right: 50px;
+        .unit_container {
+            padding-right: 15px;
+            .unit_label {
+                font-size: 18px;
+                color: #2837566a;
+                text-transform: capitalize;
+                font-weight: bold;
+                margin-top: 10px;
+                padding-right: 15px;
+            }
+            .options {
+                font-size:18px;
+                color: #3687E8;
+                text-transform: capitalize;
+                margin-right: 10px;
+                background: #F3F4F7;
+                border-radius: 14px;
+                border: none;
+                font-weight: bold;
+                text-align: center;
+                padding-left: 8px;
+                padding-right: 6px;
+                padding-top: 4px;
+                padding-bottom: 4px;
+                margin-right: 50px;
             }
         }
- .dashboard_form { 
-    padding: 10px 0px 0px 20px;
-
-     margin: 15px;
-
-    .form_group {
-    position: relative;
-    margin-bottom: 20px;
-    margin-top: 20px;
-     
-    .search_image {
-        margin-left: -40px;
-
-    }
-
-    .label {
-        top: 27px;
-        left: 30px;
-        font-size: 16px;
-        line-height: 0.5;
-        margin-bottom: 0;
-        letter-spacing: 0.53px;
-        color: #00000080;
-        position: absolute;
-        pointer-events: none;
-        box-sizing: border-box;
-        background: #ffffff;
-        transform: translateY(-31px);
-        transition: 0.3s all ease-in-out;
-      }
-      .value {
-        height: 60px;
-        background-color: #C3C3C31F;
-        border: 1px solid #0000001F;
-        border-radius: 4px;
-        color: #111111;
-        font-size: 20px;
-        font-weight: 500;
-        outline: none;
-        box-shadow: none;
-        position: relative;
-        box-sizing: border-box;
-        &:invalid + label {
-            background: none;
-            transform:translateY(0);
-        }
-        &:focus {
-            & + label {
+        .dashboard_form { 
+            padding: 10px 0px 0px 20px;
+            margin: 15px;
+            .form_group {
+                position: relative;
+                margin-bottom: 20px;
+                margin-top: 20px;            
+                .search_image {
+                    margin-left: -40px;
+                }
+            }
+            .label {
+                top: 27px;
+                left: 30px;
+                font-size: 16px;
+                line-height: 0.5;
+                margin-bottom: 0;
+                letter-spacing: 0.53px;
+                color: #00000080;
+                position: absolute;
+                pointer-events: none;
+                box-sizing: border-box;
                 background: #ffffff;
-                transform:translateY(-31px);
+                transform: translateY(-31px);
+                transition: 0.3s all ease-in-out;
+            }
+            .value {
+                height: 60px;
+                background-color: #C3C3C31F;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                color: #111111;
+                font-size: 20px;
+                font-weight: 500;
+                outline: none;
+                box-shadow: none;
+                position: relative;
+                box-sizing: border-box;
+                &:invalid + label {
+                    background: none;
+                    transform:translateY(0);
+                }
+                &:focus {
+                    & + label {
+                        background: #ffffff;
+                        transform:translateY(-31px);
+                    }
+                }
             }
         }
     }
-    
-}
- }
-
 }

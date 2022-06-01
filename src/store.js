@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import config from 'config'
 import { repoSearchReducer } from 'features/repoSearch/repoSearchSlice'
+import AuthReducer from 'redux/authentication/reducer';
+import BuyerReducer from 'redux/registerBuyer/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -10,7 +12,7 @@ export const createStore = (preloadedState) => {
   if (config.env === 'development' && typeof window !== 'undefined') {
     const logger = createLogger({
       level: 'info',
-      collapsed: true
+      collapsed: true,
     })
 
     middlewares.push(logger)
@@ -18,11 +20,14 @@ export const createStore = (preloadedState) => {
 
   return configureStore({
     reducer: {
-      repoSearch: repoSearchReducer
+      repoSearch: repoSearchReducer,
+      auth: AuthReducer,
+      buyer: BuyerReducer
     },
     preloadedState,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),
-    devTools: config.env === 'development'
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(...middlewares),
+    devTools: config.env === 'development',
   })
 }
 

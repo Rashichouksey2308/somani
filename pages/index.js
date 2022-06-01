@@ -23,18 +23,18 @@ const IndexPage = () => {
         <div className={`${styles.head_Container} row`}>
           <div className="col-sm-6">
             <Leads
-              header={"Leads"}
-              subHeader={"TOTAL LEADS"}
-              image={"/static/clipboard-list.svg"}
-              content={["APPROVED", "IN PROCESS", "REJECTED"]}
+              header={'Leads'}
+              subHeader={'TOTAL LEADS'}
+              image={'/static/clipboard-list.svg'}
+              content={['APPROVED', 'IN PROCESS', 'REJECTED']}
             />
           </div>
           <div className="col-sm-6">
             <Leads
-              header={"Procurement Orders"}
-              subHeader={"ORDER PLACED"}
-              image={"/static/box-open.svg"}
-              content={["COMPLETED", "IN PROCESS", "REJECTED"]}
+              header={'Procurement Orders'}
+              subHeader={'ORDER PLACED'}
+              image={'/static/box-open.svg'}
+              content={['COMPLETED', 'IN PROCESS', 'REJECTED']}
             />
           </div>
         </div>
@@ -65,7 +65,7 @@ const IndexPage = () => {
                   >
                     <span>Showing Page 1 out of 10</span>
                     <a href="#" className={`${styles.arrow} ${`leftArrow`}`}>
-                      {" "}
+                      {' '}
                       <img
                         src="/static/keyboard_arrow_right-3.svg"
                         alt="arrow right"
@@ -139,18 +139,18 @@ const IndexPage = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 export async function getStaticProps() {
-  const store = createStore();
-  await store.dispatch(getReposAsync("python"));
+  const store = createStore()
+  await store.dispatch(getReposAsync('python'))
 
   return {
     props: {
       state: store.getState(),
     },
-  };
+  }
 }
 
-export default IndexPage;
+export default IndexPage

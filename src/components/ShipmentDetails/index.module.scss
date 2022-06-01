@@ -6,67 +6,60 @@
     margin: 20px 15px 50px 15px ;
     .head_container {
         border-bottom: 3px solid #D9DDE8;
-            padding: 10px 0px 0px 20px;
-
-            .heading{
+        padding: 10px 0px 0px 20px;
+        .heading {
             font-size:22px;
             font-weight: bold;
             color: #3687E8;
             text-transform: capitalize;
             padding: 15px;
-            }
-}
- .dashboard_form { 
-    padding: 10px 0px 0px 20px;
-
-    margin: 15px;
-    .form_group {
-    
-    position: relative;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    
-
-    .label {
-        top: 27px;
-        left: 30px;
-        font-size: 16px;
-        line-height: 0.5;
-        margin-bottom: 0;
-        letter-spacing: 0.53px;
-        color: #00000080;
-        position: absolute;
-        pointer-events: none;
-        box-sizing: border-box;
-        background: #ffffff;
-        transform: translateY(-31px);
-        transition: 0.3s all ease-in-out;
-      }
-      .value {
-        height: 60px;
-        background-color: #C3C3C31F;
-        border: 1px solid #0000001F;
-        border-radius: 4px;
-        color: #111111;
-        font-size: 20px;
-        font-weight: 500;
-        outline: none;
-        box-shadow: none;
-        position: relative;
-        box-sizing: border-box;
-        &:invalid + label {
-            background: none;
-            transform:translateY(0);
         }
-        &:focus {
-            & + label {
+    }
+    .dashboard_form { 
+        padding: 10px 0px 0px 20px;
+        margin: 15px;
+        .form_group {
+            position: relative;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            .label {
+                top: 27px;
+                left: 30px;
+                font-size: 16px;
+                line-height: 0.5;
+                margin-bottom: 0;
+                letter-spacing: 0.53px;
+                color: #00000080;
+                position: absolute;
+                pointer-events: none;
+                box-sizing: border-box;
                 background: #ffffff;
-                transform:translateY(-31px);
+                transform: translateY(-31px);
+                transition: 0.3s all ease-in-out;
+            }
+            .value {
+                height: 60px;
+                background-color: #C3C3C31F;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                color: #111111;
+                font-size: 20px;
+                font-weight: 500;
+                outline: none;
+                box-shadow: none;
+                position: relative;
+                box-sizing: border-box;
+                &:invalid + label {
+                    background: none;
+                    transform:translateY(0);
+                }
+                &:focus {
+                    & + label {
+                        background: #ffffff;
+                        transform:translateY(-31px);
+                    }
+                }
             }
         }
     }
-    
-}
- }
-
 }

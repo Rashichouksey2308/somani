@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
-import {Row,Col} from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 
 function index() {
   return (
@@ -82,7 +82,9 @@ function index() {
                                         
 
 
-    </div>
+            <div></div>
+          </div>
+        
   )
 }
 

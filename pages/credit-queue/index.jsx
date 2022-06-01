@@ -1,7 +1,7 @@
-import React from 'react';
-import "bootstrap/dist/css/bootstrap.css";
+import React from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
 import styles from './creditqueue.module.scss'
-import Router from "next/router";
+import Router from 'next/router'
 function index() {
     return (
       <div className='container-fluid mb-4'> 
@@ -13,17 +13,35 @@ function index() {
               </div>
               <input type="text" className={`${styles.formControl} form-control`} placeholder="Search" />
             </div>
+            <input
+              type="text"
+              className={`${styles.formControl} form-control`}
+              placeholder="Search"
+            />
           </div>
-          <a className={styles.filterIcon}><img src="/static/filter.svg" className="img-fluid" alt="Filter" /></a>
-          <a href="#" className={styles.filterList}>Ramesh Shetty<img src="/static/close.svg" className="img-fluid" alt="Close" /></a>
-          <a href="#" className={styles.filterList}>Raj Traders<img src="/static/close.svg" className="img-fluid" alt="Close" /></a>
-          {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
         </div>
+        <a className={styles.filterIcon}>
+          <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
+        </a>
+        <a href="#" className={styles.filterList}>
+          Ramesh Shetty
+          <img src="/static/close.svg" className="img-fluid" alt="Close" />
+        </a>
+        <a href="#" className={styles.filterList}>
+          Raj Traders
+          <img src="/static/close.svg" className="img-fluid" alt="Close" />
+        </a>
+        {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
+
         <div className={`${styles.statusBox} d-flex align-items-center justify-content-between`}>
           <div className={`${styles.all} ${styles.boxInner}`}>
             <div className="d-flex align-items-center">
               <div className={styles.iconBox}>
-                <img src="/static/leads.svg" className="img-fluid" alt="All Leads" />
+                <img
+                  src="/static/leads.svg"
+                  className="img-fluid"
+                  alt="All Leads"
+                />
               </div>
               <h3>
                 <span>ALL</span>
@@ -45,7 +63,11 @@ function index() {
           <div className={`${styles.review} ${styles.boxInner}`}>
             <div className="d-flex align-items-center">
               <div className={styles.iconBox}>
-                <img src="/static/access-time.svg" className="img-fluid" alt="Access Time" />
+                <img
+                  src="/static/access-time.svg"
+                  className="img-fluid"
+                  alt="Access Time"
+                />
               </div>
               <h3>
                 <span>REVIEW</span>
@@ -56,7 +78,11 @@ function index() {
           <div className={`${styles.pending} ${styles.boxInner}`}>
             <div className="d-flex align-items-center">
               <div className={styles.iconBox}>
-                <img src="/static/pending.svg" className="img-fluid" alt="Close" />
+                <img
+                  src="/static/pending.svg"
+                  className="img-fluid"
+                  alt="Close"
+                />
               </div>
               <h3>
                 <span>PENDING APPROVAL</span>
@@ -67,7 +93,11 @@ function index() {
           <div className={`${styles.rejected} ${styles.boxInner}`}>
             <div className="d-flex align-items-center">
               <div className={styles.iconBox}>
-                <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
+                <img
+                  src="/static/close-b.svg"
+                  className="img-fluid"
+                  alt="Close"
+                />
               </div>
               <h3>
                 <span>REJECTED</span>
@@ -79,13 +109,33 @@ function index() {
         <div className={styles.datatable}>
           <div className={`${styles.tableFilter} d-flex justify-content-between`}>
             <h3>Credit Queue</h3>
-            <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
+            <div
+              className={`${styles.pageList} d-flex justify-content-end align-items-center`}
+            >
               <span>Showing Page 1 out of 10</span>
-              <a href="#" className={`${styles.arrow} ${styles.leftArrow}`}> <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid"/></a>
-              <a href="#" className={`${styles.arrow} ${styles.rightArrow}`}><img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid"/></a>
+              <a href="#" className={`${styles.arrow} ${styles.leftArrow}`}>
+                {' '}
+                <img
+                  src="/static/keyboard_arrow_right-3.svg"
+                  alt="arrow right"
+                  className="img-fluid"
+                />
+              </a>
+              <a href="#" className={`${styles.arrow} ${styles.rightArrow}`}>
+                <img
+                  src="/static/keyboard_arrow_right-3.svg"
+                  alt="arrow right"
+                  className="img-fluid"
+                />
+              </a>
             </div>
           </div>
-          <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+          <table
+            className={`${styles.table} table`}
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+          >
             <thead>
               <tr>
                 <th>CUSTOMER ID</th>
@@ -104,8 +154,20 @@ function index() {
                 <td>RM-Sales</td>
                 <td>Amar Singh</td>
                 <td>Yes</td>
-                <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
+                <td>
+                  <span className={`${styles.status} ${styles.approved}`}></span>
+                  Approved
+                </td>
+                <td>
+                  <img
+                    src="/static/preview.svg"
+                    className="img-fluid"
+                    alt="Preview"
+                    onClick={() => {
+                      Router.push('/review-queue')
+                    }}
+                  />
+                </td>
               </tr>
               <tr>
                 <td>124621</td>
@@ -113,58 +175,130 @@ function index() {
                 <td>Customer</td>
                 <td>Sameer Soni</td>
                 <td>Yes</td>
-                <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
+                <td>
+                  <span className={`${styles.status} ${styles.approved}`}></span>
+                  Approved
+                </td>
+                <td>
+                  <img
+                    src="/static/preview.svg"
+                    className="img-fluid"
+                    alt="Preview"
+                    onClick={() => {
+                      Router.push('/review-queue')
+                    }}
+                  />
+                </td>
               </tr>
               <tr>
                 <td>124621</td>
-                <td  className={styles.buyerName}>Somani Traders</td>
+                <td className={styles.buyerName}>Somani Traders</td>
                 <td>RM-Sales</td>
                 <td>Sachin Shiv</td>
                 <td>Yes</td>
-                <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
+                <td>
+                  <span className={`${styles.status} ${styles.approved}`}></span>
+                  Approved
+                </td>
+                <td>
+                  <img
+                    src="/static/preview.svg"
+                    className="img-fluid"
+                    alt="Preview"
+                    onClick={() => {
+                      Router.push('/review-queue')
+                    }}
+                  />
+                </td>
               </tr>
               <tr>
                 <td>124621</td>
-                <td  className={styles.buyerName}>Bhutani Traders</td>
+                <td className={styles.buyerName}>Bhutani Traders</td>
                 <td>Customer</td>
                 <td>Mahendra Singh</td>
                 <td>Yes</td>
-                <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
+                <td>
+                  <span className={`${styles.status} ${styles.approved}`}></span>
+                  Approved
+                </td>
+                <td>
+                  <img
+                    src="/static/preview.svg"
+                    className="img-fluid"
+                    alt="Preview"
+                    onClick={() => {
+                      Router.push('/review-queue')
+                    }}
+                  />
+                </td>
               </tr>
               <tr>
                 <td>124621</td>
-                <td  className={styles.buyerName}>Emerging Traders</td>
+                <td className={styles.buyerName}>Emerging Traders</td>
                 <td>RM-Sales</td>
                 <td>Amar Singh</td>
                 <td>Yes</td>
-                <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
+                <td>
+                  <span className={`${styles.status} ${styles.approved}`}></span>
+                  Approved
+                </td>
+                <td>
+                  <img
+                    src="/static/preview.svg"
+                    className="img-fluid"
+                    alt="Preview"
+                    onClick={() => {
+                      Router.push('/review-queue')
+                    }}
+                  />
+                </td>
               </tr>
               <tr>
                 <td>124621</td>
-                <td  className={styles.buyerName}>Raj Traders</td>
+                <td className={styles.buyerName}>Raj Traders</td>
                 <td>Customer</td>
                 <td>Rama Dev</td>
                 <td>Yes</td>
-                <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
+                <td>
+                  <span className={`${styles.status} ${styles.approved}`}></span>
+                  Approved
+                </td>
+                <td>
+                  <img
+                    src="/static/preview.svg"
+                    className="img-fluid"
+                    alt="Preview"
+                    onClick={() => {
+                      Router.push('/review-queue')
+                    }}
+                  />
+                </td>
               </tr>
               <tr>
                 <td>124621</td>
-                <td  className={styles.buyerName}>Krishna Traders</td>
+                <td className={styles.buyerName}>Krishna Traders</td>
                 <td>Customer</td>
                 <td>Sameer Soni</td>
                 <td>Yes</td>
-                <td><span className={`${styles.status} ${styles.approved}`}></span>Approved</td>
-                <td><img src="/static/preview.svg" className="img-fluid" alt="Preview" onClick={()=>{Router.push("/review-queue")}} /></td>
+                <td>
+                  <span className={`${styles.status} ${styles.approved}`}></span>
+                  Approved
+                </td>
+                <td>
+                  <img
+                    src="/static/preview.svg"
+                    className="img-fluid"
+                    alt="Preview"
+                    onClick={() => {
+                      Router.push('/review-queue')
+                    }}
+                  />
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-    )
+  )
 }
 export default index

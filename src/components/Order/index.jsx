@@ -1,7 +1,6 @@
 import React from 'react'
-import {Form} from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
-
 
 const index = () => {
   return (
@@ -31,86 +30,113 @@ const index = () => {
                      </div>
                 </Form.Group>
 
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <Form.Control className={`${styles.value} form-control`} required type="text"/>
-                    <Form.Label className={styles.label}>Quantity in MT<strong className="text-danger">*</strong></Form.Label>
-                    </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>Quantity in MT</Form.Label>
+              <Form.Control
+                className={`${styles.value} form-control`}
+                type="text"
+                placeholder="50 MT"
+              />
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>Order Value</Form.Label>
+              <Form.Control
+                className={`${styles.value} form-control`}
+                type="text"
+                placeholder="1000000 CR"
+              />
+            </Form.Group>
 
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
-                    <Form.Control className={`${styles.value} form-control`} required type="text"/>
-                    <Form.Label className={styles.label}>Order Value<strong className="text-danger">*</strong></Form.Label>
-                </Form.Group>
-                
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
-                    <Form.Control className={`${styles.value} form-control`} required type="text"/>
-                    <Form.Label className={styles.label}>Grade<strong className="text-danger">*</strong></Form.Label>
-                </Form.Group>  
-                
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <select  className={`${styles.value} form-control`}>
-                    <option value="volvo">Select Country</option>
-                    <option value="audi">India</option>
-                    </select>          
-                    <Form.Label className={styles.label}>Country Of Origin<strong className="text-danger">*</strong></Form.Label>  
-                </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>Grade</Form.Label>
+              <Form.Control
+                className={`${styles.value} form-control`}
+                type="text"
+                placeholder="46"
+              />
+            </Form.Group>
 
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <Form.Control className={`${styles.value} form-control`} required type="text"/>
-                    <Form.Label className={styles.label}>Tolerance (+/-) Percentage<strong className="text-danger">*</strong></Form.Label>
-                </Form.Group>
-               
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <select  className={`${styles.value} form-control`}>
-                    <option value="volvo">Select Supplier Name</option>
-                    <option value="audi">Traders</option>
-                    </select> 
-                <Form.Label className={styles.label}>Supplier Name<strong className="text-danger">*</strong></Form.Label>                         
-                </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>
+                Country Of Origin
+              </Form.Label>
+              <select
+                className={`${styles.value} form-control`}
+                id="countryOrigin"
+              >
+                <option value="volvo">Europe</option>
+                <option value="audi">India</option>
+              </select>
+            </Form.Group>
 
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <select  className={`${styles.value} form-control`}>
-                    <option value="volvo">Select Mines</option>
-                    <option value="audi">Manufacturers</option>
-                    </select>    
-                <Form.Label className={styles.label}>Manufacturer / Mines name<strong className="text-danger">*</strong></Form.Label>                      
-                </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>
+                Tolerance (+/-) Percentage
+              </Form.Label>
+              <Form.Control
+                className={`${styles.value} form-control`}
+                type="text"
+                placeholder="±10%"
+              />
+            </Form.Group>
 
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <select  className={`${styles.value} form-control`}>
-                    <option value="volvo">Select Port</option>
-                    <option value="audi">Mumbai</option>
-                    </select>   
-                <Form.Label className={styles.label}>Port Of Discharge<strong className="text-danger">*</strong></Form.Label>                       
-                </Form.Group>
-               
-              
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <select  className={`${styles.value} form-control`} >
-                    <option value="volvo">FOB</option>
-                    <option value="audi">Audi</option>
-                    </select>   
-                <Form.Label className={styles.label}>INCO Terms<strong className="text-danger">*</strong></Form.Label>                       
-                </Form.Group>
-                
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <input className={`${styles.value} form-control`} type="date"/>
-                <Form.Label className={styles.label}>Expected Date Of Shipment<strong className="text-danger">*</strong></Form.Label>
-                </Form.Group>
-                
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <Form.Control className={`${styles.value} form-control`} required type="text" />
-                    <Form.Label className={styles.label}>Transaction Period (Days)<strong className="text-danger">*</strong></Form.Label>
-                </Form.Group>
-               
-                </div>
-                </Form>
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>Supplier Name</Form.Label>
+              <select className={`${styles.value} form-control`} id="supplier">
+                <option value="volvo">ABC Ltd</option>
+                <option value="audi">Audi</option>
+              </select>
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>
+                Manufacturer / Mines name
+              </Form.Label>
+              <select className={`${styles.value} form-control`} id="mines">
+                <option value="volvo">ABC</option>
+                <option value="audi">Audi</option>
+              </select>
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>
+                Port Of Discharge
+              </Form.Label>
+              <select className={`${styles.value} form-control`} id="port">
+                <option value="volvo">Calcutta</option>
+                <option value="audi">Mumbai</option>
+              </select>
+            </Form.Group>
 
-               
-            </div>
-            </div>
-       
-      
-   
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>INCO Terms</Form.Label>
+              <select className={`${styles.value} form-control`} id="inco">
+                <option value="volvo">FOB</option>
+                <option value="audi">Audi</option>
+              </select>
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>
+                Expected Date Of Shipment
+              </Form.Label>
+              <input
+                className={`${styles.value} form-control`}
+                type="date"
+                placeholder="22-02-2022"
+              />
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4`}>
+              <Form.Label className={styles.label}>
+                Transaction Period (Days)
+              </Form.Label>
+              <Form.Control
+                className={`${styles.value} form-control`}
+                type="text"
+                placeholder="90"
+              />
+            </Form.Group>
+          </div>
+        </Form>
+      </div>
+    </div>
   )
 }
 

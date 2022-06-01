@@ -2,76 +2,116 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 
-
-const index = () => {
-
+const index = ({saveOrderData}) => {
   return (
     <div className={styles.main}>
       <div className={styles.heading}>Order Details</div>
-
+    <form id="OrderDetailsForm">
       <div className={`${styles.input_container} row`}>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <div className='d-flex'>
-              <input className={`${styles.input_field} form-control`} required type="text"/> 
-              <label className={styles.label_heading}>Commodity<strong className="text-danger">*</strong></label>
-              <img className={`${styles.search_image} img-fluid`} src = "/static/search-grey.svg" alt="Search"/>
-          </div>
-        </div>
-
-        <div className={`${styles.each_input} col-md-2 col-sm-3`}>
+          <label className={styles.label_heading} id="textInput">
+            Commodity
+          </label>
           <input
             type="text"
-            className={`${styles.input_field} form-control`} required/>
-            <label className={styles.label_heading}>Quantity (in MT)<strong className="text-danger">*</strong></label>
+            id="textInput"
+            name='commodity'
+            defaultValue='Iron'
+            onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
+            className={`${styles.input_field} form-control`}
+          />
+        </div>
+        <div className={`${styles.each_input} col-md-2 col-sm-3`}>
+          <label className={styles.label_heading} id="textInput">
+            Quantity (in MT)
+          </label>
+          <input
+            type="number"
+            id="textInput"
+            name='quantity'
+            onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
+            className={`${styles.input_field} form-control`}
+          />
         </div>
 
         <div className={`${styles.each_input} col-md-2 col-sm-3`}>
+          <label className={styles.label_heading} id="textInput">
+            Order values
+          </label>
           <div className={styles.phone_card}>
             <select className={`${styles.code_phone} w-50`}>
               <option>Select order values</option>
               <option selected>$</option>
               <option>INR</option>
             </select>
-            <input type="text"
-              className={`${styles.input_field} form-control`} />
-              <label className={styles.label_heading}>Order values<strong className="text-danger">*</strong></label>
+            <input
+              type="number"
+              name='orderValue'
+              onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
+              id="textInput"
+              className={`${styles.input_field} form-control`}
+            />
           </div>
         </div>
 
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+          <label className={styles.label_heading} id="textInput">
+            Supplier Name
+          </label>
           <input
             type="text"
-            className={`${styles.input_field} form-control`} required/>
-            <label className={styles.label_heading}>Supplier Name<strong className="text-danger">*</strong></label>
-        
+            name='supplierName'
+            onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
+            id="textInput"
+            className={`${styles.input_field} form-control`}
+          />
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+          <label className={styles.label_heading} id="dropCountry">
+            Country Of Origin
+          </label>
           <select
-            className={`${styles.input_field} form-control`}>
-            <option value="I">Select Country</option>
-            <option value="India">America</option>
+            id="dropCountry"
+            name='countryOfOrigin'
+            onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
+            className={`${styles.input_field} form-control`}
+          >
+            <option value="India">India</option>
+            <option value="America">America</option>
           </select>
-          <label className={styles.label_heading}>Country Of Origin<strong className="text-danger">*</strong></label>
         </div>
 
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+          <label className={styles.label_heading} id="dropPort">
+            Port Of Discharge
+          </label>
           <select
-            className={`${styles.input_field} form-control`} >
-            <option value="port1">Select Port</option>
-            <option value="port2">Mumbai</option>
+            id="dropPort"
+            name='portOfDischarge'
+            onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
+            className={`${styles.input_field} form-control`}
+          >
+            <option value="VishakaPatnam">Visakhapatnam</option>
+            <option value="Mumbai">Mumbai</option>
           </select>
           <label className={styles.label_heading}>Port Of Discharge<strong className="text-danger">*</strong></label>
 
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+          <label className={styles.label_heading} id="textDate">
+            Expected Date Of Shipment
+          </label>
           <input
             type="date"
-            className={`${styles.input_field} form-control`}/>
-            <label className={styles.label_heading}>Expected Date Of Shipment<strong className="text-danger">*</strong></label>
+            name='expectedDateOfShipment'
+            id="textDate"
+            onChange={(e) => {saveOrderData(e.target.name,e.target.value)}}
+            className={`${styles.input_field} form-control`}
+          />
         </div>
 
         <div className={`${styles.radio_form} col-md-12`}>
-          <div className={styles.sub_heading}>INCO Terms<strong className="text-danger">*</strong></div>
+          <div className={styles.sub_heading}>INCO Terms</div>
           <Form>
             {['radio'].map((type) => (
               <div key={`inline-${type}`} className={styles.radio_group}>
@@ -79,6 +119,7 @@ const index = () => {
                   className={styles.radio}
                   inline
                   label="FOB"
+                  onChange={() => saveOrderData("IncoTerms","FOB")}
                   name="group1"
                   type={type}
                   id={`inline-${type}-1`}
@@ -87,6 +128,7 @@ const index = () => {
                   className={styles.radio}
                   inline
                   label="CFR"
+                  onChange={() => saveOrderData("IncoTerms","CFR")}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}
@@ -96,6 +138,7 @@ const index = () => {
                   className={styles.radio}
                   inline
                   label="CIF"
+                  onChange={() => saveOrderData("IncoTerms","CIF")}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}
@@ -103,16 +146,11 @@ const index = () => {
               </div>
             ))}
           </Form>
-
-
         </div>
-
-
       </div>
+      </form>
     </div>
-  );
+  )
 }
-
-
 
 export default index
