@@ -37,9 +37,6 @@ const index = ({saveCompanyData,setCheckbox}) => {
 
           <div className={`${styles.input_container} row`}>
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <label className={styles.label_heading} id="textInput">
-                Company PAN
-              </label>
               <input
                 type="text"
                 id="textInput"
@@ -53,56 +50,60 @@ const index = ({saveCompanyData,setCheckbox}) => {
                   }
                 }}
                 className={`${styles.input_field} form-control`}
+                required
               />
+              <label className={styles.label_heading} id="textInput">
+                Company PAN<strong className='text-danger'>*</strong>
+              </label>
             </div>
 
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <label className={styles.label_heading} id="textInput">
-                Company Name
-              </label>
               <input
                 type="text"
                 onChange={(e) => saveCompanyData(e.target.name,e.target.value)}
                 id="textInput"
                 name="companyName"
                 className={`${styles.input_field} form-control`}
+                required
               />
+              <label className={styles.label_heading} id="textInput">
+                Company Name<strong className='text-danger'>*</strong>
+              </label>
             </div>
 
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <label className={styles.label_heading} id="drop">
-                GST
-              </label>
               <select
                 id="drop"
                 className={`${styles.input_field} form-control`}
+                required
               >
                 <option value="gst">27AAATW4183C2ZG</option>
                 <option value="gst1">282176JDEJ88UD</option>
                 <option value="gst2">27AAATW46786C2ZG</option>
                 <option value="gst3">VW5688TW4183C2ZG</option>
               </select>
+              <label className={styles.label_heading} id="drop">
+                GST<strong className='text-danger'>*</strong>
+              </label>
             </div>
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <label className={styles.label_heading} id="textInput">
-                Type Of Business
-              </label>
               <select
                 id="Code"
                 onChange={(e)=>{saveCompanyData(e.target.name,e.target.value)}}
                 name="typeOfBussiness"
                 className={`${styles.input_field} form-control`}
+                required
               >
                 <option value="Manufacturer">Manufacturer</option>
                 <option value="Retailer">Retailer</option>
                 <option value="Trading">Trading</option>
               </select>
+              <label className={styles.label_heading} id="textInput">
+                Type Of Business<strong className='text-danger'>*</strong>
+              </label>
             </div>
 
-            <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <label className={styles.label_heading} id="textNumber">
-                Phone
-              </label>
+            <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
               <div className={styles.phone_card}>
                 <select id="Code" className={styles.code_phone}>
                   <option>+91</option>
@@ -126,14 +127,15 @@ const index = ({saveCompanyData,setCheckbox}) => {
                     }
                   }}
                   className={`${styles.input_field} form-control`}
+                  required
                 />
+                <label className={styles.label_heading} id="textNumber">
+                  Phone<strong className='text-danger'>*</strong>
+                </label>
               </div>
             </div>
 
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <label className={styles.label_heading} id="textInput">
-                Email ID
-              </label>
               <input
                 type="text"
                 id="textInput"
@@ -147,10 +149,14 @@ const index = ({saveCompanyData,setCheckbox}) => {
                 }}
                 name="emailId"
                 className={`${styles.input_field} form-control`}
+                required
               />
+              <label className={styles.label_heading} id="textInput">
+                Email ID<strong className='text-danger'>*</strong>
+              </label>
             </div>
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <div className={styles.label_heading} style={{ marginTop: 10 }}>
+              <div className={styles.label_heading}>
                 Turn Over(in Crores)
               </div>
               <div className={styles.slidecontainer}>
