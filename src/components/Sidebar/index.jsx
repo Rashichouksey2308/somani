@@ -6,6 +6,7 @@ import Router from "next/router";
 
 function index() {
 
+
     let tempArr=[
         {
             main:"Dashboard",
@@ -55,9 +56,10 @@ function index() {
           {
             main:"Masters",
             Other:[
-                "Review Queue",
-                "Credit Queue",
-                "Termsheets",   
+                "Users",
+                "User Roles",
+                "Vendors", 
+                "Insurance Company",  
             ],
                 image:"/static/Masters.svg"
         },

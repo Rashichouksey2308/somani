@@ -1,16 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styles from './index.module.scss'
 
 
-
-
 function index() {
+  
+
   return (
     
   <header className={`${`navbar-static-top`} ${styles.main_container}`} role="navigation">
                 <div className="d-flex align-items-center">
                   <div className={`${`flex-grow-1`} ${styles.hamburgureContainer}`}>
-                    <div className={`${styles.logo2} ${`flex-grow-1`}`}><a href="#"><img src="/static/menu.svg" alt="Logo1" className="img-fluid" /></a></div>
+                    <div className={`${styles.logo2} ${`flex-grow-1`}`}><a href="#">
+                      <img src="/static/menu.svg" alt="Logo1" className="img-fluid"/></a></div>
                     <div className={`${styles.logo} ${`flex-grow-1`}`}><a href="#"><img src="/static/logo.svg" alt="Logo" className="img-fluid" /></a></div>
                   </div>
                     <div className="theme">
