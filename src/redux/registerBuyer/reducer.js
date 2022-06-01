@@ -10,7 +10,8 @@ const initialState = {
     updatedBuyerResponse: null,
     deletingBuyer: false,
     deletedBuyerResponse: null,
-    selectedBuyer: null
+    selectedBuyer: null,
+    document: []
 
 }
 
@@ -102,6 +103,12 @@ function BuyerReducer(state = initialState, action){
                 ...state,
                 selectedBuyer: action.payload
             };
+
+        case types.SET_DOCUMENT:
+            return {
+                ...state,
+                document: action.payload
+            }
         
         default:
             return state;

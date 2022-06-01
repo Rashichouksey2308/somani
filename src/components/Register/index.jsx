@@ -7,12 +7,16 @@ import Terms from '../Terms'
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
 import { CreateBuyer, GetBuyer } from 'redux/registerBuyer/action'
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
-import API from '../../utils/endpoints'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from "axios"
 
 const index = () => {
-  const dispatch = useDispatch()
+
+
+  const dispatch= useDispatch();
+
+  const {document} = useSelector(state => state.buyer)
+
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
     companyPan: '',
@@ -46,11 +50,11 @@ const index = () => {
 
   const [documents, setDocuments] = useState({
     typeOfDocument: [null],
-    document1: '',
-    document2: '',
+    document1: null,
+    document2: null
   })
 
-  console.log(companyDetails, 'companyDetails')
+  // console.log(companyDetails, "companyDetails")
 
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails }
@@ -65,22 +69,53 @@ const index = () => {
   }
 
   const saveDocument = (e) => {
-    let newDocument = { ...documents }
-    console.log(newDocument)
-    newDocument.typeOfDocument[e.target.name] = e.target.value
-    console.log(newDocument, 'newdocument')
-    // setDocuments(newDocument)}
+    let newDocument = {...documents}
+    // console.log(newDocument)
+    newDocument.typeOfDocument[e.target.name]=(e.target.value)
+    // console.log(newDocument,"newdocument")
+    setDocuments(newDocument)
+
+  }
+
+  const uploadDocument1 = (e) => {
+
+    const newUploadDoc = {...documents}
+    newUploadDoc.document1 = e.target.files[0]
+    // console.log(newUploadDoc,"newuploaddocument")
+    setDocuments(newUploadDoc)
+
+  }
+  const uploadDocument2 = (e) => {
+    
+    const newUploadDoc1 = {...documents}
+    newUploadDoc1.document2 = e.target.files[0]
+    // console.log(newUploadDoc1,"newuploaddocument1")
+    setDocuments(newUploadDoc1)
+
   }
 
   const submitData = () => {
     //register api call
-    const payload = {
-      companyProfile: companyDetails,
-      orderDetails: orderDetails,
-      documentType: documents.typeOfDocument,
-    }
-    console.log(payload)
-    dispatch(CreateBuyer(payload))
+
+    // const payload={
+    //   companyProfile: companyDetails,
+    //   orderDetails: orderDetails,
+    //   documentType: documents.typeOfDocument,
+    //   document1: documents.document1,
+    //   document2: documents.document2
+      
+    // }
+      
+    const fd = new FormData()
+
+    fd.append('companyProfile', JSON.stringify(companyDetails))
+    fd.append('orderDetails', JSON.stringify(orderDetails))
+    fd.append('documentType', JSON.stringify(documents.typeOfDocument))
+    fd.append('document1',  documents.document1)
+    fd.append('document2', documents.document2)
+    console.log(fd, "this is payload")
+
+    dispatch(CreateBuyer(fd))
     Router.push('/leads')
   }
 
@@ -117,7 +152,7 @@ const index = () => {
         <hr className={styles.line}></hr>
         <OrderDetails saveOrderData={saveOrderData} />
         <hr className={styles.line}></hr>
-        <Documents saveDocument={saveDocument} />
+        <Documents saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
         <hr className={styles.line}></hr>
         <Terms submitData={submitData} />
       </Card.Body>

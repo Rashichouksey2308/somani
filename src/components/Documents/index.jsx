@@ -1,56 +1,63 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
+import { settingDocument } from 'redux/registerBuyer/action'
+import { useDispatch } from 'react-redux'
 
-const index = ({ saveDocument }) => {
+const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
   const [name, setName] = useState(null)
 
   const [secondDocName, setSecondDocName] = useState(null)
 
-  const [document1, setDocument1] = useState('')
+  // const [document1, setDocument1] = useState('')
 
-  const [document2, setDocument2] = useState('')
+  // const [document2, setDocument2] = useState('')
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(settingDocument())
+  }, [])
 
   // let formData = new FormData();
 
-  const handleMultimediaChange = (e) => {
-    e.preventDefault()
-    // console.log(
-    //   "🚀 ~ file: index.jsx ~ line 72 ~ handleMultimediaChange ~ e",
-    //   e
-    // );
-    console.log(e.target.files[0], "handlechange file")
-    
-    
-    let formData = new FormData();
-    var fileTypes = ['.doc', '.pdf', '.txt']
-    const file = e.target.files[0]
-    if (e.target.files[0]) {
-      var extension = e.target.files[0].name.split('.').pop().toLowerCase()
-        // isSuccess = fileTypes.indexOf(extension) > -1
-      if (extension === ".txt"  || extension === ".pdf" || extension === ".doc" || extension === ".docx") {
-        // let file = e.target.files[0]
-        // let name = e.target.name
-        // formData.append(name, file)
-        console.log("failure")
-        console.log(file.type, "file type2")
-        // return false
-      } else {
-        //error message
-        console.log("inside else block")
-        console.log(extension, "ext")
-        console.log(file.type, "file type")
-        // console.log(isSuccess, "succ")
-        setDocument1(e.target.files[0])
-        setName(e.target.files[0].name)
-        
-      }
-    }
-    console.log(formData.values(),"values")
-    for (var value of formData.values()) {
-      console.log(value,"value");
-   }
-    // e.target.file = null;
-  }
+  // const handleMultimediaChange = (e) => {
+  //   e.preventDefault()
+  //   // console.log(
+  //   //   "🚀 ~ file: index.jsx ~ line 72 ~ handleMultimediaChange ~ e",
+  //   //   e
+  //   // );
+  //   // console.log(e.target.files[0], "handlechange file")
+
+  //   let formData = new FormData();
+  //   var fileTypes = ['.doc', '.pdf', '.txt']
+  //   const file = e.target.files[0]
+  //   if (e.target.files[0]) {
+  //     var extension = e.target.files[0].name.split('.').pop().toLowerCase()
+  //       // isSuccess = fileTypes.indexOf(extension) > -1
+  //     if (extension === ".txt"  || extension === ".pdf" || extension === ".doc" || extension === ".docx") {
+  //       // let file = e.target.files[0]
+  //       // let name = e.target.name
+  //       // formData.append(name, file)
+  //       // console.log("failure")
+  //       // console.log(file.type, "file type2")
+  //       // return false
+  //     } else {
+  //       //error message
+  //       // console.log("inside else block")
+  //       // console.log(extension, "ext")
+  //       // console.log(file.type, "file type")
+  //       // console.log(isSuccess, "succ")
+  //       setDocument1(e.target.files[0])
+  //       setName(e.target.files[0].name)
+
+  //     }
+  //   }
+  // //   console.log(formData.values(),"values")
+  // //   for (var value of formData.values()) {
+  // //     console.log(value,"value");
+  // //  }
+  //   // e.target.file = null;
+  // }
 
   return (
     <div className={styles.main}>
@@ -69,8 +76,10 @@ const index = ({ saveDocument }) => {
             }}
             className={`${styles.input_field} form-control`}
           >
-            <option value="doc1">Incorporation Certificate</option>
-            <option value="doc2">Certificate</option>
+            <option value="Incorporation Certificate">
+              Incorporation Certificate
+            </option>
+            <option value="Certificate">Certificate</option>
           </select>
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
@@ -80,10 +89,10 @@ const index = ({ saveDocument }) => {
               <input
                 type="file"
                 name="myfile"
+                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                 onChange={(e) => {
-                  handleMultimediaChange(e)
-                 
-                
+                  setName(e.target.files[0].name)
+                  uploadDocument1(e)
                 }}
               />
               <button className={`${styles.button_upload} btn`}>Upload</button>
@@ -115,24 +124,26 @@ const index = ({ saveDocument }) => {
               saveDocument(e)
             }}
           >
-            <option value="cert1">GST Certification</option>
-            <option value="cert2">Certification</option>
+            <option value="GST Certification">GST Certification</option>
+            <option value="Certification">Certification</option>
           </select>
         </div>
 
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-        {!secondDocName ? (<div className={styles.uploadBtnWrapper}>
-            <input
-              type="file"
-              name="myfile"
-              onChange={(e) => {
-                setSecondDocName(e.target.files[0].name)
-                
-              }}
-            />
-            <button className={`${styles.button_upload} btn`}>Upload</button>
-          </div>
-           ) : (
+          {!secondDocName ? (
+            <div className={styles.uploadBtnWrapper}>
+              <input
+                type="file"
+                name="myfile"
+                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                onChange={(e) => {
+                  setSecondDocName(e.target.files[0].name)
+                  uploadDocument2(e)
+                }}
+              />
+              <button className={`${styles.button_upload} btn`}>Upload</button>
+            </div>
+          ) : (
             <div className={styles.certificate}>
               {secondDocName}
               <img

@@ -10,7 +10,7 @@ function createBuyer() {
 
 function createBuyerSuccess() {
   return {
-    type: types.REGISTER_BUYER_SUCCESSFULL,
+    type: types.REGISTER_BUYER_SUCCESS,
   };
 }
 
@@ -61,14 +61,14 @@ function getBuyer() {
 
 function getBuyerSuccess(payload) {
   return {
-    type: types.GET_Buyer_SUCCESSFULL,
+    type: types.GET_BUYER_SUCCESSFULL,
     payload,
   };
 }
 
 function getBuyerFailed() {
   return {
-    type: types.GET_Buyer_FAILED,
+    type: types.GET_BUYER_FAILED,
   };
 }
 
@@ -76,7 +76,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(createBuyer());
   try {
    Axios.post(`${API.baseUrl}${API.registerCompany}`, payload).then((response)=>{
-    console.log(payload, "in action2")
+    // console.log(payload, "in action2")
     if (response.data.code === 200) {
       dispatch(createBuyerSuccess(response.data));
       // payload.history.goBack()
@@ -113,7 +113,15 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
 
 export const settingSelectBuyer = (payload) => {
   return {
-    type: types.SET_Buyer,
+    type: types.SET_BUYER,
+    payload,
+  };
+};
+
+export const settingDocument = (payload) => {
+  // console.log("reached here")
+  return {
+    type: types.SET_DOCUMENT,
     payload,
   };
 };
@@ -121,7 +129,7 @@ export const settingSelectBuyer = (payload) => {
 export const GetBuyer = (companyId) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
   try {
-    console.log("in getbuyer")
+    // console.log("in getbuyer")
     Axios.get(`${API.baseUrl}${API.registerCompany}?companyId=${companyId}`).then((response)=>{
     if (response.data.code === 200) {
       dispatch(getBuyerSuccess(response.data.data));
