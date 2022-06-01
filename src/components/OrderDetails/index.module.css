@@ -115,4 +115,15 @@
   color: #3687E8;
   text-transform: capitalize;
 }
+
+.main .input_container .phone .label_heading {
+  left: 90px;
+  -webkit-transform: translate(-61px, -31px);
+          transform: translate(-61px, -31px);
+}
+
+.main .input_container .phone .input_field:focus + label {
+  -webkit-transform: translate(-61px, -31px);
+          transform: translate(-61px, -31px);
+}
 /*# sourceMappingURL=index.module.css.map */

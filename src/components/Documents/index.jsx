@@ -63,10 +63,10 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
     <div className={styles.main}>
       <div className={styles.heading}>Documents</div>
 
-      <div className={`${styles.input_container} row`}>
+      <div className={`${styles.input_container} row align-items-center`}>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
           <label className={styles.label_heading} id="dropDoc">
-            Type Of Document
+            Type Of Document<strong className='text-danger'>*</strong>
           </label>
           <select
             id="dropDoc"
@@ -76,14 +76,14 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
             }}
             className={`${styles.input_field} form-control`}
           >
-            <option value="Incorporation Certificate">
+            <option value="Incorporation Certificate" selected>
               Incorporation Certificate
             </option>
             <option value="Certificate">Certificate</option>
           </select>
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <div className={styles.label_heading}>Attach Document</div>
+          <label className={styles.label_heading}>Attach Document<strong className='text-danger'>*</strong></label>
           {!name ? (
             <div className={styles.uploadBtnWrapper}>
               <input
@@ -124,7 +124,7 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
               saveDocument(e)
             }}
           >
-            <option value="GST Certification">GST Certification</option>
+            <option value="GST Certification" selected>GST Certification</option>
             <option value="Certification">Certification</option>
           </select>
         </div>

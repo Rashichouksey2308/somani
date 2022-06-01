@@ -89,5 +89,18 @@
                 }
             }
         }
+        .phone {
+            .label_heading {
+                left: 90px;
+                transform: translate(-61px, -31px);
+            }
+            .input_field {
+                &:focus {
+                    & + label {
+                        transform: translate(-61px, -31px);
+                    }
+                }
+            }
+        }
     }
 }

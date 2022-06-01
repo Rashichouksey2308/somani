@@ -93,7 +93,8 @@
 .main .input_container .each_input .uploadBtnWrapper {
   overflow: hidden;
   position: relative;
-  display: inline-block;
+  display: block;
+  line-height: 60px;
 }
 
 .main .input_container .each_input .uploadBtnWrapper input {
