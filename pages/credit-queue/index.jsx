@@ -13,14 +13,9 @@ function index() {
               </div>
               <input type="text" className={`${styles.formControl} form-control`} placeholder="Search" />
             </div>
-            <input
-              type="text"
-              className={`${styles.formControl} form-control`}
-              placeholder="Search"
-            />
+           
           </div>
-        </div>
-        <a className={styles.filterIcon}>
+          <a className={styles.filterIcon}>
           <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
         </a>
         <a href="#" className={styles.filterList}>
@@ -31,6 +26,8 @@ function index() {
           Raj Traders
           <img src="/static/close.svg" className="img-fluid" alt="Close" />
         </a>
+        </div>
+       
         {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
 
         <div className={`${styles.statusBox} d-flex align-items-center justify-content-between`}>

@@ -3,7 +3,6 @@
     border-bottom: 3px solid #D9DDE8;
     .heading {
         font-size: 20px;
-        letter-spacing: 0.19px;
         color: #111111;
         font-weight: bold;
         line-height: 25px;
@@ -87,6 +86,19 @@
                     letter-spacing: 0.18px;
                     color: #3687E8;
                     text-transform: capitalize;
+                }
+            }
+        }
+        .phone {
+            .label_heading {
+                left: 90px;
+                transform: translate(-61px, -31px);
+            }
+            .input_field {
+                &:focus {
+                    & + label {
+                        transform: translate(-61px, -31px);
+                    }
                 }
             }
         }
