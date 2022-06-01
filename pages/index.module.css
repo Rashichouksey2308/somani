@@ -1,0 +1,152 @@
+.root_Container {
+  padding-top: 1rem;
+}
+
+.root_Container .bottom_Container .right_Container .upper_Container .commonCard {
+  min-height: 280px;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container {
+  width: 100%;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads {
+  width: 100%;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #d2d7e5;
+  -webkit-box-shadow: 0 3px 6px #cad0e2;
+          box-shadow: 0 3px 6px #cad0e2;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .tableFilter {
+  padding-right: 35px;
+  padding-left: 35px;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .tableFilter h3 {
+  font-size: 22px;
+  color: #111111;
+  font-weight: bold;
+  line-height: 27px;
+  margin: 13px 0;
+  text-transform: capitalize;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .pageList span {
+  font-size: 18px;
+  color: #718096;
+  font-weight: 500;
+  line-height: 23px;
+  margin-right: 38px;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .pageList .arrow {
+  width: 35px;
+  height: 35px;
+  margin-left: 10px;
+  line-height: 45px;
+  text-align: center;
+  border-radius: 8px;
+  background: #fafafb;
+  display: inline-block;
+  border: 1px solid #f2f5f9;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .pageList .arrow img {
+  width: 8px;
+  height: 13px;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .pageList .arrow .image_reverse {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  width: 8px;
+  height: 13px;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .pageList .rightArrow img {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .table {
+  width: 100%;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .table thead {
+  width: 100%;
+  background: #fafafb;
+  height: 44px;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .table th {
+  height: 100%;
+  font-size: 15px;
+  color: #8492a6;
+  font-weight: bold;
+  line-height: 18px;
+  text-transform: uppercase;
+  border-top: 2px solid #f2f5f9;
+  border-bottom: 2px solid #f2f5f9;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .table th:first-child {
+  height: 44px;
+  padding-left: 35px;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .table td {
+  font-size: 19px;
+  color: rgba(17, 17, 17, 0.7);
+  font-weight: 500;
+  line-height: 24px;
+  padding: 21px 0px;
+  border-top: none;
+  border-bottom: 2px solid #f2f5f9;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .table td:first-child {
+  padding-left: 35px;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .table td.buyerName {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .table td .status {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .table td .approved {
+  background: #26dd73;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .table td .rejected {
+  background: #ed714c;
+}
+
+.root_Container .bottom_Container .right_Container .bottom_Container .leads .table td .review {
+  background: #ffce00;
+}
+
+.card {
+  -webkit-box-shadow: 0px 3px 12px #1852ff;
+          box-shadow: 0px 3px 12px #1852ff;
+}
+/*# sourceMappingURL=index.module.css.map */
