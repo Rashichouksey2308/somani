@@ -76,7 +76,7 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
             }}
             className={`${styles.input_field} form-control`}
           >
-            <option value="Incorporation Certificate">
+            <option value="Incorporation Certificate" selected>
               Incorporation Certificate
             </option>
             <option value="Certificate">Certificate</option>
@@ -124,7 +124,7 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
               saveDocument(e)
             }}
           >
-            <option value="GST Certification">GST Certification</option>
+            <option value="GST Certification" selected>GST Certification</option>
             <option value="Certification">Certification</option>
           </select>
         </div>
