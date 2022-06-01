@@ -141,11 +141,8 @@ const index = () => {
 
       <Card.Body className={styles.body}>
         <CompanyDetails saveCompanyData={saveCompanyData} />
-        <hr className={styles.line}></hr>
         <OrderDetails saveOrderData={saveOrderData}/>
-        <hr className={styles.line}></hr>
         <Documents saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
-        <hr className={styles.line}></hr>
         <Terms submitData={submitData} />
       </Card.Body>
     </Card>

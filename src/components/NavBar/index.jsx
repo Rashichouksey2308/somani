@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styles from './index.module.scss'
 
 function index() {
+  
+
   return (
     <header
       className={`${`navbar-static-top`} ${styles.main_container}`}
