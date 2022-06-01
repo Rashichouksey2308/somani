@@ -8,10 +8,11 @@ import { Card } from 'react-bootstrap'
 import Router from 'next/router'
 import { CreateBuyer, GetBuyer } from 'redux/registerBuyer/action'
 import { useDispatch } from 'react-redux'
-
+import axios from 'axios'
+import API from '../../utils/endpoints'
 
 const index = () => {
-  const dispatch= useDispatch();
+  const dispatch = useDispatch()
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
     companyPan: '',
@@ -25,7 +26,14 @@ const index = () => {
     whatsappNumber: null,
   })
 
-  const [orderDetails, setOrderDetails]  = useState({
+  useEffect(() => {
+    const pan = companyDetails.companyPan
+    console.log(pan)
+    const response = axios.post('http://localhost:3002/node/api/get-gst')
+    console.log(response)
+  }, [companyDetails.companyPan])
+
+  const [orderDetails, setOrderDetails] = useState({
     commodity: '',
     Quantity: null,
     orderValue: null,
@@ -33,81 +41,81 @@ const index = () => {
     countryOfOrigin: '',
     portOfDischarge: '',
     ExpectedDateOfShipment: null,
-    IncoTerms: ''
+    IncoTerms: '',
   })
 
   const [documents, setDocuments] = useState({
     typeOfDocument: [null],
     document1: '',
-    document2: ''
+    document2: '',
   })
 
-  console.log(companyDetails, "companyDetails")
+  console.log(companyDetails, 'companyDetails')
 
-
-  const saveCompanyData = (name,value) => {
-    const newInput = { ...companyDetails };
-    newInput[name] = value;
-    setCompanyDetails(newInput);
+  const saveCompanyData = (name, value) => {
+    const newInput = { ...companyDetails }
+    newInput[name] = value
+    setCompanyDetails(newInput)
   }
 
-  const saveOrderData = (name,value) => {
-    const newInput = { ...orderDetails };
-    newInput[name] = value;
-    setOrderDetails(newInput);
+  const saveOrderData = (name, value) => {
+    const newInput = { ...orderDetails }
+    newInput[name] = value
+    setOrderDetails(newInput)
   }
 
   const saveDocument = (e) => {
-    let newDocument = {...documents}
+    let newDocument = { ...documents }
     console.log(newDocument)
-    newDocument.typeOfDocument[e.target.name]=(e.target.value)
-    console.log(newDocument,"newdocument")
+    newDocument.typeOfDocument[e.target.name] = e.target.value
+    console.log(newDocument, 'newdocument')
     // setDocuments(newDocument)}
-
   }
-  
-  const submitData=()=>{
+
+  const submitData = () => {
     //register api call
-    const payload={
+    const payload = {
       companyProfile: companyDetails,
       orderDetails: orderDetails,
-      documentType: documents.typeOfDocument
+      documentType: documents.typeOfDocument,
     }
     console.log(payload)
     dispatch(CreateBuyer(payload))
     Router.push('/leads')
   }
 
-
-  const clearData=()=>{
-    document.getElementById("CompanyDetailsForm").reset()
-    document.getElementById("OrderDetailsForm").reset()
-
+  const clearData = () => {
+    document.getElementById('CompanyDetailsForm').reset()
+    document.getElementById('OrderDetailsForm').reset()
   }
 
   useEffect(() => {
-    console.log("in use effect")
-    GetBuyer("765e0a87-e2c3-4e0c-b5cb-f0b6082bd6ad")
+    console.log('in use effect')
+    GetBuyer('765e0a87-e2c3-4e0c-b5cb-f0b6082bd6ad')
   }, [])
-  
-  
+
   return (
     <Card className={styles.card}>
       <Card.Header className={styles.head_container}>
         <div className={styles.head_header}>
-          <img className={`${styles.arrow} img-fluid`}
-            src="/static/keyboard_arrow_right-3.svg" alt="ArrowRight"/>
+          <img
+            className={`${styles.arrow} img-fluid`}
+            src="/static/keyboard_arrow_right-3.svg"
+            alt="ArrowRight"
+          />
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
-          <button onClick={clearData} className={styles.clear_btn}>Clear All</button>
+          <button onClick={clearData} className={styles.clear_btn}>
+            Clear All
+          </button>
         </div>
       </Card.Header>
 
       <Card.Body className={styles.body}>
         <CompanyDetails saveCompanyData={saveCompanyData} />
         <hr className={styles.line}></hr>
-        <OrderDetails saveOrderData={saveOrderData}/>
+        <OrderDetails saveOrderData={saveOrderData} />
         <hr className={styles.line}></hr>
         <Documents saveDocument={saveDocument} />
         <hr className={styles.line}></hr>
