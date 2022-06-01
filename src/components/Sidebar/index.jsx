@@ -6,7 +6,6 @@ import Router from "next/router";
 
 function index() {
 
-
     let tempArr=[
         {
             main:"Dashboard",
@@ -56,10 +55,9 @@ function index() {
           {
             main:"Masters",
             Other:[
-                "Users",
-                "User Roles",
-                "Vendors", 
-                "Insurance Company",  
+                "Review Queue",
+                "Credit Queue",
+                "Termsheets",   
             ],
                 image:"/static/Masters.svg"
         },
@@ -105,7 +103,8 @@ console.log(category)
                 <div className={`${styles.sub_wrapper} ${index12==index?className:null}`}>
                   {val.Other.length>0?
                      val.Other.map((other,index2)=>{
-                         const className12 = index12==index?`${styles.openlist}`:null
+                         const className12 = 
+                         index12 == index?`${styles.openlist}`: null
                      return(
                      <>
                       <div index={index2} className={`${styles.sub_header} ${className12}`}

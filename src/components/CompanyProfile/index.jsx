@@ -1,6 +1,6 @@
 import React from 'react'
-import styles from "./index.module.scss"
-import {Card} from 'react-bootstrap'
+import styles from './index.module.scss'
+import { Card } from 'react-bootstrap'
 
 function index() {
     return (

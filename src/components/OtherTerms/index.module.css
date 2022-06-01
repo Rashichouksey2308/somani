@@ -1,7 +1,7 @@
 .main {
-  -webkit-box-shadow: 0px 3px 6px #CAD0E2;
-          box-shadow: 0px 3px 6px #CAD0E2;
-  border: 1px solid #D2D7E5;
+  -webkit-box-shadow: 0px 3px 6px #cad0e2;
+  box-shadow: 0px 3px 6px #cad0e2;
+  border: 1px solid #d2d7e5;
   border-radius: 6px;
   margin-top: 20px;
   font-family: Helvetica Neue;
@@ -12,7 +12,7 @@
   text-align: left;
   font-size: 22px;
   font-weight: bold;
-  color: #3687E8;
+  color: #3687e8;
   text-transform: capitalize;
   padding: 15px;
 }
@@ -29,8 +29,8 @@
 }
 
 .main .dashboard_form .igpl_para {
-  background-color: #C3C3C31F;
-  border: 1px solid #0000001F;
+  background-color: #c3c3c31f;
+  border: 1px solid #0000001f;
   border-radius: 4px;
   padding: 5px 15px 5px 8px;
   margin: 0 10px 0 0;
@@ -47,7 +47,7 @@
   font-size: 22px;
   font-weight: bold;
   color: #111111;
-  background-color: #FAFAFB;
+  background-color: #fafafb;
   padding: 15px;
   margin-bottom: 25px;
 }

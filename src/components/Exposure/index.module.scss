@@ -1,74 +1,74 @@
 .card {
-        background: #FFFFFF 0% 0% no-repeat padding-box;
-        box-shadow: 0px 3px 12px #E5E7ED;
-        border: 1px solid #D2D7E5;
-        border-radius: 8px;
-        margin-bottom: 24px;
-    
-        .header {
-            
-            font-weight: bold;
-            font-size: 18px;
-            line-height: 23px;
-            color: #111111;
-            text-transform: capitalize;
-            background: none;
-            border-bottom: 2px solid #F2F5F9;
-            padding: 16px 22px;
-            margin: 0 0 20px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 12px #E5E7ED;
+  border: 1px solid #D2D7E5;
+  border-radius: 8px;
+  margin-bottom: 24px;
 
-        }
-    
-        .hr {
-            margin: 0px;
-            width: 100%;
-            border-top: 2px solid rgb(242 243 244);
-            
-        }
+  .header {
       
-        .body {
-            display: flex; 
-            flex-direction: column; 
-            padding: 0 22px 22px;
-          
-            
-            
-            .progress_container{
-                margin-top: 10px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                 width: 70%;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 23px;
+      color: #111111;
+      text-transform: capitalize;
+      background: none;
+      border-bottom: 2px solid #F2F5F9;
+      padding: 16px 22px;
+      margin: 0 0 20px;
 
-                .container {
-                    height: 9px;
-                    background-color: #E4ECF7;
-                    border-radius: 2px;
-                  }
-                  
-                  .barCompleted {
-                    height: 9px;
-                    background-color: #2884DE;
-                    border-radius: 2px;
-                    width: 80%;
-                  }
-                  
-            }
-            .percent{
-                text-align: right;
-                font-size: 23px;
-                margin-top: -23px;
-                color: #2884DE;
-                text-transform: capitalize;
-                font-weight: bold;
-              }
-            .total {
-                font-size:14px ;
-                padding-top: 25px;
-                color: #8492A6;
-                text-transform: uppercase;
+  }
 
+  .hr {
+      margin: 0px;
+      width: 100%;
+      border-top: 2px solid rgb(242 243 244);
+      
+  }
+
+  .body {
+      display: flex; 
+      flex-direction: column; 
+      padding: 0 22px 22px;
+    
+      
+      
+      .progress_container{
+          margin-top: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+           width: 70%;
+
+          .container {
+              height: 9px;
+              background-color: #E4ECF7;
+              border-radius: 2px;
             }
+            
+            .barCompleted {
+              height: 9px;
+              background-color: #2884DE;
+              border-radius: 2px;
+              width: 80%;
+            }
+            
+      }
+      .percent{
+          text-align: right;
+          font-size: 23px;
+          margin-top: -23px;
+          color: #2884DE;
+          text-transform: capitalize;
+          font-weight: bold;
         }
-        
-    }
+      .total {
+          font-size:14px ;
+          padding-top: 25px;
+          color: #8492A6;
+          text-transform: uppercase;
+
+      }
+  }
+  
+}

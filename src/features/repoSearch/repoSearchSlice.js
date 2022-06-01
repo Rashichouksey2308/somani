@@ -5,7 +5,7 @@ const initialState = {
   language: 'javascript',
   repos: [],
   totalRepoCount: 0,
-  status: 'idle'
+  status: 'idle',
 }
 
 export const getReposAsync = createAsyncThunk(
@@ -13,7 +13,7 @@ export const getReposAsync = createAsyncThunk(
   async (language) => {
     const response = await github.getTopRepos({ language })
     return response
-  }
+  },
 )
 
 const repoSearchSlice = createSlice({
@@ -31,7 +31,7 @@ const repoSearchSlice = createSlice({
         state.totalRepoCount = action.payload.totalCount
         state.repos = action.payload.items
       })
-  }
+  },
 })
 
 export const selectRepoSearch = (state) => state.repoSearch

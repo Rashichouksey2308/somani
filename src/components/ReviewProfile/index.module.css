@@ -1,0 +1,160 @@
+.leads {
+  width: 100%;
+  border-radius: 6px;
+  background: #FFFFFF;
+  border: 1px solid #D2D7E5;
+  -webkit-box-shadow: 0 3px 6px #CAD0E2;
+          box-shadow: 0 3px 6px #CAD0E2;
+  margin-bottom: 1rem;
+}
+
+.leads .tableFilter {
+  padding: 0 40px 0 35px;
+}
+
+.leads .tableFilter h3 {
+  font-size: 22px;
+  color: #3687E8;
+  font-weight: bold;
+  line-height: 27px;
+  margin: 24px 0;
+}
+
+.leads .tableFilter .pageList {
+  width: 116px;
+  height: 38px;
+  border-radius: 5px;
+  border: 3px solid #3687E8;
+}
+
+.leads .tableFilter .pageList span {
+  font-size: 18px;
+  color: #3687E8;
+  font-weight: 500;
+  line-height: 23px;
+}
+
+.leads .table {
+  width: 100%;
+}
+
+.leads .table thead {
+  background: #FAFAFB;
+}
+
+.leads .table thead th {
+  font-size: 15px;
+  color: #8492A6;
+  font-weight: bold;
+  line-height: 18px;
+  padding: 24px 15px;
+  text-transform: uppercase;
+  border-top: 2px solid #F2F5F9;
+  border-bottom: 2px solid #F2F5F9;
+}
+
+.leads .table thead th:first-child {
+  padding-left: 35px;
+}
+
+.leads .table tbody td {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 24px;
+  padding: 24px 15px;
+  border-top: none;
+  border-bottom: 2px solid #F2F5F9;
+}
+
+.leads .table tbody td:first-child {
+  padding-left: 35px;
+  font-size: 19px;
+  color: #111111;
+  line-height: 24px;
+  font-weight: bold;
+}
+
+.leads .table tbody td .status {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.leads .table tbody td .approved {
+  background: #26DD73;
+}
+
+.leads .table tbody td .rejected {
+  background: #ED714C;
+}
+
+.leads .table tbody td .review {
+  background: #FFCE00;
+}
+
+.leads .table tbody td .dropDown {
+  width: 180px !important;
+  height: 37px !important;
+  border: 1px solid #0000001F !important;
+  border-radius: 4px !important;
+  color: black !important;
+  background: #C3C3C31F;
+  padding: 0 15px;
+}
+
+.leads .table tbody td .checkBox {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
+.leads .table tbody td .tick {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 50%;
+  height: 100%;
+}
+
+.leads .table tbody td .tick img {
+  width: 25px;
+  height: 19px;
+}
+
+.leads .remarks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding: 20px 25px 20px 35px;
+}
+
+.leads .remarks .remarksName {
+  width: 25%;
+  font-size: 19px;
+  font-weight: bold;
+  line-height: 24px;
+}
+
+.leads .remarks textarea {
+  width: 71%;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-radius: 4px;
+  background: #C3C3C31F;
+  border: 1px solid #0000001F;
+}
+/*# sourceMappingURL=index.module.css.map */

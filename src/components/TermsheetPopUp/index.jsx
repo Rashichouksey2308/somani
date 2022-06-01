@@ -1,5 +1,14 @@
 import React from 'react'
-import {Modal,Row,Col,InputGroup,DropdownButton,Dropdown,FormControl,Form} from "react-bootstrap"
+import {
+  Modal,
+  Row,
+  Col,
+  InputGroup,
+  DropdownButton,
+  Dropdown,
+  FormControl,
+  Form,
+} from 'react-bootstrap'
 import styles from './index.module.scss'
 
 
@@ -15,8 +24,7 @@ function index(props) {
     >
       <Modal.Header className={styles.head}>
         <Modal.Title id="contained-modal-title-vcenter">
-         Share termsheet with buyer
-         
+          Share termsheet with buyer
         </Modal.Title>
         <img src="/static/close-2.svg"></img>
       </Modal.Header>
@@ -61,10 +69,7 @@ function index(props) {
        <div className={`${styles.right} col-md-6` }></div>
       </div> */}
       </Modal.Body>
-    
     </Modal>
-
-  
   )
 }
 

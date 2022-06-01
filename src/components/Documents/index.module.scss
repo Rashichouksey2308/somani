@@ -3,6 +3,7 @@
     border-bottom: 3px solid #D9DDE8;
     .heading {
         font-size: 20px;
+        letter-spacing: 0.19px;
         color: #111111;
         font-weight: bold;
         line-height: 25px;
@@ -122,6 +123,102 @@
                     background-color: #C3C3C31F;
                     border: 1px solid #0000001F;
                 }
+            }
+        }
+    }
+    .add_document {
+        display: flex;
+        .add_image {
+            background: transparent;
+            margin-right: 15px;
+        }
+        .add_para {
+          margin-top: 15px;
+          text-align: center;
+          font-size: 18px;
+          font-weight: bold;
+          color: #3687e8;
+          text-transform: capitalize;
+        }
+    }
+    .each_input {
+        margin-bottom: 30px;
+        .label_heading {
+            text-align: left;
+            font-size: 16px;
+            letter-spacing: 0.53px;
+            color: #00000080;
+        }
+        .input_field {
+            height: 60px;
+            background-color: #c3c3c31f;
+            border: 1px solid #0000001f;
+            border-radius: 4px;
+            color: #111111;
+            text-align: left;
+            font-size: 20px;
+            padding-left: 12px;
+        }
+        .button_upload {
+            width: 106px;
+            height: 38px;
+            border: 3px solid #3687e8;
+            border-radius: 5px;
+            color: var(--unnamed-color-3687e8);
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #3687e8;
+            text-transform: capitalize;
+        }
+        .certificate {
+            text-align: left;
+            font-size: 20px;
+            letter-spacing: 0.19px;
+            color: #111111;
+            margin-left: -12px;
+            background-color: #c3c3c31f;
+            border-radius: 4px;
+            padding: 8px;
+        }
+        .image_card {
+            background-color: #c3c3c31f;
+            border: 1px solid #0000001f;
+            border-radius: 4px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            padding: 5px;
+            .image_delete {
+                background: transparent;
+                width: 21px;
+                height: 27px;
+            }
+        }
+        .phone_card {
+            display: flex;
+            .code_phone {
+                border: 1px solid #0000001f;
+                border-radius: 4px;
+                background-color: #c3c3c31f;
+                text-align: left;
+                font-size: 19px;
+                letter-spacing: 0.18px;
+                color: #3687e8;
+                text-transform: capitalize;
+            }
+        }
+        .btn_container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            .upload {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                opacity: 0;
             }
         }
     }

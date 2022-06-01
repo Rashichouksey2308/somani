@@ -1,0 +1,270 @@
+.main {
+  padding: 35px 35px 10px;
+  border-bottom: 3px solid #D9DDE8;
+}
+
+.main .heading {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #111111;
+  font-weight: bold;
+  line-height: 25px;
+}
+
+.main .radio_form {
+  padding-top: 20px;
+}
+
+.main .radio_form .radio_group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main .radio_form .radio_group .radio {
+  font-size: 20px;
+  color: #111111;
+  letter-spacing: 0.19px;
+  padding-right: 25px;
+}
+
+.main .radio_form .sub_heading {
+  font-size: 16px;
+  color: #00000080;
+  line-height: 17px;
+  font-weight: 500;
+  padding: 10px 0 15px;
+  letter-spacing: 0.53px;
+}
+
+.main .input_container {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+}
+
+.main .input_container .hr_line {
+  width: 100%;
+  height: 1px;
+  margin: auto 15px;
+  color: lightgray;
+}
+
+.main .input_container .add_document {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 32px;
+}
+
+.main .input_container .add_document .add_image {
+  margin-right: 15px;
+}
+
+.main .input_container .add_document .add_para {
+  font-size: 18px;
+  color: #3687E8;
+  font-weight: bold;
+  line-height: 23px;
+  margin: 0;
+}
+
+.main .input_container .each_input {
+  margin: 15px 0;
+}
+
+.main .input_container .each_input .label_heading {
+  font-size: 16px;
+  letter-spacing: 0.53px;
+  color: #00000080;
+}
+
+.main .input_container .each_input .input_field {
+  height: 60px;
+  background-color: #C3C3C31F;
+  border: 1px solid #0000001F;
+  border-radius: 4px;
+  color: #111111;
+  text-align: left;
+  font-size: 20px;
+  padding-left: 12px;
+}
+
+.main .input_container .each_input .uploadBtnWrapper {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+}
+
+.main .input_container .each_input .uploadBtnWrapper input {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+}
+
+.main .input_container .each_input .button_upload {
+  width: 106px;
+  height: 38px;
+  border: 3px solid #3687E8;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #3687E8;
+  text-transform: capitalize;
+}
+
+.main .input_container .each_input .certificate {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #111111;
+  background-color: #C3C3C31F;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+}
+
+.main .input_container .each_input .image_card {
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  margin: 10px 0;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #C3C3C31F;
+  border: 1px solid #0000001F;
+}
+
+.main .input_container .each_input .phone_card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main .input_container .each_input .phone_card .code_phone {
+  font-size: 19px;
+  color: #3687E8;
+  border-radius: 4px;
+  letter-spacing: 0.18px;
+  background-color: #C3C3C31F;
+  border: 1px solid #0000001F;
+}
+
+.main .add_document {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main .add_document .add_image {
+  background: transparent;
+  margin-right: 15px;
+}
+
+.main .add_document .add_para {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #3687e8;
+  text-transform: capitalize;
+}
+
+.main .each_input {
+  margin-bottom: 30px;
+}
+
+.main .each_input .label_heading {
+  text-align: left;
+  font-size: 16px;
+  letter-spacing: 0.53px;
+  color: #00000080;
+}
+
+.main .each_input .input_field {
+  height: 60px;
+  background-color: #c3c3c31f;
+  border: 1px solid #0000001f;
+  border-radius: 4px;
+  color: #111111;
+  text-align: left;
+  font-size: 20px;
+  padding-left: 12px;
+}
+
+.main .each_input .button_upload {
+  width: 106px;
+  height: 38px;
+  border: 3px solid #3687e8;
+  border-radius: 5px;
+  color: var(--unnamed-color-3687e8);
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #3687e8;
+  text-transform: capitalize;
+}
+
+.main .each_input .certificate {
+  text-align: left;
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #111111;
+  margin-left: -12px;
+  background-color: #c3c3c31f;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.main .each_input .image_card {
+  background-color: #c3c3c31f;
+  border: 1px solid #0000001f;
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 5px;
+}
+
+.main .each_input .image_card .image_delete {
+  background: transparent;
+  width: 21px;
+  height: 27px;
+}
+
+.main .each_input .phone_card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main .each_input .phone_card .code_phone {
+  border: 1px solid #0000001f;
+  border-radius: 4px;
+  background-color: #c3c3c31f;
+  text-align: left;
+  font-size: 19px;
+  letter-spacing: 0.18px;
+  color: #3687e8;
+  text-transform: capitalize;
+}
+
+.main .each_input .btn_container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.main .each_input .btn_container .upload {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+}
+/*# sourceMappingURL=index.module.css.map */
