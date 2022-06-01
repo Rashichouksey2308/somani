@@ -43,11 +43,11 @@ const index = () => {
 
   const [documents, setDocuments] = useState({
     typeOfDocument: [null],
-    document1: '',
-    document2: ''
+    document1: null,
+    document2: null
   })
 
-  console.log(companyDetails, "companyDetails")
+  // console.log(companyDetails, "companyDetails")
 
 
   const saveCompanyData = (name,value) => {
@@ -64,46 +64,52 @@ const index = () => {
 
   const saveDocument = (e) => {
     let newDocument = {...documents}
-    console.log(newDocument)
+    // console.log(newDocument)
     newDocument.typeOfDocument[e.target.name]=(e.target.value)
-    console.log(newDocument,"newdocument")
+    // console.log(newDocument,"newdocument")
     setDocuments(newDocument)
 
   }
 
   const uploadDocument1 = (e) => {
-    const formData = new FormData()
-    formData.append('document1', e.target.files[0], 'document1.doc')
+
     const newUploadDoc = {...documents}
-    newUploadDoc.document1 = formData
-    console.log(newUploadDoc,"newuploaddocument")
+    newUploadDoc.document1 = e.target.files[0]
+    // console.log(newUploadDoc,"newuploaddocument")
     setDocuments(newUploadDoc)
 
   }
   const uploadDocument2 = (e) => {
-    const formData = new FormData()
-    formData.append('document2', e.target.files[0], 'document2.doc')
+    
     const newUploadDoc1 = {...documents}
-    newUploadDoc1.document2 = formData
-    console.log(newUploadDoc1,"newuploaddocument1")
+    newUploadDoc1.document2 = e.target.files[0]
+    // console.log(newUploadDoc1,"newuploaddocument1")
     setDocuments(newUploadDoc1)
 
   }
   
   const submitData=()=>{
     //register api call
-    console.log(documents, "these are the docs")
-    const payload={
-      companyProfile: companyDetails,
-      orderDetails: orderDetails,
-      documentType: documents.typeOfDocument,
-      document1: documents.document1,
-      document2: documents.document2
-      
-    }
-    console.log(payload, "this is payload")
 
-    dispatch(CreateBuyer(payload))
+    // const payload={
+    //   companyProfile: companyDetails,
+    //   orderDetails: orderDetails,
+    //   documentType: documents.typeOfDocument,
+    //   document1: documents.document1,
+    //   document2: documents.document2
+      
+    // }
+      
+    const fd = new FormData()
+
+    fd.append('companyProfile', JSON.stringify(companyDetails))
+    fd.append('orderDetails', JSON.stringify(orderDetails))
+    fd.append('documentType', JSON.stringify(documents.typeOfDocument))
+    fd.append('document1',  documents.document1)
+    fd.append('document2', documents.document2)
+    console.log(fd, "this is payload")
+
+    dispatch(CreateBuyer(fd))
     Router.push('/leads')
   }
 
