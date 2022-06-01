@@ -48,6 +48,7 @@ const index = () => {
   })
 
   // console.log(companyDetails, "companyDetails")
+  console.log(orderDetails, "companyDetails")
 
 
   const saveCompanyData = (name,value) => {

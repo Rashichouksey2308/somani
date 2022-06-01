@@ -28,7 +28,7 @@ const index = ({saveOrderData}) => {
           <input
             type="number"
             id="textInput"
-            name='quantity'
+            name='Quantity'
             onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
           />
@@ -103,7 +103,7 @@ const index = ({saveOrderData}) => {
           </label>
           <input
             type="date"
-            name='expectedDateOfShipment'
+            name='ExpectedDateOfShipment'
             id="textDate"
             onChange={(e) => {saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
