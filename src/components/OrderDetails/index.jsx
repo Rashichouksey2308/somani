@@ -16,7 +16,7 @@ const index = ({saveOrderData}) => {
             type="text"
             id="textInput"
             name='commodity'
-            defaultValue='Iron'
+            // defaultValue='Iron'
             onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
           />
@@ -76,7 +76,7 @@ const index = ({saveOrderData}) => {
             onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
           >
-            <option value="India">India</option>
+            <option value="India" selected>India</option>
             <option value="America">America</option>
           </select>
         </div>
@@ -91,7 +91,7 @@ const index = ({saveOrderData}) => {
             onChange={(e)=>{saveOrderData(e.target.name,e.target.value)}}
             className={`${styles.input_field} form-control`}
           >
-            <option value="VishakaPatnam">Visakhapatnam</option>
+            <option value="VishakaPatnam" selected>Visakhapatnam</option>
             <option value="Mumbai">Mumbai</option>
           </select>
           <label className={styles.label_heading}>Port Of Discharge<strong className="text-danger">*</strong></label>
