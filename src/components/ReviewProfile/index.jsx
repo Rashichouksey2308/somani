@@ -101,27 +101,25 @@ function index() {
     </div>
   )
 }
-
 export default index
 
 const tableRow=()=>{
     return(
-          <tr>
-                <td>Transaction Type</td>
-                <td >Domestic</td>
-                <td ><div className={styles.tick} >
-                    <img src="/static/check.svg" alt="Check"></img>
-                    </div></td>
-                <td><input className={styles.checkBox} type="checkbox"/></td>
-                <td>
+        <tr>
+            <td>Transaction Type</td>
+            <td>Domestic</td>
+            <td><div className={styles.tick} >
+                <img src="/static/check.svg" alt="Check" className='img-fluid'/>
+                </div>
+            </td>
+            <td><input className={styles.checkBox} type="checkbox"/></td>
+            <td>
                 <Form.Select size="sm" className={styles.dropDown}>
-                         <option>Retailer</option>
-                         <option>Copper</option>
+                    <option>Retailer</option>
+                    <option>Copper</option>
                 </Form.Select>
-
-                </td>
-              
-         </tr>
+            </td>
+        </tr>
     )
 
 }

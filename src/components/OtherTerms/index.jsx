@@ -178,8 +178,8 @@ const index = () => {
                                     <label className={styles.checkbox_label} for="vehicle2">LC Amendment Cost</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
-                                    <input className={styles.checkbox} type="checkbox" id="vehicle3" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle3">CMA Fees including supervision and survey</label>
+                                    <input className={styles.checkbox} type="checkbox"/>
+                                    <label className={styles.checkbox_label}>CMA Fees including supervision and survey</label>
                                 </div>
                             </div>
                         </div>
@@ -187,12 +187,12 @@ const index = () => {
                             <h3 className={styles.other_heading}>Insurance</h3>
                             <div className={`${styles.checkbox_container} d-flex flex-column`}>
                                 <div className='d-flex align-items-center'>
-                                    <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                    <input className={styles.checkbox} type="checkbox"/>
+                                    <label className={styles.checkbox_label}>LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
-                                    <input className={styles.checkbox} type="checkbox" id="vehicle2"  value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle2">LC Amendment Cost</label>
+                                    <input className={styles.checkbox} type="checkbox"/>
+                                    <label className={styles.checkbox_label}>LC Amendment Cost</label>
                                 </div>
                             </div>
                         </div>                    

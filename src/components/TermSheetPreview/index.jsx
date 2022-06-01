@@ -509,7 +509,7 @@ function index() {
 
             <div className={styles.footer}>
               All necessary documents to be filed with Customs department for
-              discharge of goods & Customs clearance can be filed by IGPL or its
+              discharge of goods &amp; Customs clearance can be filed by IGPL or its
               nominated person. * GST charges extra wherever applicable
             </div>
           </div>

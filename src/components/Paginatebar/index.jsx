@@ -5,14 +5,16 @@ function index({openbar}) {
   return (
     <div className={styles.root}>
         <div className={styles.reject}><span>Termsheet</span>
-        <img src="#"></img>
+        <img src="/static/file_download.svg" className='img-fluid' alt="FileDownload"/>
         </div>
         <div className={styles.navigate}>
-            <span>2</span> / 10  |
+            <span>2</span> / 10  
+            <div style={{color: "#66708559"}}> | </div>
              <div className={styles.button}></div>
             <span className={styles.zoom}>80%</span>
-             <div className={styles.button2}></div> |
-             <img src="#"></img>
+            <img src="/static/add-3.svg" className='img-fluid' alt="Add"/>
+           <div style={{color: "#66708559"}}>  |  </div>
+             <img src="/static/expand.svg" className='img-fluid' alt="Expand"/>
             
         </div>
         <div className={styles.approve} onClick={

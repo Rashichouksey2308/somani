@@ -4,35 +4,31 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={`${styles.main} container-fluid`}>
-      <div className="d-flex justify-content-between">
+    <div className={`${styles.main}`}>
+        <div className={`${styles.head_container} d-flex justify-content-between`}>
         <h3 className={styles.heading}>Order Summary</h3>
         <div className={`${styles.unit_container} d-flex align-items-center`}>
-          <h5 className={styles.unit_label}>Units : </h5>
-          <select className={styles.options}>
-            <option>Crores</option>
-          </select>
-          <img src="/static/Group 550.svg" />
-        </div>
-      </div>
-      <hr></hr>
-      <div className={styles.dashboard_form}>
-        <Form>
-          <div className="row">
-            <Form.Group className={`${styles.form_group} col-md-4`}>
-              <Form.Label className={styles.label}>Commodity</Form.Label>
-              <div className="d-flex">
-                <Form.Control
-                  className={`${styles.value} form-control`}
-                  type="text"
-                  placeholder="Iron"
-                />{' '}
-                <img
-                  className={styles.search_image}
-                  src="/static/Group 58.svg"
-                />
-              </div>
-            </Form.Group>
+            <h5 className={styles.unit_label}>Units : </h5>
+            <select className={styles.options}>
+                <option>Crores</option>
+            </select>
+                <img src ="/static/add.svg"
+                className="img-fluid" alt="Add"/>
+                </div>
+                </div>        
+                <div className={styles.dashboard_form}>
+                
+            <Form>
+            <div className='row'>
+               
+                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <div className='d-flex'>
+                    <Form.Control className={`${styles.value} form-control`} required type="text"/> 
+                     
+                     <Form.Label className={styles.label}>Commodity<strong className="text-danger">*</strong></Form.Label>
+                     <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
+                     </div>
+                </Form.Group>
 
             <Form.Group className={`${styles.form_group} col-md-4`}>
               <Form.Label className={styles.label}>Quantity in MT</Form.Label>

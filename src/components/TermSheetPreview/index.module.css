@@ -1,0 +1,315 @@
+.root_container {
+  padding: 25px;
+  width: 100%;
+}
+
+.root_container .head_container {
+  width: 100%;
+}
+
+.root_container .head_container .head_container {
+  width: 100%;
+}
+
+.root_container .head_container .head_container .head_header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.root_container .head_container .head_container .head_header .arrow {
+  width: 13px;
+  height: 21px;
+  background: transparent;
+}
+
+.root_container .head_container .head_container .head_header .heading {
+  padding: 12px 0 18px 18px;
+  font-weight: bold;
+  font-size: 30px;
+  color: #111111;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.root_container .head_container .term_container {
+  padding: 18px 36px 18px 36px;
+  height: 126px;
+  background: #D8EAFF 0% 0% no-repeat padding-box;
+  border: 1px solid #D2D7E5;
+  border-radius: 6px;
+}
+
+.root_container .head_container .term_container span {
+  color: #3687E8;
+  font-size: 34px;
+  line-height: 41px;
+  font-weight: bold;
+}
+
+.root_container .head_container .term_container div .termSub_head {
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: bold;
+  color: #111111;
+  margin-right: 0.5rem;
+}
+
+.root_container .head_container .content {
+  margin-top: 32px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-bottom: 1rem;
+}
+
+.root_container .head_container .content .row_head {
+  background: #FAFAFB 0% 0% no-repeat padding-box;
+}
+
+.root_container .head_container .content .row_head .content_header {
+  height: 67px;
+  padding-left: 36px;
+  font-size: 22px;
+  line-height: 27px;
+  font-weight: bold;
+  color: #3687e8;
+  border-right: 2px solid #e5e5e5;
+}
+
+.root_container .head_container .content .row_head .content_header span {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.root_container .head_container .content .row_head .content_header_other {
+  height: 67px;
+  font-size: 22px;
+  line-height: 27px;
+  font-weight: bold;
+  color: #3687e8;
+}
+
+.root_container .head_container .content .row_head .content_header_other {
+  height: 67px;
+  font-size: 22px;
+  line-height: 27px;
+  font-weight: bold;
+  color: #3687E8;
+  padding-left: 36px;
+}
+
+.root_container .head_container .content .row_head .content_header_other span {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.root_container .head_container .sub_content_other {
+  font-size: 20px;
+  line-height: 24px;
+  list-style: none;
+  color: #111111;
+  padding: 25px 0px 25px 37px;
+}
+
+.root_container .head_container .sub_content {
+  border-right: 2px solid #e5e5e5;
+}
+
+.root_container .head_container .sub_content ol {
+  font-size: 20px;
+  line-height: 24px;
+  list-style: none;
+  color: #111111;
+  opacity: 0.7;
+  padding-left: 25px;
+}
+
+.root_container .head_container .sub_content ol li {
+  margin-bottom: 0.5rem;
+  padding-bottom: 15px;
+}
+
+.root_container .head_container .sub_contentValue ul {
+  font-size: 20px;
+  line-height: 24px;
+  list-style: none;
+  color: #111111;
+  opacity: 1;
+  padding-left: 12px;
+}
+
+.root_container .head_container .sub_contentValue li {
+  margin-bottom: 0.5rem;
+  padding-bottom: 15px;
+}
+
+.root_container .head_container .sub_contentValue ul {
+  font-size: 20px;
+  line-height: 24px;
+  list-style: none;
+  color: #111111;
+  opacity: 1;
+  padding-left: 0px !important;
+}
+
+.root_container .head_container .sub_contentValue li {
+  margin-bottom: 0.5rem;
+}
+
+.root_container .head_container .checkMarks {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.root_container .head_container .checkMarks .left {
+  width: 48%;
+  margin-top: 30px;
+}
+
+.root_container .head_container .checkMarks .left .head {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 27px;
+  color: #111111;
+  padding: 20px 0 20px 30px;
+  height: 67px;
+  background-color: #FAFAFB;
+}
+
+.root_container .head_container .checkMarks .left .checkContent {
+  padding-left: 15px;
+  padding-top: 1rem;
+}
+
+.root_container .head_container .checkMarks .left .checkContent div {
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0.19px;
+  padding: 15px;
+}
+
+.root_container .head_container .checkMarks .left .checkContent div input {
+  margin-right: 1.5rem;
+}
+
+.root_container .head_container .checkMarks .right {
+  width: 50%;
+  margin-top: 30px;
+}
+
+.root_container .head_container .checkMarks .right .head {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 27px;
+  color: #111111;
+  padding: 20px 0 20px 30px;
+  height: 67px;
+  background-color: #FAFAFB;
+}
+
+.root_container .head_container .checkMarks .right .checkContent {
+  padding-top: 1rem;
+}
+
+.root_container .head_container .checkMarks .right .checkContent div {
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0.19px;
+  padding: 15px 0px 15px 28px;
+}
+
+.root_container .head_container .checkMarks .right .checkContent div input {
+  margin-right: 1.5rem;
+}
+
+.root_container .head_container .checkMarks .right .checkContent div .subhead {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 27px;
+  color: #111111;
+  padding: 20px 0 20px 30px;
+  height: 67px;
+  background-color: #FAFAFB;
+}
+
+.root_container .head_container .right {
+  width: 45%;
+}
+
+.root_container .head_container .right .head {
+  padding-left: 15px;
+  height: 67px;
+  background: #fafafb 0% 0% no-repeat padding-box;
+}
+
+.root_container .head_container .right .checkContent {
+  padding-top: 1rem;
+}
+
+.root_container .head_container .right .checkContent div {
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0.19px;
+  padding: 15px;
+}
+
+.root_container .head_container .right .checkContent div input {
+  margin-right: 1.5rem;
+}
+
+.root_container .head_container .right .subhead {
+  height: 67px;
+  background: #fafafb 0% 0% no-repeat padding-box;
+}
+
+.root_container .subhead {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 27px;
+}
+
+.root_container .head {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 27px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=index.module.css.map */

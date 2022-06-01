@@ -159,5 +159,4 @@ const index = () => {
     </Card>
   )
 }
-
 export default index
