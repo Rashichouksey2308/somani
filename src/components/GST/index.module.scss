@@ -23,6 +23,13 @@
          font-weight: normal;
          line-height: 20px;
      }
+          .light {
+              color: #2837566A;
+              font-weight: bold;
+              font-size: 18px;
+              line-height: 23px;
+              margin-right: 1rem;
+          }
     
 }
  .cardBody {
@@ -63,6 +70,7 @@
                 line-height: 25px;
                 color: #111111;
                 margin-top:0.5rem;
+                    margin-bottom: 1rem;
          
         }
      }
@@ -73,6 +81,9 @@
          .col2 {
              padding-left: 0px !important;
     
+         }
+         .row{
+             margin-bottom: 1rem;
          }
  }
 
@@ -95,6 +106,7 @@
                         font-size: 19px;
                         line-height: 24px;
                         opacity: 1;
+                        margin-left: 1rem;
                     }
         
                 }
@@ -141,6 +153,7 @@
      padding: 0px;
 
      .content {
+         margin-bottom: 1.5rem;
          .header {
 
              padding: 25px 35px !important;
@@ -163,7 +176,7 @@
 
      .body {
          overflow-y: auto;
-         height: 200px;
+         height: 250px;
         
         .table1 {
                 padding: 35px;
@@ -176,7 +189,7 @@
                         font-weight: normal;
                         font-size: 18px;
                         line-height: 18px;
-                        border-bottom: 1px solid rgb(197, 197, 197);
+                        border-bottom: 1.5px solid #dae2ed;
                     &:first-child {
                             padding-left: 35px;
                         }
@@ -184,6 +197,7 @@
                     td{font-size: 18px;
                         line-height: 23px;
                         border-bottom:none;
+                        border-top: none;
                         &:first-child {
                                 padding-left: 35px;
                             }
@@ -193,7 +207,240 @@
                     padding: 25px 35px !important;
                 }
             }
+                        .table2{
+                            padding: 35px;
+                            box-sizing: border-box;
+            
+                            tr {
+                                padding-left: 35px;
+            
+                                th {
+                                    color: #3687E8;
+                                    font-weight: normal;
+                                    font-size: 18px;
+                                    line-height: 18px;
+                                    border-bottom: 1.5px solid #dae2ed;
+            
+                                    &:first-child {
+                                        padding-left: 35px;
+                                        width: 20%
+                                    }
+                                }
+            
+                                td {
+                                    font-size: 18px;
+                                    line-height: 23px;
+                                    border-bottom: none;
+                                    border-top: none;
+            
+                                    &:first-child {
+                                        padding-left: 35px;
+                                        width: 20%
+                                    }
+                                }
+                            }
+            
+                            tbody {
+                                padding: 25px 35px !important;
+                            }
+                        }
         }
-
+    .body_noscroll{
+        height:fit-content
+    }
     
+ }
+
+ .select{
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 2px solid #E2E2E2;
+            border-radius: 14px;
+            width: 98px;
+            height: 27px;
+            font: normal normal bold 18px/23px Helvetica;
+            letter-spacing: 0px;
+            color: #3687E8;
+ }
+ .selectHead{
+     margin-right: 1.5rem;
+    border: 2px solid #E2E2E2;
+        border-radius: 14px;
+        width: 98px;
+        height: 27px;
+        font: normal normal bold 18px/23px Helvetica;
+        letter-spacing: 0px;
+        color: #3687E8;
+    background: #F3F4F7 0% 0% no-repeat padding-box;
+ }
+ .table_average{
+     margin: 0px !important;
+    padding: 35px;
+    box-sizing: border-box;
+                    border: 1.5px solid #dae2ed;
+    tr {
+            padding-left: 35px;
+    
+            th {
+                color: #010101;
+                font-weight: normal;
+                font-size: 18px;
+                line-height: 18px;
+                width:33.33%;
+                background: #FAFAFB 0% 0% no-repeat padding-box;
+                &:first-child {
+                    padding-left: 35px;
+                }
+            }
+            td{
+                width: 33.33%;
+                border-top:none;
+                border-top: 1px solid #71869a00;
+            
+           
+            }
+                        &:last-child {
+                            margin-bottom: 35px;
+                        }
+    
+         
+        }
+    
+      
+          
+            .second_head{
+                height: 32px;
+                color: #3687E8;
+                td{    
+                       border-bottom:1.5px solid #dae2ed; ;
+                        padding-left: 0.75rem;
+                        padding-right: 0.75rem;
+                }
+           
+          
+        }
+}
+
+.table_pricioal{
+        padding: 35px;
+            box-sizing: border-box;
+            border: 1.5px solid #dae2ed;
+        
+            tr {
+                padding-left: 35px;
+        
+                th {
+                    color: #010101;
+                    font-weight: normal;
+                    font-size: 18px;
+                    line-height: 18px;
+                  
+                    background: #FAFAFB 0% 0% no-repeat padding-box;
+        
+                    &:first-child {
+                        padding-left: 35px;
+                        width: 33.33%;
+                    }
+                }
+        
+                td {
+                    
+                    border-top: none;
+                    border-top: 1px solid #71869a00;
+                    border-left: 1px solid #71869a00;
+        
+        
+                }
+        
+                &:last-child {
+                    margin-bottom: 35px;
+                }
+        
+        
+            }
+                         .first {
+                             padding-left: 35px;
+                             width: 33.33%;
+                            border-right: 1.5px solid #dae2ed;
+                         }
+                                  .second_head {
+                                      height: 32px;
+                                      color: #3687E8;
+                                       border-left: 1.5px solid #ff000000;      
+                                        border-bottom: 1.5px solid #dae2ed;                              border-bottom: 1.5px solid #dae2ed;
+                                   
+                
+                                      td {
+                                         
+                                          border-bottom: 1.5px solid #dae2ed;
+                                          width: auto;
+                                          padding-left: 0.75rem;
+                                          padding-right: 0.75rem;
+                                      }
+                               
+                
+                                  }
+}
+ .table_annual {
+     margin-bottom: 0px;
+    padding: 35px;
+        box-sizing: border-box;
+        border: 1.5px solid #dae2ed;
+    
+        tr {
+            padding-left: 35px;
+    
+            th {
+                color: #010101;
+                font-weight: normal;
+                font-size: 18px;
+                line-height: 18px;
+    
+                background: #FAFAFB 0% 0% no-repeat padding-box;
+    
+                &:first-child {
+                    padding-left: 35px;
+                    width: 33.33%;
+                }
+            }
+    
+            td {
+    
+                border-top: none;
+                border-top: 1px solid #71869a00;
+                border-left: 1px solid #71869a00;
+    
+    
+            }
+    
+            &:last-child {
+                margin-bottom: 35px;
+            }
+    
+    
+        }
+    
+        .first {
+            padding-left: 35px;
+            width: 33.33%;
+            border-right: 1.5px solid #dae2ed;
+        }
+    
+        .second_head {
+            height: 32px;
+            color: #3687E8;
+            border-left: 1.5px solid #ff000000;
+            border-bottom: 1.5px solid #dae2ed;
+            border-bottom: 1.5px solid #dae2ed;
+    
+    
+            td {
+    
+                border-bottom: 1.5px solid #dae2ed;
+                width: auto;
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+    
+    
+        }
  }

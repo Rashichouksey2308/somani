@@ -1,30 +1,93 @@
-import React from 'react'
+import React ,{useRef,useEffect,useState}from 'react'
 import styles from './index.module.scss'
 import {Row,Col} from 'react-bootstrap'
 import { Line } from "react-chartjs-2";
-import { Chart, LineController, LineElement, PointElement, LinearScale, Title,CategoryScale } from 'chart.js';
+import { Chart, LineController, LineElement, PointElement, LinearScale, Title,CategoryScale,Filler } from 'chart.js';
 
-Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale);
+Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale,Filler);
 // Chart.register(linear);
 function index() {
-const data = {
+  const chartRef = useRef(null);
+  const [chartData, setChartData] = useState({
+    datasets: [],
+  });
+  function createGradient(ctx, area) {
+  // const colorStart = faker.random.arrayElement(colors);
+  // const colorMid = faker.random.arrayElement(
+  //   colors.filter(color => color !== colorStart)
+  // );
+  // const colorEnd = faker.random.arrayElement(
+  //   colors.filter(color => color !== colorStart && color !== colorMid)
+  // );
+  console.log(ctx,area,"cts")
+
+  const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
+
+  gradient.addColorStop(0, "rgba(75,192,192,0");
+  gradient.addColorStop(0.5, "rgba(75,192,192,0.5");
+  gradient.addColorStop(1, "rgba(75,192,192,1");
+  console.log(gradient,"gradient")
+  return gradient;
+}
+
+   useEffect(() => {
+    const chart = chartRef.current;
+   console.log("here",chart.ctx)
+    if (!chart) {
+      return;
+    }
+
+    let color= createGradient(chart.ctx, chart.chartArea)
+    console.log(color,"color")
+ const data = {
   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
   datasets: [
     {
       label: "First dataset",
       data: [33, 53, 85, 41, 44, 65],
       fill: true,
-      backgroundColor: "rgba(75,192,192,0.2)",
+      backgroundColor:  color,
       borderColor: "rgba(75,192,192,1)"
     },
     {
       label: "Second dataset",
       data: [33, 25, 35, 51, 54, 76],
-      fill: false,
+      fill: true,
+      backgroundColor: color,
       borderColor: "#742774"
     }
   ]
 };
+
+    setChartData(data);
+  },[chartRef.current]);
+
+const lineOption={
+  tension:0.1,
+  fill:true,
+   elements: {
+                    point:{
+                        radius: 0
+                    }
+                }
+}
+let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  datasets: [
+    {
+      label: "First dataset",
+      data: [33, 53, 85, 41, 44, 65],
+      fill: true,
+      backgroundColor:  'rgba(75,192,192,1)',
+      borderColor: "rgba(75,192,192,1)"
+    },
+    {
+      label: "Second dataset",
+      data: [33, 25, 35, 51, 54, 76],
+      fill: true,
+      backgroundColor: 'rgba(75,192,192,1)',
+      borderColor: "#742774"
+    }
+  ]}
 
   return (
     <>
@@ -101,7 +164,7 @@ const data = {
                     </Col>
                     
                     
-                   </Row>
+                </Row>
             </div>
            </div>
             <div className={` ${styles.content}`}>
@@ -110,25 +173,25 @@ const data = {
             
             </div>
             <div className={` ${styles.body}`}>
-                <Row >
-                    <Col md={3} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-between`}>
+                <Row  className={` ${styles.row}`} >
+                    <Col md={2} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}>
                        <div className={styles.dot}></div><span>GST cancelled</span>
                     </Col>
                   
                     
                     
                    </Row>
-                   <Row >
-                    <Col md={3} style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-between`}>
+                   <Row className={` ${styles.row}`} >
+                    <Col md={3} style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}>
                        <div className={styles.dot} style={{backgroundColor:"#28BE39"}}></div><span>GST Transaction default</span>
                     </Col>
-                    <Col md={3}  style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-between`}>
+                    <Col md={3}  style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}>
                        <div className={styles.dot} style={{backgroundColor:"#EA3FD6"}}></div><span>GST Provisional</span>
                     </Col>
-                    <Col md={3}  style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-between`}>
+                    <Col md={3}  style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}>
                        <div className={styles.dot} style={{backgroundColor:"#3F66EA"}}></div><span>GST Transaction delay</span>
                     </Col>
-                    <Col md={3}  style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-between`}>
+                    <Col md={3}  style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}>
                        <div className={styles.dot} style={{backgroundColor:"#CBC5C5"}}></div><span>GST Inactive</span>
                     </Col>
                   
@@ -173,7 +236,15 @@ const data = {
            <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
               <span>Revenue Profile</span>  
-              <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :</span>09AAGCS8808K1ZR</span>   
+              <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :
+              </span>
+              <select className={`${styles.select} form-select`} aria-label="Default select example">
+             
+              <option selected value="1">Crores</option>
+            
+            </select>
+              
+              </span>   
             </div>
             <div className={` ${styles.body}`}>
                 <Row >
@@ -258,7 +329,7 @@ const data = {
               <span className={styles.light}>(Cr)</span> 
             </div>
              <div  className={styles.chart}>
-                <Line data={data} />
+                <Line  ref={chartRef}  data={chartData} options={lineOption}/>
              </div>
               </div>
              </Col>
@@ -304,24 +375,25 @@ const data = {
 
 
 
-          <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations2" aria-expanded="true" aria-controls="litigations2">
+        <div className={styles.wrapper}>
+              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations2" aria-expanded="true" aria-controls="litigations2">
             <h2 className="mb-0">Sales Details</h2>
             <span>+</span>
         </div>
         <div id="litigations2" className="collapse" aria-labelledby="litigations2" data-parent="#profileAccordion">
          <div className={` ${styles.cardBody} card-body`}>
-           <table className={`${styles.table}  table`}cellpadding="0" cellspacing="0" border="1">
+           <table className={`${styles.table_annual}  table`}cellpadding="0" cellspacing="0" border="1">
             <tr>
-            <th colspan={2}>Annual Summary</th>
+            <th  className={`${styles.first}`} colspan={2}>Annual Summary</th>
             <th  colspan={2}>MAR 2020 - APR 2021</th>
             <th  colspan={2}>MAR 2021 - APR 2022</th>
             </tr>
-             <tr>
-            <td  colspan={2} ></td>
+             <tr  className={styles.second_head}>
+            <td  className={`${styles.first}`} colspan={2} ></td>
              <td>VALUE</td>
-              <td>% ON GROSS REVENUE</td>
-                <td>VALUE</td>
-              <td>% ON GROSS REVENUE</td>
+              <td >% ON GROSS REVENUE</td>
+                <td >VALUE</td>
+              <td >% ON GROSS REVENUE</td>
              {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
@@ -339,7 +411,7 @@ const data = {
             
             </tr>
              <tr>
-            <td  colspan={2} >Gross Revenue</td>
+            <td  className={`${styles.first}`} colspan={2} >Gross Revenue</td>
              <td>1,900.00</td>
               <td>80%</td>
                 <td>1,900.00</td>
@@ -354,16 +426,113 @@ const data = {
             
             </tr>
            </table>
+           <table className={`${styles.table_average}  table`} cellpadding="0" cellspacing="0" border="1">
+            <tr>
+            <th >Averages</th>
+            <th  >MAR 2020 - APR 2021</th>
+            <th  >MAR 2021 - APR 2022</th>
+            </tr>
+           
+              <tr className={styles.second_head}>
+                      <td   ></td>
+                      <td>VALUE</td>
+                      
+                          <td>VALUE</td>
+                      
+            </tr>
+             <tr>
+            <td >Average Monthly Sales</td>
+             <td>1,900.00</td>
+           
+                <td>1,900.00</td>
+             </tr>
+               <tr>
+            <td >Average Monthly Sales</td>
+             <td>1,900.00</td>
+           
+                <td>1,900.00</td>
+             </tr>
+               <tr>
+            <td >Average Monthly Sales</td>
+             <td>1,900.00</td>
+           
+                <td>1,900.00</td>
+             </tr>
+               <tr>
+            <td >Average Monthly Sales</td>
+             <td>1,900.00</td>
+           
+                <td>1,900.00</td>
+             </tr>
+               <tr>
+            <td >Average Monthly Sales</td>
+             <td>1,900.00</td>
+           
+                <td>1,900.00</td>
+             </tr>
+           
+           </table>
+            <table className={`${styles.table_pricioal}  table`} cellpadding="0" cellspacing="0" border="1">
+            <tr>
+            <th >Principal/ HSN Wise Sales</th>
+            <th colspan={6} >Financial Period:1</th>
+           
+            </tr>
+            <tr>
+              <td className={`${styles.second_head} ${styles.first}`}>PRODUCT</td>
+                <td className={styles.second_head}>HSN CODE</td>
+                  <td className={styles.second_head}>TURNOVER</td>
+                    <td className={styles.second_head}>% SHARE</td>
+
+                      <td className={styles.second_head}>CUSTOMERS</td>
+                        <td className={styles.second_head}>INVOICES</td>
+                          <td className={styles.second_head}>AVG. SALES PER CUSTOMER</td>
+            </tr>
+               <tr>
+              <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                <td >72022900E</td>
+                  <td >25.40</td>
+                    <td >25.40E</td>
+
+                      <td >24</td>
+                        <td >19</td>
+                          <td >1.05</td>
+            </tr>
+              <tr>
+              <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                <td >72022900E</td>
+                  <td >25.40</td>
+                    <td >25.40E</td>
+
+                      <td >24</td>
+                        <td >19</td>
+                          <td >1.05</td>
+            </tr>
+              <tr>
+              <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                <td >72022900E</td>
+                  <td >25.40</td>
+                    <td >25.40E</td>
+
+                      <td >24</td>
+                        <td >19</td>
+                          <td >1.05</td>
+            </tr>
+          
+         
+           
+           </table>
           
            </div>            
-        </div>                                      
+        </div>   </div>                                   
                                               
 
            {/* CistomerDetail                                    */}
 
       {gstCustomerDetail()}
-        {gstSupplierDetail()}
-         {gstSales()}
+      {gstSupplierDetail()}
+      {gstSalesAndPurchase("Sales")}
+      {gstSalesAndPurchase("Purchase")}
                                       
                                     
     </>
@@ -375,9 +544,21 @@ export default index
 const gstCustomerDetail = () => {
   return(
     <>
-            <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
+      <div className={styles.wrapper}>
+              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
             <h2 className="mb-0">Customer Details</h2>
-            <span>+</span>
+            <span className=" d-flex align-items-center justify-content-between">
+               <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :
+              </span>
+              <select className={`${styles.selectHead} form-select`} aria-label="Default select example">
+             
+              <option selected value="1">Crores</option>
+            
+            </select>
+              
+              </span> 
+              +
+            </span>
         </div>
         <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
          <div className={` ${styles.CustomercardBody} card-body`}>
@@ -387,7 +568,7 @@ const gstCustomerDetail = () => {
             
             </div>
             <div className={` ${styles.body}`}>
-             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+             <table className={`${styles.table2}  table`}cellpadding="0" cellspacing="0" >
             <tr>
             <th>CUSTOMER NAME</th>
             <th >PAN</th>
@@ -406,7 +587,7 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Sdf Pvt. Ltd.</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -414,7 +595,7 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Xyz Pvt. Ltd.</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -422,7 +603,7 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Mnb Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -459,7 +640,7 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Sdf Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -467,7 +648,7 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Xyz Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -475,7 +656,7 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Mnb Pvt. Ltd.</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -492,7 +673,7 @@ const gstCustomerDetail = () => {
               <span>Top 10 Customers</span>  
             
             </div>
-            <div className={` ${styles.body}`}>
+            <div className={` ${styles.body} ${styles.body_noscroll}`}>
              <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
             <tr>
             <th>CUSTOMER NAME</th>
@@ -504,7 +685,7 @@ const gstCustomerDetail = () => {
             </tr>
             <tbody>
               <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Abs International</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -512,7 +693,7 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Sdf Pvt. Ltd.</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -520,7 +701,7 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Xyz Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -528,7 +709,39 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Mnb Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Xyz Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Mnb Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Xyz Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Mnb Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -545,7 +758,7 @@ const gstCustomerDetail = () => {
               <span>Statewise Sales</span>  
             
             </div>
-            <div className={` ${styles.body}`}>
+            <div className={` ${styles.body} ${styles.body_noscroll}`}>
              <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
             <tr>
             <th>CUSTOMER NAME</th>
@@ -557,7 +770,7 @@ const gstCustomerDetail = () => {
             </tr>
             <tbody>
               <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Abs International</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -565,7 +778,7 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Sdf Pvt. Ltd.</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -573,7 +786,7 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Xyz Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -581,7 +794,39 @@ const gstCustomerDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Mnb Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Xyz Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Mnb Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Xyz Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Mnb Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -596,16 +841,29 @@ const gstCustomerDetail = () => {
           
         </div>            
         </div>  
+      </div>
     </>
   )
 }
 
 const gstSupplierDetail = () => {
   return(
-    <>
-            <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
-            <h2 className="mb-0">Customer Details</h2>
-            <span>+</span>
+   <>
+      <div className={styles.wrapper}>
+              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
+            <h2 className="mb-0">Suppliers Details</h2>
+            <span className=" d-flex align-items-center justify-content-between">
+               <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :
+              </span>
+              <select className={`${styles.selectHead} form-select`} aria-label="Default select example">
+             
+              <option selected value="1">Crores</option>
+            
+            </select>
+              
+              </span> 
+              +
+            </span>
         </div>
         <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
          <div className={` ${styles.CustomercardBody} card-body`}>
@@ -634,7 +892,7 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Sdf Pvt. Ltd.</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -642,7 +900,7 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Xyz Pvt. Ltd.</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -650,7 +908,7 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Mnb Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -687,7 +945,7 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Sdf Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -695,7 +953,7 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Xyz Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -703,7 +961,7 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Mnb Pvt. Ltd.</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -720,7 +978,7 @@ const gstSupplierDetail = () => {
               <span>Top 10 Customers</span>  
             
             </div>
-            <div className={` ${styles.body}`}>
+            <div className={` ${styles.body} ${styles.body_noscroll}`}>
              <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
             <tr>
             <th>CUSTOMER NAME</th>
@@ -732,7 +990,7 @@ const gstSupplierDetail = () => {
             </tr>
             <tbody>
               <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Abs International</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -740,7 +998,7 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Sdf Pvt. Ltd.</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -748,7 +1006,7 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Xyz Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -756,7 +1014,39 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Mnb Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Xyz Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Mnb Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Xyz Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Mnb Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -773,7 +1063,7 @@ const gstSupplierDetail = () => {
               <span>Statewise Sales</span>  
             
             </div>
-            <div className={` ${styles.body}`}>
+            <div className={` ${styles.body} ${styles.body_noscroll}`}>
              <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
             <tr>
             <th>CUSTOMER NAME</th>
@@ -785,7 +1075,7 @@ const gstSupplierDetail = () => {
             </tr>
             <tbody>
               <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Abs International</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -793,7 +1083,7 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Sdf Pvt. Ltd.</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -801,7 +1091,7 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Xyz Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -809,7 +1099,39 @@ const gstSupplierDetail = () => {
                 <td>10</td>
               </tr>
                <tr>
-                <td>Abs International Pvt. Ltd.</td>
+                <td>Mnb Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Xyz Pvt. Ltd.</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Mnb Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Xyz Pvt. Ltd..</td>
+                <td>ABCDE1234F</td>
+                <td>50.00</td>
+                <td>80%</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+                <tr>
+                <td>Mnb Pvt. Ltd..</td>
                 <td>ABCDE1234F</td>
                 <td>50.00</td>
                 <td>80%</td>
@@ -824,16 +1146,29 @@ const gstSupplierDetail = () => {
           
         </div>            
         </div>  
+      </div>
     </>
   )
 }
 
-const gstSales = () => {
+const gstSalesAndPurchase = (head) => {
   return(
     <>
-            <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
-            <h2 className="mb-0">Sales</h2>
-            <span>+</span>
+        <div className={styles.wrapper}>
+              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
+            <h2 className="mb-0">{head}</h2>
+              <span className=" d-flex align-items-center justify-content-between">
+               <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :
+              </span>
+              <select className={`${styles.selectHead} form-select`} aria-label="Default select example">
+             
+              <option selected value="1">Crores</option>
+            
+            </select>
+              
+              </span> 
+              +
+              </span>
         </div>
         <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
          <div className={` ${styles.CustomercardBody} card-body`}>
@@ -843,7 +1178,7 @@ const gstSales = () => {
             
             </div>
             <div className={` ${styles.body}`}>
-             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+             <table className={`${styles.table2}  table`}cellpadding="0" cellspacing="0" >
             <tr>
             <th>REVENUE BREAKUP</th>
             <th >FEB’ 22</th>
@@ -861,8 +1196,8 @@ const gstSales = () => {
             </tr>
             <tbody>
               <tr>
-                <td>Abs International Pvt. Ltd.</td>
                 <td>Total Sales</td>
+                <td>2.22</td>
                 <td>2.220</td>
                 <td>22</td>
                 <td>22</td>
@@ -875,197 +1210,320 @@ const gstSales = () => {
                 <td>12</td>
                 <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
                 <td>22</td>
-                <td>10</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
+           
             </tbody>
             
            </table>
             </div>
          </div>
-          <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
-              <span>Related Party Sales In Last 12 Monthss</span>  
-            
-            </div>
+         <div className={` ${styles.content}`}>
+           
             <div className={` ${styles.body}`}>
-             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+             <table className={`${styles.table2}  table`}cellpadding="0" cellspacing="0" >
             <tr>
-            <th>CUSTOMER NAME</th>
-            <th >PAN</th>
-            <th >SALES</th>
-             <th >% OF TOTAL SALES</th>
-            <th >OF INVOICES</th>
-            <th >SALES PER INVOICE</th>
+            <th>REVENUE %</th>
+            <th >FEB’ 22</th>
+            <th >JAN’ 22</th>
+             <th >DEC’21</th>
+            <th >NOV’21</th>
+            <th >OCT’21</th>
+             <th >SEP’21</th>
+              <th >AUG’21</th>
+               <th >JUL’21</th>
+                <th >JUN’21</th>
+                 <th >MAY’21</th>
+                  <th >APR’21</th>
+                   <th >MAR’21</th>
             </tr>
             <tbody>
               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
+           
             </tbody>
             
            </table>
             </div>
          </div>
-          <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
-              <span>Top 10 Customers</span>  
-            
-            </div>
+           <div className={` ${styles.content}`}>
+           
             <div className={` ${styles.body}`}>
-             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+             <table className={`${styles.table2}  table`}cellpadding="0" cellspacing="0" >
             <tr>
-            <th>CUSTOMER NAME</th>
-            <th >PAN</th>
-            <th >SALES</th>
-             <th >% OF TOTAL SALES</th>
-            <th >OF INVOICES</th>
-            <th >SALES PER INVOICE</th>
+            <th>CLIENTS</th>
+            <th >FEB’ 22</th>
+            <th >JAN’ 22</th>
+             <th >DEC’21</th>
+            <th >NOV’21</th>
+            <th >OCT’21</th>
+             <th >SEP’21</th>
+              <th >AUG’21</th>
+               <th >JUL’21</th>
+                <th >JUN’21</th>
+                 <th >MAY’21</th>
+                  <th >APR’21</th>
+                   <th >MAR’21</th>
             </tr>
             <tbody>
               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
+           
             </tbody>
             
            </table>
             </div>
          </div>
-          <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
-              <span>Statewise Sales</span>  
-            
-            </div>
+           <div className={` ${styles.content}`}>
+           
             <div className={` ${styles.body}`}>
-             <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
+             <table className={`${styles.table2}  table`}cellpadding="0" cellspacing="0" >
             <tr>
-            <th>CUSTOMER NAME</th>
-            <th >PAN</th>
-            <th >SALES</th>
-             <th >% OF TOTAL SALES</th>
-            <th >OF INVOICES</th>
-            <th >SALES PER INVOICE</th>
+            <th>NO. OF INVOICES</th>
+            <th >FEB’ 22</th>
+            <th >JAN’ 22</th>
+             <th >DEC’21</th>
+            <th >NOV’21</th>
+            <th >OCT’21</th>
+             <th >SEP’21</th>
+              <th >AUG’21</th>
+               <th >JUL’21</th>
+                <th >JUN’21</th>
+                 <th >MAY’21</th>
+                  <th >APR’21</th>
+                   <th >MAR’21</th>
             </tr>
             <tbody>
               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
-               <tr>
-                <td>Abs International Pvt. Ltd.</td>
-                <td>ABCDE1234F</td>
-                <td>50.00</td>
-                <td>80%</td>
-                <td>10</td>
-                <td>10</td>
+                 <tr>
+                <td>Total Sales</td>
+                <td>2.22</td>
+                <td>2.220</td>
+                <td>22</td>
+                <td>22</td>
+                <td>22</td>
+                <td>34</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
+                <td>12</td>
               </tr>
+           
             </tbody>
             
            </table>
             </div>
          </div>
+        
           
         </div>            
         </div>  
+        </div>
     </>
   )
 }
