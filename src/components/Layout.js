@@ -6,7 +6,7 @@ import Footer from './Footer/index'
 import styles from './index.module.scss'
 import TermSheetPreview from '../components/TermSheetPreview'
 import Login from '../components/Login'
-
+import {useSelector} from 'react-redux'
 
 
 
@@ -17,6 +17,10 @@ function Layout({ children }) {
     localStorage.setItem('login', true)
     setIsLogin(true)
   }
+
+  const sidebar = useSelector((state) => state.sidebar);
+  //console.log(sidebar)
+
   return (
     <>
       {isLogin ? (
@@ -26,7 +30,7 @@ function Layout({ children }) {
           </div>
           <div className={styles.wrapper}>
             <div className={styles.sidebarContainer}>
-              <Sidebar />
+              {sidebar && <Sidebar />}
             </div>
             <div className={styles.mainView_Container}>
               <Breadcrum />

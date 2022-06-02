@@ -5,7 +5,7 @@ import accord from '../../../public/static/next-logo.png'
 import Router from "next/router";
 
 function index() {
-
+  
     let tempArr=[
         {
             main:"Dashboard",
@@ -79,7 +79,7 @@ function index() {
   }
 console.log(category)
   return (
-    <div className={styles.main_container}>
+    <div className={styles.main_container} >
       {tempArr.map((val,index)=>{
          const className1 = category==val.main?`${styles.selected}`:null
             return (

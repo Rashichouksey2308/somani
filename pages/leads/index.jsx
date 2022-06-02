@@ -6,7 +6,7 @@ function index() {
   return (
     <>
       {' '}
-      <div className="container-fluid">
+      <div className='container-fluid mb-4'>
         {/*filter*/}
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
