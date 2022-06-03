@@ -6,6 +6,7 @@ import ShipmentDetails from '../../src/components/ShipmentDetails'
 import ComplianceLigitations from '../../src/components/CompilanceLigitation'
 import LigitationsTable from '../../src/components/LigitationsTable'
 import GST from '../../src/components/GST'
+import CAM from '../../src/components/CAM'
 
 import {Row,Col} from 'react-bootstrap'
 function index() {
@@ -852,7 +853,7 @@ function index() {
                                 <div className={`${styles.card} card`}>Credit</div>
                             </div>
                             <div className="tab-pane fade" id="cam" role="tabpanel">
-                                <div className={`${styles.card} card`}>CAM</div>
+                               <CAM/>
                             </div>
                             <div className="tab-pane fade" id="Documents" role="tabpanel">
                             <div className={`${styles.card} card`}>Documents</div>
