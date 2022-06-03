@@ -1,8 +1,23 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux';
+import {GetAllBuyer} from "../../src/redux/registerBuyer/action";
+
+
 function index() {
+
+  const dispatch = useDispatch()
+
+
+  useEffect(() => {
+    dispatch(GetAllBuyer())
+  }, [])
+
+  const {getAllBuyerList} = useSelector((state)=>state.buyer)
+  console.log(getAllBuyerList, "this is all buyer")
+
   return (
     <>
       {' '}

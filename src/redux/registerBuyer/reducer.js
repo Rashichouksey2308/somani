@@ -3,6 +3,8 @@ import * as types from './actionType'
 const initialState = {
   gettingBuyerList: true,
   buyerList: [],
+  gettingAllBuyerList: true,
+  allBuyerList: [],
   creatingBuyer: false,
   createdBuyerResponse: null,
   updatingBuyer: false,
@@ -36,6 +38,26 @@ function BuyerReducer(state = initialState, action) {
         ...state,
         gettingBuyerList: false,
         buyerList: [],
+      }
+    case types.GET_ALL_BUYER:
+      return {
+        ...state,
+        gettingAllBuyerList: true,
+        allBuyerList: [],
+      }
+
+    case types.GET_ALL_BUYER_SUCCESSFULL:
+      return {
+        ...state,
+        gettingAllBuyerList: false,
+        allBuyerList: action.payload,
+      }
+
+    case types.GET_ALL_BUYER_FAILED:
+      return {
+        ...state,
+        gettingAllBuyerList: false,
+        allBuyerList: [],
       }
 
     case types.REGISTER_BUYER:

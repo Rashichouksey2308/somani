@@ -7,7 +7,9 @@ import { useSelector } from 'react-redux'
 const index = ({ saveCompanyData, setCheckbox }) => {
 
   const {gstList} = useSelector((state) =>  state.buyer)
-  console.log(gstList, "this is gst")
+
+  // const {gettingGstList} = useSelector((state)=> state.buyer)
+  // console.log(gstList, "this is gst")
   
 
   return (
@@ -85,10 +87,10 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                 className={`${styles.input_field} form-control`}
                 required
               >
-                <option value="gst">27AAATW4183C2ZG</option>
-                <option value="gst1">282176JDEJ88UD</option>
+                {gstList?.length && gstList.map((e) =>( <option value={e.data}>{e.data}</option>))}
+                {/* <option value="gst1">282176JDEJ88UD</option>
                 <option value="gst2">27AAATW46786C2ZG</option>
-                <option value="gst3">VW5688TW4183C2ZG</option>
+                <option value="gst3">VW5688TW4183C2ZG</option> */}
               </select>
               <label className={styles.label_heading} id="drop">
                 GST<strong className='text-danger'>*</strong>

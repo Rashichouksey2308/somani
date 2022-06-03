@@ -71,6 +71,26 @@ function getBuyerFailed() {
     type: types.GET_BUYER_FAILED,
   };
 }
+
+function getAllBuyer() {
+  return {
+    type: types.GET_ALL_BUYER,
+  };
+}
+
+function getAllBuyerSuccess(payload) {
+  return {
+    type: types.GET_ALL_BUYER_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getAllBuyerFailed() {
+  return {
+    type: types.GET_ALL_BUYER_FAILED,
+  };
+}
+
 function getGst() {
   return {
     type: types.GET_GST,
@@ -163,6 +183,28 @@ export const GetBuyer = (companyId) => async (dispatch, getState, api) => {
     
   }
 };
+
+export const GetAllBuyer = () => async (dispatch, getState, api) => {
+  
+  try {
+    
+    Axios.get(`${API.baseUrl}${API.getBuyers}`).then((response)=>{
+    if (response.data.code === 200) {
+      dispatch(getAllBuyerSuccess(response.data));
+      // toast.error("Buyers fetched")
+    } else {
+      dispatch(getAllBuyerFailed(response.data));
+      console.log( "GET ALL BUYER FAILED")
+    
+    }
+  })
+  } catch (error) {
+    dispatch(getAllBuyerFailed());
+    console.log(error, "GET ALL BUYER API FAILED")
+    
+  }
+};
+
 export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
   try {

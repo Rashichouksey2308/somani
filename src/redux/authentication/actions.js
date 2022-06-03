@@ -212,7 +212,7 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
     Axios.post(`${API.baseUrl}${API.login}`, payload).then((response) => {
       if (response.status === 200) {
         dispatch(loggingUserSuccess(response.data))
-        localStorage.setItem(response.data.token)
+        // localStorage.setItem(response.data.token)
         // Router.push("/")
       } else {
         dispatch(loggingUserFailed(response.data))
