@@ -14,7 +14,7 @@ const initialState = {
   selectedBuyer: null,
   document: [],
   gettingGstList: true,
-  gstList: [],
+  gstList: null,
 }
 
 function BuyerReducer(state = initialState, action) {
@@ -134,7 +134,7 @@ function BuyerReducer(state = initialState, action) {
       return {
         ...state,
         gettingGstList: true,
-        gstList: [],
+        gstList: null,
       }
 
     case types.GET_GST_SUCCESS:
@@ -148,7 +148,7 @@ function BuyerReducer(state = initialState, action) {
       return {
         ...state,
         gettingGstList: false,
-        gstList: [],
+        gstList: null,
       }
 
     default:

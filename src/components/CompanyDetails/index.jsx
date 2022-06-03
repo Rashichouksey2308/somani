@@ -9,7 +9,7 @@ const index = ({ saveCompanyData, setCheckbox }) => {
   const {gstList} = useSelector((state) =>  state.buyer)
 
   // const {gettingGstList} = useSelector((state)=> state.buyer)
-  // console.log(gstList, "this is gst")
+  console.log(gstList, "this is gst")
   
 
   return (
@@ -83,11 +83,11 @@ const index = ({ saveCompanyData, setCheckbox }) => {
               <select
                 id="drop"
                 onChange={(e)=> {saveCompanyData(e.target.name, e.target.value)}}
-                name= "gst"
+                name= "GST"
                 className={`${styles.input_field} form-control`}
                 required
               >
-                {gstList?.length && gstList.map((e) =>( <option value={e.data}>{e.data}</option>))}
+                {gstList && gstList.GstinIdArray.map((gstId) =>( <option value={gstId}>{gstId}</option>))}
                 {/* <option value="gst1">282176JDEJ88UD</option>
                 <option value="gst2">27AAATW46786C2ZG</option>
                 <option value="gst3">VW5688TW4183C2ZG</option> */}

@@ -23,7 +23,7 @@ const index = () => {
     companyName: '',
     companyPan: '',
     transactionType: '',
-    gst: '',
+    GST: '',
     typeOfBussiness: '',
     phoneNumber: null,
     emailId: '',

@@ -15,8 +15,8 @@ function index() {
     dispatch(GetAllBuyer())
   }, [])
 
-  const {getAllBuyerList} = useSelector((state)=>state.buyer)
-  console.log(getAllBuyerList, "this is all buyer")
+  const {allBuyerList} = useSelector((state)=>state.buyer)
+  console.log(allBuyerList, "this is all buyer")
 
   return (
     <>
@@ -186,25 +186,25 @@ function index() {
               </tr>
             </thead>
             <tbody>
-              <tr>
+             {allBuyerList && allBuyerList.data?.map((buyer) => (<tr>
                 <td>124621</td>
                 <td
                   className={styles.buyerName}
                   onClick={() => Router.push('/review-queue/id')}
                 >
-                  Bhutani Traders
+                  {buyer.companyProfile.companyName}
                 </td>
                 <td>RM-Sales</td>
                 <td>Amar Singh</td>
-                <td>Yes</td>
+                <td>{buyer.existingCustomer ? "Yes" : "No"}</td>
                 <td>
                   <span
-                    className={`${styles.status} ${styles.approved}`}
+                    className={`${styles.status} ${buyer.Queue === "ReviewQueue" ? styles.review : "CreditQueue"? styles.approved : styles.rejected}`}
                   ></span>
-                  Approved
+                  {buyer.Queue === "ReviewQueue" ? "Review" : "CreditQueue"? "Approved" : "Rejected"}
                 </td>
-              </tr>
-              <tr>
+              </tr>))}
+              {/* <tr>
                 <td>124621</td>
                 <td
                   className={styles.buyerName}
@@ -309,7 +309,7 @@ function index() {
                   ></span>
                   Approved
                 </td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>
