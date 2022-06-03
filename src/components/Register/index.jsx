@@ -30,10 +30,10 @@ const index = () => {
     whatsappNumber: null,
   })
 
-  useEffect(() => {
+  useEffect(async () => {
     const pan = companyDetails.companyPan
     console.log(pan)
-    const response = axios.post('http://localhost:3002/node/api/get-gst')
+    const response = await axios.post('http://localhost:3002/node/api/get-gst')
     console.log(response)
   }, [companyDetails.companyPan])
 
