@@ -71,6 +71,24 @@ function getBuyerFailed() {
     type: types.GET_BUYER_FAILED,
   };
 }
+function getGst() {
+  return {
+    type: types.GET_GST,
+  };
+}
+
+function getGstSuccess(payload) {
+  return {
+    type: types.GET_GST_SUCCESS,
+    payload,
+  };
+}
+
+function getGstFailed() {
+  return {
+    type: types.GET_GST_FAILED,
+  };
+}
 
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(createBuyer());
@@ -88,6 +106,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
     }
   })
   } catch (error) {
+    console.log(error, "API FAILED")
     dispatch(createBuyerFailed());
 
   }
@@ -163,5 +182,24 @@ export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(deleteBuyerFailed());
     toast.error("Buyer could not be deleted");
+  }
+};
+
+export const GetGst = (payload) => async (dispatch, getState, api) => {
+  // dispatch(createBuyer())
+  try {
+    // console.log(payload,"in getbuyer")
+    Axios.post(`${API.baseUrl}${API.getGst}`,{pan:payload}).then((response)=>{
+    if (response.data.code === 200) {
+      dispatch(getGstSuccess(response.data));
+      // toast.error("Buyers fetched")
+    } else {
+      dispatch(getGstFailed(response.data));
+      console.log("GET GST ERROR")
+    }
+  })
+  } catch (error) {
+    dispatch(getGstFailed());
+    console.log("GET GST API FAILED")
   }
 };

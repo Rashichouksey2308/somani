@@ -19,3 +19,7 @@ export const GET_BUYER_FAILED = "GET_BUYER_FAILED"
 
 export const SET_BUYER = "SET_BUYER"
 export const SET_DOCUMENT = "SET_DOCUMENT"
+
+export const GET_GST = "GET_GST"
+export const GET_GST_SUCCESS = "GET_GST_SUCCESS"
+export const GET_GST_FAILED = "GET_GST_FAILED"

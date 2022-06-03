@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from './NavBar/index'
 import Sidebar from './Sidebar/index'
 import Breadcrum from './Breadcrum/index'
@@ -11,12 +11,19 @@ import Login from '../components/Login'
 
 
 function Layout({ children }) {
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
  
   function login() {
     localStorage.setItem('login', true)
     setIsLogin(true)
   }
+
+  useEffect(async() => {
+    const loginStatus = await localStorage.getItem('login')
+    console.log(loginStatus, "login status")
+    setIsLogin(loginStatus)
+  }, [])
+  
   return (
     <>
       {isLogin ? (

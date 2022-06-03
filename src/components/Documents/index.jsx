@@ -1,22 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
-import { settingDocument } from 'redux/registerBuyer/action'
+// import { settingDocument } from 'redux/registerBuyer/action'
 import { useDispatch } from 'react-redux'
 
 const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
   const [name, setName] = useState(null)
 
   const [secondDocName, setSecondDocName] = useState(null)
-
-  // const [document1, setDocument1] = useState('')
-
-  // const [document2, setDocument2] = useState('')
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(settingDocument())
-  }, [])
+  
 
   // let formData = new FormData();
 

@@ -2,8 +2,14 @@ import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
+import { useSelector } from 'react-redux'
 
 const index = ({ saveCompanyData, setCheckbox }) => {
+
+  const {gstList} = useSelector((state) =>  state.buyer)
+  console.log(gstList, "this is gst")
+  
+
   return (
     <>
       <div className={styles.main}>
@@ -74,6 +80,8 @@ const index = ({ saveCompanyData, setCheckbox }) => {
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <select
                 id="drop"
+                onChange={(e)=> {saveCompanyData(e.target.name, e.target.value)}}
+                name= "gst"
                 className={`${styles.input_field} form-control`}
                 required
               >

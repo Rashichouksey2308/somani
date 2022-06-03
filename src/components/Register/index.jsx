@@ -6,7 +6,7 @@ import Documents from '../Documents'
 import Terms from '../Terms'
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
-import { CreateBuyer, GetBuyer } from 'redux/registerBuyer/action'
+import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios"
 
@@ -15,7 +15,9 @@ const index = () => {
 
   const dispatch= useDispatch();
 
-  const {document} = useSelector(state => state.buyer)
+  // const {document} = useSelector(state => state.buyer)
+
+
 
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
@@ -31,12 +33,16 @@ const index = () => {
   })
 
   useEffect(async () => {
-    const pan = companyDetails.companyPan
-    console.log(pan)
-    const response = await axios.post('http://localhost:3002/node/api/get-gst')
-    console.log(response)
+    // const pan = companyDetails.companyPan
+    // console.log(pan)
+    // const response = await axios.post('http://localhost:3002/node/api/get-gst')
+    // console.log(response)
+    if(companyDetails.companyPan !== ''){
+      dispatch(GetGst(companyDetails.companyPan))
+    // const response = await axios.post('http://localhost:3002/node/api/get-gst', {pan : companyDetails.companyPan})
+    }
   }, [companyDetails.companyPan])
-
+ 
   const [orderDetails, setOrderDetails] = useState({
     commodity: '',
     Quantity: null,
@@ -55,7 +61,7 @@ const index = () => {
   })
 
   // console.log(companyDetails, "companyDetails")
-  console.log(orderDetails, "companyDetails")
+  // console.log(orderDetails, "companyDetails")
 
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails }
@@ -114,7 +120,7 @@ const index = () => {
     fd.append('documentType', JSON.stringify(documents.typeOfDocument))
     fd.append('document1',  documents.document1)
     fd.append('document2', documents.document2)
-    console.log(fd, "this is payload")
+    // console.log(fd, "this is payload")
 
     dispatch(CreateBuyer(fd))
     Router.push('/leads')
@@ -126,7 +132,7 @@ const index = () => {
   }
 
   useEffect(() => {
-    console.log('in use effect')
+    // console.log('in use effect')
     GetBuyer('765e0a87-e2c3-4e0c-b5cb-f0b6082bd6ad')
   }, [])
 
