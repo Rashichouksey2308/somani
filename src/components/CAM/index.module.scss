@@ -157,3 +157,40 @@
     }
 
 }
+
+//orderSummary
+.order_wrapper{
+    padding: 25px 0px;
+    table{
+        tr{
+            th{
+                font-size:15px;
+                line-height: 19px;
+                font-weight: bold;
+                   
+                    color: #8492A6;
+                background: #FAFAFB 0% 0% no-repeat padding-box;
+            }
+            td{
+                .dashedLine{
+                    border-bottom: 1px dashed black
+                }
+                .icon {
+                        background: #FFECCF 0% 0% no-repeat padding-box;
+                        border-radius: 8px;
+                        width: 60px;
+                        height: 60px;
+                
+                        span {
+                            font-size: 28px;
+                            line-height: 34px;
+                            font-weight: bold;
+                            color: #FF9D00;
+                            height: 100%;
+                            align-items: center;
+                        }
+                    }
+            }
+        }
+    }
+}

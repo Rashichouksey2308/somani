@@ -8,6 +8,7 @@ function index() {
     {basicInfo()}
     {supplierInfo()}
     {groupExposure()}
+    {orderSummary()}
                                    
     </>
         
@@ -312,6 +313,57 @@ const groupExposure =()=>{
                                                <Col md={4}>1</Col>
                                            </Row>
                                            
+                                           </div>
+                                        </div>                                       
+       </div>
+        </>
+    )
+}
+const orderSummary =()=>{
+    return(
+        <>
+<div className={`${styles.card} card`}>                             
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+                                            <h2 className="mb-0">Order Summary In Past 12 Months</h2>
+                                            <span>+</span>
+                                        </div>
+                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                           <div className={`${styles.order_wrapper}`}>
+                                           <table className ={`${styles.table} table`}cellpadding="0" cellspacing="0" >
+                                               <tr>
+                                                   <th>CUSTOMER NAME</th>
+                                                    <th>ORDER NO</th>
+                                                     <th>ORDER VALUE</th>
+                                                      <th>COMMODITY</th>
+                                                       <th>STATUS</th>
+
+                                                        <th>DAYS DUE</th>
+                                               </tr>
+                                               <tr >
+                                                   <td >SEP 2021 - DEC 2021</td>
+                                                      
+                                                      <td colSpan={5}>
+                                                          <div className={`${styles.dashedLine}`}></div>
+                                                      </td>
+
+                                                     
+                                               </tr>
+                                                 <tr>
+                                                   <td className={`d-flex justify-content-start align-content-center`}>
+                                                        <div className={`${styles.icon} `}>
+                                                                   <span className={`d-flex justify-content-center align-content-center`}>ET</span>
+                                                               </div>
+                                                              
+                                                               <span className={` ${styles.name} ml-3 `}>Emerging Traders</span>
+                                                   </td>
+                                                    <td>2765470865</td>
+                                                     <td>1,900.00</td>
+                                                      <td>Iron</td>
+                                                       <td>In Process</td>
+
+                                                        <td>12</td>
+                                               </tr>
+                                           </table>
                                            </div>
                                         </div>                                       
        </div>
