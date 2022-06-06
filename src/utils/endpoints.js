@@ -6,7 +6,8 @@ export default {
   login: "/api/login",
   registerCompany: "/api/lead/company-details",
   getGst: "/api/get-gst",
-  getBuyers: "/api/lead/get-all-leads"
+  getBuyers: "/api/lead/get-all-leads",
+  
 
 }
 
