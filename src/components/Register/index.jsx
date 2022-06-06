@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios"
 
 const index = () => {
-
+  const [darkMode,setDarkMode]=useState(false)
 
   const dispatch= useDispatch();
 
@@ -137,7 +137,7 @@ const index = () => {
   }, [])
 
   return (
-    <Card className={styles.card}>
+    <Card className={`${darkMode?styles.cardDark:styles.card}`}>
       <Card.Header className={styles.head_container}>
         <div className={styles.head_header}>
           <img
@@ -148,17 +148,17 @@ const index = () => {
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
-          <button onClick={clearData} className={styles.clear_btn}>
+          <button onClick={clearData}  className={`${styles.clear_btn} clear_btn`}>
             Clear All
           </button>
         </div>
       </Card.Header>
 
       <Card.Body className={styles.body}>
-        <CompanyDetails saveCompanyData={saveCompanyData} />
-        <OrderDetails saveOrderData={saveOrderData}/>
-        <Documents saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
-        <Terms submitData={submitData} />
+        <CompanyDetails darkMode={darkMode} saveCompanyData={saveCompanyData} />
+        <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData}/>
+        <Documents darkMode={darkMode} saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
+        <Terms darkMode={darkMode} submitData={submitData} />
       </Card.Body>
     </Card>
   )

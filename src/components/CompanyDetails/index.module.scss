@@ -1,145 +1,318 @@
 .main {
-    padding: 35px 35px 10px;
-    border-bottom: 3px solid #D9DDE8;
-    .heading {
-        font-size: 20px;
-        letter-spacing: 0.19px;
-        color: #111111;
-        font-weight: bold;
-        line-height: 25px;
-    }
-    .radio_form {
-        padding-top: 20px;
-        .radio_group {
-            display: flex;
-            .radio {
-                font-size: 20px;
-                color: #111111;
-                letter-spacing: 0.19px;
-                padding-right: 25px;
-            }
-        }
-        .sub_heading {
-            font-size: 16px;
-            color: #00000080;
-            line-height: 17px;
-            font-weight: 500;
-            padding: 10px 0 15px;
-            letter-spacing: 0.53px;
-        }
-    } 
-    .input_container {
-        margin-top: 20px;
-        margin-bottom: 10px;
-        padding-bottom: 14px;
-        .each_input {
-            position: relative;
-            margin: 30px 0 20px;
-            .label_heading {
-                top: 27px;
-                left: 30px;
-                font-size: 16px;
-                line-height: 0.5;
-                margin-bottom: 0;
-                letter-spacing: 0.53px;
-                color: #00000080;
-                position: absolute;
-                pointer-events: none;
-                box-sizing: border-box;
-                background: #ffffff;
-                transform: translateY(-31px);
-                transition: 0.3s all ease-in-out;
-            }
-            .input_field {
-                height: 60px;
-                background-color: #C3C3C31F;
-                border: 1px solid #0000001F;
-                border-radius: 4px;
-                color: #111111;
-                font-size: 20px;
-                font-weight: 500;
-                outline: none;
-                box-shadow: none;
-                position: relative;
-                box-sizing: border-box;
-                &:invalid + label {
-                    background: none;
-                    transform:translateY(0);
-                }
-                &:focus {
-                    & + label {
-                        background: #ffffff;
-                        transform:translateY(-31px);
-                    }
-                }
-            }
-            .slidecontainer {
-                width: 100%;
-                margin-top: 40px;
-                position: relative;
-                .slider {
-                    -webkit-appearance: none;  /* Override default CSS styles */
-                    width: 100%; /* Full-width */
-                    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-                    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-                    transition: opacity .2s;
-                    outline: none;
-                    background: linear-gradient(90deg, #3579F6 55%, #C3C3C31F 40%);
-                    border: 1px solid #0000001F;
-                    border-radius: 4px;
-                    height: 13px; 
-                }
-                .datalist {
-                    display: flex;
-                    justify-content: space-between;
-                    font-size:16px;
-                    letter-spacing: 0.15px;
-                    color: #666666;
-                    text-transform: capitalize;
-                    width: 100%;
-                }              
-                .slider::-webkit-slider-thumb {
-                    -webkit-appearance: none;
-                    appearance: none;
-                    width: 29px;
-                    height: 16px;
-                    background: transparent;
-                    box-shadow: 0px 3px 6px #697AB429;
-                    border: 3px solid #3579F6;
-                    border-radius: 4px;
-                    position: relative;
-                    margin-top: -19px;
-                }
-            }            
-            .phone_card{
-                display: flex;
-                .code_phone {
-                    border: 1px solid #0000001F;
-                    border-radius: 4px;
-                    background-color: #C3C3C31F;
-                    font-size: 19px;
-                    letter-spacing: 0.18px;
-                    color: #3687E8;
-                    text-transform: capitalize;
-                }
-            }
-            .range_field {
-                background-color: #3687E8;
-                border-radius: 4px;
-            }
-        }
-        .phone {
-            .label_heading {
-                left: 90px;
-                transform: translate(-61px, -31px);
-            }
-            .input_field {
-                &:focus {
-                    & + label {
-                        transform: translate(-61px, -31px);
-                    }
-                }
-            }
-        }
-    }
+  padding: 35px 35px 10px;
+  border-bottom: 3px solid #D9DDE8;
+  .heading {
+      font-size: 20px;
+      letter-spacing: 0.19px;
+      color: #111111;
+      font-weight: bold;
+      line-height: 25px;
+  }
+  .radio_form {
+      padding-top: 20px;
+      .radio_group {
+          display: flex;
+          .radio {
+              font-size: 20px;
+              color: #111111;
+              letter-spacing: 0.19px;
+              padding-right: 25px;
+          }
+      }
+      .sub_heading {
+          font-size: 16px;
+          color: #00000080;
+          line-height: 17px;
+          font-weight: 500;
+          padding: 10px 0 15px;
+          letter-spacing: 0.53px;
+      }
+  } 
+  .input_container {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      padding-bottom: 14px;
+      .each_input {
+          position: relative;
+          margin: 30px 0 20px;
+          .label_heading {
+              top: 27px;
+              left: 30px;
+              font-size: 16px;
+              line-height: 0.5;
+              margin-bottom: 0;
+              letter-spacing: 0.53px;
+              color: #00000080;
+              position: absolute;
+              pointer-events: none;
+              box-sizing: border-box;
+              background: #ffffff;
+              transform: translateY(-31px);
+              transition: 0.3s all ease-in-out;
+          }
+          .input_field {
+              height: 60px;
+              background-color: #C3C3C31F;
+              border: 1px solid #0000001F;
+              border-radius: 4px;
+              color: #111111;
+              font-size: 20px;
+              font-weight: 500;
+              outline: none;
+              box-shadow: none;
+              position: relative;
+              box-sizing: border-box;
+              &:invalid + label {
+                  background: none;
+                  transform:translateY(0);
+              }
+              &:focus {
+                  & + label {
+                      background: #ffffff;
+                      transform:translateY(-31px);
+                  }
+              }
+          }
+          .slidecontainer {
+              width: 100%;
+              margin-top: 40px;
+              position: relative;
+              .slider {
+                  -webkit-appearance: none;  /* Override default CSS styles */
+                  width: 100%; /* Full-width */
+                  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+                  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+                  transition: opacity .2s;
+                  outline: none;
+                  background: linear-gradient(90deg, #3579F6 55%, #C3C3C31F 40%);
+                  border: 1px solid #0000001F;
+                  border-radius: 4px;
+                  height: 13px; 
+              }
+              .datalist {
+                  display: flex;
+                  justify-content: space-between;
+                  font-size:16px;
+                  letter-spacing: 0.15px;
+                  color: #666666;
+                  text-transform: capitalize;
+                  width: 100%;
+              }              
+              .slider::-webkit-slider-thumb {
+                  -webkit-appearance: none;
+                  appearance: none;
+                  width: 29px;
+                  height: 16px;
+                  background: transparent;
+                  box-shadow: 0px 3px 6px #697AB429;
+                  border: 3px solid #3579F6;
+                  border-radius: 4px;
+                  position: relative;
+                  margin-top: -19px;
+              }
+          }            
+          .phone_card{
+              display: flex;
+              .code_phone {
+                  border: 1px solid #0000001F;
+                  border-radius: 4px;
+                  background-color: #C3C3C31F;
+                  font-size: 19px;
+                  letter-spacing: 0.18px;
+                  color: #3687E8;
+                  text-transform: capitalize;
+              }
+          }
+          .range_field {
+              background-color: #3687E8;
+              border-radius: 4px;
+          }
+      }
+      .phone {
+          .label_heading {
+              left: 90px;
+              transform: translate(-61px, -31px);
+          }
+          .input_field {
+              &:focus {
+                  & + label {
+                      transform: translate(-61px, -31px);
+                  }
+              }
+          }
+      }
+  }
 }
+  
+  .mainDark {
+    padding: 20px;
+    background: #293141 0% 0% no-repeat padding-box;
+    //display: flex;
+    //flex-direction: column;
+    color: white;
+  
+    .heading {
+      text-align: left;
+      font-weight: bold;
+      font-size: 20px;
+      color: #3687E8;
+      text-transform: capitalize;
+      padding-top: 15px;
+    }
+  
+    .radio_form {
+      padding-top: 20px;
+  
+      .radio_group {
+        display: flex;
+  
+        .radio {
+          padding-right: 25px;
+          text-align: left;
+          font-size: 20px;
+          letter-spacing: 0.19px;
+          color: white;
+          text-transform: capitalize;
+        }
+      }
+  
+      .sub_heading {
+        padding-top: 10px;
+        text-align: left;
+        letter-spacing: 0.53px;
+  
+        text-transform: capitalize;
+        font-size: 16px;
+        padding-bottom: 15px;
+      }
+    }
+  
+    .input_container {
+      margin-top: 50px;
+      margin-bottom: 10px;
+      padding-bottom: 14px;
+  
+      .each_input {
+        position: relative;
+        margin-bottom: 50px;
+  
+        .slidecontainer {
+          width: 100%;
+          margin-top: 40px;
+  
+          .slider {
+            -webkit-appearance: none;
+            /* Override default CSS styles */
+            width: 100%;
+            /* Full-width */
+            opacity: 0.7;
+            /* Set transparency (for mouse-over effects on hover) */
+            -webkit-transition: 0.2s;
+            /* 0.2 seconds transition on hover */
+            transition: opacity 0.2s;
+            outline: none;
+            background-color: #c3c3c31f;
+            border: 1px solid #0000001f;
+            border-radius: 4px;
+            height: 13px;
+          }
+  
+          datalist {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            font-size: 16px;
+            letter-spacing: 0.15px;
+            color: #666666;
+            text-transform: capitalize;
+            width: 100%;
+          }
+  
+          .slider::-moz-range-thumb {
+            width: 29px;
+            height: 16px;
+            border-radius: 4px;
+            background: #4caf50;
+            cursor: pointer;
+          }
+  
+          .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 29px;
+            height: 16px;
+            background: transparent;
+            box-shadow: 0px 3px 6px #697ab429;
+            border: 3px solid #3579f6;
+            border-radius: 4px;
+          }
+  
+          .slider::-moz-range-track {
+            background-color: #ddd;
+          }
+  
+          .slider::-moz-range-progress {
+            background-color: #3687e8;
+          }
+  
+          .slider::-ms-fill-upper {
+            background-color: #ddd;
+          }
+  
+          .slider::-ms-fill-lower {
+            background-color: #3687e8;
+          }
+        }
+  
+        .label_heading {
+          text-align: left;
+          font-size: 16px;
+          line-height: 1;
+          letter-spacing: 0.53px;
+          color: #FFFFFF80;
+          position: absolute;
+          left: 30px;
+          top: -8px;
+          background: #293141;
+        }
+  
+        .phone_card {
+          display: flex;
+  
+          .code_phone {
+            border: 1px solid #0000001f;
+            border-radius: 4px;
+            background-color: #c3c3c31f;
+            text-align: left;
+            font-size: 19px;
+            letter-spacing: 0.18px;
+            color: #3687e8;
+            text-transform: capitalize;
+          }
+        }
+  
+        .range_field {
+          background-color: #3687e8;
+          border-radius: 4px;
+        }
+  
+        .input_field {
+          height: 60px;
+          background-color: #1D2530;
+          border: 1px solid #434E61;
+          border-radius: 4px;
+          color: white;
+          text-align: left;
+          font-size: 20px;
+          &:invalid + label {
+            background: none;
+        }
+        &:focus {
+            & + label {
+                background: #293141;
+            }
+        }
+        }
+      }
+    }
+  }
+  

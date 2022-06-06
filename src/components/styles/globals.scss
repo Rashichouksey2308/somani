@@ -1,32 +1,215 @@
-@mixin scrollbars(
-  $size,
-  $foreground-color,
-  $background-color: mix($foreground-color, #d2d7e5, 10%)
-) {
-  ::-webkit-scrollbar {
-    width: $size;
-    height: $size;
-  }
+/* // @mixin scrollbars(
+//   $size,
+//   $foreground-color,
+//   $background-color: mix($foreground-color, #d2d7e5, 10%)
+// ) {
+//   ::-webkit-scrollbar {
+//     width: $size;
+//     height: $size;
+//   }
 
-  ::-webkit-scrollbar-thumb {
-    background: $foreground-color;
-    border-radius: 5px;
-  }
+//   ::-webkit-scrollbar-thumb {
+//     background: $foreground-color;
+//     border-radius: 5px;
+//   }
 
-  ::-webkit-scrollbar-track {
-    background: $background-color;
-    border-radius: 0px 0px 6px 0px;
-  }
+//   ::-webkit-scrollbar-track {
+//     background: $background-color;
+//     border-radius: 0px 0px 6px 0px;
+//   }
 
-  // For Internet Explorer
-  body {
-    scrollbar-face-color: $foreground-color;
-    scrollbar-track-color: $background-color;
-  }
+//   // For Internet Explorer
+//   body {
+//     scrollbar-face-color: $foreground-color;
+//     scrollbar-track-color: $background-color;
+//   }
+// }
+
+
+
+// @include scrollbars(10px, #3687e8); */
+
+
+:root {
+  /* Your default theme */
+  --background: #F3F4F7;
+  --card_background: #FFFFFF;
+  --sidebar_background: #0A1834;
+  --sidebar_selected: #102141;
+  --sidebar_children: #102141;
+  --sidebar_children_selected: #1C3362;
+  --component_header: #111111;
+  --inner_input: #C3C3C31F;
+  --input-border: #0000001F;
+
+
 }
 
-@include scrollbars(10px, #3687E8);
-body {    
-    font-family: 'Helvetica';
-    background: #F3F4F7
+[data-theme='dark'] {
+  --background: #171E27;
+  --card_background: #293141;
+  --sidebar_background: #1D232E;
+  --sidebar_selected: #232936;
+  --sidebar_children: #232936;
+  --sidebar_children_selected: #1C3362;
+  --component_header: #FFFFFF;
+  ;
+  --inner_input: #1D2530;
+  --input-border: #434E61;
+}
+
+
+body.light-mode {
+  font-family: 'Helvetica Neue';
+  background: #fff !important;
+  color: #333 !important;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode {
+  font-family: 'Helvetica Neue';
+  background-color: red !important;
+  color: rgb(255, 0, 0) !important;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .card-body {
+  background: #293141 0% 0% no-repeat padding-box;
+  box-shadow: 0px 8px 25px #72727234;
+  border: none;
+}
+
+body.dark-mode .card {
+  background: #171E27 0% 0% no-repeat padding-box;
+  color: #FFFFFF;
+
+}
+
+body.dark-mode .heading {
+
+  color: #FFFFFF !important;
+}
+
+body.light-mode .heading {
+
+  color: #000000 !important;
+}
+
+body.light-mode .card-body {
+  background-color: #fff !important;
+}
+
+body.light-mode .card {
+  background: #fff !important;
+  color: #000000;
+
+}
+
+body.dark-mode .clear_btn {
+  background-color: #ffffff00;
+  box-shadow: 0px 4px 12px #72727234;
+  border: 3px solid #52A4FF;
+  border-radius: 8px;
+  color: #3687e8;
+}
+
+body.light-mode .clear_btn {
+  background-color: #ffffff;
+  box-shadow: 0px 4px 12px #72727234;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
+  color: #3687e8;
+}
+
+body.dark-mode .label_heading {
+  color: #FFFFFF80;
+  background: #ffffff00;
+}
+
+body.light-mode .label_heading {
+  color: #00000080;
+  background: #ffffff;
+}
+
+body.dark-mode .heading_card {
+  color: #3687E8;
+
+}
+
+body.light-mode .heading_card {
+  color: #00000080;
+
+}
+
+body.dark-mode .input {
+  color: #FFFFFF;
+
+}
+
+body.light-mode .input {
+  color: #111111;
+
+}
+
+body.dark-mode .sub_heading {
+  color: #FFFFFF;
+
+}
+
+body.light-mode .sub_heading {
+  color: #00000080;
+
+}
+
+body.dark-mode .radio {
+  color: #FFFFFF;
+
+}
+
+body.light-mode .radio {
+  color: #111111;
+
+}
+
+body.light-mode .line {
+  border: 2px solid #d9dde8;
+}
+
+body.dark-mode .line {
+  border: 2px solid #3687E8;
+}
+
+body.light-mode .term_para {
+  color: #111111;
+}
+
+body.dark-mode .term_para {
+  color: #FFFFFF;
+}
+
+
+body.light-mode .cancel_btn {
+  border: 3px solid #3687e8;
+  border-radius: 5px;
+  opacity: 1;
+  text-align: center;
+  background-color: #ffffff;
+  color: #111111;
+}
+
+body.dark-mode .cancel_btn {
+  border: 3px solid #3687e8;
+  border-radius: 5px;
+  opacity: 1;
+  text-align: center;
+  background-color: #293141;
+  color: #FFFFFF;
+}
+
+body.light-mode .submit_btn {
+  background-color: #3687e8;
+}
+
+body.dark-mode .submit_btn {
+  background-color: #3687e8;
 }
