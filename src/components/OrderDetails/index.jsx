@@ -26,7 +26,7 @@ const index = ({ saveOrderData }) => {
             <input
               type="number"
               id="textInput"
-              name='quantity'
+              name='Quantity'
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
               className={`${styles.input_field} form-control`}
               required
@@ -106,7 +106,7 @@ const index = ({ saveOrderData }) => {
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
             <input
               type="date"
-              name='expectedDateOfShipment'
+              name='ExpectedDateOfShipment'
               id="textDate"
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
               className={`${styles.input_field} form-control`}

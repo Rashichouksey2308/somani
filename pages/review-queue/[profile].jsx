@@ -19,7 +19,7 @@ const index = () => {
                 <CompanyProfile></CompanyProfile>
                 <OrderProfile></OrderProfile>
             </div>
-            <div className={styles.approve_Container} onClick={()=>{Router.push('/credit-queue')}} >
+            <div className={styles.approve_Container}  >
                 <ApproveBar button={"Save"} button2={"Preview"}/>
             </div>
         </div>

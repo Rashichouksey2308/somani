@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from './NavBar/index'
 import Sidebar from './Sidebar/index'
 import Breadcrum from './Breadcrum/index'
@@ -11,7 +11,7 @@ import {useSelector} from 'react-redux'
 
 
 function Layout({ children }) {
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
  
   function login() {
     localStorage.setItem('login', true)
@@ -21,6 +21,12 @@ function Layout({ children }) {
   const sidebar = useSelector((state) => state.sidebar);
   //console.log(sidebar)
 
+  useEffect(async() => {
+    const loginStatus = await localStorage.getItem('login')
+    console.log(loginStatus, "login status")
+    setIsLogin(loginStatus)
+  }, [])
+  
   return (
     <>
       {isLogin ? (

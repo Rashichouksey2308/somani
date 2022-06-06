@@ -7,7 +7,7 @@ function index(props) {
     <div className={styles.root}>
         <div className={styles.reject}><span>Reject</span></div>
         <div className={styles.approve} onClick={()=>{
-          Router.push("/termsheet/123")
+          Router.push("/credit-queue")
         }}><span>Approve</span></div>
     </div>
   )

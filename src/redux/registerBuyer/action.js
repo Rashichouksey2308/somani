@@ -72,6 +72,44 @@ function getBuyerFailed() {
   };
 }
 
+function getAllBuyer() {
+  return {
+    type: types.GET_ALL_BUYER,
+  };
+}
+
+function getAllBuyerSuccess(payload) {
+  return {
+    type: types.GET_ALL_BUYER_SUCCESSFULL,
+    payload,
+  };
+}
+
+function getAllBuyerFailed() {
+  return {
+    type: types.GET_ALL_BUYER_FAILED,
+  };
+}
+
+function getGst() {
+  return {
+    type: types.GET_GST,
+  };
+}
+
+function getGstSuccess(payload) {
+  return {
+    type: types.GET_GST_SUCCESS,
+    payload,
+  };
+}
+
+function getGstFailed() {
+  return {
+    type: types.GET_GST_FAILED,
+  };
+}
+
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(createBuyer());
   try {
@@ -88,6 +126,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
     }
   })
   } catch (error) {
+    console.log(error, "API FAILED")
     dispatch(createBuyerFailed());
 
   }
@@ -144,6 +183,28 @@ export const GetBuyer = (companyId) => async (dispatch, getState, api) => {
     
   }
 };
+
+export const GetAllBuyer = () => async (dispatch, getState, api) => {
+  
+  try {
+    
+    Axios.get(`${API.baseUrl}${API.getBuyers}`).then((response)=>{
+    if (response.data.code === 200) {
+      dispatch(getAllBuyerSuccess(response.data));
+      // toast.error("Buyers fetched")
+    } else {
+      dispatch(getAllBuyerFailed(response.data));
+      console.log( "GET ALL BUYER FAILED")
+    
+    }
+  })
+  } catch (error) {
+    dispatch(getAllBuyerFailed());
+    console.log(error, "GET ALL BUYER API FAILED")
+    
+  }
+};
+
 export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
   try {
@@ -163,5 +224,24 @@ export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(deleteBuyerFailed());
     toast.error("Buyer could not be deleted");
+  }
+};
+
+export const GetGst = (payload) => async (dispatch, getState, api) => {
+  // dispatch(createBuyer())
+  try {
+    // console.log(payload,"in getbuyer")
+    Axios.post(`${API.baseUrl}${API.getGst}`,{pan:payload}).then((response)=>{
+    if (response.data.code === 200) {
+      dispatch(getGstSuccess(response.data));
+      // toast.error("Buyers fetched")
+    } else {
+      dispatch(getGstFailed(response.data));
+      console.log("GET GST ERROR")
+    }
+  })
+  } catch (error) {
+    dispatch(getGstFailed());
+    console.log("GET GST API FAILED")
   }
 };
