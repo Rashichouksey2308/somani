@@ -3,6 +3,14 @@ import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 
 const index = ({ saveOrderData }) => {
+
+  const saveDate = (e) => {
+    // console.log(e.target.value, "this is date")
+    const d = new Date(e.target.value);
+    let text = d.toISOString()
+    saveOrderData( e.target.name, text)
+  }
+
   return (
     <div className={styles.main}>
       <div className={styles.heading}>Order Details</div>
@@ -108,7 +116,8 @@ const index = ({ saveOrderData }) => {
               type="date"
               name='ExpectedDateOfShipment'
               id="textDate"
-              onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+              // onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+              onChange={(e) => { saveDate(e, e.target.value)}}
               className={`${styles.input_field} form-control`}
               required
             />
