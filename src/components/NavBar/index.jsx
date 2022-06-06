@@ -7,21 +7,20 @@ import { sidebar } from 'redux/toggleState/Reducer/reducer'
 
 
 function index() {
-  const sidebar = useSelector((state) => state.sidebar)
+ // const sidebar = useSelector((state) => state.sidebar)
    const dispatch = useDispatch();
-   //const { menuOpen } = useSelector((state) => state.sidebar);
     let a=false
     const darkMode = useDarkMode(false);
 
     console.log(darkMode,"darkMode")
 
-   const handleOpen = () => {
+   /* const handleOpen = () => {
      if (!sidebar) {
      dispatch(showSidebar())
      } else  {
        dispatch(hideSidebar())
      }  
-   }
+   }  */
 
   return (
 
@@ -31,7 +30,7 @@ function index() {
     >
       <div className="d-flex align-items-center">
         <div className={`${`flex-grow-1`} ${styles.hamburgureContainer}`}>
-          <div className={`${styles.logo2} ${`flex-grow-1`}`}
+          <div className={`${styles.logo2} ${`flex-grow-1`}`} 
           onClick={ () => handleOpen() } >
             <a href="#">
               <img src="/static/menu.svg" alt="Logo1" className="img-fluid" />

@@ -18,7 +18,7 @@ function Layout({ children }) {
     setIsLogin(true)
   }
 
-  const sidebar = useSelector((state) => state.sidebar);
+  //const sidebar = useSelector((state) => state.sidebar);
   //console.log(sidebar)
 
   useEffect(async() => {
@@ -36,7 +36,7 @@ function Layout({ children }) {
           </div>
           <div className={styles.wrapper}>
             <div className={styles.sidebarContainer}>
-              {sidebar && <Sidebar />}
+             <Sidebar/>
             </div>
             <div className={styles.mainView_Container}>
               <Breadcrum />
