@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './index.module.scss'
 import useDarkMode from 'use-dark-mode';
@@ -47,7 +47,8 @@ function index() {
             <img src="/static/light.svg" alt="light" className={`${styles.light} img-fluid mr-3`}/>
           </a>
          <label className={styles.switch}>
-          <input type="checkbox" onChange={(e)=>{darkMode.toggle()}}/>
+          <input type="checkbox" defaultChecked={darkMode.value}  onChange={(e)=>{darkMode.toggle() 
+            getState()}}/>
           <span className={`${styles.slider} ${styles.round}` }></span>
         </label>
           <a href="#">
