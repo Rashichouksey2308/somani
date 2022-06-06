@@ -60,16 +60,16 @@
 
 
 body.light-mode {
-  font-family: 'Helvetica Neue';
+  font-family: 'Helvetica';
   background: #fff !important;
   color: #333 !important;
   transition: background-color 0.3s ease;
 }
 
 body.dark-mode {
-  font-family: 'Helvetica Neue';
-  background-color: red !important;
-  color: rgb(255, 0, 0) !important;
+  font-family: 'Helvetica';
+  background-color: #171E27 !important;
+  color: #ffffff !important;
   transition: background-color 0.3s ease;
 }
 
