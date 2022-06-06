@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './index.module.scss'
 import useDarkMode from 'use-dark-mode';
@@ -8,6 +8,7 @@ import { sidebar } from 'redux/toggleState/Reducer/reducer'
 
 function index() {
   const sidebar = useSelector((state) => state.sidebar)
+  const[state,setState]=useState(false)
    const dispatch = useDispatch();
    //const { menuOpen } = useSelector((state) => state.sidebar);
     let a=false
@@ -22,7 +23,14 @@ function index() {
        dispatch(hideSidebar())
      }  
    }
-
+   useEffect(() => {
+     console.log(typeof(localStorage.getItem("darkMode")))
+    setState(localStorage.getItem("darkMode")==="true")
+  }, [])
+  const getState=()=>{
+  setState(darkMode.value)
+  }
+  console.log(state,"getState")
   return (
 
     <header
@@ -48,7 +56,8 @@ function index() {
             <img src="/static/light.svg" alt="light" className={`${styles.light} img-fluid mr-3`}/>
           </a>
          <label className={styles.switch}>
-          <input type="checkbox" onChange={(e)=>{darkMode.toggle()}}/>
+          <input type="checkbox" defaultChecked={darkMode.value}  onChange={(e)=>{darkMode.toggle() 
+            getState()}}/>
           <span className={`${styles.slider} ${styles.round}` }></span>
         </label>
           <a href="#">
