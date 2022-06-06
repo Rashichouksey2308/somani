@@ -209,7 +209,7 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
   dispatch(loggingUser())
   try {
     // let response = await api.post(API.login, payload);
-    Axios.post(`${API.baseUrl}${API.login}`, payload).then((response) => {
+    Axios.post(`${API.authbaseUrl}${API.login}`, payload).then((response) => {
       if (response.status === 200) {
         dispatch(loggingUserSuccess(response.data))
         // localStorage.setItem(response.data.token)

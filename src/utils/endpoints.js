@@ -1,7 +1,8 @@
 import config from './config'
 
 export default {
-  baseUrl: `${config.serverUrl}`,
+  baseUrl: `${config.userServerUrl}`,
+  authbaseUrl: `${config.authServerUrl}`,
 
   login: "/api/login",
   registerCompany: "/api/lead/company-details",
