@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 // import { settingDocument } from 'redux/registerBuyer/action'
 import { useDispatch } from 'react-redux'
 
-const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
+const index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => {
   const [name, setName] = useState(null)
 
   const [secondDocName, setSecondDocName] = useState(null)
@@ -51,12 +51,12 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
   // }
 
   return (
-    <div className={styles.main}>
-      <div className={styles.heading}>Documents</div>
+    <div className={`${darkMode?styles.mainDark:styles.main}`}>
+      <div  className={`${styles.heading} heading_card`}>Documents</div>
 
       <div className={`${styles.input_container} row align-items-center`}>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <label className={styles.label_heading} id="dropDoc">
+          <label className={`${styles.heading} label_heading`} id="dropDoc">
             Type Of Document<strong className='text-danger'>*</strong>
           </label>
           <select
@@ -65,7 +65,7 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
             onChange={(e) => {
               saveDocument(e)
             }}
-            className={`${styles.input_field} form-control`}
+            className={`${styles.input_field} input form-control`}
           >
             <option value="Incorporation Certificate" selected>
               Incorporation Certificate
@@ -74,7 +74,7 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
           </select>
         </div>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <label className={styles.label_heading}>Attach Document<strong className='text-danger'>*</strong></label>
+          <label className={`${styles.label_heading} label_heading`}>Attach Document<strong className='text-danger'>*</strong></label>
           {!name ? (
             <div className={styles.uploadBtnWrapper}>
               <input
@@ -109,7 +109,7 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2 }) => {
         <hr className={styles.hr_line}></hr>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
           <select
-            className={`${styles.input_field} form-control`}
+            className={`${styles.input_field} input form-control`}
             name="1"
             onChange={(e) => {
               saveDocument(e)

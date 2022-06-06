@@ -1,5 +1,5 @@
 //Stage
 export default {
-  // serverUrl: 'http://localhost:3001/node',
-  serverUrl: 'http://localhost:3002/node'
+  authServerUrl: 'http://localhost:3001/node',
+  userServerUrl: 'http://localhost:3002/node'
 }
