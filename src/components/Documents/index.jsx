@@ -65,7 +65,7 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
             onChange={(e) => {
               saveDocument(e)
             }}
-            className={`${styles.input_field} form-control`}
+            className={`${styles.input_field} input form-control`}
           >
             <option value="Incorporation Certificate" selected>
               Incorporation Certificate
@@ -109,7 +109,7 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
         <hr className={styles.hr_line}></hr>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
           <select
-            className={`${styles.input_field} form-control`}
+            className={`${styles.input_field} input form-control`}
             name="1"
             onChange={(e) => {
               saveDocument(e)

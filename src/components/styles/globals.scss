@@ -143,14 +143,35 @@ body.light-mode .heading_card {
 
 body.dark-mode .input {
   color: #FFFFFF;
-
+  background: #1D2530;
+  border: 1px solid #434E61;
 }
 
 body.light-mode .input {
   color: #111111;
-
+  background: #C3C3C31F;
+  border: 1px solid #0000001F;
 }
-
+body.dark-mode .label_heading {
+  color: #FFFFFF80;
+  background: #293141;
+}
+body.light-mode .label_heading {
+  color: #00000080;
+  background: #ffffff;
+}
+body.dark-mode .input:invalid + label {
+  background: none;
+}
+body.dark-mode .input:focus + label {
+  background: #293141;
+}
+body.light-mode .input:invalid + label {
+  background: none;
+}
+body.light-mode .input:focus + label {
+  background: #ffffff;
+}
 body.dark-mode .sub_heading {
   color: #FFFFFF;
 

@@ -14,7 +14,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
 
   return (
     <>
-      <div className={`${darkMode?styles.mainDark:styles.main}`}>
+      <div className={styles.main}>
         <form id="CompanyDetailsForm">
           <div className={`${styles.heading} heading_card`}>Company Profile</div>
           <div className={styles.radio_form}>
@@ -115,7 +115,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
 
             <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
               <div className={styles.phone_card}>
-                <select id="Code" className={styles.code_phone}>
+                <select id="Code" className={`${styles.code_phone} border-right-0`}>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>
@@ -136,7 +136,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
                       console.log("phone formaat invalid")
                     }
                   }}
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field} input form-control border-left-0`}
                   required
                 />
                 <label className={`${styles.label_heading} label_heading`}  id="textNumber">
@@ -235,7 +235,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
 
             <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
               <div className={styles.phone_card}>
-                <select id="Code" className={styles.code_phone}>
+                <select id="Code" className={`${styles.code_phone} border-right-0`}>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>
@@ -256,7 +256,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
                     }
                   }}
                   id="textNumber"
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field} input form-control border-left-0`}
                   required
                 />
                 <label className={`${styles.label_heading} label_heading`} id="drop">
