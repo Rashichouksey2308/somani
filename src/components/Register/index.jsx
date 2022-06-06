@@ -123,7 +123,10 @@ const index = () => {
     // console.log(fd, "this is payload")
 
     dispatch(CreateBuyer(fd))
-    Router.push('/leads')
+    setTimeout(() => {
+      Router.push('/leads')
+    }, 1500);
+    
   }
 
   const clearData = () => {
