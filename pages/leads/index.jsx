@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux';
-import {GetAllBuyer} from "../../src/redux/registerBuyer/action";
+import {GetAllBuyer, GetBuyer} from "../../src/redux/registerBuyer/action";
 
 
 function index() {
@@ -16,7 +16,7 @@ function index() {
   }, [])
 
   const {allBuyerList} = useSelector((state)=>state.buyer)
-  console.log(allBuyerList, "this is all buyer")
+  // console.log(allBuyerList, "this is all buyer")
 
   return (
     <>
@@ -187,10 +187,10 @@ function index() {
             </thead>
             <tbody>
              {allBuyerList && allBuyerList.data?.map((buyer) => (<tr>
-                <td>124621</td>
+                <td>{buyer.companyId}</td>
                 <td
                   className={styles.buyerName}
-                  onClick={() => Router.push('/review-queue/id')}
+                  onClick={() => {dispatch(GetBuyer(buyer._id)); Router.push('/review-queue/id')} }
                 >
                   {buyer.companyProfile.companyName}
                 </td>
