@@ -130,7 +130,15 @@ body.light-mode .label_heading {
   color: #00000080;
   background: #ffffff;
 }
+body.dark-mode .label_heading_login {
+  color: #FFFFFF80;
+  background: #171E27 !important;
+}
 
+body.light-mode .label_heading_login {
+  color: #00000080;
+  background: #ffffff;
+}
 body.dark-mode .heading_card {
   color: #3687E8;
 
@@ -233,4 +241,10 @@ body.light-mode .submit_btn {
 
 body.dark-mode .submit_btn {
   background-color: #3687e8;
+}
+body.light-mode .para{
+    color: #667085;
+}
+body.dark-mode .para {
+  color: #ffffff;
 }
