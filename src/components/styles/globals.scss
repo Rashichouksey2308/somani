@@ -72,7 +72,12 @@ body.dark-mode {
   color: #ffffff !important;
   transition: background-color 0.3s ease;
 }
-
+body.dark-mode .sidebar-bg {
+  background: #1D232E;
+}
+body.light-mode .sidebar-bg {
+  background: #0A1834;
+}
 body.dark-mode .card-body {
   background: #293141;
   box-shadow: 0px 8px 25px #72727234;
