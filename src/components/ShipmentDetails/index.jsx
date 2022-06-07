@@ -15,28 +15,28 @@ const index = () => {
             <div className='row'>
                
                 <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
-                    <select  className={`${styles.value} form-control`}>
+                    <select  className={`${styles.input_field} input form-control`}>
                     <option value="volvo">Bulk</option>
                     <option value="audi">Liner</option>
                     </select>
-                    <Form.Label className={styles.label}>Shipment Type<strong className="text-danger">*</strong></Form.Label>
+                    <Form.Label className={`${styles.label_heading} label_heading`}>Shipment Type<strong className="text-danger">*</strong></Form.Label>
                 </Form.Group>
 
                 <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <Form.Control className={`${styles.value} form-control`} required type="text"/>
-                    <Form.Label className={styles.label}>Laycan at Load Port<strong className="text-danger">*</strong></Form.Label>
+                    <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                    <Form.Label className={`${styles.label_heading} label_heading`}>Laycan at Load Port<strong className="text-danger">*</strong></Form.Label>
 
                     </Form.Group>
                 <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
-                    <input className={`${styles.value} form-control`} type="date"/>
-                    <Form.Label className={styles.label}>Last date of shipment<strong className="text-danger">*</strong></Form.Label>
+                    <input className={`${styles.input_field} input form-control`} type="date"/>
+                    <Form.Label className={`${styles.label_heading} label_heading`}>Last date of shipment<strong className="text-danger">*</strong></Form.Label>
                 </Form.Group>
                
                 
                 <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
                     <div>
-                    <Form.Control className={`${styles.value} form-control`} type="date"/>
-                    <Form.Label className={styles.label}>ETA at Discharge Port<strong className="text-danger">*</strong></Form.Label>
+                    <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
+                    <Form.Label className={`${styles.label_heading} label_heading`}>ETA at Discharge Port<strong className="text-danger">*</strong></Form.Label>
                     </div>
                 </Form.Group>
                 

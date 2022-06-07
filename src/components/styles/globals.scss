@@ -330,11 +330,12 @@ body.dark-mode .leads {
   box-shadow: none; 
 }
 body.light-mode .dropDown {
-  color:black;
+  color:#000000;
   background-color:rgba(255, 255, 255, 0);
 }
 
 body.dark-mode .dropDown {
+  color:  #FFFFFF80;
   background: #293141;
  
 }

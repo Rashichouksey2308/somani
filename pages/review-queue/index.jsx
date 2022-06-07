@@ -1447,7 +1447,6 @@ function index() {
                             </div>
                             <div className="tab-pane fade" id="Orders" role="tabpanel">
                                 <div>
-                                 
                                   <Order/>
                                   <ShipmentDetails/>
                                  
