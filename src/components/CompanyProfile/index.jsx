@@ -1,8 +1,11 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Card } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 
 function index() {
+    const {buyerList} = useSelector((state)=> state.buyer)
+    console.log(buyerList, "this is buyer list")
     return (
         <Card className={styles.card}>
             <Card.Header className={styles.header}>
@@ -10,18 +13,18 @@ function index() {
                 <span class={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-            <Card.Body className={styles.body}>
-                {fields("Company Name","Ramakrishna Traders")}
+         { buyerList && buyerList.map((buyer)=>(  <Card.Body className={styles.body}>
+                {fields("Company Name",buyer.companyName)}
                 {fields("Company PAN","1123456780")}
-                {fields("Type Of Business","Manufacturer")}
-                {fields("Transaction Type","International")}
-                {fields("Turn-Over (in Cr)","60")}
+                {fields("Type Of Business",buyer.typeOfBusiness?.originalValue)}
+                {fields("Transaction Type",buyer.transactionType?.originalValue)}
+                {fields("Turn-Over (in Cr)",buyer.turnOver?.originalValue)}
                 {fields("Email ID","Johndoe@Email.Com")}
                                 
                 {fields("Phone Number","+91 9876543210")}
                 {fields("Whatsapp Number","+91 9876543210")}
                 {fields("Communication Mode","Email, Whatsapp")}
-            </Card.Body>
+            </Card.Body>))}
         </Card>
     )
 }

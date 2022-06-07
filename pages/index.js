@@ -19,7 +19,7 @@ const IndexPage = () => {
 
   return (
     <>
-      <div className={`${styles.root_Container} container-fluid`}>
+      <div className={`${styles.root_Container} background container-fluid`}>
         <div className={`${styles.head_Container} mt-2 row`}>
           <div className="col-sm-6">
             <Leads

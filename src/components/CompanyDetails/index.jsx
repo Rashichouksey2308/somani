@@ -14,7 +14,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
 
   return (
     <>
-      <div className={styles.main}>
+      <div className={`${styles.main} border_color`}>
         <form id="CompanyDetailsForm">
           <div className={`${styles.heading} heading_card`}>Company Profile</div>
           <div className={styles.radio_form}>
@@ -115,7 +115,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
 
             <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
               <div className={styles.phone_card}>
-                <select id="Code" className={`${styles.code_phone} border-right-0`}>
+                <select id="Code" className={`${styles.code_phone} input border-right-0`}>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>
@@ -235,7 +235,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
 
             <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
               <div className={styles.phone_card}>
-                <select id="Code" className={`${styles.code_phone} border-right-0`}>
+                <select id="Code" className={`${styles.code_phone} input border-right-0`}>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>

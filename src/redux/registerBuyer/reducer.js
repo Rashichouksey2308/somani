@@ -15,6 +15,7 @@ const initialState = {
   document: [],
   gettingGstList: true,
   gstList: null,
+
 }
 
 function BuyerReducer(state = initialState, action) {

@@ -1,6 +1,7 @@
 import * as types from "./actionType";
 import API from "../../utils/endpoints";
 import Axios from "axios";
+// import { response } from "express";
 
 function createBuyer() {
   return {
@@ -135,15 +136,15 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
 export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(updateBuyer()
   try {
-    const response = await api.put(API.createBuyer, payload);
+    Axios.put(`${API.baseUrl}${API.updateBuyer}`, payload).then((response) => {
     if (response.data.code === 200) {
-      dispatch(updateBuyerSuccess(response.data.data));
-      payload.history.go(0);
+      dispatch(updateBuyerSuccess(response.data));
       
     } else {
-      dispatch(updateBuyerFailed(response.data.data));
+      dispatch(updateBuyerFailed(response.data));
     
     }
+    })
   } catch (error) {
     dispatch(updateBuyerFailed());
   

@@ -106,13 +106,12 @@
           .phone_card{
               display: flex;
               .code_phone {
-                  border: 1px solid #0000001F;
-                  border-radius: 4px;
-                  background-color: #C3C3C31F;
                   font-size: 19px;
                   letter-spacing: 0.18px;
                   color: #3687E8;
                   text-transform: capitalize;
+                  outline: none;
+                  border-radius: 4px 0 0 4px;
               }
           }
           .range_field {
