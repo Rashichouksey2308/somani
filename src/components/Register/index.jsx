@@ -6,22 +6,24 @@ import Documents from '../Documents'
 import Terms from '../Terms'
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
-import { CreateBuyer, GetBuyer } from 'redux/registerBuyer/action'
+import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 import { useDispatch, useSelector } from 'react-redux'
-
+import axios from "axios"
 
 const index = () => {
-
+  const [darkMode,setDarkMode]=useState(false)
 
   const dispatch= useDispatch();
 
-  const {document} = useSelector(state => state.buyer)
+  // const {document} = useSelector(state => state.buyer)
+
+
 
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
     companyPan: '',
     transactionType: '',
-    gst: '',
+    GST: '',
     typeOfBussiness: '',
     phoneNumber: null,
     emailId: '',
@@ -30,7 +32,18 @@ const index = () => {
     whatsappNumber: null,
   })
 
-  const [orderDetails, setOrderDetails]  = useState({
+  useEffect(async () => {
+    // const pan = companyDetails.companyPan
+    // console.log(pan)
+    // const response = await axios.post('http://localhost:3002/node/api/get-gst')
+    // console.log(response)
+    if(companyDetails.companyPan !== ''){
+      dispatch(GetGst(companyDetails.companyPan))
+    // const response = await axios.post('http://localhost:3002/node/api/get-gst', {pan : companyDetails.companyPan})
+    }
+  }, [companyDetails.companyPan])
+ 
+  const [orderDetails, setOrderDetails] = useState({
     commodity: '',
     Quantity: null,
     orderValue: null,
@@ -38,7 +51,7 @@ const index = () => {
     countryOfOrigin: '',
     portOfDischarge: '',
     ExpectedDateOfShipment: null,
-    IncoTerms: ''
+    IncoTerms: '',
   })
 
   const [documents, setDocuments] = useState({
@@ -48,18 +61,18 @@ const index = () => {
   })
 
   // console.log(companyDetails, "companyDetails")
+  // console.log(orderDetails, "companyDetails")
 
-
-  const saveCompanyData = (name,value) => {
-    const newInput = { ...companyDetails };
-    newInput[name] = value;
-    setCompanyDetails(newInput);
+  const saveCompanyData = (name, value) => {
+    const newInput = { ...companyDetails }
+    newInput[name] = value
+    setCompanyDetails(newInput)
   }
 
-  const saveOrderData = (name,value) => {
-    const newInput = { ...orderDetails };
-    newInput[name] = value;
-    setOrderDetails(newInput);
+  const saveOrderData = (name, value) => {
+    const newInput = { ...orderDetails }
+    newInput[name] = value
+    setOrderDetails(newInput)
   }
 
   const saveDocument = (e) => {
@@ -87,8 +100,8 @@ const index = () => {
     setDocuments(newUploadDoc1)
 
   }
-  
-  const submitData=()=>{
+
+  const submitData = () => {
     //register api call
 
     // const payload={
@@ -107,43 +120,45 @@ const index = () => {
     fd.append('documentType', JSON.stringify(documents.typeOfDocument))
     fd.append('document1',  documents.document1)
     fd.append('document2', documents.document2)
-    console.log(fd, "this is payload")
+    // console.log(fd, "this is payload")
 
     dispatch(CreateBuyer(fd))
-    Router.push('/leads')
+    setTimeout(() => {
+      Router.push('/leads')
+    }, 1500);
+    
   }
 
-
-  const clearData=()=>{
-    document.getElementById("CompanyDetailsForm").reset()
-    document.getElementById("OrderDetailsForm").reset()
-
+  const clearData = () => {
+    document.getElementById('CompanyDetailsForm').reset()
+    document.getElementById('OrderDetailsForm').reset()
   }
 
-  useEffect(() => {
-    console.log("in use effect")
-    GetBuyer("765e0a87-e2c3-4e0c-b5cb-f0b6082bd6ad")
-  }, [])
-  
-  
+ 
+
   return (
-    <Card className={styles.card}>
+    <Card className={`${darkMode?styles.cardDark:styles.card}`}>
       <Card.Header className={styles.head_container}>
         <div className={styles.head_header}>
-          <img className={`${styles.arrow} img-fluid`}
-            src="/static/keyboard_arrow_right-3.svg" alt="ArrowRight"/>
+          <img
+            className={`${styles.arrow} img-fluid`}
+            src="/static/keyboard_arrow_right-3.svg"
+            alt="ArrowRight"
+          />
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
-          <button onClick={clearData} className={styles.clear_btn}>Clear All</button>
+          <button onClick={clearData}  className={`${styles.clear_btn} clear_btn`}>
+            Clear All
+          </button>
         </div>
       </Card.Header>
 
       <Card.Body className={styles.body}>
-        <CompanyDetails saveCompanyData={saveCompanyData} />
-        <OrderDetails saveOrderData={saveOrderData}/>
-        <Documents saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
-        <Terms submitData={submitData} />
+        <CompanyDetails darkMode={darkMode} saveCompanyData={saveCompanyData} />
+        <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData}/>
+        <Documents darkMode={darkMode} saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
+        <Terms darkMode={darkMode} submitData={submitData} />
       </Card.Body>
     </Card>
   )

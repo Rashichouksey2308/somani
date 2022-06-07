@@ -7,6 +7,8 @@ import ComplianceLigitations from '../../src/components/CompilanceLigitation'
 import LigitationsTable from '../../src/components/LigitationsTable'
 import GST from '../../src/components/GST'
 import CAM from '../../src/components/CAM'
+import { Form } from 'react-bootstrap'
+
 
 import {Row,Col} from 'react-bootstrap'
 function index() {
@@ -386,7 +388,14 @@ function index() {
                                     <div className={`${styles.card} card`}>
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#balanceSheet1" aria-expanded="true" aria-controls="balanceSheet1">
                                             <h2 className="mb-0">Balance Sheet</h2>
-                                            <span>+</span>
+                                            <div className={`${styles.unit_container} d-flex align-items-center`}>
+                                          <h5 className={styles.unit_label}>Units :</h5>
+                                          <select className={styles.options}>
+                                              <option>Crores</option>
+                                          </select>
+                                               <span>+</span>
+                                              </div>
+                                          
                                         </div>
                                         <div id="balanceSheet1" className="collapse show" aria-labelledby="balanceSheet1" data-parent="#FinancialsAccordion">
                                             <div className={`${styles.noBorderTable} ${styles.cardBody} card-body`}>
@@ -426,18 +435,45 @@ function index() {
                                                     <td colspan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Creditors</td>
+                                                    <td>Long Term Borrowings</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Other Current Liabilities</td>
+                                                    <td>Short Term Borrowings</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td><strong>Total Borrowings</strong></td>
+                                                    <td className="text-center"><strong>2,480.00</strong></td>
+                                                    <td className="text-center"><strong>1,260.00</strong></td>
+                                                    <td className="text-center"><strong>7,400.00</strong></td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td colspan="5" height="5px"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Creditors</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Other Current Liabilities</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td colspan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td className="border-top"><strong>Total Liabilities</strong></td>
@@ -446,6 +482,98 @@ function index() {
                                                     <td className="text-center border-top"><strong>1,900.00</strong></td>
                                                     <td className="text-center border-top"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
                                                   </tr>
+
+                                                  <tr>
+                                                    <td>Net Block (Land, Building, Plant & Machinery)</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Net Block (Other Assets)</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>CWIP</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Investment</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td><strong>Total Non-Current Assets</strong></td>
+                                                    <td className="text-center"><strong>2,480.00</strong></td>
+                                                    <td className="text-center"><strong>1,260.00</strong></td>
+                                                    <td className="text-center"><strong>7,400.00</strong></td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td colspan="5" height="5px"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Inventories</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Trade Receivables (Debtors)</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Cash & Bank Balance</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Loans & Advances</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Other Current Assets</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td><strong>Total Current Assets</strong></td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td colspan="5" height="5px"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td className="border-top"><strong>Total Assets</strong></td>
+                                                    <td className="text-center border-top"><strong>1,900.00</strong></td>
+                                                    <td className="text-center border-top"><strong>1,900.00</strong></td>
+                                                    <td className="text-center border-top"><strong>1,900.00</strong></td>
+                                                    <td className="text-center border-top"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                              
                                                 </tbody>
                                               </table>
                                             </div>
@@ -455,7 +583,13 @@ function index() {
                                     <div className={`${styles.card} card`}>
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#incomeStatement" aria-expanded="true" aria-controls="incomeStatement">
                                             <h2 className="mb-0">Income Statement</h2>
-                                            <span>+</span>
+                                            <div className={`${styles.unit_container} d-flex align-items-center`}>
+                                          <h5 className={styles.unit_label}>Units :</h5>
+                                          <select className={styles.options}>
+                                              <option>Crores</option>
+                                          </select>
+                                               <span>+</span>
+                                              </div>
                                         </div>
                                         <div id="incomeStatement" className="collapse" aria-labelledby="incomeStatement" data-parent="#FinancialsAccordion">
                                             <div className={`${styles.noBorderTable} ${styles.cardBody} card-body`}>
@@ -471,55 +605,526 @@ function index() {
                                                 </thead>
                                                 <tbody>
                                                   <tr>
-                                                    <td>Capital</td>
+                                                    <td>Revenue From Operation</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Reserves</td>
+                                                    <td>Other Income</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td><strong>Total Equity / Net Worth</strong></td>
+                                                    <td><strong>Total Income</strong></td>
                                                     <td className="text-center"><strong>2,480.00</strong></td>
                                                     <td className="text-center"><strong>1,260.00</strong></td>
                                                     <td className="text-center"><strong>7,400.00</strong></td>
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
                                                   </tr>
+                                                  
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td>Purchases</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Creditors</td>
+                                                    <td>Other Expenses (Ex Dep, Int, Tax)</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
-                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Other Current Liabilities</td>
+                                                    <td><strong>Total Expenses</strong></td>
+                                                    <td className="text-center"><strong>2,480.00</strong></td>
+                                                    <td className="text-center"><strong>1,260.00</strong></td>
+                                                    <td className="text-center"><strong>7,400.00</strong></td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  
+                                                  <tr>
+                                                    <td><strong>EBITA</strong></td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
-                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td className="border-top"><strong>Total Liabilities</strong></td>
-                                                    <td className="text-center border-top"><strong>1,900.00</strong></td>
-                                                    <td className="text-center border-top"><strong>1,900.00</strong></td>
-                                                    <td className="text-center border-top"><strong>1,900.00</strong></td>
-                                                    <td className="text-center border-top"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                    <td>Depreciation</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td><strong>EBIT</strong></td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Interest Cost</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td><strong>PBT</strong></td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>Less: Tax</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td><strong>PAT</strong></td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td>Effective Tax Rate %</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
                                                   </tr>
                                                 </tbody>
                                               </table>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div className={`${styles.card} card`}>
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
+                                            <h2 className="mb-0">Cash Flow Statement</h2>
+                                            <div className={`${styles.unit_container} d-flex align-items-center`}>
+                                          <h5 className={styles.unit_label}>Units :</h5>
+                                          <select className={styles.options}>
+                                              <option>Crores</option>
+                                          </select>
+                                               <span>+</span>
+                                              </div>
+                                           
+                                        </div>
+                                        <div id="cashFlowStatement" className="collapse" aria-labelledby="cashFlowStatement" data-parent="#FinancialsAccordion">
+                                            <div className={`${styles.noBorderTable} ${styles.cardBody} card-body`}>
+                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                                <thead>
+                                                  <tr>
+                                                    <th width="50%"></th>
+                                                    <th className="text-center" width="12.5%">MAR-20</th>
+                                                    <th className="text-center" width="12.5%">MAR-19</th>
+                                                    <th className="text-center" width="12.5%">MAR-18</th>
+                                                    <th className="text-center" width="12.5%">TREND</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td>Operating Cash Flow</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Investing Cash Flow</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
+                                                  </tr>
+                                                 
+                                                  <tr>
+                                                    <td>Financing Cash Flow</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Net Change in Cash</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Free Cash Flow</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Capex</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center">1,900.00</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                 
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className={`${styles.card} card`}>
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#ratioAnalysis" aria-expanded="true" aria-controls="ratioAnalysis">
+                                            <h2 className="mb-0">Ratio Analysis</h2>
+                                            <div className={`${styles.unit_container} d-flex align-items-center`}>
+                                          <h5 className={styles.unit_label}>Units :</h5>
+                                          <select className={styles.options}>
+                                              <option>Crores</option>
+                                          </select>
+                                               <span>+</span>
+                                              </div>
+                                        </div>
+                                        <div id="ratioAnalysis" className="collapse" aria-labelledby="ratioAnalysis" data-parent="#FinancialsAccordion">
+                                            <div className={`${styles.noBorderTable} ${styles.cardBody} card-body`}>
+                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                                <thead>
+                                                  <tr>
+                                                    <th width="50%"><h3>Activity & Profitibility Ratio</h3></th>
+                                                    <th className="text-center" width="12.5%">MAR-20</th>
+                                                    <th className="text-center" width="12.5%">MAR-19</th>
+                                                    <th className="text-center" width="12.5%">MAR-18</th>
+                                                    <th className="text-center" width="12.5%">TREND</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td className='text-primary font-weight-bold'>ACTIVITY RATIO</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Working Capital Turnover Ratio</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Fixed Assets Turnover Ratio</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Working Capital Cycle (Days)</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                 
+                                                  <tr>
+                                                    <td>Debtors Period (Days)</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Inventory Period (Days)</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Creditors Period (Days)</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td colspan="5" height="5px"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td className='text-primary font-weight-bold'>PROFITIBILITY RATIO</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Operating Profit Margin (EBITDA Margin)</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Return On Capital Emplyed (%)</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Return On Total Assets (%)</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td colspan="5" height="5px"></td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                              
+                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                                <thead>
+                                                  <tr>
+                                                    <th width="50%"><h3>Coverage, Liquidity & Growth Ratio</h3></th>
+                                                    <th className="text-center" width="12.5%">MAR-20</th>
+                                                    <th className="text-center" width="12.5%">MAR-19</th>
+                                                    <th className="text-center" width="12.5%">MAR-18</th>
+                                                    <th className="text-center" width="12.5%">TREND</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td className='text-primary font-weight-bold'>COVERAGE RATIO</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Debt Equity Ratio</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Debt EBITDA Ratio (EBITDA Coverage)</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center">20.00</td>
+                                                    <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Interest Coverage Ratio</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
+                                                  </tr>
+                                                 
+                                                  <tr>
+                                                    <td>Debt Service Ratio</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center">360</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                 
+                                                  <tr>
+                                                    <td colspan="5" height="5px"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td className='text-primary font-weight-bold'>LIQUIDITY RATIO</td>
+                                                  </tr>
+                                                  
+                                                  <tr>
+                                                    <td>Curent Ratio</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Quick Ratio</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td colspan="5" height="5px"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td className='text-primary font-weight-bold'>GROWTH RATIO</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Asset Growth Ratio</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Net Worth Growth Ratio</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Sales Growth Ratio</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center">80%</td>
+                                                    <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className={`${styles.card} card`}>
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#peerComparison" aria-expanded="true" aria-controls="peerComparison">
+                                            <h2 className="mb-0">Peer Comparison</h2>
+                                            <div className={`${styles.unit_container} d-flex align-items-center`}>
+                                          <h5 className={styles.unit_label}>Units :</h5>
+                                          <select className={styles.options}>
+                                              <option>Crores</option>
+                                          </select>
+                                               <span>+</span>
+                                              </div>
+                                        </div>
+                                        <div id="peerComparison" className="collapse" aria-labelledby="peerComparison" data-parent="#FinancialsAccordion">
+                                            <div className={`${styles.noBorderTable} ${styles.cardBody} card-body`}>
+                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                                <thead>
+                                                  <tr>
+                                                    <th width="30%">COMPANY</th>
+                                                    <th className="text-center" width="14%">FY ENDING</th>
+                                                    <th className="text-center" width="14%">REVENUE</th>
+                                                    <th className="text-center" width="14%">EBDITA MARGIN (%)</th>
+                                                    <th className="text-center" width="14%">PAT MARGIN (%)</th>
+                                                    <th className="text-center" width="14%">BORROWINGS</th>
+
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td>Empee Hotels Limited</td>
+                                                    <td className="text-center">Mar-2018</td>
+                                                    <td className="text-center">96.17</td>
+                                                    <td className="text-center">45.26%</td>
+                                                    <td className="text-center">45.26%</td>
+                                                    <td className="text-center">285.01</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Ascent Hotels Private Limited</td>
+                                                    <td className="text-center">Mar-2018</td>
+                                                    <td className="text-center">96.17</td>
+                                                    <td className="text-center">45.26%</td>
+                                                    <td className="text-center">45.26%</td>
+                                                    <td className="text-center">285.01</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Orange Country Resorts & Hotels Limited</td>
+                                                    <td className="text-center">Mar-2018</td>
+                                                    <td className="text-center">96.17</td>
+                                                    <td className="text-center">45.26%</td>
+                                                    <td className="text-center">45.26%</td>
+                                                    <td className="text-center">285.01</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Divine Infracon Private Limited</td>
+                                                    <td className="text-center">Mar-2018</td>
+                                                    <td className="text-center">96.17</td>
+                                                    <td className="text-center">45.26%</td>
+                                                    <td className="text-center">45.26%</td>
+                                                    <td className="text-center">285.01</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Gujarat Jhm Hotels Limited</td>
+                                                    <td className="text-center">Mar-2018</td>
+                                                    <td className="text-center">96.17</td>
+                                                    <td className="text-center">45.26%</td>
+                                                    <td className="text-center">45.26%</td>
+                                                    <td className="text-center">285.01</td>
+                                                  </tr>
+                                                 
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className={`${styles.card} card`}>
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#openCharges" aria-expanded="true" aria-controls="openCharges">
+                                            <h2 className="mb-0">Open Charges</h2>
+                                            
+                                            <div className={`${styles.unit_container} d-flex align-items-center`}>
+                                          <h5 className={styles.unit_label}>Units :</h5>
+                                          <select className={styles.options}>
+                                              <option>Crores</option>
+                                          </select>
+                                               <span>+</span>
+                                              </div>
+                                        </div>
+                                        <div id="openCharges" className="collapse" aria-labelledby="openCharges" data-parent="#FinancialsAccordion">
+                                            <div className={`${styles.noBorderTable} ${styles.cardBody} card-body`}>
+                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                                <thead>
+                                                  <tr>
+                                                    <th width="15%">CHARGE ID</th>
+                                                    <th width="25%">CHARGE HOLDER</th>
+                                                    <th className="text-center" width="12%">AMOUNT</th>
+                                                    <th className="text-center" width="12%">CREATION</th>
+                                                    <th className="text-center" width="12%">SECURITY</th>
+                                                    <th className="text-center" width="12%">MODIFICATION</th>
+                                                    <th className="text-center" width="12%">SATISFACTION</th>
+
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td>100310953</td>
+                                                    <td>Capital India Finance Limited</td>
+                                                    <td className="text-center">96.17</td>
+                                                    <td className="text-center">08-12-2019</td>
+                                                    <td className="text-center" ><img src="/static/eye.svg" alt="Eye" className="img-fluid" /></td>
+                                                    <td className="text-center">08-12-2019</td>
+                                                    <td className="text-center">08-12-2019</td>
+                                                    
+                                                  </tr>
+                                                  <tr>
+                                                    <td>100310953</td>
+                                                    <td>Divine Infracon Private Limited</td>
+                                                    <td className="text-center">96.17</td>
+                                                    <td className="text-center">08-12-2019</td>
+                                                    <td className="text-center" ><img src="/static/eye.svg" alt="Eye" className="img-fluid" /></td>
+                                                    <td className="text-center">08-12-2019</td>
+                                                    <td className="text-center">08-12-2019</td>
+                                                    
+                                                  </tr>
+                                                  <tr>
+                                                    <td>100310953</td>
+                                                    <td>Gujarat Jhm Hotels Limited</td>
+                                                    <td className="text-center">96.17</td>
+                                                    <td className="text-center">08-12-2019</td>
+                                                    <td className="text-center" ><img src="/static/eye.svg" alt="Eye" className="img-fluid" /></td>
+                                                    <td className="text-center">08-12-2019</td>
+                                                    <td className="text-center">08-12-2019</td>
+                                                    
+                                                  </tr>
+                                                 
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                   
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="gst" role="tabpanel">

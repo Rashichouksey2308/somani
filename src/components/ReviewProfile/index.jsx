@@ -1,60 +1,60 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 function index() {
-  // const [reviewedProfile, setReviewedProfile] = useState([
-  //   {
-  //     Categories: "Transaction Type",
-  //     value: "Domestic",
-  //     approved: true,
-  //   },
-  //   {
-  //     Categories: "Type of Business",
-  //     value: "Manufacturer",
-  //     option: ["retailer", "manufacturer"],
-  //     approved: false,
-  //   },
-  //   {
-  //     Categories: "Turover (Cr)",
-  //     value: "51-100 crores",
-  //     approved: true,
-  //   },
-  //   {
-  //     Categories: "Commodity",
-  //     value: "Iron",
-  //     option: ["copper", "coal"],
-  //     approved: false,
-  //   },
-  //   {
-  //     Categories: "Order Value",
-  //     value: "23 crores",
-  //     approved: true,
-  //   },
-  //   {
-  //     Categories: "Country of origin",
-  //     value: "Vishakhapatanam",
-  //     approved: true,
-  //   },
-  //   {
-  //     Categories: "Port of Discharge",
-  //     value: "India",
-  //     approved: true,
-  //   },
-  //   {
-  //     Categories: "Transaction Type",
-  //     value: "Domestic",
-  //     approved: true,
-  //   },
-  //   {
-  //     Categories: "Expected Date OF Shipment",
-  //     value: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
-  //     approved: true,
-  //   }
-  // ]);
+  const [reviewedProfile, setReviewedProfile] = useState([
+    {
+      Categories: "Transaction Type",
+      value: "Domestic",
+      approved: true,
+    },
+    {
+      Categories: "Type of Business",
+      value: "Manufacturer",
+      option: ["retailer", "manufacturer"],
+      approved: false,
+    },
+    {
+      Categories: "Turover (Cr)",
+      value: "51-100 crores",
+      approved: true,
+    },
+    {
+      Categories: "Commodity",
+      value: "Iron",
+      option: ["copper", "coal"],
+      approved: false,
+    },
+    {
+      Categories: "Order Value",
+      value: "23 crores",
+      approved: true,
+    },
+    {
+      Categories: "Country of origin",
+      value: "Vishakhapatanam",
+      approved: true,
+    },
+    {
+      Categories: "Port of Discharge",
+      value: "India",
+      approved: true,
+    },
+    {
+      Categories: "Transaction Type",
+      value: "Domestic",
+      approved: true,
+    },
+    {
+      Categories: "Expected Date OF Shipment",
+      value: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+      approved: true,
+    }
+  ]);
 
-  // const onManualApproval = (props) => {
-  //   setReviewedProfile((prevState) => [...prevState, props]);
-  // };
+  const onManualApproval = (props) => {
+    setReviewedProfile((prevState) => [...prevState, props]);
+  };
   return (
     <div className={styles.leads}>
       <div

@@ -9,7 +9,7 @@ const index = () => {
         <div className={`${styles.head_container} d-flex justify-content-between`}>
         <h3 className={styles.heading}>Order Summary</h3>
         <div className={`${styles.unit_container} d-flex align-items-center`}>
-            <h5 className={styles.unit_label}>Units : </h5>
+            <h5 className={styles.unit_label}>Units :</h5>
             <select className={styles.options}>
                 <option>Crores</option>
             </select>

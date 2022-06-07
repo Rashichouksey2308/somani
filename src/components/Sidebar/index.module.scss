@@ -95,3 +95,11 @@
     background-color: #1C3362;
 }
 
+#show-sidebar {
+    transform: translateX(0);
+    transition: .5s;
+}
+#hide-sidebar {
+    transform: translateX(100vw);
+    transition: .2s;
+}

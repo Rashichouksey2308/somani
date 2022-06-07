@@ -5,6 +5,8 @@ import config from 'config'
 import { repoSearchReducer } from 'features/repoSearch/repoSearchSlice'
 import AuthReducer from 'redux/authentication/reducer';
 import BuyerReducer from 'redux/registerBuyer/reducer'
+import { sidebar } from 'redux/toggleState/Reducer/reducer'
+
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -22,7 +24,8 @@ export const createStore = (preloadedState) => {
     reducer: {
       repoSearch: repoSearchReducer,
       auth: AuthReducer,
-      buyer: BuyerReducer
+      buyer: BuyerReducer,
+      sidebar: sidebar,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>
@@ -50,6 +53,7 @@ const initializeStore = (preloadedState) => {
 
   return store
 }
+
 
 export const useStore = (preloadedState) => initializeStore(preloadedState)
 

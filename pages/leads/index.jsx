@@ -1,12 +1,27 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux';
+import {GetAllBuyer, GetBuyer} from "../../src/redux/registerBuyer/action";
+
+
 function index() {
+
+  const dispatch = useDispatch()
+
+
+  useEffect(() => {
+    dispatch(GetAllBuyer())
+  }, [])
+
+  const {allBuyerList} = useSelector((state)=>state.buyer)
+  // console.log(allBuyerList, "this is all buyer")
+
   return (
     <>
       {' '}
-      <div className="container-fluid">
+      <div className='container-fluid mb-4'>
         {/*filter*/}
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
@@ -171,25 +186,25 @@ function index() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>124621</td>
+             {allBuyerList && allBuyerList.data?.map((buyer) => (<tr>
+                <td>{buyer.companyId}</td>
                 <td
                   className={styles.buyerName}
-                  onClick={() => Router.push('/review-queue/id')}
+                  onClick={() => {dispatch(GetBuyer(buyer._id)); Router.push('/review-queue/id')} }
                 >
-                  Bhutani Traders
+                  {buyer.companyProfile.companyName}
                 </td>
                 <td>RM-Sales</td>
                 <td>Amar Singh</td>
-                <td>Yes</td>
+                <td>{buyer.existingCustomer ? "Yes" : "No"}</td>
                 <td>
                   <span
-                    className={`${styles.status} ${styles.approved}`}
+                    className={`${styles.status} ${buyer.Queue === "ReviewQueue" ? styles.review : "CreditQueue"? styles.approved : styles.rejected}`}
                   ></span>
-                  Approved
+                  {buyer.Queue === "ReviewQueue" ? "Review" : "CreditQueue"? "Approved" : "Rejected"}
                 </td>
-              </tr>
-              <tr>
+              </tr>))}
+              {/* <tr>
                 <td>124621</td>
                 <td
                   className={styles.buyerName}
@@ -294,7 +309,7 @@ function index() {
                   ></span>
                   Approved
                 </td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>

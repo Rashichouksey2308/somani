@@ -2,10 +2,17 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 
-const index = ({ saveOrderData }) => {
+const index = ({ saveOrderData, darkMode }) => {
+
+  const saveDate = (e) => {
+    // console.log(e.target.value, "this is date")
+    const d = new Date(e.target.value);
+    let text = d.toISOString()
+    saveOrderData( e.target.name, text)
+  }
   return (
-    <div className={styles.main}>
-      <div className={styles.heading}>Order Details</div>
+    <div className={`${darkMode?styles.mainDark:styles.main}`}>
+      <div className={`${styles.heading} heading_card`}>Order Details</div>
       <form id="OrderDetailsForm">
         <div className={`${styles.input_container} row`}>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
@@ -15,10 +22,10 @@ const index = ({ saveOrderData }) => {
               name='commodity'
               // defaultValue='Iron'
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
-              className={`${styles.input_field} form-control`}
+              className={`${styles.input_field} input form-control`}
               required
             />
-            <label className={styles.label_heading} id="textInput">
+            <label className={`${styles.label_heading}  label_heading`} id="textInput">
               Commodity<strong className='text-danger'>*</strong>
             </label>
           </div>
@@ -26,12 +33,12 @@ const index = ({ saveOrderData }) => {
             <input
               type="number"
               id="textInput"
-              name='quantity'
+              name='Quantity'
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
-              className={`${styles.input_field} form-control`}
+              className={`${styles.input_field} input form-control`}
               required
             />
-            <label className={styles.label_heading} id="textInput">
+            <label className={`${styles.label_heading}  label_heading`} id="textInput">
               Quantity (in MT)<strong className='text-danger'>*</strong>
             </label>
           </div>
@@ -48,10 +55,10 @@ const index = ({ saveOrderData }) => {
                 name='orderValue'
                 onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 id="textInput"
-                className={`${styles.input_field} form-control`}
+                className={`${styles.input_field} input form-control`}
                 required
               />
-              <label className={styles.label_heading} id="textInput">
+              <label className={`${styles.label_heading} label_heading`} id="textInput">
                 Order values<strong className='text-danger'>*</strong>
               </label>
             </div>
@@ -63,10 +70,10 @@ const index = ({ saveOrderData }) => {
               name='supplierName'
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
               id="textInput"
-              className={`${styles.input_field} form-control`}
+              className={`${styles.input_field} input form-control`}
               required
             />
-            <label className={styles.label_heading} id="textInput">
+            <label className={`${styles.label_heading} label_heading`} id="textInput">
               Supplier Name<strong className='text-danger'>*</strong>
             </label>
           </div>
@@ -75,13 +82,13 @@ const index = ({ saveOrderData }) => {
               id="dropCountry"
               name='countryOfOrigin'
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
-              className={`${styles.input_field} form-control`}
+              className={`${styles.input_field} input form-control`}
               required
             >
               <option value="India" selected>India</option>
               <option value="America">America</option>
             </select>
-            <label className={styles.label_heading} id="dropCountry">
+            <label className={`${styles.label_heading} label_heading`} id="dropCountry">
               Country Of Origin<strong className='text-danger'>*</strong>
             </label>
           </div>
@@ -91,41 +98,42 @@ const index = ({ saveOrderData }) => {
               id="dropPort"
               name='portOfDischarge'
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
-              className={`${styles.input_field} form-control`}
+              className={`${styles.input_field} input form-control`}
               required
             >
               <option value="VishakaPatnam" selected>Visakhapatnam</option>
               <option value="Mumbai">Mumbai</option>
             </select>
-            <label className={styles.label_heading} id="dropPort">
+            <label className={`${styles.label_heading} label_heading`} id="dropPort">
               Port Of Discharge<strong className='text-danger'>*</strong>
             </label>
-            <label className={styles.label_heading}>Port Of Discharge<strong className="text-danger">*</strong></label>
+            <label className={`${styles.label_heading} label_heading`}>Port Of Discharge<strong className="text-danger">*</strong></label>
 
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
             <input
               type="date"
-              name='expectedDateOfShipment'
+              name='ExpectedDateOfShipment'
               id="textDate"
-              onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
-              className={`${styles.input_field} form-control`}
+              // onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+              onChange={(e) => { saveDate(e, e.target.value)}}
+              className={`${styles.input_field} input form-control`}
               required
             />
             <div>
-              <label className={styles.label_heading} id="textDate">
+              <label className={`${styles.label_heading} label_heading`} id="textDate">
                 Expected Date Of Shipment<strong className='text-danger'>*</strong>
               </label>
             </div>
           </div>
 
           <div className={`${styles.radio_form} col-md-12`}>
-            <div className={styles.sub_heading}>INCO Terms<strong className='text-danger'>*</strong></div>
+            <div className={`${styles.label_heading} label_heading`}>INCO Terms<strong className='text-danger'>*</strong></div>
             <Form>
               {['radio'].map((type) => (
                 <div key={`inline-${type}`} className={styles.radio_group}>
                   <Form.Check
-                    className={styles.radio}
+                    className={`${styles.radio} radio`}
                     inline
                     label="FOB"
                     onChange={() => saveOrderData("IncoTerms", "FOB")}
@@ -134,7 +142,7 @@ const index = ({ saveOrderData }) => {
                     id={`inline-${type}-1`}
                   />
                   <Form.Check
-                    className={styles.radio}
+                    className={`${styles.radio} radio`}
                     inline
                     label="CFR"
                     onChange={() => saveOrderData("IncoTerms", "CFR")}
@@ -144,7 +152,7 @@ const index = ({ saveOrderData }) => {
                   />
 
                   <Form.Check
-                    className={styles.radio}
+                    className={`${styles.radio} radio`}
                     inline
                     label="CIF"
                     onChange={() => saveOrderData("IncoTerms", "CIF")}

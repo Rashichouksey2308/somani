@@ -2,13 +2,21 @@ import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
+import { useSelector } from 'react-redux'
 
-const index = ({ saveCompanyData, setCheckbox }) => {
+const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
+
+  const {gstList} = useSelector((state) =>  state.buyer)
+
+  // const {gettingGstList} = useSelector((state)=> state.buyer)
+  console.log(gstList, "this is gst")
+  
+
   return (
     <>
       <div className={styles.main}>
         <form id="CompanyDetailsForm">
-          <div className={styles.heading}>Company Profile</div>
+          <div className={`${styles.heading} heading_card`}>Company Profile</div>
           <div className={styles.radio_form}>
             <div className={styles.sub_heading}>Transaction Type</div>
             {['radio'].map((type) => (
@@ -49,10 +57,10 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                     console.log("Invalid Pan")
                   }
                 }}
-                className={`${styles.input_field} form-control`}
+                className={`${styles.input_field} input form-control`}
                 required
               />
-              <label className={styles.label_heading} id="textInput">
+              <label className={`${styles.label_heading} label_heading`} id="textInput">
                 Company PAN<strong className='text-danger'>*</strong>
               </label>
             </div>
@@ -63,10 +71,10 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                 onChange={(e) => saveCompanyData(e.target.name, e.target.value)}
                 id="textInput"
                 name="companyName"
-                className={`${styles.input_field} form-control`}
+                className={`${styles.input_field} input form-control`}
                 required
               />
-              <label className={styles.label_heading} id="textInput">
+              <label className={`${styles.label_heading} label_heading`}  id="textInput">
                 Company Name<strong className='text-danger'>*</strong>
               </label>
             </div>
@@ -74,15 +82,17 @@ const index = ({ saveCompanyData, setCheckbox }) => {
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <select
                 id="drop"
-                className={`${styles.input_field} form-control`}
+                onChange={(e)=> {saveCompanyData(e.target.name, e.target.value)}}
+                name= "GST"
+                className={`${styles.input_field} input form-control`}
                 required
               >
-                <option value="gst">27AAATW4183C2ZG</option>
-                <option value="gst1">282176JDEJ88UD</option>
+                {gstList && gstList.GstinIdArray.map((gstId) =>( <option value={gstId}>{gstId}</option>))}
+                {/* <option value="gst1">282176JDEJ88UD</option>
                 <option value="gst2">27AAATW46786C2ZG</option>
-                <option value="gst3">VW5688TW4183C2ZG</option>
+                <option value="gst3">VW5688TW4183C2ZG</option> */}
               </select>
-              <label className={styles.label_heading} id="drop">
+              <label className={`${styles.label_heading} label_heading`}  id="drop">
                 GST<strong className='text-danger'>*</strong>
               </label>
             </div>
@@ -91,21 +101,21 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                 id="Code"
                 onChange={(e) => { saveCompanyData(e.target.name, e.target.value) }}
                 name="typeOfBussiness"
-                className={`${styles.input_field} form-control`}
+                className={`${styles.input_field} input form-control`}
                 required
               >
                 <option value="Manufacturer">Manufacturer</option>
                 <option value="Retailer">Retailer</option>
                 <option value="Trading">Trading</option>
               </select>
-              <label className={styles.label_heading} id="textInput">
+              <label className={`${styles.label_heading} label_heading`}  id="textInput">
                 Type Of Business<strong className='text-danger'>*</strong>
               </label>
             </div>
 
             <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
               <div className={styles.phone_card}>
-                <select id="Code" className={styles.code_phone}>
+                <select id="Code" className={`${styles.code_phone} border-right-0`}>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>
@@ -113,7 +123,7 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                   <option>+24</option>
                 </select>
                 <input
-                  type="number"
+                  type="tel"
                   id="textNumber"
                   name="phoneNumber"
                   onChange={(e) => {
@@ -126,10 +136,10 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                       console.log("phone formaat invalid")
                     }
                   }}
-                  className={`${styles.input_field} form-control`}
+                  className={`${styles.input_field} input form-control border-left-0`}
                   required
                 />
-                <label className={styles.label_heading} id="textNumber">
+                <label className={`${styles.label_heading} label_heading`}  id="textNumber">
                   Phone<strong className='text-danger'>*</strong>
                 </label>
               </div>
@@ -148,15 +158,15 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                   }
                 }}
                 name="emailId"
-                className={`${styles.input_field} form-control`}
+                className={`${styles.input_field} input form-control`}
                 required
               />
-              <label className={styles.label_heading} id="textInput">
+              <label className={`${styles.label_heading} label_heading`}  id="textInput">
                 Email ID<strong className='text-danger'>*</strong>
               </label>
             </div>
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <div className={`${styles.label_heading} ml-n3`}>
+              <div className={`${styles.label_heading} label-heading ml-n3`}>
                 Turn Over(in Crores)<strong className='text-danger'>*</strong>
               </div>
               <div className={styles.slidecontainer}>
@@ -168,7 +178,7 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                   name="turnOver"
                   list="tickmarks"
                   onChange={(e) => saveCompanyData(e.target.name, e.target.value)}
-                  className={`${styles.slider} form-control`}
+                  className={`${styles.slider} input form-control`}
                   id="myRange"
                 />
                 <datalist id="tickmarks">
@@ -184,12 +194,12 @@ const index = ({ saveCompanyData, setCheckbox }) => {
             <div
               className={`${styles.each_input} col-md-4 col-sm-6`} style={{ marginTop: -1 }}>
               <div className={styles.radio_form} style={{ paddingLeft: 10 }}>
-                <div className={styles.sub_heading}>Communication Mode<strong className='text-danger'>*</strong></div>
+                <div className={`${styles.sub_heading} sub_heading` }>Communication Mode<strong className='text-danger'>*</strong></div>
                 <Form selected="">
                   {['checkbox'].map((type) => (
                     <div key={`inline-${type}`} className={styles.radio_group}>
                       <Form.Check
-                        className={styles.radio}
+                        className={`${styles.radio} radio`}
                         inline
                         // defaultChecked={true}
                         label="Email ID"
@@ -199,7 +209,7 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                         id={`inline-${type}-1`}
                       />
                       <Form.Check
-                        className={styles.radio}
+                        className={`${styles.radio} radio`}
                         inline
                         label="SMS"
                         name="group1"
@@ -209,7 +219,7 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                       />
 
                       <Form.Check
-                        className={styles.radio}
+                        className={`${styles.radio} radio`}
                         inline
                         label="Whatsapp"
                         onChange={() => saveCompanyData("communicationMode", "Whatsapp")}
@@ -225,7 +235,7 @@ const index = ({ saveCompanyData, setCheckbox }) => {
 
             <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
               <div className={styles.phone_card}>
-                <select id="Code" className={styles.code_phone}>
+                <select id="Code" className={`${styles.code_phone} border-right-0`}>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>
@@ -233,7 +243,7 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                   <option>+24</option>
                 </select>
                 <input
-                  type="number"
+                  type="tel"
                   name="whatsappNumber"
                   onChange={(e) => {
                     if (phoneValidation(e.target.value)) {
@@ -246,10 +256,10 @@ const index = ({ saveCompanyData, setCheckbox }) => {
                     }
                   }}
                   id="textNumber"
-                  className={`${styles.input_field} form-control`}
+                  className={`${styles.input_field} input form-control border-left-0`}
                   required
                 />
-                <label className={styles.label_heading} id="drop">
+                <label className={`${styles.label_heading} label_heading`} id="drop">
                   Whatsapp Number(Optional)
                 </label>
               </div>
