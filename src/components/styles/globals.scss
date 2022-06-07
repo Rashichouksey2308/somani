@@ -356,6 +356,12 @@ body.dark-mode .statusBox {
   //border: 1px solid #434E61;
 
 }
+body.dark-mode .statusBox h3 {
+  color: #FFFFFF;
+}
+body.light-mode .statusBox h3 {
+  color: #111111;
+}
 body.light-mode .status_number {
     color: #000000;
 }
@@ -541,15 +547,13 @@ body.light-mode th {
   background: #fafafb !important;
 }
 body.dark-mode td {
-  color: #FFFFFF !important;;
+  color: rgba(255, 255, 255, 0.7);
   border-color: #434E61 !important;
 }
-
 body.light-mode td {
   border-color: #D9DDE8 !important;
-  color: #111111 !important;
+  color: #111111;
 }
-
 body.dark-mode .image_arrow {
  transform:rotate(90deg);
  width:20px !important;
