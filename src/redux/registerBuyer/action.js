@@ -165,11 +165,12 @@ export const settingDocument = (payload) => {
   };
 };
 
-export const GetBuyer = (companyId) => async (dispatch, getState, api) => {
+export const GetBuyer = (company) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
+  // console.log(company, "in getbuyer1")
   try {
     // console.log("in getbuyer")
-    Axios.get(`${API.baseUrl}${API.registerCompany}?companyId=${companyId}`).then((response)=>{
+    Axios.get(`${API.baseUrl}${API.getBuyerOrder}?company=${company}`).then((response)=>{
     if (response.data.code === 200) {
       dispatch(getBuyerSuccess(response.data.data));
       // toast.error("Buyers fetched")

@@ -134,10 +134,7 @@ const index = () => {
     document.getElementById('OrderDetailsForm').reset()
   }
 
-  useEffect(() => {
-    // console.log('in use effect')
-    GetBuyer('765e0a87-e2c3-4e0c-b5cb-f0b6082bd6ad')
-  }, [])
+ 
 
   return (
     <Card className={`${darkMode?styles.cardDark:styles.card}`}>
