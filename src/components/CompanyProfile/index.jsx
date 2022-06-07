@@ -4,13 +4,13 @@ import { Card } from 'react-bootstrap'
 
 function index() {
     return (
-        <Card className={styles.card}>
-            <Card.Header className={styles.header}>
+        <Card className={`${styles.sub_card} sub_card`}>
+            <Card.Header className={`${styles.header} label_heading`}>
                 <span>Company Profile</span>   
                 <span class={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-            <Card.Body className={styles.body}>
+            <Card.Body className={`${styles.body} value_card`}>
                 {fields("Company Name","Ramakrishna Traders")}
                 {fields("Company PAN","1123456780")}
                 {fields("Type Of Business","Manufacturer")}
@@ -31,9 +31,9 @@ const fields =(head,value)=>{
     return (
         <>
             <div className={styles.filed_container}>
-                <span className={styles.top}>{head}</span>
+                <span className={`${styles.top} value`}>{head}</span>
                 <div>
-                    <span className={styles.value}>
+                    <span className={`${styles.value} value `}>
                   {value}                  
                     </span>
                 </div>

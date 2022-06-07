@@ -5,24 +5,25 @@ import Router from 'next/router'
 function index() {
     return (
       <div className='container-fluid mb-4'> 
+      <div className={`${styles.lead_main} lead_main p-4`}>
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
             <div className="input-group">
               <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
                 <img src="/static/search.svg" className="img-fluid" alt="Search" />
               </div>
-              <input type="text" className={`${styles.formControl} form-control`} placeholder="Search" />
+              <input type="text" className={`${styles.formControl} form-control formControl `} placeholder="Search" />
             </div>
            
           </div>
           <a className={styles.filterIcon}>
           <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
         </a>
-        <a href="#" className={styles.filterList}>
+        <a href="#" className={`${styles.filterList}  filterList`}>
           Ramesh Shetty
           <img src="/static/close.svg" className="img-fluid" alt="Close" />
         </a>
-        <a href="#" className={styles.filterList}>
+        <a href="#" className={`${styles.filterList}  filterList`}>
           Raj Traders
           <img src="/static/close.svg" className="img-fluid" alt="Close" />
         </a>
@@ -30,7 +31,7 @@ function index() {
        
         {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
 
-        <div className={`${styles.statusBox} d-flex align-items-center justify-content-between`}>
+        <div className={`${styles.statusBox}  statusBox d-flex align-items-center justify-content-between`}>
           <div className={`${styles.all} ${styles.boxInner}`}>
             <div className="d-flex align-items-center">
               <div className={styles.iconBox}>
@@ -103,14 +104,14 @@ function index() {
             </div>
           </div>
         </div>
-        <div className={styles.datatable}>
+        <div className={`${styles.datatable} datatable`}>
           <div className={`${styles.tableFilter} d-flex justify-content-between`}>
-            <h3>Credit Queue</h3>
+            <h3 classname='heading_card'>Credit Queue</h3>
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
               <span>Showing Page 1 out of 10</span>
-              <a href="#" className={`${styles.arrow} ${styles.leftArrow}`}>
+              <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow `}>
                 {' '}
                 <img
                   src="/static/keyboard_arrow_right-3.svg"
@@ -118,7 +119,7 @@ function index() {
                   className="img-fluid"
                 />
               </a>
-              <a href="#" className={`${styles.arrow} ${styles.rightArrow}`}>
+              <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
                 <img
                   src="/static/keyboard_arrow_right-3.svg"
                   alt="arrow right"
@@ -135,17 +136,17 @@ function index() {
           >
             <thead>
               <tr>
-                <th>CUSTOMER ID</th>
-                <th>CUSTOMER NAME</th>
-                <th>CREATED BY</th>
-                <th>USERNAME</th>
-                <th>EXISTING CUSTOMER</th>
-                <th>STATUS</th>
-                <th>CAM SHEET</th>
+                <th className={`${styles.table_heading} table_heading`}>CUSTOMER ID</th>
+                <th className={`${styles.table_heading} table_heading`}>CUSTOMER NAME</th>
+                <th className={`${styles.table_heading} table_heading`}>CREATED BY</th>
+                <th className={`${styles.table_heading} table_heading`}>USERNAME</th>
+                <th className={`${styles.table_heading} table_heading`}>EXISTING CUSTOMER</th>
+                <th className={`${styles.table_heading} table_heading`}>STATUS</th>
+                <th className={`${styles.table_heading} table_heading`}>CAM SHEET</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td className={styles.buyerName}>Bhutani Traders</td>
                 <td>RM-Sales</td>
@@ -166,7 +167,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td className={styles.buyerName}>Ramakrishna Traders</td>
                 <td>Customer</td>
@@ -187,7 +188,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td className={styles.buyerName}>Somani Traders</td>
                 <td>RM-Sales</td>
@@ -208,7 +209,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td className={styles.buyerName}>Bhutani Traders</td>
                 <td>Customer</td>
@@ -229,7 +230,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td className={styles.buyerName}>Emerging Traders</td>
                 <td>RM-Sales</td>
@@ -250,7 +251,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td className={styles.buyerName}>Raj Traders</td>
                 <td>Customer</td>
@@ -271,7 +272,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row` }>
                 <td>124621</td>
                 <td className={styles.buyerName}>Krishna Traders</td>
                 <td>Customer</td>
@@ -294,6 +295,7 @@ function index() {
               </tr>
             </tbody>
           </table>
+        </div>
         </div>
       </div>
   )

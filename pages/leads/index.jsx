@@ -21,8 +21,8 @@ function index() {
   return (
     <>
       {' '}
-      <div className='container-fluid mb-4'>
-        <div className={`${styles.lead_main} lead_main p-4`}>
+      <div className='container-fluid mb-4 card'>
+        <div className='p-4'>
         {/*filter*/}
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
@@ -148,7 +148,7 @@ function index() {
           <div
             className={`${styles.tableFilter} d-flex justify-content-between`}
           >
-            <h3 className={`${styles.data_heading} heading_card`}>Leads</h3>
+            <h3 className='heading_card'>Leads</h3>
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
@@ -187,7 +187,7 @@ function index() {
               </tr>
             </thead>
             <tbody>
-             {allBuyerList && allBuyerList.data?.map((buyer) => (<tr>
+             {allBuyerList && allBuyerList.data?.map((buyer) => (<tr className={`${styles.table_row} table_row`}>
                 <td>{buyer.companyId}</td>
                 <td
                   className={`${styles.buyerName}`}
@@ -205,7 +205,7 @@ function index() {
                   {buyer.Queue === "ReviewQueue" ? "Review" : "CreditQueue"? "Approved" : "Rejected"}
                 </td>
               </tr>))}
-              {/* <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td
                   className={styles.buyerName}
@@ -223,7 +223,7 @@ function index() {
                   Rejected
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td
                   className={styles.buyerName}
@@ -241,76 +241,7 @@ function index() {
                   Approved
                 </td>
               </tr>
-              <tr>
-                <td>124621</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => Router.push('/review-queue/id')}
-                >
-                  Bhutani Traders
-                </td>
-                <td>Customer</td>
-                <td>Mahendra Singh</td>
-                <td>Yes</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.rejected}`}
-                  ></span>
-                  Rejected
-                </td>
-              </tr>
-              <tr>
-                <td>124621</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => Router.push('/review-queue/id')}
-                >
-                  Emerging Traders
-                </td>
-                <td>RM-Sales</td>
-                <td>Amar Singh</td>
-                <td>Yes</td>
-                <td>
-                  <span className={`${styles.status} ${styles.review}`}></span>
-                  Review
-                </td>
-              </tr>
-              <tr>
-                <td>124621</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => Router.push('/review-queue/id')}
-                >
-                  Raj Traders
-                </td>
-                <td>Customer</td>
-                <td>Rama Dev</td>
-                <td>Yes</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.approved}`}
-                  ></span>
-                  Approved
-                </td>
-              </tr>
-              <tr>
-                <td>124621</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => Router.push('/review-queue/id')}
-                >
-                  Krishna Traders
-                </td>
-                <td>Customer</td>
-                <td>Sameer Soni</td>
-                <td>Yes</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.approved}`}
-                  ></span>
-                  Approved
-                </td>
-              </tr> */}
+             
             </tbody>
           </table>
         </div>

@@ -4,13 +4,13 @@ import {Card} from 'react-bootstrap'
 
 function index() {
     return (
-        <Card className={styles.card}>
-            <Card.Header className={styles.header}>
+        <Card className={`${styles.sub_card} sub_card`}>
+            <Card.Header className={`${styles.header}`}>
                 <span>Order Details</span>   
                 <span class={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-            <Card.Body className={styles.body}>
+            <Card.Body className={`${styles.body} value_card`}>
                 {fields("Commodity","Iron",false)}
                 {fields("Quantity (in MT)","500",false)}
                 {fields("Order values (in INR)","24,00,00,000",false)}
@@ -30,10 +30,10 @@ export default index
 const fields =(head,value,isButton)=>{
     return (
         <>
-            <div className={styles.filed_container}>
-                <span className={styles.top}>{head}</span>
+            <div className={`${styles.filed_container}`}>
+                <span className={`${styles.top} value`}>{head}</span>
                 <div>
-                    <span className={styles.value}>
+                    <span className={`${styles.value} value `}>
                   {value}                  
                     </span>
                     {isButton?<span className={styles.button}>View</span>:null}

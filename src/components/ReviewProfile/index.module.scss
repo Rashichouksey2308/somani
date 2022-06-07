@@ -1,9 +1,7 @@
 .leads {
     width: 100%;
     border-radius: 6px;
-    background: #FFFFFF;
     border: 1px solid #D2D7E5;
-    box-shadow: 0 3px 6px #CAD0E2;
     margin-bottom: 1rem;
     .tableFilter {
         padding: 0 40px 0 35px;
@@ -30,16 +28,14 @@
     .table {
         width: 100%;
         thead {
-            background: #FAFAFB;   
+        //background: #FAFAFB;   
             th {
                 font-size: 15px;
-                color: #8492A6;
                 font-weight: bold;
                 line-height: 18px;
                 padding: 24px 15px;
                 text-transform: uppercase;
                 border-top: 2px solid #F2F5F9;
-                border-bottom: 2px solid #F2F5F9;
                 &:first-child {
                     padding-left: 35px;
                 }
@@ -52,11 +48,9 @@
                 line-height: 24px;
                 padding: 24px 15px;
                 border-top: none;
-                border-bottom: 2px solid #F2F5F9;
                 &:first-child {
                     padding-left: 35px;
                     font-size: 19px;
-                    color: #111111;
                     line-height: 24px;
                     font-weight: bold;
                 }                
@@ -82,8 +76,7 @@
                    height: 37px !important;
                    border: 1px solid #0000001F !important;
                    border-radius: 4px !important;
-                   color:black !important;
-                   background-color:rgba(255, 255, 255, 0)!important
+                   
                 }
                 .checkBox {    
                     transform: scale(1.5);

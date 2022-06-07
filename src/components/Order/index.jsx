@@ -5,19 +5,19 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={`${styles.main}`}>
+    <div className={`${styles.main} sub_card`}>
         <div className={`${styles.head_container} d-flex justify-content-between`}>
-        <h3 className={styles.heading}>Order Summary</h3>
+        <h3 className={`${styles.heading} heading_card`}>Order Summary</h3>
         <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={styles.unit_label}>Units :</h5>
-            <select className={styles.options}>
+            <select className={`${styles.options} options `}>
                 <option>Crores</option>
             </select>
                 <img src ="/static/add.svg"
                 className="img-fluid" alt="Add"/>
                 </div>
                 </div>        
-                <div className={styles.dashboard_form}>
+                <div className={`${styles.dashboard_form}`}>
                 
             <Form>
             <div className='row'>
