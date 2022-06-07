@@ -3,8 +3,8 @@ import { Card } from 'react-bootstrap'
 import styles from './index.module.scss'
 function index(props) {
   return (
-    <Card className={styles.card}>
-      <Card.Header className={styles.header}> {props.header} </Card.Header>
+    <Card className={`${styles.card}  border`}>
+      <Card.Header className={`${styles.header} heading_card `}> {props.header} </Card.Header>
       <Card.Body className={styles.body}>
         <div className={styles.leads}>
           <div className={styles.leadsSub}>
@@ -12,7 +12,7 @@ function index(props) {
           </div>
           <div className={styles.lead_headContainer}>
             <div className={styles.lead_header}>{props.subHeader}</div>
-            <div className={styles.lead_value}>3,200</div>
+            <div className={`${styles.lead_value} heading`}>3,200</div>
           </div>
         </div>
         <div className={styles.verticalLine}></div>

@@ -48,7 +48,7 @@
 [data-theme='dark'] {
   --background: #171E27;
   --card_background: #293141;
-  --sidebar_background: #1D232E;
+  --sidebar_background: #02215a;
   --sidebar_selected: #232936;
   --sidebar_children: #232936;
   --sidebar_children_selected: #1C3362;
@@ -249,4 +249,43 @@ body.light-mode .submit_btn {
 
 body.dark-mode .submit_btn {
   background-color: #3687e8;
+}
+
+
+body.dark-mode .background1 {
+  background-color: #232936;
+  
+}
+body.light-mode .background1 {
+  background-color: #FFFFFF;
+  
+}
+
+body.dark-mode .color {
+  color:   #9FA5B4;
+}
+body.light-mode .color {
+  color: #2837566A;
+}
+
+body.dark-mode .background{
+  background-color: #171E27;
+}
+
+body.light-mode .darknavbar {
+  background: transparent
+  linear-gradient(95deg, #3687e8 0%, #4669b1 58%, #0a1834 100%) 0% 0%
+  no-repeat padding-box;
+}
+
+body.dark-mode .darknavbar {
+  background: transparent
+  linear-gradient(265deg, #293141 0%, #4B61A1 58%, #0a1834 100%) 0% 0%
+  no-repeat padding-box;
+}
+
+
+body.dark-mode .border {
+  box-shadow: 0px 4px 12px #72727234;
+  border: none
 }

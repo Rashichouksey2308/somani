@@ -5,9 +5,9 @@ import ProgressBar from '@ramonak/react-progress-bar'
 
 const index = () => {
   return (
-    <div className={styles.main}>
+    <div className={`${styles.main} card`}>
       <div
-        className={`${styles.top_container} d-flex align-items-center justify-content-between`}
+        className={`${styles.top_container}  d-flex align-items-center justify-content-between`}
       >
         <h1 className={styles.heading}>Top 5 Countries Of Origin </h1>
         <div className={styles.image_main_container}>
