@@ -74,17 +74,33 @@ body.dark-mode {
 }
 
 body.dark-mode .card-body {
-  background: #293141 0% 0% no-repeat padding-box;
+  background: #293141;
   box-shadow: 0px 8px 25px #72727234;
   border: none;
 }
-
+body.dark-mode .border_color {
+  border-color: #434E61;
+}
+body.light-mode .border_color {
+  border-color: #D9DDE8;
+}
+body.dark-mode .hr_line {
+  background: rgba(67, 78, 97, 1);
+}
+body.light-mode .hr_line {
+  background: rgba(112, 112, 112, 0.1);
+}
+body.dark-mode .form-check-label {
+  color: #FFFFFF;
+}
+body.light-mode .form-check-label {
+  color: #111111;
+}
 body.dark-mode .card {
-  background: #171E27 0% 0% no-repeat padding-box;
+  background: #171E27;
   color: #FFFFFF;
 
 }
-
 body.dark-mode .heading {
 
   color: #FFFFFF !important;

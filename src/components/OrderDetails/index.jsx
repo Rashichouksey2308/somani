@@ -11,7 +11,7 @@ const index = ({ saveOrderData, darkMode }) => {
     saveOrderData( e.target.name, text)
   }
   return (
-    <div className={`${darkMode?styles.mainDark:styles.main}`}>
+    <div className={`${styles.main} border_color`}>
       <div className={`${styles.heading} heading_card`}>Order Details</div>
       <form id="OrderDetailsForm">
         <div className={`${styles.input_container} row`}>
@@ -45,7 +45,7 @@ const index = ({ saveOrderData, darkMode }) => {
 
           <div className={`${styles.each_input} ${styles.phone} col-md-2 col-sm-3`}>
             <div className={styles.phone_card}>
-              <select className={`${styles.code_phone} w-50`}>
+              <select className={`${styles.code_phone} input w-50 border-right-0`}>
                 <option>Select order values</option>
                 <option selected>$</option>
                 <option>INR</option>
@@ -55,7 +55,7 @@ const index = ({ saveOrderData, darkMode }) => {
                 name='orderValue'
                 onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 id="textInput"
-                className={`${styles.input_field} input form-control`}
+                className={`${styles.input_field} border-left-0 input form-control`}
                 required
               />
               <label className={`${styles.label_heading} label_heading`} id="textInput">
