@@ -6,13 +6,14 @@ import { showSidebar, hideSidebar } from '../../redux/toggleState/Action/action'
 import { sidebar } from 'redux/toggleState/Reducer/reducer'
 
 
+
 function index() {
  // const sidebar = useSelector((state) => state.sidebar)
    const dispatch = useDispatch();
     let a=false
     const darkMode = useDarkMode(false);
 
-    console.log(darkMode,"darkMode")
+    // console.log(darkMode,"darkMode")
 
    /* const handleOpen = () => {
      if (!sidebar) {
@@ -31,7 +32,8 @@ function index() {
       <div className="d-flex align-items-center">
         <div className={`${`flex-grow-1`} ${styles.hamburgureContainer}`}>
           <div className={`${styles.logo2} ${`flex-grow-1`}`} 
-          onClick={ () => handleOpen() } >
+          // onClick={ () => handleOpen() }  
+          >
             <a href="#">
               <img src="/static/menu.svg" alt="Logo1" className="img-fluid" />
             </a>
@@ -48,7 +50,7 @@ function index() {
           </a>
          <label className={styles.switch}>
           <input type="checkbox" defaultChecked={darkMode.value}  onChange={(e)=>{darkMode.toggle() 
-            getState()}}/>
+            }}/>
           <span className={`${styles.slider} ${styles.round}` }></span>
         </label>
           <a href="#">

@@ -1,6 +1,7 @@
 import * as types from "./actionType";
 import API from "../../utils/endpoints";
 import Axios from "axios";
+import { response } from "express";
 
 function createBuyer() {
   return {
@@ -135,15 +136,15 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
 export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(updateBuyer()
   try {
-    const response = await api.put(API.createBuyer, payload);
+    Axios.put(`${API.baseUrl}${API.updateBuyer}`, payload).then((response) => {
     if (response.data.code === 200) {
-      dispatch(updateBuyerSuccess(response.data.data));
-      payload.history.go(0);
+      dispatch(updateBuyerSuccess(response.data));
       
     } else {
-      dispatch(updateBuyerFailed(response.data.data));
+      dispatch(updateBuyerFailed(response.data));
     
     }
+    })
   } catch (error) {
     dispatch(updateBuyerFailed());
   
@@ -165,11 +166,12 @@ export const settingDocument = (payload) => {
   };
 };
 
-export const GetBuyer = (companyId) => async (dispatch, getState, api) => {
+export const GetBuyer = (company) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
+  // console.log(company, "in getbuyer1")
   try {
     // console.log("in getbuyer")
-    Axios.get(`${API.baseUrl}${API.registerCompany}?companyId=${companyId}`).then((response)=>{
+    Axios.get(`${API.baseUrl}${API.getBuyerOrder}?company=${company}`).then((response)=>{
     if (response.data.code === 200) {
       dispatch(getBuyerSuccess(response.data.data));
       // toast.error("Buyers fetched")

@@ -8,6 +8,8 @@ export default {
   registerCompany: "/api/lead/company-details",
   getGst: "/api/get-gst",
   getBuyers: "/api/lead/get-all-leads",
+  getBuyerOrder: "/api/lead/order-review",
+  updateBuyer: "/api/lead/order-action",
   
 
 }

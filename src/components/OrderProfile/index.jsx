@@ -1,8 +1,10 @@
 import React from 'react'
 import styles from "./index.module.scss"
 import {Card} from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 
 function index() {
+    const {buyerList} = useSelector((state)=>state.buyer)
     return (
         <Card className={styles.card}>
             <Card.Header className={styles.header}>
@@ -10,18 +12,18 @@ function index() {
                 <span class={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-            <Card.Body className={styles.body}>
-                {fields("Commodity","Iron",false)}
-                {fields("Quantity (in MT)","500",false)}
-                {fields("Order values (in INR)","24,00,00,000",false)}
+          { buyerList && buyerList.map((buyer)=>( <Card.Body className={styles.body}>
+                {fields("Commodity",buyer.commodity?.originalValue,false)}
+                {fields("Quantity (in MT)",buyer.Quantity?.originalValue,false)}
+                {fields("Order values (in INR)",buyer.orderValues?.originalValue,false)}
                 {fields("Supplier Name","Camilog International",false)}
                 {fields("Country Of Origin","India",false)}
                 {fields("INCO Terms","CFR",false)}
                                 
-                {fields("Port Of Discharge","Vishakapatnam",false)}
-                {fields("Expected Date Of Shipment","22-02-2022",false)}
+                {fields("Port Of Discharge",buyer.portOfDischarge?.originalValue,false)}
+                {fields("Expected Date Of Shipment",buyer.ExpectedDateOfShipment?.originalValue,false)}
                 {fields("Document Name","Insurance Certificate",true)}
-            </Card.Body>
+            </Card.Body>))}
         </Card>
     )
 }
