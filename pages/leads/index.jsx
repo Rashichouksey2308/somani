@@ -22,6 +22,7 @@ function index() {
     <>
       {' '}
       <div className='container-fluid mb-4'>
+        <div className={`${styles.lead_main} lead_main p-4`}>
         {/*filter*/}
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
@@ -37,7 +38,7 @@ function index() {
               </div>
               <input
                 type="text"
-                className={`${styles.formControl} form-control`}
+                className={`${styles.formControl} form-control  formControl `}
                 placeholder="Search"
               />
             </div>
@@ -45,11 +46,11 @@ function index() {
           <a className={styles.filterIcon}>
             <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
           </a>
-          <a href="#" className={styles.filterList}>
+          <a href="#" className={`${styles.filterList} filterList`}>
             Ramesh Shetty
             <img src="/static/close.svg" className="img-fluid" alt="Close" />
           </a>
-          <a href="#" className={styles.filterList}>
+          <a href="#" className={`${styles.filterList} filterList`}>
             Raj Traders
             <img src="/static/close.svg" className="img-fluid" alt="Close" />
           </a>
@@ -64,7 +65,7 @@ function index() {
 
         {/*status Box*/}
         <div
-          className={`${styles.statusBox} d-flex align-items-center justify-content-between`}
+          className={`${styles.statusBox} statusBox d-flex align-items-center justify-content-between`}
         >
           <div className={`${styles.all} ${styles.boxInner}`}>
             <div className="d-flex align-items-center">
@@ -143,16 +144,16 @@ function index() {
           </div>
         </div>
         {/*leads table*/}
-        <div className={styles.datatable}>
+        <div className={`${styles.datatable} datatable`}>
           <div
             className={`${styles.tableFilter} d-flex justify-content-between`}
           >
-            <h3>Leads</h3>
+            <h3 className={`${styles.data_heading} heading_card`}>Leads</h3>
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
               <span>Showing Page 1 out of 10</span>
-              <a href="#" className={`${styles.arrow} ${styles.leftArrow}`}>
+              <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
                 {' '}
                 <img
                   src="/static/keyboard_arrow_right-3.svg"
@@ -160,7 +161,7 @@ function index() {
                   className="img-fluid"
                 />
               </a>
-              <a href="#" className={`${styles.arrow} ${styles.rightArrow}`}>
+              <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
                 <img
                   src="/static/keyboard_arrow_right-3.svg"
                   alt="arrow right"
@@ -177,19 +178,19 @@ function index() {
           >
             <thead>
               <tr>
-                <th>CUSTOMER ID</th>
-                <th>BUYER NAME</th>
-                <th>CREATED BY</th>
-                <th>USERNAME</th>
-                <th>EXISTING CUSTOMER</th>
-                <th>STATUS</th>
+                <th className={`${styles.table_heading} table_heading`}>CUSTOMER ID</th>
+                <th className={`${styles.table_heading} table_heading`}>BUYER NAME</th>
+                <th className={`${styles.table_heading} table_heading`}>CREATED BY</th>
+                <th className={`${styles.table_heading} table_heading`}>USERNAME</th>
+                <th className={`${styles.table_heading} table_heading`}>EXISTING CUSTOMER</th>
+                <th className={`${styles.table_heading} table_heading`}>STATUS</th>
               </tr>
             </thead>
             <tbody>
              {allBuyerList && allBuyerList.data?.map((buyer) => (<tr>
                 <td>{buyer.companyId}</td>
                 <td
-                  className={styles.buyerName}
+                  className={`${styles.buyerName}`}
                   onClick={() => {dispatch(GetBuyer(buyer._id)); Router.push('/review-queue/id')} }
                 >
                   {buyer.companyProfile.companyName}
@@ -313,6 +314,7 @@ function index() {
             </tbody>
           </table>
         </div>
+      </div>
       </div>
     </>
   )
