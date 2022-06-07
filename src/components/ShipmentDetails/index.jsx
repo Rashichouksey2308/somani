@@ -4,9 +4,9 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={`${styles.main}`}>
+    <div className={`${styles.main} sub_card`}>
         <div className={`${styles.head_container} d-flex justify-content-between`}>
-        <h3 className={styles.heading}>Shipment Details</h3>
+        <h3 className={`${styles.heading} heading_card`}>Shipment Details</h3>
         <img className='pr-3 img-fluid' src="/static/add.svg" alt="Add"/>
         </div>
         <div className={styles.dashboard_form}>
