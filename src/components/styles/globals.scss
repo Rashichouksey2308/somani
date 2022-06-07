@@ -332,7 +332,7 @@ body.light-mode .filterList {
 
 }
 body.dark-mode .filterList {
-  background: #293141;
+  background: #434E61;
   color: #FFFFFF;
   box-shadow: none;
 }
@@ -360,20 +360,27 @@ body.light-mode .datatable {
 }
 body.dark-mode .datatable {
   background: #434E61;
-
 }
 
 body.light-mode .table_heading {
   color: #8492a6;
   background: #fafafb;
-  border-bottom: 2px solid #f2f5f9;
+  border-bottom: 2px solid #F2F5F9;
+
 
 }
 body.dark-mode .table_heading {
   color: #ffffff;
   background: #293141;
-
 }
+body.light-mode .table_row {
+  color: #000000;
+  border-bottom: 2px solid #F2F5F9;
+}
+body.dark-mode .table_row {
+  color:  #FFFFFF80;
+}
+
 body.light-mode .arrow {
   background: #fafafb;
 
@@ -381,4 +388,53 @@ body.light-mode .arrow {
 body.dark-mode .arrow  {
   background: #293141;
 
+}
+
+body.light-mode .leads {
+  background: #FFFFFF;
+  box-shadow: 0 3px 6px #CAD0E2;
+}
+
+body.dark-mode .leads {
+  background: #434E61;
+  box-shadow: none; 
+}
+body.light-mode .dropDown {
+  color:#000000;
+  background-color:rgba(255, 255, 255, 0);
+}
+
+body.dark-mode .dropDown {
+  color:  #FFFFFF80;
+  background: #293141;
+ 
+}
+
+body.light-mode .sub_card {
+  box-shadow: 0 3px 6px #CAD0E2;
+  background: #FFFFFF;
+}
+body.dark-mode .sub_card {
+  box-shadow: none;
+  background: #293141;
+}
+
+body.light-mode .value {
+  color: #111111; 
+}
+body.dark-mode .value {
+  color: #FFFFFF80; 
+}
+body.dark-mode .value_card {
+  background: #434E61;
+
+}
+body.light-mode .options {
+  color: #3687E8;
+  background: #F3F4F7;
+
+}
+body.dark-mode .options {
+  color: #FFFFFF80; 
+  background: #434E61;
 }

@@ -6,13 +6,13 @@ import { useSelector } from 'react-redux'
 function index() {
     const {buyerList} = useSelector((state)=>state.buyer)
     return (
-        <Card className={styles.card}>
-            <Card.Header className={styles.header}>
+        <Card className={`${styles.sub_card} sub_card`}>
+            <Card.Header className={`${styles.header}`}>
                 <span>Order Details</span>   
                 <span class={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-          { buyerList && buyerList.map((buyer)=>( <Card.Body className={styles.body}>
+          { buyerList && buyerList.map((buyer)=>( <Card.Body className={`${styles.body} value_card`}>
                 {fields("Commodity",buyer.commodity?.originalValue,false)}
                 {fields("Quantity (in MT)",buyer.Quantity?.originalValue,false)}
                 {fields("Order values (in INR)",buyer.orderValues?.originalValue,false)}
@@ -32,10 +32,10 @@ export default index
 const fields =(head,value,isButton)=>{
     return (
         <>
-            <div className={styles.filed_container}>
-                <span className={styles.top}>{head}</span>
+            <div className={`${styles.filed_container}`}>
+                <span className={`${styles.top} value`}>{head}</span>
                 <div>
-                    <span className={styles.value}>
+                    <span className={`${styles.value} value `}>
                   {value}                  
                     </span>
                     {isButton?<span className={styles.button}>View</span>:null}

@@ -7,12 +7,10 @@
   
     .head_container {
         padding: 10px 0px 0px 20px;
-
         border-bottom: 3px solid #D9DDE8;
         .heading{
             font-weight:bold;
             font-size: 22px;
-            color: #3687E8;
             text-transform: capitalize;
             padding: 15px;
             margin-top: 15px;
@@ -33,10 +31,8 @@
     }
            .options {
             font-size:18px;
-            color: #3687E8;
             text-transform: capitalize;
             margin-right: 10px;
-            background: #F3F4F7;
             border-radius: 14px;
             border: none;
             line-height: 23px;
@@ -64,27 +60,24 @@
 
     }
 
-    .label {
+    .label_heading {
         top: 27px;
         left: 30px;
         font-size: 16px;
         line-height: 0.5;
         margin-bottom: 0;
         letter-spacing: 0.53px;
-        color: #00000080;
         position: absolute;
         pointer-events: none;
         box-sizing: border-box;
-        background: #ffffff;
         transform: translateY(-31px);
         transition: 0.3s all ease-in-out;
       }
-      .value {
+      .input_field {
         height: 60px;
         background-color: #C3C3C31F;
         border: 1px solid #0000001F;
         border-radius: 4px;
-        color: #111111;
         font-size: 20px;
         font-weight: 500;
         outline: none;
@@ -97,7 +90,6 @@
         }
         &:focus {
             & + label {
-                background: #ffffff;
                 transform:translateY(-31px);
             }
         }

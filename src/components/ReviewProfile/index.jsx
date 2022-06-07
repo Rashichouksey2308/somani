@@ -56,9 +56,9 @@ function index() {
     setReviewedProfile((prevState) => [...prevState, props]);
   };
   return (
-    <div className={styles.leads}>
+    <div className={`${styles.leads} leads `}>
       <div
-        className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}
+        className={`${styles.tableFilter} tableFilter d-flex justify-content-between align-items-center`}
       >
         <h3>Review Profile</h3>
         <div
@@ -75,11 +75,11 @@ function index() {
       >
         <thead>
           <tr>
-            <th>CATEGORIES</th>
-            <th>VALUES</th>
-            <th>API RESPONSE</th>
-            <th>MANUAL APPROVAL</th>
-            <th>REVIEWED VALUE</th>
+            <th className={`${styles.table_heading} border_color table_heading`}>CATEGORIES</th>
+            <th className={`${styles.table_heading} border_color table_heading`}>VALUES</th>
+            <th className={`${styles.table_heading} border_color table_heading`}>API RESPONSE</th>
+            <th className={`${styles.table_heading} border_color table_heading`}>MANUAL APPROVAL</th>
+            <th className={`${styles.table_heading} border_color table_heading`}>REVIEWED VALUE</th>
           </tr>
         </thead>
         <tbody>
@@ -91,7 +91,7 @@ function index() {
         </tbody>
       </table>
       <div className={styles.remarks}>
-        <Form.Label className={styles.remarksName}>User Remarks</Form.Label>
+        <Form.Label className={`${styles.remarksName} table_row`}>User Remarks</Form.Label>
         <Form.Control
           as="textarea"
           rows={3}
@@ -105,7 +105,7 @@ export default index
 
 const tableRow=()=>{
     return(
-        <tr>
+        <tr className={`${styles.table_row} border_color table_row`}>
             <td>Transaction Type</td>
             <td>Domestic</td>
             <td><div className={styles.tick} >
@@ -114,7 +114,7 @@ const tableRow=()=>{
             </td>
             <td><input className={styles.checkBox} type="checkbox"/></td>
             <td>
-                <Form.Select size="sm" className={styles.dropDown}>
+                <Form.Select size="sm" className= {`${styles.dropDown} dropDown`}>
                     <option>Retailer</option>
                     <option>Copper</option>
                 </Form.Select>
