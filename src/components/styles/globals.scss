@@ -1,33 +1,33 @@
-/* // @mixin scrollbars(
-//   $size,
-//   $foreground-color,
-//   $background-color: mix($foreground-color, #d2d7e5, 10%)
-// ) {
-//   ::-webkit-scrollbar {
-//     width: $size;
-//     height: $size;
-//   }
+@mixin scrollbars(
+  $size,
+  $foreground-color,
+  $background-color: mix($foreground-color, #d2d7e5, 10%)
+) {
+  ::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
 
-//   ::-webkit-scrollbar-thumb {
-//     background: $foreground-color;
-//     border-radius: 5px;
-//   }
+  ::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+    border-radius: 5px;
+  }
 
-//   ::-webkit-scrollbar-track {
-//     background: $background-color;
-//     border-radius: 0px 0px 6px 0px;
-//   }
+  ::-webkit-scrollbar-track {
+    background: $background-color;
+    border-radius: 0px 0px 6px 0px;
+  }
 
-//   // For Internet Explorer
-//   body {
-//     scrollbar-face-color: $foreground-color;
-//     scrollbar-track-color: $background-color;
-//   }
-// }
+  // For Internet Explorer
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
 
 
 
-// @include scrollbars(10px, #3687e8); */
+@include scrollbars(10px, #3687e8); 
 
 
 :root {
@@ -84,10 +84,10 @@ body.dark-mode .card-body {
   border: none;
 }
 body.dark-mode .border_color {
-  border-color: #434E61;
+  border-color: #434E61 !important;
 }
 body.light-mode .border_color {
-  border-color: #D9DDE8;
+  border-color: #D9DDE8 !important;
 }
 body.dark-mode .hr_line {
   background: rgba(67, 78, 97, 1);
@@ -150,6 +150,15 @@ body.dark-mode .label_heading {
 body.light-mode .label_heading {
   color: #00000080;
   background: #ffffff;
+}
+body.dark-mode .text {
+  color: #FFFFFF80 !important;
+
+}
+
+body.light-mode .text {
+  color: #00000080 !important;
+ 
 }
 body.dark-mode .label_heading_login {
   color: #FFFFFF80;
@@ -380,5 +389,131 @@ body.light-mode .arrow {
 }
 body.dark-mode .arrow  {
   background: #293141;
+
+}
+body.light-mode .tabHeader {
+  background: #ffffff;
+  border: 1px solid #d2d7e5;
+  -webkit-box-shadow: 0 3px 12px #cad0e2;
+  box-shadow: 0 3px 12px #cad0e2;
+
+}
+
+body.dark-mode .tabHeader {
+  background: #171E27 0% 0% no-repeat padding-box;
+  border: 1px solid #171E27;
+  -webkit-box-shadow: 0 3px 12px #171E27;
+  box-shadow: 0 3px 12px #171E27;
+
+}
+
+body.light-mode .navLink {
+  color: rgba(40, 72, 123, 0.4);
+
+}
+
+body.dark-mode .navLink {
+  
+  color: #fafafb !important;
+
+}
+body.light-mode .navLink.active {
+  color: #3687e8 !important;
+  border-bottom: 6px solid #3687e8 !important; 
+
+}
+
+body.dark-mode .navLink.active {
+
+color: #3687e8 !important;
+border-bottom: 6px solid #3687e8 !important;
+ background-color: #171E27 !important;
+
+}
+
+body.light-mode .accordion {
+background: #F3F4F7 0% 0% no-repeat padding-box;
+  color: #000000;
+  
+    -webkit-box-shadow: 0 3px 6px #cad0e2;
+    box-shadow: 0 3px 6px #cad0e2;
+
+}
+
+body.dark-mode .accordion {
+box-shadow: 0px 0px 10px #72727234;
+  color: #FFFFFF;
+  
+  box-shadow: 0 3px 6px #404040;
+     
+
+}
+body.light-mode .accordion_Text {
+
+  color: #000000 !important;
+  
+
+}
+
+body.dark-mode .accordion_Text {
+
+  color: #FFFFFF !important;
+ 
+
+
+}
+body.light-mode .accordion_body {
+
+background: #F3F4F7 0% 0% no-repeat padding-box !important;
+
+
+}
+
+body.dark-mode .accordion_body {
+
+  background: #293141 0% 0% no-repeat padding-box !important;
+
+
+
+}
+body.dark-mode th{
+  background-color: #232936 !important;
+  border-color: #434E61 !important;
+}
+body.light-mode th {
+  border-color: #D9DDE8 !important;
+  background: #fafafb !important;
+}
+body.dark-mode td {
+  color: #FFFFFF !important;;
+  border-color: #434E61 !important;
+}
+
+body.light-mode td {
+  border-color: #D9DDE8 !important;
+  color: #111111 !important;
+}
+
+body.dark-mode .image_arrow {
+ transform:rotate(90deg);
+ width:20px !important;
+}
+
+body.light-mode .image_arrow {
+  width: 20px !important;
+}
+
+body.light-mode .accordion_DropDown {
+
+background: #F3F4F7;
+
+
+}
+
+body.dark-mode .accordion_DropDown {
+
+background: #1D2530;
+
+
 
 }
