@@ -10,14 +10,14 @@ function index() {
     { name: 'Brass', val: '400', val2: 1837 },
   ]
   return (
-    <Card className={styles.card}>
-      <Card.Header className={styles.header}>Top 5 Commodities </Card.Header>
+    <Card className={`${styles.card} border` }>
+      <Card.Header className={`${styles.header} heading_card`}>Top 5 Commodities </Card.Header>
       {/* <hr className={styles.hr}/> */}
       <Card.Body className={styles.body}>
         {tempArr.map((val, index) => {
           return (
             <div key={index} className={styles.wrapper}>
-              <span>{val.name}</span>
+              <span className={`heading`} >{val.name}</span>
               <div className={styles.graph}>
                 <span> ₹{val.val}</span>
                 <div className={styles.bar} data-percentage="69.6%"></div>

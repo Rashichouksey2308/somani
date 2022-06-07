@@ -25,7 +25,7 @@ function index() {
   return (
 
     <header
-      className={`${`navbar-static-top`} ${styles.main_container}`}
+      className={`${`navbar-static-top`} ${styles.main_container} darknavbar`}
       role="navigation"
     >
       <div className="d-flex align-items-center">
