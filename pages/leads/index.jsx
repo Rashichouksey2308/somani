@@ -187,7 +187,7 @@ function index() {
             </thead>
             <tbody>
              {allBuyerList && allBuyerList.data?.map((buyer) => (<tr>
-                <td>{buyer.companyId}</td>
+                <td>{buyer.customerId}</td>
                 <td
                   className={styles.buyerName}
                   onClick={() => {dispatch(GetBuyer(buyer._id)); Router.push('/review-queue/id')} }

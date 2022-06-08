@@ -15,15 +15,15 @@ function index() {
             {/* <hr className={styles.hr}/> */}
          { buyerList && buyerList.map((buyer)=>(  <Card.Body className={styles.body}>
                 {fields("Company Name",buyer.companyName)}
-                {fields("Company PAN","1123456780")}
-                {fields("Type Of Business",buyer.typeOfBusiness?.originalValue)}
-                {fields("Transaction Type",buyer.transactionType?.originalValue)}
-                {fields("Turn-Over (in Cr)",buyer.turnOver?.originalValue)}
-                {fields("Email ID","Johndoe@Email.Com")}
+                {fields("Company PAN",buyer.company.companyProfile.companyPan)}
+                {fields("Type Of Business",buyer.company.companyProfile.typeOfBusiness)}
+                {fields("Transaction Type",buyer.company.companyProfile.transactionType)}
+                {fields("Turn-Over (in Cr)",buyer.company.companyProfile.turnOver)}
+                {fields("Email ID",buyer.company.companyProfile.emailId)}
                                 
-                {fields("Phone Number","+91 9876543210")}
-                {fields("Whatsapp Number","+91 9876543210")}
-                {fields("Communication Mode","Email, Whatsapp")}
+                {fields("Phone Number",buyer.company.companyProfile.phoneNumber)}
+                {fields("Whatsapp Number",buyer.company.companyProfile.whatsappNumber)}
+                {fields("Communication Mode",buyer.company.companyProfile.communicationMode)}
             </Card.Body>))}
         </Card>
     )

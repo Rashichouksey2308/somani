@@ -1,7 +1,7 @@
 import * as types from "./actionType";
 import API from "../../utils/endpoints";
 import Axios from "axios";
-import { response } from "express";
+
 
 function createBuyer() {
   return {
