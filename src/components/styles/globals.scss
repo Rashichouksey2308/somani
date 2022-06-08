@@ -414,16 +414,6 @@ body.dark-mode .leads {
   background: #434E61;
   box-shadow: none; 
 }
-body.light-mode .dropDown {
-  color:#000000;
-  background-color:rgba(255, 255, 255, 0);
-}
-
-body.dark-mode .dropDown {
-  color:  #FFFFFF80;
-  background: #293141;
- 
-}
 
 body.light-mode .sub_card {
   box-shadow: 0 3px 6px #CAD0E2;
@@ -444,15 +434,7 @@ body.dark-mode .value_card {
   background: #434E61;
 
 }
-body.light-mode .options {
-  color: #3687E8;
-  background: #F3F4F7;
 
-}
-body.dark-mode .options {
-  color: #FFFFFF80; 
-  background: #434E61;
-}
 body.light-mode .tabHeader {
   background: #ffffff;
   border: 1px solid #d2d7e5;
@@ -571,9 +553,8 @@ background: #F3F4F7;
 }
 
 body.dark-mode .accordion_DropDown {
-
-background: #1D2530;
-
+  color: #3687e8;
+  background: #1D2530;
 
 
 }

@@ -31,7 +31,9 @@ function index() {
        
         {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
 
-        <div className={`${styles.statusBox}  statusBox d-flex align-items-center justify-content-between`}>
+        <div
+          className={`${styles.statusBox} statusBox d-flex align-items-center justify-content-between`}
+        >
           <div className={`${styles.all} ${styles.boxInner}`}>
             <div className="d-flex align-items-center">
               <div className={styles.iconBox}>
@@ -50,7 +52,11 @@ function index() {
           <div className={`${styles.approved} ${styles.boxInner}`}>
             <div className="d-flex align-items-center">
               <div className={styles.iconBox}>
-                <img src="/static/check.svg" className="img-fluid" alt="Check" />
+                <img
+                  src="/static/check.svg"
+                  className="img-fluid"
+                  alt="Check"
+                />
               </div>
               <h3>
                 <span>APPROVED</span>
@@ -73,21 +79,6 @@ function index() {
               </h3>
             </div>
           </div>
-          <div className={`${styles.pending} ${styles.boxInner}`}>
-            <div className="d-flex align-items-center">
-              <div className={styles.iconBox}>
-                <img
-                  src="/static/pending.svg"
-                  className="img-fluid"
-                  alt="Close"
-                />
-              </div>
-              <h3>
-                <span>PENDING APPROVAL</span>
-                14
-              </h3>
-            </div>
-          </div>
           <div className={`${styles.rejected} ${styles.boxInner}`}>
             <div className="d-flex align-items-center">
               <div className={styles.iconBox}>
@@ -100,6 +91,21 @@ function index() {
               <h3>
                 <span>REJECTED</span>
                 89
+              </h3>
+            </div>
+          </div>
+          <div className={`${styles.saved} ${styles.boxInner}`}>
+            <div className="d-flex align-items-center">
+              <div className={styles.iconBox}>
+                <img
+                  src="/static/bookmark.svg"
+                  className="img-fluid"
+                  alt="Bookmark"
+                />
+              </div>
+              <h3>
+                <span>SAVED</span>
+                60
               </h3>
             </div>
           </div>
