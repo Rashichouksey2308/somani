@@ -1439,20 +1439,14 @@ function index() {
                                          
 
                                           </div>
-                                             
-                                              
-                                            
-                                              
-                                              
-                                      
+            
                                     </div>
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="Orders" role="tabpanel">
-                                <div>
+                              <div className={`${styles.card}`}>
                                   <Order/>
                                   <ShipmentDetails/>
-                                 
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="Credit" role="tabpanel">
