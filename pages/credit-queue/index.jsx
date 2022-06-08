@@ -110,8 +110,8 @@ function index() {
             </div>
           </div>
         </div>
-        <div className={`${styles.datatable} datatable`}>
-          <div className={`${styles.tableFilter} d-flex justify-content-between`}>
+        <div className={`${styles.datatable} datatable border_color`}>
+          <div className={`${styles.tableFilter} statusBox d-flex justify-content-between`}>
             <h3 classname='heading_card'>Credit Queue</h3>
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}

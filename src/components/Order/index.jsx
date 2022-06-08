@@ -5,9 +5,10 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={`${styles.main} card`}>
-        <div className={`${styles.head_container} d-flex justify-content-between`} data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">
-        <h3 className={`${styles.heading} heading_card`}>Order Summary</h3>
+    <div className={`${styles.main} card border-color`}>
+        <div className={`${styles.head_container} card-header head_container d-flex justify-content-between bg-transparent`} data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">
+        <h3 className={`${styles.heading}`}>Order Summary</h3>
+        <div className='d-flex'>
         <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Quantity :</h5>
             <select className={`${styles.options} accordion_DropDown`}>
@@ -15,12 +16,14 @@ const index = () => {
             </select>
                 
                 </div>
+
                 <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
             <select className={`${styles.options} accordion_DropDown `}>
                 <option>Crores</option>
             </select>
              <span>+</span>
+                </div>
                 </div>
                 </div>  
                 <div id="orderSummary" className="collapse" aria-labelledby="orderSummary" data-parent="#profileAccordion">      
