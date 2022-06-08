@@ -319,23 +319,29 @@ body.dark-mode .lead_main {
 }
 body.light-mode .formControl {
   background: #ffffff;
+  border: 2px solid #434E61;
+
 
 }
 body.dark-mode .formControl {
   background: #293141;
+  border: 2px solid #d2d7e5;
+
 
 }
 body.light-mode .filterList {
   background: #ffffff;
   color: #111111;
-  box-shadow: 0px 3px 12px #e5e7ed;
-
+  box-shadow: 0px 3px 12px #E5E7ED;
+  border: 1px solid #d2d7e5;
 
 }
 body.dark-mode .filterList {
   background: #434E61;
   color: #FFFFFF;
-  box-shadow: none;
+  box-shadow: 0px 8px 25px #72727234;
+  border: 1px solid #FFFFFF80;
+
 }
 body.light-mode .statusBox {
   background: #ffffff;
@@ -389,14 +395,26 @@ body.light-mode .table_row {
 body.dark-mode .table_row {
   color:  #FFFFFF80;
   background: #434E61;
+  border: 2px solid #293141;
+}
+body.light-mode .table_row17 {
+  background: #ffffff;
+  color: #000000;
+  border-bottom: 2px solid #F2F5F9;
+}
+body.dark-mode .table_row17 {
+  color:  #FFFFFF80;
+  border: 2px solid #434E61;
 }
 
 body.light-mode .arrow {
   background: #fafafb;
+  border: 1px solid #f2f5f9;
 
 }
 body.dark-mode .arrow  {
   background: #293141;
+  border: 1px solid #FFFFFF80;
 
 }
 

@@ -19,7 +19,6 @@
             position: relative !important;
             box-shadow: none !important;
             padding-left: 65px !important;
-            //background: #FFFFFF !important;
             border-radius: 24px !important;
             border: 2px solid #D2D7E5 !important;
         }
@@ -43,9 +42,7 @@
         margin: 0 10px 0 5px;
         letter-spacing: 0.17px;
         display: inline-block;
-        border: 1px solid #D2D7E5;
         text-transform: capitalize;
-        box-shadow: 0px 3px 12px #E5E7ED;
         img {
             width: 10px;
             margin-left: 8px;
@@ -98,7 +95,6 @@
                 text-align: center;
                 border-radius: 8px;
                 display: inline-block;
-                border: 1px solid #F2F5F9;
             }
             .rightArrow {
                 img {
@@ -126,7 +122,7 @@
             line-height: 24px;
             padding: 24px 15px;
             border-top: none;
-            border-bottom: 2px solid #F2F5F9;
+            //border-bottom: 2px solid #F2F5F9;
             &:first-child {
                 padding-left: 35px;
             }

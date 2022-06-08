@@ -47,7 +47,7 @@ const index = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr >
+                <tr className={`${styles.table_row} table_row17`}>
                   <td>SG1234</td>
                   <td className={styles.buyerName}>Rajsekhar</td>
                   <td>9034894802</td>
@@ -57,7 +57,7 @@ const index = () => {
                   <span className='m-3'>Active</span>
                   </td>                
                   </tr>
-                <tr>
+                <tr className={`${styles.table_row} table_row17`}>
                   <td>SG1234</td>
                   <td className={styles.buyerName}>Rajsekhar</td>
                   <td>9034894802</td>
@@ -67,7 +67,7 @@ const index = () => {
                   <span className='m-3'>Active</span>
                   </td>                
                   </tr>
-                <tr>
+                <tr className={`${styles.table_row} table_row17`}>
                   <td>SG1234</td>
                   <td  className={styles.buyerName}>Rajsekhar</td>
                   <td>9034894802</td>
@@ -77,7 +77,7 @@ const index = () => {
                   <span className='m-3'>Active</span>
                   </td>
                    </tr>
-                <tr>
+                <tr className={`${styles.table_row} table_row17`}>
                   <td>SG1234</td>
                   <td  className={styles.buyerName}>Rajsekhar</td>
                   <td>9034894802</td>
@@ -87,7 +87,7 @@ const index = () => {
                   <span className='m-3'>Active</span>
                   </td>
                  </tr>
-                <tr>
+                <tr className={`${styles.table_row} table_row17`}>
                   <td>SG1234</td>
                   <td  className={styles.buyerName}>Rajsekhar</td>
                   <td>9034894802</td>
@@ -97,7 +97,7 @@ const index = () => {
                   <span className='m-3'>Inactive</span>
                   </td>
                   </tr>
-                <tr>
+                <tr className={`${styles.table_row} table_row17`}>
                   <td>SG1234</td>
                   <td  className={styles.buyerName}>Rajsekhar</td>
                   <td>9034894802</td>
@@ -107,7 +107,7 @@ const index = () => {
                   <span className='m-3'>Blacklisted</span>
                   </td>                
                   </tr>
-                <tr>
+                <tr className={`${styles.table_row} table_row17`}>
                   <td>SG1234</td>
                   <td  className={styles.buyerName}>Rajsekhar</td>
                   <td>9034894802</td>
