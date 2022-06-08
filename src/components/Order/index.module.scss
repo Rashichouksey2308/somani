@@ -1,14 +1,15 @@
 .main {
-    box-shadow: 0px 3px 6px #CAD0E2;
-    border: 1px solid #D2D7E5;
+    //box-shadow: 0px 3px 6px #CAD0E2;
+    //border: 1px solid #D2D7E5;
     border-radius: 6px;
     background-color: #ffffff;
     margin-top: 15px;
   
     .head_container {
         padding: 10px 0px 0px 20px;
-        border-bottom: 3px solid #D9DDE8;
+        //border-bottom: 3px solid #D9DDE8;
         .heading{
+            color: #3687e8;
             font-weight:bold;
             font-size: 22px;
             text-transform: capitalize;
@@ -21,13 +22,12 @@
         padding-right: 15px;
 
          .unit_label{
-        font-size:18px;
-        color: #2837566A;
-        text-transform: capitalize;
-        font-weight: bold;
-        margin-top: 10px;
-        padding-right: 10px;
-        line-height: 23px;
+            font-size:18px;
+            text-transform: capitalize;
+            font-weight: bold;
+            margin-top: 10px;
+            padding-right: 10px;
+            line-height: 23px;
     }
            .options {
             font-size:18px;
@@ -43,6 +43,12 @@
             padding-top: 4px;
             padding-bottom: 4px;
             margin-right: 50px;
+            }
+            span {
+                font-size: 45px;
+                color: #3687e8;
+                font-weight: normal;
+                line-height: 20px;
             }
         }
  .dashboard_form { 
