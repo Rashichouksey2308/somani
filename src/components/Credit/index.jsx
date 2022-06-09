@@ -137,7 +137,7 @@ const index = () => {
                             <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
                             <Form.Label className={`${styles.label_heading} label_heading`}>Commodity to Total Trade % -24M<strong className="text-danger">*</strong></Form.Label>
                         </Form.Group>
-                        <Form.Group>
+                        <div className='col-12'>
                         <Form.Label className={`${styles.label_heading}`}>Remarks</Form.Label>
                             <Form.Control
                                 as="textarea"
@@ -145,7 +145,7 @@ const index = () => {
                                 className={`${styles.remark_field} input form-control`}
                                 />
 
-                        </Form.Group>
+                        </div>
                     
                         </div>
                         </Form> 
