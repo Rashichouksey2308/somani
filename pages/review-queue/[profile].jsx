@@ -9,6 +9,12 @@ import { useSelector } from 'react-redux'
 
 const index = () => {
     const {buyerList} = useSelector((state)=> state.buyer)
+
+    const [review, setReview] = useState({
+        
+    })
+
+    
    
     return (
     <>
@@ -18,9 +24,9 @@ const index = () => {
                     <img className={`${styles.arrow} img-fluid`} src="/static/keyboard_arrow_right-3.svg" alt='arrow'/>
                   {buyerList && buyerList.map((buyer)=>( <h1 className={styles.heading}>{buyer.companyName}</h1>))}
                 </div>
-                <ReviewProfile></ReviewProfile>
-                <CompanyProfile></CompanyProfile>
-                <OrderProfile></OrderProfile>
+                <ReviewProfile />
+                <CompanyProfile />
+                <OrderProfile />
             </div>
             <div className={styles.approve_Container}  >
                 <ApproveBar button={"Save"} button2={"Preview"}/>

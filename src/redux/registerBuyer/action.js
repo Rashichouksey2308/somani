@@ -142,12 +142,12 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
       
     } else {
       dispatch(updateBuyerFailed(response.data));
-    
+      console.log("UPDATE REQUEST FAILED")
     }
     })
   } catch (error) {
     dispatch(updateBuyerFailed());
-  
+    console.log(error, "UPDATE API FAILED")
   }
 };
 
