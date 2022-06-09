@@ -7,8 +7,9 @@ const index = () => {
     <div className={styles.main}>
         <div className={`${styles.head_container} d-flex justify-content-between`}>
             <h3 className={styles.heading}>Additional Comments</h3>
-            <img className='mr-4 img-fluid' alt="Add" src="/static/add.svg"/>
+            <span>+</span>
         </div>
+        { /* <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#termsheetAccordion">  */}     
         <div className={styles.dashboard_form}>
             <Form>
                 <div className='row'>               
@@ -55,7 +56,8 @@ const index = () => {
                 </div>
             </Form>               
         </div>
-    </div>
+        </div>
+    //</div>
   )
 }
 export default index

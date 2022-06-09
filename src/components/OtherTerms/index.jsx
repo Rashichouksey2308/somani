@@ -8,7 +8,7 @@ const index = () => {
     <div className={styles.main}>
         <div className={`${styles.head_container} d-flex justify-content-between`}>
             <h3 className={styles.heading}>Other Terms &amp; Conditions</h3>
-            <img className='p-3 img-fluid' alt="Add" src="/static/add.svg"/>
+            <span>+</span>
         </div>
         <div className={styles.dashboard_form}>       
             <Form>
