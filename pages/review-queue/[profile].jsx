@@ -18,7 +18,7 @@ const index = () => {
    
     return (
     <>
-        <div className={styles.root_Container}>
+        <div className={`${styles.root_Container} card`}>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
                     <img className={`${styles.arrow} img-fluid`} src="/static/keyboard_arrow_right-3.svg" alt='arrow'/>

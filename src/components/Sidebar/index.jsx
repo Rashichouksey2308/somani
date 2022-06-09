@@ -79,7 +79,7 @@ function index() {
   }
 console.log(category)
   return (
-    <div className={styles.main_container} >
+    <div className={`${styles.main_container} sidebar-bg`} >
       {tempArr.map((val,index)=>{
          const className1 = category==val.main?`${styles.selected}`:null
             return (

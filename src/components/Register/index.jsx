@@ -148,7 +148,7 @@ const index = () => {
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
-          <button onClick={clearData}  className={`${styles.clear_btn} clear_btn`}>
+          <button onClick={clearData} className={`${styles.clear_btn} clear_btn`}>
             Clear All
           </button>
         </div>

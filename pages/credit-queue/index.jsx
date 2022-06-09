@@ -37,11 +37,11 @@ function index() {
         <a className={styles.filterIcon}>
           <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
         </a>
-        <a href="#" className={styles.filterList}>
+        <a href="#" className={`${styles.filterList}  filterList`}>
           Ramesh Shetty
           <img src="/static/close.svg" className="img-fluid" alt="Close" />
         </a>
-        <a href="#" className={styles.filterList}>
+        <a href="#" className={`${styles.filterList}  filterList`}>
           Raj Traders
           <img src="/static/close.svg" className="img-fluid" alt="Close" />
         </a>
@@ -219,7 +219,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td className={styles.buyerName}>Somani Traders</td>
                 <td>RM-Sales</td>
@@ -240,7 +240,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td className={styles.buyerName}>Bhutani Traders</td>
                 <td>Customer</td>
@@ -261,7 +261,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td className={styles.buyerName}>Emerging Traders</td>
                 <td>RM-Sales</td>
@@ -282,7 +282,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row`}>
                 <td>124621</td>
                 <td className={styles.buyerName}>Raj Traders</td>
                 <td>Customer</td>
@@ -303,7 +303,7 @@ function index() {
                   />
                 </td>
               </tr>
-              <tr>
+              <tr className={`${styles.table_row} table_row` }>
                 <td>124621</td>
                 <td className={styles.buyerName}>Krishna Traders</td>
                 <td>Customer</td>
