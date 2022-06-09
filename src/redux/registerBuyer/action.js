@@ -2,7 +2,6 @@ import * as types from "./actionType";
 import API from "../../utils/endpoints";
 import Axios from "axios";
 
-
 function createBuyer() {
   return {
     type: types.REGISTER_BUYER,

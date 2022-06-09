@@ -1,3 +1,4 @@
+
 .filter {
     margin: 15px 0;
     .search {
@@ -19,7 +20,6 @@
             position: relative !important;
             box-shadow: none !important;
             padding-left: 65px !important;
-            background: #ffffff !important;
             border-radius: 24px !important;
             border: 2px solid #d2d7e5 !important;
         }
@@ -36,18 +36,15 @@
     }
     .filterList {
         font-size: 18px;
-        color: #111111;
         font-weight: 500;
         line-height: 25px;
         padding: 9px 12px;
         border-radius: 8px;
-        background: #ffffff;
         margin: 0 10px 0 5px;
         letter-spacing: 0.17px;
         display: inline-block;
         border: 1px solid #d2d7e5;
         text-transform: capitalize;
-        box-shadow: 0px 3px 12px #e5e7ed;
         img {
             width: 10px;
             margin-left: 12px;
@@ -73,7 +70,6 @@
 .statusBox {
     margin: 20px 0;
     border-radius: 8px;
-    background: #ffffff;
     border: 1px solid #d2d7e5;
     box-shadow: 0 3px 12px #e5e7ed;
     .boxInner {
@@ -136,20 +132,18 @@
 }
 .datatable {
     border-radius: 6px;
-    background: #ffffff;
     border: 1px solid #d2d7e5;
-    box-shadow: 0 3px 6px #cad0e2;
     .tableFilter {
         padding: 0 15px 0 35px;
         h3 {
-            font-size: 22px;
-            color: #111111;
+            font-size: 22px !important; 
             font-weight: bold;
             line-height: 27px;
             margin: 24px 0;
             text-transform: capitalize;
         }
         .pageList {
+            
             span {
                 font-size: 18px;
                 color: #718096;
@@ -164,7 +158,6 @@
                 line-height: 45px;
                 text-align: center;
                 border-radius: 8px;
-                background: #fafafb;
                 display: inline-block;
                 border: 1px solid #f2f5f9;
             }
@@ -176,23 +169,21 @@
         }
     }
     .table {
-        th {
+        .table_heading {
             font-size: 15px;
-            color: #8492a6;
+            //color: #8492a6;
             font-weight: bold;
             line-height: 18px;
             padding: 24px 15px;
-            background: #fafafb;
             text-transform: uppercase;
-            border-top: 2px solid #f2f5f9;
-            border-bottom: 2px solid #f2f5f9;
+            //border-top: 2px solid #f2f5f9;
             &:first-child {
                 padding-left: 35px;
             }
         }
         td {
             font-size: 19px;
-            color: rgba(17, 17, 17, 0.7);
+            //color: rgba(17, 17, 17, 0.7);
             font-weight: 500;
             line-height: 24px;
             padding: 24px 15px;

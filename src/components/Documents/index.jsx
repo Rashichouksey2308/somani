@@ -51,7 +51,7 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
   // }
 
   return (
-    <div className={`${darkMode?styles.mainDark:styles.main}`}>
+    <div className={`${styles.main} border_color`}>
       <div  className={`${styles.heading} heading_card`}>Documents</div>
 
       <div className={`${styles.input_container} row align-items-center`}>
