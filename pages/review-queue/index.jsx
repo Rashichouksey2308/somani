@@ -6,6 +6,7 @@ import ShipmentDetails from '../../src/components/ShipmentDetails'
 import ComplianceLigitations from '../../src/components/CompilanceLigitation'
 import LigitationsTable from '../../src/components/LigitationsTable'
 import GST from '../../src/components/GST'
+import Credit from '../../src/components/Credit'
 import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
@@ -1450,7 +1451,9 @@ function index() {
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="Credit" role="tabpanel">
-                                <div className={`${styles.card} card`}>Credit</div>
+                                <div className={`${styles.card} card`}>
+                                  <Credit/>
+                                </div>
                             </div>
                             <div className="tab-pane fade" id="cam" role="tabpanel">
                                <CAM/>
