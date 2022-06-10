@@ -1451,9 +1451,9 @@ function index() {
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="Credit" role="tabpanel">
-                                <div className={`${styles.card} card`}>
+                               
                                   <Credit/>
-                                </div>
+                                
                             </div>
                             <div className="tab-pane fade" id="cam" role="tabpanel">
                                <CAM/>
