@@ -6,7 +6,7 @@ import styles from './index.module.scss'
 const index = () => {
   return (
       <>
-        <div className={`${styles.main}`}>
+                   <div className={`${styles.main}`}>
             <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#productSummary" aria-expanded="true" aria-controls="productSummary">
             <h3 className={`${styles.heading}`}>Product Summary</h3>
             <span>+</span>
@@ -87,7 +87,7 @@ const index = () => {
                     </Form> 
                 </div>
                 </div>
-                </div>   
+                   </div>   
 
                     <div className={`${styles.main}`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#supplierCred" aria-expanded="true" aria-controls="supplierCred">
@@ -158,7 +158,7 @@ const index = () => {
               
                     <div className={`${styles.main}`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyContact" aria-expanded="true" aria-controls="keyContact" >
-                    <h3 className={`${styles.heading}`}>Key Contact Person(s)</h3>
+                    <h3 className={`${styles.heading}`}>Key Contact Person</h3>
                     <span>+</span>
                             </div>  
                             <div id="keyContact" className="collapse" aria-labelledby="keyContact" data-parent="#profileAccordion">      
@@ -193,7 +193,7 @@ const index = () => {
                             <td>Yes</td>
                             <td>
                             <div>
-                               <img src= "/static/save-3.svg" className={`${styles.edit_image} img-fluid`} alt="edit"/>
+                               <img src= "/static/save-3.svg" className={`${styles.edit_image} mr-3 img-fluid`} alt="save"/>
                                <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
                            </div>
                            </td>
@@ -208,7 +208,7 @@ const index = () => {
                             <td>keshavv4578@gmail.com</td>
                             <td>
                            <div>
-                               <img src= "/static/mode_edit.svg" className={`${styles.edit_image} img-fluid`} alt="edit"/>
+                               <img src= "/static/mode_edit.svg" className={`${styles.edit_image} mr-3 img-fluid`} alt="edit"/>
                                <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
                            </div>
                             </td>
@@ -223,7 +223,7 @@ const index = () => {
                             <td>keshavv4578@gmail.com</td>
                             <td>
                             <div>
-                               <img className={`${styles.edit_image} img-fluid`} src= "/static/mode_edit.svg" alt="edit"/>
+                               <img className={`${styles.edit_image} mr-3 img-fluid`} src= "/static/mode_edit.svg" alt="edit"/>
                                <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
                            </div>
                             </td>
@@ -427,7 +427,7 @@ const index = () => {
                             <td>Good</td>
                             <td>
                             <div>
-                               <img src= "/static/save-3.svg" className={`${styles.edit_image} img-fluid`} alt="edit"/>
+                               <img src= "/static/save-3.svg" className={`${styles.edit_image} mr-3 img-fluid`} alt="edit"/>
                                <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
                            </div>
                            </td>
@@ -443,7 +443,7 @@ const index = () => {
                             <td>Satisfactory</td>
                             <td>
                            <div>
-                               <img src= "/static/save-3.svg" className={`${styles.edit_image} img-fluid`} alt="edit"/>
+                               <img src= "/static/save-3.svg" className={`${styles.edit_image}  mr-3 img-fluid`} alt="edit"/>
                                <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
                            </div>
                             </td>
