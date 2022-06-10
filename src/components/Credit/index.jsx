@@ -6,11 +6,12 @@ import styles from './index.module.scss'
 const index = () => {
   return (
       <>
-        <div className={`${styles.main}`}>
-            <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`} >
+                   <div className={`${styles.main}`}>
+            <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#productSummary" aria-expanded="true" aria-controls="productSummary">
             <h3 className={`${styles.heading}`}>Product Summary</h3>
             <span>+</span>
                     </div>  
+                    <div id="productSummary" className="collapse" aria-labelledby="productSummary" data-parent="#profileAccordion">      
                 <div className={`${styles.dashboard_form}`}> 
                 <Form>
                 <div className='row'>
@@ -85,13 +86,15 @@ const index = () => {
                     </div>
                     </Form> 
                 </div>
-                </div>   
+                </div>
+                   </div>   
 
                     <div className={`${styles.main}`}>
-                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`} >
+                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#supplierCred" aria-expanded="true" aria-controls="supplierCred">
                     <h3 className={`${styles.heading}`}>Supplier's Credentials</h3>
                     <span>+</span>
-                            </div>  
+                            </div> 
+                            <div id="supplierCred" className="collapse" aria-labelledby="supplierCred" data-parent="#profileAccordion">       
                     <div className={`${styles.dashboard_form}`}> 
                     <Form>
                     <div className='row'>
@@ -150,13 +153,16 @@ const index = () => {
                         </div>
                         </Form> 
                     </div>
+                    </div>
                     </div>  
               
                     <div className={`${styles.main}`}>
-                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`} >
-                    <h3 className={`${styles.heading}`}>Key Contact Person(s)</h3>
+                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyContact" aria-expanded="true" aria-controls="keyContact" >
+                    <h3 className={`${styles.heading}`}>Key Contact Person</h3>
                     <span>+</span>
                             </div>  
+                            <div id="keyContact" className="collapse" aria-labelledby="keyContact" data-parent="#profileAccordion">      
+
                     <div className={`${styles.datatable} datatable`}>
          
                     <table
@@ -187,7 +193,7 @@ const index = () => {
                             <td>Yes</td>
                             <td>
                             <div>
-                               <img src= "/static/mode_edit.svg" className='img-fluid' alt="edit"/>
+                               <img src= "/static/save-3.svg" className={`${styles.edit_image} mr-3 img-fluid`} alt="save"/>
                                <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
                            </div>
                            </td>
@@ -202,7 +208,7 @@ const index = () => {
                             <td>keshavv4578@gmail.com</td>
                             <td>
                            <div>
-                               <img src= "/static/mode_edit.svg" className='img-fluid' alt="edit"/>
+                               <img src= "/static/mode_edit.svg" className={`${styles.edit_image} mr-3 img-fluid`} alt="edit"/>
                                <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
                            </div>
                             </td>
@@ -217,7 +223,7 @@ const index = () => {
                             <td>keshavv4578@gmail.com</td>
                             <td>
                             <div>
-                               <img src= "/static/mode_edit.svg" className='img-fluid' alt="edit"/>
+                               <img className={`${styles.edit_image} mr-3 img-fluid`} src= "/static/mode_edit.svg" alt="edit"/>
                                <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
                            </div>
                             </td>
@@ -230,59 +236,225 @@ const index = () => {
                         <div>Add More Rows</div>
                     </div>
                     </div>
+                    </div>
                     </div>  
                   
                     <div className={`${styles.main}`}>
-                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`} >
+                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyAddress" aria-expanded="true" aria-controls="keyAddress">
                     <h3 className={`${styles.heading}`}>Key Addresses</h3>
                     <span>+</span>
                             </div>  
+                            <div id="keyAddress" className="collapse" aria-labelledby="keyAddress" data-parent="#profileAccordion">      
+
                     <div className={`${styles.dashboard_form}`}> 
                     <div className='row'>
-                        <div className={`${styles.address_card} m-3 col-md-6`}>
+                        <div className={`${styles.address_card} col-md-6`}>
                             <div className='d-flex justify-content-between'>
                                 <div>
                                 <input type="checkbox"/>
-                                <label> Registered Office Address</label>
-                                <div>N-11, 29 Tilak Marg, New Delhi</div>
-                                <div>Email:  <span>skapoor@gmail.com</span></div>
-                                <div>Phone Number: <span>+91 9876543210, +91 9876543210</span></div>
-                                <div>
-                                    
-                                </div>
-                                </div>
-                               <div>
-                                   <img src="/static/mode_edit.svg" />
-                               </div>
-                            </div>
+                                <label className={styles.label}>Registered Office Address</label>
+                                <div className={styles.address_values}>
+                                <p>N-11, 29 Tilak Marg, New Delhi</p>
+                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
                           
-
-                        </div>
-                        <div className={`${styles.address_card} m-3 col-md-6`}>
-                            <div className='d-flex justify-content-between'>
-                                <div>
-                                <input type="checkbox"/>
-                                <label> Registered Office Address</label>
-                                <div>N-11, 29 Tilak Marg, New Delhi</div>
-                                <div>Email:  <span>skapoor@gmail.com</span></div>
-                                <div>Phone Number: <span>+91 9876543210, +91 9876543210</span></div>
-                                <div>
-                                    
                                 </div>
                                 </div>
                                <div>
-                                   <img src="/static/mode_edit.svg" />
+                                   <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit"/>
                                </div>
                             </div>
                           
 
                         </div>
                         <div className={`${styles.address_card} col-md-6`}>
+                            <div className='d-flex justify-content-between'>
+                                <div>
+                                <div className={styles.address_values}>
+                                <h5>Corporate Office Address</h5>
+                                <p>N-11, 29 Tilak Marg, New Delhi</p>
+                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                               
+                                </div>
+                                </div>
+                               <div>
+                                   <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit"/>
+                               </div>
+                            </div>
                           
 
                         </div>
-                        
+                        <div className={`${styles.address_card} col-md-6`}>
+                            <div className='d-flex justify-content-between'>
+                                <div>
+                                <div className={styles.address_values}>
+                                <h5>Factory Address</h5>
+                                <p>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
+                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                                <p><span>Branch: </span>Delhi</p>
+                                <div className='d-flex'>
+                                <p> <span>GSTIN: </span>Gstdt789652Jkv</p>
+                                <span className={styles.button}>View</span>
+                                </div>                                </div>
+                                </div>
+                               <div>
+                                   <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
+                                   <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                               </div>
+                            </div>
+                        </div>
+                        <div className={`${styles.address_card} col-md-6`}>
+                            <div className='d-flex justify-content-between'>
+                            <div>
+                                <div className={styles.address_values}>
+                                <h5>Warehouse Address</h5>
+                                
+                                <p>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
+                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                                <p><span>Branch: </span>Delhi</p>
+                                <div className='d-flex'>
+                                <p> <span>GSTIN: </span>Gstdt789652Jkv</p>
+                                <span className={styles.button}>View</span>
+                                </div>
+                                </div>
+                                </div>
+                               <div>
+                                   <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
+                                   <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                               </div>
+                            </div>
+                        </div>
 
+                    </div>
+                    </div>
+                    </div>
+                    </div> 
+
+                    <div className={`${styles.main}`}>
+                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#addAddress" aria-expanded="true" aria-controls="addAddress">
+                            <h3 className={`${styles.heading}`}>Add a new address</h3>
+                            <img src="/static/accordion_close_black.svg"  className='img-fluid' alt="Close" />
+                            </div> 
+                            <div id="addAddress" className="collapse" aria-labelledby="addAddress" data-parent="#profileAccordion">       
+                            <div className={`${styles.dashboard_form}`}> 
+                            <Form>
+                            <div className='row'>
+                            <Form.Group className={`${styles.form_group} col-md-2 col-sm-4`}>
+                                    <select className={`${styles.input_field} input form-control`}>
+                            <option>Bhutani Traders</option>
+                            <option>Ramakrishna</option>
+                            </select>    
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Address Type<strong className="text-danger">*</strong></Form.Label>                      
+                            </Form.Group>
+                            <Form.Group className={`${styles.form_group} col-md-2 col-sm-4`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Pin Code<strong className="text-danger">*</strong></Form.Label>
+                            </Form.Group>
+
+                        <Form.Group className={`${styles.form_group} col-md-2 col-sm-4`} >
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>State<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        
+                        <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`} >
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>City<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group> 
+
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Email ID<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Phone Number<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Address<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Branch<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>GSTIN<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        </div>
+                        </Form> 
+                    </div>
+                    </div>
+                    </div> 
+
+                    <div className={`${styles.main}`}>
+                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#debtProfile" aria-expanded="true" aria-controls="debtProfile" >
+                    <h3 className={`${styles.heading}`}>Debt Profile</h3>
+                    <span>+</span>
+                            </div>  
+                            <div id="debtProfile" className="collapse" aria-labelledby="debtProfile" data-parent="#profileAccordion">      
+
+                    <div className={`${styles.datatable} datatable`}>
+         
+                    <table
+                        className={`${styles.table} table`}
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                    >
+                        <thead>
+                        <tr>
+                            <th>S.NO.</th>
+                            <th>BANK NAME</th>
+                            <th>LIMIT TYPE</th>
+                            <th>LIMIT</th>
+                            <th>CONDUCT</th>
+                            <th>ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+                        <tr>
+                            <td>1</td>
+                            <td>
+                            Punjab National Bank
+                            </td>
+                            <td>Cash Credit</td>
+                            <td>100,000.00</td>
+                            <td>Good</td>
+                            <td>
+                            <div>
+                               <img src= "/static/save-3.svg" className={`${styles.edit_image} mr-3 img-fluid`} alt="edit"/>
+                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                           </div>
+                           </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jammu & Kashmir Bank</td>
+                            <td>
+                            Cash Credit
+                            </td>
+                            <td>100,000.00</td>
+                            
+                            <td>Satisfactory</td>
+                            <td>
+                           <div>
+                               <img src= "/static/save-3.svg" className={`${styles.edit_image}  mr-3 img-fluid`} alt="edit"/>
+                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                           </div>
+                            </td>
+                        </tr>
+                        
+                        </tbody>
+                    </table>
+                    <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
+                        <span>+</span>
+                        <div>Add More Rows</div>
+                    </div>
                     </div>
                     </div>
                     </div> 
