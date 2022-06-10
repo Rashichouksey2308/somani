@@ -6,7 +6,9 @@ const defaultObj = {
     email: '',
   },
   token: null,
+  isuserLoggedin : false,
   loggingInUser: false,
+  loggingUserOut: false,
   loggingUserMessage: null,
   fetchingUserPermissions: false,
   fetchingUserPermissionsStatus: null,
@@ -16,7 +18,9 @@ const defaultObj = {
 const initialState = {
   userData: { ...defaultObj.user },
   token: null,
+  isuserLoggedin : false,
   loggingInUser: false,
+  loggingUserOut: false,
   loggingUserMessage: null,
   fetchingUserPermissions: false,
   fetchingUserPermissionsStatus: null,
@@ -45,6 +49,7 @@ function AuthReducer(state = initialState, action) {
         token: action.payload.token,
         loggingInUser: false,
         loggingUserMessage: null,
+        isuserLoggedin : true,
       }
     }
 
@@ -56,6 +61,14 @@ function AuthReducer(state = initialState, action) {
         loggingUserMessage: action.payload.message,
       }
     }
+    case types.USER_LOGGED_OUT:
+      return {
+        ...state,
+        token: null,
+        loggingUserOut: true,
+        loggingUserMessage: null,
+        isuserLoggedin : false,
+      }
 
     case types.FETCH_USER_PERMISSIONS:
       return {
@@ -109,6 +122,7 @@ function AuthReducer(state = initialState, action) {
     case types.LOGOUT_USER:
       return {
         ...state,
+        loggingoutUser : true,
         ...initialState,
       }
 

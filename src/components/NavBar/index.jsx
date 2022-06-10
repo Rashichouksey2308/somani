@@ -4,6 +4,8 @@ import styles from './index.module.scss'
 import useDarkMode from 'use-dark-mode';
 import { showSidebar, hideSidebar } from '../../redux/toggleState/Action/action'
 import { sidebar } from 'redux/toggleState/Reducer/reducer'
+import { logoutUser } from 'redux/authentication/actions';
+
 
 
 
@@ -105,6 +107,10 @@ function index() {
             </a>
             <a className="dropdown-item" href="#">
               Age : 21 Years
+            </a>
+            <a className="dropdown-item" onClick={()=>{dispatch(logoutUser())
+                            window.location.reload();}}>
+              Logout
             </a>
           </div>
         </div>
