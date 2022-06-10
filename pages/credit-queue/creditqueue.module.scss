@@ -41,9 +41,7 @@
       margin: 0 10px 0 5px;
       letter-spacing: 0.17px;
       display: inline-block;
-      border: 1px solid #D2D7E5;
       text-transform: capitalize;
-      box-shadow: 0px 3px 12px #E5E7ED;
       img {
           width: 10px;
           margin-left: 12px;
@@ -67,78 +65,73 @@
   }
 }
 .statusBox {
-margin: 20px 0;
-border-radius: 8px;
-border: 1px solid #D2D7E5;
-box-shadow: 0 3px 12px #E5E7ED;
-  .boxInner {
-      width: 20%;
-      padding: 21px 24px;
-      border-right: 1px solid #D2D7E5;
-      &:last-child {
-          border-right: none;
-      }
-      h3 {
-          font-size: 28px;
-          color: #111111;
-          font-weight: bold;
-          line-height: 34px;
-          margin: 0 0 0 18px;
-          text-transform: capitalize;
-          span {
-              font-size: 15px;
-              color: #8492A6;
-              font-weight: bold;
-              line-height: 18px;
-              display: block;
-              margin-bottom: 5px;
-              text-transform: uppercase;
-          }
-      }
-      .iconBox {
-          height: 58px;
-          min-width: 58px;
-          line-height: 55px;
-          text-align: center;
-          border-radius: 8px;
-      }
-      &.all {
-          .iconBox {
-              background: rgba(40, 132, 222, 0.2);
-          }
-      }
-      &.approved {
-          .iconBox {
-              background: rgba(76, 175, 80, 0.2);
-          }
-      }
-      &.review {
-          .iconBox {
-              background: rgba(255, 157, 0, 0.2);
-          }
-      }
-      &.rejected {
-          .iconBox {
-              background: rgba(234, 63, 63, 0.2);
-          }
-      }
-      &.pending {
-          .iconBox {
-              background: rgba(195, 63, 234, 0.2);
-          }
-      }
-      &.saved {
-          .iconBox {
-              background: rgba(202, 208, 214, 0.2);
-          }
-      }
-  }
+    margin: 20px 0;
+    border-radius: 8px;
+    border: 1px solid #d2d7e5;
+    box-shadow: 0 3px 12px #e5e7ed;
+    .boxInner {
+        width: 20%;
+        padding: 21px 24px;
+        border-right: 1px solid #d2d7e5;
+        &:last-child {
+            border-right: none;
+        }
+        h3 {
+            font-size: 28px;
+            color: #111111;
+            font-weight: bold;
+            line-height: 34px;
+            margin: 0 0 0 18px;
+            text-transform: capitalize;
+            span {
+                font-size: 15px;
+                color: #8492a6;
+                font-weight: bold;
+                line-height: 18px;
+                display: block;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+            }
+        }
+        .iconBox {
+            height: 58px;
+            min-width: 58px;
+            line-height: 55px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        &.all {
+            .iconBox {
+                background: rgba(40, 132, 222, 0.2);
+            }
+        }
+        &.approved {
+            .iconBox {
+                background: rgba(76, 175, 80, 0.2);
+            }
+        }
+        &.review {
+            .iconBox {
+                background: rgba(255, 157, 0, 0.2);
+            }
+        }
+        &.rejected {
+            .iconBox {
+                background: rgba(234, 63, 63, 0.2);
+            }
+        }
+        &.saved {
+            .iconBox {
+                background: rgba(202, 208, 214, 0.2);
+            }
+        }
+    }
 }
 .datatable {
   border-radius: 6px;
   //background: #FFFFFF;
-  border: 1px solid #D2D7E5;
-  box-shadow: 0 3px 6px #CAD0E2;
+  //border: 1px solid #D2D7E5;
+  //box-shadow: 0 3px 6px #CAD0E2;
   .tableFilter {
       padding: 0 15px 0 35px;
       h3 {
@@ -164,7 +157,6 @@ box-shadow: 0 3px 12px #E5E7ED;
               text-align: center;
               border-radius: 8px;
               display: inline-block;
-              border: 1px solid #F2F5F9;
           }
           .rightArrow {
               img {
@@ -194,7 +186,6 @@ box-shadow: 0 3px 12px #E5E7ED;
           line-height: 24px;
           padding: 24px 15px;
           border-top: none;
-          border-bottom: 2px solid #F2F5F9;
           &:first-child {
               padding-left: 35px;
           }
