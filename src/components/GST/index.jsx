@@ -92,22 +92,22 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
   return (
     <>
     
-       <div className={styles.wrapper}>
-         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations" aria-expanded="true" aria-controls="litigations">
+       <div className={`${styles.wrapper} card`}>
+         <div className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations" aria-expanded="true" aria-controls="litigations">
             <h2 className="mb-0">Summary Information</h2>
             <span>+</span>
         </div>
         <div id="litigations" className="collapse" aria-labelledby="litigations" data-parent="#profileAccordion">
          <div className={` ${styles.cardBody} card-body`}>
            <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}>
               <span>Business Profile</span>  
               <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>GST :</span>09AAGCS8808K1ZR</span>   
             </div>
             <div className={` ${styles.body}`}>
                 <Row >
                     <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
                         <div className={styles.col_body}>
@@ -115,7 +115,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                         </div>
                     </Col>
                     <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
                         <div className={styles.col_body}>
@@ -123,7 +123,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                         </div>
                     </Col>
                         <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
                         <div className={styles.col_body}>
@@ -131,7 +131,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                         </div>
                     </Col>
                         <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
                         <div className={styles.col_body}>
@@ -139,7 +139,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                         </div>
                     </Col>
                         <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
                         <div className={styles.col_body}>
@@ -147,7 +147,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                         </div>
                     </Col>
                         <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
                         <div className={styles.col_body}>
@@ -155,7 +155,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                         </div>
                     </Col>
                         <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
                         <div className={styles.col_body}>
@@ -168,7 +168,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
             </div>
            </div>
             <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}   card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Alerts Indentified</span>  
             
             </div>
@@ -182,16 +182,16 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                     
                    </Row>
                    <Row className={` ${styles.row}`} >
-                    <Col md={3} style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}>
+                    <Col md={3}  className={`${styles.gst_cancelled} gst_profile_alerts  d-flex align-items-center justify-content-start`}>
                        <div className={styles.dot} style={{backgroundColor:"#28BE39"}}></div><span>GST Transaction default</span>
                     </Col>
-                    <Col md={3}  style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}>
+                    <Col md={3}  className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}>
                        <div className={styles.dot} style={{backgroundColor:"#EA3FD6"}}></div><span>GST Provisional</span>
                     </Col>
-                    <Col md={3}  style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}>
+                    <Col md={3}  className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}>
                        <div className={styles.dot} style={{backgroundColor:"#3F66EA"}}></div><span>GST Transaction delay</span>
                     </Col>
-                    <Col md={3}  style={{backgroundColor:"white"}} className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}>
+                    <Col md={3}  className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}>
                        <div className={styles.dot} style={{backgroundColor:"#CBC5C5"}}></div><span>GST Inactive</span>
                     </Col>
                   
@@ -201,7 +201,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
             </div>
            </div>
             <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}>
               <span>Key Managerial Personsd</span>  
             
             </div>
@@ -233,12 +233,12 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
            
          </div>   
 
-           <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+           <div className={` ${styles.content} `}>
+            <div className={` ${styles.header}  card_sub_header   d-flex align-items-center justify-content-between`}>
               <span>Revenue Profile</span>  
-              <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :
+              <span className={` d-flex align-items-center justify-content-between `}><span className={`${styles.light} accordion_Text`}>Unit :
               </span>
-              <select className={`${styles.select} form-select`} aria-label="Default select example">
+              <select className={`${styles.select} accordion_DropDown form-select`} aria-label="Default select example">
              
               <option selected value="1">Crores</option>
             
@@ -249,58 +249,58 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
             <div className={` ${styles.body}`}>
                 <Row >
                     <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                           Gross Turnover
                         </div>
-                        <div className={styles.col_body}>
+                        <div className={`${styles.col_body} accordion_text`}>
                            1,900.00
                         </div>
                     </Col>
                     <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
-                        <div className={styles.col_body}>
+                        <div className={`${styles.col_body} accordion_text`}>
                             Supplier Of Services
                         </div>
                     </Col>
                         <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
-                        <div className={styles.col_body}>
+                        <div className={`${styles.col_body} accordion_text`}>
                             Supplier Of Services
                         </div>
                     </Col>
                         <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
-                        <div className={styles.col_body}>
+                        <div className={`${styles.col_body} accordion_text`}>
                             Supplier Of Services
                         </div>
                     </Col>
                         <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
-                        <div className={styles.col_body}>
+                        <div className={`${styles.col_body} accordion_text`}>
                             Supplier Of Services
                         </div>
                     </Col>
                         <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
-                        <div className={styles.col_body}>
+                        <div className={`${styles.col_body} accordion_text`}>
                             Supplier Of Services
                         </div>
                     </Col>
                         <Col md={3}>
-                        <div className={styles.col_header}>
+                        <div className={`${styles.col_header} label_heading`}>
                             Business Activity
                         </div>
-                        <div className={styles.col_body}>
+                        <div className={`${styles.col_body} accordion_text`}>
                             Supplier Of Services
                         </div>
                     </Col>
@@ -314,7 +314,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
         </div>  
 
        
-        <div  className={styles.wrapper}>
+        <div  className={`${styles.wrapper} card`}>
           <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations1" aria-expanded="true" aria-controls="litigations1">
             <h2 className="mb-0">Summary Chart</h2>
             <span>+</span>
@@ -324,7 +324,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
            <Row className={styles.row}>
              <Col md={6} className={styles.col}>
               <div className={styles.chart_container}>
-              <div className={` ${styles.header}  d-flex align-items-center justify-content-start`}>
+              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}>
               <span>Revenue Summary</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
@@ -335,7 +335,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
              </Col>
               <Col md={6} className={styles.col2}>
               <div className={styles.chart_container}>
-              <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}>
               <span>Revenue Summary</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
@@ -346,7 +346,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
              </Col>
               <Col md={6} className={styles.col}>
               <div className={styles.chart_container}>
-              <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}>
               <span>Revenue Summary</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
@@ -357,7 +357,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
              </Col>
               <Col md={6} className={styles.col2}>
               <div className={styles.chart_container}>
-              <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}>
               <span>Revenue Summary</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
@@ -375,14 +375,14 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
 
 
 
-        <div className={styles.wrapper}>
+        <div className={`${styles.wrapper} card`}>
               <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations2" aria-expanded="true" aria-controls="litigations2">
             <h2 className="mb-0">Sales Details</h2>
             <span>+</span>
         </div>
         <div id="litigations2" className="collapse" aria-labelledby="litigations2" data-parent="#profileAccordion">
-         <div className={` ${styles.cardBody} card-body`}>
-           <table className={`${styles.table_annual}  table`}cellpadding="0" cellspacing="0" border="1">
+         <div className={` ${styles.cardBody} card-body `}>
+           <table className={`${styles.table_annual}  table border_color`}cellpadding="0" cellspacing="0" border="1">
             <tr>
             <th  className={`${styles.first}`} colspan={2}>Annual Summary</th>
             <th  colspan={2}>MAR 2020 - APR 2021</th>
@@ -426,7 +426,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
             
             </tr>
            </table>
-           <table className={`${styles.table_average}  table`} cellpadding="0" cellspacing="0" border="1">
+           <table className={`${styles.table_average} border_color  table`} cellpadding="0" cellspacing="0" border="1">
             <tr>
             <th >Averages</th>
             <th  >MAR 2020 - APR 2021</th>
@@ -472,7 +472,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
              </tr>
            
            </table>
-            <table className={`${styles.table_pricioal}  table`} cellpadding="0" cellspacing="0" border="1">
+            <table className={`${styles.table_pricioal} border_color  table`} cellpadding="0" cellspacing="0" border="1">
             <tr>
             <th >Principal/ HSN Wise Sales</th>
             <th colspan={6} >Financial Period:1</th>
@@ -544,13 +544,13 @@ export default index
 const gstCustomerDetail = () => {
   return(
     <>
-      <div className={styles.wrapper}>
+      <div  className={`${styles.wrapper} card `}>
               <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
             <h2 className="mb-0">Customer Details</h2>
             <span className=" d-flex align-items-center justify-content-between">
-               <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :
+               <span className={` d-flex align-items-center justify-content-between`}><span className={`${styles.light}`}>Unit :
               </span>
-              <select className={`${styles.selectHead} form-select`} aria-label="Default select example">
+              <select className={`${styles.selectHead} accordion_body form-select`} aria-label="Default select example">
              
               <option selected value="1">Crores</option>
             
@@ -561,14 +561,14 @@ const gstCustomerDetail = () => {
             </span>
         </div>
         <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
-         <div className={` ${styles.CustomercardBody} card-body`}>
-         <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+         <div className={`${styles.CustomercardBody} card-body border_color`}>
+         <div className={`${styles.content}`}>
+            <div className={` ${styles.header}  card_sub_header card_sub_header  d-flex align-items-center justify-content-between`}>
               <span>Recurring Party Sales In Last 12 Months</span>  
             
             </div>
             <div className={` ${styles.body}`}>
-             <table className={`${styles.table2}  table`}cellpadding="0" cellspacing="0" >
+             <table className={`${styles.table2} border_color  table`}cellpadding="0" cellspacing="0" >
             <tr>
             <th>CUSTOMER NAME</th>
             <th >PAN</th>
@@ -616,7 +616,7 @@ const gstCustomerDetail = () => {
             </div>
          </div>
           <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Related Party Sales In Last 12 Monthss</span>  
             
             </div>
@@ -669,7 +669,7 @@ const gstCustomerDetail = () => {
             </div>
          </div>
           <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Top 10 Customers</span>  
             
             </div>
@@ -754,7 +754,7 @@ const gstCustomerDetail = () => {
             </div>
          </div>
           <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Statewise Sales</span>  
             
             </div>
@@ -849,13 +849,13 @@ const gstCustomerDetail = () => {
 const gstSupplierDetail = () => {
   return(
    <>
-      <div className={styles.wrapper}>
+      <div className={`${styles.wrapper} card`}>
               <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
             <h2 className="mb-0">Suppliers Details</h2>
             <span className=" d-flex align-items-center justify-content-between">
                <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :
               </span>
-              <select className={`${styles.selectHead} form-select`} aria-label="Default select example">
+              <select className={`${styles.selectHead} accordion_DropDown  form-select`} aria-label="Default select example">
              
               <option selected value="1">Crores</option>
             
@@ -868,7 +868,7 @@ const gstSupplierDetail = () => {
         <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
          <div className={` ${styles.CustomercardBody} card-body`}>
          <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Recurring Party Sales In Last 12 Months</span>  
             
             </div>
@@ -921,7 +921,7 @@ const gstSupplierDetail = () => {
             </div>
          </div>
           <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Related Party Sales In Last 12 Monthss</span>  
             
             </div>
@@ -974,7 +974,7 @@ const gstSupplierDetail = () => {
             </div>
          </div>
           <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Top 10 Customers</span>  
             
             </div>
@@ -1059,7 +1059,7 @@ const gstSupplierDetail = () => {
             </div>
          </div>
           <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Statewise Sales</span>  
             
             </div>
@@ -1154,13 +1154,13 @@ const gstSupplierDetail = () => {
 const gstSalesAndPurchase = (head) => {
   return(
     <>
-        <div className={styles.wrapper}>
+        <div className={`${styles.wrapper} card`}>
               <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
             <h2 className="mb-0">{head}</h2>
               <span className=" d-flex align-items-center justify-content-between">
                <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :
               </span>
-              <select className={`${styles.selectHead} form-select`} aria-label="Default select example">
+              <select className={`${styles.selectHead}  accordion_DropDown form-select`} aria-label="Default select example">
              
               <option selected value="1">Crores</option>
             
@@ -1173,7 +1173,7 @@ const gstSalesAndPurchase = (head) => {
         <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
          <div className={` ${styles.CustomercardBody} card-body`}>
          <div className={` ${styles.content}`}>
-            <div className={` ${styles.header}  d-flex align-items-center justify-content-between`}>
+            <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Financial Period 2020- 2021</span>  
             
             </div>

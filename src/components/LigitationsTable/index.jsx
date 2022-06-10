@@ -11,15 +11,15 @@ function index() {
                                             <Row className={`${styles.row}`}>
                                               <Col><div className="mb-0">Tribunals</div>
                                              </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Pending Case</span><span className={styles.lower}>4</span></div>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span className={``}>Pending Case</span><span className={  `${styles.lower} sub_heading`}>4</span></div>
                                              </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={styles.lower}>4</span></div>
+                                              <Col><div className={`${styles.head}  mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={ `${styles.lower} sub_heading`}>4</span></div>
                                              </Col>
                                               <Col><div className={`${styles.head} mb-0 d-flex align-items-center`}><span>Total cases</span>
                                               <div className={styles.chart}>
                                                 <div className={styles.container}>
                                                   <div className={styles.fill}></div>
-                                                  <span>11</span>
+                                                  <span className={`sub_heading`}>11</span>
                                                 </div>
                                                 
                                               </div>

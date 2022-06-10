@@ -1,9 +1,9 @@
 .wrapper{
     margin-bottom: 1rem;
         border-radius: 6px !important;
-        border: 1px solid #D2D7E5;
-        -webkit-box-shadow: 0 3px 6px #cad0e2;
-        box-shadow: 0 3px 6px #cad0e2;
+        // border: 1px solid #D2D7E5;
+        // -webkit-box-shadow: 0 3px 6px #cad0e2;
+        // box-shadow: 0 3px 6px #cad0e2;
 }
 .cardHeader {
      cursor: pointer;
@@ -24,7 +24,7 @@
          line-height: 20px;
      }
           .light {
-              color: #2837566A;
+            //   color: #2837566A;
               font-weight: bold;
               font-size: 18px;
               line-height: 23px;
@@ -62,13 +62,13 @@
                 line-height: 17px;
                margin-top: 1.5rem;
                 letter-spacing: 0.53px;
-                color: #00000080;
+              
         }
         .col_body{
             font-weight: bold;
                 font-size: 20px;
                 line-height: 25px;
-                color: #111111;
+             
                 margin-top:0.5rem;
                     margin-bottom: 1rem;
          
@@ -252,25 +252,37 @@
  }
 
  .select{
-        background: #FFFFFF 0% 0% no-repeat padding-box;
-            border: 2px solid #E2E2E2;
-            border-radius: 14px;
-            width: 98px;
-            height: 27px;
-            font: normal normal bold 18px/23px Helvetica;
-            letter-spacing: 0px;
-            color: #3687E8;
+      
+                font-size: 18px;
+                line-height: 23px;
+                color: #3687E8;
+                text-transform: capitalize;
+                margin-right: 10px;
+                border-radius: 14px;
+                border: none;
+                font-weight: bold;
+                text-align: center;
+                padding-left: 8px;
+                padding-right: 6px;
+                padding-top: 4px;
+                padding-bottom: 4px;
+                margin-right: 50px;
  }
  .selectHead{
-     margin-right: 1.5rem;
-    border: 2px solid #E2E2E2;
-        border-radius: 14px;
-        width: 98px;
-        height: 27px;
-        font: normal normal bold 18px/23px Helvetica;
-        letter-spacing: 0px;
+       font-size: 18px;
+        line-height: 23px;
         color: #3687E8;
-    background: #F3F4F7 0% 0% no-repeat padding-box;
+        text-transform: capitalize;
+        margin-right: 10px;
+        border-radius: 14px;
+        border: none;
+        font-weight: bold;
+        text-align: center;
+        padding-left: 8px;
+        padding-right: 6px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        margin-right: 50px;
  }
  .table_average{
      margin: 0px !important;
@@ -309,8 +321,9 @@
           
             .second_head{
                 height: 32px;
-                color: #3687E8;
-                td{    
+               
+                td{ 
+                    color: #3687E8 !important;
                        border-bottom:1.5px solid #dae2ed; ;
                         padding-left: 0.75rem;
                         padding-right: 0.75rem;
@@ -364,13 +377,13 @@
                          }
                                   .second_head {
                                       height: 32px;
-                                      color: #3687E8;
+                                    
                                        border-left: 1.5px solid #ff000000;      
                                         border-bottom: 1.5px solid #dae2ed;                              border-bottom: 1.5px solid #dae2ed;
                                    
                 
                                       td {
-                                         
+                                            color: #3687E8 !important;
                                           border-bottom: 1.5px solid #dae2ed;
                                           width: auto;
                                           padding-left: 0.75rem;
@@ -427,14 +440,14 @@
     
         .second_head {
             height: 32px;
-            color: #3687E8;
+         
             border-left: 1.5px solid #ff000000;
             border-bottom: 1.5px solid #dae2ed;
             border-bottom: 1.5px solid #dae2ed;
     
     
             td {
-    
+              color: #3687E8 !important;
                 border-bottom: 1.5px solid #dae2ed;
                 width: auto;
                 padding-left: 0.75rem;

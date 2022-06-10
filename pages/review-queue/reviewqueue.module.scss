@@ -132,7 +132,7 @@
                 }
                 .categories {
                     margin-right: 1rem;
-                    width: 30%;
+                    width: 80%; 
                     .label {
                         margin-right: 1rem;
                         margin-bottom: 0px;
@@ -492,7 +492,8 @@
             }
         }
         .cardBody_details {
-            padding-left: 35px;
+            padding-left: 0px;
+            padding-right: 0px;
         }
     }
 }
@@ -659,7 +660,7 @@
     }
 }
 .table_details {
-    border: 1px solid #d2d7e5;
+   
     border-collapse: collapse;
     thead {
         tr {

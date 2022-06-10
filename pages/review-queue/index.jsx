@@ -1074,7 +1074,7 @@ function index() {
                                               </div>
                                         </div>
                                         <div id="openCharges" className="collapse" aria-labelledby="openCharges" data-parent="#FinancialsAccordion">
-                                            <div className={`${styles.noBorderTable} ${styles.cardBody} card-body`}>
+                                            <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
                                               <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
                                                 <thead>
                                                   <tr>
@@ -1130,7 +1130,7 @@ function index() {
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="gst" role="tabpanel">
-                                <div className={`${styles.card} card`}>
+                                <div className={`${styles.card}  accordion_body`}>
                                   <GST/>
                                 </div>
                             </div>
@@ -1138,7 +1138,7 @@ function index() {
                                 <div className={`${styles.card} card`}>
                                    
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#compliance" aria-expanded="true" aria-controls="compliance">
-                                            <div clcard_BodyassName={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}>
+                                            <div className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}>
                                               <h2 className="mb-0 w-100 ">Compliance</h2>
                                               <div className={`${styles.categories} mb-0  d-flex align-items-center justify-content-end `}>
                                                 <label className={styles.label}>Status:</label>
@@ -1162,7 +1162,7 @@ function index() {
                                                 <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
                                                   <div className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.purple_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                        IBBB
                                                      </div>
                                                   </div>
@@ -1183,25 +1183,25 @@ function index() {
                                                 <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
                                                 <div className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.red_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                       EPF Transaction Default
                                                      </div>
                                                   </div>
                                                    <div className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.red_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                      Credit Rating Suspended
                                                      </div>
                                                   </div>
                                                    <div className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.red_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                       Credit Rating Withdrawn
                                                      </div>
                                                   </div>
                                                    <div className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.red_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                      Qualified Opinion
                                                      </div>
                                                   </div>
@@ -1222,13 +1222,13 @@ function index() {
                                                 <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
                                                 <div className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.yellow_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                       Generic Address
                                                      </div>
                                                   </div>
                                                    <div className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.yellow_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                    GST Transaction Delay
                                                      </div>
                                                   </div>
@@ -1250,43 +1250,43 @@ function index() {
                                                 <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
                                                 <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.orange_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                      GST Inactive
                                                      </div>
                                                   </div>
                                                    <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.orange_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                      GST Transaction Default
                                                      </div>
                                                   </div>
                                                    <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.orange_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                       IEC In Denied Entity List
                                                      </div>
                                                   </div>
                                                    <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.orange_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                      TDS Payment Delay
                                                      </div>
                                                   </div>
                                                     <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.orange_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                     EPF Closed
                                                      </div>
                                                   </div>
                                                     <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.orange_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                   EPF Transaction Delay
                                                      </div>
                                                   </div>
                                                       <div className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.orange_dot}></div>
-                                                     <div className={`${styles.compliance_content} ml-1`}>
+                                                     <div className={`${styles.compliance_content} Compliance ml-1`}>
                                                  Credit Rating Outlook Negative
                                                      </div>
                                                   </div>
@@ -1490,7 +1490,7 @@ const ligitations=()=>{
 
 const table2=()=>{
 return(
-    <table className={`${styles.table_details} table`} cellpadding="0" cellspacing="0" border="1">
+    <table className={`${styles.table_details} table border-color`} cellpadding="0" cellspacing="0" border="1">
                                                 <thead>
                                                   <tr>
                                                    
