@@ -1,0 +1,197 @@
+.main {
+    box-shadow: 0px 3px 6px #CAD0E2;
+    border: 1px solid #D2D7E5;
+    border-radius: 6px;
+    background-color: #ffffff;
+    margin-top: 15px;
+  
+    .head_container {
+        padding: 10px 0px 0px 20px;
+        border-bottom: 3px solid #D9DDE8;
+        .heading{
+            color: #3687e8;
+            font-weight:bold;
+            font-size: 22px;
+            text-transform: capitalize;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        span {
+            font-size: 45px;
+            color: #3687e8;
+            font-weight: normal;
+            line-height: 20px;
+            padding: 15px;
+        }
+    }
+    
+ .dashboard_form { 
+    padding: 10px 0px 0px 20px;
+
+     margin: 15px;
+
+        .form_group {
+        position: relative;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        
+        .search_image {
+            margin-left: -40px;
+
+        }
+
+        .label_heading {
+            top: 27px;
+            left: 30px;
+            font-size: 16px;
+            line-height: 0.5;
+            margin-bottom: 0;
+            letter-spacing: 0.53px;
+            position: absolute;
+            pointer-events: none;
+            box-sizing: border-box;
+            transform: translateY(-31px);
+            transition: 0.3s all ease-in-out;
+        }
+        .input_field {
+            height: 60px;
+            background-color: #C3C3C31F;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            font-size: 20px;
+            font-weight: 500;
+            outline: none;
+            box-shadow: none;
+            position: relative;
+            box-sizing: border-box;
+            &:invalid + label {
+                background: none;
+                transform:translateY(0);
+            }
+            &:focus {
+                & + label {
+                    transform:translateY(-31px);
+                }
+            }
+        }
+        .remark_field{
+            background: #C3C3C31F;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+
+        }  
+    }
+
+    .address_card{
+        background: #FFFFFF;
+        border: 1px solid #0000001F;
+        border-radius: 9px;
+        padding: 22px;
+        margin-bottom:30px;
+
+
+        .label {
+            line-height: 25px;
+            font-weight: bold;
+            font-size: 20px;
+            color: #111111;
+            text-transform: capitalize;
+            padding-left: 18px;
+
+        }
+
+        .address_values{
+               padding-left: 30px;
+
+             h5 {
+                line-height: 25px;
+                font-weight: bold;
+                font-size: 20px;
+                color: #111111;
+                text-transform: capitalize;
+             }  
+
+            p {
+                letter-spacing: 0.19px;
+                font-size: 20px;
+               // line-height: 32px;
+                color: #111111;
+                text-transform: capitalize;
+
+                span {
+                    font-size: 20px;
+                    //line-height: 25px;
+                    font-weight: bold;
+                    color: #111111;
+                    text-transform: capitalize;
+                }
+
+            }
+            .button {
+                padding-top: 3px;
+                padding-left: 15px;
+                color: #3687E8;
+                margin-left: 1rem;
+                text-decoration: underline;
+            }
+        }
+        
+
+    }
+ }
+
+    .datatable {
+        border-radius: 6px;
+        
+        .table {
+            th {
+                font-size: 15px;
+                color: #8492a6;
+                font-weight: bold;
+                line-height: 18px;
+                padding: 24px 15px;
+                text-transform: uppercase;
+                border-top: 2px solid #f2f5f9;
+                &:first-child {
+                    padding-left: 35px;
+                }
+            }
+            td {
+                font-size: 19px;
+                font-weight: 500;
+                line-height: 24px;
+                color: #111111;
+                padding: 24px 15px;
+                background: #FFFFFF;
+                box-shadow: 0px 3px 6px #CAD0E2;
+                border: none;
+                border-bottom: 1px solid #D2D7E5;
+                opacity: 0.7;
+                &:first-child {
+                    padding-left: 35px;
+                }
+            }
+            
+           
+        }
+    }
+    
+    .add_row {
+        text-align: center;
+        font-size: 18px;
+        line-height: 23px;
+        font-weight: bold;
+        color: #3687E8;
+
+        span {
+           margin-right: 15px;
+        }
+    }
+
+    .edit_image {
+        background: #C3C3C31F;
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        padding: 10px 9px 10px 9px;
+    }
+}

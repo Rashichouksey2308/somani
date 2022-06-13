@@ -7,7 +7,7 @@ const index = () => {
     <div className={styles.main}>
         <div className={`${styles.head_container} d-flex justify-content-between`}>
             <h3 className={styles.heading}>Upload Other Documents</h3>
-            <img className='p-3 img-fluid' src = "/static/add.svg" alt="Add"/>
+            <span>+</span>
         </div>
         <div className={styles.dashboard_form}>        
             <Form>
