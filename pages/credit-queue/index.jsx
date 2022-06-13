@@ -175,7 +175,7 @@ function index() {
                         <span
                           className={`${styles.status} ${styles.approved}`}
                         ></span>
-                        {buyer.queue}
+                         {buyer.queue === "ReviewQueue" ? "Review" : "CreditQueue"? "Approved" : "Rejected"}
                       </td>
                       <td>
                         <img
