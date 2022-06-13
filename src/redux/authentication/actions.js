@@ -265,9 +265,15 @@ export const fetchCurrentUserProfile =
   }
 
 export const logoutUser = () => async (dispatch, getState, api) => {
-  await Cookies.remove('refreshtoken')
-  await Cookies.remove('jwtAccessToken')
-  dispatch(loggingoutUser())
+  const jwtAccessToken = Cookies.get("jwtAccessToken")
+  Axios.get(`${API.authbaseUrl}${API.logout}`, {
+    headers: {
+      'authorization': jwtAccessToken
+    }
+  }).then((response) => console.log(response,"logout Response"))
+    Cookies.remove('refreshtoken')
+    Cookies.remove('jwtAccessToken')
+    dispatch(loggingoutUser())
 }
 
 //****** Reset Password   ********//
