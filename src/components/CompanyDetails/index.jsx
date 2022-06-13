@@ -4,12 +4,12 @@ import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 import { useSelector } from 'react-redux'
 
-const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
+const index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whatsappFunction }) => {
 
   const {gstList} = useSelector((state) =>  state.buyer)
 
   // const {gettingGstList} = useSelector((state)=> state.buyer)
-  console.log(gstList, "this is gst")
+  // console.log(gstList, "this is gst")
   
 
   return (
@@ -24,7 +24,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
                 <Form.Check
                   className={styles.radio}
                   inline
-                  onChange={() => saveCompanyData("transactionType", "Import")}
+                  onChange={() => saveOrderData("transactionType", "Import")}
                   label="Import"
                   name="group1"
                   type={type}
@@ -35,7 +35,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
                   inline
                   label="Domestic"
                   name="group1"
-                  onChange={() => saveCompanyData("transactionType", "Domestic")}
+                  onChange={() => saveOrderData("transactionType", "Domestic")}
                   type={type}
                   id={`inline-${type}-2`}
                 />
@@ -100,7 +100,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
               <select
                 id="Code"
                 onChange={(e) => { saveCompanyData(e.target.name, e.target.value) }}
-                name="typeOfBussiness"
+                name="typeOfBusiness"
                 className={`${styles.input_field} input form-control`}
                 required
               >
@@ -125,10 +125,12 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
                 <input
                   type="tel"
                   id="textNumber"
-                  name="phoneNumber"
+                  name="primary"
                   onChange={(e) => {
                     if (phoneValidation(e.target.value)) {
-                      saveCompanyData(e.target.name, e.target.value)
+                      // saveCompanyData(e.target.name, e.target.value)
+                      mobileFunction(e)
+                      
                       //green tick
                       console.log("is it validating?")
                     } else {
@@ -157,7 +159,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
                     //red mark
                   }
                 }}
-                name="emailId"
+                name="email"
                 className={`${styles.input_field} input form-control`}
                 required
               />
@@ -244,10 +246,11 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
                 </select>
                 <input
                   type="tel"
-                  name="whatsappNumber"
+                  name="whatsapp"
                   onChange={(e) => {
                     if (phoneValidation(e.target.value)) {
-                      saveCompanyData(e.target.name, e.target.value)
+                      // saveCompanyData(e.target.name, e.target.value)
+                      whatsappFunction(e)
                       //green tick
                       console.log("is it validating?")
                     } else {

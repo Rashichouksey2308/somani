@@ -33,8 +33,8 @@ const index = ({ saveOrderData, darkMode }) => {
             <input
               type="number"
               id="textInput"
-              name='Quantity'
-              onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+              name='quantity'
+              onChange={(e) => { saveOrderData(e.target.name, Number(e.target.value)) }}
               className={`${styles.input_field} input form-control`}
               required
             />

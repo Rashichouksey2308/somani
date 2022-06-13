@@ -1,7 +1,7 @@
 import * as types from "./actionType";
 import API from "../../utils/endpoints";
 import Axios from "axios";
-// import { response } from "express";
+import Cookies from "js-cookie";
 
 function createBuyer() {
   return {
@@ -114,10 +114,14 @@ function getGstFailed() {
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(createBuyer());
   try {
-   Axios.post(`${API.baseUrl}${API.registerCompany}`, payload).then((response)=>{
-    // console.log(payload, "in action2")
+    var authorization = Cookies.get('jwtAccessToken')
+    var headers = { authorization: authorization, Cache: 'no-cache' }
+   Axios.post(`${API.corebaseUrl}${API.registerCompany}`, payload, {
+    headers: headers,
+  }).then((response)=>{
+    console.log(headers, "in action2")
     if (response.data.code === 200) {
-      dispatch(createBuyerSuccess(response.data));
+      dispatch(createBuyerSuccess(response.data.data));
       // payload.history.goBack()
       
     } else {
@@ -136,18 +140,18 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
 export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(updateBuyer()
   try {
-    Axios.put(`${API.baseUrl}${API.updateBuyer}`, payload).then((response) => {
+    Axios.put(`${API.corebaseUrl}${API.updateBuyer}`, payload).then((response) => {
     if (response.data.code === 200) {
       dispatch(updateBuyerSuccess(response.data));
       
     } else {
       dispatch(updateBuyerFailed(response.data));
-    
+      console.log("UPDATE REQUEST FAILED")
     }
     })
   } catch (error) {
     dispatch(updateBuyerFailed());
-  
+    console.log(error, "UPDATE API FAILED")
   }
 };
 
@@ -166,12 +170,14 @@ export const settingDocument = (payload) => {
   };
 };
 
-export const GetBuyer = (company) => async (dispatch, getState, api) => {
+export const GetBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
   // console.log(company, "in getbuyer1")
+  var authorization = Cookies.get('jwtAccessToken')
+  var headers = { authorization: authorization, Cache: 'no-cache' }
   try {
     // console.log("in getbuyer")
-    Axios.get(`${API.baseUrl}${API.getBuyerOrder}?company=${company}`).then((response)=>{
+    Axios.get(`${API.corebaseUrl}${API.getBuyerOrder}?company=${payload.companyId}&order=${payload.orderId}`, {headers:headers}).then((response)=>{
     if (response.data.code === 200) {
       dispatch(getBuyerSuccess(response.data.data));
       // toast.error("Buyers fetched")
@@ -189,8 +195,9 @@ export const GetBuyer = (company) => async (dispatch, getState, api) => {
 export const GetAllBuyer = () => async (dispatch, getState, api) => {
   
   try {
-    
-    Axios.get(`${API.baseUrl}${API.getBuyers}`).then((response)=>{
+    var authorization = Cookies.get('jwtAccessToken')
+    var headers = { authorization: authorization, Cache: 'no-cache' }
+    Axios.get(`${API.corebaseUrl}${API.getBuyers}`,{headers:headers}).then((response)=>{
     if (response.data.code === 200) {
       dispatch(getAllBuyerSuccess(response.data));
       // toast.error("Buyers fetched")

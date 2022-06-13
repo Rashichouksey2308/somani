@@ -12,17 +12,17 @@ function index() {
                 <span class={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-          { buyerList && buyerList.map((buyer)=>( <Card.Body className={`${styles.body} value_card`}>
-                {fields("Commodity",buyer.commodity?.originalValue,false)}
-                {fields("Quantity (in MT)",buyer.Quantity?.originalValue,false)}
-                {fields("Order values (in INR)",buyer.orderValues?.originalValue,false)}
-                {fields("Supplier Name","Camilog International",false)}
-                {fields("Country Of Origin","India",false)}
-                {fields("INCO Terms","CFR",false)}
+          { buyerList && buyerList.data?.map((buyer)=>( <Card.Body className={styles.body}>
+                {fields("Commodity",buyer.company.orderDetails.commodity)}
+                {fields("Quantity (in MT)",buyer.company.orderDetails.Quantity,false)}
+                {fields("Order values (in INR)",buyer.company.orderDetails?.orderValues,false)}
+                {fields("Supplier Name",buyer.company.orderDetails.supplierName,false)}
+                {fields("Country Of Origin",buyer.company.orderDetails.countryOfOrigin,false)}
+                {fields("INCO Terms",buyer.company.orderDetails?.incoTerms,false)}
                                 
-                {fields("Port Of Discharge",buyer.portOfDischarge?.originalValue,false)}
-                {fields("Expected Date Of Shipment",buyer.ExpectedDateOfShipment?.originalValue,false)}
-                {fields("Document Name","Insurance Certificate",true)}
+                {fields("Port Of Discharge",buyer.company.orderDetails.portOfDischarge,false)}
+                {fields("Expected Date Of Shipment",buyer.company.orderDetails.ExpectedDateOfShipment,false)}
+                {fields("Document Name",buyer.company.Documents[0].typeOfDocument,true)}
             </Card.Body>))}
         </Card>
     )

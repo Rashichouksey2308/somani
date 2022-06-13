@@ -2,7 +2,7 @@ import * as types from './actionType'
 
 const initialState = {
   gettingBuyerList: true,
-  buyerList: [],
+  buyerList: null,
   gettingAllBuyerList: true,
   allBuyerList: [],
   creatingBuyer: false,
