@@ -1,0 +1,156 @@
+.dashboardTab {
+    background: #FFFFFF;
+    box-shadow: 0px 3px 12px #CAD0E2;
+    border: 1px solid #D2D7E5;
+    .tabHeader {
+        padding: 30px;
+        
+        .title {
+            font-size: 34px;
+            font-weight: bold;
+            line-height: 41px;
+            margin: 0;
+            text-transform: capitalize;
+            img {
+                width: 13px;
+                height: 21px;
+                margin: -5px 25px 0 0;
+            }
+        }
+        
+        .lastModified {
+            font-size: 14px;
+            color: rgba(40, 55, 86, 0.6);
+            font-weight: normal;
+            line-height: 16px;
+            margin-top: 7px;
+            span {
+                color: #283756;
+                font-weight: bold;
+                line-height: 17px;
+            }
+        }
+        
+    }
+    
+   
+}
+
+.vessel_card {
+    background: #F3F4F7;
+
+    .main {
+        box-shadow: 0px 3px 6px #CAD0E2;
+        border-radius: 6px;
+        background-color: #ffffff;
+        margin: 20px;
+    
+        .head_container {
+            padding: 0px 0px 0px 20px;
+            border-bottom: 2px solid #CAD6E6;
+            .heading{
+                color: #3687e8;
+                font-weight:bold;
+                font-size: 22px;
+                text-transform: capitalize;
+                padding: 15px;
+                margin-top: 15px;
+        }
+        }
+        .unit_container {
+
+            padding-right: 15px;
+
+            .unit_label{
+                font-size:18px;
+                text-transform: capitalize;
+                font-weight: bold;
+                margin-top: 10px;
+                padding-right: 10px;
+                line-height: 23px;
+        }
+            .options {
+                font-size:18px;
+                text-transform: capitalize;
+                margin-right: 10px;
+                border-radius: 14px;
+                border: none;
+                line-height: 23px;
+                font-weight: bold;
+                text-align: center;
+                padding-left: 8px;
+                padding-right: 6px;
+                padding-top: 4px;
+                padding-bottom: 4px;
+                margin-right: 50px;
+                }
+                span {
+                    font-size: 45px;
+                    color: #3687e8;
+                    font-weight: normal;
+                    line-height: 20px;
+                }
+            }
+    
+    }
+    .dashboard_form {
+        padding: 20px 35px 25px 40px;
+        .sub_heading {
+            text-align: left;
+            font-size:20px;
+            font-weight: bold;
+            letter-spacing: 0px;
+            color: #111111;
+            text-transform: capitalize;
+        }
+        .form_group {
+            margin-top: 40px;
+            position: relative;
+            margin-bottom: 10px;
+            .search_image {
+                margin-left: -40px;
+            }    
+            .label_heading {
+                font-size: 16px;
+                letter-spacing: 0.53px;
+                color: #00000080;
+                line-height: 0.5;
+                top: 26px;
+                left: 30px;
+                margin-bottom: 0;
+                background:#ffffff;
+                position: absolute;
+                pointer-events: none;
+                box-sizing: border-box;
+                transform: translateY(-29px);
+                transition: 0.3s all ease-in-out;
+            }
+            .input_field {
+                font-size: 20px;
+                color: #111111;
+                height: 60px;
+                outline: none;
+                box-shadow: none;
+                border-radius: 4px;
+                position: relative;
+                box-sizing: border-box;
+                letter-spacing: 0.19px;
+                background: #C3C3C31F;
+                padding: 13px 30px 13px 17px;
+                border: 1px solid #0000001F;
+                &:invalid + label {
+                    background: none;
+                    transform:translateY(0);
+                }
+                &:focus {
+                    & + label {
+                        background:#ffffff;
+                        transform:translateY(-29px);
+                    }
+                }
+            }
+        }
+    }
+
+}
+
