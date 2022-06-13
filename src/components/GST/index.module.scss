@@ -1,6 +1,7 @@
 .wrapper{
     margin-bottom: 1rem;
         border-radius: 6px !important;
+       
         // border: 1px solid #D2D7E5;
         // -webkit-box-shadow: 0 3px 6px #cad0e2;
         // box-shadow: 0 3px 6px #cad0e2;
@@ -34,8 +35,9 @@
 }
  .cardBody {
      padding:0px;
-    
+    border-top: 2px solid red !important;
      .content{
+         
          .header{
              
           padding: 25px 35px !important;
@@ -151,6 +153,7 @@
 
  .CustomercardBody {
      padding: 0px;
+     border-top:2px solid red !important;
 
      .content {
          margin-bottom: 1.5rem;

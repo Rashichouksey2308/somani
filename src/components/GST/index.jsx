@@ -98,7 +98,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
             <span>+</span>
         </div>
         <div id="litigations" className="collapse" aria-labelledby="litigations" data-parent="#profileAccordion">
-         <div className={` ${styles.cardBody} card-body`}>
+         <div className={` ${styles.cardBody} card-body  border_color`}>
            <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}>
               <span>Business Profile</span>  
@@ -320,7 +320,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
             <span>+</span>
         </div>
         <div id="litigations1" className="collapse" aria-labelledby="litigations1" data-parent="#profileAccordion">
-         <div className={` ${styles.cardBody} card-body`}>
+         <div className={` ${styles.cardBody} card-body  border_color`}>
            <Row className={styles.row}>
              <Col md={6} className={styles.col}>
               <div className={styles.chart_container}>
@@ -381,7 +381,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
             <span>+</span>
         </div>
         <div id="litigations2" className="collapse" aria-labelledby="litigations2" data-parent="#profileAccordion">
-         <div className={` ${styles.cardBody} card-body `}>
+         <div className={` ${styles.cardBody} card-body   border_color`}>
            <table className={`${styles.table_annual}  table border_color`}cellpadding="0" cellspacing="0" border="1">
             <tr>
             <th  className={`${styles.first}`} colspan={2}>Annual Summary</th>
@@ -544,7 +544,7 @@ export default index
 const gstCustomerDetail = () => {
   return(
     <>
-      <div  className={`${styles.wrapper} card `}>
+      <div  className={`${styles.wrapper} card  `}>
               <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
             <h2 className="mb-0">Customer Details</h2>
             <span className=" d-flex align-items-center justify-content-between">
@@ -865,8 +865,8 @@ const gstSupplierDetail = () => {
               +
             </span>
         </div>
-        <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
-         <div className={` ${styles.CustomercardBody} card-body`}>
+        <div id="customer"  className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
+         <div className={` ${styles.CustomercardBody} card-body border_color`}>
          <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Recurring Party Sales In Last 12 Months</span>  
@@ -1063,7 +1063,7 @@ const gstSupplierDetail = () => {
               <span>Statewise Sales</span>  
             
             </div>
-            <div className={` ${styles.body} ${styles.body_noscroll}`}>
+            <div className={` ${styles.body} ${styles.body_noscroll} border_color`}>
              <table className={`${styles.table1}  table`}cellpadding="0" cellspacing="0" >
             <tr>
             <th>CUSTOMER NAME</th>
