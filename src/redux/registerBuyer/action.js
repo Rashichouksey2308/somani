@@ -119,7 +119,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
    Axios.post(`${API.corebaseUrl}${API.registerCompany}`, payload, {
     headers: headers,
   }).then((response)=>{
-    console.log(headers, "in action2")
+    // console.log(headers, "in action2")
     if (response.data.code === 200) {
       dispatch(createBuyerSuccess(response.data.data));
       // payload.history.goBack()
@@ -140,7 +140,9 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
 export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(updateBuyer()
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateBuyer}`, payload).then((response) => {
+    var authorization = Cookies.get('jwtAccessToken')
+    var headers = { authorization: authorization, Cache: 'no-cache' }
+    Axios.post(`${API.corebaseUrl}${API.updateBuyer}`, payload, {headers:headers}).then((response) => {
     if (response.data.code === 200) {
       dispatch(updateBuyerSuccess(response.data));
       

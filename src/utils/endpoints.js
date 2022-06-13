@@ -11,7 +11,7 @@ export default {
   getGst: "/api/get-gst",
   getBuyers: "/api/core/lead/get-all-leads",
   getBuyerOrder: "/api/core/lead/order-review",
-  updateBuyer: "/api/lead/order-action",
+  updateBuyer: "/api/core/lead/order-action",
   generateToken: "/api/auth/generate-token",
   verifyToken: "/api/auth/verify-token"
   
