@@ -1,13 +1,11 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.css";
-import styles from './reviewqueue.module.scss'
+import styles from './index.module.scss'
 import Order from '../../src/components/Order';
 import ShipmentDetails from '../../src/components/ShipmentDetails'
 import ComplianceLigitations from '../../src/components/CompilanceLigitation'
 import LigitationsTable from '../../src/components/LigitationsTable'
 import GST from '../../src/components/GST'
-import Credit from '../../src/components/Credit'
-import Recommendations from  '../../src/components/Recommendations'
 import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
@@ -20,7 +18,7 @@ function index() {
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
             <div className={`${styles.tabHeader} tabHeader `}>
               <div className="d-flex align-items-center">
-                <h1 className={`${styles.title} heading`}><img src={`${darkMode.value?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Ramakrishna Traders</h1>
+                <h1 className={`${styles.title} heading`}><img src={`${darkMode.value?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Margin Money</h1>
                 <div className="ml-auto">
                   <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                   <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
@@ -28,366 +26,588 @@ function index() {
               </div>
               <ul className={`${styles.navTabs} nav nav-tabs`}>
                   <li className={`${styles.navItem}  nav-item`}>
-                      <a className={`${styles.navLink} navLink  nav-link active`} data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="true">Profile</a>
+                      <a className={`${styles.navLink} navLink  nav-link active`} data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="true">Margin Money</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Financials" role="tab" aria-controls="Financials" aria-selected="false">Financials</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Financials" role="tab" aria-controls="Financials" aria-selected="false">Revised Margin Money</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">GST</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">Compliance</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">Document</a>
                   </li>
-                  <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Orders" role="tab" aria-controls="Orders" aria-selected="false">Orders</a>
-                  </li>
-                  <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Credit" role="tab" aria-controls="Credit" aria-selected="false">Credit</a>
-                  </li>
-                  <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#cam" role="tab" aria-controls="CAM" aria-selected="false">CAM</a>
-                  </li>
-                  <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Documents" role="tab" aria-controls="Documents" aria-selected="false">Documents</a>
-                  </li>
+             
               </ul>
             </div>
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-12  accordion_body">
                         <div className={`${styles.tabContent} tab-content`}>
-                            <div className="tab-pane fade show active" id="Profile" role="tabpanel">
+                            <div className="tab-pane fade show active" id="Commodity" role="tabpanel">
+                                <div className="accordion" id="commodityAccordion">
+                                    <div className={`${styles.card}  accordion card`}>
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">
+                                         <div className={`${styles.commodity}`}>
+                                           <span className={`${styles.comm_head} label_heading mb-2`}>Commodity</span>
+                                           <span className={`${styles.comm_val} heading`}>Thermal Coal</span>
+                                         </div>
+                                            <div className={`${styles.unit_container} d-flex align-items-center`}>
+                                          <div className={`${styles.pay} mr-2`}>
+                                          <strong className={`mr-3`}>Status</strong>
+                                          <div className={`d-flex align-items-center justify-content-between`}>
+                                            <div className={`${styles.round} mr-2`}></div>
+                                            <span className={`heading`}>Payment Initiated</span>
+                                          </div>
+                                          </div> 
+                                          <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
+                                          <select className={`${styles.options} accordion_DropDown`}>
+                                              <option>Crores</option>
+                                          </select>
+                                               <span>+</span>
+                                              </div>
+                                        </div>
+                                        <div id="commodityAccordion" className="collapse" aria-labelledby="commodityAccordion" data-parent="#commodityAccordion">
+                                            <div className={`${styles.cardBody} card-body `}>
+                                                   <div className={`${styles.content} border_color`}>
+                                                     <div className={`${styles.input_container} row`}>
+                                                  <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>A</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                         Quantity<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                         <div className={`${styles.val}  heading`}>55,000 MT</div>
+                                                        </div>
+                                                  </div>
+                                                    <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>B</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                         Unit Price<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>USD 70</div>
+                                                        </div>
+                                                  </div>
+                                                      <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>C</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                         Conversion Rate<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>75</div>
+                                                        </div>
+                                                  </div>
+                                                       <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>D</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                        Usance Interest (%) (For 90 Days)<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                         <div className={`${styles.val} heading d-flex align-items-center`}>4%
+                                                         <div className={` d-flex align-items-center`}>
+                                                        <label className={`${styles.label_heading} ml-3 label_heading mb-0`} id="textInput">Include in Calculation
+                                                         
+                                                         </label>
+                                                                                                 <Form>
+                                                        {['radio'].map((type) => (
+                                                            <div key={`inline-${type}`} className={`${styles.radio_group} d-flex ml-3`}>
+                                                            <Form.Check
+                                                                className={`${styles.radio} radio`}
+                                                                inline
+                                                                label="Yes"
+                                                                
+                                                                name="group1"
+                                                                type={type}
+                                                                id={`inline-${type}-1`}
+                                                            />
+                                                            <Form.Check
+                                                                className={`${styles.radio} radio`}
+                                                                inline
+                                                                label="No"
+                                                                
+                                                                name="group1"
+                                                                type={type}
+                                                                id={`inline-${type}-2`}
+                                                            />
+
+                                                            
+                                                            </div>
+                                                        ))}
+                                                        </Form>
+                                                         </div>
+                                           
+                    
+                                                         </div>
+                                                        </div>
+                                                  </div>
+                                                    <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>E</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                         Trade Margin (%)<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>75</div>
+                                                        </div>
+                                                  </div>
+                                                    <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>F</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                        Tolerance (+/-) Percentage<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>75</div>
+                                                        </div>
+                                                  </div>
+                                                  <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>G</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                       Margin Money (%)<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>75</div>
+                                                        </div>
+                                                  </div>
+                                                   <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>F</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                      No. of PDC's<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>75</div>
+                                                        </div>
+                                                  </div>
+                                                  </div>
+                                                   </div>
+                                                   <div className={`${styles.content} border_color`}>
+                                                    <span>Calculation</span>
+                                                     <div className={`${styles.input_container} row`}>
+                                                 
+                                                        <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-3 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>I</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                       Order Value <strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(A*B)`}</span>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                                        </div>
+                                                  </div>
+                                  
+                                                        <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-3 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>J</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                    Order Value (INR) <strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(I*C)`}</span>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                                        </div>
+                                                  </div>
+                                                      <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-3 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>K</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                   Usance Interest (%) for 90 days (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(J*D/365*90)`}</span>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                                        </div>
+                                                  </div>
+                                                     <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-3 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>L</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                   Trade Margin (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(J*E)`}</span>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                                        </div>
+                                                  </div>
+                                                     <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-3 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>L</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                   Gross Order Value (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(J+K+L)`}</span>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                                        </div>
+                                                  </div>
+                                                    <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-3 col-sm-6`}>
+                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                                        <span>L</span>
+                                                      </div>
+                                                        <div className={`${styles.val_wrapper} ml-3`}>
+                                                            <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                  Tolerance Value (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(M*F)`}</span>
+                                                        </label>
+                                                         <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                                        </div>
+                                                  </div>
+                                                  
+                                                  
+                                                   
+                                                 
+                                                   
+                                                
+                                                  </div>
+                                                   </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                 
+                                </div>
+                            </div>
+                               <div className="tab-pane fade show active" id="Profile" role="tabpanel">
                                 <div className="accordion" id="profileAccordion">
                                     <div className={`${styles.card}  accordion card`}>
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#companyDetails" aria-expanded="true" aria-controls="companyDetails">
-                                            <h2 className="mb-0">Company Details</h2>
+                                            <h2 className="mb-0">Invoice Details</h2>
                                             <span>+</span>
                                         </div>
                                         <div id="companyDetails" className="collapse" aria-labelledby="companyDetails" data-parent="#profileAccordion">
-                                            <div className={`${styles.cardBody} card-body border_color`}>
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Company Name</div>
-                                                        <div className={`${styles.value} accordion_Text`}>Ramakrishna Traders</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>CIN</div>
-                                                        <div className={`${styles.value} accordion_Text`}>U55101UR1986PL007811</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Company PAN</div>
-                                                        <div className={`${styles.value} accordion_Text`}>AAOCS3552N <img src="/static/approved.svg" alt="Approved" className="img-fluid mt-n1" /></div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>IEC Number</div>
-                                                        <div className={`${styles.value} accordion_Text`}>2904000291</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Type of Business</div>
-                                                        <div className={`${styles.value} accordion_Text`}>Manufacturer</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Date of Incorporation</div>
-                                                        <div className={`${styles.value} accordion_Text`}>13-01-2019</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Listing Status</div>
-                                                        <div className={`${styles.value} accordion_Text`}>Unlisted</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Constitution</div>
-                                                        <div className={`${styles.value} accordion_Text`}>Public Ltd.</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Active Compliant</div>
-                                                        <div className={`${`${styles.value} accordion_Text`} ${styles.warning}`}>No</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Contact Number</div>
-                                                        <div className={`${styles.value} accordion_Text`}>0612-7894523</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Email Domain</div>
-                                                        <div className={`${styles.value} accordion_Text`}>ramkrishnatraders@gmail.com</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Number of Shareholders</div>
-                                                        <div className={`${styles.value} accordion_Text`}>6</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Shell/ Hawala Score</div>
-                                                        <div className={`${styles.value} accordion_Text`}>60</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Paid-Up Capital (Cr)</div>
-                                                        <div className={`${styles.value} accordion_Text`}>100.00</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Last Balance Sheet</div>
-                                                        <div className={`${`${styles.value} accordion_Text`} ${styles.warning}`}>13-03-2019</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Employee Count</div>
-                                                        <div className={`${styles.value} accordion_Text`}>25</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Existing Limit (Cr)</div>
-                                                        <div className={`${styles.value} accordion_Text`}>10.00</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Utilized Limit (Cr)</div>
-                                                        <div className={`${styles.value} accordion_Text`}>2.00</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Registered Address</div>
-                                                        <div className={`${styles.value} accordion_Text`}>123, My Building Famous Lane Hyderabad, Telangana - 500072</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Corporate Address</div>
-                                                        <div className={`${styles.value} accordion_Text`}>561, My Building Lane No. 11 Delhi, Delhi - 110001</div>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <div className={`${styles.label} label_heading`}>Referral Code</div>
-                                                        <div className={`${styles.value} accordion_Text`}>U55101UR19</div>
-                                                    </div>
+                                            <div className={`${styles.cardBody} card-body `}>
+                                                   <div className={`${styles.content} border_color`}>
+                                                     <div className={`${styles.input_container} row`}>
+                                                  <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                           Buyer Name<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+                                                <select
+                                                    id="Code"
+                                                
+                                                    name="typeOfBussiness"
+                                                    className={`${styles.input_field} input form-control`}
+                                                    required
+                                                >
+                                                    <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                                    <option value="Retailer">Retailer</option>
+                                                    <option value="Trading">Trading</option>
+                                                </select>
+                                                <label className={`${styles.label_heading} label_heading`}  id="textInput">
+                                                    Buyer GSTIN<strong className='text-danger'>*</strong>
+                                                </label>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={`${styles.card} card`}>                             
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
-                                            <h2 className="mb-0">Auditor’s Details</h2>
-                                            <span>+</span>
-                                        </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
-                                            <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                                                <thead>
-                                                  <tr>
-                                                    <th></th>
-                                                    <th>MAR-20</th>
-                                                    <th>MAR-19</th>
-                                                    <th>MAR-18</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  <tr>
-                                                    <td>Name of Auditor</td>
-                                                    <td>Matta Garg &amp; Co.</td>
-                                                    <td>Matta Garg &amp; Co.</td>
-                                                    <td>Matta Garg &amp; Co.</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Registration Number</td>
-                                                    <td>000914C</td>
-                                                    <td>000914C</td>
-                                                    <td>000914C</td>
-                                                  </tr>
-                                                </tbody>
-                                              </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={`${styles.card} card`}>
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#directorDetails" aria-expanded="true" aria-controls="directorDetails">
-                                            <h2 className="mb-0">Director Details</h2>
-                                            <span>+</span>
-                                        </div>
-                                        <div id="directorDetails" className="collapse show" aria-labelledby="directorDetails" data-parent="#profileAccordion">
-                                            <div className={`${styles.directorDetails} ${styles.cardBody} card-body border_color`}>
-                                              <div className="accordion" id="directorDetails">
-                                                  <div className={`${styles.card} border_color card`}>
-                                                      <div className={`${styles.cardHeader} ${styles.collapsed} card-header row no-gutters bg-transparent collapsed`} data-toggle="collapse" data-target="#director1" aria-expanded="true" aria-controls="director1">
-                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Name</label>Arv Jay</div>
-                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>PAN</label>AAVPW27766Q <img src="/static/approved.svg" alt="Approved" className="img-fluid mt-n1" /></div>
-                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Email Id</label>email@example.com</div>
-                                                          <div className={`${styles.detailsBox} accordion_Text ${styles.success} col-md-2`}><label>DIN</label>03148692</div>
-                                                          <div className={`${styles.detailsBox}  accordion_Text col-md-2`}><label>Tenure Start Date</label>17-02-2019</div>
-                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Status</label>Approved</div>
-                                                          <div className={styles.downArrow}><img src={`${darkMode.value?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" /></div>
-                                                      </div>
-                                                      <div id="director1" className="collapse show" aria-labelledby="director1" data-parent="#directorDetails">
-                                                        <div className={`${styles.cardBody} card-body border_color`}>
-                                                            <div className="row no-gutters">
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DIN Status</label>Arv Jay</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Registered</label>AAVPW27766Q <img src="/static/approved.svg" alt="Approved" className="img-fluid mt-n1" /></div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Expiry Date</label>email@example.com</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text ${styles.success} col-md-2`}><label>Designation</label>03148692</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Date Of Birth</label>17-02-2019</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Contact</label>Approved</div>
+                                                    <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                          Buyer Address<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                   <div className={`${styles.radio_form} col-md-12`}>
+                                                        <div className={`${styles.label_heading} label_heading`}>Is Consignee same as Buyer<strong className='text-danger'>*</strong></div>
+                                                        <Form>
+                                                        {['radio'].map((type) => (
+                                                            <div key={`inline-${type}`} className={styles.radio_group}>
+                                                            <Form.Check
+                                                                className={`${styles.radio} radio`}
+                                                                inline
+                                                                label="Yes"
+                                                                onChange={() => saveOrderData("IncoTerms", "FOB")}
+                                                                name="group1"
+                                                                type={type}
+                                                                id={`inline-${type}-1`}
+                                                            />
+                                                            <Form.Check
+                                                                className={`${styles.radio} radio`}
+                                                                inline
+                                                                label="No"
+                                                                onChange={() => saveOrderData("IncoTerms", "CFR")}
+                                                                name="group1"
+                                                                type={type}
+                                                                id={`inline-${type}-2`}
+                                                            />
+
+                                                            
                                                             </div>
-                                                        </div>
-                                                      </div>
+                                                        ))}
+                                                        </Form>
                                                     </div>
+                                                        <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                           Consignee Name
+                                                        </label>
+                                                  </div>
+                                                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+                                                <select
+                                                    id="Code"
+                                                
+                                                    name="typeOfBussiness"
+                                                    className={`${styles.input_field} input form-control`}
+                                                    required
+                                                >
+                                                    <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                                    <option value="Retailer">Retailer</option>
+                                                    <option value="Trading">Trading</option>
+                                                </select>
+                                                <label className={`${styles.label_heading} label_heading`}  id="textInput">
+                                                 Consignee GSTIN<strong className='text-danger'>*</strong>
+                                                </label>
                                                 </div>
+                                                    <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                         Consignee Address<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                   <div className={`${styles.radio_form} col-md-12`}>
+                                                        <div className={`${styles.label_heading} label_heading`}>Is Consignee same as Buyer <span className='ml-4'>Comments: In Case User Selects "No"</span></div>
+                                                        <Form>
+                                                        {['radio'].map((type) => (
+                                                            <div key={`inline-${type}`} className={styles.radio_group}>
+                                                            <Form.Check
+                                                                className={`${styles.radio} radio`}
+                                                                inline
+                                                                label="Yes"
+                                                                onChange={() => saveOrderData("IncoTerms", "FOB")}
+                                                                name="group1"
+                                                                type={type}
+                                                                id={`inline-${type}-1`}
+                                                            />
+                                                            <Form.Check
+                                                                className={`${styles.radio} radio`}
+                                                                inline
+                                                                label="No"
+                                                                onChange={() => saveOrderData("IncoTerms", "CFR")}
+                                                                name="group1"
+                                                                type={type}
+                                                                id={`inline-${type}-2`}
+                                                            />
+
+                                                            
+                                                            </div>
+                                                        ))}
+                                                        </Form>
+                                                    </div>
+                                                    <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                           Consignee Name
+                                                        </label>
+                                                  </div>
+                                                     <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+                                                <select
+                                                    id="Code"
+                                                
+                                                    name="typeOfBussiness"
+                                                    className={`${styles.input_field} input form-control`}
+                                                    required
+                                                >
+                                                    <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                                    <option value="Retailer">Retailer</option>
+                                                    <option value="Trading">Trading</option>
+                                                </select>
+                                                <label className={`${styles.label_heading} label_heading`}  id="textInput">
+                                                 Consignee GSTIN<strong className='text-danger'>*</strong>
+                                                </label>
+                                                </div>
+                                                    <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                         Consignee Address<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                  </div>
+                                                   </div>
+                                                   <div className={`${styles.content} border_color`}>
+                                                     <div className={`${styles.input_container} row`}>
+                                                  <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                          Importer Name<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                   <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                          Branch Office<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                    <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                         Company Address<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                   <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                       Importer GSTIN<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                    <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                      Bank Name<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                      <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                     Branch<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                    <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                    Branch Address<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                     <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                   IFSC Code<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                     <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                                                        <input
+                                                            type="text"
+                                                            id="textInput"
+                                                            name="companyPan"
+                                                         
+                                                            className={`${styles.input_field} input form-control`}
+                                                            required
+                                                        />
+                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                                   A/C Number<strong className='text-danger'>*</strong>
+                                                        </label>
+                                                  </div>
+                                                
+                                                  </div>
+                                                   </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={`${styles.card} card`}>
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#shareholding" aria-expanded="true" aria-controls="shareholding">
-                                            <h2 className="mb-0">Shareholding Pattern</h2>
-                                            <span>+</span>
-                                        </div>
-                                        <div id="shareholding" className="collapse" aria-labelledby="shareholding" data-parent="#profileAccordion">
-                                            <div className={`${styles.graphTable} ${styles.cardBody} card-body border_color` }>
-                                              <h3 className="label_heading">Equity Capital</h3>
-                                              <table className={`${styles.table} table mb-4`} cellpadding="0" cellspacing="0" border="0">
-                                                  <tbody>
-                                                    <tr>
-                                                      <th rowspan="7">PIE CHART</th>
-                                                      <th></th>
-                                                      <th>FULL NAME</th>
-                                                      <th>NO. OF SHARES</th>
-                                                      <th>% SHAREHOLDING</th>
-                                                      <th>PAN</th>
-                                                      <th>DIRECTOR</th>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className={`${styles.legends} ${styles.green} border-bottom-0`}><span></span></td>
-                                                      <td className={`${styles.name} border-bottom-0`}>Arv Jay</td>
-                                                      <td className="border-bottom-0">20</td>
-                                                      <td className="border-bottom-0">40%</td>
-                                                      <td className="border-bottom-0">AAVPW27766Q</td>
-                                                      <td className="border-bottom-0">Yes</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className={`${styles.legends} ${styles.blue} border-top-0 border-bottom-0`}><span></span></td>
-                                                      <td className={`${styles.name} border-top-0 border-bottom-0`}>Radhe Singh</td>
-                                                      <td className="border-top-0 border-bottom-0">10</td>
-                                                      <td className="border-top-0 border-bottom-0">30%</td>
-                                                      <td className="border-top-0 border-bottom-0">AAVPW27766Q</td>
-                                                      <td className="border-top-0 border-bottom-0">No</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className={`${styles.legends} ${styles.yellow} border-top-0 border-bottom-0`}><span></span></td>
-                                                      <td className={`${styles.name} border-top-0 border-bottom-0`}>Sagar Sinha</td>
-                                                      <td className="border-top-0 border-bottom-0">10</td>
-                                                      <td className="border-top-0 border-bottom-0">30%</td>
-                                                      <td className="border-top-0 border-bottom-0">AAVPW27766Q</td>
-                                                      <td className="border-top-0 border-bottom-0">No</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td></td>
-                                                      <td className="border-top-0"></td>
-                                                      <td>40</td>
-                                                      <td>100%</td>
-                                                      <td className="border-top-0"></td>
-                                                      <td className="border-top-0"></td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                                <h3 className="label_heading">Equity Capital</h3>
-                                                <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                                                    <tbody>
-                                                      <tr>
-                                                      <th rowspan="7">PIE CHART</th>
-                                                        <th></th>
-                                                        <th>FULL NAME</th>
-                                                        <th>NO. OF SHARES</th>
-                                                        <th>% SHAREHOLDING</th>
-                                                        <th>PAN</th>
-                                                        <th>DIRECTOR</th>
-                                                      </tr>
-                                                      <tr>
-                                                        <td className={`${styles.legends} ${styles.green} border-bottom-0`}><span></span></td>
-                                                        <td className={`${styles.name} border-bottom-0`}>Arv Jay</td>
-                                                        <td className="border-bottom-0">20</td>
-                                                        <td className="border-bottom-0">40%</td>
-                                                        <td className="border-bottom-0">AAVPW27766Q</td>
-                                                        <td className="border-bottom-0">Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td className={`${styles.legends} ${styles.blue} border-top-0 border-bottom-0`}><span></span></td>
-                                                        <td className={`${styles.name} border-top-0 border-bottom-0`}>Radhe Singh</td>
-                                                        <td className="border-top-0 border-bottom-0">10</td>
-                                                        <td className="border-top-0 border-bottom-0">30%</td>
-                                                        <td className="border-top-0 border-bottom-0">AAVPW27766Q</td>
-                                                        <td className="border-top-0 border-bottom-0">No</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td className={`${styles.legends} ${styles.yellow} border-top-0 border-bottom-0`}><span></span></td>
-                                                        <td className={`${styles.name} border-top-0 border-bottom-0`}>Sagar Sinha</td>
-                                                        <td className="border-top-0 border-bottom-0">10</td>
-                                                        <td className="border-top-0 border-bottom-0">30%</td>
-                                                        <td className="border-top-0 border-bottom-0">AAVPW27766Q</td>
-                                                        <td className="border-top-0 border-bottom-0">No</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td></td>
-                                                        <td className="border-top-0"></td>
-                                                        <td>40</td>
-                                                        <td>100%</td>
-                                                        <td className="border-top-0"></td>
-                                                        <td className="border-top-0"></td>
-                                                      </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={`${styles.card} card`}>
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#creditRatings" aria-expanded="true" aria-controls="creditRatings">
-                                            <h2 className="mb-0">Credit Ratings</h2>
-                                            <span>+</span>
-                                        </div>
-                                        <div id="creditRatings" className="collapse" aria-labelledby="creditRatings" data-parent="#profileAccordion">
-                                            <div className={`${styles.borderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                                                  <thead>
-                                                    <tr>
-                                                      <th width="10%" rowspan="2">DATE</th>
-                                                      <th width="15%" rowspan="2">RATING AGENCY</th>
-                                                      <th width="15%" rowspan="2">TERM</th>
-                                                      <th width="28%" rowspan="2">INSTRUMENT</th>
-                                                      <th width="8%" rowspan="2" className="text-center">CHANGE IN RATING</th>
-                                                      <th colspan="3" className="text-center">CREDIT RATING</th>
-                                                    </tr>
-                                                    <tr>
-                                                      <th width="8%" className="text-center">2020</th>
-                                                      <th width="8%" className="text-center">2019</th>
-                                                      <th width="8%" className="text-center">2018</th>
-                                                    </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                    <tr>
-                                                      <td>30-04-2020</td>
-                                                      <td>Birchwood</td>
-                                                      <td>Long Term</td>
-                                                      <td>Long term bank loan 12.60 Crore</td>
-                                                      <td className="text-center"><img src="/static/arrow-up-green.svg" alt="Arrow Red" className="img-fluid" /></td>
-                                                      <td className={`${styles.stable} text-center`}>AA+<span>(Stable)</span></td>
-                                                      <td className="text-center">-</td>
-                                                      <td className="text-center">-</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>30-04-2019</td>
-                                                      <td>America First</td>
-                                                      <td>-</td>
-                                                      <td>Long term bank loan 165 Crore</td>
-                                                      <td className="text-center"><img src="/static/arrow-down-red.svg" alt="Arrow Red" className="img-fluid" /></td>
-                                                      <td className="text-center">-</td>
-                                                      <td className={`${styles.negative} text-center`}>BB+<span>(Negative)</span></td>
-                                                      <td className="text-center">-</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>30-04-2018</td>
-                                                      <td>Alliant</td>
-                                                      <td>Long Term</td>
-                                                      <td>Long term bank loan 12.60 Crore</td>
-                                                      <td className="text-center"><img src="/static/arrow-up-green.svg" alt="Arrow Red" className="img-fluid" /></td>
-                                                      <td className="text-center">-</td>
-                                                      <td className="text-center">-</td>
-                                                      <td className={`${styles.positive} text-center`}>AA+<span>(Positive)</span></td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
+                                 
                                 </div>
                             </div>
-                            <div className="tab-pane fade" id="Financials" role="tabpanel">
+                            {/* <div className="tab-pane fade" id="Financials" role="tabpanel">
                                 <div className="accordion" id="FinancialsAccordion">
                                     <div className={`${styles.card} card`}>
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#balanceSheet1" aria-expanded="true" aria-controls="balanceSheet1">
@@ -1161,7 +1381,7 @@ function index() {
                                                 <Col className={`${styles.col}`}>
                                                  <div className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}>
                                               
-                                                <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                                <div className={`${styles.val} heading d-flex align-items-center justify-content-flex-start`}>
                                                   <div className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.purple_dot}></div>
                                                      <div className={`${styles.compliance_content} Compliance ml-1`}>
@@ -1182,7 +1402,7 @@ function index() {
                                                 <Col className={`${styles.col}`} >
                                                  <div className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}>
                                               
-                                                <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                                <div className={`${styles.val} heading d-flex align-items-center justify-content-flex-start`}>
                                                 <div className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}>
                                                     <div className={styles.red_dot}></div>
                                                      <div className={`${styles.compliance_content} Compliance ml-1`}>
@@ -1318,7 +1538,7 @@ function index() {
                                     </div>
                                 </div>
                                 {/* details */}
-                                 <div className={`${styles.card} card`}>
+                                 {/* <div className={`${styles.card} card`}>
                                    
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#details" aria-expanded="true" aria-controls="details">
                                             <div className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}>
@@ -1444,142 +1664,8 @@ function index() {
             
                                     </div>
                                 </div>
-                            </div>
-                            <div className="tab-pane fade" id="Orders" role="tabpanel">
-                              <div className={`${styles.card}`}>
-                                  <Order/>
-                                  <ShipmentDetails/>
-                                </div>
-                            </div>
-                            <div className="tab-pane fade" id="Credit" role="tabpanel">
-                                  <Credit/>
-                                  <Recommendations/>
-                            </div>
-                            <div className="tab-pane fade" id="cam" role="tabpanel">
-                               <CAM/>
-                            </div>
-                            <div className="tab-pane fade" id="Documents" role="tabpanel">
-                           
-                            <div className={`${styles.main} mb-4`}>
-                  <div className={`${styles.head_container} d-flex justify-content-between`}  data-toggle="collapse" data-target="#documents" aria-expanded="true" aria-controls="documents">
-                      <h3 className={styles.heading}>Upload Other Documents</h3>
-                      <span>+</span>
-                  </div>
-                  <div id="documents" className="collapse" aria-labelledby="documents" data-parent="#profileAccordion">      
-                  <div className={styles.dashboard_form}>        
-                  <Form>
-                   <div className='row align-items-center pb-4'>               
-                    <div className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`} >
-                        <div className='text-center'>
-                            <img className={`${styles.upload_image} img-fluid`} src ="/static/browse.svg"
-                            alt="Browse"/>
-                            <p className={styles.drop_para}>Drop Files here <br/>
-                            or <a href="#">Browse</a></p>
-                        </div>
-                    </div> 
-                    <div className='col-md-4 offset-md-1 col-sm-6'>
-                        <Form.Group className={styles.form_group}>
-                            <Form.Label className={styles.label}>Document Type</Form.Label>
-                            <select  className={`${styles.value} form-control`}id="docType">
-                                <option value="volvo">Others</option>
-                                <option value="audi">N/A</option>
-                            </select>
-                        </Form.Group>
-                        <Form.Group className={styles.form_group}>
-                            <Form.Label className={styles.label}>Please Specify Document Name</Form.Label>
-                            <Form.Control className={`${styles.value} form-control`} type="text" placeholder="Insurance Quotation" />
-                        </Form.Group>
-                        <div className={styles.uploadBtnWrapper}>
-                            <input type="file" name="myfile" />
-                            <button className={`${styles.upload_button} btn`}>Upload</button>
-                        </div>
-                    </div>
-                </div>
-                   </Form>
-                  </div>
-                  
-                  <div className={styles.table_container}>
-                      <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                          <thead>
-                    <tr>
-                        <th>DOCUMENT NAME</th>
-                        <th>FORMAT</th>
-                        <th>DOCUMENT DATE</th>
-                        <th>UPLOADED BY</th>
-                        <th>STATUS</th>
-                        <th>ACTION</th>
-                        <th><img src= "/static/search-blue.svg" className="img-fluid" alt="Search"/></th>
-                    </tr>
-                    </thead>                        
-                    <tbody>
-                    <tr>
-                        <td colspan='7' className='p-0'>
-                            <select className={`${styles.module} form-control`}>
-                                <option>ORDERS</option>
-                                <option>ORDERS 2</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className={styles.doc_name}>Insurance Quotation</td>
-                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td className={styles.doc_row}>John Doe</td>
-                        <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
-                    </tr>
-                    <tr>
-                        <td className={styles.doc_name}>Container No. List</td>
-                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td className={styles.doc_row}>Buyer</td>
-                        <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
-                    </tr>
-                    <tr>
-                        <td className={styles.doc_name}>Container Seal No. List</td>
-                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td className={styles.doc_row}>Rama Krishnan</td>
-                        <td><span className={`${styles.status} ${styles.rejected}`}></span>Pending</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
-                    </tr>
-                    <tr>
-                        <td colspan='7' className='p-0'>
-                            <select className={`${styles.module} form-control`}>
-                                <option>AGREEMENTS</option>
-                                <option>AGREEMENTS 1</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className={styles.doc_name}>Insurance Quotation</td>
-                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td className={styles.doc_row}>John Doe</td>
-                        <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
-                    </tr>
-                    <tr>
-                        <td className={styles.doc_name}>Container No. List</td>
-                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td className={styles.doc_row}>Buyer</td>
-                        <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
-                    </tr>                    
-                </tbody>
-            </table>
-                     </div>    
-                     </div>        
-                            </div>
-                           
-                            </div>
+                            </div> */}
+                       
                         </div>
                     </div>
                 </div>
@@ -1589,121 +1675,3 @@ function index() {
 }
 export default index
 
-const ligitations=()=>{
-  return(
-    <>
-     <LigitationsTable/>
-     <LigitationsTable/>
-     <LigitationsTable/>
-     <LigitationsTable/>
-  
-     
-
-    </>
-                                            
-  )
-}
-
-const table2=()=>{
-return(
-    <table className={`${styles.table_details} table border-color`} cellpadding="0" cellspacing="0" border="1">
-                                                <thead>
-                                                  <tr>
-                                                   
-                                                    <th className=""></th>
-                                                    <th className="">ALERT</th>
-                                                    <th className="">SEVERITY</th>
-                                                    <th className="">SOURCE</th>
-                                                    <th className="">ID TYPE</th>
-                                                    <th className="">VALUE</th>
-                                                    
-                                                  </tr>
-                                                </thead>
-                                                <tbody >
-                                                  <tr>
-                                                    <td className={styles.firstCell} rowspan="3">Statutory Compliance</td>
-                                                    <td> EPF Transaction Default</td>
-                                                       <td> High</td>
-                                                          <td> EPF</td>
-                                                             <td> Establishment ID</td>
-                                                                <td> MRMRT0015543000, UKDDN0020827000</td>
-                                                                  
-                                                        
-                                                      
-                                                   </tr>
-                                                   <tr>
-                                                   
-                                                      <td> IEC In Denied Entity List</td>
-                                                          <td> Medium</td>
-                                                             <td> IEC</td>
-                                                                <td> IEC</td>
-                                                                   <td> 290000291</td>
-                                                   </tr>
-
-                                                    <tr>
-                                                    {/* <td rowspan="3">Statutory Compliance</td> */}
-                                                   
-                                                       <td> GST Transaction Default</td>
-                                                          <td> Medium</td>
-                                                             <td> GST</td>
-                                                                <td> GSTIN</td>
-                                                                   <td>05AAGCS8808K2ZY, 09AAGCS8808K1ZR</td>
-                                                        
-                                                      
-                                                   </tr>
-                                                  
-                                                   <tr>
-                                                     <td className={styles.firstCell} rowspan="6">Banking Defaults</td>
-                                                        <td> IBBI</td>
-                                                          <td>Severe</td>
-                                                             <td> </td>
-                                                                <td> </td>
-                                                                   <td> </td>
-                                                   </tr>
-                                                     <tr>
-                                                  
-                                                        <td> Credit Rating Suspended</td>
-                                                          <td> High</td>
-                                                             <td>ICRA</td>
-                                                                <td>Establishment ID</td>
-                                                                   <td>MRMRT0015543000, UKDDN0020827000</td>
-                                                   </tr>
-                                                      <tr>
-                                                  
-                                                        <td> Credit Rating Withdrawn</td>
-                                                          <td>High</td>
-                                                             <td> BRICKWORK</td>
-                                                                <td> Date Of Issuance</td>
-                                                                   <td>30-04-2020</td>
-                                                   </tr>
-                                                      <tr>
-                                                  
-                                                        <td> </td>
-                                                          <td> </td>
-                                                             <td> BRICKWORK</td>
-                                                                <td> Date Of Issuance</td>
-                                                                   <td>30-04-2020</td>
-                                                   </tr>
-
-                                                      <tr>
-                                                  
-                                                         <td> </td>
-                                                          <td> </td>
-                                                             <td> BRICKWORK</td>
-                                                                <td> Date Of Issuance</td>
-                                                                   <td>30-04-2020</td>
-                                                   </tr>
-                                                      <tr>
-                                                  
-                                                         <td> </td>
-                                                          <td> </td>
-                                                             <td> BRICKWORK</td>
-                                                                <td> Date Of Issuance</td>
-                                                                   <td>30-04-2020</td>
-                                                   </tr>
-                                                 
-
-                                                </tbody>
-                                              </table>
-)
-}

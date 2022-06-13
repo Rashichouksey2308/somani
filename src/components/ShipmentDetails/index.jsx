@@ -4,11 +4,13 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={`${styles.main} sub_card`}>
-        <div className={`${styles.head_container} d-flex justify-content-between`}>
-        <h3 className={`${styles.heading} heading_card`}>Shipment Details</h3>
-        <img className='pr-3 img-fluid' src="/static/add.svg" alt="Add"/>
+    <div className={`${styles.main} border-color  card`}>
+        <div className={`${styles.head_container} d-flex justify-content-between`}  data-toggle="collapse" data-target="#shipmentDetails" aria-expanded="true" aria-controls="shipmentDetails">
+        <h3 className={`${styles.heading}`}>Shipment Details</h3>
+        <span>+</span>
         </div>
+        <div id="shipmentDetails" className="collapse" aria-labelledby="shipmentDetails" data-parent="#profileAccordion">      
+
         <div className={styles.dashboard_form}>
         
             <Form>
@@ -44,6 +46,7 @@ const index = () => {
                 </Form>
 
                
+            </div>
             </div>
             </div>
        

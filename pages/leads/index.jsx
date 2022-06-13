@@ -38,7 +38,7 @@ function index() {
               </div>
               <input
                 type="text"
-                className={`${styles.formControl} form-control  formControl `}
+                className={`${styles.formControl} form-control formControl `}
                 placeholder="Search"
               />
             </div>

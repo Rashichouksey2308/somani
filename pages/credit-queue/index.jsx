@@ -66,6 +66,21 @@ function index() {
               3,200
             </h3>
           </div>
+          <div className={`${styles.saved} ${styles.boxInner}`}>
+            <div className="d-flex align-items-center">
+              <div className={styles.iconBox}>
+                <img
+                  src="/static/bookmark.svg"
+                  className="img-fluid"
+                  alt="Bookmark"
+                />
+              </div>
+              <h3>
+                <span>SAVED</span>
+                60
+              </h3>
+            </div>
+          </div>
         </div>
         <div className={`${styles.approved} ${styles.boxInner}`}>
           <div className="d-flex align-items-center">

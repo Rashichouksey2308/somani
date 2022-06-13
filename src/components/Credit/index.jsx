@@ -1,0 +1,465 @@
+import React from 'react'
+import {Form} from 'react-bootstrap'
+import styles from './index.module.scss'
+
+
+const index = () => {
+  return (
+      <>
+                   <div className={`${styles.main}`}>
+            <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#productSummary" aria-expanded="true" aria-controls="productSummary">
+            <h3 className={`${styles.heading}`}>Product Summary</h3>
+            <span>+</span>
+                    </div>  
+                    <div id="productSummary" className="collapse" aria-labelledby="productSummary" data-parent="#profileAccordion">      
+                <div className={`${styles.dashboard_form}`}> 
+                <Form>
+                <div className='row'>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                        
+                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/> 
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Monthly Production Capacity<strong className="text-danger">*</strong></Form.Label>
+                    </Form.Group>
+
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Capacity Utilization<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Average Stock of Commodity<strong className="text-danger">*</strong></Form.Label>
+                    </Form.Group>
+                    
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Average Stock in Transit<strong className="text-danger">*</strong></Form.Label>
+                    </Form.Group> 
+
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Available Stock<strong className="text-danger">*</strong></Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Daily Consumption of Commodity<strong className="text-danger">*</strong></Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Stock Coverage of Commodity<strong className="text-danger">*</strong></Form.Label>
+                    </Form.Group>
+        
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <select  className={`${styles.input_field} input form-control`}>
+                        <option value="volvo">Import</option>
+                        <option value="audi">Manufacturers</option>
+                        </select>    
+                    <Form.Label className={`${styles.label_heading} label_heading`}>Existing Procurement of Commodity<strong className="text-danger">*</strong></Form.Label>                      
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                        <div className='d-flex'>
+                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/> 
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Existing Supplier(s)<strong className="text-danger">*</strong></Form.Label>
+                        <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
+                        </div>
+                    </Form.Group>
+
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <select  className={`${styles.input_field} input form-control`}>
+                        <option value="volvo">High</option>
+                        <option value="audi">Low</option>
+                        </select>   
+                    <Form.Label className={`${styles.label_heading} label_heading`}>Commodity Contribution Senstivity<strong className="text-danger">*</strong></Form.Label>                       
+                    </Form.Group>
+                    
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} required type="text" />
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Avg. Monthly Electricity Bill<strong className="text-danger">*</strong></Form.Label>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                        <div className='d-flex'>
+                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/> 
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Existing CHA(s)<strong className="text-danger">*</strong></Form.Label>
+                        <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
+                        </div>
+                    </Form.Group>
+                    </div>
+                    </Form> 
+                </div>
+                </div>
+                   </div>   
+
+                    <div className={`${styles.main}`}>
+                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#supplierCred" aria-expanded="true" aria-controls="supplierCred">
+                    <h3 className={`${styles.heading}`}>Supplier's Credentials</h3>
+                    <span>+</span>
+                            </div> 
+                            <div id="supplierCred" className="collapse" aria-labelledby="supplierCred" data-parent="#profileAccordion">       
+                    <div className={`${styles.dashboard_form}`}> 
+                    <Form>
+                    <div className='row'>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <select className={`${styles.input_field} input form-control`}>
+                            <option>Bhutani Traders</option>
+                            <option>Ramakrishna</option>
+                            </select>    
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Supplier Name<strong className="text-danger">*</strong></Form.Label>                      
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>No. of Shipments<strong className="text-danger">*</strong></Form.Label>
+                            </Form.Group>
+
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>No. of Consignees<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>No. of HS codes<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group> 
+
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Country of Origin<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Port of Destination<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Oldest Shipment Date<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Latest Shipment Date<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Commodity to Total Trade % -24M<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <div className='col-12'>
+                        <Form.Label className={`${styles.label_heading}`}>Remarks</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                className={`${styles.remark_field} input form-control`}
+                                />
+
+                        </div>
+                    
+                        </div>
+                        </Form> 
+                    </div>
+                    </div>
+                    </div>  
+              
+                    <div className={`${styles.main}`}>
+                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyContact" aria-expanded="true" aria-controls="keyContact" >
+                    <h3 className={`${styles.heading}`}>Key Contact Person</h3>
+                    <span>+</span>
+                            </div>  
+                            <div id="keyContact" className="collapse" aria-labelledby="keyContact" data-parent="#profileAccordion">      
+
+                    <div className={`${styles.datatable} datatable`}>
+         
+                    <table
+                        className={`${styles.table} table`}
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                    >
+                        <thead>
+                        <tr>
+                            <th>NAME</th>
+                            <th>DESIGNATION</th>
+                            <th>DEPARTMENT</th>
+                            <th>CONTACT NO.</th>
+                            <th>EMAIL ID</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+                        <tr>
+                            <td>Ram Lal</td>
+                            <td>
+                            Ramakrishna Traders
+                            </td>
+                            <td>Customer</td>
+                            <td>Sameer Soni</td>
+                            <td>Yes</td>
+                            <td>
+                            <div>
+                               <img src= "/static/save-3.svg" className={`${styles.edit_image} mr-3 img-fluid`} alt="save"/>
+                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                           </div>
+                           </td>
+                        </tr>
+                        <tr>
+                            <td>Keshav Singh</td>
+                            <td>
+                            Production Manager
+                            </td>
+                            <td>Production</td>
+                            <td>+91 9876543210</td>
+                            <td>keshavv4578@gmail.com</td>
+                            <td>
+                           <div>
+                               <img src= "/static/mode_edit.svg" className={`${styles.edit_image} mr-3 img-fluid`} alt="edit"/>
+                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                           </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Shivani Kapoor</td>
+                            <td>
+                            Lead Manager
+                            </td>
+                            <td>IT Department</td>
+                            <td>+91 9876543210</td>
+                            <td>keshavv4578@gmail.com</td>
+                            <td>
+                            <div>
+                               <img className={`${styles.edit_image} mr-3 img-fluid`} src= "/static/mode_edit.svg" alt="edit"/>
+                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                           </div>
+                            </td>
+                        </tr>
+                        
+                        </tbody>
+                    </table>
+                    <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
+                        <span>+</span>
+                        <div>Add More Rows</div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>  
+                  
+                    <div className={`${styles.main}`}>
+                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyAddress" aria-expanded="true" aria-controls="keyAddress">
+                    <h3 className={`${styles.heading}`}>Key Addresses</h3>
+                    <span>+</span>
+                            </div>  
+                            <div id="keyAddress" className="collapse" aria-labelledby="keyAddress" data-parent="#profileAccordion">      
+
+                    <div className={`${styles.dashboard_form}`}> 
+                    <div className='row'>
+                        <div className={`${styles.address_card} col-md-6`}>
+                            <div className='d-flex justify-content-between'>
+                                <div>
+                                <input type="checkbox"/>
+                                <label className={styles.label}>Registered Office Address</label>
+                                <div className={styles.address_values}>
+                                <p>N-11, 29 Tilak Marg, New Delhi</p>
+                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                          
+                                </div>
+                                </div>
+                               <div>
+                                   <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit"/>
+                               </div>
+                            </div>
+                          
+
+                        </div>
+                        <div className={`${styles.address_card} col-md-6`}>
+                            <div className='d-flex justify-content-between'>
+                                <div>
+                                <div className={styles.address_values}>
+                                <h5>Corporate Office Address</h5>
+                                <p>N-11, 29 Tilak Marg, New Delhi</p>
+                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                               
+                                </div>
+                                </div>
+                               <div>
+                                   <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit"/>
+                               </div>
+                            </div>
+                          
+
+                        </div>
+                        <div className={`${styles.address_card} col-md-6`}>
+                            <div className='d-flex justify-content-between'>
+                                <div>
+                                <div className={styles.address_values}>
+                                <h5>Factory Address</h5>
+                                <p>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
+                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                                <p><span>Branch: </span>Delhi</p>
+                                <div className='d-flex'>
+                                <p> <span>GSTIN: </span>Gstdt789652Jkv</p>
+                                <span className={styles.button}>View</span>
+                                </div>                                </div>
+                                </div>
+                               <div>
+                                   <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
+                                   <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                               </div>
+                            </div>
+                        </div>
+                        <div className={`${styles.address_card} col-md-6`}>
+                            <div className='d-flex justify-content-between'>
+                            <div>
+                                <div className={styles.address_values}>
+                                <h5>Warehouse Address</h5>
+                                
+                                <p>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
+                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                                <p><span>Branch: </span>Delhi</p>
+                                <div className='d-flex'>
+                                <p> <span>GSTIN: </span>Gstdt789652Jkv</p>
+                                <span className={styles.button}>View</span>
+                                </div>
+                                </div>
+                                </div>
+                               <div>
+                                   <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit" />
+                                   <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                               </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    </div>
+                    </div>
+                    </div> 
+
+                    <div className={`${styles.main}`}>
+                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#addAddress" aria-expanded="true" aria-controls="addAddress">
+                            <h3 className={`${styles.heading}`}>Add a new address</h3>
+                            <img src="/static/accordion_close_black.svg"  className='img-fluid' alt="Close" />
+                            </div> 
+                            <div id="addAddress" className="collapse" aria-labelledby="addAddress" data-parent="#profileAccordion">       
+                            <div className={`${styles.dashboard_form}`}> 
+                            <Form>
+                            <div className='row'>
+                            <Form.Group className={`${styles.form_group} col-md-2 col-sm-4`}>
+                                    <select className={`${styles.input_field} input form-control`}>
+                            <option>Bhutani Traders</option>
+                            <option>Ramakrishna</option>
+                            </select>    
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Address Type<strong className="text-danger">*</strong></Form.Label>                      
+                            </Form.Group>
+                            <Form.Group className={`${styles.form_group} col-md-2 col-sm-4`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Pin Code<strong className="text-danger">*</strong></Form.Label>
+                            </Form.Group>
+
+                        <Form.Group className={`${styles.form_group} col-md-2 col-sm-4`} >
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>State<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        
+                        <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`} >
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>City<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group> 
+
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Email ID<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>Phone Number<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Address<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
+                        <Form.Label className={`${styles.label_heading} label_heading`}>Branch<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Label className={`${styles.label_heading} label_heading`}>GSTIN<strong className="text-danger">*</strong></Form.Label>
+                        </Form.Group>
+                        </div>
+                        </Form> 
+                    </div>
+                    </div>
+                    </div> 
+
+                    <div className={`${styles.main}`}>
+                    <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#debtProfile" aria-expanded="true" aria-controls="debtProfile" >
+                    <h3 className={`${styles.heading}`}>Debt Profile</h3>
+                    <span>+</span>
+                            </div>  
+                            <div id="debtProfile" className="collapse" aria-labelledby="debtProfile" data-parent="#profileAccordion">      
+
+                    <div className={`${styles.datatable} datatable`}>
+         
+                    <table
+                        className={`${styles.table} table`}
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                    >
+                        <thead>
+                        <tr>
+                            <th>S.NO.</th>
+                            <th>BANK NAME</th>
+                            <th>LIMIT TYPE</th>
+                            <th>LIMIT</th>
+                            <th>CONDUCT</th>
+                            <th>ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+                        <tr>
+                            <td>1</td>
+                            <td>
+                            Punjab National Bank
+                            </td>
+                            <td>Cash Credit</td>
+                            <td>100,000.00</td>
+                            <td>Good</td>
+                            <td>
+                            <div>
+                               <img src= "/static/save-3.svg" className={`${styles.edit_image} mr-3 img-fluid`} alt="edit"/>
+                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                           </div>
+                           </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jammu & Kashmir Bank</td>
+                            <td>
+                            Cash Credit
+                            </td>
+                            <td>100,000.00</td>
+                            
+                            <td>Satisfactory</td>
+                            <td>
+                           <div>
+                               <img src= "/static/save-3.svg" className={`${styles.edit_image}  mr-3 img-fluid`} alt="edit"/>
+                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                           </div>
+                            </td>
+                        </tr>
+                        
+                        </tbody>
+                    </table>
+                    <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
+                        <span>+</span>
+                        <div>Add More Rows</div>
+                    </div>
+                    </div>
+                    </div>
+                    </div> 
+    </>         
+  )
+}
+
+export default index
