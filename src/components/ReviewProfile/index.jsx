@@ -3,10 +3,10 @@ import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 
-function index({handleChange, reviewedProfile}) {
+function index({ handleChange, reviewedProfile }) {
   const { buyerList } = useSelector((state) => state.buyer)
 
- 
+  console.log(reviewedProfile, 'reviewed profile')
 
   // const [reviewedProfile, setReviewedProfile] = useState([
   //   {
@@ -109,331 +109,331 @@ function index({handleChange, reviewedProfile}) {
           </tr>
         </thead>
         <tbody>
-          {reviewedProfile.map((item) => {
-            console.log(item, 'this is mapped item')
-            return Object.keys(item) == 'typeOfBusiness' ? (
-              <tr className={`${styles.table_row} border_color table_row`}>
-                <td>Type Of Business</td>
-                <td>{item.typeOfBusiness.originalValue}</td>
-                <td>
-                  <div className={styles.tick}>
-                    <img
-                      src={
-                        item.typeOfBusiness.apiResponse
-                          ? '/static/check.svg'
-                          : '/static/close-b.svg'
-                      }
-                      alt="Check"
-                      className="img-fluid"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <input className={styles.checkBox} type="checkbox" />
-                </td>
-                <td>
-                  {item.typeOfBusiness.option ? (
-                    <Form.Select
-                      size="sm"
-                      className={`${styles.dropDown} dropDown`}
-                    >
-                      {' '}
-                      {item.typeOfBusiness.option.map((options) => {
-                        return <option>{options}</option>
-                      })}{' '}
-                    </Form.Select>
-                  ) : item.typeOfBusiness.originalValue instanceof Date ? (
-                    <input
-                      type="date"
-                      name="ExpectedDateOfShipment"
-                      id="textDate"
-                    />
-                  ) : null}
-                </td>
-              </tr>
-            ) : Object.keys(item) == 'turnOver' ? (
-              <tr className={`${styles.table_row} border_color table_row`}>
-                <td>TurnOver</td>
-                <td>{item.turnOver.originalValue}</td>
-                <td>
-                  <div className={styles.tick}>
-                    <img
-                      src={
-                        item.turnOver.apiResponse
-                          ? '/static/check.svg'
-                          : '/static/close-b.svg'
-                      }
-                      alt="Check"
-                      className="img-fluid"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <input className={styles.checkBox} type="checkbox" />
-                </td>
-                <td>
-                  {item.turnOver.option ? (
-                    <Form.Select
-                      size="sm"
-                      className={`${styles.dropDown} dropDown`}
-                    >
-                      {' '}
-                      {item.turnOver.option.map((options) => {
-                        return <option>{options}</option>
-                      })}{' '}
-                    </Form.Select>
-                  ) : item.turnOver.originalValue instanceof Date ? (
-                    <input
-                      type="date"
-                      name="ExpectedDateOfShipment"
-                      id="textDate"
-                    />
-                  ) : null}
-                </td>
-              </tr>
-            ) : Object.keys(item) == 'transactionType' ? (
-              <tr className={`${styles.table_row} border_color table_row`}>
-                <td>Transaction Type</td>
-                <td>{item.transactionType.originalValue}</td>
-                <td>
-                  <div className={styles.tick}>
-                    <img
-                      src={
-                        item.transactionType.apiResponse
-                          ? '/static/check.svg'
-                          : '/static/close-b.svg'
-                      }
-                      alt="Check"
-                      className="img-fluid"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <input className={styles.checkBox} type="checkbox" />
-                </td>
-                <td>
-                  {item.transactionType.option ? (
-                    <Form.Select
-                      size="sm"
-                      className={`${styles.dropDown} dropDown`}
-                    >
-                      {' '}
-                      {item.transactionType.option.map((options) => {
-                        return <option>{options}</option>
-                      })}{' '}
-                    </Form.Select>
-                  ) : item.transactionType.originalValue instanceof Date ? (
-                    <input
-                      type="date"
-                      name="ExpectedDateOfShipment"
-                      id="textDate"
-                    />
-                  ) : null}
-                </td>
-              </tr>
-            ) : Object.keys(item) == 'portOfDischarge' ? (
-              <tr className={`${styles.table_row} border_color table_row`}>
-                <td>Port Of Discharge</td>
-                <td>{item.portOfDischarge.originalValue}</td>
-                <td>
-                  <div className={styles.tick}>
-                    <img
-                      src={
-                        item.portOfDischarge.apiResponse
-                          ? '/static/check.svg'
-                          : '/static/close-b.svg'
-                      }
-                      alt="Check"
-                      className="img-fluid"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <input className={styles.checkBox} type="checkbox" />
-                </td>
-                <td>
-                  {item.portOfDischarge.option ? (
-                    <Form.Select
-                      size="sm"
-                      className={`${styles.dropDown} dropDown`}
-                    >
-                      {' '}
-                      {item.portOfDischarge.option.map((options) => {
-                        return <option>{options}</option>
-                      })}{' '}
-                    </Form.Select>
-                  ) : item.portOfDischarge.originalValue instanceof Date ? (
-                    <input
-                      type="date"
-                      name="ExpectedDateOfShipment"
-                      id="textDate"
-                    />
-                  ) : null}
-                </td>
-              </tr>
-            ) : Object.keys(item) == 'orderValues' ? (
-              <tr className={`${styles.table_row} border_color table_row`}>
-                <td>Order Values</td>
-                <td>{item.orderValues.originalValue}</td>
-                <td>
-                  <div className={styles.tick}>
-                    <img
-                      src={
-                        item.orderValues.apiResponse
-                          ? '/static/check.svg'
-                          : '/static/close-b.svg'
-                      }
-                      alt="Check"
-                      className="img-fluid"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <input className={styles.checkBox} type="checkbox" />
-                </td>
-                <td>
-                  {item.orderValues.option ? (
-                    <Form.Select
-                      size="sm"
-                      className={`${styles.dropDown} dropDown`}
-                    >
-                      {' '}
-                      {item.orderValues.option.map((options) => {
-                        return <option>{options}</option>
-                      })}{' '}
-                    </Form.Select>
-                  ) : item.orderValues.originalValue instanceof Date ? (
-                    <input
-                      type="date"
-                      name="ExpectedDateOfShipment"
-                      id="textDate"
-                    />
-                  ) : null}
-                </td>
-              </tr>
-            ) : Object.keys(item) == 'countryOfOrigin' ? (
-              <tr className={`${styles.table_row} border_color table_row`}>
-                <td>Country Of Origin</td>
-                <td>{item.countryOfOrigin.originalValue}</td>
-                <td>
-                  <div className={styles.tick}>
-                    <img
-                      src={
-                        item.countryOfOrigin.apiResponse
-                          ? '/static/check.svg'
-                          : '/static/close-b.svg'
-                      }
-                      alt="Check"
-                      className="img-fluid"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <input className={styles.checkBox} type="checkbox" />
-                </td>
-                <td>
-                  {item.countryOfOrigin.option ? (
-                    <Form.Select
-                      size="sm"
-                      className={`${styles.dropDown} dropDown`}
-                    >
-                      {' '}
-                      {item.countryOfOrigin.option.map((options) => {
-                        return <option>{options}</option>
-                      })}{' '}
-                    </Form.Select>
-                  ) : item.countryOfOrigin.originalValue instanceof Date ? (
-                    <input
-                      type="date"
-                      name="ExpectedDateOfShipment"
-                      id="textDate"
-                    />
-                  ) : null}
-                </td>
-              </tr>
-            ) : Object.keys(item) == 'commodity' ? (
-              <tr className={`${styles.table_row} border_color table_row`}>
-                <td>Commodity</td>
-                <td>{item.commodity.originalValue}</td>
-                <td>
-                  <div className={styles.tick}>
-                    <img
-                      src={
-                        item.commodity.apiResponse
-                          ? '/static/check.svg'
-                          : '/static/close-b.svg'
-                      }
-                      alt="Check"
-                      className="img-fluid"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <input className={styles.checkBox} type="checkbox" />
-                </td>
-                <td>
-                  {item.commodity.option ? (
-                    <Form.Select
-                      size="sm"
-                      className={`${styles.dropDown} dropDown`}
-                    >
-                      {' '}
-                      {item.commodity.option.map((options) => {
-                        return <option>{options}</option>
-                      })}{' '}
-                    </Form.Select>
-                  ) : item.commodity.originalValue instanceof Date ? (
-                    <input
-                      type="date"
-                      name="ExpectedDateOfShipment"
-                      id="textDate"
-                    />
-                  ) : null}
-                </td>
-              </tr>
-            ) : Object.keys(item) == 'ExpectedDateOfShipment' ? (
-              <tr className={`${styles.table_row} border_color table_row`}>
-                <td>Expected Date Of Shipment</td>
-                <td>{item.ExpectedDateOfShipment.originalValue}</td>
-                <td>
-                  <div className={styles.tick}>
-                    <img
-                      src={
-                        item.ExpectedDateOfShipment.apiResponse
-                          ? '/static/check.svg'
-                          : '/static/close-b.svg'
-                      }
-                      alt="Check"
-                      className="img-fluid"
-                    />
-                  </div>
-                </td>
-                <td>
-                  <input name='ExpectedDateOfShipment' onChange={(e)=>handleChange(e)} className={styles.checkBox} type="checkbox" />
-                </td>
-                <td>
-                  {item.ExpectedDateOfShipment.option ? (
-                    <Form.Select
-                      size="sm"
-                      className={`${styles.dropDown} dropDown`}
-                    >
-                      {' '}
-                      {item.ExpectedDateOfShipment.option.map((options) => {
-                        return <option>{options}</option>
-                      })}{' '}
-                    </Form.Select>
-                  ) : item.ExpectedDateOfShipment.originalValue instanceof
-                    Date ? (
-                    <input
-                      type="date"
-                      name="ExpectedDateOfShipment"
-                      id="textDate"
-                    />
-                  ) : null}
-                </td>
-              </tr>
-            ) : null
-          })}
+          <tr className={`${styles.table_row} border_color table_row`}>
+            <td>Type Of Business</td>
+            <td>{reviewedProfile.typeOfBusiness.originalValue}</td>
+            <td>
+              <div className={styles.tick}>
+                <img
+                  src={
+                    reviewedProfile.typeOfBusiness.apiResponse
+                      ? '/static/check.svg'
+                      : '/static/close-b.svg'
+                  }
+                  alt="Check"
+                  className="img-fluid"
+                />
+              </div>
+            </td>
+            <td>
+              <input className={styles.checkBox} type="checkbox" />
+            </td>
+            {/* <td>
+              {reviewedProfile.typeOfBusiness.option ? (
+                <Form.Select
+                  size="sm"
+                  className={`${styles.dropDown} dropDown`}
+                >
+                  {' '}
+                  {reviewedProfile.typeOfBusiness.option.map((options) => {
+                    return <option>{options}</option>
+                  })}{' '}
+                </Form.Select>
+              ) : item.typeOfBusiness.originalValue instanceof Date ? (
+                <input
+                  type="date"
+                  name="ExpectedDateOfShipment"
+                  id="textDate"
+                />
+              ) : null}
+            </td> */}
+          </tr>
+          ) : Object.keys(item) == 'turnOver' ? (
+          <tr className={`${styles.table_row} border_color table_row`}>
+            <td>TurnOver</td>
+            <td>{item.turnOver.originalValue}</td>
+            <td>
+              <div className={styles.tick}>
+                <img
+                  src={
+                    item.turnOver.apiResponse
+                      ? '/static/check.svg'
+                      : '/static/close-b.svg'
+                  }
+                  alt="Check"
+                  className="img-fluid"
+                />
+              </div>
+            </td>
+            <td>
+              <input className={styles.checkBox} type="checkbox" />
+            </td>
+            <td>
+              {item.turnOver.option ? (
+                <Form.Select
+                  size="sm"
+                  className={`${styles.dropDown} dropDown`}
+                >
+                  {' '}
+                  {item.turnOver.option.map((options) => {
+                    return <option>{options}</option>
+                  })}{' '}
+                </Form.Select>
+              ) : item.turnOver.originalValue instanceof Date ? (
+                <input
+                  type="date"
+                  name="ExpectedDateOfShipment"
+                  id="textDate"
+                />
+              ) : null}
+            </td>
+          </tr>
+          ) : Object.keys(item) == 'transactionType' ? (
+          <tr className={`${styles.table_row} border_color table_row`}>
+            <td>Transaction Type</td>
+            <td>{item.transactionType.originalValue}</td>
+            <td>
+              <div className={styles.tick}>
+                <img
+                  src={
+                    item.transactionType.apiResponse
+                      ? '/static/check.svg'
+                      : '/static/close-b.svg'
+                  }
+                  alt="Check"
+                  className="img-fluid"
+                />
+              </div>
+            </td>
+            <td>
+              <input className={styles.checkBox} type="checkbox" />
+            </td>
+            <td>
+              {item.transactionType.option ? (
+                <Form.Select
+                  size="sm"
+                  className={`${styles.dropDown} dropDown`}
+                >
+                  {' '}
+                  {item.transactionType.option.map((options) => {
+                    return <option>{options}</option>
+                  })}{' '}
+                </Form.Select>
+              ) : item.transactionType.originalValue instanceof Date ? (
+                <input
+                  type="date"
+                  name="ExpectedDateOfShipment"
+                  id="textDate"
+                />
+              ) : null}
+            </td>
+          </tr>
+          ) : Object.keys(item) == 'portOfDischarge' ? (
+          <tr className={`${styles.table_row} border_color table_row`}>
+            <td>Port Of Discharge</td>
+            <td>{item.portOfDischarge.originalValue}</td>
+            <td>
+              <div className={styles.tick}>
+                <img
+                  src={
+                    item.portOfDischarge.apiResponse
+                      ? '/static/check.svg'
+                      : '/static/close-b.svg'
+                  }
+                  alt="Check"
+                  className="img-fluid"
+                />
+              </div>
+            </td>
+            <td>
+              <input className={styles.checkBox} type="checkbox" />
+            </td>
+            <td>
+              {item.portOfDischarge.option ? (
+                <Form.Select
+                  size="sm"
+                  className={`${styles.dropDown} dropDown`}
+                >
+                  {' '}
+                  {item.portOfDischarge.option.map((options) => {
+                    return <option>{options}</option>
+                  })}{' '}
+                </Form.Select>
+              ) : item.portOfDischarge.originalValue instanceof Date ? (
+                <input
+                  type="date"
+                  name="ExpectedDateOfShipment"
+                  id="textDate"
+                />
+              ) : null}
+            </td>
+          </tr>
+          ) : Object.keys(item) == 'orderValues' ? (
+          <tr className={`${styles.table_row} border_color table_row`}>
+            <td>Order Values</td>
+            <td>{item.orderValues.originalValue}</td>
+            <td>
+              <div className={styles.tick}>
+                <img
+                  src={
+                    item.orderValues.apiResponse
+                      ? '/static/check.svg'
+                      : '/static/close-b.svg'
+                  }
+                  alt="Check"
+                  className="img-fluid"
+                />
+              </div>
+            </td>
+            <td>
+              <input className={styles.checkBox} type="checkbox" />
+            </td>
+            <td>
+              {item.orderValues.option ? (
+                <Form.Select
+                  size="sm"
+                  className={`${styles.dropDown} dropDown`}
+                >
+                  {' '}
+                  {item.orderValues.option.map((options) => {
+                    return <option>{options}</option>
+                  })}{' '}
+                </Form.Select>
+              ) : item.orderValues.originalValue instanceof Date ? (
+                <input
+                  type="date"
+                  name="ExpectedDateOfShipment"
+                  id="textDate"
+                />
+              ) : null}
+            </td>
+          </tr>
+          ) : Object.keys(item) == 'countryOfOrigin' ? (
+          <tr className={`${styles.table_row} border_color table_row`}>
+            <td>Country Of Origin</td>
+            <td>{item.countryOfOrigin.originalValue}</td>
+            <td>
+              <div className={styles.tick}>
+                <img
+                  src={
+                    item.countryOfOrigin.apiResponse
+                      ? '/static/check.svg'
+                      : '/static/close-b.svg'
+                  }
+                  alt="Check"
+                  className="img-fluid"
+                />
+              </div>
+            </td>
+            <td>
+              <input className={styles.checkBox} type="checkbox" />
+            </td>
+            <td>
+              {item.countryOfOrigin.option ? (
+                <Form.Select
+                  size="sm"
+                  className={`${styles.dropDown} dropDown`}
+                >
+                  {' '}
+                  {item.countryOfOrigin.option.map((options) => {
+                    return <option>{options}</option>
+                  })}{' '}
+                </Form.Select>
+              ) : item.countryOfOrigin.originalValue instanceof Date ? (
+                <input
+                  type="date"
+                  name="ExpectedDateOfShipment"
+                  id="textDate"
+                />
+              ) : null}
+            </td>
+          </tr>
+          ) : Object.keys(item) == 'commodity' ? (
+          <tr className={`${styles.table_row} border_color table_row`}>
+            <td>Commodity</td>
+            <td>{item.commodity.originalValue}</td>
+            <td>
+              <div className={styles.tick}>
+                <img
+                  src={
+                    item.commodity.apiResponse
+                      ? '/static/check.svg'
+                      : '/static/close-b.svg'
+                  }
+                  alt="Check"
+                  className="img-fluid"
+                />
+              </div>
+            </td>
+            <td>
+              <input className={styles.checkBox} type="checkbox" />
+            </td>
+            <td>
+              {item.commodity.option ? (
+                <Form.Select
+                  size="sm"
+                  className={`${styles.dropDown} dropDown`}
+                >
+                  {' '}
+                  {item.commodity.option.map((options) => {
+                    return <option>{options}</option>
+                  })}{' '}
+                </Form.Select>
+              ) : item.commodity.originalValue instanceof Date ? (
+                <input
+                  type="date"
+                  name="ExpectedDateOfShipment"
+                  id="textDate"
+                />
+              ) : null}
+            </td>
+          </tr>
+          ) : Object.keys(item) == 'ExpectedDateOfShipment' ? (
+          <tr className={`${styles.table_row} border_color table_row`}>
+            <td>Expected Date Of Shipment</td>
+            <td>{item.ExpectedDateOfShipment.originalValue}</td>
+            <td>
+              <div className={styles.tick}>
+                <img
+                  src={
+                    item.ExpectedDateOfShipment.apiResponse
+                      ? '/static/check.svg'
+                      : '/static/close-b.svg'
+                  }
+                  alt="Check"
+                  className="img-fluid"
+                />
+              </div>
+            </td>
+            <td>
+              <input
+                name="ExpectedDateOfShipment"
+                onChange={(e) => handleChange(e)}
+                className={styles.checkBox}
+                type="checkbox"
+              />
+            </td>
+            <td>
+              {item.ExpectedDateOfShipment.option ? (
+                <Form.Select
+                  size="sm"
+                  className={`${styles.dropDown} dropDown`}
+                >
+                  {' '}
+                  {item.ExpectedDateOfShipment.option.map((options) => {
+                    return <option>{options}</option>
+                  })}{' '}
+                </Form.Select>
+              ) : item.ExpectedDateOfShipment.originalValue instanceof Date ? (
+                <input
+                  type="date"
+                  name="ExpectedDateOfShipment"
+                  id="textDate"
+                />
+              ) : null}
+            </td>
+          </tr>
+          ) : null )
         </tbody>
       </table>
       <div className={styles.remarks}>

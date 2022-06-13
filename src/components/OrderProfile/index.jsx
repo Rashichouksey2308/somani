@@ -12,7 +12,7 @@ function index() {
                 <span class={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-          { buyerList && buyerList.map((buyer)=>( <Card.Body className={styles.body}>
+          { buyerList && buyerList.data?.map((buyer)=>( <Card.Body className={styles.body}>
                 {fields("Commodity",buyer.company.orderDetails.commodity)}
                 {fields("Quantity (in MT)",buyer.company.orderDetails.Quantity,false)}
                 {fields("Order values (in INR)",buyer.company.orderDetails?.orderValues,false)}

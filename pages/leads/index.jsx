@@ -16,7 +16,7 @@ function index() {
   }, [])
 
   const {allBuyerList} = useSelector((state)=>state.buyer)
-  console.log(allBuyerList, "this is all buyer")
+  // console.log(allBuyerList, "this is all buyer")
 
   return (
     <>
@@ -187,22 +187,22 @@ function index() {
               </tr>
             </thead>
             <tbody>
-             {allBuyerList.data?.data > 0 && allBuyerList.data.data?.map((buyer) => (<tr>
-                <td>{buyer.customerId}</td>
+             {allBuyerList && allBuyerList.data?.data?.map((buyer) => (<tr>
+                <td>{buyer.company.customerId}</td>
                 <td
                   className={`${styles.buyerName}`}
-                  onClick={() => {dispatch(GetBuyer(buyer._id)); Router.push('/review-queue/id')} }
+                  onClick={() => {dispatch(GetBuyer({companyId: buyer.company._id, orderId: buyer._id})); Router.push('/review-queue/id')} }
                 >
-                  {buyer.companyProfile.companyName}
+                  {buyer.company.companyName}
                 </td>
-                <td>RM-Sales</td>
-                <td>Amar Singh</td>
+                <td>{buyer.createdBy.userRole}</td>
+                <td>{buyer.createdBy.fName}</td>
                 <td>{buyer.existingCustomer ? "Yes" : "No"}</td>
                 <td>
                   <span
-                    className={`${styles.status} ${buyer.Queue === "ReviewQueue" ? styles.review : "CreditQueue"? styles.approved : styles.rejected}`}
+                    className={`${styles.status} ${buyer.queue === "ReviewQueue" ? styles.review : "CreditQueue"? styles.approved : styles.rejected}`}
                   ></span>
-                  {buyer.Queue === "ReviewQueue" ? "Review" : "CreditQueue"? "Approved" : "Rejected"}
+                  {buyer.queue === "ReviewQueue" ? "Review" : "CreditQueue"? "Approved" : "Rejected"}
                 </td>
               </tr>))}
               <tr className={`${styles.table_row} table_row`}>

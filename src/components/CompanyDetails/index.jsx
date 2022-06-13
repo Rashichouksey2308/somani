@@ -9,7 +9,7 @@ const index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
   const {gstList} = useSelector((state) =>  state.buyer)
 
   // const {gettingGstList} = useSelector((state)=> state.buyer)
-  console.log(gstList, "this is gst")
+  // console.log(gstList, "this is gst")
   
 
   return (
@@ -100,7 +100,7 @@ const index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
               <select
                 id="Code"
                 onChange={(e) => { saveCompanyData(e.target.name, e.target.value) }}
-                name="typeOfBussiness"
+                name="typeOfBusiness"
                 className={`${styles.input_field} input form-control`}
                 required
               >

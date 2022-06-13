@@ -12,70 +12,71 @@ const index = () => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(UpdateBuyer())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(UpdateBuyer())
+    // }, [])
 
     const handleChange = (e) => {
         console.log(e.target.checked,'something changed')
       }
     
-      const reviewedProfile = [
-        {
-          typeOfBusiness: {
-            apiResponse: true,
-            manualApproval: false,
-            originalValue: 'Manufacturer',
-          },
-        },
-        {
-          turnOver: {
-            apiResponse: true,
-            manualApproval: false,
-            originalValue: 100,
-          },
-        },
-        {
-          transactionType: {
-            apiResponse: false,
-            manualApproval: false,
-            originalValue: 'Domestic',
-          },
-        },
-        {
-          portOfDischarge: {
-            apiResponse: false,
-            manualApproval: false,
-            originalValue: 'Mumbai',
-          },
-        },
-        { orderValues: { apiResponse: true, manualApproval: false } },
-        {
-          countryOfOrigin: {
-            apiResponse: false,
-            manualApproval: false,
-            originalValue: '',
-          },
-        },
-        {
-          commodity: {
-            apiResponse: false,
-            manualApproval: false,
-            originalValue: 'iron',
-          },
-        },
-        {
-          ExpectedDateOfShipment: {
-            apiResponse: true,
-            manualApproval: false,
-            originalValue: '2022-06-30T00:00:00.000Z',
-          },
-        },
-        { remarks: '' },
-      ]
+      // const reviewedProfile = [
+      //   {
+      //     typeOfBusiness: {
+      //       apiResponse: true,
+      //       manualApproval: false,
+      //       originalValue: 'Manufacturer',
+      //     },
+      //   },
+      //   {
+      //     turnOver: {
+      //       apiResponse: true,
+      //       manualApproval: false,
+      //       originalValue: 100,
+      //     },
+      //   },
+      //   {
+      //     transactionType: {
+      //       apiResponse: false,
+      //       manualApproval: false,
+      //       originalValue: 'Domestic',
+      //     },
+      //   },
+      //   {
+      //     portOfDischarge: {
+      //       apiResponse: false,
+      //       manualApproval: false,
+      //       originalValue: 'Mumbai',
+      //     },
+      //   },
+      //   { orderValues: { apiResponse: true, manualApproval: false } },
+      //   {
+      //     countryOfOrigin: {
+      //       apiResponse: false,
+      //       manualApproval: false,
+      //       originalValue: '',
+      //     },
+      //   },
+      //   {
+      //     commodity: {
+      //       apiResponse: false,
+      //       manualApproval: false,
+      //       originalValue: 'iron',
+      //     },
+      //   },
+      //   {
+      //     ExpectedDateOfShipment: {
+      //       apiResponse: true,
+      //       manualApproval: false,
+      //       originalValue: '2022-06-30T00:00:00.000Z',
+      //     },
+      //   },
+      //   { remarks: '' },
+      // ]
     
 
     const {buyerList} = useSelector((state)=> state.buyer)
+    // console.log(buyerList?.companyName, "this is buyer list")
 
     const handleApprove = () => {
         
@@ -95,9 +96,9 @@ const index = () => {
             <div className={styles.wrapper}>
                 <div className={styles.head}>
                     <img className={`${styles.arrow} img-fluid`} src="/static/keyboard_arrow_right-3.svg" alt='arrow'/>
-                  {buyerList && buyerList.map((buyer)=>( <h1 className={styles.heading}>{buyer.companyName}</h1>))}
+                   <h1 className={styles.heading}>{buyerList?.companyName}</h1>
                 </div>
-                <ReviewProfile reviewedProfile={reviewedProfile} handleChange={handleChange} />
+                <ReviewProfile reviewedProfile={buyerList}  handleChange={handleChange} />
                 <CompanyProfile />
                 <OrderProfile />
             </div>

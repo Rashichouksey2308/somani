@@ -48,7 +48,7 @@ function index(props) {
     }))
     console.log(encodedString, "encoded")
     //console.log(loginDetails)
-    window.location.reload();
+    // window.location.reload();
 
   }
 

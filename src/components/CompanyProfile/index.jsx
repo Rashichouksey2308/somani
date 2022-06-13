@@ -13,7 +13,7 @@ function index() {
                 <span class={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-         { buyerList && buyerList.map((buyer)=>(  <Card.Body className={`${styles.body} value_card`}>
+         { buyerList && buyerList.data?.map((buyer)=>(  <Card.Body className={`${styles.body} value_card`}>
                 {fields("Company Name",buyer.companyName)}
                 {fields("Company PAN",buyer.company.companyProfile.companyPan)}
                 {fields("Type Of Business",buyer.company.companyProfile.typeOfBusiness)}

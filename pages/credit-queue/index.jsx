@@ -167,22 +167,22 @@ function index() {
           </thead>
           <tbody>
             {allBuyerList &&
-              allBuyerList.data?.map((buyer) => (
+              allBuyerList.data?.data?.map((buyer) => (
                 <tr>
-                  {buyer.Queue === 'CreditQueue' ? (
+                  {buyer.queue === 'CreditQueue' ? (
                     <>
-                      <td>{buyer.customerId}</td>
+                      <td>{buyer.company.customerId}</td>
                       <td className={styles.buyerName}>
-                        {buyer.companyProfile.companyName}
+                        {buyer.company.companyName}
                       </td>
-                      <td>RM-Sales</td>
-                      <td>Amar Singh</td>
+                      <td>{buyer.createdBy.userRole}</td>
+                      <td>{buyer.createdBy.fName}</td>
                       <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                       <td>
                         <span
                           className={`${styles.status} ${styles.approved}`}
                         ></span>
-                        {buyer.Queue}
+                        {buyer.queue}
                       </td>
                       <td>
                         <img

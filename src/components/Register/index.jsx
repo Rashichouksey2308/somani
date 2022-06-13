@@ -23,7 +23,7 @@ const index = () => {
     companyName: '',
     companyPan: '',
     GST: '',
-    typeOfBussiness: '',
+    typeOfBusiness: '',
     mobile: {
       primary: {
         callingCode: '91',
@@ -71,7 +71,7 @@ const whatsappFunction = (e) => {
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
     commodity: '',
-    Quantity: null,
+    quantity: null,
     unitOfQuantity: 'mt',
     orderValue: null,
     orderCurrency: 'INR',
