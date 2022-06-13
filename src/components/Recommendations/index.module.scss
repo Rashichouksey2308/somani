@@ -34,17 +34,32 @@
         font-weight: bold;
         text-transform: capitalize;
      }
+     .strength {
+        text-decoration: underline;
+        letter-spacing: 0.63px;
+        font-size: 19px;
+        line-height: 17px;
+        font-weight: 500;
+        color: #111111;
+        text-transform: capitalize;
+        padding: 25px 0px 25px 0px;
+     }
       .comment_para{
             border: 1px solid #0000001F;
             border-radius: 4px;
             padding: 25px 30px 25px 30px;
             margin-top: 35px;
-            .comment{
-                
+            .comment{ 
                 letter-spacing: 0.19px;
                 color: #111111;
                 font-size: 20px;
                 line-height: 25px;
+            }
+            .comment_para{ 
+                letter-spacing: 0.19px;
+                color: #111111;
+                font-size: 20px;
+                line-height: 30px;
             }
 
             .edit_image{
@@ -54,18 +69,26 @@
                 padding: 10px 9px 10px 9px;
             }
     }  
+    .paragraph{
+        line-height: 25px;
+        letter-spacing: 0.19px;
+        color: #111111;
+        font-size: 20px;
+    }
 
     .label_heading {
-        top: 27px;
-        left: 30px;
         font-size: 16px;
-        line-height: 0.5;
-        margin-bottom: 0;
+        font-weight: 500;
         letter-spacing: 0.53px;
         position: absolute;
+        background: #FFFFFF;
+        color: #00000080;
         pointer-events: none;
+        line-height: 17px;
         box-sizing: border-box;
-        transform: translateY(-31px);
+        transform: translateY(-10px);
+        margin-left: 20px;
+        //padding-left: 15px;
         transition: 0.3s all ease-in-out;
     }
     .comment_field {
@@ -86,6 +109,14 @@
  .datatable {
     border-radius: 6px;
     margin: 30px;
+    h5{
+        color: #111111;
+        text-transform: capitalize;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 25px;
+        padding-left: 35px;
+    }
     .table {
         th {
             font-size: 15px;
@@ -113,6 +144,25 @@
             &:first-child {
                 padding-left: 35px;
             }
+            input {
+                background: #C3C3C31F;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            
+        }
+        .number {
+            color: #3687E8;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size:20px ;
+            line-height: 25px;
+        }
+        .dropDown{
+            background: transparent;
+            border: none;
+           
         }
         
        
@@ -148,5 +198,6 @@
         border: 1px solid #0000001F;
         border-radius: 4px;
         padding: 10px 9px 10px 9px;
+        
     }
 }
