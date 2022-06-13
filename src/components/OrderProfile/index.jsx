@@ -12,18 +12,18 @@ function index() {
                 <span class={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-          { buyerList && buyerList.data?.map((buyer)=>( <Card.Body className={styles.body}>
-                {fields("Commodity",buyer.company.orderDetails.commodity)}
-                {fields("Quantity (in MT)",buyer.company.orderDetails.Quantity,false)}
-                {fields("Order values (in INR)",buyer.company.orderDetails?.orderValues,false)}
-                {fields("Supplier Name",buyer.company.orderDetails.supplierName,false)}
-                {fields("Country Of Origin",buyer.company.orderDetails.countryOfOrigin,false)}
-                {fields("INCO Terms",buyer.company.orderDetails?.incoTerms,false)}
-                                
-                {fields("Port Of Discharge",buyer.company.orderDetails.portOfDischarge,false)}
-                {fields("Expected Date Of Shipment",buyer.company.orderDetails.ExpectedDateOfShipment,false)}
-                {fields("Document Name",buyer.company.Documents[0].typeOfDocument,true)}
-            </Card.Body>))}
+         <Card.Body className={styles.body}>
+                {fields("Commodity",buyerList.order.commodity)}
+                {fields("Quantity (in MT)",buyerList.order.Quantity,false)}
+                {fields("Order values (in INR)",buyerList.order.orderValue,false)}
+                {fields("Supplier Name",buyerList.order.supplierName,false)}
+                {fields("Country Of Origin",buyerList.order.countryOfOrigin,false)}
+                {fields("INCO Terms",buyerList.order.incoTerm,false)}
+                {fields("Transaction Type",buyerList.order.transactionType)}
+                {fields("Port Of Discharge",buyerList.order.portOfDischarge,false)}
+                {fields("Expected Date Of Shipment",buyerList.order.ExpectedDateOfShipment,false)}
+                {fields("Document Name",buyerList.company.documents.typeOfDocument,true)}
+            </Card.Body>
         </Card>
     )
 }

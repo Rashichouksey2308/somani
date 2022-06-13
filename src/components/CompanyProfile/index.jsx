@@ -13,18 +13,18 @@ function index() {
                 <span class={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-         { buyerList && buyerList.data?.map((buyer)=>(  <Card.Body className={`${styles.body} value_card`}>
-                {fields("Company Name",buyer.companyName)}
-                {fields("Company PAN",buyer.company.companyProfile.companyPan)}
-                {fields("Type Of Business",buyer.company.companyProfile.typeOfBusiness)}
-                {fields("Transaction Type",buyer.company.companyProfile.transactionType)}
-                {fields("Turn-Over (in Cr)",buyer.company.companyProfile.turnOver)}
-                {fields("Email ID",buyer.company.companyProfile.emailId)}
+           <Card.Body className={`${styles.body} value_card`}>
+                {fields("Company Name",buyerList.companyName)}
+                {fields("Company PAN",buyerList.company.companyPan)}
+                {fields("Type Of Business",buyerList.company.typeOfBusiness)}
+                {/* {fields("Transaction Type",buyerList.company.transactionType)} */}
+                {fields("Turn-Over (in Cr)",buyerList.company.turnOver)}
+                {fields("Email ID",buyerList.company.email)}
                                 
-                {fields("Phone Number",buyer.company.companyProfile.phoneNumber)}
-                {fields("Whatsapp Number",buyer.company.companyProfile.whatsappNumber)}
-                {fields("Communication Mode",buyer.company.companyProfile.communicationMode)}
-            </Card.Body>))}
+                {fields("Phone Number",buyerList.company.mobile.primary.number)}
+                {fields("Whatsapp Number",buyerList.company.mobile.whatsapp.number)}
+                {fields("Communication Mode",buyerList.company.communicationMode)}
+            </Card.Body>
         </Card>
     )
 }
