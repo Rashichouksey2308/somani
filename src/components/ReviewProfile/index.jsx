@@ -111,12 +111,12 @@ function index({ handleChange, reviewedProfile }) {
         <tbody>
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Type Of Business</td>
-            <td>{reviewedProfile.typeOfBusiness.originalValue}</td>
+            <td>{reviewedProfile.typeOfBusiness?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    reviewedProfile.typeOfBusiness.apiResponse
+                    reviewedProfile.typeOfBusiness?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -139,7 +139,7 @@ function index({ handleChange, reviewedProfile }) {
                     return <option>{options}</option>
                   })}{' '}
                 </Form.Select>
-              ) : item.typeOfBusiness.originalValue instanceof Date ? (
+              ) : item.typeOfBusiness?.originalValue instanceof Date ? (
                 <input
                   type="date"
                   name="ExpectedDateOfShipment"
@@ -148,15 +148,15 @@ function index({ handleChange, reviewedProfile }) {
               ) : null}
             </td> */}
           </tr>
-          ) : Object.keys(item) == 'turnOver' ? (
+          
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>TurnOver</td>
-            <td>{item.turnOver.originalValue}</td>
+            <td>{reviewedProfile.turnOver?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    item.turnOver.apiResponse
+                    reviewedProfile.turnOver?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -168,7 +168,7 @@ function index({ handleChange, reviewedProfile }) {
             <td>
               <input className={styles.checkBox} type="checkbox" />
             </td>
-            <td>
+            {/* <td>
               {item.turnOver.option ? (
                 <Form.Select
                   size="sm"
@@ -179,24 +179,24 @@ function index({ handleChange, reviewedProfile }) {
                     return <option>{options}</option>
                   })}{' '}
                 </Form.Select>
-              ) : item.turnOver.originalValue instanceof Date ? (
+              ) : item.turnOver?.originalValue instanceof Date ? (
                 <input
                   type="date"
                   name="ExpectedDateOfShipment"
                   id="textDate"
                 />
               ) : null}
-            </td>
+            </td> */}
           </tr>
-          ) : Object.keys(item) == 'transactionType' ? (
+         
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Transaction Type</td>
-            <td>{item.transactionType.originalValue}</td>
+            <td>{reviewedProfile.transactionType?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    item.transactionType.apiResponse
+                    reviewedProfile.transactionType?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -208,7 +208,7 @@ function index({ handleChange, reviewedProfile }) {
             <td>
               <input className={styles.checkBox} type="checkbox" />
             </td>
-            <td>
+            {/* <td>
               {item.transactionType.option ? (
                 <Form.Select
                   size="sm"
@@ -219,24 +219,24 @@ function index({ handleChange, reviewedProfile }) {
                     return <option>{options}</option>
                   })}{' '}
                 </Form.Select>
-              ) : item.transactionType.originalValue instanceof Date ? (
+              ) : item.transactionType?.originalValue instanceof Date ? (
                 <input
                   type="date"
                   name="ExpectedDateOfShipment"
                   id="textDate"
                 />
               ) : null}
-            </td>
+            </td> */}
           </tr>
-          ) : Object.keys(item) == 'portOfDischarge' ? (
+        
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Port Of Discharge</td>
-            <td>{item.portOfDischarge.originalValue}</td>
+            <td>{reviewedProfile.portOfDischarge?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    item.portOfDischarge.apiResponse
+                    reviewedProfile.portOfDischarge?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -248,7 +248,7 @@ function index({ handleChange, reviewedProfile }) {
             <td>
               <input className={styles.checkBox} type="checkbox" />
             </td>
-            <td>
+            {/* <td>
               {item.portOfDischarge.option ? (
                 <Form.Select
                   size="sm"
@@ -259,24 +259,24 @@ function index({ handleChange, reviewedProfile }) {
                     return <option>{options}</option>
                   })}{' '}
                 </Form.Select>
-              ) : item.portOfDischarge.originalValue instanceof Date ? (
+              ) : item.portOfDischarge?.originalValue instanceof Date ? (
                 <input
                   type="date"
                   name="ExpectedDateOfShipment"
                   id="textDate"
                 />
               ) : null}
-            </td>
+            </td> */}
           </tr>
-          ) : Object.keys(item) == 'orderValues' ? (
+         
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Order Values</td>
-            <td>{item.orderValues.originalValue}</td>
+            <td>{reviewedProfile.orderValues?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    item.orderValues.apiResponse
+                    reviewedProfile.orderValues?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -288,7 +288,7 @@ function index({ handleChange, reviewedProfile }) {
             <td>
               <input className={styles.checkBox} type="checkbox" />
             </td>
-            <td>
+            {/* <td>
               {item.orderValues.option ? (
                 <Form.Select
                   size="sm"
@@ -299,24 +299,24 @@ function index({ handleChange, reviewedProfile }) {
                     return <option>{options}</option>
                   })}{' '}
                 </Form.Select>
-              ) : item.orderValues.originalValue instanceof Date ? (
+              ) : item.orderValues?.originalValue instanceof Date ? (
                 <input
                   type="date"
                   name="ExpectedDateOfShipment"
                   id="textDate"
                 />
               ) : null}
-            </td>
+            </td> */}
           </tr>
-          ) : Object.keys(item) == 'countryOfOrigin' ? (
+          
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Country Of Origin</td>
-            <td>{item.countryOfOrigin.originalValue}</td>
+            <td>{reviewedProfile.countryOfOrigin?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    item.countryOfOrigin.apiResponse
+                    reviewedProfile.countryOfOrigin?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -328,7 +328,7 @@ function index({ handleChange, reviewedProfile }) {
             <td>
               <input className={styles.checkBox} type="checkbox" />
             </td>
-            <td>
+            {/* <td>
               {item.countryOfOrigin.option ? (
                 <Form.Select
                   size="sm"
@@ -339,24 +339,24 @@ function index({ handleChange, reviewedProfile }) {
                     return <option>{options}</option>
                   })}{' '}
                 </Form.Select>
-              ) : item.countryOfOrigin.originalValue instanceof Date ? (
+              ) : item.countryOfOrigin?.originalValue instanceof Date ? (
                 <input
                   type="date"
                   name="ExpectedDateOfShipment"
                   id="textDate"
                 />
               ) : null}
-            </td>
+            </td> */}
           </tr>
-          ) : Object.keys(item) == 'commodity' ? (
+         
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Commodity</td>
-            <td>{item.commodity.originalValue}</td>
+            <td>{reviewedProfile.commodity?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    item.commodity.apiResponse
+                    reviewedProfile.commodity?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -368,7 +368,7 @@ function index({ handleChange, reviewedProfile }) {
             <td>
               <input className={styles.checkBox} type="checkbox" />
             </td>
-            <td>
+            {/* <td>
               {item.commodity.option ? (
                 <Form.Select
                   size="sm"
@@ -379,24 +379,24 @@ function index({ handleChange, reviewedProfile }) {
                     return <option>{options}</option>
                   })}{' '}
                 </Form.Select>
-              ) : item.commodity.originalValue instanceof Date ? (
+              ) : item.commodity?.originalValue instanceof Date ? (
                 <input
                   type="date"
                   name="ExpectedDateOfShipment"
                   id="textDate"
                 />
               ) : null}
-            </td>
+            </td> */}
           </tr>
-          ) : Object.keys(item) == 'ExpectedDateOfShipment' ? (
+          
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Expected Date Of Shipment</td>
-            <td>{item.ExpectedDateOfShipment.originalValue}</td>
+            <td>{reviewedProfile.ExpectedDateOfShipment?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    item.ExpectedDateOfShipment.apiResponse
+                    reviewedProfile.ExpectedDateOfShipment?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -413,7 +413,7 @@ function index({ handleChange, reviewedProfile }) {
                 type="checkbox"
               />
             </td>
-            <td>
+            {/* <td>
               {item.ExpectedDateOfShipment.option ? (
                 <Form.Select
                   size="sm"
@@ -424,16 +424,16 @@ function index({ handleChange, reviewedProfile }) {
                     return <option>{options}</option>
                   })}{' '}
                 </Form.Select>
-              ) : item.ExpectedDateOfShipment.originalValue instanceof Date ? (
+              ) : item.ExpectedDateOfShipment?.originalValue instanceof Date ? (
                 <input
                   type="date"
                   name="ExpectedDateOfShipment"
                   id="textDate"
                 />
               ) : null}
-            </td>
+            </td> */}
           </tr>
-          ) : null )
+         
         </tbody>
       </table>
       <div className={styles.remarks}>
