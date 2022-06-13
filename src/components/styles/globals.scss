@@ -397,6 +397,21 @@ body.dark-mode .table_row {
   background: #232936;
   border-color: #434E61 !important;
 }
+body.light-mode .table_credit {
+  background: #ffffff;
+  color: #000000;
+  border-bottom: 1px solid #D2D7E5;
+  box-shadow: 0px 3px 6px #CAD0E2;
+
+
+}
+body.dark-mode .table_credit {
+  color:  #FFFFFF80;
+  background: #171E27;
+  border-bottom: 1px solid #434E61 !important;
+  box-shadow: none;
+}
+
 body.light-mode .table_row17 {
   background: #ffffff;
   color: #000000;
@@ -585,4 +600,14 @@ body.light_mode .head_container {
 
 body.dark_mode .head_container  {
   border-bottom: 3px solid #434E61;
+}
+body.light_mode .address_card{
+  background: #FFFFFF;
+  border: 1px solid #0000001F;
+}
+
+body.dark_mode .address_card{
+  background: #293141;
+  border: 1px solid #434E61;
+
 }

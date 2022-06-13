@@ -6,7 +6,7 @@ import styles from './index.module.scss'
 const index = () => {
   return (
       <>
-                   <div className={`${styles.main}`}>
+         <div className={`${styles.main} card border_color`}>
             <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#productSummary" aria-expanded="true" aria-controls="productSummary">
             <h3 className={`${styles.heading}`}>Product Summary</h3>
             <span>+</span>
@@ -89,7 +89,7 @@ const index = () => {
                 </div>
                    </div>   
 
-                    <div className={`${styles.main}`}>
+                    <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#supplierCred" aria-expanded="true" aria-controls="supplierCred">
                     <h3 className={`${styles.heading}`}>Supplier's Credentials</h3>
                     <span>+</span>
@@ -137,7 +137,7 @@ const index = () => {
                         <Form.Label className={`${styles.label_heading} label_heading`}>Latest Shipment Date<strong className="text-danger">*</strong></Form.Label>
                         </Form.Group>
                         <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                            <Form.Control className={`${styles.input_field} ${styles.percent} input form-control`} required type="text"/>
                             <Form.Label className={`${styles.label_heading} label_heading`}>Commodity to Total Trade % -24M<strong className="text-danger">*</strong></Form.Label>
                         </Form.Group>
                         <div className='col-12'>
@@ -156,7 +156,7 @@ const index = () => {
                     </div>
                     </div>  
               
-                    <div className={`${styles.main}`}>
+                    <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyContact" aria-expanded="true" aria-controls="keyContact" >
                     <h3 className={`${styles.heading}`}>Key Contact Person</h3>
                     <span>+</span>
@@ -183,14 +183,23 @@ const index = () => {
                         </thead>
                         <tbody>
                         
-                        <tr>
-                            <td>Ram Lal</td>
+                        <tr className='table_credit'>
+                            <td><select className={`${styles.dropDown} font-weight-bold heading`}>
+                                <option>Ram Lal</option>
+                                <option>Krishna</option>
+                                </select></td>
                             <td>
-                            Ramakrishna Traders
+                            <select className={`${styles.dropDown} heading`}>
+                                <option>Director</option>
+                                <option>Manager</option>
+                                </select>
                             </td>
-                            <td>Customer</td>
-                            <td>Sameer Soni</td>
-                            <td>Yes</td>
+                            <td><select className={`${styles.dropDown} heading`}>
+                                <option>Production</option>
+                                <option>Organiser</option>
+                                </select></td>
+                            <td><input placeholder='+91 987655432'/></td>
+                            <td><input placeholder='ramlal@gmail.com'/></td>
                             <td>
                             <div>
                                <img src= "/static/save-3.svg" className={`${styles.edit_image} mr-3 img-fluid`} alt="save"/>
@@ -198,8 +207,8 @@ const index = () => {
                            </div>
                            </td>
                         </tr>
-                        <tr>
-                            <td>Keshav Singh</td>
+                        <tr className='table_credit'>
+                            <td className='font-weight-bold'>Keshav Singh</td>
                             <td>
                             Production Manager
                             </td>
@@ -213,8 +222,8 @@ const index = () => {
                            </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Shivani Kapoor</td>
+                        <tr className='table_credit'>
+                            <td className='font-weight-bold'>Shivani Kapoor</td>
                             <td>
                             Lead Manager
                             </td>
@@ -239,7 +248,7 @@ const index = () => {
                     </div>
                     </div>  
                   
-                    <div className={`${styles.main}`}>
+                    <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyAddress" aria-expanded="true" aria-controls="keyAddress">
                     <h3 className={`${styles.heading}`}>Key Addresses</h3>
                     <span>+</span>
@@ -248,14 +257,14 @@ const index = () => {
 
                     <div className={`${styles.dashboard_form}`}> 
                     <div className='row'>
-                        <div className={`${styles.address_card} col-md-6`}>
+                        <div className={`${styles.address_card} address_card col-md-6`}>
                             <div className='d-flex justify-content-between'>
                                 <div>
                                 <input type="checkbox"/>
                                 <label className={styles.label}>Registered Office Address</label>
                                 <div className={styles.address_values}>
                                 <p>N-11, 29 Tilak Marg, New Delhi</p>
-                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p className='pt-3'><span>Email: </span>skapoor@gmail.com</p>
                                 <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
                           
                                 </div>
@@ -267,13 +276,13 @@ const index = () => {
                           
 
                         </div>
-                        <div className={`${styles.address_card} col-md-6`}>
+                        <div className={`${styles.address_card} address_card col-md-6`}>
                             <div className='d-flex justify-content-between'>
                                 <div>
                                 <div className={styles.address_values}>
                                 <h5>Corporate Office Address</h5>
                                 <p>N-11, 29 Tilak Marg, New Delhi</p>
-                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p className='pt-3'><span>Email: </span>skapoor@gmail.com</p>
                                 <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
                                
                                 </div>
@@ -285,13 +294,13 @@ const index = () => {
                           
 
                         </div>
-                        <div className={`${styles.address_card} col-md-6`}>
+                        <div className={`${styles.address_card} address_card col-md-6`}>
                             <div className='d-flex justify-content-between'>
                                 <div>
                                 <div className={styles.address_values}>
                                 <h5>Factory Address</h5>
-                                <p>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
-                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p className='pt-3'>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
+                                <p className='pt-3'><span>Email: </span>skapoor@gmail.com</p>
                                 <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
                                 <p><span>Branch: </span>Delhi</p>
                                 <div className='d-flex'>
@@ -305,14 +314,14 @@ const index = () => {
                                </div>
                             </div>
                         </div>
-                        <div className={`${styles.address_card} col-md-6`}>
+                        <div className={`${styles.address_card} address_card col-md-6`}>
                             <div className='d-flex justify-content-between'>
                             <div>
-                                <div className={styles.address_values}>
+                                <div className={`${styles.address_values}`}>
                                 <h5>Warehouse Address</h5>
                                 
-                                <p>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
-                                <p><span>Email: </span>skapoor@gmail.com</p>
+                                <p className='pt-3'>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
+                                <p className='pt-3'><span>Email: </span>skapoor@gmail.com</p>
                                 <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
                                 <p><span>Branch: </span>Delhi</p>
                                 <div className='d-flex'>
@@ -333,7 +342,7 @@ const index = () => {
                     </div>
                     </div> 
 
-                    <div className={`${styles.main}`}>
+                    <div className={`${styles.main} card border_color`}>
                      <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#addAddress" aria-expanded="true" aria-controls="addAddress">
                             <h3 className={`${styles.heading}`}>Add a new address</h3>
                             <img src="/static/accordion_close_black.svg"  className='img-fluid' alt="Close" />
@@ -390,7 +399,7 @@ const index = () => {
                     </div>
                     </div> 
 
-                    <div className={`${styles.main}`}>
+                    <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#debtProfile" aria-expanded="true" aria-controls="debtProfile" >
                     <h3 className={`${styles.heading}`}>Debt Profile</h3>
                     <span>+</span>
@@ -434,13 +443,23 @@ const index = () => {
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>Jammu & Kashmir Bank</td>
+                            <td><select className={`${styles.dropDown} font-weight-bold heading`}>
+                                <option>Jammu & Kashmir Bank</option>
+                                <option>SBI</option>
+                                </select></td>
                             <td>
-                            Cash Credit
+                            <select className={`${styles.dropDown} heading`}>
+                                <option>Cash Credit</option>
+                                <option>Cash Deposit</option>
+                                </select>
                             </td>
-                            <td>100,000.00</td>
+                            <td>
+                                <input placeholder='100,000.00'/></td>
                             
-                            <td>Satisfactory</td>
+                            <td><select className={`${styles.dropDown} heading`}>
+                                <option>Satisfactory</option>
+                                <option>Not Satisfied</option>
+                                </select></td>
                             <td>
                            <div>
                                <img src= "/static/save-3.svg" className={`${styles.edit_image}  mr-3 img-fluid`} alt="edit"/>
