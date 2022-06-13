@@ -6,9 +6,7 @@ const defaultObj = {
     email: '',
   },
   token: null,
-  isuserLoggedin : false,
   loggingInUser: false,
-  loggingUserOut: false,
   loggingUserMessage: null,
   fetchingUserPermissions: false,
   fetchingUserPermissionsStatus: null,
@@ -17,6 +15,7 @@ const defaultObj = {
 
 const initialState = {
   userData: { ...defaultObj.user },
+  user: {},
   token: null,
   isuserLoggedin : false,
   loggingInUser: false,
@@ -56,6 +55,7 @@ function AuthReducer(state = initialState, action) {
     case types.LOGIN_USER_FAILED: {
       return {
         ...state,
+        user: action.payload,
         token: null,
         loggingInUser: false,
         loggingUserMessage: action.payload.message,

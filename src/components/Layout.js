@@ -15,11 +15,15 @@ function Layout({ children }) {
   const [isLogin, setIsLogin] = useState(false)
 
   const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)
+
+  const isuserlogged =  Cookies.get('refreshToken')
+  // console.log(isuserLoggedin,isuserlogged, "layout.js")
   
   useEffect(() => {
-  const isuserloggedin =  Cookies.get('refreshToken')
-    setIsLogin(isuserloggedin)
-  }, [isuserLoggedin]);
+    setIsLogin(isuserLoggedin)
+    //console.log(isuserLoggedin,"layout")
+ 
+  }, [isuserLoggedin,isuserlogged]);
  
   // function login() {
   //   localStorage.setItem('login', true)

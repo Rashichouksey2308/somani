@@ -108,8 +108,7 @@ function index() {
             <a className="dropdown-item" href="#">
               Age : 21 Years
             </a>
-            <a className="dropdown-item" onClick={()=>{dispatch(logoutUser())
-                            window.location.reload();}}>
+            <a className="dropdown-item" onClick={()=>{dispatch(logoutUser())}}>
               Logout
             </a>
           </div>
