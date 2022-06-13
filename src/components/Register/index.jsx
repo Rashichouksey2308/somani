@@ -22,16 +22,41 @@ const index = () => {
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
     companyPan: '',
-    transactionType: '',
     GST: '',
     typeOfBussiness: '',
-    phoneNumber: null,
-    emailId: '',
+    mobile: {
+      primary: {
+        callingCode: '91',
+        number: ''
+      },
+      whatsapp: {
+        callingCode: '91',
+        number: ''
+      }
+    },
+    email: '',
     turnOver: '',
-    communicationMode: '',
-    whatsappNumber: null,
+    communicationMode: [null],
+    
+    turnOverUnit: 'Cr'
   })
 
+  // setCompanyDetails(prevDetails=>({...prevDetails, mobile.primary:{...prevDetails.mobile.primary, number: e.target.value}}))
+
+const mobileFunction = (e) => {
+  const newObj = {...companyDetails}
+   newObj.mobile.primary.number = e.target.value
+   setCompanyDetails(newObj)
+  // console.log(companyDetails, "new company details")
+}
+
+const whatsappFunction = (e) => {
+  const newObj = {...companyDetails}
+   newObj.mobile.whatsapp.number = e.target.value
+   setCompanyDetails(newObj)
+  // console.log(companyDetails, "new company details")
+}
+ 
   useEffect(async () => {
     // const pan = companyDetails.companyPan
     // console.log(pan)
@@ -44,9 +69,13 @@ const index = () => {
   }, [companyDetails.companyPan])
  
   const [orderDetails, setOrderDetails] = useState({
+    transactionType: '',
     commodity: '',
     Quantity: null,
+    unitOfQuantity: 'mt',
     orderValue: null,
+    orderCurrency: 'INR',
+    unitOfValue: 'Cr',
     supplierName: '',
     countryOfOrigin: '',
     portOfDischarge: '',
@@ -155,7 +184,7 @@ const index = () => {
       </Card.Header>
 
       <Card.Body className={styles.body}>
-        <CompanyDetails darkMode={darkMode} saveCompanyData={saveCompanyData} />
+        <CompanyDetails darkMode={darkMode} whatsappFunction={whatsappFunction} mobileFunction={mobileFunction} saveOrderData={saveOrderData} saveCompanyData={saveCompanyData} />
         <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData}/>
         <Documents darkMode={darkMode} saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
         <Terms darkMode={darkMode} submitData={submitData} />

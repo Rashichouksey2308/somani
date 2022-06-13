@@ -16,7 +16,7 @@ function index() {
   }, [])
 
   const {allBuyerList} = useSelector((state)=>state.buyer)
-  // console.log(allBuyerList, "this is all buyer")
+  console.log(allBuyerList, "this is all buyer")
 
   return (
     <>
@@ -187,7 +187,7 @@ function index() {
               </tr>
             </thead>
             <tbody>
-             {allBuyerList && allBuyerList.data?.map((buyer) => (<tr>
+             {allBuyerList.data?.data > 0 && allBuyerList.data.data?.map((buyer) => (<tr>
                 <td>{buyer.customerId}</td>
                 <td
                   className={`${styles.buyerName}`}
