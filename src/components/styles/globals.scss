@@ -561,11 +561,43 @@ body.light-mode .image_arrow {
 body.light-mode .accordion_DropDown {
   color: #3687e8;
 background: #F3F4F7;
-
-
 }
 
 body.dark-mode .accordion_DropDown {
+background: #1D2530;
+}
+body.dark-mode .card_sub_header{
+  background-color: #232936 !important;
+  border-color: #434E61 !important;
+}
+
+body.light-mode .card_sub_header {
+  border-color: #D9DDE8 !important;
+  background: #fafafb !important;
+}
+body.dark-mode .gst_profile_alerts {
+  background: #293141 !important;
+  border-color: #434E61 !important;
+}
+
+body.light-mode .gst_profile_alerts {
+  border-color: #D9DDE8 !important;
+  background: #fafafb !important;
+}
+body.dark-mode .Compliance {
+color: #000000 !important;
+}
+
+body.light-mode .Compliance {
+color: #000000 !important;
+}
+
+body.dark-mode .Ligitations {
+  color: #000000 !important;
+}
+
+body.light-mode .Ligitations {
+  color: #FFFFFF !important;
   color: #3687e8;
   background: #1D2530;
 
