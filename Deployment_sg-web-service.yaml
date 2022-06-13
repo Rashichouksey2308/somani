@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sg-node-web-service-dev
+spec:
+  selector:
+    app: sg-node-web-service-dev
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      #System Port
+      port: 3001
+      #Container Port
+      targetPort: 3001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sg-node-web-service-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sg-node-web-service-dev
+  template:
+    metadata:
+      labels:
+        app: sg-node-web-service-dev
+    spec:
+      containers:
+        - name: sg-node-web-service-dev
+          image: cxccontainerregistry.azurecr.io/somani-dev-web:v0.1-dev
+          ports:
+            - containerPort: 3001
+      imagePullSecrets:
+        - name: container-registry-key
