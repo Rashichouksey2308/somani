@@ -5,6 +5,7 @@ import API from '../../utils/endpoints'
 import * as types from './actionType'
 // import { toast } from 'react-toastify'
 // import history from '../../history'
+import Cookies from 'js-cookie'
 
 const errorMessage = {
   status: 400,
@@ -212,8 +213,11 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
     Axios.post(`${API.authbaseUrl}${API.login}`, payload).then((response) => {
       if (response.status === 200) {
         dispatch(loggingUserSuccess(response.data))
+        console.log(response,"responce")
         // localStorage.setItem(response.data.token)
         // Router.push("/")
+        Cookies.set('refreshtoken', response.data.data.refreshToken)
+        Cookies.set('jwtAccessToken', response.data.data.jwtAccessToken)
       } else {
         dispatch(loggingUserFailed(response.data))
         // Cookies.remove('token')
@@ -261,7 +265,8 @@ export const fetchCurrentUserProfile =
   }
 
 export const logoutUser = () => async (dispatch, getState, api) => {
-  await Cookies.remove('token')
+  await Cookies.remove('refreshtoken')
+  await Cookies.remove('jwtAccessToken')
   dispatch(loggingoutUser())
 }
 

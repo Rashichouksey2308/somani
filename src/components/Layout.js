@@ -7,22 +7,30 @@ import styles from './index.module.scss'
 import TermSheetPreview from '../components/TermSheetPreview'
 import Login from '../components/Login'
 import {useSelector} from 'react-redux'
+import Cookies from 'js-cookie'
 
 
 
 function Layout({ children }) {
   const [isLogin, setIsLogin] = useState(false)
+
+  const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)
+  
+  useEffect(() => {
+  const isuserloggedin =  Cookies.get('refreshToken')
+    setIsLogin(isuserloggedin)
+  }, [isuserLoggedin]);
  
-  function login() {
-    localStorage.setItem('login', true)
-    setIsLogin(true)
-  }
+  // function login() {
+  //   localStorage.setItem('login', true)
+  //   setIsLogin(true)
+  // }
 
   //const sidebar = useSelector((state) => state.sidebar);
   //console.log(sidebar)
 
   useEffect(async() => {
-    const loginStatus = await localStorage.getItem('login')
+    const loginStatus = await Cookies.get('jwtAccessToken')
     console.log(loginStatus, "login status")
     setIsLogin(loginStatus)
   }, [])
@@ -48,7 +56,7 @@ function Layout({ children }) {
           </div>
         </div>
       ) : (
-        <Login login={login}/>
+        <Login />
       )}
     </>
 
