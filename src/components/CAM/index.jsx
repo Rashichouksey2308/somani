@@ -296,7 +296,7 @@ const groupExposure =()=>{
                                                                    <span className={`d-flex justify-content-center align-content-center`}>ET</span>
                                                                </div>
                                                               
-                                                               <span className={` ${styles.name} ml-3 `}>Emerging Traders</span>
+                                                               <span className={` ${styles.name} ml-3  `}>Emerging Traders</span>
                                                            </Col>
                                                            <Col sm={12} className={`${styles.limit}   mb-5`}>
                                                                <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
@@ -437,7 +437,7 @@ const orderSummary =()=>{
                                                                    <span className={`d-flex justify-content-center align-content-center`}>ET</span>
                                                                </div>
                                                               
-                                                               <span className={` ${styles.name} ml-3 `}>Emerging Traders</span>
+                                                               <span className={` ${styles.name} ml-3  `}>Emerging Traders</span>
                                                    </td>
                                                     <td>2765470865</td>
                                                      <td>1,900.00</td>
@@ -812,7 +812,7 @@ const debtProfile =(data,options,tempArr)=>{
                                                                 <span>1,900.00</span>
                                                                </div>
                                                                <div className={`${styles.bar} ${styles.small_bar}`}>
-                                                                <span style ={{color:"#EA3F3F"}}>Cash Credit</span>
+                                                                <span style ={{color:"#EA3F3F"}}>dis</span>
                                                                <div style ={{backgroundColor:"#EA3F3F"}} className={`${styles.fill}`}>
                                                                 
                                                                    
@@ -1053,11 +1053,11 @@ const financeDetails =(data,options,tempArr)=>{
                                             <span>+</span>
                                         </div>
                                         <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
-                                           <div className={`${styles.order_wrapper} card-body`}>
+                                           <div className={`${styles.order_wrapper2} card-body`}>
                                             <Row>
                                                 <Col className={`${styles.leftCol} p-0 border_color`} md={5}>
 
-                                              <table className ={`${styles.table} table  border_color `}cellpadding="0" cellspacing="0" >
+                                              <table className ={`${styles.table} table  border_color `} cellpadding="0" cellspacing="0" >
                                                <tr>
                                                    <th>Liabilities</th>
                                                    <th>MAR-20</th>
@@ -1178,7 +1178,7 @@ const financeDetails =(data,options,tempArr)=>{
                                                      
                                                 </Col>
                                                 <Col md={7} className={`pl-0`}>
-                                                 <table className ={`${styles.table} table  border_color `}cellpadding="0" cellspacing="0" >
+                                                 <table className ={`${styles.table} table  border_color  `} cellpadding="0" cellspacing="0" >
                                                <tr>
                                                    <th>Ratios</th>
                                                    <th>MAR-20</th>
@@ -1583,7 +1583,7 @@ const trends =(dataline,lineOption)=>{
  <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
                                             <h2 className="mb-0">Trends</h2>
                                           <span className=" d-flex align-items-center justify-content-between">
-                                            <span className={` d-flex align-items-center justify-content-between`}><span className={`${styles.light} accordion_Text`}>Display By:
+                                            <span className={` d-flex align-items-center justify-content-between`}><span className={`${styles.light} ${styles.unit_label} accordion_Text`}>Display By:
                                             </span>
                                             <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
                                           
@@ -1645,7 +1645,7 @@ const skewness =(data,options,tempArr)=>{
  <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
                                             <h2 className="mb-0">Skewness</h2>
                                           <span className=" d-flex align-items-center justify-content-between">
-                                            <span className={` d-flex align-items-center justify-content-between`}><span className={`${styles.light} accordion_Text`}>Display By:
+                                            <span className={` d-flex align-items-center justify-content-between`}><span className={`${styles.light}  ${styles.unit_label} accordion_Text`}>Display By:
                                             </span>
                                             <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
                                           
