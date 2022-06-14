@@ -23,15 +23,20 @@
     .line{
         border: 2px solid #CAD6E6;
     }
+
+   
    .dashboard_form { 
      padding: 10px 10px 0px 20px;
      margin: 15px;
+    
+     
      .sub_heading {
         margin-top: 20px;
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
         text-transform: capitalize;
+
      }
      .strength {
         text-decoration: underline;
@@ -99,8 +104,49 @@
         box-sizing: border-box;
         
     }
+   
+    
  }
+ .sanction_terms{
+    background: #FAFAFB;
+    padding: 20px 0 20px 35px;
+    .sanction_heading {
+        font-size: 20px;
+        line-height: 25px;
+        font-weight: bold;
+        text-transform: capitalize;
+    }
 
+    .limit_container{
+
+        .limit {
+            text-align: right;
+            color: #2837566A;
+            text-transform: capitalize;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 23px;
+            padding-right: 40px;
+
+            span {
+                text-align: center;
+                color: #111111;
+                font-size: 19px;
+                line-height: 24px;
+                font-weight: 500;
+            }
+        }
+    }
+
+}
+.label_sanction{
+    letter-spacing: 0.53px;
+    color: #00000080;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 17px;
+    }
+ 
  .datatable {
     border-radius: 6px;
     margin: 30px;

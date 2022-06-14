@@ -221,6 +221,75 @@ const index = () => {
                     
                             </div>
 
+                            
+                            <div className={`${styles.sanction_terms} d-flex justify-content-between align-items-center`}>
+                            <div className={`${styles.sanction_heading} value`}>Sanction Terms</div>
+                            <div className={`${styles.limit_container} d-flex justify-content-center`}>
+                                <div className={styles.limit}>Total Limit: <span>1,900.00</span></div>
+                                <div className={styles.limit}>Utilised Limit: <span>1,900.00</span></div>
+                                <div className={styles.limit}>Available Limit: <span>1,900.00</span></div>
+
+                            </div>
+                            </div>
+                            <div className='d-flex justify-content-start align-items-center pt-5 pl-5'>
+                                <div className='mr-5'>
+                                    <div className={`${styles.label_sanction}`}>Limit Value</div>
+                                    <div>100 CR</div>
+                                </div>
+                                <div className='mr-5'>
+                                    <div className={`${styles.label_sanction}`}>Order Value</div>
+                                    <div>100 Lakhs</div>
+                                </div>
+                                
+                                <div className={`${styles.form_group}`} >
+                                <label className={`${styles.label_sanction}`}>Recommended Order Value</label>
+                                    <input className={`${styles.input_field} input form-control`} type="text"/> 
+                              
+                                </div>
+                            </div>
+
+                            <div className={`${styles.dashboard_form}`}> 
+                            <div className='d-flex mt-5 pb-4'>
+                                <input
+                                    as="textarea"
+                                    rows={3}
+                                    placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
+                                    className={`${styles.comment_field} form-control`}
+                                    />
+                                 <label className={`${styles.label_heading} label_heading`}>Sanction Condition</label>
+
+                                <img className='img-fluid ml-4' src="/static/add-btn.svg" alt="add button"/>
+
+
+                            </div>
+                            <div className={`${styles.strength} value`}>Weakness</div>
+                            <div className='d-flex justify-content-between'>
+                            <p className={`${styles.paragraph} value`}> 
+                            Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the final product. Lorem ipsum is a name for a common type of placeholder text.
+                            </p> 
+                               <div className='mt-3'>
+                               <img src= "/static/delete 2.svg" className='img-fluid mr-4' alt="delete"/>
+                               <img src= "/static/mode_edit.svg" className={`${styles.edit_image} img-fluid`} alt="edit"/>
+                            </div> 
+                              
+                             </div>
+                             <hr></hr>
+
+                             <div className='d-flex justify-content-between'>
+                            <p className={`${styles.paragraph} value pt-3`}> 
+                            Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the final product. Lorem ipsum is a name for a common type of placeholder text.
+                            </p> 
+                               <div className='mt-3'>
+                               <img src= "/static/delete 2.svg" className='img-fluid mr-4' alt="delete"/>
+                               <img src= "/static/mode_edit.svg" className={`${styles.edit_image} img-fluid`} alt="edit"/>
+                            </div> 
+                              
+                             </div>
+
+                            
+                    
+                            </div>
+
                         </div>
                         </div> 
                          
