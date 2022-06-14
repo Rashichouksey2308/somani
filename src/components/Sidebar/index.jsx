@@ -19,7 +19,7 @@ function index() {
                {name: "Review Queue",image:"/static/Review Queue.svg",route:""},
                {name: "Credit Queue",image:"/static/Credit Queue.svg"},
                {name: "Termsheets",image:"/static/Termsheets.svg",route:"/termsheet"},
-               {name: "Money Margin",image:"/static/Termsheets.svg",route:"/money-margin"},
+               {name: "Money Margin",image:"/static/Termsheets.svg",route:"/margin-money"},
                   
             ],
               image:"/static/Leads.svg",
@@ -79,7 +79,7 @@ function index() {
     setIndex(index)
    return index
   }
-console.log(category)
+console.log(tempArr,"yem")
   return (
     <div className={`${styles.main_container} sidebar-bg`} >
       {tempArr.map((val,index)=>{

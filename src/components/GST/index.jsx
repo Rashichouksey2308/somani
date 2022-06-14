@@ -335,7 +335,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
              </Col>
               <Col md={6} className={styles.col2}>
               <div className={styles.chart_container}>
-              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}>
+              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}>
               <span>Revenue Summary</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
@@ -346,7 +346,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
              </Col>
               <Col md={6} className={styles.col}>
               <div className={styles.chart_container}>
-              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}>
+              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}>
               <span>Revenue Summary</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
@@ -357,7 +357,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
              </Col>
               <Col md={6} className={styles.col2}>
               <div className={styles.chart_container}>
-              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}>
+              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}>
               <span>Revenue Summary</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
@@ -545,7 +545,7 @@ const gstCustomerDetail = () => {
   return(
     <>
       <div  className={`${styles.wrapper} card  `}>
-              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
+              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#gstCustomerDetail" aria-expanded="true" aria-controls="gstCustomerDetail">
             <h2 className="mb-0">Customer Details</h2>
             <span className=" d-flex align-items-center justify-content-between">
                <span className={` d-flex align-items-center justify-content-between`}><span className={`${styles.light}`}>Unit :
@@ -560,7 +560,7 @@ const gstCustomerDetail = () => {
               +
             </span>
         </div>
-        <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
+        <div id="gstCustomerDetail" className="collapse" aria-labelledby="gstCustomerDetail" data-parent="#profileAccordion">
          <div className={`${styles.CustomercardBody} card-body border_color`}>
          <div className={`${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header card_sub_header  d-flex align-items-center justify-content-between`}>
@@ -850,7 +850,7 @@ const gstSupplierDetail = () => {
   return(
    <>
       <div className={`${styles.wrapper} card`}>
-              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
+              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#gstSupplierDetail" aria-expanded="true" aria-controls="gstSupplierDetail">
             <h2 className="mb-0">Suppliers Details</h2>
             <span className=" d-flex align-items-center justify-content-between">
                <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :
@@ -865,7 +865,7 @@ const gstSupplierDetail = () => {
               +
             </span>
         </div>
-        <div id="customer"  className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
+        <div id="gstSupplierDetail"  className="collapse" aria-labelledby="gstSupplierDetail" data-parent="#profileAccordion">
          <div className={` ${styles.CustomercardBody} card-body border_color`}>
          <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
@@ -1155,7 +1155,7 @@ const gstSalesAndPurchase = (head) => {
   return(
     <>
         <div className={`${styles.wrapper} card`}>
-              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#customer" aria-expanded="true" aria-controls="customer">
+              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#gstSalesAndPurchase" aria-expanded="true" aria-controls="gstSalesAndPurchase">
             <h2 className="mb-0">{head}</h2>
               <span className=" d-flex align-items-center justify-content-between">
                <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>Unit :
@@ -1170,8 +1170,8 @@ const gstSalesAndPurchase = (head) => {
               +
               </span>
         </div>
-        <div id="customer" className="collapse" aria-labelledby="customer" data-parent="#profileAccordion">
-         <div className={` ${styles.CustomercardBody} card-body`}>
+        <div id="gstSalesAndPurchase" className="collapse" aria-labelledby="gstSalesAndPurchase" data-parent="#profileAccordion">
+         <div className={` ${styles.CustomercardBody} card-body border_color`}>
          <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
               <span>Financial Period 2020- 2021</span>  
