@@ -1,6 +1,5 @@
 import styles from './index.module.scss'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import UploadOther from '../../src/components/UploadOther'
+import UploadOther from '../../src/components/UploadOther';
 
 
 export default function Home() {
@@ -21,8 +20,17 @@ export default function Home() {
         <div className={`${styles.card} background1 w-100`}>
         <div className={`${styles.vessel_card} vessel_card`}>
         <div className={`${styles.main} card border-color`}>
-        <div className={`${styles.head_container} card-header head_container d-flex justify-content-between bg-transparent`} >
+        <div className={`${styles.head_container} card-header head_container justify-content-between d-flex bg-transparent`} >
         <h3 className={`${styles.heading}`}>Basic Details</h3>
+        <div className='p-4'>
+        <label className={`${styles.dropDown_label} text`}>Part Shipment Allowed</label>
+        <select className={`${styles.dropDown} input`}>
+            <option>Yes</option>
+            <option>No</option>
+        
+        </select>   
+        <button className={styles.add_btn}>Add</button>
+        </div>
        
                 </div>  
                 <div className={`${styles.dashboard_form}`}>
@@ -35,18 +43,25 @@ export default function Home() {
                 </div>
                 <div className={`${styles.form_group} col-md-3 col-sm-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
-                     <label className={`${styles.label_heading} label_heading`}>Iron<strong className="text-danger">*</strong></label>                   
+                     <label className={`${styles.label_heading} label_heading`}>Commodity<strong className="text-danger">*</strong></label>                   
                 </div>
                 <div className={`${styles.form_group} col-md-3 col-sm-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
                      <label className={`${styles.label_heading} label_heading`}>Quantity<strong className="text-danger">*</strong></label>                   
                 </div>
-                <div className={`${styles.form_group} col-md-3 col-sm-6`}>
-                    <select  className={`${styles.input_field} input form-control`}>
-                    <option value="volvo">Select Country</option>
-                    <option value="audi">India</option>
-                    </select>          
-                    <label className={`${styles.label_heading} label_heading`}>Order Value<strong className="text-danger">*</strong></label>  
+                <div className={`${styles.form_group} d-flex col-md-3 col-sm-6`}>
+                <select className={`${styles.input_field}} pl-3 input w-50 border-right-0`}>
+                <option>USD</option>
+                <option>INR</option>
+              </select>
+              <input
+                type="number"
+                className={`${styles.input_field} border-left-0 input form-control`}
+                
+              />
+              <label className={`${styles.label_heading} label_heading`} id="textInput">
+                Order values<strong className='text-danger'>*</strong>
+              </label>
                 </div>
             </div>
           
@@ -135,7 +150,7 @@ export default function Home() {
                     <tbody>
                    
                     <tr className='table_row'>
-                        <td className={styles.doc_name}>Nomination Document</td>
+                        <td className={styles.doc_name}>Nomination Document<strong className="text-danger">*</strong></td>
                         <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td> <input className={styles.input_field} type="text" placeholder='Nomination_Document.pdf'/>

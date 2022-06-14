@@ -348,7 +348,7 @@ const index = () => {
                             </div> 
                             <div id="addAddress" className="collapse" aria-labelledby="addAddress" data-parent="#profileAccordion">       
                             <div className={`${styles.dashboard_form}`}> 
-                            <Form>
+                           
                             <div className='row'>
                             <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                                     <select className={`${styles.input_field} input form-control`}>
@@ -393,7 +393,7 @@ const index = () => {
                             <label className={`${styles.label_heading} label_heading`}>GSTIN<strong className="text-danger">*</strong></label>
                         </div>
                         </div>
-                        </Form> 
+                     
                     </div>
                     </div>
                     </div> 

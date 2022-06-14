@@ -30,7 +30,7 @@ const index = () => {
                         </Form.Group>
                         <Form.Group className={styles.form_group}>
                             <Form.Label className={`${styles.label} label_heading`}>Please Specify Document Name</Form.Label>
-                            <Form.Control className={`${styles.value} input form-control`} type="text" placeholder="Insurance Quotation" />
+                            <Form.Control className={`${styles.value} input form-control`} type="text" />
                         </Form.Group>
                         <div className={styles.uploadBtnWrapper}>
                             <input type="file" name="myfile" />

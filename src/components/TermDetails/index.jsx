@@ -170,7 +170,7 @@ const index = () => {
             </Form>                
         </div>
         <div className={styles.dashboard_form}>
-            <h3 className={styles.sub_heading}>Commercials</h3>
+            <h3 className={styles.sub_heading}>Commercial Terms</h3>
             <Form>
                 <div className='row'>               
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
