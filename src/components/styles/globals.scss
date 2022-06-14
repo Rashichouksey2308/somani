@@ -660,13 +660,14 @@ body.dark_mode .head_container  {
   border-bottom: 3px solid #434E61;
 }
 
-body.light_mode .address_card{
-  background: #FFFFFF;
-  border: 1px solid #0000001F;
-}
+body .danger {
+     color: #EA3F3F !important;
+   }
 
-body.dark_mode .address_card{
-  background: #293141;
-  border: 1px solid #434E61;
+body   .good {
+     color: #43C34D !important;
+   }
 
-}
+body .satisfactory {
+     color: #FF9D00
+   }

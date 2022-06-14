@@ -1592,10 +1592,10 @@ export default index
 const ligitations=()=>{
   return(
     <>
-     <LigitationsTable/>
-     <LigitationsTable/>
-     <LigitationsTable/>
-     <LigitationsTable/>
+     <LigitationsTable val={"LigitationsTable1"}/>
+     <LigitationsTable val={"LigitationsTable2"}/>
+     <LigitationsTable val={"LigitationsTable3"}/>
+     <LigitationsTable val={"LigitationsTable3"}/>
   
      
 

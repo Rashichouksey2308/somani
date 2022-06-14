@@ -434,7 +434,7 @@
             overflow-y: auto;
             height: 300px;
             padding-left: 42px !important;
-            border-top: 2px solid red !important;
+            border-top: 2px solid red ;
             .row {
                 min-height: 60px;
                 border-bottom: 2px solid rgba(217, 217, 217, 0.316);
@@ -457,6 +457,7 @@
             // }
         }
         .cardBody_litigations {
+            border-top:2px solid red;
             padding-left: 35px;
             // .checkbox_Container {
             // }
@@ -493,6 +494,7 @@
         .cardBody_details {
             padding-left: 0px;
             padding-right: 0px;
+            padding-top:0px
         }
     }
 }
