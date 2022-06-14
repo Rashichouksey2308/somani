@@ -18,7 +18,7 @@ export default function Home() {
             </div>
            
         </div>
-        <div className={styles.vessel_card}>
+        <div className={`${styles.vessel_card} container-fluid`}>
         <div className={`${styles.main} card border-color`}>
         <div className={`${styles.head_container} card-header head_container d-flex justify-content-between bg-transparent`} >
         <h3 className={`${styles.heading}`}>Basic Details</h3>
@@ -85,10 +85,12 @@ export default function Home() {
         </div>
 
             </div>
-            </div>
+            
            
            <UploadOther/>
-        </>
+        
+           </div>
+           </>
 
   )
 }
