@@ -47,6 +47,14 @@ export default function Home() {
                     </select>          
                     <label className={`${styles.label_heading} label_heading`}>Order Value<strong className="text-danger">*</strong></label>  
                 </div>
+                <div className={`${styles.form_group} col-md-3 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} required type="date"/> 
+                     <label className={`${styles.label_heading} label_heading`}>ETD at Load Port<strong className="text-danger">*</strong></label>                   
+                </div>
+                <div className={`${styles.form_group} col-md-3 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} required type="date"/> 
+                     <label className={`${styles.label_heading} label_heading`}>ETA at Discharge Port<strong className="text-danger">*</strong></label>                   
+                </div>
                
             </div>
           
@@ -85,6 +93,30 @@ export default function Home() {
         </div>
 
             </div>
+            <div className={styles.main}>
+        <div className={`${styles.head_container} d-flex justify-content-between`}>
+            <h3 className={styles.heading}>Upload Other Documents</h3>
+            <span>+</span>
+        </div>
+        <div className={styles.table_container}>
+            <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>DOCUMENT NAME</th>
+                        <th>FORMAT</th>
+                        <th>DOCUMENT DATE</th>
+                        <th>ACTION</th>
+                    </tr>
+                    </thead>                        
+                    <tbody>
+                   
+                    <tr>
+                        <td className={styles.doc_name}>Nomination Document</td>
+                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
+                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
+                    </tr>
             
            
            <UploadOther/>
