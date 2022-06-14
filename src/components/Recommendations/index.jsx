@@ -91,7 +91,7 @@ const index = () => {
                         </thead>
                         <tbody>
                         
-                        <tr>
+                        <tr className='table_row'>
                             <td className={styles.number}>1</td>
                             <td className='font-weight-bold'>
                             Simport Pvt. Ltd.
@@ -106,7 +106,7 @@ const index = () => {
                            </div>
                            </td>
                         </tr>
-                        <tr>
+                        <tr className='table_row'>
                             <td className={styles.number}>2</td>
                             <td><select className={`${styles.dropDown} font-weight-bold heading`}>
                                 <option>Simport Pvt. Ltd.</option>
@@ -141,45 +141,45 @@ const index = () => {
                         <hr className={styles.line}></hr>
 
                          <div className={`${styles.dashboard_form}`}> 
-                            <div className={styles.sub_heading}>Strengths</div>
+                            <div className={`${styles.sub_heading} value`}>Strengths</div>
                             <div className='d-flex mt-5 pb-4'>
                                 <input
                                     as="textarea"
                                     rows={3}
                                     placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
-                                    className={`${styles.comment_field} form-control`}
+                                    className={`${styles.comment_field} input form-control`}
                                     />
-                                 <label className={`${styles.label_heading}`}>Comments</label>
+                                 <label className={`${styles.label_heading} label_heading`}>Comments</label>
 
                                 <img className='img-fluid ml-4' src="/static/add-btn.svg" alt="add button"/>
 
 
                             </div>
-                            <div className={styles.strength}>Strengths</div>
+                            <div className={`${styles.strength} value`}>Strengths</div>
                             <div className='d-flex justify-content-between'>
-                            <p className={`${styles.paragraph}`}> 
+                            <p className={`${styles.paragraph} value`}> 
                             Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the final product. Lorem ipsum is a name for a common type of placeholder text.
                             </p> 
-                               <div className=' d-flex'>
-                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                               <div className='mt-3'>
+                               <img src= "/static/delete 2.svg" className='img-fluid mr-4' alt="delete"/>
                                <img src= "/static/mode_edit.svg" className={`${styles.edit_image} img-fluid`} alt="edit"/>
                             </div> 
                               
                              </div>
                              <hr></hr>
                              <div className='d-flex justify-content-between'>
-                            <p className={`${styles.paragraph} pt-3`}> 
+                            <p className={`${styles.paragraph} value pt-3`}> 
                             Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the final product. Lorem ipsum is a name for a common type of placeholder text.
                             </p> 
-                               <div className=' d-flex'>
-                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                               <div className='mt-3'>
+                               <img src= "/static/delete 2.svg" className='img-fluid mr-4' alt="delete"/>
                                <img src= "/static/mode_edit.svg" className={`${styles.edit_image} img-fluid`} alt="edit"/>
                              </div>   
                              </div>
                             </div>
 
                             <div className={`${styles.dashboard_form}`}> 
-                            <div className={styles.sub_heading}>Weakness</div>
+                            <div className={`${styles.sub_heading} value`}>Weakness</div>
                             <div className='d-flex mt-5 pb-4'>
                                 <input
                                     as="textarea"
@@ -187,19 +187,19 @@ const index = () => {
                                     placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                                     className={`${styles.comment_field} form-control`}
                                     />
-                                 <label className={`${styles.label_heading}`}>Comments</label>
+                                 <label className={`${styles.label_heading} label_heading`}>Comments</label>
 
                                 <img className='img-fluid ml-4' src="/static/add-btn.svg" alt="add button"/>
 
 
                             </div>
-                            <div className={styles.strength}>Weakness</div>
+                            <div className={`${styles.strength} value`}>Weakness</div>
                             <div className='d-flex justify-content-between'>
-                            <p className={`${styles.paragraph}`}> 
+                            <p className={`${styles.paragraph} value`}> 
                             Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the final product. Lorem ipsum is a name for a common type of placeholder text.
                             </p> 
-                               <div className=' d-flex'>
-                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                               <div className='mt-3'>
+                               <img src= "/static/delete 2.svg" className='img-fluid mr-4' alt="delete"/>
                                <img src= "/static/mode_edit.svg" className={`${styles.edit_image} img-fluid`} alt="edit"/>
                             </div> 
                               
@@ -207,11 +207,11 @@ const index = () => {
                              <hr></hr>
 
                              <div className='d-flex justify-content-between'>
-                            <p className={`${styles.paragraph} pt-3`}> 
+                            <p className={`${styles.paragraph} value pt-3`}> 
                             Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the final product. Lorem ipsum is a name for a common type of placeholder text.
                             </p> 
-                               <div className=' d-flex'>
-                               <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                               <div className='mt-3'>
+                               <img src= "/static/delete 2.svg" className='img-fluid mr-4' alt="delete"/>
                                <img src= "/static/mode_edit.svg" className={`${styles.edit_image} img-fluid`} alt="edit"/>
                             </div> 
                               

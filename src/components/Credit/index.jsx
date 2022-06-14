@@ -255,8 +255,8 @@ const index = () => {
                             <div id="keyAddress" className="collapse" aria-labelledby="keyAddress" data-parent="#profileAccordion">      
 
                     <div className={`${styles.dashboard_form}`}> 
-                    <div className='row'>
-                        <div className={`${styles.address_card} address_card col-md-6`}>
+                    <div className='d-flex justify-content-between'>
+                        <div className={`${styles.address_card} value background1`}>
                             <div className='d-flex justify-content-between'>
                                 <div>
                                 <input type="checkbox"/>
@@ -275,7 +275,7 @@ const index = () => {
                           
 
                         </div>
-                        <div className={`${styles.address_card} address_card col-md-6`}>
+                        <div className={`${styles.address_card} value background1`}>
                             <div className='d-flex justify-content-between'>
                                 <div>
                                 <div className={styles.address_values}>
@@ -293,7 +293,9 @@ const index = () => {
                           
 
                         </div>
-                        <div className={`${styles.address_card} address_card col-md-6`}>
+                        </div>
+                        <div className='d-flex justify-content-between'>
+                        <div className={`${styles.address_card} value background1`}>
                             <div className='d-flex justify-content-between'>
                                 <div>
                                 <div className={styles.address_values}>
@@ -305,7 +307,8 @@ const index = () => {
                                 <div className='d-flex'>
                                 <p> <span>GSTIN: </span>Gstdt789652Jkv</p>
                                 <span className={styles.button}>View</span>
-                                </div>                                </div>
+                                </div>                                
+                                </div>
                                 </div>
                                <div>
                                    <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
@@ -313,7 +316,7 @@ const index = () => {
                                </div>
                             </div>
                         </div>
-                        <div className={`${styles.address_card} address_card col-md-6`}>
+                        <div className={`${styles.address_card} value background1`}>
                             <div className='d-flex justify-content-between'>
                             <div>
                                 <div className={`${styles.address_values}`}>
@@ -335,8 +338,9 @@ const index = () => {
                                </div>
                             </div>
                         </div>
+                        </div>
 
-                    </div>
+                    
                     </div>
                     </div>
                     </div> 

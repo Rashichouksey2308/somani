@@ -28,7 +28,6 @@
      margin: 15px;
      .sub_heading {
         margin-top: 20px;
-        color: #111111;
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
@@ -40,7 +39,6 @@
         font-size: 19px;
         line-height: 17px;
         font-weight: 500;
-        color: #111111;
         text-transform: capitalize;
         padding: 25px 0px 25px 0px;
      }
@@ -51,13 +49,13 @@
             margin-top: 35px;
             .comment{ 
                 letter-spacing: 0.19px;
-                color: #111111;
+                //color: #111111;
                 font-size: 20px;
                 line-height: 25px;
             }
             .comment_para{ 
                 letter-spacing: 0.19px;
-                color: #111111;
+                //color: #111111;
                 font-size: 20px;
                 line-height: 30px;
             }
@@ -72,8 +70,8 @@
     .paragraph{
         line-height: 25px;
         letter-spacing: 0.19px;
-        color: #111111;
         font-size: 20px;
+        width: 85%;
     }
 
     .label_heading {
@@ -81,14 +79,11 @@
         font-weight: 500;
         letter-spacing: 0.53px;
         position: absolute;
-        background: #FFFFFF;
-        color: #00000080;
         pointer-events: none;
         line-height: 17px;
         box-sizing: border-box;
         transform: translateY(-10px);
         margin-left: 20px;
-        //padding-left: 15px;
         transition: 0.3s all ease-in-out;
     }
     .comment_field {
@@ -134,9 +129,7 @@
             font-size: 19px;
             font-weight: 500;
             line-height: 24px;
-            color: #111111;
             padding: 24px 15px;
-            background: #FFFFFF;
             box-shadow: 0px 3px 6px #CAD0E2;
             border: none;
             border-bottom: 1px solid #D2D7E5;

@@ -24,8 +24,8 @@ const index = () => {
                         <Form.Group className={styles.form_group}>
                             <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
                             <select  className={`${styles.value} input form-control`}id="docType">
-                                <option value="volvo">Others</option>
-                                <option value="audi">N/A</option>
+                                <option>Others</option>
+                                <option>N/A</option>
                             </select>
                         </Form.Group>
                         <Form.Group className={styles.form_group}>

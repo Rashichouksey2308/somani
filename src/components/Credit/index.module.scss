@@ -24,9 +24,7 @@
     
  .dashboard_form { 
     padding: 10px 0px 0px 20px;
-
      margin: 15px;
-
         .form_group {
         position: relative;
         margin-bottom: 20px;
@@ -86,18 +84,18 @@
     }
 
     .address_card{
-        background: #FFFFFF;
         border: 1px solid #0000001F;
         border-radius: 9px;
         padding: 22px;
         margin-bottom:30px;
-
+        width: 49%;
+        margin-right: 20px;
 
         .label {
             line-height: 25px;
             font-weight: bold;
             font-size: 20px;
-            color: #111111;
+           // color: #111111;
             text-transform: capitalize;
             padding-left: 18px;
 
@@ -110,7 +108,7 @@
                 line-height: 25px;
                 font-weight: bold;
                 font-size: 20px;
-                color: #111111;
+                //color: #111111;
                 text-transform: capitalize;
              }  
 
@@ -118,14 +116,14 @@
                 letter-spacing: 0.19px;
                 font-size: 20px;
                line-height: 32px;
-                color: #111111;
+                //color: #111111;
                 text-transform: capitalize;
 
                 span {
                     font-size: 20px;
                     line-height: 25px;
                     font-weight: bold;
-                    color: #111111;
+                    //color: #111111;
                     text-transform: capitalize;
                 }
 
