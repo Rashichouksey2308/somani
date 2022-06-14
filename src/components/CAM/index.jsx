@@ -262,7 +262,7 @@ const supplierInfo =()=>{
                                                 </Col>
                                                 <Col  className={`d-flex justify-content-between`} md={5}>
                                                     <span className={`${styles.key} label_heading pl-5`}>Commodity to total trade (24 months)</span>
-                                                     <span className={`${styles.value} ${styles.red_highlight}`}>15%</span>
+                                                     <span className={`${styles.value} ${styles.danger_highlight}`}>15%</span>
                                                 </Col>
                                             </Row>
                                             </div>
@@ -287,7 +287,7 @@ const groupExposure =()=>{
                                         </div>
                                         <div id="groupExposure" className="collapse" aria-labelledby="groupExposure" data-parent="#profileAccordion">
                                            <div className={`${styles.info_wrapper} card-body border_color`}>
-                                           <Row>
+                                           <Row className={`${styles.row}`}>
                                                <Col md={4}>
                                                    <div className={`${styles.exposureCard}`}>
                                                        <Row>
@@ -354,7 +354,7 @@ const groupExposure =()=>{
                                                                    <span className={`d-flex justify-content-center align-content-center`}>ET</span>
                                                                </div>
                                                               
-                                                               <span className={` ${styles.name} ml-3 `}>Emerging Traders</span>
+                                                               <span className={` ${styles.name} ml-3  `}>Emerging Traders</span>
                                                            </Col>
                                                            <Col sm={12} className={`${styles.limit}   mb-5`}>
                                                                <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
@@ -388,12 +388,80 @@ const groupExposure =()=>{
                                                                </div>
                                                                </div>
                                                            </Col>
-                                                          
+                                                           <Col sm={12} className={`${styles.limit}   mb-5`}>
+                                                               <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
+                                                                <div className={`${styles.limit_box} `}>
+                                                                <span className={`${styles.limit_label} `}>CONDUCT</span>
+                                                               
+                                                              
+                                                              
+                                                               </div> 
+                                                               
+                                                               </div>
+                                                               <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
+                                                           </Col>
 
                                                        </Row>
                                                    </div>
                                                </Col>
-                                               <Col md={4}>1</Col>
+                                               <Col md={4}>
+                                                 <div className={`${styles.exposureCard}`}>
+                                                       <Row>
+                                                           <Col sm={12} className={`d-flex justify-content-start align-content-center  mb-5`}>
+                                                               <div className={`${styles.icon} `}>
+                                                                   <span className={`d-flex justify-content-center align-content-center`}>ET</span>
+                                                               </div>
+                                                              
+                                                               <span className={` ${styles.name} ml-3  `}>Emerging Traders</span>
+                                                           </Col>
+                                                           <Col sm={12} className={`${styles.limit}   mb-5`}>
+                                                               <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
+                                                                <div className={`${styles.limit_box} `}>
+                                                                <span className={`${styles.limit_label} `}>LIMIT</span>
+                                                               
+                                                              
+                                                              
+                                                               </div> 
+                                                                <span>1,900.00</span>
+                                                               </div>
+                                                               <div className={`${styles.bar}`}>
+                                                                   <div className={`${styles.fill}`}>
+                                                                   
+                                                               </div>
+                                                               </div>
+                                                           </Col>
+                                                           <Col sm={12} className={`${styles.limit}   mb-5`}>
+                                                               <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
+                                                                <div className={`${styles.limit_box} `}>
+                                                                <span className={`${styles.limit_label} `}>O/S BALANCE</span>
+                                                               
+                                                              
+                                                              
+                                                               </div> 
+                                                                <span>1,900.00</span>
+                                                               </div>
+                                                               <div className={`${styles.bar}`}>
+                                                                   <div className={`${styles.fill}`}>
+                                                                   
+                                                               </div>
+                                                               </div>
+                                                           </Col>
+                                                           <Col sm={12} className={`${styles.limit}   mb-5`}>
+                                                               <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
+                                                                <div className={`${styles.limit_box} `}>
+                                                                <span className={`${styles.limit_label} `}>CONDUCT</span>
+                                                               
+                                                              
+                                                              
+                                                               </div> 
+                                                               
+                                                               </div>
+                                                               <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
+                                                           </Col>
+
+                                                       </Row>
+                                                   </div>
+                                               </Col>
                                            </Row>
                                            
                                            </div>
@@ -885,7 +953,7 @@ const debtProfile =(data,options,tempArr)=>{
                                                     </td>
                                                    
                                                       <td>₹ 800.00</td>
-                                                       <td className={`${styles.conduct}`}>Poor</td>
+                                                       <td className={`${styles.conduct} danger`}>Poor</td>
                                                       
 
                                                         
@@ -904,7 +972,7 @@ const debtProfile =(data,options,tempArr)=>{
                                                     </td>
                                                    
                                                       <td>₹ 800.00</td>
-                                                       <td className={`${styles.conduct}`}>Poor</td>
+                                                       <td className={`${styles.conduct} good`}>good</td>
                                                       
                                                       
 
@@ -1021,7 +1089,7 @@ const revenuDetails =()=>{
                                                    <td>
                                                        Gross Revenue
                                                    </td>
-                                                    <td>27AAATW4183</td>
+                                                    <td><img src="/static/arrow-up-green.svg" alt="Arrow Red" class="img-fluid"/></td>
                                                      <td>11,900.00 </td>
                                                       <td>1,900.00</td>
                                                        <td>40%</td>
@@ -1031,7 +1099,7 @@ const revenuDetails =()=>{
                                                    <td>
                                                        Related Party Sales
                                                    </td>
-                                                    <td>27AAATW4183</td>
+                                                       <td><img src="/static/arrow-down-red.svg" alt="Arrow Red" class="img-fluid"/></td>
                                                      <td>11,900.00 </td>
                                                       <td>1,900.00</td>
                                                        <td>40%</td>
@@ -1371,11 +1439,11 @@ const strengthAndWeakness =(data,options,tempArr)=>{
                                             <Row>
                                                 <Col className={`${styles.leftCol} border_color`} md={6}>
                                                       <div className={`d-flex justify-content-start align-content-center`}>
-                                                           <div className={`${styles.icon} `}>
-                                                                   <span className={`d-flex justify-content-center align-content-center`}>ET</span>
+                                                           <div className={`${styles.icon} ${styles.green_highlight}`}>
+                                                                   <span className={`d-flex justify-content-center align-content-center`}><img src="./static/check.svg"></img></span>
                                                                    
                                                                </div>
-                                                              <span className={`${styles.text} ml-2`}>Strength</span>
+                                                              <span className={`${styles.text} good ml-2`}>Strength</span>
                                                       </div>
                                                       <div>
                                                           <ul>
@@ -1391,11 +1459,11 @@ const strengthAndWeakness =(data,options,tempArr)=>{
                                                 </Col>
                                                <Col className={`${styles.leftCol} border_color`} md={6}>
                                                        <div className={`d-flex justify-content-start align-content-center`}>
-                                                           <div className={`${styles.icon} `}>
-                                                                   <span className={`d-flex justify-content-center align-content-center`}>ET</span>
+                                                           <div className={`${styles.icon} ${styles.red_highlight} `}>
+                                                                   <span className={`d-flex justify-content-center align-content-center`}><img src="./static/close-b.svg"></img></span>
                                                                    
                                                                </div>
-                                                              <span className={`${styles.text} ml-2`}>Strength</span>
+                                                              <span className={`${styles.text} danger ml-2`}>Weakness</span>
                                                       </div>
                                                       <div>
                                                           <ul>
@@ -1462,7 +1530,8 @@ const sectionTerms =()=>{
                                                
                                           </table>
                                           <div>
-                                          <div className={`${styles.heading} d-flex  align-items-center justify-content-start`}>Sanction Conditions</div>
+                                          
+                                          <div className={`${styles.heading} heading d-flex  align-items-center justify-content-start`}>Sanction Conditions</div>
                                           <ul className="mt-3 mb-3">
                                               <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam sadipscing elitr, sed diam</li>
                                               <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam sadipscing elitr, sed diam</li>
@@ -1490,7 +1559,7 @@ const Documents =()=>{
         <>
 <div className={`${styles.card} card`}>                             
  <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#Documents" aria-expanded="true" aria-controls="Documents">
-                                            <h2 className="mb-0">Sanction Terms</h2>
+                                            <h2 className="mb-0">Documents Available</h2>
                                             <span>+</span>
                                         </div>
                                         <div id="Documents" className="collapse" aria-labelledby="Documents" data-parent="#profileAccordion">

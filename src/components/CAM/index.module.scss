@@ -29,6 +29,9 @@
 .info_wrapper{
     padding :0px;
     border-top :2px solid red !important;
+    .row{
+   padding: 25px 35px !important;
+    }
    .content{
         padding: 25px 35px !important;
         padding-top: 1rem;
@@ -48,7 +51,7 @@
                
                 opacity: 1;
             }
-            .red_highlight{
+            .danger_highlight{
                 color: #EA3F3F !important;
             }
    }
@@ -77,8 +80,9 @@
    padding:0px;
     border-top: 2px solid red !important;
     .exposureCard{
+
       padding: 25px 35px !important;
-      height: 497px;
+      height: fit-content;
       background: #FFFFFF 0% 0% no-repeat padding-box;
       border: 1px solid #D2D7E5;
       border-radius: 6px;
@@ -117,9 +121,9 @@
                             padding:1rem;
                             width: fit-content;
                             height: 33px;
-                            background: #BABABA 0% 0% no-repeat padding-box;
+                            background: #bababa3c 0% 0% no-repeat padding-box;
                             border-radius: 5px;
-                            opacity: 0.15;
+                            // opacity: 0.15;
         
                             .limit_label {
                                 display: flex;
@@ -255,6 +259,9 @@ table {
             }
         }
     }
+        .row{
+            padding: 25px 35px !important;
+        }
     .doc_container{
         height: 108px;
           
@@ -262,16 +269,20 @@ table {
             background: #FFFFFF 0% 0% no-repeat padding-box;
             border: 1px solid #D2D7E5;
             border-radius: 6px;
+            
             .view{
                 display: flex;
                 justify-content: flex-start;
                 align-items: flex-start;
                 flex-direction: column;
+                span {
+                    color:black !important
+                }
                 .highlight{
                     font-size: 16px;
                     font-weight: bold;
                         letter-spacing: 0px;
-                        color: #8492A6;
+                        color: #8492A6 !important;
                 }
             }
     }
@@ -901,3 +912,12 @@ table {
             align-items: center;
             padding: 0px;
         }
+
+  .red_highlight{
+  
+    background: #ea3f3f40 0% 0% no-repeat padding-box !important;
+  }
+  .green_highlight {
+     
+      background: #43c34e42 0% 0% no-repeat padding-box !important;
+  }
