@@ -4,7 +4,7 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={styles.main}>
+    <div className={`${styles.upload_main} upload_main`}>
         <div className={`${styles.head_container} d-flex justify-content-between`}>
             <h3 className={styles.heading}>Upload Other Documents</h3>
             <span>+</span>
@@ -22,15 +22,15 @@ const index = () => {
                     </div> 
                     <div className='col-md-4 offset-md-1 col-sm-6'>
                         <Form.Group className={styles.form_group}>
-                            <Form.Label className={styles.label}>Document Type</Form.Label>
-                            <select  className={`${styles.value} form-control`}id="docType">
+                            <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
+                            <select  className={`${styles.value} input form-control`}id="docType">
                                 <option value="volvo">Others</option>
                                 <option value="audi">N/A</option>
                             </select>
                         </Form.Group>
                         <Form.Group className={styles.form_group}>
-                            <Form.Label className={styles.label}>Please Specify Document Name</Form.Label>
-                            <Form.Control className={`${styles.value} form-control`} type="text" placeholder="Insurance Quotation" />
+                            <Form.Label className={`${styles.label} label_heading`}>Please Specify Document Name</Form.Label>
+                            <Form.Control className={`${styles.value} input form-control`} type="text" placeholder="Insurance Quotation" />
                         </Form.Group>
                         <div className={styles.uploadBtnWrapper}>
                             <input type="file" name="myfile" />
@@ -62,7 +62,7 @@ const index = () => {
                             </select>
                         </td>
                     </tr>
-                    <tr>
+                    <tr className='table_row'>
                         <td className={styles.doc_name}>Insurance Quotation</td>
                         <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
@@ -71,7 +71,7 @@ const index = () => {
                         <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
                         <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
                     </tr>
-                    <tr>
+                    <tr className='table_row'>
                         <td className={styles.doc_name}>Container No. List</td>
                         <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
@@ -80,7 +80,7 @@ const index = () => {
                         <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
                         <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
                     </tr>
-                    <tr>
+                    <tr className='table_row'>
                         <td className={styles.doc_name}>Container Seal No. List</td>
                         <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
@@ -97,7 +97,7 @@ const index = () => {
                             </select>
                         </td>
                     </tr>
-                    <tr>
+                    <tr className='table_row'>
                         <td className={styles.doc_name}>Insurance Quotation</td>
                         <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
@@ -106,7 +106,7 @@ const index = () => {
                         <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
                         <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
                     </tr>
-                    <tr>
+                    <tr className='table_row'>
                         <td className={styles.doc_name}>Container No. List</td>
                         <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>

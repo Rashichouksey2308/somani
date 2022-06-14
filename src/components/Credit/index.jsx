@@ -1,5 +1,4 @@
 import React from 'react'
-import {Form} from 'react-bootstrap'
 import styles from './index.module.scss'
 
 
@@ -13,78 +12,78 @@ const index = () => {
                     </div>  
                     <div id="productSummary" className="collapse" aria-labelledby="productSummary" data-parent="#profileAccordion">      
                 <div className={`${styles.dashboard_form}`}> 
-                <Form>
+               
                 <div className='row'>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                         
-                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/> 
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Monthly Production Capacity<strong className="text-danger">*</strong></Form.Label>
-                    </Form.Group>
+                        <input className={`${styles.input_field} input form-control`} required type="text"/> 
+                        <label className={`${styles.label_heading} label_heading`}>Monthly Production Capacity<strong className="text-danger">*</strong></label>
+                    </div>
 
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Capacity Utilization<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <input className={`${styles.input_field} input form-control`} required type="text"/>
+                        <label className={`${styles.label_heading} label_heading`}>Capacity Utilization<strong className="text-danger">*</strong></label>
+                        </div>
 
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
-                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Average Stock of Commodity<strong className="text-danger">*</strong></Form.Label>
-                    </Form.Group>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                        <input className={`${styles.input_field} input form-control`} required type="text"/>
+                        <label className={`${styles.label_heading} label_heading`}>Average Stock of Commodity<strong className="text-danger">*</strong></label>
+                    </div>
                     
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
-                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Average Stock in Transit<strong className="text-danger">*</strong></Form.Label>
-                    </Form.Group> 
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                        <input className={`${styles.input_field} input form-control`} required type="text"/>
+                        <label className={`${styles.label_heading} label_heading`}>Average Stock in Transit<strong className="text-danger">*</strong></label>
+                    </div> 
 
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Available Stock<strong className="text-danger">*</strong></Form.Label>
-                    </Form.Group>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Daily Consumption of Commodity<strong className="text-danger">*</strong></Form.Label>
-                    </Form.Group>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Stock Coverage of Commodity<strong className="text-danger">*</strong></Form.Label>
-                    </Form.Group>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <input className={`${styles.input_field} input form-control`} required type="text"/>
+                        <label className={`${styles.label_heading} label_heading`}>Available Stock<strong className="text-danger">*</strong></label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <input className={`${styles.input_field} input form-control`} required type="text"/>
+                        <label className={`${styles.label_heading} label_heading`}>Daily Consumption of Commodity<strong className="text-danger">*</strong></label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <input className={`${styles.input_field} input form-control`} type="date"/>
+                        <label className={`${styles.label_heading} label_heading`}>Stock Coverage of Commodity<strong className="text-danger">*</strong></label>
+                    </div>
         
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                         <select  className={`${styles.input_field} input form-control`}>
                         <option value="volvo">Import</option>
                         <option value="audi">Manufacturers</option>
                         </select>    
-                    <Form.Label className={`${styles.label_heading} label_heading`}>Existing Procurement of Commodity<strong className="text-danger">*</strong></Form.Label>                      
-                    </Form.Group>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <label className={`${styles.label_heading} label_heading`}>Existing Procurement of Commodity<strong className="text-danger">*</strong></label>                      
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                         <div className='d-flex'>
-                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/> 
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Existing Supplier(s)<strong className="text-danger">*</strong></Form.Label>
+                        <input className={`${styles.input_field} input form-control`} required type="text"/> 
+                        <label className={`${styles.label_heading} label_heading`}>Existing Supplier(s)<strong className="text-danger">*</strong></label>
                         <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
                         </div>
-                    </Form.Group>
+                    </div>
 
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                         <select  className={`${styles.input_field} input form-control`}>
                         <option value="volvo">High</option>
                         <option value="audi">Low</option>
                         </select>   
-                    <Form.Label className={`${styles.label_heading} label_heading`}>Commodity Contribution Senstivity<strong className="text-danger">*</strong></Form.Label>                       
-                    </Form.Group>
+                    <label className={`${styles.label_heading} label_heading`}>Commodity Contribution Senstivity<strong className="text-danger">*</strong></label>                       
+                    </div>
                     
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                        <Form.Control className={`${styles.input_field} input form-control`} required type="text" />
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Avg. Monthly Electricity Bill<strong className="text-danger">*</strong></Form.Label>
-                    </Form.Group>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <input className={`${styles.input_field} input form-control`} required type="text" />
+                        <label className={`${styles.label_heading} label_heading`}>Avg. Monthly Electricity Bill<strong className="text-danger">*</strong></label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                         <div className='d-flex'>
-                        <Form.Control className={`${styles.input_field} input form-control`} required type="text"/> 
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Existing CHA(s)<strong className="text-danger">*</strong></Form.Label>
+                        <input className={`${styles.input_field} input form-control`} required type="text"/> 
+                        <label className={`${styles.label_heading} label_heading`}>Existing CHA(s)<strong className="text-danger">*</strong></label>
                         <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
                         </div>
-                    </Form.Group>
                     </div>
-                    </Form> 
+                    </div>
+                   
                 </div>
                 </div>
                    </div>   
@@ -96,53 +95,53 @@ const index = () => {
                             </div> 
                             <div id="supplierCred" className="collapse" aria-labelledby="supplierCred" data-parent="#profileAccordion">       
                     <div className={`${styles.dashboard_form}`}> 
-                    <Form>
+                    <div>
                     <div className='row'>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <select className={`${styles.input_field} input form-control`}>
                             <option>Bhutani Traders</option>
                             <option>Ramakrishna</option>
                             </select>    
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Supplier Name<strong className="text-danger">*</strong></Form.Label>                      
-                        </Form.Group>
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>No. of Shipments<strong className="text-danger">*</strong></Form.Label>
-                            </Form.Group>
+                        <label className={`${styles.label_heading} label_heading`}>Supplier Name<strong className="text-danger">*</strong></label>                      
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>No. of Shipments<strong className="text-danger">*</strong></label>
+                            </div>
 
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>No. of Consignees<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>No. of Consignees<strong className="text-danger">*</strong></label>
+                        </div>
                         
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>No. of HS codes<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group> 
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>No. of HS codes<strong className="text-danger">*</strong></label>
+                        </div> 
 
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>Country of Origin<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>Port of Destination<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Oldest Shipment Date<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Latest Shipment Date<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <Form.Control className={`${styles.input_field} ${styles.percent} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>Commodity to Total Trade % -24M<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>Country of Origin<strong className="text-danger">*</strong></label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>Port of Destination<strong className="text-danger">*</strong></label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <input className={`${styles.input_field} input form-control`} type="date"/>
+                        <label className={`${styles.label_heading} label_heading`}>Oldest Shipment Date<strong className="text-danger">*</strong></label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <input className={`${styles.input_field} input form-control`} type="date"/>
+                        <label className={`${styles.label_heading} label_heading`}>Latest Shipment Date<strong className="text-danger">*</strong></label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <input className={`${styles.input_field} ${styles.percent} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>Commodity to Total Trade % -24M<strong className="text-danger">*</strong></label>
+                        </div>
                         <div className='col-12'>
-                        <Form.Label className={`${styles.label_heading}`}>Remarks</Form.Label>
-                            <Form.Control
+                        <label className={`${styles.label_heading}`}>Remarks</label>
+                            <input
                                 as="textarea"
                                 rows={3}
                                 className={`${styles.remark_field} input form-control`}
@@ -151,7 +150,7 @@ const index = () => {
                         </div>
                     
                         </div>
-                        </Form> 
+                        </div> 
                     </div>
                     </div>
                     </div>  
@@ -351,48 +350,48 @@ const index = () => {
                             <div className={`${styles.dashboard_form}`}> 
                             <Form>
                             <div className='row'>
-                            <Form.Group className={`${styles.form_group} col-md-2 col-sm-4`}>
+                            <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                                     <select className={`${styles.input_field} input form-control`}>
                             <option>Bhutani Traders</option>
                             <option>Ramakrishna</option>
                             </select>    
-                            <Form.Label className={`${styles.label_heading} label_heading`}>Address Type<strong className="text-danger">*</strong></Form.Label>                      
-                            </Form.Group>
-                            <Form.Group className={`${styles.form_group} col-md-2 col-sm-4`}>
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>Pin Code<strong className="text-danger">*</strong></Form.Label>
-                            </Form.Group>
+                            <label className={`${styles.label_heading} label_heading`}>Address Type<strong className="text-danger">*</strong></label>                      
+                            </div>
+                            <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>Pin Code<strong className="text-danger">*</strong></label>
+                            </div>
 
-                        <Form.Group className={`${styles.form_group} col-md-2 col-sm-4`} >
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>State<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
+                        <div className={`${styles.form_group} col-md-2 col-sm-4`} >
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>State<strong className="text-danger">*</strong></label>
+                        </div>
                         
-                        <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`} >
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>City<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group> 
+                        <div className={`${styles.form_group} col-md-2 col-sm-6`} >
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>City<strong className="text-danger">*</strong></label>
+                        </div> 
 
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>Email ID<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>Phone Number<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
-                        <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
-                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Address<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                        <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
-                        <Form.Label className={`${styles.label_heading} label_heading`}>Branch<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>GSTIN<strong className="text-danger">*</strong></Form.Label>
-                        </Form.Group>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>Email ID<strong className="text-danger">*</strong></label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>Phone Number<strong className="text-danger">*</strong></label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-8 col-sm-6`}>
+                        <input className={`${styles.input_field} input form-control`} type="date"/>
+                        <label className={`${styles.label_heading} label_heading`}>Address<strong className="text-danger">*</strong></label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <input className={`${styles.input_field} input form-control`} type="date"/>
+                        <label className={`${styles.label_heading} label_heading`}>Branch<strong className="text-danger">*</strong></label>
+                        </div>
+                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            <input className={`${styles.input_field} input form-control`} required type="text"/>
+                            <label className={`${styles.label_heading} label_heading`}>GSTIN<strong className="text-danger">*</strong></label>
+                        </div>
                         </div>
                         </Form> 
                     </div>

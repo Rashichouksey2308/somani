@@ -106,6 +106,20 @@ body.dark-mode .card {
   color: #FFFFFF;
 
 }
+body.dark-mode .upload_main {
+  background: #171E27;
+  color: #FFFFFF;
+  box-shadow: 0px 8px 25px #72727234;
+  border: none;
+
+}
+body.light-mode .upload_main {
+  background: #fff !important;
+  color: #000000;
+  box-shadow: 0 3px 6px #CAD0E2;
+  border: 1px solid #D2D7E5;
+
+}
 body.dark-mode .heading {
 
   color: #FFFFFF !important;
@@ -123,6 +137,7 @@ body.light-mode .card-body {
 body.light-mode .card {
   background: #fff !important;
   color: #000000;
+  box-shadow: 0 3px 6px #CAD0E2;
 
 }
 
@@ -548,6 +563,17 @@ body.dark-mode .accordion_body {
 
 
 }
+body.light-mode .vessel_card {
+  background: #F3F4F7;
+  box-shadow: 0px 3px 6px #CAD0E2;
+
+  }
+  
+  body.dark-mode .vessel_card {
+    background: #293141;
+    box-shadow: 0px 8px 25px #72727234;
+
+  }
 body.dark-mode th{
   background-color: #232936 !important;
   border-color: #434E61 !important;
@@ -633,6 +659,7 @@ body.light_mode .head_container {
 body.dark_mode .head_container  {
   border-bottom: 3px solid #434E61;
 }
+
 body.light_mode .address_card{
   background: #FFFFFF;
   border: 1px solid #0000001F;

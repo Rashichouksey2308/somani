@@ -18,7 +18,8 @@ export default function Home() {
             </div>
            
         </div>
-        <div className={`${styles.vessel_card} container-fluid`}>
+        <div className={`${styles.card} background1 w-100`}>
+        <div className={`${styles.vessel_card} vessel_card`}>
         <div className={`${styles.main} card border-color`}>
         <div className={`${styles.head_container} card-header head_container d-flex justify-content-between bg-transparent`} >
         <h3 className={`${styles.heading}`}>Basic Details</h3>
@@ -47,15 +48,6 @@ export default function Home() {
                     </select>          
                     <label className={`${styles.label_heading} label_heading`}>Order Value<strong className="text-danger">*</strong></label>  
                 </div>
-                <div className={`${styles.form_group} col-md-3 col-sm-6`} >
-                    <input className={`${styles.input_field} input form-control`} required type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>ETD at Load Port<strong className="text-danger">*</strong></label>                   
-                </div>
-                <div className={`${styles.form_group} col-md-3 col-sm-6`} >
-                    <input className={`${styles.input_field} input form-control`} required type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>ETA at Discharge Port<strong className="text-danger">*</strong></label>                   
-                </div>
-               
             </div>
           
             </div>
@@ -85,20 +77,52 @@ export default function Home() {
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>Port of Discharge<strong className="text-danger">*</strong></label>
                     </div>                
-                   
-                    
+                    <div className={`${styles.form_group} col-md-3 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} type="date"/> 
+                     <label className={`${styles.label_heading} label_heading`}>ETD at Load Port<strong className="text-danger">*</strong></label>                   
+                </div>
+                <div className={`${styles.form_group} col-md-3 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} type="date"/> 
+                     <label className={`${styles.label_heading} label_heading`}>ETA at Discharge Port<strong className="text-danger">*</strong></label>                   
+                </div>
                               
                 </div>
            
-        </div>
+           </div>
+
+           <hr></hr>
+            <div className={styles.dashboard_form}>
+            <h3 className={styles.sub_heading}>Vessel Information</h3>
+           
+                <div className='row'>    
+                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} required type="text"/> 
+                     <label className={`${styles.label_heading} label_heading`}>Vessel Name<strong className="text-danger">*</strong></label>                   
+                </div> 
+                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} required type="text"/> 
+                     <label className={`${styles.label_heading} label_heading`}>IMO Number<strong className="text-danger">*</strong></label>                   
+                </div> 
+                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} required type="text"/> 
+                     <label className={`${styles.label_heading} label_heading`}>Flag<strong className="text-danger">*</strong></label>                   
+                </div> 
+                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} required type="text"/> 
+                     <label className={`${styles.label_heading} label_heading`}>Shipping Line<strong className="text-danger">*</strong></label>                   
+                </div> 
+                </div>
+           
+           </div>
 
             </div>
-            <div className={styles.main}>
-        <div className={`${styles.head_container} d-flex justify-content-between`}>
+            <div className={`${styles.main} card border-color mt-4`}>
+            <div className={`${styles.head_container} head_container d-flex justify-content-between`}>
             <h3 className={styles.heading}>Upload Other Documents</h3>
             <span>+</span>
-        </div>
-        <div className={styles.table_container}>
+          </div>
+          <div className={`${styles.table_form}`}>
+           <div className={styles.table_container}>
             <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
                 <thead>
                     <tr>
@@ -110,17 +134,21 @@ export default function Home() {
                     </thead>                        
                     <tbody>
                    
-                    <tr>
+                    <tr className='table_row'>
                         <td className={styles.doc_name}>Nomination Document</td>
                         <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
+                        <td> <input className={styles.input_field} type="text" placeholder='Nomination_Document.pdf'/>
+                        <img className={`${styles.close_image} img-fluid `} src="/static/close.svg" alt="close"/> </td>
                     </tr>
-            
-           
+                                    
+                </tbody>
+            </table>
+        </div> 
+        </div>           
+            </div>
+           </div>
            <UploadOther/>
-        
            </div>
            </>
 
