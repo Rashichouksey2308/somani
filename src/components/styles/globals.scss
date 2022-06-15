@@ -106,6 +106,20 @@ body.dark-mode .card {
   color: #FFFFFF;
 
 }
+body.dark-mode .upload_main {
+  background: #171E27;
+  color: #FFFFFF;
+  box-shadow: 0px 8px 25px #72727234;
+  border: none;
+
+}
+body.light-mode .upload_main {
+  background: #fff !important;
+  color: #000000;
+  box-shadow: 0 3px 6px #CAD0E2;
+  border: 1px solid #D2D7E5;
+
+}
 body.dark-mode .heading {
 
   color: #FFFFFF !important;
@@ -123,6 +137,7 @@ body.light-mode .card-body {
 body.light-mode .card {
   background: #fff !important;
   color: #000000;
+  box-shadow: 0 3px 6px #CAD0E2;
 
 }
 
@@ -394,9 +409,24 @@ body.light-mode .table_row {
 }
 body.dark-mode .table_row {
   color:  #FFFFFF80;
-  background: #434E61;
-  border: 2px solid #293141;
+  background: #232936;
+  border-color: #434E61 !important;
 }
+body.light-mode .table_credit {
+  background: #ffffff;
+  color: #000000;
+  border-bottom: 1px solid #D2D7E5;
+  box-shadow: 0px 3px 6px #CAD0E2;
+
+
+}
+body.dark-mode .table_credit {
+  color:  #FFFFFF80;
+  background: #171E27;
+  border-bottom: 1px solid #434E61 !important;
+  box-shadow: none;
+}
+
 body.light-mode .table_row17 {
   background: #ffffff;
   color: #000000;
@@ -533,6 +563,17 @@ body.dark-mode .accordion_body {
 
 
 }
+body.light-mode .vessel_card {
+  background: #F3F4F7;
+  box-shadow: 0px 3px 6px #CAD0E2;
+
+  }
+  
+  body.dark-mode .vessel_card {
+    background: #293141;
+    box-shadow: 0px 8px 25px #72727234;
+
+  }
 body.dark-mode th{
   background-color: #232936 !important;
   border-color: #434E61 !important;
@@ -548,6 +589,15 @@ body.dark-mode td {
 body.light-mode td {
   border-color: #D9DDE8 !important;
   color: #111111;
+}
+body.dark-mode .row_head {
+  background-color: #232936 !important;
+ 
+}
+
+body.light-mode .row_head {
+ 
+  background: #FAFAFB 0% 0% no-repeat padding-box;
 }
 body.dark-mode .image_arrow {
  transform:rotate(90deg);
@@ -618,3 +668,15 @@ body.light_mode .head_container {
 body.dark_mode .head_container  {
   border-bottom: 3px solid #434E61;
 }
+
+body .danger {
+     color: #EA3F3F !important;
+   }
+
+body   .good {
+     color: #43C34D !important;
+   }
+
+body .satisfactory {
+     color: #FF9D00
+   }

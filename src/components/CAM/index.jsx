@@ -106,11 +106,11 @@ const basicInfo =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#basicInfo" aria-expanded="true" aria-controls="basicInfo">
                                             <h2 className="mb-0">Basic Info</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="basicInfo" className="collapse" aria-labelledby="basicInfo" data-parent="#profileAccordion">
                                            <div className={`${styles.info_wrapper}  card-body border_color`}>
                                             <div className={`${styles.content} mb-4`}>
                                                     <Row className={`mb-3`}>
@@ -218,11 +218,11 @@ const supplierInfo =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#supplierInfo" aria-expanded="true" aria-controls="supplierInfo">
                                             <h2 className="mb-0">Supplier Info</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="supplierInfo" className="collapse" aria-labelledby="supplierInfo" data-parent="#profileAccordion">
                                            <div className={`${styles.info_wrapper}  card-body border_color`}>
                                             <div className={`${styles.content} mb-4`}>
                                                     <Row className={`mb-3`}>
@@ -262,7 +262,7 @@ const supplierInfo =()=>{
                                                 </Col>
                                                 <Col  className={`d-flex justify-content-between`} md={5}>
                                                     <span className={`${styles.key} label_heading pl-5`}>Commodity to total trade (24 months)</span>
-                                                     <span className={`${styles.value} ${styles.red_highlight}`}>15%</span>
+                                                     <span className={`${styles.value} ${styles.danger_highlight}`}>15%</span>
                                                 </Col>
                                             </Row>
                                             </div>
@@ -281,13 +281,13 @@ const groupExposure =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#groupExposure" aria-expanded="true" aria-controls="groupExposure">
                                             <h2 className="mb-0">Group Exposure Details</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="groupExposure" className="collapse" aria-labelledby="groupExposure" data-parent="#profileAccordion">
                                            <div className={`${styles.info_wrapper} card-body border_color`}>
-                                           <Row>
+                                           <Row className={`${styles.row}`}>
                                                <Col md={4}>
                                                    <div className={`${styles.exposureCard}`}>
                                                        <Row>
@@ -296,7 +296,7 @@ const groupExposure =()=>{
                                                                    <span className={`d-flex justify-content-center align-content-center`}>ET</span>
                                                                </div>
                                                               
-                                                               <span className={` ${styles.name} ml-3 `}>Emerging Traders</span>
+                                                               <span className={` ${styles.name} ml-3  `}>Emerging Traders</span>
                                                            </Col>
                                                            <Col sm={12} className={`${styles.limit}   mb-5`}>
                                                                <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
@@ -354,7 +354,7 @@ const groupExposure =()=>{
                                                                    <span className={`d-flex justify-content-center align-content-center`}>ET</span>
                                                                </div>
                                                               
-                                                               <span className={` ${styles.name} ml-3 `}>Emerging Traders</span>
+                                                               <span className={` ${styles.name} ml-3  `}>Emerging Traders</span>
                                                            </Col>
                                                            <Col sm={12} className={`${styles.limit}   mb-5`}>
                                                                <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
@@ -388,12 +388,80 @@ const groupExposure =()=>{
                                                                </div>
                                                                </div>
                                                            </Col>
-                                                          
+                                                           <Col sm={12} className={`${styles.limit}   mb-5`}>
+                                                               <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
+                                                                <div className={`${styles.limit_box} `}>
+                                                                <span className={`${styles.limit_label} `}>CONDUCT</span>
+                                                               
+                                                              
+                                                              
+                                                               </div> 
+                                                               
+                                                               </div>
+                                                               <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
+                                                           </Col>
 
                                                        </Row>
                                                    </div>
                                                </Col>
-                                               <Col md={4}>1</Col>
+                                               <Col md={4}>
+                                                 <div className={`${styles.exposureCard}`}>
+                                                       <Row>
+                                                           <Col sm={12} className={`d-flex justify-content-start align-content-center  mb-5`}>
+                                                               <div className={`${styles.icon} `}>
+                                                                   <span className={`d-flex justify-content-center align-content-center`}>ET</span>
+                                                               </div>
+                                                              
+                                                               <span className={` ${styles.name} ml-3  `}>Emerging Traders</span>
+                                                           </Col>
+                                                           <Col sm={12} className={`${styles.limit}   mb-5`}>
+                                                               <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
+                                                                <div className={`${styles.limit_box} `}>
+                                                                <span className={`${styles.limit_label} `}>LIMIT</span>
+                                                               
+                                                              
+                                                              
+                                                               </div> 
+                                                                <span>1,900.00</span>
+                                                               </div>
+                                                               <div className={`${styles.bar}`}>
+                                                                   <div className={`${styles.fill}`}>
+                                                                   
+                                                               </div>
+                                                               </div>
+                                                           </Col>
+                                                           <Col sm={12} className={`${styles.limit}   mb-5`}>
+                                                               <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
+                                                                <div className={`${styles.limit_box} `}>
+                                                                <span className={`${styles.limit_label} `}>O/S BALANCE</span>
+                                                               
+                                                              
+                                                              
+                                                               </div> 
+                                                                <span>1,900.00</span>
+                                                               </div>
+                                                               <div className={`${styles.bar}`}>
+                                                                   <div className={`${styles.fill}`}>
+                                                                   
+                                                               </div>
+                                                               </div>
+                                                           </Col>
+                                                           <Col sm={12} className={`${styles.limit}   mb-5`}>
+                                                               <div className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}>
+                                                                <div className={`${styles.limit_box} `}>
+                                                                <span className={`${styles.limit_label} `}>CONDUCT</span>
+                                                               
+                                                              
+                                                              
+                                                               </div> 
+                                                               
+                                                               </div>
+                                                               <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</p>
+                                                           </Col>
+
+                                                       </Row>
+                                                   </div>
+                                               </Col>
                                            </Row>
                                            
                                            </div>
@@ -406,13 +474,13 @@ const orderSummary =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">
                                             <h2 className="mb-0">Order Summary In Past 12 Months</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="orderSummary" className="collapse" aria-labelledby="orderSummary" data-parent="#profileAccordion">
                                            <div className={`${styles.order_wrapper} border_color`}>
-                                           <table className ={`${styles.table} table`}cellpadding="0" cellspacing="0" >
+                                           <table className ={`${styles.table} table  border_color`}cellpadding="0" cellspacing="0" >
                                                <tr>
                                                    <th >CUSTOMER NAME</th>
                                                     <th>ORDER NO</th>
@@ -437,7 +505,7 @@ const orderSummary =()=>{
                                                                    <span className={`d-flex justify-content-center align-content-center`}>ET</span>
                                                                </div>
                                                               
-                                                               <span className={` ${styles.name} ml-3 `}>Emerging Traders</span>
+                                                               <span className={` ${styles.name} ml-3  `}>Emerging Traders</span>
                                                    </td>
                                                     <td>2765470865</td>
                                                      <td>1,900.00</td>
@@ -457,11 +525,11 @@ const creditProfile =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#creditProfile" aria-expanded="true" aria-controls="creditProfile">
                                             <h2 className="mb-0">Credit Profile</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="creditProfile" className="collapse" aria-labelledby="creditProfile" data-parent="#profileAccordion">
                                            <div className={`${styles.info_wrapper} card-body border_color`}>
                                             <div className={`${styles.content} mb-4`}>
                                                     <Row className={`mb-3`}>
@@ -506,11 +574,11 @@ const directorDetails =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#directorDetails" aria-expanded="true" aria-controls="directorDetails">
                                             <h2 className="mb-0">Director Details</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="directorDetails" className="collapse" aria-labelledby="directorDetails" data-parent="#profileAccordion">
                                            <div className={`${styles.order_wrapper} card-body`}>
                                            <table className ={`${styles.table} table  border_color`}cellpadding="0" cellspacing="0" >
                                                <tr>
@@ -579,11 +647,11 @@ const shareHolding =(data,options,tempArr)=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#shareHolding" aria-expanded="true" aria-controls="shareHolding">
                                             <h2 className="mb-0">Shareholding Details</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="shareHolding" className="collapse" aria-labelledby="shareHolding" data-parent="#profileAccordion">
                                            <div className={`${styles.order_wrapper} card-body`}>
                                             <Row>
                                                 <Col className={`${styles.leftCol} border_color`} md={5}>
@@ -678,11 +746,11 @@ const chargeDetails =(data,options,tempArr)=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#chargeDetails" aria-expanded="true" aria-controls="chargeDetails">
                                             <h2 className="mb-0">Open Bank Charge Details</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="chargeDetails" className="collapse" aria-labelledby="chargeDetails" data-parent="#profileAccordion">
                                            <div className={`${styles.order_wrapper} card-body`}>
                                             <Row>
                                                 <Col className={`${styles.leftCol} border_color`} md={5}>
@@ -777,11 +845,11 @@ const debtProfile =(data,options,tempArr)=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#debtProfile" aria-expanded="true" aria-controls="debtProfile">
                                             <h2 className="mb-0">Debt Profile</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="debtProfile" className="collapse" aria-labelledby="debtProfile" data-parent="#profileAccordion">
                                            <div className={`${styles.order_wrapper} card-body`}>
                                             <Row>
                                                 <Col className={`${styles.leftCol} border_color`} md={5}>
@@ -812,7 +880,7 @@ const debtProfile =(data,options,tempArr)=>{
                                                                 <span>1,900.00</span>
                                                                </div>
                                                                <div className={`${styles.bar} ${styles.small_bar}`}>
-                                                                <span style ={{color:"#EA3F3F"}}>Cash Credit</span>
+                                                                <span style ={{color:"#EA3F3F"}}>dis</span>
                                                                <div style ={{backgroundColor:"#EA3F3F"}} className={`${styles.fill}`}>
                                                                 
                                                                    
@@ -885,7 +953,7 @@ const debtProfile =(data,options,tempArr)=>{
                                                     </td>
                                                    
                                                       <td>₹ 800.00</td>
-                                                       <td className={`${styles.conduct}`}>Poor</td>
+                                                       <td className={`${styles.conduct} danger`}>Poor</td>
                                                       
 
                                                         
@@ -904,7 +972,7 @@ const debtProfile =(data,options,tempArr)=>{
                                                     </td>
                                                    
                                                       <td>₹ 800.00</td>
-                                                       <td className={`${styles.conduct}`}>Poor</td>
+                                                       <td className={`${styles.conduct} good`}>good</td>
                                                       
                                                       
 
@@ -942,11 +1010,11 @@ const operationalDetails =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#operationalDetails" aria-expanded="true" aria-controls="operationalDetails">
                                             <h2 className="mb-0">Credit Profile</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="operationalDetails" className="collapse" aria-labelledby="operationalDetails" data-parent="#profileAccordion">
                                            <div className={`${styles.info_wrapper} card-body border_color`}>
                                             <div className={`${styles.content} mb-4`}>
                                                     <Row className={`mb-3`}>
@@ -1000,11 +1068,11 @@ const revenuDetails =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#revenuDetails" aria-expanded="true" aria-controls="revenuDetails">
                                             <h2 className="mb-0">Revenue Details</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="revenuDetails" className="collapse" aria-labelledby="revenuDetails" data-parent="#profileAccordion">
                                            <div className={`${styles.order_wrapper} card-body`}>
                                            <table className ={`${styles.table} table  border_color`}cellpadding="0" cellspacing="0" >
                                                <tr>
@@ -1021,7 +1089,7 @@ const revenuDetails =()=>{
                                                    <td>
                                                        Gross Revenue
                                                    </td>
-                                                    <td>27AAATW4183</td>
+                                                    <td><img src="/static/arrow-up-green.svg" alt="Arrow Red" class="img-fluid"/></td>
                                                      <td>11,900.00 </td>
                                                       <td>1,900.00</td>
                                                        <td>40%</td>
@@ -1031,7 +1099,7 @@ const revenuDetails =()=>{
                                                    <td>
                                                        Related Party Sales
                                                    </td>
-                                                    <td>27AAATW4183</td>
+                                                       <td><img src="/static/arrow-down-red.svg" alt="Arrow Red" class="img-fluid"/></td>
                                                      <td>11,900.00 </td>
                                                       <td>1,900.00</td>
                                                        <td>40%</td>
@@ -1048,16 +1116,16 @@ const financeDetails =(data,options,tempArr)=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#financeDetails" aria-expanded="true" aria-controls="financeDetails">
                                             <h2 className="mb-0">Financial Summary</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
-                                           <div className={`${styles.order_wrapper} card-body`}>
+                                        <div id="financeDetails" className="collapse" aria-labelledby="financeDetails" data-parent="#profileAccordion">
+                                           <div className={`${styles.order_wrapper2} card-body`}>
                                             <Row>
                                                 <Col className={`${styles.leftCol} p-0 border_color`} md={5}>
 
-                                              <table className ={`${styles.table} table  border_color `}cellpadding="0" cellspacing="0" >
+                                              <table className ={`${styles.table} table  border_color `} cellpadding="0" cellspacing="0" >
                                                <tr>
                                                    <th>Liabilities</th>
                                                    <th>MAR-20</th>
@@ -1178,7 +1246,7 @@ const financeDetails =(data,options,tempArr)=>{
                                                      
                                                 </Col>
                                                 <Col md={7} className={`pl-0`}>
-                                                 <table className ={`${styles.table} table  border_color `}cellpadding="0" cellspacing="0" >
+                                                 <table className ={`${styles.table} table  border_color  `} cellpadding="0" cellspacing="0" >
                                                <tr>
                                                    <th>Ratios</th>
                                                    <th>MAR-20</th>
@@ -1303,11 +1371,11 @@ const compilanceStatus =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#compilanceStatus" aria-expanded="true" aria-controls="compilanceStatus">
                                             <h2 className="mb-0">Compliance Status</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="compilanceStatus" className="collapse" aria-labelledby="compilanceStatus" data-parent="#profileAccordion">
                                            <div className={`${styles.info_wrapper} card-body border_color`}>
                                             <div className={`${styles.content} mb-4`}>
                                                     <Row className={`mb-3`}>
@@ -1362,20 +1430,20 @@ const strengthAndWeakness =(data,options,tempArr)=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#strengthAndWeakness" aria-expanded="true" aria-controls="strengthAndWeakness">
                                             <h2 className="mb-0">Strength & Weakness</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="strengthAndWeakness" className="collapse" aria-labelledby="strengthAndWeakness" data-parent="#profileAccordion">
                                            <div className={`${styles.order_wrapper} card-body`}>
                                             <Row>
                                                 <Col className={`${styles.leftCol} border_color`} md={6}>
                                                       <div className={`d-flex justify-content-start align-content-center`}>
-                                                           <div className={`${styles.icon} `}>
-                                                                   <span className={`d-flex justify-content-center align-content-center`}>ET</span>
+                                                           <div className={`${styles.icon} ${styles.green_highlight}`}>
+                                                                   <span className={`d-flex justify-content-center align-content-center`}><img src="./static/check.svg"></img></span>
                                                                    
                                                                </div>
-                                                              <span className={`${styles.text} ml-2`}>Strength</span>
+                                                              <span className={`${styles.text} good ml-2`}>Strength</span>
                                                       </div>
                                                       <div>
                                                           <ul>
@@ -1391,11 +1459,11 @@ const strengthAndWeakness =(data,options,tempArr)=>{
                                                 </Col>
                                                <Col className={`${styles.leftCol} border_color`} md={6}>
                                                        <div className={`d-flex justify-content-start align-content-center`}>
-                                                           <div className={`${styles.icon} `}>
-                                                                   <span className={`d-flex justify-content-center align-content-center`}>ET</span>
+                                                           <div className={`${styles.icon} ${styles.red_highlight} `}>
+                                                                   <span className={`d-flex justify-content-center align-content-center`}><img src="./static/close-b.svg"></img></span>
                                                                    
                                                                </div>
-                                                              <span className={`${styles.text} ml-2`}>Strength</span>
+                                                              <span className={`${styles.text} danger ml-2`}>Weakness</span>
                                                       </div>
                                                       <div>
                                                           <ul>
@@ -1419,11 +1487,11 @@ const sectionTerms =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#sectionTerms" aria-expanded="true" aria-controls="sectionTerms">
                                             <h2 className="mb-0">Sanction Terms</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="sectionTerms" className="collapse" aria-labelledby="sectionTerms" data-parent="#profileAccordion">
                                            <div className={`${styles.terms_wrapper} card-body border_color`}>
                                            <table className ={`${styles.table} table  border_color `}cellpadding="0" cellspacing="0" >
                                                <tr>
@@ -1462,7 +1530,8 @@ const sectionTerms =()=>{
                                                
                                           </table>
                                           <div>
-                                          <div className={`${styles.heading} d-flex  align-items-center justify-content-start`}>Sanction Conditions</div>
+                                          
+                                          <div className={`${styles.heading} heading d-flex  align-items-center justify-content-start`}>Sanction Conditions</div>
                                           <ul className="mt-3 mb-3">
                                               <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam sadipscing elitr, sed diam</li>
                                               <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam sadipscing elitr, sed diam</li>
@@ -1489,11 +1558,11 @@ const Documents =()=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
-                                            <h2 className="mb-0">Sanction Terms</h2>
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#Documents" aria-expanded="true" aria-controls="Documents">
+                                            <h2 className="mb-0">Documents Available</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="Documents" className="collapse" aria-labelledby="Documents" data-parent="#profileAccordion">
                                            <div className={`${styles.terms_wrapper} card-body border_color`}>
                                            <Row className={`${styles.row}`}>
                                                <Col md={3} className={`mb-3`}>
@@ -1580,10 +1649,10 @@ const trends =(dataline,lineOption)=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#trends" aria-expanded="true" aria-controls="trends">
                                             <h2 className="mb-0">Trends</h2>
                                           <span className=" d-flex align-items-center justify-content-between">
-                                            <span className={` d-flex align-items-center justify-content-between`}><span className={`${styles.light} accordion_Text`}>Display By:
+                                            <span className={` d-flex align-items-center justify-content-between`}><span className={`${styles.light} ${styles.unit_label} accordion_Text`}>Display By:
                                             </span>
                                             <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
                                           
@@ -1595,7 +1664,7 @@ const trends =(dataline,lineOption)=>{
                                             +
                                           </span>  
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="trends" className="collapse" aria-labelledby="trends" data-parent="#profileAccordion">
                                            <div className={`${styles.graph_wrapper} card-body`}>
                                             <Row className={`m-0`}>
                                                 <Col className={`${styles.leftCol} p-0 border_color`} md={6}>
@@ -1642,10 +1711,10 @@ const skewness =(data,options,tempArr)=>{
     return(
         <>
 <div className={`${styles.card} card`}>                             
- <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
+ <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#skewness" aria-expanded="true" aria-controls="skewness">
                                             <h2 className="mb-0">Skewness</h2>
                                           <span className=" d-flex align-items-center justify-content-between">
-                                            <span className={` d-flex align-items-center justify-content-between`}><span className={`${styles.light} accordion_Text`}>Display By:
+                                            <span className={` d-flex align-items-center justify-content-between`}><span className={`${styles.light}  ${styles.unit_label} accordion_Text`}>Display By:
                                             </span>
                                             <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
                                           
@@ -1657,7 +1726,7 @@ const skewness =(data,options,tempArr)=>{
                                             +
                                           </span>  
                                         </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
+                                        <div id="skewness" className="collapse" aria-labelledby="skewness" data-parent="#profileAccordion">
                                            <div className={`${styles.graph_wrapper} card-body`}>
                                             <Row className={`m-0`}>
                                                 <Col className={`${styles.leftCol} p-0 border_color`} md={6}>

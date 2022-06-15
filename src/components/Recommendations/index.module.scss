@@ -1,13 +1,9 @@
 .main {
-    box-shadow: 0px 3px 6px #CAD0E2;
-    border: 1px solid #D2D7E5;
     border-radius: 6px;
-    background-color: #ffffff;
     margin-top: 15px;
   
     .head_container {
         padding: 10px 0px 0px 20px;
-        border-bottom: 3px solid #D9DDE8;
         .heading{
             color: #3687e8;
             font-weight:bold;
@@ -27,28 +23,46 @@
     .line{
         border: 2px solid #CAD6E6;
     }
+
+   
    .dashboard_form { 
      padding: 10px 10px 0px 20px;
      margin: 15px;
+    
+     
      .sub_heading {
         margin-top: 20px;
-        color: #111111;
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
         text-transform: capitalize;
+
+     }
+     .strength {
+        text-decoration: underline;
+        letter-spacing: 0.63px;
+        font-size: 19px;
+        line-height: 17px;
+        font-weight: 500;
+        text-transform: capitalize;
+        padding: 25px 0px 25px 0px;
      }
       .comment_para{
             border: 1px solid #0000001F;
             border-radius: 4px;
             padding: 25px 30px 25px 30px;
             margin-top: 35px;
-            .comment{
-                
+            .comment{ 
                 letter-spacing: 0.19px;
-                color: #111111;
+                //color: #111111;
                 font-size: 20px;
                 line-height: 25px;
+            }
+            .comment_para{ 
+                letter-spacing: 0.19px;
+                //color: #111111;
+                font-size: 20px;
+                line-height: 30px;
             }
 
             .edit_image{
@@ -58,18 +72,23 @@
                 padding: 10px 9px 10px 9px;
             }
     }  
+    .paragraph{
+        line-height: 25px;
+        letter-spacing: 0.19px;
+        font-size: 20px;
+        width: 85%;
+    }
 
     .label_heading {
-        top: 27px;
-        left: 30px;
         font-size: 16px;
-        line-height: 0.5;
-        margin-bottom: 0;
+        font-weight: 500;
         letter-spacing: 0.53px;
         position: absolute;
         pointer-events: none;
+        line-height: 17px;
         box-sizing: border-box;
-        transform: translateY(-31px);
+        transform: translateY(-10px);
+        margin-left: 20px;
         transition: 0.3s all ease-in-out;
     }
     .comment_field {
@@ -85,11 +104,60 @@
         box-sizing: border-box;
         
     }
+   
+    
  }
+ .sanction_terms{
+    background: #FAFAFB;
+    padding: 20px 0 20px 35px;
+    .sanction_heading {
+        font-size: 20px;
+        line-height: 25px;
+        font-weight: bold;
+        text-transform: capitalize;
+    }
 
+    .limit_container{
+
+        .limit {
+            text-align: right;
+            color: #2837566A;
+            text-transform: capitalize;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 23px;
+            padding-right: 40px;
+
+            span {
+                text-align: center;
+                color: #111111;
+                font-size: 19px;
+                line-height: 24px;
+                font-weight: 500;
+            }
+        }
+    }
+
+}
+.label_sanction{
+    letter-spacing: 0.53px;
+    color: #00000080;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 17px;
+    }
+ 
  .datatable {
     border-radius: 6px;
     margin: 30px;
+    h5{
+        color: #111111;
+        text-transform: capitalize;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 25px;
+        padding-left: 35px;
+    }
     .table {
         th {
             font-size: 15px;
@@ -107,9 +175,7 @@
             font-size: 19px;
             font-weight: 500;
             line-height: 24px;
-            color: #111111;
             padding: 24px 15px;
-            background: #FFFFFF;
             box-shadow: 0px 3px 6px #CAD0E2;
             border: none;
             border-bottom: 1px solid #D2D7E5;
@@ -117,6 +183,25 @@
             &:first-child {
                 padding-left: 35px;
             }
+            input {
+                background: #C3C3C31F;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            
+        }
+        .number {
+            color: #3687E8;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size:20px ;
+            line-height: 25px;
+        }
+        .dropDown{
+            background: transparent;
+            border: none;
+           
         }
         
        
@@ -152,5 +237,6 @@
         border: 1px solid #0000001F;
         border-radius: 4px;
         padding: 10px 9px 10px 9px;
+        
     }
 }

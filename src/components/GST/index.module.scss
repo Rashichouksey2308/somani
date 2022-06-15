@@ -46,6 +46,12 @@
           line-height:27px;
           height: 67px;
           background: #FAFAFB 0% 0% no-repeat padding-box;
+          span{
+            font-size: 22px ;
+            font-weight: bold;
+            letter-spacing: 0px;
+            color: #111111 !important;
+          }
           .light{
             color: #2837566A;
             font-weight: bold;
@@ -124,20 +130,22 @@
              background: #FAFAFB 0% 0% no-repeat padding-box;
     
              span {
-                 font-weight: medium;
+                 font-weight: bold;
                  font-size: 16px;
                  line-height: 17px;
                  letter-spacing: 0.53px;
-                 color: #00000080;
+                 color: #000000 !important;
                  padding: 25px 35px !important;
+                  padding-right: 0px !important;
              }
     
              .light {
-                 color: #2837566A;
+                padding-left:0px !important;
+                 color: #2837566A !important;
                  font-weight: bold;
-                 font-size: 18px;
+                 font-size: 15px;
                  line-height: 23px;
-                 margin-right: 1rem;
+                 margin-left: 0.5rem;
              }
          }
     

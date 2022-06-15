@@ -28,14 +28,35 @@ const index = () => {
                 </div>  
                 <div id="orderSummary" className="collapse" aria-labelledby="orderSummary" data-parent="#profileAccordion">      
                 <div className={`${styles.dashboard_form}`}>
-                
+                <div className={styles.radio_form}>
+            <div className={styles.sub_heading}>Transaction Type</div>
+            {['radio'].map((type) => (
+              <div key={`inline-${type}`} className={styles.radio_group}>
+                <Form.Check
+                  className={styles.radio}
+                  inline
+                  label="Import"
+                  name="group1"
+                  type={type}
+                  id={`inline-${type}-1`}
+                />
+                <Form.Check
+                  className={styles.radio}
+                  inline
+                  label="Domestic"
+                  name="group1"
+                  type={type}
+                  id={`inline-${type}-2`}
+                />
+              </div>
+            ))}
+          </div> 
             <Form>
             <div className='row'>
                
                 <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
                     <div className='d-flex'>
                     <Form.Control className={`${styles.input_field} input form-control`} required type="text"/> 
-                     
                      <Form.Label className={`${styles.label_heading} label_heading`}>Commodity<strong className="text-danger">*</strong></Form.Label>
                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
                      </div>
