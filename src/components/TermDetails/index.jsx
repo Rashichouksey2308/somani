@@ -5,22 +5,22 @@ import styles from './index.module.scss'
 const index = () => {
   return (
     <div className={styles.main}>    
-        <div className={`${styles.head_container} d-flex justify-content-between`}>
+        <div className={`${styles.head_container} border_color  card-header  d-flex justify-content-between`}>
             <h3 className={styles.heading}>Termsheet</h3>
             <span>+</span>
         </div> 
-        <div className={styles.dashboard_form}>
-            <h3 className={styles.sub_heading}>Commodity details</h3>
+        <div className={`${styles.dashboard_form} card-body`}>
+            <h3 className={`${styles.sub_heading} label_heading`}>Commodity details</h3>
             <Form>
                 <div className='row'>               
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
                         <div className='d-flex'>
-                            <Form.Control className={`${styles.value} form-control`} type="text"  required/>
+                            <Form.Control className={`${styles.value} input form-control`} type="text"  required/>
                             <Form.Label className={styles.label}>Commodity<strong className="text-danger">*</strong></Form.Label>
                             <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
                         </div>
                     </Form.Group>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                    <Form.Group className={`${styles.form_group} input col-md-4 col-sm-6`}>
                         <select  className={`${styles.value} form-control`} required>
                             <option value="volvo">MT</option>
                             <option value="audi">KG</option>

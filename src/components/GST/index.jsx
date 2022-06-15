@@ -1,10 +1,10 @@
 import React ,{useRef,useEffect,useState}from 'react'
 import styles from './index.module.scss'
 import {Row,Col} from 'react-bootstrap'
-import { Line } from "react-chartjs-2";
-import { Chart, LineController, LineElement, PointElement, LinearScale, Title,CategoryScale,Filler } from 'chart.js';
+import { Line,Bar } from "react-chartjs-2";
+import { Chart, LineController, LineElement, PointElement, LinearScale, Title,CategoryScale,Filler ,BarController,BarElement} from 'chart.js';
 
-Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale,Filler);
+Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale,Filler,BarController,BarElement);
 // Chart.register(linear);
 function index() {
   const chartRef = useRef(null);
@@ -336,7 +336,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
               <Col md={6} className={styles.col2}>
               <div className={styles.chart_container}>
               <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}>
-              <span>Revenue Summary</span>  
+              <span>Turnover vs Purchases</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
              <div  className={styles.chart}>
@@ -347,18 +347,40 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
               <Col md={6} className={styles.col}>
               <div className={styles.chart_container}>
               <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}>
-              <span>Revenue Summary</span>  
+              <span>Top 10 Customers</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
              <div  className={styles.chart}>
-                <Line data={data} />
+                <Bar data={data} />
              </div>
               </div>
              </Col>
               <Col md={6} className={styles.col2}>
               <div className={styles.chart_container}>
               <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}>
-              <span>Revenue Summary</span>  
+              <span>Top 10 Suppliers</span>  
+              <span className={styles.light}>(Cr)</span> 
+            </div>
+             <div  className={styles.chart}>
+                <Bar data={data} />
+             </div>
+              </div>
+             </Col>
+               <Col md={6} className={styles.col2}>
+              <div className={styles.chart_container}>
+              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}>
+              <span>State Wise Sales</span>  
+              <span className={styles.light}>(Cr)</span> 
+            </div>
+             <div  className={styles.chart}>
+                <Bar data={data} />
+             </div>
+              </div>
+             </Col>
+               <Col md={6} className={styles.col2}>
+              <div className={styles.chart_container}>
+              <div className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}>
+              <span>Average Trends</span>  
               <span className={styles.light}>(Cr)</span> 
             </div>
              <div  className={styles.chart}>
@@ -522,6 +544,219 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
          
            
            </table>
+          
+           </div>            
+        </div>   </div> 
+
+        <div className={`${styles.wrapper} card`}>
+              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations2" aria-expanded="true" aria-controls="litigations2">
+            <h2 className="mb-0">Purchase Details</h2>
+            <span>+</span>
+        </div>
+        <div id="litigations2" className="collapse" aria-labelledby="litigations2" data-parent="#profileAccordion">
+         <div className={` ${styles.cardBody} card-body   border_color`}>
+           <table className={`${styles.table_annual}  table border_color`}cellpadding="0" cellspacing="0" border="1">
+            <tr>
+            <th  className={`${styles.first}`} colspan={2}>Annual Summary</th>
+            <th  colspan={2}>MAR 2020 - APR 2021</th>
+            <th  colspan={2}>MAR 2021 - APR 2022</th>
+            </tr>
+             <tr  className={styles.second_head}>
+            <td  className={`${styles.first}`} colspan={2} ></td>
+             <td>VALUE</td>
+              <td >% ON GROSS REVENUE</td>
+                <td >VALUE</td>
+              <td >% ON GROSS REVENUE</td>
+             {/* <td    className=" d-flex align-items-center justify-content-between">
+               <span>VALUE</span>
+               <span >% ON GROSS REVENUE</span>
+             </td>
+              <td    className=" d-flex align-items-center justify-content-between">
+               <span>VALUE</span>
+               <span >% ON GROSS REVENUE</span>
+             </td> */}
+            
+             
+            
+             
+           
+            
+            
+            </tr>
+             <tr>
+            <td  className={`${styles.first}`} colspan={2} >Gross Revenue</td>
+             <td>1,900.00</td>
+              <td>80%</td>
+                <td>1,900.00</td>
+              <td>80%</td>
+        
+            
+             
+            
+             
+           
+            
+            
+            </tr>
+           </table>
+           <table className={`${styles.table_average} border_color  table`} cellpadding="0" cellspacing="0" border="1">
+            <tr>
+            <th >Averages</th>
+            <th  >MAR 2020 - APR 2021</th>
+            <th  >MAR 2021 - APR 2022</th>
+            </tr>
+           
+              <tr className={styles.second_head}>
+                      <td   ></td>
+                      <td>VALUE</td>
+                      
+                          <td>VALUE</td>
+                      
+            </tr>
+             <tr>
+            <td >Average Monthly Sales</td>
+             <td>1,900.00</td>
+           
+                <td>1,900.00</td>
+             </tr>
+               <tr>
+            <td >Average Monthly Sales</td>
+             <td>1,900.00</td>
+           
+                <td>1,900.00</td>
+             </tr>
+               <tr>
+            <td >Average Monthly Sales</td>
+             <td>1,900.00</td>
+           
+                <td>1,900.00</td>
+             </tr>
+               <tr>
+            <td >Average Monthly Sales</td>
+             <td>1,900.00</td>
+           
+                <td>1,900.00</td>
+             </tr>
+               <tr>
+            <td >Average Monthly Sales</td>
+             <td>1,900.00</td>
+           
+                <td>1,900.00</td>
+             </tr>
+           
+           </table>
+            <table className={`${styles.table_pricioal} border_color  table`} cellpadding="0" cellspacing="0" border="1">
+            <tr>
+            <th >Principal/ HSN Wise Sales</th>
+            <th colspan={6} >Financial Period:1</th>
+           
+            </tr>
+            <tr>
+              <td className={`${styles.second_head} ${styles.first}`}>PRODUCT</td>
+                <td className={styles.second_head}>HSN CODE</td>
+                  <td className={styles.second_head}>TURNOVER</td>
+                    <td className={styles.second_head}>% SHARE</td>
+
+                      <td className={styles.second_head}>CUSTOMERS</td>
+                        <td className={styles.second_head}>INVOICES</td>
+                          <td className={styles.second_head}>AVG. SALES PER CUSTOMER</td>
+            </tr>
+               <tr>
+              <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                <td >72022900E</td>
+                  <td >25.40</td>
+                    <td >25.40E</td>
+
+                      <td >24</td>
+                        <td >19</td>
+                          <td >1.05</td>
+            </tr>
+              <tr>
+              <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                <td >72022900E</td>
+                  <td >25.40</td>
+                    <td >25.40E</td>
+
+                      <td >24</td>
+                        <td >19</td>
+                          <td >1.05</td>
+            </tr>
+              <tr>
+              <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                <td >72022900E</td>
+                  <td >25.40</td>
+                    <td >25.40E</td>
+
+                      <td >24</td>
+                        <td >19</td>
+                          <td >1.05</td>
+            </tr>
+          
+         
+           
+           </table>
+          
+           </div>            
+        </div>   </div>    
+
+        <div className={`${styles.wrapper} card`}>
+              <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations2" aria-expanded="true" aria-controls="litigations2">
+            <h2 className="mb-0">Compliance</h2>
+            {/* <div>
+                <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>GST :</span>09AAGCS8808K1ZR</span> 
+                 <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>GST :</span>09AAGCS8808K1ZR</span>   
+                  <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>GST :</span>09AAGCS8808K1ZR</span>     
+            </div> */}
+            <span>+</span>
+        </div>
+        <div id="litigations2" className="collapse" aria-labelledby="litigations2" data-parent="#profileAccordion">
+         <div className={` ${styles.cardBody} card-body   border_color`}>
+           <table className={`${styles.table_annual}  table border_color`}cellpadding="0" cellspacing="0" border="1">
+            <tr>
+            <th  className={`${styles.first}`} colspan={2}></th>
+            <th  colspan={2}>GSTR1 (SALES)</th>
+            <th  colspan={2}>GSTR3B (CONSOLIDATED)</th>
+            </tr>
+             <tr  className={styles.second_head}>
+            <td  className={`${styles.first}`} colspan={2} >MONTH</td>
+             <td>DATE OF FILING</td>
+              <td >DAYS OF DELAY</td>
+                <td >DATE OF FILING</td>
+              <td >DAYS OF DELAY</td>
+             {/* <td    className=" d-flex align-items-center justify-content-between">
+               <span>VALUE</span>
+               <span >% ON GROSS REVENUE</span>
+             </td>
+              <td    className=" d-flex align-items-center justify-content-between">
+               <span>VALUE</span>
+               <span >% ON GROSS REVENUE</span>
+             </td> */}
+            
+             
+            
+             
+           
+            
+            
+            </tr>
+             <tr>
+            <td  className={`${styles.first}`} colspan={2} >Gross Revenue</td>
+             <td>1,900.00</td>
+              <td>80%</td>
+                <td>1,900.00</td>
+              <td>80%</td>
+        
+            
+             
+            
+             
+           
+            
+            
+            </tr>
+           </table>
+          
+           
           
            </div>            
         </div>   </div>                                   
@@ -865,7 +1100,7 @@ const gstSupplierDetail = () => {
               +
             </span>
         </div>
-        <div id="gstSupplierDetail"  className="collapse" aria-labelledby="gstSupplierDetail" data-parent="#profileAccordion">
+        <div id="gstSupplierDetail"  className="collapse" aria-labelledby="gstSupplierDetail" data-parent="#gstSupplierDetail">
          <div className={` ${styles.CustomercardBody} card-body border_color`}>
          <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>
