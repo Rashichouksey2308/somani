@@ -5,10 +5,11 @@ import styles from './index.module.scss'
 const index = () => {
   return (
     <div className={`${styles.upload_main} upload_main`}>
-        <div className={`${styles.head_container} d-flex justify-content-between`}>
+        <div className={`${styles.head_container} d-flex justify-content-between`} data-toggle="collapse" data-target="#uploadOther" aria-expanded="true" aria-controls="uploadOther">
             <h3 className={styles.heading}>Upload Other Documents</h3>
             <span>+</span>
         </div>
+        <div id="uploadOther" className="collapse" aria-labelledby="uploadOther" data-parent="#uploadOther">     
         <div className={styles.dashboard_form}>        
             <Form>
                 <div className='row align-items-center pb-4'>               
@@ -117,7 +118,8 @@ const index = () => {
                     </tr>                    
                 </tbody>
             </table>
-        </div>            
+        </div> 
+        </div>           
     </div>
   )
 }

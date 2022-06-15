@@ -6,10 +6,11 @@ import styles from './index.module.scss'
 const index = () => {    
   return (
     <div className={styles.main}>
-        <div className={`${styles.head_container} d-flex justify-content-between`}>
+        <div className={`${styles.head_container} d-flex justify-content-between`} data-toggle="collapse" data-target="#otherTerm" aria-expanded="true" aria-controls="otherTerm">
             <h3 className={styles.heading}>Other Terms &amp; Conditions</h3>
             <span>+</span>
         </div>
+        <div id="otherTerm" className="collapse" aria-labelledby="otherTerm" data-parent="#otherTerm">     
         <div className={styles.dashboard_form}>       
             <Form>
                 <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.<span className={styles.igpl_para}>Indo German International Private Limites (Igpl) </span>will provide proof of all expenses to the Buyer.</div>  
@@ -204,6 +205,7 @@ const index = () => {
                     or its nominated person. * GST charges extra wherever applicable</div>
                 </div>
             </Form>                
+        </div>
         </div>
     </div>   
   )

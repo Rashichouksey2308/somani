@@ -1,26 +1,21 @@
 .main {
-    //border: 1px solid #D2D7E5;
-    border-radius: 6px;
-    margin-top: 20px;
-    background-color: #ffffff;
-    margin-bottom: 25px;
-    .head_container {
-        //border-bottom: 3px solid #D9DDE8;
-            padding: 10px 0px 0px 20px;
+    margin-bottom: 1rem;
+    border-radius: 6px !important;
 
+    .head_container {
+        cursor: pointer;
+        padding: 25px 35px !important;
             .heading{
                 color: #3687e8;
             font-size:22px;
             font-weight: bold;
             text-transform: capitalize;
-            padding: 15px;
             }
             span {
                 font-size: 45px;
                 color: #3687e8;
                 font-weight: normal;
                 line-height: 20px;
-                padding: 15px;
             }
 }
  .dashboard_form { 

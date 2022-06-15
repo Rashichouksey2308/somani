@@ -1,19 +1,24 @@
 .main {
-    
-    border-radius: 6px;
-    background-color: #ffffff;
-    margin-top: 15px;
+    margin-bottom: 1rem;
+    border-radius: 6px !important;
+
   
     .head_container {
-        padding: 10px 0px 0px 20px;
+        cursor: pointer;
+        padding: 25px 35px !important;
         .heading{
             color: #3687e8;
             font-weight:bold;
             font-size: 22px;
             text-transform: capitalize;
-            padding: 15px;
-            margin-top: 15px;
-     }
+        }
+        span {
+            font-size: 45px;
+            color: #3687e8;
+            font-weight: normal;
+            line-height: 20px;
+            margin-right: -10px;
+        }
     }
     .unit_container {
 

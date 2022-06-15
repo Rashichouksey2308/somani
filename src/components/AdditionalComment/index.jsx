@@ -4,12 +4,12 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={styles.main}>
-        <div className={`${styles.head_container} d-flex justify-content-between`}>
+    <div className={`${styles.main}`}>
+        <div className={`${styles.head_container} d-flex justify-content-between`} data-toggle="collapse" data-target="#additional" aria-expanded="true" aria-controls="additional">
             <h3 className={styles.heading}>Additional Comments</h3>
             <span>+</span>
         </div>
-        { /* <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#termsheetAccordion">  */}     
+        <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#additional">     
         <div className={styles.dashboard_form}>
             <Form>
                 <div className='row'>               
@@ -57,7 +57,7 @@ const index = () => {
             </Form>               
         </div>
         </div>
-    //</div>
+    </div>
   )
 }
 export default index

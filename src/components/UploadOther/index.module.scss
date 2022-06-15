@@ -1,13 +1,14 @@
 .upload_main {
     border-radius: 6px;
-    margin:20px;
+    margin-bottom: 1rem;
     .head_container {
         border-bottom: 2px solid #CAD6E6;
-        .heading {
+        cursor: pointer;
+        padding: 25px 35px !important;
+      .heading {
             font-size: 22px;
             font-weight: bold;
             color: #3687E8;
-            padding: 27px 35px;
             line-height: 27px;
             margin-bottom: 0;
         }
@@ -16,7 +17,6 @@
             color: #3687e8;
             font-weight: normal;
             line-height: 20px;
-            padding: 20px;
         }
     }
     .dashboard_form {

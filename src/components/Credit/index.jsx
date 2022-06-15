@@ -7,7 +7,7 @@ const index = () => {
       <>
          <div className={`${styles.main} card border_color`}>
             <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#productSummary" aria-expanded="true" aria-controls="productSummary">
-            <h3 className={`${styles.heading}`}>Product Summary</h3>
+            <h3 className={`${styles.heading} mb-0`}>Product Summary</h3>
             <span>+</span>
                     </div>  
                     <div id="productSummary" className="collapse" aria-labelledby="productSummary" data-parent="#profileAccordion">      
@@ -157,7 +157,7 @@ const index = () => {
               
                     <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyContact" aria-expanded="true" aria-controls="keyContact" >
-                    <h3 className={`${styles.heading}`}>Key Contact Person</h3>
+                    <h3 className={`${styles.heading} mb-0`}>Key Contact Person</h3>
                     <span>+</span>
                             </div>  
                             <div id="keyContact" className="collapse" aria-labelledby="keyContact" data-parent="#profileAccordion">      
@@ -249,7 +249,7 @@ const index = () => {
                   
                     <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyAddress" aria-expanded="true" aria-controls="keyAddress">
-                    <h3 className={`${styles.heading}`}>Key Addresses</h3>
+                    <h3 className={`${styles.heading} mb-0`}>Key Addresses</h3>
                     <span>+</span>
                             </div>  
                             <div id="keyAddress" className="collapse" aria-labelledby="keyAddress" data-parent="#profileAccordion">      
@@ -347,7 +347,7 @@ const index = () => {
 
                     <div className={`${styles.main} card border_color`}>
                      <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#addAddress" aria-expanded="true" aria-controls="addAddress">
-                            <h3 className={`${styles.heading}`}>Add a new address</h3>
+                            <h3 className={`${styles.heading} mb-0`}>Add a new address</h3>
                             <img src="/static/accordion_close_black.svg"  className='img-fluid' alt="Close" />
                             </div> 
                             <div id="addAddress" className="collapse" aria-labelledby="addAddress" data-parent="#profileAccordion">       
@@ -404,7 +404,7 @@ const index = () => {
 
                     <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#debtProfile" aria-expanded="true" aria-controls="debtProfile" >
-                    <h3 className={`${styles.heading}`}>Debt Profile</h3>
+                    <h3 className={`${styles.heading} mb-0`}>Debt Profile</h3>
                     <span>+</span>
                             </div>  
                             <div id="debtProfile" className="collapse" aria-labelledby="debtProfile" data-parent="#profileAccordion">      
