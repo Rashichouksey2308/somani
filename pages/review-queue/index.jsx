@@ -221,6 +221,7 @@ function index() {
                                             </div>
                                         </div>
                                     </div>
+                                    <PreviousBar/>
                                     <div className={`${styles.card} card`}>
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#shareholding" aria-expanded="true" aria-controls="shareholding">
                                             <h2 className="mb-0">Shareholding Pattern</h2>
@@ -1127,10 +1128,12 @@ function index() {
 
                                    
                                 </div>
+                                <PreviousBar/>
                             </div>
                             <div className="tab-pane fade" id="gst" role="tabpanel">
                                 <div className={`${styles.card}  accordion_body`}>
                                   <GST/>
+                                  <PreviousBar/>
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="Compliance" role="tabpanel">
@@ -1441,6 +1444,7 @@ function index() {
             
                                     </div>
                                 </div>
+                                <PreviousBar/>
                             </div>
                             <div className="tab-pane fade" id="Orders" role="tabpanel">
                               <div className={`${styles.card}`}>
@@ -1452,9 +1456,11 @@ function index() {
                             <div className="tab-pane fade" id="Credit" role="tabpanel">
                                   <Credit/>
                                   <Recommendations/>
+                                  <PreviousBar/>
                             </div>
                             <div className="tab-pane fade" id="cam" role="tabpanel">
                                <CAM/>
+                               <PreviousBar/>
                             </div>
                             <div className="tab-pane fade" id="Documents" role="tabpanel">
                            
@@ -1576,6 +1582,7 @@ function index() {
                                 </div>    
                                 </div>        
                             </div>
+                            <PreviousBar/>
                            
                             </div>
                         </div>
