@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import {Row,Col,Container,Card} from 'react-bootstrap'
 import Paginatebar from '../Paginatebar'
 import TermsheetPopUp from '../TermsheetPopUp'
+import { Form } from 'react-bootstrap'
 function index() {
     let tempArr=[
             {head:"Commodity Details",details:[
@@ -22,12 +23,12 @@ function index() {
   return (
       
       <>
-       <div className={styles.root_container}>
+       <div className={`${styles.root_container} tabHeader`}>
       <div  className={styles.head_container}>
         <div className={styles.head_header}>
           <img className={styles.arrow}
             src="/static/keyboard_arrow_right-3.svg" alt="Arrow" />
-          <h1 className={styles.heading}>Termsheet Preview</h1>
+          <h1 className={`${styles.heading} heading`}>Termsheet Preview</h1>
         </div>
       </div>
       <div  className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
@@ -38,25 +39,25 @@ function index() {
        </Row>
         <Row  className={`h-50`}>
            <Col md={6} className={`d-flex justify-content-start align-items-center`}>
-           <div><span className={styles.termSub_head}>Buyer:</span>M/s Vishnu Chemicals Limited</div>
+           <div><span className={styles.termSub_head}>Buyer:</span><span className={styles.termValue}>M/s Vishnu Chemicals Limited</span></div>
            </Col>
             <Col md={6} className={`d-flex justify-content-end  align-items-center`}>
-           <div><span className={styles.termSub_head}>Order ID:</span>2FCH6589</div>
+           <div><span className={styles.termSub_head}>Order ID:</span> <span className={styles.termValue}>2FCH6589</span></div>
            </Col>
        </Row>
       </div>
       <Card className={styles.content}>
        <div>
-        <Row className={styles.row_head}>
-            <Col md={4} className={`${styles.content_header} d-flex justify-content-center align-content-center`}>
+        <Row className={`${styles.row_head} row_head`}>
+            <Col md={4} className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Commodity Details</span>
             
             </Col>
             <Col md={8}>{""}</Col>
             </Row>
-            <Row>
-            <Col md={4} className={`${styles.sub_content} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Row> 
+            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                    <li>1. Commodity Name</li>
@@ -65,7 +66,7 @@ function index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>Chrome Ore</li>
                 <li>5000 MT (± 10%)</li>
@@ -75,8 +76,8 @@ function index() {
         </Row>
        </div>
         <div>
-        <Row className={styles.row_head}>
-            <Col md={4} className={`${styles.content_header} d-flex justify-content-center align-content-center`}>
+        <Row className={`${styles.row_head} row_head`}>
+            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Transaction Details</span>
             
@@ -84,7 +85,7 @@ function index() {
             <Col md={8}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>4. LC Value</li>
@@ -93,7 +94,7 @@ function index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>USD 2000</li>
                   <li>First Class European Bank)</li>
@@ -104,8 +105,8 @@ function index() {
        </div>
        
         <div>
-        <Row className={styles.row_head}>
-            <Col md={4} className={`${styles.content_header} d-flex justify-content-center align-content-center`}>
+        <Row className={`${styles.row_head} row_head`}>
+            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Payment Due Date</span>
             
@@ -113,7 +114,7 @@ function index() {
             <Col md={8}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>7. Computation of Due Date*</li>
@@ -121,7 +122,7 @@ function index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>90 days from the date of arrival of vessel/containers at discharge port or 120 days from the BL date, whichever is earlier, through TT or LC (in the case of LC all Bank charges to be borne and paid by the Buyer). LC Discounting rate Presently @ 4.75% for 90 days usance LC in case of 120 days usance LC Discounting it is subject to actual discounting charges a per the discounting Bank done with proof of charges.</li>
                  
@@ -130,8 +131,8 @@ function index() {
         </Row>
        </div>
         <div>
-        <Row className={styles.row_head}>
-            <Col md={4} className={`${styles.content_header} d-flex justify-content-center align-content-center`}>
+        <Row className={`${styles.row_head} row_head`}>
+            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Storage Of Goods</span>
             
@@ -139,7 +140,7 @@ function index() {
             <Col md={8}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>8. Storage of Good</li>
@@ -147,7 +148,7 @@ function index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>Cargo to be stored in Custom Bonded warehouse at the port of Discharge (Vizag India) under CMA with Dr. Amin Controllers. "lGM and Into Bond Bill of Entry" shall be filled by the lndo's nominated party and all expenses/charges to be born and paid by the Buyer.</li>
                  
@@ -156,8 +157,8 @@ function index() {
         </Row>
        </div>
         <div>
-        <Row className={styles.row_head}>
-            <Col md={4} className={`${styles.content_header} d-flex justify-content-center align-content-center`}>
+        <Row className={`${styles.row_head} row_head`}>
+            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Commercials Terms</span>
             
@@ -165,7 +166,7 @@ function index() {
             <Col md={8}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>10. Trade Margin (%)</li>
@@ -179,7 +180,7 @@ function index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                 <li>2.25%</li>
                  <li>USD 1500</li>
@@ -194,8 +195,8 @@ function index() {
         </Row>
        </div>
         <div>
-        <Row className={styles.row_head}>
-            <Col md={4} className={`${styles.content_header} d-flex justify-content-center align-content-center`}>
+        <Row className={`${styles.row_head} row_head`}>
+            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Reimbursement Of Expenses</span>
             
@@ -203,7 +204,7 @@ function index() {
             <Col md={8}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>17. Reimbursement of Expenses</li>
@@ -212,7 +213,7 @@ function index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  
                  <li>Post CFR expenses to be reimbursed on actual basis if applicable as attached.</li>
@@ -222,8 +223,8 @@ function index() {
         </Row>
        </div>
         <div>
-        <Row className={styles.row_head}>
-            <Col md={4} className={`${styles.content_header} d-flex justify-content-center align-content-center`}>
+        <Row className={`${styles.row_head} row_head`}>
+            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Additional Comments</span>
             
@@ -231,7 +232,7 @@ function index() {
             <Col md={8}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>18. Overdue Interest Per Month (%)</li>
@@ -240,7 +241,7 @@ function index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  
                  <li>1.5%</li>
@@ -250,8 +251,8 @@ function index() {
         </Row>
        </div>
         <div>
-        <Row className={styles.row_head}>
-            <Col md={4} className={`${styles.content_header_other} d-flex justify-content-center align-content-center`}>
+        <Row className={`${styles.row_head} row_head`}>
+            <Col md={4} className={`${styles.content_header_other}  d-flex justify-content-center align-content-center`}>
              
             <span>Other Terms & Conditions</span>
             
@@ -259,7 +260,7 @@ function index() {
             <Col md={8}>{""}</Col>
           </Row>
           <Row>
-            <Col md={12} className={`${styles.sub_content_other} d-flex justify-content-start align-content-center`}>
+            <Col md={12} className={`${styles.sub_content_other} accordion_Text label_heading  d-flex justify-content-start align-content-center`}>
              Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. Indo German International Private Limited (IGPL) will provide proof of all expenses to the Buyer.
             
             
@@ -268,189 +269,199 @@ function index() {
         </Row>
        </div>
        
-       <div className={styles.checkMarks}>
-       <div className={styles.left} >
-           <div className={styles.head}>CHA / Stevedoring Charges</div>
-           <div className={styles.checkContent}>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Customs clearing charges / handling charges / CHA Fee</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Wharfage Charges</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Wharfage Charges</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Royalty and Penalty Charges</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Tarpaulin Coverage Charges</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Wheighment & Weighment Survey Charges</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Draught Survey Chargese</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Boating while Draught Survey Charges</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>HMC Charges</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Security Charges</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Plot Rental & Storage Charges</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Bonding of Cargo Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Ex - Bond Documentation Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Transfer of Ownership Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Customs Bond Officer Overtime Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Grab Hire Charges ( if any )</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Crane Hire Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Handling Losses</span>
-               </div>
-                 <div>
-                   <input type="checkbox"/>
-                   <span>Insurance Charges ( While transferring the material to customs bonded ware house )</span>
-               </div>
-                 <div>
-                   <input type="checkbox"/>
-                   <span>Water Sprinkling Charges</span>
-               </div>
-                 <div>
-                   <input type="checkbox"/>
-                   <span>Others, if any</span>
-               </div>
-
-           </div>
-       </div>
-       <div className={styles.right} >
-          <div className={styles.head}>LC Opening Charges</div>
-           <div className={styles.checkContent}>
-               <div>
-                   <input type="checkbox"/>
-                   <span>LC Opening Charges ( on LC value subject to minimum of USD 1500)</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>LC Amendment Cost</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>CMA Fees including supervision and survey</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Bank DO Issuance charges</span>
-               </div>
-                  <div>
-                   <input type="checkbox"/>
-                   <span>Remmittance Charges</span>
-               </div>
-                  <div>
-                   <input type="checkbox"/>
-                   <span>Usance Interest</span>
-               </div>
-               <div>
-                  <div className={styles.subhead}>Other Charges</div>
-                   <div>
-                   <input type="checkbox"/>
-                   <span>Demurrage / Detention Charges of Vessel</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Transportation Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Wagon Haulage Charges ( in case of delivery through railways )s</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>3rd Party Inspection Charges</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Hedging Charges</span>
-               </div>
-               <div>
-                   <input type="checkbox"/>
-                   <span>Any other cost incurred on behalf of Buyer</span>
-               </div>
-               </div>
-                
-                <div>
-                  <div className={styles.subhead}>{"Duty & Taxes"}</div>
-                   <div>
-                   <input type="checkbox"/>
-                   <span>Customs Duty with all Govt Cess</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>IGST with Cess, if applicable</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>CIMS Charges (incase commodity is Coal)</span>
-               </div>
-              
-               </div>
-
-                <div>
-                  <div className={styles.subhead}>Insurance</div>
-                   <div>
-                   <input type="checkbox"/>
-                   <span>Marine Insurance (if applicable)</span>
-               </div>
-                <div>
-                   <input type="checkbox"/>
-                   <span>Storage Insurance (Fire Burglary)</span>
-               </div>
+         <div className={styles.dashboard_form}>       
+            <Form>
                
-              
-               </div>
-            
-             
-           </div>
-       </div>
-       </div>
+                <div className='row'>              
+                    <div className={`${styles.form_group} mt-5 col-md-6`} >
+                        <h3 className={`${styles.other_heading} row_head`}>CHA / Stevedoring Charges</h3>
+                        <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
+                            <div className='d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Customs clearing charges / handling charges / CHA Fee</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Wharfage Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Pollution charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Royalty and Penalty Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Tarpaulin Coverage Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Wheighment &amp; Weighment Survey Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Draught Survey Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Boating while Draught Survey Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>HMC Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Security Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Plot Rental &amp; Storage Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Bonding of Cargo Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Ex - Bond Documentation Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Transfer of Ownership Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Customs Bond Officer Overtime Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Grab Hire Charges ( if any )</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Crane Hire Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Handling Losses</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Insurance Charges ( While transferring the material to customs bonded ware house )</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Water Sprinkling Charges</label>
+                            </div>
+                            <div className='pt-4 d-flex align-items-center'>
+                                <input className={styles.checkbox} type="checkbox"/>
+                                <label className={styles.checkbox_label}>Others, if any</label>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div className={`${styles.form_group} mt-5 col-md-6`}>
+                        <div className=''>
+                            <h3 className={`${styles.other_heading} row_head`}>LC Opening Charges</h3>
+                            <div className={`${styles.checkbox_container}  label_heading d-flex flex-column`}>
+                                <div className='d-flex align-items-center'>   
+                                    <input className={styles.checkbox} type="checkbox"/>
+                                    <label className={styles.checkbox_label}>LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                </div> 
+                                <div className='pt-4 d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox"/>
+                                    <label className={styles.checkbox_label}>LC Amendment Cost</label>
+                                </div>
+                                <div className='pt-4 d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle3" value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle3">CMA Fees including supervision and survey</label>
+                                </div>
+                                <div className='pt-4 d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle4" value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle4">Bank DO Issuance charges</label>
+                                </div>
+                                <div className='pt-4 d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle5" value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle5">Remmittance Charges</label>
+                                </div>
+                                <div className='pt-4 d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle6" value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle6">Usance Interest</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='mt-4'>
+                            <h3 className={`${styles.other_heading} row_head`}>Other Charges</h3>
+                            <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
+                                <div className='d-flex align-items-center'>   
+                                    <input className={styles.checkbox} type="checkbox"/>
+                                    <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                </div> 
+                                <div className='pt-4 d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox"/>
+                                    <label className={styles.checkbox_label} for="vehicle2">Demurrage / Detention Charges of Vessel</label>
+                                </div>
+                                <div className='pt-4 d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle3" value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle3">Transportation Charges</label>
+                                </div>
+                                <div className='pt-4 d-flex align-items-center'>   
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle1">Wagon Haulage Charges (in case of Delivery through railways)</label>
+                                </div> 
+                                <div className='pt-4 d-flex align-items-center'>   
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle1">3rd Party Inspection Charges</label>
+                                </div> 
+                                <div className='pt-4 d-flex align-items-center'>   
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle1">Hedging Charges</label>
+                                </div> 
+                                <div className='pt-4 d-flex align-items-center'>   
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle1">Any other cost incurred on behalf of Buyer</label>
+                                </div> 
+                            </div>
+                        </div>
+                        <div className='mt-4'>
+                            <h3 className={`${styles.other_heading} row_head`}>Duty &amp; Taxes</h3>
+                            <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
+                                <div className='d-flex align-items-center'>   
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                </div> 
+                                <div className='pt-4 d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox" id="vehicle2"  value="Bike"/>
+                                    <label className={styles.checkbox_label} for="vehicle2">LC Amendment Cost</label>
+                                </div>
+                                <div className='pt-4 d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox"/>
+                                    <label className={styles.checkbox_label}>CMA Fees including supervision and survey</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='mt-4'>
+                            <h3 className={`${styles.other_heading} row_head`}>Insurance</h3>
+                            <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
+                                <div className='d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox"/>
+                                    <label className={styles.checkbox_label}>LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                </div>
+                                <div className='pt-4 d-flex align-items-center'>
+                                    <input className={styles.checkbox} type="checkbox"/>
+                                    <label className={styles.checkbox_label}>LC Amendment Cost</label>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                   
+                </div>
+            </Form>                
+        </div>
 
-       <div className={styles.footer}>
+       <div className={`${styles.footer}`}>
            All necessary documents to be filed with Customs department for discharge of goods & Customs clearance can be filed by IGPL or its nominated person. * GST charges extra wherever applicable
        </div>
       </Card>

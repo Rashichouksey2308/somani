@@ -1100,7 +1100,7 @@ const gstSupplierDetail = () => {
               +
             </span>
         </div>
-        <div id="gstSupplierDetail"  className="collapse" aria-labelledby="gstSupplierDetail" data-parent="#profileAccordion">
+        <div id="gstSupplierDetail"  className="collapse" aria-labelledby="gstSupplierDetail" data-parent="#gstSupplierDetail">
          <div className={` ${styles.CustomercardBody} card-body border_color`}>
          <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}>

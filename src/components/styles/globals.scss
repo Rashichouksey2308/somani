@@ -549,6 +549,15 @@ body.light-mode td {
   border-color: #D9DDE8 !important;
   color: #111111;
 }
+body.dark-mode .row_head {
+  background-color: #232936 !important;
+ 
+}
+
+body.light-mode .row_head {
+ 
+  background: #FAFAFB 0% 0% no-repeat padding-box;
+}
 body.dark-mode .image_arrow {
  transform:rotate(90deg);
  width:20px !important;
