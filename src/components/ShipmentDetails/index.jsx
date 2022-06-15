@@ -25,7 +25,7 @@ const index = () => {
                 </Form.Group>
 
                 <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <Form.Control className={`${styles.input_field} input form-control`} required type="text"/>
+                    <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
                     <Form.Label className={`${styles.label_heading} label_heading`}>Laycan at Load Port<strong className="text-danger">*</strong></Form.Label>
 
                     </Form.Group>

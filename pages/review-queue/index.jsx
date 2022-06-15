@@ -11,6 +11,7 @@ import Recommendations from  '../../src/components/Recommendations'
 import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
+import PreviousBar from '../../src/components/PreviousBar'
 
 
 import {Row,Col} from 'react-bootstrap'
@@ -19,13 +20,9 @@ function index() {
     return (
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
             <div className={`${styles.tabHeader} tabHeader `}>
-              <div className="d-flex align-items-center">
-                <h1 className={`${styles.title} heading`}><img src={`${darkMode.value?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Ramakrishna Traders</h1>
-                <div className="ml-auto">
-                  <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-                  <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-                </div>
-              </div>
+              
+                <h1 className={`${styles.title} heading pt-3 pb-3`}><img src={`${darkMode.value?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Ramakrishna Traders</h1>
+           
               <ul className={`${styles.navTabs} nav nav-tabs`}>
                   <li className={`${styles.navItem}  nav-item`}>
                       <a className={`${styles.navLink} navLink  nav-link active`} data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="true">Profile</a>
@@ -1449,6 +1446,7 @@ function index() {
                               <div className={`${styles.card}`}>
                                   <Order/>
                                   <ShipmentDetails/>
+                                  <PreviousBar/>
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="Credit" role="tabpanel">
