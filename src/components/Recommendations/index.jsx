@@ -7,7 +7,7 @@ const index = () => {
   return (
                    <div className={`${styles.main} card border_color mb-4`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#recommendations" aria-expanded="true" aria-controls="recommendations">
-                    <h3 className={`${styles.heading}`}>Recommendations</h3>
+                    <h3 className={`${styles.heading} mb-0`}>Recommendations</h3>
                     <span>+</span>
                             </div> 
                             <div id="recommendations" className="collapse" aria-labelledby="recommendations" data-parent="#profileAccordion">       

@@ -6,12 +6,12 @@ const index = () => {
   return (
       <>
          <div className={`${styles.main} card border_color`}>
-            <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#productSummary" aria-expanded="true" aria-controls="productSummary">
-            <h3 className={`${styles.heading}`}>Product Summary</h3>
+            <div className={`${styles.head_container} border_color card-header  d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#productSummary" aria-expanded="true" aria-controls="productSummary">
+            <h3 className={`${styles.heading} mb-0`}>Product Summary</h3>
             <span>+</span>
                     </div>  
                     <div id="productSummary" className="collapse" aria-labelledby="productSummary" data-parent="#profileAccordion">      
-                <div className={`${styles.dashboard_form}`}> 
+                <div className={`${styles.dashboard_form} card-body`}> 
                
                 <div className='row'>
                     <div className={`${styles.form_group} col-md-4 col-sm-6`} >
@@ -94,8 +94,8 @@ const index = () => {
                     <span>+</span>
                             </div> 
                             <div id="supplierCred" className="collapse" aria-labelledby="supplierCred" data-parent="#profileAccordion">       
-                    <div className={`${styles.dashboard_form}`}> 
-                    <div>
+                    <div className={`${styles.dashboard_form} card-body`}> 
+                   
                     <div className='row'>
                     <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <select className={`${styles.input_field} input form-control`}>
@@ -139,7 +139,7 @@ const index = () => {
                             <input className={`${styles.input_field} ${styles.percent} input form-control`} required type="text"/>
                             <label className={`${styles.label_heading} label_heading`}>Commodity to Total Trade % -24M<strong className="text-danger">*</strong></label>
                         </div>
-                        <div className='col-12'>
+                        <div className='col-12 mb-4 mt-4'>
                         <label className={`${styles.label_heading}`}>Remarks</label>
                             <input
                                 as="textarea"
@@ -150,19 +150,19 @@ const index = () => {
                         </div>
                     
                         </div>
-                        </div> 
+                      
                     </div>
                     </div>
                     </div>  
               
                     <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyContact" aria-expanded="true" aria-controls="keyContact" >
-                    <h3 className={`${styles.heading}`}>Key Contact Person</h3>
+                    <h3 className={`${styles.heading} mb-0`}>Key Contact Person</h3>
                     <span>+</span>
                             </div>  
                             <div id="keyContact" className="collapse" aria-labelledby="keyContact" data-parent="#profileAccordion">      
 
-                    <div className={`${styles.datatable} datatable`}>
+                    <div className={`${styles.datatable} card-body datatable`}>
          
                     <table
                         className={`${styles.table} table`}
@@ -249,12 +249,12 @@ const index = () => {
                   
                     <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyAddress" aria-expanded="true" aria-controls="keyAddress">
-                    <h3 className={`${styles.heading}`}>Key Addresses</h3>
+                    <h3 className={`${styles.heading} mb-0`}>Key Addresses</h3>
                     <span>+</span>
                             </div>  
                             <div id="keyAddress" className="collapse" aria-labelledby="keyAddress" data-parent="#profileAccordion">      
 
-                    <div className={`${styles.dashboard_form}`}> 
+                    <div className={`${styles.dashboard_form} card-body`}> 
                     <div className='d-flex justify-content-between'>
                         <div className={`${styles.address_card} value background1`}>
                             <div className='d-flex justify-content-between'>
@@ -347,11 +347,11 @@ const index = () => {
 
                     <div className={`${styles.main} card border_color`}>
                      <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#addAddress" aria-expanded="true" aria-controls="addAddress">
-                            <h3 className={`${styles.heading}`}>Add a new address</h3>
+                            <h3 className={`${styles.heading} mb-0`}>Add a new address</h3>
                             <img src="/static/accordion_close_black.svg"  className='img-fluid' alt="Close" />
                             </div> 
                             <div id="addAddress" className="collapse" aria-labelledby="addAddress" data-parent="#profileAccordion">       
-                            <div className={`${styles.dashboard_form}`}> 
+                            <div className={`${styles.dashboard_form} card-body`}> 
                            
                             <div className='row'>
                             <div className={`${styles.form_group} col-md-2 col-sm-4`}>
@@ -396,6 +396,11 @@ const index = () => {
                             <input className={`${styles.input_field} input form-control`} required type="text"/>
                             <label className={`${styles.label_heading} label_heading`}>GSTIN<strong className="text-danger">*</strong></label>
                         </div>
+
+                        <div className={`${styles.btn_container} col-md-4`}>
+                        <button className={`${styles.gst_btn}`}> <img className='img-fluid mr-2 mb-1' src="/static/file_upload.svg" alt="file upload"/>GST Doc</button>
+                        <button className={`${styles.add_btn}`}>Add</button>
+                    </div>
                         </div>
                      
                     </div>
@@ -404,7 +409,7 @@ const index = () => {
 
                     <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#debtProfile" aria-expanded="true" aria-controls="debtProfile" >
-                    <h3 className={`${styles.heading}`}>Debt Profile</h3>
+                    <h3 className={`${styles.heading} mb-0`}>Debt Profile</h3>
                     <span>+</span>
                             </div>  
                             <div id="debtProfile" className="collapse" aria-labelledby="debtProfile" data-parent="#profileAccordion">      
