@@ -166,14 +166,12 @@
         }
     }
     .table {
-        .table_heading {
+        .th {
             font-size: 15px;
-            //color: #8492a6;
             font-weight: bold;
             line-height: 18px;
             padding: 24px 15px;
             text-transform: uppercase;
-            //border-top: 2px solid #f2f5f9;
             &:first-child {
                 padding-left: 35px;
             }
