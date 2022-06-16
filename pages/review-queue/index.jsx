@@ -1469,7 +1469,7 @@ function index() {
                                   <h3 className={styles.heading}>Upload Other Documents</h3>
                                   <span>+</span>
                               </div>
-                              <div id="documents" className="collapse" aria-labelledby="documents" data-parent="#profileAccordion">      
+                              <div id="documents" className="collapse" aria-labelledby="documents" data-parent="#documents">      
                               <div className={styles.dashboard_form}>        
                               <Form>
                               <div className='row align-items-center pb-4'>               
