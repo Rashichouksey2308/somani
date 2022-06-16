@@ -27,7 +27,7 @@ const index = () => {
                 </div>
                 </div>  
                 <div id="orderSummary" className="collapse" aria-labelledby="orderSummary" data-parent="#profileAccordion">      
-                <div className={`${styles.dashboard_form}`}>
+                <div className={`${styles.dashboard_form} card-body`}>
                 <div className={styles.radio_form}>
             <div className={styles.sub_heading}>Transaction Type</div>
             {['radio'].map((type) => (

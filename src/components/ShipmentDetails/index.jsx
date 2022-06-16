@@ -11,7 +11,7 @@ const index = () => {
         </div>
         <div id="shipmentDetails" className="collapse" aria-labelledby="shipmentDetails" data-parent="#profileAccordion">      
 
-        <div className={styles.dashboard_form}>
+        <div className={`${styles.dashboard_form} card-body`}>
         
             <Form>
             <div className='row'>
