@@ -16,6 +16,13 @@ function index() {
 
   const { allBuyerList } = useSelector((state) => state.buyer)
 
+  const handleRoute = (buyer) => {
+    if (buyer.queue === 'CreditQueue') {
+      dispatch(GetBuyer({ orderId: buyer._id }))
+      Router.push('/review-queue')
+    }
+  }
+
 
   return (
     <div className='container-fluid mb-4'> 
