@@ -18,11 +18,21 @@ const index = () => {
     action: 'APPROVE',
   })
 
+  const [rejectPayloadData, setRejectPayloadData] = useState({
+    action: 'REJECT',
+  })
+
   const handleApprove = () => {
     const payload = { ...payloadData, orderReviewId: buyerList._id }
 
     dispatch(UpdateBuyer(payload))
     router.push('/credit-queue')
+  }
+  const handleReject = () => {
+    const payload = { ...rejectPayloadData, orderReviewId: buyerList._id }
+
+    dispatch(UpdateBuyer(payload))
+    router.push('/leads')
   }
 
   const handleChange = (name, value) => {
@@ -52,6 +62,7 @@ const index = () => {
         <div className={styles.approve_Container}>
           <ApproveBar
             handleApprove={handleApprove}
+            handleReject={handleReject}
             button={'Save'}
             button2={'Preview'}
           />

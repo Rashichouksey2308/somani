@@ -230,7 +230,7 @@ function index() {
                       <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                       <td>
                         <span
-                          className={`${styles.status} ${
+                          className={`${styles.status} ${buyer.queue === 'Rejected' ? styles.rejected :
                             buyer.queue === 'ReviewQueue'
                               ? styles.review
                               : 'CreditQueue'
@@ -238,7 +238,7 @@ function index() {
                               : styles.rejected
                           }`}
                         ></span>
-                        {buyer.queue === 'ReviewQueue'
+                    {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
                           ? 'Review'
                           : 'CreditQueue'
                           ? 'Approved'
