@@ -6,17 +6,18 @@ import styles from './index.module.scss'
 const index = () => {    
   return (
     <div className={styles.main}>
-        <div className={`${styles.head_container} d-flex justify-content-between`}>
+        <div className={`${styles.head_container} d-flex justify-content-between`} data-toggle="collapse" data-target="#otherTerm" aria-expanded="true" aria-controls="otherTerm">
             <h3 className={styles.heading}>Other Terms &amp; Conditions</h3>
-            <img className='p-3 img-fluid' alt="Add" src="/static/add.svg"/>
+            <span>+</span>
         </div>
-        <div className={styles.dashboard_form}>       
+        <div id="otherTerm" className="collapse" aria-labelledby="otherTerm" data-parent="#otherTerm">     
+        <div className={`${styles.dashboard_form} card-body`}>       
             <Form>
                 <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.<span className={styles.igpl_para}>Indo German International Private Limites (Igpl) </span>will provide proof of all expenses to the Buyer.</div>  
-                <div className='row'>              
+               <div className='row'>              
                     <div className={`${styles.form_group} mt-5 col-md-6`} >
-                        <h3 className={styles.other_heading}>CHA / Stevedoring Charges</h3>
-                        <div className={`${styles.checkbox_container} d-flex flex-column`}>
+                        <h3 className={`${styles.other_heading} row_head`}>CHA / Stevedoring Charges</h3>
+                        <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                             <div className='d-flex align-items-center'>
                                 <input className={styles.checkbox} type="checkbox"/>
                                 <label className={styles.checkbox_label}>Customs clearing charges / handling charges / CHA Fee</label>
@@ -105,8 +106,8 @@ const index = () => {
                     </div>
                     <div className={`${styles.form_group} mt-5 col-md-6`}>
                         <div className=''>
-                            <h3 className={styles.other_heading}>LC Opening Charges</h3>
-                            <div className={`${styles.checkbox_container} d-flex flex-column`}>
+                            <h3 className={`${styles.other_heading} row_head`}>LC Opening Charges</h3>
+                            <div className={`${styles.checkbox_container}  label_heading d-flex flex-column`}>
                                 <div className='d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox"/>
                                     <label className={styles.checkbox_label}>LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
@@ -134,8 +135,8 @@ const index = () => {
                             </div>
                         </div>
                         <div className='mt-4'>
-                            <h3 className={styles.other_heading}>Other Charges</h3>
-                            <div className={`${styles.checkbox_container} d-flex flex-column`}>
+                            <h3 className={`${styles.other_heading} row_head`}>Other Charges</h3>
+                            <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                                 <div className='d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox"/>
                                     <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
@@ -167,8 +168,8 @@ const index = () => {
                             </div>
                         </div>
                         <div className='mt-4'>
-                            <h3 className={styles.other_heading}>Duty &amp; Taxes</h3>
-                            <div className={`${styles.checkbox_container} d-flex flex-column`}>
+                            <h3 className={`${styles.other_heading} row_head`}>Duty &amp; Taxes</h3>
+                            <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                                 <div className='d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
                                     <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
@@ -184,8 +185,8 @@ const index = () => {
                             </div>
                         </div>
                         <div className='mt-4'>
-                            <h3 className={styles.other_heading}>Insurance</h3>
-                            <div className={`${styles.checkbox_container} d-flex flex-column`}>
+                            <h3 className={`${styles.other_heading} row_head`}>Insurance</h3>
+                            <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                                 <div className='d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox"/>
                                     <label className={styles.checkbox_label}>LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
@@ -197,11 +198,14 @@ const index = () => {
                             </div>
                         </div>                    
                     </div>
+                   
+               
                     <div className={`${styles.terms_para} pt-3 text-center`}>All necessary documents to be filed with Customs department for discharge of goods &amp; Customs clearance can be filed by 
                     <span className={styles.igpl_para}>Igpl </span> 
                     or its nominated person. * GST charges extra wherever applicable</div>
                 </div>
             </Form>                
+        </div>
         </div>
     </div>   
   )

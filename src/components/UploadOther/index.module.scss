@@ -1,18 +1,22 @@
-.main {
-    box-shadow: 0 3px 6px #CAD0E2;
-    border: 1px solid #D2D7E5;
+.upload_main {
     border-radius: 6px;
-    margin-top: 20px;
-    background-color: #ffffff;
+    margin-bottom: 1rem;
     .head_container {
         border-bottom: 2px solid #CAD6E6;
-        .heading {
+        cursor: pointer;
+        padding: 25px 35px !important;
+      .heading {
             font-size: 22px;
             font-weight: bold;
             color: #3687E8;
-            padding: 27px 35px;
             line-height: 27px;
             margin-bottom: 0;
+        }
+        span {
+            font-size: 45px;
+            color: #3687e8;
+            font-weight: normal;
+            line-height: 20px;
         }
     }
     .dashboard_form {
@@ -23,7 +27,6 @@
             border-radius: 4px;
             height: 284px;
             line-height: 1;
-            //margin-right: 20px;
             .upload_image{
                 width: 83px;
                 height: 83px; 
@@ -61,12 +64,10 @@
             .label {
                 font-size:16px ;
                 letter-spacing: 0.53px;
-                color: #00000080;
                 text-transform: capitalize;
                 position: absolute;
                 left: 15px;
                 top: -10px;
-                background:#ffffff;
                 line-height: 1;
                 left: 30px;
                 top: -8px;
@@ -74,9 +75,7 @@
             .value {
                 font-size:20px;
                 letter-spacing: 0.19px;
-                color: #111111;
                 text-transform: capitalize;
-                background-color: #C3C3C31F;
                 border: 1px solid #0000001F;
                 border-radius: 4px;
                 height: 60px;
@@ -118,7 +117,6 @@
             }
             td {
                 font-size: 19px;
-                color: rgba(17, 17, 17, 0.7);
                 font-weight: 500;
                 line-height: 24px;
                 padding: 24px 15px;
@@ -138,7 +136,6 @@
                 border-radius: 0;
             }
             .doc_name {
-                color: #111111;
                 font-weight: bold;
                 line-height: 25px;
                 font-size: 20px;
@@ -148,7 +145,6 @@
             .doc_row {
                 font-size: 19px;
                 line-height: 24px;
-                color: #111111;
                 opacity: 0.7;
                 font-weight: 500;                
             }
@@ -168,4 +164,6 @@
             }
         }
     }
+
 }
+

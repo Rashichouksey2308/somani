@@ -2,24 +2,24 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 
-function index() {
+function index({val}) {
   return (
      <div className={`${styles.card_litigations} card`}>
                                    
                                          <div className={`${styles.card_ligitations_holder}`}>
-                                             <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#Tribunals" aria-expanded="true" aria-controls="Tribunals">
+                                             <div className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target={`#${val}`} aria-expanded="true" aria-controls={`${val}`}>
                                             <Row className={`${styles.row}`}>
                                               <Col><div className="mb-0">Tribunals</div>
                                              </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Pending Case</span><span className={styles.lower}>4</span></div>
+                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span className={``}>Pending Case</span><span className={  `${styles.lower} sub_heading`}>4</span></div>
                                              </Col>
-                                              <Col><div className={`${styles.head} mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={styles.lower}>4</span></div>
+                                              <Col><div className={`${styles.head}  mb-0 d-flex align-items-center `}><span>Disposed case</span><span className={ `${styles.lower} sub_heading`}>4</span></div>
                                              </Col>
                                               <Col><div className={`${styles.head} mb-0 d-flex align-items-center`}><span>Total cases</span>
                                               <div className={styles.chart}>
                                                 <div className={styles.container}>
                                                   <div className={styles.fill}></div>
-                                                  <span>11</span>
+                                                  <span className={`sub_heading`}>11</span>
                                                 </div>
                                                 
                                               </div>
@@ -30,7 +30,7 @@ function index() {
                                             </Row>
                                               <h2 className="mb-0" sm={1}>+</h2>
                                         </div>
-                                        <div id="Tribunals" className="collapse" aria-labelledby="Tribunals" data-parent="#profileAccordion">
+                                        <div id={`${val}`} className="collapse" aria-labelledby={`${val}`} data-parent="#profileAccordion">
                                           <div className={` ${styles.cardBody_Tribunals} card-body`}>
                                          
                                                <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">

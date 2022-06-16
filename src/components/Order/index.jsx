@@ -5,27 +5,58 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={`${styles.main} sub_card`}>
-        <div className={`${styles.head_container} d-flex justify-content-between`}>
-        <h3 className={`${styles.heading} heading_card`}>Order Summary</h3>
+    <div className={`${styles.main} card border-color`}>
+        <div className={`${styles.head_container} card-header head_container d-flex justify-content-between bg-transparent`} data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">
+        <h3 className={`${styles.heading} mb-0`}>Order Summary</h3>
+        <div className='d-flex'>
         <div className={`${styles.unit_container} d-flex align-items-center`}>
-            <h5 className={styles.unit_label}>Units :</h5>
-            <select className={`${styles.options} options `}>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Quantity :</h5>
+            <select className={`${styles.options} accordion_DropDown`}>
+                <option>MT</option>
+            </select>
+                
+                </div>
+
+                <div className={`${styles.unit_container} d-flex align-items-center`}>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
+            <select className={`${styles.options} accordion_DropDown `}>
                 <option>Crores</option>
             </select>
-                <img src ="/static/add.svg"
-                className="img-fluid" alt="Add"/>
+             <span>+</span>
                 </div>
-                </div>        
-                <div className={`${styles.dashboard_form}`}>
-                
+                </div>
+                </div>  
+                <div id="orderSummary" className="collapse" aria-labelledby="orderSummary" data-parent="#profileAccordion">      
+                <div className={`${styles.dashboard_form} card-body`}>
+                <div className={styles.radio_form}>
+            <div className={styles.sub_heading}>Transaction Type</div>
+            {['radio'].map((type) => (
+              <div key={`inline-${type}`} className={styles.radio_group}>
+                <Form.Check
+                  className={styles.radio}
+                  inline
+                  label="Import"
+                  name="group1"
+                  type={type}
+                  id={`inline-${type}-1`}
+                />
+                <Form.Check
+                  className={styles.radio}
+                  inline
+                  label="Domestic"
+                  name="group1"
+                  type={type}
+                  id={`inline-${type}-2`}
+                />
+              </div>
+            ))}
+          </div> 
             <Form>
             <div className='row'>
                
                 <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
                     <div className='d-flex'>
                     <Form.Control className={`${styles.input_field} input form-control`} required type="text"/> 
-                     
                      <Form.Label className={`${styles.label_heading} label_heading`}>Commodity<strong className="text-danger">*</strong></Form.Label>
                      <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
                      </div>
@@ -106,6 +137,7 @@ const index = () => {
                 </Form>
 
                
+            </div>
             </div>
             </div>
        

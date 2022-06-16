@@ -38,7 +38,7 @@ function index() {
               </div>
               <input
                 type="text"
-                className={`${styles.formControl} form-control  formControl `}
+                className={`${styles.formControl} form-control formControl `}
                 placeholder="Search"
               />
             </div>
@@ -177,13 +177,13 @@ function index() {
             border="0"
           >
             <thead>
-              <tr>
-                <th className={`${styles.table_heading} table_heading`}>CUSTOMER ID</th>
-                <th className={`${styles.table_heading} table_heading`}>BUYER NAME</th>
-                <th className={`${styles.table_heading} table_heading`}>CREATED BY</th>
-                <th className={`${styles.table_heading} table_heading`}>USERNAME</th>
-                <th className={`${styles.table_heading} table_heading`}>EXISTING CUSTOMER</th>
-                <th className={`${styles.table_heading} table_heading`}>STATUS</th>
+              <tr className='table_row'>
+                <th>CUSTOMER ID</th>
+                <th>BUYER NAME</th>
+                <th>CREATED BY</th>
+                <th>USERNAME</th>
+                <th>EXISTING CUSTOMER</th>
+                <th>STATUS</th>
               </tr>
             </thead>
             <tbody>
