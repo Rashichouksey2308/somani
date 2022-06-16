@@ -6,39 +6,29 @@ import Footer from './Footer/index'
 import styles from './index.module.scss'
 import TermSheetPreview from '../components/TermSheetPreview'
 import Login from '../components/Login'
-import {useSelector} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Cookies from 'js-cookie'
+import { validateToken } from '../redux/authentication/actions'
+
 
 
 
 function Layout({ children }) {
   const [isLogin, setIsLogin] = useState(false)
 
+  const dispatch = useDispatch();
   const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)
-
-  const isuserlogged =  Cookies.get('refreshToken')
-  // console.log(isuserLoggedin,isuserlogged, "layout.js")
   
+
   useEffect(() => {
-    setIsLogin(isuserLoggedin)
-    //console.log(isuserLoggedin,"layout")
- 
-  }, [isuserLoggedin,isuserlogged]);
- 
-  // function login() {
-  //   localStorage.setItem('login', true)
-  //   setIsLogin(true)
-  // }
+    const isuserlogged = Cookies.get('SOMANI')
+    dispatch(validateToken())
+    if (isLogin) {
+      dispatch(validateToken())
+    }
+    setIsLogin(isuserlogged)
+  }, [isuserLoggedin]);
 
-  //const sidebar = useSelector((state) => state.sidebar);
-  //console.log(sidebar)
-
-  useEffect(async() => {
-    const loginStatus = await Cookies.get('jwtAccessToken')
-    console.log(loginStatus, "login status")
-    setIsLogin(loginStatus)
-  }, [])
-  
   return (
     <>
       {isLogin ? (
@@ -48,7 +38,7 @@ function Layout({ children }) {
           </div>
           <div className={styles.wrapper}>
             <div className={styles.sidebarContainer}>
-             <Sidebar/>
+              <Sidebar />
             </div>
             <div className={styles.mainView_Container}>
               <Breadcrum />

@@ -6,6 +6,8 @@ import * as types from './actionType'
 // import { toast } from 'react-toastify'
 // import history from '../../history'
 import Cookies from 'js-cookie'
+import { setAuthenticationCookie } from '../../utils/authentication'
+
 
 const errorMessage = {
   status: 400,
@@ -79,6 +81,62 @@ export function authenticateUser(payload) {
     payload,
   }
 }
+//****** Verify Token   ********//
+
+export function validatingToken() {
+  return {
+    type: types.VERIFY_TOKEN,
+    payload: Cookies.get("guid"),
+  };
+}
+
+export function validatingTokenSuccess(payload) {
+  return {
+    type: types.VERIFY_TOKEN_SUCCESS,
+    payload: payload,
+  };
+}
+
+export function validatingTokenFailed(payload) {
+  return {
+    type: types.VERIFY_TOKEN_FAILED,
+  };
+}
+
+//****** Generate Token   ********//
+
+export function generatingToken() {
+  return { type: types.GENERATE_TOKEN };
+}
+
+export function generatingTokenSuccess(payload) {
+  return {
+    type: types.GENERATE_TOKEN_SUCCESS,
+    payload: payload,
+  };
+}
+
+export function generatingTokenFailed(payload) {
+  return {
+    type: types.GENERATE_TOKEN_FAILED,
+  };
+}
+
+//****** logging out user  ********//
+
+
+
+// export function loggingoutUserSuccess() {
+//   return {
+//     type: types.LOGOUT_USER_SUCCESS,
+//   };
+// }
+
+// export function loggingoutUserFailed(payload) {
+//   return {
+//     type: types.LOGOUT_USER_FAILED,
+//   };
+// }
 
 function loggingoutUser() {
   return {
@@ -213,11 +271,13 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
     Axios.post(`${API.authbaseUrl}${API.login}`, payload).then((response) => {
       if (response.status === 200) {
         dispatch(loggingUserSuccess(response.data))
-        console.log(response,"responce")
+        console.log(response, "responce")
         // localStorage.setItem(response.data.token)
         // Router.push("/")
-        Cookies.set('refreshtoken', response.data.data.refreshToken)
-        Cookies.set('jwtAccessToken', response.data.data.jwtAccessToken)
+        // Cookies.set('refreshtoken', response.data.data.refreshToken)
+        // Cookies.set('jwtAccessToken', response.data.data.jwtAccessToken)
+        setAuthenticationCookie(response.data.data)
+
       } else {
         dispatch(loggingUserFailed(response.data))
         // Cookies.remove('token')
@@ -264,16 +324,92 @@ export const fetchCurrentUserProfile =
     }
   }
 
-export const logoutUser = () => async (dispatch, getState, api) => {
-  const jwtAccessToken = Cookies.get("jwtAccessToken")
+//********  Verify User Token Validity  ********//
+export const validateToken = () => async (dispatch, getState, api) => {
+  dispatch(validatingToken());
+  let cookie = await Cookies.get("SOMANI");
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split("#");
+  try {
+    let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
+      headers: {
+        'authorization': jwtAccessToken
+      }
+
+    })
+    console.log(response, "verify Token")
+
+    if (response.data.code === 200)
+      return dispatch(validatingTokenSuccess(response.data.data));
+
+    if (response.data.code === 401 || response.data.code === 402)
+      return console.log("unverified token")
+     return dispatch(generateToken());
+
+    await Cookies.remove("jwtAccessToken");
+    dispatch(validatingTokenFailed(response.data));
+  } catch (error) {
+    return dispatch(validatingTokenFailed(errorMessage));
+  }
+};
+
+//****** Generate Token  ********//
+
+export const generateToken = () => async (dispatch, getState, api) => {
+  try {
+    let cookie = await Cookies.get("SOMANI");
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [userId, refreshToken] = decodedString.split("#");
+
+    let response = await api.post(API.generateNewToken, {
+      refreshToken: existingRefreshToken,
+      userId: guid,
+    });
+
+    if (response.data.code === 200) {
+      let {
+        data: {
+          data: jwtAccessToken,
+        },
+      } = response;
+      await Cookies.remove("SOMANI");
+
+      await setAuthenticationCookie({
+        jwtAccessToken,
+        refreshToken,
+        user: { userId },
+      });
+      return dispatch(generatingTokenSuccess(response.data.data));
+    }
+
+
+
+    return dispatch(generatingTokenFailed(response.data));
+  } catch (error) {
+    dispatch(generatingTokenFailed(error));
+  }
+};
+
+//****** Logout User   ********//
+
+export const logoutUser = () => (dispatch, getState, api) => {
+  let cookie = Cookies.get("SOMANI");
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split("#");
   Axios.get(`${API.authbaseUrl}${API.logout}`, {
     headers: {
       'authorization': jwtAccessToken
     }
-  }).then((response) => console.log(response,"logout Response"))
-    Cookies.remove('refreshtoken')
-    Cookies.remove('jwtAccessToken')
-    dispatch(loggingoutUser())
+  }).then((response) => console.log(response, "logout Response"))
+  Cookies.remove('SOMANI')
+
+  dispatch(loggingoutUser())
+  setTimeout(() => {
+    window.location.reload()
+  }, 1000);
 }
 
 //****** Reset Password   ********//
