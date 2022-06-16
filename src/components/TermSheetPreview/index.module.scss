@@ -20,7 +20,7 @@
                     padding: 12px 0 18px 18px;
                     font-weight: bold;
                     font-size: 30px;
-                    color: #111111;
+                   
                     text-transform: capitalize;
                     margin: 0;
     
@@ -50,15 +50,20 @@
             color: #111111;
             margin-right: 0.5rem;
             }
+            .termValue{
+                font-size: 20px;
+                    line-height: 24px;
+                color:#111111;
+            }
         }
     }
     .content{
-        margin-top: 32px;
+    margin-top: 32px;
     padding-right: 15px;
     padding-left: 15px;
     margin-bottom: 1rem;
     .row_head{
-        background: #FAFAFB 0% 0% no-repeat padding-box;
+
         .content_header {
         height: 67px;
         padding-left: 36px;
@@ -95,7 +100,7 @@
                 font-size: 20px;
                 line-height: 24px;
                 list-style: none;
-                color: #111111;
+              
                 padding:25px 0px 25px 37px;
 
         }
@@ -106,7 +111,7 @@
             font-size: 20px;
             line-height: 24px;
             list-style: none;
-            color: #111111;
+           
             opacity: 0.7;
             padding-left: 25px;
         li{
@@ -123,7 +128,7 @@
                 font-size: 20px;
                 line-height: 24px;
                 list-style: none;
-                color: #111111;
+               
                 opacity: 1;
                 padding-left: 12px;
             }
@@ -149,7 +154,7 @@
             padding:20px 0 20px 30px;
             height: 67px;
             
-            background-color: #FAFAFB;
+            // background-color: #FAFAFB;
          }
          .checkContent{
             padding-left: 15px;
@@ -176,7 +181,7 @@
                 color: #111111;
                 padding:20px 0 20px 30px;
                 height: 67px;
-                background-color: #FAFAFB ;
+               
                 }
                                   .checkContent {
                                       //padding-left: 15px;
@@ -187,6 +192,7 @@
                                           line-height: 30px;
                                           letter-spacing: 0.19px;
                                           padding: 15px 0px 15px 28px;
+                                          padding-left: 0px;
                 
                                           input {
                                               margin-right: 1.5rem
@@ -198,8 +204,10 @@
                                             color: #111111;
                                             padding:20px 0 20px 30px;
                                             height: 67px;
-                                            background-color: #FAFAFB ;
+                                            
+                                           
                                           }
+                                          .headSpace{}
                                       }
                                   }
                                   
@@ -214,9 +222,62 @@
         font-size:  20px;
         line-height:30px;
         letter-spacing: 0.19px;
-            color: #111111;
-                opacity: 1;
+           
+                
                 padding-left: 20px !important;
                 padding-right: 20px !important;
     }
-}
+} .dashboard_form {
+     padding: 0 0 35px;
+
+     .terms_para {
+         font-size: 20px;
+         letter-spacing: 0.19px;
+         color: #111111;
+         line-height: 30px;
+         padding: 25px 35px 10px;
+     }
+
+     .igpl_para {
+         background-color: #C3C3C31F;
+         border: 1px solid #0000001F;
+         border-radius: 4px;
+         padding: 5px 15px 5px 8px;
+         margin: 0 10px 0 0;
+         line-height: 30px;
+     }
+
+     .form_group {
+         position: relative;
+         margin-bottom: 20px;
+         margin-top: 20px;
+
+         .other_heading {
+             font-size: 22px;
+             font-weight: bold;
+             line-height: 27px;
+           
+             background-color: #FAFAFB;
+             padding: 15px 15px 15px 35px;
+             margin-bottom:0px !important
+           
+         }
+
+         .checkbox_container {
+             padding: 15px 35px;
+             padding-top: 0px;
+
+             .checkbox_label {
+                 font-size: 20px;
+                 letter-spacing: 0.19px;
+                 line-height: 25px;
+                
+             }
+
+             .checkbox {
+                 margin-top: -5px;
+                 margin-right: 25px;
+             }
+         }
+     }
+ }

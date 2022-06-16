@@ -11,6 +11,7 @@ import Recommendations from  '../../src/components/Recommendations'
 import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
+import PreviousBar from '../../src/components/PreviousBar'
 
 
 import {Row,Col} from 'react-bootstrap'
@@ -19,13 +20,9 @@ function index() {
     return (
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
             <div className={`${styles.tabHeader} tabHeader `}>
-              <div className="d-flex align-items-center">
-                <h1 className={`${styles.title} heading`}><img src={`${darkMode.value?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Ramakrishna Traders</h1>
-                <div className="ml-auto">
-                  <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-                  <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-                </div>
-              </div>
+              
+                <h1 className={`${styles.title} heading pt-3 pb-3`}><img src={`${darkMode.value?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Ramakrishna Traders</h1>
+           
               <ul className={`${styles.navTabs} nav nav-tabs`}>
                   <li className={`${styles.navItem}  nav-item`}>
                       <a className={`${styles.navLink} navLink  nav-link active`} data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="true">Profile</a>
@@ -224,6 +221,7 @@ function index() {
                                             </div>
                                         </div>
                                     </div>
+                                    <PreviousBar/>
                                     <div className={`${styles.card} card`}>
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#shareholding" aria-expanded="true" aria-controls="shareholding">
                                             <h2 className="mb-0">Shareholding Pattern</h2>
@@ -1130,10 +1128,12 @@ function index() {
 
                                    
                                 </div>
+                                <PreviousBar/>
                             </div>
                             <div className="tab-pane fade" id="gst" role="tabpanel">
                                 <div className={`${styles.card}  accordion_body`}>
                                   <GST/>
+                                  <PreviousBar/>
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="Compliance" role="tabpanel">
@@ -1444,140 +1444,145 @@ function index() {
             
                                     </div>
                                 </div>
+                                <PreviousBar/>
                             </div>
                             <div className="tab-pane fade" id="Orders" role="tabpanel">
                               <div className={`${styles.card}`}>
                                   <Order/>
                                   <ShipmentDetails/>
+                                  <PreviousBar/>
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="Credit" role="tabpanel">
                                   <Credit/>
                                   <Recommendations/>
+                                  <PreviousBar/>
                             </div>
                             <div className="tab-pane fade" id="cam" role="tabpanel">
                                <CAM/>
+                               <PreviousBar/>
                             </div>
                             <div className="tab-pane fade" id="Documents" role="tabpanel">
                            
-                            <div className={`${styles.main} mb-4`}>
-                  <div className={`${styles.head_container} d-flex justify-content-between`}  data-toggle="collapse" data-target="#documents" aria-expanded="true" aria-controls="documents">
-                      <h3 className={styles.heading}>Upload Other Documents</h3>
-                      <span>+</span>
-                  </div>
-                  <div id="documents" className="collapse" aria-labelledby="documents" data-parent="#profileAccordion">      
-                  <div className={styles.dashboard_form}>        
-                  <Form>
-                   <div className='row align-items-center pb-4'>               
-                    <div className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`} >
-                        <div className='text-center'>
-                            <img className={`${styles.upload_image} img-fluid`} src ="/static/browse.svg"
-                            alt="Browse"/>
-                            <p className={styles.drop_para}>Drop Files here <br/>
-                            or <a href="#">Browse</a></p>
-                        </div>
-                    </div> 
-                    <div className='col-md-4 offset-md-1 col-sm-6'>
-                        <Form.Group className={styles.form_group}>
-                            <Form.Label className={styles.label}>Document Type</Form.Label>
-                            <select  className={`${styles.value} form-control`}id="docType">
-                                <option value="volvo">Others</option>
-                                <option value="audi">N/A</option>
-                            </select>
-                        </Form.Group>
-                        <Form.Group className={styles.form_group}>
-                            <Form.Label className={styles.label}>Please Specify Document Name</Form.Label>
-                            <Form.Control className={`${styles.value} form-control`} type="text" placeholder="Insurance Quotation" />
-                        </Form.Group>
-                        <div className={styles.uploadBtnWrapper}>
-                            <input type="file" name="myfile" />
-                            <button className={`${styles.upload_button} btn`}>Upload</button>
-                        </div>
-                    </div>
-                </div>
-                   </Form>
-                  </div>
-                  
-                  <div className={styles.table_container}>
-                      <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                          <thead>
-                    <tr>
-                        <th>DOCUMENT NAME</th>
-                        <th>FORMAT</th>
-                        <th>DOCUMENT DATE</th>
-                        <th>UPLOADED BY</th>
-                        <th>STATUS</th>
-                        <th>ACTION</th>
-                        <th><img src= "/static/search-blue.svg" className="img-fluid" alt="Search"/></th>
-                    </tr>
-                    </thead>                        
-                    <tbody>
-                    <tr>
-                        <td colspan='7' className='p-0'>
-                            <select className={`${styles.module} form-control`}>
-                                <option>ORDERS</option>
-                                <option>ORDERS 2</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className={styles.doc_name}>Insurance Quotation</td>
-                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td className={styles.doc_row}>John Doe</td>
-                        <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
-                    </tr>
-                    <tr>
-                        <td className={styles.doc_name}>Container No. List</td>
-                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td className={styles.doc_row}>Buyer</td>
-                        <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
-                    </tr>
-                    <tr>
-                        <td className={styles.doc_name}>Container Seal No. List</td>
-                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td className={styles.doc_row}>Rama Krishnan</td>
-                        <td><span className={`${styles.status} ${styles.rejected}`}></span>Pending</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
-                    </tr>
-                    <tr>
-                        <td colspan='7' className='p-0'>
-                            <select className={`${styles.module} form-control`}>
-                                <option>AGREEMENTS</option>
-                                <option>AGREEMENTS 1</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className={styles.doc_name}>Insurance Quotation</td>
-                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td className={styles.doc_row}>John Doe</td>
-                        <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
-                    </tr>
-                    <tr>
-                        <td className={styles.doc_name}>Container No. List</td>
-                        <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td className={styles.doc_row}>Buyer</td>
-                        <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                        <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
-                        <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
-                    </tr>                    
-                </tbody>
-            </table>
-                     </div>    
-                     </div>        
+                            <div className={`${styles.main} card border-color mb-4`}>
+                              <div className={`${styles.head_container} card-header head_container d-flex justify-content-between`}  data-toggle="collapse" data-target="#documents" aria-expanded="true" aria-controls="documents">
+                                  <h3 className={styles.heading}>Upload Other Documents</h3>
+                                  <span>+</span>
+                              </div>
+                              <div id="documents" className="collapse" aria-labelledby="documents" data-parent="#profileAccordion">      
+                              <div className={styles.dashboard_form}>        
+                              <Form>
+                              <div className='row align-items-center pb-4'>               
+                                <div className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`} >
+                                    <div className='text-center'>
+                                        <img className={`${styles.upload_image} img-fluid`} src ="/static/browse.svg"
+                                        alt="Browse"/>
+                                        <p className={styles.drop_para}>Drop Files here <br/>
+                                        or <a href="#">Browse</a></p>
+                                    </div>
+                                </div> 
+                                <div className='col-md-4 offset-md-1 col-sm-6'>
+                                    <Form.Group className={styles.form_group}>
+                                        <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
+                                        <select  className={`${styles.value} input form-control`}id="docType">
+                                            <option value="volvo">Others</option>
+                                            <option value="audi">N/A</option>
+                                        </select>
+                                    </Form.Group>
+                                    <Form.Group className={styles.form_group}>
+                                        <Form.Label className={`${styles.label} label_heading`}>Please Specify Document Name</Form.Label>
+                                        <Form.Control className={`${styles.value} input form-control`} type="text" placeholder="Insurance Quotation" />
+                                    </Form.Group>
+                                    <div className={styles.uploadBtnWrapper}>
+                                        <input type="file" name="myfile" />
+                                        <button className={`${styles.upload_button} btn`}>Upload</button>
+                                    </div>
+                                </div>
                             </div>
+                              </Form>
+                              </div>
+                              
+                              <div className={styles.table_container}>
+                                  <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                      <thead>
+                                <tr>
+                                    <th>DOCUMENT NAME</th>
+                                    <th>FORMAT</th>
+                                    <th>DOCUMENT DATE</th>
+                                    <th>UPLOADED BY</th>
+                                    <th>STATUS</th>
+                                    <th>ACTION</th>
+                                    <th><img src= "/static/search-blue.svg" className="img-fluid" alt="Search"/></th>
+                                </tr>
+                                </thead>                        
+                                <tbody>
+                                <tr>
+                                    <td colspan='7' className='p-0'>
+                                        <select className={`${styles.module} form-control`}>
+                                            <option>ORDERS</option>
+                                            <option>ORDERS 2</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr className='table_row'>
+                                    <td className={`${styles.doc_name}`}>Insurance Quotation</td>
+                                    <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
+                                    <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                                    <td className={styles.doc_row}>John Doe</td>
+                                    <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
+                                    <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                                    <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
+                                </tr>
+                                <tr className='table_row'>
+                                    <td className={styles.doc_name}>Container No. List</td>
+                                    <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
+                                    <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                                    <td className={styles.doc_row}>Buyer</td>
+                                    <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
+                                    <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                                    <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
+                                </tr>
+                                <tr className='table_row'>
+                                    <td className={styles.doc_name}>Container Seal No. List</td>
+                                    <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
+                                    <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                                    <td className={styles.doc_row}>Rama Krishnan</td>
+                                    <td><span className={`${styles.status} ${styles.rejected}`}></span>Pending</td>
+                                    <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                                    <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan='7' className='p-0'>
+                                        <select className={`${styles.module} form-control`}>
+                                            <option>AGREEMENTS</option>
+                                            <option>AGREEMENTS 1</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr className='table_row'>
+                                    <td className={styles.doc_name}>Insurance Quotation</td>
+                                    <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
+                                    <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                                    <td className={styles.doc_row}>John Doe</td>
+                                    <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
+                                    <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                                    <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
+                                </tr>
+                                <tr className='table_row'>
+                                    <td className={styles.doc_name}>Container No. List</td>
+                                    <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
+                                    <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                                    <td className={styles.doc_row}>Buyer</td>
+                                    <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
+                                    <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                                    <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
+                                </tr>                    
+                            </tbody>
+                        </table>
+                                </div>    
+                                </div>        
+                            </div>
+                            <PreviousBar/>
                            
                             </div>
                         </div>

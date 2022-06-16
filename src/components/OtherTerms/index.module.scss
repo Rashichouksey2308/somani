@@ -1,16 +1,14 @@
 .main {
-    box-shadow: 0 3px 6px #CAD0E2;
-    border: 1px solid #D2D7E5;
-    border-radius: 6px;
-    margin-top: 20px;
-    background-color: #ffffff;
+    margin-bottom: 1rem;
+    border-radius: 6px !important;
     .head_container {
+        cursor: pointer;
+        padding: 25px 35px !important;
         border-bottom: 2px solid #CAD6E6;
         .heading{
             font-size: 22px;
             font-weight: bold;
             color: #3687E8;
-            padding: 27px 35px;
             line-height: 27px;
             margin-bottom: 0;
         }
@@ -19,7 +17,6 @@
             color: #3687e8;
             font-weight: normal;
             line-height: 20px;
-            padding: 20px;
         }
     }
     .dashboard_form {
@@ -27,7 +24,7 @@
         .terms_para{
             font-size: 20px;
             letter-spacing: 0.19px;
-            color: #111111;
+          
             line-height: 30px;
             padding: 25px 35px 10px;
         }
@@ -47,7 +44,7 @@
                 font-size: 22px;
                 font-weight: bold;
                 line-height: 27px;
-                color: #111111;
+              
                 background-color: #FAFAFB;
                 padding: 15px 15px 15px 35px;
                 margin-bottom: 25px;
@@ -58,7 +55,7 @@
                     font-size:20px;
                     letter-spacing: 0.19px;
                     line-height: 25px;
-                    color: #111111;
+                    
                 }
                 .checkbox {
                     margin-top: -5px;

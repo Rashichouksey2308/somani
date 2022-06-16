@@ -1,35 +1,28 @@
 .main {
-    box-shadow: 0px 3px 6px #CAD0E2;
-    border: 1px solid #D2D7E5;
-    border-radius: 6px;
-    background-color: #ffffff;
-    margin-top: 15px;
+    margin-bottom: 1rem;
+        border-radius: 6px !important;
   
     .head_container {
-        padding: 10px 0px 0px 20px;
-        border-bottom: 3px solid #D9DDE8;
+        cursor: pointer;
+        padding: 25px 35px !important;
         .heading{
             color: #3687e8;
             font-weight:bold;
             font-size: 22px;
             text-transform: capitalize;
-            padding: 15px;
-            margin-top: 15px;
+
         }
         span {
             font-size: 45px;
             color: #3687e8;
             font-weight: normal;
             line-height: 20px;
-            padding: 15px;
         }
     }
     
  .dashboard_form { 
     padding: 10px 0px 0px 20px;
-
      margin: 15px;
-
         .form_group {
         position: relative;
         margin-bottom: 20px;
@@ -73,6 +66,12 @@
                     transform:translateY(-31px);
                 }
             }
+
+            
+
+        }
+        .percent {
+            color: #EA3F3F !important;
         }
         .remark_field{
             background: #C3C3C31F;
@@ -83,18 +82,18 @@
     }
 
     .address_card{
-        background: #FFFFFF;
         border: 1px solid #0000001F;
         border-radius: 9px;
         padding: 22px;
         margin-bottom:30px;
-
+        width: 49%;
+        margin-right: 20px;
 
         .label {
             line-height: 25px;
             font-weight: bold;
             font-size: 20px;
-            color: #111111;
+           // color: #111111;
             text-transform: capitalize;
             padding-left: 18px;
 
@@ -107,22 +106,22 @@
                 line-height: 25px;
                 font-weight: bold;
                 font-size: 20px;
-                color: #111111;
+                //color: #111111;
                 text-transform: capitalize;
              }  
 
             p {
                 letter-spacing: 0.19px;
                 font-size: 20px;
-               // line-height: 32px;
-                color: #111111;
+               line-height: 32px;
+                //color: #111111;
                 text-transform: capitalize;
 
                 span {
                     font-size: 20px;
-                    //line-height: 25px;
+                    line-height: 25px;
                     font-weight: bold;
-                    color: #111111;
+                    //color: #111111;
                     text-transform: capitalize;
                 }
 
@@ -160,16 +159,26 @@
                 font-size: 19px;
                 font-weight: 500;
                 line-height: 24px;
-                color: #111111;
+                //color: #111111;
                 padding: 24px 15px;
-                background: #FFFFFF;
-                box-shadow: 0px 3px 6px #CAD0E2;
+                //background: #FFFFFF;
                 border: none;
-                border-bottom: 1px solid #D2D7E5;
                 opacity: 0.7;
                 &:first-child {
                     padding-left: 35px;
                 }
+
+                input {
+                    background: #C3C3C31F;
+                    border: 1px solid #0000001F;
+                    border-radius: 4px;
+                    padding: 5px;
+                }
+            }
+            .dropDown{
+                background: transparent;
+                border: none;
+               
             }
             
            

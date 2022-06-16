@@ -1,0 +1,205 @@
+.dashboardTab {
+    //background: #FFFFFF;
+    //box-shadow: 0px 3px 12px #CAD0E2;
+    border: 1px solid #D2D7E5;
+    .tabHeader {
+        padding: 30px;
+        
+        .title {
+            font-size: 34px;
+            font-weight: bold;
+            line-height: 41px;
+            margin: 0;
+            text-transform: capitalize;
+            img {
+                width: 13px;
+                height: 21px;
+                margin: -5px 25px 0 0;
+            }
+        }
+        
+        .lastModified {
+            font-size: 14px;
+            color: rgba(40, 55, 86, 0.6);
+            font-weight: normal;
+            line-height: 16px;
+            margin-top: 7px;
+            span {
+                color: #283756;
+                font-weight: bold;
+                line-height: 17px;
+            }
+        }
+        
+    }
+    
+   
+}
+
+.card {
+
+    .vessel_card {
+        margin: 20px;
+        .main {
+            border-radius: 6px;
+        
+            .head_container {
+                padding: 0px 0px 0px 20px;
+                border-bottom: 2px solid #CAD6E6;
+
+                .heading{
+                    color: #3687e8;
+                    font-weight:bold;
+                    font-size: 22px;
+                    text-transform: capitalize;
+                    padding: 15px;
+                    margin-top: 15px;
+                }
+                .dropDown{
+                    border: 1px solid #0000001F;
+                    border-radius: 4px;
+                    font-size: 20px;
+                    line-height: 25px;
+                    font-weight: 500;
+                    padding: 5px;
+
+                }
+                .dropDown_label{
+                    letter-spacing: 0.53px;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 17px; 
+                    padding-right:10px;
+                }
+                .add_btn {
+                    color: #3687E8;
+                    text-transform: capitalize;
+                    border: 3px solid #3687E8;
+                    border-radius: 5px;
+                    font-size: 18px;
+                    line-height: 23px;
+                    background-color: transparent;
+                    margin: 0 15px 0 30px;
+                    width: 78px;
+                    height: 38px;
+                }
+                }
+            
+        
+        }
+        
+        .dashboard_form {
+            padding: 20px 35px 25px 40px;
+            .sub_heading {
+                text-align: left;
+                font-size:20px;
+                font-weight: bold;
+                letter-spacing: 0px;
+                //color: #111111;
+                text-transform: capitalize;
+            }
+            .form_group {
+                margin-top: 40px;
+                position: relative;
+                margin-bottom: 10px;
+                .search_image {
+                    margin-left: -40px;
+                }    
+                .label_heading {
+                    font-size: 16px;
+                    letter-spacing: 0.53px;
+                    line-height: 0.5;
+                    top: 26px;
+                    left: 30px;
+                    margin-bottom: 0;
+                    position: absolute;
+                    pointer-events: none;
+                    box-sizing: border-box;
+                    transform: translateY(-29px);
+                    transition: 0.3s all ease-in-out;
+                }
+                .input_field {
+                    font-size: 20px;
+                    height: 60px;
+                    outline: none;
+                    box-shadow: none;
+                    border-radius: 4px;
+                    position: relative;
+                    box-sizing: border-box;
+                    letter-spacing: 0.19px;
+                    padding: 13px 30px 13px 17px;
+                    border: 1px solid #0000001F;
+                    &:invalid + label {
+                        background: none;
+                        transform:translateY(0);
+                    }
+                    &:focus {
+                        & + label {
+                            transform:translateY(-29px);
+                        }
+                    }
+                }
+            }
+            
+        }
+        .table_container {
+            .table {
+                th {
+                    font-size: 15px;
+                    color: #8492A6;
+                    font-weight: bold;
+                    line-height: 18px;
+                    padding: 20px 15px;
+                    vertical-align: middle;
+                    text-transform: uppercase;
+                    border-top: 2px solid #F2F5F9;
+                    border-bottom: 2px solid #F2F5F9;
+                    &:first-child {
+                        padding-left: 35px;
+                    }
+                }
+                td {
+                    font-size: 19px;
+                    //color: rgba(17, 17, 17, 0.7);
+                    font-weight: 500;
+                    line-height: 24px;
+                    padding: 24px 15px;
+                    border-top: none;
+                    vertical-align: middle;
+                }
+                .input_field{
+                    background: #C3C3C31F;
+                    border-radius: 4px;
+                    font-size: 20px;
+                    line-height: 25px;
+                    letter-spacing: 0.19px;
+                    color: #111111;
+                    border: none;
+                    padding: 5px 0px 5px 15px;
+                    width: 299px;
+
+                }
+                .close_image {
+                    margin-left: -30px;
+                }
+            
+                .doc_name {
+                    font-weight: bold;
+                    line-height: 25px;
+                    font-size: 20px;
+                    text-transform: capitalize;
+                    padding-left: 35px;
+                }
+                .doc_row {
+                    font-size: 19px;
+                    line-height: 24px;
+                    opacity: 0.7;
+                    font-weight: 500;                
+                }
+                
+            }
+        }
+
+    }
+}
+
