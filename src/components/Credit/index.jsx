@@ -398,7 +398,7 @@ const index = () => {
                         </div>
 
                         <div className={`${styles.btn_container} col-md-4`}>
-                        <button className={`${styles.gst_btn}`}> <img className='img-fluid' src="/static/file_upload.svg" alt="file upload"/>GST Doc</button>
+                        <button className={`${styles.gst_btn}`}> <img className='img-fluid mr-2 mb-1' src="/static/file_upload.svg" alt="file upload"/>GST Doc</button>
                         <button className={`${styles.add_btn}`}>Add</button>
                     </div>
                         </div>
