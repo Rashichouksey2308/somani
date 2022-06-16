@@ -1,4 +1,6 @@
-.main{
+.main {
+    box-shadow: 0 3px 6px #CAD0E2;
+    border: 1px solid #D2D7E5;
     margin-bottom: 1rem;
     border-radius: 6px !important;
     .head_container {
@@ -25,7 +27,6 @@
             text-decoration: underline;
             font-size:19px;
             letter-spacing: 0.63px;
-            color: #111111;
         }
         .form_group {    
             position: relative;
@@ -35,12 +36,10 @@
             .label {
                 font-size: 16px;
                 letter-spacing: 0.53px;
-                color: #00000080;
                 line-height: 0.5;
                 top: 26px;
                 left: 30px;
                 margin-bottom: 0;
-                background:#ffffff;
                 position: absolute;
                 pointer-events: none;
                 box-sizing: border-box;
@@ -49,7 +48,6 @@
             }
             .value {
                 font-size: 20px;
-                color: #111111;
                 height: 60px;
                 outline: none;
                 box-shadow: none;
@@ -57,7 +55,6 @@
                 position: relative;
                 box-sizing: border-box;
                 letter-spacing: 0.19px;
-                background: #C3C3C31F;
                 padding: 13px 30px 13px 17px;
                 border: 1px solid #0000001F;
                 &:invalid + label {
@@ -66,7 +63,6 @@
                 }
                 &:focus {
                     & + label {
-                        background:#ffffff;
                         transform:translateY(-29px);
                     }
                 }
@@ -74,7 +70,6 @@
             .comment_name {
                 font-size: 20px;
                 line-height: 25px;
-                color: #111111;
                 letter-spacing: 0.19px;
                 text-transform: capitalize;
                 .comment {
@@ -85,7 +80,6 @@
                 .comment {
                     font-size:20px;
                     letter-spacing: 0.19px;
-                    color: #111111;
                     width: 90%;
                 }
             }  

@@ -11,7 +11,7 @@ const index = () => {
             <span>+</span>
         </div>
         <div id="otherTerm" className="collapse" aria-labelledby="otherTerm" data-parent="#otherTerm">     
-        <div className={styles.dashboard_form}>       
+        <div className={`${styles.dashboard_form} card-body`}>       
             <Form>
                 <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.<span className={styles.igpl_para}>Indo German International Private Limites (Igpl) </span>will provide proof of all expenses to the Buyer.</div>  
                <div className='row'>              
