@@ -10,35 +10,35 @@ const index = () => {
             <span>+</span>
         </div>
         <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#additional">     
-        <div className={styles.dashboard_form}>
+        <div className={`${styles.dashboard_form} card-body`}>
             <Form>
                 <div className='row'>               
                     <Form.Group className={`${styles.form_group} col-md-3`} >
-                        <select  className={`${styles.value} form-control`} required>
+                        <select  className={`${styles.value} input form-control`} required>
                             <option value="volvo">5. Lc Opening Bank</option>
                             <option value="audi">4. Lc Opening Bank</option>
                         </select>
-                        <Form.Label className={styles.label}>Select<strong className="text-danger">*</strong></Form.Label>
+                        <Form.Label className={`${styles.label} label_heading`}>Select<strong className="text-danger">*</strong></Form.Label>
                     </Form.Group>
                     <Form.Group className={`${styles.form_group} col-md-9`}>
                         <div className='d-flex justify-content-between align-items-center'>
-                            <Form.Control className={`${styles.value} form-control`} type="text" 
+                            <Form.Control className={`${styles.value} input form-control`} type="text" 
                         required/>
-                            <Form.Label className={styles.label}>Comment<strong className="text-danger">*</strong></Form.Label>
+                            <Form.Label className={`${styles.label} label_heading`}>Comment<strong className="text-danger">*</strong></Form.Label>
                             <div className='ml-3'>
                                 <img src="/static/add-btn.svg" className='img-fluid' alt="Add"/>
                             </div>
                         </div>
                     </Form.Group>
                 </div>
-                <h3 className={`${styles.comment_heading} pt-3`}>Comments</h3>
+                <h3 className={`${styles.comment_heading} font-weight-medium pt-3`}>Comments</h3>
                 <div className='row'>
                     <div className={`${styles.form_group} col-md-3`} >
                         <h4 className={styles.comment_name}>5. Lc Opening Bank</h4>
                     </div>
                     <div className={`${styles.form_group} col-md-9`}>
                         <div className={`${styles.comment_para} d-flex justify-content-between`}>
-                            <div className={styles.comment}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                  
+                            <div className={`{styles.comment}`}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                  
                             <img src="/static/mode_edit.svg" className="img-fluid ml-2" alt="Edit"/>
                             <img src="/static/delete.svg" className="img-fluid ml-2" alt="Delete"/>
                         </div>

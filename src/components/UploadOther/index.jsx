@@ -9,8 +9,8 @@ const index = () => {
             <h3 className={styles.heading}>Upload Other Documents</h3>
             <span>+</span>
         </div>
-        <div id="uploadOther" className="collapse" aria-labelledby="uploadOther" data-parent="#uploadOther">     
-        <div className={styles.dashboard_form}>        
+        <div id="additional" className="collapse" aria-labelledby="uploadOther" data-parent="#uploadOther">     
+        <div className={`${styles.dashboard_form} card-body`}>        
             <Form>
                 <div className='row align-items-center pb-4'>               
                     <div className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`} >
