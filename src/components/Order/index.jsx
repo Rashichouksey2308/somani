@@ -132,7 +132,7 @@ const index = () => {
                     <Form.Control className={`${styles.input_field} input form-control`} required type="text" />
                     <Form.Label className={`${styles.label_heading} label_heading`}>Transaction Period (Days)<strong className="text-danger">*</strong></Form.Label>
                 </Form.Group>
-               
+                <div className={styles.button}><span>Submit</span></div>
                 </div>
                 </Form>
 

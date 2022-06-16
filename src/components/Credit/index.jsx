@@ -82,6 +82,7 @@ const index = () => {
                         <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
                         </div>
                     </div>
+                     <div className={styles.button}><span>Submit</span></div>
                     </div>
                    
                 </div>
@@ -148,10 +149,12 @@ const index = () => {
                                 />
 
                         </div>
-                    
+                          <div className={styles.button}><span>Submit</span></div>
                         </div>
                         </div> 
+                        
                     </div>
+                     
                     </div>
                     </div>  
               
@@ -396,8 +399,9 @@ const index = () => {
                             <input className={`${styles.input_field} input form-control`} required type="text"/>
                             <label className={`${styles.label_heading} label_heading`}>GSTIN<strong className="text-danger">*</strong></label>
                         </div>
+                          
                         </div>
-                     
+                      <div className={styles.button2}><span>Submit</span></div>
                     </div>
                     </div>
                     </div> 
