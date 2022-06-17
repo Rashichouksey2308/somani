@@ -637,8 +637,8 @@ function branchCreation(props) {
                                     ? -1
                                     : 0,
                                 )
-                                .map((item) => (
-                                  <option value={JSON.stringify(item)}>
+                                .map((item,index) => (
+                                  <option  key={index} value={JSON.stringify(item)}>
                                     {item.country}
                                   </option>
                                 ))}

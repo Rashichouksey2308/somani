@@ -118,19 +118,19 @@ const index = () => {
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle3" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle3">CMA Fees including supervision and survey</label>
+                                    <label className={styles.checkbox_label} htmlForcls="vehicle3">CMA Fees including supervision and survey</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle4" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle4">Bank DO Issuance charges</label>
+                                    <label className={styles.checkbox_label} htmlForcls="vehicle4">Bank DO Issuance charges</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle5" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle5">Remmittance Charges</label>
+                                    <label className={styles.checkbox_label} htmlForcls="vehicle5">Remmittance Charges</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle6" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle6">Usance Interest</label>
+                                    <label className={styles.checkbox_label} htmlForcls="vehicle6">Usance Interest</label>
                                 </div>
                             </div>
                         </div>
@@ -139,31 +139,31 @@ const index = () => {
                             <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                                 <div className='d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
                                 </div> 
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox"/>
-                                    <label className={styles.checkbox_label} for="vehicle2">Demurrage / Detention Charges of Vessel</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle2">Demurrage / Detention Charges of Vessel</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle3" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle3">Transportation Charges</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle3">Transportation Charges</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">Wagon Haulage Charges (in case of Delivery through railways)</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">Wagon Haulage Charges (in case of Delivery through railways)</label>
                                 </div> 
                                 <div className='pt-4 d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">3rd Party Inspection Charges</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">3rd Party Inspection Charges</label>
                                 </div> 
                                 <div className='pt-4 d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">Hedging Charges</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">Hedging Charges</label>
                                 </div> 
                                 <div className='pt-4 d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">Any other cost incurred on behalf of Buyer</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">Any other cost incurred on behalf of Buyer</label>
                                 </div> 
                             </div>
                         </div>
@@ -172,11 +172,11 @@ const index = () => {
                             <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                                 <div className='d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
                                 </div> 
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle2"  value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle2">LC Amendment Cost</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle2">LC Amendment Cost</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox"/>

@@ -65,7 +65,7 @@ function index(props) {
                 <div className={`${styles.loginBanner} col-sm-6`}>
                     <img src='/static/login.png' alt='Login Banner' className='img-fluid'/>
                     <div className={styles.pattern}><img src='/static/login-pattern.png' alt='banner pattern' className='img-fluid' /></div>
-                    <div className={styles.caption}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</div>
+                    <div className={styles.caption}>{`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s`}</div>
                 </div>
                 {/* <div className='col-sm-6'> background: #171E27 0% 0% no-repeat padding-box;
                     <div className='row no-gutters'> */}
@@ -78,19 +78,19 @@ function index(props) {
                         <p className={`para`}>Welcome back! Please enter your details.</p>
                         <div className={`${styles.labelFloat} form-group`}>
                             <input type='text' id='email' name="email"  onChange={(e)=>onInputDataHandler(e)} className={`${styles.formControl} input form-control`} required />
-                            <label className={`label_heading_login`} for='email'>Email</label>
+                            <label className={`label_heading_login`} htmlFor='email'>Email</label>
                         </div>
                         <div className={`${styles.labelFloat} ${styles.password} form-group`}>
                             <div className='input-group align-items-center' id='password'>
                                 <input type={showPassword ? 'text' : 'password'} name="password" onChange={(e)=>{onInputDataHandler(e)}} className={`${styles.formControl} input form-control`} required />
-                                <label  className={`label_heading_login`} for='password'>Password</label>
+                                <label  className={`label_heading_login`} htmlFor='password'>Password</label>
                                 <img src='/static/eye.svg'  onClick={onShowPasswordHandler} alt='Show Password' className='img-fluid' />
                             </div>
                         </div>
                         <div className={`${styles.remember} form-group`}>
                             <div className='input-group align-items-center'>
                                 <input type="checkbox" id="remember" name="remember" value="Remember for 30 days" />
-                                <label for="remember" className='mb-0 ml-2 para'>Remember for 30 days</label>
+                                <label htmlFor="remember" className='mb-0 ml-2 para'>Remember for 30 days</label>
                                 <a href='#' className={`${styles.forgotPassword} ml-auto`}>Forgot Password</a>
                             </div>
                         </div>

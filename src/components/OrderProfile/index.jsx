@@ -9,10 +9,10 @@ function index() {
         <Card className={`${styles.sub_card} sub_card`}>
             <Card.Header className={`${styles.header}`}>
                 <span>Order Details</span>   
-                <span class={styles.addicon}>+</span>     
+                <span className={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-          { buyerList && buyerList.map((buyer)=>( <Card.Body className={`${styles.body} value_card`}>
+          { buyerList && buyerList.map((buyer ,index)=>( <Card.Body key={index} className={`${styles.body} value_card`}>
                 {fields("Commodity",buyer.commodity?.originalValue,false)}
                 {fields("Quantity (in MT)",buyer.Quantity?.originalValue,false)}
                 {fields("Order values (in INR)",buyer.orderValues?.originalValue,false)}

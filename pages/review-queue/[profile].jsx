@@ -16,7 +16,7 @@ const index = () => {
             <div className={styles.wrapper}>
                 <div className={styles.head}>
                     <img className={`${styles.arrow} img-fluid`} src="/static/keyboard_arrow_right-3.svg" alt='arrow'/>
-                  {buyerList && buyerList.map((buyer)=>( <h1 className={styles.heading}>{buyer.companyName}</h1>))}
+                  {buyerList && buyerList.map((buyer,index)=>( <h1 key={index} className={styles.heading}>{buyer.companyName}</h1>))}
                 </div>
                 <ReviewProfile></ReviewProfile>
                 <CompanyProfile></CompanyProfile>

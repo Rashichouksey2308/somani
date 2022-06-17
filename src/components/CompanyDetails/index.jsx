@@ -19,8 +19,8 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
           <div className={`${styles.heading} heading_card`}>Company Profile</div>
           <div className={styles.radio_form}>
             <div className={styles.sub_heading}>Transaction Type</div>
-            {['radio'].map((type) => (
-              <div key={`inline-${type}`} className={styles.radio_group}>
+            {['radio'].map((type ,index) => (
+              <div key={`inline-${index}`} className={styles.radio_group}>
                 <Form.Check
                   className={styles.radio}
                   inline
@@ -87,7 +87,7 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
                 className={`${styles.input_field} input form-control`}
                 required
               >
-                {gstList && gstList.GstinIdArray.map((gstId) =>( <option value={gstId}>{gstId}</option>))}
+                {gstList && gstList.GstinIdArray.map((gstId,index) =>( <option key={index} value={gstId}>{gstId}</option>))}
                 {/* <option value="gst1">282176JDEJ88UD</option>
                 <option value="gst2">27AAATW46786C2ZG</option>
                 <option value="gst3">VW5688TW4183C2ZG</option> */}
