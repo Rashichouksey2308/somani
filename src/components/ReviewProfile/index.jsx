@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
-function index() {
+function Index() {
   const [reviewedProfile, setReviewedProfile] = useState([
     {
       Categories: 'Transaction Type',
@@ -123,7 +123,7 @@ function index() {
     </div>
   )
 }
-export default index
+export default Index
 
 const tableRow = () => {
   return (

@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { loginUser } from 'redux/authentication/actions';
 import useDarkMode from 'use-dark-mode';
 
-function index(props) {
+function Index(props) {
  
     const loggingInUser= useSelector(state=>state.auth.loggingInUser)
       const darkMode = useDarkMode(false);
@@ -115,4 +115,4 @@ function index(props) {
   )
 }
 
-export default index
+export default Index

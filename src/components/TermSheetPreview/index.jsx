@@ -4,7 +4,7 @@ import {Row,Col,Container,Card} from 'react-bootstrap'
 import Paginatebar from '../Paginatebar'
 import TermsheetPopUp from '../TermsheetPopUp'
 import { Form } from 'react-bootstrap'
-function index() {
+function Index() {
     let tempArr=[
             {head:"Commodity Details",details:[
             {subhead:"1. Commodity Name",val:"Chrome Ore"},
@@ -474,4 +474,4 @@ function index() {
   )
 }
 
-export default index
+export default Index

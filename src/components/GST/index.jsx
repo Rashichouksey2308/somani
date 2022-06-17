@@ -27,7 +27,7 @@ Chart.register(
   BarElement,
 )
 // Chart.register(linear);
-function index() {
+function Index() {
   const chartRef = useRef(null)
   const [chartData, setChartData] = useState({
     datasets: [],
@@ -878,7 +878,7 @@ function index() {
   )
 }
 
-export default index
+export default Index
 
 const gstCustomerDetail = () => {
   return (

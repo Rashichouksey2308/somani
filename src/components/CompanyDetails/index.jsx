@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 import { useSelector } from 'react-redux'
 
-const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
+const Index = ({ saveCompanyData, setCheckbox, darkMode }) => {
 
   const {gstList} = useSelector((state) =>  state.buyer)
 
@@ -271,4 +271,4 @@ const index = ({ saveCompanyData, setCheckbox, darkMode }) => {
   )
 }
 
-export default index
+export default Index

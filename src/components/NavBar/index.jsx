@@ -7,7 +7,7 @@ import { sidebar } from 'redux/toggleState/Reducer/reducer'
 
 
 
-function index() {
+function Index() {
  // const sidebar = useSelector((state) => state.sidebar)
    const dispatch = useDispatch();
     let a=false
@@ -113,4 +113,4 @@ function index() {
   )
 }
 
-export default index
+export default Index

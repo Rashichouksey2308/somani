@@ -4,7 +4,7 @@ import dash from '../../../public/static/Dashboard.svg'
 import accord from '../../../public/static/next-logo.png'
 import Router from "next/router";
 
-function index() {
+function Index() {
   
     let tempArr=[
         {
@@ -67,7 +67,7 @@ function index() {
     ]
  const [className,setClassName] =useState("")
  const [category,setcategory] =useState("Dashboard")
- const [index12,setIndex] =useState("")
+ const [I12,setIndex] =useState("")
   const handleOpen=(val,index)=>{
     if(index12==index){
    setIndex("")
@@ -135,4 +135,4 @@ console.log(tempArr,"yem")
   )
 }
 
-export default index
+export default Index
