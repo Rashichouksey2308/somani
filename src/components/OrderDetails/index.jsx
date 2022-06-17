@@ -136,7 +136,7 @@ const index = ({ saveOrderData, darkMode }) => {
                     className={`${styles.radio} radio`}
                     inline
                     label="FOB"
-                    onChange={() => saveOrderData("IncoTerms", "FOB")}
+                    onChange={() => saveOrderData("incoTerm", "FOB")}
                     name="group1"
                     type={type}
                     id={`inline-${type}-1`}
@@ -145,7 +145,7 @@ const index = ({ saveOrderData, darkMode }) => {
                     className={`${styles.radio} radio`}
                     inline
                     label="CFR"
-                    onChange={() => saveOrderData("IncoTerms", "CFR")}
+                    onChange={() => saveOrderData("incoTerm", "CFR")}
                     name="group1"
                     type={type}
                     id={`inline-${type}-2`}
@@ -155,7 +155,7 @@ const index = ({ saveOrderData, darkMode }) => {
                     className={`${styles.radio} radio`}
                     inline
                     label="CIF"
-                    onChange={() => saveOrderData("IncoTerms", "CIF")}
+                    onChange={() => saveOrderData("incoTerm", "CIF")}
                     name="group1"
                     type={type}
                     id={`inline-${type}-2`}

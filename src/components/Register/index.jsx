@@ -80,7 +80,7 @@ const whatsappFunction = (e) => {
     countryOfOrigin: '',
     portOfDischarge: '',
     ExpectedDateOfShipment: null,
-    IncoTerms: '',
+    incoTerm: '',
   })
 
   const [documents, setDocuments] = useState({

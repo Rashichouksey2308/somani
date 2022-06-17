@@ -15,6 +15,8 @@ const initialState = {
   document: [],
   gettingGstList: true,
   gstList: null,
+  gettingOrderList: true,
+  orderList: null
 
 }
 
@@ -59,6 +61,26 @@ function BuyerReducer(state = initialState, action) {
         ...state,
         gettingAllBuyerList: false,
         allBuyerList: [],
+      }
+    case types.GET_ALL_ORDER:
+      return {
+        ...state,
+        gettingOrderList: true,
+        orderList: null,
+      }
+
+    case types.GET_ALL_ORDER_SUCCESSFULL:
+      return {
+        ...state,
+        gettingOrderList: false,
+        orderList: action.payload,
+      }
+
+    case types.GET_ALL_ORDER_FAILED:
+      return {
+        ...state,
+        gettingOrderList: false,
+        orderList: null,
       }
 
     case types.REGISTER_BUYER:
