@@ -1,12 +1,7 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
-import Order from '../../src/components/Order';
-import ShipmentDetails from '../../src/components/ShipmentDetails'
-import ComplianceLigitations from '../../src/components/CompilanceLigitation'
-import LigitationsTable from '../../src/components/LigitationsTable'
-import GST from '../../src/components/GST'
-import CAM from '../../src/components/CAM'
+import RevisedMargin from '../../src/components/RevisedMargin'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
 
@@ -26,10 +21,10 @@ function index() {
               </div>
               <ul className={`${styles.navTabs} nav nav-tabs`}>
                   <li className={`${styles.navItem}  nav-item`}>
-                      <a className={`${styles.navLink} navLink  nav-link active`} data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="true">Margin Money</a>
+                      <a className={`${styles.navLink} navLink  nav-link active`} data-toggle="tab" href="#Margin" role="tab" aria-controls="Margin" aria-selected="true">Margin Money</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Financials" role="tab" aria-controls="Financials" aria-selected="false">Revised Margin Money</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#revisedMargin" role="tab" aria-controls="revisedMargin" aria-selected="false">Revised Margin Money</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
@@ -44,17 +39,16 @@ function index() {
                 <div className="row">
                     <div className="col-md-12  accordion_body">
                         <div className={`${styles.tabContent} tab-content`}>
-                            <div className="tab-pane fade show active" id="Commodity" role="tabpanel">
-                                <div className="accordion" id="commodityAccordion">
-                                    <div className={`${styles.card}  accordion card`}>
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">
+                            <div className="tab-pane fade show active" id="Margin" role="tabpanel">
+                                    <div className={`${styles.card}  accordionMargin card`}>
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">
                                          <div className={`${styles.commodity}`}>
-                                           <span className={`${styles.comm_head} label_heading mb-2`}>Commodity</span>
+                                           <span className={`${styles.comm_head} sub_heading mb-2`}>Commodity</span>
                                            <span className={`${styles.comm_val} heading`}>Thermal Coal</span>
                                          </div>
                                             <div className={`${styles.unit_container} d-flex align-items-center`}>
-                                          <div className={`${styles.pay} mr-2`}>
-                                          <strong className={`mr-3`}>Status</strong>
+                                          <div className={`${styles.pay} mr-5`}>
+                                          <strong className={`mr-2`}>Status</strong>
                                           <div className={`d-flex align-items-center justify-content-between`}>
                                             <div className={`${styles.round} mr-2`}></div>
                                             <span className={`heading`}>Payment Initiated</span>
@@ -205,7 +199,7 @@ function index() {
                                                       </div>
                                                         <div className={`${styles.val_wrapper} ml-3`}>
                                                             <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                       Order Value <strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(A*B)`}</span>
+                                                       Order Value <strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{` (A*B)`}</span>
                                                         </label>
                                                          <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
                                                         </div>
@@ -217,7 +211,7 @@ function index() {
                                                       </div>
                                                         <div className={`${styles.val_wrapper} ml-3`}>
                                                             <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                    Order Value (INR) <strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(I*C)`}</span>
+                                                    Order Value (INR) <strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{` (I*C)`}</span>
                                                         </label>
                                                          <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
                                                         </div>
@@ -228,7 +222,7 @@ function index() {
                                                       </div>
                                                         <div className={`${styles.val_wrapper} ml-3`}>
                                                             <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                   Usance Interest (%) for 90 days (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(J*D/365*90)`}</span>
+                                                   Usance Interest (%) for 90 days (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{` (J*D/365*90)`}</span>
                                                         </label>
                                                          <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
                                                         </div>
@@ -239,7 +233,7 @@ function index() {
                                                       </div>
                                                         <div className={`${styles.val_wrapper} ml-3`}>
                                                             <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                   Trade Margin (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(J*E)`}</span>
+                                                   Trade Margin (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{` (J*E)`}</span>
                                                         </label>
                                                          <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
                                                         </div>
@@ -250,7 +244,7 @@ function index() {
                                                       </div>
                                                         <div className={`${styles.val_wrapper} ml-3`}>
                                                             <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                   Gross Order Value (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(J+K+L)`}</span>
+                                                   Gross Order Value (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{` (J+K+L)`}</span>
                                                         </label>
                                                          <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
                                                         </div>
@@ -261,16 +255,11 @@ function index() {
                                                       </div>
                                                         <div className={`${styles.val_wrapper} ml-3`}>
                                                             <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                  Tolerance Value (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(M*F)`}</span>
+                                                  Tolerance Value (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{` (M*F)`}</span>
                                                         </label>
                                                          <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
                                                         </div>
                                                   </div>
-                                                  
-                                                  
-                                                   
-                                                 
-                                                   
                                                 
                                                   </div>
                                                    </div>
@@ -279,16 +268,12 @@ function index() {
                                         </div>
                                     </div>
                                  
-                                </div>
-                            </div>
-                               <div className="tab-pane fade show active" id="Profile" role="tabpanel">
-                                <div className="accordion" id="profileAccordion">
-                                    <div className={`${styles.card}  accordion card`}>
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#companyDetails" aria-expanded="true" aria-controls="companyDetails">
+                                    <div className={`${styles.card}  accordionMargin card`}>
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between `} data-toggle="collapse" data-target="#invoiceDetail" aria-expanded="true" aria-controls="invoiceDetail">
                                             <h2 className="mb-0">Invoice Details</h2>
                                             <span>+</span>
                                         </div>
-                                        <div id="companyDetails" className="collapse" aria-labelledby="companyDetails" data-parent="#profileAccordion">
+                                        <div id="invoiceDetail" className="collapse" aria-labelledby="invoiceDetail" data-parent="#invoiceDetail">
                                             <div className={`${styles.cardBody} card-body `}>
                                                    <div className={`${styles.content} border_color`}>
                                                      <div className={`${styles.input_container} row`}>
@@ -605,6 +590,12 @@ function index() {
                                         </div>
                                     </div>
                                  
+                            </div>
+
+                            <div className="tab-pane fade" id="revisedMargin" role="tabpanel">
+                                <div className={`${styles.card}  accordion_body`}>
+                                  <RevisedMargin/>
+                    
                                 </div>
                             </div>
                             {/* <div className="tab-pane fade" id="Financials" role="tabpanel">

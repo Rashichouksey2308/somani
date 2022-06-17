@@ -76,45 +76,12 @@
         }
     }
 
-    .unit_container {
-
-        padding-right: 15px;
-
-        .unit_label {
-            font-size: 18px;
-            // color: #2837566A;
-            text-transform: capitalize;
-            font-weight: bold;
-            margin-top: 10px;
-            padding-right: 10px;
-            line-height: 23px;
-        }
-
-        .options {
-            font-size: 18px;
-            line-height: 23px;
-            color: #3687E8;
-            text-transform: capitalize;
-            margin-right: 10px;
-
-            border-radius: 14px;
-            border: none;
-            font-weight: bold;
-            text-align: center;
-            padding-left: 8px;
-            padding-right: 6px;
-            padding-top: 4px;
-            padding-bottom: 4px;
-            margin-right: 50px;
-        }
-    }
-
+   
     .tabContent {
         margin-top: 26px;
 
         .card {
             margin-bottom: 1rem;
-
             // box-shadow: 0 3px 6px #cad0e2;
             .cardHeader {
                 cursor: pointer;
@@ -175,23 +142,26 @@
                     flex-direction: column;
                     justify-content: flex-start;
                     align-items: flex-start;
-                .comm_head{
-                  
-                    letter-spacing: 0.53px;
-                    font-size:16px;
-                } 
-                                 .comm_val {
-                                    
-                                     font-size: 20px;
-                                 }
+                    .comm_head{
+                        letter-spacing: 0.53px;
+                        text-transform: capitalize;
+                        font-size: 16px;
+                        line-height: 17px;
+                        font-weight: 500;
+                        background: transparent;
+                    } 
+                                     .comm_val {
+                                        text-transform: capitalize;
+                                        font-weight: 500;
+                                        line-height: 25px;
+                                        font-size: 20px;
+                                     }
                 }
+                               
                                 .unit_container {
                                 
-                                    padding-right: 15px;
-                                
                                     .unit_label {
                                         font-size: 18px;
-                                        // color: #2837566A;
                                         text-transform: capitalize;
                                         font-weight: bold;
                                         margin-top: 10px;
@@ -203,80 +173,12 @@
                                         font-size: 18px;
                                         line-height: 23px;
                                         color: #3687E8;
-                                        text-transform: capitalize;
-                                        margin-right: 10px;
-                                
+                                        text-transform: capitalize;                                
                                         border-radius: 14px;
                                         border: none;
                                         font-weight: bold;
                                         text-align: center;
-                                        padding-left: 8px;
-                                        padding-right: 6px;
-                                        padding-top: 4px;
-                                        padding-bottom: 4px;
-                                        margin-right: 50px;
-                                    }
-                                }unit_container {
-                                
-                                    padding-right: 15px;
-                                
-                                    .unit_label {
-                                        font-size: 18px;
-                                        // color: #2837566A;
-                                        text-transform: capitalize;
-                                        font-weight: bold;
-                                        margin-top: 10px;
-                                        padding-right: 10px;
-                                        line-height: 23px;
-                                    }
-                                
-                                    .options {
-                                        font-size: 18px;
-                                        line-height: 23px;
-                                        color: #3687E8;
-                                        text-transform: capitalize;
-                                        margin-right: 10px;
-                                
-                                        border-radius: 14px;
-                                        border: none;
-                                        font-weight: bold;
-                                        text-align: center;
-                                        padding-left: 8px;
-                                        padding-right: 6px;
-                                        padding-top: 4px;
-                                        padding-bottom: 4px;
-                                        margin-right: 50px;
-                                    }
-                                }
-                                .unit_container {
-                                
-                                    padding-right: 15px;
-                                
-                                    .unit_label {
-                                        font-size: 18px;
-                                        // color: #2837566A;
-                                        text-transform: capitalize;
-                                        font-weight: bold;
-                                        margin-top: 10px;
-                                        padding-right: 10px;
-                                        line-height: 23px;
-                                    }
-                                
-                                    .options {
-                                        font-size: 18px;
-                                        line-height: 23px;
-                                        color: #3687E8;
-                                        text-transform: capitalize;
-                                        margin-right: 10px;
-                                
-                                        border-radius: 14px;
-                                        border: none;
-                                        font-weight: bold;
-                                        text-align: center;
-                                        padding-left: 8px;
-                                        padding-right: 6px;
-                                        padding-top: 4px;
-                                        padding-bottom: 4px;
+                                        padding: 4px 6px 4px 8px;
                                         margin-right: 50px;
                                     }
                                     .pay{
@@ -305,6 +207,12 @@
                 padding: 25px 35px;
                 border-top:2px solid red
               }
+              span {
+                text-transform: capitalize;
+                font-weight: bold;
+                font-size: 20px;
+                line-height: 25px;
+              }
             .input_container {
                     margin-top: 20px;
                     margin-bottom: 10px;
@@ -326,7 +234,10 @@
                 }
                 .val_wrapper{
                     .val{
-                        color: #111111;
+                        text-transform: capitalize;
+                        font-size: 20px;
+                        line-height: 25px;
+                        font-weight: medium;
                     }
                     .blue{
                         color: #3687E8 !important;
@@ -641,35 +552,7 @@
                         border-bottom: none;
                         padding: 25px 35px !important;
 
-                        .unit_container {
-                            padding-right: 15px;
-
-                            .unit_label {
-                                font-size: 18px;
-                                // color: #2837566A;
-                                text-transform: capitalize;
-                                font-weight: bold;
-                                margin-top: 10px;
-                                padding-right: 15px;
-                            }
-
-                            .options {
-                                font-size: 18px;
-                                color: #3687E8;
-                                text-transform: capitalize;
-                                margin-right: 10px;
-                                background: #F3F4F7;
-                                border-radius: 14px;
-                                border: none;
-                                font-weight: bold;
-                                text-align: center;
-                                padding-left: 8px;
-                                padding-right: 6px;
-                                padding-top: 4px;
-                                padding-bottom: 4px;
-                                margin-right: 50px;
-                            }
-                        }
+                    
 
                         h2 {
                             font-size: 22px;

@@ -1465,11 +1465,11 @@ function index() {
                             <div className="tab-pane fade" id="Documents" role="tabpanel">
                            
                             <div className={`${styles.card} card border-color mb-4`}>
-                              <div className={`${styles.head_container} card-header head_container d-flex justify-content-between`}  data-toggle="collapse" data-target="#uploadDocuments" aria-expanded="true" aria-controls="uploadDocuments">
+                              <div className={`${styles.head_container} card-header head_container d-flex justify-content-between`}  data-toggle="collapse" data-target="#Documents" aria-expanded="true" aria-controls="Documents">
                                   <h3 className={styles.heading}>Upload Other Documents</h3>
                                   <span>+</span>
                               </div>
-                              <div id="uploadDocuments" className="collapse" aria-labelledby="uploadDocuments" data-parent="#uploadDocuments">      
+                              <div id="Documents" className="collapse" aria-labelledby="Documents" data-parent="#Documents">      
                               <div className={styles.dashboard_form}>        
                               <Form>
                               <div className='row align-items-center pb-4'>               
