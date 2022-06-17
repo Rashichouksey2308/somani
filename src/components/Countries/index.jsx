@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './index.module.scss'
-//import {ProgressBar} from 'react-bootstrap'
 import ProgressBar from '@ramonak/react-progress-bar'
 
 const index = () => {
