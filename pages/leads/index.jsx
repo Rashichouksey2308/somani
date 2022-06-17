@@ -5,13 +5,11 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetBuyer } from '../../src/redux/registerBuyer/action'
 
-function index() {
-  const dispatch = useDispatch()
-
+function Index() {
   useEffect(() => {
     dispatch(GetAllBuyer())
   }, [])
-
+  const dispatch = useDispatch()
   const { allBuyerList } = useSelector((state) => state.buyer)
   // console.log(allBuyerList, "this is all buyer")
 
@@ -273,4 +271,4 @@ function index() {
   )
 }
 
-export default index
+export default Index
