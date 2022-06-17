@@ -64,7 +64,7 @@ const IndexPage = () => {
                     className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
                   >
                     <span>Showing Page 1 out of 10</span>
-                    <a href="#" className={`${styles.arrow} ${`leftArrow`}`}>
+                    <a href="#" className={`${styles.arrow} ${`leftArrow`} arrow`}>
                       {' '}
                       <img
                         src="/static/keyboard_arrow_right-3.svg"
@@ -72,7 +72,7 @@ const IndexPage = () => {
                         className="img-fluid"
                       />
                     </a>
-                    <a href="#" className={`${styles.arrow} ${`rightArrow`}`}>
+                    <a href="#" className={`${styles.arrow} ${`rightArrow`} arrow`}>
                       <img
                         src="/static/keyboard_arrow_right-3.svg"
                         alt="arrow right"
