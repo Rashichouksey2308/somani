@@ -6,7 +6,7 @@ const index = () => {
   return (
     <div className={`${styles.main} card`}>
       <div
-        className={`${styles.top_container}  d-flex align-items-center justify-content-between`}
+        className={`${styles.top_container} border_color d-flex align-items-center justify-content-between`}
       >
         <h1 className={styles.heading}>Top 5 Countries Of Origin </h1>
         <div className={styles.image_main_container}>
@@ -26,7 +26,7 @@ const index = () => {
           </div>
         </div>
       </div>
-      <div className={styles.country_container}>
+      <div className={`${styles.country_container} label_heading`}>
         <div className={styles.each_progress}>
           <h1 className={styles.country}>INDIA</h1>
           <div className={styles.bar_container}>
@@ -40,7 +40,7 @@ const index = () => {
             </div>
             <div className={styles.number_container}>
               <h3 className={styles.percent}>80%</h3>
-              <h3 className={styles.amount}> ₹ 1,837</h3>
+              <h3 className={`${styles.amount} text1`}> ₹ 1,837</h3>
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@ const index = () => {
             </div>
             <div className={styles.number_container}>
               <h3 className={styles.percent}>40%</h3>
-              <h3 className={styles.amount}> ₹ 1,837</h3>
+              <h3 className={`${styles.amount} text1`}> ₹ 1,837</h3>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@ const index = () => {
             </div>
             <div className={styles.number_container}>
               <h3 className={styles.percent}>70%</h3>
-              <h3 className={styles.amount}> ₹ 1,837</h3>
+              <h3 className={`${styles.amount} text1`}> ₹ 1,837</h3>
             </div>
           </div>
         </div>

@@ -1,8 +1,8 @@
 .main {
     
   min-height: 280px;
- background: #FFFFFF 0% 0% no-repeat padding-box;
- box-shadow: 0px 3px 12px #E5E7ED;
+ //background: #FFFFFF 0% 0% no-repeat padding-box;
+ //box-shadow: 0px 3px 12px #E5E7ED;
  border: 1px solid #D2D7E5;
  border-radius: 8px;
 
@@ -54,83 +54,82 @@ margin-bottom: 20px;
  
  padding: 0 22px 22px;
 
-
-.each_progress {
- width: 100%;
- display: flex;
- flex-direction: column;
- justify-content: start;
- margin-bottom: 19px;
- .bar_container{
-   display: flex;
-   justify-content: space-between;
-   .progress_bar{
-       display: flex;
-       flex-direction: column;
-       width: 75%;
-     
-     .container {
-       height: 9px;
-       background-color: #E4ECF7;
-       border-radius: 2px;
-     }
-     
-     .barCompleted {
-       height: 9px;
-       background-color: #2884DE;
-       border-radius: 2px;
-       width: 80%;
-     }
-     .barCompleted1 {
-       height: 9px;
-       background-color: #876EB1;
-       border-radius: 2px;
-       width: 80%;
-     }
-     
-     .barCompleted2 {
-       height: 9px;
-       background-color: #4CAF50;
-       border-radius: 2px;
-       width: 80%;
-     }
-   }
-
-   .number_container{
-       display: flex;
-       margin-left: 10px; 
-       
-       .percent{
-       text-align: left;
-       font-size:16px;
-       color: #8492A6;
-       text-transform: capitalize;
-       margin-top: -5px;
-       
+    .each_progress {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-bottom: 19px;
+    .bar_container{
+      display: flex;
+      justify-content: space-between;
+      .progress_bar{
+          display: flex;
+          flex-direction: column;
+          width: 75%;
+        
+        .container {
+          height: 9px;
+          background-color: #E4ECF7;
+          border-radius: 2px;
         }
-   
-       .amount{
-       padding-left: 35px;
-       font-size:18px;
-       font-weight: bold;
-       color: #111111CC;
-       text-transform: capitalize;
-       margin-top: -7px;
-       white-space: nowrap;
-       }
-     }
-   }
+        
+        .barCompleted {
+          height: 9px;
+          background-color: #2884DE;
+          border-radius: 2px;
+          width: 80%;
+        }
+        .barCompleted1 {
+          height: 9px;
+          background-color: #876EB1;
+          border-radius: 2px;
+          width: 80%;
+        }
+        
+        .barCompleted2 {
+          height: 9px;
+          background-color: #4CAF50;
+          border-radius: 2px;
+          width: 80%;
+        }
+      }
 
- .country{
-     font-size:14px;
-     color: #8492A6;
-     font-weight: bold;
-     line-height: 17px;
-     margin: 0 0 7px;
-     text-transform: uppercase;
-     
- }
-}
+      .number_container{
+          display: flex;
+          margin-left: 10px; 
+          
+          .percent{
+          text-align: left;
+          font-size:16px;
+          color: #8492A6;
+          text-transform: capitalize;
+          margin-top: -5px;
+          
+            }
+      
+          .amount{
+          padding-left: 35px;
+          font-size:18px;
+          font-weight: bold;
+          color: #111111CC;
+          text-transform: capitalize;
+          margin-top: -7px;
+          white-space: nowrap;
+          }
+        }
+      }
+
+    .country{
+        font-size:14px;
+        color: #8492A6;
+        font-weight: bold;
+        line-height: 17px;
+        margin: 0 0 7px;
+        text-transform: uppercase;
+        
+    }
+    }
 
 
  

@@ -5,7 +5,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 const index = () => {
 
   return (
-    <div className={`${styles.card} container-fluid`}>
+    <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={styles.head_container}>
         <div className={styles.head_header}>
           <img
@@ -23,8 +23,8 @@ const index = () => {
       </div>
 
       
-      <div className={`${styles.vessel_card} mt-3 border_color`}>
-          <div className={`${styles.heading} heading_card`}>Vessel Information</div>
+      <div className={`${styles.vessel_card}  card mt-3 border_color`}>
+          <div className={`${styles.heading} heading_card border_color`}>Vessel Information</div>
           <div className={styles.radio_form}>
             {['checkbox'].map((type) => (
               <div key={`inline-${type}`} className={styles.radio_group}>
@@ -59,7 +59,7 @@ const index = () => {
          <div className={` ${styles.cardBody} card-body  border_color`}>
            <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header`}>
-              <h5>Marine Insurance Details</h5>  
+              <h5 className='heading'>Marine Insurance Details</h5>  
             </div>
             <div className={` ${styles.body}`}>
                 <Row >
@@ -131,7 +131,7 @@ const index = () => {
 
            <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header`}>
-              <h5>Marine Insurance Policy Details</h5>  
+              <h5 className='heading'>Marine Insurance Policy Details</h5>  
             </div>
             <div className={` ${styles.body}`}>
                 <Row >
@@ -192,7 +192,7 @@ const index = () => {
 
            <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header`}>
-              <h5>Coverage & Premium</h5>  
+              <h5  className='heading'>Coverage & Premium</h5>  
             </div>
             <div className={` ${styles.body}`}>
                 <Row >
@@ -245,7 +245,7 @@ const index = () => {
          <div className={` ${styles.cardBody} card-body  border_color`}>
            <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header`}>
-              <h5>Storage Insurance Details</h5>  
+              <h5  className='heading'>Storage Insurance Details</h5>  
             </div>
             <div className={` ${styles.body}`}>
                 <Row >
@@ -316,7 +316,7 @@ const index = () => {
 
            <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header`}>
-              <h5>Storage Insurance Policy</h5>  
+              <h5  className='heading'>Storage Insurance Policy</h5>  
             </div>
             <div className={` ${styles.body}`}>
                 <Row >
@@ -390,7 +390,7 @@ const index = () => {
 
            <div className={` ${styles.content}`}>
             <div className={` ${styles.header}  card_sub_header`}>
-              <h5>Coverage & Premium</h5>  
+              <h5  className='heading'>Coverage & Premium</h5>  
             </div>
             <div className={` ${styles.body}`}>
                 <Row >
@@ -435,12 +435,12 @@ const index = () => {
         </div> 
 
         <div className={`${styles.wrapper} mt-4 card`}>
-         <div className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#remarks" aria-expanded="true" aria-controls="remarks">
+         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#remarks" aria-expanded="true" aria-controls="remarks">
             <h2 className="mb-0">Remarks</h2>
             <span>+</span>
         </div>
         <div id="remarks" className="collapse" aria-labelledby="remarks" data-parent="#remarks">
-         <div className={` ${styles.cardBody} card-body  border_color`}>
+         <div className={` ${styles.cardBody} card-body border_color`}>
            <div className={styles.remark_field}>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
            </div>

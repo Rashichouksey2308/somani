@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 function index() {
   return (
     <Card className={styles.card}>
-      <Card.Header className={`${styles.header} heading_card`}> Exposure </Card.Header>
+      <Card.Header className={`${styles.header} border_color heading_card`}> Exposure </Card.Header>
       <Card.Body className={styles.body}>
         <div className={styles.progress_container}>
           <ProgressBar

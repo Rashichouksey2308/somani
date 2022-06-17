@@ -55,11 +55,11 @@ const IndexPage = () => {
               </div>
             </div>
             <div className={styles.bottom_Container}>
-              <div className={styles.leads}>
+              <div className={`${styles.leads}`}>
                 <div
                   className={`${styles.tableFilter} d-flex justify-content-between`}
                 >
-                  <h3>BL Date</h3>
+                  <h3 className="heading">BL Date</h3>
                   <div
                     className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
                   >
@@ -99,7 +99,7 @@ const IndexPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr className="table_row">
                       <td>124621</td>
                       <td className={styles.buyerName}>Bhutani Traders</td>
                       <td>Iron</td>
@@ -107,7 +107,7 @@ const IndexPage = () => {
                       <td>7</td>
                       <td>₹ 3,45,000</td>
                     </tr>
-                    <tr>
+                    <tr className="table_row">
                       <td>124621</td>
                       <td className={styles.buyerName}>Bhutani Traders</td>
                       <td>Iron</td>
@@ -115,7 +115,7 @@ const IndexPage = () => {
                       <td>7</td>
                       <td>₹ 3,45,000</td>
                     </tr>
-                    <tr>
+                    <tr className="table_row">
                       <td>124621</td>
                       <td className={styles.buyerName}>Bhutani Traders</td>
                       <td>Iron</td>
@@ -123,7 +123,7 @@ const IndexPage = () => {
                       <td>7</td>
                       <td>₹ 3,45,000</td>
                     </tr>
-                    <tr>
+                    <tr className="table_row">
                       <td>124621</td>
                       <td className={styles.buyerName}>Bhutani Traders</td>
                       <td>Iron</td>
