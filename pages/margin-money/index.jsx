@@ -12,7 +12,7 @@ import useDarkMode from 'use-dark-mode';
 
 
 import {Row,Col} from 'react-bootstrap'
-function index() {
+function Index() {
    const darkMode = useDarkMode(false);
     return (
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -1673,5 +1673,5 @@ function index() {
         </div>
     )
 }
-export default index
+export default Index
 

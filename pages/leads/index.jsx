@@ -6,14 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import {GetAllBuyer, GetBuyer} from "../../src/redux/registerBuyer/action";
 
 
-function index() {
-
-  const dispatch = useDispatch()
-
-
+function Index() {
   useEffect(() => {
     dispatch(GetAllBuyer())
   }, [])
+
+const dispatch = useDispatch()
+
+
+
 
   const {allBuyerList} = useSelector((state)=>state.buyer)
   // console.log(allBuyerList, "this is all buyer")
@@ -187,7 +188,7 @@ function index() {
               </tr>
             </thead>
             <tbody>
-             {allBuyerList && allBuyerList.data?.map((buyer) => (<tr className={`${styles.table_row} table_row`}>
+             {allBuyerList && allBuyerList.data?.map((buyer, index) => (<tr key={index} className={`${styles.table_row} table_row`}>
                 <td>{buyer.companyId}</td>
                 <td
                   className={`${styles.buyerName}`}
@@ -251,4 +252,4 @@ function index() {
   )
 }
 
-export default index
+export default Index
