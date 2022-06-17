@@ -70,7 +70,7 @@ const initialState = {
   description: '',
 }
 
-function branchCreation(props) {
+function BranchCreation(props) {
   let { elements } = props
 
   const [state, setState] = useState(initialState)
@@ -1145,4 +1145,4 @@ function branchCreation(props) {
   )
 }
 
-export default branchCreation
+export default BranchCreation
