@@ -232,19 +232,19 @@ const index = () => {
                             </div>
                             </div>
                             <div className='d-flex justify-content-start align-items-center pt-5 pl-5'>
-                                <div className='mr-5'>
+                                <div className={`${styles.form_group} mr-5`}>
                                     <div className={`${styles.label_sanction}`}>Limit Value</div>
                                     <div>100 CR</div>
                                 </div>
-                                <div className='mr-5'>
+                                <div className={`${styles.form_group} ml-5 mr-5`}>
                                     <div className={`${styles.label_sanction}`}>Order Value</div>
                                     <div>100 Lakhs</div>
                                 </div>
                                 
-                                <div className={`${styles.form_group}`} >
-                                <label className={`${styles.label_sanction}`}>Recommended Order Value</label>
-                                    <input className={`${styles.input_field} input form-control`} type="text"/> 
-                              
+                                <div className={`${styles.form_group} mt-4`} >
+                                    <input className={`${styles.input_field} input form-control`} required type="text"/> 
+                                    <label className={`${styles.label_heading} label_heading`}>Recommended Order Value</label>
+
                                 </div>
                             </div>
 
