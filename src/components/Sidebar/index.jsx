@@ -67,7 +67,7 @@ function Index() {
     ]
  const [className,setClassName] =useState("")
  const [category,setcategory] =useState("Dashboard")
- const [I12,setIndex] =useState("")
+ const [index12,setIndex] =useState("")
   const handleOpen=(val,index)=>{
     if(index12==index){
    setIndex("")
