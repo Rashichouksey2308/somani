@@ -6,14 +6,18 @@ import ShipmentDetails from '../../src/components/ShipmentDetails'
 import ComplianceLigitations from '../../src/components/CompilanceLigitation'
 import LigitationsTable from '../../src/components/LigitationsTable'
 import GST from '../../src/components/GST'
-import SalesAgreement from '../../src/components/GST'
+
 import Credit from '../../src/components/Credit'
 import Recommendations from  '../../src/components/Recommendations'
 import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
 import PreviousBar from '../../src/components/PreviousBar'
-
+//sub modules
+import CompanyDetails from '../../src/components/ReviewQueueProfile/CompanyDetails'
+import ShareHoldingPattern from '../../src/components/ReviewQueueProfile/ShareHoldingPattern'
+import AuditorDeatils from '../../src/components/ReviewQueueProfile/AuditorDeatils'
+import CreditRatings from '../../src/components/ReviewQueueProfile/CreditRatings'
 
 import {Row,Col} from 'react-bootstrap'
 function index() {
@@ -57,7 +61,7 @@ function index() {
                         <div className={`${styles.tabContent} tab-content`}>
                             <div className="tab-pane fade show active" id="Profile" role="tabpanel">
                                 <div className="accordion" id="profileAccordion">
-                                    <div className={`${styles.card}  accordion card`}>
+                                    {/* <div className={`${styles.card}  accordion card`}>
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#companyDetails" aria-expanded="true" aria-controls="companyDetails">
                                             <h2 className="mb-0">Company Details</h2>
                                             <span>+</span>
@@ -152,238 +156,16 @@ function index() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className={`${styles.card} card`}>                             
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#auditorDetails" aria-expanded="true" aria-controls="auditorDetails">
-                                            <h2 className="mb-0">Auditor’s Details</h2>
-                                            <span>+</span>
-                                        </div>
-                                        <div id="auditorDetails" className="collapse" aria-labelledby="auditorDetails" data-parent="#profileAccordion">
-                                            <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                                                <thead>
-                                                  <tr>
-                                                    <th></th>
-                                                    <th>MAR-20</th>
-                                                    <th>MAR-19</th>
-                                                    <th>MAR-18</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  <tr>
-                                                    <td>Name of Auditor</td>
-                                                    <td>Matta Garg &amp; Co.</td>
-                                                    <td>Matta Garg &amp; Co.</td>
-                                                    <td>Matta Garg &amp; Co.</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Registration Number</td>
-                                                    <td>000914C</td>
-                                                    <td>000914C</td>
-                                                    <td>000914C</td>
-                                                  </tr>
-                                                </tbody>
-                                              </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={`${styles.card} card`}>
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#directorDetails" aria-expanded="true" aria-controls="directorDetails">
-                                            <h2 className="mb-0">Director Details</h2>
-                                            <span>+</span>
-                                        </div>
-                                        <div id="directorDetails" className="collapse show" aria-labelledby="directorDetails" data-parent="#profileAccordion">
-                                            <div className={`${styles.directorDetails} ${styles.cardBody} card-body border_color`}>
-                                              <div className="accordion" id="directorDetails">
-                                                  <div className={`${styles.card} border_color card`}>
-                                                      <div className={`${styles.cardHeader} ${styles.collapsed} card-header row no-gutters bg-transparent collapsed`} data-toggle="collapse" data-target="#director1" aria-expanded="true" aria-controls="director1">
-                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Name</label>Arv Jay</div>
-                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>PAN</label>AAVPW27766Q <img src="/static/approved.svg" alt="Approved" className="img-fluid mt-n1" /></div>
-                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Email Id</label>email@example.com</div>
-                                                          <div className={`${styles.detailsBox} accordion_Text ${styles.success} col-md-2`}><label>DIN</label>03148692</div>
-                                                          <div className={`${styles.detailsBox}  accordion_Text col-md-2`}><label>Tenure Start Date</label>17-02-2019</div>
-                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Status</label>Approved</div>
-                                                          <div className={styles.downArrow}><img src={`${darkMode.value?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" /></div>
-                                                      </div>
-                                                      <div id="director1" className="collapse show" aria-labelledby="director1" data-parent="#directorDetails">
-                                                        <div className={`${styles.cardBody} card-body border_color`}>
-                                                            <div className="row no-gutters">
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DIN Status</label>Arv Jay</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Registered</label>AAVPW27766Q <img src="/static/approved.svg" alt="Approved" className="img-fluid mt-n1" /></div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Expiry Date</label>email@example.com</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text ${styles.success} col-md-2`}><label>Designation</label>03148692</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Date Of Birth</label>17-02-2019</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Contact</label>Approved</div>
-                                                            </div>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <PreviousBar/>
-                                    <div className={`${styles.card} card`}>
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#shareholding" aria-expanded="true" aria-controls="shareholding">
-                                            <h2 className="mb-0">Shareholding Pattern</h2>
-                                            <span>+</span>
-                                        </div>
-                                        <div id="shareholding" className="collapse" aria-labelledby="shareholding" data-parent="#profileAccordion">
-                                            <div className={`${styles.graphTable} ${styles.cardBody} card-body border_color` }>
-                                              <h3 className="label_heading">Equity Capital</h3>
-                                              <table className={`${styles.table} table mb-4`} cellpadding="0" cellspacing="0" border="0">
-                                                  <tbody>
-                                                    <tr>
-                                                      <th rowspan="7">PIE CHART</th>
-                                                      <th></th>
-                                                      <th>FULL NAME</th>
-                                                      <th>NO. OF SHARES</th>
-                                                      <th>% SHAREHOLDING</th>
-                                                      <th>PAN</th>
-                                                      <th>DIRECTOR</th>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className={`${styles.legends} ${styles.green} border-bottom-0`}><span></span></td>
-                                                      <td className={`${styles.name} border-bottom-0`}>Arv Jay</td>
-                                                      <td className="border-bottom-0">20</td>
-                                                      <td className="border-bottom-0">40%</td>
-                                                      <td className="border-bottom-0">AAVPW27766Q</td>
-                                                      <td className="border-bottom-0">Yes</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className={`${styles.legends} ${styles.blue} border-top-0 border-bottom-0`}><span></span></td>
-                                                      <td className={`${styles.name} border-top-0 border-bottom-0`}>Radhe Singh</td>
-                                                      <td className="border-top-0 border-bottom-0">10</td>
-                                                      <td className="border-top-0 border-bottom-0">30%</td>
-                                                      <td className="border-top-0 border-bottom-0">AAVPW27766Q</td>
-                                                      <td className="border-top-0 border-bottom-0">No</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className={`${styles.legends} ${styles.yellow} border-top-0 border-bottom-0`}><span></span></td>
-                                                      <td className={`${styles.name} border-top-0 border-bottom-0`}>Sagar Sinha</td>
-                                                      <td className="border-top-0 border-bottom-0">10</td>
-                                                      <td className="border-top-0 border-bottom-0">30%</td>
-                                                      <td className="border-top-0 border-bottom-0">AAVPW27766Q</td>
-                                                      <td className="border-top-0 border-bottom-0">No</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td></td>
-                                                      <td className="border-top-0"></td>
-                                                      <td>40</td>
-                                                      <td>100%</td>
-                                                      <td className="border-top-0"></td>
-                                                      <td className="border-top-0"></td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                                <h3 className="label_heading">Equity Capital</h3>
-                                                <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                                                    <tbody>
-                                                      <tr>
-                                                      <th rowspan="7">PIE CHART</th>
-                                                        <th></th>
-                                                        <th>FULL NAME</th>
-                                                        <th>NO. OF SHARES</th>
-                                                        <th>% SHAREHOLDING</th>
-                                                        <th>PAN</th>
-                                                        <th>DIRECTOR</th>
-                                                      </tr>
-                                                      <tr>
-                                                        <td className={`${styles.legends} ${styles.green} border-bottom-0`}><span></span></td>
-                                                        <td className={`${styles.name} border-bottom-0`}>Arv Jay</td>
-                                                        <td className="border-bottom-0">20</td>
-                                                        <td className="border-bottom-0">40%</td>
-                                                        <td className="border-bottom-0">AAVPW27766Q</td>
-                                                        <td className="border-bottom-0">Yes</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td className={`${styles.legends} ${styles.blue} border-top-0 border-bottom-0`}><span></span></td>
-                                                        <td className={`${styles.name} border-top-0 border-bottom-0`}>Radhe Singh</td>
-                                                        <td className="border-top-0 border-bottom-0">10</td>
-                                                        <td className="border-top-0 border-bottom-0">30%</td>
-                                                        <td className="border-top-0 border-bottom-0">AAVPW27766Q</td>
-                                                        <td className="border-top-0 border-bottom-0">No</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td className={`${styles.legends} ${styles.yellow} border-top-0 border-bottom-0`}><span></span></td>
-                                                        <td className={`${styles.name} border-top-0 border-bottom-0`}>Sagar Sinha</td>
-                                                        <td className="border-top-0 border-bottom-0">10</td>
-                                                        <td className="border-top-0 border-bottom-0">30%</td>
-                                                        <td className="border-top-0 border-bottom-0">AAVPW27766Q</td>
-                                                        <td className="border-top-0 border-bottom-0">No</td>
-                                                      </tr>
-                                                      <tr>
-                                                        <td></td>
-                                                        <td className="border-top-0"></td>
-                                                        <td>40</td>
-                                                        <td>100%</td>
-                                                        <td className="border-top-0"></td>
-                                                        <td className="border-top-0"></td>
-                                                      </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={`${styles.card} card`}>
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#creditRatings" aria-expanded="true" aria-controls="creditRatings">
-                                            <h2 className="mb-0">Credit Ratings</h2>
-                                            <span>+</span>
-                                        </div>
-                                        <div id="creditRatings" className="collapse" aria-labelledby="creditRatings" data-parent="#profileAccordion">
-                                            <div className={`${styles.borderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
-                                                  <thead>
-                                                    <tr>
-                                                      <th width="10%" rowspan="2">DATE</th>
-                                                      <th width="15%" rowspan="2">RATING AGENCY</th>
-                                                      <th width="15%" rowspan="2">TERM</th>
-                                                      <th width="28%" rowspan="2">INSTRUMENT</th>
-                                                      <th width="8%" rowspan="2" className="text-center">CHANGE IN RATING</th>
-                                                      <th colspan="3" className="text-center">CREDIT RATING</th>
-                                                    </tr>
-                                                    <tr>
-                                                      <th width="8%" className="text-center">2020</th>
-                                                      <th width="8%" className="text-center">2019</th>
-                                                      <th width="8%" className="text-center">2018</th>
-                                                    </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                    <tr>
-                                                      <td>30-04-2020</td>
-                                                      <td>Birchwood</td>
-                                                      <td>Long Term</td>
-                                                      <td>Long term bank loan 12.60 Crore</td>
-                                                      <td className="text-center"><img src="/static/arrow-up-green.svg" alt="Arrow Red" className="img-fluid" /></td>
-                                                      <td className={`${styles.stable} text-center`}>AA+<span>(Stable)</span></td>
-                                                      <td className="text-center">-</td>
-                                                      <td className="text-center">-</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>30-04-2019</td>
-                                                      <td>America First</td>
-                                                      <td>-</td>
-                                                      <td>Long term bank loan 165 Crore</td>
-                                                      <td className="text-center"><img src="/static/arrow-down-red.svg" alt="Arrow Red" className="img-fluid" /></td>
-                                                      <td className="text-center">-</td>
-                                                      <td className={`${styles.negative} text-center`}>BB+<span>(Negative)</span></td>
-                                                      <td className="text-center">-</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>30-04-2018</td>
-                                                      <td>Alliant</td>
-                                                      <td>Long Term</td>
-                                                      <td>Long term bank loan 12.60 Crore</td>
-                                                      <td className="text-center"><img src="/static/arrow-up-green.svg" alt="Arrow Red" className="img-fluid" /></td>
-                                                      <td className="text-center">-</td>
-                                                      <td className="text-center">-</td>
-                                                      <td className={`${styles.positive} text-center`}>AA+<span>(Positive)</span></td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div> */}
+                                    <CompanyDetails/>
+                                    <AuditorDeatils/>
+                                    <ShareHoldingPattern/>
+                                    <CreditRatings/>
+                                    
+                              <PreviousBar/>
+
+                                  
+                                   
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="Financials" role="tabpanel">

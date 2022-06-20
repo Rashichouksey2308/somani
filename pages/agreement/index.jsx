@@ -66,7 +66,7 @@ function index() {
                             </div>
                                <div className="tab-pane fade show active" id="Profile" role="tabpanel">
                                 <div className="accordion" id="profileAccordion">
-                                   <MarginPreview/>
+                                   <SalesAgreement/>
                                  
                                 </div>
                             </div>

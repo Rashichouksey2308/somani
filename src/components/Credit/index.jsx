@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 const index = () => {
   return (
       <>
-         <div className={`${styles.main} card border_color`}>
+                   <div className={`${styles.main} card border_color`}>
             <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#productSummary" aria-expanded="true" aria-controls="productSummary">
             <h3 className={`${styles.heading} mb-0`}>Product Summary</h3>
             <span>+</span>
@@ -89,7 +89,7 @@ const index = () => {
                 </div>
                    </div>   
 
-                    <div className={`${styles.main} card border_color`}>
+                   <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#supplierCred" aria-expanded="true" aria-controls="supplierCred">
                     <h3 className={`${styles.heading}`}>Supplier's Credentials</h3>
                     <span>+</span>
@@ -156,7 +156,7 @@ const index = () => {
                     </div>
                      
                     </div>
-                    </div>  
+                   </div>  
               
                     <div className={`${styles.main} card border_color`}>
                     <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#keyContact" aria-expanded="true" aria-controls="keyContact" >

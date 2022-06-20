@@ -47,7 +47,7 @@ function index() {
                             <div className="tab-pane fade show active" id="Commodity" role="tabpanel">
                                 <div className="accordion" id="commodityAccordion">
                                     <div className={`${styles.card}  accordion card`}>
-                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">
+                                        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#commodityAccordion_test" aria-expanded="true" aria-controls="commodityAccordion_test">
                                          <div className={`${styles.commodity}`}>
                                            <span className={`${styles.comm_head} label_heading mb-2`}>Commodity</span>
                                            <span className={`${styles.comm_val} heading`}>Thermal Coal</span>
@@ -67,7 +67,7 @@ function index() {
                                                <span>+</span>
                                               </div>
                                         </div>
-                                        <div id="commodityAccordion" className="collapse" aria-labelledby="commodityAccordion" data-parent="#commodityAccordion">
+                                        <div id="commodityAccordion_test" className="collapse" aria-labelledby="commodityAccordion_test" data-parent="#profileAccordion">
                                             <div className={`${styles.cardBody} card-body `}>
                                                    <div className={`${styles.content} border_color`}>
                                                      <div className={`${styles.input_container} row`}>
