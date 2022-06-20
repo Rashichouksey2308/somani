@@ -3,13 +3,13 @@ import styles from "./index.module.scss"
 import {Card} from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 
-function index() {
+function Index() {
     const {buyerList} = useSelector((state)=>state.buyer)
     return (
         <Card className={`${styles.sub_card} sub_card`}>
             <Card.Header className={`${styles.header}`}>
                 <span>Order Details</span>   
-                <span class={styles.addicon}>+</span>     
+                <span className={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
          <Card.Body className={styles.body}>
@@ -28,7 +28,7 @@ function index() {
     )
 }
 
-export default index
+export default Index
 const fields =(head,value,isButton)=>{
     return (
         <>

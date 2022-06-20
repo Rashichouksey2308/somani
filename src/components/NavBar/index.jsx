@@ -9,7 +9,7 @@ import { logoutUser } from 'redux/authentication/actions';
 
 
 
-function index() {
+function Index() {
  // const sidebar = useSelector((state) => state.sidebar)
    const dispatch = useDispatch();
     let a=false
@@ -118,4 +118,4 @@ function index() {
   )
 }
 
-export default index
+export default Index

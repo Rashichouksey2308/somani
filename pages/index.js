@@ -1,21 +1,21 @@
-import RepoSearch from "features/repoSearch/RepoSearch";
-import { useRouter } from "next/router";
-import { createStore } from "store";
-import { getReposAsync } from "features/repoSearch/repoSearchSlice";
-import DoughnutCart from "../src/components/DoughnutCart/index";
-import Leads from "../src/components/Leads/index";
-import styles from "./index.module.scss";
-import Commodities from "../src/components/Commodities/index";
-import Exposure from "../src/components/Exposure/index";
-import Countries from "../src/components/Countries/index";
-import "bootstrap/dist/css/bootstrap.css";
-import Footer from "../src/components/Footer/index";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import TermsheetPopUp from "../src/components/TermsheetPopUp";
-import React, { useState, useEffect } from "react";
+import RepoSearch from 'features/repoSearch/RepoSearch'
+import { useRouter } from 'next/router'
+import { createStore } from 'store'
+import { getReposAsync } from 'features/repoSearch/repoSearchSlice'
+// import DoughnutCart from '../src/components/DoughnutCart'
+import Leads from '../src/components/Leads'
+import styles from './index.module.scss'
+import Commodities from '../src/components/Commodities'
+import Exposure from '../src/components/Exposure'
+import Countries from '../src/components/Countries'
+import 'bootstrap/dist/css/bootstrap.css'
+import Footer from '../src/components/Footer'
+import { Container, Row, Col, Card } from 'react-bootstrap'
+import TermsheetPopUp from '../src/components/TermsheetPopUp'
+import React, { useState, useEffect } from 'react'
 
 const IndexPage = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <>
@@ -50,7 +50,7 @@ const IndexPage = () => {
                   <Countries />
                 </div>
                 <div className={`${styles.commonCard} col-sm-6`}>
-                  <DoughnutCart />
+                  {/* <DoughnutCart /> */}
                 </div>
               </div>
             </div>
@@ -83,8 +83,8 @@ const IndexPage = () => {
                 </div>
                 <table
                   className={styles.table}
-                  cellpadding="0"
-                  cellspacing="0"
+                  cellPadding="0"
+                  cellSpacing="0"
                   border="0"
                 >
                   <thead>

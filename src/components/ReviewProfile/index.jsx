@@ -44,8 +44,8 @@ function index({ handleChange, reviewedProfile }) {
       </div>
       <table
         className={styles.table}
-        cellpadding="0"
-        cellspacing="0"
+        cellPadding="0"
+        cellSpacing="0"
         border="0"
       >
         <thead>
