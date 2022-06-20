@@ -16,6 +16,7 @@ import PreviousBar from '../../src/components/PreviousBar'
 import { Row, Col } from 'react-bootstrap'
 function Index() {
   const darkMode = useDarkMode(false)
+
   return (
     <div className={`${styles.dashboardTab} tabHeader w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
@@ -3052,8 +3053,6 @@ const table2 = () => {
         </tr>
 
         <tr>
-        
-
           <td> GST Transaction Default</td>
           <td> Medium</td>
           <td> GST</td>
