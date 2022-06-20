@@ -7,7 +7,7 @@ import useDarkMode from 'use-dark-mode';
 import Cookies from 'js-cookie'
 
 function index(props) {
-
+  const dispatch = useDispatch()
   const loggingoutUser = useSelector(state => state.auth.loggingUserOut)
 
   const darkMode = useDarkMode(false);
@@ -25,10 +25,7 @@ function index(props) {
   })
   const [showPassword, setShowPassword] = useState(false)
 
-  const dispatch = useDispatch()
-
-  // const token = Cookies.get("token");
-
+  
   const onShowPasswordHandler = () => {
     setShowPassword(!showPassword)
   }
@@ -40,15 +37,13 @@ function index(props) {
   }
 
   const onSubmitHandler = (e) => {
-    // e.preventDefault();
-    // console.log("details", loginDetails.username, loginDetails.password); 
-    const encodedString = new Buffer(`${loginDetails.email}:${loginDetails.password}`).toString("base64")
+     e.preventDefault();
+   
+    const encodedString =  Buffer.from(`${loginDetails.email}:${loginDetails.password}`).toString('base64');
     dispatch(loginUser({
       "credentials": encodedString
     }))
-    console.log(encodedString, "encoded")
-    //console.log(loginDetails)
-    //window.location.reload();
+    
 
   }
 
