@@ -5,13 +5,11 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetBuyer } from '../../src/redux/registerBuyer/action'
 
-function index() {
-  const dispatch = useDispatch()
-
+function Index() {
   useEffect(() => {
     dispatch(GetAllBuyer())
   }, [])
-
+  const dispatch = useDispatch()
   const { allBuyerList } = useSelector((state) => state.buyer)
   // console.log(allBuyerList, "this is all buyer")
 
@@ -188,57 +186,48 @@ function index() {
             </div>
             <table
               className={`${styles.table} table`}
-              cellpadding="0"
-              cellspacing="0"
+              cellPadding="0"
+              cellSpacing="0"
               border="0"
             >
               <thead>
-                <tr>
-                  <th className={`${styles.table_heading} table_heading`}>
-                    CUSTOMER ID
-                  </th>
-                  <th className={`${styles.table_heading} table_heading`}>
-                    BUYER NAME
-                  </th>
-                  <th className={`${styles.table_heading} table_heading`}>
-                    CREATED BY
-                  </th>
-                  <th className={`${styles.table_heading} table_heading`}>
-                    USERNAME
-                  </th>
-                  <th className={`${styles.table_heading} table_heading`}>
-                    EXISTING CUSTOMER
-                  </th>
-                  <th className={`${styles.table_heading} table_heading`}>
-                    STATUS
-                  </th>
+                <tr className="table_row">
+                  <th>CUSTOMER ID</th>
+                  <th>BUYER NAME</th>
+                  <th>CREATED BY</th>
+                  <th>USERNAME</th>
+                  <th>EXISTING CUSTOMER</th>
+                  <th>STATUS</th>
                 </tr>
               </thead>
               <tbody>
                 {allBuyerList &&
-                  allBuyerList.data?.data?.map((buyer) => (
-                    <tr>
-                      <td>{buyer.company.customerId}</td>
+                  allBuyerList.data?.map((buyer,index) => (
+                    <tr key={index} className={`${styles.table_row} table_row`}>
+                      <td>{buyer.companyId}</td>
                       <td
                         className={`${styles.buyerName}`}
-                        onClick={() => handleRoute(buyer)}
+                        onClick={() => {
+                          dispatch(GetBuyer(buyer._id))
+                          Router.push('/review-queue/id')
+                        }}
                       >
-                        {buyer.company.companyName}
+                        {buyer.companyProfile.companyName}
                       </td>
-                      <td>{buyer.createdBy.userRole}</td>
-                      <td>{buyer.createdBy.fName}</td>
+                      <td>RM-Sales</td>
+                      <td>Amar Singh</td>
                       <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                       <td>
                         <span
-                          className={`${styles.status} ${buyer.queue === 'Rejected' ? styles.rejected :
-                            buyer.queue === 'ReviewQueue'
+                          className={`${styles.status} ${
+                            buyer.Queue === 'ReviewQueue'
                               ? styles.review
                               : 'CreditQueue'
                               ? styles.approved
                               : styles.rejected
                           }`}
                         ></span>
-                    {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
+                        {buyer.Queue === 'ReviewQueue'
                           ? 'Review'
                           : 'CreditQueue'
                           ? 'Approved'
@@ -291,4 +280,4 @@ function index() {
   )
 }
 
-export default index
+export default Index

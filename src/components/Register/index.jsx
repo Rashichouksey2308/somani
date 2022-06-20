@@ -10,7 +10,7 @@ import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios"
 
-const index = () => {
+const Index = () => {
   const [darkMode,setDarkMode]=useState(false)
 
   const dispatch= useDispatch();
@@ -192,4 +192,4 @@ const whatsappFunction = (e) => {
     </Card>
   )
 }
-export default index
+export default Index

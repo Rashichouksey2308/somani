@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 // import { settingDocument } from 'redux/registerBuyer/action'
 import { useDispatch } from 'react-redux'
 
-const index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => {
+const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => {
   const [name, setName] = useState(null)
 
   const [secondDocName, setSecondDocName] = useState(null)
@@ -166,4 +166,4 @@ const index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
   )
 }
 
-export default index
+export default Index

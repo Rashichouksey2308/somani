@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
-import Navbar from './NavBar/index'
-import Sidebar from './Sidebar/index'
-import Breadcrum from './Breadcrum/index'
-import Footer from './Footer/index'
+import Navbar from './NavBar'
+import Sidebar from './Sidebar'
+import Breadcrum from './Breadcrum'
+import Footer from './Footer'
 import styles from './index.module.scss'
 import TermSheetPreview from '../components/TermSheetPreview'
 import Login from '../components/Login'
@@ -53,7 +54,6 @@ function Layout({ children }) {
         <Login />
       )}
     </>
-
   )
 }
 

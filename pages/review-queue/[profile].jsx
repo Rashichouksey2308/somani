@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { UpdateBuyer } from '../../src/redux/registerBuyer/action'
 import router from 'next/router'
 
-const index = () => {
+const Index = () => {
   const dispatch = useDispatch()
 
   const { buyerList } = useSelector((state) => state.buyer)
@@ -71,4 +71,4 @@ const index = () => {
     </>
   )
 }
-export default index
+export default Index
