@@ -3,7 +3,7 @@ import {Form} from 'react-bootstrap'
 import styles from './index.module.scss'
 
 
-const index = () => {
+const Index = () => {
   return (
     <div className={`${styles.main} card border-color`}>
         <div className={`${styles.head_container} card-header head_container d-flex justify-content-between bg-transparent`} data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">
@@ -27,7 +27,7 @@ const index = () => {
                 </div>
                 </div>  
                 <div id="orderSummary" className="collapse" aria-labelledby="orderSummary" data-parent="#profileAccordion">      
-                <div className={`${styles.dashboard_form}`}>
+                <div className={`${styles.dashboard_form} card-body`}>
                 <div className={styles.radio_form}>
             <div className={styles.sub_heading}>Transaction Type</div>
             {['radio'].map((type) => (
@@ -146,4 +146,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index

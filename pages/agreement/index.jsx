@@ -11,8 +11,6 @@ import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
 
-
-import {Row,Col} from 'react-bootstrap'
 function index() {
    const darkMode = useDarkMode(false);
     return (

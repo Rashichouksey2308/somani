@@ -70,7 +70,7 @@ const initialState = {
   description: '',
 }
 
-function branchCreation(props) {
+function BranchCreation(props) {
   let { elements } = props
 
   const [state, setState] = useState(initialState)
@@ -637,8 +637,8 @@ function branchCreation(props) {
                                     ? -1
                                     : 0,
                                 )
-                                .map((item) => (
-                                  <option value={JSON.stringify(item)}>
+                                .map((item,index) => (
+                                  <option  key={index} value={JSON.stringify(item)}>
                                     {item.country}
                                   </option>
                                 ))}
@@ -1145,4 +1145,4 @@ function branchCreation(props) {
   )
 }
 
-export default branchCreation
+export default BranchCreation

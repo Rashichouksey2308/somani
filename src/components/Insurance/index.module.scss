@@ -1,0 +1,272 @@
+.card {
+    padding: 20px;
+    background: #F3F4F7 !important;
+  
+    .head_container {
+      display: flex;
+      background: none;
+      flex-direction: row;
+      justify-content: space-between;
+  
+      .head_header {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+  
+        .arrow {
+          width: 13px;
+          height: 21px;
+          background: transparent;
+          margin-top: 10px;
+        }
+        .heading {
+          padding-left: 18px;
+          font-weight: bold;
+          font-size: 30px;
+          text-align: left;         
+          text-transform: capitalize;
+          margin-top: 0;
+        }
+      }
+      .clear_btn {
+        width: 116px;
+        height: 38px; 
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+  
+    
+    .vessel_card {
+        background: #FFFFFF;
+        box-shadow: 0px 3px 6px #CAD0E2;
+        border: 1px solid #D2D7E5;
+        border-radius: 6px;
+
+        .heading {
+            color: #3687e8;
+            font-weight:bold;
+            font-size: 22px;
+            text-transform: capitalize;
+            line-height: 27px;
+            padding: 26px 0px 20px 35px;
+            border-bottom: 3px solid #D9DDE8;
+
+        }
+        .radio_form {
+            padding: 26px 0px 20px 35px;
+            .radio_group {
+                display: flex;
+               
+                .radio {
+                    font-size: 20px;
+                    color: #111111;
+                    letter-spacing: 0.19px;
+                    padding-right: 50px;
+
+                    label {
+                        padding-left: 15px;
+                    }
+                }
+            }
+            .sub_heading {
+                font-size: 16px;
+                line-height: 17px;
+                font-weight: 500;
+                padding: 10px 0 15px;
+                letter-spacing: 0.53px;
+            }
+        } 
+    }
+
+    .wrapper{
+        margin-bottom: 1rem;
+            border-radius: 6px !important;
+    }
+    .cardHeader {
+         cursor: pointer;
+         border-bottom: none;
+         padding: 25px 35px !important;
+    
+         h2 {
+             font-size: 22px;
+             color: #3687E8;
+             font-weight: bold;
+             line-height: 27px;
+         }
+    
+         span {
+             font-size: 45px;
+             color: #3687E8;
+             font-weight: normal;
+             line-height: 20px;
+         }
+             
+        
+    }
+     .cardBody {
+         padding:0px;
+        border-top: 2px solid red !important;
+         .content{
+             
+             .header{
+                 
+              padding: 25px 35px !important;
+              font-weight: bold;
+              line-height:27px;
+              h5{
+                font-size: 22px ;
+                font-weight: bold;
+                color: #111111 !important;
+              }
+              
+             }
+         }
+         .body{
+            padding: 25px 35px !important;
+            
+            .col_header{
+                font-weight: medium;
+                font-size: 16px;
+                line-height: 17px;
+                margin-top: 1.5rem;
+                letter-spacing: 0.53px;
+                  
+            }
+            .col_body{
+                   font-weight: bold;
+                    font-size: 20px;
+                    line-height: 25px;
+                    margin-top:0.5rem;
+                    margin-bottom: 1rem;
+             
+            }
+
+            .label_heading {
+                top: 27px;
+                left: 30px;
+                font-size: 16px;
+                line-height: 0.5;
+               // margin-bottom: 0;
+                letter-spacing: 0.53px;
+                position: absolute;
+                pointer-events: none;
+                box-sizing: border-box;
+                transform: translateY(-31px);
+                transition: 0.3s all ease-in-out;
+              }
+              .input_field {
+                
+                height: 60px;
+                background-color: #C3C3C31F;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                font-size: 20px;
+                font-weight: 500;
+                outline: none;
+                box-shadow: none;
+                position: relative;
+                box-sizing: border-box;
+                &:invalid + label {
+                    background: none;
+                    transform:translateY(0);
+                }
+                &:focus {
+                    & + label {
+                        transform:translateY(-31px);
+                    }
+                }
+            }
+            .search_image {
+                margin-left: -40px;
+        
+            }
+         }
+
+         .remark_field{
+            margin: 25px 35px 35px 35px;
+            padding: 20px;
+            letter-spacing: 0.19px;
+            color: #111111;
+            background: #C3C3C31F;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            font-size: 20px;
+            line-height: 25px;
+         }
+        
+     }
+  }
+
+  .table_container {
+    background-color: #FAFAFB;
+    .table {
+        th {
+            font-size: 15px;
+            color: #8492A6;
+            font-weight: bold;
+            line-height: 18px;
+            padding: 20px 15px;
+            vertical-align: middle;
+            background: #FAFAFB;
+            text-transform: uppercase;
+            border-top: 2px solid #F2F5F9;
+            border-bottom: 2px solid #F2F5F9;
+            &:first-child {
+                padding-left: 35px;
+            }
+        }
+        td {
+            font-size: 19px;
+            font-weight: 500;
+            line-height: 24px;
+            padding: 24px 15px;
+            border-top: none;
+            vertical-align: middle;
+        }
+        
+        .doc_name {
+            font-weight: bold;
+            line-height: 25px;
+            font-size: 20px;
+            text-transform: capitalize;
+            padding-left: 35px;
+        }
+        .doc_row {
+            font-size: 19px;
+            line-height: 24px;
+            opacity: 0.7;
+            font-weight: 500;                
+        }
+        .button_upload {
+            width: 106px;
+            height: 38px;
+            border: 3px solid #3687E8;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #3687E8;
+            text-transform: capitalize;
+        } 
+        
+        .file_field{
+                background: #C3C3C31F;
+                border-radius: 4px;
+                overflow: hidden;
+                position: relative;
+                //display: block;
+                line-height: 60px;
+                input {
+                   
+                    cursor: pointer;
+                    //position: absolute;
+                }
+                .close_image {
+                    
+                }
+            
+        }
+    }
+}

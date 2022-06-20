@@ -19,6 +19,9 @@ module.exports = {
       //   net:false,
       //   async_hooks:false,
       // }
+      future: {
+        webpack5: true
+      }
     }
 
     return config

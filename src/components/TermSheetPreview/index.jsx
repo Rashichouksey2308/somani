@@ -4,7 +4,7 @@ import {Row,Col,Container,Card} from 'react-bootstrap'
 import Paginatebar from '../Paginatebar'
 import TermsheetPopUp from '../TermsheetPopUp'
 import { Form } from 'react-bootstrap'
-function index() {
+function Index() {
     let tempArr=[
             {head:"Commodity Details",details:[
             {subhead:"1. Commodity Name",val:"Chrome Ore"},
@@ -150,7 +150,7 @@ function index() {
             </Col>
             <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
-                 <li>Cargo to be stored in Custom Bonded warehouse at the port of Discharge (Vizag India) under CMA with Dr. Amin Controllers. "lGM and Into Bond Bill of Entry" shall be filled by the lndo's nominated party and all expenses/charges to be born and paid by the Buyer.</li>
+                 <li>{`Cargo to be stored in Custom Bonded warehouse at the port of Discharge (Vizag India) under CMA with Dr. Amin Controllers. "lGM and Into Bond Bill of Entry" shall be filled by the lndo's nominated party and all expenses/charges to be born and paid by the Buyer.`}</li>
                  
              </ul>
             </Col>
@@ -187,7 +187,7 @@ function index() {
                  <li>1.5 - 2.25%</li>
                  <li>4%</li>
                  <li>1.5%</li>
-                 <li>All actual exchange fluctuation if applicable is on Buyer's account</li>
+                 <li>{`All actual exchange fluctuation if applicable is on Buyer's account`}</li>
                  <li>Other terms and conditions as per Sales Contract</li>
                  
              </ul>
@@ -245,7 +245,7 @@ function index() {
                  <ul>
                  
                  <li>1.5%</li>
-                   <li>All actual exchange fluctuation if applicable is on Buyer's account</li>
+                   <li>{`All actual exchange fluctuation if applicable is on Buyer's account`}</li>
              </ul>
             </Col>
         </Row>
@@ -376,19 +376,19 @@ function index() {
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle3" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle3">CMA Fees including supervision and survey</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle3">CMA Fees including supervision and survey</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle4" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle4">Bank DO Issuance charges</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle4">Bank DO Issuance charges</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle5" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle5">Remmittance Charges</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle5">Remmittance Charges</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle6" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle6">Usance Interest</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle6">Usance Interest</label>
                                 </div>
                             </div>
                         </div>
@@ -397,31 +397,31 @@ function index() {
                             <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                                 <div className='d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
                                 </div> 
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox"/>
-                                    <label className={styles.checkbox_label} for="vehicle2">Demurrage / Detention Charges of Vessel</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle2">Demurrage / Detention Charges of Vessel</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle3" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle3">Transportation Charges</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle3">Transportation Charges</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">Wagon Haulage Charges (in case of Delivery through railways)</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">Wagon Haulage Charges (in case of Delivery through railways)</label>
                                 </div> 
                                 <div className='pt-4 d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">3rd Party Inspection Charges</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">3rd Party Inspection Charges</label>
                                 </div> 
                                 <div className='pt-4 d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">Hedging Charges</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">Hedging Charges</label>
                                 </div> 
                                 <div className='pt-4 d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">Any other cost incurred on behalf of Buyer</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">Any other cost incurred on behalf of Buyer</label>
                                 </div> 
                             </div>
                         </div>
@@ -430,11 +430,11 @@ function index() {
                             <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                                 <div className='d-flex align-items-center'>   
                                     <input className={styles.checkbox} type="checkbox" id="vehicle1" value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle1">LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
                                 </div> 
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox" id="vehicle2"  value="Bike"/>
-                                    <label className={styles.checkbox_label} for="vehicle2">LC Amendment Cost</label>
+                                    <label className={styles.checkbox_label} htmlFor="vehicle2">LC Amendment Cost</label>
                                 </div>
                                 <div className='pt-4 d-flex align-items-center'>
                                     <input className={styles.checkbox} type="checkbox"/>
@@ -474,4 +474,4 @@ function index() {
   )
 }
 
-export default index
+export default Index
