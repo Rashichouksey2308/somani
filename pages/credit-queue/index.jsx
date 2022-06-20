@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
 
 
-function index() {
+function Index() {
 
   const dispatch = useDispatch()
 
@@ -150,8 +150,8 @@ function index() {
         </div>
         <table
           className={`${styles.table} table`}
-          cellpadding="0"
-          cellspacing="0"
+          cellPadding="0"
+          cellSpacing="0"
           border="0"
         >
           <thead>
@@ -167,8 +167,8 @@ function index() {
           </thead>
           <tbody>
              {allBuyerList &&
-              allBuyerList.data?.data?.map((buyer) => (
-                <tr>
+              allBuyerList.data?.data?.map((buyer, index) => (
+                <tr key={index}>
                   {buyer.queue === 'CreditQueue' ? (
                     <>
                       <td>{buyer.company.customerId}</td>
@@ -330,4 +330,4 @@ function index() {
     </div>
 )
 }
-export default index
+export default Index

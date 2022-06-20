@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@babel/eslint-parser": "^7.18.2",
     "@ramonak/react-progress-bar": "^5.0.0",
     "@reduxjs/toolkit": "^1.6.2",
     "axios": "^0.19.0",

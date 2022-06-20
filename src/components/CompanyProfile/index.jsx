@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 function Index() {
     const {buyerList} = useSelector((state)=> state.buyer)
-    console.log(buyerList, "this is buyer list")
+    // console.log(buyerList, "this is buyer list")
     return (
         <Card className={`${styles.sub_card} sub_card`}>
             <Card.Header className={`${styles.header} label_heading`}>

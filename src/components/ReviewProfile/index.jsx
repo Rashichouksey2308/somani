@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-key */
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 
-function index({ handleChange, reviewedProfile }) {
+function Index({ handleChange, reviewedProfile }) {
   const transactionTypeDropdown = ['Import', 'Domestic']
   const commodityDropdown = ['Iron', 'Crude', 'Steel']
   const countryOfOriginDropdown = ['America', 'India', 'Russia']
@@ -327,27 +328,27 @@ function index({ handleChange, reviewedProfile }) {
     </div>
   )
 }
-export default index
+export default Index
 
-const tableRow = (props) => {
-  return (
-    <tr className={`${styles.table_row} border_color table_row`}>
-      <td>{props}</td>
-      <td>Domestic</td>
-      <td>
-        <div className={styles.tick}>
-          <img src="/static/check.svg" alt="Check" className="img-fluid" />
-        </div>
-      </td>
-      <td>
-        <input className={styles.checkBox} type="checkbox" />
-      </td>
-      <td>
-        <Form.Select size="sm" className={`${styles.dropDown} dropDown`}>
-          <option>Retailer</option>
-          <option>Copper</option>
-        </Form.Select>
-      </td>
-    </tr>
-  )
-}
+// const tableRow = (props) => {
+//   return (
+//     <tr className={`${styles.table_row} border_color table_row`}>
+//       <td>{props}</td>
+//       <td>Domestic</td>
+//       <td>
+//         <div className={styles.tick}>
+//           <img src="/static/check.svg" alt="Check" className="img-fluid" />
+//         </div>
+//       </td>
+//       <td>
+//         <input className={styles.checkBox} type="checkbox" />
+//       </td>
+//       <td>
+//         <Form.Select size="sm" className={`${styles.dropDown} dropDown`}>
+//           <option>Retailer</option>
+//           <option>Copper</option>
+//         </Form.Select>
+//       </td>
+//     </tr>
+//   )
+// }

@@ -12,7 +12,7 @@ function Index() {
                 <span className={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-         <Card.Body className={styles.body}>
+            <Card.Body className={`${styles.body} value_card`}>
                 {fields("Commodity",buyerList.order.commodity)}
                 {fields("Quantity (in MT)",buyerList.order.Quantity,false)}
                 {fields("Order values (in INR)",buyerList.order.orderValue,false)}

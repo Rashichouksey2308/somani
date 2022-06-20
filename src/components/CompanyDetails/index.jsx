@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 import { useSelector } from 'react-redux'
 
-const index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whatsappFunction }) => {
+const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whatsappFunction }) => {
 
   const {gstList} = useSelector((state) =>  state.buyer)
 
