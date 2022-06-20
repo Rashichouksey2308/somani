@@ -131,9 +131,14 @@ function getGstFailed() {
 
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(createBuyer());
+  let cookie = await Cookies.get("SOMANI");
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split("#");
+   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    var authorization = Cookies.get('jwtAccessToken')
-    var headers = { authorization: authorization, Cache: 'no-cache' }
+    // var authorization = Cookies.get('jwtAccessToken')
+    // var headers = { authorization: authorization, Cache: 'no-cache' }
    Axios.post(`${API.corebaseUrl}${API.registerCompany}`, payload, {
     headers: headers,
   }).then((response)=>{
@@ -157,9 +162,13 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
 
 export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(updateBuyer()
+  let cookie = await Cookies.get("SOMANI");
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split("#");
+   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    var authorization = Cookies.get('jwtAccessToken')
-    var headers = { authorization: authorization, Cache: 'no-cache' }
+   
     Axios.post(`${API.corebaseUrl}${API.updateBuyer}`, payload, {headers:headers}).then((response) => {
     if (response.data.code === 200) {
       dispatch(updateBuyerSuccess(response.data));

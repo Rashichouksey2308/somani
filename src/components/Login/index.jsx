@@ -37,7 +37,7 @@ function index(props) {
   }
 
   const onSubmitHandler = (e) => {
-     e.preventDefault();
+    //  e.preventDefault();
    
     const encodedString =  Buffer.from(`${loginDetails.email}:${loginDetails.password}`).toString('base64');
     dispatch(loginUser({
@@ -118,4 +118,4 @@ function index(props) {
   )
 }
 
-export default Index
+export default index
