@@ -4,6 +4,7 @@ import styles from './index.module.scss'
 import Order from '../../src/components/Order';
 import ShipmentDetails from '../../src/components/ShipmentDetails'
 import SalesAgreement from '../../src/components/SalesAgreement'
+import MarginPreview from '../../src/components/MarginPreview'
 import LigitationsTable from '../../src/components/LigitationsTable'
 import GST from '../../src/components/GST'
 import CAM from '../../src/components/CAM'
@@ -65,7 +66,7 @@ function index() {
                             </div>
                                <div className="tab-pane fade show active" id="Profile" role="tabpanel">
                                 <div className="accordion" id="profileAccordion">
-                                   <SalesAgreement/>
+                                   <MarginPreview/>
                                  
                                 </div>
                             </div>

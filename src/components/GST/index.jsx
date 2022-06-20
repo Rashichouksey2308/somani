@@ -22,8 +22,8 @@ function index() {
   console.log(ctx,area,"cts")
 
     var gradient = ctx.createLinearGradient(0, 0, 0, 300);
-    gradient.addColorStop(0, 'rgba(224, 195, 155, 0.5)');
-    gradient.addColorStop(1, 'rgba(100, 100, 0,0)');
+    // gradient.addColorStop(0, 'rgba(224, 195, 155, 0.5)');
+    // gradient.addColorStop(1, 'rgba(100, 100, 0,0)');
 
   console.log(gradient,"gradient")
   return gradient;
@@ -39,13 +39,13 @@ function index() {
     let color= createGradient(chart.ctx, chart.chartArea)
     console.log(color,"color")
  const data = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jun","Jun","Jun","Jun"],
   datasets: [
     {
       label: "First dataset",
-      data: [70, 53, 85, 41, 44, 65],
+      data: [70, 53, 85, 41, 44, 65,34,45,67,89],
       fill: true,
-      stepped: true,
+
      
       backgroundColor:  color,
       borderColor: "rgba(224, 195, 155, 1)"
@@ -165,7 +165,7 @@ const DATA_COUNT = 7;
 const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100, decimals: 0};
 
 const lineOption={
-  tension:0.1,
+  tension:0.2,
  
   fill:true,
   //  elements: {
