@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllBuyer, GetBuyer } from '../../src/redux/registerBuyer/action'
+import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
 
-function index() {
+function Index() {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -19,8 +19,10 @@ function index() {
     if (buyer.queue === 'ReviewQueue') {
       dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
       Router.push('/review-queue/id')
-    } else {
-      Router.push('/credit-queue')
+    } 
+    else if (buyer.queue === 'CreditQueue') {
+      dispatch(GetAllOrders({ orderId: buyer._id }))
+      Router.push('/review-queue')
     }
   }
 

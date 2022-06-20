@@ -4,7 +4,7 @@ import styles from './index.module.scss'
 import "bootstrap/dist/css/bootstrap.css";
 import { loginUser } from 'redux/authentication/actions';
 import useDarkMode from 'use-dark-mode';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
 function index(props) {
   const dispatch = useDispatch()

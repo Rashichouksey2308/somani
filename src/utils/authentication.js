@@ -11,7 +11,7 @@ export const setAuthenticationCookie = async data => {
   const encodedString =  Buffer.from(`${userId}#${refreshToken}#${jwtAccessToken}`).toString('base64');
   console.log(encodedString,"ENCODED")
   //expire.setHours(expire.getHours() + 3)
-  await Cookies.set("SOMANI", encodedString, { expires: 7 });
+  Cookies.set("SOMANI", encodedString, { expires: 7 });
   return null;
 };
 
