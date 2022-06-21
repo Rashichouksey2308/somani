@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 //Stage
 export default {
   authServerUrl: 'http://ac201fa5ca83c425eadfafefbc540d04-1369552433.ap-south-1.elb.amazonaws.com:3001/node',
