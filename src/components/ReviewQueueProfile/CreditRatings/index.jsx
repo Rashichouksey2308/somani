@@ -11,15 +11,15 @@ function Index() {
                                         </div>
                                         <div id="creditRatings" className="collapse" aria-labelledby="creditRatings" data-parent="#profileAccordion">
                                             <div className={`${styles.borderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                   <thead>
                                                     <tr>
-                                                      <th width="10%" rowspan="2">DATE</th>
-                                                      <th width="15%" rowspan="2">RATING AGENCY</th>
-                                                      <th width="15%" rowspan="2">TERM</th>
-                                                      <th width="28%" rowspan="2">INSTRUMENT</th>
-                                                      <th width="8%" rowspan="2" className="text-center">CHANGE IN RATING</th>
-                                                      <th colspan="3" className="text-center">CREDIT RATING</th>
+                                                      <th width="10%" rowSpan="2">DATE</th>
+                                                      <th width="15%" rowSpan="2">RATING AGENCY</th>
+                                                      <th width="15%" rowSpan="2">TERM</th>
+                                                      <th width="28%" rowSpan="2">INSTRUMENT</th>
+                                                      <th width="8%" rowSpan="2" className="text-center">CHANGE IN RATING</th>
+                                                      <th colSpan="3" className="text-center">CREDIT RATING</th>
                                                     </tr>
                                                     <tr>
                                                       <th width="8%" className="text-center">2020</th>

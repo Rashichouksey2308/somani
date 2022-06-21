@@ -31,7 +31,7 @@ import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
 
 import {Row,Col} from 'react-bootstrap'
-function index() {
+function Index() {
    const darkMode = useDarkMode(false);
     return (
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -566,7 +566,7 @@ function index() {
         </div>
     )
 }
-export default index
+export default Index
 
 const ligitations=()=>{
   return(
@@ -620,7 +620,7 @@ return(
                                                    </tr>
 
                                                     <tr>
-                                                    {/* <td rowspan="3">Statutory Compliance</td> */}
+                                                    {/* <td rowSpan="3">Statutory Compliance</td> */}
                                                    
                                                        <td> GST Transaction Default</td>
                                                           <td> Medium</td>

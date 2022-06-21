@@ -17,7 +17,7 @@ function Index() {
                                         </div>
                                         <div id="incomeStatement" className="collapse" aria-labelledby="incomeStatement" data-parent="#FinancialsAccordion">
                                             <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                 <thead>
                                                   <tr>
                                                     <th width="50%"></th>

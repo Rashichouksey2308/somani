@@ -19,7 +19,7 @@ function Index() {
                                         </div>
                                         <div id="balanceSheet1" className="collapse show" aria-labelledby="balanceSheet1" data-parent="#FinancialsAccordion">
                                             <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                 <thead>
                                                   <tr>
                                                     <th width="50%"><h3>Liabilities</h3></th>
@@ -52,7 +52,7 @@ function Index() {
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td>Long Term Borrowings</td>
@@ -76,7 +76,7 @@ function Index() {
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td>Creditors</td>
@@ -93,7 +93,7 @@ function Index() {
                                                     <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td className="border-top"><strong>Total Liabilities</strong></td>
@@ -139,7 +139,7 @@ function Index() {
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td>Inventories</td>
@@ -184,7 +184,7 @@ function Index() {
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td className="border-top"><strong>Total Assets</strong></td>

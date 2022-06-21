@@ -675,7 +675,7 @@ function Index() {
                                                       </div>
                                                         <div className={`${styles.val_wrapper} ml-3`}>
                                                             <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                      No. of PDC's<strong className='text-danger'>*</strong>
+                                                       {`No. of PDC's`}<strong className='text-danger'>*</strong>
                                                         </label>
                                                          <div className={`${styles.val} heading`}>75</div>
                                                         </div>

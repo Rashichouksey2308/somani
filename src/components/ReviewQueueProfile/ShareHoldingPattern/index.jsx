@@ -12,10 +12,10 @@ function Index() {
                                         <div id="shareholding" className="collapse" aria-labelledby="shareholding" data-parent="#profileAccordion">
                                             <div className={`${styles.graphTable} ${styles.cardBody} card-body border_color` }>
                                               <h3 className="label_heading">Equity Capital</h3>
-                                              <table className={`${styles.table} table mb-4`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table mb-4`} cellPadding="0" cellSpacing="0" border="0">
                                                   <tbody>
                                                     <tr>
-                                                      <th rowspan="7">PIE CHART</th>
+                                                      <th rowSpan="7">PIE CHART</th>
                                                       <th></th>
                                                       <th>FULL NAME</th>
                                                       <th>NO. OF SHARES</th>
@@ -58,10 +58,10 @@ function Index() {
                                                   </tbody>
                                                 </table>
                                                 <h3 className="label_heading">Equity Capital</h3>
-                                                <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                     <tbody>
                                                       <tr>
-                                                      <th rowspan="7">PIE CHART</th>
+                                                      <th rowSpan="7">PIE CHART</th>
                                                         <th></th>
                                                         <th>FULL NAME</th>
                                                         <th>NO. OF SHARES</th>
