@@ -21,7 +21,28 @@ export const FETCH_CURRENT_USER_PROFILE_FAILED =
 export const AUTHENTICATE_USER =
   're-master-dashboard/authentication/AUTHENTICATE_USER'
 
-export const LOGOUT_USER = 're-master-dashboard/authentication/LOGOUT_USER'
+//export const LOGOUT_USER = 're-master-dashboard/authentication/LOGOUT_USER'
+
+
+
+
+//****** Verify Token ********//
+
+export const VERIFY_TOKEN = "VERIFY_TOKEN";
+export const VERIFY_TOKEN_SUCCESS = "VERIFY_TOKEN_SUCCESS";
+export const VERIFY_TOKEN_FAILED = "VERIFY_TOKEN_FAILED";
+
+//****** Generate Token ********//
+
+export const GENERATE_TOKEN = "GENERATE_TOKEN";
+export const GENERATE_TOKEN_SUCCESS = "GENERATE_TOKEN_SUCCESS";
+export const GENERATE_TOKEN_FAILED = "GENERATE_TOKEN_FAILED";
+
+//****** Logout User ********//
+
+export const LOGOUT_USER = "LOGOUT_USER";
+export const LOGOUT_USER_SUCCESS = "LOGOUT_USER_SUCCESS";
+export const LOGOUT_USER_FAILED = "LOGOUT_USER_FAILED";
 
 //****** Reset Password   ********//
 

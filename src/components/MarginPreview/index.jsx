@@ -4,7 +4,7 @@ import {Row,Col,Container,Card} from 'react-bootstrap'
 import Paginatebar from '../Paginatebar'
 import TermsheetPopUp from '../TermsheetPopUp'
 import { Form } from 'react-bootstrap'
-function index() {
+function Index() {
     let tempArr=[
             {head:"Commodity Details",details:[
             {subhead:"1. Commodity Name",val:"Chrome Ore"},
@@ -55,7 +55,7 @@ function index() {
       </div>
       <Card className={styles.content}>
       
-         <table className={`${styles.table}  table`} cellpadding="0" cellspacing="0"  >
+         <table className={`${styles.table}  table`} cellPadding="0" cellSpacing="0"  >
             <tr>
             <th>Commodity Details</th>
             <th >Revised Margin Money</th>
@@ -80,7 +80,7 @@ function index() {
                 </tr>
               </tbody>
        </table>
-         <table className={`${styles.table}  table`} cellpadding="0" cellspacing="0"  >
+         <table className={`${styles.table}  table`} cellPadding="0" cellSpacing="0"  >
             <tr>
             <th>Calculation</th>
             <th ></th>
@@ -126,4 +126,4 @@ function index() {
   )
 }
 
-export default index
+export default Index
