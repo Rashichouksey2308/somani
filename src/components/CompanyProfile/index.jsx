@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 function Index() {
     const {buyerList} = useSelector((state)=> state.buyer)
-    console.log(buyerList, "this is buyer list")
+    // console.log(buyerList, "this is buyer list")
     return (
         <Card className={`${styles.sub_card} sub_card`}>
             <Card.Header className={`${styles.header} label_heading`}>
@@ -13,18 +13,18 @@ function Index() {
                 <span className={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-         { buyerList && buyerList.map((buyer,index)=>(  <Card.Body key={index} className={`${styles.body} value_card`}>
-                {fields("Company Name",buyer.companyName)}
-                {fields("Company PAN","1123456780")}
-                {fields("Type Of Business",buyer.typeOfBusiness?.originalValue)}
-                {fields("Transaction Type",buyer.transactionType?.originalValue)}
-                {fields("Turn-Over (in Cr)",buyer.turnOver?.originalValue)}
-                {fields("Email ID","Johndoe@Email.Com")}
+           <Card.Body className={`${styles.body} value_card`}>
+                {fields("Company Name",buyerList.companyName)}
+                {fields("Company PAN",buyerList.company.companyPan)}
+                {fields("Type Of Business",buyerList.company.typeOfBusiness)}
+                {/* {fields("Transaction Type",buyerList.company.transactionType)} */}
+                {fields("Turn-Over (in Cr)",buyerList.company.turnOver)}
+                {fields("Email ID",buyerList.company.email)}
                                 
-                {fields("Phone Number","+91 9876543210")}
-                {fields("Whatsapp Number","+91 9876543210")}
-                {fields("Communication Mode","Email, Whatsapp")}
-            </Card.Body>))}
+                {fields("Phone Number",buyerList.company.mobile.primary.number)}
+                {fields("Whatsapp Number",buyerList.company.mobile.whatsapp.number)}
+                {fields("Communication Mode",buyerList.company.communicationMode)}
+            </Card.Body>
         </Card>
     )
 }

@@ -575,6 +575,17 @@ body.dark-mode .accordion_Text {
 
 
 }
+body.light-mode .text_sales {
+color: #000000;
+  
+
+
+}
+
+body.dark-mode .text_sales {
+    color: #FFFFFF;
+
+}
 body.light-mode .accordion_body {
 
 background: #F3F4F7 0% 0% no-repeat padding-box !important;
@@ -704,5 +715,5 @@ body   .good {
    }
 
 body .satisfactory {
-     color: #FF9D00
+     color: #FF9D00 !important
    }

@@ -42,75 +42,205 @@ function Index() {
     // );
     console.log(ctx, area, 'cts')
 
-    const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
+    var gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    // gradient.addColorStop(0, 'rgba(224, 195, 155, 0.5)');
+    // gradient.addColorStop(1, 'rgba(100, 100, 0,0)');
 
-    gradient.addColorStop(0, 'rgba(75,192,192,0')
-    gradient.addColorStop(0.5, 'rgba(75,192,192,0.5')
-    gradient.addColorStop(1, 'rgba(75,192,192,1')
-    console.log(gradient, 'gradient')
-    return gradient
-  }
+  console.log(gradient,"gradient")
+  return gradient;
+}
 
   useEffect(() => {
-    const chart = chartRef.current
-    console.log('here', chart.ctx)
+    const chart = chartRef.current;
+   console.log("here",chart.ctx)
     if (!chart) {
       return
     }
 
-    let color = createGradient(chart.ctx, chart.chartArea)
-    console.log(color, 'color')
-    const data = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      datasets: [
-        {
-          label: 'First dataset',
-          data: [33, 53, 85, 41, 44, 65],
-          fill: true,
-          backgroundColor: color,
-          borderColor: 'rgba(75,192,192,1)',
-        },
-        {
-          label: 'Second dataset',
-          data: [33, 25, 35, 51, 54, 76],
-          fill: true,
-          backgroundColor: color,
-          borderColor: '#742774',
-        },
-      ],
+    let color= createGradient(chart.ctx, chart.chartArea)
+    console.log(color,"color")
+ const data = {
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jun","Jun","Jun","Jun"],
+  datasets: [
+    {
+      label: "First dataset",
+      data: [70, 53, 85, 41, 44, 65,34,45,67,89],
+      fill: true,
+
+     
+      backgroundColor:  color,
+      borderColor: "rgba(224, 195, 155, 1)"
+    },
+ 
+  ]
+};
+
+    setChartData(data);
+  },[chartRef.current]);
+const getOrCreateTooltip = (chart) => {
+  let tooltipEl = chart.canvas.parentNode.querySelector('div');
+
+  if (!tooltipEl) {
+    tooltipEl = document.createElement('div');
+    tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
+    tooltipEl.style.borderRadius = '3px';
+    tooltipEl.style.color = 'white';
+    tooltipEl.style.opacity = 1;
+    tooltipEl.style.pointerEvents = 'none';
+    tooltipEl.style.position = 'absolute';
+    tooltipEl.style.transform = 'translate(-50%, 0)';
+    tooltipEl.style.transition = 'all .1s ease';
+
+    const table = document.createElement('table');
+    table.style.margin = '0px';
+
+    tooltipEl.appendChild(table);
+    chart.canvas.parentNode.appendChild(tooltipEl);
+  }
+
+  return tooltipEl;
+};
+
+const externalTooltipHandler = (context) => {
+  // Tooltip Element
+  const {chart, tooltip} = context;
+  const tooltipEl = getOrCreateTooltip(chart);
+
+  // Hide if no tooltip
+  if (tooltip.opacity === 0) {
+    tooltipEl.style.opacity = 0;
+    return;
+  }
+
+  // Set Text
+  if (tooltip.body) {
+    const titleLines = tooltip.title || [];
+    const bodyLines = tooltip.body.map(b => b.lines);
+
+    const tableHead = document.createElement('thead');
+
+    titleLines.forEach(title => {
+      const tr = document.createElement('tr');
+      tr.style.borderWidth = 0;
+
+      const th = document.createElement('th');
+      th.style.borderWidth = 0;
+      const text = document.createTextNode(title);
+
+      th.appendChild(text);
+      tr.appendChild(th);
+      tableHead.appendChild(tr);
+    });
+
+    const tableBody = document.createElement('tbody');
+    bodyLines.forEach((body, i) => {
+      const colors = tooltip.labelColors[i];
+
+      const span = document.createElement('span');
+      span.style.background = colors.backgroundColor;
+      span.style.borderColor = colors.borderColor;
+      span.style.borderWidth = '2px';
+      span.style.marginRight = '10px';
+      span.style.height = '10px';
+      span.style.width = '10px';
+      span.style.display = 'inline-block';
+
+      const tr = document.createElement('tr');
+      tr.style.backgroundColor = 'inherit';
+      tr.style.borderWidth = 0;
+
+      const td = document.createElement('td');
+      td.style.borderWidth = 0;
+
+      const text = document.createTextNode(body);
+
+      td.appendChild(span);
+      td.appendChild(text);
+      tr.appendChild(td);
+      tableBody.appendChild(tr);
+    });
+
+    const tableRoot = tooltipEl.querySelector('table');
+
+    // Remove old children
+    while (tableRoot.firstChild) {
+      tableRoot.firstChild.remove();
     }
 
-    setChartData(data)
-  }, [chartRef.current])
+    // Add new children
+    tableRoot.appendChild(tableHead);
+    tableRoot.appendChild(tableBody);
+  }
 
-  const lineOption = {
-    tension: 0.1,
-    fill: true,
-    elements: {
-      point: {
-        radius: 0,
+  const {offsetLeft: positionX, offsetTop: positionY} = chart.canvas;
+
+  // Display, position, and set styles for font
+  tooltipEl.style.opacity = 1;
+  tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+  tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+  tooltipEl.style.font = tooltip.options.bodyFont.string;
+  tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
+};
+
+const DATA_COUNT = 7;
+const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100, decimals: 0};
+
+const lineOption={
+  tension:0.2,
+ 
+  fill:true,
+  //  elements: {
+  //                   point:{
+  //                       radius: 2
+  //                   }
+  //               },
+   scales: {
+      x: {
+        grid: {
+          color: '#ff000000',
+          borderColor: '#ff000000',
+          tickColor: '#ff000000'
+        }
       },
+         y: {
+        grid: {
+         
+           borderColor: '#ff000000',
+          tickColor: '#ff000000'
+        }
+      }
     },
-  }
-  let data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [
-      {
-        label: 'First dataset',
-        data: [33, 53, 85, 41, 44, 65],
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: 'rgba(75,192,192,1)',
-      },
-      {
-        label: 'Second dataset',
-        data: [33, 25, 35, 51, 54, 76],
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: '#742774',
-      },
-    ],
-  }
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+      plugins: {
+     
+      tooltip: {
+        enabled: false,
+        position: 'nearest',
+        external: externalTooltipHandler
+      }
+    }
+
+}
+let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  datasets: [
+    {
+      label: "First dataset",
+      data: [33, 53, 85, 41, 44, 65],
+      fill: true,
+      backgroundColor:  'rgba(75,192,192,1)',
+      borderColor: "rgba(75,192,192,1)"
+    },
+    {
+      label: "Second dataset",
+      data: [33, 25, 35, 51, 54, 76],
+      fill: true,
+      backgroundColor: 'rgba(75,192,192,1)',
+      borderColor: "#742774"
+    }
+  ]}
 
   return (
     <>

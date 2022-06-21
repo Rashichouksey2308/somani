@@ -76,6 +76,7 @@
             background: #C3C3C31F;
             border: 1px solid #0000001F;
             border-radius: 4px;
+            margin-bottom: 2rem !important;
 
         }  
         
@@ -240,4 +241,50 @@ height: 48px;
         border-radius: 4px;
         padding: 10px 9px 10px 9px;
     }
+        .submit {
+            cursor: pointer;
+            width: 260px;
+            height: 48px;
+            background: #3687E8 0% 0% no-repeat padding-box;
+            border-radius: 5px;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 1rem;
+            margin: 10px 35px !important;
+        }
 }
+.button {
+    padding: 25px 35px !important;
+    cursor: pointer;
+    width: 260px;
+    height: 48px;
+    background: #3687E8 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+}
+.button2 {
+    padding: 25px 35px !important;
+    cursor: pointer;
+    width: 260px;
+    height: 48px;
+    background: #3687E8 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+ .remark_field {
+     background: #C3C3C31F;
+     border: 1px solid #0000001F;
+     border-radius: 4px;
+     margin-bottom: 2rem !important;
+
+ }
