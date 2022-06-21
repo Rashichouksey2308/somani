@@ -1,60 +1,60 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
-function index() {
+function Index() {
   const [reviewedProfile, setReviewedProfile] = useState([
     {
-      Categories: "Transaction Type",
-      value: "Domestic",
+      Categories: 'Transaction Type',
+      value: 'Domestic',
       approved: true,
     },
     {
-      Categories: "Type of Business",
-      value: "Manufacturer",
-      option: ["retailer", "manufacturer"],
+      Categories: 'Type of Business',
+      value: 'Manufacturer',
+      option: ['retailer', 'manufacturer'],
       approved: false,
     },
     {
-      Categories: "Turover (Cr)",
-      value: "51-100 crores",
+      Categories: 'Turover (Cr)',
+      value: '51-100 crores',
       approved: true,
     },
     {
-      Categories: "Commodity",
-      value: "Iron",
-      option: ["copper", "coal"],
+      Categories: 'Commodity',
+      value: 'Iron',
+      option: ['copper', 'coal'],
       approved: false,
     },
     {
-      Categories: "Order Value",
-      value: "23 crores",
+      Categories: 'Order Value',
+      value: '23 crores',
       approved: true,
     },
     {
-      Categories: "Country of origin",
-      value: "Vishakhapatanam",
+      Categories: 'Country of origin',
+      value: 'Vishakhapatanam',
       approved: true,
     },
     {
-      Categories: "Port of Discharge",
-      value: "India",
+      Categories: 'Port of Discharge',
+      value: 'India',
       approved: true,
     },
     {
-      Categories: "Transaction Type",
-      value: "Domestic",
+      Categories: 'Transaction Type',
+      value: 'Domestic',
       approved: true,
     },
     {
-      Categories: "Expected Date OF Shipment",
-      value: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+      Categories: 'Expected Date OF Shipment',
+      value: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
       approved: true,
-    }
-  ]);
+    },
+  ])
 
   const onManualApproval = (props) => {
-    setReviewedProfile((prevState) => [...prevState, props]);
-  };
+    setReviewedProfile((prevState) => [...prevState, props])
+  }
   return (
     <div className={`${styles.leads} leads `}>
       <div
@@ -69,17 +69,37 @@ function index() {
       </div>
       <table
         className={styles.table}
-        cellpadding="0"
-        cellspacing="0"
+        cellPadding="0"
+        cellSpacing="0"
         border="0"
       >
         <thead>
           <tr>
-            <th className={`${styles.table_heading} border_color table_heading`}>CATEGORIES</th>
-            <th className={`${styles.table_heading} border_color table_heading`}>VALUES</th>
-            <th className={`${styles.table_heading} border_color table_heading`}>API RESPONSE</th>
-            <th className={`${styles.table_heading} border_color table_heading`}>MANUAL APPROVAL</th>
-            <th className={`${styles.table_heading} border_color table_heading`}>REVIEWED VALUE</th>
+            <th
+              className={`${styles.table_heading} border_color table_heading`}
+            >
+              CATEGORIES
+            </th>
+            <th
+              className={`${styles.table_heading} border_color table_heading`}
+            >
+              VALUES
+            </th>
+            <th
+              className={`${styles.table_heading} border_color table_heading`}
+            >
+              API RESPONSE
+            </th>
+            <th
+              className={`${styles.table_heading} border_color table_heading`}
+            >
+              MANUAL APPROVAL
+            </th>
+            <th
+              className={`${styles.table_heading} border_color table_heading`}
+            >
+              REVIEWED VALUE
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -91,7 +111,9 @@ function index() {
         </tbody>
       </table>
       <div className={styles.remarks}>
-        <Form.Label className={`${styles.remarksName} table_row`}>User Remarks</Form.Label>
+        <Form.Label className={`${styles.remarksName} table_row`}>
+          User Remarks
+        </Form.Label>
         <Form.Control
           as="textarea"
           rows={3}
@@ -101,25 +123,27 @@ function index() {
     </div>
   )
 }
-export default index
+export default Index
 
-const tableRow=()=>{
-    return(
-        <tr className={`${styles.table_row} border_color table_row`}>
-            <td>Transaction Type</td>
-            <td>Domestic</td>
-            <td><div className={styles.tick} >
-                <img src="/static/check.svg" alt="Check" className='img-fluid'/>
-                </div>
-            </td>
-            <td><input className={styles.checkBox} type="checkbox"/></td>
-            <td>
-                <Form.Select size="sm" className= {`${styles.dropDown} dropDown`}>
-                    <option>Retailer</option>
-                    <option>Copper</option>
-                </Form.Select>
-            </td>
-        </tr>
-    )
-
+const tableRow = () => {
+  return (
+    <tr className={`${styles.table_row} border_color table_row`}>
+      <td>Transaction Type</td>
+      <td>Domestic</td>
+      <td>
+        <div className={styles.tick}>
+          <img src="/static/check.svg" alt="Check" className="img-fluid" />
+        </div>
+      </td>
+      <td>
+        <input className={styles.checkBox} type="checkbox" />
+      </td>
+      <td>
+        <Form.Select size="sm" className={`${styles.dropDown} dropDown`}>
+          <option>Retailer</option>
+          <option>Copper</option>
+        </Form.Select>
+      </td>
+    </tr>
+  )
 }
