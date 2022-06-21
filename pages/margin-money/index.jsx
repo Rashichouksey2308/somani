@@ -190,103 +190,134 @@ function index() {
                                                   </div>
                                                    </div>
                                                    <div className={`${styles.content} border_color`}>
-                                                    <span>Calculation</span>
-                                                     <div className={`${styles.input_container} row`}>
-                                                 
-                                                        <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-3 col-sm-6`}>
-                                                      <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
-                                                        <span>I</span>
-                                                      </div>
-                                                        <div className={`${styles.val_wrapper} ml-3`}>
-                                                            required
-                                                        
-                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                         Company Address<strong className='text-danger'>*</strong>
-                                                        </label>
-                                                  </div>
-                                                   <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                                                        <input
-                                                            type="text"
-                                                            id="textInput"
-                                                            name="companyPan"
-                                                         
-                                                            className={`${styles.input_field} input form-control`}
-                                                            required
-                                                        />
-                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                       Importer GSTIN<strong className='text-danger'>*</strong>
-                                                        </label>
-                                                  </div>
-                                                    <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                                                        <input
-                                                            type="text"
-                                                            id="textInput"
-                                                            name="companyPan"
-                                                         
-                                                            className={`${styles.input_field} input form-control`}
-                                                            required
-                                                        />
-                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                      Bank Name<strong className='text-danger'>*</strong>
-                                                        </label>
-                                                  </div>
-                                                      <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                                                        <input
-                                                            type="text"
-                                                            id="textInput"
-                                                            name="companyPan"
-                                                         
-                                                            className={`${styles.input_field} input form-control`}
-                                                            required
-                                                        />
-                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                     Branch<strong className='text-danger'>*</strong>
-                                                        </label>
-                                                  </div>
-                                                    <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                                                        <input
-                                                            type="text"
-                                                            id="textInput"
-                                                            name="companyPan"
-                                                         
-                                                            className={`${styles.input_field} input form-control`}
-                                                            required
-                                                        />
-                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                    Branch Address<strong className='text-danger'>*</strong>
-                                                        </label>
-                                                  </div>
-                                                     <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                                                        <input
-                                                            type="text"
-                                                            id="textInput"
-                                                            name="companyPan"
-                                                         
-                                                            className={`${styles.input_field} input form-control`}
-                                                            required
-                                                        />
-                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                   IFSC Code<strong className='text-danger'>*</strong>
-                                                        </label>
-                                                  </div>
-                                                     <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                                                        <input
-                                                            type="text"
-                                                            id="textInput"
-                                                            name="companyPan"
-                                                         
-                                                            className={`${styles.input_field} input form-control`}
-                                                            required
-                                                        />
-                                                        <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                   A/C Number<strong className='text-danger'>*</strong>
-                                                        </label>
-                                                  </div>
-                                                
-                                                  </div>
-                                                   </div>
-                                                
-                                            </div>
+                            <span>Calculation</span>
+                             <div className={`${styles.input_container} row`}>
+                         
+                                <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>J</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                               Order Value <strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(A*B)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+          
+                                <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>K</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                            Order Value (INR) <strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(J*C)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+                              <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>L</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                           Usance Interest (%) for 90 days (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(K*D*90/365)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+                             <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>M</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                           Trade Margin (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(K*E)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+                             <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>N</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                           Gross Order Value (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(K+L+M)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+                           
+                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>O</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                          Tolerance Value (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(N*F)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>P</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                          Total Order Value (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(N+O)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>Q</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                          Provisional Unit Price Per Ton (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(N/A)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>R</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                          Margin Money (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(P*G)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>S</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                          Total SPDC Amount Req. (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(P-R)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                                <span>T</span>
+                              </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                          Amount per SPDC (INR)<strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(S/H)`}</span>
+                                </label>
+                                 <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
+                                </div>
+                          </div>
+                          </div>
+                           </div>   
                                         </div>
                                     </div>
                                  
@@ -344,7 +375,7 @@ function index() {
                             </label>
                     </div>
                     <div className={`${styles.radio_form} col-md-12`}>
-                            <div className={`${styles.label_heading} label_heading`}>Same as Buyer<strong className='text-danger'>*</strong></div>
+                            <div className={`${styles.label_heading} label_heading`}>Is Consignee same as Buyer<strong className='text-danger'>*</strong></div>
                             <Form>
                             {['radio'].map((type) => (
                                 <div key={`inline-${type}`} className={styles.radio_group}>
@@ -415,7 +446,7 @@ function index() {
                             </label>
                     </div>
                     <div className={`${styles.radio_form} col-md-12`}>
-                            <div className={`${styles.label_heading} label_heading`}>Same as Buyer <span className='ml-4'>In Case User Selects "No"</span></div>
+                            <div className={`${styles.label_heading} label_heading`}>Is Consignee same as Buyer <span className='ml-4'>Comments: In Case User Selects "No"</span></div>
                             <Form>
                             {['radio'].map((type) => (
                                 <div key={`inline-${type}`} className={styles.radio_group}>
@@ -621,9 +652,7 @@ function index() {
                     
                                 </div>
                             </div>
-                            
-                       
-                      
+                          
                     </div>
                 </div>
             </div>
