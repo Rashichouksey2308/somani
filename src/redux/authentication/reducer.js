@@ -61,14 +61,14 @@ function AuthReducer(state = initialState, action) {
         loggingUserMessage: action.payload.message,
       }
     }
-    case types.USER_LOGGED_OUT:
-      return {
-        ...state,
-        token: null,
-        loggingUserOut: true,
-        loggingUserMessage: null,
-        isuserLoggedin : false,
-      }
+    // case types.USER_LOGGED_OUT:
+    //   return {
+    //     ...state,
+    //     token: null,
+    //     loggingUserOut: true,
+    //     loggingUserMessage: null,
+    //     isuserLoggedin : false,
+    //   }
 
     case types.FETCH_USER_PERMISSIONS:
       return {
