@@ -55,9 +55,11 @@ const index = () => {
               
                 
                 </div>
+                <div className={styles.button}><span>Submit</span></div>
                 </Form>
 
-               
+              
+             
             </div>
             </div>
             </div>

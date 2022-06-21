@@ -129,3 +129,17 @@
  }
 
 }
+
+.button {
+padding: 25px 35px !important;
+    cursor: pointer;
+    width: 260px;
+    height: 48px;
+    background: #3687E8 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+}
