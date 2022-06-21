@@ -62,7 +62,8 @@
   }
   .content{
     margin-left: 400px;
-   
+    height: 1248px;  
+    overflow-y: auto;
    
     box-shadow: 0px 3px 6px #CAD0E2;
     
@@ -73,6 +74,18 @@
         color: #3687E8;
 
     }
+    .oderListParent{
+       .oderListParent_Head{
+        font-weight: bold;
+        text-decoration: underline;
+       }
+       .oderListChild {
+        .oderListChild_Head{
+            font-weight: bold;
+
+        }
+        }
+    }
     div{
             padding: 1rem !important;
         p{  
@@ -80,7 +93,7 @@
             margin-bottom: 2rem;
             line-height: 60px;
            
-               ;
+               
                 .para{
                     padding:0.5rem;
                     text-align: center;
@@ -91,7 +104,37 @@
                         border: 1px solid #0000001F;
                         border-radius: 4px;
                 }
+                
         }
+                .center {
+                    text-decoration: underline;
+                    font-weight: bold;
+                    display: flex;
+                    justify-content: center;
+                }
+                                 .right {
+                                    
+                                     font-weight: bold;
+                                     display: flex;
+                                     justify-content: flex-end;
+                                 }
+                span{
+                    font-size: 20px;
+                    margin-bottom: 2rem;
+                    line-height: 60px;
+        
+        
+                    .para {
+                        padding: 0.5rem;
+                        text-align: center;
+                        width: fit-content;
+                        height: 36px;
+                        /* UI Properties */
+                        background: #C3C3C31F 0% 0% no-repeat padding-box;
+                        border: 1px solid #0000001F;
+                        border-radius: 4px;
+                    }
+                }
     }
     .footer {
          font-size: 22px;
@@ -139,7 +182,9 @@
       }
   }
 
-
+   .pageList .rightArrow img {
+      transform: rotate(180deg);
+  }
 
          .reject {
              cursor: pointer;

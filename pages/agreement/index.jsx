@@ -4,10 +4,9 @@ import styles from './index.module.scss'
 import Order from '../../src/components/Order';
 import ShipmentDetails from '../../src/components/ShipmentDetails'
 import SalesAgreement from '../../src/components/SalesAgreement'
-import MarginPreview from '../../src/components/MarginPreview'
-import LigitationsTable from '../../src/components/LigitationsTable'
-import GST from '../../src/components/GST'
-import CAM from '../../src/components/CAM'
+import AssociateshipAgreement from '../../src/components/AssociateshipAgreement'
+
+
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
 
@@ -31,7 +30,7 @@ function Index() {
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Financials" role="tab" aria-controls="Financials" aria-selected="false">Sales Agreement</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Associateship Agreement</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Associateship" role="tab" aria-controls="GST" aria-selected="false">Associateship Agreement</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">TPA (Seller)</a>
@@ -68,6 +67,7 @@ function Index() {
                                  
                                 </div>
                             </div>
+                             
                             {/* <div className="tab-pane fade" id="Financials" role="tabpanel">
                                 <div className="accordion" id="FinancialsAccordion">
                                     <div className={`${styles.card} card`}>
