@@ -23,7 +23,7 @@ function Layout({ children }) {
 
   useEffect(() => {
     const isuserlogged = Cookies.get('SOMANI')
-    dispatch(validateToken())
+    
     if (isLogin) {
       dispatch(validateToken())
     }
