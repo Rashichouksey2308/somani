@@ -217,8 +217,8 @@ function Index() {
                       >
                         {buyer.company.companyName}
                       </td>
-                      <td>RM-Sales</td>
-                      <td>Amar Singh</td>
+                      <td>{buyer.createdBy.userRole}</td>
+                      <td>{buyer.createdBy.fName}</td>
                       <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                       <td>
                         <span
