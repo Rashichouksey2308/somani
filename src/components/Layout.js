@@ -32,7 +32,7 @@ function Layout({ children }) {
 
   return (
     <>
-      {isLogin ? (
+      
         <div className={styles.root_Container}>
           <div className={styles.navContainer}>
             <Navbar />
@@ -50,9 +50,7 @@ function Layout({ children }) {
             </div>
           </div>
         </div>
-      ) : (
-        <Login />
-      )}
+      
     </>
   )
 }

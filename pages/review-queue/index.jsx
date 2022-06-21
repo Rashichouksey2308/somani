@@ -307,52 +307,6 @@ function index() {
                                 </div>
                               </div>
                             </div>
-<<<<<<< HEAD
-                            <div className="tab-pane fade" id="Credit" role="tabpanel">
-                                  <Credit/>
-                                  <Recommendations/>
-                                  <PreviousBar/>
-                            </div>
-                            <div className="tab-pane fade" id="cam" role="tabpanel">
-                               <CAM/>
-                               <PreviousBar/>
-                            </div>
-                            <div className="tab-pane fade" id="Documents" role="tabpanel">
-                           
-                            <div className={`${styles.card} card border-color mb-4`}>
-                              <div className={`${styles.head_container} card-header head_container d-flex justify-content-between`}  data-toggle="collapse" data-target="#Documents" aria-expanded="true" aria-controls="Documents">
-                                  <h3 className={styles.heading}>Upload Other Documents</h3>
-                                  <span>+</span>
-                              </div>
-                              <div id="Documents" className="collapse" aria-labelledby="Documents" data-parent="#Documents">      
-                              <div className={styles.dashboard_form}>        
-                              <Form>
-                              <div className='row align-items-center pb-4'>               
-                                <div className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`} >
-                                    <div className='text-center'>
-                                        <img className={`${styles.upload_image} img-fluid`} src ="/static/browse.svg"
-                                        alt="Browse"/>
-                                        <p className={styles.drop_para}>Drop Files here <br/>
-                                        or <a href="#">Browse</a></p>
-                                    </div>
-                                </div> 
-                                <div className='col-md-4 offset-md-1 col-sm-6'>
-                                    <Form.Group className={styles.form_group}>
-                                        <Form.Label className={`${styles.label} label_heading`}>Document Type</Form.Label>
-                                        <select  className={`${styles.value} input form-control`}id="docType">
-                                            <option value="volvo">Others</option>
-                                            <option value="audi">N/A</option>
-                                        </select>
-                                    </Form.Group>
-                                    <Form.Group className={styles.form_group}>
-                                        <Form.Label className={`${styles.label} label_heading`}>Please Specify Document Name</Form.Label>
-                                        <Form.Control className={`${styles.value} input form-control`} type="text" placeholder="Insurance Quotation" />
-                                    </Form.Group>
-                                    <div className={styles.uploadBtnWrapper}>
-                                        <input type="file" name="myfile" />
-                                        <button className={`${styles.upload_button} btn`}>Upload</button>
-                                    </div>
-=======
                           </div>
                         </Col>
                       </Row>
@@ -385,7 +339,6 @@ function index() {
                                   className={`${styles.compliance_content} Compliance ml-1`}
                                 >
                                   GST Transaction Delay
->>>>>>> d6d16a90133d68d48487ec3eaca6d2189059d449
                                 </div>
                               </div>
                             </div>

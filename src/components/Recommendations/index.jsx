@@ -370,26 +370,7 @@ const index = () => {
             </div>
           </div>
         </div>
-        <div className="d-flex justify-content-start align-items-center pt-5 pl-5">
-          <div className="mr-5">
-            <div className={`${styles.label_sanction}`}>Limit Value</div>
-            <div>100 CR</div>
-          </div>
-          <div className="mr-5">
-            <div className={`${styles.label_sanction}`}>Order Value</div>
-            <div>100 Lakhs</div>
-          </div>
-
-          <div className={`${styles.form_group}`}>
-            <label className={`${styles.label_sanction}`}>
-              Recommended Order Value
-            </label>
-            <input
-              className={`${styles.input_field} input form-control`}
-              type="text"
-            />
-          </div>
-        </div>
+       
 
         <div className={`${styles.dashboard_form}`}>
           <div className="d-flex mt-5 pb-4">
