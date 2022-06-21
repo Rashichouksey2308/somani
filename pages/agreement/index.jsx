@@ -10,6 +10,7 @@ import GST from '../../src/components/GST'
 import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
+import AssignmentLetter from '../../src/components/AssignmentLetter'
 
 function Index() {
    const darkMode = useDarkMode(false);
@@ -40,7 +41,7 @@ function Index() {
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">TPA (CMA)</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">Assignment Letter)</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Assignment" role="tab" aria-controls="assignmentLetter" aria-selected="false">Assignment Letter</a>
                   </li>
 
                 <li className={`${styles.navItem} nav-item`}>
@@ -56,15 +57,16 @@ function Index() {
                 <div className="row">
                     <div className="col-md-12  accordion_body">
                         <div className={`${styles.tabContent} tab-content`}>
-                            <div className="tab-pane fade show active" id="Commodity" role="tabpanel">
-                                <div className="accordion" id="commodityAccordion">
-                                 
+                           
+                               <div className="tab-pane fade" id="Profile" role="tabpanel">
+                                <div className="accordion" id="profileAccordion">
+                                   <SalesAgreement/>
                                  
                                 </div>
                             </div>
-                               <div className="tab-pane fade show active" id="Profile" role="tabpanel">
-                                <div className="accordion" id="profileAccordion">
-                                   <SalesAgreement/>
+                            <div className="tab-pane fade" id="Assignment" role="tabpanel">
+                                <div className="accordion" id="assignmentLetter">
+                                   <AssignmentLetter/>
                                  
                                 </div>
                             </div>
