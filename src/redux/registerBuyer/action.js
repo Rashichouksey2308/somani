@@ -254,7 +254,7 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
   try {
     // var authorization = Cookies.get('jwtAccessToken')
     
-    let cookie = await Cookies.get("SOMANI");
+    let cookie = Cookies.get("SOMANI");
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split("#");

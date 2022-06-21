@@ -30,12 +30,16 @@ import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
 import { Row, Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux'
 
 function index() {
   
 
   const darkMode = useDarkMode(false)
 
+  const {orderList} = useSelector((state)=>state.buyer) 
+
+  console.log(orderList.company?.companyName, "this is order list")
 
   return (
     <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -50,7 +54,7 @@ function index() {
             alt="arrow right"
             className="img-fluid image_arrow"
           />
-          Ramakrishna Traders
+          {orderList.company?.companyName}
         </h1>
 
         <ul className={`${styles.navTabs} nav nav-tabs`}>

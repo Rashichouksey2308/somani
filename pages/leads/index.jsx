@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
@@ -12,7 +13,7 @@ function Index() {
     dispatch(GetAllBuyer())
   }, [])
   const { allBuyerList } = useSelector((state) => state.buyer)
-  // console.log(allBuyerList, "this is all buyer")
+  console.log(allBuyerList?.data, "this is all buyer")
 
   const handleRoute = (buyer) => {
     if (buyer.queue === 'ReviewQueue') {
@@ -205,17 +206,16 @@ function Index() {
               </thead>
               <tbody>
                 {allBuyerList &&
-                  allBuyerList.data?.map((buyer,index) => (
+                  allBuyerList.data?.data?.map((buyer, index) => (
                     <tr key={index} className={`${styles.table_row} table_row`}>
-                      <td>{buyer.companyId}</td>
+                      <td>{buyer.company.customerId}</td>
                       <td
                         className={`${styles.buyerName}`}
                         onClick={() => {
-                          dispatch(GetBuyer(buyer._id))
-                          Router.push('/review-queue/id')
+                          handleRoute(buyer)
                         }}
                       >
-                        {buyer.companyProfile.companyName}
+                        {buyer.company.companyName}
                       </td>
                       <td>RM-Sales</td>
                       <td>Amar Singh</td>
@@ -223,14 +223,14 @@ function Index() {
                       <td>
                         <span
                           className={`${styles.status} ${
-                            buyer.Queue === 'ReviewQueue'
+                          buyer.queue === 'Rejected' ? styles.rejected :  buyer.Queue === 'ReviewQueue'
                               ? styles.review
                               : 'CreditQueue'
                               ? styles.approved
                               : styles.rejected
                           }`}
                         ></span>
-                        {buyer.Queue === 'ReviewQueue'
+                       {buyer.queue === 'Rejected' ? 'Rejected' : buyer.Queue === 'ReviewQueue'
                           ? 'Review'
                           : 'CreditQueue'
                           ? 'Approved'
