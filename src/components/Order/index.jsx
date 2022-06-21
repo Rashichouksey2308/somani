@@ -3,7 +3,7 @@ import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
-const Index = ({ orderDetail }) => {
+const Index = ({ orderDetail, saveOrderData }) => {
 
   console.log(orderDetail, "order detail comp")
 
@@ -74,7 +74,9 @@ const Index = ({ orderDetail }) => {
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
+                    name='commodity'
                     defaultValue={orderDetail.commodity}
+                    onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                   />
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
@@ -94,7 +96,9 @@ const Index = ({ orderDetail }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  name='quantity'
                   defaultValue={orderDetail.quantity}
+                  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Quantity in MT<strong className="text-danger">*</strong>
@@ -106,7 +110,9 @@ const Index = ({ orderDetail }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  name='orderValue'
                   defaultValue={orderDetail.orderValue}
+                  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Order Value<strong className="text-danger">*</strong>
@@ -118,7 +124,9 @@ const Index = ({ orderDetail }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  name='grade'
                   defaultValue={orderDetail.grade}
+                  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Grade<strong className="text-danger">*</strong>
@@ -140,7 +148,9 @@ const Index = ({ orderDetail }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  name='tolerance'
                   defaultValue={orderDetail.tolerance}
+                  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Tolerance (+/-) Percentage
@@ -150,7 +160,7 @@ const Index = ({ orderDetail }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`}>
-                  <option value="volvo">Select Supplier Name</option>
+                  <option value="volvo">{orderDetail.supplierName}</option>
                   <option value="audi">Traders</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>

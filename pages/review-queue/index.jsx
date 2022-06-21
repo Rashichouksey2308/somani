@@ -60,6 +60,8 @@ function index() {
     manufacturerName:''
   })
 
+  console.log(orderDetails, "ORDER DETAILS")
+
   const [shipment, setShipment] = useState({
     ETAofDischarge: {
       fromDate: null,
