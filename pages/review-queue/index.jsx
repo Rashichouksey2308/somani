@@ -29,7 +29,7 @@ import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
 
 import {Row,Col} from 'react-bootstrap'
-function index() {
+function Index() {
    const darkMode = useDarkMode(false);
     return (
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -295,7 +295,7 @@ function index() {
                                               <h2 className="mb-0 w-100 ">Details</h2>
                                               <div className={`${styles.categories} mb-0  d-flex align-items-center justify-content-between `}>
                                                 <label className={styles.label}>Categories:</label>
-                                                <select class="form-control">
+                                                <select className="form-control">
                                                   <option>Statutory Compliance</option>
                                                 </select>
                                               </div>
@@ -335,19 +335,19 @@ function index() {
                                              <div className={`${styles.leftGroup}  d-flex align-items-center justify-content-start`}>
                                                <div className="form-check">
                                                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                                <label className="form-check-label" for="flexCheckDefault">
+                                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                                  Pending (4)
                                                 </label>
                                               </div>
                                                <div className="form-check ml-4">
                                                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                                <label className="form-check-label" for="flexCheckDefault">
+                                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                                  Disposed (2)
                                                 </label>
                                               </div>
                                                <div className="form-check  ml-4">
                                                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                                <label className="form-check-label" for="flexCheckDefault">
+                                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                                  Total Cases (5)
                                                 </label>
                                               </div>
@@ -355,13 +355,13 @@ function index() {
                                               <div className={`${styles.rightGroup} d-flex align-items-center justify-content-start`}>
                                            <div className="form-check mr-4">
                                               <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-                                              <label className="form-check-label" for="flexRadioDefault1">
+                                              <label className="form-check-label" htmlFor="flexRadioDefault1">
                                                 Respondent
                                               </label>
                                             </div>
                                             <div className="form-check">
                                               <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
-                                              <label className="form-check-label" for="flexRadioDefault2">
+                                              <label className="form-check-label" htmlFor="flexRadioDefault2">
                                                Petitioner
                                               </label>
                                             </div>
@@ -475,7 +475,7 @@ function index() {
                               </div>
                               
                               <div className={styles.table_container}>
-                                  <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                  <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                       <thead>
                                 <tr>
                                     <th>DOCUMENT NAME</th>
@@ -489,7 +489,7 @@ function index() {
                                 </thead>                        
                                 <tbody>
                                 <tr>
-                                    <td colspan='7' className='p-0'>
+                                    <td colSpan='7' className='p-0'>
                                         <select className={`${styles.module} form-control`}>
                                             <option>ORDERS</option>
                                             <option>ORDERS 2</option>
@@ -502,7 +502,7 @@ function index() {
                                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                                     <td className={styles.doc_row}>John Doe</td>
                                     <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                                    <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                                    <td colSpan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
                                     <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
                                 </tr>
                                 <tr className='table_row'>
@@ -511,7 +511,7 @@ function index() {
                                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                                     <td className={styles.doc_row}>Buyer</td>
                                     <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                                    <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                                    <td colSpan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
                                     <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
                                 </tr>
                                 <tr className='table_row'>
@@ -520,11 +520,11 @@ function index() {
                                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                                     <td className={styles.doc_row}>Rama Krishnan</td>
                                     <td><span className={`${styles.status} ${styles.rejected}`}></span>Pending</td>
-                                    <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                                    <td colSpan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
                                     <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
                                 </tr>
                                 <tr>
-                                    <td colspan='7' className='p-0'>
+                                    <td colSpan='7' className='p-0'>
                                         <select className={`${styles.module} form-control`}>
                                             <option>AGREEMENTS</option>
                                             <option>AGREEMENTS 1</option>
@@ -537,7 +537,7 @@ function index() {
                                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                                     <td className={styles.doc_row}>John Doe</td>
                                     <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                                    <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                                    <td colSpan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
                                     <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
                                 </tr>
                                 <tr className='table_row'>
@@ -546,7 +546,7 @@ function index() {
                                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                                     <td className={styles.doc_row}>Buyer</td>
                                     <td><span className={`${styles.status} ${styles.approved}`}></span>Verified</td>
-                                    <td colspan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
+                                    <td colSpan='2'><img src="/static/delete.svg" className="img-fluid mr-3" alt="Bin"/>
                                     <img src= "/static/upload.svg" className="img-fluid" alt="Share"/></td>
                                 </tr>                    
                             </tbody>
@@ -564,7 +564,7 @@ function index() {
         </div>
     )
 }
-export default index
+export default Index
 
 const ligitations=()=>{
   return(
@@ -583,7 +583,7 @@ const ligitations=()=>{
 
 const table2=()=>{
 return(
-    <table className={`${styles.table_details} table border-color`} cellpadding="0" cellspacing="0" border="1">
+    <table className={`${styles.table_details} table border-color`} cellPadding="0" cellSpacing="0" border="1">
                                                 <thead>
                                                   <tr>
                                                    
@@ -598,7 +598,7 @@ return(
                                                 </thead>
                                                 <tbody >
                                                   <tr>
-                                                    <td className={styles.firstCell} rowspan="3">Statutory Compliance</td>
+                                                    <td className={styles.firstCell} rowSpan="3">Statutory Compliance</td>
                                                     <td> EPF Transaction Default</td>
                                                        <td> High</td>
                                                           <td> EPF</td>
@@ -618,7 +618,7 @@ return(
                                                    </tr>
 
                                                     <tr>
-                                                    {/* <td rowspan="3">Statutory Compliance</td> */}
+                                                    {/* <td rowSpan="3">Statutory Compliance</td> */}
                                                    
                                                        <td> GST Transaction Default</td>
                                                           <td> Medium</td>
@@ -630,7 +630,7 @@ return(
                                                    </tr>
                                                   
                                                    <tr>
-                                                     <td className={styles.firstCell} rowspan="6">Banking Defaults</td>
+                                                     <td className={styles.firstCell} rowSpan="6">Banking Defaults</td>
                                                         <td> IBBI</td>
                                                           <td>Severe</td>
                                                              <td> </td>

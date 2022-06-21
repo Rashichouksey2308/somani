@@ -11,7 +11,7 @@ import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
 
-function index() {
+function Index() {
    const darkMode = useDarkMode(false);
     return (
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -84,7 +84,7 @@ function index() {
                                         </div>
                                         <div id="balanceSheet1" className="collapse show" aria-labelledby="balanceSheet1" data-parent="#FinancialsAccordion">
                                             <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                 <thead>
                                                   <tr>
                                                     <th width="50%"><h3>Liabilities</h3></th>
@@ -117,7 +117,7 @@ function index() {
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td>Long Term Borrowings</td>
@@ -141,7 +141,7 @@ function index() {
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td>Creditors</td>
@@ -158,7 +158,7 @@ function index() {
                                                     <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td className="border-top"><strong>Total Liabilities</strong></td>
@@ -204,7 +204,7 @@ function index() {
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td>Inventories</td>
@@ -249,7 +249,7 @@ function index() {
                                                     <td className="text-center"><img src="/static/loss.svg" alt="Loss" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td className="border-top"><strong>Total Assets</strong></td>
@@ -278,7 +278,7 @@ function index() {
                                         </div>
                                         <div id="incomeStatement" className="collapse" aria-labelledby="incomeStatement" data-parent="#FinancialsAccordion">
                                             <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                 <thead>
                                                   <tr>
                                                     <th width="50%"></th>
@@ -409,7 +409,7 @@ function index() {
                                         </div>
                                         <div id="cashFlowStatement" className="collapse" aria-labelledby="cashFlowStatement" data-parent="#FinancialsAccordion">
                                             <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                 <thead>
                                                   <tr>
                                                     <th width="50%"></th>
@@ -483,7 +483,7 @@ function index() {
                                         </div>
                                         <div id="ratioAnalysis" className="collapse" aria-labelledby="ratioAnalysis" data-parent="#FinancialsAccordion">
                                             <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                 <thead>
                                                   <tr>
                                                     <th width="50%"><h3>Activity & Profitibility Ratio</h3></th>
@@ -541,7 +541,7 @@ function index() {
                                                     <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td className='text-primary font-weight-bold'>PROFITIBILITY RATIO</td>
@@ -568,12 +568,12 @@ function index() {
                                                     <td className="text-center"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                 </tbody>
                                               </table>
                                               
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                 <thead>
                                                   <tr>
                                                     <th width="50%"><h3>Coverage, Liquidity & Growth Ratio</h3></th>
@@ -618,7 +618,7 @@ function index() {
                                                   </tr>
                                                  
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td className='text-primary font-weight-bold'>LIQUIDITY RATIO</td>
@@ -639,7 +639,7 @@ function index() {
                                                     <td className="text-center"><img src="/static/average.svg" alt="Average" className="img-fluid" /></td>
                                                   </tr>
                                                   <tr>
-                                                    <td colspan="5" height="5px"></td>
+                                                    <td colSpan="5" height="5px"></td>
                                                   </tr>
                                                   <tr>
                                                     <td className='text-primary font-weight-bold'>GROWTH RATIO</td>
@@ -684,7 +684,7 @@ function index() {
                                         </div>
                                         <div id="peerComparison" className="collapse" aria-labelledby="peerComparison" data-parent="#FinancialsAccordion">
                                             <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                 <thead>
                                                   <tr>
                                                     <th width="30%">COMPANY</th>
@@ -758,7 +758,7 @@ function index() {
                                         </div>
                                         <div id="openCharges" className="collapse" aria-labelledby="openCharges" data-parent="#FinancialsAccordion">
                                             <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                 <thead>
                                                   <tr>
                                                     <th width="15%">CHARGE ID</th>
@@ -1134,5 +1134,5 @@ function index() {
         </div>
     )
 }
-export default index
+export default Index
 
