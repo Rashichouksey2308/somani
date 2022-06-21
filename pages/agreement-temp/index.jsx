@@ -138,7 +138,7 @@ export default function Home() {
           </div>
           <div className={`${styles.table_form}`}>
            <div className={styles.table_container}>
-            <table className={`${styles.table} table`} cellpadding="0" cellspacing="0" border="0">
+            <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                 <thead>
                     <tr>
                         <th>DOCUMENT NAME</th>

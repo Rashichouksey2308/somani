@@ -934,7 +934,7 @@ function index() {
     </div>
   )
 }
-export default index
+export default Index
 
 const ligitations = () => {
   return (
