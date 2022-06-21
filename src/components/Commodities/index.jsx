@@ -11,7 +11,7 @@ function index() {
   ]
   return (
     <Card className={`${styles.card} border` }>
-      <Card.Header className={`${styles.header} heading_card`}>Top 5 Commodities </Card.Header>
+      <Card.Header className={`${styles.header} border_color heading_card`}>Top 5 Commodities </Card.Header>
       {/* <hr className={styles.hr}/> */}
       <Card.Body className={styles.body}>
         {tempArr.map((val, index) => {

@@ -53,8 +53,8 @@ function Index() {
     },
   }
   return (
-    <Card className={styles.card}>
-      <Card.Header className={`${styles.header} heading_card`}>Top 5 Customers</Card.Header>
+    <Card className={`${styles.card} card`}>
+      <Card.Header className={`${styles.header}  border_color  heading_card`}>Top 5 Customers</Card.Header>
       <Card.Body className={styles.body}>
         <div className={styles.name}>
           {tempArr.map((val, index) => {

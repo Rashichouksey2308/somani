@@ -1,6 +1,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
+import RevisedMargin from '../../src/components/RevisedMargin'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode'
 

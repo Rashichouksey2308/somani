@@ -427,6 +427,98 @@ const index = () => {
         </div>
       </div>
 
+                    <div className={`${styles.dashboard_form} card-body`}> 
+                    <div className='d-flex justify-content-between'>
+                        <div className={`${styles.address_card} value background1`}>
+                            <div className='d-flex justify-content-between'>
+                                <div>
+                                <input type="checkbox"/>
+                                <label className={styles.label}>Registered Office Address</label>
+                                <div className={styles.address_values}>
+                                <p>N-11, 29 Tilak Marg, New Delhi</p>
+                                <p className='pt-3'><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                          
+                                </div>
+                                </div>
+                               <div>
+                                   <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit"/>
+                               </div>
+                            </div>
+                          
+
+                        </div>
+                        <div className={`${styles.address_card} value background1`}>
+                            <div className='d-flex justify-content-between'>
+                                <div>
+                                <div className={styles.address_values}>
+                                <h5>Corporate Office Address</h5>
+                                <p>N-11, 29 Tilak Marg, New Delhi</p>
+                                <p className='pt-3'><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                               
+                                </div>
+                                </div>
+                               <div>
+                                   <img className={`${styles.edit_image} img-fluid`} src="/static/mode_edit.svg" alt="Edit"/>
+                               </div>
+                            </div>
+                          
+
+                        </div>
+                        </div>
+                        <div className='d-flex justify-content-between'>
+                        <div className={`${styles.address_card} value background1`}>
+                            <div className={`${styles.address_values} d-flex justify-content-between`}>
+                               
+                                <h5>Factory Address</h5>
+                                <div>
+                                   <img className={`${styles.edit_image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit" />
+                                   <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                               
+                               </div>
+                               </div>
+                               <div className={styles.address_values}>
+                                <p className='pt-3'>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
+                                <p className='pt-3'><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                                <p><span>Branch: </span>Delhi</p>
+                                <div className='d-flex'>
+                                <p> <span>GSTIN: </span>Gstdt789652Jkv</p>
+                                <span className={styles.button}>View</span>
+                                </div>  
+                                </div>                              
+                               
+                              
+                               
+                           
+                        </div>
+                        <div className={`${styles.address_card} value background1`}>
+                            <div className='d-flex justify-content-between'>
+                            <div>
+                            <div className={`${styles.address_values} d-flex justify-content-between`}>
+                                <h5>Warehouse Address</h5>
+                                <div>
+                                   <img className={`${styles.edit_image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit" />
+                                   <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
+                               </div>
+                               </div>
+                               <div className={`${styles.address_values}`}>
+                                <p className='pt-3'>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
+                                <p className='pt-3'><span>Email: </span>skapoor@gmail.com</p>
+                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
+                                <p><span>Branch: </span>Delhi</p>
+                                <div className='d-flex'>
+                                <p> <span>GSTIN: </span>Gstdt789652Jkv</p>
+                                <span className={styles.button}>View</span>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                    
       <div className={`${styles.main} card border_color`}>
         <div
           className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
@@ -822,10 +914,10 @@ const index = () => {
           </div>
         </div>
       </div>
-
-     
+    </div>
     </>
   )
 }
+
 
 export default index
