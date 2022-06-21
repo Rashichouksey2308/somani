@@ -17,7 +17,7 @@ export default {
   //orders
   getBuyerOrder: "/api/core/lead/order-review",
   updateBuyer: "/api/core/lead/order-action",
-  orderDetail: "/api/core/order/detial",
+  orderDetail: "/api/core/order/detail",
 
   // gst 
   getGst: "/api/get-gst",

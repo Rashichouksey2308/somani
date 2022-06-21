@@ -12,18 +12,18 @@ function Index() {
                 <span className={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-          { buyerList && buyerList.map((buyer ,index)=>( <Card.Body key={index} className={`${styles.body} value_card`}>
-                {fields("Commodity",buyer.commodity?.originalValue,false)}
-                {fields("Quantity (in MT)",buyer.Quantity?.originalValue,false)}
-                {fields("Order values (in INR)",buyer.orderValues?.originalValue,false)}
-                {fields("Supplier Name","Camilog International",false)}
-                {fields("Country Of Origin","India",false)}
-                {fields("INCO Terms","CFR",false)}
-                                
-                {fields("Port Of Discharge",buyer.portOfDischarge?.originalValue,false)}
-                {fields("Expected Date Of Shipment",buyer.ExpectedDateOfShipment?.originalValue,false)}
-                {fields("Document Name","Insurance Certificate",true)}
-            </Card.Body>))}
+            <Card.Body className={`${styles.body} value_card`}>
+                {fields("Commodity",buyerList.order.commodity)}
+                {fields("Quantity (in MT)",buyerList.order.Quantity,false)}
+                {fields("Order values (in INR)",buyerList.order.orderValue,false)}
+                {fields("Supplier Name",buyerList.order.supplierName,false)}
+                {fields("Country Of Origin",buyerList.order.countryOfOrigin,false)}
+                {fields("INCO Terms",buyerList.order.incoTerm,false)}
+                {fields("Transaction Type",buyerList.order.transactionType)}
+                {fields("Port Of Discharge",buyerList.order.portOfDischarge,false)}
+                {fields("Expected Date Of Shipment",buyerList.order.ExpectedDateOfShipment,false)}
+                {fields("Document Name",buyerList.company.documents.typeOfDocument,true)}
+            </Card.Body>
         </Card>
     )
 }

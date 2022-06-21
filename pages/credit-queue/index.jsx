@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './creditqueue.module.scss'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
-import { GetAllBuyer } from '../../src/redux/registerBuyer/action'
+import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
 
 
 function Index() {
@@ -18,7 +18,7 @@ function Index() {
 
   const handleRoute = (buyer) => {
     if (buyer.queue === 'CreditQueue') {
-      dispatch(GetBuyer({ orderId: buyer._id }))
+      dispatch(GetAllOrders({ orderId: buyer._id }))
       Router.push('/review-queue')
     }
   }
@@ -190,7 +190,7 @@ function Index() {
                           className="img-fluid"
                           alt="Preview"
                           onClick={() => {
-                            Router.push('/review-queue')
+                            handleRoute(buyer)
                           }}
                         />
                       </td>
