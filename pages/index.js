@@ -2,7 +2,7 @@ import RepoSearch from 'features/repoSearch/RepoSearch'
 import { useRouter } from 'next/router'
 import { createStore } from 'store'
 import { getReposAsync } from 'features/repoSearch/repoSearchSlice'
-import DoughnutCart from '../src/components/DoughnutCart'
+import DoughnutCart from '../src/components/DoughnutChart'
 import Leads from '../src/components/Leads'
 import styles from './index.module.scss'
 import Commodities from '../src/components/Commodities'
@@ -64,7 +64,10 @@ const IndexPage = () => {
                     className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
                   >
                     <span>Showing Page 1 out of 10</span>
-                    <a href="#" className={`${styles.arrow} ${`leftArrow`} arrow`}>
+                    <a
+                      href="#"
+                      className={`${styles.arrow} ${`leftArrow`} arrow`}
+                    >
                       {' '}
                       <img
                         src="/static/keyboard_arrow_right-3.svg"
@@ -72,7 +75,10 @@ const IndexPage = () => {
                         className="img-fluid"
                       />
                     </a>
-                    <a href="#" className={`${styles.arrow} ${`rightArrow`} arrow`}>
+                    <a
+                      href="#"
+                      className={`${styles.arrow} ${`rightArrow`} arrow`}
+                    >
                       <img
                         src="/static/keyboard_arrow_right-3.svg"
                         alt="arrow right"
