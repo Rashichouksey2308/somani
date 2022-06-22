@@ -327,10 +327,11 @@ export const fetchCurrentUserProfile =
 //********  Verify User Token Validity  ********//
 export const validateToken = () => async (dispatch, getState, api) => {
   dispatch(validatingToken());
-  let cookie = await Cookies.get("SOMANI");
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  let cookie = Cookies.get("SOMANI");
+  if (cookie) { const decodedString = Buffer.from(cookie, 'base64').toString('ascii') 
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split("#");
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split("#");}
   try {
     let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
       headers: {
@@ -345,7 +346,7 @@ export const validateToken = () => async (dispatch, getState, api) => {
 
     if (response.data.code === 401 || response.data.code === 402)
       return console.log("unverified token")
-     return dispatch(generateToken());
+    return dispatch(generateToken());
 
     await Cookies.remove("jwtAccessToken");
     dispatch(validatingTokenFailed(response.data));
