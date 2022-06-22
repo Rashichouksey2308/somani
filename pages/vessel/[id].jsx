@@ -23,13 +23,15 @@ export default function Home() {
           </div>
         </div>
       </div>
-        <div className={`${styles.vessel_card} `}>
+    
+      <div className='container-fluid background1'>
+        <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} card border-color`}>
             <div
               className={`${styles.head_container} card-header head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Basic Details</h3>
-              <div className="p-4">
+              <div>
                 <label className={`${styles.dropDown_label} text`}>
                   Part Shipment Allowed
                 </label>
@@ -230,7 +232,7 @@ export default function Home() {
             <div
               className={`${styles.head_container} head_container d-flex justify-content-between`}
             >
-              <h3 className={styles.heading}>Upload Other Documents</h3>
+              <h3 className={styles.heading}>Upload Documents</h3>
               <span>+</span>
             </div>
             <div className={`${styles.table_form}`}>
@@ -309,6 +311,8 @@ export default function Home() {
        
         <UploadOther/>
         </div>
+        </div>
+       
     </>
   )
 }

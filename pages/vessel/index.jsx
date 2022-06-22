@@ -17,11 +17,12 @@ export default function Home() {
             </div>
            
         </div>
-        <div className={`${styles.vessel_card} container-fluid`}>
+        <div className='container-fluid background1'>
+        <div className={`${styles.vessel_card}`}>
         <div className={`${styles.main} card border-color`}>
-        <div className={`${styles.head_container} card-header head_container justify-content-between d-flex bg-transparent`} >
+        <div className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`} >
         <h3 className={`${styles.heading}`}>Basic Details</h3>
-        <div className='p-4'>
+        <div >
         <label className={`${styles.dropDown_label} text`}>Part Shipment Allowed</label>
         <select className={`${styles.dropDown} input`}>
             <option>Yes</option>
@@ -34,7 +35,7 @@ export default function Home() {
                 </div>  
                 <div className={`${styles.dashboard_form}`}>
       
-               <div className='row'>
+               <div className='row '>
                
                 <div className={`${styles.form_group} col-md-3 col-sm-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
@@ -131,10 +132,20 @@ export default function Home() {
 
             </div>
             <div className={`${styles.main} card mb-4 border-color mt-4`}>
-            <div className={`${styles.head_container} head_container d-flex justify-content-between`}>
-            <h3 className={styles.heading}>Upload Other Documents</h3>
+            <div className={`${styles.head_container} head_container d-flex justify-content-between`}
+            data-toggle="collapse"
+            data-target="#upload"
+            aria-expanded="true"
+            aria-controls="upload">
+            <h3 className={styles.heading}>Upload Documents</h3>
             <span>+</span>
           </div>
+          <div
+            id="upload"
+            className="collapse"
+            aria-labelledby="upload"
+            data-parent="#upload"
+            >
           <div className={`${styles.table_form}`}>
            <div className={styles.table_container}>
             <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
@@ -159,9 +170,11 @@ export default function Home() {
                 </tbody>
             </table>
         </div> 
-        </div>           
+        </div>  
+        </div>         
             </div>
            <UploadOther/>
+           </div>
            </div>
            </>
 
