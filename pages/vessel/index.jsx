@@ -123,6 +123,10 @@ export default function Home() {
                      <label className={`${styles.label_heading} label_heading`}>Flag<strong className="text-danger">*</strong></label>                   
                 </div> 
                 <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} type="date"/> 
+                     <label className={`${styles.label_heading} label_heading`}>Year of Built<strong className="text-danger">*</strong></label>                   
+                </div> 
+                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
                      <label className={`${styles.label_heading} label_heading`}>Shipping Line<strong className="text-danger">*</strong></label>                   
                 </div> 
