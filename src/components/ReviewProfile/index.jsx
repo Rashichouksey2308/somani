@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
 import React, { useState } from 'react'
 import styles from './index.module.scss'
@@ -30,6 +31,8 @@ function Index({ handleChange, reviewedProfile }) {
       </td>
     )
   }
+
+  console.log(reviewedProfile, "this is reviewed")
 
   return (
     <div className={`${styles.leads} leads `}>

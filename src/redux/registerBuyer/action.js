@@ -254,17 +254,17 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
   try {
     // var authorization = Cookies.get('jwtAccessToken')
     
-    let cookie = await Cookies.get("SOMANI");
+    let cookie = Cookies.get("SOMANI");
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split("#");
      var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     Axios.get(`${API.corebaseUrl}${API.orderDetail}?order=${payload.orderId}`,{headers:headers}).then((response)=>{
     if (response.data.code === 200) {
-      dispatch(getAllOrderSuccess(response.data));
+      dispatch(getAllOrderSuccess(response.data.data));
       // toast.error("Buyers fetched")
     } else {
-      dispatch(getAllOrderFailed(response.data));
+      dispatch(getAllOrderFailed(response.data.data));
       console.log( "GET ALL ORDER FAILED")
     
     }

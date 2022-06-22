@@ -2,7 +2,7 @@ import RepoSearch from 'features/repoSearch/RepoSearch'
 import { useRouter } from 'next/router'
 import { createStore } from 'store'
 import { getReposAsync } from 'features/repoSearch/repoSearchSlice'
-// import DoughnutCart from '../src/components/DoughnutCart'
+import DoughnutCart from '../src/components/DoughnutCart'
 import Leads from '../src/components/Leads'
 import styles from './index.module.scss'
 import Commodities from '../src/components/Commodities'
@@ -50,7 +50,7 @@ const IndexPage = () => {
                   <Countries />
                 </div>
                 <div className={`${styles.commonCard} col-sm-6`}>
-                  {/* <DoughnutCart /> */}
+                  <DoughnutCart />
                 </div>
               </div>
             </div>
