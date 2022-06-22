@@ -59,16 +59,16 @@ const whatsappFunction = (e) => {
   // console.log(companyDetails, "new company details")
 }
  
-  useEffect(async () => {
-    // const pan = companyDetails.companyPan
-    // console.log(pan)
-    // const response = await axios.post('http://localhost:3002/node/api/get-gst')
-    // console.log(response)
-    if(companyDetails.companyPan !== ''){
-      dispatch(GetGst(companyDetails.companyPan))
-    // const response = await axios.post('http://localhost:3002/node/api/get-gst', {pan : companyDetails.companyPan})
-    }
-  }, [companyDetails.companyPan])
+  // useEffect(async () => {
+  //   // const pan = companyDetails.companyPan
+  //   // console.log(pan)
+  //   // const response = await axios.post('http://localhost:3002/node/api/get-gst')
+  //   // console.log(response)
+  //   if(companyDetails.companyPan !== ''){
+  //     dispatch(GetGst(companyDetails.companyPan))
+  //   // const response = await axios.post('http://localhost:3002/node/api/get-gst', {pan : companyDetails.companyPan})
+  //   }
+  // }, [companyDetails.companyPan])
  
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',

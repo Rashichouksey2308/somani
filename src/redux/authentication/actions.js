@@ -269,9 +269,10 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
   try {
     // let response = await api.post(API.login, payload);
     Axios.post(`${API.authbaseUrl}${API.login}`, payload).then((response) => {
-      if (response.status === 200) {
+    
+      if (response.data.code === 200) {
         dispatch(loggingUserSuccess(response.data))
-        console.log(response, "responce")
+
         // localStorage.setItem(response.data.token)
         // Router.push("/")
         // Cookies.set('refreshtoken', response.data.data.refreshToken)
@@ -279,14 +280,16 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
         setAuthenticationCookie(response.data.data)
 
       } else {
+        console.log("LOGIN FAILED")
         dispatch(loggingUserFailed(response.data))
         // Cookies.remove('token')
-        console.log("LOGIN FAILED")
+        
       }
     })
   } catch (error) {
-    dispatch(loggingUserFailed(errorMessage))
     console.log("API FAILED")
+    dispatch(loggingUserFailed(errorMessage))
+   
   }
 }
 
@@ -327,10 +330,11 @@ export const fetchCurrentUserProfile =
 //********  Verify User Token Validity  ********//
 export const validateToken = () => async (dispatch, getState, api) => {
   dispatch(validatingToken());
-  let cookie = await Cookies.get("SOMANI");
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  let cookie = Cookies.get("SOMANI");
+  if (cookie) { const decodedString = Buffer.from(cookie, 'base64').toString('ascii') 
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split("#");
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split("#");}
   try {
     let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
       headers: {
@@ -345,7 +349,7 @@ export const validateToken = () => async (dispatch, getState, api) => {
 
     if (response.data.code === 401 || response.data.code === 402)
       return console.log("unverified token")
-     return dispatch(generateToken());
+    return dispatch(generateToken());
 
     await Cookies.remove("jwtAccessToken");
     dispatch(validatingTokenFailed(response.data));
