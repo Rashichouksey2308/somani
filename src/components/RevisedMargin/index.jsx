@@ -147,7 +147,7 @@ const index = () => {
                               </div>
                                 <div className={`${styles.val_wrapper} ml-3`}>
                                     <label className={`${styles.label_heading} label_heading`} id="textInput">
-                              No. of PDC's<strong className='text-danger'>*</strong>
+                              {` No. of PDC's`}<strong className='text-danger'>*</strong>
                                 </label>
                                  <div className={`${styles.val} heading`}>75</div>
                                 </div>
@@ -158,7 +158,7 @@ const index = () => {
                               </div>
                                 <div className={`${styles.val_wrapper} ml-3`}>
                                     <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                    Additional PDC's<strong className='text-danger'>*</strong>
+                                   {` Additional PDC's`}<strong className='text-danger'>*</strong>
 
                                 </label>
                                 <input type="number" className={`${styles.input_field} form-control`}
@@ -415,7 +415,7 @@ const index = () => {
                             </label>
                     </div>
                     <div className={`${styles.radio_form} col-md-12`}>
-                            <div className={`${styles.label_heading} label_heading`}>Same as Buyer <span className='ml-4'>In Case User Selects "No"</span></div>
+                            <div className={`${styles.label_heading} label_heading`}>Same as Buyer <span className='ml-4'>{`In Case User Selects "No"`}</span></div>
                             <Form>
                             {['radio'].map((type) => (
                                 <div key={`inline-${type}`} className={styles.radio_group}>

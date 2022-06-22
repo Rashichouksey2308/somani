@@ -7,7 +7,7 @@ import useDarkMode from 'use-dark-mode';
 
 
 import {Row,Col} from 'react-bootstrap'
-function index() {
+function Index() {
    const darkMode = useDarkMode(false);
     return (
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -182,7 +182,7 @@ function index() {
                                                       </div>
                                                         <div className={`${styles.val_wrapper} ml-3`}>
                                                             <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                                      No. of PDC's<strong className='text-danger'>*</strong>
+                                                     {` No. of PDC's`}<strong className='text-danger'>*</strong>
                                                         </label>
                                                          <div className={`${styles.val} heading`}>75</div>
                                                         </div>
@@ -446,7 +446,7 @@ function index() {
                             </label>
                     </div>
                     <div className={`${styles.radio_form} col-md-12`}>
-                            <div className={`${styles.label_heading} label_heading`}>Is Consignee same as Buyer <span className='ml-4'>Comments: In Case User Selects "No"</span></div>
+                            <div className={`${styles.label_heading} label_heading`}>Is Consignee same as Buyer <span className='ml-4'>{`Comments: In Case User Selects "No"`}</span></div>
                             <Form>
                             {['radio'].map((type) => (
                                 <div key={`inline-${type}`} className={styles.radio_group}>
@@ -662,5 +662,5 @@ function index() {
     )
 
 }
-export default index
+export default Index
 

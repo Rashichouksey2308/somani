@@ -32,7 +32,7 @@ import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 import { Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux'
 
-function index() {
+function Index() {
   
 
   const darkMode = useDarkMode(false)
@@ -986,7 +986,7 @@ function index() {
     </div>
   )
 }
-export default index
+export default Index
 
 const ligitations = () => {
   return (
