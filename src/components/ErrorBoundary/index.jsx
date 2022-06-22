@@ -16,15 +16,15 @@ export class ErrorBoundary extends Component {
         return { hasError: true };
     }
 
-    componentDidCatch(error, errorInfo) {
-        captureErrorForLogs({ error, errorInfo }, "client");
-    }
+    // componentDidCatch(error, errorInfo) {
+    //     captureErrorForLogs({ error, errorInfo }, "client");
+    // }
 
     render() {
     
         if (this.state.hasError) {
             return (
-                <Error />
+                <h1>Something went wrong</h1 >
             );
         }
 
