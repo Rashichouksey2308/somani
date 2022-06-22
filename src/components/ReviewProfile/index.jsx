@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 
-function Index({ handleChange, reviewedProfile }) {
+function Index({ handleChange, reviewedProfile}) {
   const transactionTypeDropdown = ['Import', 'Domestic']
   const commodityDropdown = ['Iron', 'Crude', 'Steel']
   const countryOfOriginDropdown = ['America', 'India', 'Russia']
@@ -30,6 +31,8 @@ function Index({ handleChange, reviewedProfile }) {
       </td>
     )
   }
+
+  console.log(reviewedProfile, "this is reviewed")
 
   return (
     <div className={`${styles.leads} leads `}>
@@ -81,12 +84,12 @@ function Index({ handleChange, reviewedProfile }) {
         <tbody>
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Type Of Business</td>
-            <td>{reviewedProfile.typeOfBusiness?.originalValue}</td>
+            <td>{reviewedProfile?.typeOfBusiness?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    reviewedProfile.typeOfBusiness?.apiResponse
+                    reviewedProfile?.typeOfBusiness?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -102,18 +105,18 @@ function Index({ handleChange, reviewedProfile }) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile.typeOfBusiness?.apiResponse &&
+            {!reviewedProfile?.typeOfBusiness?.apiResponse &&
               DropDown(typeOfBusinessDropdown, 'typeOfBusiness')}
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>TurnOver</td>
-            <td>{reviewedProfile.turnOver?.originalValue}</td>
+            <td>{reviewedProfile?.turnOver?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    reviewedProfile.turnOver?.apiResponse
+                    reviewedProfile?.turnOver?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -129,7 +132,7 @@ function Index({ handleChange, reviewedProfile }) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile.turnOver?.apiResponse && (
+            {!reviewedProfile?.turnOver?.apiResponse && (
               <input
                 type="number"
                 name="turnOver"
@@ -141,12 +144,12 @@ function Index({ handleChange, reviewedProfile }) {
 
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Transaction Type</td>
-            <td>{reviewedProfile.transactionType?.originalValue}</td>
+            <td>{reviewedProfile?.transactionType?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    reviewedProfile.transactionType?.apiResponse
+                    reviewedProfile?.transactionType?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -162,18 +165,18 @@ function Index({ handleChange, reviewedProfile }) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile.transactionType?.apiResponse &&
+            {!reviewedProfile?.transactionType?.apiResponse &&
               DropDown(transactionTypeDropdown, 'transactionType')}
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Port Of Discharge</td>
-            <td>{reviewedProfile.portOfDischarge?.originalValue}</td>
+            <td>{reviewedProfile?.portOfDischarge?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    reviewedProfile.portOfDischarge?.apiResponse
+                    reviewedProfile?.portOfDischarge?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -189,18 +192,18 @@ function Index({ handleChange, reviewedProfile }) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile.portOfDischarge?.apiResponse &&
+            {!reviewedProfile?.portOfDischarge?.apiResponse &&
               DropDown(portOfDischargeDropdown, 'portOfDischarge')}
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Order Values</td>
-            <td>{reviewedProfile.orderValue?.originalValue}</td>
+            <td>{reviewedProfile?.orderValue?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    reviewedProfile.orderValues?.apiResponse
+                    reviewedProfile?.orderValues?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -216,7 +219,7 @@ function Index({ handleChange, reviewedProfile }) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile.orderValues?.apiResponse && (
+            {!reviewedProfile?.orderValues?.apiResponse && (
               <input
                 type="number"
                 name="orderValue"
@@ -228,12 +231,12 @@ function Index({ handleChange, reviewedProfile }) {
 
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Country Of Origin</td>
-            <td>{reviewedProfile.countryOfOrigin?.originalValue}</td>
+            <td>{reviewedProfile?.countryOfOrigin?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    reviewedProfile.countryOfOrigin?.apiResponse
+                    reviewedProfile?.countryOfOrigin?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -249,18 +252,18 @@ function Index({ handleChange, reviewedProfile }) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile.countryOfOrigin?.apiResponse &&
+            {!reviewedProfile?.countryOfOrigin?.apiResponse &&
               DropDown(countryOfOriginDropdown, 'countryOfOrigin')}
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Commodity</td>
-            <td>{reviewedProfile.commodity?.originalValue}</td>
+            <td>{reviewedProfile?.commodity?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    reviewedProfile.commodity?.apiResponse
+                    reviewedProfile?.commodity?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -276,18 +279,18 @@ function Index({ handleChange, reviewedProfile }) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile.commodity?.apiResponse &&
+            {!reviewedProfile?.commodity?.apiResponse &&
               DropDown(commodityDropdown, 'commodity')}
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Expected Date Of Shipment</td>
-            <td>{reviewedProfile.ExpectedDateOfShipment?.originalValue}</td>
+            <td>{reviewedProfile?.ExpectedDateOfShipment?.originalValue}</td>
             <td>
               <div className={styles.tick}>
                 <img
                   src={
-                    reviewedProfile.ExpectedDateOfShipment?.apiResponse
+                    reviewedProfile?.ExpectedDateOfShipment?.apiResponse
                       ? '/static/check.svg'
                       : '/static/close-b.svg'
                   }
@@ -304,7 +307,7 @@ function Index({ handleChange, reviewedProfile }) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile.turnOver?.apiResponse && (
+            {!reviewedProfile?.turnOver?.apiResponse && (
               <input
                 type="date"
                 name="ExpectedDateOfShipment"

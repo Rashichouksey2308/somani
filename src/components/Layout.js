@@ -19,11 +19,11 @@ function Layout({ children }) {
 
   const dispatch = useDispatch();
   const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)
-  
+
 
   useEffect(() => {
     const isuserlogged = Cookies.get('SOMANI')
-    dispatch(validateToken())
+    //dispatch(validateToken())
     if (isLogin) {
       dispatch(validateToken())
     }
@@ -32,7 +32,7 @@ function Layout({ children }) {
 
   return (
     <>
-      {isLogin ? (
+      {isLogin ?
         <div className={styles.root_Container}>
           <div className={styles.navContainer}>
             <Navbar />
@@ -50,9 +50,10 @@ function Layout({ children }) {
             </div>
           </div>
         </div>
-      ) : (
+        :
         <Login />
-      )}
+      }
+
     </>
   )
 }

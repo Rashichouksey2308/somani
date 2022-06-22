@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
@@ -10,9 +11,9 @@ function Index() {
 
   useEffect(() => {
     dispatch(GetAllBuyer())
-  }, [])
+  }, [dispatch])
   const { allBuyerList } = useSelector((state) => state.buyer)
-  // console.log(allBuyerList, "this is all buyer")
+  console.log(allBuyerList?.data, "this is all buyer")
 
   const handleRoute = (buyer) => {
     if (buyer.queue === 'ReviewQueue') {
@@ -205,34 +206,34 @@ function Index() {
               </thead>
               <tbody>
                 {allBuyerList &&
-                  allBuyerList.data?.map((buyer,index) => (
+                  allBuyerList.data?.data?.map((buyer, index) => (
                     <tr key={index} className={`${styles.table_row} table_row`}>
-                      <td>{buyer.companyId}</td>
+                      <td>{buyer.company.customerId}</td>
                       <td
                         className={`${styles.buyerName}`}
                         onClick={() => {
-                          dispatch(GetBuyer(buyer._id))
-                          Router.push('/review-queue/id')
+                          handleRoute(buyer)
                         }}
                       >
-                        {buyer.companyProfile.companyName}
+                        {buyer.company.companyName}
                       </td>
-                      <td>RM-Sales</td>
-                      <td>Amar Singh</td>
+                      <td>{buyer.createdBy.userRole}</td>
+                      <td>{buyer.createdBy.fName}</td>
                       <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                       <td>
                         <span
                           className={`${styles.status} ${
-                            buyer.Queue === 'ReviewQueue'
+                          buyer.queue === 'Rejected' ? styles.rejected :  buyer.queue === 'ReviewQueue'
                               ? styles.review
-                              : 'CreditQueue'
+                              : buyer.queue === 'CreditQueue'
                               ? styles.approved
                               : styles.rejected
                           }`}
                         ></span>
-                        {buyer.Queue === 'ReviewQueue'
+                        
+                       {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
                           ? 'Review'
-                          : 'CreditQueue'
+                          : buyer.queue === 'CreditQueue'
                           ? 'Approved'
                           : 'Rejected'}
                       </td>

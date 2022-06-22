@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, {useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './reviewqueue.module.scss'
 import Order from '../../src/components/Order'
@@ -30,11 +30,63 @@ import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
 import { Row, Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux'
 
-function index() {
+function Index() {
   
 
   const darkMode = useDarkMode(false)
+
+  const {orderList} = useSelector((state)=>state.buyer) 
+
+  // console.log(orderList?.data?.company.companyName, "this is order list")
+
+  const [orderDetails, setOrderDetails] = useState({
+    transactionType: '',
+    commodity: '',
+    quantity: null,
+    unitOfQuantity: 'mt',
+    orderValue: null,
+    orderCurrency: 'INR',
+    unitOfValue: 'Cr',
+    supplierName: '',
+    countryOfOrigin: '',
+    portOfDischarge: '',
+    ExpectedDateOfShipment: null,
+    incoTerm: '',
+    grade: '', 
+    tolerance: '',
+    transactionPeriodDays: '',
+    manufacturerName:''
+  })
+
+  console.log(orderDetails, "ORDER DETAILS")
+
+  const [shipment, setShipment] = useState({
+    ETAofDischarge: {
+      fromDate: null,
+      toDate: null
+    },
+    lastDateOfShipment: null,
+    loadPort: {
+      fromDate: null,
+      toDate: null
+    }, 
+    shipmentType: ''
+
+  })
+
+  const saveOrderData = (name, value) => {
+    const newInput = { ...orderDetails }
+    newInput[name] = value
+    setOrderDetails(newInput)
+  }
+
+  const saveShipmentData = (name, value) => {
+    const newInput = { ...shipment }
+    newInput[name] = value
+    setShipment(newInput)
+  }
 
 
   return (
@@ -50,7 +102,7 @@ function index() {
             alt="arrow right"
             className="img-fluid image_arrow"
           />
-          Ramakrishna Traders
+          {orderList?.company?.companyName}
         </h1>
 
         <ul className={`${styles.navTabs} nav nav-tabs`}>
@@ -615,8 +667,8 @@ function index() {
               </div>
               <div className="tab-pane fade" id="Orders" role="tabpanel">
                 <div className={`${styles.card}`}>
-                  <Order />
-                  <ShipmentDetails />
+                  <Order orderDetail={orderList} saveOrderData={saveOrderData} />
+                  <ShipmentDetails orderDetail={orderList} saveShipmentData={saveShipmentData} />
                   <CommonSave />
                   <PreviousBar />
                 </div>
@@ -934,7 +986,7 @@ function index() {
     </div>
   )
 }
-export default index
+export default Index
 
 const ligitations = () => {
   return (

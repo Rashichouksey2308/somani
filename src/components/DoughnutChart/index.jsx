@@ -4,9 +4,10 @@ import { Card } from 'react-bootstrap'
 import { Doughnut } from 'react-chartjs-2'
 import { Chart, ArcElement, registerables } from 'chart.js'
 
-Chart.register(ArcElement)
+
 
 function Index() {
+  Chart.register(ArcElement)
   let tempArr = [
     { name: 'Sail', value: '21', color: '#9675CE' },
     { name: 'Jindal Group', value: '23', color: '#4CAF50' },
@@ -53,8 +54,8 @@ function Index() {
     },
   }
   return (
-    <Card className={styles.card}>
-      <Card.Header className={`${styles.header} heading_card`}>Top 5 Customers</Card.Header>
+    <Card className={`${styles.card} card`}>
+      <Card.Header className={`${styles.header}  border_color  heading_card`}>Top 5 Customers</Card.Header>
       <Card.Body className={styles.body}>
         <div className={styles.name}>
           {tempArr.map((val, index) => {

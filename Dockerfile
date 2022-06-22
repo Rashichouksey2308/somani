@@ -15,7 +15,7 @@ RUN npm install
 RUN npm run build
  
 # Building app
-EXPOSE 3000
+EXPOSE 3010
  
 # Running the app
 CMD "npm" "start"
