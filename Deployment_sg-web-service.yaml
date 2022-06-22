@@ -10,9 +10,9 @@ spec:
   ports:
     - protocol: TCP
       #System Port
-      port: 3001
+      port: 3010
       #Container Port
-      targetPort: 3001
+      targetPort: 3010
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,6 +32,6 @@ spec:
         - name: sg-node-web-service-dev
           image: cxccontainerregistry.azurecr.io/somani-dev-web:v0.1-dev
           ports:
-            - containerPort: 3001
+            - containerPort: 3010
       imagePullSecrets:
         - name: container-registry-key
