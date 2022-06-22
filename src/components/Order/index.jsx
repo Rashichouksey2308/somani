@@ -75,7 +75,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                     required
                     type="text"
                     name='commodity'
-                    defaultValue={orderDetail.commodity}
+                    defaultValue={orderDetail?.commodity}
                     onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                   />
                   <Form.Label
@@ -97,7 +97,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name='quantity'
-                  defaultValue={orderDetail.quantity}
+                  defaultValue={orderDetail?.quantity}
                   onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -111,7 +111,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name='orderValue'
-                  defaultValue={orderDetail.orderValue}
+                  defaultValue={orderDetail?.orderValue}
                   onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -125,7 +125,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name='grade'
-                  defaultValue={orderDetail.grade}
+                  defaultValue={orderDetail?.grade}
                   onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -135,7 +135,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`}>
-                  <option value="volvo">{orderDetail.countryOfOrigin}</option>
+                  <option value="volvo">{orderDetail?.countryOfOrigin}</option>
                   <option value="audi">India</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -149,7 +149,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name='tolerance'
-                  defaultValue={orderDetail.tolerance}
+                  defaultValue={orderDetail?.tolerance}
                   onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -160,7 +160,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`}>
-                  <option value="volvo">{orderDetail.supplierName}</option>
+                  <option value="volvo">{orderDetail?.supplierName}</option>
                   <option value="audi">Traders</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>

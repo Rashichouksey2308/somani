@@ -14,16 +14,16 @@ function Index() {
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
            <Card.Body className={`${styles.body} value_card`}>
-                {fields("Company Name",buyerList.companyName)}
-                {fields("Company PAN",buyerList.company.companyPan)}
-                {fields("Type Of Business",buyerList.company.typeOfBusiness)}
-                {/* {fields("Transaction Type",buyerList.company.transactionType)} */}
-                {fields("Turn-Over (in Cr)",buyerList.company.turnOver)}
-                {fields("Email ID",buyerList.company.email)}
+                {fields("Company Name",buyerList?.companyName)}
+                {fields("Company PAN",buyerList?.company.companyPan)}
+                {fields("Type Of Business",buyerList?.company.typeOfBusiness)}
+                {/* {fields("Transaction Type",buyerList?.company.transactionType)} */}
+                {fields("Turn-Over (in Cr)",buyerList?.company.turnOver)}
+                {fields("Email ID",buyerList?.company.email)}
                                 
-                {fields("Phone Number",buyerList.company.mobile.primary.number)}
-                {fields("Whatsapp Number",buyerList.company.mobile.whatsapp.number)}
-                {fields("Communication Mode",buyerList.company.communicationMode)}
+                {fields("Phone Number",buyerList?.company.mobile.primary.number)}
+                {fields("Whatsapp Number",buyerList?.company.mobile.whatsapp.number)}
+                {fields("Communication Mode",buyerList?.company.communicationMode)}
             </Card.Body>
         </Card>
     )
