@@ -269,9 +269,10 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
   try {
     // let response = await api.post(API.login, payload);
     Axios.post(`${API.authbaseUrl}${API.login}`, payload).then((response) => {
-      if (response.status === 200) {
+    
+      if (response.data.code === 200) {
         dispatch(loggingUserSuccess(response.data))
-        console.log(response, "responce")
+
         // localStorage.setItem(response.data.token)
         // Router.push("/")
         // Cookies.set('refreshtoken', response.data.data.refreshToken)
@@ -279,14 +280,16 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
         setAuthenticationCookie(response.data.data)
 
       } else {
+        console.log("LOGIN FAILED")
         dispatch(loggingUserFailed(response.data))
         // Cookies.remove('token')
-        console.log("LOGIN FAILED")
+        
       }
     })
   } catch (error) {
-    dispatch(loggingUserFailed(errorMessage))
     console.log("API FAILED")
+    dispatch(loggingUserFailed(errorMessage))
+   
   }
 }
 

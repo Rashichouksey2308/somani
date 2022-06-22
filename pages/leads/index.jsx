@@ -11,7 +11,7 @@ function Index() {
 
   useEffect(() => {
     dispatch(GetAllBuyer())
-  }, [])
+  }, [dispatch])
   const { allBuyerList } = useSelector((state) => state.buyer)
   console.log(allBuyerList?.data, "this is all buyer")
 

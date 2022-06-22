@@ -16,7 +16,7 @@ export const setAuthenticationCookie = async data => {
 };
 
 export const getAuthenticationCookie = async () => {
-  let cookie = await Cookies.get("SOMANI");
+  let cookie =  Cookies.get("SOMANI");
 
   if (!cookie) return false;
 
