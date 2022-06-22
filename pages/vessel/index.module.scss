@@ -36,24 +36,29 @@
    
 }
 
-.card {
+
 
     .vessel_card {
-        margin: 20px;
+        margin: 20px 5px 20px 5px;
         .main {
             border-radius: 6px;
         
             .head_container {
-                padding: 0px 0px 0px 20px;
-                border-bottom: 2px solid #CAD6E6;
+                padding: 25px 35px !important;
+               border-bottom: 2px solid #CAD6E6;
 
                 .heading{
                     color: #3687e8;
                     font-weight:bold;
                     font-size: 22px;
                     text-transform: capitalize;
-                    padding: 15px;
-                    margin-top: 15px;
+                  
+                }
+                span {
+                    font-size: 45px;
+                    color: #3687e8;
+                    font-weight: normal;
+                    line-height: 20px;
                 }
                 .dropDown{
                     border: 1px solid #0000001F;
@@ -94,8 +99,6 @@
                 text-align: left;
                 font-size:20px;
                 font-weight: bold;
-                letter-spacing: 0px;
-                //color: #111111;
                 text-transform: capitalize;
             }
             .form_group {
@@ -201,5 +204,5 @@
         }
 
     }
-}
+
 

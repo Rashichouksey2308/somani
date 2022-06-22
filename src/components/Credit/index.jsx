@@ -6,7 +6,7 @@ const index = () => {
     <>
       <div className={`${styles.main} card border_color`}>
         <div
-          className={`${styles.head_container} border_color card-header  d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#productSummary"
           aria-expanded="true"
