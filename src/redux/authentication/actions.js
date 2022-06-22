@@ -3,7 +3,7 @@ import Axios from "axios";
 import Router from "next/router";
 import API from '../../utils/endpoints'
 import * as types from './actionType'
-// import { toast } from 'react-toastify'
+ import { toast } from 'react-toastify'
 // import history from '../../history'
 import Cookies from 'js-cookie'
 import { setAuthenticationCookie } from '../../utils/authentication'
@@ -280,7 +280,8 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
         setAuthenticationCookie(response.data.data)
 
       } else {
-        console.log("LOGIN FAILED")
+        toast.dark(response.data.message);
+        
         dispatch(loggingUserFailed(response.data))
         // Cookies.remove('token')
         
