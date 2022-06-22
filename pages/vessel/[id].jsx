@@ -23,8 +23,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className={`${styles.card} background1 w-100`}>
-        <div className={`${styles.vessel_card} vessel_card`}>
+        <div className={`${styles.vessel_card} `}>
           <div className={`${styles.main} card border-color`}>
             <div
               className={`${styles.head_container} card-header head_container justify-content-between d-flex bg-transparent`}
@@ -227,7 +226,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} card border-color mt-4`}>
+          <div className={`${styles.main} mb-4 card border-color mt-4`}>
             <div
               className={`${styles.head_container} head_container d-flex justify-content-between`}
             >
@@ -307,9 +306,9 @@ export default function Home() {
               </div>
             </div>
           </div>
+       
+        <UploadOther/>
         </div>
-        <UploadOther />
-      </div>
     </>
   )
 }
