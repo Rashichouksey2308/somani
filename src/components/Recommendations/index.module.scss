@@ -136,12 +136,54 @@
     }
 
 }
-.label_sanction{
-    letter-spacing: 0.53px;
-    color: #00000080;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 17px;
+.form_group{
+    position: relative;
+    .label_sanction{
+        letter-spacing: 0.53px;
+        color: #00000080;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 17px;
+        }
+        .label_heading {
+            top: 27px;
+            left: 20px;
+            font-size: 16px;
+            line-height: 0.5;
+            margin-bottom: 0;
+            letter-spacing: 0.53px;
+            position: absolute;
+            pointer-events: none;
+            box-sizing: border-box;
+            transform: translateY(-31px);
+            transition: 0.3s all ease-in-out;
+        }
+        .input_field {
+            width: 306px;
+            height: 60px;
+            background-color: #C3C3C31F;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            font-size: 20px;
+            font-weight: 500;
+            outline: none;
+            box-shadow: none;
+            position: relative;
+            box-sizing: border-box;
+            &:invalid + label {
+                background: none;
+                transform:translateY(0);
+            }
+            &:focus {
+                & + label {
+                    transform:translateY(-31px);
+
+                }
+            }
+
+            
+
+        }
     }
  
  .datatable {

@@ -4,7 +4,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 
 const index = () => {
   return (
-    <div className={`${styles.card} container-fluid`}>
+    <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={styles.head_container}>
         <div className={styles.head_header}>
           <img
