@@ -19,7 +19,7 @@ function Layout({ children }) {
 
   const dispatch = useDispatch();
   const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)
-  
+
 
   useEffect(() => {
     const isuserlogged = Cookies.get('SOMANI')
@@ -32,7 +32,7 @@ function Layout({ children }) {
 
   return (
     <>
-      
+      {isLogin ?
         <div className={styles.root_Container}>
           <div className={styles.navContainer}>
             <Navbar />
@@ -50,7 +50,10 @@ function Layout({ children }) {
             </div>
           </div>
         </div>
-      
+        :
+        <Login />
+      }
+
     </>
   )
 }

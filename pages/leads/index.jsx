@@ -11,7 +11,7 @@ function Index() {
 
   useEffect(() => {
     dispatch(GetAllBuyer())
-  }, [])
+  }, [dispatch])
   const { allBuyerList } = useSelector((state) => state.buyer)
   console.log(allBuyerList?.data, "this is all buyer")
 
@@ -223,16 +223,17 @@ function Index() {
                       <td>
                         <span
                           className={`${styles.status} ${
-                          buyer.queue === 'Rejected' ? styles.rejected :  buyer.Queue === 'ReviewQueue'
+                          buyer.queue === 'Rejected' ? styles.rejected :  buyer.queue === 'ReviewQueue'
                               ? styles.review
-                              : 'CreditQueue'
+                              : buyer.queue === 'CreditQueue'
                               ? styles.approved
                               : styles.rejected
                           }`}
                         ></span>
-                       {buyer.queue === 'Rejected' ? 'Rejected' : buyer.Queue === 'ReviewQueue'
+                        
+                       {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
                           ? 'Review'
-                          : 'CreditQueue'
+                          : buyer.queue === 'CreditQueue'
                           ? 'Approved'
                           : 'Rejected'}
                       </td>

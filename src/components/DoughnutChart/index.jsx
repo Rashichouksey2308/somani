@@ -4,9 +4,10 @@ import { Card } from 'react-bootstrap'
 import { Doughnut } from 'react-chartjs-2'
 import { Chart, ArcElement, registerables } from 'chart.js'
 
-Chart.register(ArcElement)
+
 
 function Index() {
+  Chart.register(ArcElement)
   let tempArr = [
     { name: 'Sail', value: '21', color: '#9675CE' },
     { name: 'Jindal Group', value: '23', color: '#4CAF50' },
