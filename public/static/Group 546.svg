@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="36" viewBox="0 0 35 36">
+  <g id="Group_546" data-name="Group 546" transform="translate(-972 -653)">
+    <g id="Rectangle_268" data-name="Rectangle 268" transform="translate(972 653)" fill="#fafafb" stroke="#f2f5f9" stroke-width="1">
+      <rect width="35" height="36" rx="8" stroke="none"/>
+      <rect x="0.5" y="0.5" width="34" height="35" rx="7.5" fill="none"/>
+    </g>
+    <path id="filter_alt" d="M4.286,5.882c2.361,3.027,6.72,8.637,6.72,8.637v7.012A1.172,1.172,0,0,0,12.175,22.7h2.337a1.172,1.172,0,0,0,1.169-1.169V14.519s4.348-5.61,6.709-8.637A1.166,1.166,0,0,0,21.466,4H5.209A1.166,1.166,0,0,0,4.286,5.882Z" transform="translate(976.621 657.65)" fill="#8492a6"/>
+  </g>
+</svg>
