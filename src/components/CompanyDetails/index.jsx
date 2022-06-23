@@ -187,7 +187,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                   <option value="0" label="0"></option> 
                   <option>
                     <div className='d-flex flex-column align-items-center'>
-                      <div>'</div>
+                      <div>&apos;</div>
                       <div>20</div>
                     </div>
                   </option>
