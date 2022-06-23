@@ -16,7 +16,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
     <>
       <div className={`${styles.main} border_color`}>
         <form id="CompanyDetailsForm">
-          <div className={`${styles.heading} heading_card`}>Company Profile</div>
+          <div className={`${styles.heading} heading_card_switch_blue`}>Company Profile</div>
           <div className={styles.radio_form}>
             <div className={styles.sub_heading}>Transaction Type</div>
             {['radio'].map((type ,index) => (

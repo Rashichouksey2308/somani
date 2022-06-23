@@ -723,3 +723,11 @@ body   .good {
 body .satisfactory {
      color: #FF9D00 !important
    }
+
+     body.light-mode .heading_card_switch_blue {
+        color: #111111;
+     }
+  
+     body.dark-mode .heading_card_switch_blue {
+        color: #3687e8;
+     }
