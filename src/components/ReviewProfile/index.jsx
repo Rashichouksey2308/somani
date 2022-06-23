@@ -132,14 +132,17 @@ function Index({ handleChange, reviewedProfile}) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile?.turnOver?.apiResponse && (
-              <input
+            <td>
+               {!reviewedProfile?.turnOver?.apiResponse && (
+              <Form.Control 
                 type="number"
                 name="turnOver"
                 id="textDate"
+                className={`${styles.input}`}
                 onBlur={(e) => handleChange(e.target.name, e.target.value)}
               />
             )}
+            </td>
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
@@ -219,14 +222,19 @@ function Index({ handleChange, reviewedProfile}) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile?.orderValues?.apiResponse && (
-              <input
+             <td>
+              {!reviewedProfile?.orderValues?.apiResponse && (
+              <Form.Control 
                 type="number"
                 name="orderValue"
                 id="textDate"
+                className={`${styles.input}`}
                 onBlur={(e) => handleChange(e.target.name, e.target.value)}
               />
             )}
+            
+            </td>
+          
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
@@ -307,14 +315,17 @@ function Index({ handleChange, reviewedProfile}) {
                 type="checkbox"
               />
             </td>
-            {!reviewedProfile?.turnOver?.apiResponse && (
-              <input
+           <td>
+              {!reviewedProfile?.turnOver?.apiResponse && (
+              <Form.Control 
                 type="date"
                 name="ExpectedDateOfShipment"
                 id="textDate"
+                className={`${styles.input}`}
                 onBlur={(e) => handleChange(e.target.name, e.target.value)}
               />
             )}
+           </td>
           </tr>
         </tbody>
       </table>
