@@ -19,7 +19,7 @@ function Index() {
                {name: "Review Queue",image:"/static/Review Queue.svg",route:""},
                {name: "Credit Queue",image:"/static/Credit Queue.svg", route: "/credit-queue"},
                {name: "Termsheets",image:"/static/Termsheets.svg",route:"/termsheet"},
-               {name: "Money Margin",image:"/static/Termsheets.svg",route:"/margin-money"},
+               {name: "Margin Money",image:"/static/Termsheets.svg",route:"/margin-money"},
                   
             ],
               image:"/static/Leads.svg",
