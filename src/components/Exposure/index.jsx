@@ -18,12 +18,17 @@ function index() {
         <div className={styles.percent}>75.20%</div>
 
         <div className={styles.total}>
-          TOTAL ...........................................................
-          50,00,000
+          <div className={styles.totalText}><span>TOTAL</span></div>
+          <div className={styles.dotted}></div>
+          <div className={styles.value}><span>50,00,000</span></div>
+          
         </div>
         <div className={styles.total}>
-          UTILISED ........................................................
-          3,20,000
+         <div className={styles.totalText}><span>TOTAL</span></div>
+          <div className={styles.dotted}></div>
+          <div className={styles.value}><span>50,00,000</span></div>
+          
+          
         </div>
       </Card.Body>
     </Card>

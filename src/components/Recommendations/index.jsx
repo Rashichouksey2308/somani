@@ -262,27 +262,6 @@ const index = () => {
               />
             </div>
           </div>
-        </div>
-
-                            </div>
-                            </div>
-                            <div className='d-flex justify-content-start align-items-center pt-5 pl-5'>
-                                <div className={`${styles.form_group} mr-5`}>
-                                    <div className={`${styles.label_sanction}`}>Limit Value</div>
-                                    <div>100 CR</div>
-                                </div>
-                                <div className={`${styles.form_group} ml-5 mr-5`}>
-                                    <div className={`${styles.label_sanction}`}>Order Value</div>
-                                    <div>100 Lakhs</div>
-                                </div>
-                                
-                                <div className={`${styles.form_group} mt-4`} >
-                                    <input className={`${styles.input_field} input form-control`} required type="text"/> 
-                                    <label className={`${styles.label_heading} label_heading`}>Recommended Order Value</label>
-
-                                </div>
-                            </div>
-        <div className={`${styles.dashboard_form}`}>
           <div className={`${styles.sub_heading} value`}>Weakness</div>
           <div className="d-flex mt-5 pb-4">
             <input
@@ -348,10 +327,9 @@ const index = () => {
               />
             </div>
           </div>
-        </div>
 
         <div
-          className={`${styles.sanction_terms} d-flex justify-content-between align-items-center`}
+          className={`${styles.sanction_terms} mt-4 d-flex justify-content-between align-items-center`}
         >
           <div className={`${styles.sanction_heading} value`}>
             Sanction Terms
@@ -367,12 +345,25 @@ const index = () => {
             </div>
             <div className={styles.limit}>
               Available Limit: <span>1,900.00</span>
+              </div>
             </div>
-          </div>
-        </div>
-       
+            </div>
+            <div className='d-flex justify-content-start align-items-center pt-5 pl-5'>
+                        <div className={`${styles.form_group} mr-5`}>
+                            <div className={`${styles.label_sanction}`}>Limit Value</div>
+                            <div>100 CR</div>
+                        </div>
+                        <div className={`${styles.form_group} ml-5 mr-5`}>
+                            <div className={`${styles.label_sanction}`}>Order Value</div>
+                            <div>100 Lakhs</div>
+                        </div>
+                        
+                        <div className={`${styles.form_group} mt-4`} >
+                            <input className={`${styles.input_field} input form-control`} required type="text"/> 
+                            <label className={`${styles.label_heading} label_heading`}>Recommended Order Value</label>
 
-        <div className={`${styles.dashboard_form}`}>
+                        </div>
+                    </div>
           <div className="d-flex mt-5 pb-4">
             <input
               as="textarea"
@@ -390,11 +381,10 @@ const index = () => {
               alt="add button"
             />
           </div>
-          <div className={`${styles.strength} value`}>Weakness</div>
+          <div className={`${styles.strength} value`}>Sanction Conditions</div>
           <div className="d-flex justify-content-between">
             <p className={`${styles.paragraph} value`}>
-           {`
-              Lorem ipsum is a name for a common type of placeholder text. Also
+             {` Lorem ipsum is a name for a common type of placeholder text. Also
               known as filler or dummy text, this is simply text copy that
               serves to fill a space without actually saying anything
               meaningful. It's essentially nonsense text that still gives an
@@ -418,7 +408,7 @@ const index = () => {
 
           <div className="d-flex justify-content-between">
             <p className={`${styles.paragraph} value pt-3`}>
-           {`   Lorem ipsum is a name for a common type of placeholder text. Also
+              {`Lorem ipsum is a name for a common type of placeholder text. Also
               known as filler or dummy text, this is simply text copy that
               serves to fill a space without actually saying anything
               meaningful. It's essentially nonsense text that still gives an
@@ -436,9 +426,12 @@ const index = () => {
                 className={`${styles.edit_image} img-fluid`}
                 alt="edit"
               />
+              </div>
             </div>
-          </div>
-        </div>
+               
+                    </div>
+                    </div>
+                    </div>
   
     </>
   )

@@ -1,0 +1,83 @@
+
+// MEDIA QUERIES WITH BREAKPOINTS
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone-sm {
+    @media (max-width: 360px) {
+      @content;
+    }
+  }
+  @if $breakpoint == max-667 {
+    @media (max-width: 570px) and (max-width: 667px) {
+      @content;
+    }
+  }
+  @if $breakpoint == phone-569 {
+    @media (min-width: 400px) and (max-width: 569px) {
+      @content;
+    }
+  }
+  @if $breakpoint == pixel-x {
+    @media (min-width: 390px) and (max-width: 730px) {
+      @content;
+    }
+  }
+  @if $breakpoint == phone-x {
+    @media (min-width: 374px) and (max-width: 767px) {
+      @content;
+    }
+  }
+  @if $breakpoint == max-667-1024-land {
+    @media (min-width: 667px) and (max-width: 1020px) {
+      @content;
+    }
+  }
+  @if $breakpoint == phone {
+    @media (max-width: 767px) {
+      @content;
+    }
+  }
+  @if $breakpoint == tablet-sm-desktop {
+    @media (min-width: 768px) and (max-width: 991px) {
+      @content;
+    }
+  }
+  @if $breakpoint == sm-desktop {
+    @media (min-width: 992px) and (max-width: 1199px) {
+      @content;
+    }
+  }
+  @if $breakpoint == md-desktop {
+    @media (min-width: 1200px) and (max-width: 1299px) {
+      @content;
+    }
+  }
+  @if $breakpoint == lg-desktop {
+    @media (min-width: 1300px) and (max-width: 1400px) {
+      @content;
+    }
+  }
+  @if $breakpoint == xl-desktop {
+    @media (min-width: 1401px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == max-667 {
+    @media (max-width: 667px) {
+      @content;
+    }
+  }
+  @if $breakpoint == max-667-port {
+    @media (max-width: 667px) {
+      @content;
+    }
+  }
+  @if $breakpoint == max-390-port {
+    @media (max-width: 390px) {
+      @content;
+    }
+  }
+}
+
+
+
