@@ -23,14 +23,15 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className={`${styles.card} background1 w-100`}>
-        <div className={`${styles.vessel_card} vessel_card`}>
+    
+      <div className='container-fluid background1'>
+        <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} card border-color`}>
             <div
               className={`${styles.head_container} card-header head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Basic Details</h3>
-              <div className="p-4">
+              <div>
                 <label className={`${styles.dropDown_label} text`}>
                   Part Shipment Allowed
                 </label>
@@ -193,6 +194,10 @@ export default function Home() {
                     Flag<strong className="text-danger">*</strong>
                   </label>
                 </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} type="date"/> 
+                     <label className={`${styles.label_heading} label_heading`}>Year of Built<strong className="text-danger">*</strong></label>                   
+                </div> 
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <input
                     className={`${styles.input_field} input form-control`}
@@ -227,11 +232,11 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} card border-color mt-4`}>
+          <div className={`${styles.main} mb-4 card border-color mt-4`}>
             <div
               className={`${styles.head_container} head_container d-flex justify-content-between`}
             >
-              <h3 className={styles.heading}>Upload Other Documents</h3>
+              <h3 className={styles.heading}>Upload Documents</h3>
               <span>+</span>
             </div>
             <div className={`${styles.table_form}`}>
@@ -307,9 +312,11 @@ export default function Home() {
               </div>
             </div>
           </div>
+       
+        <UploadOther/>
         </div>
-        <UploadOther />
-      </div>
+        </div>
+       
     </>
   )
 }
