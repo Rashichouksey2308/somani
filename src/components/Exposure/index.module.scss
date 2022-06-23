@@ -1,3 +1,4 @@
+@import "../styles/Core/config";
 .card {
   //box-shadow: 0px 3px 12px #E5E7ED;
   border: 1px solid #D2D7E5;
@@ -59,12 +60,52 @@
           color: #2884DE;
           text-transform: capitalize;
           font-weight: bold;
+            @include respond(xl-desktop) {
+                    margin-top: -18px;
+                    font-size: 19px;
+            }
+            @include respond(lg-desktop) {
+                margin-top: -17px;
+                  font-size: 17px;
+              }
+             @include respond(md-desktop) {
+                  margin-top: -15px;
+                  font-size: 15px;
+                }
         }
       .total {
           font-size:14px ;
           padding-top: 25px;
           color: #8492A6;
           text-transform: uppercase;
+          display: flex;
+          justify-content:center;
+          align-items:flex-end;
+          .totalText{
+            width: fit-content;
+            display: flex;
+            span{
+              margin-bottom: -0.35rem ;
+              font-weight: bold;
+            }
+          }
+          .dotted{
+            flex: 1;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            border-bottom:2.5px dotted #8492A6;
+          }
+          .value{
+            width:fit-content;
+            display: flex;
+            
+              span {
+                font-size: 18px;
+                line-height:23px;
+                color: #111111;
+                margin-bottom: -0.35rem;
+              }
+          }
 
       }
   }

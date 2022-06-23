@@ -46,15 +46,15 @@ function Index() {
           top: 30,
           bottom: 30,
         },
-        responsive: false,
+      
         animation: {
           animateScale: true,
         },
       },
     
     },
-      // responsive: true,
-      cutout: 80
+    //  responsive: true, 
+      cutout: 90
    
   }
  
