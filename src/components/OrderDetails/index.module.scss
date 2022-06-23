@@ -69,12 +69,13 @@
                   letter-spacing: 0.18px;
                   color: #3687E8;
                   text-transform: capitalize;
+                  outline: none;
               }
           }
       }
       .phone {
           .label_heading {
-              left: 90px;
+              left: 40%;
               transform: translate(-61px, -31px);
           }
           .input_field {
