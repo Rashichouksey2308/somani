@@ -26,9 +26,9 @@ function Index() {
                   <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#revisedMargin" role="tab" aria-controls="revisedMargin" aria-selected="false">Revised Margin Money</a>
                   </li>
-                  <li className={`${styles.navItem} nav-item`}>
+                  {/* <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
-                  </li>
+                  </li> */}
                   <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">Document</a>
                   </li>
