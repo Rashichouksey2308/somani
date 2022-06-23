@@ -16,7 +16,7 @@ const index = () => {
             src="/static/keyboard_arrow_right-3.svg" alt="arrow"/>
           <h1 className={`${styles.heading} heading`}>Termsheet</h1>       
       </div>
-      <div>
+      <div className='pb-4'>
           <div className={`${styles.card_body} card-body container-fluid`}>  
               <div className="row">
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
