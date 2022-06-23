@@ -57,9 +57,29 @@ const IndexPage = () => {
             <div className={styles.bottom_Container}>
               <div className={`${styles.leads}`}>
                 <div
-                  className={`${styles.tableFilter} d-flex justify-content-between`}
+                  className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}
                 >
-                  <h3 className="heading">BL Date</h3>
+                  <div
+                    className={`  d-flex justify-content-between  align-items-center`}
+                  >
+                    <h3 className="heading">
+                      BL Date{' '}
+                      <img
+                        className={`${styles.rotate} img-fluid`}
+                        src="/static/keyboard_arrow_right-3.svg"
+                        alt="arrow right"
+                      />
+                    </h3>
+                    <div
+                      className={` ${styles.filterIcon}  d-flex justify-content-between align-items-center`}
+                    >
+                      <img
+                        src="/static/Group 546.svg"
+                        alt="arrow right"
+                        className="img-fluid"
+                      />
+                    </div>
+                  </div>
                   <div
                     className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
                   >

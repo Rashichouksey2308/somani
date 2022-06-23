@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import {Row, Col} from "react-bootstrap"
+import GrowInput from '../GrowInput'
 
 function index() {
   return (
@@ -129,11 +130,12 @@ const sales=()=>{
   return(
      <div className="card-body">
       <h5 className={styles.sub_heading}>Assignment Letter between: </h5>
+
       <input  type="text" className={`${styles.para} w-100`} placeholder = "Indo International Trading FZCO, Jafza View–18, LOB-180504, Jebel Ali, Dubai, UAE," />
       <input  type="text" className={`${styles.para} w-100`} placeholder = "Hira Power and Steels Ltd, 511/1, 512/2, Urla Industrial Complex, Raipur – 493221, C.G., India (“the Buyer”)" />
       
       <p>and</p>
-      <p> <input className={`${styles.para} w-75`} placeholder='ERAMET MARKETING SERVICES, a limited liability company (SAS)'/>, registered under the Trade Register of Paris under the number <input  type="text" className={`${styles.para} `} placeholder= "829 256 049" />, whose head office is at <input  className={`${styles.para} w-100`} placeholder = "10 boulevard de Grenelle – CS 63205 – 75015 Paris – FRANCE (“the Seller or Producer”)" />.
+      <p><GrowInput placeholder={`ERAMET MARKETING SERVICES, a limited liability company (SAS)`} type="text"/>, registered under the Trade Register of Paris under the number<input  type="text" className={`${styles.para} `} placeholder= "829 256 049" />, whose head office is at <input  className={`${styles.para} w-100`} placeholder = "10 boulevard de Grenelle – CS 63205 – 75015 Paris – FRANCE (“the Seller or Producer”)" />.
       </p>
       <p>It is hereby agreed that the Seller will accept that the payment for the commodity - approximately <input  type="text"  className={`${styles.para} w-100`} placeholder="5,000 (+/-10%) MT of Manganese Ore of Gabon Origin (Grade: MMD) (“Goods”)" /> under the  <input  type="text"  className={`${styles.para} w-75`} placeholder="Contract No. 21-133 Dated 16.08.2021 (“Sales Contract”)"/> by and between the Seller and Hira Power and Steels Ltd (“Buyer”) is to be made by way of a Letter of Credit (L/C), to be issued on the applicant of Indo International Trading FZCO as per the above-mentioned Contract.  The commodity is for use by Hira Power and Steels Ltd (“the Buyer”) only under the terms and conditions contained within the Sales Contract.
       </p>

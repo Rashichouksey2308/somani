@@ -3,11 +3,11 @@ import styles from './index.module.scss'
 import { Card } from 'react-bootstrap'
 function index() {
   let tempArr = [
-    { name: 'Iron', val: '1,837', val2: 1837 },
-    { name: 'Steel', val: '1,341', val2: 1837 },
-    { name: 'Aluminium', val: '1,000', val2: 1837 },
-    { name: 'Copper', val: '600', val2: 1837 },
-    { name: 'Brass', val: '400', val2: 1837 },
+    { name: 'Iron', val: '1,837', val2: 1837,percentage:`100%`, },
+    { name: 'Steel', val: '1,341', val2: 1837,percentage:`80%` },
+    { name: 'Aluminium', val: '1,000', val2: 1837,percentage:`60%` },
+    { name: 'Copper', val: '600', val2: 1837 ,percentage:`50%`},
+    { name: 'Brass', val: '400', val2: 1837,percentage:`40%` },
   ]
   return (
     <Card className={`${styles.card} border` }>
@@ -20,7 +20,7 @@ function index() {
               <span className={`heading`} >{val.name}</span>
               <div className={styles.graph}>
                 <span> ₹{val.val}</span>
-                <div className={styles.bar} data-percentage="69.6%"></div>
+                <div className={styles.bar} style={{width:`${val.percentage}`}}></div>
               </div>
             </div>
           )
