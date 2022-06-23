@@ -38,7 +38,7 @@ function Index() {
         display: false,
         text: 'Doughnut Chart',
         color: 'blue',
-        cutoutPercentage: 80,
+       
         font: {
           size: 34,
         },
@@ -46,13 +46,18 @@ function Index() {
           top: 30,
           bottom: 30,
         },
-        responsive: true,
+        responsive: false,
         animation: {
           animateScale: true,
         },
       },
+    
     },
+      // responsive: true,
+      cutout: 80
+   
   }
+ 
   return (
     <Card className={`${styles.card} card`}>
       <Card.Header className={`${styles.header}  border_color  heading_card`}>Top 5 Customers</Card.Header>
@@ -61,10 +66,12 @@ function Index() {
           {tempArr.map((val, index) => {
             return (
               <div key={index} className={styles.name_wrapper}>
-                <div
+                <div>
+                   <div
                   className={styles.round}
                   style={{ backgroundColor: `${val.color}` }}
                 ></div>
+                </div>
                 <span className={` heading`}>{val.name}</span>
               </div>
             )

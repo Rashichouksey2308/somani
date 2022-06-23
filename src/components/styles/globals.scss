@@ -106,11 +106,25 @@ body.dark-mode .card {
   color: #FFFFFF;
 
 }
+body.dark-mode .main {
+  background: #171E27;
+  color: #FFFFFF;
+  box-shadow: 0px 8px 25px #72727234;
+  border-color: #434E61;
+
+}
+body.light-mode .main {
+  background: #fff !important;
+  color: #000000;
+  box-shadow: 0 3px 6px #CAD0E2;
+  border: 1px solid #D2D7E5;
+
+}
 body.dark-mode .upload_main {
   background: #171E27;
   color: #FFFFFF;
   box-shadow: 0px 8px 25px #72727234;
-  border: none;
+  border: 1px solid #434E61;
 
 }
 body.light-mode .upload_main {
@@ -296,6 +310,7 @@ body.dark-mode .para {
 
 }
 body.dark-mode .background1 {
+  border: none;
   background-color: #232936;
   
 }
@@ -316,9 +331,7 @@ body.dark-mode .background{
 }
 
 body.light-mode .darknavbar {
-  background: transparent
-  linear-gradient(95deg, #3687e8 0%, #4669b1 58%, #0a1834 100%) 0% 0%
-  no-repeat padding-box;
+  background: transparent linear-gradient(265deg, #3687E8 0%, #4669B1 58%, #0A1834 100%) 0% 0% no-repeat padding-box;
 }
 
 body.dark-mode .darknavbar {
@@ -606,6 +619,7 @@ body.dark-mode th{
   border-color: #434E61 !important;
 }
 body.light-mode th {
+  color: #8492A6;
   border-color: #D9DDE8 !important;
   background: #fafafb !important;
 }
