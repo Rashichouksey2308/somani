@@ -108,7 +108,7 @@ function Index() {
           <div className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#assignmentLetter" aria-expanded="true" aria-controls="assignmentLetter">
                 
           </div>
-           {sales()}
+           {qpa()}
            <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
               <div className={styles.reject}><span>Save</span></div>
         <div className={styles.approve}><span>Submit</span></div>                                
@@ -122,7 +122,7 @@ function Index() {
 }
 
 export default Index
-const sales=()=>{
+const qpa=()=>{
   return(
      <div className="card-body">
       <p>QUADRIPARTITE AGREEMENT BETWEEN <input type="text" className={styles.input_field} placeholder='INDO GERMAN INTERNATIONAL PRIVATE LIMITED (IGI), M/S'/> …………………………………….. (ASSOCIATE), <input className={styles.input_field} type="text" placeholder='M/S. CHA'/>………………………………. (CHA/STEVEDORES) AND <input type="text" className={styles.input_field} placeholder= "DR. AMIN CONTROLLERS PVT. LTD. (Dr. Amin)" /> FOR STOCK MONITORING, CONTROL AND CUSTODY OF IMPORTED <input type="text" className={styles.input_field} placeholder=" THERMAL COAL OF"/> ………………………… <input type="text" className={styles.input_field} placeholder ="ORIGIN" />.</p>
@@ -130,23 +130,23 @@ const sales=()=>{
      {/* <p> <input type="text" className={styles.input_field} placeholder= "M/s INDO GERMAN INTERNATIONAL PRIVATE LIMITED" />, a company incorporated under the Companies Act, 1956, having its <input type="text" className={styles.input_field} placeholder= "registered office"/> at 7A, Sagar Apartments, 6, Tilak Marg, New Delhi-110001 and having its branch office at A-54, Ganga Nagar Society, Near Palanpur Patia, Rander Road,, Surat, Surat, Gujarat, 395009 GSTIN No. 24AAACI3028D1Z8 duly signed by Ms. Bhawana Jain, Vice President  (hereinafter called “IGI"  which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the First Part, 
       </p> */}
       <p>AND</p>
-      <p>M/s …………………………………………………., a company incorporated under the Indian Companies Act, 2013 having its/their Registered Office at …………………………………… and Branch Office at …………………………………………………………….. GSTIN No. ………………………………….. (India) represented through Mr. …………………. who is the Managing Director of the company duly authorized (hereinafter called “Associate Buyer” or ‘’ ………………..”) which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the Second Part.</p>
+      <p> <input type="text" className={styles.input_field} placeholder="M/s"/> <strong>………………………………………………….,</strong> a company incorporated under the Indian Companies Act, 2013 having its/their <input className={styles.input_field} type="text" placeholder= "Registered Office" /> at …………………………………… and <input type="text" className={styles.input_field} placeholder="Branch Office"/> at <strong>……………………………………………………………..</strong> <input type="text" className={styles.input_field} placeholder= "GSTIN No." /> <strong>…………………………………..</strong> <input type="text" className={styles.input_field} placeholder="(India)" /> represented through <input type="text" className={styles.input_field} placeholder="Mr."/> <strong>………………….</strong> who is the Managing Director of the company duly authorized (hereinafter called “Associate Buyer”  <input type="text" className={styles.input_field} placeholder="or"/> ‘’ <strong>………………..</strong>”) which expression shall, where subject and content allow or admit, be deemed to include its <input type="text" className={styles.input_field} placeholder="successors, legal representatives and assigns"/>) of the Second Part.</p>
       <p>AND</p>
-      <p>M/s CHA…………………………….., having its office at …………………………………, having its Branch Office at ………………………………………………………………….. represented by Mr. ------------------------------------------------------------------(hereinafter referred to as “CHA/Stevedore” which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the Third Part.</p>
+      <p><input type="text" className={styles.input_field} placeholder="M/s CHA" /><strong>……………………………..</strong>, having its office at <strong>…………………………………,</strong> having its Branch Office at <strong>…………………………………………………………………..</strong> represented by Mr. <strong>------------------------------------------------------------------</strong>(hereinafter referred to as “CHA/Stevedore” which expression shall, where subject and content allow or admit, be deemed to include its <input type="text" className={styles.input_field} placeholder= "successors, legal representatives and assigns" /> ) of the Third Part.</p>
       <p>AND</p>
-     <p>M/s Dr. Amin Controllers Pvt Ltd, having its office at 6th Floor, Embassy Chambers, Plot No. 5, 3rd Road, Khar (West), Mumbai-400 052, India (hereinafter referred to as “Dr. Amin / CMA Agent” which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the Forth  Part.
+     <p><input type="text" className={styles.input_field} placeholder="Dr. Amin Controllers Pvt Ltd" />M/s , having its office <input type="text" className={styles.input_field} placeholder= "at 6th Floor, Embassy Chambers, Plot No. 5, 3rd Road, Khar (West), Mumbai-400 052, India"/> (hereinafter referred to as <input type="text" className={styles.input_field} placeholder="“Dr. Amin / CMA Agent”" /> which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the Forth  Part.
     </p>
-    <p>WHEREAS IGI has agreed to import …………………….. MT of Thermal Coal of Indonesian Origin per vessel “M.V. …………………………” (hereinafter called “Goods”) from and M/s ……………………………………………………. sell to …………… on stock and sale basis as per Associateship Agreement No. ……………………….  dated ……………….., 2021.</p>     
-    <p>WHEREAS IGI has appointed M/s …………………………. as its Customs House Agent (CHA/Stevedore) for the vessel M.V. …………………. at ………….. Port.</p>
+    <p>WHEREAS <input type="text" className={styles.input_field} placeholder="IGI" /> has agreed to import …………………….. MT of Thermal Coal of Indonesian Origin per vessel “M.V. …………………………” (hereinafter called “Goods”) from and M/s ……………………………………………………. sell to …………… on stock and sale basis as per Associateship Agreement No. ……………………….  dated ……………….., 2021.</p>     
+    <p>WHEREAS <input type="text" className={styles.input_field} placeholder="IGI" /> has appointed M/s …………………………. as its Customs House Agent (CHA/Stevedore) for the vessel M.V. …………………. at ………….. Port.</p>
      <p>WHEREAS ………………………………………….…………., LC opening Bank have a first ranking security right over the Goods and it has appointed Dr. Amin as the Collateral Manager in terms of the Collateral Management Agreement executed by Financing Bank. </p>
      <p  className="text_sales">IT IS NOW HEREBY AGREED BY AND BETWEEN THE PARTIES AS UNDER:-
                 <br/> 
                 <br/>
-                1. Bedi Port has allotted Plot No…………………..& Plot No……………………..to Indo German International Pvt. Ltd. to store Goods imported by IGI per vessel M.V. ………………… The Goods shall be kept under the control and custody of CHA on behalf of IGI. All dispatches from the plot shall be based on Delivery Orders issued by IGI. 
+                1. Bedi Port has allotted Plot No…………………..& Plot No……………………..to Indo German International Pvt. Ltd. to store Goods imported by <input type="text" className={styles.input_field} placeholder="IGI" /> per vessel M.V. ………………… The Goods shall be kept under the control and custody of CHA on behalf of <input type="text" className={styles.input_field} placeholder="IGI" />. All dispatches from the plot shall be based on Delivery Orders issued by <input type="text" className={styles.input_field} placeholder="IGI" />. 
  
                  <br/>
                  <br/>
-                2. FCHA/Stevedore’s scope of work includes arranging plot allotment in the name of IGI, from Bedi Port authorities to store IGI’s cargo, discharge of cargo from the vessel M.V. …………………………, loading of wharf, intra carting at Port, deployment of labors and equipments, transportation from wharf to IGI allotted plot, ensure that the plot where goods are being stored is suitable for the storage of the goods, segregated stacking cargo at plot grade wise, placement of wagon indents, wagon cleaning, wooden plugging, loading into wagons/trucks, leveling of cargo, lime marking on stacks and wagons, placing Railway Indents, Loading on wagons/trucks, Arranging round the clock security cover at the storage area, placing railway indents, liaison with Bedi Port, railways, obtaining RRs and dispatch to ......................’s plant, obtaining gate passes, yard management, maintenance of proper records and registers for incoming and outgoing of material, water sprinkling as per PCB norms and other services as may be required by IGI.
+                2. CHA/Stevedore’s scope of work includes arranging plot allotment in the name of <input type="text" className={styles.input_field} placeholder="IGI" />, from Bedi Port authorities to store <input type="text" className={styles.input_field} placeholder="IGI" /> cargo, discharge of cargo from the vessel M.V. …………………………, loading of wharf, intra carting at Port, deployment of labors and equipments, transportation from wharf to IGI allotted plot, ensure that the plot where goods are being stored is suitable for the storage of the goods, segregated stacking cargo at plot grade wise, placement of wagon indents, wagon cleaning, wooden plugging, loading into wagons/trucks, leveling of cargo, lime marking on stacks and wagons, placing Railway Indents, Loading on wagons/trucks, Arranging round the clock security cover at the storage area, placing railway indents, liaison with Bedi Port, railways, obtaining RRs and dispatch to ......................’s plant, obtaining gate passes, yard management, maintenance of proper records and registers for incoming and outgoing of material, water sprinkling as per PCB norms and other services as may be required by IGI.
 
                  <br/>
                  <br/>
@@ -198,9 +198,33 @@ const sales=()=>{
                     ......... and payments shall be made by ...................... to CHA/Stevedore based on the agreed rate terms & Conditions.  
                 <br/>
                 <br/>
+
+                15. In the event of ...................... does not lift the goods/material within the scheduled period IGI has the right to sell/dispose of the goods/material at the cost of ....................... ...................... shall liable to pay to IGI the loss (if any) incurred by IGI. 
+
+                <br/>
+                <br/>
+
+                16. Any disputes or differences in respect of any matter relating to or arising out of this Quadripartite Agreement between IGI, Dr. Amin, ...................... and CHA/Stevedore shall be settled mutually and if the same is not resolved amicably, then the same will be settled by Arbitration in accordance with Rules of Arbitration formulated by International Arbitration Centre (SIAC)and the award made in pursuance thereof shall be final and binding on the parties.  The venue of the arbitration will be Singapore. The cost of Arbitration shall be borne by the ....................... The English Laws shall apply to this agreement.  The arbitrator shall give a reasoned award
+
+                <br/>
+                <br/>
                 
-                
+                Signed, executed and delivered on the day, month and year first above written.
+
             </p>
+
+            <div className='d-flex justify-content-between align-items-center'>
+            <input type="text" placeholder='For MULIA GREEN RESOURCES PTE LTD. (SELLER)'/>
+            <p>Authorised Signatory</p>
+            </div>
+            <div className='d-flex justify-content-between align-items-center'>
+            <input type="text" placeholder='For INDO INTERNATIONAL TRADING FZCO. (BUYER)'/>
+            <p>Authorised Signatory</p>
+            </div>
+            <div className='d-flex justify-content-between align-items-center'>
+            <p>Authorised Signatory</p>
+            <p>Authorised Signatory</p>
+            </div>
           
           </div>
   )

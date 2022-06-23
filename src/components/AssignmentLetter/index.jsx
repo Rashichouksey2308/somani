@@ -112,7 +112,7 @@ function index() {
                                         
                 
           </div>
-           {sales()}
+           {assignment()}
            <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
               <div className={styles.reject}><span>Save</span></div>
         <div className={styles.approve}><span>Submit</span></div>                                
@@ -126,7 +126,7 @@ function index() {
 }
 
 export default index
-const sales=()=>{
+const assignment=()=>{
   return(
      <div className="card-body">
       <h5 className={styles.sub_heading}>Assignment Letter between: </h5>
@@ -141,24 +141,31 @@ const sales=()=>{
       </p>
       <p>The Buyer hereby confirms to remain responsible for the performance of the said contact, including any failure or delay in the issuance of the L/C in accordance with the terms of the contract and this letter.  Further Hira Power and Steels Ltd (“Buyer”) shall remain ultimately responsible for payment of the price in the event that the Seller is unable to obtain payment under the L/C, and hereby agree to indemnify the Seller for any loss, damage or expense including, without limitation, any liability Eramet Marketing Services (“the Seller”) may incur to Indo International Trading FZCO by reason of the invoice being addressed to Indo International Trading FZCO.
       </p>
-      <p className="text_sales">Yours faithfully,</p>
+      <p className="text_sales">Yours faithfully,
       <br/>
       <br/>
       <br/>
       <br/>
-      <p>……………………………………………………..
-        <br/>
-      ……………………………………………………..</p>
-      <div className='d-flex align-items-center justify-content-between'>
-      <p>ERAMET MARKETING SERVICES (the Seller)</p>
-        <p>INDO INTERNATIONAL TRADING FZCO</p>
-    </div>
-    ………………………………………………………
-    <br/>
-HIRA POWER AND STEELS LTD (the Buyer)
+     
+      </p>
+     
+      <div className='d-flex justify-content-between align-items-center'>
+        <div>
+        <strong>………………………………………………………</strong>
+      <br/>
+      <strong>………………………………………………………</strong>
+      <input type="text" className={`${styles.para}`} placeholder='For INDO INTERNATIONAL TRADING FZCO. (BUYER)'/>
+      </div>
+      <input type="text" className={`${styles.para} pt-5`} placeholder='For INDO INTERNATIONAL TRADING FZCO. (BUYER)'/>
+      </div>
+      <p>
+      <strong>………………………………………………………</strong>
+      <br/>
+      <input type="text" className={`${styles.para} w-100`} placeholder='For INDO INTERNATIONAL TRADING FZCO. (BUYER)'/>
 
-    <p></p>
-          
+      </p>
+      
+                
 
 
       
