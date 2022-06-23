@@ -8,6 +8,8 @@ import '../src/components/styles/globals.scss'
 import React, { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import ErrorBoundary from '../src/components/ErrorBoundary'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import theme from 'theme'
 
@@ -19,6 +21,10 @@ export default function MyApp(props) {
   useEffect(() => {
     import('bootstrap/dist/js/bootstrap.js')
   }, [])
+
+  //  useEffect(() => {
+  //  toast.dark("Wow so easy!");
+  //  })
 
   const { Component, pageProps } = props
   const store = useStore(pageProps.state)
@@ -37,6 +43,17 @@ export default function MyApp(props) {
             <Layout>
               <Component {...pageProps} />
             </Layout>
+            <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
           </ErrorBoundary>
         </Provider>
       </ThemeProvider>
