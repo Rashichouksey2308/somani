@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
 import SalesAgreement from '../../src/components/SalesAgreement'
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement'
+import TPASeller from '../../src/components/TPASeller'
 import QPA from '../../src/components/QPA'
 
 
@@ -33,7 +34,7 @@ function Index() {
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Associateship" role="tab" aria-controls="GST" aria-selected="false">Associateship Agreement</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">TPA (Seller)</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#TPASeller" role="tab" aria-controls="tpaSeller" aria-selected="false">TPA (Seller)</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">TPA (CMA)</a>
@@ -68,6 +69,9 @@ function Index() {
                                  
                                 </div>
                             </div>
+                            <div className="tab-pane fade" id="TPASeller" role="tabpanel">
+                                <div className="accordion" id="tpaSeller">
+                                   <TPASeller/>
                             <div className="tab-pane fade" id="QPA" role="tabpanel">
                                 <div className="accordion" id="qpaAgreement">
                                    <QPA/>
@@ -1137,9 +1141,10 @@ function Index() {
                         </div>
                     </div>
                 </div>
+              </div>
             </div>
         </div>
+      </div>
     )
 }
 export default Index
-
