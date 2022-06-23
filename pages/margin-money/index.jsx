@@ -5,12 +5,13 @@ import RevisedMargin from '../../src/components/RevisedMargin'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
 import UploadOther from '../../src/components/UploadOther'
-
+import DownloadBar from '../../src/components/DownloadBar'
 
 import {Row,Col} from 'react-bootstrap'
 function Index() {
    const darkMode = useDarkMode(false);
     return (
+        <>
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
             <div className={`${styles.tabHeader} tabHeader `}>
               <div className="d-flex align-items-center">
@@ -666,6 +667,8 @@ function Index() {
             </div>
         </div>
         </div>
+        <DownloadBar/>
+        </>
       
     )
 
