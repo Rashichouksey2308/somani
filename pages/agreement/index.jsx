@@ -72,6 +72,8 @@ function Index() {
                             <div className="tab-pane fade" id="TPASeller" role="tabpanel">
                                 <div className="accordion" id="tpaSeller">
                                    <TPASeller/>
+                                   </div>
+                    </div>
                             <div className="tab-pane fade" id="QPA" role="tabpanel">
                                 <div className="accordion" id="qpaAgreement">
                                    <QPA/>
@@ -1138,8 +1140,7 @@ function Index() {
                                 </div>
                             </div> */}
                        
-                        </div>
-                    </div>
+                        
                 </div>
               </div>
             </div>
