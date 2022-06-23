@@ -4,6 +4,7 @@ import styles from './index.module.scss'
 import RevisedMargin from '../../src/components/RevisedMargin'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
+import UploadOther from '../../src/components/UploadOther'
 
 
 import {Row,Col} from 'react-bootstrap'
@@ -30,7 +31,7 @@ function Index() {
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
                   </li> */}
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">Document</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Documents" role="tab" aria-controls="Documents" aria-selected="false">Document</a>
                   </li>
              
               </ul>
@@ -649,6 +650,13 @@ function Index() {
                             <div className="tab-pane fade" id="revisedMargin" role="tabpanel">
                                 <div className={`${styles.card}  accordion_body`}>
                                   <RevisedMargin/>
+                    
+                                </div>
+                            </div>
+
+                            <div className="tab-pane fade" id="Documents" role="tabpanel">
+                                <div className={`${styles.card}  accordion_body`}>
+                                  <UploadOther/>
                     
                                 </div>
                             </div>
