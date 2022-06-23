@@ -692,27 +692,38 @@ const sales=()=>{
                <div>
               <p className="text_sales" > <strong>Schedule 3</strong></p>
              <p className="text_sales" > <strong>Pricing formula</strong></p>
-              <p className="text_sales" > <strong>Pricing formula</strong></p>
+              
               
              <p className="text_sales" > Unit Price: <input className={`${styles.para}`} placeholder="to"></input></p>
               <p className="text_sales" > Quantity:
                           <input className={`${styles.para}`} placeholder="to"></input></p>
                            <p className="text_sales" > <strong>Tentative Exchange Rate for Calculation:
-</strong></p>
+                        </strong></p>
                             <p className="text_sales" > <strong>Currency exchange:</strong></p>
             
-              <p className="text_sales" > </p>
-            
-               <Row>
-              <Col md={6}> 
+              <p className="text_sales" > Provisional basic Price in INR for invoicing by Seller on Associate Buyer will be calculated as under: </p>
+                <p className="text_sales" > Import Price Per Ton, Insurance Premium Cost, Basic Customs Duty, Social Welfare Cess, IGST, GST Compensation cess, CIMS charges and any other duty, cost and/or charges, LC Opening Charges, Custodian Charges (CMA), Usance Interest, trade margin of the Seller, as applicable </p>
+                  <p className="text_sales" >Cess, GST, TCS @ 1%, CIMS Charges etc., shall be borne by the Associate Buyer including payment to the Associate Buyer’s nominated Stevedoring Handling Agent, M/s ……………………………………………………………. purpose of allocating the plot to the Seller, arranging discharge, movement and delivery of cargo to the Associate Buyer strictly against the written delivery order issued by Seller. All responsibility risk, damage, shortage, Quality Issues if any in this regard is the sole responsibility of the Associate Buyer. The expenses for such services shall also be borne by the Associate Buyer and will be included in the sale price of Goods/Services </p>
+                  <p className="text_sales" >The INR: USD exchange rate price will be taken as above for calculation purpose. The final invoicing will be done in INR and the INR price shall be calculated on basis exchange rate at which the payment of Import is made or forward is booked. The exchange rate difference loss or gain both will be to the Associate Buyer account. </p>
+                   <p className="text_sales" >The final price so worked out shall be reflected in the last invoice carrying out all adjustments regarding exchange rate variation / expenses & charges.</p>
              
-              <p className="text_sales" >Date: <input className={`${styles.para}`} placeholder="Name"></input></p> 
-              </Col>
-              <Col md={6}>
-              <p className="text_sales" >Name : <input className={`${styles.para}`} placeholder="Name"></input></p> 
-              <p className="text_sales" >MANAGING DIRECTOR</p> 
-              </Col>
-            </Row>
+          
+              </div>
+               <div>
+              <p className="text_sales" > <strong>Schedule 4</strong></p>
+             <p className="text_sales" > <strong>Advance Payment by Associate Buyer </strong></p>
+              
+            
+            
+              <p className="text_sales" > he Associate Buyer shall make payment of ____% of the total Contract Value along with trade margin and Usance Interest as Advance, prior to opening of LC by Indo on the Supplier. 
+ </p>
+                <p className="text_sales" >Indo will open the LC in favor of Supplier within 5 working days of receipt of the Advance as stated herein.
+ </p>
+                  <p className="text_sales" >The margin money shall be adjusted at the time of issuance of the last release order.
+ </p>
+                  <p className="text_sales" >The INR: USD exchange rate price will be taken as above for calculation purpose. The final invoicing will be done in INR and the INR price shall be calculated on basis exchange rate at which the payment of Import is made or forward is booked. The exchange rate difference loss or gain both will be to the Associate Buyer account.It is expressly clarified that the margin money @..................% shall be maintained on Mark-to-Market (M2M) basis on the prevailing exchange rate of INR: USD and market price of the commodity.  In the event of shortfall in the margin money, Seller have the right & the Associate Buyer has the obligation to pay the shortfall amount forthwith in any case not later than 5 days from the date of such demands.The final price so worked out shall be reflected in the last invoice carrying out all adjustments regarding exchange rate variation / expenses & charges.</p>
+             
+          
               </div>
 
 

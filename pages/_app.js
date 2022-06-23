@@ -7,6 +7,7 @@ import { useStore } from 'store'
 import '../src/components/styles/globals.scss'
 import React, { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
+import ErrorBoundary from '../src/components/ErrorBoundary'
 
 import theme from 'theme'
 
@@ -32,9 +33,11 @@ export default function MyApp(props) {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Provider store={store}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <ErrorBoundary>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ErrorBoundary>
         </Provider>
       </ThemeProvider>
     </>

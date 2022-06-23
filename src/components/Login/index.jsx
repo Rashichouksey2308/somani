@@ -41,7 +41,7 @@ function Index(props) {
   const onSubmitHandler = (e) => {
      //e.preventDefault();
    
-    const encodedString =  Buffer.from(`${loginDetails.email}:${loginDetails.password}`).toString('base64');
+    const encodedString =  Buffer.from(`${loginDetails.email.trim()}:${loginDetails.password.trim()}`).toString('base64');
     dispatch(loginUser({
       "credentials": encodedString
     }))

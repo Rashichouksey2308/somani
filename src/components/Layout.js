@@ -10,21 +10,19 @@ import Login from '../components/Login'
 import { useSelector, useDispatch } from 'react-redux'
 import Cookies from 'js-cookie'
 import { validateToken } from '../redux/authentication/actions'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function Layout({ children }) {
   const [isLogin, setIsLogin] = useState(false)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)
 
   // useEffect(() => {
   //   toast.dark("Wow so easy!");
   // })
+  console.log('test build')
 
   useEffect(() => {
     const isuserlogged = Cookies.get('SOMANI')
@@ -33,11 +31,11 @@ function Layout({ children }) {
       dispatch(validateToken())
     }
     setIsLogin(isuserlogged)
-  }, [isuserLoggedin]);
+  }, [isuserLoggedin])
 
   return (
     <>
-       {isLogin ? 
+      {isLogin ? (
         <div className={styles.root_Container}>
           <div className={styles.navContainer}>
             <Navbar />
@@ -64,15 +62,11 @@ function Layout({ children }) {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            />
-
+          />
         </div>
-        
-        
-        :
+      ) : (
         <Login />
-      } 
-
+      )}
     </>
   )
 }
