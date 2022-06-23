@@ -11,7 +11,7 @@ export default function index() {
             <h5 className={`${styles.unit_label} accordion_Text`}>
               Currency :
             </h5>
-            <select className={`${styles.options} accordion_DropDown`}>
+            <select className={`${styles.options} text accordion_DropDown`}>
               <option>INR</option>
             </select>
           </div>

@@ -26,9 +26,9 @@ export default function Home() {
     
       <div className='container-fluid background1'>
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} card border-color`}>
+          <div className={`${styles.main} card border_color`}>
             <div
-              className={`${styles.head_container} card-header head_container justify-content-between d-flex bg-transparent`}
+              className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Basic Details</h3>
               <div>
@@ -42,7 +42,7 @@ export default function Home() {
                 <button className={styles.add_btn}>Add</button>
               </div>
             </div>
-            <div className={`${styles.dashboard_form}`}>
+            <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className={`${styles.form_group} col-md-3 col-sm-6`}>
                   <input
@@ -97,7 +97,7 @@ export default function Home() {
               </div>
             </div>
             <hr></hr>
-            <div className={styles.dashboard_form}>
+            <div className={`${styles.dashboard_form} card-body`}>
               <h3 className={styles.sub_heading}>Transit Details</h3>
 
               <div className="row">
@@ -160,7 +160,7 @@ export default function Home() {
             </div>
 
             <hr></hr>
-            <div className={styles.dashboard_form}>
+            <div className={`${styles.dashboard_form} card-body`}>
               <h3 className={styles.sub_heading}>Vessel Information</h3>
 
               <div className="row">
@@ -234,7 +234,7 @@ export default function Home() {
           </div>
           <div className={`${styles.main} mb-4 card border-color mt-4`}>
             <div
-              className={`${styles.head_container} head_container d-flex justify-content-between`}
+              className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
             >
               <h3 className={styles.heading}>Upload Documents</h3>
               <span>+</span>
