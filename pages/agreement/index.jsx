@@ -1,10 +1,9 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
-import Order from '../../src/components/Order';
-import ShipmentDetails from '../../src/components/ShipmentDetails'
 import SalesAgreement from '../../src/components/SalesAgreement'
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement'
+import QPA from '../../src/components/QPA'
 
 
 import { Form } from 'react-bootstrap'
@@ -44,7 +43,7 @@ function Index() {
                   </li>
 
                 <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">QPA</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#QPA" role="tab" aria-controls="qpaAgreement" aria-selected="false">QPA</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">Document</a>
@@ -66,6 +65,12 @@ function Index() {
                             <div className="tab-pane fade" id="Assignment" role="tabpanel">
                                 <div className="accordion" id="assignmentLetter">
                                    <AssignmentLetter/>
+                                 
+                                </div>
+                            </div>
+                            <div className="tab-pane fade" id="QPA" role="tabpanel">
+                                <div className="accordion" id="qpaAgreement">
+                                   <QPA/>
                                  
                                 </div>
                             </div>
