@@ -3,8 +3,8 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={styles.main}>    
-        <div className={`${styles.head_container} border_color card-header d-flex justify-content-between`} data-toggle="collapse" data-target="#termDetails" aria-expanded="true" aria-controls="termDetails">
+    <div className={`${styles.main} main`}>    
+        <div className={`${styles.head_container} border_color d-flex justify-content-between`} data-toggle="collapse" data-target="#termDetails" aria-expanded="true" aria-controls="termDetails">
             <h3 className={styles.heading}>Termsheet</h3>
             <span>+</span>
         </div> 

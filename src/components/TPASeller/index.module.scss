@@ -73,8 +73,17 @@
         color: #3687E8;
 
     }
-    div{
-            padding: 1rem !important;
+    .cardBody {
+        padding: 1rem !important;
+        padding-top: 3rem !important;
+        .heading {
+            font-size: 20px;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            span {
+                text-decoration: underline;
+            }
+        }
         p{  
             font-size: 20px;
             margin-bottom: 2rem;

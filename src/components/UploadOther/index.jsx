@@ -6,7 +6,7 @@ const index = () => {
   return (
     <div className={`${styles.upload_main} upload_main`}>
       <div
-        className={`${styles.head_container} d-flex justify-content-between`}
+        className={`${styles.head_container} border_color d-flex justify-content-between`}
         data-toggle="collapse"
         data-target="#uploadOther"
         aria-expanded="true"
