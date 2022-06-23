@@ -1,3 +1,4 @@
+@import "../styles/Core/config";
 .card {
   //box-shadow: 0px 3px 12px #E5E7ED;
   border: 1px solid #D2D7E5;
@@ -59,6 +60,15 @@
           color: #2884DE;
           text-transform: capitalize;
           font-weight: bold;
+            @include respond(xl-desktop) {
+              font-size: 20px;
+            }
+            @include respond(lg-desktop) {
+                font-size: 20px;
+              }
+             @include respond(md-desktop) {
+                               font-size: 15px;
+                             }
         }
       .total {
           font-size:14px ;
