@@ -5,6 +5,7 @@ import Order from '../../src/components/Order';
 import ShipmentDetails from '../../src/components/ShipmentDetails'
 import SalesAgreement from '../../src/components/SalesAgreement'
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement'
+import TPASeller from '../../src/components/TPASeller'
 
 
 import { Form } from 'react-bootstrap'
@@ -34,7 +35,7 @@ function Index() {
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Associateship" role="tab" aria-controls="GST" aria-selected="false">Associateship Agreement</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">TPA (Seller)</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#TPASeller" role="tab" aria-controls="tpaSeller" aria-selected="false">TPA (Seller)</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">TPA (CMA)</a>
@@ -66,6 +67,12 @@ function Index() {
                             <div className="tab-pane fade" id="Assignment" role="tabpanel">
                                 <div className="accordion" id="assignmentLetter">
                                    <AssignmentLetter/>
+                                 
+                                </div>
+                            </div>
+                            <div className="tab-pane fade" id="TPASeller" role="tabpanel">
+                                <div className="accordion" id="tpaSeller">
+                                   <TPASeller/>
                                  
                                 </div>
                             </div>
