@@ -185,17 +185,13 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                 />
                 <datalist id="tickmarks">
                   <option value="0" label="0"></option> 
-                  <option>
-                    <div className='d-flex flex-column align-items-center'>
-                      <div>&apos;</div>
-                      <div>20</div>
-                    </div>
-                  </option>
+                  <option value="20" label="20"></option>
                  <option value="40" label="40"></option>
                   <option value="60" label="60"></option>
                   <option value="80" label="80"></option>
                   <option value="100" label="100"></option>
                 </datalist>
+                <div className= {`${styles.more_label} d-flex justify-content-end mr-n2`}>or more</div>
               </div>
             </div>
             <div
