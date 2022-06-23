@@ -74,7 +74,7 @@ function Index() {
    return
     }
    console.log("open",val)
-   setClassName(`${styles.openlist}`)
+   setClassName(`${styles.openlist} `)
    setcategory(val)
     setIndex(index)
    return index
@@ -106,7 +106,7 @@ console.log(tempArr,"yem")
                   {val.Other.length>0?
                      val.Other.map((other,index2)=>{
                          const className12 = 
-                         index12 == index?`${styles.openlist}`: null
+                         index12 == index?`${styles.openlist} sidebar-selected`: null
                      return(
                      <>
                       <div index={index2} className={`${styles.sub_header} ${className12}`}
