@@ -198,8 +198,19 @@ const sales=()=>{
                     ......... and payments shall be made by ...................... to CHA/Stevedore based on the agreed rate terms & Conditions.  
                 <br/>
                 <br/>
+
+                15. In the event of ...................... does not lift the goods/material within the scheduled period IGI has the right to sell/dispose of the goods/material at the cost of ....................... ...................... shall liable to pay to IGI the loss (if any) incurred by IGI. 
+
+                <br/>
+                <br/>
+
+                16. Any disputes or differences in respect of any matter relating to or arising out of this Quadripartite Agreement between IGI, Dr. Amin, ...................... and CHA/Stevedore shall be settled mutually and if the same is not resolved amicably, then the same will be settled by Arbitration in accordance with Rules of Arbitration formulated by International Arbitration Centre (SIAC)and the award made in pursuance thereof shall be final and binding on the parties.  The venue of the arbitration will be Singapore. The cost of Arbitration shall be borne by the ....................... The English Laws shall apply to this agreement.  The arbitrator shall give a reasoned award
+
+                <br/>
+                <br/>
                 
-                
+                Signed, executed and delivered on the day, month and year first above written.
+
             </p>
           
           </div>
