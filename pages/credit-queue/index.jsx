@@ -56,7 +56,7 @@ function Index() {
           <div className="d-flex align-items-center">
             <div className={styles.iconBox}>
               <img
-                src="/static/leads.svg"
+                src="/static/Leads.svg"
                 className="img-fluid"
                 alt="All Leads"
               />
