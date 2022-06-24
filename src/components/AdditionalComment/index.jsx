@@ -38,7 +38,7 @@ const index = () => {
                     </div>
                     <div className={`${styles.form_group} col-md-9`}>
                         <div className={`${styles.comment_para} d-flex justify-content-between`}>
-                            <div className={`{styles.comment}`}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                  
+                            <div className={styles.comment}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                  
                             <img src="/static/mode_edit.svg" className="img-fluid ml-2" alt="Edit"/>
                             <img src="/static/delete.svg" className="img-fluid ml-2" alt="Delete"/>
                         </div>
