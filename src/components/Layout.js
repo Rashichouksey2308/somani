@@ -14,7 +14,7 @@ import { validateToken } from '../redux/authentication/actions'
 
 function Layout({ children }) {
   const [isLogin, setIsLogin] = useState(false)
-   const sidebar = useSelector((state) => state.sidebar)
+   //const sidebar = useSelector((state) => state.sidebar.show_sidebar)
 
 
   const dispatch = useDispatch()
@@ -41,7 +41,8 @@ function Layout({ children }) {
           </div>
           <div className={styles.wrapper}>
             <div className={styles.sidebarContainer}>
-              <Sidebar />
+               <Sidebar /> 
+              {/* {sidebar ? <Sidebar/> : null} */}
             </div>
             <div className={styles.mainView_Container}>
               <Breadcrum />
