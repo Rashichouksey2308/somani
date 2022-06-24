@@ -59,16 +59,16 @@ const whatsappFunction = (e) => {
   // console.log(companyDetails, "new company details")
 }
  
-  // useEffect(async () => {
-  //   // const pan = companyDetails.companyPan
-  //   // console.log(pan)
-  //   // const response = await axios.post('http://localhost:3002/node/api/get-gst')
-  //   // console.log(response)
-  //   if(companyDetails.companyPan !== ''){
-  //     dispatch(GetGst(companyDetails.companyPan))
-  //   // const response = await axios.post('http://localhost:3002/node/api/get-gst', {pan : companyDetails.companyPan})
-  //   }
-  // }, [companyDetails.companyPan])
+  useEffect(() => {
+    // const pan = companyDetails.companyPan
+    // console.log(pan)
+    // const response = await axios.post('http://localhost:3002/node/api/get-gst')
+    // console.log(response)
+    if(companyDetails.companyPan !== ''){
+     dispatch(GetGst(companyDetails.companyPan))
+    // const response = await axios.post('http://localhost:3002/node/api/get-gst', {pan : companyDetails.companyPan})
+    }
+  }, [companyDetails.companyPan])
  
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
@@ -134,15 +134,6 @@ const whatsappFunction = (e) => {
 
   const submitData = () => {
     //register api call
-
-    // const payload={
-    //   companyProfile: companyDetails,
-    //   orderDetails: orderDetails,
-    //   documentType: documents.typeOfDocument,
-    //   document1: documents.document1,
-    //   document2: documents.document2
-      
-    // }
       
     const fd = new FormData()
 

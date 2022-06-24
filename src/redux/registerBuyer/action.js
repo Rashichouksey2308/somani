@@ -130,6 +130,24 @@ function getGstFailed() {
   }
 }
 
+
+//////////**********  Image UPload   *********////////////
+
+function uploadingDocument () {
+  return { type: types.UPLOADDOCUMENT };
+}
+
+function uploadingDocumentSuccess () {
+  return { type: types.UPLOADDOCUMENT_SUCCESS };
+}
+
+function uploadingDocumentFailed () {
+  return { type: types.UPLOADDOCUMENT_FAILED };
+}
+
+
+
+
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(createBuyer())
   let cookie = await Cookies.get('SOMANI')
@@ -335,3 +353,23 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
     console.log('GET GST API FAILED')
   }
 }
+
+export const uploadDocument = (payload) => async (dispatch, getState, api) => {
+  try {
+    let documentType = payload.DocumentType;
+    let documentData = new FormData();
+    documentData.append('document', payload.file);
+    documentData.append('documentType', payload.DocumentType);
+    dispatch(uploadingDocument());
+    let response = await api.post(API.uploadDocuments, documentData, {
+      headers: { documentType },
+    });
+    if (response.data.code === 200) {
+      dispatch(uploadingDocumentSuccess());
+    } else {
+      dispatch(uploadingDocumentFailed());
+    }
+  } catch (error) {
+    dispatch(uploadingDocumentFailed());
+  }
+};

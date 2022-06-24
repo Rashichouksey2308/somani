@@ -7,6 +7,13 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
   console.log(orderDetail, "order detail comp")
 
+  const saveDate = (e) => {
+    // console.log(e.target.value, "this is date")
+    const d = new Date(e.target.value);
+    let text = d.toISOString()
+    saveOrderData( e.target.name, text)
+  }
+
   return (
     <div className={`${styles.main} card border-color`}>
       <div
@@ -134,9 +141,11 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`}>
+                <select className={`${styles.input_field} input form-control`} name='countryOfOrigin'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}>
                   <option value="volvo">{orderDetail?.countryOfOrigin}</option>
-                  <option value="audi">India</option>
+                  <option value="India">India</option>
+                  <option value="America">America</option>
+                  <option value="Russia">Russia</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Country Of Origin<strong className="text-danger">*</strong>
@@ -159,9 +168,11 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`}>
+                <select className={`${styles.input_field} input form-control`} name='supplierName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}>
                   <option value="volvo">{orderDetail?.supplierName}</option>
-                  <option value="audi">Traders</option>
+                  <option value="TATA">TATA</option>
+                  <option value="Mittal">Mittal</option>
+                  <option value="Reliance">Reliance</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Supplier Name<strong className="text-danger">*</strong>
@@ -169,9 +180,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`}>
-                  <option value="volvo">Select Mines</option>
-                  <option value="audi">Manufacturers</option>
+                <select className={`${styles.input_field} input form-control`} name='manufacturerName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
+                  <option value="volvo">{orderDetail.manufacturerName}</option>
+                  <option value="CBX">CBX</option>
+                  <option value="ABX">ABX</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Manufacturer / Mines name
@@ -180,9 +192,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`}>
-                  <option value="volvo">Select Port</option>
-                  <option value="audi">Mumbai</option>
+                <select className={`${styles.input_field} input form-control`} name='portOfDischarge'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
+                  <option value="volvo">{orderDetail.portOfDischarge}</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Vizag">Vizag</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Port Of Discharge<strong className="text-danger">*</strong>
@@ -190,9 +203,11 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`}>
-                  <option value="volvo">FOB</option>
-                  <option value="audi">Audi</option>
+                <select className={`${styles.input_field} input form-control`}  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
+                  <option value="volvo">{orderDetail.incoTerm}</option>
+                  <option value="CFR">CFR</option>
+                  <option value="CIF">CIF</option>
+                  <option value="FOB">FOB</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   INCO Terms<strong className="text-danger">*</strong>
@@ -203,6 +218,9 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
+                  defaultValue={orderDetail.ExpectedDateOfShipment.split('T')[0]}
+                  name='ExpectedDateOfShipment'
+                  onChange={(e) => { saveDate(e, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Expected Date Of Shipment
@@ -215,15 +233,18 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={orderDetail.transactionPeriodDays}
+                  name='transactionPeriodDays'
+                  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Transaction Period (Days)
                   <strong className="text-danger">*</strong>
                 </Form.Label>
               </Form.Group>
-              <div className={styles.button}>
+              {/* <div className={styles.button}>
                 <span>Submit</span>
-              </div>
+              </div> */}
             </div>
           </Form>
         </div>
