@@ -14,6 +14,8 @@ import { validateToken } from '../redux/authentication/actions'
 
 function Layout({ children }) {
   const [isLogin, setIsLogin] = useState(false)
+   const sidebar = useSelector((state) => state.sidebar)
+
 
   const dispatch = useDispatch()
   const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)

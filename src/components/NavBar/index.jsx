@@ -10,20 +10,19 @@ import { logoutUser } from 'redux/authentication/actions';
 
 
 function Index() {
- // const sidebar = useSelector((state) => state.sidebar)
    const dispatch = useDispatch();
     let a=false
     const darkMode = useDarkMode(false);
 
     // console.log(darkMode,"darkMode")
 
-   /* const handleOpen = () => {
+    const handleOpen = () => {
      if (!sidebar) {
-     dispatch(showSidebar())
+     dispatch(showSidebar(true))
      } else  {
-       dispatch(hideSidebar())
+       dispatch(hideSidebar(false))
      }  
-   }  */
+   }  
 
   return (
 
@@ -34,7 +33,7 @@ function Index() {
       <div className="d-flex align-items-center">
         <div className={`${`flex-grow-1`} ${styles.hamburgureContainer}`}>
           <div className={`${styles.logo2} ${`flex-grow-1`}`} 
-          // onClick={ () => handleOpen() }  
+           onClick={ () => handleOpen() }  
           >
             <a href="#">
               <img src="/static/menu.svg" alt="Logo1" className="img-fluid" />

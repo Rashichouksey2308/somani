@@ -12,15 +12,17 @@ import * as types from './actionType'
 
 */ }
 
-export const showSidebar = () => {
+export const showSidebar = (payload) => {
     return({
         type: types.SHOW_SIDEBAR,
+        payload
         
     })
 }
-export const hideSidebar = () => {
+export const hideSidebar = (payload) => {
     return({
         type: types.HIDE_SIDEBAR,
+        payload
         
     })
 } 
