@@ -11,7 +11,7 @@ const index = () => {
         <div id="termDetails" className="collapse" aria-labelledby="termDetails" data-parent="#termDetails">      
 
         <div className={`${styles.dashboard_form} card-body`}>
-            <h3 className={`${styles.sub_heading} `}>Commodity details</h3>
+            <h3 className={`${styles.sub_heading}`}>Commodity details</h3>
             
                 <div className='row'>               
                     <div className={`${styles.form_group} col-md-4 col-sm-6`} >

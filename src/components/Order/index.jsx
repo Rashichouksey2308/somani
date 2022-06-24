@@ -221,9 +221,9 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   <strong className="text-danger">*</strong>
                 </Form.Label>
               </Form.Group>
-              <div className={styles.button}>
+              {/* <div className={styles.button}>
                 <span>Submit</span>
-              </div>
+              </div> */}
             </div>
           </Form>
         </div>

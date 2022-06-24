@@ -33,7 +33,7 @@ export default function Home() {
         </div>
        
                 </div>  
-                <div className={`${styles.dashboard_form}`}>
+                <div className={`${styles.dashboard_form} card-body`}>
       
                <div className='row '>
                
@@ -67,7 +67,7 @@ export default function Home() {
           
             </div>
             <hr></hr>
-            <div className={styles.dashboard_form}>
+            <div className={`${styles.dashboard_form} card-body`}>
             <h3 className={styles.sub_heading}>Transit Details</h3>
            
                 <div className='row'>               
@@ -106,7 +106,7 @@ export default function Home() {
            </div>
 
            <hr></hr>
-            <div className={styles.dashboard_form}>
+            <div className={`${styles.dashboard_form} card-body`}>
             <h3 className={styles.sub_heading}>Vessel Information</h3>
            
                 <div className='row'>    
@@ -136,7 +136,7 @@ export default function Home() {
 
             </div>
             <div className={`${styles.main} card mb-4 border-color mt-4`}>
-            <div className={`${styles.head_container} head_container d-flex justify-content-between`}
+            <div className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
             data-toggle="collapse"
             data-target="#upload"
             aria-expanded="true"

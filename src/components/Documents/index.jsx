@@ -52,7 +52,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
 
   return (
     <div className={`${styles.main} border_color`}>
-      <div  className={`${styles.heading} heading_card`}>Documents</div>
+      <div  className={`${styles.heading} heading_card_switch_blue`}>Documents</div>
 
       <div className={`${styles.input_container} row align-items-center`}>
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>

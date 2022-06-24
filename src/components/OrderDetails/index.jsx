@@ -12,7 +12,7 @@ const index = ({ saveOrderData, darkMode }) => {
   }
   return (
     <div className={`${styles.main} border_color`}>
-      <div className={`${styles.heading} heading_card`}>Order Details</div>
+      <div className={`${styles.heading} heading_card_switch_blue`}>Order Details</div>
       <form id="OrderDetailsForm">
         <div className={`${styles.input_container} row`}>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
@@ -45,7 +45,8 @@ const index = ({ saveOrderData, darkMode }) => {
 
           <div className={`${styles.each_input} ${styles.phone} col-md-2 col-sm-3`}>
             <div className={styles.phone_card}>
-              <select className={`${styles.code_phone} input w-50 border-right-0`}>
+              <select className={`${styles.code_phone} input border-right-0`}
+              style={{width:"40%"}}>
                 <option>Select order values</option>
                 <option selected>$</option>
                 <option>INR</option>
