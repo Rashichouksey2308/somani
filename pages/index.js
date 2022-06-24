@@ -55,7 +55,7 @@ const IndexPage = () => {
               </div>
             </div>
             <div className={styles.bottom_Container}>
-              <div className={`${styles.leads}`}>
+              <div className={`${styles.leads} card`}>
                 <div
                   className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}
                 >
