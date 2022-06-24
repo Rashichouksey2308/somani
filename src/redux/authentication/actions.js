@@ -343,10 +343,10 @@ export const validateToken = () => async (dispatch, getState, api) => {
       return dispatch(validatingTokenSuccess(response.data.data))
 
     if (response.data.code === 401 || response.data.code === 402)
-      return console.log('unverified token')
+     
     return dispatch(generateToken())
 
-    await Cookies.remove('jwtAccessToken')
+   
     dispatch(validatingTokenFailed(response.data))
   } catch (error) {
     console.log(error, "validating token failed")
