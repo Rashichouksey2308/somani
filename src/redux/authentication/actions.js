@@ -326,19 +326,18 @@ export const fetchCurrentUserProfile =
 //********  Verify User Token Validity  ********//
 export const validateToken = () => async (dispatch, getState, api) => {
   dispatch(validatingToken())
-  let cookie = Cookies.get('SOMANI')
-  if (cookie) {
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  }
+  let cookie = Cookies.get('SOMANI')
+
   try {
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
       headers: {
         authorization: jwtAccessToken,
       },
     })
-    console.log(response, 'verify Token')
+
 
     if (response.data.code === 200)
       return dispatch(validatingTokenSuccess(response.data.data))
@@ -350,6 +349,7 @@ export const validateToken = () => async (dispatch, getState, api) => {
     await Cookies.remove('jwtAccessToken')
     dispatch(validatingTokenFailed(response.data))
   } catch (error) {
+    console.log(error, "validating token failed")
     return dispatch(validatingTokenFailed(errorMessage))
   }
 }
@@ -396,21 +396,21 @@ export const logoutUser = () => (dispatch, getState, api) => {
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   try {
-  Axios.get(`${API.authbaseUrl}${API.logout}`, {
-    headers: {
-      authorization: jwtAccessToken,
-    },
-  }).then((response) => console.log(response, 'logout Response'))
-  Cookies.remove('SOMANI')
+    Axios.get(`${API.authbaseUrl}${API.logout}`, {
+      headers: {
+        authorization: jwtAccessToken,
+      },
+    }).then((response) => console.log(response, 'logout Response'))
+    Cookies.remove('SOMANI')
 
-  dispatch(loggingoutUser())
-  setTimeout(() => {
-    window.location.reload()
-  }, 1000)
-}
- catch (error) {
-  console.log(error,  "LOGOUT API FAILED")
-}
+    dispatch(loggingoutUser())
+    setTimeout(() => {
+      window.location.reload()
+    }, 1000)
+  }
+  catch (error) {
+    console.log(error, "LOGOUT API FAILED")
+  }
 }
 
 //****** Reset Password   ********//
