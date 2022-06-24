@@ -745,3 +745,11 @@ body.light-mode .explore-value {
 body.dark-mode .explore-value {
   color: #FFFFFF80;
 }
+body.light-mode .cta_bar {
+  background: #ffffff;
+}
+body.dark-mode .cta_bar {
+  box-shadow: none;
+  background: #232936;
+  border-color: #232936;
+}
