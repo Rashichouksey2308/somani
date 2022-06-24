@@ -26,7 +26,7 @@ const index = ({orderDetail, saveShipmentData}) => {
                 </Form.Group>
 
                 <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
-                    <Form.Control className={`${styles.input_field} input form-control`} name="ETAofDischarge.fromDate" type="date" defaultValue={shipmentDetail.ETAofDischarge.fromDate.split('T')[0]} onChange={(e)=>{saveShipmentData(e.target.name , e.target.value)}} />
+                    <Form.Control className={`${styles.input_field} input form-control`} name="ETAofDischarge" type="date" defaultValue={shipmentDetail.ETAofDischarge.fromDate.split('T')[0]} onChange={(e)=>{saveShipmentData(e.target.name , e.target.value)}} />
                     <Form.Label className={`${styles.label_heading} label_heading`}>Laycan at Load Port from<strong className="text-danger">*</strong></Form.Label>
 
                     </Form.Group>
