@@ -4,7 +4,7 @@
   .heading {
       font-size: 20px;
       letter-spacing: 0.19px;
-      color: #111111;
+   
       font-weight: bold;
       line-height: 25px;
   }
@@ -89,7 +89,29 @@
                   color: #666666;
                   text-transform: capitalize;
                   width: 100%;
-              }              
+                  margin-top: 8px;
+
+                  option {
+                    position: relative;
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        background: #707070;
+                        width: 2px;
+                        height: 5px;
+                        top: -4px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+                  }
+              } 
+              .more_label{
+                text-align: center;
+                letter-spacing: 0.12px;
+                color: #666666;
+                font-size: 13px;
+                line-height: 13px;
+              }             
               .slider::-webkit-slider-thumb {
                   -webkit-appearance: none;
                   appearance: none;

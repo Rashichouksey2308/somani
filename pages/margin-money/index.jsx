@@ -4,12 +4,14 @@ import styles from './index.module.scss'
 import RevisedMargin from '../../src/components/RevisedMargin'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode';
-
+import UploadOther from '../../src/components/UploadOther'
+import DownloadBar from '../../src/components/DownloadBar'
 
 import {Row,Col} from 'react-bootstrap'
 function Index() {
    const darkMode = useDarkMode(false);
     return (
+        <>
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
             <div className={`${styles.tabHeader} tabHeader `}>
               <div className="d-flex align-items-center">
@@ -26,11 +28,11 @@ function Index() {
                   <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#revisedMargin" role="tab" aria-controls="revisedMargin" aria-selected="false">Revised Margin Money</a>
                   </li>
-                  <li className={`${styles.navItem} nav-item`}>
+                  {/* <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
-                  </li>
+                  </li> */}
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">Document</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Documents" role="tab" aria-controls="Documents" aria-selected="false">Document</a>
                   </li>
              
               </ul>
@@ -652,12 +654,21 @@ function Index() {
                     
                                 </div>
                             </div>
+
+                            <div className="tab-pane fade" id="Documents" role="tabpanel">
+                                <div className={`${styles.card}  accordion_body`}>
+                                  <UploadOther/>
+                    
+                                </div>
+                            </div>
                           
                     </div>
                 </div>
             </div>
         </div>
         </div>
+        <DownloadBar/>
+        </>
       
     )
 

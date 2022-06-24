@@ -25,25 +25,25 @@ function Index() {
 
 
   return (
-    <div className='container-fluid mb-4'> 
+    <div className='container-fluid mb-4 card'> 
       <div className={`${styles.filter} d-flex align-items-center`}>
         <div className={styles.search}>
           <div className="input-group">
             <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
               <img src="/static/search.svg" className="img-fluid" alt="Search" />
             </div>
-            <input type="text" className={`${styles.formControl} form-control`} placeholder="Search" />
+            <input type="text" className={`${styles.formControl} form-control formControl `} placeholder="Search" />
           </div>
          
         </div>
         <a className={styles.filterIcon}>
         <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
       </a>
-      <a href="#" className={styles.filterList}>
+      <a href="#" className={`${styles.filterList} filterList `}>
         Ramesh Shetty
         <img src="/static/close.svg" className="img-fluid" alt="Close" />
       </a>
-      <a href="#" className={styles.filterList}>
+      <a href="#" className={`${styles.filterList} filterList `}>
         Raj Traders
         <img src="/static/close.svg" className="img-fluid" alt="Close" />
       </a>
@@ -51,12 +51,12 @@ function Index() {
      
       {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
 
-      <div className={`${styles.statusBox} d-flex align-items-center justify-content-between`}>
+      <div className={`${styles.statusBox} statusBox  d-flex align-items-center justify-content-between`}>
         <div className={`${styles.all} ${styles.boxInner}`}>
           <div className="d-flex align-items-center">
             <div className={styles.iconBox}>
               <img
-                src="/static/leads.svg"
+                src="/static/Leads.svg"
                 className="img-fluid"
                 alt="All Leads"
               />
@@ -124,14 +124,14 @@ function Index() {
           </div>
         </div>
       </div>
-      <div className={styles.datatable}>
+      <div className={`${styles.datatable} datatable `}>
         <div className={`${styles.tableFilter} d-flex justify-content-between`}>
-          <h3>Credit Queue</h3>
+          <h3 className="heading_card">Credit Queue</h3>
           <div
             className={`${styles.pageList} d-flex justify-content-end align-items-center`}
           >
             <span>Showing Page 1 out of 10</span>
-            <a href="#" className={`${styles.arrow} ${styles.leftArrow}`}>
+            <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
               {' '}
               <img
                 src="/static/keyboard_arrow_right-3.svg"
@@ -139,7 +139,7 @@ function Index() {
                 className="img-fluid"
               />
             </a>
-            <a href="#" className={`${styles.arrow} ${styles.rightArrow}`}>
+            <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
               <img
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="arrow right"
@@ -149,7 +149,7 @@ function Index() {
           </div>
         </div>
         <table
-          className={`${styles.table} table`}
+          className={`${styles.table} table table_row` }
           cellPadding="0"
           cellSpacing="0"
           border="0"
@@ -168,7 +168,7 @@ function Index() {
           <tbody>
              {allBuyerList &&
               allBuyerList.data?.data?.map((buyer, index) => (
-                <tr key={index}>
+                <tr key={index} className={`${styles.table_row} table_row`}>
                   {buyer.queue === 'CreditQueue' ? (
                     <>
                       <td>{buyer.company.customerId}</td>

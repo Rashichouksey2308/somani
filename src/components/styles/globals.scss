@@ -80,6 +80,14 @@ body.dark-mode .sidebar-bg {
 body.light-mode .sidebar-bg {
   background: #0A1834;
 }
+body.dark-mode .sidebar-selected {
+  background: #232936 0% 0% no-repeat padding-box
+
+}
+
+body.light-mode .sidebar-selected{
+background: #102141 0% 0% no-repeat padding-box;
+}
 body.dark-mode .card-body {
   background: #293141;
   box-shadow: 0px 8px 25px #72727234;
@@ -723,3 +731,11 @@ body   .good {
 body .satisfactory {
      color: #FF9D00 !important
    }
+
+     body.light-mode .heading_card_switch_blue {
+        color: #111111;
+     }
+  
+     body.dark-mode .heading_card_switch_blue {
+        color: #3687e8;
+     }
