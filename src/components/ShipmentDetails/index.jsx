@@ -4,7 +4,7 @@ import styles from './index.module.scss'
 
 const index = ({orderDetail, saveShipmentData}) => {
 
-    const {shipmentDetail}= orderDetail;
+    // const {shipmentDetail}= orderDetail;
 
     const saveDate = (e) => {
         // console.log(e.target.value, "this is date")
@@ -28,7 +28,7 @@ const index = ({orderDetail, saveShipmentData}) => {
                
                 <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
                     <select  className={`${styles.input_field} input form-control`} name='shipmentDetail' onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
-                    <option value="volvo">{shipmentDetail.shipmentType}</option>
+                    <option value="volvo">{orderDetail?.shipmentDetail?.shipmentType}</option>
                     <option value="Liner">Liner</option>
                     <option value="Bulk">Bulk</option>
                     </select>
@@ -36,30 +36,30 @@ const index = ({orderDetail, saveShipmentData}) => {
                 </Form.Group>
 
                 <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
-                    <Form.Control className={`${styles.input_field} input form-control`} name="ETAofDischarge" type="date" defaultValue={shipmentDetail.ETAofDischarge.fromDate.split('T')[0]} onChange={(e)=>{saveDate(e , e.target.value)}} />
+                    <Form.Control className={`${styles.input_field} input form-control`} name="ETAofDischarge" type="date" defaultValue={orderDetail?.shipmentDetail?.ETAofDischarge.fromDate.split('T')[0]} onChange={(e)=>{saveDate(e , e.target.value)}} />
                     <Form.Label className={`${styles.label_heading} label_heading`}>Laycan at Load Port from<strong className="text-danger">*</strong></Form.Label>
 
                     </Form.Group>
                     <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
-                    <Form.Control className={`${styles.input_field} input form-control`} type="date"  defaultValue={shipmentDetail.ETAofDischarge.toDate.split('T')[0]} onChange={(e)=>{saveDate(e , e.target.value)}}/>
+                    <Form.Control className={`${styles.input_field} input form-control`} type="date"  defaultValue={orderDetail?.shipmentDetail?.ETAofDischarge.toDate.split('T')[0]} onChange={(e)=>{saveDate(e , e.target.value)}}/>
                     <Form.Label className={`${styles.label_heading} label_heading`}>Laycan at Load Port to<strong className="text-danger">*</strong></Form.Label>
 
                     </Form.Group>
                 <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`} >
-                    <input className={`${styles.input_field} input form-control`} type="date" defaultValue={shipmentDetail.lastDateOfShipment.split('T')[0]} onChange={(e)=>{saveDate(e , e.target.value)}}/>
+                    <input className={`${styles.input_field} input form-control`} type="date" defaultValue={orderDetail?.shipmentDetail?.lastDateOfShipment.split('T')[0]} onChange={(e)=>{saveDate(e , e.target.value)}}/>
                     <Form.Label className={`${styles.label_heading} label_heading`}>Last date of shipment<strong className="text-danger">*</strong></Form.Label>
                 </Form.Group>
                
               
                 <Form.Group className={`${styles.form_group} col-md-3 col-sm-6`} >
                     <div>
-                    <Form.Control className={`${styles.input_field} input form-control`} type="date" defaultValue={shipmentDetail.loadPort.fromDate.split('T')[0]} onChange={(e)=>{saveDate(e , e.target.value)}}/>
+                    <Form.Control className={`${styles.input_field} input form-control`} type="date" defaultValue={orderDetail?.shipmentDetail?.loadPort.fromDate.split('T')[0]} onChange={(e)=>{saveDate(e , e.target.value)}}/>
                     <Form.Label className={`${styles.label_heading} label_heading`}>ETA at Discharge Port from<strong className="text-danger">*</strong></Form.Label>
                     </div>
                 </Form.Group>
                 <Form.Group className={`${styles.form_group}  col-md-3 col-sm-6`} >
                     <div>
-                    <Form.Control className={`${styles.input_field} input form-control`} type="date" defaultValue={shipmentDetail.loadPort.toDate.split('T')[0]} onChange={(e)=>{saveDate(e , e.target.value)}}/>
+                    <Form.Control className={`${styles.input_field} input form-control`} type="date" defaultValue={orderDetail?.shipmentDetail?.loadPort.toDate.split('T')[0]} onChange={(e)=>{saveDate(e , e.target.value)}}/>
                     <Form.Label className={`${styles.label_heading} label_heading`}>ETA at Discharge Port to<strong className="text-danger">*</strong></Form.Label>
                     </div>
                 </Form.Group>
