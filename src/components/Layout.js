@@ -10,11 +10,13 @@ import Login from '../components/Login'
 import { useSelector, useDispatch } from 'react-redux'
 import Cookies from 'js-cookie'
 import { validateToken } from '../redux/authentication/actions'
+import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import 'react-pro-sidebar/dist/css/styles.css';
 
 
 function Layout({ children }) {
   const [isLogin, setIsLogin] = useState(false)
-   //const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
 
 
   const dispatch = useDispatch()
@@ -41,16 +43,23 @@ function Layout({ children }) {
           </div>
           <div className={styles.wrapper}>
             <div className={styles.sidebarContainer}>
-               <Sidebar /> 
-              {/* {sidebar ? <Sidebar/> : null} */}
+          
+               {/* <Sidebar />  */}
+               {sidebar ? <Sidebar/> : null} 
             </div>
-            <div className={styles.mainView_Container}>
+            
+            <div className={`${styles.mainView_Container} ${
+                      !sidebar ? styles.no_sidebar : null
+            }`}>
+             
+       
               <Breadcrum />
               {children}
               <Footer />
               {/* <TermSheetPreview /> */}
               {/* <TermsheetPopUp /> */}
             </div>
+
           </div>
           
         </div>
