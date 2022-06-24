@@ -28,11 +28,15 @@ function Layout({ children }) {
   useEffect(() => {
     const isuserlogged = Cookies.get('SOMANI')
     //dispatch(validateToken())
+  
+    setIsLogin(isuserlogged)
+
     if (isLogin) {
+      console.log("login is true verifying token")
       dispatch(validateToken())
     }
-    setIsLogin(isuserlogged)
-  }, [isuserLoggedin])
+  }, [isuserLoggedin, isLogin])
+
 
   return (
     <>

@@ -134,15 +134,6 @@ const whatsappFunction = (e) => {
 
   const submitData = () => {
     //register api call
-
-    // const payload={
-    //   companyProfile: companyDetails,
-    //   orderDetails: orderDetails,
-    //   documentType: documents.typeOfDocument,
-    //   document1: documents.document1,
-    //   document2: documents.document2
-      
-    // }
       
     const fd = new FormData()
 
