@@ -38,7 +38,7 @@ function Index() {
   const darkMode = useDarkMode(false)
 
   const {orderList} = useSelector((state)=>state.buyer) 
-
+  console.log(orderList,"order>>>>")
   // console.log(orderList?.data?.company.companyName, "this is order list")
 
   const [orderDetails, setOrderDetails] = useState({
@@ -79,15 +79,20 @@ function Index() {
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
     newInput[name] = value
+    console.log(newInput)
     setOrderDetails(newInput)
   }
 
   const saveShipmentData = (name, value) => {
     const newInput = { ...shipment }
     newInput[name] = value
+    console.log(newInput,"______")
     setShipment(newInput)
   }
+  
+  const onSave = () => {
 
+  }
 
   return (
     <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -669,7 +674,7 @@ function Index() {
                 <div className={`${styles.card}`}>
                   <Order orderDetail={orderList} saveOrderData={saveOrderData} />
                   <ShipmentDetails orderDetail={orderList} saveShipmentData={saveShipmentData} />
-                  <CommonSave />
+                  <CommonSave onSave={onSave} />
                   <PreviousBar />
                 </div>
               </div>

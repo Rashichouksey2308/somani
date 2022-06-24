@@ -2,7 +2,8 @@ import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
-const index = () => {
+const index = ({orderDetail, saveShipmentData}) => {
+    const {shipmentDetail}= orderDetail;
   return (
     <div className={`${styles.main} border-color  card`}>
         <div className={`${styles.head_container} d-flex justify-content-between`}  data-toggle="collapse" data-target="#shipmentDetails" aria-expanded="true" aria-controls="shipmentDetails">
@@ -25,7 +26,7 @@ const index = () => {
                 </Form.Group>
 
                 <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
-                    <Form.Control className={`${styles.input_field} input form-control`} type="date"/>
+                    <Form.Control className={`${styles.input_field} input form-control`} name="ETAofDischarge.fromDate" type="date" defaultValue={shipmentDetail.ETAofDischarge.fromDate.split('T')[0]} onChange={(e)=>{saveShipmentData(e.target.name , e.target.value)}} />
                     <Form.Label className={`${styles.label_heading} label_heading`}>Laycan at Load Port from<strong className="text-danger">*</strong></Form.Label>
 
                     </Form.Group>
@@ -55,7 +56,7 @@ const index = () => {
               
                 
                 </div>
-                <div className={styles.button}><span>Submit</span></div>
+                {/* <div className={styles.button}><span>Submit</span></div> */}
                 </Form>
 
               
