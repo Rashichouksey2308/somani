@@ -10,8 +10,8 @@ import Login from '../components/Login'
 import { useSelector, useDispatch } from 'react-redux'
 import Cookies from 'js-cookie'
 import { validateToken } from '../redux/authentication/actions'
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import 'react-pro-sidebar/dist/css/styles.css';
+// import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+// import 'react-pro-sidebar/dist/css/styles.css';
 
 
 function Layout({ children }) {
