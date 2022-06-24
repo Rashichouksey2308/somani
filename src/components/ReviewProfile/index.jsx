@@ -329,8 +329,8 @@ function Index({ handleChange, reviewedProfile}) {
           </tr>
         </tbody>
       </table>
-      <div className={styles.remarks}>
-        <Form.Label className={`${styles.remarksName} table_row`}>
+      <div className={`${styles.remarks} table_row`}>
+        <Form.Label className={styles.remarksName}>
           User Remarks
         </Form.Label>
         <Form.Control
