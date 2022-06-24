@@ -13,6 +13,7 @@ export default {
   //  leads 
   registerCompany: "/api/core/lead/company-details",
   getBuyers: "/api/core/lead/get-all-leads",
+  uploadDocuments: "/api/core/order/doc-upoad",
 
   //orders
   getBuyerOrder: "/api/core/lead/order-review",
