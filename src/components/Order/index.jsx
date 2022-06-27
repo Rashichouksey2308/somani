@@ -29,15 +29,18 @@ const Index = ({ orderDetail, saveOrderData }) => {
             <h5 className={`${styles.unit_label} accordion_Text`}>
               Quantity :
             </h5>
-            <select className={`${styles.options} accordion_DropDown`}>
+            <select className={`${styles.options} accordion_DropDown`} name='unitOfQuantity' onChange={()=>{saveOrderData(e.target.name, e.target.value)}}>
+              <option>{orderDetail?.unitOfQuantity}</option>
               <option>MT</option>
             </select>
           </div>
 
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
-            <select className={`${styles.options} accordion_DropDown `}>
+            <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' onChange={()=>saveOrderData(e.target.name, e.target.value)}>
+              <option>{orderDetail?.unitOfValue}</option>
               <option>Crores</option>
+              <option>Million</option>
             </select>
             <span>+</span>
           </div>
@@ -207,7 +210,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`}  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
+                <select className={`${styles.input_field} input form-control`} name='incoTerm' onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
                   <option value="volvo">{orderDetail?.incoTerm}</option>
                   <option value="CFR">CFR</option>
                   <option value="CIF">CIF</option>

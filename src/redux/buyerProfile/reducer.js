@@ -2,10 +2,12 @@ import * as types from "./actionType";
 
 const initialState = {
     updatingCredit: false,
-    updatingCreditResponse: null
+    updatingCreditResponse: null,
+    updatingOrder: false,
+    updatingOrderResponse: null
 } 
 
-function OrderReducer(state=initialState, action) {
+function OrderReducer(state = initialState, action) {
 
     switch(action.type){
 
@@ -26,6 +28,25 @@ function OrderReducer(state=initialState, action) {
               ...state,
               updatingCredit: false,
               updatedCreditResponse: null,
+            }
+
+        case types.UPDATE_ORDER:
+            return {
+              ...state,
+              updatingOrder: true,
+              updatedOrderResponse: null,
+            }
+          case types.UPDATE_ORDER_SUCCESSFULL:
+            return {
+              ...state,
+              updatingOrder: false,
+              updatedOrderResponse: action.payload,
+            }
+          case types.UPDATE_ORDER_FAILED:
+            return {
+              ...state,
+              updatingOrder: false,
+              updatedOrderResponse: null,
             }
           
           default: 
