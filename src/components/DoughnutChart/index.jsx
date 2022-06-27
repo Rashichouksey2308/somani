@@ -79,8 +79,9 @@ function Index() {
         </div>
         <div className={styles.chart}>
           <Doughnut data={data} options={options} />
-          <div className={styles.total_value}>
-            <span>24.00 Cr</span>
+          <div className={`${styles.total_value} `}>
+            <span>₹ 24.00 Cr</span>
+            <span>50%</span>
           </div>
         </div>
       </Card.Body>

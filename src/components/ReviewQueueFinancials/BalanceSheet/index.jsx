@@ -1,8 +1,21 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import styles from '../index.module.scss'
-import useDarkMode from 'use-dark-mode';
+
 function Index() {
-    const darkMode = useDarkMode(false);
+ const [darkMode,setDarkMode] = useState(false)
+    useEffect(() =>{
+     let isDark = localStorage.getItem('darkMode')
+    
+    if(isDark){
+      console.log("this")
+     setDarkMode(true)
+    }else{
+      console.log("this2")
+       setDarkMode(false)
+    }
+ 
+    },[])
+    
   return (
    <>
   <div className={`${styles.card} card`}>

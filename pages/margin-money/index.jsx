@@ -3,19 +3,32 @@ import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
 import RevisedMargin from '../../src/components/RevisedMargin'
 import { Form } from 'react-bootstrap'
-import useDarkMode from 'use-dark-mode';
+
 import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
 
 import {Row,Col} from 'react-bootstrap'
 function Index() {
-   const darkMode = useDarkMode(false);
+const [darkMode,setDarkMode] = useState(false)
+    useEffect(() =>{
+     let isDark = localStorage.getItem('darkMode')
+    
+    if(isDark){
+      console.log("this")
+     setDarkMode(true)
+    }else{
+      console.log("this2")
+       setDarkMode(false)
+    }
+ 
+    },[])
+   
     return (
         <>
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
             <div className={`${styles.tabHeader} tabHeader `}>
               <div className="d-flex align-items-center">
-                <h1 className={`${styles.title} heading`}><img src={`${darkMode.value?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Margin Money</h1>
+                <h1 className={`${styles.title} heading`}><img src={`${darkMode?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Margin Money</h1>
                 <div className="ml-auto">
                   <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                   <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>

@@ -16,6 +16,10 @@ import React, { useState, useEffect } from 'react'
 
 const IndexPage = () => {
   const router = useRouter()
+  const [darkMode, setDarkMode] = useState(false)
+  useEffect(() => {
+    setDarkMode(localStorage.getItem('darkMode'))
+  }, [])
 
   return (
     <>
@@ -31,7 +35,7 @@ const IndexPage = () => {
           </div>
           <div className="col-sm-6">
             <Leads
-              header={'Procurement Orders'}
+              header={'Orders'}
               subHeader={'ORDER PLACED'}
               image={'/static/box-open.svg'}
               content={['COMPLETED', 'IN PROCESS', 'REJECTED']}
@@ -65,8 +69,15 @@ const IndexPage = () => {
                     <h3 className="heading">
                       BL Date{' '}
                       <img
-                        className={`${styles.rotate} img-fluid`}
-                        src="/static/keyboard_arrow_right-3.svg"
+                        className={`${
+                          darkMode ? styles.noRotate : styles.rotate
+                        } img-fluid`}
+                        src={`${
+                          darkMode
+                            ? `/static/white-arrow.svg`
+                            : `/static/keyboard_arrow_right-3.svg`
+                        }`}
+                        // src="/static/keyboard_arrow_right-3.svg"
                         alt="arrow right"
                       />
                     </h3>
@@ -115,7 +126,7 @@ const IndexPage = () => {
                 >
                   <thead>
                     <tr>
-                      <th>CORDER NO.</th>
+                      <th>ORDER NO.</th>
                       <th>CUSTOMER NAME</th>
                       <th>COMMODITY</th>
                       <th>DUE DATE</th>

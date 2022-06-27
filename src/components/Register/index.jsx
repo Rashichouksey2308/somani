@@ -13,7 +13,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios"
 
 const Index = () => {
-  const [darkMode,setDarkMode]=useState(false)
+ const [darkMode,setDarkMode] = useState(false)
+    useEffect(() =>{
+     let isDark = localStorage.getItem('darkMode')
+    
+    if(isDark){
+      console.log("this")
+     setDarkMode(true)
+    }else{
+      console.log("this2")
+       setDarkMode(false)
+    }
+ 
+    },[])
 
   const dispatch= useDispatch();
 

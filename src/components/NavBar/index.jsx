@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './index.module.scss'
-import useDarkMode from 'use-dark-mode';
+
 import { showSidebar, hideSidebar } from '../../redux/toggleState/Action/action'
 import { sidebar } from 'redux/toggleState/Reducer/reducer'
 import { logoutUser } from 'redux/authentication/actions';
@@ -12,7 +12,19 @@ import { logoutUser } from 'redux/authentication/actions';
 function Index() {
    const dispatch = useDispatch();
     let a=false
-    const darkMode = useDarkMode(false);
+    const [darkMode,setDarkMode] = useState(false)
+    useEffect(() =>{
+     let isDark = localStorage.getItem('darkMode')
+    
+    if(isDark){
+      console.log("this")
+     setDarkMode(true)
+    }else{
+      console.log("this2")
+       setDarkMode(false)
+    }
+ 
+    },[])
 
     // console.log(darkMode,"darkMode")
      const sidebar = useSelector((state) => state.sidebar.show_sidebar)
@@ -23,7 +35,33 @@ function Index() {
        dispatch(hideSidebar(false))
       }  
     }  
-
+  const changeDarkMode=()=>{
+  let isLight= document.body.classList.contains(
+                      'light-mode'
+                     );
+                     console.log(isLight)
+                     if(isLight){
+                      document.body.classList.remove(
+                      'light-mode'
+                     );
+                      document.body.classList.add(
+                      'dark-mode'
+                     );
+                     setDarkMode(true)
+                     localStorage.setItem("darkMode",true)
+                     }else{
+                        document.body.classList.remove(
+                      'dark-mode'
+                     );
+                      document.body.classList.add(
+                      'light-mode'
+                     );
+                      setDarkMode(false)
+                      localStorage.setItem("darkMode",false)
+                     }
+  }
+  console.log(darkMode,"darkmode123")
+  
   return (
 
     <header
@@ -50,7 +88,7 @@ function Index() {
             <img src="/static/light.svg" alt="light" className={`${styles.light} img-fluid mr-3`}/>
           </a>
          <label className={styles.switch}>
-          <input type="checkbox" defaultChecked={darkMode.value}  onChange={(e)=>{darkMode.toggle() 
+          <input type="checkbox" checked={darkMode}  onChange={(e)=>{changeDarkMode(e) 
             }}/>
           <span className={`${styles.slider} ${styles.round}` }></span>
         </label>

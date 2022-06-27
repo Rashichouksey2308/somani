@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './reviewqueue.module.scss'
 import Order from '../../src/components/Order'
@@ -13,7 +13,7 @@ import Credit from '../../src/components/Credit'
 import Recommendations from '../../src/components/Recommendations'
 import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
-import useDarkMode from 'use-dark-mode'
+
 import PreviousBar from '../../src/components/PreviousBar'
 import DownloadBar from '../../src/components/DownloadBar'
 import CommonSave from '../../src/components/CommonSave'
@@ -36,7 +36,19 @@ import { useSelector } from 'react-redux'
 function Index() {
   
 
-  const darkMode = useDarkMode(false)
+const [darkMode,setDarkMode] = useState(false)
+    useEffect(() =>{
+     let isDark = localStorage.getItem('darkMode')
+    
+    if(isDark){
+      console.log("this")
+     setDarkMode(true)
+    }else{
+      console.log("this2")
+       setDarkMode(false)
+    }
+ 
+    },[])
 
   const {orderList} = useSelector((state)=>state.buyer) 
   const [selectedTab,setSelectedTab]=useState("Profile")
@@ -111,7 +123,7 @@ function Index() {
         <h1 className={`${styles.title} heading pt-3 pb-3`}>
           <img
             src={`${
-              darkMode.value
+              darkMode
                 ? `/static/white-arrow.svg`
                 : `/static/arrow-right.svg`
             }`}

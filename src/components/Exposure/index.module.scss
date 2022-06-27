@@ -26,6 +26,7 @@
   }
 
   .body {
+    padding-top:2rem;
       display: flex; 
       flex-direction: column; 
       padding: 0 22px 22px;
@@ -74,8 +75,9 @@
                 }
         }
       .total {
+          margin-bottom: 1.2rem;
           font-size:14px ;
-          padding-top: 25px;
+          padding-top: 35px;
           color: #8492A6;
           text-transform: uppercase;
           display: flex;
