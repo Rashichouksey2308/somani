@@ -23,13 +23,21 @@ export default function MyApp(props) {
   }, [])
   useEffect(() => {
     let isDark = localStorage.getItem('darkMode')
-    console.log(isDark, 'lkk', isDark == true, typeof true)
+    console.log(
+      localStorage.getItem('darkMode') == true,
+      'lkk',
+      typeof localStorage.getItem('darkMode'),
+    )
 
-    if (isDark || isDark == true) {
+    if (
+      localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true
+    ) {
       console.log('here', 'lkk2')
       document.body.classList.remove('light-mode')
       document.body.classList.add('dark-mode')
     } else {
+      console.log('here', 'lkk4')
       document.body.classList.remove('dark-mode')
       document.body.classList.add('light-mode')
     }

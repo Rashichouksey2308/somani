@@ -2,13 +2,14 @@ import React, {useState,useEffect} from 'react'
 import styles from '../profile.module.scss'
 
 function Index() {
-const [darkMode,setDarkMode] = useState(false)
+ const [darkMode,setDarkMode] = useState(false)
     useEffect(() =>{
-     let isDark = localStorage.getItem('darkMode')
     
-    if(isDark){
+    
+    if( localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true){
       console.log("this")
-     setDarkMode(true)
+       setDarkMode(true)
     }else{
       console.log("this2")
        setDarkMode(false)

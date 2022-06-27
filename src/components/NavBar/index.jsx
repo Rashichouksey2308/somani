@@ -14,9 +14,10 @@ function Index() {
     let a=false
     const [darkMode,setDarkMode] = useState(false)
     useEffect(() =>{
-     let isDark = localStorage.getItem('darkMode')
     
-    if(isDark){
+    
+    if( localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true){
       console.log("this")
      setDarkMode(true)
     }else{

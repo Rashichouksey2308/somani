@@ -17,10 +17,19 @@ import React, { useState, useEffect } from 'react'
 const IndexPage = () => {
   const router = useRouter()
   const [darkMode, setDarkMode] = useState(false)
-  useEffect(() => {
-    setDarkMode(localStorage.getItem('darkMode'))
-  }, [])
 
+  useEffect(() => {
+    if (
+      localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true
+    ) {
+      console.log('this')
+      setDarkMode(true)
+    } else {
+      console.log('this2')
+      setDarkMode(false)
+    }
+  }, [])
   return (
     <>
       <div className={`${styles.root_Container} background container-fluid`}>

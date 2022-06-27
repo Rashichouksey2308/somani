@@ -9,11 +9,12 @@ import DownloadBar from '../../src/components/DownloadBar'
 
 import {Row,Col} from 'react-bootstrap'
 function Index() {
-const [darkMode,setDarkMode] = useState(false)
+ const [darkMode,setDarkMode] = useState(false)
     useEffect(() =>{
-     let isDark = localStorage.getItem('darkMode')
     
-    if(isDark){
+    
+    if( localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true){
       console.log("this")
      setDarkMode(true)
     }else{
@@ -680,7 +681,7 @@ const [darkMode,setDarkMode] = useState(false)
             </div>
         </div>
         </div>
-        <DownloadBar/>
+       <DownloadBar downLoadButtonName={`Download`} isPrevious={true} leftButtonName={`Save`}  rightButtonName={`Next`}/>
         </>
       
     )
