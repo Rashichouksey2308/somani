@@ -105,7 +105,10 @@ export default function Index() {
                 <div className={`${styles.dashboard_form} card-body`}>
                    <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
                     <div className='row'>    
-               
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <input className={`${styles.input_field} input form-control`} required type="number"/> 
+                     <label className={`${styles.label_heading} label_heading`}>No of Containers<strong className="text-danger">*</strong></label>                   
+                </div> 
                 <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
                      <label className={`${styles.label_heading} label_heading`}>Inspection Port<strong className="text-danger">*</strong></label>                   
