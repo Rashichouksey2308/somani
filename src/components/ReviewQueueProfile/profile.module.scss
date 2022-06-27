@@ -341,8 +341,10 @@
 
                     &.collapsed {
                         border-radius: 8px !important;
+                        
 
                         .downArrow {
+                            margin-right: 2rem;
                             right: 46px;
                             margin-top: -8px;
                             transform: rotate(-90deg);
@@ -492,3 +494,9 @@
     }
 }
 
+.collapsed{
+    width: 99%;
+}
+.downArrow{
+    margin-right: 2rem;
+}

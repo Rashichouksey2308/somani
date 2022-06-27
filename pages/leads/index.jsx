@@ -71,7 +71,7 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
               onClick={() => Router.push('/leads/12')}
             >
-              Add
+              + New Customer
             </button>
           </div>
 

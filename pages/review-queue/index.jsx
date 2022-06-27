@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, {useState,useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './reviewqueue.module.scss'
 import Order from '../../src/components/Order'
@@ -13,7 +13,7 @@ import Credit from '../../src/components/Credit'
 import Recommendations from '../../src/components/Recommendations'
 import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
-import useDarkMode from 'use-dark-mode'
+
 import PreviousBar from '../../src/components/PreviousBar'
 import DownloadBar from '../../src/components/DownloadBar'
 import CommonSave from '../../src/components/CommonSave'
@@ -38,7 +38,20 @@ import { UpdateOrderShipment } from '../../src/redux/buyerProfile/action'
 function Index() {
   const dispatch = useDispatch()
 
-  const darkMode = useDarkMode(false)
+ const [darkMode,setDarkMode] = useState(false)
+    useEffect(() =>{
+    
+    
+    if( localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true){
+      console.log("this")
+     setDarkMode(true)
+    }else{
+      console.log("this2")
+       setDarkMode(false)
+    }
+ 
+    },[])
 
   const { orderList } = useSelector((state) => state.buyer)
 
@@ -117,21 +130,21 @@ function Index() {
   }
 
   return (
-    <>
-      <div className={`${styles.dashboardTab} tabHeader w-100`}>
-        <div className={`${styles.tabHeader} tabHeader `}>
-          <h1 className={`${styles.title} heading pt-3 pb-3`}>
-            <img
-              src={`${
-                darkMode.value
-                  ? `/static/white-arrow.svg`
-                  : `/static/arrow-right.svg`
-              }`}
-              alt="arrow right"
-              className="img-fluid image_arrow"
-            />
-            {orderList?.company?.companyName}
-          </h1>
+   <>
+    <div className={`${styles.dashboardTab} tabHeader w-100`}>
+      <div className={`${styles.tabHeader} tabHeader `}>
+        <h1 className={`${styles.title} heading pt-3 pb-3`}>
+          <img
+            src={`${
+              darkMode
+                ? `/static/white-arrow.svg`
+                : `/static/arrow-right.svg`
+            }`}
+            alt="arrow right"
+            className="img-fluid image_arrow"
+          />
+          {orderList?.company?.companyName}
+        </h1>
 
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
