@@ -181,7 +181,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`} name='manufacturerName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
-                  <option value="volvo">{orderDetail.manufacturerName}</option>
+                  <option value="volvo">{orderDetail?.manufacturerName}</option>
                   <option value="CBX">CBX</option>
                   <option value="ABX">ABX</option>
                 </select>
@@ -193,7 +193,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`} name='portOfDischarge'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
-                  <option value="volvo">{orderDetail.portOfDischarge}</option>
+                  <option value="volvo">{orderDetail?.portOfDischarge}</option>
                   <option value="Mumbai">Mumbai</option>
                   <option value="Vizag">Vizag</option>
                 </select>
@@ -204,7 +204,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`}  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
-                  <option value="volvo">{orderDetail.incoTerm}</option>
+                  <option value="volvo">{orderDetail?.incoTerm}</option>
                   <option value="CFR">CFR</option>
                   <option value="CIF">CIF</option>
                   <option value="FOB">FOB</option>
@@ -218,7 +218,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
-                  defaultValue={orderDetail.ExpectedDateOfShipment.split('T')[0]}
+                  defaultValue={orderDetail?.ExpectedDateOfShipment.split('T')[0]}
                   name='ExpectedDateOfShipment'
                   onChange={(e) => { saveDate(e, e.target.value) }}
                 />
@@ -233,7 +233,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={orderDetail.transactionPeriodDays}
+                  defaultValue={orderDetail?.transactionPeriodDays}
                   name='transactionPeriodDays'
                   onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
