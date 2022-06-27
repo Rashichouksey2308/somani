@@ -58,6 +58,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={styles.radio}
                   inline
                   label="Import"
+                  onChange={(e)=>{saveOrderData("transactionType", "Import")}}
+                  defaultChecked={orderDetail?.transactionType === 'Import'}
                   name="group1"
                   type={type}
                   id={`inline-${type}-1`}
@@ -66,6 +68,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={styles.radio}
                   inline
                   label="Domestic"
+                  onChange={(e)=>{saveOrderData("transactionType", "Domestic")}}
+                  defaultChecked={orderDetail?.transactionType === 'Domestic'}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}

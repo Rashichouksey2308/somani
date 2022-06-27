@@ -3,14 +3,11 @@ import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whatsappFunction }) => {
 
   const {gstList} = useSelector((state) =>  state.buyer)
-
-  // const {gettingGstList} = useSelector((state)=> state.buyer)
-  // console.log(gstList, "this is gst")
-  
 
   return (
     <>
@@ -54,7 +51,10 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                     saveCompanyData(e.target.name, e.target.value)
                   } else {
                     //red mark
-                    console.log("Invalid Pan")
+                    let toastMessage = "Invalid Pan"
+                    if(!toast.isActive(toastMessage)) {
+                      toast.error(toastMessage, {toastId: toastMessage})
+                    }
                   }
                 }}
                 className={`${styles.input_field} input form-control`}
