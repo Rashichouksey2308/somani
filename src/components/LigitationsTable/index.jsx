@@ -82,7 +82,9 @@ function index({ val }) {
                   <td className="">Ms. Juhi Singh</td>
                   <td className="">Ms. Juhi Singh</td>
                   <td className="text-center">
-                    <img src="./static/Component 71 – 11 (1).svg"></img>
+                    <img src="./static/blue-eye.svg"
+                    className='img-fluid'
+                    alt="blue eye"></img>
                   </td>
                 </tr>
               </tbody>

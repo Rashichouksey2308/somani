@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_3399" data-name="Group 3399" transform="translate(-1550 -2227)">
+    <g id="Ellipse_47" data-name="Ellipse 47" transform="translate(1550 2227)" fill="none" stroke="#fff" stroke-width="2">
+      <circle cx="12" cy="12" r="12" stroke="none"/>
+      <circle cx="12" cy="12" r="11" fill="none"/>
+    </g>
+    <path id="sd_card_alert" d="M11,16h2v2H11Zm0-9h2v6H11Z" transform="translate(1550 2226.5)" fill="#fff" stroke="#fff" stroke-width="0.5"/>
+  </g>
+</svg>

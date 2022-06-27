@@ -37,7 +37,8 @@
 }
 
 
-
+.backgroundMain {
+    //background: #F3F4F7 !important;
     .vessel_card {
         margin: 20px 5px 20px 5px;
         .main {
@@ -264,6 +265,17 @@
                     border-top: none;
                     vertical-align: middle;
                 }
+                .module {
+                    background: #8492A6;
+                    font-size: 15px;
+                    line-height: 18px;
+                    font-weight: bold;
+                    color: #FFFFFF;
+                    text-transform: uppercase;
+                    padding: 0 35px;
+                    height: 38px;
+                    border-radius: 0;
+                }
                 span {
                     margin-left: 20px;
                     text-decoration: underline;
@@ -282,6 +294,7 @@
                     line-height: 24px;
                     width: 210px;
                     height: 49px;
+                    background-color: transparent;
                 }
                 .hold_field {
                     background: #FF9D00;
@@ -330,4 +343,4 @@
 
     }
 
-
+}

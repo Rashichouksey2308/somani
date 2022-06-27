@@ -18,9 +18,9 @@ export default function Index() {
             </div>
            
         </div>
-        <div className='container-fluid background1'>
+        <div className={`${styles.backgroundMain} container-fluid background2`}>
         <div className={`${styles.vessel_card}`}>
-        <div className={`${styles.main} card border-color`}>
+        <div className={`${styles.main} mt-4 card border-color`}>
         <div className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`} >
         <h3 className={`${styles.heading}`}>Inspection Type</h3>
         <div className='d-flex'>
@@ -94,13 +94,12 @@ export default function Index() {
                   </div>
 
                 </div>
-      
             </div>
             <div className={`${styles.main} card border-color mt-4 mb-4`}>
              <div className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`} >
               <h3 className={`${styles.heading}`}>Inspection Details</h3>
-              <button className={styles.product_btn}>Product Specifications
-              <img className='img-fluid' src="./static/Component 71 – 11 (1).svg" alt="blue-eye" />
+              <button className={styles.product_btn} type="button"> Product Specifications
+              <img className='img-fluid' src= "./static/blue-eye.svg" alt="blue-eye" />
               </button>
                 </div>  
                 <div className={`${styles.dashboard_form} card-body`}>
@@ -174,12 +173,15 @@ export default function Index() {
                             <span>View</span></td>
                             <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
                             <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                            <td> <span>
-                              <select className={styles.specify_field}>
-                                <option>Please Specify</option>
-                              </select>
-                              <img src="/static/arrow_drop_down-3.svg"/>
-                            </span>
+                            <td> <div classname='dropdown'>
+                          <button class={`${styles.specify_field} btn btn-secondary dropdown-toggle`}  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Please Specify
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                          </div>
+                        </div>
                             </td>
                         </tr>
                         <tr className='table_row'>
@@ -187,14 +189,17 @@ export default function Index() {
                             <span>View</span></td>
                             <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
                             <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                            <td> <span>
-                              
-                              <select className={`${styles.specify_field} ${styles.hold_field}`}>
-                               
-                                <option>On Hold</option>
-                              </select>
-                              <img src="/static/arrow_drop_down-3.svg"/>
-                            </span>
+                            <td> <div classname='dropdown'>
+                          <button class={`${styles.specify_field} ${styles.hold_field} btn btn-secondary dropdown-toggle`}  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <img src="/static/hold-white.svg" 
+                            className='img-fluid mr-2'
+                            alt="close"/> On Hold
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                          </div>
+                        </div>
                             </td>
                         </tr>
                         <tr className='table_row'>
@@ -203,21 +208,30 @@ export default function Index() {
                             <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
 
                             <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                            <td> <span>
-                              <select className={`${styles.specify_field} ${styles.rejected_field}`}>
-                                <option>Rejected</option>
-                              </select>
-                              <img src="/static/arrow_drop_down-3.svg"/>
-                            </span>
+                            <td> <div classname='dropdown'>
+                          <button class={`${styles.specify_field} ${styles.rejected_field} btn btn-secondary dropdown-toggle`}  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="/static/close-white.svg" 
+                            className='img-fluid mr-2'
+                            alt="close"/>
+                            Rejected
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                          </div>
+                        </div>
                             </td>
                         </tr>
+                     
+                        
+                       
                                         
                     </tbody>
                 </table>
                 <div className={`${styles.doc_name} ${styles.dashboard_form} mb-3`} >
                  <strong className="text-danger">*</strong> 
                  Any one document is mandatory</div>
-                 <hr className='line'></hr>
+                 <hr className='line border-color'></hr>
 
                  <div className={`${styles.dashboard_form} card-body`}>
           <Form>
