@@ -178,7 +178,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
 
 export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(updateBuyer()
-  let cookie = await Cookies.get('SOMANI')
+  let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
@@ -354,7 +354,7 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
   }
 }
 
-export const uploadDocument = (payload) => async (dispatch, getState, api) => {
+export const UploadDocument = (payload) => async (dispatch, getState, api) => {
   try {
     let documentType = payload.DocumentType;
     let documentData = new FormData();
