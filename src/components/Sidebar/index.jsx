@@ -16,7 +16,7 @@ function Index() {
         {
             main:"Leads",
             Other:[
-               {name: "Review Queue",image:"/static/Review Queue.svg",route:""},
+               {name: "Review Queue",image:"/static/Review Queue.svg",route:"/leads"},
                {name: "Credit Queue",image:"/static/Credit Queue.svg", route: "/credit-queue"},
                {name: "Termsheets",image:"/static/Termsheets.svg",route:"/termsheet"},
                {name: "Margin Money",image:"/static/Termsheets.svg",route:"/margin-money"},
