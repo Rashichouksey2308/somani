@@ -44,10 +44,10 @@ function Index() {
     
     if( localStorage.getItem('darkMode') == 'true' ||
       localStorage.getItem('darkMode') == true){
-      console.log("this")
+  
      setDarkMode(true)
     }else{
-      console.log("this2")
+      
        setDarkMode(false)
     }
  
@@ -740,7 +740,7 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Credit" role="tabpanel">
-                  <Credit />
+                  <Credit creditDetail={orderList} />
                   <Recommendations />
                   <CommonSave />
                 </div>

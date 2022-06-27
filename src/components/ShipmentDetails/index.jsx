@@ -7,10 +7,8 @@ const index = ({orderDetail, saveShipmentData}) => {
     // const {shipmentDetail}= orderDetail;
 
     const saveDate = (e) => {
-        console.log(e.target.value, "this is date")
         const d = new Date(e.target.value);
         let text = d.toISOString()
-        console.log(e.target.name,"nameee")
         saveShipmentData( e.target.name, text)
       }
 

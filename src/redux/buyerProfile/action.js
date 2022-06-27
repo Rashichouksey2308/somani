@@ -84,6 +84,10 @@ console.log(payload, "update order shipment")
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateOrderSuccess(response.data.data))
+        const toastMessage = 'REQUEST SUBMITTED'
+        if(!toast.isActive(toastMessage)){
+          toast.success(toastMessage, {toastId: toastMessage})
+        }
       } else {
         dispatch(updateOrderFailed(response.data.data))
         const toastMessage = 'UPDATE REQUEST FAILED'

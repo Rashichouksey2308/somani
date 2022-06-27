@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import RepoSearch from 'features/repoSearch/RepoSearch'
 import { useRouter } from 'next/router'
 import { createStore } from 'store'

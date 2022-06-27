@@ -1,7 +1,13 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
 
-const index = () => {
+const index = ({creditDetail}) => {
+
+  console.log(creditDetail, "this is credit detail")
+
+  const {company, productSummary, supplierCredential} = creditDetail;
+
   return (
     <>
       <div className={`${styles.main} card border_color`}>
