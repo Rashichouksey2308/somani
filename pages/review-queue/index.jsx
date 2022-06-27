@@ -15,6 +15,7 @@ import CAM from '../../src/components/CAM'
 import { Form } from 'react-bootstrap'
 import useDarkMode from 'use-dark-mode'
 import PreviousBar from '../../src/components/PreviousBar'
+import DownloadBar from '../../src/components/DownloadBar'
 import CommonSave from '../../src/components/CommonSave'
 //sub modules
 import CompanyDetails from '../../src/components/ReviewQueueProfile/CompanyDetails'
@@ -38,6 +39,7 @@ function Index() {
   const darkMode = useDarkMode(false)
 
   const {orderList} = useSelector((state)=>state.buyer) 
+  const [selectedTab,setSelectedTab]=useState("Profile")
   console.log(orderList,"order>>>>")
   // console.log(orderList?.data?.company.companyName, "this is order list")
 
@@ -95,8 +97,15 @@ function Index() {
 
     fd.append('')
   }
+   
+ const currentOpenLink=(e)=> {
+   console.log(e.target.attributes[4].nodeValue)
+   setSelectedTab(e.target.attributes[4].nodeValue)
+ 
+ }
 
   return (
+   <>
     <div className={`${styles.dashboardTab} tabHeader w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
         <h1 className={`${styles.title} heading pt-3 pb-3`}>
@@ -121,6 +130,7 @@ function Index() {
               role="tab"
               aria-controls="Profile"
               aria-selected="true"
+              onClick={(e)=>{currentOpenLink(e)}}
             >
               Profile
             </a>
@@ -133,6 +143,7 @@ function Index() {
               role="tab"
               aria-controls="Financials"
               aria-selected="false"
+              onClick={(e)=>{currentOpenLink(e)}}
             >
               Financials
             </a>
@@ -145,6 +156,7 @@ function Index() {
               role="tab"
               aria-controls="GST"
               aria-selected="false"
+              onClick={(e)=>{currentOpenLink(e)}}
             >
               GST
             </a>
@@ -157,6 +169,7 @@ function Index() {
               role="tab"
               aria-controls="Compliance"
               aria-selected="false"
+              onClick={(e)=>{currentOpenLink(e)}}
             >
               Compliance
             </a>
@@ -169,6 +182,7 @@ function Index() {
               role="tab"
               aria-controls="Orders"
               aria-selected="false"
+              onClick={(e)=>{currentOpenLink(e)}}
             >
               Orders
             </a>
@@ -181,8 +195,23 @@ function Index() {
               role="tab"
               aria-controls="Credit"
               aria-selected="false"
+              onClick={(e)=>{currentOpenLink(e)}}
             >
               Credit
+            </a>
+          </li>
+            <li className={`${styles.navItem} nav-item`}>
+            <a
+              className={`${styles.navLink} navLink nav-link`}
+              data-toggle="tab"
+              href="#DocumentsTab"
+              role="tab"
+              aria-controls="DocumentsTab"
+              aria-selected="true"
+              onClick={(e)=>{currentOpenLink(e)}}
+
+            >
+              Documents
             </a>
           </li>
           <li className={`${styles.navItem} nav-item`}>
@@ -193,22 +222,12 @@ function Index() {
               role="tab"
               aria-controls="CAM"
               aria-selected="false"
+              onClick={(e)=>{currentOpenLink(e)}}
             >
               CAM
             </a>
           </li>
-          <li className={`${styles.navItem} nav-item`}>
-            <a
-              className={`${styles.navLink} navLink nav-link`}
-              data-toggle="tab"
-              href="#DocumentsTab"
-              role="tab"
-              aria-controls="DocumentsTab"
-              aria-selected="true"
-            >
-              Documents
-            </a>
-          </li>
+        
         </ul>
       </div>
       <div className="container-fluid">
@@ -225,7 +244,7 @@ function Index() {
                   <AuditorDeatils />
                   <ShareHoldingPattern />
                   <CreditRatings />
-                  <PreviousBar />
+                
                 </div>
               </div>
               <div className="tab-pane fade" id="Financials" role="tabpanel">
@@ -242,12 +261,12 @@ function Index() {
 
                   <OpenCharges />
                 </div>
-                <PreviousBar />
+              
               </div>
               <div className="tab-pane fade" id="gst" role="tabpanel">
                 <div className={`${styles.card}  accordion_body`}>
                   <GST />
-                  <PreviousBar />
+                
                 </div>
               </div>
               <div className="tab-pane fade" id="Compliance" role="tabpanel">
@@ -670,25 +689,25 @@ function Index() {
                     </div>
                   </div>
                 </div>
-                <PreviousBar />
+              
               </div>
               <div className="tab-pane fade" id="Orders" role="tabpanel">
                 <div className={`${styles.card}`}>
                   <Order orderDetail={orderList} saveOrderData={saveOrderData} />
                   <ShipmentDetails orderDetail={orderList} saveShipmentData={saveShipmentData} />
                   <CommonSave onSave={onSave} />
-                  <PreviousBar />
+                
                 </div>
               </div>
               <div className="tab-pane fade" id="Credit" role="tabpanel">
                 <Credit />
                 <Recommendations />
                 <CommonSave />
-                <PreviousBar />
+              
               </div>
               <div className="tab-pane fade" id="cam" role="tabpanel">
                 <CAM />
-                <PreviousBar />
+              
               </div>
               <div className="tab-pane fade" id="DocumentsTab" role="tabpanel">
                
@@ -988,13 +1007,18 @@ function Index() {
                     </div>
                    </div>
                
-                <PreviousBar />
+              
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    {selectedTab=="Financials" ||"Compliance"||"Orders"||"Credit"||"DocumentsTab"?<PreviousBar/>:null}
+    {selectedTab=="Profile"? <DownloadBar downLoadButtonName={`MCA Report`} isPrevious={false} leftButtonName={``}  rightButtonName={`Next`}/>:null}
+    {selectedTab=="gst"? <DownloadBar downLoadButtonName={`GST Report`} isPrevious={true} leftButtonName={`Previous`}  rightButtonName={`Next`}/>:null}
+    {selectedTab=="CAM"? <DownloadBar downLoadButtonName={`CAM`} isPrevious={true} leftButtonName={`Decline`}  rightButtonName={`Approve`}/>:null}
+    </>
   )
 }
 export default Index

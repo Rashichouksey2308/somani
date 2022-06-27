@@ -3,11 +3,11 @@ import React from 'react'
 import styles from './index.module.scss'
 import Image from 'next/image'
 
-function index({handleApprove, handleReject}) {
+function index({handleApprove, handleReject,downLoadButtonName,isPrevious,leftButtonName,rightButtonName}) {
   return (
     <div className={`${styles.root} card`}>
       <div>
-         <div className={`${styles.reject} `} onClick={()=>{handleReject()}}><span className={`mr-2`}>Download</span>
+         <div className={`${styles.reject} `} onClick={()=>{handleReject()}}><span className={`mr-2`}>{downLoadButtonName}</span>
           <Image
          
           src="/static/file_download.svg"
@@ -18,8 +18,8 @@ function index({handleApprove, handleReject}) {
          </div>
       </div>
        <div className="d-flex justify-content-between align-items-center"> 
-        <div className={styles.reject} onClick={()=>{handleReject()}}><span>Save</span></div>
-        <div className={styles.approve} onClick={()=>{ handleApprove()}}><span>Next</span></div>
+        {isPrevious?<div className={styles.reject} onClick={()=>{handleReject()}}><span>{leftButtonName}</span></div>:null}
+        <div className={styles.approve} onClick={()=>{ handleApprove()}}><span>{rightButtonName}</span></div>
         </div>
     </div>
   )
