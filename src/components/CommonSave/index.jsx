@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './index.module.scss'
-function index() {
+function index({onSave}) {
   return (
      <div className={`${styles.main} card border_color`}>
        
-       <div className={styles.submit}><span>Save</span></div>
+       <div className={styles.submit} onClick={()=>{onSave()}}><span>Save</span></div>
       
       
       </div>

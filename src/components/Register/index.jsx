@@ -30,10 +30,6 @@ const Index = () => {
 
   const dispatch= useDispatch();
 
-  // const {document} = useSelector(state => state.buyer)
-
-
-
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
     companyPan: '',
@@ -56,30 +52,25 @@ const Index = () => {
     turnOverUnit: 'Cr'
   })
 
-  // setCompanyDetails(prevDetails=>({...prevDetails, mobile.primary:{...prevDetails.mobile.primary, number: e.target.value}}))
 
 const mobileFunction = (e) => {
   const newObj = {...companyDetails}
    newObj.mobile.primary.number = e.target.value
    setCompanyDetails(newObj)
-  // console.log(companyDetails, "new company details")
+  
 }
 
 const whatsappFunction = (e) => {
   const newObj = {...companyDetails}
    newObj.mobile.whatsapp.number = e.target.value
    setCompanyDetails(newObj)
-  // console.log(companyDetails, "new company details")
+  
 }
  
   useEffect(() => {
-    // const pan = companyDetails.companyPan
-    // console.log(pan)
-    // const response = await axios.post('http://localhost:3002/node/api/get-gst')
-    // console.log(response)
+   
     if(companyDetails.companyPan !== ''){
      dispatch(GetGst(companyDetails.companyPan))
-    // const response = await axios.post('http://localhost:3002/node/api/get-gst', {pan : companyDetails.companyPan})
     }
   }, [companyDetails.companyPan])
  
@@ -104,8 +95,6 @@ const whatsappFunction = (e) => {
     document2: null
   })
 
-  // console.log(companyDetails, "companyDetails")
-  // console.log(orderDetails, "companyDetails")
 
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails }
@@ -121,9 +110,7 @@ const whatsappFunction = (e) => {
 
   const saveDocument = (e) => {
     let newDocument = {...documents}
-    // console.log(newDocument)
     newDocument.typeOfDocument[e.target.name]=(e.target.value)
-    // console.log(newDocument,"newdocument")
     setDocuments(newDocument)
 
   }
@@ -132,7 +119,7 @@ const whatsappFunction = (e) => {
 
     const newUploadDoc = {...documents}
     newUploadDoc.document1 = e.target.files[0]
-    // console.log(newUploadDoc,"newuploaddocument")
+  
     setDocuments(newUploadDoc)
 
   }
@@ -140,7 +127,7 @@ const whatsappFunction = (e) => {
     
     const newUploadDoc1 = {...documents}
     newUploadDoc1.document2 = e.target.files[0]
-    // console.log(newUploadDoc1,"newuploaddocument1")
+    
     setDocuments(newUploadDoc1)
 
   }
