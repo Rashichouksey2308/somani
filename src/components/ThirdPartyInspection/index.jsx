@@ -176,13 +176,13 @@ export default function Index() {
                             <span>View</span></td>
                             <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
                             <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                            <td> <div classname='dropdown'>
-                          <button class={`${styles.specify_field} btn btn-secondary dropdown-toggle`}  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <td> <div className='dropdown'>
+                          <button className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Please Specify
                           </button>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a className="dropdown-item" href="#">Action</a>
+                            <a className="dropdown-item" href="#">Another action</a>
                           </div>
                         </div>
                             </td>
@@ -192,15 +192,15 @@ export default function Index() {
                             <span>View</span></td>
                             <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
                             <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                            <td> <div classname='dropdown'>
-                          <button class={`${styles.specify_field} ${styles.hold_field} btn btn-secondary dropdown-toggle`}  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <td> <div className='dropdown'>
+                          <button className={`${styles.specify_field} ${styles.hold_field} btn btn-secondary dropdown-toggle`}  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <img src="/static/hold-white.svg" 
                             className='img-fluid mr-2'
                             alt="close"/> On Hold
                           </button>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a className="dropdown-item" href="#">Action</a>
+                            <a className="dropdown-item" href="#">Another action</a>
                           </div>
                         </div>
                             </td>
@@ -211,16 +211,16 @@ export default function Index() {
                             <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
 
                             <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                            <td> <div classname='dropdown'>
-                          <button class={`${styles.specify_field} ${styles.rejected_field} btn btn-secondary dropdown-toggle`}  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <td> <div className='dropdown'>
+                          <button className={`${styles.specify_field} ${styles.rejected_field} btn btn-secondary dropdown-toggle`}  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="/static/close-white.svg" 
                             className='img-fluid mr-2'
                             alt="close"/>
                             Rejected
                           </button>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a className="dropdown-item" href="#">Action</a>
+                            <a className="dropdown-item" href="#">Another action</a>
                           </div>
                         </div>
                             </td>
