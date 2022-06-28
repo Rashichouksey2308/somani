@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 
 
-const index = ({submitData, darkMode}) => {
+const Index = ({submitData, darkMode}) => {
     const router = useRouter()
     return (
         <div className={`${darkMode?styles.mainDark:styles.main}`}>
@@ -18,4 +18,4 @@ const index = ({submitData, darkMode}) => {
         </div>
     )
 }
-export default index
+export default Index
