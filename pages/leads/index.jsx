@@ -33,7 +33,7 @@ function Index() {
       <div className="container-fluid mb-4 card">
         <div className="p-4">
           {/*filter*/}
-          <div className={`${styles.filter} d-flex align-items-center`}>
+          <div className={`${styles.filter} d-flex d-md-inline-flex align-items-center`}>
             <div className={styles.search}>
               <div className="input-group">
                 <div
@@ -69,7 +69,7 @@ function Index() {
             </a> */}
             <button
               type="button"
-              className={`${styles.btnPrimary} btn ml-auto btn-primary`}
+              className={`${styles.btnPrimary} btn ml-lg-auto btn-primary`}
               onClick={() => Router.push('/leads/12')}
             >
               + New Customer

@@ -3,6 +3,12 @@
     margin: 15px 0;
     .search {
         width: 492px;
+        @media screen and (max-width: 1199px) {
+            width: 50%;
+        }
+        @media screen and (max-width: 991px) {
+            width: 85%;
+        }
         .inputGroupPrepend {
             top: 50%;
             left: 31px;
@@ -63,6 +69,9 @@
         background: #3687e8;
         display: inline-block;
         text-transform: capitalize;
+        @media screen and (max-width: 991px) {
+            margin-top: 15px;
+        }
     }
 }
 .statusBox {
@@ -84,6 +93,12 @@
             line-height: 34px;
             margin: 0 0 0 18px;
             text-transform: capitalize;
+            @media screen and (max-width: 1199px) {
+                font-size: 25px;
+            }
+            @media screen and (max-width: 991px) {
+                font-size: 22px;
+            }
             span {
                 font-size: 15px;
                 color: #8492a6;
@@ -92,6 +107,12 @@
                 display: block;
                 margin-bottom: 5px;
                 text-transform: uppercase;
+                @media screen and (max-width: 1199px) {
+                    font-size: 14px;
+                }
+                @media screen and (max-width: 991px) {
+                    font-size: 12px;
+                }
             }
         }
         .iconBox {
@@ -100,6 +121,18 @@
             line-height: 55px;
             text-align: center;
             border-radius: 8px;
+            @media screen and (max-width: 1199px) {
+                height: 50px;
+                min-width: 50px;
+                line-height: 48px;
+                border-radius: 6px;
+            }
+            @media screen and (max-width: 991px) {
+                height: 40px;
+                min-width: 40px;
+                line-height: 38px;
+                border-radius: 5px;
+            }
         }
         &.all {
             .iconBox {
