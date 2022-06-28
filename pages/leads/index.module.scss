@@ -2,13 +2,17 @@
 
 .filter {
     margin: 15px 0;
+    @include respond(sm-desktop) {
+        display: block !important;
+    }
     .search {
         width: 492px;
-        @include respond(md-desktop) {
-            width: 50%;
-        }
+        // @include respond(md-desktop) {
+        //     width: 50%;
+        // }
         @include respond(sm-desktop) {
-            width: 85%;
+            width: 100%;
+            margin-bottom: 15px;
         }
         .inputGroupPrepend {
             top: 50%;
@@ -39,6 +43,9 @@
         border-radius: 5px;
         display: inline-block;
         border: 3px solid #3687e8;
+        @include respond(sm-desktop) {
+            margin-left: 0;
+        }
     }
     .filterList {
         font-size: 18px;
@@ -70,9 +77,6 @@
         background: #3687e8;
         display: inline-block;
         text-transform: capitalize;
-        @include respond(sm-desktop) {
-            margin-top: 15px;
-        }
     }
 }
 .statusBox {
@@ -87,6 +91,14 @@
         &:last-child {
             border-right: none;
         }
+        @include respond(md-desktop) {
+            padding: 18px;
+        }
+        @include respond(sm-desktop) {
+            padding: 12px;
+            text-align: center;
+            display: block !important;
+        }
         h3 {
             font-size: 28px;
             color: #111111;
@@ -96,9 +108,11 @@
             text-transform: capitalize;
             @include respond(md-desktop) {
                 font-size: 25px;
+                margin: 0 0 0 15px;
             }
             @include respond(sm-desktop) {
                 font-size: 22px;
+                margin: 10px 0 0 0;
             }
             span {
                 font-size: 15px;
@@ -112,7 +126,8 @@
                     font-size: 14px;
                 }
                 @include respond(sm-desktop) {
-                    font-size: 12px;
+                    font-size: 13px;
+                    margin-bottom: 0;
                 }
             }
         }
@@ -130,9 +145,11 @@
             }
             @include respond(sm-desktop) {
                 height: 40px;
-                min-width: 40px;
+                min-width: auto;
+                max-width: 40px;
                 line-height: 38px;
                 border-radius: 5px;
+                margin: 0 auto;
             }
         }
         &.all {
