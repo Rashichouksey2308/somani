@@ -2,11 +2,10 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-const index = ({creditDetail}) => {
+const index = ({ creditDetail, saveAddressData }) => {
+  console.log(creditDetail, 'this is credit detail')
 
-  console.log(creditDetail, "this is credit detail")
-
-  const {company, productSummary, supplierCredential} = creditDetail;
+  const { company, productSummary, supplierCredential } = creditDetail
 
   return (
     <>
@@ -34,6 +33,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={productSummary.monthlyProductionCapacity}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Monthly Production Capacity
@@ -46,6 +46,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={productSummary.capacityUtilization}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Capacity Utilization<strong className="text-danger">*</strong>
@@ -57,6 +58,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={productSummary.averageStockOfCommodity}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Average Stock of Commodity
@@ -69,6 +71,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={productSummary.averageStockInTransit}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Average Stock in Transit
@@ -81,6 +84,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={productSummary.availableStock}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Available Stock<strong className="text-danger">*</strong>
@@ -91,6 +95,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={productSummary.dailyConsumptionOfCommodity}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Daily Consumption of Commodity
@@ -101,6 +106,9 @@ const index = ({creditDetail}) => {
                 <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
+                  defaultValue={
+                    productSummary.stockCoverageOfCommodity.split('T')[0]
+                  }
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Stock Coverage of Commodity
@@ -110,6 +118,9 @@ const index = ({creditDetail}) => {
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`}>
+                  <option>
+                    {productSummary.existingProcurementOfCommodity}
+                  </option>
                   <option value="volvo">Import</option>
                   <option value="audi">Manufacturers</option>
                 </select>
@@ -139,6 +150,9 @@ const index = ({creditDetail}) => {
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`}>
+                  <option>
+                    {productSummary.contributionCommoditySenstivity}
+                  </option>
                   <option value="volvo">High</option>
                   <option value="audi">Low</option>
                 </select>
@@ -153,6 +167,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={productSummary.AvgMonthlyElectricityBill}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Avg. Monthly Electricity Bill
@@ -202,6 +217,7 @@ const index = ({creditDetail}) => {
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`}>
+                  <option>{supplierCredential.supplierName}</option>
                   <option>Bhutani Traders</option>
                   <option>Ramakrishna</option>
                 </select>
@@ -214,6 +230,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={supplierCredential.shipmentNumber}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   No. of Shipments<strong className="text-danger">*</strong>
@@ -225,6 +242,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={supplierCredential.consigneesNumber}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   No. of Consignees<strong className="text-danger">*</strong>
@@ -236,6 +254,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={supplierCredential.HSCodesNumber}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   No. of HS codes<strong className="text-danger">*</strong>
@@ -247,6 +266,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={supplierCredential.countryOfOrigin}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Country of Origin<strong className="text-danger">*</strong>
@@ -257,6 +277,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  defaultValue={supplierCredential.portOfDestination}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Port of Destination<strong className="text-danger">*</strong>
@@ -266,6 +287,9 @@ const index = ({creditDetail}) => {
                 <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
+                  defaultValue={
+                    supplierCredential.oldestShipmentDate.split('T')[0]
+                  }
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Oldest Shipment Date<strong className="text-danger">*</strong>
@@ -275,6 +299,9 @@ const index = ({creditDetail}) => {
                 <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
+                  defaultValue={
+                    supplierCredential.latestShipmentDate.split('T')[0]
+                  }
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Latest Shipment Date<strong className="text-danger">*</strong>
@@ -285,6 +312,7 @@ const index = ({creditDetail}) => {
                   className={`${styles.input_field} ${styles.percent} input form-control`}
                   required
                   type="text"
+                  defaultValue={supplierCredential.commodityOfTotalTrade}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Commodity to Total Trade % -24M
@@ -297,6 +325,7 @@ const index = ({creditDetail}) => {
                   as="textarea"
                   rows={3}
                   className={`${styles.remark_field} input form-control`}
+                  defaultValue={supplierCredential.remarks}
                 />
               </div>
             </div>
@@ -338,50 +367,52 @@ const index = ({creditDetail}) => {
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
-                <tr className="table_credit">
-                  <td>
-                    <select
-                      className={`${styles.dropDown} font-weight-bold heading`}
-                    >
-                      <option>Ram Lal</option>
-                      <option>Krishna</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select className={`${styles.dropDown} heading`}>
-                      <option>Director</option>
-                      <option>Manager</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select className={`${styles.dropDown} heading`}>
-                      <option>Production</option>
-                      <option>Organiser</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input placeholder="+91 987655432" />
-                  </td>
-                  <td>
-                    <input placeholder="ramlal@gmail.com" />
-                  </td>
-                  <td>
-                    <div>
-                      <img
-                        src="/static/save-3.svg"
-                        className={`${styles.edit_image} mr-3 img-fluid`}
-                        alt="save"
-                      />
-                      <img
-                        src="/static/delete 2.svg"
-                        className="img-fluid"
-                        alt="delete"
-                      />
-                    </div>
-                  </td>
-                </tr>
-                <tr className="table_credit">
+              {company &&
+                company.keyContactPerson.map((person, index) => (
+                  <tbody key={index}>
+                    <tr className="table_credit">
+                      <td>
+                        <select
+                          className={`${styles.dropDown} font-weight-bold heading`}
+                        >
+                          <option>{person.name}</option>
+                          <option>Krishna</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select className={`${styles.dropDown} heading`}>
+                          <option>{person.designation}</option>
+                          <option>Manager</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select className={`${styles.dropDown} heading`}>
+                          <option>{person.department}</option>
+                          <option>Organiser</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input defaultValue={person.contact.number} />
+                      </td>
+                      <td>
+                        <input defaultValue={person.email} />
+                      </td>
+                      <td>
+                        <div>
+                          <img
+                            src="/static/save-3.svg"
+                            className={`${styles.edit_image} mr-3 img-fluid`}
+                            alt="save"
+                          />
+                          <img
+                            src="/static/delete 2.svg"
+                            className="img-fluid"
+                            alt="delete"
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                    {/* <tr className="table_credit">
                   <td className="font-weight-bold">Keshav Singh</td>
                   <td>Production Manager</td>
                   <td>Production</td>
@@ -422,8 +453,9 @@ const index = ({creditDetail}) => {
                       />
                     </div>
                   </td>
-                </tr>
-              </tbody>
+                </tr> */}
+                  </tbody>
+                ))}
             </table>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
               <span>+</span>
@@ -433,10 +465,6 @@ const index = ({creditDetail}) => {
         </div>
       </div>
 
-                   
-                   
-
-                    
       <div className={`${styles.main} card border_color`}>
         <div
           className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
@@ -454,35 +482,50 @@ const index = ({creditDetail}) => {
           aria-labelledby="keyAddress"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.dashboard_form} card-body`}>
-            <div className="d-flex justify-content-between">
-              <div className={`${styles.address_card} value background1`}>
+          {company &&
+            company.keyAddress.map((address, index) => (
+              <div key={index} className={`${styles.dashboard_form} card-body`}>
                 <div className="d-flex justify-content-between">
-                  <div>
-                    <input type="checkbox" />
-                    <label className={styles.label}>
-                      Registered Office Address
-                    </label>
-                    <div className={styles.address_values}>
-                      <p>N-11, 29 Tilak Marg, New Delhi</p>
-                      <p className="pt-3">
-                        <span>Email: </span>skapoor@gmail.com
+                  <div className={`${styles.address_card} value background1`}>
+                    <div className="d-flex justify-content-between">
+                      <div>
+                        <input type="checkbox" />
+                        <label className={styles.label}>
+                          {address.addressType}
+                        </label>
+                        <div className={styles.address_values}>
+                          <p>{address.completeAddress}</p>
+                          <p className="pt-3">
+                            <span>Email: </span>
+                            {address.email}
+                          </p>
+                          <p>
+                            <span>Phone Number:</span>
+                            {address.contact.number}
+                          </p>
+                          <p>
+                        <span>Branch: </span>{address.branch}
                       </p>
-                      <p>
-                        <span>Phone Number:</span>+91 9876543210, +91 9876543210
-                      </p>
+                      <div className="d-flex">
+                        <p>
+                          {' '}
+                          <span>GSTIN: </span>{address.GSTIN}
+                        </p>
+                        <span className={styles.button}>View</span>
+                      </div>
+                        </div>
+                      </div>
+                      <div>
+                        <img
+                          className={`${styles.edit_image} img-fluid`}
+                          src="/static/mode_edit.svg"
+                          alt="Edit"
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <img
-                      className={`${styles.edit_image} img-fluid`}
-                      src="/static/mode_edit.svg"
-                      alt="Edit"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className={`${styles.address_card} value background1`}>
+
+                  {/* <div className={`${styles.address_card} value background1`}>
                 <div className="d-flex justify-content-between">
                   <div>
                     <div className={styles.address_values}>
@@ -504,60 +547,98 @@ const index = ({creditDetail}) => {
                     />
                   </div>
                 </div>
+              </div> */}
+                </div>
+                <div className="d-flex justify-content-between">
+                  {/* <div className={`${styles.address_card} value background1`}>
+                <div
+                  className={`${styles.address_values} d-flex justify-content-between`}
+                >
+                  <h5>Factory Address</h5>
+                  <div>
+                    <img
+                      className={`${styles.edit_image} img-fluid mr-3`}
+                      src="/static/mode_edit.svg"
+                      alt="edit"
+                    />
+                    <img
+                      src="/static/delete 2.svg"
+                      className="img-fluid"
+                      alt="delete"
+                    />
+                  </div>
+                </div>
+                <div className={styles.address_values}>
+                  <p className="pt-3">
+                    A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh
+                    11008
+                  </p>
+                  <p className="pt-3">
+                    <span>Email: </span>skapoor@gmail.com
+                  </p>
+                  <p>
+                    <span>Phone Number:</span>+91 9876543210, +91 9876543210
+                  </p>
+                  <p>
+                    <span>Branch: </span>Delhi
+                  </p>
+                  <div className="d-flex">
+                    <p>
+                      {' '}
+                      <span>GSTIN: </span>Gstdt789652Jkv
+                    </p>
+                    <span className={styles.button}>View</span>
+                  </div>
+                </div>
+              </div> */}
+                  {/* <div className={`${styles.address_card} value background1`}>
+                <div className="d-flex justify-content-between">
+                  <div>
+                    <div
+                      className={`${styles.address_values} d-flex justify-content-between`}
+                    >
+                      <h5>Warehouse Address</h5>
+                      <div>
+                        <img
+                          className={`${styles.edit_image} img-fluid mr-3`}
+                          src="/static/mode_edit.svg"
+                          alt="edit"
+                        />
+                        <img
+                          src="/static/delete 2.svg"
+                          className="img-fluid"
+                          alt="delete"
+                        />
+                      </div>
+                    </div>
+                    <div className={`${styles.address_values}`}>
+                      <p className="pt-3">
+                        A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh
+                        11008
+                      </p>
+                      <p className="pt-3">
+                        <span>Email: </span>skapoor@gmail.com
+                      </p>
+                      <p>
+                        <span>Phone Number:</span>+91 9876543210, +91 9876543210
+                      </p>
+                      <p>
+                        <span>Branch: </span>Delhi
+                      </p>
+                      <div className="d-flex">
+                        <p>
+                          {' '}
+                          <span>GSTIN: </span>Gstdt789652Jkv
+                        </p>
+                        <span className={styles.button}>View</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+                </div>
               </div>
-            </div>
-            <div className='d-flex justify-content-between'>
-                        <div className={`${styles.address_card} value background1`}>
-                            <div className={`${styles.address_values} d-flex justify-content-between`}>
-                               
-                                <h5>Factory Address</h5>
-                                <div>
-                                   <img className={`${styles.edit_image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit" />
-                                   <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
-                               
-                               </div>
-                               </div>
-                               <div className={styles.address_values}>
-                                <p className='pt-3'>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
-                                <p className='pt-3'><span>Email: </span>skapoor@gmail.com</p>
-                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
-                                <p><span>Branch: </span>Delhi</p>
-                                <div className='d-flex'>
-                                <p> <span>GSTIN: </span>Gstdt789652Jkv</p>
-                                <span className={styles.button}>View</span>
-                                </div>  
-                                </div>                              
-                               
-                              
-                               
-                           
-                        </div>
-                        <div className={`${styles.address_card} value background1`}>
-                            <div className='d-flex justify-content-between'>
-                            <div>
-                            <div className={`${styles.address_values} d-flex justify-content-between`}>
-                                <h5>Warehouse Address</h5>
-                                <div>
-                                   <img className={`${styles.edit_image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit" />
-                                   <img src= "/static/delete 2.svg" className='img-fluid' alt="delete"/>
-                               </div>
-                               </div>
-                               <div className={`${styles.address_values}`}>
-                                <p className='pt-3'>A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh 11008</p>
-                                <p className='pt-3'><span>Email: </span>skapoor@gmail.com</p>
-                                <p><span>Phone Number:</span>+91 9876543210, +91 9876543210</p>
-                                <p><span>Branch: </span>Delhi</p>
-                                <div className='d-flex'>
-                                <p> <span>GSTIN: </span>Gstdt789652Jkv</p>
-                                <span className={styles.button}>View</span>
-                                </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-           
-          </div>
+            ))}
         </div>
       </div>
 
@@ -585,9 +666,10 @@ const index = ({creditDetail}) => {
           <div className={`${styles.dashboard_form} card-body`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                <select className={`${styles.input_field} input form-control`}>
-                  <option>Bhutani Traders</option>
-                  <option>Ramakrishna</option>
+                <select className={`${styles.input_field} input form-control`} name='addressType' onChange={(e)=>{saveAddressData(e.target.name, e.target.value)}}>
+                  <option>Factory</option>
+                  <option>Warehouse</option>
+                  <option>Corporate Office</option>
                 </select>
                 <label className={`${styles.label_heading} label_heading`}>
                   Address Type<strong className="text-danger">*</strong>
@@ -727,12 +809,12 @@ const index = ({creditDetail}) => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Punjab National Bank</td>
-                  <td>Cash Credit</td>
-                  <td>100,000.00</td>
-                  <td>Good</td>
+             { company && company.debtProfile.map((profile, index) => (  <tr key={index}>
+                  <td>{index+=1}</td>
+                  <td>{profile.bankName}</td>
+                  <td>{profile.limitType}</td>
+                  <td>{profile.limit}</td>
+                  <td>{profile.conduct}</td>
                   <td>
                     <div>
                       <img
@@ -747,8 +829,8 @@ const index = ({creditDetail}) => {
                       />
                     </div>
                   </td>
-                </tr>
-                <tr>
+                </tr> ))}
+                {/* <tr>
                   <td>2</td>
                   <td>
                     <select
@@ -788,7 +870,7 @@ const index = ({creditDetail}) => {
                       />
                     </div>
                   </td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
@@ -798,10 +880,8 @@ const index = ({creditDetail}) => {
           </div>
         </div>
       </div>
-  
     </>
   )
 }
-
 
 export default index

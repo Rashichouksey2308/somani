@@ -124,6 +124,32 @@ function Index() {
     }
   }
 
+  const[companyAddress, setCompanyAddress] = useState({
+    GSTIN: '',
+    GSTIN_document:{},
+    addressType: '',
+    branch: '',
+    city: '',
+    state: '',
+    email: '',
+    completeAddress: '',
+    contact: {
+      callingCode: 91,
+      number: null
+    },
+    pinCode: null,
+
+  })
+
+  const saveAddressData = (name, value) => {
+    const newInput = { ...companyAddress }
+    newInput[name] = value
+    // console.log(newInput)
+    setCompanyAddress(newInput)
+  }
+
+
+
   const currentOpenLink = (e) => {
     console.log(e.target.attributes[4].nodeValue)
     setSelectedTab(e.target.attributes[4].nodeValue)
@@ -740,7 +766,7 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Credit" role="tabpanel">
-                  <Credit creditDetail={orderList} />
+                  <Credit creditDetail={orderList} saveAddressData={saveAddressData} />
                   <Recommendations />
                   <CommonSave />
                 </div>
