@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
@@ -7,25 +7,76 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
 
 function Index() {
+  const [query, setQuery] = useState("");
+  const [filteredList, setFilteredData] = useState([]);
   const dispatch = useDispatch()
+
+  const { allBuyerList } = useSelector((state) => state.buyer)
 
   useEffect(() => {
     dispatch(GetAllBuyer())
   }, [dispatch])
-  
-  const { allBuyerList } = useSelector((state) => state.buyer)
-  
+
+
+  // useEffect(() => {
+  //   if (query.trim().length >= 3) {
+  //     allBuyerList.data?.data?.filter((user) => {
+  //       const userfound = [];
+  //       if (user.company.companyName.toLowerCase().includes(query)) {
+  //         userfound.push(user)
+  //         console.log(user,'filtered user')
+  //         setFilteredData(prevState => prevState.concat(userfound))
+  //       };
+  //     })
+  //   }
+  //   console.log("filtered", filteredList)
+  // }, [query, allBuyerList])
+
+
+  useEffect(() => {
+    if(query.trim() === ""){
+      setFilteredData(allBuyerList.data.data);
+    }
+  }, [query])
+
+console.log(filteredList)
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setQuery(searchWord);
+    const newFilter = allBuyerList.data?.data?.filter((value) => {
+      return value.company.companyName.toLowerCase().includes(searchWord.toLowerCase());
+    });
+
+    if (searchWord === "") {
+      setFilteredData([]);
+      
+    } else {
+      setFilteredData(newFilter);
+    }
+  };
+
+  const clearInput = () => {
+    setFilteredData([]);
+    setQuery("");
+  };
+
 
   const handleRoute = (buyer) => {
     if (buyer.queue === 'ReviewQueue') {
       dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
       Router.push('/review-queue/id')
-    } 
+    }
     else if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))
       Router.push('/review-queue')
     }
   }
+
+  // const handleSearch = (props) => {
+
+  // }
+
+
 
   return (
     <>
@@ -46,6 +97,7 @@ function Index() {
                   />
                 </div>
                 <input
+                  onChange={handleFilter}
                   type="text"
                   className={`${styles.formControl} form-control formControl `}
                   placeholder="Search"
@@ -206,8 +258,8 @@ function Index() {
                 </tr>
               </thead>
               <tbody>
-                {allBuyerList &&
-                  allBuyerList.data?.data?.map((buyer, index) => (
+                {filteredList  &&
+                  filteredList.map((buyer, index) => (
                     <tr key={index} className={`${styles.table_row} table_row`}>
                       <td>{buyer.company.customerId}</td>
                       <td
@@ -223,59 +275,22 @@ function Index() {
                       <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                       <td>
                         <span
-                          className={`${styles.status} ${
-                          buyer.queue === 'Rejected' ? styles.rejected :  buyer.queue === 'ReviewQueue'
-                              ? styles.review
-                              : buyer.queue === 'CreditQueue'
+                          className={`${styles.status} ${buyer.queue === 'Rejected' ? styles.rejected : buyer.queue === 'ReviewQueue'
+                            ? styles.review
+                            : buyer.queue === 'CreditQueue'
                               ? styles.approved
                               : styles.rejected
-                          }`}
+                            }`}
                         ></span>
-                        
-                       {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
+
+                        {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
                           ? 'Review'
                           : buyer.queue === 'CreditQueue'
-                          ? 'Approved'
-                          : 'Rejected'}
+                            ? 'Approved'
+                            : 'Rejected'}
                       </td>
                     </tr>
                   ))}
-                <tr className={`${styles.table_row} table_row`}>
-                  <td>124621</td>
-                  <td
-                    className={styles.buyerName}
-                    onClick={() => Router.push('/review-queue/id')}
-                  >
-                    Ramakrishna Traders
-                  </td>
-                  <td>Customer</td>
-                  <td>Sameer Soni</td>
-                  <td>Yes</td>
-                  <td>
-                    <span
-                      className={`${styles.status} ${styles.rejected}`}
-                    ></span>
-                    Rejected
-                  </td>
-                </tr>
-                <tr className={`${styles.table_row} table_row`}>
-                  <td>124621</td>
-                  <td
-                    className={styles.buyerName}
-                    onClick={() => Router.push('/review-queue/id')}
-                  >
-                    Somani Traders
-                  </td>
-                  <td>RM-Sales</td>
-                  <td>Sachin Shiv</td>
-                  <td>Yes</td>
-                  <td>
-                    <span
-                      className={`${styles.status} ${styles.approved}`}
-                    ></span>
-                    Approved
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>

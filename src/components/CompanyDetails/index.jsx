@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whatsappFunction }) => {
 
   const { gstList } = useSelector((state) => state.buyer)
-  const [slider, setSlider] = useState("0")
+  const [slider, setSlider] = useState("60")
   const sliderBackground = () => {
     return {
       background: `${(slider * 100) / 100}`,
