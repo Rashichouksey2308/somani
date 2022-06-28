@@ -102,7 +102,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
         </div>
 
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <div className={styles.image_card} style={{ marginTop: 19 }}>
+          <div onClick={() => setName(null)} className={styles.image_card} style={{ marginTop: 19 }}>
             <img className={styles.image_delete} src="/static/delete.svg" />
           </div>
         </div>
@@ -148,7 +148,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
         </div>
 
         <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-          <div className={styles.image_card}>
+          <div onClick={() => setSecondDocName(null)} className={styles.image_card}>
             <img
               className={styles.image_delete}
               src="/static/delete.svg"

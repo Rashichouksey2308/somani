@@ -16,7 +16,20 @@ import React, { useState, useEffect } from 'react'
 
 const IndexPage = () => {
   const router = useRouter()
+  const [darkMode, setDarkMode] = useState(false)
 
+  useEffect(() => {
+    if (
+      localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true
+    ) {
+      console.log('this')
+      setDarkMode(true)
+    } else {
+      console.log('this2')
+      setDarkMode(false)
+    }
+  }, [])
   return (
     <>
       <div className={`${styles.root_Container} background container-fluid`}>
@@ -31,7 +44,7 @@ const IndexPage = () => {
           </div>
           <div className="col-lg-6">
             <Leads
-              header={'Procurement Orders'}
+              header={'Orders'}
               subHeader={'ORDER PLACED'}
               image={'/static/box-open.svg'}
               content={['COMPLETED', 'IN PROCESS', 'REJECTED']}
@@ -71,8 +84,15 @@ const IndexPage = () => {
                     <h3 className="heading">
                       BL Date{' '}
                       <img
-                        className={`${styles.rotate} img-fluid`}
-                        src="/static/keyboard_arrow_right-3.svg"
+                        className={`${
+                          darkMode ? styles.noRotate : styles.rotate
+                        } img-fluid`}
+                        src={`${
+                          darkMode
+                            ? `/static/white-arrow.svg`
+                            : `/static/keyboard_arrow_right-3.svg`
+                        }`}
+                        // src="/static/keyboard_arrow_right-3.svg"
                         alt="arrow right"
                       />
                     </h3>
