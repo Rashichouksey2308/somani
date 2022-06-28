@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './reviewqueue.module.scss'
 import Order from '../../src/components/Order'
@@ -38,20 +38,17 @@ import { UpdateOrderShipment } from '../../src/redux/buyerProfile/action'
 function Index() {
   const dispatch = useDispatch()
 
- const [darkMode,setDarkMode] = useState(false)
-    useEffect(() =>{
-    
-    
-    if( localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true){
-  
-     setDarkMode(true)
-    }else{
-      
-       setDarkMode(false)
+  const [darkMode, setDarkMode] = useState(false)
+  useEffect(() => {
+    if (
+      localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true
+    ) {
+      setDarkMode(true)
+    } else {
+      setDarkMode(false)
     }
- 
-    },[])
+  }, [])
 
   const { orderList } = useSelector((state) => state.buyer)
 
@@ -111,7 +108,7 @@ function Index() {
         ...orderDetails,
         shipmentDetail: { ...shipment },
         order: orderList._id,
-        orderValue: orderDetails.orderValue + '0000000'
+        orderValue: orderDetails.orderValue + '0000000',
       }
       dispatch(UpdateOrderShipment(obj))
     } else {
@@ -124,9 +121,61 @@ function Index() {
     }
   }
 
-  const[companyAddress, setCompanyAddress] = useState({
+  const [product, setProduct] = useState({
+    AvgMonthlyElectricityBill:
+      orderList?.productSummary?.AvgMonthlyElectricityBill,
+    availableStock: orderList?.productSummary?.availableStock,
+    averageStockInTransit: orderList?.productSummary?.averageStockInTransit,
+    averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity,
+    capacityUtilization: orderList?.productSummary?.capacityUtilization,
+    contributionCommoditySenstivity:
+      orderList?.productSummary?.contributionCommoditySenstivity,
+    dailyConsumptionOfCommodity:
+      orderList?.productSummary?.dailyConsumptionOfCommodity,
+    existingCHA: [],
+    existingProcurementOfCommodity:
+      orderList?.productSummary?.existingProcurementOfCommodity,
+    existingSuppliers: [],
+    monthlyProductionCapacity:
+      orderList?.productSummary?.monthlyProductionCapacity,
+    paymentStatusForElectricityBills:
+      orderList?.productSummary?.paymentStatusForElectricityBills,
+    stockCoverageOfCommodity:
+      orderList?.productSummary?.stockCoverageOfCommodity,
+    typeOfCurrency: orderList?.productSummary?.typeOfCurrency,
+    unitOfQuantity: orderList?.productSummary?.unitOfQuantity,
+  })
+
+  const saveProductData = (name, value) => {
+    const newInput = { ...product }
+    newInput[name] = value
+    // console.log(newInput)
+    setProduct(newInput)
+  }
+
+  const [supplierCred, setSupplierCred] = useState({
+    HSCodesNumber: orderList?.supplierCredentials?.HSCodesNumber,
+    commodityOfTotalTrade: orderList?.supplierCredentials?.commodityOfTotalTrade,
+    consigneesNumber: orderList?.supplierCredentials?.consigneesNumber,
+    countryOfOrigin: orderList?.supplierCredentials?.countryOfOrigin,
+    latestShipmentDate: orderList?.supplierCredentials?.lastDateOfShipment,
+    oldestShipmentDate: orderList?.supplierCredentials?.oldestShipmentDate,
+    portOfDestination: orderList?.supplierCredentials?.portOfDestination,
+    remarks: orderList?.supplierCredentials?.remarks,
+    shipmentNumber: orderList?.supplierCredentials?.shipmentNumber,
+    supplierName: orderList?.supplierCredentials?.supplierName,
+  })
+
+  const saveSupplierData = (name, value) => {
+    const newInput = { ...supplierCred }
+    newInput[name] = value
+    // console.log(newInput)
+    setSupplierCred(newInput)
+  }
+
+  const [companyAddress, setCompanyAddress] = useState({
     GSTIN: '',
-    GSTIN_document:{},
+    GSTIN_document: {},
     addressType: '',
     branch: '',
     city: '',
@@ -135,26 +184,22 @@ function Index() {
     completeAddress: '',
     contact: {
       callingCode: 91,
-      number: null
+      number: null,
     },
     pinCode: null,
-
   })
 
   const mobileFunction = (e) => {
-    const newObj = {...companyAddress}
-     newObj.contact.number = e.target.value
-     setCompanyAddress(newObj)
-    
+    const newObj = { ...companyAddress }
+    newObj.contact.number = e.target.value
+    setCompanyAddress(newObj)
   }
 
   const uploadDocument = (e) => {
-
-    const newUploadDoc = {...companyAddress}
+    const newUploadDoc = { ...companyAddress }
     newUploadDoc.GSTIN_document = e.target.files[0]
-  
-    setCompanyAddress(newUploadDoc)
 
+    setCompanyAddress(newUploadDoc)
   }
 
   const saveAddressData = (name, value) => {
@@ -164,29 +209,25 @@ function Index() {
     setCompanyAddress(newInput)
   }
 
-
-
   const currentOpenLink = (e) => {
     console.log(e.target.attributes[4].nodeValue)
     setSelectedTab(e.target.attributes[4].nodeValue)
   }
 
   return (
-   <>
-    <div className={`${styles.dashboardTab} tabHeader w-100`}>
-      <div className={`${styles.tabHeader} tabHeader `}>
-        <h1 className={`${styles.title} heading pt-3 pb-3`}>
-          <img
-            src={`${
-              darkMode
-                ? `/static/white-arrow.svg`
-                : `/static/arrow-right.svg`
-            }`}
-            alt="arrow right"
-            className="img-fluid image_arrow"
-          />
-          {orderList?.company?.companyName}
-        </h1>
+    <>
+      <div className={`${styles.dashboardTab} tabHeader w-100`}>
+        <div className={`${styles.tabHeader} tabHeader `}>
+          <h1 className={`${styles.title} heading pt-3 pb-3`}>
+            <img
+              src={`${
+                darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
+              }`}
+              alt="arrow right"
+              className="img-fluid image_arrow"
+            />
+            {orderList?.company?.companyName}
+          </h1>
 
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
@@ -782,7 +823,14 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Credit" role="tabpanel">
-                  <Credit creditDetail={orderList} saveAddressData={saveAddressData} mobileFunction={mobileFunction} uploadDocument={uploadDocument} />
+                  <Credit
+                    creditDetail={orderList}
+                    saveAddressData={saveAddressData}
+                    mobileFunction={mobileFunction}
+                    uploadDocument={uploadDocument}
+                    saveProductData={saveProductData}
+                    saveSupplierData={saveSupplierData}
+                  />
                   <Recommendations />
                   <CommonSave />
                 </div>
