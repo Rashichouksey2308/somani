@@ -9,22 +9,7 @@ const index = () => {
         className={`${styles.top_container} border_color d-flex align-items-center justify-content-between`}
       >
         <h1 className={styles.heading}>Top 5 Countries Of Origin </h1>
-        <div className={styles.image_main_container}>
-          <div className={styles.image_container}>
-            <img
-              className={styles.image}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="arrow"
-            />
-          </div>
-          <div className={styles.image_container}>
-            <img
-              className={styles.image_reverse}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="arrow"
-            />
-          </div>
-        </div>
+       
       </div>
       <div className={`${styles.country_container} label_heading`}>
         <div className={styles.each_progress}>
@@ -64,6 +49,40 @@ const index = () => {
         </div>
 
         <div className={styles.each_progress}>
+          <h1 className={styles.country}>RUSSIA</h1>
+          <div className={styles.bar_container}>
+            <div className={styles.progress_bar}>
+              <ProgressBar
+                completed={70}
+                barContainerClassName={styles.container}
+                completedClassName={styles.barCompleted2}
+                isLabelVisible={false}
+              />
+            </div>
+            <div className={styles.number_container}>
+              <h3 className={styles.percent}>70%</h3>
+              <h3 className={`${styles.amount} text1`}> ₹ 1,837</h3>
+            </div>
+          </div>
+        </div>
+         <div className={styles.each_progress}>
+          <h1 className={styles.country}>RUSSIA</h1>
+          <div className={styles.bar_container}>
+            <div className={styles.progress_bar}>
+              <ProgressBar
+                completed={70}
+                barContainerClassName={styles.container}
+                completedClassName={styles.barCompleted2}
+                isLabelVisible={false}
+              />
+            </div>
+            <div className={styles.number_container}>
+              <h3 className={styles.percent}>70%</h3>
+              <h3 className={`${styles.amount} text1`}> ₹ 1,837</h3>
+            </div>
+          </div>
+        </div>
+         <div className={styles.each_progress}>
           <h1 className={styles.country}>RUSSIA</h1>
           <div className={styles.bar_container}>
             <div className={styles.progress_bar}>

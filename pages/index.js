@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import RepoSearch from 'features/repoSearch/RepoSearch'
 import { useRouter } from 'next/router'
 import { createStore } from 'store'
@@ -16,12 +17,25 @@ import React, { useState, useEffect } from 'react'
 
 const IndexPage = () => {
   const router = useRouter()
+  const [darkMode, setDarkMode] = useState(false)
 
+  useEffect(() => {
+    if (
+      localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true
+    ) {
+      console.log('this')
+      setDarkMode(true)
+    } else {
+      console.log('this2')
+      setDarkMode(false)
+    }
+  }, [])
   return (
     <>
       <div className={`${styles.root_Container} background container-fluid`}>
         <div className={`${styles.head_Container} mt-2 row`}>
-          <div className="col-sm-6">
+          <div className="col-lg-6">
             <Leads
               header={'Leads'}
               subHeader={'TOTAL LEADS'}
@@ -29,9 +43,9 @@ const IndexPage = () => {
               content={['APPROVED', 'IN PROCESS', 'REJECTED']}
             />
           </div>
-          <div className="col-sm-6">
+          <div className="col-lg-6">
             <Leads
-              header={'Procurement Orders'}
+              header={'Orders'}
               subHeader={'ORDER PLACED'}
               image={'/static/box-open.svg'}
               content={['COMPLETED', 'IN PROCESS', 'REJECTED']}
@@ -39,17 +53,23 @@ const IndexPage = () => {
           </div>
         </div>
         <div className={`${styles.bottom_Container} row`}>
-          <div className={`${styles.left_Container} col-sm-3`}>
-            <Commodities />
-            <Exposure />
+          <div className={`${styles.left_Container} col-lg-3 col-md-12`}>
+              <div className="row">
+                <div className="col-lg-12 col-md-6">
+                  <Commodities />
+                </div>
+                <div className="col-lg-12 col-md-6">
+                  <Exposure />
+                </div>
+              </div>            
           </div>
-          <div className={`${styles.right_Container} col-sm-9`}>
+          <div className={`${styles.right_Container} col-lg-9 col-md-12`}>
             <div className={styles.upper_Container}>
               <div className="row">
-                <div className={`${styles.commonCard} col-sm-6`}>
+                <div className={`${styles.commonCard} col-md-6`}>
                   <Countries />
                 </div>
-                <div className={`${styles.commonCard} col-sm-6`}>
+                <div className={`${styles.commonCard} col-md-6`}>
                   <DoughnutChart />
                 </div>
               </div>
@@ -65,8 +85,15 @@ const IndexPage = () => {
                     <h3 className="heading">
                       BL Date{' '}
                       <img
-                        className={`${styles.rotate} img-fluid`}
-                        src="/static/keyboard_arrow_right-3.svg"
+                        className={`${
+                          darkMode ? styles.noRotate : styles.rotate
+                        } img-fluid`}
+                        src={`${
+                          darkMode
+                            ? `/static/white-arrow.svg`
+                            : `/static/keyboard_arrow_right-3.svg`
+                        }`}
+                        // src="/static/keyboard_arrow_right-3.svg"
                         alt="arrow right"
                       />
                     </h3>
@@ -107,58 +134,60 @@ const IndexPage = () => {
                     </a>
                   </div>
                 </div>
-                <table
+                <div className={styles.table_scroll}>
+                  <table
                   className={styles.table}
                   cellPadding="0"
                   cellSpacing="0"
                   border="0"
                 >
-                  <thead>
-                    <tr>
-                      <th>CORDER NO.</th>
-                      <th>CUSTOMER NAME</th>
-                      <th>COMMODITY</th>
-                      <th>DUE DATE</th>
-                      <th>DAYS TO GO</th>
+                    <thead>
+                      <tr>
+                        <th>CORDER NO.</th>
+                        <th>CUSTOMER NAME</th>
+                        <th>COMMODITY</th>
+                        <th>DUE DATE</th>
+                        <th>DAYS TO GO</th>
 
-                      <th>DUE AMOUNT</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="table_row">
-                      <td>124621</td>
-                      <td className={styles.buyerName}>Bhutani Traders</td>
-                      <td>Iron</td>
-                      <td>12/05/2022</td>
-                      <td>7</td>
-                      <td>₹ 3,45,000</td>
-                    </tr>
-                    <tr className="table_row">
-                      <td>124621</td>
-                      <td className={styles.buyerName}>Bhutani Traders</td>
-                      <td>Iron</td>
-                      <td>12/05/2022</td>
-                      <td>7</td>
-                      <td>₹ 3,45,000</td>
-                    </tr>
-                    <tr className="table_row">
-                      <td>124621</td>
-                      <td className={styles.buyerName}>Bhutani Traders</td>
-                      <td>Iron</td>
-                      <td>12/05/2022</td>
-                      <td>7</td>
-                      <td>₹ 3,45,000</td>
-                    </tr>
-                    <tr className="table_row">
-                      <td>124621</td>
-                      <td className={styles.buyerName}>Bhutani Traders</td>
-                      <td>Iron</td>
-                      <td>12/05/2022</td>
-                      <td>7</td>
-                      <td>₹ 3,45,000</td>
-                    </tr>
-                  </tbody>
-                </table>
+                        <th>DUE AMOUNT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="table_row">
+                        <td>124621</td>
+                        <td className={styles.buyerName}>Bhutani Traders</td>
+                        <td>Iron</td>
+                        <td>12/05/2022</td>
+                        <td>7</td>
+                        <td>₹ 3,45,000</td>
+                      </tr>
+                      <tr className="table_row">
+                        <td>124621</td>
+                        <td className={styles.buyerName}>Bhutani Traders</td>
+                        <td>Iron</td>
+                        <td>12/05/2022</td>
+                        <td>7</td>
+                        <td>₹ 3,45,000</td>
+                      </tr>
+                      <tr className="table_row">
+                        <td>124621</td>
+                        <td className={styles.buyerName}>Bhutani Traders</td>
+                        <td>Iron</td>
+                        <td>12/05/2022</td>
+                        <td>7</td>
+                        <td>₹ 3,45,000</td>
+                      </tr>
+                      <tr className="table_row">
+                        <td>124621</td>
+                        <td className={styles.buyerName}>Bhutani Traders</td>
+                        <td>Iron</td>
+                        <td>12/05/2022</td>
+                        <td>7</td>
+                        <td>₹ 3,45,000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>              
               </div>
             </div>
           </div>

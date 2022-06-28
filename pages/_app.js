@@ -21,6 +21,27 @@ export default function MyApp(props) {
   useEffect(() => {
     import('bootstrap/dist/js/bootstrap.js')
   }, [])
+  useEffect(() => {
+    let isDark = localStorage.getItem('darkMode')
+    console.log(
+      localStorage.getItem('darkMode') == true,
+      'lkk',
+      typeof localStorage.getItem('darkMode'),
+    )
+
+    if (
+      localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true
+    ) {
+      console.log('here', 'lkk2')
+      document.body.classList.remove('light-mode')
+      document.body.classList.add('dark-mode')
+    } else {
+      console.log('here', 'lkk4')
+      document.body.classList.remove('dark-mode')
+      document.body.classList.add('light-mode')
+    }
+  })
 
   //  useEffect(() => {
   //  toast.dark("Wow so easy!");
@@ -44,16 +65,16 @@ export default function MyApp(props) {
               <Component {...pageProps} />
             </Layout>
             <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            hideProgressBar
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
           </ErrorBoundary>
         </Provider>
       </ThemeProvider>

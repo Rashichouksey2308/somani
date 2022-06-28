@@ -100,7 +100,7 @@ function Index({ handleChange, reviewedProfile}) {
             </td>
             <td>
               <input
-                onChange={(e) => handleCheckBox(e)}
+                //onChange={(e) => handleCheckBox(e)}
                 className={styles.checkBox}
                 type="checkbox"
               />
@@ -127,7 +127,7 @@ function Index({ handleChange, reviewedProfile}) {
             </td>
             <td>
               <input
-                onChange={(e) => handleCheckBox(e)}
+                //onChange={(e) => handleCheckBox(e)}
                 className={styles.checkBox}
                 type="checkbox"
               />
@@ -163,7 +163,7 @@ function Index({ handleChange, reviewedProfile}) {
             </td>
             <td>
               <input
-                onChange={(e) => handleCheckBox(e)}
+                //onChange={(e) => handleCheckBox(e)}
                 className={styles.checkBox}
                 type="checkbox"
               />
@@ -190,7 +190,7 @@ function Index({ handleChange, reviewedProfile}) {
             </td>
             <td>
               <input
-                onChange={(e) => handleCheckBox(e)}
+                //onChange={(e) => handleCheckBox(e)}
                 className={styles.checkBox}
                 type="checkbox"
               />
@@ -217,7 +217,7 @@ function Index({ handleChange, reviewedProfile}) {
             </td>
             <td>
               <input
-                onChange={(e) => handleCheckBox(e)}
+                //onChange={(e) => handleCheckBox(e)}
                 className={styles.checkBox}
                 type="checkbox"
               />
@@ -255,7 +255,7 @@ function Index({ handleChange, reviewedProfile}) {
             </td>
             <td>
               <input
-                onChange={(e) => handleCheckBox(e)}
+                //onChange={(e) => handleCheckBox(e)}
                 className={styles.checkBox}
                 type="checkbox"
               />
@@ -282,7 +282,7 @@ function Index({ handleChange, reviewedProfile}) {
             </td>
             <td>
               <input
-                onChange={(e) => handleCheckBox(e)}
+                //onChange={(e) => handleCheckBox(e)}
                 className={styles.checkBox}
                 type="checkbox"
               />
@@ -310,7 +310,7 @@ function Index({ handleChange, reviewedProfile}) {
             <td>
               <input
                 name="ExpectedDateOfShipment"
-                onChange={(e) => handleCheckBox(e)}
+                //onChange={(e) => handleCheckBox(e)}
                 className={styles.checkBox}
                 type="checkbox"
               />

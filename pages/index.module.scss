@@ -58,6 +58,9 @@
                   border: 1px solid #d2d7e5;
                   //box-shadow: 0 3px 6px #cad0e2;
               }
+              .table_scroll {
+                    overflow-x: auto;
+                }
               .leads .tableFilter {
                   padding-right: 35px;
                   padding-left: 35px;
@@ -106,6 +109,8 @@
               }
               .table {
                   width: 100%;
+                //   min-width: 1000px;
+                //     overflow-x: auto;
               }
               .leads .table thead {
                   width: 100%;
@@ -119,6 +124,7 @@
                   font-weight: bold;
                   line-height: 18px;
                   // padding: 24px 15px;
+                //   white-space: nowrap;
                   text-transform: uppercase;
                   border-top: 2px solid #f2f5f9;
                   border-bottom: 2px solid #f2f5f9;
@@ -179,3 +185,11 @@
     margin-left: 0.5rem;
     transform:rotate(270deg)
  }
+
+  .noRotate {
+    width: 12px;
+        height: 12px;
+        opacity: 0.5;
+        margin-left: 0.5rem;
+    
+  }

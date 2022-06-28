@@ -2,6 +2,7 @@
   height: 42px;
   width: 100%;
   background: #FFFFFF 0% 0% no-repeat padding-box;
+  
   box-shadow: 0px 3px 12px #CAD0E2;
   border: 1px solid #D2D7E5;
   // position: fixed;
@@ -39,6 +40,8 @@ div{
       line-height: 23px;
 }
      .options {
+      background-color: #F3F4F7 !important;
+      color: #3687E8;
       font-size:18px;
       text-transform: capitalize;
       margin-right: 10px;

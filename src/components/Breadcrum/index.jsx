@@ -8,12 +8,22 @@ export default function index() {
         <span>/ Dashboard</span>
      </div>
       <div className={`${styles.unit_container} d-flex`}>
-            <h5 className={`${styles.unit_label} accordion_Text`}>
+           <div className={`mr-2`}>
+             <h5 className={`${styles.unit_label} accordion_Text`}>
+              Units :
+            </h5>
+            <select className={`${styles.options} accordion_DropDown`}>
+              <option>Crores</option>
+            </select>
+           </div>
+           <div>
+             <h5 className={`${styles.unit_label} accordion_Text`}>
               Currency :
             </h5>
             <select className={`${styles.options} accordion_DropDown`}>
               <option>INR</option>
             </select>
+           </div>
           </div>
           </div>
    

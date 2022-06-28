@@ -1,13 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './creditqueue.module.scss'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
-import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
-
+import {
+  GetAllBuyer,
+  GetAllOrders,
+  GetBuyer,
+} from '../../src/redux/registerBuyer/action'
 
 function Index() {
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -23,35 +27,43 @@ function Index() {
     }
   }
 
-
   return (
-    <div className='container-fluid mb-4 card'> 
+    <div className="container-fluid mb-4 card">
       <div className={`${styles.filter} d-flex align-items-center`}>
         <div className={styles.search}>
           <div className="input-group">
             <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
-              <img src="/static/search.svg" className="img-fluid" alt="Search" />
+              <img
+                src="/static/search.svg"
+                className="img-fluid"
+                alt="Search"
+              />
             </div>
-            <input type="text" className={`${styles.formControl} form-control formControl `} placeholder="Search" />
+            <input
+              type="text"
+              className={`${styles.formControl} form-control formControl `}
+              placeholder="Search"
+            />
           </div>
-         
         </div>
         <a className={styles.filterIcon}>
-        <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
-      </a>
-      <a href="#" className={`${styles.filterList} filterList `}>
-        Ramesh Shetty
-        <img src="/static/close.svg" className="img-fluid" alt="Close" />
-      </a>
-      <a href="#" className={`${styles.filterList} filterList `}>
-        Raj Traders
-        <img src="/static/close.svg" className="img-fluid" alt="Close" />
-      </a>
+          <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
+        </a>
+        <a href="#" className={`${styles.filterList} filterList `}>
+          Ramesh Shetty
+          <img src="/static/close.svg" className="img-fluid" alt="Close" />
+        </a>
+        <a href="#" className={`${styles.filterList} filterList `}>
+          Raj Traders
+          <img src="/static/close.svg" className="img-fluid" alt="Close" />
+        </a>
       </div>
-     
+
       {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
 
-      <div className={`${styles.statusBox} statusBox  d-flex align-items-center justify-content-between`}>
+      <div
+        className={`${styles.statusBox} statusBox  d-flex align-items-center justify-content-between`}
+      >
         <div className={`${styles.all} ${styles.boxInner}`}>
           <div className="d-flex align-items-center">
             <div className={styles.iconBox}>
@@ -139,7 +151,10 @@ function Index() {
                 className="img-fluid"
               />
             </a>
-            <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
+            <a
+              href="#"
+              className={`${styles.arrow} ${styles.rightArrow} arrow`}
+            >
               <img
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="arrow right"
@@ -149,7 +164,7 @@ function Index() {
           </div>
         </div>
         <table
-          className={`${styles.table} table table_row` }
+          className={`${styles.table} table table_row`}
           cellPadding="0"
           cellSpacing="0"
           border="0"
@@ -166,7 +181,7 @@ function Index() {
             </tr>
           </thead>
           <tbody>
-             {allBuyerList &&
+            {allBuyerList &&
               allBuyerList.data?.data?.map((buyer, index) => (
                 <tr key={index} className={`${styles.table_row} table_row`}>
                   {buyer.queue === 'CreditQueue' ? (
@@ -182,7 +197,11 @@ function Index() {
                         <span
                           className={`${styles.status} ${styles.approved}`}
                         ></span>
-                         {buyer.queue === "ReviewQueue" ? "Review" : "CreditQueue"? "Approved" : "Rejected"}
+                        {buyer.queue === 'ReviewQueue'
+                          ? 'Review'
+                          : 'CreditQueue'
+                          ? 'Approved'
+                          : 'Rejected'}
                       </td>
                       <td>
                         <img
@@ -328,6 +347,6 @@ function Index() {
         </table>
       </div>
     </div>
-)
+  )
 }
 export default Index

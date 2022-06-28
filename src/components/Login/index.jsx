@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.scss'
 import "bootstrap/dist/css/bootstrap.css";
 import { loginUser } from 'redux/authentication/actions';
-import useDarkMode from 'use-dark-mode';
+
 import Cookies from 'js-cookie';
 
 function Index(props) {
   const dispatch = useDispatch()
   const loggingoutUser = useSelector(state => state.auth.loggingUserOut)
 
-  const darkMode = useDarkMode(false);
+
   useEffect(()=>{
       if(loggingoutUser){
           props.login()

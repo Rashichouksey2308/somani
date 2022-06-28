@@ -4,8 +4,9 @@ import { createLogger } from 'redux-logger'
 import config from 'config'
 import { repoSearchReducer } from 'features/repoSearch/repoSearchSlice'
 import AuthReducer from 'redux/authentication/reducer';
-import BuyerReducer from 'redux/registerBuyer/reducer'
-import { sidebar } from 'redux/toggleState/Reducer/reducer'
+import BuyerReducer from 'redux/registerBuyer/reducer';
+import { sidebar } from 'redux/toggleState/Reducer/reducer';
+import OrderReducer from 'redux/buyerProfile/reducer';
 
 
 export const createStore = (preloadedState) => {
@@ -26,6 +27,7 @@ export const createStore = (preloadedState) => {
       auth: AuthReducer,
       buyer: BuyerReducer,
       sidebar: sidebar,
+      order: OrderReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

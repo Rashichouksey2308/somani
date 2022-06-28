@@ -12,8 +12,9 @@ function Index() {
   useEffect(() => {
     dispatch(GetAllBuyer())
   }, [dispatch])
+  
   const { allBuyerList } = useSelector((state) => state.buyer)
-  console.log(allBuyerList?.data, "this is all buyer")
+  
 
   const handleRoute = (buyer) => {
     if (buyer.queue === 'ReviewQueue') {
@@ -71,7 +72,7 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
               onClick={() => Router.push('/leads/12')}
             >
-              Add
+              + New Customer
             </button>
           </div>
 
