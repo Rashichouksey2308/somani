@@ -1,3 +1,5 @@
+@import "../../src/components/styles/Core/config";
+
 .dashboardTab {
     //background: #FFFFFF;
     //box-shadow: 0px 3px 12px #CAD0E2;
@@ -11,6 +13,15 @@
             line-height: 41px;
             margin: 0;
             text-transform: capitalize;
+            @include respond(md-desktop) {
+                font-size: 32px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 28px;
+            }
+            @include respond(phone) {
+                font-size: 24px;
+            }
             img {
                 width: 13px;
                 height: 21px;
@@ -24,6 +35,15 @@
             font-weight: normal;
             line-height: 16px;
             margin-top: 7px;
+            @include respond(md-desktop) {
+                font-size: 14px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 12px;
+            }
+            @include respond(phone) {
+                font-size: 11px;
+            }
             span {
                 color: #283756;
                 font-weight: bold;
@@ -54,6 +74,16 @@
                     font-size: 22px;
                     text-transform: capitalize;
                     line-height: 27px;
+                    @include respond(md-desktop) {
+                        font-size: 20px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 18px;
+                    }
+                    @include respond(phone) {
+                        font-size: 15px;
+                    }
+                  
                 }
                 span {
                     font-size: 45px;
@@ -68,7 +98,16 @@
                     line-height: 25px;
                     font-weight: 500;
                     padding: 5px;
-
+                    @include respond(md-desktop) {
+                        font-size: 18px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 16px;
+                    }
+                    @include respond(phone) {
+                        font-size: 10px;
+                        line-height: 18px;
+                    }
                 }
                 .dropDown_label{
                     letter-spacing: 0.53px;
@@ -76,6 +115,15 @@
                     font-size: 16px;
                     line-height: 17px; 
                     padding-right:10px;
+                    @include respond(md-desktop) {
+                        font-size: 14px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 12px;
+                    }
+                    @include respond(phone) {
+                        font-size: 10px;
+                    }
                 }
                 .add_btn {
                     color: #3687E8;
@@ -88,6 +136,19 @@
                     margin: 0 15px 0 30px;
                     width: 78px;
                     height: 38px;
+                    @include respond(md-desktop) {
+                        font-size: 16px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 14px;
+                    }
+                    @include respond(phone) {
+                        font-size: 12px;
+                        width: 50px;
+                        height: 26px;
+                        text-align: center;
+                        border-radius: 3px;
+                    }
                 }
                 }
             
@@ -103,6 +164,19 @@
                 letter-spacing: 0px;
                 //color: #111111;
                 text-transform: capitalize;
+                @include respond(md-desktop) {
+                    font-size: 18px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 16px;
+                    line-height: 20px;
+                }
+                @include respond(phone) {
+                    font-size: 14px;                
+                    line-height: 15px;
+
+
+                }
             }
             .form_group {
                 margin-top: 40px;
@@ -123,6 +197,15 @@
                     box-sizing: border-box;
                     transform: translateY(-29px);
                     transition: 0.3s all ease-in-out;
+                    @include respond(md-desktop) {
+                        font-size: 14px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 12px;
+                    }
+                    @include respond(phone) {
+                        font-size: 12px;
+                    }
                 }
                 .input_field {
                     font-size: 20px;
@@ -144,6 +227,19 @@
                             transform:translateY(-29px);
                         }
                     }
+                    @include respond(md-desktop) {
+                        font-size: 18px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 16px;
+                        height: 55px;
+
+                    }
+                    @include respond(phone) {
+                        font-size: 14px;
+                        height: 45px;
+                        padding: 0px 12px 0px 12px;
+                    }
                 }
             }
             
@@ -163,6 +259,15 @@
                     &:first-child {
                         padding-left: 35px;
                     }
+                    @include respond(md-desktop) {
+                        font-size: 14px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 12px;
+                    }
+                    @include respond(phone) {
+                        font-size: 12px;
+                    }
                 }
                 td {
                     font-size: 19px;
@@ -172,6 +277,15 @@
                     padding: 24px 15px;
                     border-top: none;
                     vertical-align: middle;
+                    @include respond(md-desktop) {
+                        font-size: 17px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 15px;
+                    }
+                    @include respond(phone) {
+                        font-size: 13px;
+                    }
                 }
                 .input_field{
                     background: #C3C3C31F;
@@ -183,6 +297,15 @@
                     border: none;
                     padding: 5px 0px 5px 15px;
                     width: 299px;
+                    @include respond(md-desktop) {
+                        font-size: 18px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 16px;
+                    }
+                    @include respond(phone) {
+                        font-size: 14px;
+                    }
 
                 }
                 .close_image {
@@ -195,12 +318,30 @@
                     font-size: 20px;
                     text-transform: capitalize;
                     padding-left: 35px;
+                    @include respond(md-desktop) {
+                        font-size: 18px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 16px;
+                    }
+                    @include respond(phone) {
+                        font-size: 14px;
+                    }
                 }
                 .doc_row {
                     font-size: 19px;
                     line-height: 24px;
                     opacity: 0.7;
-                    font-weight: 500;                
+                    font-weight: 500;
+                    @include respond(md-desktop) {
+                        font-size: 17px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 15px;
+                    }
+                    @include respond(phone) {
+                        font-size: 12px;
+                    }                
                 }
                 
             }
