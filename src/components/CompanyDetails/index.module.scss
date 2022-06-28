@@ -47,6 +47,29 @@
               transform: translateY(-31px);
               transition: 0.3s all ease-in-out;
           }
+          .slider_value{
+            background: #C3C3C31F;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            letter-spacing: 0.53px;
+            color: #00000080;
+            font-size: 16px;
+            line-height: 17px;
+            font-weight: 500;
+            padding: 5px 25px 5px 25px;
+            margin-top: -12px;
+            margin-left: 20px;
+
+            span {
+                letter-spacing: 0.19px;
+                color: #111111;
+                text-transform: capitalize;
+                font-size: 20px;
+                line-height: 25px;
+
+            }
+
+          }
           .input_field {
               height: 60px;
               border-radius: 4px;
@@ -67,7 +90,7 @@
           }
           .slidecontainer {
               width: 100%;
-              margin-top: 40px;
+              margin-top: 38px;
               position: relative;
               .slider {
                   -webkit-appearance: none;  /* Override default CSS styles */

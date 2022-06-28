@@ -168,8 +168,11 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
               </label>
             </div>
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <div className={`${styles.label_heading} label-heading ml-n3`}>
+              <div className={`${styles.label_heading} d-flex label-heading ml-n3`}>
                 Turn Over(in Crores)<strong className='text-danger'>*</strong>
+               <div className={styles.slider_value}> 
+                <span>60</span> Cr
+               </div>
               </div>
               <div className={styles.slidecontainer}>
                 <input

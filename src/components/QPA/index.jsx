@@ -154,11 +154,11 @@ const qpa=()=>{
 
                  <br/>
                  <br/>
-                4. Bill of Entry to be filed in the name IGI. Payment of customs duty, IGST, energy cess, Wharfage , CIMS and all other statutory charges shall be paid by ...................... to IGI in advance at the time of Custom Clearance. ...................... shall pay Port Charges directly to port or through the CHA/Stevedore who will take care of the payments to Port and raise bills on IGI for this. A copy of the same has to be furnished to IGI.  Any penalty/demurrage on account of delayed payment shall be to the account of .......................
+                4. Bill of Entry to be filed in the name <input type="text" className={styles.input_field} placeholder="IGI" />. Payment of customs duty, IGST, energy cess, Wharfage , CIMS and all other statutory charges shall be paid by ...................... to <input type="text" className={styles.input_field} placeholder="IGI" /> in advance at the time of Custom Clearance. ...................... shall pay Port Charges directly to port or through the CHA/Stevedore who will take care of the payments to Port and raise bills on <input type="text" className={styles.input_field} placeholder="IGI" /> for this. A copy of the same has to be furnished to <input type="text" className={styles.input_field} placeholder="IGI" />.  Any penalty/demurrage on account of delayed payment shall be to the account of .......................
                  
                  <br/>
                  <br/>
-                5. Port wharfage, pollution charges, plot rental, wagon haulage and terminal charges, Port Royalty (if applicable) are to be paid by ...................... in advance to IGI as per Bedi Port tariff. HMC crane charges at inner harbor (Bedi Port) and any pre berthing delays/detentions/demurrages will be t the account of  ...................... on actual basis.  
+                5. Port wharfage, pollution charges, plot rental, wagon haulage and terminal charges, Port Royalty (if applicable) are to be paid by ...................... in advance to <input type="text" className={styles.input_field} placeholder="IGI" /> as per Bedi Port tariff. HMC crane charges at inner harbor (Bedi Port) and any pre berthing delays/detentions/demurrages will be t the account of  ...................... on actual basis.  
  
                  <br/>
                  <br/>
@@ -170,15 +170,15 @@ const qpa=()=>{
 
                 <br/>
                 <br/>
-                8. Scanned copy of RR shall be furnished by CHA/Stevedore to IGI as well as ...................... as soon as it is issued after loading. The original RR shall be sent by CHA/Stevedore to ...................... for taking delivery of the rake. The final reconciliation shall be done based on the BL quantity.
+                8. Scanned copy of RR shall be furnished by CHA/Stevedore to <input type="text" className={styles.input_field} placeholder="IGI" /> as well as ...................... as soon as it is issued after loading. The original RR shall be sent by CHA/Stevedore to ...................... for taking delivery of the rake. The final reconciliation shall be done based on the BL quantity.
 
                 <br/>
                 <br/>
-                9. ...................... will arrange comprehensive storage insurance against all risks for 110% of the value of goods. The insurance policy will indicate IGI or its nominated Bank (as per IGI’s discretion), as sole beneficiary.  ...................... shall inform CHA/Stevedore the details of the goods for which IGI/IGI’s nominated Bank shall be the beneficiary for the entire insured value of such pledged goods as per the B/L, quantity kept in the custody of CHA/Stevedore. In case of any claim on insurance company the same shall be claimed and pursued till realization by ...................... at their cost and .................. shall indemnify CHA/Stevedore and IGI against all risks.
+                9. ...................... will arrange comprehensive storage insurance against all risks for 110% of the value of goods. The insurance policy will indicate <input type="text" className={styles.input_field} placeholder="IGI" /> or its nominated Bank (as per <input type="text" className={styles.input_field} placeholder="IGI" />’s discretion), as sole beneficiary.  ...................... shall inform CHA/Stevedore the details of the goods for which <input type="text" className={styles.input_field} placeholder="IGI" />/<input type="text" className={styles.input_field} placeholder="IGI" />’s nominated Bank shall be the beneficiary for the entire insured value of such pledged goods as per the B/L, quantity kept in the custody of CHA/Stevedore. In case of any claim on insurance company the same shall be claimed and pursued till realization by ...................... at their cost and .................. shall indemnify CHA/Stevedore and IGI against all risks.
                 
                 <br/>
                 <br/>
-                10. IGI and Dr. Amin Controllers Pvt. Ltd. (Collateral manager appointed by LC opening Bank) shall have free and unfettered access to the plot where the goods are stored without any prior notice to the plot keeper during all reasonable hours including the right of ingress and egress to and from the plot by IGI’s and/or Dr. Amin’s officials, agents, other nominated buyers, if any, of IGI and/or Dr. Amin, its vehicles, any Government Agency, for storing/de-storing/removing the material in or from the plot without any hindrance or obstruction.  
+                10. <input type="text" className={styles.input_field} placeholder="IGI" /> and Dr. Amin Controllers Pvt. Ltd. (Collateral manager appointed by LC opening Bank) shall have free and unfettered access to the plot where the goods are stored without any prior notice to the plot keeper during all reasonable hours including the right of ingress and egress to and from the plot by IGI’s and/or Dr. Amin’s officials, agents, other nominated buyers, if any, of <input type="text" className={styles.input_field} placeholder="IGI" /> and/or Dr. Amin, its vehicles, any Government Agency, for storing/de-storing/removing the material in or from the plot without any hindrance or obstruction.  
                 
                 <br/>
                 <br/>
@@ -186,11 +186,11 @@ const qpa=()=>{
                 
                 <br/>
                 <br/>
-                12. CHA/Stevedore shall at all times follow and be bound by the instructions solely of IGI with regard to delivery of the Goods. CHA/Stevedore confirms and undertakes that it shall not release the Goods without the written Release Order of IGI. CHA/Stevedore shall have no objection whatsoever, if Indo German instructs it to deliver the Goods to any third party so nominated by them. The instructions of the Indo German shall be followed forthwith, without any objection, hindrance or delay whatsoever. 
+                12. CHA/Stevedore shall at all times follow and be bound by the instructions solely of <input type="text" className={styles.input_field} placeholder="IGI" /> with regard to delivery of the Goods. CHA/Stevedore confirms and undertakes that it shall not release the Goods without the written Release Order of <input type="text" className={styles.input_field} placeholder="IGI" />. CHA/Stevedore shall have no objection whatsoever, if Indo German instructs it to deliver the Goods to any third party so nominated by them. The instructions of the Indo German shall be followed forthwith, without any objection, hindrance or delay whatsoever. 
 
                 <br/>
                 <br/>
-                13. CHA/Stevedore shall maintain all records as necessary, statutorily or otherwise for the receipt, storage and release of goods from the warehouse and furnish a daily report to IGI & ....................... Under no circumstance releases will be made by CHA/Stevedore or be taken by ...................... without obtaining proper Release Order in writing from IGI. CHA/Stevedore and ...................... jointly and severally agree to indemnify and hold harmless at all times IGI, its officers, agents, employees for any losses, damages, claims, costs and expenses incurred by IGI due to unauthorized, improper release of the Goods, shortage and/or for breach of the terms of this Agreement.
+                13. CHA/Stevedore shall maintain all records as necessary, statutorily or otherwise for the receipt, storage and release of goods from the warehouse and furnish a daily report to <input type="text" className={styles.input_field} placeholder="IGI" /> & ....................... Under no circumstance releases will be made by CHA/Stevedore or be taken by ...................... without obtaining proper Release Order in writing from <input type="text" className={styles.input_field} placeholder="IGI" />. CHA/Stevedore and ...................... jointly and severally agree to indemnify and hold harmless at all times <input type="text" className={styles.input_field} placeholder="IGI" />, its officers, agents, employees for any losses, damages, claims, costs and expenses incurred by <input type="text" className={styles.input_field} placeholder="IGI" /> due to unauthorized, improper release of the Goods, shortage and/or for breach of the terms of this Agreement.
 
                 <br/>
                 <br/>
@@ -199,7 +199,7 @@ const qpa=()=>{
                 <br/>
                 <br/>
 
-                15. In the event of ...................... does not lift the goods/material within the scheduled period IGI has the right to sell/dispose of the goods/material at the cost of ....................... ...................... shall liable to pay to IGI the loss (if any) incurred by IGI. 
+                15. In the event of ...................... does not lift the goods/material within the scheduled period <input type="text" className={styles.input_field} placeholder="IGI" /> has the right to sell/dispose of the goods/material at the cost of ....................... ...................... shall liable to pay to <input type="text" className={styles.input_field} placeholder="IGI" /> the loss (if any) incurred by <input type="text" className={styles.input_field} placeholder="IGI" />. 
 
                 <br/>
                 <br/>
