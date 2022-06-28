@@ -139,7 +139,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                       mobileFunction(e)
 
                       //green tick
-                      console.log("is it validating?")
+                      
                     } else {
                       //red mark
                       console.log("phone formaat invalid")

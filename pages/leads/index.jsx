@@ -84,7 +84,7 @@ console.log(filteredList)
       <div className="container-fluid mb-4 card">
         <div className="p-4">
           {/*filter*/}
-          <div className={`${styles.filter} d-flex d-md-inline-flex align-items-center`}>
+          <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={styles.search}>
               <div className="input-group">
                 <div
@@ -119,9 +119,10 @@ console.log(filteredList)
               Raj Traders
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
             </a> */}
+            
             <button
               type="button"
-              className={`${styles.btnPrimary} btn ml-lg-auto btn-primary`}
+              className={`${styles.btnPrimary} btn ml-auto btn-primary`}
               onClick={() => Router.push('/leads/12')}
             >
               + New Customer
@@ -133,7 +134,7 @@ console.log(filteredList)
             className={`${styles.statusBox} statusBox d-flex align-items-center justify-content-between`}
           >
             <div className={`${styles.all} ${styles.boxInner}`}>
-              <div className="d-flex align-items-center">
+              <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
                     src="/static/Leads.svg"
@@ -148,7 +149,7 @@ console.log(filteredList)
               </div>
             </div>
             <div className={`${styles.approved} ${styles.boxInner}`}>
-              <div className="d-flex align-items-center">
+              <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
                     src="/static/check.svg"
@@ -163,7 +164,7 @@ console.log(filteredList)
               </div>
             </div>
             <div className={`${styles.review} ${styles.boxInner}`}>
-              <div className="d-flex align-items-center">
+              <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
                     src="/static/access-time.svg"
@@ -178,7 +179,7 @@ console.log(filteredList)
               </div>
             </div>
             <div className={`${styles.rejected} ${styles.boxInner}`}>
-              <div className="d-flex align-items-center">
+              <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
                     src="/static/close-b.svg"
@@ -193,7 +194,7 @@ console.log(filteredList)
               </div>
             </div>
             <div className={`${styles.saved} ${styles.boxInner}`}>
-              <div className="d-flex align-items-center">
+              <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
                     src="/static/bookmark.svg"

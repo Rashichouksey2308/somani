@@ -31,8 +31,15 @@
       @content;
     }
   }
+  // For Mobile Screens Less than or equal to 767px pixel
   @if $breakpoint == phone {
     @media (max-width: 767px) {
+      @content;
+    }
+  }
+  // For tablet Screens from 768px to 1024px pixel
+  @if $breakpoint == tablet {
+    @media (min-width: 768px) and (max-width: 1024px) {
       @content;
     }
   }
@@ -41,21 +48,31 @@
       @content;
     }
   }
+  // For Small Screens Less than or equal to 991px pixel
   @if $breakpoint == sm-desktop {
-    @media (min-width: 992px) and (max-width: 1199px) {
+    @media (max-width: 991px) {
       @content;
     }
   }
+  // For Medium Screens Less than or equal to 1199px pixel
   @if $breakpoint == md-desktop {
-    @media (min-width: 1200px) and (max-width: 1299px) {
+    @media (max-width: 1199px) {
       @content;
     }
   }
+  // For Large Screens Greater Than 1200 pixel
   @if $breakpoint == lg-desktop {
-    @media (min-width: 1300px) and (max-width: 1400px) {
+    @media (min-width: 1200px) and (max-width: 1400px) {
       @content;
     }
   }
+  // For Large Screens Greater Than 1401 pixel
+  // @if $breakpoint == lg-desktop {
+  //   @media (min-width: 1300px) and (max-width: 1400px) {
+  //     @content;
+  //   }
+  // }
+  // For Extra Large Screens Greater Than 1401 pixel
   @if $breakpoint == xl-desktop {
     @media (min-width: 1401px) {
       @content;

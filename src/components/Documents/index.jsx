@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 // import { settingDocument } from 'redux/registerBuyer/action'
@@ -8,47 +10,6 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
 
   const [secondDocName, setSecondDocName] = useState(null)
   
-
-  // let formData = new FormData();
-
-  // const handleMultimediaChange = (e) => {
-  //   e.preventDefault()
-  //   // console.log(
-  //   //   "🚀 ~ file: index.jsx ~ line 72 ~ handleMultimediaChange ~ e",
-  //   //   e
-  //   // );
-  //   // console.log(e.target.files[0], "handlechange file")
-
-  //   let formData = new FormData();
-  //   var fileTypes = ['.doc', '.pdf', '.txt']
-  //   const file = e.target.files[0]
-  //   if (e.target.files[0]) {
-  //     var extension = e.target.files[0].name.split('.').pop().toLowerCase()
-  //       // isSuccess = fileTypes.indexOf(extension) > -1
-  //     if (extension === ".txt"  || extension === ".pdf" || extension === ".doc" || extension === ".docx") {
-  //       // let file = e.target.files[0]
-  //       // let name = e.target.name
-  //       // formData.append(name, file)
-  //       // console.log("failure")
-  //       // console.log(file.type, "file type2")
-  //       // return false
-  //     } else {
-  //       //error message
-  //       // console.log("inside else block")
-  //       // console.log(extension, "ext")
-  //       // console.log(file.type, "file type")
-  //       // console.log(isSuccess, "succ")
-  //       setDocument1(e.target.files[0])
-  //       setName(e.target.files[0].name)
-
-  //     }
-  //   }
-  // //   console.log(formData.values(),"values")
-  // //   for (var value of formData.values()) {
-  // //     console.log(value,"value");
-  // //  }
-  //   // e.target.file = null;
-  // }
 
   return (
     <div className={`${styles.main} border_color`}>
