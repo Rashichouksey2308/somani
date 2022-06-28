@@ -9,10 +9,24 @@ const index = ({
   saveAddressData,
   mobileFunction,
   uploadDocument,
+  saveProductData,
+  saveSupplierData
 }) => {
   console.log(creditDetail, 'this is credit detail')
 
-  const { company, productSummary, supplierCredential } = creditDetail
+  const { company, productSummary, supplierCredential } = creditDetail;
+
+  const saveDate = (e) => {
+    const d = new Date(e.target.value);
+    let text = d.toISOString()
+    saveProductData( e.target.name, text)
+  }
+
+  const saveSupplierDate = (e) => {
+    const d = new Date(e.target.value);
+    let text = d.toISOString()
+    saveSupplierData( e.target.name, text)
+  }
 
   return (
     <>
@@ -41,6 +55,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={productSummary.monthlyProductionCapacity}
+                  name='monthlyProductionCapacity'
+                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Monthly Production Capacity
@@ -54,6 +70,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={productSummary.capacityUtilization}
+                  name='capacityUtilization'
+                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Capacity Utilization<strong className="text-danger">*</strong>
@@ -66,6 +84,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={productSummary.averageStockOfCommodity}
+                  name='averageStockOfCommodity'
+                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Average Stock of Commodity
@@ -79,6 +99,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={productSummary.averageStockInTransit}
+                  name='averageStockInTransit'
+                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Average Stock in Transit
@@ -92,6 +114,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={productSummary.availableStock}
+                  name='availableStock'
+                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Available Stock<strong className="text-danger">*</strong>
@@ -103,6 +127,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={productSummary.dailyConsumptionOfCommodity}
+                  name='dailyConsumptionOfCommodity'
+                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Daily Consumption of Commodity
@@ -116,6 +142,8 @@ const index = ({
                   defaultValue={
                     productSummary.stockCoverageOfCommodity.split('T')[0]
                   }
+                  name='stockCoverageOfCommodity'
+                  onChange={(e)=>saveDate(e)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Stock Coverage of Commodity
@@ -124,7 +152,7 @@ const index = ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`}>
+                <select className={`${styles.input_field} input form-control`} name='existingProcurementOfCommodity' onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}>
                   <option>
                     {productSummary.existingProcurementOfCommodity}
                   </option>
@@ -156,7 +184,7 @@ const index = ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`}>
+                <select className={`${styles.input_field} input form-control`} name='contributionCommoditySenstivity' onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}>
                   <option>
                     {productSummary.contributionCommoditySenstivity}
                   </option>
@@ -175,6 +203,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={productSummary.AvgMonthlyElectricityBill}
+                  name='AvgMonthlyElectricityBill'
+                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Avg. Monthly Electricity Bill
@@ -223,7 +253,7 @@ const index = ({
           <div className={`${styles.dashboard_form} card-body`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`}>
+                <select className={`${styles.input_field} input form-control`} name='supplierName' onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}>
                   <option>{supplierCredential.supplierName}</option>
                   <option>Bhutani Traders</option>
                   <option>Ramakrishna</option>
@@ -238,6 +268,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={supplierCredential.shipmentNumber}
+                  name='shipmentNumber'
+                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   No. of Shipments<strong className="text-danger">*</strong>
@@ -250,6 +282,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={supplierCredential.consigneesNumber}
+                  name='consigneesNumber'
+                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   No. of Consignees<strong className="text-danger">*</strong>
@@ -262,6 +296,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={supplierCredential.HSCodesNumber}
+                  name='HSCodesNumber'
+                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   No. of HS codes<strong className="text-danger">*</strong>
@@ -274,6 +310,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={supplierCredential.countryOfOrigin}
+                  name='countryOfOrigin'
+                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Country of Origin<strong className="text-danger">*</strong>
@@ -285,6 +323,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={supplierCredential.portOfDestination}
+                  name='portOfDestination'
+                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Port of Destination<strong className="text-danger">*</strong>
@@ -297,6 +337,8 @@ const index = ({
                   defaultValue={
                     supplierCredential.oldestShipmentDate.split('T')[0]
                   }
+                  name='oldestShipmentDate'
+                  onChange={(e)=>saveSupplierDate(e)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Oldest Shipment Date<strong className="text-danger">*</strong>
@@ -309,6 +351,8 @@ const index = ({
                   defaultValue={
                     supplierCredential.latestShipmentDate.split('T')[0]
                   }
+                  name='latestShipmentDate'
+                  onChange={(e)=>saveSupplierDate(e)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Latest Shipment Date<strong className="text-danger">*</strong>
@@ -320,6 +364,8 @@ const index = ({
                   required
                   type="text"
                   defaultValue={supplierCredential.commodityOfTotalTrade}
+                  name='commodityOfTotalTrade'
+                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Commodity to Total Trade % -24M
@@ -332,7 +378,9 @@ const index = ({
                   as="textarea"
                   rows={3}
                   className={`${styles.remark_field} input form-control`}
+                  name='remarks'
                   defaultValue={supplierCredential.remarks}
+                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
               </div>
             </div>
