@@ -1,3 +1,5 @@
+@import "../../../src/components/styles/Core/config";
+
 .upload_main {
     border-radius: 6px;
     margin-bottom: 1rem;
@@ -11,12 +13,31 @@
             color: #3687E8;
             line-height: 27px;
             margin-bottom: 0;
+            @include respond(md-desktop) {
+                font-size: 20px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 18px;
+            }
+            @include respond(phone) {
+                font-size: 14px;
+                line-height: 20px;
+            }
         }
         span {
             font-size: 45px;
             color: #3687e8;
             font-weight: normal;
             line-height: 20px;
+            @include respond(md-desktop) {
+                font-size: 42px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 38px;
+            }
+            @include respond(phone) {
+                font-size: 30px;
+            }
         }
     }
     .dashboard_form {
@@ -36,11 +57,28 @@
                 font-size: 19px;
                 line-height: 24px;
                 font-weight: 500;
+                @include respond(md-desktop) {
+                    font-size: 17px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 15px;
+                }
+                @include respond(phone) {
+                    font-size: 12px;
+                }
                 a {
                     text-decoration: underline;
                     font-size:19px;
                     color: #3687E8;
-
+                    @include respond(md-desktop) {
+                        font-size: 17px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 15px;
+                    }
+                    @include respond(phone) {
+                        font-size: 12px;
+                    }
                 }
             } 
         }
@@ -56,6 +94,15 @@
             width: 220px;
             height: 46px;
             background-color: #ffffff;
+            @include respond(md-desktop) {
+                font-size: 18px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 16px;
+            }
+            @include respond(phone) {
+                font-size: 13px;
+            }
         }
         .form_group {    
             position: relative;
@@ -71,6 +118,15 @@
                 line-height: 1;
                 left: 30px;
                 top: -8px;
+                @include respond(md-desktop) {
+                    font-size: 14px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 12px;
+                }
+                @include respond(phone) {
+                    font-size: 10px;
+                }
             }
             .value {
                 font-size:20px;
@@ -79,6 +135,20 @@
                 border: 1px solid #0000001F;
                 border-radius: 4px;
                 height: 60px;
+                @include respond(md-desktop) {
+                    font-size: 18px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 16px;
+                    height: 55px;
+
+                }
+                @include respond(phone) {
+                    font-size: 14px;
+                    height: 45px;
+                    border-radius: 2px;
+
+                }
             }
         }
         .uploadBtnWrapper {
@@ -114,6 +184,15 @@
                 &:first-child {
                     padding-left: 35px;
                 }
+                @include respond(md-desktop) {
+                    font-size: 14px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 12px;
+                }
+                @include respond(phone) {
+                    font-size: 12px;
+                }
             }
             td {
                 font-size: 19px;
@@ -122,7 +201,16 @@
                 padding: 24px 15px;
                 border-top: none;
                 vertical-align: middle;
-                border-bottom: 2px solid #F2F5F9;                
+                border-bottom: 2px solid #F2F5F9; 
+                @include respond(md-desktop) {
+                    font-size: 17px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 15px;
+                }
+                @include respond(phone) {
+                    font-size: 12px;
+                }               
             }
             .module {
                 background: #8492A6;
@@ -134,6 +222,15 @@
                 padding: 0 35px;
                 height: 38px;
                 border-radius: 0;
+                @include respond(md-desktop) {
+                    font-size: 15px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 13px;
+                }
+                @include respond(phone) {
+                    font-size: 11px;
+                }
             }
             .doc_name {
                 font-weight: bold;
@@ -141,12 +238,30 @@
                 font-size: 20px;
                 text-transform: capitalize;
                 padding-left: 35px;
+                @include respond(md-desktop) {
+                    font-size: 18px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 16px;
+                }
+                @include respond(phone) {
+                    font-size: 14px;
+                }
             }
             .doc_row {
                 font-size: 19px;
                 line-height: 24px;
                 opacity: 0.7;
-                font-weight: 500;                
+                font-weight: 500;  
+                @include respond(md-desktop) {
+                    font-size: 17px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 15px;
+                }
+                @include respond(phone) {
+                    font-size: 12px;
+                }              
             }
             .status {
                 width: 15px;
@@ -155,6 +270,15 @@
                 border-radius: 50%;
                 display: inline-block;
                 vertical-align: middle;
+                
+                @include respond(sm-desktop) {
+                    width: 12px;
+                    height: 12px;
+                }
+                @include respond(phone) {
+                    width: 10px;
+                    height: 10px;
+                }    
             }
             .approved {
                 background: #26DD73;
