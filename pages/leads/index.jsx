@@ -30,7 +30,7 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 card">
+      <div className="container-fluid mb-4 card mt-4 border-0">
         <div className="p-4">
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>

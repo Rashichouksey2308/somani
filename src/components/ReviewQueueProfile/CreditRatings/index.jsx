@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from '../profile.module.scss'
 
-function Index() {
+function 
+Index() {
   return (
    <>
    <div className={`${styles.card} card`}>

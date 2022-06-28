@@ -6,7 +6,7 @@ const index = ({creditDetail}) => {
 
   console.log(creditDetail, "this is credit detail")
 
-  const {company, productSummary, supplierCredential} = creditDetail;
+  // const {company, productSummary, supplierCredential} = creditDetail;
 
   return (
     <>

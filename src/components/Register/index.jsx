@@ -180,7 +180,7 @@ const whatsappFunction = (e) => {
         <CompanyDetails darkMode={darkMode} whatsappFunction={whatsappFunction} mobileFunction={mobileFunction} saveOrderData={saveOrderData} saveCompanyData={saveCompanyData} />
         <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData}/>
         <Documents darkMode={darkMode} saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
-        <Terms darkMode={darkMode} submitData={submitData} />
+        <Terms darkMode={darkMode} submitData={submitData}  />
       </Card.Body>
     </Card>
   )

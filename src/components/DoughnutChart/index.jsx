@@ -53,8 +53,8 @@ function Index() {
       },
     
     },
-    //  responsive: true, 
-      cutout: 90
+     responsive: false, 
+     cutout: 50
    
   }
  
