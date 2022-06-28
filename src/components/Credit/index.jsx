@@ -1,8 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
+import { toast } from 'react-toastify'
+import { phoneValidation } from 'utils/helper'
 import styles from './index.module.scss'
 
-const index = ({ creditDetail, saveAddressData }) => {
+const index = ({
+  creditDetail,
+  saveAddressData,
+  mobileFunction,
+  uploadDocument,
+}) => {
   console.log(creditDetail, 'this is credit detail')
 
   const { company, productSummary, supplierCredential } = creditDetail
@@ -504,15 +511,17 @@ const index = ({ creditDetail, saveAddressData }) => {
                             {address.contact.number}
                           </p>
                           <p>
-                        <span>Branch: </span>{address.branch}
-                      </p>
-                      <div className="d-flex">
-                        <p>
-                          {' '}
-                          <span>GSTIN: </span>{address.GSTIN}
-                        </p>
-                        <span className={styles.button}>View</span>
-                      </div>
+                            <span>Branch: </span>
+                            {address.branch}
+                          </p>
+                          <div className="d-flex">
+                            <p>
+                              {' '}
+                              <span>GSTIN: </span>
+                              {address.GSTIN}
+                            </p>
+                            <span className={styles.button}>View</span>
+                          </div>
                         </div>
                       </div>
                       <div>
@@ -666,7 +675,13 @@ const index = ({ creditDetail, saveAddressData }) => {
           <div className={`${styles.dashboard_form} card-body`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                <select className={`${styles.input_field} input form-control`} name='addressType' onChange={(e)=>{saveAddressData(e.target.name, e.target.value)}}>
+                <select
+                  className={`${styles.input_field} input form-control`}
+                  name="addressType"
+                  onChange={(e) => {
+                    saveAddressData(e.target.name, e.target.value)
+                  }}
+                >
                   <option>Factory</option>
                   <option>Warehouse</option>
                   <option>Corporate Office</option>
@@ -680,6 +695,10 @@ const index = ({ creditDetail, saveAddressData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  name="pinCode"
+                  onChange={(e) => {
+                    saveAddressData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Pin Code<strong className="text-danger">*</strong>
@@ -691,6 +710,10 @@ const index = ({ creditDetail, saveAddressData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  name="state"
+                  onChange={(e) => {
+                    saveAddressData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   State<strong className="text-danger">*</strong>
@@ -702,6 +725,10 @@ const index = ({ creditDetail, saveAddressData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  name="city"
+                  onChange={(e) => {
+                    saveAddressData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   City<strong className="text-danger">*</strong>
@@ -713,6 +740,10 @@ const index = ({ creditDetail, saveAddressData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  name="email"
+                  onChange={(e) => {
+                    saveAddressData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Email ID<strong className="text-danger">*</strong>
@@ -722,7 +753,17 @@ const index = ({ creditDetail, saveAddressData }) => {
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="tel"
+                  onChange={(e) => {
+                    if (phoneValidation(e.target.value)) {
+                      mobileFunction(e)
+                    } else {
+                      let toastMessage = 'Enter a valid Phone Number'
+                      if (!toast.isActive(toastMessage)) {
+                        toast.error(toastMessage, { toastId: toastMessage })
+                      }
+                    }
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Phone Number<strong className="text-danger">*</strong>
@@ -731,7 +772,11 @@ const index = ({ creditDetail, saveAddressData }) => {
               <div className={`${styles.form_group} col-md-8 col-sm-6`}>
                 <input
                   className={`${styles.input_field} input form-control`}
-                  type="date"
+                  type="text"
+                  name="completeAddress"
+                  onChange={(e) => {
+                    saveAddressData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Address<strong className="text-danger">*</strong>
@@ -740,7 +785,11 @@ const index = ({ creditDetail, saveAddressData }) => {
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <input
                   className={`${styles.input_field} input form-control`}
-                  type="date"
+                  type="text"
+                  name="branch"
+                  onChange={(e) => {
+                    saveAddressData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Branch<strong className="text-danger">*</strong>
@@ -751,6 +800,10 @@ const index = ({ creditDetail, saveAddressData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  name="GSTIN"
+                  onChange={(e) => {
+                    saveAddressData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   GSTIN<strong className="text-danger">*</strong>
@@ -760,11 +813,19 @@ const index = ({ creditDetail, saveAddressData }) => {
               <div className={`${styles.btn_container} col-md-4`}>
                 <button className={`${styles.gst_btn}`}>
                   {' '}
-                  <img
+                  <input
+                    type="file"
+                    name="myfile"
+                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                    onChange={(e) => {
+                      uploadDocument(e)
+                    }}
+                  />
+                  {/* <img
                     className="img-fluid mr-2 mb-1"
                     src="/static/file_upload.svg"
                     alt="file upload"
-                  />
+                  /> */}
                   GST Doc
                 </button>
                 <button className={`${styles.add_btn}`}>Add</button>
@@ -809,27 +870,30 @@ const index = ({ creditDetail, saveAddressData }) => {
                 </tr>
               </thead>
               <tbody>
-             { company && company.debtProfile.map((profile, index) => (  <tr key={index}>
-                  <td>{index+=1}</td>
-                  <td>{profile.bankName}</td>
-                  <td>{profile.limitType}</td>
-                  <td>{profile.limit}</td>
-                  <td>{profile.conduct}</td>
-                  <td>
-                    <div>
-                      <img
-                        src="/static/save-3.svg"
-                        className={`${styles.edit_image} mr-3 img-fluid`}
-                        alt="edit"
-                      />
-                      <img
-                        src="/static/delete 2.svg"
-                        className="img-fluid"
-                        alt="delete"
-                      />
-                    </div>
-                  </td>
-                </tr> ))}
+                {company &&
+                  company.debtProfile.map((profile, index) => (
+                    <tr key={index}>
+                      <td>{(index += 1)}</td>
+                      <td>{profile.bankName}</td>
+                      <td>{profile.limitType}</td>
+                      <td>{profile.limit}</td>
+                      <td>{profile.conduct}</td>
+                      <td>
+                        <div>
+                          <img
+                            src="/static/save-3.svg"
+                            className={`${styles.edit_image} mr-3 img-fluid`}
+                            alt="edit"
+                          />
+                          <img
+                            src="/static/delete 2.svg"
+                            className="img-fluid"
+                            alt="delete"
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
                 {/* <tr>
                   <td>2</td>
                   <td>

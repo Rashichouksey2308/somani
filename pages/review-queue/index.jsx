@@ -141,6 +141,22 @@ function Index() {
 
   })
 
+  const mobileFunction = (e) => {
+    const newObj = {...companyAddress}
+     newObj.contact.number = e.target.value
+     setCompanyAddress(newObj)
+    
+  }
+
+  const uploadDocument = (e) => {
+
+    const newUploadDoc = {...companyAddress}
+    newUploadDoc.GSTIN_document = e.target.files[0]
+  
+    setCompanyAddress(newUploadDoc)
+
+  }
+
   const saveAddressData = (name, value) => {
     const newInput = { ...companyAddress }
     newInput[name] = value
@@ -766,7 +782,7 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Credit" role="tabpanel">
-                  <Credit creditDetail={orderList} saveAddressData={saveAddressData} />
+                  <Credit creditDetail={orderList} saveAddressData={saveAddressData} mobileFunction={mobileFunction} uploadDocument={uploadDocument} />
                   <Recommendations />
                   <CommonSave />
                 </div>
