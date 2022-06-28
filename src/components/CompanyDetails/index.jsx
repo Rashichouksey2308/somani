@@ -7,7 +7,14 @@ import { toast } from 'react-toastify'
 
 const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whatsappFunction }) => {
 
-  const {gstList} = useSelector((state) =>  state.buyer)
+  const { gstList } = useSelector((state) => state.buyer)
+  const [slider, setSlider] = useState("0")
+  const sliderBackground = () => {
+    return {
+      background: `${(slider * 100) / 100}`,
+    };
+  }
+  console.log(sliderBackground())
 
   return (
     <>
@@ -16,7 +23,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
           <div className={`${styles.heading} heading_card_switch_blue`}>Company Profile</div>
           <div className={styles.radio_form}>
             <div className={styles.sub_heading}>Transaction Type</div>
-            {['radio'].map((type ,index) => (
+            {['radio'].map((type, index) => (
               <div key={`inline-${index}`} className={styles.radio_group}>
                 <Form.Check
                   className={styles.radio}
@@ -52,8 +59,8 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                   } else {
                     //red mark
                     let toastMessage = "Invalid Pan"
-                    if(!toast.isActive(toastMessage)) {
-                      toast.error(toastMessage, {toastId: toastMessage})
+                    if (!toast.isActive(toastMessage)) {
+                      toast.error(toastMessage, { toastId: toastMessage })
                     }
                   }
                 }}
@@ -74,7 +81,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                 className={`${styles.input_field} input form-control`}
                 required
               />
-              <label className={`${styles.label_heading} label_heading`}  id="textInput">
+              <label className={`${styles.label_heading} label_heading`} id="textInput">
                 Company Name<strong className='text-danger'>*</strong>
               </label>
             </div>
@@ -82,17 +89,17 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <select
                 id="drop"
-                onChange={(e)=> {saveCompanyData(e.target.name, e.target.value)}}
-                name= "GST"
+                onChange={(e) => { saveCompanyData(e.target.name, e.target.value) }}
+                name="GST"
                 className={`${styles.input_field} input form-control`}
                 required
               >
-                {gstList && gstList.GstinIdArray.map((gstId,index) =>( <option key={index} value={gstId}>{gstId}</option>))}
+                {gstList && gstList.GstinIdArray.map((gstId, index) => (<option key={index} value={gstId}>{gstId}</option>))}
                 {/* <option value="gst1">282176JDEJ88UD</option>
                 <option value="gst2">27AAATW46786C2ZG</option>
                 <option value="gst3">VW5688TW4183C2ZG</option> */}
               </select>
-              <label className={`${styles.label_heading} label_heading`}  id="drop">
+              <label className={`${styles.label_heading} label_heading`} id="drop">
                 GST<strong className='text-danger'>*</strong>
               </label>
             </div>
@@ -108,7 +115,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                 <option value="Retailer">Retailer</option>
                 <option value="Trading">Trading</option>
               </select>
-              <label className={`${styles.label_heading} label_heading`}  id="textInput">
+              <label className={`${styles.label_heading} label_heading`} id="textInput">
                 Type Of Business<strong className='text-danger'>*</strong>
               </label>
             </div>
@@ -130,7 +137,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                     if (phoneValidation(e.target.value)) {
                       // saveCompanyData(e.target.name, e.target.value)
                       mobileFunction(e)
-                      
+
                       //green tick
                       
                     } else {
@@ -141,7 +148,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                   className={`${styles.input_field} input form-control border-left-0`}
                   required
                 />
-                <label className={`${styles.label_heading} label_heading`}  id="textNumber">
+                <label className={`${styles.label_heading} label_heading`} id="textNumber">
                   Phone<strong className='text-danger'>*</strong>
                 </label>
               </div>
@@ -163,13 +170,16 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                 className={`${styles.input_field} input form-control`}
                 required
               />
-              <label className={`${styles.label_heading} label_heading`}  id="textInput">
+              <label className={`${styles.label_heading} label_heading`} id="textInput">
                 Email ID<strong className='text-danger'>*</strong>
               </label>
             </div>
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <div className={`${styles.label_heading} label-heading ml-n3`}>
+              <div className={`${styles.label_heading} d-flex label-heading ml-n3`}>
                 Turn Over(in Crores)<strong className='text-danger'>*</strong>
+                <div className={styles.slider_value}>
+                  <span>{slider}</span> Cr
+                </div>
               </div>
               <div className={styles.slidecontainer}>
                 <input
@@ -179,25 +189,30 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                   step="20"
                   name="turnOver"
                   list="tickmarks"
-                  onChange={(e) => saveCompanyData(e.target.name, e.target.value)}
-                  className={`${styles.slider} input form-control`}
+                  onChange={(e) => {
+                    saveCompanyData(e.target.name, e.target.value)
+                    setSlider(e.target.value)
+                  }}
+                  className={`${styles.slider}   input form-control`}
                   id="myRange"
+
+                  style={{ background:`linear-gradient(90deg, #3687E8 ${slider}%, #C3C3C31F ${slider-100}%)`}}
                 />
                 <datalist id="tickmarks">
-                  <option value="0" label="0"></option> 
+                  <option value="0" label="0"></option>
                   <option value="20" label="20"></option>
-                 <option value="40" label="40"></option>
+                  <option value="40" label="40"></option>
                   <option value="60" label="60"></option>
                   <option value="80" label="80"></option>
                   <option value="100" label="100"></option>
                 </datalist>
-                <div className= {`${styles.more_label} d-flex justify-content-end mr-n2`}>or more</div>
+                <div className={`${styles.more_label} d-flex justify-content-end mr-n2`}>or more</div>
               </div>
             </div>
             <div
               className={`${styles.each_input} col-md-4 col-sm-6`} style={{ marginTop: -1 }}>
               <div className={styles.radio_form} style={{ paddingLeft: 10 }}>
-                <div className={`${styles.sub_heading} sub_heading` }>Communication Mode<strong className='text-danger'>*</strong></div>
+                <div className={`${styles.sub_heading} sub_heading`}>Communication Mode<strong className='text-danger'>*</strong></div>
                 <Form selected="">
                   {['checkbox'].map((type) => (
                     <div key={`inline-${type}`} className={styles.radio_group}>
