@@ -17,8 +17,8 @@ export default function Home() {
             </div>
            
         </div>
-        <div className='container-fluid background1'>
-        <div className={`${styles.vessel_card}`}>
+        <div className={`${styles.backgroundMain} container-fluid background2`}>
+                  <div className={`${styles.vessel_card}`}>
         <div className={`${styles.main} card border-color`}>
         <div className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`} >
         <h3 className={`${styles.heading}`}>Basic Details</h3>

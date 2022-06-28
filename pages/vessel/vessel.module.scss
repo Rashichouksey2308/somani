@@ -37,7 +37,8 @@
 }
 
 
-
+.backgroundMain {
+   // background: #F3F4F7 !important;
     .vessel_card {
         margin: 20px 5px 20px 5px;
         .main {
@@ -52,6 +53,7 @@
                     font-weight:bold;
                     font-size: 22px;
                     text-transform: capitalize;
+                    line-height: 27px;
                 }
                 span {
                     font-size: 45px;
@@ -206,4 +208,4 @@
 
     }
 
-
+}

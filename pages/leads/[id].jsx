@@ -3,7 +3,7 @@ import Register from '../../src/components/Register'
 import styles from './register.module.scss'
 import Footer from '../../src/components/Footer'
 
-const index = () => {
+const Index = () => {
   return (
     <div className={styles.root_Container}>
       <Register />
@@ -11,4 +11,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index
