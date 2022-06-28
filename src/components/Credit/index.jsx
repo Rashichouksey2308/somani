@@ -53,7 +53,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   defaultValue={productSummary.monthlyProductionCapacity}
                   name='monthlyProductionCapacity'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
@@ -68,7 +68,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   defaultValue={productSummary.capacityUtilization}
                   name='capacityUtilization'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
@@ -82,7 +82,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   defaultValue={productSummary.averageStockOfCommodity}
                   name='averageStockOfCommodity'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
@@ -97,7 +97,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   defaultValue={productSummary.averageStockInTransit}
                   name='averageStockInTransit'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
@@ -112,7 +112,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   defaultValue={productSummary.availableStock}
                   name='availableStock'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
@@ -125,7 +125,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   defaultValue={productSummary.dailyConsumptionOfCommodity}
                   name='dailyConsumptionOfCommodity'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
@@ -201,7 +201,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   defaultValue={productSummary.AvgMonthlyElectricityBill}
                   name='AvgMonthlyElectricityBill'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
