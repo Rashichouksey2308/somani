@@ -84,7 +84,7 @@ function Index() {
             </a>
           </div>
         </div>
-        <div className="theme d-flex align-items-center">
+        <div className={`${styles.theme} d-flex align-items-center`}>
         <a href="#">
             <img src="/static/light.svg" alt="light" className={`${styles.light} img-fluid mr-3`}/>
           </a>
