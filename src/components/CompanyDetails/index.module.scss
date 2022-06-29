@@ -1,6 +1,10 @@
+@import "../styles/Core/config";
 .main {
   padding: 35px 35px 10px;
   border-bottom: 3px solid #D9DDE8;
+    @include respond(phone) {
+            padding: 25px 20px 20px;
+        }
   .heading {
       font-size: 20px;
       letter-spacing: 0.19px;
@@ -12,11 +16,24 @@
       padding-top: 20px;
       .radio_group {
           display: flex;
+          @include respond(phone) {
+                justify-content: space-between;
+            }
           .radio {
               font-size: 20px;
               color: #111111;
               letter-spacing: 0.19px;
               padding-right: 25px;
+              @include respond(phone) {
+                font-size: 16px;
+                padding-right: 0px;
+              }
+              label {
+                @include respond(phone) {
+                        font-size: 16px;
+                       
+                    }
+              }
           }
       }
       .sub_heading {
@@ -25,6 +42,9 @@
           font-weight: 500;
           padding: 10px 0 15px;
           letter-spacing: 0.53px;
+            @include respond(phone) {
+                    font-size: $font_size_mobile_input_label;
+                }
       }
   } 
   .input_container {
@@ -34,6 +54,9 @@
       .each_input {
           position: relative;
           margin: 30px 0 20px;
+        @include respond(phone) {
+                margin: 20px 0px 20px;
+            }
           .label_heading {
               top: 27px;
               left: 30px;
@@ -46,6 +69,9 @@
               box-sizing: border-box;
               transform: translateY(-31px);
               transition: 0.3s all ease-in-out;
+              @include respond(phone){
+                font-size: $font_size_mobile_input_label;
+              }
           }
           .slider_value{
             background: #C3C3C31F;

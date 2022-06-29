@@ -16,7 +16,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
       <div  className={`${styles.heading} heading_card_switch_blue`}>Documents</div>
 
       <div className={`${styles.input_container} row align-items-center`}>
-        <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+        <div className={`${styles.each_input} col-md-12 col-sm-6 col-lg-6`}>
           <label className={`${styles.heading} label_heading`} id="dropDoc">
             Type Of Document<strong className='text-danger'>*</strong>
           </label>
@@ -34,7 +34,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
             <option value="Certificate">Certificate</option>
           </select>
         </div>
-        <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+        <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-3 `}>
           <label className={`${styles.label_heading} label_heading`}>Attach Document<strong className='text-danger'>*</strong></label>
           {!name ? (
             <div className={styles.uploadBtnWrapper}>
@@ -62,13 +62,13 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
           )}
         </div>
 
-        <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+        <div className={`${styles.each_input} col-md-6 col-sm-6  col-6 text-right text-sm-left col-lg-3 `}>
           <div onClick={() => setName(null)} className={styles.image_card} style={{ marginTop: 19 }}>
             <img className={styles.image_delete} src="/static/delete.svg" />
           </div>
         </div>
         <hr className={styles.hr_line}></hr>
-        <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+        <div className={`${styles.each_input} col-md-12 col-sm-6 col-lg-6 `}>
           <select
             className={`${styles.input_field} input form-control`}
             name="1"
@@ -81,7 +81,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
           </select>
         </div>
 
-        <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+        <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-3`}>
           {!secondDocName ? (
             <div className={styles.uploadBtnWrapper}>
               <input
@@ -108,7 +108,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
           )}
         </div>
 
-        <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+        <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-3`}>
           <div onClick={() => setSecondDocName(null)} className={styles.image_card}>
             <img
               className={styles.image_delete}

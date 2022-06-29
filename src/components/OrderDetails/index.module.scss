@@ -1,6 +1,10 @@
+@import "../styles/Core/config";
 .main {
   padding: 35px 35px 10px;
   border-bottom: 3px solid #D9DDE8;
+    @include respond(phone) {
+        padding: 25px 20px 20px;
+      }
   .heading {
       font-size: 20px;
       color: #111111;
@@ -9,13 +13,35 @@
   }
   .radio_form {
       padding-top: 20px;
+        .label_heading {
+           
+        
+            @include respond(phone) {
+              padding: 10px 0 15px;
+            }
+          }
       .radio_group {
           display: flex;
-          .radio {                      
-              font-size: 20px;
-              color: #111111;
-              letter-spacing: 0.19px;
-              padding-right: 25px;
+          @include respond(phone) {
+              justify-content: space-between;
+            }
+        .radio {
+            font-size: 20px;
+            color: #111111;
+            letter-spacing: 0.19px;
+            padding-right: 25px;
+        
+            @include respond(phone) {
+              font-size: 16px;
+              padding-right: 0px;
+            }
+        
+            label {
+              @include respond(phone) {
+                font-size: 16px;
+        
+              }
+            }
           }
       }
       
@@ -27,6 +53,9 @@
       .each_input {
           position: relative;
           margin: 30px 0 20px;
+          @include respond(phone) {
+              margin: 20px 0px 20px;
+            }
           .label_heading {
               top: 27px;
               left: 30px;
@@ -39,6 +68,9 @@
               box-sizing: border-box;
               transform: translateY(-31px);
               transition: 0.3s all ease-in-out;
+              @include respond(phone) {
+                  font-size: $font_size_mobile_input_label;
+                }
           }
           .input_field {
               height: 60px;
@@ -70,6 +102,7 @@
                   color: #3687E8;
                   text-transform: capitalize;
                   outline: none;
+                 
               }
           }
       }
@@ -77,6 +110,9 @@
           .label_heading {
               left: 40%;
               transform: translate(-61px, -31px);
+              @include respond(md-desktop) {
+                left: 35%
+              }
           }
           .input_field {
               &:focus {
@@ -105,18 +141,35 @@
   
     .radio_form {
       padding-top: 20px;
+   
   
-      .radio_group {
+    .radio_group {
         display: flex;
-  
-        .radio {
-          padding-right: 25px;
-          text-align: left;
-          font-size: 20px;
-          letter-spacing: 0.19px;
-          color: #FFFFFF;
-          text-transform: capitalize;
+    
+        @include respond(phone) {
+          justify-content: space-between;
         }
+    
+        .radio {
+          font-size: 20px;
+          color: #111111;
+          letter-spacing: 0.19px;
+          padding-right: 25px;
+    
+          @include respond(phone) {
+            font-size: 16px;
+            padding-right: 0px;
+          }
+    
+          label {
+            @include respond(phone) {
+              font-size: 16px;
+              
+    
+            }
+          }
+        }
+      
       }
   
       .sub_heading {
@@ -149,7 +202,8 @@
           position: absolute;
           left: 30px;
           top: -8px;
-          background: #293141
+          background: #293141;
+         
         }
   
         .phone_card {
