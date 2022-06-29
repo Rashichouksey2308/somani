@@ -15,6 +15,7 @@ export default {
   registerCompany: "/api/core/lead/company-details",
   getBuyers: "/api/core/lead/get-all-leads",
   uploadDocuments: "/api/core/order/doc-upoad",
+  search: "/api/core/lead/search?searchTerm=",
 
   //orders
   getBuyerOrder: "/api/core/lead/order-review",

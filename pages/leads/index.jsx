@@ -5,60 +5,19 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
+import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
 
 function Index() {
   const [query, setQuery] = useState("");
-  const [filteredList, setFilteredData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch()
 
   const { allBuyerList } = useSelector((state) => state.buyer)
-
+  console.log(currentPage)
   useEffect(() => {
-    dispatch(GetAllBuyer())
-  }, [dispatch])
-
-
-  // useEffect(() => {
-  //   if (query.trim().length >= 3) {
-  //     allBuyerList.data?.data?.filter((user) => {
-  //       const userfound = [];
-  //       if (user.company.companyName.toLowerCase().includes(query)) {
-  //         userfound.push(user)
-  //         console.log(user,'filtered user')
-  //         setFilteredData(prevState => prevState.concat(userfound))
-  //       };
-  //     })
-  //   }
-  //   console.log("filtered", filteredList)
-  // }, [query, allBuyerList])
-
-
-  useEffect(() => {
-    if(query.trim() === ""){
-      setFilteredData(allBuyerList.data.data);
-    }
-  }, [query])
-
-console.log(filteredList)
-  const handleFilter = (event) => {
-    const searchWord = event.target.value;
-    setQuery(searchWord);
-    const newFilter = allBuyerList.data?.data?.filter((value) => {
-      return value.company.companyName.toLowerCase().includes(searchWord.toLowerCase());
-    });
-
-    if (searchWord === "") {
-      setFilteredData([]);
-      
-    } else {
-      setFilteredData(newFilter);
-    }
-  };
-
-  const clearInput = () => {
-    setFilteredData([]);
-    setQuery("");
-  };
+    dispatch(GetAllBuyer(currentPage))
+  }, [dispatch, currentPage])
+  
 
 
   const handleRoute = (buyer) => {
@@ -72,9 +31,16 @@ console.log(filteredList)
     }
   }
 
-  // const handleSearch = (props) => {
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    if(query.length >=  3 ){
+      dispatch(SearchLeads(query))
 
-  // }
+    }else {
+      
+      console.log(query,"its not working")
+    }
+  }
 
 
 
@@ -97,7 +63,7 @@ console.log(filteredList)
                   />
                 </div>
                 <input
-                  onChange={handleFilter}
+                onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} form-control formControl `}
                   placeholder="Search"
@@ -119,7 +85,7 @@ console.log(filteredList)
               Raj Traders
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
             </a> */}
-            
+
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
@@ -218,19 +184,30 @@ console.log(filteredList)
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page 1 out of 10</span>
+                <span>Showing Page {currentPage+1}  out of {Math.ceil(allBuyerList?.data?.totalCount/10)}</span>
                 <a
+                  onClick={() => {
+                    if (currentPage === 0) {
+                      return
+                    } else {
+                      setCurrentPage((prevState) => prevState - 1)
+                    }
+                  }}
                   href="#"
                   className={`${styles.arrow} ${styles.leftArrow} arrow`}
                 >
                   {' '}
                   <img
+
                     src="/static/keyboard_arrow_right-3.svg"
                     alt="arrow right"
                     className="img-fluid"
                   />
                 </a>
                 <a
+                  onClick={() => {
+                    setCurrentPage((prevState) => prevState + 1)
+                  }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
                 >
@@ -259,8 +236,8 @@ console.log(filteredList)
                 </tr>
               </thead>
               <tbody>
-                {filteredList  &&
-                  filteredList.map((buyer, index) => (
+                {allBuyerList &&
+                  allBuyerList?.data?.data.map((buyer, index) => (
                     <tr key={index} className={`${styles.table_row} table_row`}>
                       <td>{buyer.company.customerId}</td>
                       <td

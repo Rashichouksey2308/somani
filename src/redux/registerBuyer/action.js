@@ -133,15 +133,15 @@ function getGstFailed() {
 
 //////////**********  Image UPload   *********////////////
 
-function uploadingDocument () {
+function uploadingDocument() {
   return { type: types.UPLOADDOCUMENT };
 }
 
-function uploadingDocumentSuccess () {
+function uploadingDocumentSuccess() {
   return { type: types.UPLOADDOCUMENT_SUCCESS };
 }
 
-function uploadingDocumentFailed () {
+function uploadingDocumentFailed() {
   return { type: types.UPLOADDOCUMENT_FAILED };
 }
 
@@ -245,14 +245,19 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
   }
 }
 
-export const GetAllBuyer = () => async (dispatch, getState, api) => {
+export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
   try {
     let cookie = await Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    console.log(payload, "payload")
+    let params = ""
+    if (payload) {
+      params = `?page=${payload}`
+    }
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    Axios.get(`${API.corebaseUrl}${API.getBuyers}`, { headers: headers }).then(
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache', }
+    Axios.get(`${API.corebaseUrl}${API.getBuyers}${params}`, { headers: headers }).then(
       (response) => {
         if (response.data.code === 200) {
           dispatch(getAllBuyerSuccess(response.data))

@@ -40,6 +40,54 @@ function updateOrderFailed() {
   }
 }
 
+function searchLeads() {
+  return {
+    type : types .SEARCH_LEADS
+  }
+}
+function searchLeadsSuccess() {
+  return {
+    type : types .SEARCH_LEADS_SUCCESSFULL
+  }
+}
+function searchLeadsFailed() {
+  return {
+    type : types .SEARCH_LEADS_FAILED
+  }
+}
+
+export const SearchLeads = (payload) => async (dispatch, getState, api) => {
+  
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken }
+  try {
+    Axios.get(`${API.corebaseUrl}${API.search}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(searchLeadsSuccess(response.data))
+      } else {
+        dispatch(searchLeadsFailed(response.data))
+        const toastMessage = 'Search Leads request Failed'
+        if(!toast.isActive(toastMessage)){
+            toast.error(toastMessage, {toastId: toastMessage})
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(searchLeadsFailed())
+    const toastMessage = 'Search Leads request Failed'
+    if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+    }
+  }
+}
+
+
+
 export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
   // dispatch(updateCredit()
   let cookie = Cookies.get('SOMANI')
