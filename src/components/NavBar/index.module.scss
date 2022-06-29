@@ -73,6 +73,9 @@
         @include respond(sm-desktop) {
             margin-right: 10px;
         }
+        @include respond(phone) {
+            margin-right: 0;
+        }
         a {
             margin: 0 5px 0 4px;
             display: inline-block;
@@ -140,6 +143,9 @@
         @include respond(md-desktop) {
           margin-right: 30px;
         }
+        @include respond(phone) {
+            margin-right: 23px;
+        }
         & > a {
             font-size: 20px;
             font-weight: 500;
@@ -157,6 +163,9 @@
             @include respond(sm-desktop) {
                 font-size: 15px;
             }
+            @include respond(phone) {
+                font-size: 13px;
+            }
             &::after {
                 top: 50%;
                 right: -24px;
@@ -164,6 +173,9 @@
                 transform: translateY(-50%);
                 @include respond(md-desktop) {
                   right: -20px;
+                }
+                @include respond(phone) {
+                    right: -13px;
                 }
             }
             &:hover {
@@ -180,6 +192,10 @@
                 @include respond(md-desktop) {
                     width: 40px;
                 }
+                @include respond(phone) {
+                    width: 30px;
+                    margin: 5px 5px 0 0;
+                }
             }
             span {
                 display: block;
@@ -195,6 +211,10 @@
                 }
                 @include respond(sm-desktop) {
                     font-size: 13px;
+                }
+                @include respond(phone) {
+                    font-size: 11px;
+                    line-height: 1;
                 }
             }
         }
@@ -218,7 +238,7 @@
         width: 45px;
     }
     @include respond(phone) {
-        width: 40px;
+        width: 35px;
     }
 }
 /* Hide default HTML checkbox */
@@ -281,6 +301,11 @@ input:checked+.slider:before {
     -webkit-transform: translateX(30px);
     -ms-transform: translateX(30px);
     transform: translateX(30px);
+    @include respond(phone) {
+        -webkit-transform: translateX(20px);
+        -ms-transform: translateX(20px);
+        transform: translateX(20px);
+    }
 }
 /* Rounded sliders */
 .slider.round {
