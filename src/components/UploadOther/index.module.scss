@@ -1,4 +1,4 @@
-@import "../../../src/components/styles/Core/config";
+@import "../styles/Core/config";
 
 .upload_main {
     border-radius: 6px;
@@ -13,35 +13,24 @@
             color: #3687E8;
             line-height: 27px;
             margin-bottom: 0;
-            @include respond(md-desktop) {
-                font-size: 20px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 18px;
-            }
             @include respond(phone) {
-                font-size: 14px;
-                line-height: 20px;
-            }
+                    font-size: $font_size_mobile_accordion;
+            
+                }
         }
         span {
             font-size: 45px;
             color: #3687e8;
             font-weight: normal;
             line-height: 20px;
-            @include respond(md-desktop) {
-                font-size: 42px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 38px;
-            }
-            @include respond(phone) {
-                font-size: 30px;
-            }
+        
         }
     }
     .dashboard_form {
         padding: 40px 35px 40px 35px;
+        @include respond(phone){
+            padding: 25px 20px 20px;
+        }
         .drop_container{
             background-color: #C3C3C31F;
             border: 1px dashed #00000045;
@@ -101,7 +90,8 @@
                 font-size: 16px;
             }
             @include respond(phone) {
-                font-size: 13px;
+                font-size: $font_size_mobile_input_label;
+                width: 100%;
             }
         }
         .form_group {    
@@ -118,13 +108,14 @@
                 line-height: 1;
                 left: 30px;
                 top: -8px;
-                
-                @include respond(sm-desktop) {
-                    font-size: 14px;
-                }
                 @include respond(phone) {
-                    font-size: 12px;
-                }
+                        font-size: $font_size_mobile_text;
+                        margin-top: 5px !important;
+                    }
+                                         @include respond(sm-desktop) {
+                                            margin-top: 5px !important;
+                                            font-size: $font_size_mobile_input_label;
+                                         }
             }
             .value {
                 font-size:20px;
@@ -162,11 +153,18 @@
                 cursor: pointer;
                 position: absolute;
             }
+            @include respond(phone){
+                width: 100%;
+            }
         }
     }
     .table_container {
         background-color: #FAFAFB;
         margin-top: 40px;
+        @include respond(phone) {
+                overflow-x: auto
+            }
+       
         .table {
             th {
                 font-size: 15px;
@@ -208,8 +206,18 @@
                 }
                 @include respond(phone) {
                     font-size: 12px;
-                }               
+                }  
+                                .actionContainer {
+                                    @include respond(phone) {
+                                        display: flex;
+                                    }
+                
+                                    @include respond(sm-desktop) {
+                                        display: flex;
+                                    }
+                                }
             }
+                        
             .module {
                 background: #8492A6;
                 font-size: 15px;
@@ -288,4 +296,3 @@
     }
 
 }
-

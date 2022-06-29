@@ -1,8 +1,10 @@
+@import "../styles/Core/config";
 .main {
     box-shadow: 0 3px 6px #CAD0E2;
     border: 1px solid #D2D7E5;
     margin-bottom: 1rem;
     border-radius: 6px !important;
+    
     .head_container {
         cursor: pointer;
         padding: 25px 35px !important;
@@ -13,6 +15,10 @@
             color: #3687E8;
             line-height: 27px;
             margin-bottom: 0;
+            @include respond(phone) {
+                    font-size: $font_size_mobile_accordion;
+            
+                }
         }
         span {
             font-size: 45px;
@@ -51,6 +57,9 @@
     .dashboard_form {
         padding: 40px 35px 30px 35px;
         border-bottom: 3px solid #D9DDE8;
+        @include respond(phone){
+            padding: 25px 20px 20px;
+        }
         .sub_heading {
             font-size:20px;
             font-weight: bold;
@@ -60,6 +69,9 @@
             margin-top: 40px;
             position: relative;
             margin-bottom: 10px;
+            @include respond(phone) {
+                    margin-top: 20px
+                }
             .search_image {
                 margin-left: -40px;
             }    
@@ -75,6 +87,12 @@
                 box-sizing: border-box;
                 transform: translateY(-29px);
                 transition: 0.3s all ease-in-out;
+                @include respond(phone) {
+                    font-size: $font_size_mobile_input_label;
+                }
+                                 @include respond( sm-desktop) {
+                                     font-size: $font_size_mobile_input_label;
+                                 }
             }
             .value {
                 font-size: 20px;

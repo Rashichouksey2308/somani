@@ -4,21 +4,7 @@ $breakpointMD: 768px;
 $breakpointLG: 992px;
 $breakpointXL: 1200px;
 
-// $theme-colors: () !default;
-// // stylelint-disable-next-line scss/dollar-variable-default
-// $theme-colors: map-merge(
-//   (
-//     "primary": $primary,
-//     "secondary": $secondary,
-//     "success": $success,
-//     "info": $info,
-//     "warning": $warning,
-//     "danger": $danger,
-//     "light": $light,
-//     "dark": $dark,
-//   ),
-//   $theme-colors
-// );
+
 
 $breakpoints: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
@@ -33,13 +19,13 @@ $breakpoints: map-merge(
   $breakpoints
 );
 
-$p-relative: relative;
-$p-absolute: absolute;
-$p-fixed: fixed;
-$p-static: static;
-$t-capitalize: capitalize;
-$t-lowercase: lowercase;
-$t-uppercase: uppercase;
-$d-block: block;
-$d-none: none;
-$d-flex: flex;
+
+
+//fonts-size-phone 
+$font_size_mobile_text:14px;
+$font_size_mobile_head: 15px;
+$font_size_mobile_button: 15px;
+$font_size_mobile_input_label: 14px;
+$font_size_mobile_accordion:20px;
+
+
