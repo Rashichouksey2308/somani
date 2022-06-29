@@ -55,6 +55,15 @@
                 color: #283756;
                 font-weight: bold;
                 line-height: 17px;
+                @include respond(md-desktop) {
+                    font-size: 42px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 35px;
+                }
+                @include respond(phone) {
+                    font-size: 30px;
+                }
             }
         }
         
@@ -96,6 +105,15 @@
                     color: #3687e8;
                     font-weight: normal;
                     line-height: 20px;
+                    @include respond(md-desktop) {
+                        font-size: 42px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 35px;
+                    }
+                    @include respond(phone) {
+                        font-size: 30px;
+                    }
                 }
                 .dropDown{
                     border: 1px solid #0000001F;
@@ -187,6 +205,12 @@
                 margin-top: 40px;
                 position: relative;
                 margin-bottom: 10px;
+                @include respond(sm-desktop) {
+                    
+                }
+                @include respond(phone) {
+                    margin: 15px;
+                }
                 .search_image {
                     margin-left: -40px;
                 }    
@@ -202,14 +226,13 @@
                     box-sizing: border-box;
                     transform: translateY(-29px);
                     transition: 0.3s all ease-in-out;
-                    @include respond(md-desktop) {
-                        font-size: 14px;
-                    }
                     @include respond(sm-desktop) {
-                        font-size: 12px;
+                        font-size: 16px;
                     }
                     @include respond(phone) {
-                        font-size: 12px;
+                        font-size: 14px;
+                        //top: 20px;
+            
                     }
                 }
                 .input_field {

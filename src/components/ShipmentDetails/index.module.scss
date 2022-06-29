@@ -1,3 +1,5 @@
+@import "../../../src/components/styles/Core/config";
+
 .main {
     margin-bottom: 1rem;
     border-radius: 6px !important;
@@ -10,22 +12,45 @@
             font-size:22px;
             font-weight: bold;
             text-transform: capitalize;
+            @include respond(md-desktop) {
+                font-size: 20px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 18px;
+            }
+            @include respond(phone) {
+                font-size: 15px;
+            }
             }
             span {
                 font-size: 45px;
                 color: #3687e8;
                 font-weight: normal;
                 line-height: 20px;
+                @include respond(md-desktop) {
+                    font-size: 42px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 35px;
+                }
+                @include respond(phone) {
+                    font-size: 30px;
+                }
             }
 }
  .dashboard_form { 
     padding: 25px 35px !important;
+    @include respond(phone) {
+    }
     .form_group {
     
     position: relative;
     margin-bottom: 20px;
     margin-top: 20px;
-    
+    @include respond(phone) {
+        margin-top: 10px;
+    }
+     
 
     .label_heading {
         top: 27px;
@@ -39,6 +64,14 @@
         box-sizing: border-box;
         transform: translateY(-31px);
         transition: 0.3s all ease-in-out;
+        @include respond(sm-desktop) {
+            font-size: 16px;
+        }
+        @include respond(phone) {
+            font-size: 14px;
+            //top: 20px;
+
+        }
       }
       .input_field {
         height: 60px;
@@ -59,6 +92,19 @@
             & + label {
                 transform:translateY(-31px);
             }
+        }
+        @include respond(md-desktop) {
+            font-size: 18px;
+        }
+        @include respond(sm-desktop) {
+            font-size: 16px;
+            height: 55px;
+
+        }
+        @include respond(phone) {
+            font-size: 14px;
+            height: 45px;
+            padding: 0px 12px 0px 12px;
         }
     }
     
