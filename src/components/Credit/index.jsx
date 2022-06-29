@@ -372,7 +372,7 @@ const index = ({
                   <strong className="text-danger">*</strong>
                 </label>
               </div>
-              <div className="col-12 mb-4 mt-4">
+              <div className="col-12 mt-4">
                 <label className={`${styles.label_heading}`}>Remarks</label>
                 <input
                   as="textarea"
