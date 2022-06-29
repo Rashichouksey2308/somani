@@ -187,6 +187,12 @@
                 margin-top: 40px;
                 position: relative;
                 margin-bottom: 10px;
+                @include respond(sm-desktop) {
+                    
+                }
+                @include respond(phone) {
+                    margin: 15px;
+                }
                 .search_image {
                     margin-left: -40px;
                 }    
