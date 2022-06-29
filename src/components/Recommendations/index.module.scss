@@ -1,3 +1,5 @@
+@import "../../../src/components/styles/Core/config";
+
 .main {
     margin-bottom: 1rem;
     border-radius: 6px !important;
@@ -9,12 +11,30 @@
             font-weight:bold;
             font-size: 22px;
             text-transform: capitalize;
+            @include respond(md-desktop) {
+                font-size: 20px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 18px;
+            }
+            @include respond(phone) {
+                font-size: 15px;
+            }
         }
         span {
             font-size: 45px;
             color: #3687e8;
             font-weight: normal;
             line-height: 20px;
+            @include respond(md-desktop) {
+                font-size: 42px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 35px;
+            }
+            @include respond(phone) {
+                font-size: 30px;
+            }
         }
     }
     .line{
@@ -87,6 +107,14 @@
         transform: translateY(-10px);
         margin-left: 20px;
         transition: 0.3s all ease-in-out;
+        @include respond(sm-desktop) {
+            font-size: 16px;
+        }
+        @include respond(phone) {
+            font-size: 14px;
+            //top: 20px;
+
+        }
     }
     .comment_field {
         height: 106px;
@@ -157,6 +185,14 @@
             box-sizing: border-box;
             transform: translateY(-31px);
             transition: 0.3s all ease-in-out;
+            @include respond(sm-desktop) {
+                font-size: 16px;
+            }
+            @include respond(phone) {
+                font-size: 14px;
+                //top: 20px;
+    
+            }
         }
         .input_field {
             width: 306px;
@@ -179,6 +215,14 @@
                     transform:translateY(-31px);
 
                 }
+            }
+            @include respond(md-desktop) {
+                font-size: 18px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 16px;
+                height: 55px;
+    
             }
 
             
