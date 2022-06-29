@@ -67,6 +67,7 @@ function Index() {
               Raj Traders
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
             </a> */}
+            
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
@@ -81,7 +82,7 @@ function Index() {
             className={`${styles.statusBox} statusBox d-flex align-items-center justify-content-between`}
           >
             <div className={`${styles.all} ${styles.boxInner}`}>
-              <div className="d-flex align-items-center">
+              <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
                     src="/static/Leads.svg"
@@ -96,7 +97,7 @@ function Index() {
               </div>
             </div>
             <div className={`${styles.approved} ${styles.boxInner}`}>
-              <div className="d-flex align-items-center">
+              <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
                     src="/static/check.svg"
@@ -111,7 +112,7 @@ function Index() {
               </div>
             </div>
             <div className={`${styles.review} ${styles.boxInner}`}>
-              <div className="d-flex align-items-center">
+              <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
                     src="/static/access-time.svg"
@@ -126,7 +127,7 @@ function Index() {
               </div>
             </div>
             <div className={`${styles.rejected} ${styles.boxInner}`}>
-              <div className="d-flex align-items-center">
+              <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
                     src="/static/close-b.svg"
@@ -141,7 +142,7 @@ function Index() {
               </div>
             </div>
             <div className={`${styles.saved} ${styles.boxInner}`}>
-              <div className="d-flex align-items-center">
+              <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
                     src="/static/bookmark.svg"

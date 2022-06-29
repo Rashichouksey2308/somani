@@ -1,12 +1,12 @@
 import React from 'react'
-import ThirdParty from '../../src/components/ThirdParty'
+import LoadingTransit from '../../src/components/LoadingTransit'
 
-const index = () => {
+const Index = () => {
   return (
     
-      <ThirdParty/>
+      <LoadingTransit/>
    
   )
 }
 
-export default index
+export default Index
