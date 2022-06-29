@@ -97,7 +97,7 @@ function Index() {
             <img src="/static/dark.svg" alt="dark"  className={`${styles.dark} img-fluid ml-3`}/>
           </a>
         </div>
-        <ul className={styles.header_icon}>
+        <ul className={`${styles.header_icon} d-none d-md-inline-block`}>
           <li>
             <a href="#">
               <img src="/static/chat.svg" alt="chat" className="img-fluid" />
