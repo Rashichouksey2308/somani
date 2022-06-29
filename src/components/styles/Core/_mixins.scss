@@ -62,7 +62,7 @@
   }
   // For Large Screens Greater Than 1200 pixel
   @if $breakpoint == lg-desktop {
-    @media (min-width: 1200px) and (max-width: 1400px) {
+    @media (max-width: 1400px) {
       @content;
     }
   }
