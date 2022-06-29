@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 const Index = ({submitData, darkMode}) => {
     const router = useRouter()
     return (
-        <div className={`${darkMode?styles.mainDark:styles.main}`}>
+        <div className={`${darkMode?styles.mainDark:styles.main} `}>
             <div className={styles.term_container}>
                 <input className={styles.check_box} type="checkbox" name="check1"/>
                 <p className={`${styles.term_para} term_para`}>{`By clicking on sign-up, you agree to Simport's Terms and Conditions of Use. To learn more about how Simport collects uses, shares and protects your personal data, please see Simport's Privacy Policy.`}</p>

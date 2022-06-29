@@ -681,7 +681,7 @@ function Index() {
             </div>
         </div>
         </div>
-       <DownloadBar downLoadButtonName={`Download`} isPrevious={true} leftButtonName={`Save`}  rightButtonName={`Next`}/>
+       <DownloadBar downLoadButtonName={`Download`} isPrevious={true} leftButtonName={`Save`}  rightButtonName={`Preview`}/>
         </>
       
     )

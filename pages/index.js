@@ -54,14 +54,14 @@ const IndexPage = () => {
         </div>
         <div className={`${styles.bottom_Container} row`}>
           <div className={`${styles.left_Container} col-lg-3 col-md-12`}>
-              <div className="row">
-                <div className="col-lg-12 col-md-6">
-                  <Commodities />
-                </div>
-                <div className="col-lg-12 col-md-6">
-                  <Exposure />
-                </div>
-              </div>            
+            <div className="row">
+              <div className="col-lg-12 col-md-6">
+                <Commodities />
+              </div>
+              <div className="col-lg-12 col-md-6">
+                <Exposure />
+              </div>
+            </div>
           </div>
           <div className={`${styles.right_Container} col-lg-9 col-md-12`}>
             <div className={styles.upper_Container}>
@@ -136,14 +136,14 @@ const IndexPage = () => {
                 </div>
                 <div className={styles.table_scroll}>
                   <table
-                  className={styles.table}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                    className={styles.table}
+                    cellPadding="0"
+                    cellSpacing="0"
+                    border="0"
+                  >
                     <thead>
                       <tr>
-                        <th>CORDER NO.</th>
+                        <th>ORDER NO.</th>
                         <th>CUSTOMER NAME</th>
                         <th>COMMODITY</th>
                         <th>DUE DATE</th>
@@ -187,7 +187,7 @@ const IndexPage = () => {
                       </tr>
                     </tbody>
                   </table>
-                </div>              
+                </div>
               </div>
             </div>
           </div>
