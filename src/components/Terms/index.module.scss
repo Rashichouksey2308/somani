@@ -1,6 +1,10 @@
+@import "../styles/Core/config";
 .main {
   padding-left: 20px;
   margin-bottom: 5rem;
+  @include respond(phone) {
+      padding: 25px 20px 20px;
+    }
   .term_container {
     display: flex;
 
@@ -9,18 +13,27 @@
       width: 24px;
       height: 24px;
       background-color: transparent;
+      @include respond(phone) {
+          width: 65px;
+        }
     }
     .term_para {
       color: var(--unnamed-color-111111);
       font-size: 18px;      
       margin-top: 25px;
       margin-left: 15px;
+      @include respond(phone) {
+        font-size: $font_size_mobile_text;
+        }
     }
   }
 
   .btn_container {
     display: flex;
     justify-content: end;
+    @include respond(phone) {
+        justify-content:space-between;
+      }
 
     .cancel_btn {
       width: 218px;
@@ -29,6 +42,9 @@
       color: #3687e8;
       text-transform: capitalize;
       margin: 10px;
+      @include respond(phone) {
+          margin-left: 0px;
+        }
     }
 
     .submit_btn {
@@ -42,6 +58,9 @@
       color: #ffffff;
       text-transform: capitalize;
       margin: 10px;
+      @include respond(phone) {
+          margin-right: 0px;
+        }
     }
   }
 }

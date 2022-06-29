@@ -38,10 +38,10 @@ function Index() {
            </Col>
        </Row>
         <Row  className={`h-50`}>
-           <Col md={6} className={`d-flex justify-content-start align-items-center`}>
+           <Col md={6} sm={6} xs={6} className={`d-flex justify-content-start align-items-center`}>
            <div><span className={styles.termSub_head}>Buyer:</span><span className={styles.termValue}>M/s Vishnu Chemicals Limited</span></div>
            </Col>
-            <Col md={6} className={`d-flex justify-content-end  align-items-center`}>
+            <Col md={6} sm={6} xs={6} className={`d-flex justify-content-end  align-items-center`}>
            <div><span className={styles.termSub_head}>Order ID:</span> <span className={styles.termValue}>2FCH6589</span></div>
            </Col>
        </Row>
@@ -49,15 +49,15 @@ function Index() {
       <Card className={styles.content}>
        <div>
         <Row className={`${styles.row_head} row_head`}>
-            <Col md={4} className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
+            <Col md={4} sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Commodity Details</span>
             
             </Col>
-            <Col md={8}>{""}</Col>
+            <Col md={8}  sm={6} xs={6}>{""}</Col>
             </Row>
             <Row> 
-            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4} sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                    <li>1. Commodity Name</li>
@@ -66,7 +66,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8} sm={6} xs={6}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>Chrome Ore</li>
                 <li>5000 MT (± 10%)</li>
@@ -77,15 +77,15 @@ function Index() {
        </div>
         <div>
         <Row className={`${styles.row_head} row_head`}>
-            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
+            <Col md={4}  sm={6} xs={6} className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Transaction Details</span>
             
             </Col>
-            <Col md={8}>{""}</Col>
+            <Col md={8}  sm={6} xs={6}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4}  sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>4. LC Value</li>
@@ -94,7 +94,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}   sm={6} xs={6} className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>USD 2000</li>
                   <li>First Class European Bank)</li>
@@ -106,15 +106,15 @@ function Index() {
        
         <div>
         <Row className={`${styles.row_head} row_head`}>
-            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
+            <Col md={4}  sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Payment Due Date</span>
             
             </Col>
-            <Col md={8}>{""}</Col>
+            <Col md={8}  sm={6} xs={6}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4}  sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>7. Computation of Due Date*</li>
@@ -122,7 +122,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>90 days from the date of arrival of vessel/containers at discharge port or 120 days from the BL date, whichever is earlier, through TT or LC (in the case of LC all Bank charges to be borne and paid by the Buyer). LC Discounting rate Presently @ 4.75% for 90 days usance LC in case of 120 days usance LC Discounting it is subject to actual discounting charges a per the discounting Bank done with proof of charges.</li>
                  
@@ -132,15 +132,15 @@ function Index() {
        </div>
         <div>
         <Row className={`${styles.row_head} row_head`}>
-            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
+            <Col md={4}  sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Storage Of Goods</span>
             
             </Col>
-            <Col md={8}>{""}</Col>
+            <Col md={8}  sm={6} xs={6}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4}  sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>8. Storage of Good</li>
@@ -148,7 +148,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>{`Cargo to be stored in Custom Bonded warehouse at the port of Discharge (Vizag India) under CMA with Dr. Amin Controllers. "lGM and Into Bond Bill of Entry" shall be filled by the lndo's nominated party and all expenses/charges to be born and paid by the Buyer.`}</li>
                  
@@ -158,15 +158,15 @@ function Index() {
        </div>
         <div>
         <Row className={`${styles.row_head} row_head`}>
-            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
+            <Col md={4}  sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Commercials Terms</span>
             
             </Col>
-            <Col md={8}>{""}</Col>
+            <Col md={8}  sm={6} xs={6}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4}  sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>10. Trade Margin (%)</li>
@@ -180,7 +180,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                 <li>2.25%</li>
                  <li>USD 1500</li>
@@ -196,15 +196,15 @@ function Index() {
        </div>
         <div>
         <Row className={`${styles.row_head} row_head`}>
-            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
+            <Col md={4}  sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Reimbursement Of Expenses</span>
             
             </Col>
-            <Col md={8}>{""}</Col>
+            <Col md={8}  sm={6} xs={6}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4}   sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>17. Reimbursement of Expenses</li>
@@ -213,7 +213,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}   sm={6} xs={6} className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  
                  <li>Post CFR expenses to be reimbursed on actual basis if applicable as attached.</li>
@@ -224,15 +224,15 @@ function Index() {
        </div>
         <div>
         <Row className={`${styles.row_head} row_head`}>
-            <Col md={4}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
+            <Col md={4}   sm={6} xs={6} className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
             <span>Additional Comments</span>
             
             </Col>
-            <Col md={8}>{""}</Col>
+            <Col md={8}  sm={6} xs={6}>{""}</Col>
           </Row>
           <Row>
-            <Col md={4} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={4}  sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
                  <li>18. Overdue Interest Per Month (%)</li>
@@ -241,7 +241,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  
                  <li>1.5%</li>
@@ -252,12 +252,12 @@ function Index() {
        </div>
         <div>
         <Row className={`${styles.row_head} row_head`}>
-            <Col md={4} className={`${styles.content_header_other}  d-flex justify-content-center align-content-center`}>
+            <Col md={4}  sm={6} xs={6} className={`${styles.content_header_other}  d-flex justify-content-center align-content-center`}>
              
             <span>Other Terms & Conditions</span>
             
             </Col>
-            <Col md={8}>{""}</Col>
+            <Col md={8}  sm={6} xs={6}>{""}</Col>
           </Row>
           <Row>
             <Col md={12} className={`${styles.sub_content_other} accordion_Text label_heading  d-flex justify-content-start align-content-center`}>

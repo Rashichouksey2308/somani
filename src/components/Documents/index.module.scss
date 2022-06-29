@@ -1,6 +1,10 @@
+@import "../styles/Core/config";
 .main {
     padding: 35px 35px 10px;
     border-bottom: 3px solid #D9DDE8;
+    @include respond(phone) {
+            padding: 25px 20px 20px;
+        }
     .heading {
         font-size: 20px;
         letter-spacing: 0.19px;
@@ -10,15 +14,32 @@
     }
     .radio_form {
         padding-top: 20px;
-        .radio_group {
-            display: flex;
-            .radio {
-                font-size: 20px;
-                color: #111111;
-                letter-spacing: 0.19px;
-                padding-right: 25px;
+.radio_group {
+        display: flex;
+
+        @include respond(phone) {
+            justify-content: space-between;
+        }
+
+        .radio {
+            font-size: 20px;
+            color: #111111;
+            letter-spacing: 0.19px;
+            padding-right: 25px;
+
+            @include respond(phone) {
+                font-size: 16px;
+                padding-right: 0px;
+            }
+
+            label {
+                @include respond(phone) {
+                    font-size: 16px;
+
+                }
             }
         }
+    }
         .sub_heading {
             font-size: 16px;
             color: #00000080;
@@ -110,6 +131,9 @@
                 border-radius: 4px;
                 background-color: #C3C3C31F;
                 border: 1px solid #0000001F;
+                @include respond(phone) {
+                        margin: 0 0 0 auto;
+                    }
             }
             .phone_card{
                 display: flex;
@@ -145,6 +169,9 @@
             text-align: left;
             font-size: 16px;
             letter-spacing: 0.53px;
+            @include respond(phone) {
+                    font-size: $font_size_mobile_input_label !important;
+                }
         }
         .input_field {
             height: 60px;
@@ -183,6 +210,7 @@
             height: 40px;
             text-align: center;
             padding: 5px;
+            
             .image_delete {
                 background: transparent;
                 width: 21px;

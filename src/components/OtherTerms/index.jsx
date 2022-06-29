@@ -15,7 +15,7 @@ const index = () => {
             <Form>
                 <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.<span className={styles.igpl_para}>Indo German International Private Limites (Igpl) </span>will provide proof of all expenses to the Buyer.</div>  
                <div className='row'>              
-                    <div className={`${styles.form_group} mt-5 col-md-6`} >
+                    <div className={`${styles.form_group} mt-5  col-md-6`} >
                         <h3 className={`${styles.other_heading} row_head`}>CHA / Stevedoring Charges</h3>
                         <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                             <div className='d-flex align-items-center'>
