@@ -69,7 +69,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={productSummary.capacityUtilization}
+                  defaultValue={productSummary?.capacityUtilization}
                   name='capacityUtilization'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
@@ -83,7 +83,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={productSummary.averageStockOfCommodity}
+                  defaultValue={productSummary?.averageStockOfCommodity}
                   name='averageStockOfCommodity'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
@@ -98,7 +98,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={productSummary.averageStockInTransit}
+                  defaultValue={productSummary?.averageStockInTransit}
                   name='averageStockInTransit'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
@@ -113,7 +113,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={productSummary.availableStock}
+                  defaultValue={productSummary?.availableStock}
                   name='availableStock'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
@@ -126,7 +126,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={productSummary.dailyConsumptionOfCommodity}
+                  defaultValue={productSummary?.dailyConsumptionOfCommodity}
                   name='dailyConsumptionOfCommodity'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
@@ -140,7 +140,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
-                    productSummary.stockCoverageOfCommodity.split('T')[0]
+                    productSummary?.stockCoverageOfCommodity.split('T')[0]
                   }
                   name='stockCoverageOfCommodity'
                   onChange={(e)=>saveDate(e)}
@@ -154,7 +154,7 @@ const index = ({
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`} name='existingProcurementOfCommodity' onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}>
                   <option>
-                    {productSummary.existingProcurementOfCommodity}
+                    {productSummary?.existingProcurementOfCommodity}
                   </option>
                   <option value="volvo">Import</option>
                   <option value="audi">Manufacturers</option>
@@ -186,7 +186,7 @@ const index = ({
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`} name='contributionCommoditySenstivity' onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}>
                   <option>
-                    {productSummary.contributionCommoditySenstivity}
+                    {productSummary?.contributionCommoditySenstivity}
                   </option>
                   <option value="volvo">High</option>
                   <option value="audi">Low</option>
@@ -202,7 +202,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={productSummary.AvgMonthlyElectricityBill}
+                  defaultValue={productSummary?.AvgMonthlyElectricityBill}
                   name='AvgMonthlyElectricityBill'
                   onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
                 />
@@ -254,7 +254,7 @@ const index = ({
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <select className={`${styles.input_field} input form-control`} name='supplierName' onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}>
-                  <option>{supplierCredential.supplierName}</option>
+                  <option>{supplierCredential?.supplierName}</option>
                   <option>Bhutani Traders</option>
                   <option>Ramakrishna</option>
                 </select>
@@ -267,7 +267,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={supplierCredential.shipmentNumber}
+                  defaultValue={supplierCredential?.shipmentNumber}
                   name='shipmentNumber'
                   onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
@@ -281,7 +281,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={supplierCredential.consigneesNumber}
+                  defaultValue={supplierCredential?.consigneesNumber}
                   name='consigneesNumber'
                   onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
@@ -295,7 +295,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={supplierCredential.HSCodesNumber}
+                  defaultValue={supplierCredential?.HSCodesNumber}
                   name='HSCodesNumber'
                   onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
@@ -309,7 +309,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={supplierCredential.countryOfOrigin}
+                  defaultValue={supplierCredential?.countryOfOrigin}
                   name='countryOfOrigin'
                   onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
@@ -322,7 +322,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={supplierCredential.portOfDestination}
+                  defaultValue={supplierCredential?.portOfDestination}
                   name='portOfDestination'
                   onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
@@ -335,7 +335,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
-                    supplierCredential.oldestShipmentDate.split('T')[0]
+                    supplierCredential?.oldestShipmentDate?.split('T')[0]
                   }
                   name='oldestShipmentDate'
                   onChange={(e)=>saveSupplierDate(e)}
@@ -349,7 +349,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
-                    supplierCredential.latestShipmentDate.split('T')[0]
+                    supplierCredential?.latestShipmentDate?.split('T')[0]
                   }
                   name='latestShipmentDate'
                   onChange={(e)=>saveSupplierDate(e)}
@@ -363,7 +363,7 @@ const index = ({
                   className={`${styles.input_field} ${styles.percent} input form-control`}
                   required
                   type="text"
-                  defaultValue={supplierCredential.commodityOfTotalTrade}
+                  defaultValue={supplierCredential?.commodityOfTotalTrade}
                   name='commodityOfTotalTrade'
                   onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
@@ -379,7 +379,7 @@ const index = ({
                   rows={3}
                   className={`${styles.remark_field} input form-control`}
                   name='remarks'
-                  defaultValue={supplierCredential.remarks}
+                  defaultValue={supplierCredential?.remarks}
                   onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
                 />
               </div>
@@ -423,7 +423,7 @@ const index = ({
                 </tr>
               </thead>
               {company &&
-                company.keyContactPerson.map((person, index) => (
+                company?.keyContactPerson.map((person, index) => (
                   <tbody key={index}>
                     <tr className="table_credit">
                       <td>
@@ -538,7 +538,7 @@ const index = ({
           data-parent="#profileAccordion"
         >
           {company &&
-            company.keyAddress.map((address, index) => (
+            company?.keyAddress.map((address, index) => (
               <div key={index} className={`${styles.dashboard_form} card-body`}>
                 <div className="d-flex justify-content-between">
                   <div className={`${styles.address_card} value background1`}>
