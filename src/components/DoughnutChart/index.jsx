@@ -28,7 +28,7 @@ function Index() {
         label: '',
         data: [25, 24, 25, 25, 3],
 
-        backgroundColor: ['#4CAF50', '#EA3F3F', '#2884DE', '#FFCE00'],
+        backgroundColor: ["#9675CE",'#4CAF50', '#EA3F3F', '#2884DE', '#FFCE00'],
       },
     ],
   }
@@ -61,8 +61,8 @@ function Index() {
   return (
     <Card className={`${styles.card} card`}>
       <Card.Header className={`${styles.header}  border_color  heading_card`}>Top 5 Customers</Card.Header>
-      <Card.Body className={styles.body}>
-        <div className={styles.name}>
+      <Card.Body className={`${styles.body} row`}>
+        <div className={`${styles.name}   col-sm-6`}>
           {tempArr.map((val, index) => {
             return (
               <div key={index} className={styles.name_wrapper}>
@@ -77,7 +77,7 @@ function Index() {
             )
           })}
         </div>
-        <div className={styles.chart}>
+        <div className={`${styles.chart}  col-sm-6`}>
           <Doughnut data={data} options={options} />
           <div className={`${styles.total_value} `}>
             <span>₹ 24.00 Cr</span>

@@ -90,7 +90,7 @@ function Index() {
                   />
                 </div>
                 <h3>
-                  <span>ALL</span>
+                  <span>  </span>
                   3,200
                 </h3>
               </div>
