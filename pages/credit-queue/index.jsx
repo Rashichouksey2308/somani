@@ -19,7 +19,7 @@ function Index() {
  const { allBuyerList } = useSelector((state) => state.buyer)
   console.log(currentPage)
   useEffect(() => {
-    dispatch(GetAllBuyer(currentPage))
+    dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
 
   const handleRoute = (buyer) => {

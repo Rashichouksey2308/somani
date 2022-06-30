@@ -6,12 +6,34 @@ const initialState = {
   updatingOrder: false,
   updatingOrderResponse: null,
   searchingLeads: false,
-  searchedLeads: null
+  searchedLeads: null,
+  gettingTermsheet: false,
+  termsheet: [],
 }
 
 function OrderReducer(state = initialState, action) {
 
   switch (action.type) {
+    case types.GET_TERMSHEET:
+      return {
+        ...state,
+        gettingTermsheet: true
+      }
+
+    case types.GET_TERMSHEET_SUCCESSFULL:
+      return {
+        ...state,
+        gettingTermsheet: false,
+        termsheet: action.payload
+      }
+    case types.GET_TERMSHEET_FAILED:
+      return {
+        ...state,
+        gettingTermsheet: false,
+        termsheet: []
+      }
+
+
 
     case types.SEARCH_LEADS:
       return {

@@ -40,6 +40,9 @@ function updateOrderFailed() {
   }
 }
 
+
+// ******** Search leads  ***********/////
+
 function searchLeads() {
   return {
     type : types.SEARCH_LEADS
@@ -56,6 +59,48 @@ function searchLeadsFailed() {
     type : types.SEARCH_LEADS_FAILED
   }
 }
+
+// ******** get Termsheet ***********/////
+
+function gettermsheet() {
+  return {
+    type : types.GET_TERMSHEET
+  }
+}
+function gettermsheetsuccess(payload) {
+  return {
+    type : types.GET_TERMSHEET_SUCCESSFULL,
+    payload,
+  }
+}
+function gettermsheetfailed() {
+  return {
+    type : types.GET_TERMSHEET_FAILED
+  }
+}
+
+// ******** update Termsheet ***********/////
+
+function updatetermsheet() {
+  return {
+    type : types.UPDATE_TERMSHEET
+  }
+}
+function updatetermsheetsuccess(payload) {
+  return {
+    type : types.UPDATE_TERMSHEET_SUCCESSFULL,
+    payload,
+  }
+}
+function updatetermsheetfailed() {
+  return {
+    type : types.UPDATE_TERMSHEET_FAILED
+  }
+}
+
+
+
+
 
 export const SearchLeads = (payload) => async (dispatch, getState, api) => {
   
@@ -149,6 +194,65 @@ console.log(payload, "update order shipment")
   } catch (error) {
     dispatch(updateOrderFailed())
     const toastMessage = 'UPDATE ORDER REQUEST FAILED'
+    if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+    }
+  }
+}
+
+//////////********** termsheet *************/////////
+
+export const getTermsheet = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(gettermsheet())
+    let cookie = await Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    console.log(payload, "payload")
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache', }
+    Axios.get(`${API.corebaseUrl}${API.gettermsheet}${payload}`, { headers: headers }).then(
+      (response) => {
+        if (response.data.code === 200) {
+          dispatch(gettermsheetsuccess(response.data))
+        } else {
+          dispatch(gettermsheetfailed(response.data))
+          let toastMessage = 'Could not fetch Termsheet'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        }
+      },
+    )
+  } catch (error) {
+    dispatch(gettermsheetfailed())
+    console.log(error, 'Get Termsheet API Failed')
+  }
+}
+
+export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
+  
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.post(`${API.corebaseUrl}${API.updatetermsheet}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(updatetermsheetsuccess(response.data))
+      } else {
+        dispatch(updatetermsheetfailed(response.data))
+        const toastMessage = 'UPDATE REQUEST FAILED'
+        if(!toast.isActive(toastMessage)){
+            toast.error(toastMessage, {toastId: toastMessage})
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(updatetermsheetfailed())
+    const toastMessage = 'UPDATE TERMSHEET REQUEST FAILED'
     if(!toast.isActive(toastMessage)){
         toast.error(toastMessage, {toastId: toastMessage})
     }

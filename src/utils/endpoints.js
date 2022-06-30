@@ -31,7 +31,11 @@ export default {
   //token
   generateToken: "/api/auth/generate-token",
   verifyToken: "/api/auth/verify-token",
-  
+
+
+  //termsheet
+  gettermsheet: "api/core/termsheet",
+  updatetermsheet : "api/core/termsheet"
 
 }
 
