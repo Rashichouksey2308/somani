@@ -39,6 +39,7 @@ function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
+
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -149,9 +150,10 @@ function Index() {
   const saveProductData = (name, value) => {
     const newInput = { ...product }
     newInput[name] = value
-    // console.log(newInput)
+    // console.log(newInput, "prod")
     setProduct(newInput)
   }
+
 
   const [supplierCred, setSupplierCred] = useState({
     HSCodesNumber: orderList?.supplierCredentials?.HSCodesNumber,
@@ -173,6 +175,34 @@ function Index() {
     setSupplierCred(newInput)
   }
 
+
+  useEffect(() => {
+    let addressArr = []
+    orderList?.company?.keyAddress?.forEach(element => {
+      console.log(element,"useEE")
+      addressArr.push(element)
+      
+    });
+    setKeyAddData(addressArr)
+  }, [])
+  
+
+  const [keyAddData, setKeyAddData] = useState([{
+    GSTIN: orderList?.company?.keyAddress?.GSTIN,
+    GSTIN_document: orderList?.company?.keyAddress?.GSTIN_document,
+    addressType: orderList?.company?.keyAddress?.addressType,
+    branch: orderList?.company?.keyAddress?.branch,
+    city: orderList?.company?.keyAddress?.city,
+    state: orderList?.company?.keyAddress?.state,
+    email: orderList?.company?.keyAddress?.email,
+    completeAddress: orderList?.company?.keyAddress?.companyAddress,
+    contact: {
+      callingCode: orderList?.company?.keyAddress?.contact?.callingCode,
+      number:orderList?.company?.keyAddress?.contact?.number
+    },
+    pinCode: orderList?.company?.keyAddress?.pinCode,
+}])
+
   const [companyAddress, setCompanyAddress] = useState({
     GSTIN: '',
     GSTIN_document: {},
@@ -188,6 +218,7 @@ function Index() {
     },
     pinCode: null,
   })
+
 
   const mobileFunction = (e) => {
     const newObj = { ...companyAddress }
@@ -830,6 +861,8 @@ function Index() {
                     uploadDocument={uploadDocument}
                     saveProductData={saveProductData}
                     saveSupplierData={saveSupplierData}
+                    keyAddData={keyAddData}
+                   
                   />
                   <Recommendations />
                   <CommonSave />
