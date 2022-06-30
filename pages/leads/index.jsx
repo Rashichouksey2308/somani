@@ -8,14 +8,15 @@ import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuy
 import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
 
 function Index() {
-  const [query, setQuery] = useState("");
+  const [serachterm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch()
 
   const { allBuyerList } = useSelector((state) => state.buyer)
-  console.log(currentPage)
+  const { searchedLeads } = useSelector((state) => state.order)
+  console.log(searchedLeads,"searched items")
   useEffect(() => {
-    dispatch(GetAllBuyer(currentPage))
+    dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
   
 
@@ -33,13 +34,15 @@ function Index() {
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`
+    setSearchTerm(query)
     if(query.length >=  3 ){
       dispatch(SearchLeads(query))
-
-    }else {
-      
-      console.log(query,"its not working")
     }
+  }
+
+ const handleFilteredData = (e) => {
+  const id = `${e.target.id}`
+  dispatch(GetAllBuyer(`?company=${id}`))
   }
 
 
@@ -69,16 +72,13 @@ function Index() {
                   placeholder="Search"
                 />
               </div>
-              <div className={styles.searchResults}>
-                <ul>
-                  <li>Bhutani Traders <span>BT-124621</span></li>
-                  <li>Ramakrishna Traders<span>BT-124621</span></li>
-                  <li>Somani Traders<span>BT-124621</span></li>
-                  <li>Emerging Traders<span>BT-124621</span></li>
-                  <li>Raj Traders<span>BT-124621</span></li>
-                  <li>Krishna Traders<span>BT-124621</span></li>
-                </ul>
-              </div>
+             {searchedLeads && serachterm && <div className={styles.searchResults}>
+              <ul>
+              {searchedLeads.data.data.map((results, index)=> (
+                 <li onClick={handleFilteredData} id={results._id}   key={index}>{results.companyName} <span>{results.customerId}</span></li>
+              ))}
+              </ul>
+               </div>}
             </div>
             <a className={styles.filterIcon}>
               <img
@@ -91,6 +91,7 @@ function Index() {
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
             </a>
+            
             <a href="#" className={`${styles.filterList} filterList`}>
               Raj Traders
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
@@ -281,42 +282,7 @@ function Index() {
                         </td>
                       </tr>
                     ))}
-                  <tr className={`${styles.table_row} table_row`}>
-                    <td>124621</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => Router.push('/review-queue/id')}
-                    >
-                      Ramakrishna Traders
-                    </td>
-                    <td>Customer</td>
-                    <td>Sameer Soni</td>
-                    <td>Yes</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.rejected}`}
-                      ></span>
-                      Rejected
-                    </td>
-                  </tr>
-                  <tr className={`${styles.table_row} table_row`}>
-                    <td>124621</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => Router.push('/review-queue/id')}
-                    >
-                      Somani Traders
-                    </td>
-                    <td>RM-Sales</td>
-                    <td>Sachin Shiv</td>
-                    <td>Yes</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>
-                      Approved
-                    </td>
-                  </tr>
+                 
                 </tbody>
               </table>
             </div>
