@@ -1,21 +1,23 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
+import { UploadDocument } from 'redux/registerBuyer/action'
 import { phoneValidation } from 'utils/helper'
 import styles from './index.module.scss'
 
 const index = ({
   creditDetail,
-  saveAddressData,
-  mobileFunction,
-  uploadDocument,
+  keyAddDataArr,
   saveProductData,
   saveSupplierData,
   keyAddData,
+  debtData
 }) => {
   console.log(creditDetail, 'this is credit detail')
-  console.log(keyAddData, 'this is address detail')
+
+  const dispatch = useDispatch();
 
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
@@ -33,7 +35,55 @@ const index = ({
     pinCode: null,
   })
 
-  // const {  productSummary, supplierCredential } = creditDetail;
+  const [debt, setDebtData] = useState(
+    {
+      bankName:  '',
+      conduct:  '',
+      limit:  null,
+      limitType:  '',
+    },
+  )
+
+  const handleDebtChange = (name, value) => {
+    const newInput = {...debtData}
+    newInput[name] = value
+    setDebtData(newInput)
+  }
+
+  const debtSave = () => {
+    addDebtArr(debt)
+  }
+
+  const handleChange = (name, value) => {
+    const newInput = { ...keyAddressData }
+    newInput[name] = value
+    // console.log(newInput)
+    setKeyAddressData(newInput)
+  }
+
+  const mobileFunction = (e) => {
+    const newObj = { ...keyAddressData }
+    newObj.contact.number = e.target.value
+    setKeyAddressData(newObj)
+  }
+
+  
+
+  const uploadDocument = (e) => {
+    // console.log(e.target.name, "file target")
+    const newUploadDoc = { ...keyAddressData }
+    newUploadDoc.GSTIN_document = e.target.files[0]
+
+    setKeyAddressData(newUploadDoc)
+
+    const fd  = new FormData()
+    fd.append( 'gstDocument', e.target.files[0] )
+    dispatch(UploadDocument(fd))
+  }
+
+  const handleClick = () => { 
+  keyAddDataArr(keyAddressData)
+  }
 
   const saveDate = (e) => {
     const d = new Date(e.target.value)
@@ -674,7 +724,7 @@ const index = ({
                         </p>
                         <p>
                           <span>Phone Number:</span>
-                          {address.contact.number}
+                          {address.contact?.number}
                         </p>
                         <p>
                           <span>Branch: </span>
@@ -724,7 +774,7 @@ const index = ({
                 </div>
               </div> */}
               </div>
-              <div className="d-flex justify-content-between">
+              {/* <div className="d-flex justify-content-between"> */}
                 {/* <div className={`${styles.address_card} value background1`}>
                 <div
                   className={`${styles.address_values} d-flex justify-content-between`}
@@ -811,7 +861,7 @@ const index = ({
                   </div>
                 </div>
               </div> */}
-              </div>
+              {/* </div> */}
             </div>
           ))}
         </div>
@@ -845,7 +895,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   name="addressType"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 >
                   <option>Factory</option>
@@ -863,7 +913,7 @@ const index = ({
                   type="text"
                   name="pinCode"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -878,7 +928,7 @@ const index = ({
                   type="text"
                   name="state"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -893,7 +943,7 @@ const index = ({
                   type="text"
                   name="city"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -908,7 +958,7 @@ const index = ({
                   type="text"
                   name="email"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -941,7 +991,7 @@ const index = ({
                   type="text"
                   name="completeAddress"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -954,7 +1004,7 @@ const index = ({
                   type="text"
                   name="branch"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -968,7 +1018,7 @@ const index = ({
                   type="text"
                   name="GSTIN"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -981,7 +1031,8 @@ const index = ({
                   {' '}
                   <input
                     type="file"
-                    name="myfile"
+                    name={keyAddressData.GSTIN}
+                    // name="myfile"
                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                     onChange={(e) => {
                       uploadDocument(e)
@@ -994,7 +1045,7 @@ const index = ({
                   /> */}
                   GST Doc
                 </button>
-                <button className={`${styles.add_btn}`}>Add</button>
+                <button className={`${styles.add_btn}`} onClick={()=>handleClick()} >Add</button>
               </div>
             </div>
           </div>
@@ -1036,8 +1087,7 @@ const index = ({
                 </tr>
               </thead>
               <tbody>
-                {creditDetail &&
-                  creditDetail?.company.debtProfile.map((profile, index) => (
+                {debtData?.map((profile, index) => (
                     <tr key={index}>
                       <td>{(index += 1)}</td>
                       <td>{profile.bankName}</td>

@@ -34,6 +34,7 @@ import { Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { UpdateOrderShipment } from '../../src/redux/buyerProfile/action'
+import { element } from 'prop-types'
 
 function Index() {
   const dispatch = useDispatch()
@@ -154,10 +155,10 @@ function Index() {
     setProduct(newInput)
   }
 
-
   const [supplierCred, setSupplierCred] = useState({
     HSCodesNumber: orderList?.supplierCredentials?.HSCodesNumber,
-    commodityOfTotalTrade: orderList?.supplierCredentials?.commodityOfTotalTrade,
+    commodityOfTotalTrade:
+      orderList?.supplierCredentials?.commodityOfTotalTrade,
     consigneesNumber: orderList?.supplierCredentials?.consigneesNumber,
     countryOfOrigin: orderList?.supplierCredentials?.countryOfOrigin,
     latestShipmentDate: orderList?.supplierCredentials?.lastDateOfShipment,
@@ -175,69 +176,114 @@ function Index() {
     setSupplierCred(newInput)
   }
 
+  const [keyAddData, setKeyAddData] = useState([
+    {
+      GSTIN: orderList?.company?.keyAddress?.GSTIN,
+      GSTIN_document: orderList?.company?.keyAddress?.GSTIN_document,
+      addressType: orderList?.company?.keyAddress?.addressType,
+      branch: orderList?.company?.keyAddress?.branch,
+      city: orderList?.company?.keyAddress?.city,
+      state: orderList?.company?.keyAddress?.state,
+      email: orderList?.company?.keyAddress?.email,
+      completeAddress: orderList?.company?.keyAddress?.companyAddress,
+      contact: {
+        callingCode: orderList?.company?.keyAddress?.contact?.callingCode,
+        number: orderList?.company?.keyAddress?.contact?.number,
+      },
+      pinCode: orderList?.company?.keyAddress?.pinCode,
+    },
+  ])
+
+  const [financialsComment, setFinancialsComment] = useState([])
+
+  const [companyComment, setCompanyComment] = useState([])
+
+  const [sanctionComment, setSanctionComment] = useState([])
+
+  const [strengthsComment, setStrengthsComment] = useState([])
+
+  const [weaknessComment, setWeaknessComment] = useState([])
+
+  const [debtData, setDebtData] = useState([
+    {
+      bankName:  orderList?.company?.debtProfile?.bankName,
+      conduct:  orderList?.company?.debtProfile?.conduct,
+      limit:  orderList?.company?.debtProfile?.limit,
+      limitType:  orderList?.company?.debtProfile?.limitType,
+    },
+  ])
 
   useEffect(() => {
+    let debtArr = []
+    orderList?.company?.debtProfile?.forEach((element) => {
+      // console.log(element,"useEE")
+      debtArr.push(element)
+    })
+    setDebtData(debtArr)
+
     let addressArr = []
-    orderList?.company?.keyAddress?.forEach(element => {
-      console.log(element,"useEE")
+    orderList?.company?.keyAddress?.forEach((element) => {
+      // console.log(element,"useEE")
       addressArr.push(element)
-      
-    });
+    })
     setKeyAddData(addressArr)
-  }, [])
-  
 
-  const [keyAddData, setKeyAddData] = useState([{
-    GSTIN: orderList?.company?.keyAddress?.GSTIN,
-    GSTIN_document: orderList?.company?.keyAddress?.GSTIN_document,
-    addressType: orderList?.company?.keyAddress?.addressType,
-    branch: orderList?.company?.keyAddress?.branch,
-    city: orderList?.company?.keyAddress?.city,
-    state: orderList?.company?.keyAddress?.state,
-    email: orderList?.company?.keyAddress?.email,
-    completeAddress: orderList?.company?.keyAddress?.companyAddress,
-    contact: {
-      callingCode: orderList?.company?.keyAddress?.contact?.callingCode,
-      number:orderList?.company?.keyAddress?.contact?.number
-    },
-    pinCode: orderList?.company?.keyAddress?.pinCode,
-}])
+    let commentFinancialArr = []
+    orderList?.company?.recommendations?.commentsOnFinancials.forEach(
+      (element) => {
+        commentFinancialArr.push(element)
+      },
+    )
+    setFinancialsComment(commentFinancialArr)
 
-  const [companyAddress, setCompanyAddress] = useState({
-    GSTIN: '',
-    GSTIN_document: {},
-    addressType: '',
-    branch: '',
-    city: '',
-    state: '',
-    email: '',
-    completeAddress: '',
-    contact: {
-      callingCode: 91,
-      number: null,
-    },
-    pinCode: null,
-  })
+    let companyCommentArr = []
+    orderList?.company?.recommendations?.companyProfile.forEach((element) => {
+      companyCommentArr.push(element)
+    })
+    setCompanyComment(companyCommentArr)
 
+    let sanctionArr = []
+    orderList?.company?.recommendations?.sanctionTerms.forEach((element) => {
+      sanctionArr.push(element)
+    })
+    setSanctionComment(sanctionArr)
 
-  const mobileFunction = (e) => {
-    const newObj = { ...companyAddress }
-    newObj.contact.number = e.target.value
-    setCompanyAddress(newObj)
+    let strengthsArr = []
+    orderList?.company?.recommendations?.strengths.forEach((element) => {
+      strengthsArr.push(element)
+    })
+    setStrengthsComment(strengthsArr)
+
+    let weaknessArr = []
+    orderList?.company?.recommendations?.weakness.forEach((element) => {
+      weaknessArr.push(element)
+    })
+    setWeaknessComment(weaknessArr)
+  }, [orderList?.company])
+
+  const keyAddDataArr = (keyAddressData) => {
+    let newArr = [...keyAddData]
+    newArr.push(keyAddressData)
+    setKeyAddData(newArr)
   }
 
-  const uploadDocument = (e) => {
-    const newUploadDoc = { ...companyAddress }
-    newUploadDoc.GSTIN_document = e.target.files[0]
-
-    setCompanyAddress(newUploadDoc)
+  const addDebtArr = (debt) => {
+    let newArr = [...debtData]
+    newArr.push(debt)
+    setDebtData(newArr)
   }
 
-  const saveAddressData = (name, value) => {
-    const newInput = { ...companyAddress }
-    newInput[name] = value
-    // console.log(newInput)
-    setCompanyAddress(newInput)
+  const onCreditSave = () => {
+    const obj = {
+      productSummary: { ...product },
+      supplierCredentials: { ...supplierCred },
+      order: orderList._id,
+      keyContactPerson: [...keyContactPerson],
+      keyAddress: [...keyAddData],
+      recommendations: {},
+      debtProfile: [...debtData]
+    }
+    dispatch(UpdateOrderShipment(obj))
   }
 
   const currentOpenLink = (e) => {
@@ -856,15 +902,21 @@ function Index() {
                 <div className="tab-pane fade" id="Credit" role="tabpanel">
                   <Credit
                     creditDetail={orderList}
-                    saveAddressData={saveAddressData}
-                    mobileFunction={mobileFunction}
-                    uploadDocument={uploadDocument}
+                    keyAddDataArr={keyAddDataArr}
+                    addDebtArr={addDebtArr}
                     saveProductData={saveProductData}
+                    debtData={debtData}
                     saveSupplierData={saveSupplierData}
                     keyAddData={keyAddData}
-                   
                   />
-                  <Recommendations />
+                  <Recommendations
+                    creditDetail={orderList}
+                    financialsComment={financialsComment}
+                    companyComment={companyComment}
+                    sanctionComment={sanctionComment}
+                    strengthsComment={strengthsComment}
+                    weaknessComment={weaknessComment}
+                  />
                   <CommonSave />
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">

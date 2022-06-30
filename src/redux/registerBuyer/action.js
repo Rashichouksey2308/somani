@@ -130,23 +130,19 @@ function getGstFailed() {
   }
 }
 
-
 //////////**********  Image UPload   *********////////////
 
 function uploadingDocument() {
-  return { type: types.UPLOADDOCUMENT };
+  return { type: types.UPLOADDOCUMENT }
 }
 
 function uploadingDocumentSuccess() {
-  return { type: types.UPLOADDOCUMENT_SUCCESS };
+  return { type: types.UPLOADDOCUMENT_SUCCESS }
 }
 
 function uploadingDocumentFailed() {
-  return { type: types.UPLOADDOCUMENT_FAILED };
+  return { type: types.UPLOADDOCUMENT_FAILED }
 }
-
-
-
 
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(createBuyer())
@@ -249,28 +245,28 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
   try {
     let cookie = await Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-    console.log(payload, "payload")
-    let params = ""
+    console.log(payload, 'payload')
+    let params = ''
     if (payload) {
       params = `?page=${payload}`
     }
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache', }
-    Axios.get(`${API.corebaseUrl}${API.getBuyers}${params}`, { headers: headers }).then(
-      (response) => {
-        if (response.data.code === 200) {
-          dispatch(getAllBuyerSuccess(response.data))
-          // toast.error("Buyers fetched")
-        } else {
-          dispatch(getAllBuyerFailed(response.data))
-          let toastMessage = 'Could not fetch Company Details'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    Axios.get(`${API.corebaseUrl}${API.getBuyers}${params}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getAllBuyerSuccess(response.data))
+        // toast.error("Buyers fetched")
+      } else {
+        dispatch(getAllBuyerFailed(response.data))
+        let toastMessage = 'Could not fetch Company Details'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
         }
-      },
-    )
+      }
+    })
   } catch (error) {
     dispatch(getAllBuyerFailed())
     console.log(error, 'GET ALL BUYER API FAILED')
@@ -330,7 +326,7 @@ export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
 
 export const GetGst = (payload) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
-  let cookie = await Cookies.get('SOMANI')
+  let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
@@ -360,21 +356,24 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
 }
 
 export const UploadDocument = (payload) => async (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    let documentType = payload.DocumentType;
-    let documentData = new FormData();
-    documentData.append('document', payload.file);
-    documentData.append('documentType', payload.DocumentType);
-    dispatch(uploadingDocument());
-    let response = await api.post(API.uploadDocuments, documentData, {
-      headers: { documentType },
-    });
-    if (response.data.code === 200) {
-      dispatch(uploadingDocumentSuccess());
-    } else {
-      dispatch(uploadingDocumentFailed());
-    }
+    Axios.post(
+      `${API.corebaseUrl}${API.uploadDocuments}`,
+       payload ,
+      { headers: headers },
+    ).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(uploadingDocumentSuccess())
+      } else {
+        dispatch(uploadingDocumentFailed())
+      }
+    })
   } catch (error) {
-    dispatch(uploadingDocumentFailed());
+    dispatch(uploadingDocumentFailed())
   }
-};
+}
