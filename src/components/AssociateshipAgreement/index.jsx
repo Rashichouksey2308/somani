@@ -4,6 +4,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import {Row, Col} from "react-bootstrap"
+import GrowInput from '../GrowInput'
 
 function index() {
   return (
@@ -153,13 +154,13 @@ const sales=()=>{
      <div className="card-body">
             <p className="text_sales" ><strong>ASSOCIATESHIP AGREEMENT NO.</strong></p>
             <p className="text_sales">
-              <strong> THIS AGREEMENT</strong> is signed at New Delhi on <input className={`${styles.para}`} placeholder="90"></input>day of<input className={`${styles.para}`} placeholder="90"></input>, 20<input className={`${styles.para}`} placeholder="90"></input> by and between:
+              <strong> THIS AGREEMENT</strong> is signed at New Delhi on <GrowInput className={`${styles.para}`} placeholder="90"></GrowInput>day of<GrowInput className={`${styles.para}`} placeholder="90"></GrowInput>, 20<GrowInput className={`${styles.para}`} placeholder="90"></GrowInput> by and between:
             </p>
              <p className="text_sales">
-              Indo German International Private Limited, a company incorporated under the Indian Companies Act, 1956, having its Registered Office at 7A, Sagar Apartments, 6, Tilak Marg, New Delhi- 110 001, having its branch office as mentioned in <input className={`${styles.para}`} placeholder=" Schedule 1"></input>  (hereinafter called “<input className={`${styles.para}`} placeholder="Seller"></input> ”) which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys, herein represented by Mrs. Bhawana Jain duly authorized to enter into this Agreement, on One Part
+              Indo German International Private Limited, a company incorporated under the Indian Companies Act, 1956, having its Registered Office at 7A, Sagar Apartments, 6, Tilak Marg, New Delhi- 110 001, having its branch office as mentioned in <GrowInput className={`${styles.para}`} placeholder=" Schedule 1"></GrowInput>  (hereinafter called “<GrowInput className={`${styles.para}`} placeholder="Seller"></GrowInput> ”) which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys, herein represented by Mrs. Bhawana Jain duly authorized to enter into this Agreement, on One Part
              </p>
             <p className="text_sales" >AND</p>
-            <p className="text_sales" >Person(s) detailed in  <input className={`${styles.para}`} placeholder=" Schedule 1"></input> hereof (hereinafter referred to as the “ <input className={`${styles.para}`} placeholder=" Associate Buyer"></input>r”) of the other Part</p>
+            <p className="text_sales" >Person(s) detailed in  <GrowInput className={`${styles.para}`} placeholder=" Schedule 1"></GrowInput> hereof (hereinafter referred to as the “ <GrowInput className={`${styles.para}`} placeholder=" Associate Buyer"></GrowInput>r”) of the other Part</p>
             <p className="text_sales" >Seller and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and individually as the “Party.</p>
             <p className={`text_sales ${styles.head}`} >Recitals</p>
             <p className="text_sales" >WHEREAS Associate Buyer has requested Seller to arrange import purchase of Goods (Details of the Goods including quantity, quality, origin, INCO terms is annexed in Schedule 2) from the Supplier and sale of the same to the Associate Buyer on stock & sale basis. 
@@ -541,20 +542,20 @@ const sales=()=>{
             </ol>
             <Row>
               <Col md={6}><span>For & on behalf of Associate Buyer  </span></Col>
-              <Col md={6}>For & on behalf <input className={`${styles.para}`} placeholder="Indo German International Private Limited"></input> </Col>
+              <Col md={6}>For & on behalf <GrowInput className={`${styles.para}`} placeholder="Indo German International Private Limited"></GrowInput> </Col>
             </Row>
-              <p className="text_sales" >Name: <input className={`${styles.para}`} placeholder="Name"></input></p>
-              <p className="text_sales" >  Designation:<input className={`${styles.para}`} placeholder="Name"></input></p>
-              <p className="text_sales" >  Company Stamp:<input className={`${styles.para}`} placeholder="Name"></input></p>
+              <p className="text_sales" >Name: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p>
+              <p className="text_sales" >  Designation:<GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p>
+              <p className="text_sales" >  Company Stamp:<GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p>
                <p className="text_sales" >  WITNESSES:  </p>
               <ol type="1">
-                <li>  <p className="text_sales" >Name Designation: <input className={`${styles.para}`} placeholder="Name"></input></p></li>
-                 <li>  <p className="text_sales" >Name Designation: <input className={`${styles.para}`} placeholder="Name"></input></p></li>
+                <li>  <p className="text_sales" >Name Designation: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p></li>
+                 <li>  <p className="text_sales" >Name Designation: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p></li>
               </ol>
               <div>
                  <p className="text_sales" > <strong>Schedule 2A</strong></p>
              <p className="text_sales" > <strong>Undertaking by Associate Buyer for Price Justification</strong></p>
-             <p className="text_sales" >To: <input className={`${styles.para}`} placeholder="to"></input></p>
+             <p className="text_sales" >To: <GrowInput className={`${styles.para}`} placeholder="to"></GrowInput></p>
              <p className={`text_sales ${styles.center}`}>UNDERTAKING</p>
              <p className="text_sales" > 1. We, being the Associate Buyer have to solemnly affirm and undertake as under:</p>
              <ol type="a">
@@ -572,12 +573,12 @@ const sales=()=>{
 </p>
                <Row>
               <Col md={6}> 
-              <p className="text_sales" >For: <input className={`${styles.para}`} placeholder="Name"></input></p> 
-              <p className="text_sales" >Date: <input className={`${styles.para}`} placeholder="Name"></input></p> 
+              <p className="text_sales" >For: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
+              <p className="text_sales" >Date: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
               </Col>
               <Col md={6}>
-              <p className="text_sales" >Name : <input className={`${styles.para}`} placeholder="Name"></input></p> 
-              <p className="text_sales" >Designation: <input className={`${styles.para}`} placeholder="Name"></input></p> 
+              <p className="text_sales" >Name : <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
+              <p className="text_sales" >Designation: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
               </Col>
             </Row>
               </div>
@@ -585,7 +586,7 @@ const sales=()=>{
                  <p className="text_sales" > <strong>Schedule 2B</strong></p>
              <p className="text_sales" > <strong>Undertaking for Post Dated Cheques issued by Associate Buyer
 </strong></p>
-             <p className="text_sales" > <input className={`${styles.para}`} placeholder="to"></input></p>
+             <p className="text_sales" > <GrowInput className={`${styles.para}`} placeholder="to"></GrowInput></p>
              <p className={`text_sales ${styles.center}`}>UNDERTAKING</p>
              
              <ol type="1">
@@ -628,10 +629,10 @@ const sales=()=>{
                <Row>
               <Col md={6}> 
              
-              <p className="text_sales" >Date: <input className={`${styles.para}`} placeholder="Name"></input></p> 
+              <p className="text_sales" >Date: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
               </Col>
               <Col md={6}>
-              <p className="text_sales" >Name : <input className={`${styles.para}`} placeholder="Name"></input></p> 
+              <p className="text_sales" >Name : <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
               <p className="text_sales" >MANAGING DIRECTOR</p> 
               </Col>
             </Row>
@@ -694,9 +695,9 @@ const sales=()=>{
              <p className="text_sales" > <strong>Pricing formula</strong></p>
               
               
-             <p className="text_sales" > Unit Price: <input className={`${styles.para}`} placeholder="to"></input></p>
+             <p className="text_sales" > Unit Price: <GrowInput className={`${styles.para}`} placeholder="to"></GrowInput></p>
               <p className="text_sales" > Quantity:
-                          <input className={`${styles.para}`} placeholder="to"></input></p>
+                          <GrowInput className={`${styles.para}`} placeholder="to"></GrowInput></p>
                            <p className="text_sales" > <strong>Tentative Exchange Rate for Calculation:
                         </strong></p>
                             <p className="text_sales" > <strong>Currency exchange:</strong></p>

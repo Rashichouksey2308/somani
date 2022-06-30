@@ -220,7 +220,32 @@ const tpaSeller=()=>{
         <p>The arbitration shall be conducted in the English language.</p>
         <p>The arbitration award shall be final and binding upon the Parties to such arbitration and may be enforced in any court having jurisdictio</p>
         <p>IN WITNESS WHEREOF the parties hereto caused this Agreement to be executed by their duly authorized representatives on the date first written above.</p>
-       
+       <p>SIGNATURE PAGE</p>
+       <ul>
+        <li><p>Signed by</p></li>
+       </ul>
+       <p>For and on behalf of  <GrowInput placeholder={` INDO GERMAN INTERNATIONAL PVT. LTD`}/>.</p>
+       <p>In the presence of:</p>
+        <p>Witness::</p>
+        <ul>
+        <li><p>Signed by</p></li>
+       </ul>
+        <p>For and on behalf of  <GrowInput placeholder={` DR. AMIN CONTROLLERS PVT. LTD.`}/>.</p>
+       <p>In the presence of:</p>
+        <p>Witness::</p>
+        <ul>
+        <li><p>Signed by</p></li>
+       </ul>
+        <p>For and on behalf of  <GrowInput placeholder={`INDO INTERNATIONAL TRADING FZCO`}/>.</p>
+       <p>In the presence of:</p>
+        <p>Witness::</p>
+        <ul>
+        <li><p>Signed by</p></li>
+       </ul>
+       <p>
+The Designated Storage Area is as under:-
+</p>
+<p><GrowInput placeholder={`“Visakhapatnam port, India`}/></p>
     </div>
   )
 }
