@@ -10,7 +10,7 @@ margin-bottom: 24px;
 
 border-bottom: 2px solid #F2F5F9;
 // padding: 9px 15px 9px 22px;
-margin-bottom: 20px;
+// margin-bottom: 20px;
     padding: 16px 22px;
   
 .heading {
@@ -55,9 +55,10 @@ margin-bottom: 20px;
 .country_container{
 
   overflow-y: auto;
-  max-height:235px;
+  max-height:256px;
       padding: 16px 22px;
- padding: 0 22px 22px;
+ padding: 20px 22px 22px;
+ border-radius: 0 0 8px 8px;
  
 
     .each_progress {

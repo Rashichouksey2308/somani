@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
