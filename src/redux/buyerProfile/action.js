@@ -42,17 +42,18 @@ function updateOrderFailed() {
 
 function searchLeads() {
   return {
-    type : types .SEARCH_LEADS
+    type : types.SEARCH_LEADS
   }
 }
-function searchLeadsSuccess() {
+function searchLeadsSuccess(payload) {
   return {
-    type : types .SEARCH_LEADS_SUCCESSFULL
+    type : types.SEARCH_LEADS_SUCCESSFULL,
+    payload,
   }
 }
 function searchLeadsFailed() {
   return {
-    type : types .SEARCH_LEADS_FAILED
+    type : types.SEARCH_LEADS_FAILED
   }
 }
 
@@ -64,6 +65,7 @@ export const SearchLeads = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken }
   try {
+    dispatch(searchLeads())
     Axios.get(`${API.corebaseUrl}${API.search}${payload}`, {
       headers: headers,
     }).then((response) => {

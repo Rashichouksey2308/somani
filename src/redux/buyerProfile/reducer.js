@@ -6,7 +6,7 @@ const initialState = {
   updatingOrder: false,
   updatingOrderResponse: null,
   searchingLeads: false,
-  searchedLeads: []
+  searchedLeads: null
 }
 
 function OrderReducer(state = initialState, action) {
