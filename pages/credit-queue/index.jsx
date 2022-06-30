@@ -42,6 +42,7 @@ function Index() {
   }
 
   const handleFilteredData = (e) => {
+    setSearchTerm("")
     const id = `${e.target.id}`
     dispatch(GetAllBuyer(`?company=${id}`))
   }
@@ -59,6 +60,7 @@ function Index() {
               />
             </div>
             <input
+            value={serachterm}
               onChange={handleSearch}
               type="text"
               className={`${styles.formControl} form-control formControl `}
