@@ -34,8 +34,8 @@ const IndexPage = () => {
   return (
     <>
       <div className={`${styles.root_Container} background container-fluid`}>
-        <div className={`${styles.head_Container} mt-2 row`}>
-          <div className="col-lg-6">
+        <div className={`${styles.head_Container} row`}>
+          <div className={`${styles.dashboardPadding} col-lg-6`}>
             <Leads
               header={'Leads'}
               subHeader={'TOTAL LEADS'}
@@ -43,7 +43,7 @@ const IndexPage = () => {
               content={['APPROVED', 'IN PROCESS', 'REJECTED']}
             />
           </div>
-          <div className="col-lg-6">
+          <div className={`${styles.dashboardPadding} col-lg-6`}>
             <Leads
               header={'Orders'}
               subHeader={'ORDER PLACED'}
@@ -55,10 +55,10 @@ const IndexPage = () => {
         <div className={`${styles.bottom_Container} row`}>
           <div className={`${styles.left_Container} col-lg-3 col-md-12`}>
             <div className="row">
-              <div className="col-lg-12 col-md-6">
+              <div className={`${styles.dashboardPadding} col-lg-12 col-md-6`}>
                 <Commodities />
               </div>
-              <div className="col-lg-12 col-md-6">
+              <div className={`${styles.dashboardPadding} col-lg-12 col-md-6`}>
                 <Exposure />
               </div>
             </div>
@@ -66,127 +66,131 @@ const IndexPage = () => {
           <div className={`${styles.right_Container} col-lg-9 col-md-12`}>
             <div className={styles.upper_Container}>
               <div className="row">
-                <div className={`${styles.commonCard} col-md-6`}>
+                <div className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}>
                   <Countries />
                 </div>
-                <div className={`${styles.commonCard} col-md-6`}>
+                <div className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}>
                   <DoughnutChart />
                 </div>
               </div>
             </div>
             <div className={styles.bottom_Container}>
-              <div className={`${styles.leads} card`}>
-                <div
-                  className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}
-                >
-                  <div
-                    className={`  d-flex justify-content-between  align-items-center`}
-                  >
-                    <h3 className="heading">
-                      BL Date{' '}
-                      <img
-                        className={`${
-                          darkMode ? styles.noRotate : styles.rotate
-                        } img-fluid`}
-                        src={`${
-                          darkMode
-                            ? `/static/white-arrow.svg`
-                            : `/static/keyboard_arrow_right-3.svg`
-                        }`}
-                        // src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                      />
-                    </h3>
+              <div className="row">
+                <div className={`${styles.dashboardPadding} col-sm-12`}>
+                  <div className={`${styles.leads} card`}>
                     <div
-                      className={` ${styles.filterIcon}  d-flex justify-content-between align-items-center`}
+                      className={`${styles.tableFilter} d-flex justify-content-between align-items-center`}
                     >
-                      <img
-                        src="/static/Group 546.svg"
-                        alt="arrow right"
-                        className="img-fluid"
-                      />
+                      <div
+                        className={`  d-flex justify-content-between  align-items-center`}
+                      >
+                        <h3 className="heading">
+                          BL Date{' '}
+                          <img
+                            className={`${
+                              darkMode ? styles.noRotate : styles.rotate
+                            } img-fluid`}
+                            src={`${
+                              darkMode
+                                ? `/static/white-arrow.svg`
+                                : `/static/keyboard_arrow_right-3.svg`
+                            }`}
+                            // src="/static/keyboard_arrow_right-3.svg"
+                            alt="arrow right"
+                          />
+                        </h3>
+                        <div
+                          className={` ${styles.filterIcon}  d-flex justify-content-between align-items-center`}
+                        >
+                          <img
+                            src="/static/Group 546.svg"
+                            alt="arrow right"
+                            className="img-fluid"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
+                      >
+                        <span>Showing Page 1 out of 10</span>
+                        <a
+                          href="#"
+                          className={`${styles.arrow} ${`leftArrow`} arrow`}
+                        >
+                          {' '}
+                          <img
+                            src="/static/keyboard_arrow_right-3.svg"
+                            alt="arrow right"
+                            className="img-fluid"
+                          />
+                        </a>
+                        <a
+                          href="#"
+                          className={`${styles.arrow} ${`rightArrow`} arrow`}
+                        >
+                          <img
+                            src="/static/keyboard_arrow_right-3.svg"
+                            alt="arrow right"
+                            className={`${styles.image_reverse} img-fluid`}
+                          />
+                        </a>
+                      </div>
+                    </div>
+                    <div className={styles.table_scroll}>
+                      <table
+                        className={styles.table}
+                        cellPadding="0"
+                        cellSpacing="0"
+                        border="0"
+                      >
+                        <thead>
+                          <tr>
+                            <th>ORDER NO.</th>
+                            <th>CUSTOMER NAME</th>
+                            <th>COMMODITY</th>
+                            <th>DUE DATE</th>
+                            <th>DAYS TO GO</th>
+
+                            <th>DUE AMOUNT</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="table_row">
+                            <td>124621</td>
+                            <td className={styles.buyerName}>Bhutani Traders</td>
+                            <td>Iron</td>
+                            <td>12/05/2022</td>
+                            <td>7</td>
+                            <td>₹ 3,45,000</td>
+                          </tr>
+                          <tr className="table_row">
+                            <td>124621</td>
+                            <td className={styles.buyerName}>Bhutani Traders</td>
+                            <td>Iron</td>
+                            <td>12/05/2022</td>
+                            <td>7</td>
+                            <td>₹ 3,45,000</td>
+                          </tr>
+                          <tr className="table_row">
+                            <td>124621</td>
+                            <td className={styles.buyerName}>Bhutani Traders</td>
+                            <td>Iron</td>
+                            <td>12/05/2022</td>
+                            <td>7</td>
+                            <td>₹ 3,45,000</td>
+                          </tr>
+                          <tr className="table_row">
+                            <td>124621</td>
+                            <td className={styles.buyerName}>Bhutani Traders</td>
+                            <td>Iron</td>
+                            <td>12/05/2022</td>
+                            <td>7</td>
+                            <td>₹ 3,45,000</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                  <div
-                    className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
-                  >
-                    <span>Showing Page 1 out of 10</span>
-                    <a
-                      href="#"
-                      className={`${styles.arrow} ${`leftArrow`} arrow`}
-                    >
-                      {' '}
-                      <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className="img-fluid"
-                      />
-                    </a>
-                    <a
-                      href="#"
-                      className={`${styles.arrow} ${`rightArrow`} arrow`}
-                    >
-                      <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div className={styles.table_scroll}>
-                  <table
-                    className={styles.table}
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
-                    <thead>
-                      <tr>
-                        <th>ORDER NO.</th>
-                        <th>CUSTOMER NAME</th>
-                        <th>COMMODITY</th>
-                        <th>DUE DATE</th>
-                        <th>DAYS TO GO</th>
-
-                        <th>DUE AMOUNT</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="table_row">
-                        <td>124621</td>
-                        <td className={styles.buyerName}>Bhutani Traders</td>
-                        <td>Iron</td>
-                        <td>12/05/2022</td>
-                        <td>7</td>
-                        <td>₹ 3,45,000</td>
-                      </tr>
-                      <tr className="table_row">
-                        <td>124621</td>
-                        <td className={styles.buyerName}>Bhutani Traders</td>
-                        <td>Iron</td>
-                        <td>12/05/2022</td>
-                        <td>7</td>
-                        <td>₹ 3,45,000</td>
-                      </tr>
-                      <tr className="table_row">
-                        <td>124621</td>
-                        <td className={styles.buyerName}>Bhutani Traders</td>
-                        <td>Iron</td>
-                        <td>12/05/2022</td>
-                        <td>7</td>
-                        <td>₹ 3,45,000</td>
-                      </tr>
-                      <tr className="table_row">
-                        <td>124621</td>
-                        <td className={styles.buyerName}>Bhutani Traders</td>
-                        <td>Iron</td>
-                        <td>12/05/2022</td>
-                        <td>7</td>
-                        <td>₹ 3,45,000</td>
-                      </tr>
-                    </tbody>
-                  </table>
                 </div>
               </div>
             </div>
