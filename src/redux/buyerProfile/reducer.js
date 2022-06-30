@@ -8,6 +8,7 @@ const initialState = {
   searchingLeads: false,
   searchedLeads: null,
   gettingTermsheet: false,
+  updatingTermsheet: false,
   termsheet: [],
 }
 
@@ -32,6 +33,26 @@ function OrderReducer(state = initialState, action) {
         gettingTermsheet: false,
         termsheet: []
       }
+
+    case types.UPDATE_TERMSHEET:
+      return {
+        ...state,
+        updatingTermsheet: true
+      }
+    case types.UPDATE_TERMSHEET_SUCCESSFULL:
+      return {
+        ...state,
+        updatingTermsheet: false
+
+      }
+
+    case types.UPDATE_TERMSHEET:
+      return {
+        ...state,
+        updatingTermsheet: false
+      }
+
+
 
 
 
