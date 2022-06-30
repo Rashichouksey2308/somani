@@ -150,6 +150,12 @@
                   padding-left: 10px;
                   border-bottom: 2px solid #f2f5f9;
               }
+              .leads .table tr:last-child {
+                border-radius: 0 0 8px 8px;
+              }
+              .leads .table tr:last-child td {
+                border-bottom: none;
+              }
               .leads .table td:first-child {
                   padding-left: 35px;
               }
