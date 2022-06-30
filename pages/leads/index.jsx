@@ -69,6 +69,16 @@ function Index() {
                   placeholder="Search"
                 />
               </div>
+              <div className={styles.searchResults}>
+                <ul>
+                  <li>Bhutani Traders <span>BT-124621</span></li>
+                  <li>Ramakrishna Traders<span>BT-124621</span></li>
+                  <li>Somani Traders<span>BT-124621</span></li>
+                  <li>Emerging Traders<span>BT-124621</span></li>
+                  <li>Raj Traders<span>BT-124621</span></li>
+                  <li>Krishna Traders<span>BT-124621</span></li>
+                </ul>
+              </div>
             </div>
             <a className={styles.filterIcon}>
               <img
