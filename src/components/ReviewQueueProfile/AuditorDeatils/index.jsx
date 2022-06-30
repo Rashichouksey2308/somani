@@ -32,7 +32,7 @@ function Index() {
                                                           <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Name</label>Arv Jay</div>
                                                           <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>PAN</label>AAVPW27766Q <img src="/static/approved.svg" alt="Approved" className="img-fluid mt-n1" /></div>
                                                           <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Email Id</label>email@example.com</div>
-                                                          <div className={`${styles.detailsBox} accordion_Text ${styles.success} col-md-2`}><label>DIN</label>03148692</div>
+                                                          <div className={`${styles.detailsBox} accordion_Text  col-md-2`}><label>DIN</label><span className={`${styles.success}`}>03148692</span></div>
                                                           <div className={`${styles.detailsBox}  accordion_Text col-md-2`}><label>Tenure Start Date</label>17-02-2019</div>
                                                           <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Status</label>Approved</div>
                                                         
@@ -41,14 +41,18 @@ function Index() {
                                                       </div>
                                                       <div id="director1" className="collapse show" aria-labelledby="director1" data-parent="#directorDetails">
                                                         <div className={`${styles.cardBody} card-body border_color`}>
-                                                            <div className="row no-gutters">
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DIN Status</label>Arv Jay</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Registered</label>AAVPW27766Q <img src="/static/approved.svg" alt="Approved" className="img-fluid mt-n1" /></div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Expiry Date</label>email@example.com</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text ${styles.success} col-md-2`}><label>Designation</label>03148692</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Date Of Birth</label>17-02-2019</div>
-                                                                <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Contact</label>Approved</div>
-                                                            </div>
+                                                            <div className="d-flex justify-content-between align-items-center">
+                                                              <div className={`${styles.collapsed} row no-gutters `}>
+                                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DIN Status</label>Arv Jay</div>
+                                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Registered</label>AAVPW27766Q <img src="/static/approved.svg" alt="Approved" className="img-fluid mt-n1" /></div>
+                                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>DSC Expiry Date</label>17-02-2021</div>
+                                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label >Designation</label>03148692</div>
+                                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Date Of Birth</label>17-02-2019</div>
+                                                                          <div className={`${styles.detailsBox} accordion_Text col-md-2`}><label>Contact</label>Approved</div>
+                                                                      </div>
+                                                            
+                                                          </div>
+                                                            
                                                         </div>
                                                       </div>
                                                     </div>

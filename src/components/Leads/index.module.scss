@@ -1,9 +1,11 @@
+@import "../styles/Core/config";
 .card {
     
   background: #FFFFFF 0% 0% no-repeat padding-box;
  
   border: 1px solid #D2D7E5;
   margin-bottom: 24px;
+    border-radius: 8px;
 
   .header {       
       font-weight: bold;
@@ -13,7 +15,12 @@
       background: none;
       border-bottom: 2px solid #F2F5F9;
       padding: 16px 22px;
-      margin: 0 0 20px;
+      @include respond(md-desktop) {
+        font-size: 16px;
+        line-height: 1.3;
+        padding: 15px;
+      }
+     
      
   }
 
@@ -31,6 +38,13 @@
       width: 100%;
       height: 100%;
       padding: 6px 24px 33px;
+      padding-top: 20px;
+      @include respond(lg-desktop) {
+        padding: 6px 20px 20px;
+      }
+      @include respond(md-desktop) {
+        padding: 15px;
+      }
      .leads{
         //   width: 30%;
           height: 100%;
@@ -45,24 +59,39 @@
               display: flex;
               justify-content: center;
               align-items: center;
+              @include respond(lg-desktop) {
+                width: 50px;
+                height: 50px;
+              }
+              @include respond(md-desktop) {
+                width: 45px;
+                height: 45px;
+              }
                   
               .image{
-                  
                   width: 21px;
                   height: 28px;
                   opacity: 1;
+                  @include respond(md-desktop) {
+                    width: 18px;
+                    height: auto;
+                  }
               }
          } 
          .lead_headContainer{
-                 margin-right: 1rem;
-                 margin-left: 1rem;
-                 display: flex;
-                  justify-content: center;
-                  align-items: flex-start;
-                  flex-direction: column;
-                   @media screen and (max-width: 1380px) {
-                        margin-right: 0rem;
-                        margin-left: 0.5rem;
+                    margin-right: 1rem;
+                    margin-left: 1rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    flex-direction: column;
+                @include respond(lg-desktop) {
+                    margin-right: 0.5rem;
+                    margin-left: 0.5rem;
+                }
+                  @include respond(md-desktop) {
+                    margin-right: 0rem;
+                    margin-left: 0.5rem;
                     }
                   .lead_header{
                     
@@ -72,11 +101,18 @@
                           color: #8492A6;
                           text-transform: uppercase;
                           white-space: nowrap;
-                        @media screen and (max-width: 1380px) {
+                        @include respond(lg-desktop) {
                             font-size: 14px;
+                            line-height: 1.3;
                         }
-                        @media screen and (max-width: 1199px) {                           
+                        @include respond(md-desktop) {
+                            font-size: 13px;
+                        }
+                        @include respond(sm-desktop) {
                             font-size: 12px;
+                        }
+                        @include respond(phone) {                           
+                            font-size: 10px;
                         }
                   }
                   .lead_value{
@@ -85,11 +121,15 @@
                         line-height: 34px;
                         color: #111111;
                         text-transform: capitalize;
-                        @media screen and (max-width: 1380px) {
+                        @include respond(lg-desktop) {
                             font-size: 24px;
+                            line-height: 1.4;
                         }
-                        @media screen and (max-width: 1199px) { 
-                            font-size: 22px; 
+                        @include respond(md-desktop) {                         
+                            font-size: 22px;
+                        }
+                        @include respond(sm-desktop) { 
+                            font-size: 20px; 
                         }
                   }
          }
@@ -108,18 +148,24 @@
                   align-items: flex-start;
                   flex-direction: column;
       
-                  .lead_header {
-      
+                  .lead_header {      
                       font-weight: bold;
                       font-size: 15px;
                       line-height: 18px;
                       color: #8492A6;
                       text-transform: uppercase;
-                      @media screen and (max-width: 1380px) {                         
+                      @include respond(lg-desktop) {
+                          font-size: 14px;
+                          line-height: 1.3;
+                      }
+                      @include respond(md-desktop) {
+                          font-size: 13px;
+                      }
+                      @include respond(sm-desktop) {                           
                           font-size: 12px;
                       }
-                      @media screen and (max-width: 1199px) {                           
-                          font-size: 12px;
+                      @include respond(phone) {                           
+                          font-size: 10px;
                       }
                   }
       
@@ -129,11 +175,15 @@
                       line-height: 34px;
                       color: #111111;
                       text-transform: capitalize;
-                      @media screen and (max-width: 1380px) {                         
+                      @include respond(lg-desktop) {
                           font-size: 24px;
+                          line-height: 1.4;
                       }
-                      @media screen and (max-width: 1199px) { 
-                          font-size: 22px; 
+                      @include respond(md-desktop) {                         
+                          font-size: 22px;
+                      }
+                      @include respond(sm-desktop) { 
+                          font-size: 20px; 
                       }
                   }
               }

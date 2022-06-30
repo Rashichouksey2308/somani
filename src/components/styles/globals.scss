@@ -159,7 +159,7 @@ body.light-mode .card-body {
 }
 
 body.light-mode .card {
-  background: #fff ;
+  background: #ffffff ;
   color: #000000;
   
 
@@ -321,10 +321,12 @@ body.dark-mode .para {
 }
 body.dark-mode .background1 {
   border: none;
+  box-shadow: none;
   background-color: #232936;
   
 }
 body.light-mode .background1 {
+  box-shadow: none;
   background-color: #FFFFFF;
   
 }

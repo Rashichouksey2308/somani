@@ -47,7 +47,7 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 card">
+      <div className="container-fluid mb-4 card mt-4 border-0">
         <div className="p-4">
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
@@ -109,7 +109,7 @@ function Index() {
                   />
                 </div>
                 <h3>
-                  <span>ALL</span>
+                  <span>  </span>
                   3,200
                 </h3>
               </div>
@@ -219,58 +219,97 @@ function Index() {
                 </a>
               </div>
             </div>
-            <table
-              className={`${styles.table} table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
-              <thead>
-                <tr className="table_row">
-                  <th>CUSTOMER ID</th>
-                  <th>BUYER NAME</th>
-                  <th>CREATED BY</th>
-                  <th>USERNAME</th>
-                  <th>EXISTING CUSTOMER</th>
-                  <th>STATUS</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allBuyerList &&
-                  allBuyerList?.data?.data.map((buyer, index) => (
-                    <tr key={index} className={`${styles.table_row} table_row`}>
-                      <td>{buyer.company.customerId}</td>
-                      <td
-                        className={`${styles.buyerName}`}
-                        onClick={() => {
-                          handleRoute(buyer)
-                        }}
-                      >
-                        {buyer.company.companyName}
-                      </td>
-                      <td>{buyer.createdBy.userRole}</td>
-                      <td>{buyer.createdBy.fName}</td>
-                      <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
-                      <td>
-                        <span
-                          className={`${styles.status} ${buyer.queue === 'Rejected' ? styles.rejected : buyer.queue === 'ReviewQueue'
-                            ? styles.review
-                            : buyer.queue === 'CreditQueue'
-                              ? styles.approved
-                              : styles.rejected
+            <div className={styles.table_scroll}>
+              <table
+                className={`${styles.table} table`}
+                cellPadding="0"
+                cellSpacing="0"
+                border="0"
+              >
+                <thead>
+                  <tr className="table_row">
+                    <th>CUSTOMER ID</th>
+                    <th>BUYER NAME</th>
+                    <th>CREATED BY</th>
+                    <th>USERNAME</th>
+                    <th>EXISTING CUSTOMER</th>
+                    <th>STATUS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allBuyerList &&
+                    allBuyerList.data?.data?.map((buyer, index) => (
+                      <tr key={index} className={`${styles.table_row} table_row`}>
+                        <td>{buyer.company.customerId}</td>
+                        <td
+                          className={`${styles.buyerName}`}
+                          onClick={() => {
+                            handleRoute(buyer)
+                          }}
+                        >
+                          {buyer.company.companyName}
+                        </td>
+                        <td>{buyer.createdBy.userRole}</td>
+                        <td>{buyer.createdBy.fName}</td>
+                        <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                        <td>
+                          <span
+                            className={`${styles.status} ${
+                            buyer.queue === 'Rejected' ? styles.rejected :  buyer.queue === 'ReviewQueue'
+                                ? styles.review
+                                : buyer.queue === 'CreditQueue'
+                                ? styles.approved
+                                : styles.rejected
                             }`}
-                        ></span>
-
+                          ></span>
+                          
                         {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
-                          ? 'Review'
-                          : buyer.queue === 'CreditQueue'
+                            ? 'Review'
+                            : buyer.queue === 'CreditQueue'
                             ? 'Approved'
                             : 'Rejected'}
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
+                        </td>
+                      </tr>
+                    ))}
+                  <tr className={`${styles.table_row} table_row`}>
+                    <td>124621</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => Router.push('/review-queue/id')}
+                    >
+                      Ramakrishna Traders
+                    </td>
+                    <td>Customer</td>
+                    <td>Sameer Soni</td>
+                    <td>Yes</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.rejected}`}
+                      ></span>
+                      Rejected
+                    </td>
+                  </tr>
+                  <tr className={`${styles.table_row} table_row`}>
+                    <td>124621</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => Router.push('/review-queue/id')}
+                    >
+                      Somani Traders
+                    </td>
+                    <td>RM-Sales</td>
+                    <td>Sachin Shiv</td>
+                    <td>Yes</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.approved}`}
+                      ></span>
+                      Approved
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

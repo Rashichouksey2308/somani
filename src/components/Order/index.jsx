@@ -5,10 +5,8 @@ import styles from './index.module.scss'
 
 const Index = ({ orderDetail, saveOrderData }) => {
 
-  console.log(orderDetail, "order detail comp")
 
   const saveDate = (e) => {
-    // console.log(e.target.value, "this is date")
     const d = new Date(e.target.value);
     let text = d.toISOString()
     saveOrderData( e.target.name, text)

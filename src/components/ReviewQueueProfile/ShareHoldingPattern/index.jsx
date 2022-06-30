@@ -1,7 +1,57 @@
 import React from 'react'
 import styles from '../profile.module.scss'
+import { Doughnut } from 'react-chartjs-2'
+import { Chart, ArcElement, registerables } from 'chart.js'
 
 function Index() {
+    Chart.register(ArcElement)
+  let tempArr = [
+    { name: 'Sail', value: '21', color: '#9675CE' },
+    { name: 'Jindal Group', value: '23', color: '#4CAF50' },
+    { name: 'SR Steel', value: '23', color: '#EA3F3F' },
+   
+  ]
+  const data = {
+    labels: [
+      'Sail',
+      'Jindal Grou',
+      'SR Steel',
+    
+    ],
+    datasets: [
+      {
+        label: '',
+        data: [25, 24, 25],
+
+        backgroundColor: ['#4CAF50', '#2884DE', '#FFCE00'],
+      },
+    ],
+  }
+  const options = {
+    plugins: {
+      title: {
+        display: false,
+        text: 'Doughnut Chart',
+        color: 'blue',
+       
+        font: {
+          size: 34,
+        },
+        padding: {
+          top: 30,
+          bottom: 30,
+        },
+      
+        animation: {
+          animateScale: true,
+        },
+      },
+    
+    },
+     responsive: true, 
+     cutout: 60
+   
+  }
   return (
    <>
     <div className={`${styles.card} card`}>
@@ -15,7 +65,15 @@ function Index() {
                                               <table className={`${styles.table} table mb-4`} cellPadding="0" cellSpacing="0" border="0">
                                                   <tbody>
                                                     <tr>
-                                                      <th rowSpan="7">PIE CHART</th>
+                                                      <th rowSpan="7">
+                                                         <div className={styles.chart}>
+                                                            <Doughnut data={data} options={options} />
+                                                            <div className={`${styles.total_value} `}>
+                                                              <span className={styles.headSpan}>₹ 24.00 Cr</span>
+                                                              <span className={styles.subSpan}>50%</span>
+                                                            </div>
+                                                          </div>
+                                                      </th>
                                                       <th></th>
                                                       <th>FULL NAME</th>
                                                       <th>NO. OF SHARES</th>
@@ -61,7 +119,16 @@ function Index() {
                                                 <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                                                     <tbody>
                                                       <tr>
-                                                      <th rowSpan="7">PIE CHART</th>
+                                                      <th rowSpan="7">
+
+                                                        <div className={styles.chart}>
+                                                            <Doughnut data={data} options={options} />
+                                                            <div className={`${styles.total_value} `}>
+                                                              <span className={styles.headSpan}>₹ 24.00 Cr</span>
+                                                              <span className={styles.subSpan}>50%</span>
+                                                            </div>
+                                                          </div>
+                                                      </th>
                                                         <th></th>
                                                         <th>FULL NAME</th>
                                                         <th>NO. OF SHARES</th>

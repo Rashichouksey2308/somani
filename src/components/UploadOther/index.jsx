@@ -117,7 +117,8 @@ const index = () => {
                   ></span>
                   Verified
                 </td>
-                <td colSpan="2">
+                <td colSpan="2" >
+                 <div  className={styles.actionContainer}>  
                   <img
                     src="/static/delete.svg"
                     className="img-fluid mr-3"
@@ -127,7 +128,7 @@ const index = () => {
                     src="/static/upload.svg"
                     className="img-fluid"
                     alt="Share"
-                  />
+                  /></div>
                 </td>
               </tr>
               <tr className="table_row">
@@ -143,7 +144,8 @@ const index = () => {
                   ></span>
                   Verified
                 </td>
-                <td colSpan="2">
+                 <td colSpan="2" >
+                 <div  className={styles.actionContainer}>  
                   <img
                     src="/static/delete.svg"
                     className="img-fluid mr-3"
@@ -153,7 +155,7 @@ const index = () => {
                     src="/static/upload.svg"
                     className="img-fluid"
                     alt="Share"
-                  />
+                  /></div>
                 </td>
               </tr>
               <tr className="table_row">
@@ -169,7 +171,8 @@ const index = () => {
                   ></span>
                   Pending
                 </td>
-                <td colSpan="2">
+               <td colSpan="2" >
+                 <div  className={styles.actionContainer}>  
                   <img
                     src="/static/delete.svg"
                     className="img-fluid mr-3"
@@ -179,7 +182,7 @@ const index = () => {
                     src="/static/upload.svg"
                     className="img-fluid"
                     alt="Share"
-                  />
+                  /></div>
                 </td>
               </tr>
               <tr>
@@ -203,7 +206,8 @@ const index = () => {
                   ></span>
                   Verified
                 </td>
-                <td colSpan="2">
+                <td colSpan="2" >
+                 <div  className={styles.actionContainer}>  
                   <img
                     src="/static/delete.svg"
                     className="img-fluid mr-3"
@@ -213,7 +217,7 @@ const index = () => {
                     src="/static/upload.svg"
                     className="img-fluid"
                     alt="Share"
-                  />
+                  /></div>
                 </td>
               </tr>
               <tr className="table_row">
@@ -229,7 +233,8 @@ const index = () => {
                   ></span>
                   Verified
                 </td>
-                <td colSpan="2">
+               <td colSpan="2" >
+                 <div  className={styles.actionContainer}>  
                   <img
                     src="/static/delete.svg"
                     className="img-fluid mr-3"
@@ -239,7 +244,7 @@ const index = () => {
                     src="/static/upload.svg"
                     className="img-fluid"
                     alt="Share"
-                  />
+                  /></div>
                 </td>
               </tr>
             </tbody>
