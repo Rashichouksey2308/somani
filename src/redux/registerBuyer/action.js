@@ -242,18 +242,13 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
 }
 
 export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
-  try {
-    let cookie = await Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-    console.log(payload, 'payload')
-    let params = ''
-    if (payload) {
-      params = `?page=${payload}`
-    }
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    Axios.get(`${API.corebaseUrl}${API.getBuyers}${params}`, {
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
@@ -362,11 +357,9 @@ export const UploadDocument = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(
-      `${API.corebaseUrl}${API.uploadDocuments}`,
-       payload ,
-      { headers: headers },
-    ).then((response) => {
+    Axios.post(`${API.corebaseUrl}${API.uploadDocuments}`, payload, {
+      headers: headers,
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(uploadingDocumentSuccess())
       } else {
