@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './creditqueue.module.scss'
 import Router from 'next/router'
@@ -12,18 +12,31 @@ import {
 } from '../../src/redux/registerBuyer/action'
 
 function Index() {
+  const [query, setQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch()
 
+ const { allBuyerList } = useSelector((state) => state.buyer)
+  console.log(currentPage)
   useEffect(() => {
-    dispatch(GetAllBuyer())
-  }, [])
-
-  const { allBuyerList } = useSelector((state) => state.buyer)
+    dispatch(GetAllBuyer(currentPage))
+  }, [dispatch, currentPage])
 
   const handleRoute = (buyer) => {
     if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))
       Router.push('/review-queue')
+    }
+  }
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    if(query.length >=  3 ){
+      dispatch(SearchLeads(query))
+
+    }else {
+      
+      console.log(query,"its not working")
     }
   }
 
@@ -142,8 +155,16 @@ function Index() {
           <div
             className={`${styles.pageList} d-flex justify-content-end align-items-center`}
           >
-            <span>Showing Page 1 out of 10</span>
-            <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
+             <span>Showing Page {currentPage+1}  out of {Math.ceil(allBuyerList?.data?.totalCount/10)}</span>
+            <a
+             onClick={() => {
+              if (currentPage === 0) {
+                return
+              } else {
+                setCurrentPage((prevState) => prevState - 1)
+              }
+            }}
+             href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
               {' '}
               <img
                 src="/static/keyboard_arrow_right-3.svg"
@@ -152,6 +173,9 @@ function Index() {
               />
             </a>
             <a
+            onClick={() => {
+              setCurrentPage((prevState) => prevState + 1)
+            }}
               href="#"
               className={`${styles.arrow} ${styles.rightArrow} arrow`}
             >

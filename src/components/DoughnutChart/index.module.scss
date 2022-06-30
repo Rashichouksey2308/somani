@@ -1,3 +1,4 @@
+@import "../styles/Core/config";
 .card{
   min-height: 280px;
   border: 1px solid #D2D7E5;
@@ -23,6 +24,12 @@
       padding: 0 27px 27px;
       padding-top: 20px;
       margin:0px;
+      @include respond(lg-desktop) {
+        padding: 30px 15px 15px;
+      }
+      @include respond(sm-desktop) {
+        padding: 20px 15px 15px;
+      }
       .name{
           width: 50%;
           height: 100%;
@@ -50,6 +57,10 @@
                       text-transform: capitalize;
                       opacity: 0.7;
                       margin-left: 16px;
+                      @include respond(sm-desktop) {
+                        font-size: 12px;
+                        line-height: 16px;
+                      }
                   }
               }
 

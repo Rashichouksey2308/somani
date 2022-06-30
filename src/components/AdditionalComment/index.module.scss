@@ -1,3 +1,4 @@
+@import "../styles/Core/config";
 .main {
     box-shadow: 0 3px 6px #CAD0E2;
     border: 1px solid #D2D7E5;
@@ -13,6 +14,10 @@
             color: #3687E8;
             line-height: 27px;
             margin-bottom: 0;
+            @include respond(phone) {
+                    font-size: $font_size_mobile_accordion;
+            
+                }
         }
         span {
             font-size: 45px;
@@ -23,6 +28,9 @@
     }
     .dashboard_form { 
         padding: 40px 35px 30px 35px;
+        @include respond(phone) {
+                padding: 25px 20px 20px;
+            }
         .comment_heading{
             text-decoration: underline;
             font-size:19px;
@@ -33,6 +41,11 @@
             margin-bottom: 20px;
             margin-top: 20px;
             line-height: 25px;
+            @include respond(phone) {
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+                    
+                }
             .label {
                 font-size: 16px;
                 letter-spacing: 0.53px;
@@ -45,6 +58,13 @@
                 box-sizing: border-box;
                 transform: translateY(-29px);
                 transition: 0.3s all ease-in-out;
+                @include respond(phone) {
+                        font-size: $font_size_mobile_input_label;
+                    }
+                 @include respond(sm-desktop) {
+                    font-size: $font_size_mobile_input_label;
+                 }
+                    
             }
             .value {
                 font-size: 20px;
@@ -72,6 +92,7 @@
                 line-height: 25px;
                 letter-spacing: 0.19px;
                 text-transform: capitalize;
+               
                 .comment {
                     width: 90%;
                 }
@@ -81,6 +102,9 @@
                     font-size:20px;
                     letter-spacing: 0.19px;
                     width: 90%;
+                    @include respond(phone) {
+                            font-size: $font_size_mobile_text;
+                        }
                 }
             }  
         }

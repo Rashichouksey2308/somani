@@ -84,7 +84,7 @@ function Index() {
             </a>
           </div>
         </div>
-        <div className="theme d-flex align-items-center">
+        <div className={`${styles.theme} d-flex align-items-center`}>
         <a href="#">
             <img src="/static/light.svg" alt="light" className={`${styles.light} img-fluid mr-3`}/>
           </a>
@@ -97,7 +97,7 @@ function Index() {
             <img src="/static/dark.svg" alt="dark"  className={`${styles.dark} img-fluid ml-3`}/>
           </a>
         </div>
-        <ul className={styles.header_icon}>
+        <ul className={`${styles.header_icon} d-none d-md-inline-block`}>
           <li>
             <a href="#">
               <img src="/static/chat.svg" alt="chat" className="img-fluid" />

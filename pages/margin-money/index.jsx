@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
 import RevisedMargin from '../../src/components/RevisedMargin'
@@ -29,7 +29,7 @@ function Index() {
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
             <div className={`${styles.tabHeader} tabHeader `}>
               <div className="d-flex align-items-center">
-                <h1 className={`${styles.title} heading`}><img src={`${darkMode?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Margin Money</h1>
+                <h1 className={`${styles.title} heading`}><img src={`${darkMode?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" /><span>Margin Money</span></h1>
                 <div className="ml-auto">
                   <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                   <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>

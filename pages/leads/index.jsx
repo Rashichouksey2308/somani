@@ -1,31 +1,48 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
+import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
 
 function Index() {
+  const [query, setQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(GetAllBuyer())
-  }, [dispatch])
-  
   const { allBuyerList } = useSelector((state) => state.buyer)
+  console.log(currentPage)
+  useEffect(() => {
+    dispatch(GetAllBuyer(currentPage))
+  }, [dispatch, currentPage])
   
+
 
   const handleRoute = (buyer) => {
     if (buyer.queue === 'ReviewQueue') {
       dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
       Router.push('/review-queue/id')
-    } 
+    }
     else if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))
       Router.push('/review-queue')
     }
   }
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    if(query.length >=  3 ){
+      dispatch(SearchLeads(query))
+
+    }else {
+      
+      console.log(query,"its not working")
+    }
+  }
+
+
 
   return (
     <>
@@ -46,6 +63,7 @@ function Index() {
                   />
                 </div>
                 <input
+                onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} form-control formControl `}
                   placeholder="Search"
@@ -67,7 +85,7 @@ function Index() {
               Raj Traders
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
             </a> */}
-            
+
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
@@ -166,19 +184,30 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page 1 out of 10</span>
+                <span>Showing Page {currentPage+1}  out of {Math.ceil(allBuyerList?.data?.totalCount/10)}</span>
                 <a
+                  onClick={() => {
+                    if (currentPage === 0) {
+                      return
+                    } else {
+                      setCurrentPage((prevState) => prevState - 1)
+                    }
+                  }}
                   href="#"
                   className={`${styles.arrow} ${styles.leftArrow} arrow`}
                 >
                   {' '}
                   <img
+
                     src="/static/keyboard_arrow_right-3.svg"
                     alt="arrow right"
                     className="img-fluid"
                   />
                 </a>
                 <a
+                  onClick={() => {
+                    setCurrentPage((prevState) => prevState + 1)
+                  }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
                 >
@@ -190,95 +219,97 @@ function Index() {
                 </a>
               </div>
             </div>
-            <table
-              className={`${styles.table} table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
-              <thead>
-                <tr className="table_row">
-                  <th>CUSTOMER ID</th>
-                  <th>BUYER NAME</th>
-                  <th>CREATED BY</th>
-                  <th>USERNAME</th>
-                  <th>EXISTING CUSTOMER</th>
-                  <th>STATUS</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allBuyerList &&
-                  allBuyerList.data?.data?.map((buyer, index) => (
-                    <tr key={index} className={`${styles.table_row} table_row`}>
-                      <td>{buyer.company.customerId}</td>
-                      <td
-                        className={`${styles.buyerName}`}
-                        onClick={() => {
-                          handleRoute(buyer)
-                        }}
-                      >
-                        {buyer.company.companyName}
-                      </td>
-                      <td>{buyer.createdBy.userRole}</td>
-                      <td>{buyer.createdBy.fName}</td>
-                      <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
-                      <td>
-                        <span
-                          className={`${styles.status} ${
-                          buyer.queue === 'Rejected' ? styles.rejected :  buyer.queue === 'ReviewQueue'
-                              ? styles.review
-                              : buyer.queue === 'CreditQueue'
-                              ? styles.approved
-                              : styles.rejected
-                          }`}
-                        ></span>
-                        
-                       {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
-                          ? 'Review'
-                          : buyer.queue === 'CreditQueue'
-                          ? 'Approved'
-                          : 'Rejected'}
-                      </td>
-                    </tr>
-                  ))}
-                <tr className={`${styles.table_row} table_row`}>
-                  <td>124621</td>
-                  <td
-                    className={styles.buyerName}
-                    onClick={() => Router.push('/review-queue/id')}
-                  >
-                    Ramakrishna Traders
-                  </td>
-                  <td>Customer</td>
-                  <td>Sameer Soni</td>
-                  <td>Yes</td>
-                  <td>
-                    <span
-                      className={`${styles.status} ${styles.rejected}`}
-                    ></span>
-                    Rejected
-                  </td>
-                </tr>
-                <tr className={`${styles.table_row} table_row`}>
-                  <td>124621</td>
-                  <td
-                    className={styles.buyerName}
-                    onClick={() => Router.push('/review-queue/id')}
-                  >
-                    Somani Traders
-                  </td>
-                  <td>RM-Sales</td>
-                  <td>Sachin Shiv</td>
-                  <td>Yes</td>
-                  <td>
-                    <span
-                      className={`${styles.status} ${styles.approved}`}
-                    ></span>
-                    Approved
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div className={styles.table_scroll}>
+              <table
+                className={`${styles.table} table`}
+                cellPadding="0"
+                cellSpacing="0"
+                border="0"
+              >
+                <thead>
+                  <tr className="table_row">
+                    <th>CUSTOMER ID</th>
+                    <th>BUYER NAME</th>
+                    <th>CREATED BY</th>
+                    <th>USERNAME</th>
+                    <th>EXISTING CUSTOMER</th>
+                    <th>STATUS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allBuyerList &&
+                    allBuyerList.data?.data?.map((buyer, index) => (
+                      <tr key={index} className={`${styles.table_row} table_row`}>
+                        <td>{buyer.company.customerId}</td>
+                        <td
+                          className={`${styles.buyerName}`}
+                          onClick={() => {
+                            handleRoute(buyer)
+                          }}
+                        >
+                          {buyer.company.companyName}
+                        </td>
+                        <td>{buyer.createdBy.userRole}</td>
+                        <td>{buyer.createdBy.fName}</td>
+                        <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                        <td>
+                          <span
+                            className={`${styles.status} ${
+                            buyer.queue === 'Rejected' ? styles.rejected :  buyer.queue === 'ReviewQueue'
+                                ? styles.review
+                                : buyer.queue === 'CreditQueue'
+                                ? styles.approved
+                                : styles.rejected
+                            }`}
+                          ></span>
+                          
+                        {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
+                            ? 'Review'
+                            : buyer.queue === 'CreditQueue'
+                            ? 'Approved'
+                            : 'Rejected'}
+                        </td>
+                      </tr>
+                    ))}
+                  <tr className={`${styles.table_row} table_row`}>
+                    <td>124621</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => Router.push('/review-queue/id')}
+                    >
+                      Ramakrishna Traders
+                    </td>
+                    <td>Customer</td>
+                    <td>Sameer Soni</td>
+                    <td>Yes</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.rejected}`}
+                      ></span>
+                      Rejected
+                    </td>
+                  </tr>
+                  <tr className={`${styles.table_row} table_row`}>
+                    <td>124621</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => Router.push('/review-queue/id')}
+                    >
+                      Somani Traders
+                    </td>
+                    <td>RM-Sales</td>
+                    <td>Sachin Shiv</td>
+                    <td>Yes</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.approved}`}
+                      ></span>
+                      Approved
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

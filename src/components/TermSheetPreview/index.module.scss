@@ -1,3 +1,4 @@
+@import "../styles/Core/config";
 .root_container{
     padding:25px;
     width: 100%;
@@ -7,22 +8,35 @@
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
+                @include respond(phone) {
+                        align-items: center;
+                        padding: 0.75rem 0rem;
+                    }   
     
                 .arrow {
                     width: 13px;
                     height: 21px;
                     background: transparent;
-                 
+                @include respond(phone) {
+                       
+                        height: 18px;
+                    }
                 }
     
                 .heading {
 
-                    padding: 12px 0 18px 18px;
+                    padding: 12px 0 12px 12px;
                     font-weight: bold;
                     font-size: 30px;
                    
                     text-transform: capitalize;
                     margin: 0;
+                    @include respond(phone) {
+                        padding: 12px 0 12px 12px;
+                            font-size: 20px;
+                            margin: 0px;
+                            padding-left: 10px;
+                        }
     
                 }
             }
@@ -49,11 +63,20 @@
             font-weight: bold;
             color: #111111;
             margin-right: 0.5rem;
+            @include respond(phone) {
+            
+                    font-size: 12px;
+                    margin-right: 0.2rem;
+                }
             }
             .termValue{
                 font-size: 20px;
                     line-height: 24px;
                 color:#111111;
+                @include respond(phone) {
+                
+                        font-size: 10px;
+                    }
             }
         }
     }
@@ -62,6 +85,10 @@
     padding-right: 15px;
     padding-left: 15px;
     margin-bottom: 1rem;
+    @include respond(phone) {
+            padding-right: 10px;
+                padding-left: 10px;
+        }
     .row_head{
 
         .content_header {
@@ -72,6 +99,11 @@
         font-weight: bold;
         color: #3687E8;
         border-right: 2px solid #e5e5e5;
+        @include respond(phone) {
+             font-size: 15px;
+         
+            padding-left: 20px;
+            }
         span{
             width:100%;
             display: flex;
@@ -87,6 +119,11 @@
         font-weight: bold;
         color: #3687E8;
         padding-left: 36px;
+        @include respond(phone) {
+                font-size: 15px;
+                white-space: nowrap;
+                padding-left: 20px;
+            }
 
     span {
         width: 100%;
@@ -102,6 +139,11 @@
                 list-style: none;
               
                 padding:25px 0px 25px 37px;
+                @include respond(phone) {
+                     font-size: 15px;
+                     padding-left: 12px;
+                
+                    }
 
         }
     .sub_content{
@@ -113,7 +155,12 @@
             list-style: none;
            
             opacity: 0.7;
-            padding-left: 25px;
+            padding-left: 12px;
+            @include respond(phone) {
+                    font-size: 15px;
+                    
+                    
+                }
         li{
             margin-bottom: 0.5rem;
             padding-bottom: 15px;
@@ -131,6 +178,11 @@
                
                 opacity: 1;
                 padding-left: 12px;
+                @include respond(phone) {
+                        font-size: 15px;
+                
+                
+                    }
             }
                           li {
                               margin-bottom: 0.5rem;
@@ -226,16 +278,28 @@
                 
                 padding-left: 20px !important;
                 padding-right: 20px !important;
+                @include respond(phone) {
+                        font-size: 15px;
+                
+                
+                    }
     }
-} .dashboard_form {
+} 
+
+ .dashboard_form {
      padding: 0 0 35px;
 
      .terms_para {
          font-size: 20px;
          letter-spacing: 0.19px;
-         color: #111111;
+
          line-height: 30px;
          padding: 25px 35px 10px;
+
+         @include respond(phone) {
+             font-size: $font_size_mobile_text;
+             padding: 25px 20px 20px;
+         }
      }
 
      .igpl_para {
@@ -252,26 +316,34 @@
          margin-bottom: 20px;
          margin-top: 20px;
 
+         @include respond(phone) {
+             font-size: $font_size_mobile_text;
+             margin-top: 5px !important;
+         }
+
          .other_heading {
              font-size: 22px;
              font-weight: bold;
              line-height: 27px;
-           
+
              background-color: #FAFAFB;
              padding: 15px 15px 15px 35px;
-             margin-bottom:0px !important
-           
+             margin-bottom: 25px;
          }
 
          .checkbox_container {
              padding: 15px 35px;
-             padding-top: 0px;
 
              .checkbox_label {
                  font-size: 20px;
                  letter-spacing: 0.19px;
                  line-height: 25px;
-                
+
+                 @include respond(phone) {
+                     font-size: $font_size_mobile_text;
+
+                 }
+
              }
 
              .checkbox {
