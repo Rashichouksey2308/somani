@@ -224,19 +224,40 @@ const qpa=()=>{
             </ul>
           <p> Signed, executed and delivered on the day, month and year first above written.
           </p>
+          <br/>
+         <br/>
             <div className='d-flex justify-content-between align-items-center'>
+            <div >
+              <p className={`${styles.below_para}`}>FOR &amp; ON BEHALF OF</p>
             <GrowInput type="text" />
+            <br/>
+            <br/>
             <p>Authorised Signatory</p>
+            <br/>
+            <br/>
+            <p className={`${styles.below_para}`}>FOR &amp; ON BEHALF OF</p>
+            <p><GrowInput type="text" /><strong>………………………….</strong></p>
+           <br/>
+           <br/>
+           <p>Authorised Signatory</p>
+
             </div>
-            <div className='d-flex justify-content-between align-items-center'>
+            <div className='pt-3'>
+            <p className={`${styles.below_para}`}>FOR &amp; ON BEHALF OF</p>
+            <p><strong>………………………………...</strong></p>
+            <br/>
+            <br/>
             <GrowInput type="text" />
+            <p>(Name <span>.........</span>)</p>
+            <br/>
+            <p className={`${styles.below_para}`}>FOR &amp; ON BEHALF OF</p>
+            <GrowInput type="text" />
+            <br/>
+            <br/>
             <p>Authorised Signatory</p>
+
             </div>
-            <div className='d-flex justify-content-between align-items-center'>
-            <p>Authorised Signatory</p>
-            <p>Authorised Signatory</p>
             </div>
-          
           </div>
   )
 }

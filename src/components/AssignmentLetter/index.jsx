@@ -106,9 +106,9 @@ function index() {
 
       </div>
       <div className={`${styles.content} card`}>
-          <div className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#assignmentLetter" aria-expanded="true" aria-controls="assignmentLetter">
+          <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-end p-3 bg-transparent`}>
           <label>Date:</label>
-            <input  className={`${styles.para}`} placeholder="31.08.2021" />
+            <input className={`${styles.date_input} `} placeholder="31.08.2021" />
                                         
                 
           </div>

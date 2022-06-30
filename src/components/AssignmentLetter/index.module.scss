@@ -59,12 +59,21 @@
     margin-left: 400px;   
     box-shadow: 0px 3px 6px #CAD0E2;
     border-radius: 6px;
-    .cardHeader{
-        font-size: 22px;
-        color: #3687E8;
-        border-bottom: none !important;
+    
+    label {
+        font-size: 20px;
     }
+    .date_input{
+        font-size: 20px;
+                height: 60px;
+                border: none;
+                background: transparent;
+               color: #000000;
+               font-weight: bold;
+               padding-left: 8px;
+               margin-top: -5px;
 
+    }
     div{
             padding: 20px 100px 20px 100px;
             .sub_heading {
@@ -106,8 +115,6 @@
       line-height: 23px;
       margin-right: 38px;
   }
-
-  
 
          .reject {
              cursor: pointer;
