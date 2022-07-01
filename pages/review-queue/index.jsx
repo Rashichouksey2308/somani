@@ -206,14 +206,40 @@ function Index() {
 
   const [debtData, setDebtData] = useState([
     {
-      bankName:  orderList?.company?.debtProfile?.bankName,
-      conduct:  orderList?.company?.debtProfile?.conduct,
-      limit:  orderList?.company?.debtProfile?.limit,
-      limitType:  orderList?.company?.debtProfile?.limitType,
+      bankName: orderList?.company?.debtProfile?.bankName,
+      conduct: orderList?.company?.debtProfile?.conduct,
+      limit: orderList?.company?.debtProfile?.limit,
+      limitType: orderList?.company?.debtProfile?.limitType,
     },
   ])
 
+  const [personData, setPersonData] = useState([
+    {
+      contact: {
+        callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
+        number: orderList?.company?.keyContactPerson?.contact?.number,
+      },
+      department: orderList?.company?.keyContactPerson?.department,
+      designation: orderList?.company?.keyContactPerson?.designation,
+      email: orderList?.company?.keyContactPerson?.email,
+      name: orderList?.company?.keyContactPerson?.name,
+    },
+  ])
+
+  const addPersonArr = (keyPersonData) => {
+    let newArr = [...personData]
+    newArr.push(debt)
+    setPersonData(keyPersonData)
+  }
+
   useEffect(() => {
+    let personArr = []
+    orderList?.company?.keyContactPerson?.forEach((element) => {
+      // console.log(element,"useEE")
+      personArr.push(element)
+    })
+    setPersonData(personArr)
+
     let debtArr = []
     orderList?.company?.debtProfile?.forEach((element) => {
       // console.log(element,"useEE")
@@ -281,7 +307,7 @@ function Index() {
       keyContactPerson: [...keyContactPerson],
       keyAddress: [...keyAddData],
       recommendations: {},
-      debtProfile: [...debtData]
+      debtProfile: [...debtData],
     }
     dispatch(UpdateOrderShipment(obj))
   }
@@ -904,10 +930,12 @@ function Index() {
                     creditDetail={orderList}
                     keyAddDataArr={keyAddDataArr}
                     addDebtArr={addDebtArr}
+                    addPersonArr={addPersonArr}
                     saveProductData={saveProductData}
                     debtData={debtData}
                     saveSupplierData={saveSupplierData}
                     keyAddData={keyAddData}
+                    personData={personData}
                   />
                   <Recommendations
                     creditDetail={orderList}
