@@ -106,12 +106,13 @@ function index() {
 
       </div>
       <div className={`${styles.content} card`}>
-          <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-end p-3 bg-transparent`}>
+         
+          <div className='text-right'>
           <label>Date:</label>
+
             <input className={`${styles.date_input} `} placeholder="31.08.2021" />
+            </div>
                                         
-                
-          </div>
            {assignment()}
            <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
               <div className={styles.reject}><span>Save</span></div>
@@ -128,8 +129,8 @@ function index() {
 export default index
 const assignment=()=>{
   return(
-     <div className="card-body">
-      <h5 className={styles.sub_heading}>Assignment Letter between: </h5>
+    <div className={`${styles.card_body} card-body `}>
+    <h5 className={styles.sub_heading}>Assignment Letter between: </h5>
 
       <GrowInput  type="text" className={`${styles.para} `} />
       <GrowInput  type="text" className={`${styles.para} `} />
@@ -148,27 +149,29 @@ const assignment=()=>{
       <br/>
      
       </p>
-     
+     <div className='mr-4'>
       <div className='d-flex justify-content-between align-items-center'>
         <div>
         <strong>………………………………………………………</strong>
       <br/>
       <strong>………………………………………………………</strong>
-      <GrowInput type="text" className={`${styles.para}`} placeholder='For INDO INTERNATIONAL TRADING FZCO. (BUYER)'/>
-      </div>
-      <GrowInput type="text" className={`${styles.para} pt-5`} placeholder='For INDO INTERNATIONAL TRADING FZCO. (BUYER)'/>
-      </div>
-      <p>
-      <strong>………………………………………………………</strong>
       <br/>
-      <GrowInput type="text" className={`${styles.para} `} placeholder='For INDO INTERNATIONAL TRADING FZCO. (BUYER)'/>
+      <GrowInput type="text" className={`${styles.para}`} />
+      <br/>
+      <br/>
+      
+      </div>
+      <GrowInput type="text" className={`${styles.para} `} />
+
+      </div>
+      <p className='mt-5'>
+      <strong>………………………………………………………</strong>
+     
+      <br/>
+      <GrowInput type="text" className={`${styles.para} `} />
 
       </p>
-      
-                
-
-
-      
+      </div>
 
       </div>
 
