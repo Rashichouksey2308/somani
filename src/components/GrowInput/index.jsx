@@ -25,9 +25,9 @@ function Index(props) {
   return (
   <>
   {
-       textType == "text"? <textarea  className={`${styles.input}`}  size={state.length > 3 ? state.length : 3} type="text"  onChange={changeHandler2} value={state} placeholder={props.placeholder} />
+       textType == "text"? <textarea  className={`${styles.input}`}  size={state?.length > 3 ? state?.length : 3} type="text"  onChange={changeHandler2} value={state} placeholder={props.placeholder} />
     
-    :  <input ref={inputEl}  className={`${styles.input}`}    size={state.length > 3 ? state.length : 3}
+    :  <input ref={inputEl}  className={`${styles.input}`}    size={state?.length > 3 ? state?.length : 3}
       type="text"  onChange={changeHandler} value={state} placeholder={props.placeholder}/>
 
   }
