@@ -24,32 +24,29 @@
                     height: 100%;
                     span{
                        font-size: 22px;
-                        opacity: 0.6;
-                        
-                        
-                        
+                        opacity: 0.6;      
                     }
-                                          img {
-                                              width: 35px;
-                                              height: 35px;
-                                              margin-left: 10px;
-                                              line-height: 45px;
-                                              text-align: center;
-                                              border-radius: 8px;
-                                              background: #fafafb;
-                                              display: inline-block;
-                                              border: 1px solid #f2f5f9;
-                                              display: flex;
-                                              justify-content: center;
-                                              align-items: center;
-                                              transform: rotate(180deg);
-                    
-                                              img {
-                                                  width: 8px;
-                                                  height: 13px;
-                                              }
-                    
-                                          }
+                                img {
+                                    width: 35px;
+                                    height: 35px;
+                                    margin-left: 10px;
+                                    line-height: 45px;
+                                    text-align: center;
+                                    border-radius: 8px;
+                                    background: #fafafb;
+                                    display: inline-block;
+                                    border: 1px solid #f2f5f9;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    transform: rotate(180deg);
+        
+                                    img {
+                                        width: 8px;
+                                        height: 13px;
+                                    }
+        
+                                }
                                         
                 }
                                  .selected {
@@ -64,40 +61,41 @@
     margin-left: 400px;   
     box-shadow: 0px 3px 6px #CAD0E2;
     border-radius: 6px;
-    .cardHeader{
-        font-size: 22px;
-        color: #3687E8;
-        border-bottom: none !important;
-    }
 
-    div{
-            padding: 20px 100px 20px 100px;
-            .sub_heading {
-                text-decoration: underline;
-                font-weight: 500;
-            }
+   .card_body {
+                padding: 80px 100px 20px 100px;    
+                .space_above{
+                    white-space: pre;
+                }        
             p {  
                 font-size: 20px;
-                margin-bottom: 2rem;
                 //line-height: 60px;
-                ;
                 
-        }
+            }
+            ul {
+                list-style: number;
+                font-size: 20px;
+
+            }
+            .below_para {
+                font-size: 20px;
+                margin-bottom: 0 !important;
+
+            }
         .input_field {
                font-size: 20px;
                 border: none;
                 background: transparent;
-               color: #000000;
-               font-weight: bold;
+                color: #000000;
+                font-weight: bold;
 
         }
-    }
+    
+}
     .footer {
          font-size: 22px;
          border-top: 2px solid #D2D7E5;
          height:5rem
-         
-    
      }
   
 }
@@ -111,9 +109,6 @@
       line-height: 23px;
       margin-right: 38px;
   }
-
-  
-
          .reject {
              cursor: pointer;
             width: 260px;

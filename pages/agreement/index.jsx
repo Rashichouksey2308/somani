@@ -5,7 +5,7 @@ import SalesAgreement from '../../src/components/SalesAgreement'
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement'
 import TPASeller from '../../src/components/TPASeller'
 import QPA from '../../src/components/QPA'
-
+import {useState, useEffect} from 'react';
 
 import { Form } from 'react-bootstrap'
 
