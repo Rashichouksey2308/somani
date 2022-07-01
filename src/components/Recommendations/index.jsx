@@ -5,6 +5,13 @@ import styles from './index.module.scss'
 
 const Index = () => {
   const [edit, setEdit] = useState(false)
+  //const [edit, setEdit] = useState(false)
+  const [editTable, setEditTable] = useState(false)
+  const [editStren, setEditStren] = useState(false)
+  const [editWeak, setEditWeak] = useState(false)
+  const [editSanc, setEditSanc] = useState(false)
+
+
   return (
     <>
     <div className={`${styles.main} card border_color mb-4`}>
@@ -126,16 +133,22 @@ const Index = () => {
             <tbody>
               <tr className="table_row">
                 <td className={styles.number}>1</td>
-                <td className="font-weight-bold">Simport Pvt. Ltd.</td>
-                <td><input readOnly={edit} /></td>
-                <td><input readOnly={edit} /></td>
-                <td>Good</td>
-                <td>
+                <select
+                    className={`${styles.dropDown} font-weight-bold heading`}>
+                    <option>Simport Pvt. Ltd.</option>
+                    <option>Krishna</option>
+                  </select>               
+                   <td><input readOnly={editTable} /></td>
+                <td><input readOnly={editTable} /></td>
+                <select className={`${styles.dropDown} heading`}>
+                    <option>Satisfactory</option>
+                    <option>Not Satisfied</option>
+                  </select>                <td>
                   <div>
                     <img
                       src="/static/mode_edit.svg"
                       className={`${styles.edit_image} mr-3 img-fluid`}
-                      onClick={(e) => {setEdit(!edit)}}
+                      onClick={(e) => {setEditTable(!edit)}}
                       />
                     <img
                       src="/static/delete 2.svg"
@@ -146,7 +159,7 @@ const Index = () => {
                 </td>
               </tr>
               <tr className="table_row">
-                <td className={styles.number}>2</td>
+                {/* <td className={styles.number}>2</td>
                 <td>
                   <select
                     className={`${styles.dropDown} font-weight-bold heading`}
@@ -168,7 +181,7 @@ const Index = () => {
                     <option>Satisfactory</option>
                     <option>Not Satisfied</option>
                   </select>
-                </td>
+                </td> */}
                 <td>
                   <div>
                     <img
@@ -220,7 +233,7 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editStren} />
             <div className="mt-3">
               <img
                 src="/static/delete 2.svg"
@@ -232,7 +245,7 @@ const Index = () => {
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid`}
                 alt="edit"
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditStren(!edit)}}
 
               />
             </div>
@@ -284,7 +297,7 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editWeak} />
             <div className="mt-3">
               <img
                 src="/static/delete 2.svg"
@@ -296,7 +309,7 @@ const Index = () => {
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid`}
                 alt="edit"
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditWeak(!edit)}}
 
               />
             </div>
@@ -385,7 +398,7 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editSanc} />
             <div className="mt-3">
               <img
                 src="/static/delete 2.svg"
@@ -396,7 +409,7 @@ const Index = () => {
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid`}
                 alt="edit"
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditSanc(!edit)}}
 
               />
             </div>
