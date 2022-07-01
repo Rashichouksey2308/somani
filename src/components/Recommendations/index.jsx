@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
-const index = () => {
+const Index = () => {
   const [edit, setEdit] = useState(false)
   return (
     <>
@@ -433,4 +433,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index
