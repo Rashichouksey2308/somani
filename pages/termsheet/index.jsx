@@ -1,10 +1,22 @@
 
-import TermSheet from '../../src/components/TermSheet'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import TermSheet from '../../src/components/TermSheet'
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-export default function Home() {
+// export default function Home() {
+//   return (
+//     <TermSheet />
+//   )
+// }
+
+import React from 'react'
+import TermSheetMain from '../../src/components/TermSheetMain'
+
+const index = () => {
   return (
-    <TermSheet />
+    <TermSheetMain/>
   )
 }
+
+export default index
+

@@ -29,8 +29,7 @@ function Index() {
         {
             main:"Loading, Transit & Unloading",
             Other:[
-                "Review Queue",
-                "Credit Queue",
+              
                 "Termsheets",
                 "Money margin"
             ],
@@ -39,8 +38,8 @@ function Index() {
           {
             main:"Agreement & Lc Module",
             Other:[
-                "Review Queue",
-                "Credit Queue",
+               {name: "Agreement",image:"/static/Review Queue.svg",route:"/agreement"},
+               {name: "LC Module",image:"/static/Review Queue.svg",route:""},
                 "Termsheets",   
             ],
               image:"/static/Agreement&LCModule.svg"
