@@ -29,7 +29,7 @@ function Index() {
   const handleRoute = (buyer) => {
     if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))
-      Router.push('/review-queue')
+      Router.push('/review')
     }
   }
 
@@ -273,7 +273,7 @@ function Index() {
                   className="img-fluid"
                   alt="Preview"
                   onClick={() => {
-                    Router.push('/review-queue')
+                    Router.push('/review')
                   }}
                 />
               </td>
@@ -294,7 +294,7 @@ function Index() {
                   className="img-fluid"
                   alt="Preview"
                   onClick={() => {
-                    Router.push('/review-queue')
+                    Router.push('/review')
                   }}
                 />
               </td>
@@ -315,7 +315,7 @@ function Index() {
                   className="img-fluid"
                   alt="Preview"
                   onClick={() => {
-                    Router.push('/review-queue')
+                    Router.push('/review')
                   }}
                 />
               </td>
@@ -336,7 +336,7 @@ function Index() {
                   className="img-fluid"
                   alt="Preview"
                   onClick={() => {
-                    Router.push('/review-queue')
+                    Router.push('/review')
                   }}
                 />
               </td>
@@ -357,7 +357,7 @@ function Index() {
                   className="img-fluid"
                   alt="Preview"
                   onClick={() => {
-                    Router.push('/review-queue')
+                    Router.push('/review')
                   }}
                 />
               </td>
@@ -378,7 +378,7 @@ function Index() {
                   className="img-fluid"
                   alt="Preview"
                   onClick={() => {
-                    Router.push('/review-queue')
+                    Router.push('/review')
                   }}
                 />
               </td>
