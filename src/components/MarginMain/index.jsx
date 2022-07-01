@@ -49,7 +49,7 @@ function Index() {
             </div> 
             <div className={`${styles.datatable} datatable `}>
         <div className={`${styles.tableFilter} d-flex justify-content-between`}>
-          <h3 className="heading_card">Termsheets</h3>
+          <h3 className="heading_card">Margin Money</h3>
           <div
             className={`${styles.pageList} d-flex justify-content-end align-items-center`}
           >
@@ -94,7 +94,7 @@ function Index() {
             
              <tr>
               <td>124621</td>
-              <td className={styles.buyerName} onClick={()=>{Router.push("/termsheet/id")}}>Ramakrishna Traders</td>
+              <td className={styles.buyerName} onClick={()=>{Router.push("/margin-money/id")}}>Ramakrishna Traders</td>
               <td>Yes</td>
              <td>22-02-2022</td>
               <td>
@@ -106,13 +106,13 @@ function Index() {
                   src="/static/preview.svg"
                   className="img-fluid"
                   alt="Preview"
-                  onClick={()=>{Router.push("/termsheet-preview")}}
+                  onClick={()=>{Router.push("/margin-preview")}}
                 />
               </td>
             </tr>
             <tr>
               <td>124621</td>
-              <td className={styles.buyerName} onClick={()=>{Router.push("/termsheet/id")}}>Ramakrishna Traders</td>
+              <td className={styles.buyerName} onClick={()=>{Router.push("/margin-money/id")}}>Ramakrishna Traders</td>
               <td>Yes</td>
              <td>22-02-2022</td>
               <td>
@@ -124,13 +124,13 @@ function Index() {
                   src="/static/preview.svg"
                   className="img-fluid"
                   alt="Preview"
-                  onClick={()=>{Router.push("/termsheet-preview")}}
+                  onClick={()=>{Router.push("/margin-preview")}}
                 />
               </td>
             </tr>
             <tr>
               <td>124621</td>
-              <td className={styles.buyerName} onClick={()=>{Router.push("/termsheet/id")}}>Ramakrishna Traders</td>
+              <td className={styles.buyerName} onClick={()=>{Router.push("/margin-money/id")}}>Ramakrishna Traders</td>
               <td>Yes</td>
              <td>22-02-2022</td>
               <td>
@@ -142,14 +142,14 @@ function Index() {
                   src="/static/preview.svg"
                   className="img-fluid"
                   alt="Preview"
-                  onClick={()=>{Router.push("/termsheet-preview")}}
+                  onClick={()=>{Router.push("/margin-preview")}}
                  
                 />
               </td>
             </tr>
             <tr>
               <td>124621</td>
-              <td className={styles.buyerName} onClick={()=>{Router.push("/termsheet/id")}}>Bhutani Traders</td>
+              <td className={styles.buyerName} onClick={()=>{Router.push("/margin-money/id")}}>Bhutani Traders</td>
               <td>No</td>
              <td>22-02-2022</td>
               <td>
@@ -161,13 +161,13 @@ function Index() {
                   src="/static/preview.svg"
                   className="img-fluid"
                   alt="Preview"
-                 onClick={()=>{Router.push("/termsheet-preview")}}
+                 onClick={()=>{Router.push("/margin-preview")}}
                 />
               </td>
             </tr>
             <tr>
               <td>124621</td>
-              <td className={styles.buyerName} onClick={()=>{Router.push("/termsheet/id")}}>Somani Traders</td>
+              <td className={styles.buyerName} onClick={()=>{Router.push("/margin-money/id")}}>Somani Traders</td>
               <td>No</td>
              <td>22-02-2022</td>
               <td>
@@ -179,7 +179,7 @@ function Index() {
                   src="/static/preview.svg"
                   className="img-fluid"
                   alt="Preview"
-                     onClick={()=>{Router.push("/termsheet-preview")}}
+                     onClick={()=>{Router.push("/margin-preview")}}
                  
                 />
               </td>

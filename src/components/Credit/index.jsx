@@ -13,11 +13,15 @@ const index = ({
   saveProductData,
   saveSupplierData,
   keyAddData,
-  debtData
+  debtData,
+  addDebtArr,
+  personData,
+  addPersonArr
 }) => {
   console.log(creditDetail, 'this is credit detail')
 
   const dispatch = useDispatch();
+  const [saveTable, setSaveTable] = useState(false)
 
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
@@ -50,9 +54,34 @@ const index = ({
     setDebtData(newInput)
   }
 
-  const debtSave = () => {
+  const onDebtSave = () => {
     addDebtArr(debt)
   }
+
+  const [keyPersonData, setKeyPersonData] = useState([
+    {
+      contact: {
+        callingCode: '',
+        number: '',
+      },
+      department: '',
+      designation: '',
+      email: '',
+      name: '',
+    },
+  ])
+
+  const handlePersonChange = (name, value) => {
+    const newInput = {...keyPersonData}
+    newInput[name] = value
+    setKeyPersonData(newInput)
+  }
+
+  const onKeyPersonDataSave = () => {
+    addPersonArr(keyPersonData)
+  }
+
+  
 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData }
@@ -591,8 +620,7 @@ const index = ({
                   <th></th>
                 </tr>
               </thead>
-              {creditDetail &&
-                creditDetail?.company?.keyContactPerson.map((person, index) => (
+              {personData?.map((person, index) => (
                   <tbody key={index}>
                     <tr className="table_credit">
                       <td>
@@ -1087,7 +1115,7 @@ const index = ({
                 </tr>
               </thead>
               <tbody>
-                {debtData?.map((profile, index) => (
+                {/* {debtData?.map((profile, index) => (
                     <tr key={index}>
                       <td>{(index += 1)}</td>
                       <td>{profile.bankName}</td>
@@ -1109,8 +1137,8 @@ const index = ({
                         </div>
                       </td>
                     </tr>
-                  ))}
-                {/* <tr>
+                  ))} */}
+               <tr>
                   <td>2</td>
                   <td>
                     <select
@@ -1126,31 +1154,38 @@ const index = ({
                       <option>Cash Deposit</option>
                     </select>
                   </td>
-                  <td>
-                    <input placeholder="100,000.00" />
-                  </td>
+                 
+                  <td><input className='input' readOnly={!saveTable} /></td>
 
                   <td>
                     <select className={`${styles.dropDown} heading`}>
                       <option>Satisfactory</option>
-                      <option>Not Satisfied</option>
+                      <option>Good</option>
                     </select>
                   </td>
                   <td>
-                    <div>
-                      <img
-                        src="/static/save-3.svg"
-                        className={`${styles.edit_image}  mr-3 img-fluid`}
-                        alt="edit"
+                  <div>
+                    {!saveTable ? 
+                    <img
+                      src="/static/mode_edit.svg"
+                      className={`${styles.edit_image} mr-3 img-fluid`}
+                      onClick={(e) => {setSaveTable(true)}}
                       />
-                      <img
-                        src="/static/delete 2.svg"
-                        className="img-fluid"
-                        alt="delete"
-                      />
-                    </div>
+                     :  <img
+                    src="/static/save-3.svg"
+                    className={`${styles.edit_image} mr-3 img-fluid`}
+                    alt="save"
+                    onClick={(e) => {setSaveTable(false)}}
+
+                  />  }
+                    <img
+                      src="/static/delete 2.svg"
+                      className="img-fluid"
+                      alt="delete"
+                    />
+                  </div>
                   </td>
-                </tr> */}
+                </tr> 
               </tbody>
             </table>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
