@@ -667,11 +667,11 @@ const index = ({
                       </td>
                     </tr> */}
                      <tr className="table_credit">
-                  <td><input className='input font-weight-bold' readOnly={!saveContactTable} /></td>
-                  <td><input className='input' readOnly={!saveContactTable} /></td>
-                  <td><input className='input' readOnly={!saveContactTable} /></td>
-                  <td><input className='input' readOnly={!saveContactTable} /></td>
-                  <td><input className='input' readOnly={!saveContactTable} /></td>
+                  <td><input className='input font-weight-bold' type="text" readOnly={!saveContactTable} /></td>
+                  <td><input className='input'  type="text" readOnly={!saveContactTable} /></td>
+                  <td><input className='input'  type="text" readOnly={!saveContactTable} /></td>
+                  <td><input className='input' type="tel" readOnly={!saveContactTable} /></td>
+                  <td><input className='input'  type="text" readOnly={!saveContactTable} /></td>
                   <td>
                   <div>
                     {!saveContactTable ? 
