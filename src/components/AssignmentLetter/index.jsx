@@ -149,7 +149,7 @@ const assignment=()=>{
       <br/>
      
       </p>
-     <div className='mr-4 ml-4'>
+     <div className='mr-4'>
       <div className='d-flex justify-content-between align-items-center'>
         <div>
         <strong>………………………………………………………</strong>
