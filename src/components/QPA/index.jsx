@@ -226,7 +226,7 @@ const qpa=()=>{
           </p>
           <br/>
          <br/>
-            <div className='d-flex justify-content-between align-items-center'>
+            <div className='d-flex justify-content-between align-items-center mr-4 ml-4 mb-5'>
             <div >
               <p className={`${styles.below_para}`}>FOR &amp; ON BEHALF OF</p>
             <GrowInput type="text" />
