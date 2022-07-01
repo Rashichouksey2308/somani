@@ -136,7 +136,7 @@ function Index() {
               alt="profile icon"
               className="img-fluid"
             />
-            Javanika Seth<span>ID: 39853-09343</span>
+            <name className="d-none d-md-inline-block">Javanika Seth<span>ID: 39853-09343</span></name>
           </a>
 
           <div className="dropdown-menu" aria-labelledby="userProfile">
