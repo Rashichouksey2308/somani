@@ -16,7 +16,7 @@ function Index() {
         {
             main:"Leads",
             Other:[
-               {name: "Review Queue",image:"/static/Review Queue.svg",route:"/leads"},
+               {name: "Review Queue",image:"/static/Review Queue.svg",route:"/review-queue"},
                {name: "Credit Queue",image:"/static/Credit Queue.svg", route: "/credit-queue"},
                {name: "Termsheets",image:"/static/Termsheets.svg",route:"/termsheet"},
                {name: "Margin Money",image:"/static/Termsheets.svg",route:"/margin-money"},
@@ -29,18 +29,22 @@ function Index() {
         {
             main:"Loading, Transit & Unloading",
             Other:[
-                "Review Queue",
-                "Credit Queue",
-                "Termsheets",
-                "Money margin"
+              
+               
+              {name: "Third-Party Inspection",image:"/static/Credit Queue.svg",route:"/third-party"},
+              {name: "BL Generation",image:"/static/Review Queue.svg",route:""},
+              {name: "Plot Inspection",image:"/static/Credit Queue.svg",route:""},
+              {name: "LOI",image:"/static/Credit Queue.svg",route:""},
+              
             ],
-              image:"/static/Loading, Transit & Unloading.svg"
+              image:"/static/Loading, Transit & Unloading.svg",
+               route:"/loading"
         },
           {
             main:"Agreement & Lc Module",
             Other:[
-                "Review Queue",
-                "Credit Queue",
+               {name: "Agreement",image:"/static/Credit Queue.svg",route:"/agreement"},
+               {name: "LC Module",image:"/static/Review Queue.svg",route:""},
                 "Termsheets",   
             ],
               image:"/static/Agreement&LCModule.svg"
@@ -57,11 +61,15 @@ function Index() {
           {
             main:"Masters",
             Other:[
-                "Review Queue",
-                "Credit Queue",
-                "Termsheets",   
+                {name: "Users",image:"/static/Credit Queue.svg",route:"/masters/users"},
+                {name: "User Roles",image:"/static/Review Queue.svg",route:""},
+                {name: "Vendors",image:"/static/Review Queue.svg",route:""},
+                {name: "Third-Party Inspection",image:"/static/Review Queue.svg",route:""},
+                {name: "Insurance Company",image:"/static/Review Queue.svg",route:""},
+                  
             ],
-                image:"/static/Masters.svg"
+                image:"/static/Masters.svg",
+                route:""
         },
      
     ]
