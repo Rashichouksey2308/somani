@@ -122,7 +122,7 @@ function Index() {
                   />
                 </div>
                 <h3>
-                  <span>  </span>
+                  <span> All </span>
                   3,200
                 </h3>
               </div>
