@@ -7,7 +7,7 @@ import AssociateshipAgreement from '../../src/components/AssociateshipAgreement'
 import TPASeller from '../../src/components/TPASeller'
 import TPAIGI from '../../src/components/TPAIGI'
 import QPA from '../../src/components/QPA'
-
+import {useState, useEffect} from 'react';
 
 import { Form } from 'react-bootstrap'
 

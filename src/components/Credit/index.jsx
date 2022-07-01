@@ -1,31 +1,100 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
+import { UploadDocument } from 'redux/registerBuyer/action'
 import { phoneValidation } from 'utils/helper'
 import styles from './index.module.scss'
 
 const index = ({
   creditDetail,
-  saveAddressData,
-  mobileFunction,
-  uploadDocument,
+  keyAddDataArr,
   saveProductData,
-  saveSupplierData
+  saveSupplierData,
+  keyAddData,
+  debtData
 }) => {
   console.log(creditDetail, 'this is credit detail')
 
-  // const {  productSummary, supplierCredential } = creditDetail;
+  const dispatch = useDispatch();
+
+  const [keyAddressData, setKeyAddressData] = useState({
+    GSTIN: '',
+    GSTIN_document: {},
+    addressType: '',
+    branch: '',
+    city: '',
+    state: '',
+    email: '',
+    completeAddress: '',
+    contact: {
+      callingCode: null,
+      number: null,
+    },
+    pinCode: null,
+  })
+
+  const [debt, setDebtData] = useState(
+    {
+      bankName:  '',
+      conduct:  '',
+      limit:  null,
+      limitType:  '',
+    },
+  )
+
+  const handleDebtChange = (name, value) => {
+    const newInput = {...debtData}
+    newInput[name] = value
+    setDebtData(newInput)
+  }
+
+  const debtSave = () => {
+    addDebtArr(debt)
+  }
+
+  const handleChange = (name, value) => {
+    const newInput = { ...keyAddressData }
+    newInput[name] = value
+    // console.log(newInput)
+    setKeyAddressData(newInput)
+  }
+
+  const mobileFunction = (e) => {
+    const newObj = { ...keyAddressData }
+    newObj.contact.number = e.target.value
+    setKeyAddressData(newObj)
+  }
+
+  
+
+  const uploadDocument = (e) => {
+    // console.log(e.target.name, "file target")
+    const newUploadDoc = { ...keyAddressData }
+    newUploadDoc.GSTIN_document = e.target.files[0]
+
+    setKeyAddressData(newUploadDoc)
+
+    const fd  = new FormData()
+    fd.append( 'gstDocument', e.target.files[0] )
+    dispatch(UploadDocument(fd))
+  }
+
+  const handleClick = () => { 
+  keyAddDataArr(keyAddressData)
+  }
 
   const saveDate = (e) => {
-    const d = new Date(e.target.value);
+    const d = new Date(e.target.value)
     let text = d.toISOString()
-    saveProductData( e.target.name, text)
+    saveProductData(e.target.name, text)
   }
 
   const saveSupplierDate = (e) => {
-    const d = new Date(e.target.value);
+    const d = new Date(e.target.value)
     let text = d.toISOString()
-    saveSupplierData( e.target.name, text)
+    saveSupplierData(e.target.name, text)
   }
 
   return (
@@ -54,9 +123,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={creditDetail?.productSummary?.monthlyProductionCapacity}
-                  name='monthlyProductionCapacity'
-                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.productSummary?.monthlyProductionCapacity
+                  }
+                  name="monthlyProductionCapacity"
+                  onChange={(e) => {
+                    saveProductData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Monthly Production Capacity
@@ -69,9 +142,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={creditDetail?.productSummary?.capacityUtilization}
-                  name='capacityUtilization'
-                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.productSummary?.capacityUtilization
+                  }
+                  name="capacityUtilization"
+                  onChange={(e) => {
+                    saveProductData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Capacity Utilization<strong className="text-danger">*</strong>
@@ -83,9 +160,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={creditDetail?.productSummary?.averageStockOfCommodity}
-                  name='averageStockOfCommodity'
-                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.productSummary?.averageStockOfCommodity
+                  }
+                  name="averageStockOfCommodity"
+                  onChange={(e) => {
+                    saveProductData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Average Stock of Commodity
@@ -98,9 +179,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={creditDetail?.productSummary?.averageStockInTransit}
-                  name='averageStockInTransit'
-                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.productSummary?.averageStockInTransit
+                  }
+                  name="averageStockInTransit"
+                  onChange={(e) => {
+                    saveProductData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Average Stock in Transit
@@ -114,8 +199,10 @@ const index = ({
                   required
                   type="number"
                   defaultValue={creditDetail?.productSummary?.availableStock}
-                  name='availableStock'
-                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
+                  name="availableStock"
+                  onChange={(e) => {
+                    saveProductData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Available Stock<strong className="text-danger">*</strong>
@@ -126,9 +213,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={creditDetail?.productSummary?.dailyConsumptionOfCommodity}
-                  name='dailyConsumptionOfCommodity'
-                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.productSummary?.dailyConsumptionOfCommodity
+                  }
+                  name="dailyConsumptionOfCommodity"
+                  onChange={(e) => {
+                    saveProductData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Daily Consumption of Commodity
@@ -140,10 +231,12 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
-                    creditDetail?.productSummary?.stockCoverageOfCommodity.split('T')[0]
+                    creditDetail?.productSummary?.stockCoverageOfCommodity.split(
+                      'T',
+                    )[0]
                   }
-                  name='stockCoverageOfCommodity'
-                  onChange={(e)=>saveDate(e)}
+                  name="stockCoverageOfCommodity"
+                  onChange={(e) => saveDate(e)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Stock Coverage of Commodity
@@ -152,9 +245,18 @@ const index = ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='existingProcurementOfCommodity' onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}>
+                <select
+                  className={`${styles.input_field} input form-control`}
+                  name="existingProcurementOfCommodity"
+                  onChange={(e) => {
+                    saveProductData(e.target.name, e.target.value)
+                  }}
+                >
                   <option>
-                    {creditDetail?.productSummary?.existingProcurementOfCommodity}
+                    {
+                      creditDetail?.productSummary
+                        ?.existingProcurementOfCommodity
+                    }
                   </option>
                   <option value="volvo">Import</option>
                   <option value="audi">Manufacturers</option>
@@ -170,6 +272,15 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
+                    name="existingSuppliers"
+                    defaultValue={creditDetail?.productSummary?.existingSuppliers.map(
+                      (e) => {
+                        return `${e}`
+                      },
+                    )}
+                    onBlur={(e) => {
+                      saveProductData(e.target.name, e.target.value.split(','))
+                    }}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing Supplier(s)
@@ -184,9 +295,18 @@ const index = ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='contributionCommoditySenstivity' onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}>
+                <select
+                  className={`${styles.input_field} input form-control`}
+                  name="contributionCommoditySenstivity"
+                  onChange={(e) => {
+                    saveProductData(e.target.name, e.target.value)
+                  }}
+                >
                   <option>
-                    {creditDetail?.productSummary?.contributionCommoditySenstivity}
+                    {
+                      creditDetail?.productSummary
+                        ?.contributionCommoditySenstivity
+                    }
                   </option>
                   <option value="volvo">High</option>
                   <option value="audi">Low</option>
@@ -202,9 +322,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={creditDetail?.productSummary?.AvgMonthlyElectricityBill}
-                  name='AvgMonthlyElectricityBill'
-                  onChange={(e)=>{saveProductData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.productSummary?.AvgMonthlyElectricityBill
+                  }
+                  name="AvgMonthlyElectricityBill"
+                  onChange={(e) => {
+                    saveProductData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Avg. Monthly Electricity Bill
@@ -217,6 +341,15 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
+                    name="existingCHA"
+                    defaultValue={creditDetail?.productSummary?.existingCHA.map(
+                      (e) => {
+                        return `${e}`
+                      },
+                    )}
+                    onBlur={(e) => {
+                      saveProductData(e.target.name, e.target.value.split(','))
+                    }}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing CHA(s)<strong className="text-danger">*</strong>
@@ -253,8 +386,16 @@ const index = ({
           <div className={`${styles.dashboard_form} card-body`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='supplierName' onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}>
-                  <option>{creditDetail?.supplierCredential?.supplierName}</option>
+                <select
+                  className={`${styles.input_field} input form-control`}
+                  name="supplierName"
+                  onChange={(e) => {
+                    saveSupplierData(e.target.name, e.target.value)
+                  }}
+                >
+                  <option>
+                    {creditDetail?.supplierCredential?.supplierName}
+                  </option>
                   <option>Bhutani Traders</option>
                   <option>Ramakrishna</option>
                 </select>
@@ -267,9 +408,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={creditDetail?.supplierCredential?.shipmentNumber}
-                  name='shipmentNumber'
-                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.supplierCredential?.shipmentNumber
+                  }
+                  name="shipmentNumber"
+                  onChange={(e) => {
+                    saveSupplierData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   No. of Shipments<strong className="text-danger">*</strong>
@@ -281,9 +426,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={creditDetail?.supplierCredential?.consigneesNumber}
-                  name='consigneesNumber'
-                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.supplierCredential?.consigneesNumber
+                  }
+                  name="consigneesNumber"
+                  onChange={(e) => {
+                    saveSupplierData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   No. of Consignees<strong className="text-danger">*</strong>
@@ -296,8 +445,10 @@ const index = ({
                   required
                   type="text"
                   defaultValue={creditDetail?.supplierCredential?.HSCodesNumber}
-                  name='HSCodesNumber'
-                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
+                  name="HSCodesNumber"
+                  onChange={(e) => {
+                    saveSupplierData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   No. of HS codes<strong className="text-danger">*</strong>
@@ -309,9 +460,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={creditDetail?.supplierCredential?.countryOfOrigin}
-                  name='countryOfOrigin'
-                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.supplierCredential?.countryOfOrigin
+                  }
+                  name="countryOfOrigin"
+                  onChange={(e) => {
+                    saveSupplierData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Country of Origin<strong className="text-danger">*</strong>
@@ -322,9 +477,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={creditDetail?.supplierCredential?.portOfDestination}
-                  name='portOfDestination'
-                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.supplierCredential?.portOfDestination
+                  }
+                  name="portOfDestination"
+                  onChange={(e) => {
+                    saveSupplierData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Port of Destination<strong className="text-danger">*</strong>
@@ -335,10 +494,12 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
-                    creditDetail?.supplierCredential?.oldestShipmentDate?.split('T')[0]
+                    creditDetail?.supplierCredential?.oldestShipmentDate?.split(
+                      'T',
+                    )[0]
                   }
-                  name='oldestShipmentDate'
-                  onChange={(e)=>saveSupplierDate(e)}
+                  name="oldestShipmentDate"
+                  onChange={(e) => saveSupplierDate(e)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Oldest Shipment Date<strong className="text-danger">*</strong>
@@ -349,10 +510,12 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
-                    creditDetail?.supplierCredential?.latestShipmentDate?.split('T')[0]
+                    creditDetail?.supplierCredential?.latestShipmentDate?.split(
+                      'T',
+                    )[0]
                   }
-                  name='latestShipmentDate'
-                  onChange={(e)=>saveSupplierDate(e)}
+                  name="latestShipmentDate"
+                  onChange={(e) => saveSupplierDate(e)}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Latest Shipment Date<strong className="text-danger">*</strong>
@@ -363,9 +526,13 @@ const index = ({
                   className={`${styles.input_field} ${styles.percent} input form-control`}
                   required
                   type="text"
-                  defaultValue={creditDetail?.supplierCredential?.commodityOfTotalTrade}
-                  name='commodityOfTotalTrade'
-                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
+                  defaultValue={
+                    creditDetail?.supplierCredential?.commodityOfTotalTrade
+                  }
+                  name="commodityOfTotalTrade"
+                  onChange={(e) => {
+                    saveSupplierData(e.target.name, e.target.value)
+                  }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Commodity to Total Trade % -24M
@@ -378,9 +545,11 @@ const index = ({
                   as="textarea"
                   rows={3}
                   className={`${styles.remark_field} input form-control`}
-                  name='remarks'
+                  name="remarks"
                   defaultValue={creditDetail?.supplierCredential?.remarks}
-                  onChange={(e)=>{saveSupplierData(e.target.name, e.target.value)}}
+                  onChange={(e) => {
+                    saveSupplierData(e.target.name, e.target.value)
+                  }}
                 />
               </div>
             </div>
@@ -422,7 +591,7 @@ const index = ({
                   <th></th>
                 </tr>
               </thead>
-              {creditDetail  &&
+              {creditDetail &&
                 creditDetail?.company?.keyContactPerson.map((person, index) => (
                   <tbody key={index}>
                     <tr className="table_credit">
@@ -537,52 +706,51 @@ const index = ({
           aria-labelledby="keyAddress"
           data-parent="#profileAccordion"
         >
-          {creditDetail &&
-            creditDetail?.company?.keyAddress.map((address, index) => (
-              <div key={index} className={`${styles.dashboard_form} card-body`}>
-                <div className="d-flex justify-content-between">
-                  <div className={`${styles.address_card} value background1`}>
-                    <div className="d-flex justify-content-between">
-                      <div>
-                        <input type="checkbox" />
-                        <label className={styles.label}>
-                          {address.addressType}
-                        </label>
-                        <div className={styles.address_values}>
-                          <p>{address.completeAddress}</p>
-                          <p className="pt-3">
-                            <span>Email: </span>
-                            {address.email}
-                          </p>
+          {keyAddData.map((address, index) => (
+            <div key={index} className={`${styles.dashboard_form} card-body`}>
+              <div className="d-flex justify-content-between">
+                <div className={`${styles.address_card} value background1`}>
+                  <div className="d-flex justify-content-between">
+                    <div>
+                      <input type="checkbox" />
+                      <label className={styles.label}>
+                        {address.addressType}
+                      </label>
+                      <div className={styles.address_values}>
+                        <p>{address.completeAddress}</p>
+                        <p className="pt-3">
+                          <span>Email: </span>
+                          {address.email}
+                        </p>
+                        <p>
+                          <span>Phone Number:</span>
+                          {address.contact?.number}
+                        </p>
+                        <p>
+                          <span>Branch: </span>
+                          {address.branch}
+                        </p>
+                        <div className="d-flex">
                           <p>
-                            <span>Phone Number:</span>
-                            {address.contact.number}
+                            {' '}
+                            <span>GSTIN: </span>
+                            {address.GSTIN}
                           </p>
-                          <p>
-                            <span>Branch: </span>
-                            {address.branch}
-                          </p>
-                          <div className="d-flex">
-                            <p>
-                              {' '}
-                              <span>GSTIN: </span>
-                              {address.GSTIN}
-                            </p>
-                            <span className={styles.button}>View</span>
-                          </div>
+                          <span className={styles.button}>View</span>
                         </div>
                       </div>
-                      <div>
-                        <img
-                          className={`${styles.edit_image} img-fluid`}
-                          src="/static/mode_edit.svg"
-                          alt="Edit"
-                        />
-                      </div>
+                    </div>
+                    <div>
+                      <img
+                        className={`${styles.edit_image} img-fluid`}
+                        src="/static/mode_edit.svg"
+                        alt="Edit"
+                      />
                     </div>
                   </div>
+                </div>
 
-                  {/* <div className={`${styles.address_card} value background1`}>
+                {/* <div className={`${styles.address_card} value background1`}>
                 <div className="d-flex justify-content-between">
                   <div>
                     <div className={styles.address_values}>
@@ -605,9 +773,9 @@ const index = ({
                   </div>
                 </div>
               </div> */}
-                </div>
-                <div className="d-flex justify-content-between">
-                  {/* <div className={`${styles.address_card} value background1`}>
+              </div>
+              {/* <div className="d-flex justify-content-between"> */}
+                {/* <div className={`${styles.address_card} value background1`}>
                 <div
                   className={`${styles.address_values} d-flex justify-content-between`}
                 >
@@ -648,7 +816,7 @@ const index = ({
                   </div>
                 </div>
               </div> */}
-                  {/* <div className={`${styles.address_card} value background1`}>
+                {/* <div className={`${styles.address_card} value background1`}>
                 <div className="d-flex justify-content-between">
                   <div>
                     <div
@@ -693,9 +861,9 @@ const index = ({
                   </div>
                 </div>
               </div> */}
-                </div>
-              </div>
-            ))}
+              {/* </div> */}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -727,7 +895,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   name="addressType"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 >
                   <option>Factory</option>
@@ -745,7 +913,7 @@ const index = ({
                   type="text"
                   name="pinCode"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -760,7 +928,7 @@ const index = ({
                   type="text"
                   name="state"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -775,7 +943,7 @@ const index = ({
                   type="text"
                   name="city"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -790,7 +958,7 @@ const index = ({
                   type="text"
                   name="email"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -823,7 +991,7 @@ const index = ({
                   type="text"
                   name="completeAddress"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -836,7 +1004,7 @@ const index = ({
                   type="text"
                   name="branch"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -850,7 +1018,7 @@ const index = ({
                   type="text"
                   name="GSTIN"
                   onChange={(e) => {
-                    saveAddressData(e.target.name, e.target.value)
+                    handleChange(e.target.name, e.target.value)
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -863,7 +1031,8 @@ const index = ({
                   {' '}
                   <input
                     type="file"
-                    name="myfile"
+                    name={keyAddressData.GSTIN}
+                    // name="myfile"
                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                     onChange={(e) => {
                       uploadDocument(e)
@@ -876,7 +1045,7 @@ const index = ({
                   /> */}
                   GST Doc
                 </button>
-                <button className={`${styles.add_btn}`}>Add</button>
+                <button className={`${styles.add_btn}`} onClick={()=>handleClick()} >Add</button>
               </div>
             </div>
           </div>
@@ -918,8 +1087,7 @@ const index = ({
                 </tr>
               </thead>
               <tbody>
-                {creditDetail &&
-                  creditDetail?.company.debtProfile.map((profile, index) => (
+                {debtData?.map((profile, index) => (
                     <tr key={index}>
                       <td>{(index += 1)}</td>
                       <td>{profile.bankName}</td>

@@ -89,9 +89,14 @@ body.light-mode .sidebar-selected{
 background: #102141 0% 0% no-repeat padding-box;
 }
 body.dark-mode .card-body {
+  border-radius: 0 0 8px 8px;
   background: #293141;
   box-shadow: 0px 8px 25px #72727234;
   border: none;
+}
+body.light-mode .card-body {
+  border-radius: 0 0 8px 8px;
+  background-color: #fff !important;
 }
 body.dark-mode .border_color {
   border-color: #434E61 !important;
@@ -110,11 +115,6 @@ body.dark-mode .form-check-label {
 }
 body.light-mode .form-check-label {
   color: #111111;
-}
-body.dark-mode .card {
-  background: #171E27;
-  color: #FFFFFF;
-
 }
 body.dark-mode .main {
   background: #171E27;
@@ -153,16 +153,22 @@ body.light-mode .heading {
 
   color: #000000 !important;
 }
-
-body.light-mode .card-body {
-  background-color: #fff !important;
+body.dark-mode .card {
+  background: #171E27;
+  color: #FFFFFF;
 }
 
 body.light-mode .card {
   background: #ffffff ;
   color: #000000;
-  
+  box-shadow: 0px 3px 12px #E5E7ED;
+}
 
+body.dark-mode .card_main {
+  background: #171E27;
+}
+body.light-mode .card_main {
+  background: #F3F4F7;
 }
 
 body.dark-mode .clear_btn {
@@ -326,7 +332,7 @@ body.dark-mode .background1 {
   
 }
 body.light-mode .background1 {
-  box-shadow: none;
+  // box-shadow: none;
   background-color: #FFFFFF;
   
 }

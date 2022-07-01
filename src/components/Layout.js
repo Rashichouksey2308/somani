@@ -48,7 +48,7 @@ function Layout({ children }) {
             </div>
 
             <div
-              className={`${styles.mainView_Container} card ${
+              className={`${styles.mainView_Container} card_main ${
                 !sidebar ? styles.no_sidebar : null
               }`}
             >
