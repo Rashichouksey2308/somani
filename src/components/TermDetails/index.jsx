@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-const index = () => {
+const index = ({termsheet}) => {
   return (
     <div className={`${styles.main} main`}>    
         <div className={`${styles.head_container} border_color d-flex justify-content-between`} data-toggle="collapse" data-target="#termDetails" aria-expanded="true" aria-controls="termDetails">
@@ -16,7 +16,7 @@ const index = () => {
                 <div className='row'>               
                     <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                         <div className='d-flex'>
-                            <input className={`${styles.value} input form-control`} type="text"  required/>
+                            <input value={termsheet.data.data[0].order.commodity} className={`${styles.value} input form-control`} type="text"  required/>
                             <label className={`${styles.label} label_heading`}>Commodity<strong className="text-danger">*</strong></label>
                             <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
                         </div>

@@ -11,10 +11,10 @@ import { getTermsheet } from 'redux/buyerProfile/action'
 const Index = () => {
     const dispatch = useDispatch()
     const { termsheet } = useSelector((state) => state.order)
-    useEffect(() => {
-        dispatch(getTermsheet())
-      }, [dispatch])
-      console.log(termsheet,"termsheet")
+    // useEffect(() => {
+    //     dispatch(getTermsheet(`?company=62bc270fdaa4dc00215fa73c`))
+    //   }, [dispatch])
+      //console.log(termsheet,"termsheet")
     return (
     
 
@@ -30,34 +30,34 @@ const Index = () => {
               <div className="row">
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                   <h3 className={`${styles.label} label_heading`}>Customer ID</h3>
-                      <p className={`${styles.value} accordion_Text`}>2FCH6589</p>
+                      <p className={`${styles.value} accordion_Text`}>{termsheet.data.data[0].company.customerId}</p>
                   </div>
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <h3 className={`${styles.label} label_heading`}>Buyers Name</h3>
-                      <p className={`${styles.value} accordion_Text`}>Madhwani Group</p>
+                      <p className={`${styles.value} accordion_Text`}>{termsheet.data.data[0].company.companyName}</p>
                   </div>
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <h3 className={`${styles.label} label_heading`}>Created On</h3>
-                      <p className={`${styles.value} accordion_Text`}>25-3-2022</p>
+                      <p className={`${styles.value} accordion_Text`}>{(termsheet.data.data[0].company.createdAt).slice(0, 10)}</p>
                   </div>
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <h3 className={`${styles.label} label_heading`}>Last Modified</h3>
-                      <p className={`${styles.value} accordion_Text`}>15-04-2022</p>
+                      <p className={`${styles.value} accordion_Text`}>{(termsheet.data.data[0].company.updatedAt).slice(0, 10)}</p>
                   </div>
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <h3 className={`${styles.label} label_heading`}>Approved Date</h3>
-                      <p className={`${styles.value} accordion_Text`}>8-5-2022</p>
+                      <p className={`${styles.value} accordion_Text`}></p>
                   </div>
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <h3 className={`${styles.label} label_heading`}>Status</h3>
-                      <p className={`${styles.value} accordion_Text`}><span className={`${styles.status}`}></span>Approved</p>
+                      <p className={`${styles.value} accordion_Text`}><span className={`${styles.status}`}></span>{termsheet.data.data[0].status}</p>
                   </div>
               </div>
           </div>
-          <TermDetails />
-          <AdditionalComment />
-          <OtherTerms />
-          <UploadOther />
+          <TermDetails termsheet={termsheet} />
+          <AdditionalComment termsheet={termsheet} />
+          <OtherTerms termsheet={termsheet} />
+          <UploadOther  termsheet={termsheet}/>
       </div>
   </div>
   <ApproveBar button={"Save"} button2={"Preview"}/>

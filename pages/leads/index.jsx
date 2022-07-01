@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
-import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState("");
@@ -14,11 +14,11 @@ function Index() {
 
   const { allBuyerList } = useSelector((state) => state.buyer)
   const { searchedLeads } = useSelector((state) => state.order)
-  console.log(searchedLeads,"searched items")
+  console.log(searchedLeads, "searched items")
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
-  
+
 
 
   const handleRoute = (buyer) => {
@@ -35,15 +35,15 @@ function Index() {
   const handleSearch = (e) => {
     const query = `${e.target.value}`
     setSearchTerm(query)
-    if(query.length >=  3 ){
+    if (query.length >= 3) {
       dispatch(SearchLeads(query))
     }
   }
 
- const handleFilteredData = (e) => {
-  setSearchTerm("")
-  const id = `${e.target.id}`
-  dispatch(GetAllBuyer(`?company=${id}`))
+  const handleFilteredData = (e) => {
+    setSearchTerm("")
+    const id = `${e.target.id}`
+    dispatch(GetAllBuyer(`?company=${id}`))
   }
 
 
@@ -67,20 +67,20 @@ function Index() {
                   />
                 </div>
                 <input
-                value={serachterm}
-                onChange={handleSearch}
+                  value={serachterm}
+                  onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} form-control formControl `}
                   placeholder="Search"
                 />
               </div>
-             {searchedLeads && serachterm && <div className={styles.searchResults}>
-              <ul>
-              {searchedLeads.data.data.map((results, index)=> (
-                 <li onClick={handleFilteredData} id={results._id}   key={index}>{results.companyName} <span>{results.customerId}</span></li>
-              ))}
-              </ul>
-               </div>}
+              {searchedLeads && serachterm && <div className={styles.searchResults}>
+                <ul>
+                  {searchedLeads.data.data.map((results, index) => (
+                    <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} <span>{results.customerId}</span></li>
+                  ))}
+                </ul>
+              </div>}
             </div>
             <a className={styles.filterIcon}>
               <img
@@ -197,7 +197,7 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage+1}  out of {Math.ceil(allBuyerList?.data?.totalCount/10)}</span>
+                <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}</span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -219,7 +219,10 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    setCurrentPage((prevState) => prevState + 1)
+                    if (currentPage+1 < Math.ceil(allBuyerList?.data?.totalCount / 10)) {
+                      setCurrentPage((prevState) => prevState + 1)
+                    }
+
                   }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
@@ -267,24 +270,23 @@ function Index() {
                         <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                         <td>
                           <span
-                            className={`${styles.status} ${
-                            buyer.queue === 'Rejected' ? styles.rejected :  buyer.queue === 'ReviewQueue'
+                            className={`${styles.status} ${buyer.queue === 'Rejected' ? styles.rejected : buyer.queue === 'ReviewQueue'
                                 ? styles.review
                                 : buyer.queue === 'CreditQueue'
-                                ? styles.approved
-                                : styles.rejected
-                            }`}
+                                  ? styles.approved
+                                  : styles.rejected
+                              }`}
                           ></span>
-                          
-                        {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
+
+                          {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
                             ? 'Review'
                             : buyer.queue === 'CreditQueue'
-                            ? 'Approved'
-                            : 'Rejected'}
+                              ? 'Approved'
+                              : 'Rejected'}
                         </td>
                       </tr>
                     ))}
-                 
+
                 </tbody>
               </table>
             </div>
