@@ -18,7 +18,7 @@ const index = ({orderDetail, saveShipmentData}) => {
         <h3 className={`${styles.heading} mb-0`}>Shipment Details</h3>
         <span>+</span>
         </div>
-        <div id="shipmentDetails" className="collapse" aria-labelledby="shipmentDetails" data-parent="#profileAccordion">      
+        <div id="shipmentDetails" className="collapse" aria-labelledby="shipmentDetails" >      
 
         <div className={`${styles.dashboard_form} card-body`}>
         
