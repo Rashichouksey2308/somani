@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import {Row, Col} from "react-bootstrap"
+import GrowInput from '../GrowInput'
 
 function index() {
   return (
@@ -125,15 +126,15 @@ const tpaSeller=()=>{
     <div className={`${styles.cardBody} card-body pt-3`}>
         <h3 className={`${styles.heading} text-center`}><span>TRIPARTITE AGREEMENT</span></h3>
         <p className='text-center'>This tripartite Agreement made on this 21st day of August, 2021 by and among below parties:-</p>
-        <p><input type="text" placeholder='MULIA GREEN RESOURCES PTE LTD'/>, having its registered office at <input type='text' placeholder='220 Orchard Road # 05-01, MidPoint Orchard, Singapore 238852'/> through its authorized signatory included its successors, administrators etc. (hereinafter referred to as the 	&quot; SELLER 	&quot;); which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns.</p>
+        <p><GrowInput type="text" placeholder='MULIA GREEN RESOURCES PTE LTD'/>, having its registered office at <GrowInput type='text' placeholder='220 Orchard Road # 05-01, MidPoint Orchard, Singapore 238852'/> through its authorized signatory included its successors, administrators etc. (hereinafter referred to as the 	&quot; SELLER 	&quot;); which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns.</p>
         <p>And</p>
-        <p><input type="text" placeholder='INDO INTERNATIONAL TRADING FZCO'/>, a company organized and existing in accordance with Law of UAE and having registered address at <input type='text' placeholder='JAFZA VIEW-18, LOB-180504, JEBEL ALI, DUBAI, UAE'/> through its authorized signatory which included its successors, administrator setc. (hereinafter referred to as the 	&quot;BUYER	&quot;), which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns.</p>
+        <p><GrowInput type="text" placeholder='INDO INTERNATIONAL TRADING FZCO'/>, a company organized and existing in accordance with Law of UAE and having registered address at <GrowInput type='text' placeholder='JAFZA VIEW-18, LOB-180504, JEBEL ALI, DUBAI, UAE'/> through its authorized signatory which included its successors, administrator setc. (hereinafter referred to as the 	&quot;BUYER	&quot;), which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns.</p>
         <p>And</p>
-        <p><input type="text" placeholder='MOHIT MINERALS LIMITED'/>, having its registered office address at <input type="text" placeholder='7/23, Kirti Nagar Industrial Area, New Delhi 110015, India'/> through its authorized signatory which included its successors, administrators etc (Hereinafter referred to as 	&quot;ULTIMATE BUYER	&quot;=, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns).</p>
-        <p><input type="text" placeholder='MULIA GREEN RESOURCES PTE LTD. (Seller), INDO INTERNATIONAL TRADING FZCO (Buyer) and MOHIT MINERALS LIMITED'/> (Ultimate Buyer) shall hereinafter, for the sake of brevity and convenience, be referred to individually as 	&quot;Party	&quot; and collectively as the 	&quot;Parties	&quot;.</p>
+        <p><GrowInput type="text" placeholder='MOHIT MINERALS LIMITED'/>, having its registered office address at <GrowInput type="text" placeholder='7/23, Kirti Nagar Industrial Area, New Delhi 110015, India'/> through its authorized signatory which included its successors, administrators etc (Hereinafter referred to as 	&quot;ULTIMATE BUYER	&quot;=, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns).</p>
+        <p><GrowInput type="text" placeholder='MULIA GREEN RESOURCES PTE LTD. (Seller), INDO INTERNATIONAL TRADING FZCO (Buyer) and MOHIT MINERALS LIMITED'/> (Ultimate Buyer) shall hereinafter, for the sake of brevity and convenience, be referred to individually as 	&quot;Party	&quot; and collectively as the 	&quot;Parties	&quot;.</p>
         <p>WHEREAS:-</p>
         <ol className={styles.alpha}>
-          <li>SELLER has entered into a Contract with BUYER for Sale &amp; Purchase <input type="text" placeholder='of STEAM (NON COKING) COAL IN BULK OF INDONESIAN ORIGIN'/> (Goods) vide Sales Contract No. ………………… dated ………………… (“Sales Contract”)</li>
+          <li>SELLER has entered into a Contract with BUYER for Sale &amp; Purchase <GrowInput type="text" placeholder='of STEAM (NON COKING) COAL IN BULK OF INDONESIAN ORIGIN'/> (Goods) vide Sales Contract No. ………………… dated ………………… (“Sales Contract”)</li>
           <li>SELLER and BUYER have agreed on various terms &amp; Conditions of Sales Contract.<br/>
           NOW THEREFORE THE PARTIES HERETO AGREED TO AS UNDER: -
             <ol>
@@ -150,15 +151,15 @@ const tpaSeller=()=>{
           </li>
         </ol>
         <div className='d-flex justify-content-between align-items-center'>
-          <input type="text" placeholder='For MULIA GREEN RESOURCES PTE LTD. (SELLER)'/>
+          <GrowInput type="text" placeholder='For MULIA GREEN RESOURCES PTE LTD. (SELLER)'/>
           <p>Authorised Signatory</p>
         </div>
         <div className='d-flex justify-content-between align-items-center'>
-          <input type="text" placeholder='For INDO INTERNATIONAL TRADING FZCO. (BUYER)'/>
+          <GrowInput type="text" placeholder='For INDO INTERNATIONAL TRADING FZCO. (BUYER)'/>
           <p>Authorised Signatory</p>
         </div>
         <div className='d-flex justify-content-between align-items-center'>
-          <input type="text" placeholder='For MOHIT MINERALS LIMITED. (ULTIMATE BUYER)'/>
+          <GrowInput type="text" placeholder='For MOHIT MINERALS LIMITED. (ULTIMATE BUYER)'/>
           <p>Authorised Signatory</p>
         </div>
     </div>

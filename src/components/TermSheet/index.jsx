@@ -1,13 +1,22 @@
-import React from 'react'
+import React , {useEffect} from 'react'
 import styles from './index.module.scss'
 import TermDetails from '../TermDetails'
 import AdditionalComment from '../AdditionalComment'
 import OtherTerms from '../OtherTerms'
 import UploadOther from  '../UploadOther'
 import ApproveBar from '../ApproveBar'
+import { useDispatch, useSelector } from 'react-redux'
+import { getTermsheet } from 'redux/buyerProfile/action'
 
-const index = () => {
-  return (
+const Index = () => {
+    const dispatch = useDispatch()
+    const { termsheet } = useSelector((state) => state.order)
+    useEffect(() => {
+        dispatch(getTermsheet())
+      }, [dispatch])
+      console.log(termsheet,"termsheet")
+    return (
+    
 
   <>
   <div className={`${styles.card} container-fluid tabHeader`}>
@@ -57,4 +66,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index

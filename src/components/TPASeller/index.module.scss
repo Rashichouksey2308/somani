@@ -42,7 +42,7 @@
                                               display: flex;
                                               justify-content: center;
                                               align-items: center;
-                                              transform: rotate(180deg);
+                                           
                     
                                               img {
                                                   width: 8px;
@@ -147,11 +147,7 @@
           height: 13px;
       }
 
-      .image_reverse {
-          transform: rotate(180deg);
-          width: 8px;
-          height: 13px;
-      }
+      
   }
 
 
@@ -183,4 +179,8 @@
 
                
         
-                 
+                                 .image_reverse {
+                                     transform: rotate(180deg);
+                                     width: 8px;
+                                     height: 13px;
+                                 }

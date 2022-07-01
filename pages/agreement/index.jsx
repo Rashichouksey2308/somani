@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
 import SalesAgreement from '../../src/components/SalesAgreement'
+import SalesContract from '../../src/components/SalesContract'
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement'
 import TPASeller from '../../src/components/TPASeller'
+import TPAIGI from '../../src/components/TPAIGI'
 import QPA from '../../src/components/QPA'
 
 
@@ -31,9 +33,16 @@ function Index() {
             <div className={`${styles.tabHeader} tabHeader `}>
               <div className="d-flex align-items-center">
                 <h1 className={`${styles.title} heading`}><img src={`${darkMode?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Margin Money</h1>
-                <div className="ml-auto">
+                <div className={"ml-auto d-flex"}>
+                   <div className="ml-auto  mr-2">
+                  <button type="button" className={`${styles.btnPrimary} btn btn-primary`}>Print</button>
+                 
+                </div>
+                    <div className="ml-auto">
                   <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                   <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
+                </div>
+               
                 </div>
               </div>
               <ul className={`${styles.navTabs} nav nav-tabs`}>
@@ -41,7 +50,7 @@ function Index() {
                       <a className={`${styles.navLink} navLink  nav-link active`} data-toggle="tab" href="#Profile" role="tab" aria-controls="Profile" aria-selected="true">Generic</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Financials" role="tab" aria-controls="Financials" aria-selected="false">Sales Agreement</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#SalesContract" role="tab" aria-controls="SalesContract" aria-selected="false">Sales Agreement</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Associateship" role="tab" aria-controls="GST" aria-selected="false">Associateship Agreement</a>
@@ -50,7 +59,7 @@ function Index() {
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#TPASeller" role="tab" aria-controls="tpaSeller" aria-selected="false">TPA (Seller)</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">TPA (CMA)</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#TPACMA" role="tab" aria-controls="TPACMA" aria-selected="false">TPA (CMA)</a>
                   </li>
                   <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Assignment" role="tab" aria-controls="assignmentLetter" aria-selected="false">Assignment Letter</a>
@@ -76,6 +85,18 @@ function Index() {
                                  
                                 </div>
                             </div>
+                              <div className="tab-pane fade" id="SalesContract" role="tabpanel">
+                                <div className="accordion" id="profileAccordion">
+                                   <SalesContract/>
+                                 
+                                </div>
+                            </div>
+                             <div className="tab-pane fade" id="Associateship" role="tabpanel">
+                                <div className="accordion" id="assignmentLetter">
+                                   <AssociateshipAgreement/>
+                                 
+                                </div>
+                            </div>
                             <div className="tab-pane fade" id="Assignment" role="tabpanel">
                                 <div className="accordion" id="assignmentLetter">
                                    <AssignmentLetter/>
@@ -85,6 +106,11 @@ function Index() {
                             <div className="tab-pane fade" id="TPASeller" role="tabpanel">
                                 <div className="accordion" id="tpaSeller">
                                    <TPASeller/>
+                              </div>
+                            </div>
+                             <div className="tab-pane fade" id="TPACMA" role="tabpanel">
+                                <div className="accordion" id="tpaSeller">
+                                   <TPAIGI/>
                               </div>
                             </div>
                             <div className="tab-pane fade" id="QPA" role="tabpanel">

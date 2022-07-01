@@ -248,7 +248,7 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload}`, {
+    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload ? payload : ""}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {

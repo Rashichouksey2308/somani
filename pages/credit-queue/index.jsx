@@ -10,16 +10,20 @@ import {
   GetAllOrders,
   GetBuyer,
 } from '../../src/redux/registerBuyer/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+
 
 function Index() {
-  const [query, setQuery] = useState("");
+  const [serachterm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch()
 
- const { allBuyerList } = useSelector((state) => state.buyer)
+  const { allBuyerList } = useSelector((state) => state.buyer)
+  const { searchedLeads } = useSelector((state) => state.order)
+
   console.log(currentPage)
   useEffect(() => {
-    dispatch(GetAllBuyer(currentPage))
+    dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
 
   const handleRoute = (buyer) => {
@@ -31,13 +35,16 @@ function Index() {
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`
-    if(query.length >=  3 ){
+    setSearchTerm(query)
+    if (query.length >= 3) {
       dispatch(SearchLeads(query))
-
-    }else {
-      
-      console.log(query,"its not working")
     }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm("")
+    const id = `${e.target.id}`
+    dispatch(GetAllBuyer(`?company=${id}`))
   }
 
   return (
@@ -53,11 +60,20 @@ function Index() {
               />
             </div>
             <input
+            value={serachterm}
+              onChange={handleSearch}
               type="text"
               className={`${styles.formControl} form-control formControl `}
               placeholder="Search"
             />
           </div>
+          {searchedLeads && serachterm && <div className={styles.searchResults}>
+            <ul>
+              {searchedLeads.data.data.map((results, index) => (
+                <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} <span>{results.customerId}</span></li>
+              ))}
+            </ul>
+          </div>}
         </div>
         <a className={styles.filterIcon}>
           <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
@@ -155,16 +171,16 @@ function Index() {
           <div
             className={`${styles.pageList} d-flex justify-content-end align-items-center`}
           >
-             <span>Showing Page {currentPage+1}  out of {Math.ceil(allBuyerList?.data?.totalCount/10)}</span>
+            <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}</span>
             <a
-             onClick={() => {
-              if (currentPage === 0) {
-                return
-              } else {
-                setCurrentPage((prevState) => prevState - 1)
-              }
-            }}
-             href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
+              onClick={() => {
+                if (currentPage === 0) {
+                  return
+                } else {
+                  setCurrentPage((prevState) => prevState - 1)
+                }
+              }}
+              href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
               {' '}
               <img
                 src="/static/keyboard_arrow_right-3.svg"
@@ -173,9 +189,9 @@ function Index() {
               />
             </a>
             <a
-            onClick={() => {
-              setCurrentPage((prevState) => prevState + 1)
-            }}
+              onClick={() => {
+                setCurrentPage((prevState) => prevState + 1)
+              }}
               href="#"
               className={`${styles.arrow} ${styles.rightArrow} arrow`}
             >
@@ -224,8 +240,8 @@ function Index() {
                         {buyer.queue === 'ReviewQueue'
                           ? 'Review'
                           : 'CreditQueue'
-                          ? 'Approved'
-                          : 'Rejected'}
+                            ? 'Approved'
+                            : 'Rejected'}
                       </td>
                       <td>
                         <img

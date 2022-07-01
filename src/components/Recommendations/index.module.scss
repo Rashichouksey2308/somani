@@ -75,12 +75,6 @@
                 font-size: 20px;
                 line-height: 25px;
             }
-            .comment_para{ 
-                letter-spacing: 0.19px;
-                //color: #111111;
-                font-size: 20px;
-                line-height: 30px;
-            }
 
             .edit_image{
                 background: #C3C3C31F;
@@ -88,7 +82,28 @@
                 border-radius: 4px;
                 padding: 10px 9px 10px 9px;
             }
-    }  
+    } 
+
+    .comment_input{
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        padding: 25px 30px 25px 30px;
+        margin-top: 35px;
+        .comment_field{ 
+            letter-spacing: 0.19px;
+            //color: #111111;
+            font-size: 20px;
+            line-height: 25px;
+        }
+
+        .edit_image{
+            background: #C3C3C31F;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            padding: 10px 9px 10px 9px;
+        }
+} 
+
     .paragraph{
         line-height: 25px;
         letter-spacing: 0.19px;
