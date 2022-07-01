@@ -29,6 +29,9 @@
       width: 345px;
       height: 100vh;
       position: fixed;
+      @include respond(lg-desktop) {
+        width: 20%;
+      }
     }
     .mainView_Container {
       flex-grow: 1;
@@ -39,6 +42,9 @@
       flex-direction: column;
      
       margin-left: 345px;
+      @include respond(lg-desktop) {
+        margin-left: 20%;
+      }
     }
   }
 }
