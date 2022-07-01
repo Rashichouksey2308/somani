@@ -4,7 +4,18 @@ import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
 const Index = () => {
-  const [edit, setEdit] = useState(false)
+  const [editProfile, setEditProfile] = useState(false)
+  const [editFinance, setEditFinance] = useState(false)
+  const [saveTable, setSaveTable] = useState(false)
+  const [editStren, setEditStren] = useState(false)
+  const [editStren1, setEditStren1] = useState(false)
+  const [editWeak, setEditWeak] = useState(false)
+  const [editWeak1, setEditWeak1] = useState(false)
+  const [editSanc, setEditSanc] = useState(false)
+  const [editSanc1, setEditSanc1] = useState(false)
+
+
+
   return (
     <>
     <div className={`${styles.main} card border_color mb-4`}>
@@ -31,14 +42,14 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editProfile} />
 
             <div className="ml-3">
               <img
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid mb-3`}
                 alt="edit"
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditProfile(!editProfile)}}
               />
               <img
                 src="/static/delete 2.svg"
@@ -72,12 +83,12 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editFinance} />
             <div className="ml-3">
               <img
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid mb-3`}
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditFinance(!editFinance)}}
               />
               <img
                 src="/static/delete 2.svg"
@@ -126,56 +137,32 @@ const Index = () => {
             <tbody>
               <tr className="table_row">
                 <td className={styles.number}>1</td>
-                <td className="font-weight-bold">Simport Pvt. Ltd.</td>
-                <td><input readOnly={edit} /></td>
-                <td><input readOnly={edit} /></td>
-                <td>Good</td>
-                <td>
+                <select
+                    className={`${styles.dropDown} mt-4 heading`}>
+                    <option>Simport Pvt. Ltd.</option>
+                    <option>Krishna</option>
+                  </select>               
+                   <td><input readOnly={!saveTable} /></td>
+                <td><input readOnly={!saveTable} /></td>
+                <select className={`${styles.dropDown_Satisfy} mt-4 heading`}>
+                    <option>Satisfactory</option>
+                    <option>Good</option>
+                  </select>                
+                  <td>
                   <div>
+                    {!saveTable ? 
                     <img
                       src="/static/mode_edit.svg"
                       className={`${styles.edit_image} mr-3 img-fluid`}
-                      onClick={(e) => {setEdit(!edit)}}
+                      onClick={(e) => {setSaveTable(true)}}
                       />
-                    <img
-                      src="/static/delete 2.svg"
-                      className="img-fluid"
-                      alt="delete"
-                    />
-                  </div>
-                </td>
-              </tr>
-              <tr className="table_row">
-                <td className={styles.number}>2</td>
-                <td>
-                  <select
-                    className={`${styles.dropDown} font-weight-bold heading`}
-                  >
-                    <option>Simport Pvt. Ltd.</option>
-                    <option>Krishna</option>
-                  </select>
-                </td>
-                <td>
-                  <input placeholder="50 Lakh" />
-                </td>
-                <td>
-                  {' '}
-                  <input placeholder="40 Lakh" />
-                </td>
+                     :  <img
+                    src="/static/save-3.svg"
+                    className={`${styles.edit_image} mr-3 img-fluid`}
+                    alt="save"
+                    onClick={(e) => {setSaveTable(false)}}
 
-                <td>
-                  <select className={`${styles.dropDown} heading`}>
-                    <option>Satisfactory</option>
-                    <option>Not Satisfied</option>
-                  </select>
-                </td>
-                <td>
-                  <div>
-                    <img
-                      src="/static/save-3.svg"
-                      className={`${styles.edit_image} mr-3 img-fluid`}
-                      alt="save"
-                    />
+                  />  }
                     <img
                       src="/static/delete 2.svg"
                       className="img-fluid"
@@ -184,6 +171,7 @@ const Index = () => {
                   </div>
                 </td>
               </tr>
+              
             </tbody>
           </table>
           <div className={`${styles.add_image} p-3 d-flex justify-content-end`}>
@@ -220,7 +208,7 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editStren} />
             <div className="mt-3">
               <img
                 src="/static/delete 2.svg"
@@ -232,7 +220,7 @@ const Index = () => {
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid`}
                 alt="edit"
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditStren(!editStren)}}
 
               />
             </div>
@@ -243,7 +231,7 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editStren1} />
             <div className="mt-3">
               <img
                 src="/static/delete 2.svg"
@@ -255,7 +243,7 @@ const Index = () => {
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid`}
                 alt="edit"
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditStren1(!editStren1)}}
 
               />
             </div>
@@ -284,7 +272,7 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editWeak} />
             <div className="mt-3">
               <img
                 src="/static/delete 2.svg"
@@ -296,7 +284,7 @@ const Index = () => {
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid`}
                 alt="edit"
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditWeak(!editWeak)}}
 
               />
             </div>
@@ -308,7 +296,7 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editWeak1} />
             <div className="mt-3">
               <img
                 src="/static/delete 2.svg"
@@ -320,7 +308,7 @@ const Index = () => {
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid`}
                 alt="edit"
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditWeak1(!editWeak1)}}
 
               />
             </div>
@@ -385,7 +373,7 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editSanc} />
             <div className="mt-3">
               <img
                 src="/static/delete 2.svg"
@@ -396,7 +384,7 @@ const Index = () => {
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid`}
                 alt="edit"
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditSanc(!editSanc)}}
 
               />
             </div>
@@ -408,7 +396,7 @@ const Index = () => {
                         as="textarea"
                         rows={3} 
                         
-                readOnly={edit} />
+                readOnly={editSanc1} />
             <div className="mt-3">
               <img
                 src="/static/delete 2.svg"
@@ -419,7 +407,7 @@ const Index = () => {
                 src="/static/mode_edit.svg"
                 className={`${styles.edit_image} img-fluid`}
                 alt="edit"
-                onClick={(e) => {setEdit(!edit)}}
+                onClick={(e) => {setEditSanc1(!editSanc1)}}
 
               />
               </div>
