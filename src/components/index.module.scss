@@ -26,9 +26,12 @@
     align-items: flex-start;
     .sidebarContainer {
       height: 100%;
-      width: 20%;
+      width: 345px;
       height: 100vh;
       position: fixed;
+      @include respond(lg-desktop) {
+        width: 20%;
+      }
     }
     .mainView_Container {
       flex-grow: 1;
@@ -38,7 +41,10 @@
       align-items: center;
       flex-direction: column;
      
-      margin-left: 20%;
+      margin-left: 345px;
+      @include respond(lg-desktop) {
+        margin-left: 20%;
+      }
     }
   }
 }

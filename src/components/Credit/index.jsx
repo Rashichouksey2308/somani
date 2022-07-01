@@ -13,7 +13,10 @@ const index = ({
   saveProductData,
   saveSupplierData,
   keyAddData,
-  debtData
+  debtData,
+  addDebtArr,
+  personData,
+  addPersonArr
 }) => {
   console.log(creditDetail, 'this is credit detail')
 
@@ -50,9 +53,34 @@ const index = ({
     setDebtData(newInput)
   }
 
-  const debtSave = () => {
+  const onDebtSave = () => {
     addDebtArr(debt)
   }
+
+  const [keyPersonData, setKeyPersonData] = useState([
+    {
+      contact: {
+        callingCode: '',
+        number: '',
+      },
+      department: '',
+      designation: '',
+      email: '',
+      name: '',
+    },
+  ])
+
+  const handlePersonChange = (name, value) => {
+    const newInput = {...keyPersonData}
+    newInput[name] = value
+    setKeyPersonData(newInput)
+  }
+
+  const onKeyPersonDataSave = () => {
+    addPersonArr(keyPersonData)
+  }
+
+  
 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData }
@@ -591,8 +619,7 @@ const index = ({
                   <th></th>
                 </tr>
               </thead>
-              {creditDetail &&
-                creditDetail?.company?.keyContactPerson.map((person, index) => (
+              {personData?.map((person, index) => (
                   <tbody key={index}>
                     <tr className="table_credit">
                       <td>
