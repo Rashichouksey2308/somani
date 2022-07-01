@@ -1,54 +1,51 @@
 @import "../components/styles/Core/config";
 .root_Container {
-  // width:100vw;
-  // height: 100vh;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  overflow: hidden;
-
-  .navContainer {
-    width: 100%;
-    height: 76px;
-    @include respond(lg-desktop) {
-        height: 71px;
-    }
-    @include respond(md-desktop) {
-        height: 68px;
-    }
-  }
-  .wrapper {
-    width: 100%;
-    height: 100%;
+    // width:100vw;
+    // height: 100vh;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
-    .sidebarContainer {
-      height: 100%;
-      width: 345px;
-      height: 100vh;
-      position: fixed;
-      @include respond(lg-desktop) {
-        width: 20%;
-      }
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    .navContainer {
+        width: 100%;
+        height: 75px;
+        @include respond(lg-desktop) {
+            height: 71px;
+        }
+        @include respond(md-desktop) {
+            height: 68px;
+        }
     }
-    .mainView_Container {
-      flex-grow: 1;
-      height: 100%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      flex-direction: column;
-     
-      margin-left: 345px;
-      @include respond(lg-desktop) {
-        margin-left: 20%;
-      }
+    .wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        .sidebarContainer {
+            height: 100%;
+            width: 345px;
+            height: 100vh;
+            position: fixed;
+            @include respond(lg-desktop) {
+                width: 20%;
+            }
+        }
+        .mainView_Container {
+            flex-grow: 1;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;          
+            margin-left: 345px;
+            @include respond(lg-desktop) {
+                margin-left: 20%;
+            }
+        }
     }
-  }
 }
-
 .no_sidebar {
-  margin-left: 0px !important;
+    margin-left: 0px !important;
 }
