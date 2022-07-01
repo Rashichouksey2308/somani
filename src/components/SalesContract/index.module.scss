@@ -73,8 +73,36 @@
         color: #3687E8;
 
     }
+   
     div{
+       
             padding: 1rem !important;
+            .rowhead {
+                padding: 0px !important;
+                    border: 2px solid black;
+            
+                    .col {
+                        border-right: 2px solid black;
+                    }
+                }
+                                .row {
+                                    padding: 0px !important;
+                                    border: 2px solid black;
+                                    border-bottom: none;
+                
+                                    .col {
+                                        border-right: 2px solid black;
+                                    }
+                                }
+           .rowlast {
+               padding: 0px !important;
+               border: 2px solid black;
+               border-top: none;
+    
+               .col {
+                   border-right: 2px solid black;
+               }
+           }
         p{  
             font-size: 20px;
             margin-bottom: 2rem;
@@ -91,6 +119,10 @@
                         border: 1px solid #0000001F;
                         border-radius: 4px;
                 }
+        }
+        .heading{
+            text-decoration: underline;
+            text-align: center;
         }
     }
     .footer {
@@ -132,7 +164,7 @@
           height: 13px;
       }
 
-     
+    
   }
 
 
@@ -163,9 +195,9 @@
          }
 
                
-  .image_reverse {
-      transform: rotate(180deg);
-      width: 8px;
-      height: 13px;
-  }
+        .image_reverse {
+            transform: rotate(180deg);
+            width: 8px;
+            height: 13px;
+        }
                  
