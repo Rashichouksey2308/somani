@@ -19,6 +19,7 @@
             z-index: 2;
             position: relative;
             display: inline-block;
+            margin-left: 22px;
             img {
                 @include respond(lg-desktop) {
                     height: 45px;
@@ -28,6 +29,7 @@
                 }
                 @include respond(sm-desktop) {
                     height: 35px;
+                    margin-left: 0;
                 }
                 @include respond(phone) {
                     height: 30px;
@@ -96,11 +98,16 @@
                     margin-right: 0 !important;
                 }
             }
+            &:last-child {
+                img {
+                    margin-right: 7px !important;
+                }
+            }
         }
     } 
     .header_icon {
         padding: 0;
-        margin: 0 40px 0 0;
+        margin: 0 48px 0 0;
         @include respond(lg-desktop) {
             margin-right: 30px;
         }
@@ -115,12 +122,13 @@
             list-style: none;
             display: inline-block;
             @include respond(lg-desktop) {
-                margin: 0 10px;
+                margin: 0 12px;
             }
             @include respond(md-desktop) {
-              margin: 0 5px;
+                margin: 0 5px;
             }
             img  {
+                // height: 38px;
                 @include respond(lg-desktop) {
                     height: 35px;
                 }
@@ -226,16 +234,16 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
+    width: 52px;
     height: 34px;
-    @include respond(lg-desktop) {
-        width: 55px;
-    }
     @include respond(lg-desktop) {
         width: 50px;
     }
-    @include respond(sm-desktop) {
+    @include respond(md-desktop) {
         width: 45px;
+    }
+    @include respond(sm-desktop) {
+        width: 40px;
     }
     @include respond(phone) {
         width: 35px;
@@ -289,9 +297,9 @@ cursor: pointer;
         width: 1.5rem;
     }
     @include respond(sm-desktop) {
-        height: 1.2rem;
-        width: 1.2rem;
-        bottom: -2px;
+        height: 1.3rem;
+        width: 1.3rem;
+        bottom: -3px;
     }
 }
 input:checked+.slider {
@@ -300,7 +308,12 @@ input:checked+.slider {
 input:checked+.slider:before {
     -webkit-transform: translateX(30px);
     -ms-transform: translateX(30px);
-    transform: translateX(30px);
+    transform: translateX(30px);    
+    @include respond(md-desktop) {
+        -webkit-transform: translateX(25px);
+        -ms-transform: translateX(25px);
+        transform: translateX(25px);  
+    }
     @include respond(phone) {
         -webkit-transform: translateX(20px);
         -ms-transform: translateX(20px);
