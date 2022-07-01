@@ -32,7 +32,7 @@ function Index() {
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
             <div className={`${styles.tabHeader} tabHeader `}>
               <div className="d-flex align-items-center">
-                <h1 className={`${styles.title} heading`}><img src={`${darkMode?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Margin Money</h1>
+                <h1 className={`${styles.title} heading`}><img src={`${darkMode?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Name</h1>
                 <div className={"ml-auto d-flex"}>
                    <div className="ml-auto  mr-2">
                   <button type="button" className={`${styles.btnPrimary} btn btn-primary`}>Print</button>
