@@ -897,7 +897,7 @@ const index = ({
 
       <div className={`${styles.main} card border_color`}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#addAddress"
           aria-expanded="true"
@@ -906,7 +906,7 @@ const index = ({
           <h3 className={`${styles.heading} mb-0`}>Add a new address</h3>
           <img
             src="/static/accordion_close_black.svg"
-            className="img-fluid"
+            className="img-fluid mt-n2 mr-n2"
             alt="Close"
           />
         </div>
