@@ -4,31 +4,23 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { getTermsheet } from 'redux/buyerProfile/action'
+import { getAllTermsheet,getTermsheet } from 'redux/buyerProfile/action'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
 
   const dispatch = useDispatch()
-  const { termsheet } = useSelector((state) => state.order)
+  const { allTermsheets } = useSelector((state) => state.order)
+
   useEffect(() => {
-    dispatch(getTermsheet(`?page=${currentPage}`))
+    dispatch(getAllTermsheet())
   }, [dispatch])
-  console.log(termsheet, "termsheet")
+  //console.log(termsheet, "termsheet")
 
 
-  const handleRoute = (item) => {
-    console.log(item, 'individual termsheet')
-   // dispatch(getTermsheet())
-
-    // if (item.queue === 'ReviewQueue') {
-    //   dispatch(Getitem({ companyId: item.company._id, orderId: item._id }))
-    //   Router.push('/review-queue/id')
-    // }
-    // else if (item.queue === 'CreditQueue') {
-    //   dispatch(GetAllOrders({ orderId: item._id }))
-    //   Router.push('/review-queue')
-    // }
+  const handleRoute = (sheet) => {
+    dispatch(getTermsheet({companyId: sheet.company._id}))
+    Router.push('/termsheet/id')
   }
 
   return (
@@ -78,7 +70,7 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage + 1}  out of {Math.ceil(termsheet?.data?.totalCount / 10)}</span>
+                <span>Showing Page {currentPage + 1}  out of {Math.ceil(allTermsheets?.data?.totalCount / 10)}</span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -130,22 +122,18 @@ function Index() {
                 </tr>
               </thead>
               <tbody>
-                {termsheet && termsheet?.data?.data.map((item, index) => (
+                {allTermsheets && allTermsheets?.data?.map((sheet, index) => (
                   < tr key={index}>
-                    <td>{item.order.orderId}</td>
-                    <td className={styles.buyerName}>{item.company.companyName}</td>
-                    <td>{item.order.existingCustomer ? "yes" : "No"}</td>
-                    <td>{(item.createdAt).slice(0, 10)}</td>
+                    <td>{sheet.order.orderId}</td>
+                    <td onClick={() => {handleRoute(sheet) }} className={styles.buyerName}>{sheet.company.companyName}</td>
+                    <td>{sheet.order.existingCustomer ? "yes" : "No"}</td>
+                    <td>{(sheet.createdAt).slice(0, 10)}</td>
                     <td>
                       <span className={`${styles.status} ${styles.approved}`}></span>
-                      {item.status}
+                      {sheet.status}
                     </td>
                     <td>
                       <img
-                      onClick={() => {
-                        dispatch(getTermsheet(`?company=${item.company._id}`))
-                        Router.push('/termsheet')
-                      }}
                         src="/static/preview.svg"
                         className="img-fluid"
                         alt="Preview"

@@ -16,7 +16,7 @@ const index = ({termsheet}) => {
                 <div className='row'>               
                     <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                         <div className='d-flex'>
-                            <input value={termsheet.data.data[0].order.commodity} className={`${styles.value} input form-control`} type="text"  required/>
+                            <input  className={`${styles.value} input form-control`} type="text"  required/>
                             <label className={`${styles.label} label_heading`}>Commodity<strong className="text-danger">*</strong></label>
                             <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search"/>
                         </div>

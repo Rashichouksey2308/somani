@@ -11,10 +11,8 @@ import { getTermsheet } from 'redux/buyerProfile/action'
 const Index = () => {
     const dispatch = useDispatch()
     const { termsheet } = useSelector((state) => state.order)
-    // useEffect(() => {
-    //     dispatch(getTermsheet(`?company=62bc270fdaa4dc00215fa73c`))
-    //   }, [dispatch])
-      //console.log(termsheet,"termsheet")
+
+      console.log(termsheet?.data,"termsheet")
     return (
     
 
@@ -25,24 +23,25 @@ const Index = () => {
             src="/static/keyboard_arrow_right-3.svg" alt="arrow"/>
           <h1 className={`${styles.heading} heading`}>Termsheet</h1>       
       </div>
-      <div className='pb-4'>
-          <div className={`${styles.card_body} card-body container-fluid`}>  
-              <div className="row">
+      {termsheet && termsheet?.data?.map((sheet,index)=>( 
+      <div key={index} className='pb-4'>
+          <div  className={`${styles.card_body} card-body container-fluid`}>  
+              <div  className="row">
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                   <h3 className={`${styles.label} label_heading`}>Customer ID</h3>
-                      <p className={`${styles.value} accordion_Text`}>{termsheet.data.data[0].company.customerId}</p>
+                      <p className={`${styles.value} accordion_Text`}>{sheet.company.customerId}</p>
                   </div>
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <h3 className={`${styles.label} label_heading`}>Buyers Name</h3>
-                      <p className={`${styles.value} accordion_Text`}>{termsheet.data.data[0].company.companyName}</p>
+                      <p className={`${styles.value} accordion_Text`}>{sheet.company.companyName}</p>
                   </div>
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <h3 className={`${styles.label} label_heading`}>Created On</h3>
-                      <p className={`${styles.value} accordion_Text`}>{(termsheet.data.data[0].company.createdAt).slice(0, 10)}</p>
+                      <p className={`${styles.value} accordion_Text`}>{(sheet.company.createdAt).slice(0, 10)}</p>
                   </div>
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <h3 className={`${styles.label} label_heading`}>Last Modified</h3>
-                      <p className={`${styles.value} accordion_Text`}>{(termsheet.data.data[0].company.updatedAt).slice(0, 10)}</p>
+                      <p className={`${styles.value} accordion_Text`}>{(sheet.company.updatedAt).slice(0, 10)}</p>
                   </div>
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <h3 className={`${styles.label} label_heading`}>Approved Date</h3>
@@ -50,15 +49,15 @@ const Index = () => {
                   </div>
                   <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                       <h3 className={`${styles.label} label_heading`}>Status</h3>
-                      <p className={`${styles.value} accordion_Text`}><span className={`${styles.status}`}></span>{termsheet.data.data[0].status}</p>
+                      <p className={`${styles.value} accordion_Text`}><span className={`${styles.status}`}></span>{sheet.status}</p>
                   </div>
               </div>
           </div>
-          <TermDetails termsheet={termsheet} />
-          <AdditionalComment termsheet={termsheet} />
-          <OtherTerms termsheet={termsheet} />
-          <UploadOther  termsheet={termsheet}/>
-      </div>
+          <TermDetails   />
+          <AdditionalComment  />
+          <OtherTerms data={sheet.otherTermsAndConditions}  />
+          <UploadOther  />
+      </div>))}
   </div>
   <ApproveBar button={"Save"} button2={"Preview"}/>
   </>
