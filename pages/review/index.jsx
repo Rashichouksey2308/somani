@@ -928,9 +928,9 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <div className={`${styles.main} card border-color mb-4`}>
+                    <div className={`${styles.main} card border_color mb-4`}>
                       <div
-                        className={`${styles.head_container} card-header head_container d-flex justify-content-between`}
+                        className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between`}
                         data-toggle="collapse"
                         data-target="#documents"
                         aria-expanded="true"
@@ -947,7 +947,7 @@ function Index() {
                         aria-labelledby="documents"
                         data-parent="#profileAccordion"
                       >
-                        <div className={styles.dashboard_form}>
+                        <div className={`${styles.dashboard_form} card-body`}>
                           <Form>
                             <div className="row align-items-center pb-4">
                               <div

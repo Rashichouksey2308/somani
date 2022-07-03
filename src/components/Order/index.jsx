@@ -48,7 +48,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
         id="orderSummary"
         className="collapse"
         aria-labelledby="orderSummary"
-        data-parent="#profileAccordion"
+       
       >
         <div className={`${styles.dashboard_form} card-body`}>
           <div className={styles.radio_form}>
