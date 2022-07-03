@@ -2,22 +2,23 @@
 .root_Container {
     // width: 100%;
     // height: 84%;
-    padding: 30px 30px 6px;
+    padding: 28px 30px 0;
     // display: flex;
     // justify-content: flex-start;
     // align-items: center;
     // flex-direction: column;
     // overflow-y:scroll;
-
-    // .head_Container {
+    .head_Container {
     // display: flex;
     // justify-content: space-around ;
     // align-items: center;
     // flex-wrap: wrap;
     // width: 100%
-    // }
+        margin-left: -10px;
+        margin-right: -10px;
+    }
     @include respond(phone) {
-        padding: 15px 15px 6px;        
+        padding: 15px 15px 0;
     }
     .dashboardPadding {
         padding-left: 10px;
@@ -40,6 +41,8 @@
         // flex-direction: column;
         // padding-left: 0.5rem;
         // }
+        margin-left: -10px;
+        margin-right: -10px;
         .right_Container {
             // height: 100%;
             // width: 70%;
@@ -58,6 +61,8 @@
             }
             .bottom_Container {
                 width: 100%;
+                margin-left: 0;
+                margin-right: 0;
                 .leads {
                     width: 100%;
                     // height: 369px;
@@ -65,9 +70,11 @@
                     //background: #ffffff;
                     border: 1px solid #d2d7e5;
                     //box-shadow: 0 3px 6px #cad0e2;
+                    margin-bottom: 24px;
                     .tableFilter {
+                        height: 58px;
                         padding-right: 35px;
-                        padding-left: 35px;                   
+                        padding-left: 35px;
                         h3 {
                             font-size: 22px;
                             color: #111111;
@@ -126,71 +133,105 @@
                             }
                         }
                     }
-                    .table_scroll {
-                        overflow-x: auto;
-                        .table {
-                            width: 100%;
-                            thead {
+                    .table_scroll_outer {
+                        width: 100%;
+                        display: table;
+                        table-layout: fixed;
+                        .table_scroll_inner {
+                            display: table-cell;
+                            overflow-x: auto;
+                            .table {
                                 width: 100%;
-                                background: #fafafb;
-                                height: 44px;
-                                th {
-                                    height: 100%;
-                                    font-size: 15px;
-                                    color: #8492a6;
-                                    font-weight: bold;
-                                    line-height: 18px;
-                                    // padding: 24px 15px;
-                                    padding-left: 10px;
-                                    white-space: nowrap;
-                                    text-transform: uppercase;
-                                    border-top: 2px solid #f2f5f9;
-                                    border-bottom: 2px solid #f2f5f9;
-                                    &:first-child {
-                                        height: 44px;
-                                        padding-left: 35px;
-                                    }
-                                }
-                            }
-                            tr {
-                                &:last-child {
-                                    border-radius: 0 0 8px 8px;
-                                    td {
-                                      border-bottom: none;
-                                    }
-                                }
-                                td {
-                                    font-size: 19px;
-                                    //color: rgba(17, 17, 17, 0.7);
-                                    font-weight: 500;
-                                    line-height: 24px;
-                                    padding: 21px 0px;
-                                    border-top: none;
-                                    padding-left: 10px;
-                                    border-bottom: 2px solid #f2f5f9;
-                                    &:first-child {
-                                        padding-left: 35px;
-                                    }
-                                    &.buyerName {
+                                thead {
+                                    // width: 100%;
+                                    // background: #fafafb;
+                                    height: 44px;
+                                    th {
+                                        height: 100%;
+                                        font-size: 15px;
+                                        color: #8492a6;
                                         font-weight: bold;
-                                        text-transform: capitalize;
+                                        line-height: 18px;
+                                        // padding: 24px 15px;
+                                        padding: 0 10px;
+                                        white-space: nowrap;
+                                        text-transform: uppercase;
+                                        border-top: 2px solid #f2f5f9;
+                                        border-bottom: 2px solid #f2f5f9;
+                                        &:first-child {
+                                            height: 44px;
+                                            padding-left: 35px;
+                                            @include respond(sm-desktop) {
+                                                padding-left: 15px;
+                                            }
+                                        }
+                                        @include respond(md-desktop) {
+                                            font-size: 14px;
+                                            line-height: 1.2;
+                                        }
+                                        @include respond(sm-desktop) {
+                                            font-size: 13px;
+                                        }
+                                        @include respond(phone) {
+                                            font-size: 12px;
+                                        }
                                     }
-                                    .status {
-                                        width: 15px;
-                                        height: 15px;
-                                        margin-right: 10px;
-                                        border-radius: 50%;
-                                        display: inline-block;
-                                        vertical-align: middle;
+                                }
+                                tr {
+                                    &:last-child {
+                                        border-radius: 0 0 8px 8px;
+                                        td {
+                                            border-bottom: none;
+                                        }
                                     }
-                                    .approved {
-                                        background: #26dd73;
-                                    }
-                                    .rejected {
-                                        background: #ed714c;
-                                    }
-                                    .review {
-                                        background: #ffce00;
+                                    td {
+                                        font-size: 19px;
+                                        //color: rgba(17, 17, 17, 0.7);
+                                        font-weight: 500;
+                                        line-height: 24px;
+                                        padding: 19px 10px;
+                                        border-top: none;
+                                        white-space: nowrap;
+                                        border-bottom: 2px solid #f2f5f9;
+                                        &:first-child {
+                                            padding-left: 35px;
+                                            @include respond(sm-desktop) {
+                                                padding-left: 15px;
+                                            }
+                                        }
+                                        @include respond(md-desktop) {
+                                            font-size: 17px;
+                                            padding: 17px 10px;
+                                        }
+                                        @include respond(sm-desktop) {
+                                            font-size: 15px;
+                                            padding: 15px 10px;
+                                        }
+                                        @include respond(phone) {
+                                            font-size: 14px;
+                                            padding: 10px;
+                                        }
+                                        &.buyerName {
+                                            font-weight: bold;
+                                            text-transform: capitalize;
+                                        }
+                                        .status {
+                                            width: 15px;
+                                            height: 15px;
+                                            margin-right: 10px;
+                                            border-radius: 50%;
+                                            display: inline-block;
+                                            vertical-align: middle;
+                                        }
+                                        .approved {
+                                            background: #26dd73;
+                                        }
+                                        .rejected {
+                                            background: #ed714c;
+                                        }
+                                        .review {
+                                            background: #ffce00;
+                                        }
                                     }
                                 }
                             }
