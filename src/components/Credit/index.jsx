@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
@@ -664,48 +665,6 @@ const index = ({
                         </div>
                       </td>
                     </tr>
-                    {/* <tr className="table_credit">
-                  <td className="font-weight-bold">Keshav Singh</td>
-                  <td>Production Manager</td>
-                  <td>Production</td>
-                  <td>+91 9876543210</td>
-                  <td>keshavv4578@gmail.com</td>
-                  <td>
-                    <div>
-                      <img
-                        src="/static/mode_edit.svg"
-                        className={`${styles.edit_image} mr-3 img-fluid`}
-                        alt="edit"
-                      />
-                      <img
-                        src="/static/delete 2.svg"
-                        className="img-fluid"
-                        alt="delete"
-                      />
-                    </div>
-                  </td>
-                </tr>
-                <tr className="table_credit">
-                  <td className="font-weight-bold">Shivani Kapoor</td>
-                  <td>Lead Manager</td>
-                  <td>IT Department</td>
-                  <td>+91 9876543210</td>
-                  <td>keshavv4578@gmail.com</td>
-                  <td>
-                    <div>
-                      <img
-                        className={`${styles.edit_image} mr-3 img-fluid`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                      <img
-                        src="/static/delete 2.svg"
-                        className="img-fluid"
-                        alt="delete"
-                      />
-                    </div>
-                  </td>
-                </tr> */}
                   </tbody>
                 ))}
             </table>
@@ -1115,51 +1074,28 @@ const index = ({
                 </tr>
               </thead>
               <tbody>
-                {/* {debtData?.map((profile, index) => (
-                    <tr key={index}>
-                      <td>{(index += 1)}</td>
-                      <td>{profile.bankName}</td>
-                      <td>{profile.limitType}</td>
-                      <td>{profile.limit}</td>
-                      <td>{profile.conduct}</td>
-                      <td>
-                        <div>
-                          <img
-                            src="/static/save-3.svg"
-                            className={`${styles.edit_image} mr-3 img-fluid`}
-                            alt="edit"
-                          />
-                          <img
-                            src="/static/delete 2.svg"
-                            className="img-fluid"
-                            alt="delete"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  ))} */}
-               <tr>
-                  <td>2</td>
+            { debtData?.map((profile, index) => (  <tr key={index}> 
+                  <td>{index += 1}</td>
                   <td>
                     <select
                       className={`${styles.dropDown} font-weight-bold heading`}
                     >
-                      <option>Jammu & Kashmir Bank</option>
+                      <option>{profile.bankName}</option>
                       <option>SBI</option>
                     </select>
                   </td>
                   <td>
                     <select className={`${styles.dropDown} heading`}>
-                      <option>Cash Credit</option>
+                      <option>{profile.limitType}</option>
                       <option>Cash Deposit</option>
                     </select>
                   </td>
                  
-                  <td><input className='input' readOnly={!saveTable} /></td>
+                  <td><input className='input' defaultValue={profile.limit} readOnly={!saveTable} /></td>
 
                   <td>
                     <select className={`${styles.dropDown} heading`}>
-                      <option>Satisfactory</option>
+                      <option>{profile.conduct}</option>
                       <option>Good</option>
                     </select>
                   </td>
@@ -1169,7 +1105,7 @@ const index = ({
                     <img
                       src="/static/mode_edit.svg"
                       className={`${styles.edit_image} mr-3 img-fluid`}
-                      onClick={(e) => {setSaveTable(true)}}
+                      onClick={() => {setSaveTable(true)}}
                       />
                      :  <img
                     src="/static/save-3.svg"
@@ -1185,7 +1121,7 @@ const index = ({
                     />
                   </div>
                   </td>
-                </tr> 
+                </tr> ))}
               </tbody>
             </table>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>

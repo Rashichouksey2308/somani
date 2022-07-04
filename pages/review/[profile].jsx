@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import ReviewProfile from '../../src/components/ReviewProfile'
 import CompanyProfile from '../../src/components/CompanyProfile'

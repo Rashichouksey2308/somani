@@ -4,44 +4,44 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
-import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
+import {
+  GetAllBuyer,
+  GetAllOrders,
+  GetBuyer,
+} from '../../src/redux/registerBuyer/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 
 function Index() {
-  const [serachterm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(0);
+  const [serachterm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
 
   const { allBuyerList } = useSelector((state) => state.buyer)
   const { searchedLeads } = useSelector((state) => state.order)
-  console.log(searchedLeads,"searched items")
+  // console.log(searchedLeads, 'searched items')
+  
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
-  
-
 
   const handleRoute = (buyer) => {
- 
-   dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
-   Router.push('/review/id')
+    dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
+    Router.push('/review/id')
   }
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`
     setSearchTerm(query)
-    if(query.length >=  3 ){
+    if (query.length >= 3) {
       dispatch(SearchLeads(query))
     }
   }
 
- const handleFilteredData = (e) => {
-  setSearchTerm("")
-  const id = `${e.target.id}`
-  dispatch(GetAllBuyer(`?company=${id}`))
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetAllBuyer(`?company=${id}`))
   }
-
-
 
   return (
     <>
@@ -62,20 +62,28 @@ function Index() {
                   />
                 </div>
                 <input
-                value={serachterm}
-                onChange={handleSearch}
+                  value={serachterm}
+                  onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} form-control formControl `}
                   placeholder="Search"
                 />
               </div>
-             {searchedLeads && serachterm && <div className={styles.searchResults}>
-              <ul>
-              {searchedLeads.data.data.map((results, index)=> (
-                 <li onClick={handleFilteredData} id={results._id}   key={index}>{results.companyName} <span>{results.customerId}</span></li>
-              ))}
-              </ul>
-               </div>}
+              {searchedLeads && serachterm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             <a className={styles.filterIcon}>
               <img
@@ -93,8 +101,6 @@ function Index() {
               Raj Traders
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
             </a> */}
-
-         
           </div>
 
           {/*status Box*/}
@@ -186,7 +192,10 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage+1}  out of {Math.ceil(allBuyerList?.data?.totalCount/10)}</span>
+                <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(allBuyerList?.data?.totalCount / 10)}
+                </span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -200,7 +209,6 @@ function Index() {
                 >
                   {' '}
                   <img
-
                     src="/static/keyboard_arrow_right-3.svg"
                     alt="arrow right"
                     className="img-fluid"
@@ -241,7 +249,10 @@ function Index() {
                 <tbody>
                   {allBuyerList &&
                     allBuyerList.data?.data?.map((buyer, index) => (
-                      <tr key={index} className={`${styles.table_row} table_row`}>
+                      <tr
+                        key={index}
+                        className={`${styles.table_row} table_row`}
+                      >
                         <td>{buyer.company.customerId}</td>
                         <td
                           className={`${styles.buyerName}`}
@@ -256,14 +267,13 @@ function Index() {
                         <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                         <td>
                           <span
-                            className={`${styles.status} ${ styles.review}`}
+                            className={`${styles.status} ${styles.review}`}
                           ></span>
-                          
-                        {'Review'}
+
+                          {'Review'}
                         </td>
                       </tr>
                     ))}
-                 
                 </tbody>
               </table>
             </div>
