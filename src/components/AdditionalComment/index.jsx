@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
-const index = () => {
+const Index = () => {
     const [editComment, setEditComment] = useState(true)
 
   return (
@@ -64,4 +64,4 @@ const index = () => {
     </div>
   )
 }
-export default index
+export default Index

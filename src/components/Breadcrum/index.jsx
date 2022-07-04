@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import styles from './index.module.scss'
-export default function index({isQuery}) {
+export default function Index({isQuery}) {
   const[show,setShow]=useState({
     units:true,
     currency:true
