@@ -159,7 +159,7 @@ const whatsappFunction = (e) => {
  
 
   return (
-    <Card className={`${darkMode?styles.cardDark:styles.card}`}>
+    <Card className={`${styles.card} card2`}>
       <Card.Header className={styles.head_container}>
         <div className={styles.head_header}>
           <img

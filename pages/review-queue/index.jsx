@@ -161,21 +161,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.saved} ${styles.boxInner}`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
-                  <img
-                    src="/static/bookmark.svg"
-                    className="img-fluid"
-                    alt="Bookmark"
-                  />
-                </div>
-                <h3>
-                  <span>SAVED</span>
-                  60
-                </h3>
-              </div>
-            </div>
+         
           </div>
           {/*leads table*/}
           <div className={`${styles.datatable} datatable`}>

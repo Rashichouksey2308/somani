@@ -10,8 +10,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import ErrorBoundary from '../src/components/ErrorBoundary'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
+import router from 'next/router'
 import theme from 'theme'
+import { ChangeTheme, setTheme } from '../src/redux/userData/action'
 
 const GlobalStyle = createGlobalStyle`
   ${styledNormalize}
@@ -22,25 +23,7 @@ export default function MyApp(props) {
     import('bootstrap/dist/js/bootstrap.js')
   }, [])
   useEffect(() => {
-    let isDark = localStorage.getItem('darkMode')
-    console.log(
-      localStorage.getItem('darkMode') == true,
-      'lkk',
-      typeof localStorage.getItem('darkMode'),
-    )
-
-    if (
-      localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true
-    ) {
-      console.log('here', 'lkk2')
-      document.body.classList.remove('light-mode')
-      document.body.classList.add('dark-mode')
-    } else {
-      console.log('here', 'lkk4')
-      document.body.classList.remove('dark-mode')
-      document.body.classList.add('light-mode')
-    }
+    setTheme()
   })
 
   //  useEffect(() => {
