@@ -6,7 +6,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
 import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
-
+import { setPageName } from '../../src/redux/userData/action'
 function Index() {
   const [serachterm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
@@ -19,7 +19,9 @@ function Index() {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
   
-
+useEffect(() => {
+    dispatch(setPageName('review-queue'))
+  })
 
   const handleRoute = (buyer) => {
  

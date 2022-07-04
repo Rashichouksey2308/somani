@@ -15,10 +15,15 @@ import { Container, Row, Col, Card } from 'react-bootstrap'
 import TermsheetPopUp from '../src/components/TermsheetPopUp'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { setPageName } from '../src/redux/userData/action'
 
 const IndexPage = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
   const darkMode = useSelector((state) => state.user.isDark)
+  useEffect(() => {
+    dispatch(setPageName('dashboard'))
+  })
   return (
     <>
       <div className={`${styles.root_Container} background container-fluid`}>
