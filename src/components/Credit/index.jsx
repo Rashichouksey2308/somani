@@ -23,6 +23,7 @@ const index = ({
 
   const dispatch = useDispatch();
   const [saveTable, setSaveTable] = useState(false)
+  const [saveContactTable, setContactTable] = useState(false)
 
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
@@ -621,9 +622,10 @@ const index = ({
                   <th></th>
                 </tr>
               </thead>
-              {personData?.map((person, index) => (
-                  <tbody key={index}>
-                    <tr className="table_credit">
+              {/* {personData?.map((person, index) => ( */}
+                   {/* <tbody key={index}> */}
+                     <tbody >
+                    {/* <tr className="table_credit">
                       <td>
                         <select
                           className={`${styles.dropDown} font-weight-bold heading`}
@@ -664,9 +666,39 @@ const index = ({
                           />
                         </div>
                       </td>
-                    </tr>
+                    </tr> */}
+                     <tr className="table_credit">
+                  <td><input className='input font-weight-bold' type="text" readOnly={!saveContactTable} /></td>
+                  <td><input className='input'  type="text" readOnly={!saveContactTable} /></td>
+                  <td><input className='input'  type="text" readOnly={!saveContactTable} /></td>
+                  <td><input className='input' type="tel" readOnly={!saveContactTable} /></td>
+                  <td><input className='input'  type="text" readOnly={!saveContactTable} /></td>
+                  <td>
+                  <div>
+                    {!saveContactTable ? 
+                    <img
+                      src="/static/mode_edit.svg"
+                      className={`${styles.edit_image} mr-3 img-fluid`}
+                      onClick={(e) => {setContactTable(true)}}
+                      />
+                     :  <img
+                    src="/static/save-3.svg"
+                    className={`${styles.edit_image} mr-3 img-fluid`}
+                    alt="save"
+                    onClick={(e) => {setContactTable(false)}}
+
+                  />  }
+                    <img
+                      src="/static/delete 2.svg"
+                      className="img-fluid"
+                      alt="delete"
+                    />
+                  </div>
+                  </td>
+                </tr>
+               
                   </tbody>
-                ))}
+                {/* ))} */}
             </table>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
               <span>+</span>
@@ -691,7 +723,7 @@ const index = ({
           id="keyAddress"
           className="collapse"
           aria-labelledby="keyAddress"
-          data-parent="#profileAccordion"
+        
         >
           {keyAddData.map((address, index) => (
             <div key={index} className={`${styles.dashboard_form} card-body`}>
@@ -856,7 +888,7 @@ const index = ({
 
       <div className={`${styles.main} card border_color`}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#addAddress"
           aria-expanded="true"
@@ -865,7 +897,7 @@ const index = ({
           <h3 className={`${styles.heading} mb-0`}>Add a new address</h3>
           <img
             src="/static/accordion_close_black.svg"
-            className="img-fluid"
+            className="img-fluid mt-n2 mr-n2"
             alt="Close"
           />
         </div>
