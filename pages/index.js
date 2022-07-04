@@ -136,59 +136,61 @@ const IndexPage = () => {
                         </a>
                       </div>
                     </div>
-                    <div className={styles.table_scroll}>
-                      <table
-                        className={styles.table}
-                        cellPadding="0"
-                        cellSpacing="0"
-                        border="0"
-                      >
-                        <thead>
-                          <tr>
-                            <th>ORDER NO.</th>
-                            <th>CUSTOMER NAME</th>
-                            <th>COMMODITY</th>
-                            <th>DUE DATE</th>
-                            <th>DAYS TO GO</th>
+                    <div className={styles.table_scroll_outer}>
+                      <div className={styles.table_scroll_inner}>
+                        <table
+                          className={styles.table}
+                          cellPadding="0"
+                          cellSpacing="0"
+                          border="0"
+                        >
+                          <thead>
+                            <tr>
+                              <th>ORDER NO.</th>
+                              <th>CUSTOMER NAME</th>
+                              <th>COMMODITY</th>
+                              <th>DUE DATE</th>
+                              <th>DAYS TO GO</th>
 
-                            <th>DUE AMOUNT</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr className="table_row">
-                            <td>124621</td>
-                            <td className={styles.buyerName}>Bhutani Traders</td>
-                            <td>Iron</td>
-                            <td>12/05/2022</td>
-                            <td>7</td>
-                            <td>₹ 3,45,000</td>
-                          </tr>
-                          <tr className="table_row">
-                            <td>124621</td>
-                            <td className={styles.buyerName}>Bhutani Traders</td>
-                            <td>Iron</td>
-                            <td>12/05/2022</td>
-                            <td>7</td>
-                            <td>₹ 3,45,000</td>
-                          </tr>
-                          <tr className="table_row">
-                            <td>124621</td>
-                            <td className={styles.buyerName}>Bhutani Traders</td>
-                            <td>Iron</td>
-                            <td>12/05/2022</td>
-                            <td>7</td>
-                            <td>₹ 3,45,000</td>
-                          </tr>
-                          <tr className="table_row">
-                            <td>124621</td>
-                            <td className={styles.buyerName}>Bhutani Traders</td>
-                            <td>Iron</td>
-                            <td>12/05/2022</td>
-                            <td>7</td>
-                            <td>₹ 3,45,000</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                              <th>DUE AMOUNT</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="table_row">
+                              <td>124621</td>
+                              <td className={styles.buyerName}>Bhutani Traders</td>
+                              <td>Iron</td>
+                              <td>12/05/2022</td>
+                              <td>7</td>
+                              <td>₹ 3,45,000</td>
+                            </tr>
+                            <tr className="table_row">
+                              <td>124621</td>
+                              <td className={styles.buyerName}>Bhutani Traders</td>
+                              <td>Iron</td>
+                              <td>12/05/2022</td>
+                              <td>7</td>
+                              <td>₹ 3,45,000</td>
+                            </tr>
+                            <tr className="table_row">
+                              <td>124621</td>
+                              <td className={styles.buyerName}>Bhutani Traders</td>
+                              <td>Iron</td>
+                              <td>12/05/2022</td>
+                              <td>7</td>
+                              <td>₹ 3,45,000</td>
+                            </tr>
+                            <tr className="table_row">
+                              <td>124621</td>
+                              <td className={styles.buyerName}>Bhutani Traders</td>
+                              <td>Iron</td>
+                              <td>12/05/2022</td>
+                              <td>7</td>
+                              <td>₹ 3,45,000</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
