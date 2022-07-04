@@ -211,18 +211,7 @@
             border-radius: 50%;
             display: inline-block;
             vertical-align: middle;
-            @include respond(md-desktop) {
-                width: 15px;
-                height: 15px;
-            }
-            @include respond(sm-desktop) {
-                width: 15px;
-                height: 15px;
-            }
-            @include respond(phone) {
-                width: 15px;
-                height: 15px;
-            }
+            
         }
         .approved {
             background: #26dd73;
