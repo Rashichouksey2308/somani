@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 import { showSidebar, hideSidebar } from '../../redux/toggleState/Action/action'
 import { sidebar } from 'redux/toggleState/Reducer/reducer'
 import { logoutUser } from 'redux/authentication/actions';
+import { ChangeTheme ,setTheme} from 'redux/userData/action';
 
 
 
@@ -12,23 +13,17 @@ import { logoutUser } from 'redux/authentication/actions';
 function Index() {
    const dispatch = useDispatch();
     let a=false
-    const [darkMode,setDarkMode] = useState(false)
+
     useEffect(() =>{
     
     
-    if( localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true){
-      console.log("this")
-     setDarkMode(true)
-    }else{
-      console.log("this2")
-       setDarkMode(false)
-    }
+     dispatch(setTheme())
  
     },[])
 
     // console.log(darkMode,"darkMode")
      const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+     const darkMode = useSelector((state) => state.user.isDark)
      const handleOpen = () => {
       if (!sidebar) {
       dispatch(showSidebar(true))
@@ -37,29 +32,30 @@ function Index() {
       }  
     }  
   const changeDarkMode=()=>{
-  let isLight= document.body.classList.contains(
-                      'light-mode'
-                     );
-                     console.log(isLight)
-                     if(isLight){
-                      document.body.classList.remove(
-                      'light-mode'
-                     );
-                      document.body.classList.add(
-                      'dark-mode'
-                     );
-                     setDarkMode(true)
-                     localStorage.setItem("darkMode",true)
-                     }else{
-                        document.body.classList.remove(
-                      'dark-mode'
-                     );
-                      document.body.classList.add(
-                      'light-mode'
-                     );
-                      setDarkMode(false)
-                      localStorage.setItem("darkMode",false)
-                     }
+    dispatch(ChangeTheme())
+  // let isLight= document.body.classList.contains(
+  //                     'light-mode'
+  //                    );
+  //                    console.log(isLight)
+  //                    if(isLight){
+  //                     document.body.classList.remove(
+  //                     'light-mode'
+  //                    );
+  //                     document.body.classList.add(
+  //                     'dark-mode'
+  //                    );
+  //                    setDarkMode(true)
+  //                    localStorage.setItem("darkMode",true)
+  //                    }else{
+  //                       document.body.classList.remove(
+  //                     'dark-mode'
+  //                    );
+  //                     document.body.classList.add(
+  //                     'light-mode'
+  //                    );
+  //                     setDarkMode(false)
+  //                     localStorage.setItem("darkMode",false)
+  //                    }
   }
   console.log(darkMode,"darkmode123")
   

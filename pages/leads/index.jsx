@@ -122,7 +122,7 @@ function Index() {
                   />
                 </div>
                 <h3>
-                  <span>  </span>
+                  <span> All </span>
                   3,200
                 </h3>
               </div>
@@ -242,7 +242,7 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th>CUSTOMER ID</th>
+                      <th >CUSTOMER ID <img className={`mb-1`} src="./static/icons8-sort-24.png "></img></th>
                       <th>BUYER NAME</th>
                       <th>CREATED BY</th>
                       <th>USERNAME</th>

@@ -174,7 +174,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                 Email ID<strong className='text-danger'>*</strong>
               </label>
             </div>
-            <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+            <div className={`${styles.each_input} col-md-6 col-lg-4 col-sm-6`}>
               <div className={`${styles.label_heading} d-flex label-heading ml-n3`}>
                 Turn Over(in Crores)<strong className='text-danger'>*</strong>
                 <div className={styles.slider_value}>
@@ -210,7 +210,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
               </div>
             </div>
             <div
-              className={`${styles.each_input} col-md-4 col-sm-6`} style={{ marginTop: -1 }}>
+              className={`${styles.each_input} col-md-6 col-lg-4  col-sm-6`} style={{ marginTop: -1 }}>
               <div className={styles.radio_form} style={{ paddingLeft: 10 }}>
                 <div className={`${styles.sub_heading} sub_heading`}>Communication Mode<strong className='text-danger'>*</strong></div>
                 <Form selected="">
@@ -251,7 +251,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
               </div>
             </div>
 
-            <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
+            <div className={`${styles.each_input} ${styles.phone}  col-lg-4  col-md-6 col-sm-6`}>
               <div className={styles.phone_card}>
                 <select id="Code" className={`${styles.code_phone} input border-right-0`}>
                   <option>+91</option>

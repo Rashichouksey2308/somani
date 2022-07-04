@@ -284,6 +284,11 @@
                             padding-left: 15px;
                         }
                     }
+                    img{
+                        opacity: 0.4;
+                             width: 14px;
+                            height: 14px;
+                    }
                     @include respond(md-desktop) {
                         font-size: 14px;
                         line-height: 1.2;

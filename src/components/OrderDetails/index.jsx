@@ -60,7 +60,7 @@ const index = ({ saveOrderData, darkMode }) => {
                 required
               />
               <label className={`${styles.label_heading} label_heading`} id="textInput">
-                Order values<strong className='text-danger'>*</strong>
+                Order value<strong className='text-danger'>*</strong>
               </label>
             </div>
           </div>

@@ -21,6 +21,7 @@
         img {
             width: 17px;
             height: 15px;
+            margin-bottom: 2px;
             @include respond(phone) {
                 width: 15px;
                 height: 13px;
@@ -33,7 +34,7 @@
             font-weight: bold;
             font-size: 16px;
             line-height: 19px;
-            margin-left: 1rem;
+            margin-left: 0.5rem;
             white-space: nowrap;
             @include respond(sm-desktop) {
                 font-size: 16px;
