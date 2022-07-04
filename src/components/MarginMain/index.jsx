@@ -74,6 +74,8 @@ function Index() {
             </a>
           </div>
         </div>
+        <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
         <table
           className={`${styles.table} table table_row`}
           cellPadding="0"
@@ -186,6 +188,8 @@ function Index() {
             </tr>
           </tbody>
         </table>
+        </div>
+        </div>
       </div>  
         </div>
       </div>
