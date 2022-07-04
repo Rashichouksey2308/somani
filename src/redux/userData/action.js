@@ -17,9 +17,10 @@ function changeThemeSuccess(value) {
   }
 }
 
-function changeThemeFailed() {
+function pageName(value) {
   return {
-    type: types.CHANGE_THEME_FAILED,
+    type: types.PAGE_NAME,
+    value,
   }
 }
 
@@ -57,4 +58,8 @@ export const setTheme = () => async (dispatch, getState, api) => {
     localStorage.setItem('darkMode', false)
     dispatch(changeThemeSuccess(false))
   }
+}
+export const setPageName = (value) => async (dispatch, getState, api) => {
+  console.log(value, 'value')
+  dispatch(pageName(value))
 }

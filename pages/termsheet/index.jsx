@@ -9,10 +9,15 @@
 //   )
 // }
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import TermSheetMain from '../../src/components/TermSheetMain'
-
+import { setPageName } from '../../src/redux/userData/action'
 const index = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setPageName('termsheet'))
+  })
   return (
     <TermSheetMain/>
   )
