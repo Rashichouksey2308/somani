@@ -24,7 +24,7 @@ function index() {
           
         </div>
         <div className={styles.total}>
-         <div className={styles.totalText}><span>TOTAL</span></div>
+         <div className={styles.totalText}><span>UTILISED</span></div>
           <div className={styles.dotted}></div>
           <div className={styles.value}><span className='explore-value'>50,00,000</span></div>
           

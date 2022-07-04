@@ -33,6 +33,12 @@ function Index() {
     ],
   }
   const options = {
+       elements: {
+      arc: {
+          borderWidth: 0  
+      }
+  }
+,
     plugins: {
       title: {
         display: false,

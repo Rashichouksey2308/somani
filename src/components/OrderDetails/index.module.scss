@@ -37,6 +37,25 @@
             }
         
             label {
+                @include respond(lg-desktop) {
+                    padding-right: 0px;
+                    font-size: $font_size_mobile_input_label;
+                  }
+                
+                  @include respond(md-desktop) {
+                    font-size: 19px;
+                    padding-right: 0px;
+                  }
+                
+                  @include respond(sm-desktop) {
+                    font-size: 19px;
+                    padding-right: 0px;
+                  }
+                
+                  @include respond(phone) {
+                    font-size: 12px;
+                
+                  }
               @include respond(phone) {
                 font-size: 16px;
         
@@ -68,6 +87,15 @@
               box-sizing: border-box;
               transform: translateY(-31px);
               transition: 0.3s all ease-in-out;
+              @include respond(lg-desktop) {
+                  font-size: $font_size_mobile_input_label;
+                }
+              @include respond(md-desktop) {
+                  font-size: $font_size_mobile_input_label;
+                }
+              @include respond(sm-desktop) {
+                  font-size: $font_size_sm_input_label;
+                }
               @include respond(phone) {
                   font-size: $font_size_mobile_input_label;
                 }
@@ -111,8 +139,12 @@
               left: 40%;
               transform: translate(-61px, -31px);
               @include respond(md-desktop) {
-                left: 35%
+                left: 45%
               }
+              
+                             @include respond(phone) {
+                              left: 45%
+                             }
           }
           .input_field {
               &:focus {

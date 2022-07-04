@@ -14,23 +14,11 @@ import Footer from '../src/components/Footer'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import TermsheetPopUp from '../src/components/TermsheetPopUp'
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const IndexPage = () => {
   const router = useRouter()
-  const [darkMode, setDarkMode] = useState(false)
-
-  useEffect(() => {
-    if (
-      localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true
-    ) {
-      console.log('this')
-      setDarkMode(true)
-    } else {
-      console.log('this2')
-      setDarkMode(false)
-    }
-  }, [])
+  const darkMode = useSelector((state) => state.user.isDark)
   return (
     <>
       <div className={`${styles.root_Container} background container-fluid`}>
@@ -66,10 +54,14 @@ const IndexPage = () => {
           <div className={`${styles.right_Container} col-lg-9 col-md-12`}>
             <div className={styles.upper_Container}>
               <div className="row">
-                <div className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}>
+                <div
+                  className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}
+                >
                   <Countries />
                 </div>
-                <div className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}>
+                <div
+                  className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}
+                >
                   <DoughnutChart />
                 </div>
               </div>
@@ -84,7 +76,7 @@ const IndexPage = () => {
                       <div
                         className={`  d-flex justify-content-between  align-items-center`}
                       >
-                        <h3 className="heading">
+                        <h3 className={`heading`}>
                           BL Date{' '}
                           <img
                             className={`${
@@ -147,7 +139,7 @@ const IndexPage = () => {
                           <thead>
                             <tr>
                               <th>ORDER NO.</th>
-                              <th>CUSTOMER NAME</th>
+                              <th>BUYER NAME</th>
                               <th>COMMODITY</th>
                               <th>DUE DATE</th>
                               <th>DAYS TO GO</th>
@@ -158,7 +150,9 @@ const IndexPage = () => {
                           <tbody>
                             <tr className="table_row">
                               <td>124621</td>
-                              <td className={styles.buyerName}>Bhutani Traders</td>
+                              <td className={styles.buyerName}>
+                                Bhutani Traders
+                              </td>
                               <td>Iron</td>
                               <td>12/05/2022</td>
                               <td>7</td>
@@ -166,7 +160,9 @@ const IndexPage = () => {
                             </tr>
                             <tr className="table_row">
                               <td>124621</td>
-                              <td className={styles.buyerName}>Bhutani Traders</td>
+                              <td className={styles.buyerName}>
+                                Bhutani Traders
+                              </td>
                               <td>Iron</td>
                               <td>12/05/2022</td>
                               <td>7</td>
@@ -174,7 +170,9 @@ const IndexPage = () => {
                             </tr>
                             <tr className="table_row">
                               <td>124621</td>
-                              <td className={styles.buyerName}>Bhutani Traders</td>
+                              <td className={styles.buyerName}>
+                                Bhutani Traders
+                              </td>
                               <td>Iron</td>
                               <td>12/05/2022</td>
                               <td>7</td>
@@ -182,7 +180,9 @@ const IndexPage = () => {
                             </tr>
                             <tr className="table_row">
                               <td>124621</td>
-                              <td className={styles.buyerName}>Bhutani Traders</td>
+                              <td className={styles.buyerName}>
+                                Bhutani Traders
+                              </td>
                               <td>Iron</td>
                               <td>12/05/2022</td>
                               <td>7</td>
