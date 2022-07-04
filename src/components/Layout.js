@@ -12,15 +12,14 @@ import Cookies from 'js-cookie'
 import { validateToken } from '../redux/authentication/actions'
 // import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 // import 'react-pro-sidebar/dist/css/styles.css';
-
+import router from 'next/router'
 function Layout({ children }) {
+  const [isQuery, setQuery] = useState(null)
   const [isLogin, setIsLogin] = useState(false)
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
 
   const dispatch = useDispatch()
   const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)
-
-  console.log('test build')
 
   useEffect(() => {
     const isuserlogged = Cookies.get('SOMANI')
@@ -34,6 +33,19 @@ function Layout({ children }) {
     }
   }, [isuserLoggedin, isLogin])
 
+  useEffect(() => {
+    const doMagic = () => {}
+
+    router.events.on('routeChangeStart', doMagic) // add listener
+    router.events.on('routeChangeComplete', (url, { shallow }) => {
+      console.log('route change', router.asPath)
+      setQuery(router.asPath)
+    })
+    return () => {
+      router.events.off('routeChangeStart', doMagic) // remove listener
+    }
+  }, [])
+  console.log(isQuery, 'isQuery')
   return (
     <>
       {isLogin ? (
@@ -52,7 +64,7 @@ function Layout({ children }) {
                 !sidebar ? styles.no_sidebar : null
               }`}
             >
-              <Breadcrum />
+              <Breadcrum isQuery={isQuery} />
               {children}
               <Footer />
               {/* <TermSheetPreview /> */}

@@ -6,7 +6,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
 import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
-
+import { setPageName } from '../../src/redux/userData/action'
 function Index() {
   const [serachterm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
@@ -19,7 +19,9 @@ function Index() {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
   
-
+useEffect(() => {
+    dispatch(setPageName('review-queue'))
+  })
 
   const handleRoute = (buyer) => {
  
@@ -161,21 +163,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.saved} ${styles.boxInner}`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
-                  <img
-                    src="/static/bookmark.svg"
-                    className="img-fluid"
-                    alt="Bookmark"
-                  />
-                </div>
-                <h3>
-                  <span>SAVED</span>
-                  60
-                </h3>
-              </div>
-            </div>
+         
           </div>
           {/*leads table*/}
           <div className={`${styles.datatable} datatable`}>

@@ -2,7 +2,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-function index({handleApprove, handleReject, button, button2}) {
+function index({handleApprove, handleReject,button,button2}) {
   return (
     <div className={`${styles.root} cta_bar`}>
         <div className={styles.reject} onClick={()=>{handleReject()}}><span>{button}</span></div>
