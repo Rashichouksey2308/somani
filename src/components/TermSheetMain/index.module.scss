@@ -155,10 +155,15 @@
             line-height: 18px;
             padding: 24px 15px;
             text-transform: uppercase;
+            white-space: nowrap;
+
             &:first-child {
                 padding-left: 35px;
                 @include respond(sm-desktop) {
-                    padding-left: 15px;
+                    padding-left: 10px;
+                }
+                @include respond(phone) {
+                    padding-left: 0px;
                 }
             }
             @include respond(md-desktop) {
@@ -178,12 +183,16 @@
             line-height: 24px;
             padding: 24px 15px;
             border-top: none;
-            
+            white-space: nowrap;
             &:first-child {
                 padding-left: 35px;
                 @include respond(sm-desktop) {
-                    padding-left: 15px;
+                    padding-left: 10px;
                 }
+                @include respond(phone) {
+                    padding-left: 0px;
+                }
+                
             }
             @include respond(md-desktop) {
                 font-size: 17px;

@@ -1,7 +1,11 @@
+@import "../../../src/components/styles/Core/config";
 
 
 .filter {
   margin: 15px 0;
+  @include respond(sm-desktop) {
+    display: block !important;
+}
   .head_header {
     display: flex;
     margin: 15px 20px 0px 10px;
@@ -22,6 +26,11 @@
   }
   .search {
       width: 492px;
+      position: relative;
+      @include respond(sm-desktop) {
+        width: 100%;
+        margin-bottom: 15px;
+    }
       .inputGroupPrepend {
           top: 50%;
           left: 31px;
@@ -51,6 +60,9 @@
       border-radius: 5px;
       display: inline-block;
       border: 3px solid #3687E8;
+      @include respond(sm-desktop) {
+        margin-left: 0;
+    }
   }
   .filterList {
       font-size: 18px;
@@ -96,6 +108,15 @@
         &:last-child {
             border-right: none;
         }
+        @include respond(md-desktop) {
+            padding: 18px;
+        }
+        @include respond(sm-desktop) {
+            padding: 12px;
+            text-align: center;
+            display: block !important;
+        }
+        
         h3 {
             font-size: 28px;
             color: #111111;
@@ -103,6 +124,14 @@
             line-height: 34px;
             margin: 0 0 0 18px;
             text-transform: capitalize;
+            @include respond(md-desktop) {
+                font-size: 25px;
+                margin: 0 0 0 15px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 22px;
+                margin: 10px 0 0 0;
+            }
             span {
                 font-size: 15px;
                 color: #8492a6;
@@ -111,6 +140,13 @@
                 display: block;
                 margin-bottom: 5px;
                 text-transform: uppercase;
+                @include respond(md-desktop) {
+                    font-size: 14px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 13px;
+                    margin-bottom: 0;
+                }
             }
         }
         .iconBox {
@@ -119,6 +155,20 @@
             line-height: 55px;
             text-align: center;
             border-radius: 8px;
+            @include respond(md-desktop) {
+                height: 50px;
+                min-width: 50px;
+                line-height: 48px;
+                border-radius: 6px;
+            }
+            @include respond(sm-desktop) {
+                height: 40px;
+                min-width: auto;
+                max-width: 40px;
+                line-height: 38px;
+                border-radius: 5px;
+                margin: 0 auto;
+            }
         }
         &.all {
             .iconBox {
@@ -149,14 +199,15 @@
 }
 .datatable {
   border-radius: 6px;
-  //background: #FFFFFF;
-  //border: 1px solid #D2D7E5;
-  //box-shadow: 0 3px 6px #CAD0E2;
+  
   .tableFilter {
       padding: 0 15px 0 35px;
+      @include respond(sm-desktop) {
+        padding: 0 15px 0 15px;
+    }
       h3 {
-          font-size: 22px;
-          font-weight: bold;
+        font-size: 22px !important; 
+        font-weight: bold;
           line-height: 27px;
           margin: 24px 0;
           text-transform: capitalize;
@@ -185,6 +236,13 @@
           }
       }
   }
+  .table_scroll_outer {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    .table_scroll_inner {
+        display: table-cell;
+        overflow-x: auto;
   .table {
       th {
           font-size: 15px;
@@ -197,8 +255,21 @@
           border-top: 2px solid #F2F5F9;
           border-bottom: 2px solid #F2F5F9;
           &:first-child {
-              padding-left: 35px;
-          }
+            padding-left: 35px;
+            @include respond(sm-desktop) {
+                padding-left: 15px;
+            }
+        }
+        @include respond(md-desktop) {
+            font-size: 14px;
+            line-height: 1.2;
+        }
+        @include respond(sm-desktop) {
+            font-size: 13px;
+        }
+        @include respond(phone) {
+            font-size: 12px;
+        }
       }
       td {
           font-size: 19px;
@@ -206,9 +277,26 @@
           line-height: 24px;
           padding: 24px 15px;
           border-top: none;
+          white-space: nowrap;
+
           &:first-child {
-              padding-left: 35px;
-          }
+            padding-left: 35px;
+            @include respond(sm-desktop) {
+                padding-left: 15px;
+            }
+        }
+        @include respond(md-desktop) {
+            font-size: 17px;
+            padding: 18px 10px;
+        }
+        @include respond(sm-desktop) {
+            font-size: 15px;
+            padding: 15px 10px;
+        }
+        @include respond(phone) {
+            font-size: 14px;
+            padding: 10px;
+        }
       }
       .edit_image {
         background: #C3C3C31F;
@@ -238,5 +326,7 @@
       .review {
           background: #FFCE00;
       }
+  }
+}
   }
 }
