@@ -1,3 +1,5 @@
+@import "../../../src/components/styles/Core/config";
+
 .root{
     position: relative;
   .sidebar{
@@ -71,6 +73,13 @@
                color: #000000;
                font-weight: bold;
                margin-top: 80px;
+               
+            @include respond(sm-desktop) {                           
+                font-size: 18px;
+            }
+            @include respond(phone) {                           
+                font-size: 15px;
+            }
 
     }
     .card_body {
@@ -82,8 +91,13 @@
             p {  
                 font-size: 20px;
                 margin-bottom: 2rem;
-                //line-height: 60px;     
-                
+                //line-height: 60px;  
+                @include respond(sm-desktop) {                           
+                    font-size: 18px;
+                }
+                @include respond(phone) {                           
+                    font-size: 15px;
+                }
         }
         .para{
                //line-height: 60px;
@@ -93,6 +107,12 @@
                 background: transparent;
                color: #000000;
                font-weight: bold;
+               @include respond(sm-desktop) {                           
+                font-size: 18px;
+            }
+            @include respond(phone) {                           
+                font-size: 15px;
+            }
 
         }
     }
