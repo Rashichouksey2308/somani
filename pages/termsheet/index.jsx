@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import TermSheetMain from '../../src/components/TermSheetMain'
 import { setPageName } from '../../src/redux/userData/action'
-const index = () => {
+const Index = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setPageName('termsheet'))
@@ -23,5 +23,5 @@ const index = () => {
   )
 }
 
-export default index
+export default Index
 

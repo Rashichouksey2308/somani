@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-export default function index({isQuery}) {
+export default function Index({isQuery}) {
   const[show,setShow]=useState({
     units:true,
     currency:true
