@@ -96,7 +96,7 @@ function Index() {
       </div>
       <div className={`${styles.datatable} datatable `}>
         <div className={`${styles.tableFilter} d-flex justify-content-between`}>
-          <h3 className="heading_card">Loading, Transit & Unloading</h3>
+          <h3 className="heading_card">Loading, Transit &amp; Unloading</h3>
           <div
             className={`${styles.pageList} d-flex justify-content-end align-items-center`}
           >
