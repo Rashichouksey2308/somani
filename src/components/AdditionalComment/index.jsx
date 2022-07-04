@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
 const index = () => {
-    const [editComment, setEditComment] = useState(false)
+    const [editComment, setEditComment] = useState(true)
 
   return (
     <div className={`${styles.main} main`}>
