@@ -73,6 +73,17 @@ function Index() {
                 <span className={`${styles.status} ${styles.review}`}></span>
                 Pending
               </td>
+              <td colSpan={2}><button className={styles.updateBtn}>Update</button></td>
+              
+            </tr>
+          <tr className="table_row">
+              <td>124621</td>
+              <td className={styles.buyerName}>Crude Oil</td>
+              <td>RM-Sales</td>
+              <td>
+                <span className={`${styles.status} ${styles.approved}`}></span>
+                Approved
+              </td>
               <td>Updated on: 02/06/2022</td>
               <td><img
                       src="/static/mode_edit.svg"
@@ -83,7 +94,7 @@ function Index() {
             
             <tr className="table_row">
               <td>124621</td>
-              <td className={styles.buyerName}>Ramakrishna Traders</td>
+              <td className={styles.buyerName}>Steel</td>
               <td>RM-Sales</td>
               <td>
                 <span className={`${styles.status} ${styles.approved}`}></span>
@@ -98,7 +109,7 @@ function Index() {
             </tr>
             <tr className="table_row">
               <td>124621</td>
-              <td className={styles.buyerName}>Ramakrishna Traders</td>
+              <td className={styles.buyerName}>Brent Oil</td>
               <td>RM-Sales</td>
               <td>
                 <span className={`${styles.status} ${styles.approved}`}></span>
