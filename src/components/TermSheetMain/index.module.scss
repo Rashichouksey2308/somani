@@ -109,9 +109,7 @@
                 font-weight: 500;
                 line-height: 23px;
                 margin-right: 38px;
-                @include respond(md-desktop) {
-                    font-size: 18px;
-                }
+               
                 @include respond(sm-desktop) {
                     font-size: 16px;
                 }
@@ -130,12 +128,10 @@
                 background: #FAFAFB;
                 
                 @include respond(sm-desktop) {
-                    width: 50px;
-                    height: 50px;
+                    
                 }
                 @include respond(phone) {
-                    width: 50px;
-                    height: 50px;
+                   
                 }
             }
             .rightArrow {
@@ -145,6 +141,13 @@
             }
         }
     }
+    .table_scroll_outer {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        .table_scroll_inner {
+            display: table-cell;
+            overflow-x: auto;
     .table {
         .th {
             font-size: 15px;
@@ -154,15 +157,19 @@
             text-transform: uppercase;
             &:first-child {
                 padding-left: 35px;
+                @include respond(sm-desktop) {
+                    padding-left: 15px;
+                }
             }
             @include respond(md-desktop) {
-                font-size: 15px;
+                font-size: 14px;
+                line-height: 1.2;
             }
             @include respond(sm-desktop) {
                 font-size: 13px;
             }
             @include respond(phone) {
-                font-size: 11px;
+                font-size: 12px;
             }
         }
         td {
@@ -174,15 +181,21 @@
             
             &:first-child {
                 padding-left: 35px;
+                @include respond(sm-desktop) {
+                    padding-left: 15px;
+                }
             }
             @include respond(md-desktop) {
-                font-size: 18px;
+                font-size: 17px;
+                padding: 18px 10px;
             }
             @include respond(sm-desktop) {
-                font-size: 16px;
+                font-size: 15px;
+                padding: 15px 10px;
             }
             @include respond(phone) {
                 font-size: 14px;
+                padding: 10px;
             }
         }
         .buyerName {
@@ -220,5 +233,7 @@
         .review {
             background: #ffce00;
         }
+    }
+}
     }
 }
