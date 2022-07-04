@@ -137,6 +137,7 @@ function Index() {
                         src="/static/preview.svg"
                         className="img-fluid"
                         alt="Preview"
+                        onClick={()=>{Router.push("/termsheet-preview")}}
 
                       />
                     </td>

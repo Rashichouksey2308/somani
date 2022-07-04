@@ -198,6 +198,7 @@
                 border-top: none;
                 vertical-align: middle;
                 border-bottom: 2px solid #F2F5F9; 
+                white-space: nowrap;
                 @include respond(md-desktop) {
                     font-size: 17px;
                 }
