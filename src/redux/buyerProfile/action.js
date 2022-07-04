@@ -276,6 +276,8 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
   }
 }
 
+/////////******** Update Termsheet *******////////
+
 export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
   
   let cookie = Cookies.get('SOMANI')
@@ -284,7 +286,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.updatetermsheet}`, payload, {
+    Axios.post(`${API.corebaseUrl}${API.gettermsheet}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
