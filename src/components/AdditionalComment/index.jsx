@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
 const index = () => {
+    const [editComment, setEditComment] = useState(true)
+
   return (
     <div className={`${styles.main} main`}>
         <div className={`${styles.head_container} border_color d-flex justify-content-between`} data-toggle="collapse" data-target="#additional" aria-expanded="true" aria-controls="additional">
@@ -38,21 +40,23 @@ const index = () => {
                     </div>
                     <div className={`${styles.form_group} col-md-9`}>
                         <div className={`${styles.comment_para} d-flex justify-content-between`}>
-                            <div className={styles.comment}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                  
-                            <img src="/static/mode_edit.svg" className="img-fluid ml-2" alt="Edit"/>
-                            <img src="/static/delete.svg" className="img-fluid ml-2" alt="Delete"/>
+                            {/* <div className={styles.comment}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                   */}
+                            <Form.Control className={`${styles.comment}`} 
+                                    as="textarea"
+                                    rows={2} 
+                                    
+                            readOnly={editComment} />
+                            <img src="/static/mode_edit.svg" 
+                            className="img-fluid ml-2" 
+                            alt="Edit"
+                            onClick={(e) => {setEditComment(!editComment)}}
+                            />
+                            <img 
+                            src="/static/delete.svg" 
+                            className="img-fluid ml-2" alt="Delete"/>
                         </div>
                     </div>
-                    <div className={`${styles.form_group} col-md-3`} >
-                        <h4 className={styles.comment_name}>5. Lc Opening Bank</h4>
-                    </div>
-                    <div className={`${styles.form_group} col-md-9`}>
-                        <div className={`${styles.comment_para} d-flex justify-content-between`}>
-                            <div className={`${styles.comment}`}>Lorem ipsum is a name for a common type of placeholder text.</div>                  
-                            <img src="/static/mode_edit.svg" className="img-fluid ml-2" alt="Edit"/>
-                            <img src="/static/delete.svg" className="img-fluid ml-2" alt="Delete"/>
-                        </div>
-                    </div>               
+                              
                 </div>
             </Form>               
         </div>

@@ -40,7 +40,7 @@ function Index() {
       </div>
      
      
-      <div className={`${styles.datatable} datatable `}>
+      <div className={`${styles.datatable} datatable border-color`}>
         <div className={`${styles.tableFilter} d-flex justify-content-between`}>
           <h3 className="heading_card">Letter of Credit</h3>
          
