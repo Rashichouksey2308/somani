@@ -45,7 +45,7 @@ function Index() {
             main:"Agreement & Lc Module",
             Other:[
                {name: "Agreement",image:"/static/Credit Queue.svg",route:"/agreement"},
-               {name: "LC Module",image:"/static/Review Queue.svg",route:""},
+               {name: "LC Module",image:"/static/Review Queue.svg",route:"/lc-module"},
                 "Termsheets",   
             ],
               image:"/static/Agreement&LCModule.svg"
@@ -89,11 +89,15 @@ function Index() {
    return index
   }
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-  console.log("sidebar",sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
+  console.log(isMobile,"isMobile123")
+  console.log("sidebar",)
 console.log(tempArr,"yem")
   return (
-    <div className={`sidebar-bg  ${
-                !sidebar ? styles.collapse_sidebar : styles.main_container
+   <>
+   {isMobile ?
+   <div className={`${styles.main_container_mobile} sidebar-bg  ${
+                !sidebar ? styles.collapse_sidebar_mobile : null
               }`} >
       {tempArr.map((val,index)=>{
          const className1 = category==val.main?`${styles.selected}`:null
@@ -144,7 +148,62 @@ console.log(tempArr,"yem")
             )
          
         })}
-    </div>
+    </div>:
+     <div className={`${styles.main_container} sidebar-bg  ${
+                !sidebar ? styles.collapse_sidebar : null
+              }`} >
+      {tempArr.map((val,index)=>{
+         const className1 = category==val.main?`${styles.selected}`:null
+            return (
+               
+           <>
+                <div key={index} className={styles.wrapper}>
+                <div className={`${styles.header} ${className1}`} onClick={(e)=>{
+                  handleOpen(val.main,index)
+                  console.log("router",val.route)
+                    Router.push(val.route);
+                }}>
+                   <div>
+                    <img src={`${val.image}`}></img>
+                    <span >{val.main}</span>
+                   </div>
+                   {val.Other.length>0?
+                   <img src="/static/Accordion - menu.svg" className={styles.icon}></img>
+                   : <div className={styles.icon}></div>}
+                   
+                </div>
+                <div className={`${styles.sub_wrapper} ${index12==index?className:null}`}>
+                  {val.Other.length>0?
+                     val.Other.map((other,index2)=>{
+                         const className12 = 
+                         index12 == index?`${styles.openlist} sidebar-selected`: null
+                     return(
+                     <>
+                      <div index={index2} className={`${styles.sub_header} ${className12}`}
+                      onClick={()=>{
+                         Router.push(other.route);
+                      }}
+                      >
+                      <div>
+                      <img src={`${other.image}`}></img>
+                      <span>{other.name}</span>
+                      </div>
+                     </div>
+                     </>
+
+                 )})
+                
+                :null}
+                 </div>
+              
+            </div>  
+           </>
+            )
+         
+        })}
+    </div> 
+  }
+   </>
   )
 }
 

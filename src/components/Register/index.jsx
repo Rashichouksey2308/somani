@@ -11,24 +11,25 @@ import Router from 'next/router'
 import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios"
+import { toast } from 'react-toastify'
 
 const Index = () => {
- const [darkMode,setDarkMode] = useState(false)
-    useEffect(() =>{
-    
-    
-    if( localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true){
-      console.log("this")
-     setDarkMode(true)
-    }else{
-      console.log("this2")
-       setDarkMode(false)
-    }
- 
-    },[])
+  const [darkMode, setDarkMode] = useState(false)
+  useEffect(() => {
 
-  const dispatch= useDispatch();
+
+    if (localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true) {
+      console.log("this")
+      setDarkMode(true)
+    } else {
+      console.log("this2")
+      setDarkMode(false)
+    }
+
+  }, [])
+
+  const dispatch = useDispatch();
 
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
@@ -48,32 +49,32 @@ const Index = () => {
     email: '',
     turnOver: '',
     communicationMode: [null],
-    
+
     turnOverUnit: 'Cr'
   })
 
 
-const mobileFunction = (e) => {
-  const newObj = {...companyDetails}
-   newObj.mobile.primary.number = e.target.value
-   setCompanyDetails(newObj)
-  
-}
+  const mobileFunction = (e) => {
+    const newObj = { ...companyDetails }
+    newObj.mobile.primary.number = e.target.value
+    setCompanyDetails(newObj)
 
-const whatsappFunction = (e) => {
-  const newObj = {...companyDetails}
-   newObj.mobile.whatsapp.number = e.target.value
-   setCompanyDetails(newObj)
-  
-}
- 
+  }
+
+  const whatsappFunction = (e) => {
+    const newObj = { ...companyDetails }
+    newObj.mobile.whatsapp.number = e.target.value
+    setCompanyDetails(newObj)
+
+  }
+
   useEffect(() => {
-   
-    if(companyDetails.companyPan !== ''){
-     dispatch(GetGst(companyDetails.companyPan))
+
+    if (companyDetails.companyPan !== '') {
+      dispatch(GetGst(companyDetails.companyPan))
     }
   }, [companyDetails.companyPan])
- 
+
   const [orderDetails, setOrderDetails] = useState({
     transactionType: '',
     commodity: '',
@@ -109,44 +110,115 @@ const whatsappFunction = (e) => {
   }
 
   const saveDocument = (e) => {
-    let newDocument = {...documents}
-    newDocument.typeOfDocument[e.target.name]=(e.target.value)
+    let newDocument = { ...documents }
+    newDocument.typeOfDocument[e.target.name] = (e.target.value)
     setDocuments(newDocument)
 
   }
 
   const uploadDocument1 = (e) => {
 
-    const newUploadDoc = {...documents}
+    const newUploadDoc = { ...documents }
     newUploadDoc.document1 = e.target.files[0]
-  
+
     setDocuments(newUploadDoc)
 
   }
   const uploadDocument2 = (e) => {
-    
-    const newUploadDoc1 = {...documents}
+
+    const newUploadDoc1 = { ...documents }
     newUploadDoc1.document2 = e.target.files[0]
-    
+
     setDocuments(newUploadDoc1)
 
   }
 
   const submitData = () => {
-    //register api call
-      
-    const fd = new FormData()
 
-    fd.append('companyProfile', JSON.stringify(companyDetails))
-    fd.append('orderDetails', JSON.stringify(orderDetails))
-    fd.append('documentType', JSON.stringify(documents.typeOfDocument))
-    fd.append('document1',  documents.document1)
-    fd.append('document2', documents.document2)
-    // console.log(fd, "this is payload")
+    if (companyDetails.companyName.trim() === "") {
+      let toastMessage = "Please Fill The Company Name"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+      return
+    } else if (companyDetails.companyPan.trim().length !== 10) {
+      let toastMessage = "Please Fill A valid Company Pan"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      } return
+    } else if (companyDetails.mobile.primary.number.trim().length !== 10) {
+      let toastMessage = "Please Provide a Valid Phone Number "
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      } return
+    } else if (!String(companyDetails.email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )) {
+      let toastMessage = "Please Fill A valid Email Id"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      } return
+    } else if (orderDetails.commodity.trim() === "") {
+      let toastMessage = "Please Fill A valid Commodity"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      } return
+    } else if (!orderDetails.quantity) {
+      let toastMessage = "Please Fill A valid quantity"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      } return
+    } else if (!orderDetails.orderValue) {
+      let toastMessage = "Please Fill A valid order value"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    } else if (orderDetails.supplierName.trim() === "") {
+      let toastMessage = "Please Fill A valid Supplier Name"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      } return
+    } else if (orderDetails.countryOfOrigin.trim() === "") {
+      let toastMessage = "Please Fill A valid Country Of origin"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      } return
+    } else if (orderDetails.portOfDischarge.trim() === "") {
+      let toastMessage = "Please Fill A valid Port Of Discharge"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      } return
+    } else if (!orderDetails.ExpectedDateOfShipment) {
+      let toastMessage = "Please Fill A Expected date of Shipment"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      } return
+    } else if (orderDetails.incoTerm === "") {
+      let toastMessage = "Please Select A INCO Term"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    } else if (!documents.document1 && !documents.document1) {
+      let toastMessage = "Please Check Document Upload"
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      } return
+    } else {
 
-    dispatch(CreateBuyer(fd))
-    
-    
+      const fd = new FormData()
+
+      fd.append('companyProfile', JSON.stringify(companyDetails))
+      fd.append('orderDetails', JSON.stringify(orderDetails))
+      fd.append('documentType', JSON.stringify(documents.typeOfDocument))
+      fd.append('document1', documents.document1)
+      fd.append('document2', documents.document2)
+      // console.log(fd, "this is payload")
+
+      dispatch(CreateBuyer(fd))
+
+    }
   }
 
   const clearData = () => {
@@ -154,7 +226,7 @@ const whatsappFunction = (e) => {
     document.getElementById('OrderDetailsForm').reset()
   }
 
- 
+
 
   return (
     <Card className={`${styles.card} card2`}>
@@ -176,9 +248,9 @@ const whatsappFunction = (e) => {
 
       <Card.Body className={styles.body}>
         <CompanyDetails darkMode={darkMode} whatsappFunction={whatsappFunction} mobileFunction={mobileFunction} saveOrderData={saveOrderData} saveCompanyData={saveCompanyData} />
-        <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData}/>
+        <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData} />
         <Documents darkMode={darkMode} saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
-        <Terms darkMode={darkMode} submitData={submitData}  />
+        <Terms darkMode={darkMode} submitData={submitData} />
       </Card.Body>
     </Card>
   )

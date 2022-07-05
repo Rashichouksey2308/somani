@@ -1,9 +1,9 @@
-import * as types from './actionType'
-import API from '../../utils/endpoints'
-import Axios from 'axios'
+import * as types from './actionType';
+import API from '../../utils/endpoints';
+import Axios from 'axios';
 import Router from 'next/router';
-import Cookies from 'js-cookie'
-import { toast } from 'react-toastify'
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 function createBuyer() {
   return {
@@ -159,15 +159,26 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   
       if (response.data.code === 200) {
         dispatch(createBuyerSuccess(response.data.data))
-        Router.push('/leads')
-
+        setTimeout(() => {
+          Router.push('/leads')
+        }, 1500);
+        // payload.history.goBack()
       } else {
         dispatch(createBuyerFailed(response.data.data))
+          let toastMessage = response.data.message
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          } 
+        
       }
     })
   } catch (error) {
     console.log(error, 'API FAILED')
     dispatch(createBuyerFailed())
+    let toastMessage = error.message
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    } 
   }
 }
 

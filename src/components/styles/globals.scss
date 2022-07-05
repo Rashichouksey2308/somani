@@ -539,17 +539,17 @@ body.dark-mode .value_card {
 
 body.light-mode .tabHeader {
   background: #ffffff;
-  border: 1px solid #d2d7e5;
-  -webkit-box-shadow: 0 3px 12px #cad0e2;
-  box-shadow: 0 3px 12px #cad0e2;
+  border-bottom: 1px solid #d2d7e5;
+  -webkit-box-shadow: 0 8px 13px -5px #cad0e2;
+  box-shadow: 0 8px 13px -5px #cad0e2;
 
 }
 
 body.dark-mode .tabHeader {
-  background: #171E27 0% 0% no-repeat padding-box;
-  border: 1px solid #171E27;
-  -webkit-box-shadow: 0 3px 12px #171E27;
-  box-shadow: 0 3px 12px #171E27;
+  background: #171E27;
+  border-bottom: 1px solid #171E27;
+  -webkit-box-shadow: 0 8px 13px -5px #171E27;
+  box-shadow: 0 8px 13px -5px #171E27;
 
 }
 

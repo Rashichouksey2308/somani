@@ -6,7 +6,7 @@ import { showSidebar, hideSidebar } from '../../redux/toggleState/Action/action'
 import { sidebar } from 'redux/toggleState/Reducer/reducer'
 import { logoutUser } from 'redux/authentication/actions';
 import { ChangeTheme ,setTheme} from 'redux/userData/action';
-
+import {settingMobile } from '/redux/toggleState/Action/action'
 
 
 
@@ -20,6 +20,37 @@ function Index() {
      dispatch(setTheme())
  
     },[])
+
+     useEffect(() => {
+    if (window !== undefined) {
+      let px_ratio = window.devicePixelRatio || window.screen.availWidth / document.documentElement.clientWidth;
+      window.addEventListener('resize', () => {
+        function isZooming() {
+          var newPx_ratio = window.devicePixelRatio || window.screen.availWidth / document.documentElement.clientWidth;
+          if (newPx_ratio != px_ratio) {
+         
+            return true;
+          } else {
+            if (document.body.clientWidth <= 1199) {
+                  console.log('yes')
+                  dispatch(settingMobile(true))
+                  dispatch(hideSidebar())
+                }else{
+                   dispatch(settingMobile(false))
+                    dispatch(showSidebar())
+                }
+            return false;
+          }
+        }
+        isZooming()
+      })
+    }
+  }, [])
+      useEffect(() => {
+ 
+   
+   
+  }, [])
 
     // console.log(darkMode,"darkMode")
      const sidebar = useSelector((state) => state.sidebar.show_sidebar)
