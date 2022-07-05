@@ -366,7 +366,7 @@ function Index() {
  }
   return (
     <>
-      <div className={`${styles.dashboardTab} tabHeader w-100`}>
+      <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <h1 className={`${styles.title} heading pt-3 pb-3`}>
             <img
