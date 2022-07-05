@@ -24,14 +24,15 @@ function Index() {
   })
 
   const handleRoute = (buyer) => {
-    if (buyer.queue === 'ReviewQueue') {
-      dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
-      Router.push('/review/id')
-    }
-    else if (buyer.queue === 'CreditQueue') {
-      dispatch(GetAllOrders({ orderId: buyer._id }))
-      Router.push('/review')
-    }
+    // if (buyer.queue === 'ReviewQueue') {
+    //   dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
+    //   Router.push('/review/id')
+    // }
+    // else if (buyer.queue === 'CreditQueue') {
+    //   dispatch(GetAllOrders({ orderId: buyer._id }))
+    //   Router.push('/review')
+    // }
+     Router.push('/lc-module')
   }
 
   const handleSearch = (e) => {

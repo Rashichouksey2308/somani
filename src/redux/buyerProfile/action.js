@@ -164,11 +164,15 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.updateCredit}`, payload, {
+    Axios.put(`${API.corebaseUrl}${API.updateCredit}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateCreditSuccess(response.data))
+        const toastMessage = 'UPDATE REQUEST SENT'
+        if(!toast.isActive(toastMessage)){
+            toast.error(toastMessage, {toastId: toastMessage})
+        }
       } else {
         dispatch(updateCreditFailed(response.data))
         const toastMessage = 'UPDATE REQUEST FAILED'

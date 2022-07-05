@@ -6,6 +6,8 @@ import OtherTerms from '../OtherTerms'
 import UploadOther from '../UploadOther'
 import ApproveBar from '../ApproveBar'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { setPageName } from '../../redux/userData/action'
 import { getTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
 import { useRouter } from 'next/router'
 import { data } from 'jquery'
@@ -20,55 +22,13 @@ const Index = () => {
 
 console.log(termsheet,"termsheet")
     useEffect(() => {
-        {
-            termsheet && termsheet?.data?.map((sheet) => (
-                setTermsheetDetails({
-                termsheetId: sheet._id,
-                    commodityDetails: {
-                        unitOfQuantity: sheet.order.unitOfQuantity,
-                        orderCurrency: sheet.order.orderCurrency,
-                        quantity: sheet.order.quantity,
-                        perUnitPrice: sheet.order.orderValue,
-                        commodity: sheet.order.commodity,
-                        tolerance: sheet.order.tolerance,
-                    },
-                    transactionDetails: {
-                        lcValue: 0,
-                        lcCurrency: sheet.transactionDetails.lcValue,
-                        marginMoney: sheet.transactionDetails.marginMoney,
-                        lcOpeningBank: sheet.transactionDetails.lcOpeningBank,
-                        incoTerms: sheet.order.incoTerm,
-                        loadPort: sheet.transactionDetails.loadPort,
-                        countryOfOrigin: sheet.transactionDetails.countryOfOrigin,
-                        shipmentType: sheet.transactionDetails.shipmentType,
-                        partShipmentAllowed: sheet.transactionDetails.partShipmentAllowed,
-                        portOfDischarge: sheet.transactionDetails.portOfDischarge,
-                        billOfEntity: sheet.transactionDetails.billOfEntity,
-                        thirdPartyInspectionReq: sheet.transactionDetails.thirdPartyInspectionReq,
-                        storageOfGoods: sheet.transactionDetails.storageOfGoods,
-                    },
-                    paymentDueDate: {
-                        computationOfDueDate: sheet.paymentDueDate.computationOfDueDate,
-                        daysFromBlDate: sheet.paymentDueDate.daysFromBlDate,
-                        daysFromVesselDischargeDate: sheet.paymentDueDate.daysFromVesselDischargeDate
-                    },
-                    commercials: {
-                        tradeMarginPercentage: sheet.commercials.tradeMarginPercentage,
-                        lcOpeningValue: sheet.commercials.lcOpeningValue,
-                        lcOpeningCurrency: sheet.commercials.lcOpeningCurrency,
-                        lcOpeningChargesUnit: sheet.commercials.lcOpeningChargesUnit,
-                        lcOpeningChargesPercentage: sheet.commercials.lcOpeningChargesPercentage,
-                        usanceInterestPercetage: sheet.commercials.usanceInterestPercetage,
-                        overDueInterestPerMonth: sheet.commercials.overDueInterestPerMonth,
-                        exchangeFluctuation: sheet.commercials.exchangeFluctuation,
-                        forexHedging: sheet.commercials.forexHedging,
-                        otherTermsAndConditions: sheet.commercials.otherTermsAndConditions,
-                        version: sheet.commercials.version,
-                    },
-                })
-            ))
-        }
-    }, [termsheet]);
+        dispatch(getTermsheet())
+      }, [dispatch])
+      console.log(termsheet,"termsheet")
+    useEffect(() => {
+    dispatch(setPageName('termsheet',))
+   })    
+    
 
     useEffect(() => {
         {
