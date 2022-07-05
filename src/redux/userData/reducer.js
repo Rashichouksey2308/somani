@@ -17,7 +17,13 @@ function UserReducer(state = initialState, action) {
       return {
         ...state,
         pageName: action.value,
-        id: action.id,
+      }
+    case types.DYNAMIC_PAGE:
+      console.log(action.value, 'kkk')
+      return {
+        ...state,
+
+        id: action.value,
       }
     default:
       return state

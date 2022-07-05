@@ -9,7 +9,7 @@ import styles from './profile.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { UpdateBuyer } from '../../src/redux/registerBuyer/action'
 import router from 'next/router'
-import { setPageName } from '../../src/redux/userData/action'
+import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
 const Index = () => {
   const dispatch = useDispatch()
 
@@ -23,7 +23,8 @@ const Index = () => {
     action: 'REJECT',
   })
   useEffect(() => {
-    dispatch(setPageName('review-queue',buyerList?.companyName))
+    dispatch(setPageName('review-queue'))
+     dispatch(setDynamicName(buyerList?.companyName))
   },[buyerList])
   const handleApprove = () => {
     const payload = { ...payloadData, orderReviewId: buyerList._id }

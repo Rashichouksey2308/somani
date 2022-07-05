@@ -17,11 +17,16 @@ function changeThemeSuccess(value) {
   }
 }
 
-function pageName(value, id = null) {
+function pageName(value) {
   return {
     type: types.PAGE_NAME,
     value,
-    id,
+  }
+}
+function dynamicPage(value = null) {
+  return {
+    type: types.DYNAMIC_PAGE,
+    value,
   }
 }
 
@@ -60,7 +65,12 @@ export const setTheme = () => async (dispatch, getState, api) => {
     dispatch(changeThemeSuccess(false))
   }
 }
-export const setPageName = (value, id) => async (dispatch, getState, api) => {
+export const setPageName = (value) => async (dispatch, getState, api) => {
   console.log(value, 'value')
-  dispatch(pageName(value, id))
+  dispatch(pageName(value))
+}
+
+export const setDynamicName = (value) => async (dispatch, getState, api) => {
+  console.log(value, 'value')
+  dispatch(dynamicPage(value))
 }

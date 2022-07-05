@@ -37,12 +37,20 @@ export default function Index({isQuery}) {
   const id = useSelector((state) => state?.user.id)
  console.log(id,"pageName",pageName)
   useEffect(() => {
-   console.log("here")
+
     if ("dashboard" == pageName) {
       router.route = "/Dashboard";
     }
+     if ("newOrder" == pageName) {
+      router.route = "/Leads"  +`/${id}` +"/New Order"
+    }
     if ("leads" == pageName) {
-      router.route = "/Leads";
+      if(id!==null) {
+        router.route = "/Leads"  +`/${id}`;
+      }else{
+        router.route = "/Leads";
+      }
+      
     }
      if ("leads/" == pageName) {
       router.route = "/Leads" + "/Register Your Company";
