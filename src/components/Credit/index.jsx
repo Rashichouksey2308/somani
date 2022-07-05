@@ -19,7 +19,7 @@ const index = ({
   personData,
   addPersonArr,
 }) => {
-  console.log(creditDetail, 'this is credit detail')
+  // console.log(creditDetail, 'this is credit detail')
 
   const dispatch = useDispatch()
   const [saveTable, setSaveTable] = useState(false)
@@ -77,14 +77,14 @@ const index = ({
     
   }, [personData])
   
-  console.log(keyPersonData[0]['contact']['number'], "kksksksk")
+  // console.log(keyPersonData[0]['contact']['number'], "kksksksk")
 
   const handlePersonChange = (e, key) => {
     const newInput = { ...keyPersonData }
-    console.log(e.target.name.split('.'), "personchange")
+    // console.log(e.target.name.split('.'), "personchange")
     if(e.target.name.split('.').length > 1 ){
       let nameVar = e.target.name.split('.')
-      console.log( key, 'uiui')
+      // console.log( key, 'uiui')
       newInput[key]['contact']['number'] = e.target.value
     }else{
     newInput[key][e.target.name] = e.target.value
