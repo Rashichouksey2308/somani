@@ -338,7 +338,7 @@ function Index() {
       recommendations: {companyComment: [...companyComment],financialsComment: [...financialsComment], strengthsComment: [...strengthsComment], sanctionComment:[...sanctionComment], weaknessComment: [...weaknessComment]},
       debtProfile: [...debtData]
     }
-    console.log(obj, "credit obj")
+    // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
   }
 
