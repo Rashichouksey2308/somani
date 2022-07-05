@@ -4,6 +4,8 @@ import {Row, Col, Form} from 'react-bootstrap'
 
 function Index() {
     const [editStren, setEditStren] = useState(true)
+    const [edit, setEdit] = useState(true)
+
 
 
   return (
@@ -45,7 +47,7 @@ function Index() {
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
-                      <option>Ramakrishna Traders</option>
+                      <option>Irrevocable</option>
                       <option>Balaji Traders</option>
                     </select>
                    
@@ -84,21 +86,24 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
+                  <select
                       className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
+                    >
+                      <option>First Class European Bank</option>
+                      <option>Balaji Traders</option>
+                    </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       (51D) LC Issuing Bank
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
-                    <input
+                  <select
                       className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
+                    >
+                      <option>Indo International Trading Fzco</option>
+                      <option>Balaji Traders</option>
+                    </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       (50) Applicant<strong className="text-danger">*</strong>
                     </label>
@@ -138,7 +143,7 @@ function Index() {
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
-                      <option>Ramakrishna Traders</option>
+                      <option>BNP PARIBAS PARIBAS _ BNPAFRPPS</option>
                       <option>Balaji Traders</option>
                     </select>
                    
@@ -150,7 +155,7 @@ function Index() {
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
-                      <option>Ramakrishna Traders</option>
+                      <option>By Negotiation</option>
                       <option>Balaji Traders</option>
                     </select>
                    
@@ -162,7 +167,7 @@ function Index() {
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
-                      <option>Ramakrishna Traders</option>
+                      <option>Documentary Credit</option>
                       <option>Balaji Traders</option>
                     </select>
                    
@@ -188,6 +193,41 @@ function Index() {
                       type="text"
                     />
                     <label className={`${styles.label_heading} label_heading`}>
+                      (42A) Drawee
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  <Col className="mb-4 mt-4" md={4}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (42P) Deferred Payment
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  <Col className="mb-4 mt-4" md={4}>
+                  <select
+                      className={`${styles.input_field} input form-control`}
+                    >
+                      <option>Prohibited</option>
+                      <option>Balaji Traders</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (43P) Partial Shipment
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  <Col className="mb-4 mt-4" md={4}>
+                  <select
+                      className={`${styles.input_field} input form-control`}
+                    >
+                      <option>Prohibited</option>
+                      <option>Balaji Traders</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
                       (43T) Transhipments
                       <strong className="text-danger">*</strong>
                     </label>
@@ -204,7 +244,7 @@ function Index() {
                     </label>
                   </Col>
                  
-                  <Col className="mb-4 mt-4" md={3}>
+                  <Col className="mb-4 mt-4" md={4}>
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
@@ -213,7 +253,7 @@ function Index() {
                     </select>
                    
                     <label className={`${styles.label_heading} label_heading`}>
-                      (42C) At Sight<strong className="text-danger">*</strong>
+                      (44F) At Sight<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
@@ -267,7 +307,7 @@ function Index() {
                         rows={3} 
                         
                 readOnly={editStren} />
-                <div className='mt-3'>
+                <div>
                 <img
                 src="/static/mode_edit.svg"
                 className='img-fluid'
@@ -302,18 +342,18 @@ function Index() {
                 />
             </div>
             <div className="d-flex justify-content-between pt-4 pb-3">
-                <div className='mr-n3'>1.</div>
+            <div className={`${styles.number} mr-n3`}>1.</div>
                 <Form.Control className={`${styles.paragraph}`} 
                         as="textarea"
                         rows={3} 
                         
-                readOnly={editStren} />
-                <div className='mt-3'>
+                readOnly={edit} />
+                <div>
                 <img
                 src="/static/mode_edit.svg"
                 className='img-fluid'
                 alt="edit"
-                onClick={(e) => {setEditStren(!editStren)}}/>
+                onClick={(e) => {setEdit(!edit)}}/>
 
               
                 <img
@@ -321,16 +361,234 @@ function Index() {
                 className="img-fluid ml-3"
                 alt="delete" />
             </div>
-        
             </div>
             <hr></hr>
+            <div className="d-flex justify-content-between pt-4 pb-3">
+            <div className={`${styles.number} mr-n3`}>2.</div>
+                <Form.Control className={`${styles.paragraph}`} 
+                        as="textarea"
+                        rows={3} 
+                        
+                readOnly={edit} />
+                <div>
+                <img
+                src="/static/mode_edit.svg"
+                className='img-fluid'
+                alt="edit"
+                onClick={(e) => {setEdit(!edit)}}/>
 
+              
+                <img
+                src="/static/delete 2.svg"
+                className="img-fluid ml-3"
+                alt="delete" />
             </div>
+            </div>
+            </div>
+
+            <hr></hr>
+            <div className={`${styles.dashboard_form}`}>
+            <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
+                <div className='d-flex'>
+            <div className={`${styles.number}`}>3.</div>
+            <h5>PRODUCT SPECIFICATION</h5>
+            </div>
+                <div>
+                <img
+                src="/static/mode_edit.svg"
+                className='img-fluid'
+                alt="edit"
+                />
+
+              
+                <img
+                src="/static/delete 2.svg"
+                className="img-fluid ml-3"
+                alt="delete" />
+            </div>
+            </div>
+
+            <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
+       
+            <div className={styles.table_scroll_outer}>
+                <div className={styles.table_scroll_inner}>
+            <table
+            className={`${styles.table} table` }
+            cellPadding="0"
+            cellSpacing="0"
+            border="0"
+            >
+           <thead>
+            <tr className="table_row">
+              <th>ELEMENTS</th>
+              <th>TYPICAL</th>
+              <th>GUARANTEED</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+          <tr className="table_row">
+              <td>MN</td>
+              <td>44.5 PCT</td>
+            <td>43.0</td>
+            </tr>
+            <tr className="table_row">
+              <td>SIO2</td>
+              <td>8.0 PCT</td>
+            <td>8.0 PCT</td>
+            </tr>
+            <tr className="table_row">
+              <td>AL2O3</td>
+              <td>7.6 PCT</td>
+            <td>8.0 PCT</td>
+            </tr>
+
+            <tr className="table_row">
+              <td>FE</td>
+              <td>44.5 PCT</td>
+            <td>43.0</td>
+            </tr>
+           
+          </tbody>
+        </table>
+        </div>
+        </div>
+      </div>
+                </div>
 
             <hr className={styles.line}></hr>
 
              
             <div className={`${styles.dashboard_form}`}>
+            <div className={` ${styles.content}`}>
+              <div className={` ${styles.body}`}>
+                <Row>
+                 
+                  <Col className="mb-4 mt-4" md={12}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      style={{height: "103px"}}
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (48) Presentation Period
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  <Col className="mb-4 mt-4" md={12}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      style={{height: "103px"}}
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (49) Confirmation Instructions
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  <Col className="mb-4 mt-4" md={6}>
+                  <select
+                      className={`${styles.input_field} input form-control`}
+                    >
+                      <option>Ramakrishna Traders</option>
+                      <option>Balaji Traders</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (53A) Reimbursing Bank
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  <Col className="mb-4 mt-4" md={6}>
+                  <select
+                      className={`${styles.input_field} input form-control`}
+                    >
+                      <option>Ramakrishna Traders</option>
+                      <option>Balaji Traders</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (57) Advise Through Bank
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                 
+                  <Col className="mb-4 mt-4" md={6}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (57A) Second Advising Bank, if Applicable
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  <Col className="mb-4 mt-4" md={6}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (58A) Requested Confirmation Party
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+
+               
+                <Col className="mb-4 mt-4" md={12}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      style={{height: "103px"}}
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (71B) Charges
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  <Col className="mb-4 mt-4" md={12}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      style={{height: "139px"}}
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (78) Instructions To Paying / Accepting / Negotiating Bank
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  <Col className="mb-4 mt-4" md={12}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      style={{height: "103px"}}
+
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (72) Sender To Receiver Information
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  <Col className="mb-4 mt-4" md={12}>
+                    <textarea
+                      className={`${styles.input_field} input form-control`}
+
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (72) Sender To Receiver Information
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </Col>
+                  </Row>
+              </div>
+            </div>
 
                 </div>
  

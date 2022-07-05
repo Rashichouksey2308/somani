@@ -1,9 +1,9 @@
 import React from 'react'
-import LcAgreement from '../../src/components/LcAgreement'
+import LcApplication from '../../src/components/LcApplication'
 
 const Index = () => {
   return (
-   <LcAgreement/>
+   <LcApplication/>
   )
 }
 
