@@ -35,7 +35,10 @@ export default {
 
   //termsheet
   gettermsheet: "/api/core/termsheet",
-  updatetermsheet : "/api/core/termsheet"
+  updatetermsheet : "/api/core/termsheet",
+
+  //marginMoney
+  getMarginMoney: "/api/core/margin-money",
 
 }
 
