@@ -11,7 +11,7 @@ import {
   GetBuyer,
 } from '../../src/redux/registerBuyer/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-
+import { setPageName } from '../../src/redux/userData/action'
 
 function Index() {
   const [serachterm, setSearchTerm] = useState("");
@@ -25,7 +25,9 @@ function Index() {
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
-
+useEffect(() => {
+    dispatch(setPageName('credit-queue'))
+  })
   const handleRoute = (buyer) => {
     if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))

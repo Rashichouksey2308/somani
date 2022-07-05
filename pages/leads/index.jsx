@@ -6,7 +6,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
 import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
-
+import { setPageName } from '../../src/redux/userData/action'
 function Index() {
   const [serachterm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
@@ -19,7 +19,9 @@ function Index() {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
   
-
+ useEffect(() => {
+    dispatch(setPageName('leads'))
+  })
 
   const handleRoute = (buyer) => {
     if (buyer.queue === 'ReviewQueue') {
@@ -51,7 +53,7 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 mt-4 border-0">
+      <div className="container-fluid mb-4 mt-2 border-0">
         <div className="p-4">
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
