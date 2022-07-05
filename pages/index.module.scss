@@ -121,7 +121,7 @@
                                     line-height: 20px;
                                     margin-right: 5px;
                                 }
-                                @include respond(phone-sm) {
+                                @include respond(sm-phone) {
                                     display: none;
                                 }
                             }

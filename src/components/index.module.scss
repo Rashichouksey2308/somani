@@ -31,6 +31,9 @@
             @include respond(lg-desktop) {
                 width: 20%;
             }
+            @include respond(md-desktop) {
+                display: none;
+            }
         }
         .mainView_Container {
             flex-grow: 1;
@@ -42,6 +45,9 @@
             margin-left: 345px;
             @include respond(lg-desktop) {
                 margin-left: 20%;
+            }
+            @include respond(md-desktop) {
+                margin-left: 0;
             }
         }
     }

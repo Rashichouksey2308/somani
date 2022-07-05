@@ -26,7 +26,7 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 card border-0">
+      <div className="container-fluid mb-4 border-0">
         <div className="p-4">
           {/*filter*/}
           <div className={`${styles.filter} mb-4 d-flex align-items-center`}>
