@@ -343,10 +343,27 @@ function Index() {
   }
 
   const currentOpenLink = (e) => {
-    console.log(e.target.attributes[4].nodeValue)
+   
     setSelectedTab(e.target.attributes[4].nodeValue)
   }
+ const onNext=()=> {
+    let list=document.getElementsByClassName("nav-tabs")
+    console.log("onnext1")
+   for(let i=0;i<list[0].children.length;i++){
+    console.log(list[0].children[i].children[0].attributes[5].nodeValue,"onNext")
+     if(list[0].children[i].children[0].attributes[5].nodeValue==true ||list[0].children[i].children[0].attributes[5].nodeValue=="true"){
+      console.log("here")
+     list[0].children[i].children[0].attributes[5].nodeValue=false;
+     let temIndex=i;
+     setSelectedTab(list[0].children[temIndex++].children[0].attributes[4].nodeValue)
+      console.log(list[0].children[temIndex++].children[0].attributes[4].nodeValue,"oki")
+    //  list[0].children[temIndex++].children[0].attributes[5].nodeValue=true
+     
+     }
+  
 
+   }
+ }
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -1310,6 +1327,7 @@ function Index() {
           isPrevious={false}
           leftButtonName={``}
           rightButtonName={`Next`}
+          handleApprove={onNext}
         />
       ) : null}
       {selectedTab == 'gst' ? (

@@ -23,6 +23,12 @@ function pageName(value) {
     value,
   }
 }
+function dynamicPage(value = null) {
+  return {
+    type: types.DYNAMIC_PAGE,
+    value,
+  }
+}
 
 export const ChangeTheme = () => async (dispatch, getState, api) => {
   dispatch(changeTheme())
@@ -62,4 +68,9 @@ export const setTheme = () => async (dispatch, getState, api) => {
 export const setPageName = (value) => async (dispatch, getState, api) => {
   console.log(value, 'value')
   dispatch(pageName(value))
+}
+
+export const setDynamicName = (value) => async (dispatch, getState, api) => {
+  console.log(value, 'value')
+  dispatch(dynamicPage(value))
 }
