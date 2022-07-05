@@ -302,7 +302,6 @@
                 position: relative;
                 box-sizing: border-box;
                 &:invalid + label {
-                    background: none;
                     transform:translateY(0);
                 }
                 &:focus {
