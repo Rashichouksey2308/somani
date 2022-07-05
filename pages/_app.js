@@ -12,7 +12,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import router from 'next/router'
 import theme from 'theme'
+import { useDispatch, useSelector } from 'react-redux'
 import { ChangeTheme, setTheme } from '../src/redux/userData/action'
+import { isMobile, settingMobile } from '../src/redux/toggleState/Action/action'
 
 const GlobalStyle = createGlobalStyle`
   ${styledNormalize}
@@ -22,9 +24,6 @@ export default function MyApp(props) {
   useEffect(() => {
     import('bootstrap/dist/js/bootstrap.js')
   }, [])
-  useEffect(() => {
-    setTheme()
-  })
 
   //  useEffect(() => {
   //  toast.dark("Wow so easy!");
