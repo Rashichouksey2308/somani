@@ -3,6 +3,7 @@ import * as types from './actionType'
 const initialState = {
   isDark: false,
   pageName: 'dashboard',
+  id: null,
 }
 function UserReducer(state = initialState, action) {
   switch (action.type) {
@@ -16,6 +17,7 @@ function UserReducer(state = initialState, action) {
       return {
         ...state,
         pageName: action.value,
+        id: action.id,
       }
     default:
       return state

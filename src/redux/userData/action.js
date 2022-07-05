@@ -17,10 +17,11 @@ function changeThemeSuccess(value) {
   }
 }
 
-function pageName(value) {
+function pageName(value, id = null) {
   return {
     type: types.PAGE_NAME,
     value,
+    id,
   }
 }
 
@@ -59,7 +60,7 @@ export const setTheme = () => async (dispatch, getState, api) => {
     dispatch(changeThemeSuccess(false))
   }
 }
-export const setPageName = (value) => async (dispatch, getState, api) => {
+export const setPageName = (value, id) => async (dispatch, getState, api) => {
   console.log(value, 'value')
-  dispatch(pageName(value))
+  dispatch(pageName(value, id))
 }

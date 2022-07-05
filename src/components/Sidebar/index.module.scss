@@ -100,13 +100,15 @@
                 width: 50%;
                 height: 100%;
                 display: flex;
-                justify-content:center;
+                justify-content:flex-start;
                 align-items: center;
                 span {
                      
                         letter-spacing: 0px;
                         color: #B5D7DD;
                         text-transform: capitalize;
+                        white-space: nowrap;
+                        margin-left:1rem;
                         @include respond(lg-desktop) {
                             margin-left: 14px;
                         }

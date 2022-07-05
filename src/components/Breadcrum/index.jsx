@@ -34,24 +34,35 @@ export default function Index({isQuery}) {
   var url = [];
   const router = useRouter();
   const pageName = useSelector((state) => state?.user.pageName)
- console.log(pageName,"pageName")
+  const id = useSelector((state) => state?.user.id)
+ console.log(id,"pageName",pageName)
   useEffect(() => {
    console.log("here")
     if ("dashboard" == pageName) {
-      router.route = "/dashboard";
+      router.route = "/Dashboard";
     }
     if ("leads" == pageName) {
-      router.route = "/leads";
+      router.route = "/Leads";
+    }
+     if ("leads/" == pageName) {
+      router.route = "/Leads" + "/Register Your Company";
     }
  
     if ("review-queue" == pageName) {
-      router.route = "/leads" + "/review queue";
+      if(id!==null){
+     
+         router.route = "/Leads" + "/Review Queue" +`/${id}`;
+         
+      }else{
+          router.route = "/Leads" + "/Review Queue";
+      }
+      
     }
      if ("credit-queue" == pageName) {
-      router.route = "/leads" + "/credit queue";
+      router.route = "/Leads" + "/Credit Queue";
     }
     if ("termsheet" == pageName) {
-      router.route = "/leads" + "/termsheets";
+      router.route = "/Leads" + "/Termsheets";
     }
 console.log( router.route," router.route")
 
@@ -76,7 +87,7 @@ console.log( router.route," router.route")
 
       }
     });
-  }, [pageName]);
+  }, [pageName,id]);
   console.log(myUrl,"url")
   return (
     <div className={`${styles.main_container} d-sm-flex d-block justify-content-between background1`}>
@@ -88,7 +99,7 @@ console.log( router.route," router.route")
             return(
                <div key={index} className={`${styles.breadcrumcontainer} ${myUrlLength-1==index?`${styles.highlight}`:null}`}>
               <span>/</span>
-              <span className={`${styles.value}`}>{val.toUpperCase()}</span>
+              <span className={`${styles.value}`}>{val}</span>
             </div>
             )
           })}
