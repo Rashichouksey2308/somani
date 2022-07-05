@@ -10,6 +10,10 @@ const initialState = {
   gettingTermsheet: false,
   updatingTermsheet: false,
   termsheet: [],
+  gettingAllTermsheet: false,
+  allTermsheets: [],
+  termsheetPreview : {}
+
 }
 
 function OrderReducer(state = initialState, action) {
@@ -34,6 +38,25 @@ function OrderReducer(state = initialState, action) {
         termsheet: []
       }
 
+    case types.GET_ALL_TERMSHEET:
+      return {
+        ...state,
+        gettingAllTermsheet: true
+      }
+
+    case types.GET_ALL_TERMSHEET_SUCCESSFULL:
+      return {
+        ...state,
+        gettingAllTermsheet: false,
+        allTermsheets: action.payload
+      }
+    case types.GET_ALL_TERMSHEET_FAILED:
+      return {
+        ...state,
+        gettingAllTermsheet: false,
+        allTermsheets: []
+      }
+
     case types.UPDATE_TERMSHEET:
       return {
         ...state,
@@ -42,14 +65,15 @@ function OrderReducer(state = initialState, action) {
     case types.UPDATE_TERMSHEET_SUCCESSFULL:
       return {
         ...state,
-        updatingTermsheet: false
-
+        updatingTermsheet: false,
+        termsheetPreview: action.payload
       }
 
     case types.UPDATE_TERMSHEET:
       return {
         ...state,
-        updatingTermsheet: false
+        updatingTermsheet: false,
+        termsheet: action.payload
       }
 
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './index.module.scss'
-
+import { useRouter } from 'next/router'
 
 function Index() {
-
+ const router = useRouter()
  
   return (
     <div className='container-fluid mb-4 mt-3'> 
@@ -35,6 +35,7 @@ function Index() {
       </a>
      
       <button className={styles.createBtn}
+      onClick={()=>{router.push("/new-order")}}
       style={{ position: "absolute", right: 25 }}>
        Create</button>
       </div>

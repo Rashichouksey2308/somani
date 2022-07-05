@@ -64,7 +64,16 @@ function Index() {
   datasets: [
     {
       label: "First dataset",
-      data: [70, 53, 85, 41, 44, 65,34,45,67,89],
+      data: [70, 53, 85, 20, 44, 70,34,45,67,90],
+      fill: true,
+
+     
+      backgroundColor:  color,
+      borderColor: "rgba(224, 195, 155, 1)"
+    },
+     {
+      label: "First dataset",
+      data: [70, 53, 85, 41, 44, 65,34,45,67,],
       fill: true,
 
      
