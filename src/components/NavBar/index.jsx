@@ -20,14 +20,36 @@ function Index() {
      dispatch(setTheme())
  
     },[])
+
+     useEffect(() => {
+    if (window !== undefined) {
+      let px_ratio = window.devicePixelRatio || window.screen.availWidth / document.documentElement.clientWidth;
+      window.addEventListener('resize', () => {
+        function isZooming() {
+          var newPx_ratio = window.devicePixelRatio || window.screen.availWidth / document.documentElement.clientWidth;
+          if (newPx_ratio != px_ratio) {
+         
+            return true;
+          } else {
+            if (document.body.clientWidth <= 1199) {
+                  console.log('yes')
+                  dispatch(settingMobile(true))
+                  dispatch(hideSidebar())
+                }else{
+                   dispatch(settingMobile(false))
+                    dispatch(showSidebar())
+                }
+            return false;
+          }
+        }
+        isZooming()
+      })
+    }
+  }, [])
       useEffect(() => {
  
    
-    if (document.body.clientWidth <= 1199) {
-      console.log('yes')
-      dispatch(settingMobile(true))
-      dispatch(hideSidebar())
-    }
+   
   }, [])
 
     // console.log(darkMode,"darkMode")
