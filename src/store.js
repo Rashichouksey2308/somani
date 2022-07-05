@@ -7,7 +7,8 @@ import AuthReducer from 'redux/authentication/reducer'
 import BuyerReducer from 'redux/registerBuyer/reducer'
 import UserReducer from 'redux/userData/reducer'
 import { sidebar } from 'redux/toggleState/Reducer/reducer'
-import OrderReducer from 'redux/buyerProfile/reducer'
+import OrderReducer from 'redux/buyerProfile/reducer';
+import MarginMoneyReducer from 'redux/marginMoney/reducer';
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -29,6 +30,7 @@ export const createStore = (preloadedState) => {
       sidebar: sidebar,
       order: OrderReducer,
       user: UserReducer,
+      marginMoney: MarginMoneyReducer
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

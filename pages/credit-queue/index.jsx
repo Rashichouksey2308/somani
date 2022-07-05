@@ -10,24 +10,27 @@ import {
   GetAllOrders,
   GetBuyer,
 } from '../../src/redux/registerBuyer/action'
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 import { setPageName } from '../../src/redux/userData/action'
 
 function Index() {
-  const [serachterm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(0);
+  const [serachterm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
 
   const { allBuyerList } = useSelector((state) => state.buyer)
   const { searchedLeads } = useSelector((state) => state.order)
 
-  console.log(currentPage)
+  // console.log(currentPage)
+
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
-useEffect(() => {
+
+  useEffect(() => {
     dispatch(setPageName('credit-queue'))
   })
+  
   const handleRoute = (buyer) => {
     if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))
@@ -44,7 +47,7 @@ useEffect(() => {
   }
 
   const handleFilteredData = (e) => {
-    setSearchTerm("")
+    setSearchTerm('')
     const id = `${e.target.id}`
     dispatch(GetAllBuyer(`?company=${id}`))
   }
@@ -62,20 +65,24 @@ useEffect(() => {
               />
             </div>
             <input
-            value={serachterm}
+              value={serachterm}
               onChange={handleSearch}
               type="text"
               className={`${styles.formControl} form-control formControl `}
               placeholder="Search"
             />
           </div>
-          {searchedLeads && serachterm && <div className={styles.searchResults}>
-            <ul>
-              {searchedLeads.data.data.map((results, index) => (
-                <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} <span>{results.customerId}</span></li>
-              ))}
-            </ul>
-          </div>}
+          {searchedLeads && serachterm && (
+            <div className={styles.searchResults}>
+              <ul>
+                {searchedLeads.data.data.map((results, index) => (
+                  <li onClick={handleFilteredData} id={results._id} key={index}>
+                    {results.companyName} <span>{results.customerId}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
         <a className={styles.filterIcon}>
           <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
@@ -173,7 +180,10 @@ useEffect(() => {
           <div
             className={`${styles.pageList} d-flex justify-content-end align-items-center`}
           >
-            <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}</span>
+            <span>
+              Showing Page {currentPage + 1} out of{' '}
+              {Math.ceil(allBuyerList?.data?.totalCount / 10)}
+            </span>
             <a
               onClick={() => {
                 if (currentPage === 0) {
@@ -182,7 +192,9 @@ useEffect(() => {
                   setCurrentPage((prevState) => prevState - 1)
                 }
               }}
-              href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
+              href="#"
+              className={`${styles.arrow} ${styles.leftArrow} arrow`}
+            >
               {' '}
               <img
                 src="/static/keyboard_arrow_right-3.svg"
@@ -229,7 +241,12 @@ useEffect(() => {
                   {buyer.queue === 'CreditQueue' ? (
                     <>
                       <td>{buyer.company.customerId}</td>
-                      <td className={styles.buyerName} onClick={()=>{Router.push("/review")}}>
+                      <td
+                        className={styles.buyerName}
+                        onClick={() => {
+                          Router.push('/review')
+                        }}
+                      >
                         {buyer.company.companyName}
                       </td>
                       <td>{buyer.createdBy.userRole}</td>
@@ -242,8 +259,8 @@ useEffect(() => {
                         {buyer.queue === 'ReviewQueue'
                           ? 'Review'
                           : 'CreditQueue'
-                            ? 'Approved'
-                            : 'Rejected'}
+                          ? 'Approved'
+                          : 'Rejected'}
                       </td>
                       <td>
                         <img
