@@ -160,7 +160,7 @@ const Index = () => {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       } return
-    }  else if (orderDetails.commodity.trim() === "") {
+    } else if (orderDetails.commodity.trim() === "") {
       let toastMessage = "Please Fill A valid Commodity"
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -217,19 +217,8 @@ const Index = () => {
       // console.log(fd, "this is payload")
 
       dispatch(CreateBuyer(fd))
-      
+
     }
-
-
-
-
-
-
-
-
-
-
-
   }
 
   const clearData = () => {

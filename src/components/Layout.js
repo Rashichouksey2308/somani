@@ -17,6 +17,8 @@ function Layout({ children }) {
   const [isQuery, setQuery] = useState(null)
   const [isLogin, setIsLogin] = useState(false)
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
+  console.log(isMobile, 'isMObile')
 
   const dispatch = useDispatch()
   const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)
@@ -54,15 +56,32 @@ function Layout({ children }) {
             <Navbar />
           </div>
           <div className={styles.wrapper}>
-            <div className={styles.sidebarContainer}>
-              {/* <Sidebar />  */}
-              {sidebar ? <Sidebar /> : null}
-            </div>
+            {isMobile ? (
+              <div
+                className={`${styles.sidebarContainer_mobile} ${
+                  !sidebar ? styles.collapse_sidebar_mobile : null
+                }  `}
+              >
+                {/* <Sidebar />  */}
+                <Sidebar />
+              </div>
+            ) : (
+              <div
+                className={`${styles.sidebarContainer} ${
+                  !sidebar ? styles.collapse_sidebar : null
+                }  `}
+              >
+                {/* <Sidebar />  */}
+                <Sidebar />
+              </div>
+            )}
 
             <div
               className={`${styles.mainView_Container} card_main ${
                 !sidebar ? styles.no_sidebar : null
-              }`}
+              }
+              ${isMobile ? styles.no_sidebar_mobile : null}
+              `}
             >
               <Breadcrum isQuery={isQuery} />
               {children}

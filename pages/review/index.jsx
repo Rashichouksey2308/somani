@@ -331,11 +331,11 @@ function Index() {
   const onCreditSave = () => {
     const obj = {
       productSummary: { ...product },
-      supplierCredentials: { ...supplierCred },
+      supplierCredential: { ...supplierCred },
       order: orderList._id,
       keyContactPerson: [...personData],
       keyAddress: [...keyAddData],
-      recommendations: {companyComment: [...companyComment],financialsComment: [...financialsComment], strengthsComment: [...strengthsComment], sanctionComment:[...sanctionComment], weaknessComment: [...weaknessComment]},
+      recommendation: {companyProfile: [...companyComment],commentsOnFinancials: [...financialsComment], strengths: [...strengthsComment], sanctionTerms:[...sanctionComment], weakness: [...weaknessComment]},
       debtProfile: [...debtData]
     }
     // console.log(obj, "credit obj")
