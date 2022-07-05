@@ -46,8 +46,8 @@ useEffect(() => {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 card mt-4 border-0">
-        <div className="p-4">
+      <div className="container-fluid border-0 p-0">
+        <div className={styles.review_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={styles.search}>
@@ -170,7 +170,7 @@ useEffect(() => {
          
           </div>
           {/*leads table*/}
-          <div className={`${styles.datatable} datatable`}>
+          <div className={`${styles.datatable} card datatable`}>
             <div
               className={`${styles.tableFilter} d-flex justify-content-between`}
             >
@@ -215,53 +215,55 @@ useEffect(() => {
                 </a>
               </div>
             </div>
-            <div className={styles.table_scroll}>
-              <table
-                className={`${styles.table} table`}
-                cellPadding="0"
-                cellSpacing="0"
-                border="0"
-              >
-                <thead>
-                  <tr className="table_row">
-                    <th>CUSTOMER ID</th>
-                    <th>BUYER NAME</th>
-                    <th>CREATED BY</th>
-                    <th>USERNAME</th>
-                    <th>EXISTING CUSTOMER</th>
-                    <th>STATUS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allBuyerList &&
-                    allBuyerList.data?.data?.map((buyer, index) => (
-                      <tr
-                        key={index}
-                        className={`${styles.table_row} table_row`}
-                      >
-                        <td>{buyer.company.customerId}</td>
-                        <td
-                          className={`${styles.buyerName}`}
-                          onClick={() => {
-                            handleRoute(buyer)
-                          }}
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table
+                  className={`${styles.table} table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="0"
+                >
+                  <thead>
+                    <tr className="table_row">
+                      <th>CUSTOMER ID <img className={`mb-1`} src="./static/icons8-sort-24.png "/></th>
+                      <th>BUYER NAME</th>
+                      <th>CREATED BY</th>
+                      <th>USERNAME</th>
+                      <th>EXISTING CUSTOMER</th>
+                      <th>STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {allBuyerList &&
+                      allBuyerList.data?.data?.map((buyer, index) => (
+                        <tr
+                          key={index}
+                          className={`${styles.table_row} table_row`}
                         >
-                          {buyer.company.companyName}
-                        </td>
-                        <td>{buyer.createdBy.userRole}</td>
-                        <td>{buyer.createdBy.fName}</td>
-                        <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
-                        <td>
-                          <span
-                            className={`${styles.status} ${styles.review}`}
-                          ></span>
+                          <td>{buyer.company.customerId}</td>
+                          <td
+                            className={`${styles.buyerName}`}
+                            onClick={() => {
+                              handleRoute(buyer)
+                            }}
+                          >
+                            {buyer.company.companyName}
+                          </td>
+                          <td>{buyer.createdBy.userRole}</td>
+                          <td>{buyer.createdBy.fName}</td>
+                          <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                          <td>
+                            <span
+                              className={`${styles.status} ${styles.review}`}
+                            ></span>
 
-                          {'Review'}
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+                            {'Review'}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
