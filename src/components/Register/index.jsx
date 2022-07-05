@@ -145,9 +145,7 @@ const whatsappFunction = (e) => {
     // console.log(fd, "this is payload")
 
     dispatch(CreateBuyer(fd))
-    setTimeout(() => {
-      Router.push('/leads')
-    }, 1500);
+    
     
   }
 
