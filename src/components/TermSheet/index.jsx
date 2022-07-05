@@ -6,6 +6,8 @@ import OtherTerms from '../OtherTerms'
 import UploadOther from '../UploadOther'
 import ApproveBar from '../ApproveBar'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { setPageName } from '../../redux/userData/action'
 import { getTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
 import { useRouter } from 'next/router'
 import { data } from 'jquery'
@@ -14,69 +16,25 @@ const Index = () => {
     const dispatch = useDispatch()
     const router = useRouter()
     const { termsheet } = useSelector((state) => state.order)
-    console.log(termsheet?.data, "termsheet")
-
     const [payloadData, setPayloadData] = useState({})
     const [termsheetDetails, setTermsheetDetails] = useState({})
-    const [otherTermConditions, setOtherTermConditions] = useState({})
+    const [otherTermsAndConditions, setOtherTermConditions] = useState({})
 
-
+console.log(termsheet,"termsheet")
     useEffect(() => {
-        {
-            termsheet && termsheet?.data?.map((sheet) => (
-                setTermsheetDetails({
-                termsheetId: sheet._id,
-                    commodityDetails: {
-                        unitOfQuantity: sheet.order.unitOfQuantity,
-                        orderCurrency: sheet.order.orderCurrency,
-                        quantity: sheet.order.quantity,
-                        perUnitPrice: sheet.order.orderValue,
-                        commodity: sheet.order.commodity,
-                        tolerance: sheet.order.tolerance,
-                    },
-                    transactionDetails: {
-                        lcValue: 0,
-                        lcCurrency: sheet.transactionDetails.lcValue,
-                        marginMoney: sheet.transactionDetails.marginMoney,
-                        lcOpeningBank: sheet.transactionDetails.lcOpeningBank,
-                        incoTerms: sheet.order.incoTerm,
-                        loadPort: sheet.transactionDetails.loadPort,
-                        countryOfOrigin: sheet.transactionDetails.countryOfOrigin,
-                        shipmentType: sheet.transactionDetails.shipmentType,
-                        partShipmentAllowed: sheet.transactionDetails.partShipmentAllowed,
-                        portOfDischarge: sheet.transactionDetails.portOfDischarge,
-                        billOfEntity: sheet.transactionDetails.billOfEntity,
-                        thirdPartyInspectionReq: sheet.transactionDetails.thirdPartyInspectionReq,
-                        storageOfGoods: sheet.transactionDetails.storageOfGoods,
-                    },
-                    paymentDueDate: {
-                        computationOfDueDate: sheet.paymentDueDate.computationOfDueDate,
-                        daysFromBlDate: sheet.paymentDueDate.daysFromBlDate,
-                        daysFromVesselDischargeDate: sheet.paymentDueDate.daysFromVesselDischargeDate
-                    },
-                    commercials: {
-                        tradeMarginPercentage: sheet.commercials.tradeMarginPercentage,
-                        lcOpeningValue: sheet.commercials.lcOpeningValue,
-                        lcOpeningCurrency: sheet.commercials.lcOpeningCurrency,
-                        lcOpeningChargesUnit: sheet.commercials.lcOpeningChargesUnit,
-                        lcOpeningChargesPercentage: sheet.commercials.lcOpeningChargesPercentage,
-                        usanceInterestPercetage: sheet.commercials.usanceInterestPercetage,
-                        overDueInterestPerMonth: sheet.commercials.overDueInterestPerMonth,
-                        exchangeFluctuation: sheet.commercials.exchangeFluctuation,
-                        forexHedging: sheet.commercials.forexHedging,
-                        otherTermsAndConditions: sheet.commercials.otherTermsAndConditions,
-                        version: sheet.commercials.version,
-                    },
-                })
-            ))
-        }
-    }, [termsheet]);
+        dispatch(getTermsheet())
+      }, [dispatch])
+      console.log(termsheet,"termsheet")
+    useEffect(() => {
+    dispatch(setPageName('termsheet',))
+   })    
+    
 
     useEffect(() => {
         {
             termsheet && termsheet?.data?.map((sheet, index) => {
                 setOtherTermConditions({
-                    chaOrstevedoringCharges: {
+                        chaOrstevedoringCharges: {
                         customClearingCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.customClearingCharges,
                         wharfaceCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.wharfaceCharges,
                         pollutionCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.pollutionCharges,
@@ -131,6 +89,11 @@ const Index = () => {
     }, [termsheet])
 
 
+    useEffect(()=>{
+        console.log(otherTermsAndConditions)
+    },[otherTermsAndConditions,"otherterms"])
+
+
     const onChangeCommodityDetails = (e) => {
         const Key = e.target.id
         const value = e.target.value
@@ -160,38 +123,38 @@ const Index = () => {
 
     const onChangeCha = (e) => {
         const Key = e.target.id
-        const value = !otherTermConditions?.chaOrstevedoringCharges[Key]
+        const value = !otherTermsAndConditions?.chaOrstevedoringCharges[Key]
+        console.log("onChangeCha")
         setOtherTermConditions(prev => ({ ...prev, chaOrstevedoringCharges: { ...prev.chaOrstevedoringCharges, [Key]: value } }))
     }
 
     const onChangeLcOpening = (e) => {
         const Key = e.target.id
-        const value = !otherTermConditions?.lcOpeningCharges[Key]
+        const value = !otherTermsAndConditions?.lcOpeningCharges[Key]
+        console.log("onChangeLcOpening")
         setOtherTermConditions(prev => ({ ...prev, lcOpeningCharges: { ...prev.lcOpeningCharges, [Key]: value } }))
     }
     const onChangeOther = (e) => {
         const Key = e.target.id
-        const value = !otherTermConditions?.otherCharges[Key]
+        const value = !otherTermsAndConditions?.otherCharges[Key]
         setOtherTermConditions(prev => ({ ...prev, otherCharges: { ...prev.otherCharges, [Key]: value } }))
     }
     const onChangeDutyAndTaxes = (e) => {
         const Key = e.target.id
-        const value = !otherTermConditions?.dutyAndTaxes[Key]
+        const value = !otherTermsAndConditions?.dutyAndTaxes[Key]
         setOtherTermConditions(prev => ({ ...prev, dutyAndTaxes: { ...prev.dutyAndTaxes, [Key]: value } }))
     }
     const onChangeInsurance = (e) => {
         const Key = e.target.id
-        const value = !otherTermConditions?.insurance[Key]
+        const value = !otherTermsAndConditions?.insurance[Key]
         setOtherTermConditions(prev => ({ ...prev, insurance: { ...prev.insurance, [Key]: value } }))
     }
 
-
-
     const handleSave = () => {
-        const UpdatedTermsheet = {...termsheetDetails,otherTermConditions}
-        //const payload = { ...UpdatedTermsheet, termsheetId: termsheet._id, }
-        dispatch(updateTermsheet(UpdatedTermsheet))
-        router.push('/termsheet')
+        const UpdatedTermsheet = {...termsheetDetails,otherTermsAndConditions}
+        console.log(UpdatedTermsheet,"updatedtermsheet")
+       dispatch(updateTermsheet(UpdatedTermsheet))
+        //router.push('/termsheet')
     }
 
     const handleChange = (name, value) => {
@@ -254,7 +217,7 @@ const Index = () => {
                         termsheet={termsheet} />
                     <AdditionalComment termsheet={termsheet} />
                     <OtherTerms
-                        otherTermConditions={otherTermConditions}
+                        otherTermConditions={otherTermsAndConditions}
                         onChangeInsurance={onChangeInsurance}
                         onChangeDutyAndTaxes={onChangeDutyAndTaxes}
                         onChangeOther={onChangeOther}

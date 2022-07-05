@@ -50,7 +50,7 @@ export default function Index({isQuery}) {
      if ("credit-queue" == pageName) {
       router.route = "/leads" + "/credit queue";
     }
-      if ("termsheet" == pageName) {
+    if ("termsheet" == pageName) {
       router.route = "/leads" + "/termsheets";
     }
 console.log( router.route," router.route")

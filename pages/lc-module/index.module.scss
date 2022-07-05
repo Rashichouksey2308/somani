@@ -1,129 +1,48 @@
 @import "../../src/components/styles/Core/config";
-.leads_inner {
-    margin: 28px;
-    @include respond(sm-desktop) {
-        margin: 20px;
-    }
-    @include respond(phone) {
-        margin: 15px;
-    }
-}
+
 .filter {
-    margin-bottom: 15px;
+    margin: 15px 0;
     @include respond(sm-desktop) {
         display: block !important;
     }
-    .search {
-        width: 492px;
-        position: relative;
-        // @include respond(md-desktop) {
-        //     width: 50%;
-        // }
-        @include respond(sm-desktop) {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        .inputGroupPrepend {
-            top: 50%;
-            left: 31px;
-            z-index: 1;
-            position: absolute;
-            transform: translateY(-50%);
-            @include respond(md-desktop) {
-                left: 28px;
+        .head_header {
+            display: flex;
+            padding-left: 10px;
+           
+    
+            @include respond(phone) {
+                align-items: center;
+                padding: 0.75rem 0rem;
             }
-            @include respond(sm-desktop) {
-                left: 25px;
-            }
-            img {
-                @include respond(md-desktop) {
-                    height: 20px;
-                }
-                @include respond(sm-desktop) {
+    
+            .arrow {
+                width: 13px;
+                height: 21px;
+                background: transparent;
+                margin-top: 10px;
+    
+                @include respond(phone) {
+                    margin-top: 0px;
                     height: 18px;
                 }
             }
-        }
-        .formControl {
-            font-size: 18px !important;
-            font-weight: 500 !important;
-            line-height: 23px !important;
-            height: 48px !important;
-            z-index: 0 !important;
-            position: relative !important;
-            box-shadow: none !important;
-            padding-left: 65px !important;
-            border-radius: 24px !important;
-            border: 2px solid #d2d7e5 !important;
-            @include respond(md-desktop) {
-                font-size: 16px !important;
-                line-height: 1.3 !important;
-                padding-left: 55px !important;
-                height: 44px !important;
-            }
-            @include respond(sm-desktop) {
-                font-size: 14px !important;
-                padding-left: 50px !important;
-            }
-        }
-        .searchResults {
-            width: 100%;
-            top: 65px;
-            padding: 10px 30px;
-            position: absolute;
-            border-radius: 24px;
-            background: #ffffff;
-            border: 2px solid #d2d7e5;
-            @include respond(md-desktop) {
-                padding: 8px 20px;
-            }
-            @include respond(sm-desktop) {
-            }
-            &::after {
-                top: -15px;
-                left: 40px;
-                content: "";
-                position: absolute;
-                border-left: 12px solid transparent;
-                border-right: 12px solid transparent;
-                border-bottom: 15px solid #d2d7e5;
-            }
-            ul {
-                margin: 0;
-                padding: 0;
-                list-style: none;
-                li {
-                    font-size: 18px;
-                    color: #3687e8;
-                    font-weight: bold;
-                    line-height: 1.5;
-                    padding: 7px 0;
-                    border-bottom: 2px solid #d2d7e5;
-                    @include respond(md-desktop) {
-                        font-size: 16px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 14px;
-                    }
-                    span {
-                        font-size: 15px;
-                        font-weight: 500;
-                        color: #8492a6;
-                        float: right;
-                    }
-                    @include respond(md-desktop) {
-                        font-size: 14px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 12px;
-                    }
-                    &:last-child {
-                        border-bottom: none;
-                    }
+    
+            .heading {
+                padding-left: 18px;
+                font-weight: bold;
+                font-size: 34px;
+                line-height: 41px;
+    
+                text-transform: capitalize;
+                margin-top: 0;
+    
+                @include respond(phone) {
+                    font-size: $font_size_mobile_head;
+                    margin: 0px;
+                    padding-left: 10px;
                 }
             }
         }
-    }
     .filterIcon {
         width: 48px;
         height: 48px;
@@ -133,21 +52,8 @@
         border-radius: 5px;
         display: inline-block;
         border: 3px solid #3687e8;
-        @include respond(md-desktop) {
-            width: 44px;
-            height: 44px;
-            line-height: 40px;
-        }
         @include respond(sm-desktop) {
-            width: 40px;
-            height: 40px;
             margin-left: 0;
-            line-height: 36px;
-        }
-        img {
-            @include respond(md-desktop) {
-                height: 18px;
-            }
         }
     }
     .filterList {
@@ -160,15 +66,6 @@
         letter-spacing: 0.17px;
         display: inline-block;
         text-transform: capitalize;
-        white-space: nowrap;
-        @include respond(md-desktop) {
-            font-size: 16px;
-            padding: 8px 10px;
-        }
-        @include respond(sm-desktop) {
-            font-size: 14px;
-            padding: 6px 10px 7px;
-        }
         img {
             width: 10px;
             margin-left: 12px;
@@ -189,15 +86,6 @@
         background: #3687e8;
         display: inline-block;
         text-transform: capitalize;
-        @include respond(md-desktop) {
-            font-size: 18px;
-            height: 44px;
-            line-height: 1;
-        }
-        @include respond(sm-desktop) {
-            height: 40px;
-            font-size: 16px;
-        }
     }
 }
 .statusBox {
@@ -220,9 +108,6 @@
             text-align: center;
             display: block !important;
         }
-        @include respond(phone) {
-            padding: 10px;
-        }
         h3 {
             font-size: 28px;
             color: #111111;
@@ -238,9 +123,6 @@
                 font-size: 22px;
                 margin: 10px 0 0 0;
             }
-            @include respond(phone) {
-                font-size: 20px;
-            }
             span {
                 font-size: 15px;
                 color: #8492a6;
@@ -251,14 +133,10 @@
                 text-transform: uppercase;
                 @include respond(md-desktop) {
                     font-size: 14px;
-                    line-height: 1.3;
                 }
                 @include respond(sm-desktop) {
                     font-size: 13px;
                     margin-bottom: 0;
-                }
-                @include respond(sm-phone) {
-                    font-size: 10px;
                 }
             }
         }
@@ -315,7 +193,7 @@
     border: 1px solid #d2d7e5;
     .tableFilter {
         padding: 0 15px 0 35px;
-        @include respond(md-desktop) {
+        @include respond(sm-desktop) {
             padding: 0 15px 0 15px;
         }
         h3 {
@@ -324,15 +202,6 @@
             line-height: 27px;
             margin: 24px 0;
             text-transform: capitalize;
-            @include respond(sm-desktop) {
-                font-size: 18px !important; 
-                line-height: 1.3;
-                margin: 20px 0;
-            }
-            @include respond(phone) {
-                font-size: 16px !important; 
-                margin: 13px 0;
-            }
         }
         .pageList {            
             span {
@@ -341,14 +210,6 @@
                 font-weight: 500;
                 line-height: 23px;
                 margin-right: 38px;
-                @include respond(phone) {
-                    font-size: 14px;
-                    line-height: 20px;
-                    margin-right: 5px;
-                }
-                @include respond(sm-phone) {
-                    display: none;
-                }
             }
             .arrow {
                 width: 50px;
@@ -359,36 +220,10 @@
                 border-radius: 8px;
                 display: inline-block;
                 background: #FAFAFB;
-                @include respond(sm-desktop) {
-                    width: 40px;
-                    height: 40px;
-                    line-height: 35px;
-                }
-                @include respond(phone) {
-                    width: 28px;
-                    height: 28px;
-                    line-height: 25px;
-                }
+            }
+            .rightArrow {
                 img {
-                    height: 18px;
-                    @include respond(sm-desktop) {
-                        height: 14px;
-                    }
-                    @include respond(phone) {
-                        height: 10px;
-                    }
-                }
-                &.rightArrow {
-                    img {
-                        transform: rotate(180deg);
-                        @include respond(sm-desktop) {
-                            height: 14px;
-                        }
-                        @include respond(phone) {
-                            height: 10px;
-                        }
-                    }
-                
+                    transform: rotate(180deg);
                 }
             }
         }
@@ -413,14 +248,14 @@
                     text-transform: uppercase;
                     &:first-child {
                         padding-left: 35px;
-                        @include respond(md-desktop) {
+                        @include respond(sm-desktop) {
                             padding-left: 15px;
                         }
                     }
-                    img {
+                    img{
                         opacity: 0.4;
-                        width: 14px;
-                        height: 14px;
+                             width: 14px;
+                            height: 14px;
                     }
                     @include respond(md-desktop) {
                         font-size: 14px;
@@ -446,7 +281,7 @@
                         white-space: nowrap;
                         &:first-child {
                             padding-left: 35px;
-                            @include respond(md-desktop) {
+                            @include respond(sm-desktop) {
                                 padding-left: 15px;
                             }
                         }
@@ -465,7 +300,7 @@
                     }
                 }
                 .buyerName {
-                    color: #3687e8;
+                   
                     font-weight: bold;
                     text-transform: capitalize;
                     cursor: pointer;

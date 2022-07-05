@@ -24,14 +24,15 @@ function Index() {
   })
 
   const handleRoute = (buyer) => {
-    if (buyer.queue === 'ReviewQueue') {
-      dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
-      Router.push('/review/id')
-    }
-    else if (buyer.queue === 'CreditQueue') {
-      dispatch(GetAllOrders({ orderId: buyer._id }))
-      Router.push('/review')
-    }
+    // if (buyer.queue === 'ReviewQueue') {
+    //   dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
+    //   Router.push('/review/id')
+    // }
+    // else if (buyer.queue === 'CreditQueue') {
+    //   dispatch(GetAllOrders({ orderId: buyer._id }))
+    //   Router.push('/review')
+    // }
+     Router.push('/lc-module')
   }
 
   const handleSearch = (e) => {
@@ -53,8 +54,8 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 mt-2 border-0">
-        <div className="p-4">
+      <div className="container-fluid p-0 border-0">
+        <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={styles.search}>
