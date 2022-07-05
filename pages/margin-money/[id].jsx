@@ -7,7 +7,8 @@ import { Form } from 'react-bootstrap'
 
 import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
-import Router from 'next/router'
+import Router from 'next/router';
+import { useSelector } from 'react-redux';
 
 // import { Row, Col } from 'react-bootstrap'
 
