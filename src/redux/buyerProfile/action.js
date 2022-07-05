@@ -286,7 +286,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.gettermsheet}`, payload, {
+    Axios.put(`${API.corebaseUrl}${API.gettermsheet}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {

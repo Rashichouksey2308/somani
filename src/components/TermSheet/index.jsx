@@ -187,10 +187,10 @@ const Index = () => {
 
 
 
-    const handleSave = data => {
+    const handleSave = () => {
         const UpdatedTermsheet = {...termsheetDetails,otherTermConditions}
-        const payload = { UpdatedTermsheet, termsheetId: termsheet._id, }
-        dispatch(updateTermsheet(payload))
+        //const payload = { ...UpdatedTermsheet, termsheetId: termsheet._id, }
+        dispatch(updateTermsheet(UpdatedTermsheet))
         router.push('/termsheet')
     }
 

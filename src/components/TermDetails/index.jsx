@@ -134,8 +134,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <select id='tolerance' className={`${styles.value} input form-control`} onChange={onChangeCommodityDetails} required>
                                 <option value={termsheetDetails?.commodityDetails?.tolerance}>±{termsheetDetails?.commodityDetails?.tolerance}% </option>
-                                <option value="±10">±10%</option>
-                                <option value="±20">±20%</option>
+                                <option value="10">±10%</option>
+                                <option value="20">±20%</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Tolerance (+/-) Percentage<strong className="text-danger">*</strong></label>
                         </div>
