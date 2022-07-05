@@ -53,7 +53,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
             <div className={styles.certificate}>
               {name}
               <img
-                className={styles.close_image}
+                className={`${styles.close_image} float-right m-2 img-fluid`}
                 src="/static/close.svg"
                 onClick={() => setName(null)}
                 alt="Close"
@@ -99,7 +99,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
             <div className={styles.certificate}>
               {secondDocName}
               <img
-                className={styles.close_image}
+                className={`${styles.close_image} float-right m-2 img-fluid`}
                 src="/static/close.svg"
                 onClick={() => setSecondDocName(null)}
                 alt="Close"

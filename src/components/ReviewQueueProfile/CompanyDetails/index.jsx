@@ -4,7 +4,7 @@ import styles from '../profile.module.scss'
 function Index() {
   return (
    <>
-   <div className={`${styles.card}  accordion card`}>
+   <div className={`${styles.card}  card`}>
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#companyDetails" aria-expanded="true" aria-controls="companyDetails">
                                             <h2 className="mb-0">Company Details</h2>
                                             <span>+</span>

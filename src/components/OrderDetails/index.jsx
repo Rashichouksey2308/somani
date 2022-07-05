@@ -47,8 +47,8 @@ const index = ({ saveOrderData, darkMode }) => {
             <div className={styles.phone_card}>
               <select className={`${styles.code_phone} input border-right-0`}
               style={{width:"40%"}}>
-                <option>Select order values</option>
-                <option selected>$</option>
+                {/* <option>Select order values</option> */}
+                <option selected>USD</option>
                 <option>INR</option>
               </select>
               <input
