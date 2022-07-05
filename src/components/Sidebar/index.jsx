@@ -44,7 +44,7 @@ function Index() {
             main:"Agreement & Lc Module",
             Other:[
                {name: "Agreement",image:"/static/Credit Queue.svg",route:"/agreement"},
-               {name: "LC Module",image:"/static/Review Queue.svg",route:""},
+               {name: "LC Module",image:"/static/Review Queue.svg",route:"/lc-module"},
                 "Termsheets",   
             ],
               image:"/static/Agreement&LCModule.svg"
