@@ -6,7 +6,7 @@ function Index() {
 
  
   return (
-    <div className={`{$styles.main} container-fluid mb-4 card`}> 
+    <div className='container-fluid mb-4 mt-2 '> 
       <div className={`${styles.filter} d-flex align-items-center`}>
       <div className={styles.head_header}>
           <img
@@ -96,7 +96,7 @@ function Index() {
       </div>
       <div className={`${styles.datatable} datatable `}>
         <div className={`${styles.tableFilter} d-flex justify-content-between`}>
-          <h3 className="heading_card">Loading, Transit & Unloading</h3>
+          <h3 className="heading_card">Loading, Transit &amp; Unloading</h3>
           <div
             className={`${styles.pageList} d-flex justify-content-end align-items-center`}
           >
@@ -118,14 +118,16 @@ function Index() {
             </a>
           </div>
         </div>
+        <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
         <table
-          className={`${styles.table} table table_row` }
+          className={`${styles.table} table` }
           cellPadding="0"
           cellSpacing="0"
           border="0"
         >
           <thead>
-            <tr>
+          <tr className="table_row">
               <th>ORDER ID</th>
               <th>BUYER NAME</th>
               <th>COMMODITY</th>
@@ -136,7 +138,7 @@ function Index() {
             </tr>
           </thead>
           <tbody>
-            <tr>
+          <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName}>Ramakrishna Traders</td>
               <td>Iron</td>
@@ -154,7 +156,7 @@ function Index() {
 
               </td>
             </tr>
-            <tr>
+            <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName}>Ramakrishna Traders</td>
               <td>Iron</td>
@@ -172,7 +174,7 @@ function Index() {
 
               </td>
             </tr>
-            <tr>
+            <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName}>Ramakrishna Traders</td>
               <td>Iron</td>
@@ -190,7 +192,7 @@ function Index() {
 
               </td>
             </tr>
-            <tr>
+            <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName}>Ramakrishna Traders</td>
               <td>Iron</td>
@@ -208,7 +210,7 @@ function Index() {
 
               </td>
             </tr>
-            <tr>
+            <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName}>Ramakrishna Traders</td>
               <td>Iron</td>
@@ -226,7 +228,7 @@ function Index() {
 
               </td>
             </tr>
-            <tr>
+            <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName}>Ramakrishna Traders</td>
               <td>Iron</td>
@@ -244,7 +246,7 @@ function Index() {
 
               </td>
             </tr>
-            <tr>
+            <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName}>Ramakrishna Traders</td>
               <td>Iron</td>
@@ -265,6 +267,8 @@ function Index() {
            
           </tbody>
         </table>
+        </div>
+        </div>
       </div>
     </div>
 )

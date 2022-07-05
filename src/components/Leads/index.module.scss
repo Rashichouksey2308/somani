@@ -4,6 +4,9 @@
     border-radius: 8px;
     background: #FFFFFF;
     border: 1px solid #D2D7E5;
+    @include respond(phone) {
+        margin-bottom: 15px;
+    }
     .header {       
         font-size: 18px;
         line-height: 23px;
@@ -42,6 +45,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            @include respond(sm-phone) {
+                display: block;
+                text-align: center;
+            }
             .leadsSub {
                 width: 58px;
                 height: 58px;
@@ -57,7 +64,11 @@
                 @include respond(md-desktop) {
                     width: 45px;
                     height: 45px;
-                }                    
+                }
+                @include respond(sm-desktop) {
+                    width: 40px;
+                    height: 40px;
+                }
                 .image{
                     width: 21px;
                     height: 28px;
@@ -82,6 +93,9 @@
                 @include respond(md-desktop) {
                     margin-right: 0rem;
                     margin-left: 0.5rem;
+                }
+                @include respond(sm-phone) {
+                    margin: 5px 0 0 0;
                 }
                 .lead_header {                        
                     font-weight: bold;

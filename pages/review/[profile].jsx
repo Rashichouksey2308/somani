@@ -64,8 +64,8 @@ const Index = () => {
           <ApproveBar
             handleApprove={handleApprove}
             handleReject={handleReject}
-            button={'Save'}
-            button2={'Preview'}
+            button={'Reject'}
+            button2={'Approve'}
           />
         </div>
       </div>

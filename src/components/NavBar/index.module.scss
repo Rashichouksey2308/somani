@@ -19,6 +19,9 @@
             position: relative;
             display: inline-block;
             margin-left: 22px;
+            @include respond(phone) {
+                margin-left: 0;
+            }
             img {
                 @include respond(lg-desktop) {
                     height: 45px;

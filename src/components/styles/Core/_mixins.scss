@@ -1,8 +1,8 @@
 
 // MEDIA QUERIES WITH BREAKPOINTS
 @mixin respond($breakpoint) {
-  @if $breakpoint == phone-sm {
-    @media (max-width: 360px) {
+  @if $breakpoint == sm-phone {
+    @media (max-width: 575px) {
       @content;
     }
   }

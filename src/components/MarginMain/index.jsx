@@ -9,7 +9,7 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 card border-0">
+      <div className="container-fluid mb-4 border-0">
         <div className="p-4">
           {/*filter*/}
           <div className={`${styles.filter} mb-4 d-flex align-items-center`}>
@@ -74,14 +74,16 @@ function Index() {
             </a>
           </div>
         </div>
+        <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
         <table
-          className={`${styles.table} table table_row`}
+          className={`${styles.table} table`}
           cellPadding="0"
           cellSpacing="0"
           border="0"
         >
           <thead>
-            <tr>
+          <tr className="table_row">
               <th>ORDER ID</th>
               <th>BUYER NAME</th>
               <th>EXISTING CUSTOMER</th>
@@ -92,7 +94,7 @@ function Index() {
           </thead>
           <tbody>
             
-             <tr>
+          <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName} onClick={()=>{Router.push("/margin-money/id")}}>Ramakrishna Traders</td>
               <td>Yes</td>
@@ -110,7 +112,7 @@ function Index() {
                 />
               </td>
             </tr>
-            <tr>
+            <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName} onClick={()=>{Router.push("/margin-money/id")}}>Ramakrishna Traders</td>
               <td>Yes</td>
@@ -128,7 +130,7 @@ function Index() {
                 />
               </td>
             </tr>
-            <tr>
+            <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName} onClick={()=>{Router.push("/margin-money/id")}}>Ramakrishna Traders</td>
               <td>Yes</td>
@@ -147,7 +149,7 @@ function Index() {
                 />
               </td>
             </tr>
-            <tr>
+            <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName} onClick={()=>{Router.push("/margin-money/id")}}>Bhutani Traders</td>
               <td>No</td>
@@ -165,7 +167,7 @@ function Index() {
                 />
               </td>
             </tr>
-            <tr>
+            <tr className="table_row">
               <td>124621</td>
               <td className={styles.buyerName} onClick={()=>{Router.push("/margin-money/id")}}>Somani Traders</td>
               <td>No</td>
@@ -186,6 +188,8 @@ function Index() {
             </tr>
           </tbody>
         </table>
+        </div>
+        </div>
       </div>  
         </div>
       </div>

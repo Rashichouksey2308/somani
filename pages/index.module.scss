@@ -71,15 +71,24 @@
                     border: 1px solid #d2d7e5;
                     //box-shadow: 0 3px 6px #cad0e2;
                     margin-bottom: 24px;
+                    @include respond(phone) {
+                        margin-bottom: 15px;
+                    }
                     .tableFilter {
                         height: 58px;
-                        padding-right: 35px;
-                        padding-left: 35px;
+                        padding-right: 14px;
+                        padding-left: 28px;
+                        @include respond(md-desktop) {
+                            padding-left: 15px;
+                        }
+                        @include respond(phone) {
+                            height: 50px;
+                        }
                         h3 {
-                            font-size: 22px;
+                            font-size: 18px;
                             color: #111111;
                             font-weight: bold;
-                            line-height: 27px;
+                            line-height: 23px;
                             margin: 13px 0;
                             text-transform: capitalize;
                             .rotate{
@@ -94,6 +103,11 @@
                              border-radius: 6px;
                              margin-left: 3rem;
                              border-color: rgb(155, 155, 155);
+                             @include respond(phone) {
+                                 width: 28px;
+                                 height: 28px;
+                                 margin-left: 15px;
+                             }
                         }
                         .pageList {
                             span {
@@ -102,6 +116,14 @@
                                 font-weight: 500;
                                 line-height: 23px;
                                 margin-right: 38px;
+                                @include respond(phone) {
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    margin-right: 5px;
+                                }
+                                @include respond(sm-phone) {
+                                    display: none;
+                                }
                             }
                             .arrow {
                                 width: 35px;
@@ -116,14 +138,22 @@
                                 justify-content: center;
                                 align-items: center;
                                 background: #F2F5F9;
+                                @include respond(phone) {
+                                    width: 28px;
+                                    height: 28px;
+                                }
                                 img {
-                                    width: 8px;
                                     height: 13px;
+                                    @include respond(phone) {
+                                        height: 10px;
+                                    }
                                 }
                                 .image_reverse {
                                     transform: rotate(180deg);
-                                    width: 8px;
                                     height: 13px;
+                                    @include respond(phone) {
+                                        height: 10px;
+                                    }
                                 }
                             }
                             .rightArrow {
@@ -160,8 +190,8 @@
                                         border-bottom: 2px solid #f2f5f9;
                                         &:first-child {
                                             height: 44px;
-                                            padding-left: 35px;
-                                            @include respond(sm-desktop) {
+                                            padding-left: 28px;
+                                            @include respond(md-desktop) {
                                                 padding-left: 15px;
                                             }
                                         }
@@ -194,8 +224,8 @@
                                         white-space: nowrap;
                                         border-bottom: 2px solid #f2f5f9;
                                         &:first-child {
-                                            padding-left: 35px;
-                                            @include respond(sm-desktop) {
+                                            padding-left: 28px;
+                                            @include respond(md-desktop) {
                                                 padding-left: 15px;
                                             }
                                         }

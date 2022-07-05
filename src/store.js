@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import config from 'config'
 import { repoSearchReducer } from 'features/repoSearch/repoSearchSlice'
-import AuthReducer from 'redux/authentication/reducer';
-import BuyerReducer from 'redux/registerBuyer/reducer';
-import { sidebar } from 'redux/toggleState/Reducer/reducer';
-import OrderReducer from 'redux/buyerProfile/reducer';
-
+import AuthReducer from 'redux/authentication/reducer'
+import BuyerReducer from 'redux/registerBuyer/reducer'
+import UserReducer from 'redux/userData/reducer'
+import { sidebar } from 'redux/toggleState/Reducer/reducer'
+import OrderReducer from 'redux/buyerProfile/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -28,6 +28,7 @@ export const createStore = (preloadedState) => {
       buyer: BuyerReducer,
       sidebar: sidebar,
       order: OrderReducer,
+      user: UserReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>
@@ -55,7 +56,6 @@ const initializeStore = (preloadedState) => {
 
   return store
 }
-
 
 export const useStore = (preloadedState) => initializeStore(preloadedState)
 

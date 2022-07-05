@@ -9,6 +9,10 @@
     @include respond(phone) {
         padding: 0 10px;
     }
+    @include respond(sm-phone) {
+        height: auto;
+        padding: 5px 10px;
+    }
     div {
         padding-left: 1rem;
         display: flex;
@@ -18,37 +22,76 @@
           padding-left: 0;
           padding-right: 0;
         }
+        @include respond(sm-phone) {
+            padding: 2px 5px 2px 0;
+        }
         img {
             width: 17px;
             height: 15px;
+            margin-bottom: 2px;
             @include respond(phone) {
                 width: 15px;
                 height: 13px;
                 margin-top: -4px;
             }
         }      
-        span {
-            height: 19px;
-            color: #3687E8;
-            font-weight: bold;
-            font-size: 16px;
-            line-height: 19px;
-            margin-left: 1rem;
-            white-space: nowrap;
-            @include respond(sm-desktop) {
-                font-size: 16px;
-                line-height: 1.2;
+        .breadcrumItem{
+            padding:0px;
+            .breadcrumcontainer{
+                padding: 0px;
+                color: #2837566A;
+                span{
+                  
+                            height: 19px;
+                            
+                            font-weight: bold;
+                            font-size: 16px;
+                            line-height: 19px;
+                            margin-left: 0.5rem;
+                            white-space: nowrap;
+                    
+                            @include respond(sm-desktop) {
+                                font-size: 16px;
+                                line-height: 1.2;
+                            }
+                    
+                            @include respond(phone) {
+                                font-size: 13px;
+                                margin-left: 0.5rem;
+                            }
+                        
+                }
+                .values {
+                        height: 19px;
+                      
+                        font-weight: bold;
+                        font-size: 16px;
+                        line-height: 19px;
+                        margin-left: 0.5rem;
+                        white-space: nowrap;
+                
+                        @include respond(sm-desktop) {
+                            font-size: 16px;
+                            line-height: 1.2;
+                        }
+                
+                        @include respond(phone) {
+                            font-size: 13px;
+                            margin-left: 0.5rem;
+                        }
+                    }
             }
-            @include respond(phone) {
-                font-size: 13px;
-                margin-left: 0.5rem;
-            }
-        }          
+           
+        }
+      
     }
     .unit_container {
         padding-right: 10px;
         @include respond(phone) {
             padding-right: 0;
+        }
+        @include respond(sm-phone) {
+            float: right;
         }
         .unit_label {
             font-size: 18px;
@@ -90,4 +133,50 @@
             }
         }      
     }
+}
+
+.highlight{
+    color: #3687E8 !important;
+            span {
+    
+                height: 19px;
+               
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 19px;
+                margin-left: 0.5rem;
+                white-space: nowrap;
+    
+                @include respond(sm-desktop) {
+                    font-size: 16px;
+                    line-height: 1.2;
+                }
+    
+                @include respond(phone) {
+                    font-size: 13px;
+                    margin-left: 0.5rem;
+                }
+    
+            }
+    
+            .values {
+                height: 19px;
+               
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 19px;
+                margin-left: 0.5rem;
+                white-space: nowrap;
+    
+                @include respond(sm-desktop) {
+                    font-size: 16px;
+                    line-height: 1.2;
+                }
+    
+                @include respond(phone) {
+                    font-size: 13px;
+                    margin-left: 0.5rem;
+                }
+            }
+        
 }

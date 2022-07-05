@@ -6,7 +6,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
 import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
-
+import { setPageName } from '../../src/redux/userData/action'
 function Index() {
   const [serachterm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
@@ -19,7 +19,9 @@ function Index() {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
   
-
+ useEffect(() => {
+    dispatch(setPageName('leads'))
+  })
 
   const handleRoute = (buyer) => {
     if (buyer.queue === 'ReviewQueue') {
@@ -51,7 +53,7 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 mt-4 border-0">
+      <div className="container-fluid mb-4 mt-2 border-0">
         <div className="p-4">
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
@@ -122,7 +124,7 @@ function Index() {
                   />
                 </div>
                 <h3>
-                  <span>  </span>
+                  <span> All </span>
                   3,200
                 </h3>
               </div>
@@ -242,7 +244,7 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th>CUSTOMER ID</th>
+                      <th >CUSTOMER ID <img className={`mb-1`} src="./static/icons8-sort-24.png "></img></th>
                       <th>BUYER NAME</th>
                       <th>CREATED BY</th>
                       <th>USERNAME</th>
