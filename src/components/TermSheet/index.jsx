@@ -16,13 +16,11 @@ const Index = () => {
     const dispatch = useDispatch()
     const router = useRouter()
     const { termsheet } = useSelector((state) => state.order)
-    console.log(termsheet?.data, "termsheet")
-
     const [payloadData, setPayloadData] = useState({})
     const [termsheetDetails, setTermsheetDetails] = useState({})
-    const [otherTermConditions, setOtherTermConditions] = useState({})
+    const [otherTermsAndConditions, setOtherTermConditions] = useState({})
 
-
+console.log(termsheet,"termsheet")
     useEffect(() => {
         dispatch(getTermsheet())
       }, [dispatch])
@@ -36,7 +34,7 @@ const Index = () => {
         {
             termsheet && termsheet?.data?.map((sheet, index) => {
                 setOtherTermConditions({
-                    chaOrstevedoringCharges: {
+                        chaOrstevedoringCharges: {
                         customClearingCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.customClearingCharges,
                         wharfaceCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.wharfaceCharges,
                         pollutionCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.pollutionCharges,
@@ -91,6 +89,11 @@ const Index = () => {
     }, [termsheet])
 
 
+    useEffect(()=>{
+        console.log(otherTermsAndConditions)
+    },[otherTermsAndConditions,"otherterms"])
+
+
     const onChangeCommodityDetails = (e) => {
         const Key = e.target.id
         const value = e.target.value
@@ -120,38 +123,38 @@ const Index = () => {
 
     const onChangeCha = (e) => {
         const Key = e.target.id
-        const value = !otherTermConditions?.chaOrstevedoringCharges[Key]
+        const value = !otherTermsAndConditions?.chaOrstevedoringCharges[Key]
+        console.log("onChangeCha")
         setOtherTermConditions(prev => ({ ...prev, chaOrstevedoringCharges: { ...prev.chaOrstevedoringCharges, [Key]: value } }))
     }
 
     const onChangeLcOpening = (e) => {
         const Key = e.target.id
-        const value = !otherTermConditions?.lcOpeningCharges[Key]
+        const value = !otherTermsAndConditions?.lcOpeningCharges[Key]
+        console.log("onChangeLcOpening")
         setOtherTermConditions(prev => ({ ...prev, lcOpeningCharges: { ...prev.lcOpeningCharges, [Key]: value } }))
     }
     const onChangeOther = (e) => {
         const Key = e.target.id
-        const value = !otherTermConditions?.otherCharges[Key]
+        const value = !otherTermsAndConditions?.otherCharges[Key]
         setOtherTermConditions(prev => ({ ...prev, otherCharges: { ...prev.otherCharges, [Key]: value } }))
     }
     const onChangeDutyAndTaxes = (e) => {
         const Key = e.target.id
-        const value = !otherTermConditions?.dutyAndTaxes[Key]
+        const value = !otherTermsAndConditions?.dutyAndTaxes[Key]
         setOtherTermConditions(prev => ({ ...prev, dutyAndTaxes: { ...prev.dutyAndTaxes, [Key]: value } }))
     }
     const onChangeInsurance = (e) => {
         const Key = e.target.id
-        const value = !otherTermConditions?.insurance[Key]
+        const value = !otherTermsAndConditions?.insurance[Key]
         setOtherTermConditions(prev => ({ ...prev, insurance: { ...prev.insurance, [Key]: value } }))
     }
 
-
-
     const handleSave = () => {
-        const UpdatedTermsheet = {...termsheetDetails,otherTermConditions}
-        //const payload = { ...UpdatedTermsheet, termsheetId: termsheet._id, }
-        dispatch(updateTermsheet(UpdatedTermsheet))
-        router.push('/termsheet')
+        const UpdatedTermsheet = {...termsheetDetails,otherTermsAndConditions}
+        console.log(UpdatedTermsheet,"updatedtermsheet")
+       dispatch(updateTermsheet(UpdatedTermsheet))
+        //router.push('/termsheet')
     }
 
     const handleChange = (name, value) => {
@@ -214,7 +217,7 @@ const Index = () => {
                         termsheet={termsheet} />
                     <AdditionalComment termsheet={termsheet} />
                     <OtherTerms
-                        otherTermConditions={otherTermConditions}
+                        otherTermConditions={otherTermsAndConditions}
                         onChangeInsurance={onChangeInsurance}
                         onChangeDutyAndTaxes={onChangeDutyAndTaxes}
                         onChangeOther={onChangeOther}
