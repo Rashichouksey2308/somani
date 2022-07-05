@@ -45,6 +45,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            @include respond(sm-phone) {
+                display: block;
+                text-align: center;
+            }
             .leadsSub {
                 width: 58px;
                 height: 58px;
@@ -89,6 +93,9 @@
                 @include respond(md-desktop) {
                     margin-right: 0rem;
                     margin-left: 0.5rem;
+                }
+                @include respond(sm-phone) {
+                    margin: 5px 0 0 0;
                 }
                 .lead_header {                        
                     font-weight: bold;
