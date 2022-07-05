@@ -53,8 +53,8 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 mt-2 border-0">
-        <div className="p-4">
+      <div className="container-fluid p-0 border-0">
+        <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={styles.search}>
