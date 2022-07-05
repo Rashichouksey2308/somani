@@ -110,7 +110,7 @@ function Index({ handleChange, reviewedProfile}) {
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
-            <td>Turnover</td>
+            <td>Turnover (Cr)</td>
             <td>{reviewedProfile?.turnOver?.originalValue}</td>
             <td>
               <div className={styles.tick}>
