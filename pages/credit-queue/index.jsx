@@ -229,7 +229,7 @@ useEffect(() => {
                   {buyer.queue === 'CreditQueue' ? (
                     <>
                       <td>{buyer.company.customerId}</td>
-                      <td className={styles.buyerName}>
+                      <td className={styles.buyerName} onClick={()=>{Router.push("/review")}}>
                         {buyer.company.companyName}
                       </td>
                       <td>{buyer.createdBy.userRole}</td>
