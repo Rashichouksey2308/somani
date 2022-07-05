@@ -33,7 +33,7 @@ import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 import { Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { UpdateOrderShipment } from '../../src/redux/buyerProfile/action'
+import { UpdateCredit, UpdateOrderShipment } from '../../src/redux/buyerProfile/action'
 import { element } from 'prop-types'
 
 function Index() {
@@ -194,15 +194,44 @@ function Index() {
     },
   ])
 
-  const [financialsComment, setFinancialsComment] = useState([])
 
-  const [companyComment, setCompanyComment] = useState([])
+  const [financialsComment, setFinancialsComment] = useState(orderList?.company?.recommendations?.commentsOnFinancials)
 
-  const [sanctionComment, setSanctionComment] = useState([])
+  const [companyComment, setCompanyComment] = useState(orderList?.company?.recommendations?.companyProfile)
 
-  const [strengthsComment, setStrengthsComment] = useState([])
 
-  const [weaknessComment, setWeaknessComment] = useState([])
+  const [sanctionComment, setSanctionComment] = useState(orderList?.company?.recommendations?.sanctionTerms)
+
+  const [strengthsComment, setStrengthsComment] = useState(orderList?.company?.recommendations?.strengths)
+
+  const [weaknessComment, setWeaknessComment] = useState(orderList?.company?.recommendations?.weakness)
+
+  const addCompanyCommentArr = (companyComments) => {
+    let newArr = [...companyComment]
+    newArr.push(companyComments)
+    setCompanyComment(newArr)
+  }
+  const addFinancialsCommentArr = (financialsComments) => {
+    let newArr = [...financialsComment]
+    newArr.push(financialsComments)
+    setFinancialsComment(newArr)
+  }
+  const addSanctionCommentArr = (sanctionComments) => {
+    let newArr = [...sanctionComment]
+    newArr.push(sanctionComments)
+    setSanctionComment(newArr)
+  }
+  const addStrengthsCommentArr = (strengthsComments) => {
+    let newArr = [...strengthsComment]
+    newArr.push(strengthsComments)
+    setStrengthsComment(newArr)
+  }
+  const addWeaknessCommentArr = (weaknessComments) => {
+    let newArr = [...weaknessComment]
+    newArr.push(weaknessComments)
+    setWeaknessComment(newArr)
+  }
+  
 
   const [debtData, setDebtData] = useState([
     {
@@ -210,6 +239,19 @@ function Index() {
       conduct:  orderList?.company?.debtProfile?.conduct,
       limit:  orderList?.company?.debtProfile?.limit,
       limitType:  orderList?.company?.debtProfile?.limitType,
+    },
+  ])
+
+  const [personData, setPersonData] = useState([
+    {
+      contact: {
+        callingCode:  orderList?.company?.keyContactPerson?.contact?.callingCode,
+        number:  orderList?.company?.keyContactPerson?.contact?.number,
+      },
+      department:  orderList?.company?.keyContactPerson?.department,
+      designation:  orderList?.company?.keyContactPerson?.designation,
+      email:  orderList?.company?.keyContactPerson?.email,
+      name: orderList?.company?.keyContactPerson?.name,
     },
   ])
 
@@ -228,8 +270,15 @@ function Index() {
     })
     setKeyAddData(addressArr)
 
+    let personArr = []
+    orderList?.company?.keyContactPerson?.forEach((element) => {
+      // console.log(element,"useEE")
+      personArr.push(element)
+    })
+    setPersonData(personArr)
+
     let commentFinancialArr = []
-    orderList?.company?.recommendations?.commentsOnFinancials.forEach(
+    orderList?.company?.recommendation?.commentsOnFinancials.forEach(
       (element) => {
         commentFinancialArr.push(element)
       },
@@ -237,25 +286,25 @@ function Index() {
     setFinancialsComment(commentFinancialArr)
 
     let companyCommentArr = []
-    orderList?.company?.recommendations?.companyProfile.forEach((element) => {
+    orderList?.company?.recommendation?.companyProfile.forEach((element) => {
       companyCommentArr.push(element)
     })
     setCompanyComment(companyCommentArr)
 
     let sanctionArr = []
-    orderList?.company?.recommendations?.sanctionTerms.forEach((element) => {
+    orderList?.company?.recommendation?.sanctionTerms.forEach((element) => {
       sanctionArr.push(element)
     })
     setSanctionComment(sanctionArr)
 
     let strengthsArr = []
-    orderList?.company?.recommendations?.strengths.forEach((element) => {
+    orderList?.company?.recommendation?.strengths.forEach((element) => {
       strengthsArr.push(element)
     })
     setStrengthsComment(strengthsArr)
 
     let weaknessArr = []
-    orderList?.company?.recommendations?.weakness.forEach((element) => {
+    orderList?.company?.recommendation?.weakness.forEach((element) => {
       weaknessArr.push(element)
     })
     setWeaknessComment(weaknessArr)
@@ -273,17 +322,24 @@ function Index() {
     setDebtData(newArr)
   }
 
+  const addPersonArr = (keyPersonData) => {
+    // let newArr = [...personData]
+    // newArr.push(keyPersonData)
+    setPersonData(keyPersonData)
+  }
+
   const onCreditSave = () => {
     const obj = {
       productSummary: { ...product },
       supplierCredentials: { ...supplierCred },
       order: orderList._id,
-      keyContactPerson: [...keyContactPerson],
+      keyContactPerson: [...personData],
       keyAddress: [...keyAddData],
-      recommendations: {},
+      recommendations: {companyComment: [...companyComment],financialsComment: [...financialsComment], strengthsComment: [...strengthsComment], sanctionComment:[...sanctionComment], weaknessComment: [...weaknessComment]},
       debtProfile: [...debtData]
     }
-    dispatch(UpdateOrderShipment(obj))
+    // console.log(obj, "credit obj")
+    dispatch(UpdateCredit(obj))
   }
 
   const currentOpenLink = (e) => {
@@ -904,20 +960,27 @@ function Index() {
                     creditDetail={orderList}
                     keyAddDataArr={keyAddDataArr}
                     addDebtArr={addDebtArr}
+                    addPersonArr={addPersonArr}
                     saveProductData={saveProductData}
                     debtData={debtData}
+                    personData={personData}
                     saveSupplierData={saveSupplierData}
                     keyAddData={keyAddData}
                   />
                   <Recommendations
                     creditDetail={orderList}
                     financialsComment={financialsComment}
+                    addWeaknessCommentArr={addWeaknessCommentArr}
+                    addStrengthsCommentArr={addStrengthsCommentArr}
+                    addSanctionCommentArr={addSanctionCommentArr}
+                    addFinancialsCommentArr={addFinancialsCommentArr}
+                    addCompanyCommentArr={addCompanyCommentArr}
                     companyComment={companyComment}
                     sanctionComment={sanctionComment}
                     strengthsComment={strengthsComment}
                     weaknessComment={weaknessComment}
                   />
-                  <CommonSave />
+                  <CommonSave onSave={onCreditSave} />
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM />

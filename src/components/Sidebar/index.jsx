@@ -89,11 +89,11 @@ function Index() {
    return index
   }
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-
+  console.log("sidebar",sidebar)
 console.log(tempArr,"yem")
   return (
-    <div className={`${styles.main_container} sidebar-bg  ${
-                !sidebar ? styles.collapse_sidebar : null
+    <div className={`sidebar-bg  ${
+                !sidebar ? styles.collapse_sidebar : styles.main_container
               }`} >
       {tempArr.map((val,index)=>{
          const className1 = category==val.main?`${styles.selected}`:null

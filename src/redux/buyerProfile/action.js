@@ -79,6 +79,27 @@ function gettermsheetfailed() {
   }
 }
 
+//**********get All Termsheets */////
+
+
+
+function getALLTermsheet() {
+  return {
+    type : types.GET_ALL_TERMSHEET
+  }
+}
+function getALLTermsheetsuccess(payload) {
+  return {
+    type : types.GET_ALL_TERMSHEET_SUCCESSFULL,
+    payload,
+  }
+}
+function getALLTermsheetfailed() {
+  return {
+    type : types.GET_ALL_TERMSHEET_FAILED
+  }
+}
+
 // ******** update Termsheet ***********/////
 
 function updatetermsheet() {
@@ -143,11 +164,15 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.updateCredit}`, payload, {
+    Axios.put(`${API.corebaseUrl}${API.updateCredit}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateCreditSuccess(response.data))
+        const toastMessage = 'UPDATE REQUEST SENT'
+        if(!toast.isActive(toastMessage)){
+            toast.error(toastMessage, {toastId: toastMessage})
+        }
       } else {
         dispatch(updateCreditFailed(response.data))
         const toastMessage = 'UPDATE REQUEST FAILED'
@@ -210,12 +235,12 @@ export const getTermsheet = (payload) => async (dispatch, getState, api) => {
     console.log(payload, "payload")
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache', }
-    Axios.get(`${API.corebaseUrl}${API.gettermsheet}${payload ? payload : ""}`, { headers: headers }).then(
+    Axios.get(`${API.corebaseUrl}${API.gettermsheet}?company=${payload.companyId}`, { headers: headers }).then(
       (response) => {
         if (response.data.code === 200) {
-          dispatch(gettermsheetsuccess(response.data))
+          dispatch(gettermsheetsuccess(response.data.data))
         } else {
-          dispatch(gettermsheetfailed(response.data))
+          dispatch(gettermsheetfailed(response.data.data))
           let toastMessage = 'Could not fetch Termsheet'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -229,6 +254,34 @@ export const getTermsheet = (payload) => async (dispatch, getState, api) => {
   }
 }
 
+export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
+  try {
+    let cookie = await Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    console.log(payload, "payload")
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache', }
+    Axios.get(`${API.corebaseUrl}${API.gettermsheet}`, { headers: headers }).then(
+      (response) => {
+        if (response.data.code === 200) {
+          dispatch(getALLTermsheetsuccess(response.data.data))
+        } else {
+          dispatch(getALLTermsheetfailed(response.data.data))
+          let toastMessage = 'Could not fetch Termsheet'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        }
+      },
+    )
+  } catch (error) {
+    dispatch(gettermsheetfailed())
+    console.log(error, 'Get Termsheet API Failed')
+  }
+}
+
+/////////******** Update Termsheet *******////////
+
 export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
   
   let cookie = Cookies.get('SOMANI')
@@ -237,7 +290,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.updatetermsheet}`, payload, {
+    Axios.put(`${API.corebaseUrl}${API.gettermsheet}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {

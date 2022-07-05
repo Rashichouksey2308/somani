@@ -1,15 +1,32 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllTermsheet,getTermsheet } from 'redux/buyerProfile/action'
 
 function Index() {
-  
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const dispatch = useDispatch()
+  const { allTermsheets } = useSelector((state) => state.order)
+
+  useEffect(() => {
+    dispatch(getAllTermsheet())
+  }, [dispatch])
+  //console.log(termsheet, "termsheet")
+
+
+  const handleRoute = (sheet) => {
+    dispatch(getTermsheet({companyId: sheet.company._id}))
+    Router.push('/termsheet/id')
+  }
+
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 card border-0">
+      <div className="container-fluid mb-4 border-0">
         <div className="p-4">
           {/*filter*/}
           <div className={`${styles.filter} mb-4 d-flex align-items-center`}>
@@ -38,159 +55,97 @@ function Index() {
                 alt="Filter"
               />
             </a>
-             <a href="#" className={`${styles.filterList} filterList`}>
+            <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
             </a>
             <a href="#" className={`${styles.filterList} filterList`}>
               Raj Traders
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
-            </a> 
-            </div> 
-            <div className={`${styles.datatable} datatable `}>
-        <div className={`${styles.tableFilter} d-flex justify-content-between`}>
-          <h3 className="heading_card">Termsheets</h3>
-          <div
-            className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-          >
-            <span>Showing Page 1 out of 10</span>
-            <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
-              {' '}
-              <img
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="arrow right"
-                className="img-fluid"
-              />
-            </a>
-            <a
-              href="#"
-              className={`${styles.arrow} ${styles.rightArrow} arrow`}
-            >
-              <img
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="arrow right"
-                className="img-fluid"
-              />
             </a>
           </div>
-        </div>
-        <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-        <table
-          className={`${styles.table} table table_row`}
-          cellPadding="0"
-          cellSpacing="0"
-          border="0"
-        >
-          <thead>
-            <tr>
-              <th>ORDER ID</th>
-              <th>BUYER NAME</th>
-              <th>EXISTING CUSTOMER</th>
-              <th>CREATED ON</th>
-              <th>STATUS</th>
-              <th>PREVIEW</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-             <tr>
-              <td>124621</td>
-              <td className={styles.buyerName} onClick={()=>{Router.push("/termsheet/id")}}>Ramakrishna Traders</td>
-              <td>Yes</td>
-             <td>22-02-2022</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                  onClick={()=>{Router.push("/termsheet-preview")}}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>124621</td>
-              <td className={styles.buyerName} onClick={()=>{Router.push("/termsheet/id")}}>Ramakrishna Traders</td>
-              <td>Yes</td>
-             <td>22-02-2022</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                  onClick={()=>{Router.push("/termsheet-preview")}}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>124621</td>
-              <td className={styles.buyerName} onClick={()=>{Router.push("/termsheet/id")}}>Ramakrishna Traders</td>
-              <td>Yes</td>
-             <td>22-02-2022</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                  onClick={()=>{Router.push("/termsheet-preview")}}
-                 
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>124621</td>
-              <td className={styles.buyerName} onClick={()=>{Router.push("/termsheet/id")}}>Bhutani Traders</td>
-              <td>No</td>
-             <td>22-02-2022</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                 onClick={()=>{Router.push("/termsheet-preview")}}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>124621</td>
-              <td className={styles.buyerName} onClick={()=>{Router.push("/termsheet/id")}}>Somani Traders</td>
-              <td>No</td>
-             <td>22-02-2022</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                     onClick={()=>{Router.push("/termsheet-preview")}}
-                 
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-        </div>
-      </div>  
+          <div className={`${styles.datatable} datatable `}>
+            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
+              <h3 className="heading_card">Termsheets</h3>
+              <div
+                className={`${styles.pageList} d-flex justify-content-end align-items-center`}
+              >
+                <span>Showing Page {currentPage + 1}  out of {Math.ceil(allTermsheets?.data?.totalCount / 10)}</span>
+                <a
+                  onClick={() => {
+                    if (currentPage === 0) {
+                      return
+                    } else {
+                      setCurrentPage((prevState) => prevState - 1)
+                    }
+                  }}
+                  href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
+                  {' '}
+                  <img
+                    src="/static/keyboard_arrow_right-3.svg"
+                    alt="arrow right"
+                    className="img-fluid"
+                  />
+                </a>
+                <a
+                  onClick={() => {
+                    if (currentPage + 1 < Math.ceil(termsheet?.data?.totalCount / 10)) {
+                      setCurrentPage((prevState) => prevState + 1)
+                    }
+
+                  }}
+                  href="#"
+                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
+                >
+                  <img
+                    src="/static/keyboard_arrow_right-3.svg"
+                    alt="arrow right"
+                    className="img-fluid"
+                  />
+                </a>
+              </div>
+            </div>
+            <table
+              className={`${styles.table} table table_row`}
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+            >
+              <thead>
+                <tr>
+                  <th>ORDER ID</th>
+                  <th>BUYER NAME</th>
+                  <th>EXISTING CUSTOMER</th>
+                  <th>CREATED ON</th>
+                  <th>STATUS</th>
+                  <th>PREVIEW</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allTermsheets && allTermsheets?.data?.map((sheet, index) => (
+                  < tr key={index}>
+                    <td>{sheet.order.orderId}</td>
+                    <td onClick={() => {handleRoute(sheet) }} className={styles.buyerName}>{sheet.company.companyName}</td>
+                    <td>{sheet.order.existingCustomer ? "yes" : "No"}</td>
+                    <td>{(sheet.createdAt).slice(0, 10)}</td>
+                    <td>
+                      <span className={`${styles.status} ${styles.approved}`}></span>
+                      {sheet.status}
+                    </td>
+                    <td>
+                      <img
+                        src="/static/preview.svg"
+                        className="img-fluid"
+                        alt="Preview"
+                        onClick={()=>{Router.push("/termsheet-preview")}}
+
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </>

@@ -14,7 +14,7 @@ function Index() {
 
   const { allBuyerList } = useSelector((state) => state.buyer)
   const { searchedLeads } = useSelector((state) => state.order)
-  console.log(searchedLeads,"searched items")
+  console.log(searchedLeads, "searched items")
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
@@ -38,15 +38,15 @@ function Index() {
   const handleSearch = (e) => {
     const query = `${e.target.value}`
     setSearchTerm(query)
-    if(query.length >=  3 ){
+    if (query.length >= 3) {
       dispatch(SearchLeads(query))
     }
   }
 
- const handleFilteredData = (e) => {
-  setSearchTerm("")
-  const id = `${e.target.id}`
-  dispatch(GetAllBuyer(`?company=${id}`))
+  const handleFilteredData = (e) => {
+    setSearchTerm("")
+    const id = `${e.target.id}`
+    dispatch(GetAllBuyer(`?company=${id}`))
   }
 
 
@@ -54,7 +54,7 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 mt-4 border-0">
+      <div className="container-fluid mb-4 mt-2 border-0">
         <div className="p-4">
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
@@ -70,20 +70,20 @@ function Index() {
                   />
                 </div>
                 <input
-                value={serachterm}
-                onChange={handleSearch}
+                  value={serachterm}
+                  onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} form-control formControl `}
                   placeholder="Search"
                 />
               </div>
-             {searchedLeads && serachterm && <div className={styles.searchResults}>
-              <ul>
-              {searchedLeads.data.data.map((results, index)=> (
-                 <li onClick={handleFilteredData} id={results._id}   key={index}>{results.companyName} <span>{results.customerId}</span></li>
-              ))}
-              </ul>
-               </div>}
+              {searchedLeads && serachterm && <div className={styles.searchResults}>
+                <ul>
+                  {searchedLeads.data.data.map((results, index) => (
+                    <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} <span>{results.customerId}</span></li>
+                  ))}
+                </ul>
+              </div>}
             </div>
             <a className={styles.filterIcon}>
               <img
@@ -200,7 +200,7 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage+1}  out of {Math.ceil(allBuyerList?.data?.totalCount/10)}</span>
+                <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}</span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -222,7 +222,10 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    setCurrentPage((prevState) => prevState + 1)
+                    if (currentPage+1 < Math.ceil(allBuyerList?.data?.totalCount / 10)) {
+                      setCurrentPage((prevState) => prevState + 1)
+                    }
+
                   }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}

@@ -31,6 +31,9 @@
             @include respond(lg-desktop) {
                 width: 20%;
             }
+            @include respond(md-desktop) {
+                display: none;
+            }
         }
         .mainView_Container {
             flex-grow: 1;
@@ -43,9 +46,13 @@
             @include respond(lg-desktop) {
                 margin-left: 20%;
             }
+            @include respond(md-desktop) {
+                margin-left: 0;
+            }
         }
     }
 }
 .no_sidebar {
+    // margin-left: 102px !important;
     margin-left: 0px !important;
 }

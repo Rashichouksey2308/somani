@@ -79,7 +79,7 @@ console.log( router.route," router.route")
   }, [pageName]);
   console.log(myUrl,"url")
   return (
-    <div className={`${styles.main_container} d-flex justify-content-between background1`}>
+    <div className={`${styles.main_container} d-sm-flex d-block justify-content-between background1`}>
       <div>
         <img src="/static/home.svg"></img>
         <div className={`${styles.breadcrumItem}`}>

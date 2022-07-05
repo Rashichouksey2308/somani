@@ -27,6 +27,7 @@
   .search {
       width: 492px;
       position: relative;
+      margin-left: 20px;
       @include respond(sm-desktop) {
         width: 100%;
         margin-bottom: 15px;
@@ -80,7 +81,8 @@
           display: inline-block;
       }
   }
-  .btnPrimary {
+  .createBtn {
+
       font-size: 20px;
       color: #FFFFFF;
       font-weight: bold;
@@ -90,117 +92,18 @@
       padding: 12px 0;
       box-shadow: none;
       text-align: center;
+      border: none;
       border-radius: 5px;
       background: #3687E8;
-      display: inline-block;
+      //display: inline-block;
       text-transform: capitalize;
   }
 }
-.statusBox {
-    margin: 20px 15px;
-    border-radius: 8px;
-    border: 1px solid #d2d7e5;
-    box-shadow: 0 3px 12px #e5e7ed;
-    .boxInner {
-        width: 20%;
-        padding: 21px 24px;
-        border-right: 1px solid #d2d7e5;
-        &:last-child {
-            border-right: none;
-        }
-        @include respond(md-desktop) {
-            padding: 18px;
-        }
-        @include respond(sm-desktop) {
-            padding: 12px;
-            text-align: center;
-            display: block !important;
-        }
-        
-        h3 {
-            font-size: 28px;
-            color: #111111;
-            font-weight: bold;
-            line-height: 34px;
-            margin: 0 0 0 18px;
-            text-transform: capitalize;
-            @include respond(md-desktop) {
-                font-size: 25px;
-                margin: 0 0 0 15px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 22px;
-                margin: 10px 0 0 0;
-            }
-            span {
-                font-size: 15px;
-                color: #8492a6;
-                font-weight: bold;
-                line-height: 18px;
-                display: block;
-                margin-bottom: 5px;
-                text-transform: uppercase;
-                @include respond(md-desktop) {
-                    font-size: 14px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 13px;
-                    margin-bottom: 0;
-                }
-            }
-        }
-        .iconBox {
-            height: 58px;
-            min-width: 58px;
-            line-height: 55px;
-            text-align: center;
-            border-radius: 8px;
-            @include respond(md-desktop) {
-                height: 50px;
-                min-width: 50px;
-                line-height: 48px;
-                border-radius: 6px;
-            }
-            @include respond(sm-desktop) {
-                height: 40px;
-                min-width: auto;
-                max-width: 40px;
-                line-height: 38px;
-                border-radius: 5px;
-                margin: 0 auto;
-            }
-        }
-        &.all {
-            .iconBox {
-                background: rgba(40, 132, 222, 0.2);
-            }
-        }
-        &.approved {
-            .iconBox {
-                background: rgba(76, 175, 80, 0.2);
-            }
-        }
-        &.review {
-            .iconBox {
-                background: rgba(255, 157, 0, 0.2);
-            }
-        }
-        &.rejected {
-            .iconBox {
-                background: rgba(234, 63, 63, 0.2);
-            }
-        }
-        &.saved {
-            .iconBox {
-                background: rgba(202, 208, 214, 0.2);
-            }
-        }
-    }
-}
+
 .datatable {
-    margin: 20px 15px; 
+    border: 1px solid #d2d7e5;
   border-radius: 6px;
-  
+  margin: 0 12px 0 12px;
   .tableFilter {
       padding: 0 15px 0 35px;
       @include respond(sm-desktop) {
@@ -211,31 +114,10 @@
         font-weight: bold;
           line-height: 27px;
           margin: 24px 0;
+          color: #3687E8;
           text-transform: capitalize;
       }
-      .pageList {
-          span {
-              font-size: 18px;
-              color: #718096;
-              font-weight: 500;
-              line-height: 23px;
-              margin-right: 38px;
-          }
-          .arrow {
-              width: 50px;
-              height: 50px;
-              margin-left: 10px;
-              line-height: 45px;
-              text-align: center;
-              border-radius: 8px;
-              display: inline-block;
-          }
-          .rightArrow {
-              img {
-                  transform: rotate(180deg);
-              }
-          }
-      }
+      
   }
   .table_scroll_outer {
     width: 100%;
@@ -247,11 +129,9 @@
   .table {
       th {
           font-size: 15px;
-          //color: #8492A6;
           font-weight: bold;
           line-height: 18px;
           padding: 24px 15px;
-         // background: #FAFAFB;
           text-transform: uppercase;
           border-top: 2px solid #F2F5F9;
           border-bottom: 2px solid #F2F5F9;
@@ -298,6 +178,18 @@
             font-size: 14px;
             padding: 10px;
         }
+      }
+      .updateBtn{
+        text-align: center;
+        color: #3687E8;
+        text-transform: capitalize;
+        border: 3px solid #3687E8;
+        border-radius: 5px;
+        font-size: 18px;
+        line-height: 23px;
+        font-weight: bold;
+        background: transparent;
+        padding: 8px 30px 8px 30px ;
       }
       .edit_image {
         background: #C3C3C31F;
