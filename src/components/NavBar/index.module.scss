@@ -232,6 +232,9 @@
 }
 .hamburgureContainer {
     margin-left: 1rem;
+    @include respond(phone) {
+        margin-left: 12px;
+    }
 }
 .switch {
     position: relative;

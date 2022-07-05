@@ -68,7 +68,7 @@ function Index() {
     <Card className={`${styles.card} card`}>
       <Card.Header className={`${styles.header}  border_color  heading_card`}>Top 5 Customers</Card.Header>
       <Card.Body className={`${styles.body} row`}>
-        <div className={`${styles.name}   col-sm-6`}>
+        <div className={`${styles.name} col-sm-7`}>
           {tempArr.map((val, index) => {
             return (
               <div key={index} className={styles.name_wrapper}>
@@ -83,7 +83,7 @@ function Index() {
             )
           })}
         </div>
-        <div className={`${styles.chart}  col-sm-6`}>
+        <div className={`${styles.chart} col-sm-5`}>
           <Doughnut data={data} options={options} />
           <div className={`${styles.total_value} `}>
             <span>₹ 24.00 Cr</span>

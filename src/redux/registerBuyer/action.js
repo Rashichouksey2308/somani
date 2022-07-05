@@ -1,6 +1,7 @@
 import * as types from './actionType'
 import API from '../../utils/endpoints'
 import Axios from 'axios'
+import Router from 'next/router';
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 
@@ -146,23 +147,21 @@ function uploadingDocumentFailed() {
 
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(createBuyer())
-  let cookie = await Cookies.get('SOMANI')
+  let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    // var authorization = Cookies.get('jwtAccessToken')
-    // var headers = { authorization: authorization, Cache: 'no-cache' }
     Axios.post(`${API.corebaseUrl}${API.registerCompany}`, payload, {
       headers: headers,
     }).then((response) => {
-      // console.log(headers, "in action2")
+  
       if (response.data.code === 200) {
         dispatch(createBuyerSuccess(response.data.data))
-        // payload.history.goBack()
+        Router.push('/leads')
+
       } else {
-        // console.log(response.data,"DD")
         dispatch(createBuyerFailed(response.data.data))
       }
     })
