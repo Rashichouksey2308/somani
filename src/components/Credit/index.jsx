@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { UploadDocument } from 'redux/registerBuyer/action'
@@ -17,11 +17,11 @@ const index = ({
   debtData,
   addDebtArr,
   personData,
-  addPersonArr
+  addPersonArr,
 }) => {
   console.log(creditDetail, 'this is credit detail')
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const [saveTable, setSaveTable] = useState(false)
   const [saveContactTable, setContactTable] = useState(false)
 
@@ -41,17 +41,15 @@ const index = ({
     pinCode: null,
   })
 
-  const [debt, setDebtData] = useState(
-    {
-      bankName:  '',
-      conduct:  '',
-      limit:  null,
-      limitType:  '',
-    },
-  )
+  const [debt, setDebtData] = useState({
+    bankName: '',
+    conduct: '',
+    limit: null,
+    limitType: '',
+  })
 
   const handleDebtChange = (name, value) => {
-    const newInput = {...debtData}
+    const newInput = { ...debtData }
     newInput[name] = value
     setDebtData(newInput)
   }
@@ -60,29 +58,39 @@ const index = ({
     addDebtArr(debt)
   }
 
-  const [keyPersonData, setKeyPersonData] = useState([
-    {
-      contact: {
-        callingCode: '',
-        number: '',
-      },
-      department: '',
-      designation: '',
-      email: '',
-      name: '',
-    },
-  ])
+  const [keyPersonData, setKeyPersonData] = useState(personData
+        // {
+    //   contact: {
+    //     callingCode: '',
+    //     number: '',
+    //   },
+    //   department: '',
+    //   designation: '',
+    //   email: '',
+    //   name: '',
+    // },
+  )
 
-  const handlePersonChange = (name, value) => {
-    const newInput = {...keyPersonData}
-    newInput[name] = value
+  useEffect(() => {
+    setKeyPersonData(personData)
+  
+    
+  }, [personData])
+  
+  console.log(keyPersonData[0]['contact']['number'], "kksksksk")
+
+  const handlePersonChange = (e, key) => {
+    const newInput = { ...keyPersonData }
+    console.log(e.target.name.split('.'), "personchange")
+    if(e.target.name.split('.').length > 1 ){
+      let nameVar = e.target.name.split('.')
+      console.log( key, 'uiui')
+      newInput[key]['contact']['number'] = e.target.value
+    }else{
+    newInput[key][e.target.name] = e.target.value
+    }
     setKeyPersonData(newInput)
   }
-
-  const onKeyPersonDataSave = () => {
-    addPersonArr(keyPersonData)
-  }
-
   
 
   const handleChange = (name, value) => {
@@ -98,8 +106,6 @@ const index = ({
     setKeyAddressData(newObj)
   }
 
-  
-
   const uploadDocument = (e) => {
     // console.log(e.target.name, "file target")
     const newUploadDoc = { ...keyAddressData }
@@ -107,13 +113,13 @@ const index = ({
 
     setKeyAddressData(newUploadDoc)
 
-    const fd  = new FormData()
-    fd.append( 'gstDocument', e.target.files[0] )
+    const fd = new FormData()
+    fd.append('gstDocument', e.target.files[0])
     dispatch(UploadDocument(fd))
   }
 
-  const handleClick = () => { 
-  keyAddDataArr(keyAddressData)
+  const handleClick = () => {
+    keyAddDataArr(keyAddressData)
   }
 
   const saveDate = (e) => {
@@ -262,7 +268,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
-                    creditDetail?.productSummary?.stockCoverageOfCommodity.split(
+                    creditDetail?.productSummary?.stockCoverageOfCommodity?.split(
                       'T',
                     )[0]
                   }
@@ -622,10 +628,10 @@ const index = ({
                   <th></th>
                 </tr>
               </thead>
-              {/* {personData?.map((person, index) => ( */}
-                   {/* <tbody key={index}> */}
-                     <tbody >
-                    {/* <tr className="table_credit">
+              {personData?.map((person, index) => (
+                <tbody key={index}>
+                  {console.log(index, "tbody")}
+                  {/* <tr className="table_credit">
                       <td>
                         <select
                           className={`${styles.dropDown} font-weight-bold heading`}
@@ -667,38 +673,89 @@ const index = ({
                         </div>
                       </td>
                     </tr> */}
-                     <tr className="table_credit">
-                  <td><input className='input font-weight-bold' type="text" readOnly={!saveContactTable} /></td>
-                  <td><input className='input'  type="text" readOnly={!saveContactTable} /></td>
-                  <td><input className='input'  type="text" readOnly={!saveContactTable} /></td>
-                  <td><input className='input' type="tel" readOnly={!saveContactTable} /></td>
-                  <td><input className='input'  type="text" readOnly={!saveContactTable} /></td>
-                  <td>
-                  <div>
-                    {!saveContactTable ? 
-                    <img
-                      src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} mr-3 img-fluid`}
-                      onClick={(e) => {setContactTable(true)}}
+                  <tr className="table_credit">
+                    <td>
+                      <input
+                        className="input font-weight-bold"
+                        defaultValue={person.name}
+                        name='name'
+                        onChange={(e)=>handlePersonChange(e,index)}
+                        type="text"
+                        readOnly={!saveContactTable}
                       />
-                     :  <img
-                    src="/static/save-3.svg"
-                    className={`${styles.edit_image} mr-3 img-fluid`}
-                    alt="save"
-                    onClick={(e) => {setContactTable(false)}}
-
-                  />  }
-                    <img
-                      src="/static/delete 2.svg"
-                      className="img-fluid"
-                      alt="delete"
-                    />
-                  </div>
-                  </td>
-                </tr>
-               
-                  </tbody>
-                {/* ))} */}
+                    </td>
+                    <td>
+                      <input
+                        className="input"
+                        defaultValue={person.designation}
+                        name='designation'
+                        onChange={(e)=>handlePersonChange(e,index)}
+                        type="text"
+                        readOnly={!saveContactTable}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="input"
+                        defaultValue={person.department}
+                        name='department'
+                        onChange={(e)=>handlePersonChange(e,index)}
+                        type="text"
+                        readOnly={!saveContactTable}
+                      />
+                    </td>
+                    <td>
+                      {console.log(index, "number uin")}
+                      <input
+                        className="input"
+                        defaultValue={person.contact.number}
+                        name='contact.number'
+                        onChange={(e)=>{console.log(index, "num ind"), handlePersonChange(e,index)}}
+                        type="number"
+                        readOnly={!saveContactTable}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="input"
+                        defaultValue={person.email}
+                        name='email'
+                        onChange={(e)=>handlePersonChange(e,index)}
+                        type="text"
+                        readOnly={!saveContactTable}
+                      />
+                    </td>
+                    <td>
+                      <div>
+                        {!saveContactTable ? (
+                          <img
+                            src="/static/mode_edit.svg"
+                            className={`${styles.edit_image} mr-3 img-fluid`}
+                            onClick={(e) => {
+                              setContactTable(true)
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src="/static/save-3.svg"
+                            className={`${styles.edit_image} mr-3 img-fluid`}
+                            alt="save"
+                            onClick={(e) => {
+                              setContactTable(false)
+                              addPersonArr(keyPersonData)
+                            }}
+                          />
+                        )}
+                        <img
+                          src="/static/delete 2.svg"
+                          className="img-fluid"
+                          alt="delete"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
             </table>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
               <span>+</span>
@@ -719,12 +776,7 @@ const index = ({
           <h3 className={`${styles.heading} mb-0`}>Key Addresses</h3>
           <span>+</span>
         </div>
-        <div
-          id="keyAddress"
-          className="collapse"
-          aria-labelledby="keyAddress"
-        
-        >
+        <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
           {keyAddData.map((address, index) => (
             <div key={index} className={`${styles.dashboard_form} card-body`}>
               <div className="d-flex justify-content-between">
@@ -794,7 +846,7 @@ const index = ({
               </div> */}
               </div>
               {/* <div className="d-flex justify-content-between"> */}
-                {/* <div className={`${styles.address_card} value background1`}>
+              {/* <div className={`${styles.address_card} value background1`}>
                 <div
                   className={`${styles.address_values} d-flex justify-content-between`}
                 >
@@ -835,7 +887,7 @@ const index = ({
                   </div>
                 </div>
               </div> */}
-                {/* <div className={`${styles.address_card} value background1`}>
+              {/* <div className={`${styles.address_card} value background1`}>
                 <div className="d-flex justify-content-between">
                   <div>
                     <div
@@ -1064,7 +1116,12 @@ const index = ({
                   /> */}
                   GST Doc
                 </button>
-                <button className={`${styles.add_btn}`} onClick={()=>handleClick()} >Add</button>
+                <button
+                  className={`${styles.add_btn}`}
+                  onClick={() => handleClick()}
+                >
+                  Add
+                </button>
               </div>
             </div>
           </div>
@@ -1106,54 +1163,67 @@ const index = ({
                 </tr>
               </thead>
               <tbody>
-            { debtData?.map((profile, index) => (  <tr key={index}> 
-                  <td>{index += 1}</td>
-                  <td>
-                    <select
-                      className={`${styles.dropDown} font-weight-bold heading`}
-                    >
-                      <option>{profile.bankName}</option>
-                      <option>SBI</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select className={`${styles.dropDown} heading`}>
-                      <option>{profile.limitType}</option>
-                      <option>Cash Deposit</option>
-                    </select>
-                  </td>
-                 
-                  <td><input className='input' defaultValue={profile.limit} readOnly={!saveTable} /></td>
+                {debtData?.map((profile, index) => (
+                  <tr key={index}>
+                    <td>{(index += 1)}</td>
+                    <td>
+                      <select
+                        className={`${styles.dropDown} font-weight-bold heading`}
+                      >
+                        <option>{profile.bankName}</option>
+                        <option>SBI</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select className={`${styles.dropDown} heading`}>
+                        <option>{profile.limitType}</option>
+                        <option>Cash Deposit</option>
+                      </select>
+                    </td>
 
-                  <td>
-                    <select className={`${styles.dropDown} heading`}>
-                      <option>{profile.conduct}</option>
-                      <option>Good</option>
-                    </select>
-                  </td>
-                  <td>
-                  <div>
-                    {!saveTable ? 
-                    <img
-                      src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} mr-3 img-fluid`}
-                      onClick={() => {setSaveTable(true)}}
+                    <td>
+                      <input
+                        className="input"
+                        defaultValue={profile.limit}
+                        readOnly={!saveTable}
                       />
-                     :  <img
-                    src="/static/save-3.svg"
-                    className={`${styles.edit_image} mr-3 img-fluid`}
-                    alt="save"
-                    onClick={(e) => {setSaveTable(false)}}
+                    </td>
 
-                  />  }
-                    <img
-                      src="/static/delete 2.svg"
-                      className="img-fluid"
-                      alt="delete"
-                    />
-                  </div>
-                  </td>
-                </tr> ))}
+                    <td>
+                      <select className={`${styles.dropDown} heading`}>
+                        <option>{profile.conduct}</option>
+                        <option>Good</option>
+                      </select>
+                    </td>
+                    <td>
+                      <div>
+                        {!saveTable ? (
+                          <img
+                            src="/static/mode_edit.svg"
+                            className={`${styles.edit_image} mr-3 img-fluid`}
+                            onClick={() => {
+                              setSaveTable(true)
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src="/static/save-3.svg"
+                            className={`${styles.edit_image} mr-3 img-fluid`}
+                            alt="save"
+                            onClick={(e) => {
+                              setSaveTable(false)
+                            }}
+                          />
+                        )}
+                        <img
+                          src="/static/delete 2.svg"
+                          className="img-fluid"
+                          alt="delete"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>

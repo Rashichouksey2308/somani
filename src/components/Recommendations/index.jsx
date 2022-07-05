@@ -4,7 +4,19 @@ import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
-const Index = () => {
+const Index = ({
+  financialsComment,
+  companyComment,
+  sanctionComment,
+  strengthsComment,
+  weaknessComment,
+  addCompanyCommentArr,
+  addFinancialsCommentArr,
+  addStrengthsCommentArr,
+  addWeaknessCommentArr,
+  addSanctionCommentArr,
+}) => {
+
   const [editProfile, setEditProfile] = useState(false)
   const [editFinance, setEditFinance] = useState(false)
   const [saveTable, setSaveTable] = useState(false)
@@ -14,6 +26,14 @@ const Index = () => {
   const [editWeak1, setEditWeak1] = useState(false)
   const [editSanc, setEditSanc] = useState(false)
   const [editSanc1, setEditSanc1] = useState(false)
+
+  const [companyComments, setCompanyComments] = useState('')
+  const [strengthsComments, setStrengthsComments] = useState('')
+  const [financialsComments, setFinancialsComments] = useState('')
+  const [sanctionComments, setSanctionComments] = useState('')
+  const [weaknessComments, setWeaknessComments] = useState('')
+
+
 
   return (
     <>
@@ -36,30 +56,34 @@ const Index = () => {
         >
           <div className={`${styles.dashboard_form} mr-3`}>
             <h5 className={styles.sub_heading}>Company Profile</h5>
-            <div className={`${styles.comment_para} d-flex `}>
-              <Form.Control
-                className={`${styles.comment}`}
-                as="textarea"
-                rows={3}
-                readOnly={editProfile}
-              />
+            {companyComment &&
+              companyComment.map((comment, index) => (
+                <div key={index} className={`${styles.comment_para} d-flex `}>
+                  <Form.Control
+                    className={`${styles.comment}`}
+                    as="textarea"
+                    defaultValue={comment}
+                    rows={3}
+                    readOnly={editProfile}
+                  />
 
-              <div className="ml-3">
-                <img
-                  src="/static/mode_edit.svg"
-                  className={`${styles.edit_image} img-fluid mb-3`}
-                  alt="edit"
-                  onClick={(e) => {
-                    setEditProfile(!editProfile)
-                  }}
-                />
-                <img
-                  src="/static/delete 2.svg"
-                  className="img-fluid"
-                  alt="delete"
-                />
-              </div>
-            </div>
+                  <div className="ml-3">
+                    <img
+                      src="/static/mode_edit.svg"
+                      className={`${styles.edit_image} img-fluid mb-3`}
+                      alt="edit"
+                      onClick={(e) => {
+                        setEditProfile(!editProfile)
+                      }}
+                    />
+                    <img
+                      src="/static/delete 2.svg"
+                      className="img-fluid"
+                      alt="delete"
+                    />
+                  </div>
+                </div>
+              ))}
 
             <div className="d-flex mt-4 pb-4">
               <input
@@ -67,6 +91,7 @@ const Index = () => {
                 rows={3}
                 placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} form-control`}
+                onChange={(e)=> setCompanyComments(e.target.value)}
               />
               <label className={`${styles.label_heading}`}>Comments</label>
 
@@ -74,15 +99,17 @@ const Index = () => {
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
+                onClick={()=> companyComments.length > 0 && addCompanyCommentArr(companyComments)}
               />
             </div>
           </div>
           <hr className={styles.line}></hr>
           <div className={`${styles.dashboard_form} mr-3`}>
             <h5 className={styles.sub_heading}>Comments On Financials</h5>
-            <div className={`${styles.comment_para} d-flex `}>
+            {financialsComment && financialsComment.map((comment, index) => ( <div key={index} className={`${styles.comment_para} d-flex `}>
               <Form.Control
                 className={`${styles.comment}`}
+                defaultValue={comment}
                 as="textarea"
                 rows={3}
                 readOnly={editFinance}
@@ -101,7 +128,7 @@ const Index = () => {
                   alt="delete"
                 />
               </div>
-            </div>
+            </div>))}
 
             <div className="d-flex mt-4 pb-4">
               <input
@@ -109,6 +136,7 @@ const Index = () => {
                 rows={3}
                 placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} form-control`}
+                onChange={(e)=> setFinancialsComments(e.target.value)}
               />
               <label className={`${styles.label_heading}`}>Comments</label>
 
@@ -116,6 +144,7 @@ const Index = () => {
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
+                onClick={()=>financialsComments.length > 0 &&  addFinancialsCommentArr(financialsComments)}
               />
             </div>
           </div>
@@ -205,6 +234,7 @@ const Index = () => {
                 rows={3}
                 placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} input form-control`}
+                onChange={(e)=> setStrengthsComments(e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
                 Comments
@@ -214,12 +244,14 @@ const Index = () => {
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
+                onClick={()=> strengthsComments.length > 0 && addStrengthsCommentArr(strengthsComments) }
               />
             </div>
             <div className={`${styles.strength} value`}>Strengths</div>
-            <div className="d-flex justify-content-between">
+            {strengthsComment && strengthsComment.map((strengths, index) => (  <div key={index} className="d-flex justify-content-between">
               <Form.Control
                 className={`${styles.paragraph}`}
+                defaultValue={strengths}
                 as="textarea"
                 rows={3}
                 readOnly={editStren}
@@ -239,9 +271,9 @@ const Index = () => {
                   }}
                 />
               </div>
-            </div>
-            <hr></hr>
-            <div className="d-flex justify-content-between">
+            </div>))}
+            {/* <hr></hr> */}
+            {/* <div className="d-flex justify-content-between">
               <Form.Control
                 className={`${styles.paragraph}`}
                 as="textarea"
@@ -263,7 +295,7 @@ const Index = () => {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
             <div className={`${styles.sub_heading} value`}>Weakness</div>
             <div className="d-flex mt-5 pb-4">
               <input
@@ -271,6 +303,7 @@ const Index = () => {
                 rows={3}
                 placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} form-control`}
+                onChange={(e)=> setWeaknessComments(e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
                 Comments
@@ -280,12 +313,14 @@ const Index = () => {
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
+                onClick={()=> weaknessComments.length > 0 && addWeaknessCommentArr(weaknessComments)}
               />
             </div>
             <div className={`${styles.strength} value`}>Weakness</div>
-            <div className="d-flex justify-content-between">
+            {weaknessComment && weaknessComment.map((weakness, index) => (     <div key={index} className="d-flex justify-content-between">
               <Form.Control
                 className={`${styles.paragraph}`}
+                defaultValue={weakness}
                 as="textarea"
                 rows={3}
                 readOnly={editWeak}
@@ -305,10 +340,10 @@ const Index = () => {
                   }}
                 />
               </div>
-            </div>
-            <hr></hr>
+            </div>))}
+            {/* <hr></hr> */}
 
-            <div className="d-flex justify-content-between">
+            {/* <div className="d-flex justify-content-between">
               <Form.Control
                 className={`${styles.paragraph}`}
                 as="textarea"
@@ -330,7 +365,7 @@ const Index = () => {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
 
             <div
               className={`${styles.sanction_terms} mt-4 d-flex justify-content-between align-items-center`}
@@ -379,6 +414,7 @@ const Index = () => {
                 rows={3}
                 placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} form-control`}
+                onChange={(e)=> setSanctionComments(e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
                 Sanction Condition
@@ -388,14 +424,16 @@ const Index = () => {
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
+                onClick={()=> sanctionComments.length > 0 && addSanctionCommentArr(sanctionComments)}
               />
             </div>
             <div className={`${styles.strength} value`}>
               Sanction Conditions
             </div>
-            <div className="d-flex justify-content-between">
+        { sanctionComment && sanctionComment.map((sanction, index) => (  <div key={index} className="d-flex justify-content-between">
               <Form.Control
                 className={`${styles.paragraph}`}
+                defaultValue={sanction}
                 as="textarea"
                 rows={3}
                 readOnly={editSanc}
@@ -415,10 +453,10 @@ const Index = () => {
                   }}
                 />
               </div>
-            </div>
-            <hr></hr>
+            </div>))}
+            {/* <hr></hr> */}
 
-            <div className="d-flex justify-content-between">
+            {/* <div className="d-flex justify-content-between">
               <Form.Control
                 className={`${styles.paragraph}`}
                 as="textarea"
@@ -440,7 +478,7 @@ const Index = () => {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
