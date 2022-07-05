@@ -24,15 +24,14 @@ function Index() {
   })
 
   const handleRoute = (buyer) => {
-    // if (buyer.queue === 'ReviewQueue') {
-    //   dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
-    //   Router.push('/review/id')
-    // }
-    // else if (buyer.queue === 'CreditQueue') {
-    //   dispatch(GetAllOrders({ orderId: buyer._id }))
-    //   Router.push('/review')
-    // }
-     Router.push('/lc-module')
+    if (buyer.queue === 'ReviewQueue') {
+      dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
+      Router.push('/review/id')
+    }
+    else if (buyer.queue === 'CreditQueue') {
+      dispatch(GetAllOrders({ orderId: buyer._id }))
+      Router.push('/review')
+    }
   }
 
   const handleSearch = (e) => {
@@ -58,40 +57,11 @@ function Index() {
         <div className="p-4">
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={styles.search}>
-              <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
-                </div>
-                <input
-                value={serachterm}
-                onChange={handleSearch}
-                  type="text"
-                  className={`${styles.formControl} form-control formControl `}
-                  placeholder="Search"
-                />
-              </div>
-             {searchedLeads && serachterm && <div className={styles.searchResults}>
-              <ul>
-              {searchedLeads.data.data.map((results, index)=> (
-                 <li onClick={handleFilteredData} id={results._id}   key={index}>{results.companyName} <span>{results.customerId}</span></li>
-              ))}
-              </ul>
-               </div>}
-            </div>
-            <a className={styles.filterIcon}>
-              <img
-                src="/static/filter.svg"
-                className="img-fluid"
-                alt="Filter"
-              />
-            </a>
+          <div className={styles.head_header}>
+          <img className={`${styles.arrow} img-fluid`}
+            src="/static/keyboard_arrow_right-3.svg" alt="arrow"/>
+          <h1 className={`${styles.heading} heading`}>Name of company</h1>       
+        </div>
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
@@ -105,9 +75,9 @@ function Index() {
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
-              onClick={() => Router.push('/leads/12')}
+              onClick={() => Router.push('/new-order')}
             >
-              + New Customer
+              + New Order
             </button>
           </div>
 
@@ -196,7 +166,7 @@ function Index() {
             <div
               className={`${styles.tableFilter} d-flex justify-content-between`}
             >
-              <h3 className="heading_card">Leads</h3>
+              <h3 className="heading_card">All Orders</h3>
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
@@ -245,11 +215,11 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th >CUSTOMER ID <img className={`mb-1`} src="./static/icons8-sort-24.png "></img></th>
-                      <th>BUYER NAME</th>
+                      <th >ORDER ID <img className={`mb-1`} src="./static/icons8-sort-24.png "></img></th>
+                      <th>COMMODITY</th>
                       <th>CREATED BY</th>
-                      <th>USERNAME</th>
-                      <th>EXISTING CUSTOMER</th>
+                      <th>CREATED ON</th>
+                     
                       <th>STATUS</th>
                     </tr>
                   </thead>
@@ -267,7 +237,7 @@ function Index() {
                             {buyer.company.companyName}
                           </td>
                           <td>{buyer.createdBy.userRole}</td>
-                          <td>{buyer.createdBy.fName}</td>
+                         
                           <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>
                             <span

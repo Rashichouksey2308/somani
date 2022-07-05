@@ -7,7 +7,7 @@ import UploadOther from  '../UploadOther'
 import ApproveBar from '../ApproveBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTermsheet } from 'redux/buyerProfile/action'
-
+import { setPageName } from '../../redux/userData/action'
 const Index = () => {
     const dispatch = useDispatch()
     const { termsheet } = useSelector((state) => state.order)
@@ -15,6 +15,9 @@ const Index = () => {
         dispatch(getTermsheet())
       }, [dispatch])
       console.log(termsheet,"termsheet")
+    useEffect(() => {
+    dispatch(setPageName('termsheet',))
+   })    
     return (
     
 

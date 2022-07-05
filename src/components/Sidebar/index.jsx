@@ -3,6 +3,7 @@ import styles from "./index.module.scss";
 import dash from '../../../public/static/Dashboard.svg'
 import accord from '../../../public/static/next-logo.png'
 import Router from "next/router";
+import { useSelector, useDispatch } from 'react-redux'
 
 function Index() {
   
@@ -87,9 +88,13 @@ function Index() {
     setIndex(index)
    return index
   }
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+
 console.log(tempArr,"yem")
   return (
-    <div className={`${styles.main_container} sidebar-bg`} >
+    <div className={`${styles.main_container} sidebar-bg  ${
+                !sidebar ? styles.collapse_sidebar : null
+              }`} >
       {tempArr.map((val,index)=>{
          const className1 = category==val.main?`${styles.selected}`:null
             return (
