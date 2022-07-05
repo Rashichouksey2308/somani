@@ -10,26 +10,25 @@ import { Card } from 'react-bootstrap'
 import Router from 'next/router'
 import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from "axios"
+import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const Index = () => {
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
-
-
-    if (localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true) {
-      console.log("this")
+    if (
+      localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true
+    ) {
+      console.log('this')
       setDarkMode(true)
     } else {
-      console.log("this2")
+      console.log('this2')
       setDarkMode(false)
     }
-
   }, [])
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
@@ -39,37 +38,33 @@ const Index = () => {
     mobile: {
       primary: {
         callingCode: '91',
-        number: ''
+        number: '',
       },
       whatsapp: {
         callingCode: '91',
-        number: ''
-      }
+        number: '',
+      },
     },
     email: '',
     turnOver: '',
     communicationMode: [null],
 
-    turnOverUnit: 'Cr'
+    turnOverUnit: 'Cr',
   })
-
 
   const mobileFunction = (e) => {
     const newObj = { ...companyDetails }
     newObj.mobile.primary.number = e.target.value
     setCompanyDetails(newObj)
-
   }
 
   const whatsappFunction = (e) => {
     const newObj = { ...companyDetails }
     newObj.mobile.whatsapp.number = e.target.value
     setCompanyDetails(newObj)
-
   }
 
   useEffect(() => {
-
     if (companyDetails.companyPan !== '') {
       dispatch(GetGst(companyDetails.companyPan))
     }
@@ -93,9 +88,8 @@ const Index = () => {
   const [documents, setDocuments] = useState({
     typeOfDocument: [null],
     document1: null,
-    document2: null
+    document2: null,
   })
-
 
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails }
@@ -111,102 +105,107 @@ const Index = () => {
 
   const saveDocument = (e) => {
     let newDocument = { ...documents }
-    newDocument.typeOfDocument[e.target.name] = (e.target.value)
+    newDocument.typeOfDocument[e.target.name] = e.target.value
     setDocuments(newDocument)
-
   }
 
   const uploadDocument1 = (e) => {
-
     const newUploadDoc = { ...documents }
     newUploadDoc.document1 = e.target.files[0]
 
     setDocuments(newUploadDoc)
-
   }
   const uploadDocument2 = (e) => {
-
     const newUploadDoc1 = { ...documents }
     newUploadDoc1.document2 = e.target.files[0]
 
     setDocuments(newUploadDoc1)
-
   }
 
   const submitData = () => {
-
-    if (companyDetails.companyName.trim() === "") {
-      let toastMessage = "Please Fill The Company Name"
+    if (companyDetails.companyName.trim() === '') {
+      let toastMessage = 'Please Fill The Company Name'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (companyDetails.companyPan.trim().length !== 10) {
-      let toastMessage = "Please Fill A valid Company Pan"
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      } return
-    } else if (companyDetails.mobile.primary.number.trim().length !== 10) {
-      let toastMessage = "Please Provide a Valid Phone Number "
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      } return
-    } else if (!String(companyDetails.email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      )) {
-      let toastMessage = "Please Fill A valid Email Id"
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      } return
-    } else if (orderDetails.commodity.trim() === "") {
-      let toastMessage = "Please Fill A valid Commodity"
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      } return
-    } else if (!orderDetails.quantity) {
-      let toastMessage = "Please Fill A valid quantity"
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      } return
-    } else if (!orderDetails.orderValue) {
-      let toastMessage = "Please Fill A valid order value"
+      let toastMessage = 'Please Fill A valid Company Pan'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
-    } else if (orderDetails.supplierName.trim() === "") {
-      let toastMessage = "Please Fill A valid Supplier Name"
+      return
+    } else if (companyDetails.mobile.primary.number.trim().length !== 10) {
+      let toastMessage = 'Please Provide a Valid Phone Number '
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
-      } return
-    } else if (orderDetails.countryOfOrigin.trim() === "") {
-      let toastMessage = "Please Fill A valid Country Of origin"
+      }
+      return
+    } else if (
+      !String(companyDetails.email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        )
+    ) {
+      let toastMessage = 'Please Fill A valid Email Id'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
-      } return
-    } else if (orderDetails.portOfDischarge.trim() === "") {
-      let toastMessage = "Please Fill A valid Port Of Discharge"
+      }
+      return
+    } else if (orderDetails.commodity.trim() === '') {
+      let toastMessage = 'Please Fill A valid Commodity'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
-      } return
+      }
+      return
+    } else if (!orderDetails.quantity) {
+      let toastMessage = 'Please Fill A valid quantity'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+      return
+    } else if (!orderDetails.orderValue) {
+      let toastMessage = 'Please Fill A valid order value'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    } else if (orderDetails.supplierName.trim() === '') {
+      let toastMessage = 'Please Fill A valid Supplier Name'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+      return
+    } else if (orderDetails.countryOfOrigin.trim() === '') {
+      let toastMessage = 'Please Fill A valid Country Of origin'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+      return
+    } else if (orderDetails.portOfDischarge.trim() === '') {
+      let toastMessage = 'Please Fill A valid Port Of Discharge'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+      return
     } else if (!orderDetails.ExpectedDateOfShipment) {
-      let toastMessage = "Please Fill A Expected date of Shipment"
+      let toastMessage = 'Please Fill A Expected date of Shipment'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
-      } return
-    } else if (orderDetails.incoTerm === "") {
-      let toastMessage = "Please Select A INCO Term"
+      }
+      return
+    } else if (orderDetails.incoTerm === '') {
+      let toastMessage = 'Please Select A INCO Term'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else if (!documents.document1 && !documents.document1) {
-      let toastMessage = "Please Check Document Upload"
+      let toastMessage = 'Please Check Document Upload'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
-      } return
+      }
+      return
     } else {
-
       const fd = new FormData()
 
       fd.append('companyProfile', JSON.stringify(companyDetails))
@@ -217,7 +216,6 @@ const Index = () => {
       // console.log(fd, "this is payload")
 
       dispatch(CreateBuyer(fd))
-
     }
   }
 
@@ -225,8 +223,6 @@ const Index = () => {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()
   }
-
-
 
   return (
     <Card className={`${styles.card} card2`}>
@@ -240,16 +236,30 @@ const Index = () => {
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
-          <button onClick={clearData} className={`${styles.clear_btn} clear_btn`}>
+          <button
+            onClick={clearData}
+            className={`${styles.clear_btn} clear_btn`}
+          >
             Clear All
           </button>
         </div>
       </Card.Header>
 
       <Card.Body className={styles.body}>
-        <CompanyDetails darkMode={darkMode} whatsappFunction={whatsappFunction} mobileFunction={mobileFunction} saveOrderData={saveOrderData} saveCompanyData={saveCompanyData} />
+        <CompanyDetails
+          darkMode={darkMode}
+          whatsappFunction={whatsappFunction}
+          mobileFunction={mobileFunction}
+          saveOrderData={saveOrderData}
+          saveCompanyData={saveCompanyData}
+        />
         <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData} />
-        <Documents darkMode={darkMode} saveDocument={saveDocument} uploadDocument1={uploadDocument1} uploadDocument2={uploadDocument2} />
+        <Documents
+          darkMode={darkMode}
+          saveDocument={saveDocument}
+          uploadDocument1={uploadDocument1}
+          uploadDocument2={uploadDocument2}
+        />
         <Terms darkMode={darkMode} submitData={submitData} />
       </Card.Body>
     </Card>

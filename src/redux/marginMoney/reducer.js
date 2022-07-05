@@ -2,7 +2,9 @@ import * as types from "./actionType";
 
 const initialState = {
     gettingMarginMoney: false,
-    marginMoneyResponse: []
+    marginMoneyResponse: [],
+    updatingMarginMoney: false,
+    updatingMarginMoneyResponse: []
 }
 
 function MarginMoneyReducer(state = initialState, action) {
@@ -27,6 +29,26 @@ function MarginMoneyReducer(state = initialState, action) {
           ...state,
           gettingMarginMoney: false,
           marginMoneyResponse: []
+        }
+
+      case types.UPDATE_MARGINMONEY:
+        return {
+          ...state,
+          updateMarginMoney: true,
+          updatingMarginMoneyResponse: []
+        }
+  
+      case types.UPDATE_MARGINMONEY_SUCCESSFULL:
+        return {
+          ...state,
+          updatingMarginMoney: false,
+          updatingMarginMoneyResponse: action.payload
+        }
+      case types.UPDATE_MARGINMONEY_FAILED:
+        return {
+          ...state,
+          updatingMarginMoney: false,
+          updatingMarginMoneyResponse: []
         }
       
       default: 

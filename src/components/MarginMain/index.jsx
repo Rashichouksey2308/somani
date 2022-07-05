@@ -8,17 +8,17 @@ import { GetAllMarginMoney } from 'redux/marginMoney/action'
 import { SearchLeads } from 'redux/buyerProfile/action'
 
 function Index() {
+
   const [currentPage, setCurrentPage] = useState(0)
 
-  const [serachterm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
 
   const dispatch = useDispatch()
 
   const { searchedLeads } = useSelector((state) => state.order)
 
-  
   const { marginMoneyResponse } = useSelector((state) => state.marginMoney)
-  console.log(marginMoneyResponse, 'this is margin money response')
+  // console.log(marginMoneyResponse, 'this is margin money response')
 
   useEffect(() => {
     dispatch(GetAllMarginMoney(`?page=${currentPage}`))
@@ -36,6 +36,13 @@ function Index() {
     setSearchTerm('')
     const id = `${e.target.id}`
     dispatch(GetAllMarginMoney(`?company=${id}`))
+  }
+
+  const handleRoute = (margin) => {
+    
+      dispatch(GetAllMarginMoney( `?orderId=${margin._id}` ))
+      Router.push('/margin-money/id')
+    
   }
 
 
@@ -59,14 +66,14 @@ function Index() {
                   />
                 </div>
                 <input
-                  value={serachterm}
+                  value={searchTerm}
                   onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} form-control formControl `}
                   placeholder="Search"
                 />
               </div>
-              {searchedLeads && serachterm && (
+              {searchedLeads && searchTerm && (
                 <div className={styles.searchResults}>
                   <ul>
                     {searchedLeads.data.data.map((results, index) => (
@@ -108,7 +115,7 @@ function Index() {
               >
                 <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(marginMoneyResponse?.data?.totalCount / 10)}
+                  {Math.ceil(marginMoneyResponse?.totalCount / 10)}
                 </span>
                 <a
                   onClick={() => {
@@ -168,7 +175,7 @@ function Index() {
                         <td
                           className={styles.buyerName}
                           onClick={() => {
-                            Router.push('/margin-money/id')
+                            handleRoute(margin)
                           }}
                         >
                           {margin.company.companyName}

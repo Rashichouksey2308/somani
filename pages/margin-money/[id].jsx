@@ -9,9 +9,16 @@ import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
 import Router from 'next/router'
 
-import { Row, Col } from 'react-bootstrap'
+// import { Row, Col } from 'react-bootstrap'
+
 function Index() {
+
   const [darkMode, setDarkMode] = useState(false)
+
+  const { marginMoneyResponse } = useSelector((state) => state.marginMoney)
+   
+
+
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -26,6 +33,7 @@ function Index() {
   const routeChange = () => {
     Router.push('/margin-preview')
   }
+
   return (
     <>
       <div className={`${styles.dashboardTab} tabHeader w-100`}>

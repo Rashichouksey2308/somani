@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -12,11 +13,15 @@ import {
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 import { setPageName } from '../../src/redux/userData/action'
 function Index() {
+
   const [serachterm, setSearchTerm] = useState('')
+
   const [currentPage, setCurrentPage] = useState(0)
+
   const dispatch = useDispatch()
 
   const { allBuyerList } = useSelector((state) => state.buyer)
+  
   const { searchedLeads } = useSelector((state) => state.order)
   // console.log(searchedLeads, 'searched items')
 
