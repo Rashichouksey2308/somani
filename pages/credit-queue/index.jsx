@@ -53,48 +53,45 @@ function Index() {
   }
 
   return (
-    <div className="container-fluid mb-4 card">
-      <div className={`${styles.filter} d-flex align-items-center`}>
-        <div className={styles.search}>
-          <div className="input-group">
-            <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
-              <img
-                src="/static/search.svg"
-                className="img-fluid"
-                alt="Search"
+    <div className="container-fluid p-0 border-0">
+      <div className={styles.credit_inner}>
+        <div className={`${styles.filter} d-flex align-items-center`}>
+          <div className={styles.search}>
+            <div className="input-group">
+              <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                <img
+                  src="/static/search.svg"
+                  className="img-fluid"
+                  alt="Search"
+                />
+              </div>
+              <input
+              value={serachterm}
+                onChange={handleSearch}
+                type="text"
+                className={`${styles.formControl} form-control formControl `}
+                placeholder="Search"
               />
             </div>
-            <input
-              value={serachterm}
-              onChange={handleSearch}
-              type="text"
-              className={`${styles.formControl} form-control formControl `}
-              placeholder="Search"
-            />
-          </div>
-          {searchedLeads && serachterm && (
-            <div className={styles.searchResults}>
+            {searchedLeads && serachterm && <div className={styles.searchResults}>
               <ul>
                 {searchedLeads.data.data.map((results, index) => (
-                  <li onClick={handleFilteredData} id={results._id} key={index}>
-                    {results.companyName} <span>{results.customerId}</span>
-                  </li>
+                  <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} <span>{results.customerId}</span></li>
                 ))}
               </ul>
-            </div>
-          )}
-        </div>
-        <a className={styles.filterIcon}>
-          <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
-        </a>
-        <a href="#" className={`${styles.filterList} filterList `}>
-          Ramesh Shetty
-          <img src="/static/close.svg" className="img-fluid" alt="Close" />
-        </a>
-        <a href="#" className={`${styles.filterList} filterList `}>
-          Raj Traders
-          <img src="/static/close.svg" className="img-fluid" alt="Close" />
-        </a>
+            </div>}
+          </div>
+          <a className={styles.filterIcon}>
+            <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
+          </a>
+          <a href="#" className={`${styles.filterList} filterList `}>
+            Ramesh Shetty
+            <img src="/static/close.svg" className="img-fluid" alt="Close" />
+          </a>
+          <a href="#" className={`${styles.filterList} filterList `}>
+            Raj Traders
+            <img src="/static/close.svg" className="img-fluid" alt="Close" />
+          </a>
       </div>
 
       {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
@@ -103,7 +100,7 @@ function Index() {
         className={`${styles.statusBox} statusBox  d-flex align-items-center justify-content-between`}
       >
         <div className={`${styles.all} ${styles.boxInner}`}>
-          <div className="d-flex align-items-center">
+          <div className="d-lg-flex align-items-center d-inline-block">
             <div className={styles.iconBox}>
               <img
                 src="/static/Leads.svg"
@@ -118,7 +115,7 @@ function Index() {
           </div>
         </div>
         <div className={`${styles.approved} ${styles.boxInner}`}>
-          <div className="d-flex align-items-center">
+          <div className="d-lg-flex align-items-center d-inline-block">
             <div className={styles.iconBox}>
               <img src="/static/check.svg" className="img-fluid" alt="Check" />
             </div>
@@ -129,7 +126,7 @@ function Index() {
           </div>
         </div>
         <div className={`${styles.review} ${styles.boxInner}`}>
-          <div className="d-flex align-items-center">
+          <div className="d-lg-flex align-items-center d-inline-block">
             <div className={styles.iconBox}>
               <img
                 src="/static/access-time.svg"
@@ -144,7 +141,7 @@ function Index() {
           </div>
         </div>
         <div className={`${styles.pending} ${styles.boxInner}`}>
-          <div className="d-flex align-items-center">
+          <div className="d-lg-flex align-items-center d-inline-block">
             <div className={styles.iconBox}>
               <img
                 src="/static/pending.svg"
@@ -159,7 +156,7 @@ function Index() {
           </div>
         </div>
         <div className={`${styles.rejected} ${styles.boxInner}`}>
-          <div className="d-flex align-items-center">
+          <div className="d-lg-flex align-items-center d-inline-block">
             <div className={styles.iconBox}>
               <img
                 src="/static/close-b.svg"
@@ -174,16 +171,13 @@ function Index() {
           </div>
         </div>
       </div>
-      <div className={`${styles.datatable} datatable `}>
+      <div className={`${styles.datatable} datatable card`}>
         <div className={`${styles.tableFilter} d-flex justify-content-between`}>
           <h3 className="heading_card">Credit Queue</h3>
           <div
             className={`${styles.pageList} d-flex justify-content-end align-items-center`}
           >
-            <span>
-              Showing Page {currentPage + 1} out of{' '}
-              {Math.ceil(allBuyerList?.data?.totalCount / 10)}
-            </span>
+            <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}</span>
             <a
               onClick={() => {
                 if (currentPage === 0) {
@@ -192,9 +186,7 @@ function Index() {
                   setCurrentPage((prevState) => prevState - 1)
                 }
               }}
-              href="#"
-              className={`${styles.arrow} ${styles.leftArrow} arrow`}
-            >
+              href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
               {' '}
               <img
                 src="/static/keyboard_arrow_right-3.svg"
@@ -217,195 +209,195 @@ function Index() {
             </a>
           </div>
         </div>
-        <table
-          className={`${styles.table} table table_row`}
-          cellPadding="0"
-          cellSpacing="0"
-          border="0"
-        >
-          <thead>
-            <tr>
-              <th>CUSTOMER ID</th>
-              <th>CUSTOMER NAME</th>
-              <th>CREATED BY</th>
-              <th>USERNAME</th>
-              <th>EXISTING CUSTOMER</th>
-              <th>STATUS</th>
-              <th>CAM SHEET</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allBuyerList &&
-              allBuyerList.data?.data?.map((buyer, index) => (
-                <tr key={index} className={`${styles.table_row} table_row`}>
-                  {buyer.queue === 'CreditQueue' ? (
-                    <>
-                      <td>{buyer.company.customerId}</td>
-                      <td
-                        className={styles.buyerName}
-                        onClick={() => {
-                          Router.push('/review')
-                        }}
-                      >
-                        {buyer.company.companyName}
-                      </td>
-                      <td>{buyer.createdBy.userRole}</td>
-                      <td>{buyer.createdBy.fName}</td>
-                      <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
-                      <td>
-                        <span
-                          className={`${styles.status} ${styles.approved}`}
-                        ></span>
-                        {buyer.queue === 'ReviewQueue'
-                          ? 'Review'
-                          : 'CreditQueue'
-                          ? 'Approved'
-                          : 'Rejected'}
-                      </td>
-                      <td>
-                        <img
-                          src="/static/preview.svg"
-                          className="img-fluid"
-                          alt="Preview"
-                          onClick={() => {
-                            handleRoute(buyer)
-                          }}
-                        />
-                      </td>
-                    </>
-                  ) : null}
+        <div className={styles.table_scroll_outer}>
+          <div className={styles.table_scroll_inner}>
+            <table
+              className={`${styles.table} table table_row`}
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+            >
+              <thead>
+                <tr>
+                  <th>CUSTOMER ID</th>
+                  <th>CUSTOMER NAME</th>
+                  <th>CREATED BY</th>
+                  <th>USERNAME</th>
+                  <th>EXISTING CUSTOMER</th>
+                  <th>STATUS</th>
+                  <th>CAM SHEET</th>
                 </tr>
-              ))}
-            {/* <tr>
-              <td>124621</td>
-              <td className={styles.buyerName}>Ramakrishna Traders</td>
-              <td>Customer</td>
-              <td>Sameer Soni</td>
-              <td>Yes</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                  onClick={() => {
-                    Router.push('/review')
-                  }}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>124621</td>
-              <td className={styles.buyerName}>Somani Traders</td>
-              <td>RM-Sales</td>
-              <td>Sachin Shiv</td>
-              <td>Yes</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                  onClick={() => {
-                    Router.push('/review')
-                  }}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>124621</td>
-              <td className={styles.buyerName}>Bhutani Traders</td>
-              <td>Customer</td>
-              <td>Mahendra Singh</td>
-              <td>Yes</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                  onClick={() => {
-                    Router.push('/review')
-                  }}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>124621</td>
-              <td className={styles.buyerName}>Emerging Traders</td>
-              <td>RM-Sales</td>
-              <td>Amar Singh</td>
-              <td>Yes</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                  onClick={() => {
-                    Router.push('/review')
-                  }}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>124621</td>
-              <td className={styles.buyerName}>Raj Traders</td>
-              <td>Customer</td>
-              <td>Rama Dev</td>
-              <td>Yes</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                  onClick={() => {
-                    Router.push('/review')
-                  }}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>124621</td>
-              <td className={styles.buyerName}>Krishna Traders</td>
-              <td>Customer</td>
-              <td>Sameer Soni</td>
-              <td>Yes</td>
-              <td>
-                <span className={`${styles.status} ${styles.approved}`}></span>
-                Approved
-              </td>
-              <td>
-                <img
-                  src="/static/preview.svg"
-                  className="img-fluid"
-                  alt="Preview"
-                  onClick={() => {
-                    Router.push('/review')
-                  }}
-                />
-              </td>
-            </tr> */}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {allBuyerList &&
+                  allBuyerList.data?.data?.map((buyer, index) => (
+                    <tr key={index} className={`${styles.table_row} table_row`}>
+                      {buyer.queue === 'CreditQueue' ? (
+                        <>
+                          <td>{buyer.company.customerId}</td>
+                          <td className={styles.buyerName} onClick={()=>{Router.push("/review")}}>
+                            {buyer.company.companyName}
+                          </td>
+                          <td>{buyer.createdBy.userRole}</td>
+                          <td>{buyer.createdBy.fName}</td>
+                          <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                          <td>
+                            <span
+                              className={`${styles.status} ${styles.approved}`}
+                            ></span>
+                            {buyer.queue === 'ReviewQueue'
+                              ? 'Review'
+                              : 'CreditQueue'
+                                ? 'Approved'
+                                : 'Rejected'}
+                          </td>
+                          <td>
+                            <img
+                              src="/static/preview.svg"
+                              className="img-fluid"
+                              alt="Preview"
+                              onClick={() => {
+                                handleRoute(buyer)
+                              }}
+                            />
+                          </td>
+                        </>
+                      ) : null}
+                    </tr>
+                  ))}
+                {/* <tr>
+                  <td>124621</td>
+                  <td className={styles.buyerName}>Ramakrishna Traders</td>
+                  <td>Customer</td>
+                  <td>Sameer Soni</td>
+                  <td>Yes</td>
+                  <td>
+                    <span className={`${styles.status} ${styles.approved}`}></span>
+                    Approved
+                  </td>
+                  <td>
+                    <img
+                      src="/static/preview.svg"
+                      className="img-fluid"
+                      alt="Preview"
+                      onClick={() => {
+                        Router.push('/review')
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>124621</td>
+                  <td className={styles.buyerName}>Somani Traders</td>
+                  <td>RM-Sales</td>
+                  <td>Sachin Shiv</td>
+                  <td>Yes</td>
+                  <td>
+                    <span className={`${styles.status} ${styles.approved}`}></span>
+                    Approved
+                  </td>
+                  <td>
+                    <img
+                      src="/static/preview.svg"
+                      className="img-fluid"
+                      alt="Preview"
+                      onClick={() => {
+                        Router.push('/review')
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>124621</td>
+                  <td className={styles.buyerName}>Bhutani Traders</td>
+                  <td>Customer</td>
+                  <td>Mahendra Singh</td>
+                  <td>Yes</td>
+                  <td>
+                    <span className={`${styles.status} ${styles.approved}`}></span>
+                    Approved
+                  </td>
+                  <td>
+                    <img
+                      src="/static/preview.svg"
+                      className="img-fluid"
+                      alt="Preview"
+                      onClick={() => {
+                        Router.push('/review')
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>124621</td>
+                  <td className={styles.buyerName}>Emerging Traders</td>
+                  <td>RM-Sales</td>
+                  <td>Amar Singh</td>
+                  <td>Yes</td>
+                  <td>
+                    <span className={`${styles.status} ${styles.approved}`}></span>
+                    Approved
+                  </td>
+                  <td>
+                    <img
+                      src="/static/preview.svg"
+                      className="img-fluid"
+                      alt="Preview"
+                      onClick={() => {
+                        Router.push('/review')
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>124621</td>
+                  <td className={styles.buyerName}>Raj Traders</td>
+                  <td>Customer</td>
+                  <td>Rama Dev</td>
+                  <td>Yes</td>
+                  <td>
+                    <span className={`${styles.status} ${styles.approved}`}></span>
+                    Approved
+                  </td>
+                  <td>
+                    <img
+                      src="/static/preview.svg"
+                      className="img-fluid"
+                      alt="Preview"
+                      onClick={() => {
+                        Router.push('/review')
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>124621</td>
+                  <td className={styles.buyerName}>Krishna Traders</td>
+                  <td>Customer</td>
+                  <td>Sameer Soni</td>
+                  <td>Yes</td>
+                  <td>
+                    <span className={`${styles.status} ${styles.approved}`}></span>
+                    Approved
+                  </td>
+                  <td>
+                    <img
+                      src="/static/preview.svg"
+                      className="img-fluid"
+                      alt="Preview"
+                      onClick={() => {
+                        Router.push('/review')
+                      }}
+                    />
+                  </td>
+                </tr> */}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
   )
 }
 export default Index

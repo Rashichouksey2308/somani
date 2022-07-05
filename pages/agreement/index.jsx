@@ -7,7 +7,7 @@ import AssociateshipAgreement from '../../src/components/AssociateshipAgreement'
 import TPASeller from '../../src/components/TPASeller'
 import TPAIGI from '../../src/components/TPAIGI'
 import QPA from '../../src/components/QPA'
-
+import { setPageName } from '../../src/redux/userData/action'
 
 import { Form } from 'react-bootstrap'
 
@@ -28,6 +28,8 @@ function Index() {
     }
  
     },[])
+
+   
     return (
         <div className={`${styles.dashboardTab} tabHeader w-100`}>
             <div className={`${styles.tabHeader} tabHeader `}>
