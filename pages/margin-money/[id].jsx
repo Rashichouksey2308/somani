@@ -251,13 +251,14 @@ function Index() {
                               </div>
                               <input
                                 disabled={true}
+                                
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
                                 style={{width:"50%"}}
                                 required
-                              />
+                              /> 
                              
                               <label
                                   className={`${styles.label_heading} label_heading`}
