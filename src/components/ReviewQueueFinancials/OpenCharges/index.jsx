@@ -4,7 +4,7 @@ import styles from '../index.module.scss'
 function Index() {
   return (
    <>
-        <div className={`${styles.card} card`}>
+        <div className={`${styles.card} card mb-6`}>
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#openCharges" aria-expanded="true" aria-controls="openCharges">
                                             <h2 className="mb-0">Open Charges</h2>
                                             

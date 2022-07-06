@@ -274,10 +274,10 @@ function Index() {
                               > Include in Calculation
 
                                 <input className="form-check-input ml-3" type="radio" name="inlineRadioOptions"/>
-                                <label className="form-check-label mr-2" for="inlineRadio1">Yes</label>
+                                <label className="form-check-label mr-2" htmlFor="inlineRadio1">Yes</label>
                              
                                 <input className="form-check-input ml-2" type="radio" name="inlineRadioOptions"/>
-                                <label className="form-check-label" for="inlineRadio2">No</label>
+                                <label className="form-check-label" htmlFor="inlineRadio2">No</label>
                               </div>
                             <div
                               className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
@@ -366,7 +366,7 @@ function Index() {
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
                                   style={{left:"70px"}}>
-                                  No. of PDC's
+                                  No. of PDC &apos; s
                                   <strong className="text-danger">*</strong>
                                 </label>
   
@@ -391,7 +391,7 @@ function Index() {
                                   id="textInput"
                                   style={{left:"70px"}}
                                 >
-                                  Additional PDC's
+                                  Additional PDC &apos; s
                                   <strong className="text-danger">*</strong>
                                 </label>
   

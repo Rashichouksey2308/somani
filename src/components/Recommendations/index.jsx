@@ -149,6 +149,8 @@ const Index = ({
 
           <div className={`${styles.datatable} pt-5 datatable`}>
             <h5>Group Exposure Details</h5>
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
             <table
               className={`${styles.table} table`}
               cellPadding="0"
@@ -167,27 +169,31 @@ const Index = ({
               </thead>
               <tbody>
                 <tr className="table_row">
-                  <td className={styles.number}>1</td>
-                  <select className={`${styles.dropDown} mt-4 heading`}>
+                  <td className={styles.number}>1 </td>
+                  <td>
+                  <select className={`${styles.dropDown} heading`}>
                     <option>Simport Pvt. Ltd.</option>
                     <option>Krishna</option>
                   </select>
-                  <td>
-                    <input readOnly={!saveTable} />
                   </td>
                   <td>
                     <input readOnly={!saveTable} />
                   </td>
-                  <select className={`${styles.dropDown_Satisfy} mt-4 heading`}>
+                  <td>
+                    <input readOnly={!saveTable} />
+                  </td>
+                  <td>
+                  <select className={`${styles.dropDown_Satisfy} heading`}>
                     <option>Satisfactory</option>
                     <option>Good</option>
                   </select>
+                  </td>
                   <td>
                     <div>
                       {!saveTable ? (
                         <img
                           src="/static/mode_edit.svg"
-                          className={`${styles.edit_image} mr-3 img-fluid`}
+                          className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
                           onClick={(e) => {
                             setSaveTable(true)
                           }}
@@ -195,7 +201,7 @@ const Index = ({
                       ) : (
                         <img
                           src="/static/save-3.svg"
-                          className={`${styles.edit_image} mr-3 img-fluid`}
+                          className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
                           alt="save"
                           onClick={(e) => {
                             setSaveTable(false)
@@ -204,7 +210,7 @@ const Index = ({
                       )}
                       <img
                         src="/static/delete 2.svg"
-                        className="img-fluid"
+                        className={`${styles.delete_image} img-fluid`}
                         alt="delete"
                       />
                     </div>
@@ -212,6 +218,8 @@ const Index = ({
                 </tr>
               </tbody>
             </table>
+            </div>
+            </div>
             <div
               className={`${styles.add_image} p-3 d-flex justify-content-end`}
             >

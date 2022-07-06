@@ -225,8 +225,14 @@ height: 48px;
     .datatable {
         border-radius: 6px;
         padding: 0px;
-      
-        
+       
+        .table_scroll_outer {
+            width: 100%;
+            display: table;
+            table-layout: fixed;
+            .table_scroll_inner {
+                display: table-cell;
+                overflow-x: auto; 
         .table {
             th {
                 font-size: 15px;
@@ -235,11 +241,28 @@ height: 48px;
                 line-height: 18px;
                 padding: 24px 15px;
                 text-transform: uppercase;
-                border-top: 2px solid #f2f5f9;
+                white-space: nowrap;
                 &:first-child {
                     padding-left: 35px;
+                    @include respond(sm-desktop) {
+                        padding-left: 15px;
+                    }
                 }
-            }
+                @include respond(md-desktop) {
+                    font-size: 14px;
+                    line-height: 1.2;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 13px;
+                }
+                @include respond(phone) {
+                    font-size: 12px;
+                }
+              }
+              tr {
+                &:last-child {
+                    border-bottom: none;
+                }
             td {
                 font-size: 19px;
                 font-weight: 500;
@@ -247,8 +270,24 @@ height: 48px;
                 padding: 24px 15px;
                 border: none;
                 opacity: 0.7;
+                white-space: nowrap;
                 &:first-child {
                     padding-left: 35px;
+                    @include respond(sm-desktop) {
+                        padding-left: 15px;
+                    }
+                }
+                @include respond(md-desktop) {
+                    font-size: 17px;
+                    padding: 18px 10px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 15px;
+                    padding: 15px 10px;
+                }
+                @include respond(phone) {
+                    font-size: 14px;
+                    padding: 10px;
                 }
 
                 input {
@@ -261,6 +300,7 @@ height: 48px;
 
                 }
             }
+        }
             .dropDown{
                 background: transparent;
                 border: none;
@@ -268,6 +308,8 @@ height: 48px;
             }
             
            
+        }
+            }
         }
     }
     
@@ -288,7 +330,20 @@ height: 48px;
         border: 1px solid #0000001F;
         border-radius: 4px;
         padding: 10px 9px 10px 9px;
+        @include respond(md-desktop) {
+          height: 30px;
+          padding: 7px;
+      }
+      @include respond(sm-desktop) {
+          height: 28px;
+          padding: 6px;
+      }
+      @include respond(phone) {
+          height: 25px;
+          padding: 5px;
+      }
     }
+    
         .submit {
             cursor: pointer;
             width: 260px;

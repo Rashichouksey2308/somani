@@ -233,15 +233,24 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                    <div className='d-flex'>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
                       type="text"
                     />
+                    
+
                     <label className={`${styles.label_heading} label_heading`}>
-                      (44E) Port Of Loading
+                      (44A) Shipment From
                       <strong className="text-danger">*</strong>
                     </label>
+                    <img
+                    className={`${styles.search_image} img-fluid`}
+                    src="/static/search-grey.svg"
+                    alt="Search"
+                  />
+                  </div>
                   </Col>
                  
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -267,10 +276,11 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={12}>
-                    <input
+                    <textarea
                       className={`${styles.input_field} input form-control`}
                       required
                       type="text"
+                      style={{height: "103px"}}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       (45A) Description Of The Goods
