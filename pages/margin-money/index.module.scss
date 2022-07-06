@@ -275,14 +275,17 @@
                     margin-top: 20px;
                     margin-bottom: 10px;
                     padding-bottom: 14px;
-            .filed{
-                margin: 30px 0 20px;
-                
-                
-            }
+                    .radio_heading {
+                        letter-spacing: 0.53px;
+                        color: #00000080;
+                        font-size: 16px;
+                        line-height: 17px;
+                        font-weight: 500;
+                    }
                     .each_input {
                         position: relative;
                         margin: 30px 0 20px;
+                        
                         .alphabet{
                             width: 26px;
                                 height: 26px;
@@ -296,6 +299,7 @@
                                     color: #3687E8;
                             }
                         }
+                        
                         .label_heading {
                             top: 27px;
                             left: 30px;

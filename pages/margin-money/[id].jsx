@@ -244,19 +244,20 @@ function Index() {
   
                             </div>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-2 col-sm-6`}>
                                 <div
                                 className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
                                 <span>D</span>
                               </div>
                               <input
-                              disabled={true}
+                                disabled={true}
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
+                             
                               <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
@@ -267,6 +268,16 @@ function Index() {
                                 </label>
   
                             </div>
+                            <div className={`${styles.radio_heading} form-check form-check-inline`}
+                              //style={{top:"50px", left:"100px"}}
+                              > Include in Calculation
+
+                                <input className="form-check-input" type="radio" name="inlineRadioOptions"/>
+                                <label className="form-check-label" for="inlineRadio1">Yes</label>
+                             
+                                <input className="form-check-input" type="radio" name="inlineRadioOptions"/>
+                                <label className="form-check-label" for="inlineRadio2">No</label>
+                              </div>
                             <div
                               className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
                                 <div
