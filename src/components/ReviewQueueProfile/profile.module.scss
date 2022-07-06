@@ -1,5 +1,5 @@
 
- 
+ @import "../styles/Core/config";
 
         .card {
             margin-bottom: 1rem;
@@ -9,12 +9,29 @@
                 cursor: pointer;
                 border-bottom: none;
                 padding: 25px 35px !important;
-
+                @include respond(md-desktop) {
+                        padding: 0 15px 0 15px !important;
+                    }
                 h2 {
                     font-size: 22px;
                     color: #3687e8;
                     font-weight: bold;
                     line-height: 27px;
+                    @include respond(md-desktop) {
+                            font-size: 18px !important;
+                            line-height: 1.3;
+                            margin: 20px 0px 20px 0px !important;
+                        }
+                    @include respond(sm-desktop) {
+                        font-size: 18px !important;
+                        line-height: 1.3;
+                        margin: 20px 0px 20px 0px !important;
+                    }
+                            
+                    @include respond(phone) {
+                        font-size: 16px !important;
+                         margin: 13px 0px 13px 0px !important;
+                    }
                 }
 
                 span {
@@ -22,6 +39,11 @@
                     color: #3687e8;
                     font-weight: normal;
                     line-height: 20px;
+                    @include respond(phone) {
+                            font-size: 30px;
+                            line-height: 20px;
+                            
+                    }
                 }
 
                 .label {
@@ -63,7 +85,15 @@
             .cardBody {
                 padding: 25px 35px;
                 border-top: 2px solid red;
-
+                @include respond(md-desktop) {
+                    padding: 15px !important;
+                }
+                @include respond(sm-desktop) {
+                     padding: 15px !important;
+                }
+                @include respond(phone){
+                    padding: 15px !important;
+                }
                 .label {
                     font-size: 16px;
 
@@ -124,6 +154,24 @@
             .borderTable {
                 padding: 35px;
                 box-sizing: border-box;
+                width:100%;
+            @include respond(md-desktop) {
+                    width: calc(100vw - 30px);
+                    overflow-x: auto;
+                    padding: 15px 15px !important;
+                }
+            
+                @include respond(sm-desktop) {
+                    width: calc(100vw - 30px);
+                    overflow-x: auto;
+                    padding: 15px 15px !important;
+                }
+            
+                @include respond(phone) {
+                    width: calc(100vw - 30px);
+                    overflow-x: auto;
+                    padding: 15px 15px !important;
+                }
 
                 .table {
                     th {
@@ -183,6 +231,22 @@
             .graphTable {
                 padding: 25px 35px;
                 box-sizing: border-box;
+                @include respond(md-desktop) {
+                    width: calc(100vw - 30px);
+                        overflow-x: auto;
+                        padding: 15px 15px !important;
+                }
+                @include respond(sm-desktop) {
+                    width: calc(100vw - 30px);
+                        overflow-x: auto;
+                        padding: 15px 15px  !important;
+                }
+                @include respond(phone){
+                    width:calc(100vw - 30px);
+                    overflow-x: auto;
+                    padding: 15px 15px!important;
+                }
+
 
                 h3 {
                     font-size: 20px;

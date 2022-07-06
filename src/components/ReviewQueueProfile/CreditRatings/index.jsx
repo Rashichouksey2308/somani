@@ -5,7 +5,7 @@ function
 Index() {
   return (
    <>
-   <div className={`${styles.card} card`}>
+   <div className={`${styles.card} card mb-6`}>
                                         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#creditRatings" aria-expanded="true" aria-controls="creditRatings">
                                             <h2 className="mb-0">Credit Ratings</h2>
                                             <span>+</span>

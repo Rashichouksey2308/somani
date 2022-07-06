@@ -12,9 +12,9 @@ import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { set } from 'immer/dist/internal'
 
-const Index = () => {
+
+function Index() {
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
     if (
@@ -229,7 +229,7 @@ const Index = () => {
         dispatch(CreateBuyer(fd))
       }
     }
-
+  }
     const clearData = () => {
       document.getElementById('CompanyDetailsForm').reset()
       document.getElementById('OrderDetailsForm').reset()
@@ -287,4 +287,4 @@ const Index = () => {
       </Card>
     )
   }
-  export default Index
+ export default Index
