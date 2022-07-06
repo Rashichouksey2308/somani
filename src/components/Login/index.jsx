@@ -66,22 +66,23 @@ function Index(props) {
 
   return (
         <>
-          <div className={styles.login}>
+        <div className={styles.login}>
             <div className='row no-gutters'>
-                <div className={`${styles.loginBanner} col-sm-6`}>
+                <div className={`${styles.loginBanner} col-sm-5`}>
                     <img src='/static/login.png' alt='Login Banner' className='img-fluid'/>
                     <div className={styles.pattern}><img src='/static/login-pattern.png' alt='banner pattern' className='img-fluid' /></div>
                     <div className={styles.caption}>{`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s`}</div>
                 </div>
                 {/* <div className='col-sm-6'> background: #171E27 0% 0% no-repeat padding-box;
                     <div className='row no-gutters'> */}
-                <div className={`${styles.loginForm} card d-flex col-sm-6 align-items-center justify-content-around`}> 
+                <div className={`${styles.loginForm} card d-flex col-sm-7 align-items-center justify-content-around`}> 
+                    <img src='/static/login-form-bg.png' alt='login form bg' className='img-fluid'/>
                     <form className={styles.form}>
                         <div className={styles.logo}>
                             <img src='/static/login-logo.svg' alt='login logo' className='img-fluid' />
                         </div>
-                        <h1 className={`${styles.title} heading_card`}>Log In To Your Account</h1>
-                        <p className={`para`}>Welcome back! Please enter your details.</p>
+                        <h1 className={`${styles.title} heading_card`}>Welcome To Your Account</h1>
+                        <p className={`para`}>To continue, log in to Simport</p>
                         <div className={`${styles.labelFloat} form-group`}>
                             <input type='text' id='email' name="email"  onChange={(e)=>onInputDataHandler(e)} className={`${styles.formControl} input form-control`} required />
                             <label className={`label_heading_login`} htmlFor='email'>Email</label>
@@ -103,18 +104,17 @@ function Index(props) {
                         <div className={`${styles.labelFloat} form-group`}>
                             <button className={`${styles.signin} btn btn-primary btn-block`} onClick={(e)=>{
                                 e.preventDefault()
-                                onSubmitHandler()
-                               
-                              
-                           
+                                onSubmitHandler()                           
                             }}>Sign in</button>
+                            <p className={styles.signUp}>Don't have an account?<a href='#'>Sign up</a></p>
                         </div>
                     </form>
-                    <ul className={styles.footerLinks}>
+                    {/* <ul className={styles.footerLinks}>
                         <li ><a className={`para`} href='#'>Help</a></li>
                         <li  ><a  className={`para`} href='#'>Privacy</a></li>
                         <li  ><a  className={`para`} href='#'>Terms</a></li>
-                    </ul>
+                    </ul> */}
+                    <div className={styles.footer}>&copy; 2022 Simport. All Rights Reserved.</div>
                 </div>
             </div>
         </div>
