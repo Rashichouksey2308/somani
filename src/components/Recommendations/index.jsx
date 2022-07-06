@@ -21,11 +21,8 @@ const Index = ({
   const [editFinance, setEditFinance] = useState(false)
   const [saveTable, setSaveTable] = useState(false)
   const [editStren, setEditStren] = useState(false)
-  const [editStren1, setEditStren1] = useState(false)
   const [editWeak, setEditWeak] = useState(false)
-  const [editWeak1, setEditWeak1] = useState(false)
   const [editSanc, setEditSanc] = useState(false)
-  const [editSanc1, setEditSanc1] = useState(false)
 
   const [companyComments, setCompanyComments] = useState('')
   const [strengthsComments, setStrengthsComments] = useState('')
@@ -250,7 +247,7 @@ const Index = ({
             <div className={`${styles.strength} value`}>Strengths</div>
             {strengthsComment && strengthsComment.map((strengths, index) => (  <div key={index} className="d-flex justify-content-between">
               <Form.Control
-                className={`${styles.paragraph}`}
+                className={`${styles.paragraph} input`}
                 defaultValue={strengths}
                 as="textarea"
                 rows={3}
@@ -319,7 +316,7 @@ const Index = ({
             <div className={`${styles.strength} value`}>Weakness</div>
             {weaknessComment && weaknessComment.map((weakness, index) => (     <div key={index} className="d-flex justify-content-between">
               <Form.Control
-                className={`${styles.paragraph}`}
+                className={`${styles.paragraph} input`}
                 defaultValue={weakness}
                 as="textarea"
                 rows={3}
@@ -432,7 +429,7 @@ const Index = ({
             </div>
         { sanctionComment && sanctionComment.map((sanction, index) => (  <div key={index} className="d-flex justify-content-between">
               <Form.Control
-                className={`${styles.paragraph}`}
+                className={`${styles.paragraph} input`}
                 defaultValue={sanction}
                 as="textarea"
                 rows={3}
