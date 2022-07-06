@@ -1,5 +1,5 @@
 @import "../../src/components/styles/Core/config";
-.review_inner {
+.container_inner {
     margin: 28px;
     @include respond(sm-desktop) {
         margin: 20px;
