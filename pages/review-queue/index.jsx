@@ -56,7 +56,7 @@ function Index() {
     <>
       {' '}
       <div className="container-fluid border-0 p-0">
-        <div className={styles.review_inner}>
+        <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={styles.search}>
