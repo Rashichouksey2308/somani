@@ -1,5 +1,13 @@
 @import "../../../src/components/styles/Core/config";
-
+.container_inner {
+  margin: 28px;
+  @include respond(sm-desktop) {
+      margin: 20px;
+  }
+  @include respond(phone) {
+      margin: 15px;
+  }
+}
 
 .filter {
   margin: 15px 0;
@@ -161,6 +169,10 @@
             font-size: 12px;
         }
       }
+      tr {
+        &:last-child {
+            border-bottom: none;
+        }
       td {
           font-size: 19px;
           font-weight: 500;
@@ -188,6 +200,7 @@
             padding: 10px;
         }
       }
+    }
       .updateBtn{
         text-align: center;
         color: #3687E8;
@@ -205,6 +218,18 @@
         border: 1px solid #0000001F;
         border-radius: 4px;
         padding: 10px 9px 10px 9px;
+        @include respond(md-desktop) {
+          height: 30px;
+          padding: 7px;
+      }
+      @include respond(sm-desktop) {
+          height: 28px;
+          padding: 6px;
+      }
+      @include respond(phone) {
+          height: 25px;
+          padding: 5px;
+      }
     }
       .buyerName {
           color: #3687E8;
