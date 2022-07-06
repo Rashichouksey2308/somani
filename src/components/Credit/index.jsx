@@ -134,6 +134,8 @@ const index = ({
     saveSupplierData(e.target.name, text)
   }
 
+ 
+
   return (
     <>
       <div className={`${styles.main} card border_color`}>
