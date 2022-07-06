@@ -4,11 +4,11 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllMarginMoney } from 'redux/marginMoney/action'
+import { GetAllMarginMoney, GetMarginMoney } from 'redux/marginMoney/action'
 import { SearchLeads } from 'redux/buyerProfile/action'
 
 function Index() {
-
+  
   const [currentPage, setCurrentPage] = useState(0)
 
   const [searchTerm, setSearchTerm] = useState('')
@@ -18,7 +18,7 @@ function Index() {
   const { searchedLeads } = useSelector((state) => state.order)
 
   const { marginMoneyResponse } = useSelector((state) => state.marginMoney)
-  // console.log(marginMoneyResponse, 'this is margin money response')
+  
 
   useEffect(() => {
     dispatch(GetAllMarginMoney(`?page=${currentPage}`))
@@ -39,13 +39,9 @@ function Index() {
   }
 
   const handleRoute = (margin) => {
-    
-      dispatch(GetAllMarginMoney( `?orderId=${margin._id}` ))
-      Router.push('/margin-money/id')
-    
+    dispatch(GetMarginMoney({ orderId: margin._id }))
+    Router.push('/margin-money/id')
   }
-
-
 
   return (
     <>
