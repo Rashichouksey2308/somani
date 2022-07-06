@@ -54,7 +54,7 @@ function Index() {
 
   return (
     <div className="container-fluid p-0 border-0">
-      <div className={styles.credit_inner}>
+      <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
             <div className="input-group">

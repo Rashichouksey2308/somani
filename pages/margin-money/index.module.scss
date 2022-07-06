@@ -275,37 +275,31 @@
                     margin-top: 20px;
                     margin-bottom: 10px;
                     padding-bottom: 14px;
-            .filed{
-                margin: 30px 0 20px;
-                .alphabet{
-                    width: 26px;
-                        height: 26px;
-                        /* UI Properties */
-                        background: #F0F8FF 0% 0% no-repeat padding-box;
-                        border-radius: 6px;
-                        span{
-                            font-size: 16px;
-                            font-weight: bold;
-                                letter-spacing: 0.53px;
-                                color: #3687E8;
-                        }
-                }
-                .val_wrapper{
-                    .val{
-                        text-transform: capitalize;
-                        font-size: 20px;
-                        line-height: 25px;
-                        font-weight: medium;
+                    .radio_heading {
+                        letter-spacing: 0.53px;
+                        color: #00000080;
+                        font-size: 16px;
+                        line-height: 17px;
+                        font-weight: 500;
                     }
-                    .blue{
-                        color: #3687E8 !important;
-                    }
-                }
-            }
                     .each_input {
                         position: relative;
                         margin: 30px 0 20px;
-            
+                        
+                        .alphabet{
+                            width: 26px;
+                                height: 26px;
+                                /* UI Properties */
+                                background: #F0F8FF 0% 0% no-repeat padding-box;
+                                border-radius: 6px;
+                                span{
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    letter-spacing: 0.53px;
+                                    color: #3687E8;
+                            }
+                        }
+                        
                         .label_heading {
                             top: 27px;
                             left: 30px;
@@ -318,6 +312,9 @@
                             box-sizing: border-box;
                             transform: translateY(-31px);
                             transition: 0.3s all ease-in-out;
+                            .blue {
+                                color: #3687E8;
+                            }
                         }
             
                         .input_field {
@@ -341,51 +338,7 @@
                             }
                         }
             
-                        .slidecontainer {
-                            width: 100%;
-                            margin-top: 40px;
-                            position: relative;
-            
-                            .slider {
-                                -webkit-appearance: none;
-                                /* Override default CSS styles */
-                                width: 100%;
-                                /* Full-width */
-                                opacity: 0.7;
-                                /* Set transparency (for mouse-over effects on hover) */
-                                -webkit-transition: .2s;
-                                /* 0.2 seconds transition on hover */
-                                transition: opacity .2s;
-                                outline: none;
-                                background: linear-gradient(90deg, #3579F6 55%, #C3C3C31F 40%);
-                                border: 1px solid #0000001F;
-                                border-radius: 4px;
-                                height: 13px;
-                            }
-            
-                            .datalist {
-                                display: flex;
-                                justify-content: space-between;
-                                font-size: 16px;
-                                letter-spacing: 0.15px;
-                                color: #666666;
-                                text-transform: capitalize;
-                                width: 100%;
-                            }
-            
-                            .slider::-webkit-slider-thumb {
-                                -webkit-appearance: none;
-                                appearance: none;
-                                width: 29px;
-                                height: 16px;
-                                background: transparent;
-                                box-shadow: 0px 3px 6px #697AB429;
-                                border: 3px solid #3579F6;
-                                border-radius: 4px;
-                                position: relative;
-                                margin-top: -19px;
-                            }
-                        }
+                       
             
                         .phone_card {
                             display: flex;
