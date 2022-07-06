@@ -269,7 +269,7 @@ function Index() {
                                 </label>
   
                             </div>
-                            <div className={`${styles.radio_heading} ml-n5 form-check form-check-inline`}
+                            <div className={`${styles.radio_heading} ml-n5 mt-4 form-check form-check-inline`}
                               //style={{top:"50px", left:"100px"}}
                               > Include in Calculation
 
