@@ -105,13 +105,7 @@ function Index() {
     setShipment(newInput)
   }
 
-  const validate = (name) => {
-    if(name.trim()===""){
-      let toastMessage = `the ${name} Field Cannot be Empty`
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-    }
-  }
+  
 
 
   // const validate = (name) => {
