@@ -12,7 +12,7 @@ function Index() {
                 <span className={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-            <Card.Body className={`${styles.body} value_card`}>
+            <Card.Body className={`${styles.body} value_card row`}>
                 {fields("Commodity",buyerList?.order?.commodity)}
                 {fields("Quantity (in MT)",buyerList?.order?.Quantity,false)}
                 {fields("Order values (in INR)",buyerList?.order?.order?.Value,false)}
@@ -32,7 +32,7 @@ export default Index
 const fields =(head,value,isButton)=>{
     return (
         <>
-            <div className={`${styles.filed_container}`}>
+            <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-3`}>
                 <span className={`${styles.top} value`}>{head}</span>
                 <div>
                     <span className={`${styles.value} value `}>

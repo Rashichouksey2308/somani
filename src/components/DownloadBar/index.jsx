@@ -6,8 +6,9 @@ import Image from 'next/image'
 function index({handleApprove, handleReject,downLoadButtonName,isPrevious,leftButtonName,rightButtonName}) {
   return (
     <div className={`${styles.root} card`}>
-      <div>
-         <div className={`${styles.reject} `} onClick={()=>{handleReject()}}><span className={`mr-2`}>{downLoadButtonName}</span>
+     
+       <div className="d-flex justify-content-between align-items-center w-100"> 
+          <div className={`${styles.reject} `} onClick={()=>{handleReject()}}><span className={`mr-2`}>{downLoadButtonName}</span>
           <Image
          
           src="/static/file_download.svg"
@@ -16,8 +17,6 @@ function index({handleApprove, handleReject,downLoadButtonName,isPrevious,leftBu
           height={17}
     />
          </div>
-      </div>
-       <div className="d-flex justify-content-between align-items-center"> 
         {isPrevious?<div className={styles.reject} onClick={()=>{handleReject()}}><span>{leftButtonName}</span></div>:null}
         <div className={styles.approve} onClick={()=>{ handleApprove()}}><span>{rightButtonName}</span></div>
         </div>
