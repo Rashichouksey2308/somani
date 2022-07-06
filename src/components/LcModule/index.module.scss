@@ -22,6 +22,15 @@
       font-size: 30px;     
       text-transform: capitalize;
       margin-top: 0;
+      @include respond(md-desktop) {
+        font-size: 28px;
+    }
+    @include respond(sm-desktop) {
+        font-size: 26px;
+    }
+    @include respond(phone) {
+        font-size: 24px;
+    }
     }
   }
   .search {

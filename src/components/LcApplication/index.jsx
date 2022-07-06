@@ -43,7 +43,7 @@ function Index() {
             <div className={` ${styles.content}`}>
               <div className={` ${styles.body}`}>
                 <Row>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
@@ -55,7 +55,7 @@ function Index() {
                       (40A) Form of Documentary Credit<strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -65,7 +65,7 @@ function Index() {
                       (40E) Application Rules<strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
                   <input
                       className={`${styles.input_field} input form-control`}
                       type="date"
@@ -75,7 +75,7 @@ function Index() {
                     </label>
                   </Col>
 
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -85,7 +85,7 @@ function Index() {
                       (32D) Place Of Expiry<strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
@@ -97,7 +97,7 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
@@ -109,7 +109,7 @@ function Index() {
                     </label>
                   </Col>
 
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="date"
@@ -118,7 +118,7 @@ function Index() {
                       (59) Beneficiary<strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -129,7 +129,7 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
                   <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -139,7 +139,7 @@ function Index() {
                       (39A) Tolerance (+/-) Percentage<strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
@@ -151,7 +151,7 @@ function Index() {
                       (41A) Credit Available With<strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
@@ -163,7 +163,7 @@ function Index() {
                     (41A) Credit Available By<strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={3}>
+                  <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
@@ -175,7 +175,7 @@ function Index() {
                       (42C) At Sight<strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={1}>
+                  <Col className="mb-4 mt-4" lg={1} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -186,7 +186,7 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -197,7 +197,7 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -208,7 +208,7 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
@@ -220,7 +220,7 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
@@ -232,7 +232,7 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -244,11 +244,11 @@ function Index() {
                     </label>
                   </Col>
                  
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
-                      <option>Ramakrishna Traders</option>
+                      <option>Visakhapatnam Port, India</option>
                       <option>Balaji Traders</option>
                     </select>
                    
@@ -256,7 +256,7 @@ function Index() {
                       (44F) At Sight<strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={4}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="date"
@@ -302,7 +302,7 @@ function Index() {
                 </div>
                 <div className="d-flex justify-content-between pt-4 pb-3">
                 <div className={`${styles.number} mr-n3`}>1.</div>
-                <Form.Control className={`${styles.paragraph}`} 
+                <Form.Control className={`${styles.paragraph} input`} 
                         as="textarea"
                         rows={3} 
                         
@@ -343,7 +343,7 @@ function Index() {
             </div>
             <div className="d-flex justify-content-between pt-4 pb-3">
             <div className={`${styles.number} mr-n3`}>1.</div>
-                <Form.Control className={`${styles.paragraph}`} 
+                <Form.Control className={`${styles.paragraph} input`} 
                         as="textarea"
                         rows={3} 
                         
@@ -365,7 +365,7 @@ function Index() {
             <hr></hr>
             <div className="d-flex justify-content-between pt-4 pb-3">
             <div className={`${styles.number} mr-n3`}>2.</div>
-                <Form.Control className={`${styles.paragraph}`} 
+                <Form.Control className={`${styles.paragraph} input`} 
                         as="textarea"
                         rows={3} 
                         
@@ -376,7 +376,6 @@ function Index() {
                 className='img-fluid'
                 alt="edit"
                 onClick={(e) => {setEdit(!edit)}}/>
-
               
                 <img
                 src="/static/delete 2.svg"
@@ -425,47 +424,44 @@ function Index() {
               <th>GUARANTEED</th>
              
             </tr>
-          </thead>
-          <tbody>
-          <tr className="table_row">
-              <td>MN</td>
-              <td>44.5 PCT</td>
-            <td>43.0</td>
-            </tr>
+            </thead>
+            <tbody>
             <tr className="table_row">
-              <td>SIO2</td>
+                <td>MN</td>
+                <td>44.5 PCT</td>
+              <td>43.0</td>
+              </tr>
+              <tr className="table_row">
+                <td>SIO2</td>
+                <td>8.0 PCT</td>
               <td>8.0 PCT</td>
-            <td>8.0 PCT</td>
-            </tr>
-            <tr className="table_row">
-              <td>AL2O3</td>
-              <td>7.6 PCT</td>
-            <td>8.0 PCT</td>
-            </tr>
+              </tr>
+              <tr className="table_row">
+                <td>AL2O3</td>
+                <td>7.6 PCT</td>
+              <td>8.0 PCT</td>
+              </tr>
 
-            <tr className="table_row">
-              <td>FE</td>
-              <td>44.5 PCT</td>
-            <td>43.0</td>
-            </tr>
-           
-          </tbody>
-        </table>
-        </div>
-        </div>
-      </div>
+              <tr className="table_row">
+                <td>FE</td>
+                <td>44.5 PCT</td>
+              <td>43.0</td>
+              </tr> 
+              </tbody>
+            </table>
+            </div>
+            </div>
+          </div>
                 </div>
 
-            <hr className={styles.line}></hr>
-
-             
+            <hr className={styles.line}></hr>   
             <div className={`${styles.dashboard_form}`}>
             <div className={` ${styles.content}`}>
               <div className={` ${styles.body}`}>
                 <Row>
                  
                   <Col className="mb-4 mt-4" md={12}>
-                    <input
+                    <textarea
                       className={`${styles.input_field} input form-control`}
                       style={{height: "103px"}}
                       required
@@ -477,7 +473,7 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={12}>
-                    <input
+                    <textarea
                       className={`${styles.input_field} input form-control`}
                       style={{height: "103px"}}
                       required
@@ -488,11 +484,10 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={6}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <select
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option>Ramakrishna Traders</option>
+                      className={`${styles.input_field} input form-control`}>
+                      <option>Bnp Paribas Paribas - Bnpafrppxx</option>
                       <option>Balaji Traders</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
@@ -500,11 +495,10 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={6}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <select
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option>Ramakrishna Traders</option>
+                      className={`${styles.input_field} input form-control`} >
+                      <option>Bnp Paribas Paribas - Bnpafrppxx</option>
                       <option>Balaji Traders</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
@@ -513,7 +507,7 @@ function Index() {
                     </label>
                   </Col>
                  
-                  <Col className="mb-4 mt-4" md={6}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -524,7 +518,7 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={6}>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -535,10 +529,8 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-
-               
                 <Col className="mb-4 mt-4" md={12}>
-                    <input
+                    <textarea
                       className={`${styles.input_field} input form-control`}
                       style={{height: "103px"}}
                       required
@@ -550,7 +542,7 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={12}>
-                    <input
+                    <textarea
                       className={`${styles.input_field} input form-control`}
                       style={{height: "139px"}}
                       required
@@ -561,23 +553,11 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" md={12}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      style={{height: "103px"}}
-
-                      required
-                      type="text"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      (72) Sender To Receiver Information
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
+                 
                   <Col className="mb-4 mt-4" md={12}>
                     <textarea
                       className={`${styles.input_field} input form-control`}
-
+                      style={{height: "103px"}}
                       required
                       type="text"
                     />
@@ -587,13 +567,10 @@ function Index() {
                     </label>
                   </Col>
                   </Row>
-              </div>
-            </div>
-
+                    </div>
+                  </div>
                 </div>
- 
             </div>
-  
         </div>
         </div>
         
