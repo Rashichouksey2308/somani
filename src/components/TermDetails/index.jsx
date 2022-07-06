@@ -3,6 +3,27 @@ import { useEffect } from 'react'
 import styles from './index.module.scss'
 
 const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetails, onChangeCommercialTerms, onChangePaymentDueDate, onChangeTransactionDetails }) => {
+    const [IsBlSelected, setIsBlSelected] = useState(false)
+    const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
+
+
+
+    const updateThirdPartyInspection = (value) => {
+        if (value === "No") {
+            setThirdPartyInspection(false)
+        } else if (value === "yes") {
+            setThirdPartyInspection(true)
+        }
+    }
+
+    const payementchangeFunc = (value) => {
+        if (value === "DaysfromBLDate") {
+            setIsBlSelected(false)
+        } else if (value === "DaysfromVesselDischargeDate") {
+            setIsBlSelected(true)
+        }
+    }
+    console.log(thirdPartyInspection,"isBthirdPartyInspectionSelected")
 
     return (
         <div className={`${styles.main} main`}>
@@ -141,20 +162,19 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>Bill of Entry<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='thirdPartyInspectionReq' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
-                                <option value={termsheetDetails?.transactionDetails?.thirdPartyInspectionReq}>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq} </option>
-                                <option value="Yes">Yes</option>
+                            <select id='thirdPartyInspectionReq' className={`${styles.value} input form-control`} onChange={(e)=> updateThirdPartyInspection(e.target.value)} required>
+                                <option value="yes">Yes</option>
                                 <option value="No">No</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>3rd Party Inspection Required<strong className="text-danger">*</strong></label>
                         </div>
-                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        { thirdPartyInspection && <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <select className={`${styles.value} input form-control`} required>
                                 <option value="volvo">Load Port</option>
                                 <option value="audi">India</option>
                             </select>
-                            <label className={`${styles.label} label_heading`}>Load Port<strong className="text-danger">*</strong></label>
-                        </div>
+                            <label className={`${styles.label} label_heading`}><strong className="text-danger">*</strong></label>
+                        </div>}
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <select id='storageOfGoods' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.storageOfGoods}>{termsheetDetails?.transactionDetails?.storageOfGoods} </option>
@@ -172,19 +192,18 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <select id='computationOfDueDate' className={`${styles.value} input form-control`} onChange={onChangePaymentDueDate} required>
-                                <option value={termsheetDetails.paymentDueDate?.computationOfDueDate}>{termsheetDetails.paymentDueDate?.computationOfDueDate} </option>
-                                <option value="Select">Select</option>
-                                <option value="India">India</option>
+                            <select id='computationOfDueDate' onChange={(e) => payementchangeFunc(e.target.value)} className={`${styles.value} input form-control`} required>
+                                <option value="DaysfromBLDate"  >Days from BL Date</option>
+                                <option value="DaysfromVesselDischargeDate" > Days from Vessel Discharge Date </option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Computation of Due date<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='daysFromBlDate' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromBlDate} onChange={onChangePaymentDueDate} required />
+                            <input id='daysFromBlDate' className={`${styles.value} input form-control`}  type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromBlDate} onChange={onChangePaymentDueDate} disabled={IsBlSelected} required />
                             <label className={`${styles.label} label_heading`}>Days From BL Date<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='daysFromVesselDischargeDate' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate} onChange={onChangePaymentDueDate} required />
+                            <input id='daysFromVesselDischargeDate' className={`${styles.value} input form-control`}  type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate} onChange={onChangePaymentDueDate} disabled={!IsBlSelected} required />
                             <label className={`${styles.label} label_heading`}>Days From Vessel Discharge Date<strong className="text-danger">*</strong></label>
                         </div>
                     </div>
