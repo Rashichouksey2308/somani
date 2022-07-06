@@ -94,7 +94,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>LC Value<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='marginMoney' className={`${styles.value} input form-control`} type="text" value={`${termsheetDetails?.transactionDetails?.marginMoney} %`} onChange={onChangeTransactionDetails} required />
+                            <input id='marginMoney' className={`${styles.value} input form-control`} type="text" value={termsheetDetails?.transactionDetails?.marginMoney} onChange={onChangeTransactionDetails} required />
                             <label className={`${styles.label} label_heading`}>Margin Money (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
@@ -212,7 +212,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                     <h3 className={styles.sub_heading}>Commercial Terms</h3>
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='tradeMarginPercentage' className={`${styles.value} input form-control`} type="text" value={`${termsheetDetails.commercials?.tradeMarginPercentage} %`} onChange={onChangeCommercialTerms} required />
+                            <input id='tradeMarginPercentage' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails.commercials?.tradeMarginPercentage} onChange={onChangeCommercialTerms} required />
                             <label className={`${styles.label} label_heading`}>Trade Margin(%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -220,15 +220,15 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>LC Opening Charges (Minimum)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='usanceInterestPercetage' className={`${styles.value} input form-control`} type="text"value={`${termsheetDetails?.commercials?.usanceInterestPercetage} %`} onChange={onChangeCommercialTerms} required />
+                            <input id='usanceInterestPercetage' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.usanceInterestPercetage} onChange={onChangeCommercialTerms} required />
                             <label className={`${styles.label} label_heading`}>LC Opening Charges (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='overDueInterestPerMonth' className={`${styles.value} input form-control`} type="text"value={`${termsheetDetails?.commercials?.overDueInterestPerMonth} %`} onChange={onChangeCommercialTerms} required />
+                            <input id='overDueInterestPerMonth' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
                             <label className={`${styles.label} label_heading`}>Usance Interest (%) For 90 Days<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='overDueInterestPerMonth' className={`${styles.value} input form-control`} type="text"value={`${termsheetDetails?.commercials?.overDueInterestPerMonth} %`} onChange={onChangeCommercialTerms} required />
+                            <input id='overDueInterestPerMonth' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
                             <label className={`${styles.label} label_heading`}>Overdue Interest per Month (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
