@@ -48,12 +48,12 @@ function Index() {
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
-                      <option>Irrevocable</option>
+                      <option>BNP PARIBAS PARIBAS - BNPAFPPX</option>
                       <option>Balaji Traders</option>
                     </select>
                    
                     <label className={`${styles.label_heading} label_heading`}>
-                      (40A) Form of Documentary Credit<strong className="text-danger">*</strong>
+                      (51D) LC Issuing Bank<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -63,7 +63,7 @@ function Index() {
                       type="text"
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      (40E) Application Rules<strong className="text-danger">*</strong>
+                      (20) Documentary Credit Number<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
@@ -72,7 +72,7 @@ function Index() {
                       type="date"
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      (31D) Date Of Expiry<strong className="text-danger">*</strong>
+                      (31C) Date Of Issue<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                 </Row>
@@ -87,12 +87,12 @@ function Index() {
                   <select
                       className={`${styles.input_field} input form-control`}
                     >
-                      <option>Irrevocable</option>
+                      <option>(44A) Shipment From</option>
                       <option>Balaji Traders</option>
                     </select>
                    
                     <label className={`${styles.label_heading} label_heading`}>
-                      (40A) Form of Documentary Credit<strong className="text-danger">*</strong>
+                      Clause<strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -102,24 +102,29 @@ function Index() {
                       type="text"
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      (40E) Application Rules<strong className="text-danger">*</strong>
+                      Existing Value
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
-                  <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
+                  <Col className="mb-4 mt-4"  lg={4} md={6} >
+                    <div className='d-flex'>
+                    <input
+                        className={`${styles.input_field} input form-control`}
+                        type="date"
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        New Value<strong className="text-danger">*</strong>
+                      </label>
+                      <img
+                      className="img-fluid ml-4"
+                      src="/static/add-btn.svg"
+                      alt="add button"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      (31D) Date Of Expiry<strong className="text-danger">*</strong>
-                    </label>
+                  </div>
                   </Col>
                 </Row>
+                
               </div>
-            </div>
-             
-
-             
+             </div>
             </div>
         </div>
         </div>
@@ -156,14 +161,14 @@ function Index() {
                 <th>DOCUMENT NAME  <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
                 <th>FORMAT <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
                 <th>DOCUMENT DATE <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/> </th>
-                <th>ACTION</th>
+                <th width="30%" >ACTION</th>
                 
               </tr>
             </thead>
             <tbody>
              
               <tr className="table_row">
-                <td className={styles.doc_name}>Insurance Quotation</td>
+                <td className={styles.doc_name}>LC DRAFT <strong className='text-danger ml-n1'>*</strong> </td>
                 <td>
                   <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                 </td>
