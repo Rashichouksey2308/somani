@@ -1,3 +1,5 @@
+
+@import "../styles/Core/config";
 .root{
     position: fixed;
     bottom: 0;
@@ -14,6 +16,11 @@
      padding:0rem 2rem 0rem 2rem;
      flex-direction: row;
     background-color: rgb(255, 255, 255);
+       @include respond(md-desktop) {
+            justify-content: space-between;
+            width: 100%;
+            padding: 0rem 1rem 0rem 1rem;
+        }
     .reject{
         cursor:pointer;
         width: 260px;
@@ -24,17 +31,27 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        @include respond(md-desktop) {
+                width: 160px;
+                height: 48px;
+                font-size: 12px;
+            }
     }
     .approve{
         cursor: pointer;
         width: 260px;
-            height: 48px;
+        height: 48px;
         background: #3687E8 0% 0% no-repeat padding-box;
         border-radius: 5px;
         color: #FFFFFF;
         display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left:1rem;
+        align-items: center;
+        justify-content: center;
+        margin-left:1rem;
+         @include respond(md-desktop) {
+            width: 160px;
+            height: 48px;
+            font-size: 12px;
+         }
     }
 }
