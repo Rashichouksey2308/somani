@@ -244,7 +244,7 @@ function Index() {
   
                             </div>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-2 col-sm-6`}>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-2 col-sm-4`}>
                                 <div
                                 className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
                                 <span>D</span>
