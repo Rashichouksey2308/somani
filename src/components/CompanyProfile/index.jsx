@@ -13,7 +13,7 @@ function Index() {
                 <span className={styles.addicon}>+</span>     
             </Card.Header>
             {/* <hr className={styles.hr}/> */}
-           <Card.Body className={`${styles.body} value_card`}>
+           <Card.Body className={`${styles.body} value_card row`}>
                 {fields("Company Name",buyerList?.companyName)}
                 {fields("Company PAN",buyerList?.company.companyPan)}
                 {fields("Type Of Business",buyerList?.company.typeOfBusiness)}
@@ -33,7 +33,7 @@ export default Index
 const fields =(head,value)=>{
     return (
         <>
-            <div className={styles.filed_container}>
+            <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-3`}>
                 <span className={`${styles.top} value`}>{head}</span>
                 <div>
                     <span className={`${styles.value} value `}>

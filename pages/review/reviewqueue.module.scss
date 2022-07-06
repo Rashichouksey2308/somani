@@ -1,3 +1,4 @@
+@import "../../src/components/styles/Core/config";
 /*-----Dashboard Tab------*/
 .dashboardTab {
     .tabHeader {
@@ -5,11 +6,15 @@
         margin-bottom: 26px;
         .title {
             font-size: 34px;
-      
-            font-weight: bold;
+             font-weight: bold;
             line-height: 41px;
             margin: 0;
             text-transform: capitalize;
+            @include respond(phone) {
+                    font-size: $font_size_mobile_head;
+                    margin: 0px;
+                    padding-left: 10px;
+                }
             img {
                 width: 13px;
                 height: 21px;
@@ -49,6 +54,20 @@
         .navTabs {
             margin-top: 1rem;
             border-bottom: none;
+            overflow-x: auto;
+            width: 100%;
+            @include respond(md-desktop) {
+                    width: calc(100vw - 60px);
+                    flex-wrap: nowrap;
+                }
+            @include respond(sm-desktop) {
+                    width: calc(100vw - 60px);
+                    flex-wrap: nowrap;
+            }
+            @include respond(phone) {
+                width: calc(100vw - 60px);
+                flex-wrap: nowrap;
+            }
             .navItem {
                 background: transparent;
                 .navLink {
@@ -61,6 +80,10 @@
                     margin: 0 22px;
                     border-radius: 0;
                     border-bottom: 6px solid transparent;
+                    @include respond(phone) {
+                        font-size:15px;
+                        margin: 0 2px;
+                    }
                     &.active {
                       
                     }

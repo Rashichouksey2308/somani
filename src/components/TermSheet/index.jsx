@@ -20,67 +20,111 @@ const Index = () => {
     const [termsheetDetails, setTermsheetDetails] = useState({})
     const [otherTermsAndConditions, setOtherTermConditions] = useState({})
 
-console.log(termsheet,"termsheet")
     useEffect(() => {
-        dispatch(getTermsheet())
-      }, [dispatch])
-      console.log(termsheet,"termsheet")
+        dispatch(setPageName('termsheet',))
+    })
     useEffect(() => {
-    dispatch(setPageName('termsheet',))
-   })    
-    
+        {
+            termsheet && termsheet?.data?.map((sheet) => (
+                setTermsheetDetails({
+                    commodityDetails: {
+                        unitOfQuantity: sheet?.order?.unitOfQuantity,
+                        orderCurrency: sheet?.order?.orderCurrency,
+                        quantity: sheet?.order?.quantity,
+                        perUnitPrice: sheet?.order?.orderValue,
+                        commodity: sheet?.order?.commodity,
+                        tolerance: sheet?.order?.tolerance,
+                    },
+                    transactionDetails: {
+                        lcValue: 0,
+                        lcCurrency: sheet?.transactionDetails?.lcValue,
+                        marginMoney: sheet?.transactionDetails?.marginMoney,
+                        lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
+                        incoTerms: sheet?.order?.incoTerm,
+                        loadPort: sheet?.transactionDetails?.loadPort,
+                        countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
+                        shipmentType: sheet?.transactionDetails?.shipmentType,
+                        partShipmentAllowed: sheet?.transactionDetails?.partShipmentAllowed,
+                        portOfDischarge: sheet?.transactionDetails?.portOfDischarge,
+                        billOfEntity: sheet?.transactionDetails?.billOfEntity,
+                        thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
+                        storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+                    },
+                    paymentDueDate: {
+                        computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
+                        daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
+                        daysFromVesselDischargeDate: sheet?.paymentDueDate?.daysFromVesselDischargeDate
+                    },
+                    commercials: {
+                        tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
+                        lcOpeningValue: sheet?.commercials?.lcOpeningValue,
+                        lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
+                        lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
+                        lcOpeningChargesPercentage: sheet?.commercials?.lcOpeningChargesPercentage,
+                        usanceInterestPercetage: sheet?.commercials?.usanceInterestPercetage,
+                        overDueInterestPerMonth: sheet?.commercials?.overDueInterestPerMonth,
+                        exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
+                        forexHedging: sheet?.commercials?.forexHedging,
+                        otherTermsAndConditions: sheet?.commercials?.otherTermsAndConditions,
+                        version: sheet?.commercials?.version,
+                    },
+                })
+            ))
+        }
+    }, [termsheet]);
+
 
     useEffect(() => {
         {
             termsheet && termsheet?.data?.map((sheet, index) => {
                 setOtherTermConditions({
-                        chaOrstevedoringCharges: {
-                        customClearingCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.customClearingCharges,
-                        wharfaceCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.wharfaceCharges,
-                        pollutionCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.pollutionCharges,
-                        royalyAndPenaltyCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.royalyAndPenaltyCharges,
-                        tarpaulinCoverageCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.tarpaulinCoverageCharges,
-                        wheighmentAndWeighmentSurveyCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.wheighmentAndWeighmentSurveyCharges,
-                        draughtSurveyCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.draughtSurveyCharges,
-                        boatingWhileDraughtSurveyCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.boatingWhileDraughtSurveyCharges,
-                        hmcCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.hmcCharges,
-                        securityCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.securityCharges,
-                        piotRentalAndStorageCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.piotRentalAndStorageCharges,
-                        bondingOfCargoCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.bondingOfCargoCharges,
-                        exBondDocumentationCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.exBondDocumentationCharges,
-                        transferOfOwnershipCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.transferOfOwnershipCharges,
-                        customsBondOfficerOvertimeCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.customsBondOfficerOvertimeCharges,
-                        grabHireCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.grabHireCharges,
-                        craneHireCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.craneHireCharges,
-                        handlingLosses: sheet.otherTermsAndConditions.chaOrstevedoringCharges.handlingLosses,
-                        insuranceCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.insuranceCharges,
-                        waterSprinklingCharges: sheet.otherTermsAndConditions.chaOrstevedoringCharges.waterSprinklingCharges,
-                        others: sheet.otherTermsAndConditions.chaOrstevedoringCharges.others
+                    chaOrstevedoringCharges: {
+                        customClearingCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.customClearingCharges,
+                        wharfaceCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.wharfaceCharges,
+                        pollutionCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.pollutionCharges,
+                        royalyAndPenaltyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.royalyAndPenaltyCharges,
+                        tarpaulinCoverageCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.tarpaulinCoverageCharges,
+                        wheighmentAndWeighmentSurveyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.wheighmentAndWeighmentSurveyCharges,
+                        draughtSurveyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.draughtSurveyCharges,
+                        boatingWhileDraughtSurveyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.boatingWhileDraughtSurveyCharges,
+                        hmcCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.hmcCharges,
+                        securityCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.securityCharges,
+                        piotRentalAndStorageCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.piotRentalAndStorageCharges,
+                        bondingOfCargoCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.bondingOfCargoCharges,
+                        exBondDocumentationCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.exBondDocumentationCharges,
+                        transferOfOwnershipCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.transferOfOwnershipCharges,
+                        customsBondOfficerOvertimeCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.customsBondOfficerOvertimeCharges,
+                        grabHireCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.grabHireCharges,
+                        craneHireCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.craneHireCharges,
+                        handlingLosses: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.handlingLosses,
+                        insuranceCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.insuranceCharges,
+                        waterSprinklingCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.waterSprinklingCharges,
+                        others: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.others
                     },
                     lcOpeningCharges: {
-                        lcOpeningCharges: sheet.otherTermsAndConditions.lcOpeningCharges.lcOpeningCharges,
-                        lcAmendmentCost: sheet.otherTermsAndConditions.lcOpeningCharges.lcAmendmentCost,
-                        cmaFeesIncludingSupervisionAndSurvey: sheet.otherTermsAndConditions.lcOpeningCharges.cmaFeesIncludingSupervisionAndSurvey,
-                        bankDoIssuanceCharges: sheet.otherTermsAndConditions.lcOpeningCharges.bankDoIssuanceCharges,
-                        remmittanceCharges: sheet.otherTermsAndConditions.lcOpeningCharges.remmittanceCharges,
-                        usanceInterest: sheet.otherTermsAndConditions.lcOpeningCharges.usanceInterest
+                        lcOpeningCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.lcOpeningCharges,
+                        lcAmendmentCost: sheet?.otherTermsAndConditions?.lcOpeningCharges?.lcAmendmentCost,
+                        cmaFeesIncludingSupervisionAndSurvey: sheet?.otherTermsAndConditions?.lcOpeningCharges?.cmaFeesIncludingSupervisionAndSurvey,
+                        bankDoIssuanceCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.bankDoIssuanceCharges,
+                        remmittanceCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.remmittanceCharges,
+                        usanceInterest: sheet?.otherTermsAndConditions?.lcOpeningCharges?.usanceInterest
                     },
                     otherCharges: {
-                        demurrageOrDetentionChargesOfVessel: sheet.otherTermsAndConditions.otherCharges.demurrageOrDetentionChargesOfVessel,
-                        transportationCharges: sheet.otherTermsAndConditions.otherCharges.transportationCharges,
-                        wagonHaulageCharges: sheet.otherTermsAndConditions.otherCharges.wagonHaulageCharges,
-                        thirdPartyInspectionCharges: sheet.otherTermsAndConditions.otherCharges.thirdPartyInspectionCharges,
-                        hedgingCharges: sheet.otherTermsAndConditions.otherCharges.hedgingCharges,
-                        anyOtherCostIncurredOnBehalfOfBuyer: sheet.otherTermsAndConditions.otherCharges.anyOtherCostIncurredOnBehalfOfBuyer
+                        demurrageOrDetentionChargesOfVessel: sheet?.otherTermsAndConditions?.otherCharges?.demurrageOrDetentionChargesOfVessel,
+                        transportationCharges: sheet?.otherTermsAndConditions?.otherCharges?.transportationCharges,
+                        wagonHaulageCharges: sheet?.otherTermsAndConditions?.otherCharges?.wagonHaulageCharges,
+                        thirdPartyInspectionCharges: sheet?.otherTermsAndConditions?.otherCharges?.thirdPartyInspectionCharges,
+                        hedgingCharges: sheet?.otherTermsAndConditions?.otherCharges?.hedgingCharges,
+                        anyOtherCostIncurredOnBehalfOfBuyer: sheet?.otherTermsAndConditions?.otherCharges?.anyOtherCostIncurredOnBehalfOfBuyer
                     },
                     dutyAndTaxes: {
-                        customsDutyWithAllGovtCess: sheet.otherTermsAndConditions.dutyAndTaxes.customsDutyWithAllGovtCess,
-                        igstWithCess: sheet.otherTermsAndConditions.dutyAndTaxes.igstWithCess,
-                        cimsCharges: sheet.otherTermsAndConditions.dutyAndTaxes.cimsCharges
+                        customsDutyWithAllGovtCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.customsDutyWithAllGovtCess,
+                        igstWithCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
+                        cimsCharges: sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges
                     },
                     insurance: {
-                        marineInsurance: sheet.otherTermsAndConditions.insurance.marineInsurance,
-                        storageInsurance: sheet.otherTermsAndConditions.insurance.storageInsurance
+                        marineInsurance: sheet?.otherTermsAndConditions?.insurance?.marineInsurance,
+                        storageInsurance: sheet?.otherTermsAndConditions?.insurance?.storageInsurance
                     }
                 })
             })
@@ -89,9 +133,9 @@ console.log(termsheet,"termsheet")
     }, [termsheet])
 
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(otherTermsAndConditions)
-    },[otherTermsAndConditions,"otherterms"])
+    }, [otherTermsAndConditions, "otherterms"])
 
 
     const onChangeCommodityDetails = (e) => {
@@ -151,9 +195,9 @@ console.log(termsheet,"termsheet")
     }
 
     const handleSave = () => {
-        const UpdatedTermsheet = {...termsheetDetails,otherTermsAndConditions}
-        console.log(UpdatedTermsheet,"updatedtermsheet")
-       dispatch(updateTermsheet(UpdatedTermsheet))
+        const UpdatedTermsheet = { ...termsheetDetails, otherTermsAndConditions }
+        console.log(UpdatedTermsheet, "updatedtermsheet")
+        dispatch(updateTermsheet(UpdatedTermsheet))
         //router.push('/termsheet')
     }
 
@@ -163,7 +207,7 @@ console.log(termsheet,"termsheet")
     }
 
     const handlePreview = () => {
-       // dispatch(getTermsheet({companyId: sheet.company._id}))
+        // dispatch(getTermsheet({companyId: sheet.company._id}))
         router.push('/termsheet-preview')
     }
 
@@ -183,19 +227,19 @@ console.log(termsheet,"termsheet")
                             <div className="row">
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                                     <h3 className={`${styles.label} label_heading`}>Customer ID</h3>
-                                    <p className={`${styles.value} accordion_Text`}>{sheet.company.customerId}</p>
+                                    <p className={`${styles.value} accordion_Text`}>{sheet?.company?.customerId}</p>
                                 </div>
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                                     <h3 className={`${styles.label} label_heading`}>Buyers Name</h3>
-                                    <p className={`${styles.value} accordion_Text`}>{sheet.company.companyName}</p>
+                                    <p className={`${styles.value} accordion_Text`}>{sheet?.company?.companyName}</p>
                                 </div>
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                                     <h3 className={`${styles.label} label_heading`}>Created On</h3>
-                                    <p className={`${styles.value} accordion_Text`}>{(sheet.company.createdAt).slice(0, 10)}</p>
+                                    <p className={`${styles.value} accordion_Text`}>{(sheet?.company?.createdAt).slice(0, 10)}</p>
                                 </div>
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                                     <h3 className={`${styles.label} label_heading`}>Last Modified</h3>
-                                    <p className={`${styles.value} accordion_Text`}>{(sheet.company.updatedAt).slice(0, 10)}</p>
+                                    <p className={`${styles.value} accordion_Text`}>{(sheet?.company?.updatedAt).slice(0, 10)}</p>
                                 </div>
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                                     <h3 className={`${styles.label} label_heading`}>Approved Date</h3>

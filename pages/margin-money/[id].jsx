@@ -191,7 +191,7 @@ function Index() {
         </div>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-12  accordion_body">
+            <div className="col-md-12 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane fade show active"
@@ -200,7 +200,7 @@ function Index() {
                 >
                   <div className={`${styles.card}  accordionMargin card`}>
                     <div
-                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between`}
+                      className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
                       data-toggle="collapse"
                       data-target="#commodityAccordion"
                       aria-expanded="true"
@@ -232,7 +232,7 @@ function Index() {
                           Units :
                         </h5>
                         <select
-                          className={`${styles.options} accordion_DropDown`}
+                          className={`${styles.options} mr-4 accordion_DropDown`}
                         >
                             <option> {margin?.data[0].order.unitOfValue}</option>
                           <option>Million</option>
@@ -586,6 +586,7 @@ function Index() {
                               </div>
                               <input
                                 disabled={true}
+                                
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
@@ -847,7 +848,7 @@ function Index() {
 
                   <div className={`${styles.card}  accordionMargin card`}>
                     <div
-                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between`}
+                      className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
                       data-toggle="collapse"
                       data-target="#invoiceDetails"
                       aria-expanded="true"

@@ -134,6 +134,8 @@ const index = ({
     saveSupplierData(e.target.name, text)
   }
 
+ 
+
   return (
     <>
       <div className={`${styles.main} card border_color`}>
@@ -1146,6 +1148,8 @@ const index = ({
           data-parent="#profileAccordion"
         >
           <div className={`${styles.datatable} datatable`}>
+          <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
             <table
               className={`${styles.table} table`}
               cellPadding="0"
@@ -1217,7 +1221,7 @@ const index = ({
                         )}
                         <img
                           src="/static/delete 2.svg"
-                          className="img-fluid"
+                          className={`${styles.delete_image} img-fluid`}
                           alt="delete"
                         />
                       </div>
@@ -1226,6 +1230,8 @@ const index = ({
                 ))}
               </tbody>
             </table>
+            </div>
+            </div>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
               <span>+</span>
               <div>Add More Rows</div>

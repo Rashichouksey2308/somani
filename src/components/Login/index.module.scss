@@ -1,22 +1,22 @@
 .login {
-        height: 100vh;
-        overflow: hidden;
+    height: 100vh;
+    overflow: hidden;
     .loginBanner {
         position: relative;
-
-        img {
+        & > img {
+            height: 100vh;
+            max-width: 127%;
             object-fit: cover;
+            margin-left: -11%;
         }
-
         .pattern {
-            top: -30px;
-            left: -30px;
+            top: -43px;
+            left: -55px;
             z-index: 1;
-            width: 60%;
+            width: 81%;
             max-width: 648px;
             position: absolute;
         }
-
         .caption {
             left: 50%;
             width: 70%;
@@ -27,8 +27,8 @@
             line-height: 25px;
             position: absolute;
             transform: translateX(-50%);
+            visibility: hidden;
         }
-
         &::after {
             top: 0;
             left: 0;
@@ -39,41 +39,53 @@
             background: rgba(10, 61, 122, 0.66);
         }
     }
-
     .loginForm {
-        width: 60%;
-
+        & > img {
+            top: -10%;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            max-width: 127%;
+            object-fit: cover;
+            position: absolute;
+        }
         .form {
+            z-index: 1;
+            width: 55%;
+            position: relative;
             .logo {
-                margin-bottom: 112px;
+                text-align: center;
+                margin-bottom: 54px;
+                img {
+                    max-width: 278px;
+                }
             }
-
             .title {
-                font-size: 34px;
-               
-                line-height: 41px;
+                font-size: 28px;      
+                color: #111111;         
+                line-height: 34px;
                 font-weight: bold;
                 margin: 0 0 9px;
+                text-align: center;
             }
-
             p {
                 font-size: 18px;
-              
+                color: #A1A1A1;
                 line-height: 31px;
                 font-weight: normal;
                 margin-bottom: 2rem;
+                text-align: center;
             }
-
             .labelFloat {
                 padding-top: 13px;
                 position: relative;
                 margin: 30px 0 20px;
-
                 label {
                     top: 34px;
                     left: 15px;
                     font-size: 16px;
                     z-index: 200;
+                    color: #00000080;
                     line-height: 17px;
                     font-weight: 500;
                     letter-spacing: 0.53px;
@@ -83,10 +95,10 @@
                     transform: translateY(-29px);
                     transition: 0.3s all ease-in-out;
                 }
-
                 .formControl {
                     font-size: 20px;
                     z-index:0;
+                    color: #111111;
                     line-height: 25px;
                     font-weight: normal;
                     height: 60px;
@@ -96,29 +108,24 @@
                     position: relative;
                     box-sizing: border-box;
                     letter-spacing: 0.19px;
-                   
-                    padding: 13px 30px 13px 17px;
-                   
-
+                    background: #C3C3C31F;
+                    padding: 19px 30px 19px 17px;
+                    border: 1px solid #0000001F;
                     &:invalid+label {
                         transform: translateY(0);
                     }
-
                     &:focus {
-                        &+label {
-                           
+                        &+label {                           
                             transform: translateY(-29px);
                         }
                     }
                 }
-
                 img {
                     top: 50%;
                     right: 14px;
                     position: absolute;
                     transform: translateY(-50%);
                 }
-
                 .signin {
                     font-size: 18px;
                     color: #FFFFFF;
@@ -130,42 +137,54 @@
                     border-radius: 5px;
                     background: #3687E8;
                     box-sizing: border-box;
-
                     &:focus {
                         box-shadow: none;
                     }
                 }
+                .signUp {
+                    font-size: 14px;
+                    color: #ACADAF;
+                    line-height: 1;
+                    text-align: left;
+                    margin: 14px 0 0;
+                    a {
+                        font-weight: 500;
+                        margin-left: 15px;
+                    }
+                }
             }
-
             .password {
                 label {
-                    top: 20px;
-                  
+                    top: 20px;                  
                 }
-
                 .formControl {
                     &:invalid+label {
                         background: none;
                     }
                 }
             }
-
             .remember {
                 label {
-                    font-size: 14px;
-                  
+                    font-size: 14px;                  
                     line-height: 1;
                 }
-
                 .forgotPassword {
-                    font-size: 18px;
+                    font-size: 14px;
                     color: #3687E8;
+                    font-weight: 500;
                     line-height: 1;
                 }
             }
         }
     }
-
+    .footer {
+        font-size: 14px;
+        color: #667085;
+        font-weight: bold;
+        line-height: 17px;
+        bottom: 56px;
+        position: absolute;
+    }
     .footerLinks {
         right: 5%;
         bottom: 10%;
@@ -173,15 +192,12 @@
         padding: 0;
         list-style: none;
         position: absolute;
-
         li {
             margin: 0 8px;
             display: inline-block;
-
             a {
                 font-size: 14px;
                 font-weight: bold;
-               
                 line-height: 17px;
                 text-decoration: none;
             }

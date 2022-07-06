@@ -3,89 +3,27 @@ import { useEffect } from 'react'
 import styles from './index.module.scss'
 
 const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetails, onChangeCommercialTerms, onChangePaymentDueDate, onChangeTransactionDetails }) => {
-    //const [termsheetDetails, setTermsheetDetails] = useState({})
-
-
-    // useEffect(() => {
-    //     {
-    //         termsheet && termsheet?.data?.map((sheet) => (
-    //             setTermsheetDetails({
-    //                 commodityDetails: {
-    //                     unitOfQuantity: sheet.order.unitOfQuantity,
-    //                     orderCurrency: sheet.order.orderCurrency,
-    //                     quantity: sheet.order.quantity,
-    //                     perUnitPrice: sheet.order.orderValue,
-    //                     commodity: sheet.order.commodity,
-    //                     tolerance: sheet.order.tolerance,
-    //                 },
-    //                 transactionDetails: {
-    //                     lcValue: 0,
-    //                     lcCurrency: sheet.transactionDetails.lcValue,
-    //                     marginMoney: sheet.transactionDetails.marginMoney,
-    //                     lcOpeningBank: sheet.transactionDetails.lcOpeningBank,
-    //                     incoTerms: sheet.order.incoTerm,
-    //                     loadPort: sheet.transactionDetails.loadPort,
-    //                     countryOfOrigin: sheet.transactionDetails.countryOfOrigin,
-    //                     shipmentType: sheet.transactionDetails.shipmentType,
-    //                     partShipmentAllowed: sheet.transactionDetails.partShipmentAllowed,
-    //                     portOfDischarge: sheet.transactionDetails.portOfDischarge,
-    //                     billOfEntity: sheet.transactionDetails.billOfEntity,
-    //                     thirdPartyInspectionReq: sheet.transactionDetails.thirdPartyInspectionReq,
-    //                     storageOfGoods: sheet.transactionDetails.storageOfGoods,
-    //                 },
-    //                 paymentDueDate: {
-    //                     computationOfDueDate: sheet.paymentDueDate.computationOfDueDate,
-    //                     daysFromBlDate: sheet.paymentDueDate.daysFromBlDate,
-    //                     daysFromVesselDischargeDate: sheet.paymentDueDate.daysFromVesselDischargeDate
-    //                 },
-    //                 commercials: {
-    //                     tradeMarginPercentage: sheet.commercials.tradeMarginPercentage,
-    //                     lcOpeningValue: sheet.commercials.lcOpeningValue,
-    //                     lcOpeningCurrency: sheet.commercials.lcOpeningCurrency,
-    //                     lcOpeningChargesUnit: sheet.commercials.lcOpeningChargesUnit,
-    //                     lcOpeningChargesPercentage: sheet.commercials.lcOpeningChargesPercentage,
-    //                     usanceInterestPercetage: sheet.commercials.usanceInterestPercetage,
-    //                     overDueInterestPerMonth: sheet.commercials.overDueInterestPerMonth,
-    //                     exchangeFluctuation: sheet.commercials.exchangeFluctuation,
-    //                     forexHedging: sheet.commercials.forexHedging,
-    //                     otherTermsAndConditions: sheet.commercials.otherTermsAndConditions,
-    //                     version: sheet.commercials.version,
-    //                 },
-    //             })
-    //         ))
-    //     }
-    // }, [termsheet]);
+    const [IsBlSelected, setIsBlSelected] = useState(false)
+    const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
 
 
 
-    // const onChangeCommodityDetails = (e) => {
-    //     const Key = e.target.id
-    //     const value = e.target.value
-    //     setTermsheetDetails(prev => ({ ...prev, commodityDetails: { ...prev.commodityDetails, [Key]: value } }))
-    // }
+    const updateThirdPartyInspection = (value) => {
+        if (value === "No") {
+            setThirdPartyInspection(false)
+        } else if (value === "yes") {
+            setThirdPartyInspection(true)
+        }
+    }
 
-    // const onChangeTransactionDetails = (e) => {
-    //     const Key = e.target.id
-    //     const value = e.target.value
-    //     setTermsheetDetails(prev => ({ ...prev, transactionDetails: { ...prev.transactionDetails, [Key]: value } }))
-    // }
-
-    // const onChangePaymentDueDate = (e) => {
-    //     const Key = e.target.id
-    //     const value = e.target.value
-    //     setTermsheetDetails(prev => ({ ...prev, paymentDueDate: { ...prev.paymentDueDate, [Key]: value } }))
-    // }
-
-    // const onChangeCommercialTerms = (e) => {
-    //     const Key = e.target.id
-    //     const value = e.target.value
-    //     setTermsheetDetails(prev => ({ ...prev, commercials: { ...prev.commercials, [Key]: value } }))
-    // }
-
-
-
-
-
+    const payementchangeFunc = (value) => {
+        if (value === "DaysfromBLDate") {
+            setIsBlSelected(false)
+        } else if (value === "DaysfromVesselDischargeDate") {
+            setIsBlSelected(true)
+        }
+    }
+    console.log(thirdPartyInspection,"isBthirdPartyInspectionSelected")
 
     return (
         <div className={`${styles.main} main`}>
@@ -124,11 +62,11 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>Currency<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='quantity' className={`${styles.value} input form-control`} defaultValue={termsheetDetails?.commodityDetails?.quantity} onChange={onChangeCommodityDetails} type="text" required />
+                            <input id='quantity' className={`${styles.value} input form-control`} value={`${termsheetDetails?.commodityDetails?.quantity} ${termsheetDetails?.commodityDetails?.unitOfQuantity}`}  onChange={onChangeCommodityDetails} type="text" required />
                             <label className={`${styles.label} label_heading`}>Quantity<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='perUnitPrice' className={`${styles.value} input form-control`} defaultValue={termsheetDetails?.commodityDetails?.perUnitPrice} onChange={onChangeCommodityDetails} type="text" required />
+                            <input id='perUnitPrice' className={`${styles.value} input form-control`} value={`${termsheetDetails?.commodityDetails?.perUnitPrice} ${termsheetDetails?.commodityDetails?.orderCurrency}`} onChange={onChangeCommodityDetails} type="text" required />
                             <label className={`${styles.label} label_heading`}>Unit Price<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -156,7 +94,10 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>LC Value<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='marginMoney' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.transactionDetails?.marginMoney} onChange={onChangeTransactionDetails} required />
+                            <input id='marginMoney' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.transactionDetails?.marginMoney} onChange={onChangeTransactionDetails} required
+                             />
+                             <span style={{position: "absolute" , left:"100px" , top:"20px"}}><strong>%</strong></span> 
+                            
                             <label className={`${styles.label} label_heading`}>Margin Money (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
@@ -224,20 +165,19 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>Bill of Entry<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='thirdPartyInspectionReq' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
-                                <option value={termsheetDetails?.transactionDetails?.thirdPartyInspectionReq}>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq} </option>
-                                <option value="Yes">Yes</option>
+                            <select id='thirdPartyInspectionReq' className={`${styles.value} input form-control`} onChange={(e)=> updateThirdPartyInspection(e.target.value)} required>
+                                <option value="yes">Yes</option>
                                 <option value="No">No</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>3rd Party Inspection Required<strong className="text-danger">*</strong></label>
                         </div>
-                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        { thirdPartyInspection && <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <select className={`${styles.value} input form-control`} required>
                                 <option value="volvo">Load Port</option>
                                 <option value="audi">India</option>
                             </select>
-                            <label className={`${styles.label} label_heading`}>Load Port<strong className="text-danger">*</strong></label>
-                        </div>
+                            <label className={`${styles.label} label_heading`}><strong className="text-danger">*</strong></label>
+                        </div>}
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <select id='storageOfGoods' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.storageOfGoods}>{termsheetDetails?.transactionDetails?.storageOfGoods} </option>
@@ -255,19 +195,18 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <select id='computationOfDueDate' className={`${styles.value} input form-control`} onChange={onChangePaymentDueDate} required>
-                                <option value={termsheetDetails.paymentDueDate?.computationOfDueDate}>{termsheetDetails.paymentDueDate?.computationOfDueDate} </option>
-                                <option value="Select">Select</option>
-                                <option value="India">India</option>
+                            <select id='computationOfDueDate' onChange={(e) => payementchangeFunc(e.target.value)} className={`${styles.value} input form-control`} required>
+                                <option value="DaysfromBLDate"  >Days from BL Date</option>
+                                <option value="DaysfromVesselDischargeDate" > Days from Vessel Discharge Date </option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Computation of Due date<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='daysFromBlDate' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromBlDate} onChange={onChangePaymentDueDate} required />
+                            <input id='daysFromBlDate' className={`${styles.value} input form-control`}  type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromBlDate} onChange={onChangePaymentDueDate} disabled={IsBlSelected} required />
                             <label className={`${styles.label} label_heading`}>Days From BL Date<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='daysFromVesselDischargeDate' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate} onChange={onChangePaymentDueDate} required />
+                            <input id='daysFromVesselDischargeDate' className={`${styles.value} input form-control`}  type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate} onChange={onChangePaymentDueDate} disabled={!IsBlSelected} required />
                             <label className={`${styles.label} label_heading`}>Days From Vessel Discharge Date<strong className="text-danger">*</strong></label>
                         </div>
                     </div>
@@ -276,7 +215,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                     <h3 className={styles.sub_heading}>Commercial Terms</h3>
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='tradeMarginPercentage' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails.commercials?.tradeMarginPercentage} onChange={onChangeCommercialTerms} required />
+                         <input id='tradeMarginPercentage' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails.commercials?.tradeMarginPercentage} onChange={onChangeCommercialTerms} required />
+                         <span style={{position: "absolute" , left:"100px" , top:"20px"}}><strong>%</strong></span> 
                             <label className={`${styles.label} label_heading`}>Trade Margin(%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -285,14 +225,17 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                             <input id='usanceInterestPercetage' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.usanceInterestPercetage} onChange={onChangeCommercialTerms} required />
+                            <span style={{position: "absolute" , left:"100px" , top:"20px"}}><strong>%</strong></span> 
                             <label className={`${styles.label} label_heading`}>LC Opening Charges (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                             <input id='overDueInterestPerMonth' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
+                            <span style={{position: "absolute" , left:"100px" , top:"20px"}}><strong>%</strong></span> 
                             <label className={`${styles.label} label_heading`}>Usance Interest (%) For 90 Days<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <input id='overDueInterestPerMonth' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
+                            <span style={{position: "absolute" , left:"100px" , top:"20px"}}><strong>%</strong></span> 
                             <label className={`${styles.label} label_heading`}>Overdue Interest per Month (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>

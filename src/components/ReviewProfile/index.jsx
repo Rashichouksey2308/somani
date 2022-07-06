@@ -46,7 +46,9 @@ function Index({ handleChange, reviewedProfile}) {
           <span>Clear All</span>
         </div>
       </div>
-      <table
+       <div className={`${styles.scrollouter}`}>
+        <div className={`${styles.scrollInner}`}>
+             <table
         className={styles.table}
         cellPadding="0"
         cellSpacing="0"
@@ -329,6 +331,8 @@ function Index({ handleChange, reviewedProfile}) {
           </tr>
         </tbody>
       </table>
+        </div>
+       </div>
       <div className={`${styles.remarks} table_row`}>
         <Form.Label className={styles.remarksName}>
           User Remarks
