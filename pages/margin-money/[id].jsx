@@ -255,6 +255,7 @@ function Index() {
                                 id="textInput"
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
+                                style={{width:"50%"}}
                                 required
                               />
                              
@@ -268,14 +269,14 @@ function Index() {
                                 </label>
   
                             </div>
-                            <div className={`${styles.radio_heading} form-check form-check-inline`}
+                            <div className={`${styles.radio_heading} ml-n5 form-check form-check-inline`}
                               //style={{top:"50px", left:"100px"}}
                               > Include in Calculation
 
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions"/>
-                                <label className="form-check-label" for="inlineRadio1">Yes</label>
+                                <input className="form-check-input ml-3" type="radio" name="inlineRadioOptions"/>
+                                <label className="form-check-label mr-2" for="inlineRadio1">Yes</label>
                              
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions"/>
+                                <input className="form-check-input ml-2" type="radio" name="inlineRadioOptions"/>
                                 <label className="form-check-label" for="inlineRadio2">No</label>
                               </div>
                             <div
