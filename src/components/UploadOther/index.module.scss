@@ -161,9 +161,13 @@
     .table_container {
         background-color: #FAFAFB;
         margin-top: 40px;
-        @include respond(phone) {
-                overflow-x: auto
-            }
+        .table_scroll_outer {
+            width: 100%;
+            display: table;
+            table-layout: fixed;
+            .table_scroll_inner {
+                display: table-cell;
+                overflow-x: auto;
        
         .table {
             th {
@@ -190,6 +194,10 @@
                     font-size: 12px;
                 }
             }
+            tr {
+                &:last-child {
+                    border-bottom: none;
+                }
             td {
                 font-size: 19px;
                 font-weight: 500;
@@ -218,7 +226,7 @@
                                     }
                                 }
             }
-                        
+        }           
             .module {
                 background: #8492A6;
                 font-size: 15px;
@@ -294,6 +302,8 @@
                 background: #FF9D00;
             }
         }
+    }
+}
     }
 
 }

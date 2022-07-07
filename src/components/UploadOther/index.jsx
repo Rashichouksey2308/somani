@@ -72,6 +72,8 @@ const index = () => {
           </Form>
         </div>
         <div className={styles.table_container}>
+        <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
           <table
             className={`${styles.table} table`}
             cellPadding="0"
@@ -249,6 +251,8 @@ const index = () => {
               </tr>
             </tbody>
           </table>
+          </div>
+          </div>
         </div>
       </div>
     </div>
