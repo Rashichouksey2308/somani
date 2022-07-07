@@ -1,20 +1,42 @@
+import index from 'components/Footer'
 import React, { useState, useEffect } from 'react'
 
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
-const Index = ({ termsheet }) => {
-    const [editComment, setEditComment] = useState(true)
+const Index = ({ additionalComments, addCommentHandler }) => {
+    const [commentType, setCommentType] = useState("5. Lc Opening Bank")
+    const [comment, setComment] = useState("")
+    const [isCommentEditable, setIsCommentEditable] = useState({})
 
-    const [comments, setComments] = useState([])
-
+    const allcomment = []
     useEffect(() => {
-
-         termsheet?.data?.map((sheets) => {
-            setComments(sheets.additionalComments)
+        additionalComments.map((comment, index) => {
+            setIsCommentEditable(prev => ({ ...prev, [index]: false }))
         })
-        console.log(comments)
-    }, [termsheet])
+
+    }, [additionalComments])
+
+    const manageCommentEditable = (index) => {
+        
+        setIsCommentEditable(prev => ({ ...prev, [index]: !isCommentEditable[index] }))
+    }
+    
+    const addNewCommentHandler = () => {
+       
+        if (comment.length ===  "") {
+            let toastMessage = 'cannot add an Empty Comment'
+            if (!toast.isActive(toastMessage)) {
+                toast.error(toastMessage, { toastId: toastMessage })
+            }
+            return
+        } else {
+            addCommentHandler(commentType,comment)
+        }
+       
+        
+    }
+
 
 
     return (
@@ -27,26 +49,30 @@ const Index = ({ termsheet }) => {
                 <div className={`${styles.dashboard_form} card-body`}>
                     <Form>
                         <div className='row'>
-                            <Form.Group className={`${styles.form_group} col-md-3`} >
-                                <select className={`${styles.value} input form-control`} required>
-                                    <option value="volvo">5. Lc Opening Bank</option>
-                                    <option value="audi">4. Lc Opening Bank</option>
+                            <div className={`${styles.form_group} col-md-3`} >
+                                <select className={`${styles.value} input form-control`} onChange={(e) => setCommentType(e.target.value)} required>
+                                    <option value="5. Lc Opening Bank">5. Lc Opening Bank</option>
+                                    <option value="a4. Lc Opening Bankdi">4. Lc Opening Bank</option>
                                 </select>
                                 <Form.Label className={`${styles.label} label_heading`}>Select<strong className="text-danger">*</strong></Form.Label>
-                            </Form.Group>
+                            </div>
                             <Form.Group className={`${styles.form_group} col-md-9`}>
                                 <div className='d-flex justify-content-between align-items-center'>
-                                    <Form.Control className={`${styles.value} input form-control`} type="text"
+                                    <input className={`${styles.value}  input form-control`} onChange={(e) => setComment(e.target.value)} type="text"
                                         required />
                                     <Form.Label className={`${styles.label} label_heading`}>Comment<strong className="text-danger">*</strong></Form.Label>
-                                    <div className='ml-3'>
-                                        <img src="/static/add-btn.svg" className='img-fluid' alt="Add" />
+                                    <div onClick={addNewCommentHandler} className='ml-3'>
+                                        <img 
+                                         src="/static/add-btn.svg"
+                                          className='img-fluid' alt="Add"
+                                          />
                                     </div>
                                 </div>
                             </Form.Group>
                         </div>
                         <h3 className={`${styles.comment_heading} font-weight-medium pt-3`}>Comments</h3>
-                        {termsheet && comments.map((comment, index) => {
+                        {additionalComments && additionalComments.map((comment, index) => {
+                            const commentindex = isCommentEditable[index]
                             return (
                                 <div key={index} className='row'>
                                     <div className={`${styles.form_group} col-md-3`} >
@@ -59,12 +85,14 @@ const Index = ({ termsheet }) => {
                                                 as="textarea"
                                                 rows={2}
 
-                                                readOnly={editComment}
+                                                readOnly={!isCommentEditable[index]}
                                                 defaultValue={comment.comment} />
                                             <img src="/static/mode_edit.svg"
                                                 className="img-fluid ml-2"
                                                 alt="Edit"
-                                                onClick={(e) => { setEditComment(!editComment) }}
+                                                index={index}
+                                                onClick={(e) => manageCommentEditable(index)}
+
                                             />
                                             <img
                                                 src="/static/delete.svg"
