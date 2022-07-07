@@ -35,23 +35,16 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { UpdateCredit, UpdateOrderShipment } from '../../src/redux/buyerProfile/action'
 import { element } from 'prop-types'
-
+import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
 function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
-    if (
-      localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true
-    ) {
-      setDarkMode(true)
-    } else {
-      setDarkMode(false)
-    }
-  }, [])
-
+     dispatch(setPageName('credit-queue'))
+     dispatch(setDynamicName(orderList?.company?.companyName))
+  },[orderList])
   const { orderList } = useSelector((state) => state.buyer)
   console.log(orderList, "orderList")
 
