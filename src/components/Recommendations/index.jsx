@@ -171,22 +171,16 @@ const Index = ({
                 <tr className="table_row">
                   <td className={styles.number}>1 </td>
                   <td>
-                  <select className={`${styles.dropDown} heading`}>
-                    <option>Simport Pvt. Ltd.</option>
-                    <option>Krishna</option>
-                  </select>
+                    <input className= {styles.input} readOnly={!saveTable} />
                   </td>
                   <td>
-                    <input readOnly={!saveTable} />
+                    <input className= {styles.input} readOnly={!saveTable} />
                   </td>
                   <td>
-                    <input readOnly={!saveTable} />
+                    <input className= {styles.input} readOnly={!saveTable} />
                   </td>
                   <td>
-                  <select className={`${styles.dropDown_Satisfy} heading`}>
-                    <option>Satisfactory</option>
-                    <option>Good</option>
-                  </select>
+                    <input className= {styles.input} readOnly={!saveTable} />
                   </td>
                   <td>
                     <div>
@@ -223,8 +217,8 @@ const Index = ({
             <div
               className={`${styles.add_image} p-3 d-flex justify-content-end`}
             >
-              <span>+</span>
-              <div>Add More Rows</div>
+              
+              <div><span>+</span>Add More Rows</div>
             </div>
           </div>
           <span className={styles.view_order}>View Past Orders</span>

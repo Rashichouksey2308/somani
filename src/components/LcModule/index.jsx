@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 
 function Index() {
-  const [edit, setEdit] = useState(true)
+  const [edit, setEdit] = useState(false)
  const router = useRouter()
  
   return (
@@ -43,8 +43,8 @@ function Index() {
           Create</button>
           </div>
         
-          <div className={`${styles.datatable} datatable border-color`}>
-            <div className={`${styles.tableFilter} card d-flex justify-content-between`}>
+          <div className={`${styles.datatable} card datatable border-color`}>
+            <div className={`${styles.tableFilter}  d-flex justify-content-between`}>
               <h3 className="heading_card">Ramakrishna Traders</h3>
             
             </div>
@@ -72,28 +72,27 @@ function Index() {
                   <td>124621</td>
                   <td className={styles.buyerName}>Iron</td>
                   <td>RM-Sales</td>
+
                   <td>
                     <span className={`${styles.status} ${styles.review}`}></span>
                     Pending
                   </td>
-                  <td colSpan={2}><button className={styles.updateBtn}>Update</button></td>
-                  
-                </tr>
-              <tr className="table_row">
-                  <td>124621</td>
-                  <td className={styles.buyerName}>Crude Oil</td>
-                  <td>RM-Sales</td>
-                  <td>
-                    <span className={`${styles.status} ${styles.approved}`}></span>
-                    Approved
-                  </td>
+                  {!edit ? (
+
+                  <td colSpan={2}> <button className={styles.updateBtn} 
+                  onClick={() => setEdit(!edit)} >Update</button></td>
+                   ) : (
+                    <>
                   <td>Updated on: 02/06/2022</td>
                   <td><img
                           src="/static/mode_edit.svg"
                           className={`${styles.edit_image} mr-3 img-fluid`}
-                          /></td>
+                          onClick={(e)=> setEdit(!edit)}
+                          /> </td>
+                          </>
+)}
                 </tr>
-          
+             
               </tbody>
             </table>
             </div>
