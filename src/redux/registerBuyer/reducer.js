@@ -12,7 +12,8 @@ const initialState = {
   deletingBuyer: false,
   deletedBuyerResponse: null,
   selectedBuyer: null,
-  document: [],
+  document: {},
+  gstDocument: {},
   gettingGstList: true,
   gstList: null,
   gettingOrderList: true,
@@ -151,6 +152,22 @@ function BuyerReducer(state = initialState, action) {
       return {
         ...state,
         document: action.payload,
+      }
+
+    case types.UPLOADDOCUMENT:
+      return{
+        ...state,
+        gstDocument: {}
+      }
+    case types.UPLOADDOCUMENT_SUCCESS:
+      return{
+        ...state,
+        gstDocument: action.payload
+      }
+    case types.UPLOADDOCUMENT_FAILED:
+      return{
+        ...state,
+        gstDocument: {}
       }
 
     case types.GET_GST:
