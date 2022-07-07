@@ -212,7 +212,7 @@ function Index() {
         <div className={styles.table_scroll_outer}>
           <div className={styles.table_scroll_inner}>
             <table
-              className={`${styles.table} table table_row`}
+              className={`${styles.table} table`}
               cellPadding="0"
               cellSpacing="0"
               border="0"
@@ -235,7 +235,7 @@ function Index() {
                       {buyer.queue === 'CreditQueue' ? (
                         <>
                           <td>{buyer.company.customerId}</td>
-                          <td className={styles.buyerName} onClick={()=>{Router.push("/review")}}>
+                          <td className={styles.buyerName} onClick={()=>handleRoute(buyer)}>
                             {buyer.company.companyName}
                           </td>
                           <td>{buyer.createdBy.userRole}</td>
