@@ -33,7 +33,7 @@ const fields =(head,value,isButton)=>{
     return (
         <>
             <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-3`}>
-                <span className={`${styles.top} value`}>{head}</span>
+                <span className={`${styles.top} label`}>{head}</span>
                 <div>
                     <span className={`${styles.value} value `}>
                   {value}                  

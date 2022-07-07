@@ -86,11 +86,11 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <select id='lcValue' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
-                                <option value={termsheetDetails?.transactionDetails?.lcValue}>{termsheetDetails?.transactionDetails?.lcValue} </option>
+                            <input id='lcValue' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required />
+                                {/* <option value={termsheetDetails?.transactionDetails?.lcValue}>{termsheetDetails?.transactionDetails?.lcValue} </option>
                                 <option value="USD 2000">USD 2000</option>
-                                <option value="RS 1000">RS 1000</option>
-                            </select>
+                                <option value="RS 1000">RS 1000</option> 
+                            </select>*/}
                             <label className={`${styles.label} label_heading`}>LC Value<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -122,7 +122,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 <option value="Abbot Port">Abbot Port</option>
                                 <option value="India Port">India Port</option>
                             </select>
-                            <label className={`${styles.label} label_heading`}>Load Port<strong className="text-danger">*</strong></label>
+                            <label className={`${styles.label} label_heading`}>Port Of Loading<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <select id='countryOfOrigin' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>

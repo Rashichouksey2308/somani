@@ -202,7 +202,7 @@ function Index({ handleChange, reviewedProfile}) {
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
-            <td>Order Values</td>
+            <td>Order Value</td>
             <td>{reviewedProfile?.orderValue?.originalValue}</td>
             <td>
               <div className={styles.tick}>
