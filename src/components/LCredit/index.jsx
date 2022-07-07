@@ -122,6 +122,68 @@ function Index() {
                   </div>
                   </Col>
                 </Row>
+
+                    <div className={styles.table_container}>
+                    <div className={styles.table_scroll_outer}>
+                            <div className={styles.table_scroll_inner}>
+                    <table
+                      className={`${styles.table_clause} table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                      border="0">
+                      <thead>
+                        <tr>
+                          <th width="35%" className={`${styles.table_header}`}>CLAUSE </th>
+                          <th className={`${styles.table_header}`} >EXISTING VALUE </th>
+                          <th className={`${styles.table_header}`} >NEW VALUE </th>
+                          <th className={`${styles.table_header}`} ></th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                
+                    <tr className="table_row">
+                      <td >(44A) SHIPMENT FROM <strong className='text-danger ml-n1'>*</strong> </td>
+                      <td>Owendo </td>
+                      <td>Russia</td>          
+                      <td >
+                     
+                        <img
+                        src="/static/mode_edit.svg"
+                        className='img-fluid ml-n5'
+                        alt="edit"
+                        />
+                        <img
+                        src="/static/delete 2.svg"
+                        className="img-fluid ml-3 mr-n5"
+                        alt="delete" />
+                  
+                      </td>
+                    </tr>
+                    <tr className="table_row">
+                      <td >(44A) SHIPMENT FROM <strong className='text-danger ml-n1'>*</strong> </td>
+                      <td>Owendo </td>
+                      <td>Russia</td>          
+                      <td >
+                     
+                        <img
+                        src="/static/mode_edit.svg"
+                        className='img-fluid ml-n5'
+                        alt="edit"
+                        />
+                        <img
+                        src="/static/delete 2.svg"
+                        className="img-fluid ml-3 mr-n5"
+                        alt="delete" />
+                  
+                      </td>
+                    </tr>
+             
+                    </tbody>
+                  </table>
+                  </div>
+                  </div>
+                </div>
                 
               </div>
              </div>
