@@ -21,7 +21,24 @@ function getAllMarginMoneyFailed() {
   }
 }
 
-function updateMarginMoney() {
+function getMarginMoney() {
+  return {
+    type: types.GET_MARGINMONEY,
+  }
+}
+function getMarginMoneySuccess(payload) {
+  return {
+    type: types.GET_MARGINMONEY_SUCCESSFULL,
+    payload,
+  }
+}
+function getMarginMoneyFailed() {
+  return {
+    type: types.GET_MARGINMONEY_FAILED,
+  }
+}
+
+function updatingMarginMoney() {
   return {
     type: types.UPDATE_MARGINMONEY,
   }
@@ -38,21 +55,57 @@ function updateMarginMoneyFailed() {
   }
 }
 
-export const GetAllMarginMoney = (payload) => async (dispatch, getState, api) => {
+export const GetAllMarginMoney =
+  (payload) => async (dispatch, getState, api) => {
+    try {
+      let cookie = Cookies.get('SOMANI')
+      const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
+      let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+      var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+      Axios.get(
+        `${API.corebaseUrl}${API.getMarginMoney}${payload ? payload : ''}`,
+        {
+          headers: headers,
+        },
+      ).then((response) => {
+        if (response.data.code === 200) {
+          dispatch(getAllMarginMoneySuccess(response.data.data))
+        } else {
+          dispatch(getAllMarginMoneyFailed(response.data.data))
+          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        }
+      })
+    } catch (error) {
+      dispatch(getAllMarginMoneyFailed())
+
+      let toastMessage = 'GET MARGIN MONEY API FAILED'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
+  }
+
+export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    Axios.get(`${API.corebaseUrl}${API.getMarginMoney}${payload ? payload : ""}`, {
-      headers: headers,
-    }).then((response) => {
+    Axios.get(
+      `${API.corebaseUrl}${API.getMarginMoney}?orderId=${payload.orderId}`,
+      {
+        headers: headers,
+      },
+    ).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getAllMarginMoneySuccess(response.data.data))
+        dispatch(getMarginMoneySuccess(response.data.data))
       } else {
-        dispatch(getAllMarginMoneyFailed(response.data.data))
+        dispatch(getMarginMoneyFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage })
@@ -60,7 +113,7 @@ export const GetAllMarginMoney = (payload) => async (dispatch, getState, api) =>
       }
     })
   } catch (error) {
-    dispatch(getAllMarginMoneyFailed())
+    dispatch(getMarginMoneyFailed())
 
     let toastMessage = 'GET MARGIN MONEY API FAILED'
     if (!toast.isActive(toastMessage)) {
@@ -69,10 +122,11 @@ export const GetAllMarginMoney = (payload) => async (dispatch, getState, api) =>
   }
 }
 
-export const UpdateMarginMoney = (payload) => async (dispatch, getState, api) => {
+export const UpdateMarginMoney =
+  (payload) => async (dispatch, getState, api) => {
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-  
+
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {

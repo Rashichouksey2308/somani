@@ -25,7 +25,7 @@ const Index = () => {
   useEffect(() => {
     dispatch(setPageName('review-queue'))
      dispatch(setDynamicName(buyerList?.companyName))
-  },[buyerList])
+  },[buyerList, dispatch])
   const handleApprove = () => {
     const payload = { ...payloadData, orderReviewId: buyerList._id }
 
