@@ -142,7 +142,7 @@ function Index() {
                       <tbody>
                 
                     <tr className="table_row">
-                      <td >(44A) SHIPMENT FROM <strong className='text-danger ml-n1'>*</strong> </td>
+                      <td >(44A) SHIPMENT FROM</td>
                       <td>Owendo </td>
                       <td>Russia</td>          
                       <td >
@@ -160,7 +160,7 @@ function Index() {
                       </td>
                     </tr>
                     <tr className="table_row">
-                      <td >(44A) SHIPMENT FROM <strong className='text-danger ml-n1'>*</strong> </td>
+                      <td >(44A) SHIPMENT FROM</td>
                       <td>Owendo </td>
                       <td>Russia</td>          
                       <td >
