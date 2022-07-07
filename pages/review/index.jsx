@@ -34,7 +34,7 @@ import { Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { UpdateCredit, UpdateOrderShipment } from '../../src/redux/buyerProfile/action'
-import { element } from 'prop-types'
+
 
 function Index() {
   const dispatch = useDispatch()
@@ -53,7 +53,7 @@ function Index() {
   }, [])
 
   const { orderList } = useSelector((state) => state.buyer)
-  console.log(orderList, "orderList")
+
 
   const [selectedTab, setSelectedTab] = useState('Profile')
 
@@ -105,60 +105,50 @@ function Index() {
     setShipment(newInput)
   }
 
-  
-
-
-  // const validate = (name) => {
-  //   if(name.trim()===""){
-  //     let toastMessage = `the ${name} Field Cannot be Empty`
-  //     if (!toast.isActive(toastMessage)) {
-  //       toast.error(toastMessage, { toastId: toastMessage })
-  //   }
-  // }
   const onOrderSave = () => {
-    if (orderDetails.transactionType.trim() === "") {
+    if (orderDetails?.transactionType?.trim() === "") {
       let toastMessage = 'Invalid Transaction Type'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.commodity.trim() === "") {
+    } else if (orderDetails?.commodity?.trim() === "") {
       let toastMessage = 'the Commodity can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.quantity.trim() === "") {
-      let toastMessage = 'THe Quantity can not be Empty '
+    } else if (orderDetails?.quantity === "") {
+      let toastMessage = 'Quantity can not be Empty '
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.unitOfQuantity.trim() === "") {
+    } else if (orderDetails?.unitOfQuantity?.trim() === "") {
       let toastMessage = 'Please Provide a unit Of Quantity  '
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.orderValue.trim() === "") {
+    } else if (orderDetails?.orderValue === "") {
       let toastMessage = 'Please Check the orderValue  '
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.orderCurrency.trim() === "") {
+    } else if (orderDetails?.orderCurrency?.trim() === "") {
       let toastMessage = 'the orderCurrency can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.unitOfValue.trim() === "") {
+    } else if (orderDetails?.unitOfValue?.trim() === "") {
       let toastMessage = 'Please Set the unit of value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.supplierName.trim() === "") {
+    } else if (orderDetails?.supplierName?.trim() === "") {
       let toastMessage = 'the supplier Name can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -170,43 +160,43 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.portOfDischarge.trim() === "") {
+    } else if (orderDetails?.portOfDischarge?.trim() === "") {
       let toastMessage = 'the port Of Discharge can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.ExpectedDateOfShipment.trim() === "") {
+    } else if (orderDetails?.ExpectedDateOfShipment?.trim() === "") {
       let toastMessage = 'the Expected Date Of Shipment can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.incoTerm.trim() === "") {
+    } else if (orderDetails?.incoTerm?.trim() === "") {
       let toastMessage = 'the incoTerm can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.grade.trim() === "") {
+    } else if (orderDetails?.grade?.trim() === "") {
       let toastMessage = 'the grade can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.tolerance.trim() === "") {
+    } else if (orderDetails?.tolerance === "") {
       let toastMessage = 'the tolerance can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.transactionPeriodDays.trim() === "") {
+    } else if (orderDetails?.transactionPeriodDays === "") {
       let toastMessage = 'the transaction Period Days can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.manufacturerName.trim() === "") {
+    } else if (orderDetails?.manufacturerName?.trim() === "") {
       let toastMessage = 'the manufacturer Name can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -218,7 +208,7 @@ function Index() {
           ...orderDetails,
           shipmentDetail: { ...shipment },
           order: orderList._id,
-          orderValue: orderDetails.orderValue + '0000000',
+          orderValue: orderDetails.orderValue * 10000000,
         }
         dispatch(UpdateOrderShipment(obj))
       } else {
@@ -418,7 +408,7 @@ function Index() {
       weaknessArr.push(element)
     })
     setWeaknessComment(weaknessArr)
-  }, [orderList?.company])
+  }, [orderList, orderList?.company])
 
   const keyAddDataArr = (keyAddressData) => {
     let newArr = [...keyAddData]
@@ -458,15 +448,15 @@ function Index() {
   }
   const onNext = () => {
     let list = document.getElementsByClassName("nav-tabs")
-    console.log("onnext1")
+    
     for (let i = 0; i < list[0].children.length; i++) {
-      console.log(list[0].children[i].children[0].attributes[5].nodeValue, "onNext")
+  
       if (list[0].children[i].children[0].attributes[5].nodeValue == true || list[0].children[i].children[0].attributes[5].nodeValue == "true") {
-        console.log("here")
+
         list[0].children[i].children[0].attributes[5].nodeValue = false;
         let temIndex = i;
         setSelectedTab(list[0].children[temIndex++].children[0].attributes[4].nodeValue)
-        console.log(list[0].children[temIndex++].children[0].attributes[4].nodeValue, "oki")
+  
         //  list[0].children[temIndex++].children[0].attributes[5].nodeValue=true
 
       }
