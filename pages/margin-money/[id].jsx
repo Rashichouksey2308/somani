@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -7,18 +9,19 @@ import { Form } from 'react-bootstrap'
 
 import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
-import Router from 'next/router';
-import { useSelector } from 'react-redux';
+import Router from 'next/router'
+import { useSelector, useDispatch } from 'react-redux'
+import { UpdateMarginMoney } from '../../src/redux/marginMoney/action'
 
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
+  const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
 
-  const { marginMoneyResponse } = useSelector((state) => state.marginMoney)
-   
-
+  const { margin} = useSelector((state) => state.marginMoney)
+  console.log(margin?.data[0], 'id.jsx response')
 
   useEffect(() => {
     if (
@@ -31,8 +34,83 @@ function Index() {
     }
   }, [])
 
+  const [forCalculation, setForCalculation] = useState({
+    isUsanceInterestIncluded: margin?.data[0]?.isUsanceInterestIncluded,
+    status: margin?.data[0]?.status,
+    quantity:margin?.data[0]?.order?.quantity,
+    additionalPDC: margin?.data[0]?.additionalPDC,
+    conversionRate: margin?.data[0]?.conversionRate,
+
+    numberOfPDC: margin?.data[0]?.numberOfPDC,
+  })
+
+  const saveForCalculation = (name, value) => {
+    const newInput = { ...forCalculation }
+    newInput[name] = value
+    // console.log(newInput)
+    setForCalculation(newInput)
+  }
+
+  const [invoiceData, setInvoiceData] = useState({
+    buyerName: margin?.data[0]?.invoiceDetail?.buyerName,
+    buyerGSTIN: margin?.data[0]?.invoiceDetail?.buyerGSTIN,
+    buyerAddress: margin?.data[0]?.invoiceDetail?.buyerAddress,
+    isConsigneeSameAsBuyer: margin?.data[0]?.invoiceDetail?.isConsigneeSameAsBuyer,
+    consigneeName: margin?.data[0]?.invoiceDetail?.consigneeName,
+    consigneeGSTIN: margin?.data[0]?.invoiceDetail?.consigneeGSTIN,
+    consigneeAddress: margin?.data[0]?.invoiceDetail?.consigneeAddress,
+    importerName: margin?.data[0]?.invoiceDetail?.importerName,
+    branchOffice: margin?.data[0]?.invoiceDetail?.branchOffice,
+    companyAddress: margin?.data[0]?.invoiceDetail?.companyAddress,
+    importerGSTIN: margin?.data[0]?.invoiceDetail?.importerGSTIN,
+    bankName: margin?.data[0]?.invoiceDetail?.bankName,
+    branch: margin?.data[0]?.invoiceDetail?.branch,
+    branchAddress: margin?.data[0]?.invoiceDetail?.branchAddress,
+    IFSCcode: margin?.data[0]?.invoiceDetail?.IFSCcode,
+    accountNo: margin?.data[0]?.invoiceDetail?.accountNo,
+  })
+
+  const saveInvoiceData = (name, value) => {
+    const newInput = { ...invoiceData }
+    newInput[name] = value
+    // console.log(newInput)
+    setInvoiceData(newInput)
+  }
+
+  const [calcData, setCalcData] = useState({
+    orderValue: margin?.data[0]?.calculation?.orderValue ,
+    orderValueCurrency: margin?.data[0]?.calculation?.orderValueCurrency,
+    orderValueInINR: margin?.data[0]?.calculation?.orderValueInINR,
+    usanceInterest: margin?.data[0]?.calculation?.usanceInterest,
+    tradeMargin: margin?.data[0]?.calculation?.tradeMargin,
+    grossOrderValue: margin?.data[0]?.calculation?.grossOrderValue,
+    toleranceValue: margin?.data[0]?.calculation?.toleranceValue,
+    totalOrderValue: margin?.data[0]?.calculation?.totalOrderValue,
+    provisionalUnitPricePerTon: margin?.data[0]?.calculation?.provisionalUnitPricePerTon,
+    marginMoney: margin?.data[0]?.calculation?.marginMoney,
+    totalSPDC: margin?.data[0]?.calculation?.totalSPDC,
+    amountPerSPDC: margin?.data[0]?.calculation?.amountPerSPDC,
+  })
+
+  const [termsheetData, setTermsheetData] = useState({
+
+  })
+
   const routeChange = () => {
     Router.push('/margin-preview')
+  }
+
+  const handleUpdate = () => {
+    const obj = {
+        "marginMoneyId": margin?.data[0]?._id,
+        "conversionRate": forCalculation.conversionRate,
+        "isUsanceInterestIncluded": forCalculation.isUsanceInterestIncluded,
+        "numberOfPDC": forCalculation.numberOfPDC,
+        "additionalPDC": forCalculation.additionalPDC,
+        "invoiceDetail": {...invoiceData}
+    }
+
+    dispatch(UpdateMarginMoney(obj))
   }
 
   return (
@@ -135,7 +213,7 @@ function Index() {
                           Commodity
                         </span>
                         <span className={`${styles.comm_val} heading`}>
-                          Thermal Coal
+                          {margin?.data[0].order.commodity}
                         </span>
                       </div>
                       <div
@@ -156,7 +234,8 @@ function Index() {
                         <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
                         >
-                          <option>Crores</option>
+                            <option> {margin?.data[0].order.unitOfValue}</option>
+                          <option>Million</option>
                         </select>
                         <span>+</span>
                       </div>
@@ -171,15 +250,287 @@ function Index() {
                         <div className={`${styles.content} border_color`}>
                           <div className={`${styles.input_container} row`}>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>A</span>
                               </div>
                               <input
-                              disabled={true}
                                 type="text"
                                 id="textInput"
+                                name="quantity"
+                                defaultValue={margin?.data[0]?.order?.quantity}
+                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Quantity
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>B</span>
+                              </div>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="companyPan"
+                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Unit Price
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>C</span>
+                              </div>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="conversionRate"
+                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.conversionRate}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Conversation Rate
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-2 col-sm-4`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>D</span>
+                              </div>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="companyPan"
+                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                className={`${styles.input_field} input form-control`}
+                                style={{ width: '50%' }}
+                                required
+                              />
+
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Usance Interest (%)
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.radio_heading} ml-n5 mt-4 form-check form-check-inline`}
+                              //style={{top:"50px", left:"100px"}}
+                            >
+                              {' '}
+                              Include in Calculation
+                              <input
+                                className="form-check-input ml-3"
+                                type="radio"
+                                name="inlineRadioOptions"
+                                defaultChecked={margin?.data[0]?.isUsanceInterestIncluded === true}
+                                onChange={(e)=>saveForCalculation("isUsanceInterestIncluded", true)}
+                              />
+                              <label
+                                className="form-check-label mr-2"
+                                for="inlineRadio1"
+                              >
+                                Yes
+                              </label>
+                              <input
+                                className="form-check-input ml-2"
+                                type="radio"
+                                name="inlineRadioOptions"
+                                defaultChecked={margin?.data[0]?.isUsanceInterestIncluded === false}
+                                onChange={(e)=>saveForCalculation('isUsanceInterestIncluded', false)}
+                              />
+                              <label
+                                className="form-check-label"
+                                for="inlineRadio2"
+                              >
+                                No
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>E</span>
+                              </div>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="companyPan"
+                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Trade Margin (%)
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>{' '}
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>F</span>
+                              </div>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="companyPan"
+                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Tolerance (+/-) Percentage
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>{' '}
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>G</span>
+                              </div>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="companyPan"
+                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Margin Money (%)
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>{' '}
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>H</span>
+                              </div>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="numberOfPDC"
+                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.numberOfPDC}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                No. of PDC's
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>I</span>
+                              </div>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="additionalPDC"
+                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.additionalPDC}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Additional PDC's
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className={`${styles.content} border_color`}>
+                          <span>Calculation</span>
+                          <div className={`${styles.input_container} row`}>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>J</span>
+                              </div>
+                              <input
+                                disabled={true}
+                                type="text"
+                                id="textInput"
+                                defaultValue={margin?.data[0]?.calculation?.orderValue}
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -187,67 +538,51 @@ function Index() {
                               <label
                                 className={`${styles.label_heading} label_heading`}
                                 id="textInput"
-                                style={{left:"70px"}}
-                                >
-                                Quantity
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Order Value{' '}
                                 <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(A*B)`}</span>
                               </label>
-  
                             </div>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>B</span>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>K</span>
                               </div>
                               <input
-                               disabled={true}
+                                disabled={true}
                                 type="text"
                                 id="textInput"
+                                defaultValue={margin?.data[0]?.calculation?.orderValueInINR}
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
                               <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px"}}
-                                >
-                                  Unit Price
-                                  <strong className="text-danger">*</strong>
-                                </label>
-  
-                            </div>
-                           
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>C</span>
-                              </div>
-                              <input
-                               disabled={true}
-                                type="text"
+                                className={`${styles.label_heading} label_heading`}
                                 id="textInput"
-                                name="companyPan"
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px"}}
-                                >
-                                  Conversation Rate
-                                  <strong className="text-danger">*</strong>
-                                </label>
-  
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Order Value (INR){' '}
+                                <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(J*C)`}</span>
+                              </label>
                             </div>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-2 col-sm-4`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>D</span>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
+                                <span>L</span>
                               </div>
                               <input
                                 disabled={true}
@@ -255,451 +590,255 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                className={`${styles.input_field} input form-control`}
-                                style={{width:"50%"}}
-                                required
-                              /> 
-                             
-                              <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px"}}
-                                >
-                                  Usance Interest (%)
-                                  <strong className="text-danger">*</strong>
-                                </label>
-  
-                            </div>
-                            <div className={`${styles.radio_heading} ml-n5 mt-4 form-check form-check-inline`}
-                              //style={{top:"50px", left:"100px"}}
-                              > Include in Calculation
-
-                                <input className="form-check-input ml-3" type="radio" name="inlineRadioOptions"/>
-                                <label className="form-check-label mr-2" htmlFor="inlineRadio1">Yes</label>
-                             
-                                <input className="form-check-input ml-2" type="radio" name="inlineRadioOptions"/>
-                                <label className="form-check-label" htmlFor="inlineRadio2">No</label>
-                              </div>
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>E</span>
-                              </div>
-                              <input
-                              disabled={true}
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
+                                defaultValue={margin?.data[0]?.calculation?.usanceInterest}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
                               <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px"}}
-                                >
-                                  Trade Margin (%)
-                                  <strong className="text-danger">*</strong>
-                                </label>
-  
-                            </div> <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>F</span>
-                              </div>
-                              <input
-                              disabled={true}
-                                type="text"
+                                className={`${styles.label_heading} label_heading`}
                                 id="textInput"
-                                name="companyPan"
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px"}}
-                                >
-                                  Tolerance (+/-) Percentage
-                                  <strong className="text-danger">*</strong>
-                                </label>
-  
-                            </div> <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>G</span>
-                              </div>
-                              <input
-                              disabled={true}
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px"}}
-                                >
-                                  Margin Money (%)
-                                  <strong className="text-danger">*</strong>
-                                </label>
-  
-                            </div> <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>H</span>
-                              </div>
-                              <input
-                              disabled={true}
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px"}}>
-                                  No. of PDC &apos; s
-                                  <strong className="text-danger">*</strong>
-                                </label>
-  
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Usance Interest (%) for 90 days (INR)
+                                <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(K*D*90/365)`}</span>
+                              </label>
                             </div>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>I</span>
-                              </div>
-                              <input
-                              disabled={true}
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px"}}
-                                >
-                                  Additional PDC &apos; s
-                                  <strong className="text-danger">*</strong>
-                                </label>
-  
-                            </div>
-                          </div>
-                        </div>
-                        <div className={`${styles.content} border_color`}>
-                          <span>Calculation</span>
-                          <div className={`${styles.input_container} row`}>
-                          <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>J</span>
-                              </div>
-                              <input
-                              disabled={true}
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                             <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-
-                                  Order Value{' '}
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(A*B)`}</span>
-                                </label>
-  
-                            </div>
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>K</span>
-                              </div>
-                              <input
-                              disabled={true}
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                             <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-                                  Order Value (INR){' '}
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(J*C)`}</span>
-                                </label>
-  
-                            </div>
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
-                                <span>L</span>
-                              </div>
-                              <input
-                              disabled={true}
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-                                  Usance Interest (%) for 90 days (INR)
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(K*D*90/365)`}</span>
-                                </label>
-  
-                            </div>
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>M</span>
                               </div>
                               <input
-                              disabled={true}
+                                disabled={true}
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                
+                                defaultValue={margin?.data[0]?.calculation?.tradeMargin}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
-                             <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-                                  Trade Margin (INR)
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(K*E)`}</span>
-                                </label>
-  
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Trade Margin (INR)
+                                <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(K*E)`}</span>
+                              </label>
                             </div>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>N</span>
                               </div>
                               <input
-                              disabled={true}
+                                disabled={true}
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                
+                                defaultValue={margin?.data[0]?.calculation?.grossOrderValue}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
-                             <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-                                  Gross Order Value (INR)
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(K+L+M)`}</span>
-                                </label>
-  
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Gross Order Value (INR)
+                                <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(K+L+M)`}</span>
+                              </label>
                             </div>
 
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>O</span>
                               </div>
                               <input
-                              disabled={true}
+                                disabled={true}
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                
+                                defaultValue={margin?.data[0]?.calculation?.toleranceValue}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
                               <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-                                  Tolerance Value (INR)
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(N*F)`}</span>
-                                </label>
-  
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Tolerance Value (INR)
+                                <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(N*F)`}</span>
+                              </label>
                             </div>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>P</span>
                               </div>
                               <input
-                              disabled={true}
+                                disabled={true}
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                
+                                defaultValue={margin?.data[0]?.calculation?.totalOrderValue}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
-                            <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-                                  Total Order Value (INR)
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(N+O)`}</span>
-                                </label>
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Total Order Value (INR)
+                                <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(N+O)`}</span>
+                              </label>
                             </div>
-                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>Q</span>
                               </div>
                               <input
-                              disabled={true}
+                                disabled={true}
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                
+                                defaultValue={margin?.data[0]?.calculation?.provisionalUnitPricePerTon}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
                               <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-                                  Provisional Unit Price Per Ton (INR)
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(N/A)`}</span>
-                                </label>
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Provisional Unit Price Per Ton (INR)
+                                <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(N/A)`}</span>
+                              </label>
                             </div>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>R</span>
                               </div>
                               <input
-                              disabled={true}
+                                disabled={true}
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                
+                                defaultValue={margin?.data[0]?.calculation?.marginMoney}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
                               <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-                                  Margin Money (INR)
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(P*G)`}</span>
-                                </label>
-  
-                            </div> 
-                           
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Margin Money (INR)
+                                <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(P*G)`}</span>
+                              </label>
+                            </div>
+
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>S</span>
                               </div>
                               <input
-                              disabled={true}
+                                disabled={true}
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                
+                                defaultValue={margin?.data[0]?.calculation?.totalSPDC}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
-                            <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-
-                                  Total SPDC Amount Req. (INR)
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(P-R)`}</span>
-                                </label>
-  
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Total SPDC Amount Req. (INR)
+                                <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(P-R)`}</span>
+                              </label>
                             </div>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                                <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}>
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>T</span>
                               </div>
                               <input
-                              disabled={true}
+                                disabled={true}
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                
+                                defaultValue={margin?.data[0]?.calculation?.amountPerSPDC}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
-                            <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                  style={{left:"70px" , top:"17px"}}>
-                                  Amount per SPDC (INR)
-                                  <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(S/H)`}</span>
-                                </label>
-  
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px', top: '17px' }}
+                              >
+                                Amount per SPDC (INR)
+                                <strong className="text-danger">*</strong>
+                                <span
+                                  className={`${styles.blue}`}
+                                >{`(S/H)`}</span>
+                              </label>
                             </div>
                           </div>
                         </div>
@@ -728,13 +867,16 @@ function Index() {
                         <div className={`${styles.content} border_color`}>
                           <div className={`${styles.input_container} row`}>
                             <div
-                              className={`${styles.each_input} col-md-4 col-sm-6`} >
+                              className={`${styles.each_input} col-md-4 col-sm-6`}
+                            >
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="buyerName"
+                                defaultValue={margin?.data[0]?.invoiceDetail?.buyerName}
                                 className={`${styles.input_field} input form-control`}
                                 required
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -749,15 +891,16 @@ function Index() {
                             >
                               <select
                                 id="Code"
-                                name="typeOfBussiness"
+                                name="buyerGSTIN"
                                 className={`${styles.input_field} input form-control`}
                                 required
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
                               >
                                 <option value="GTSDT789652JKH">
-                                  GTSDT789652JKH
+                                  {margin?.data[0]?.invoiceDetail?.buyerGSTIN}
                                 </option>
-                                <option value="Retailer">Retailer</option>
-                                <option value="Trading">Trading</option>
+                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -773,9 +916,11 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="buyerAddress"
+                                defaultValue={margin?.data[0]?.invoiceDetail?.buyerAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -802,8 +947,9 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="Yes"
+                                      defaultChecked={margin?.data[0]?.invoiceDetail?.isConsigneeSameAsBuyer === true}
                                       onChange={() =>
-                                        saveOrderData('IncoTerms', 'FOB')
+                                        saveInvoiceData('isConsigneeSameAsBuyer', true )
                                       }
                                       name="group1"
                                       type={type}
@@ -813,8 +959,9 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
+                                      defaultChecked={margin?.data[0]?.invoiceDetail?.isConsigneeSameAsBuyer === false}
                                       onChange={() =>
-                                        saveOrderData('IncoTerms', 'CFR')
+                                        saveInvoiceData('isConsigneeSameAsBuyer', false)
                                       }
                                       name="group1"
                                       type={type}
@@ -830,7 +977,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="consigneeName"
+                                defaultValue={margin?.data[0]?.invoiceDetail?.consigneeName}
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -846,15 +995,16 @@ function Index() {
                             >
                               <select
                                 id="Code"
-                                name="typeOfBussiness"
+                                name="consigneeGSTIN"
                                 className={`${styles.input_field} input form-control`}
                                 required
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
                               >
                                 <option value="GTSDT789652JKH">
-                                  GTSDT789652JKH
+                                  {margin?.data[0]?.invoiceDetail?.consigneeGSTIN}
                                 </option>
-                                <option value="Retailer">Retailer</option>
-                                <option value="Trading">Trading</option>
+                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -870,7 +1020,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="consigneeAddress"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.consigneeAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -899,8 +1051,9 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="Yes"
+                                      defaultChecked={margin?.data[0]?.invoiceDetail?.isConsigneeSameAsBuyer === true}
                                       onChange={() =>
-                                        saveOrderData('IncoTerms', 'FOB')
+                                        saveInvoiceData('isConsigneeSameAsBuyer', true)
                                       }
                                       name="group1"
                                       type={type}
@@ -910,8 +1063,9 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
+                                      defaultChecked={margin?.data[0]?.invoiceDetail?.isConsigneeSameAsBuyer === false}
                                       onChange={() =>
-                                        saveOrderData('IncoTerms', 'CFR')
+                                        saveInvoiceData('isConsigneeSameAsBuyer', false)
                                       }
                                       name="group1"
                                       type={type}
@@ -927,7 +1081,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="consigneeName"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.consigneeName}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -943,15 +1099,16 @@ function Index() {
                             >
                               <select
                                 id="Code"
-                                name="typeOfBussiness"
+                                name="consigneeGSTIN"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               >
                                 <option value="GTSDT789652JKH">
-                                  GTSDT789652JKH
+                                  {margin?.data[0]?.invoiceDetail?.consigneeGSTIN}
                                 </option>
-                                <option value="Retailer">Retailer</option>
-                                <option value="Trading">Trading</option>
+                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -967,7 +1124,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="consigneeAddress"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.consigneeAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -989,7 +1148,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name='importerName'
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.importerName}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1007,7 +1168,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="branchOffice"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.branchOffice}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1025,7 +1188,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="companyAddress"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.companyAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1043,7 +1208,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="importerGSTIN"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.importerGSTIN}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1061,7 +1228,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="bankName"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.bankName}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1079,7 +1248,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="branch"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.branch}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1096,7 +1267,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="branchAddress"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.branchAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1114,7 +1287,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="IFSCcode"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.IFSCcode}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1132,7 +1307,9 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="accountNo"
+                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={margin?.data[0]?.invoiceDetail?.accountNo}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1174,6 +1351,7 @@ function Index() {
       <DownloadBar
         downLoadButtonName={`Download`}
         isPrevious={true}
+        handleUpdate={handleUpdate}
         leftButtonName={`Save`}
         rightButtonName={`Preview`}
         handleApprove={routeChange}

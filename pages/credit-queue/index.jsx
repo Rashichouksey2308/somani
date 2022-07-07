@@ -235,7 +235,7 @@ function Index() {
                       {buyer.queue === 'CreditQueue' ? (
                         <>
                           <td>{buyer.company.customerId}</td>
-                          <td className={styles.buyerName} onClick={()=>{Router.push("/review")}}>
+                          <td className={styles.buyerName} onClick={()=>handleRoute(buyer)}>
                             {buyer.company.companyName}
                           </td>
                           <td>{buyer.createdBy.userRole}</td>
