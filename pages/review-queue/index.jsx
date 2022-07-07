@@ -13,7 +13,6 @@ import {
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 import { setPageName } from '../../src/redux/userData/action'
 function Index() {
-
   const [serachterm, setSearchTerm] = useState('')
 
   const [currentPage, setCurrentPage] = useState(0)
@@ -21,7 +20,7 @@ function Index() {
   const dispatch = useDispatch()
 
   const { allBuyerList } = useSelector((state) => state.buyer)
-  
+
   const { searchedLeads } = useSelector((state) => state.order)
   // console.log(searchedLeads, 'searched items')
 
@@ -233,7 +232,13 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th>CUSTOMER ID <img className={`mb-1`} src="./static/icons8-sort-24.png "/></th>
+                      <th>
+                        CUSTOMER ID{' '}
+                        <img
+                          className={`mb-1`}
+                          src="./static/icons8-sort-24.png "
+                        />
+                      </th>
                       <th>BUYER NAME</th>
                       <th>CREATED BY</th>
                       <th>USERNAME</th>
@@ -248,25 +253,29 @@ function Index() {
                           key={index}
                           className={`${styles.table_row} table_row`}
                         >
-                          <td>{buyer.company.customerId}</td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => {
-                              handleRoute(buyer)
-                            }}
-                          >
-                            {buyer.company.companyName}
-                          </td>
-                          <td>{buyer.createdBy.userRole}</td>
-                          <td>{buyer.createdBy.fName}</td>
-                          <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
-                          <td>
-                            <span
-                              className={`${styles.status} ${styles.review}`}
-                            ></span>
+                          {buyer.queue === 'ReviewQueue' ? (
+                            <>
+                              <td>{buyer.company.customerId}</td>
+                              <td
+                                className={`${styles.buyerName}`}
+                                onClick={() => {
+                                  handleRoute(buyer)
+                                }}
+                              >
+                                {buyer.company.companyName}
+                              </td>
+                              <td>{buyer.createdBy.userRole}</td>
+                              <td>{buyer.createdBy.fName}</td>
+                              <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                              <td>
+                                <span
+                                  className={`${styles.status} ${styles.review}`}
+                                ></span>
 
-                            {'Review'}
-                          </td>
+                                {'Review'}
+                              </td>
+                            </>
+                          ) : null}
                         </tr>
                       ))}
                   </tbody>
