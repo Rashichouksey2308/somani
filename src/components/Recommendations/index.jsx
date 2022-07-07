@@ -214,7 +214,7 @@ const Index = ({
                   </td>
                 </tr>
 
-                { addRow ? (<tr className="table_row" >
+                { !addRow ? (<tr className="table_row" >
                   <td className={styles.number}>1 </td>
                   <td>
                     <input className= {styles.input} readOnly={!saveTable} />
