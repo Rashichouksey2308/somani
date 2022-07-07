@@ -106,7 +106,7 @@ function Index(props) {
                                 e.preventDefault()
                                 onSubmitHandler()                           
                             }}>Sign in</button>
-                            <p className={styles.signUp}>Don't have an account?<a href='#'>Sign up</a></p>
+                            <p className={styles.signUp}>Don&apos;t have an account?<a href='#'>Sign up</a></p>
                         </div>
                     </form>
                     {/* <ul className={styles.footerLinks}>
