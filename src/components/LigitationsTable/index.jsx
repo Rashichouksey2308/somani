@@ -14,16 +14,16 @@ function index({ val }) {
           aria-controls={`${val}`}
         >
           <Row className={`${styles.row}`}>
-            <Col>
+            <Col md={3} sm={2}>
               <div className="mb-0">Tribunals</div>
             </Col>
-            <Col>
+            <Col md={3} sm={2}>
               <div className={`${styles.head} mb-0 d-flex align-items-center `}>
                 <span className={``}>Pending Case</span>
                 <span className={`${styles.lower} sub_heading`}>4</span>
               </div>
             </Col>
-            <Col>
+            <Col md={3} sm={2}>
               <div
                 className={`${styles.head}  mb-0 d-flex align-items-center `}
               >
@@ -31,7 +31,7 @@ function index({ val }) {
                 <span className={`${styles.lower} sub_heading`}>4</span>
               </div>
             </Col>
-            <Col>
+            <Col md={3} sm={2}>
               <div className={`${styles.head} mb-0 d-flex align-items-center`}>
                 <span>Total cases</span>
                 <div className={styles.chart}>

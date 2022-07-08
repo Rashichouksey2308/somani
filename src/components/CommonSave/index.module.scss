@@ -1,6 +1,10 @@
+@import "../styles/Core/config";
 .main {
     margin-bottom: 5rem;
     border-radius: 6px !important;
+                @include respond(phone) {
+                      align-items: center !important;
+                    }
 
     .submit {
         cursor: pointer;

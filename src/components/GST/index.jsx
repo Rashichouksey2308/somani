@@ -284,43 +284,43 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
               </div>
               <div className={` ${styles.body}`}>
                 <Row>
-                  <Col md={3}>
+                  <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Business Activity
                     </div>
                     <div className={styles.col_body}>Supplier Of Services</div>
                   </Col>
-                  <Col md={3}>
+                  <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Business Activity
                     </div>
                     <div className={styles.col_body}>Supplier Of Services</div>
                   </Col>
-                  <Col md={3}>
+                  <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Business Activity
                     </div>
                     <div className={styles.col_body}>Supplier Of Services</div>
                   </Col>
-                  <Col md={3}>
+                  <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Business Activity
                     </div>
                     <div className={styles.col_body}>Supplier Of Services</div>
                   </Col>
-                  <Col md={3}>
+                  <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Business Activity
                     </div>
                     <div className={styles.col_body}>Supplier Of Services</div>
                   </Col>
-                  <Col md={3}>
+                  <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Business Activity
                     </div>
                     <div className={styles.col_body}>Supplier Of Services</div>
                   </Col>
-                  <Col md={3}>
+                  <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Business Activity
                     </div>
@@ -339,6 +339,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <Row className={` ${styles.row}`}>
                   <Col
                     md={2}
+                     sm={12}
                     className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}
                   >
                     <div className={styles.dot}></div>
@@ -348,6 +349,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <Row className={` ${styles.row}`}>
                   <Col
                     md={3}
+                     sm={12}
                     className={`${styles.gst_cancelled} gst_profile_alerts  d-flex align-items-center justify-content-start`}
                   >
                     <div
@@ -358,6 +360,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </Col>
                   <Col
                     md={3}
+                     sm={12}
                     className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
                   >
                     <div
@@ -368,6 +371,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </Col>
                   <Col
                     md={3}
+                     sm={12}
                     className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
                   >
                     <div
@@ -378,6 +382,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </Col>
                   <Col
                     md={3}
+                    sm={12}
                     className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
                   >
                     <div
@@ -399,24 +404,28 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <Row>
                   <Col
                     md={3}
+                    sm={12}
                     className={`  d-flex align-items-center justify-content-between`}
                   >
                     <span>- Kalyan</span>
                   </Col>
                   <Col
                     md={3}
+                     sm={12}
                     className={`  d-flex align-items-center justify-content-between`}
                   >
                     <span>- Kalyan</span>
                   </Col>
                   <Col
                     md={3}
+                     sm={12}
                     className={`  d-flex align-items-center justify-content-between`}
                   >
                     <span>- Kalyan</span>
                   </Col>
                   <Col
                     md={3}
+                     sm={12}
                     className={`  d-flex align-items-center justify-content-between`}
                   >
                     <span>- Kalyan</span>
@@ -531,15 +540,15 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
         >
           <div className={` ${styles.cardBody} card-body  border_color`}>
             <Row className={styles.row}>
-              <Col md={6} className={styles.col}>
-                <div className={styles.chart_container}>
+              <Col md={6} sm={12} className={styles.col}>
+                <div className={`${styles.chart_container} ${styles.noBorder}`}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
                     <span>Revenue Summary</span>
                     <span className={styles.light}>(Cr)</span>
                   </div>
-                  <div className={styles.chart}>
+                  <div className={`${styles.chart} }`}>
                     <Line
                       ref={chartRef}
                       data={chartData}
@@ -548,7 +557,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </div>
                 </div>
               </Col>
-              <Col md={6} className={styles.col2}>
+              <Col md={6}  sm={12} className={styles.col2}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
@@ -561,7 +570,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </div>
                 </div>
               </Col>
-              <Col md={6} className={styles.col}>
+              <Col md={6}  sm={12} className={styles.col}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
@@ -574,7 +583,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </div>
                 </div>
               </Col>
-              <Col md={6} className={styles.col2}>
+              <Col md={6}  sm={12} className={styles.col2}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
@@ -587,7 +596,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </div>
                 </div>
               </Col>
-              <Col md={6} className={styles.col2}>
+              <Col md={6}  sm={12} className={styles.col2}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
@@ -600,7 +609,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </div>
                 </div>
               </Col>
-              <Col md={6} className={styles.col2}>
+              <Col md={6}  sm={12} className={styles.col2}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
@@ -636,6 +645,176 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
           data-parent="#profileAccordion"
         >
           <div className={` ${styles.cardBody} card-body   border_color`}>
+        <div className={`${styles.scrollouter}`}>
+        <div className={`${styles.scrollInner}`}>
+         <table
+              className={`${styles.table_annual}  table border_color`}
+              cellPadding="0"
+              cellSpacing="0"
+              border="1"
+            >
+              <tr>
+                <th className={`${styles.first}`} colSpan={2}>
+                  Annual Summary
+                </th>
+                <th colSpan={2}>MAR 2020 - APR 2021</th>
+                <th colSpan={2}>MAR 2021 - APR 2022</th>
+              </tr>
+              <tr className={styles.second_head}>
+                <td className={`${styles.first}`} colSpan={2}></td>
+                <td>VALUE</td>
+                <td>% ON GROSS REVENUE</td>
+                <td>VALUE</td>
+                <td>% ON GROSS REVENUE</td>
+                {/* <td    className=" d-flex align-items-center justify-content-between">
+               <span>VALUE</span>
+               <span >% ON GROSS REVENUE</span>
+             </td>
+              <td    className=" d-flex align-items-center justify-content-between">
+               <span>VALUE</span>
+               <span >% ON GROSS REVENUE</span>
+             </td> */}
+              </tr>
+              <tr>
+                <td className={`${styles.first}`} colSpan={2}>
+                  Gross Revenue
+                </td>
+                <td>1,900.00</td>
+                <td>80%</td>
+                <td>1,900.00</td>
+                <td>80%</td>
+              </tr>
+            </table>
+            <table
+              className={`${styles.table_average} border_color  table`}
+              cellPadding="0"
+              cellSpacing="0"
+              border="1"
+            >
+              <tr>
+                <th>Averages</th>
+                <th>MAR 2020 - APR 2021</th>
+                <th>MAR 2021 - APR 2022</th>
+              </tr>
+
+              <tr className={styles.second_head}>
+                <td></td>
+                <td>VALUE</td>
+
+                <td>VALUE</td>
+              </tr>
+              <tr>
+                <td>Average Monthly Sales</td>
+                <td>1,900.00</td>
+
+                <td>1,900.00</td>
+              </tr>
+              <tr>
+                <td>Average Monthly Sales</td>
+                <td>1,900.00</td>
+
+                <td>1,900.00</td>
+              </tr>
+              <tr>
+                <td>Average Monthly Sales</td>
+                <td>1,900.00</td>
+
+                <td>1,900.00</td>
+              </tr>
+              <tr>
+                <td>Average Monthly Sales</td>
+                <td>1,900.00</td>
+
+                <td>1,900.00</td>
+              </tr>
+              <tr>
+                <td>Average Monthly Sales</td>
+                <td>1,900.00</td>
+
+                <td>1,900.00</td>
+              </tr>
+            </table>
+            <table
+              className={`${styles.table_pricioal} border_color  table`}
+              cellPadding="0"
+              cellSpacing="0"
+              border="1"
+            >
+              <tr>
+                <th>Principal/ HSN Wise Sales</th>
+                <th colSpan={6}>Financial Period:1</th>
+              </tr>
+              <tr>
+                <td className={`${styles.second_head} ${styles.first}`}>
+                  PRODUCT
+                </td>
+                <td className={styles.second_head}>HSN CODE</td>
+                <td className={styles.second_head}>TURNOVER</td>
+                <td className={styles.second_head}>% SHARE</td>
+
+                <td className={styles.second_head}>CUSTOMERS</td>
+                <td className={styles.second_head}>INVOICES</td>
+                <td className={styles.second_head}>AVG. SALES PER CUSTOMER</td>
+              </tr>
+              <tr>
+                <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                <td>72022900E</td>
+                <td>25.40</td>
+                <td>25.40E</td>
+
+                <td>24</td>
+                <td>19</td>
+                <td>1.05</td>
+              </tr>
+              <tr>
+                <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                <td>72022900E</td>
+                <td>25.40</td>
+                <td>25.40E</td>
+
+                <td>24</td>
+                <td>19</td>
+                <td>1.05</td>
+              </tr>
+              <tr>
+                <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                <td>72022900E</td>
+                <td>25.40</td>
+                <td>25.40E</td>
+
+                <td>24</td>
+                <td>19</td>
+                <td>1.05</td>
+              </tr>
+            </table> 
+   
+          </div>
+        </div>
+           
+          </div>
+        </div>{' '}
+      </div>
+
+      <div className={`${styles.wrapper} card`}>
+        <div
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
+          data-toggle="collapse"
+          data-target="#litigations2"
+          aria-expanded="true"
+          aria-controls="litigations2"
+        >
+          <h2 className="mb-0">Purchase Details</h2>
+          <span>+</span>
+        </div>
+        <div
+          id="litigations2"
+          className="collapse"
+          aria-labelledby="litigations2"
+          data-parent="#profileAccordion"
+        >
+          <div className={` ${styles.cardBody} card-body   border_color`}>
+            <div className={`${styles.scrollouter}`}>
+        <div className={`${styles.scrollInner}`}>
             <table
               className={`${styles.table_annual}  table border_color`}
               cellPadding="0"
@@ -777,167 +956,8 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
               </tr>
             </table>
           </div>
-        </div>{' '}
-      </div>
-
-      <div className={`${styles.wrapper} card`}>
-        <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#litigations2"
-          aria-expanded="true"
-          aria-controls="litigations2"
-        >
-          <h2 className="mb-0">Purchase Details</h2>
-          <span>+</span>
         </div>
-        <div
-          id="litigations2"
-          className="collapse"
-          aria-labelledby="litigations2"
-          data-parent="#profileAccordion"
-        >
-          <div className={` ${styles.cardBody} card-body   border_color`}>
-            <table
-              className={`${styles.table_annual}  table border_color`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="1"
-            >
-              <tr>
-                <th className={`${styles.first}`} colSpan={2}>
-                  Annual Summary
-                </th>
-                <th colSpan={2}>MAR 2020 - APR 2021</th>
-                <th colSpan={2}>MAR 2021 - APR 2022</th>
-              </tr>
-              <tr className={styles.second_head}>
-                <td className={`${styles.first}`} colSpan={2}></td>
-                <td>VALUE</td>
-                <td>% ON GROSS REVENUE</td>
-                <td>VALUE</td>
-                <td>% ON GROSS REVENUE</td>
-                {/* <td    className=" d-flex align-items-center justify-content-between">
-               <span>VALUE</span>
-               <span >% ON GROSS REVENUE</span>
-             </td>
-              <td    className=" d-flex align-items-center justify-content-between">
-               <span>VALUE</span>
-               <span >% ON GROSS REVENUE</span>
-             </td> */}
-              </tr>
-              <tr>
-                <td className={`${styles.first}`} colSpan={2}>
-                  Gross Revenue
-                </td>
-                <td>1,900.00</td>
-                <td>80%</td>
-                <td>1,900.00</td>
-                <td>80%</td>
-              </tr>
-            </table>
-            <table
-              className={`${styles.table_average} border_color  table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="1"
-            >
-              <tr>
-                <th>Averages</th>
-                <th>MAR 2020 - APR 2021</th>
-                <th>MAR 2021 - APR 2022</th>
-              </tr>
-
-              <tr className={styles.second_head}>
-                <td></td>
-                <td>VALUE</td>
-
-                <td>VALUE</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
-
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
-
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
-
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
-
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
-
-                <td>1,900.00</td>
-              </tr>
-            </table>
-            <table
-              className={`${styles.table_pricioal} border_color  table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="1"
-            >
-              <tr>
-                <th>Principal/ HSN Wise Sales</th>
-                <th colSpan={6}>Financial Period:1</th>
-              </tr>
-              <tr>
-                <td className={`${styles.second_head} ${styles.first}`}>
-                  PRODUCT
-                </td>
-                <td className={styles.second_head}>HSN CODE</td>
-                <td className={styles.second_head}>TURNOVER</td>
-                <td className={styles.second_head}>% SHARE</td>
-
-                <td className={styles.second_head}>CUSTOMERS</td>
-                <td className={styles.second_head}>INVOICES</td>
-                <td className={styles.second_head}>AVG. SALES PER CUSTOMER</td>
-              </tr>
-              <tr>
-                <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                <td>72022900E</td>
-                <td>25.40</td>
-                <td>25.40E</td>
-
-                <td>24</td>
-                <td>19</td>
-                <td>1.05</td>
-              </tr>
-              <tr>
-                <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                <td>72022900E</td>
-                <td>25.40</td>
-                <td>25.40E</td>
-
-                <td>24</td>
-                <td>19</td>
-                <td>1.05</td>
-              </tr>
-              <tr>
-                <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                <td>72022900E</td>
-                <td>25.40</td>
-                <td>25.40E</td>
-
-                <td>24</td>
-                <td>19</td>
-                <td>1.05</td>
-              </tr>
-            </table>
+          
           </div>
         </div>{' '}
       </div>
@@ -965,7 +985,9 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
           data-parent="#profileAccordion"
         >
           <div className={` ${styles.cardBody} card-body   border_color`}>
-            <table
+        <div className={`${styles.scrollouter}`}>
+        <div className={`${styles.scrollInner}`}>
+           <table
               className={`${styles.table_annual}  table border_color`}
               cellPadding="0"
               cellSpacing="0"
@@ -1003,6 +1025,9 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <td>80%</td>
               </tr>
             </table>
+          </div>
+        </div>
+           
           </div>
         </div>{' '}
       </div>
@@ -1062,7 +1087,9 @@ const gstCustomerDetail = () => {
                 <span>Recurring Party Sales In Last 12 Months</span>
               </div>
               <div className={` ${styles.body}`}>
-                <table
+          <div className={`${styles.scrollouter}`}>
+        <div className={`${styles.scrollInner}`}>
+         <table
                   className={`${styles.table2} border_color  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -1110,6 +1137,9 @@ const gstCustomerDetail = () => {
                     </tr>
                   </tbody>
                 </table>
+        </div>
+        </div>
+               
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -1119,7 +1149,9 @@ const gstCustomerDetail = () => {
                 <span>Related Party Sales In Last 12 Monthss</span>
               </div>
               <div className={` ${styles.body}`}>
-                <table
+                  <div className={`${styles.scrollouter}`}>
+             <div className={`${styles.scrollInner}`}>
+           <table
                   className={`${styles.table1}  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -1167,6 +1199,9 @@ const gstCustomerDetail = () => {
                     </tr>
                   </tbody>
                 </table>
+          </div>
+        </div>
+               
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -1176,7 +1211,9 @@ const gstCustomerDetail = () => {
                 <span>Top 10 Customers</span>
               </div>
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
-                <table
+                     <div className={`${styles.scrollouter}`}>
+             <div className={`${styles.scrollInner}`}>
+               <table
                   className={`${styles.table1}  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -1256,6 +1293,9 @@ const gstCustomerDetail = () => {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+             </div>
+               
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -1265,7 +1305,9 @@ const gstCustomerDetail = () => {
                 <span>Statewise Sales</span>
               </div>
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
-                <table
+                       <div className={`${styles.scrollouter}`}>
+             <div className={`${styles.scrollInner}`}>
+               <table
                   className={`${styles.table1}  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -1345,6 +1387,9 @@ const gstCustomerDetail = () => {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+             </div>
+               
               </div>
             </div>
           </div>
@@ -1397,7 +1442,9 @@ const gstSupplierDetail = () => {
                 <span>Recurring Party Sales In Last 12 Months</span>
               </div>
               <div className={` ${styles.body}`}>
-                <table
+             <div className={`${styles.scrollouter}`}>
+             <div className={`${styles.scrollInner}`}>
+               <table
                   className={`${styles.table1}  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -1446,6 +1493,9 @@ const gstSupplierDetail = () => {
                   </tbody>
                 </table>
               </div>
+             </div>
+               
+              </div>
             </div>
             <div className={` ${styles.content}`}>
               <div
@@ -1454,6 +1504,8 @@ const gstSupplierDetail = () => {
                 <span>Related Party Sales In Last 12 Monthss</span>
               </div>
               <div className={` ${styles.body}`}>
+             <div className={`${styles.scrollouter}`}>
+             <div className={`${styles.scrollInner}`}>
                 <table
                   className={`${styles.table1}  table`}
                   cellPadding="0"
@@ -1503,6 +1555,9 @@ const gstSupplierDetail = () => {
                   </tbody>
                 </table>
               </div>
+             </div>
+              
+              </div>
             </div>
             <div className={` ${styles.content}`}>
               <div
@@ -1511,7 +1566,9 @@ const gstSupplierDetail = () => {
                 <span>Top 10 Customers</span>
               </div>
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
-                <table
+             <div className={`${styles.scrollouter}`}>
+             <div className={`${styles.scrollInner}`}>
+               <table
                   className={`${styles.table1}  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -1591,6 +1648,9 @@ const gstSupplierDetail = () => {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+             </div>
+               
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -1602,7 +1662,9 @@ const gstSupplierDetail = () => {
               <div
                 className={` ${styles.body} ${styles.body_noscroll} border_color`}
               >
-                <table
+             <div className={`${styles.scrollouter}`}>
+             <div className={`${styles.scrollInner}`}>
+              <table
                   className={`${styles.table1}  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -1682,6 +1744,9 @@ const gstSupplierDetail = () => {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+             </div>
+               
               </div>
             </div>
           </div>
@@ -1734,7 +1799,9 @@ const gstSalesAndPurchase = (head) => {
                 <span>Financial Period 2020- 2021</span>
               </div>
               <div className={` ${styles.body}`}>
-                <table
+             <div className={`${styles.scrollouter}`}>
+             <div className={`${styles.scrollInner}`}>
+             <table
                   className={`${styles.table2}  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -1817,10 +1884,15 @@ const gstSalesAndPurchase = (head) => {
                     </tr>
                   </tbody>
                 </table>
+            </div>
+             </div>
+               
               </div>
             </div>
             <div className={` ${styles.content}`}>
               <div className={` ${styles.body}`}>
+            <div className={`${styles.scrollouter}`}>
+             <div className={`${styles.scrollInner}`}>
                 <table
                   className={`${styles.table2}  table`}
                   cellPadding="0"
@@ -1904,6 +1976,9 @@ const gstSalesAndPurchase = (head) => {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+             </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -1995,7 +2070,9 @@ const gstSalesAndPurchase = (head) => {
             </div>
             <div className={` ${styles.content}`}>
               <div className={` ${styles.body}`}>
-                <table
+            <div className={`${styles.scrollouter}`}>
+             <div className={`${styles.scrollInner}`}>
+               <table
                   className={`${styles.table2}  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -2078,6 +2155,9 @@ const gstSalesAndPurchase = (head) => {
                     </tr>
                   </tbody>
                 </table>
+              </div>
+             </div>
+               
               </div>
             </div>
           </div>
