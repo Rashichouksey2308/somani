@@ -72,7 +72,6 @@
                 background: transparent;
                 .navLink {
                     font-size: 22px;
-;
                     font-weight: bold;
                     line-height: 27px;
                     padding: 5px;
@@ -84,20 +83,16 @@
                         font-size:15px;
                         margin: 0 2px;
                     }
-                    &.active {
-                      
+                    &.active {                      
                     }
                 }
             }
         }
-    }
-    
-    
+    }    
     .tabContent {
         // margin-top: 26px;
         .card {
-            margin-bottom: 1rem;
-         
+            margin-bottom: 1rem;         
             // box-shadow: 0 3px 6px #cad0e2;
             .cardHeader {
                 cursor: pointer;
@@ -232,8 +227,7 @@
                 border-top:2px solid red;
                 
                 .label {
-                    font-size: 16px;
-                  
+                    font-size: 16px;                  
                     font-weight: 500;
                     line-height: 17px;
                     margin-bottom: 10px;
@@ -252,33 +246,28 @@
             }
             .noBorderTable {
                 padding: 0 0 20px;
-                .table {
-                   
+                .table {                   
                     th {
                         font-size: 15px;
                         color: #3687e8;
                         font-weight: bold;
                         line-height: 18px;
                         border: none;
-                        padding: 25px 35px;
-                       
+                        padding: 25px 35px;                       
                     }
                     td {
-                        font-size: 19px;
-                        
+                        font-size: 19px;                        
                         font-weight: normal;
                         border: none;
                         line-height: 23px;
                         padding: 15px 35px;
                     }
                     h3 {
-                        font-size: 22px;
-                        
+                        font-size: 22px;                        
                         font-weight: bold;
                         line-height: 27px;
                         margin-bottom: 0;
-                    }
-                    
+                    }                    
                 }
             }
             .borderTable {
@@ -357,8 +346,7 @@
                         font-size: 19px;
                         font-weight: 500;
                         line-height: 24px;
-                        padding: 15px 30px;
-                       
+                        padding: 15px 30px;                       
                         vertical-align: middle;
                         border: 3px solid #f0f2f6;
                         &.name {
@@ -479,8 +467,7 @@
                     }
                 }
                 .detailsBox {
-                    font-size: 20px;
-                   
+                    font-size: 20px;                   
                     font-weight: 500;
                     line-height: 25px;
                     &.warning {
@@ -490,8 +477,7 @@
                         color: #43c34d !important;
                     }
                     label {
-                        font-size: 16px;
-                       
+                        font-size: 16px;                       
                         font-weight: 500;
                         line-height: 17px;
                         display: block;
@@ -534,7 +520,6 @@
                       font-weight: bold;
                       margin-top: 0.5rem;
                     }
-
                     .val {
                       flex-grow: 1;
                       flex-wrap: wrap;
@@ -577,31 +562,30 @@
                     flex-wrap: wrap;
                     }
                 .risk {
-                  width: 25%;
-                  height: 114px;
-                  background: #e3f0ff 0% 0% no-repeat padding-box;
-                  border-radius: 5px;
-                  padding: 0.5rem;
-                  .risk_icon {
-                    width: 78px;
-                    height: 78px;
-                    border-radius: 100%;
-                    background: #3687e8 0% 0% no-repeat padding-box;
-                  }
-                  div {
-                    width: 50%;
+                    width: 25%;
+                    height: 114px;
+                    background: #e3f0ff 0% 0% no-repeat padding-box;
+                    border-radius: 5px;
+                    padding: 0.5rem;
+                    .risk_icon {
+                        width: 78px;
+                        height: 78px;
+                        border-radius: 100%;
+                        background: #3687e8 0% 0% no-repeat padding-box;
+                    }
                     div {
-                      width: 100%;
-                      font-weight: bold;
-                      font-size: 20px;
+                        width: 50%;
+                        div {
+                            width: 100%;
+                            font-weight: bold;
+                            font-size: 20px;
+                        }
+                        span {
+                            font-size: 16px;
+                            letter-spacing: 0.53px;
+                            color: #00000080;
+                        }
                     }
-                    span {
-                      font-size: 16px;
-
-                      letter-spacing: 0.53px;
-                      color: #00000080;
-                    }
-                  }
                 }
             }
         }
@@ -852,8 +836,7 @@
         }
     }
 }
-.table_details {
-   
+.table_details {   
     border-collapse: collapse;
     @include respond(md-desktop) {
             width: 100%;
@@ -952,7 +935,6 @@
                     text-decoration: underline;
                     font-size:19px;
                     color: #3687E8;
-
                 }
             } 
         }

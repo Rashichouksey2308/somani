@@ -86,17 +86,17 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <select id='lcValue' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
-                                <option value={termsheetDetails?.transactionDetails?.lcValue}>{termsheetDetails?.transactionDetails?.lcValue} </option>
+                            <input id='lcValue' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required />
+                                {/* <option value={termsheetDetails?.transactionDetails?.lcValue}>{termsheetDetails?.transactionDetails?.lcValue} </option>
                                 <option value="USD 2000">USD 2000</option>
-                                <option value="RS 1000">RS 1000</option>
-                            </select>
+                                <option value="RS 1000">RS 1000</option> 
+                            </select>*/}
                             <label className={`${styles.label} label_heading`}>LC Value<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='marginMoney' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.transactionDetails?.marginMoney} onChange={onChangeTransactionDetails} required
+                            <input id='marginMoney' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" defaultValue={termsheetDetails?.transactionDetails?.marginMoney} onChange={onChangeTransactionDetails} required
                              />
-                             <span style={{position: "absolute" , left:"100px" , top:"20px"}}><strong>%</strong></span> 
+                             <span className={styles.percent}><strong>%</strong></span> 
                             
                             <label className={`${styles.label} label_heading`}>Margin Money (%)<strong className="text-danger">*</strong></label>
                         </div>
@@ -122,7 +122,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 <option value="Abbot Port">Abbot Port</option>
                                 <option value="India Port">India Port</option>
                             </select>
-                            <label className={`${styles.label} label_heading`}>Load Port<strong className="text-danger">*</strong></label>
+                            <label className={`${styles.label} label_heading`}>Port Of Loading<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <select id='countryOfOrigin' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
@@ -215,8 +215,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                     <h3 className={styles.sub_heading}>Commercial Terms</h3>
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                         <input id='tradeMarginPercentage' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails.commercials?.tradeMarginPercentage} onChange={onChangeCommercialTerms} required />
-                         <span style={{position: "absolute" , left:"100px" , top:"20px"}}><strong>%</strong></span> 
+                         <input id='tradeMarginPercentage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" defaultValue={termsheetDetails.commercials?.tradeMarginPercentage} onChange={onChangeCommercialTerms} required />
+                         <span  className={styles.percent}><strong>%</strong></span> 
                             <label className={`${styles.label} label_heading`}>Trade Margin(%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -224,18 +224,18 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>LC Opening Charges (Minimum)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='usanceInterestPercetage' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.usanceInterestPercetage} onChange={onChangeCommercialTerms} required />
-                            <span style={{position: "absolute" , left:"100px" , top:"20px"}}><strong>%</strong></span> 
+                            <input id='usanceInterestPercetage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.usanceInterestPercetage} onChange={onChangeCommercialTerms} required />
+                            <span  className={styles.percent}><strong>%</strong></span> 
                             <label className={`${styles.label} label_heading`}>LC Opening Charges (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='overDueInterestPerMonth' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
-                            <span style={{position: "absolute" , left:"100px" , top:"20px"}}><strong>%</strong></span> 
+                            <input id='overDueInterestPerMonth' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
+                            <span  className={styles.percent}><strong>%</strong></span> 
                             <label className={`${styles.label} label_heading`}>Usance Interest (%) For 90 Days<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='overDueInterestPerMonth' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
-                            <span style={{position: "absolute" , left:"100px" , top:"20px"}}><strong>%</strong></span> 
+                            <input id='overDueInterestPerMonth' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
+                            <span className={styles.percent}><strong>%</strong></span> 
                             <label className={`${styles.label} label_heading`}>Overdue Interest per Month (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>

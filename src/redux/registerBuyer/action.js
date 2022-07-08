@@ -137,8 +137,11 @@ function uploadingDocument() {
   return { type: types.UPLOADDOCUMENT }
 }
 
-function uploadingDocumentSuccess() {
-  return { type: types.UPLOADDOCUMENT_SUCCESS }
+function uploadingDocumentSuccess(payload) {
+  return { 
+    type: types.UPLOADDOCUMENT_SUCCESS,
+    payload
+  }
 }
 
 function uploadingDocumentFailed() {
@@ -371,7 +374,7 @@ export const UploadDocument = (payload) => async (dispatch, getState, api) => {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(uploadingDocumentSuccess())
+        dispatch(uploadingDocumentSuccess(response.data.data))
       } else {
         dispatch(uploadingDocumentFailed())
       }

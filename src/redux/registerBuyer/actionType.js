@@ -26,6 +26,7 @@ export const GET_ALL_ORDER_SUCCESSFULL = "GET_ALL_ORDER_SUCCESSFULL"
 export const GET_ALL_ORDER_FAILED = "GET_ALL_ORDER_FAILED"
 
 export const SET_BUYER = "SET_BUYER"
+
 export const SET_DOCUMENT = "SET_DOCUMENT"
 
 export const GET_GST = "GET_GST"

@@ -68,14 +68,14 @@ function Index(props) {
         <>
         <div className={styles.login}>
             <div className='row no-gutters'>
-                <div className={`${styles.loginBanner} col-sm-5`}>
+                <div className={`${styles.loginBanner} col-sm-4 col-md-5`}>
                     <img src='/static/login.png' alt='Login Banner' className='img-fluid'/>
                     <div className={styles.pattern}><img src='/static/login-pattern.png' alt='banner pattern' className='img-fluid' /></div>
                     <div className={styles.caption}>{`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s`}</div>
                 </div>
                 {/* <div className='col-sm-6'> background: #171E27 0% 0% no-repeat padding-box;
                     <div className='row no-gutters'> */}
-                <div className={`${styles.loginForm} card d-flex col-sm-7 align-items-center justify-content-around`}> 
+                <div className={`${styles.loginForm} card d-flex col-sm-8 col-md-7 align-items-center justify-content-around`}> 
                     <img src='/static/login-form-bg.png' alt='login form bg' className='img-fluid'/>
                     <form className={styles.form}>
                         <div className={styles.logo}>
@@ -84,12 +84,12 @@ function Index(props) {
                         <h1 className={`${styles.title} heading_card`}>Welcome To Your Account</h1>
                         <p className={`para`}>To continue, log in to Simport</p>
                         <div className={`${styles.labelFloat} form-group`}>
-                            <input type='text' id='email' name="email"  onChange={(e)=>onInputDataHandler(e)} className={`${styles.formControl} input form-control`} required />
+                            <input type='text' id='email' name="email"  onChange={(e)=>onInputDataHandler(e)} className={`${styles.formControl} ${styles.input} input form-control`} required />
                             <label className={`label_heading_login`} htmlFor='email'>Email</label>
                         </div>
                         <div className={`${styles.labelFloat} ${styles.password} form-group`}>
                             <div className='input-group align-items-center' id='password'>
-                                <input type={showPassword ? 'text' : 'password'} name="password" onChange={(e)=>{onInputDataHandler(e)}} className={`${styles.formControl} input form-control`} required />
+                                <input type={showPassword ? 'text' : 'password'} name="password" onChange={(e)=>{onInputDataHandler(e)}} className={`${styles.formControl} ${styles.input} input form-control`} required />
                                 <label  className={`label_heading_login`} htmlFor='password'>Password</label>
                                 <img src='/static/eye.svg'  onClick={onShowPasswordHandler} alt='Show Password' className='img-fluid' />
                             </div>
@@ -106,7 +106,7 @@ function Index(props) {
                                 e.preventDefault()
                                 onSubmitHandler()                           
                             }}>Sign in</button>
-                            <p className={styles.signUp}>Don't have an account?<a href='#'>Sign up</a></p>
+                            <p className={styles.signUp}>Don&apos;t have an account?<a href='#'>Sign up</a></p>
                         </div>
                     </form>
                     {/* <ul className={styles.footerLinks}>

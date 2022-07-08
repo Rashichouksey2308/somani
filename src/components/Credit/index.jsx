@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { UploadDocument } from 'redux/registerBuyer/action'
 import { phoneValidation } from 'utils/helper'
@@ -22,12 +22,20 @@ const index = ({
   // console.log(creditDetail, 'this is credit detail')
 
   const dispatch = useDispatch()
+
   const [saveTable, setSaveTable] = useState(false)
+
   const [saveContactTable, setContactTable] = useState(false)
+
+  const { gstDocument } = useSelector((state) => state.buyer)
 
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
-    GSTIN_document: {},
+    GSTIN_document: {
+      'name': gstDocument.name,
+      'path': gstDocument.path,
+      'date': gstDocument.date,
+    },
     addressType: '',
     branch: '',
     city: '',
@@ -40,6 +48,8 @@ const index = ({
     },
     pinCode: null,
   })
+
+  
 
   const [debt, setDebtData] = useState({
     bankName: '',
@@ -58,8 +68,9 @@ const index = ({
     addDebtArr(debt)
   }
 
-  const [keyPersonData, setKeyPersonData] = useState(personData
-        // {
+  const [keyPersonData, setKeyPersonData] = useState(
+    personData,
+    // {
     //   contact: {
     //     callingCode: '',
     //     number: '',
@@ -73,25 +84,19 @@ const index = ({
 
   useEffect(() => {
     setKeyPersonData(personData)
-  
-    
   }, [personData])
-  
+
   // console.log(keyPersonData[0]['contact']['number'], "kksksksk")
 
   const handlePersonChange = (e, key) => {
     const newInput = { ...keyPersonData }
-    // console.log(e.target.name.split('.'), "personchange")
-    if(e.target.name.split('.').length > 1 ){
-      let nameVar = e.target.name.split('.')
-      // console.log( key, 'uiui')
+    if (e.target.name.split('.').length > 1) {
       newInput[key]['contact']['number'] = e.target.value
-    }else{
-    newInput[key][e.target.name] = e.target.value
+    } else {
+      newInput[key][e.target.name] = e.target.value
     }
     setKeyPersonData(newInput)
   }
-  
 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData }
@@ -106,12 +111,13 @@ const index = ({
     setKeyAddressData(newObj)
   }
 
-  const uploadDocument = (e) => {
-    // console.log(e.target.name, "file target")
-    const newUploadDoc = { ...keyAddressData }
-    newUploadDoc.GSTIN_document = e.target.files[0]
+  const personMobileFunction = (e) => {
+    const newObj = { ...keyPersonData }
+    newObj.contact.number = e.target.value
+    setKeyPersonData(newObj)
+  }
 
-    setKeyAddressData(newUploadDoc)
+  const uploadDocument = (e) => {
 
     const fd = new FormData()
     fd.append('gstDocument', e.target.files[0])
@@ -133,8 +139,6 @@ const index = ({
     let text = d.toISOString()
     saveSupplierData(e.target.name, text)
   }
-
- 
 
   return (
     <>
@@ -634,7 +638,6 @@ const index = ({
               </thead>
               {personData?.map((person, index) => (
                 <tbody key={index}>
-                  {console.log(index, "tbody")}
                   {/* <tr className="table_credit">
                       <td>
                         <select
@@ -682,8 +685,8 @@ const index = ({
                       <input
                         className="input font-weight-bold"
                         defaultValue={person.name}
-                        name='name'
-                        onChange={(e)=>handlePersonChange(e,index)}
+                        name="name"
+                        onChange={(e) => handlePersonChange(e, index)}
                         type="text"
                         readOnly={!saveContactTable}
                       />
@@ -692,8 +695,8 @@ const index = ({
                       <input
                         className="input"
                         defaultValue={person.designation}
-                        name='designation'
-                        onChange={(e)=>handlePersonChange(e,index)}
+                        name="designation"
+                        onChange={(e) => handlePersonChange(e, index)}
                         type="text"
                         readOnly={!saveContactTable}
                       />
@@ -702,19 +705,30 @@ const index = ({
                       <input
                         className="input"
                         defaultValue={person.department}
-                        name='department'
-                        onChange={(e)=>handlePersonChange(e,index)}
+                        name="department"
+                        onChange={(e) => handlePersonChange(e, index)}
                         type="text"
                         readOnly={!saveContactTable}
                       />
                     </td>
                     <td>
-                      {console.log(index, "number uin")}
                       <input
                         className="input"
                         defaultValue={person.contact.number}
-                        name='contact.number'
-                        onChange={(e)=>{console.log(index, "num ind"), handlePersonChange(e,index)}}
+                        // name='contact.number'
+                        // onChange={(e)=>{handlePersonChange(e,index)}}
+                        onChange={(e) => {
+                          if (phoneValidation(e.target.value)) {
+                            personMobileFunction(e)
+                          } else {
+                            let toastMessage = 'Enter a valid Phone Number'
+                            if (!toast.isActive(toastMessage)) {
+                              toast.error(toastMessage, {
+                                toastId: toastMessage,
+                              })
+                            }
+                          }
+                        }}
                         type="number"
                         readOnly={!saveContactTable}
                       />
@@ -723,8 +737,8 @@ const index = ({
                       <input
                         className="input"
                         defaultValue={person.email}
-                        name='email'
-                        onChange={(e)=>handlePersonChange(e,index)}
+                        name="email"
+                        onChange={(e) => handlePersonChange(e, index)}
                         type="text"
                         readOnly={!saveContactTable}
                       />
@@ -1151,89 +1165,89 @@ const index = ({
           data-parent="#profileAccordion"
         >
           <div className={`${styles.datatable} datatable`}>
-          <div className={styles.table_scroll_outer}>
+            <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-            <table
-              className={`${styles.table} table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
-              <thead>
-                <tr>
-                  <th>S.NO.</th>
-                  <th>BANK NAME</th>
-                  <th>LIMIT TYPE</th>
-                  <th>LIMIT</th>
-                  <th>CONDUCT</th>
-                  <th>ACTION</th>
-                </tr>
-              </thead>
-              <tbody>
-                {debtData?.map((profile, index) => (
-                  <tr key={index}>
-                    <td>{(index += 1)}</td>
-                    <td>
-                      <select
-                        className={`${styles.dropDown} font-weight-bold heading`}
-                      >
-                        <option>{profile.bankName}</option>
-                        <option>SBI</option>
-                      </select>
-                    </td>
-                    <td>
-                      <select className={`${styles.dropDown} heading`}>
-                        <option>{profile.limitType}</option>
-                        <option>Cash Deposit</option>
-                      </select>
-                    </td>
+                <table
+                  className={`${styles.table} table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="0"
+                >
+                  <thead>
+                    <tr>
+                      <th>S.NO.</th>
+                      <th>BANK NAME</th>
+                      <th>LIMIT TYPE</th>
+                      <th>LIMIT</th>
+                      <th>CONDUCT</th>
+                      <th>ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {debtData?.map((profile, index) => (
+                      <tr key={index}>
+                        <td>{(index += 1)}</td>
+                        <td>
+                          <select
+                            className={`${styles.dropDown} font-weight-bold heading`}
+                          >
+                            <option>{profile.bankName}</option>
+                            <option>SBI</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select className={`${styles.dropDown} heading`}>
+                            <option>{profile.limitType}</option>
+                            <option>Cash Deposit</option>
+                          </select>
+                        </td>
 
-                    <td>
-                      <input
-                        className="input"
-                        defaultValue={profile.limit}
-                        readOnly={!saveTable}
-                      />
-                    </td>
+                        <td>
+                          <input
+                            className="input"
+                            defaultValue={profile.limit}
+                            readOnly={!saveTable}
+                          />
+                        </td>
 
-                    <td>
-                      <select className={`${styles.dropDown} heading`}>
-                        <option>{profile.conduct}</option>
-                        <option>Good</option>
-                      </select>
-                    </td>
-                    <td>
-                      <div>
-                        {!saveTable ? (
-                          <img
-                            src="/static/mode_edit.svg"
-                            className={`${styles.edit_image} mr-3 img-fluid`}
-                            onClick={() => {
-                              setSaveTable(true)
-                            }}
-                          />
-                        ) : (
-                          <img
-                            src="/static/save-3.svg"
-                            className={`${styles.edit_image} mr-3 img-fluid`}
-                            alt="save"
-                            onClick={(e) => {
-                              setSaveTable(false)
-                            }}
-                          />
-                        )}
-                        <img
-                          src="/static/delete 2.svg"
-                          className={`${styles.delete_image} img-fluid`}
-                          alt="delete"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            </div>
+                        <td>
+                          <select className={`${styles.dropDown} heading`}>
+                            <option>{profile.conduct}</option>
+                            <option>Good</option>
+                          </select>
+                        </td>
+                        <td>
+                          <div>
+                            {!saveTable ? (
+                              <img
+                                src="/static/mode_edit.svg"
+                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                onClick={() => {
+                                  setSaveTable(true)
+                                }}
+                              />
+                            ) : (
+                              <img
+                                src="/static/save-3.svg"
+                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                alt="save"
+                                onClick={(e) => {
+                                  setSaveTable(false)
+                                }}
+                              />
+                            )}
+                            <img
+                              src="/static/delete 2.svg"
+                              className={`${styles.delete_image} img-fluid`}
+                              alt="delete"
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
               <span>+</span>

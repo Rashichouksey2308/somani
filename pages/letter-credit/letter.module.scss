@@ -1,4 +1,4 @@
-@import "../styles/Core/config";
+@import "../../src/components/styles/Core/config";
 
 .head_header {
     display: flex;
@@ -254,6 +254,8 @@
                       border: 1px solid #CAD6E6;
                       text-transform: uppercase;
                       background: transparent !important;
+                      white-space: nowrap;
+                      vertical-align: middle;
                      
                       &:first-child {
                         padding-left: 35px;
@@ -272,6 +274,10 @@
                         font-size: 12px;
                     }
                   }
+                  tr {
+                    &:last-child {
+                        border-bottom: none;
+                    }
                   td {
                       font-size: 19px;
                       font-weight: 500;
@@ -299,7 +305,7 @@
                         padding: 10px;
                     }
                   }
-                  
+                }
                   .buyerName {
                       color: #3687E8;
                       font-weight: bold;
@@ -427,7 +433,7 @@
             text-transform: capitalize;
             width: 220px;
             height: 46px;
-            //background-color: #ffffff;
+            background-color: #ffffff;
             @include respond(md-desktop) {
                 font-size: 18px;
             }
@@ -531,6 +537,8 @@
                 text-transform: uppercase;
                 border-top: 2px solid #F2F5F9;
                 border-bottom: 2px solid #F2F5F9;
+                white-space: nowrap;
+                vertical-align: middle;
                 &:first-child {
                     padding-left: 35px;
                     @include respond(sm-desktop) {
@@ -585,7 +593,7 @@
         }
         .updateBtn{
             text-align: center;
-           color: #3687E8;
+            color: #3687E8;
             text-transform: capitalize;
             border: 3px solid #3687E8;
             border-radius: 5px;
@@ -594,6 +602,20 @@
             font-weight: bold;
             background: transparent;
             padding: 8px 30px 8px 30px ;
+            @include respond(md-desktop) {
+                font-size: 16px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 14px;
+                padding: 4px 25px 4px 25px ;
+
+            }
+            @include respond(phone) {
+                font-size: 12px;
+                padding: 0px 15px  0 15px;
+
+                
+            }
           }
           .doc_name {
             font-weight: bold;
@@ -648,6 +670,8 @@
         border: none !important;
         box-shadow: none !important;
         background: none !important;
+        white-space: nowrap;
+        vertical-align: middle;
         @include respond(md-desktop) {
             font-size: 14px;
             line-height: 1.2;
@@ -668,6 +692,7 @@
             line-height: 25px;
             font-weight: 500;
             border: none !important;
+            white-space: nowrap;
             @include respond(md-desktop) {
                 font-size: 17px;
             }
@@ -690,20 +715,81 @@
         font-weight: bold;
         background: transparent;
         padding: 8px 30px 8px 30px ;
-        @include respond(md-desktop) {
-            font-size: 16px;
-        }
-        @include respond(sm-desktop) {
-            font-size: 14px;
-            padding: 4px 25px 4px 25px ;
-
-        }
-        @include respond(phone) {
-            font-size: 12px;
-            padding: 0px 15px  0 15px;
-
-            
-        }
       }
 
+}
+
+.module {
+    background: #8492A6;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    padding: 0 35px;
+    height: 38px;
+    border-radius: 0;
+    @include respond(md-desktop) {
+        font-size: 15px;
+    }
+    @include respond(sm-desktop) {
+        font-size: 13px;
+    }
+    @include respond(phone) {
+        font-size: 11px;
+    }
+}
+.doc_name {
+    font-weight: bold;
+    line-height: 25px;
+    font-size: 20px;
+    text-transform: capitalize;
+    padding-left: 35px;
+    @include respond(md-desktop) {
+        font-size: 18px;
+    }
+    @include respond(sm-desktop) {
+        font-size: 16px;
+    }
+    @include respond(phone) {
+        font-size: 14px;
+    }
+}
+.doc_row {
+    font-size: 19px;
+    line-height: 24px;
+    opacity: 0.7;
+    font-weight: 500;  
+    @include respond(md-desktop) {
+        font-size: 17px;
+    }
+    @include respond(sm-desktop) {
+        font-size: 15px;
+    }
+    @include respond(phone) {
+        font-size: 12px;
+    }              
+}
+.status {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    
+    @include respond(sm-desktop) {
+        width: 12px;
+        height: 12px;
+    }
+    @include respond(phone) {
+        width: 10px;
+        height: 10px;
+    }    
+}
+.approved {
+    background: #26DD73;
+}
+.rejected {
+    background: #FF9D00;
 }

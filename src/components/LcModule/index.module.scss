@@ -144,6 +144,7 @@
         display: table-cell;
         overflow-x: auto;
   .table {
+    margin-bottom: 0px !important;
       th {
           font-size: 15px;
           font-weight: bold;
@@ -172,6 +173,7 @@
       tr {
         &:last-child {
             border-bottom: none;
+
         }
       td {
           font-size: 19px;
@@ -214,6 +216,7 @@
         padding: 8px 30px 8px 30px ;
       }
       .edit_image {
+        cursor: pointer;
         background: #C3C3C31F;
         border: 1px solid #0000001F;
         border-radius: 4px;

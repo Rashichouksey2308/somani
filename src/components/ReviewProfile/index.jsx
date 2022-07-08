@@ -202,7 +202,7 @@ function Index({ handleChange, reviewedProfile}) {
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
-            <td>Order Values</td>
+            <td>Order Value</td>
             <td>{reviewedProfile?.orderValue?.originalValue}</td>
             <td>
               <div className={styles.tick}>
@@ -295,7 +295,7 @@ function Index({ handleChange, reviewedProfile}) {
 
           <tr className={`${styles.table_row} border_color table_row`}>
             <td>Expected Date Of Shipment</td>
-            <td>{reviewedProfile?.ExpectedDateOfShipment?.originalValue}</td>
+            <td>{reviewedProfile?.ExpectedDateOfShipment?.originalValue.split('T')[0]}</td>
             <td>
               <div className={styles.tick}>
                 <img
