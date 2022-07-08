@@ -218,7 +218,7 @@ function Index() {
               border="0"
             >
               <thead>
-                <tr>
+                <tr className={`${styles.table_row} table_row`}>
                   <th>CUSTOMER ID</th>
                   <th>CUSTOMER NAME</th>
                   <th>CREATED BY</th>
