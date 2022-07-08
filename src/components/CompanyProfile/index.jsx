@@ -17,7 +17,7 @@ function Index() {
                 {fields("Company Name",buyerList?.companyName)}
                 {fields("Company PAN",buyerList?.company.companyPan)}
                 {fields("Type Of Business",buyerList?.company.typeOfBusiness)}
-                {/* {fields("Transaction Type",buyerList?.company.transactionType)} */}
+                {fields("Transaction Type",buyerList?.company.transactionType)}
                 {fields("Turn-Over (in Cr)",buyerList?.company.turnOver)}
                 {fields("Email ID",buyerList?.company.email)}
                                 
@@ -33,7 +33,7 @@ export default Index
 const fields =(head,value)=>{
     return (
         <>
-            <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-3`}>
+            <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
                 <span className={`${styles.top} label`}>{head}</span>
                 <div>
                     <span className={`${styles.value} value `}>

@@ -148,14 +148,13 @@ const IndexPage = () => {
                               <th>COMMODITY</th>
                               <th>DUE DATE</th>
                               <th>DAYS TO GO</th>
-
                               <th>DUE AMOUNT</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr className="table_row">
                               <td>124621</td>
-                              <td className={styles.buyerName}>
+                              <td className={`${styles.buyerName} buyerName`}>
                                 Bhutani Traders
                               </td>
                               <td>Iron</td>
@@ -165,7 +164,7 @@ const IndexPage = () => {
                             </tr>
                             <tr className="table_row">
                               <td>124621</td>
-                              <td className={styles.buyerName}>
+                              <td className={`${styles.buyerName} buyerName`}>
                                 Bhutani Traders
                               </td>
                               <td>Iron</td>
@@ -175,7 +174,7 @@ const IndexPage = () => {
                             </tr>
                             <tr className="table_row">
                               <td>124621</td>
-                              <td className={styles.buyerName}>
+                              <td className={`${styles.buyerName} buyerName`}>
                                 Bhutani Traders
                               </td>
                               <td>Iron</td>
@@ -185,7 +184,7 @@ const IndexPage = () => {
                             </tr>
                             <tr className="table_row">
                               <td>124621</td>
-                              <td className={styles.buyerName}>
+                              <td className={`${styles.buyerName} buyerName`}>
                                 Bhutani Traders
                               </td>
                               <td>Iron</td>

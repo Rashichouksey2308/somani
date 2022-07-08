@@ -21,18 +21,7 @@
             }
         }
         
-        .lastModified {
-            font-size: 14px;
-            color: rgba(40, 55, 86, 0.6);
-            font-weight: normal;
-            line-height: 16px;
-            margin-top: 7px;
-            span {
-                color: #283756;
-                font-weight: bold;
-                line-height: 17px;
-            }
-        }
+       
         
     }
     
@@ -66,23 +55,7 @@
                     line-height: 20px;
                 }
                 
-                .dropDown{
-                    border: 1px solid #0000001F;
-                    border-radius: 4px;
-                    font-size: 20px;
-                    line-height: 25px;
-                    font-weight: 500;
-                    padding: 5px;
-                    background-color: transparent;
-                    border: none;
-
-                }
-                .dropDown_label{
-                    letter-spacing: 0.53px;
-                    font-weight: 500;
-                    font-size: 16px;
-                    line-height: 17px; 
-                }
+               
                 .product_btn{
                     border: 3px solid #3687E8;
                     font-weight: bold;
@@ -95,51 +68,14 @@
                     padding: 8px 22px 8px 22px;
 
                 }
-                .add_btn {
-                    color: #3687E8;
-                    text-transform: capitalize;
-                    border: 3px solid #3687E8;
-                    border-radius: 5px;
-                    font-size: 18px;
-                    line-height: 23px;
-                    background-color: transparent;
-                    margin: 0 15px 0 30px;
-                    width: 78px;
-                    height: 36px;
-                    font-weight: bold;
+                
                 }
-                }
-                .radio_form {
-                    padding: 26px 0px 20px 35px;
-                    .radio_group {
-                        display: flex;
-                       
-                        .radio {
-                            font-size: 23px;
-                            list-style: 25px;
-                            font-weight: bold;
-                            color: #111111;
-                            letter-spacing: 0.22px;
-                            padding-right: 50px;
-        
-                            label {
-                                padding-left: 15px;
-                            }
-                        }
-                    }
-                    .sub_heading {
-                        font-size: 16px;
-                        line-height: 17px;
-                        font-weight: 500;
-                        padding: 10px 0 15px;
-                        letter-spacing: 0.53px;
-                    }
-                } 
+               
         
         }
         
         .dashboard_form {
-            padding: 20px 35px 25px 40px;
+            padding: 0px 35px 25px 40px;
            .label {
             font-size: 16px;
             letter-spacing: 0.53px;
