@@ -1,0 +1,76 @@
+ @import "../styles/Core/config";
+.container{
+    .form_group {
+        position: relative;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        @include respond(phone) {
+                margin-top: 10px;
+        }
+    
+        .label_heading {
+            top: 60px;
+            left: 45px;
+            
+            font-size: 16px;
+            line-height: 0.5;
+            margin-bottom: 0;
+            letter-spacing: 0.53px;
+            position: absolute;
+            pointer-events: none;
+            box-sizing: border-box;
+            transform: translateY(-31px);
+            transition: 0.3s all ease-in-out;
+            @include respond(sm-desktop) {
+                font-size: 16px;
+            }
+            @include respond(phone) {
+                    font-size: 14px;
+                    //top: 20px;
+    
+            }
+            }
+    
+        .input_field {
+            height: 60px;
+            background-color: #C3C3C31F;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            font-size: 20px;
+            font-weight: 500;
+            outline: none;
+            box-shadow: none;
+            position: relative;
+            box-sizing: border-box;
+            &:invalid+label {
+                background: none;
+                transform: translateY(0);
+            }
+    
+            &:focus {
+                &+label {
+                    transform: translateY(-31px);
+                }
+            }
+    
+            @include respond(md-desktop) {
+                font-size: 18px;
+            }
+    
+            @include respond(sm-desktop) {
+                font-size: 16px;
+                height: 55px;
+             }
+            @include respond(phone) {
+                font-size: 14px;
+                height: 45px;
+                padding: 0px 12px 0px 12px;
+            }
+            }
+        .select{
+           top: 45px;
+           left: 30px;  
+        }
+    
+        }
+}
