@@ -7,22 +7,7 @@
     border: 1px solid #D2D7E5;
     .tabHeader {
         padding: 30px;
-        
-        .title {
-            font-size: 34px;
-            font-weight: bold;
-            line-height: 41px;
-            margin: 0;
-            text-transform: capitalize;
-            img {
-                width: 13px;
-                height: 21px;
-                margin: -5px 25px 0 0;
-            }
-        }
-        
-       
-        
+   
     }
     
    
@@ -46,6 +31,15 @@
                     font-size: 22px;
                     text-transform: capitalize;
                     line-height: 27px;
+                    @include respond(md-desktop) {
+                        font-size: 20px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 18px;
+                    }
+                    @include respond(phone) {
+                        font-size: 15px;
+                    }
                   
                 }
                 span {
@@ -53,87 +47,38 @@
                     color: #3687e8;
                     font-weight: normal;
                     line-height: 20px;
-                }
-                
-               
-                .product_btn{
-                    border: 3px solid #3687E8;
-                    font-weight: bold;
-                    text-align: center;
-                    color: #3687E8;
-                    font-size: 18px;
-                    line-height: 23px;
-                    background: transparent;
-                    border-radius: 5px;
-                    padding: 8px 22px 8px 22px;
-
+                    @include respond(md-desktop) {
+                        font-size: 42px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 35px;
+                    }
+                    @include respond(phone) {
+                        font-size: 30px;
+                    }
                 }
                 
                 }
-               
         
         }
         
         .dashboard_form {
             padding: 0px 35px 25px 40px;
-           .label {
-            font-size: 16px;
-            letter-spacing: 0.53px;
-            line-height: 17px;
-            top: 26px;
-            font-weight: 500;
-            left: 30px;
-            margin-bottom: 15px;
-            color: #00000080;
-
-           }
-           .value {
-                    font-size: 20px;
-                    height: 60px;
-                    line-height: 25px;
-                    font-weight: 500;
-
-           }
-           .comment_field {
-            height: 106px;
-            background-color: #C3C3C31F;
-            border: 1px solid #0000001F;
-            border-radius: 4px;
-            font-size: 20px;
-            font-weight: 500;
-            outline: none;
-            box-shadow: none;
-            position: relative;
-            box-sizing: border-box;
-            
-        }
-       
-            .sub_heading {
-                font-size:20px;
-                font-weight: bold;
-                text-transform: capitalize;
-                line-height: 25px;
-            }
-            .upload_button {
-                border: 3px solid #3687E8;
-                border-radius: 5px;
-                text-align: center;
-                font-size: 20px;
-                line-height: 25px;
-                color: #3687E8;
-                font-weight: bold;
-                text-transform: capitalize;
-                width: 220px;
-                height: 46px;
-                background-color: transparent;
-            }  
+           
             .form_group {
                 margin-top: 40px;
                 position: relative;
                 margin-bottom: 10px;
+                
+                @include respond(sm-desktop) {
+                    
+                }
+                @include respond(phone) {
+                    margin: 15px;
+                }
                 .search_image {
                     margin-left: -40px;
-                } 
+                }   
                  
                 .label_heading {
                     font-size: 16px;
@@ -147,6 +92,14 @@
                     box-sizing: border-box;
                     transform: translateY(-29px);
                     transition: 0.3s all ease-in-out;
+                    @include respond(sm-desktop) {
+                        font-size: 16px;
+                    }
+                    @include respond(phone) {
+                        font-size: 14px;
+                        //top: 20px;
+            
+                    }
                 }
                 
                 .line {
@@ -174,160 +127,24 @@
                             transform:translateY(-29px);
                         }
                     }
+                    @include respond(md-desktop) {
+                        font-size: 18px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 16px;
+                        height: 55px;
+
+                    }
+                    @include respond(phone) {
+                        font-size: 14px;
+                        height: 45px;
+                        padding: 0px 12px 0px 12px;
+                    }
                 }
             }
             
         }
-        .table_container {
-            .table_scroll_outer {
-                width: 100%;
-                display: table;
-                table-layout: fixed;
-                .table_scroll_inner {
-                    display: table-cell;
-                    overflow-x: auto;
-            .table {
-                th {
-                    font-size: 15px;
-                    color: #8492A6;
-                    font-weight: bold;
-                    line-height: 18px;
-                    padding: 20px 15px;
-                    vertical-align: middle;
-                    text-transform: uppercase;
-                    border-top: 2px solid #F2F5F9;
-                    border-bottom: 2px solid #F2F5F9;
-                    white-space: nowrap;
-                    text-transform: uppercase;
-                    &:first-child {
-                        padding-left: 35px;
-                        @include respond(md-desktop) {
-                            padding-left: 15px;
-                        }
-                    }
-                    .sort_img {
-                        opacity: 0.4;
-                        width: 14px;
-                        height: 14px;
-                    }
-                    @include respond(md-desktop) {
-                        font-size: 14px;
-                        line-height: 1.2;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 13px;
-                    }
-                    @include respond(phone) {
-                        font-size: 12px;
-                    }
-                    
-                }
-                tr {
-                    &:last-child {
-                        border-bottom: none;
-                    }
-                td {
-                    font-size: 19px;
-                    //color: rgba(17, 17, 17, 0.7);
-                    font-weight: 500;
-                    line-height: 24px;
-                    padding: 24px 15px;
-                    border-top: none;
-                    vertical-align: middle;
-                    white-space: nowrap;
-                   
-                    @include respond(md-desktop) {
-                        font-size: 17px;
-                        padding: 18px 10px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 15px;
-                        padding: 15px 10px;
-                    }
-                    @include respond(phone) {
-                        font-size: 14px;
-                        padding: 10px;
-                    }
-                }
-            }
-                .module {
-                    background: #8492A6;
-                    font-size: 15px;
-                    line-height: 18px;
-                    font-weight: bold;
-                    color: #FFFFFF;
-                    text-transform: uppercase;
-                    padding: 0 35px;
-                    height: 38px;
-                    border-radius: 0;
-                }
-                span {
-                    margin-left: 20px;
-                    text-decoration: underline;
-                    color: #3687E8;
-                    font-weight: bold;
-                    line-height: 25px;
-                    font-size: 20px;
-                }
-                .specify_field{
-                    padding: 10px 20px 10px 20px;
-                    border: 2px solid #3687E8;
-                    border-radius: 6px;
-                    color: #3687E8;
-                    font-weight: 500;
-                    font-size: 19px;
-                    line-height: 24px;
-                    width: 210px;
-                    height: 49px;
-                    background-color: transparent;
-                }
-                .hold_field {
-                    background: #FF9D00;
-                    color: #FFFFFF;
-                    border: none;
-
-                }
-                .rejected_field {
-                    background: #EA3F3F;
-                    color: #FFFFFF;
-                    border: none;
-
-                }
-                .input_field{
-                    background: #C3C3C31F;
-                    border-radius: 4px;
-                    font-size: 20px;
-                    line-height: 25px;
-                    letter-spacing: 0.19px;
-                    color: #111111;
-                    border: none;
-                    padding: 5px 0px 5px 15px;
-                    width: 299px;
-
-                }
-                .close_image {
-                    margin-left: -30px;
-                }
-            
-                .doc_name {
-                    font-weight: bold;
-                    line-height: 25px;
-                    font-size: 20px;
-                    text-transform: capitalize;
-                    padding-left: 35px;
-                }
-                .doc_row {
-                    font-size: 19px;
-                    line-height: 24px;
-                    opacity: 0.7;
-                    font-weight: 500;                
-                }
-                
-            }
-        }
-    }
-        }
-
+        
     }
 
 }
