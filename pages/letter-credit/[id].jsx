@@ -22,7 +22,7 @@ function Index() {
           <h1 className={`${styles.heading}`}>Letter of Credit </h1>
         </div>
 
-        <div className={`${styles.wrapper} mt-4 card`}>
+        <div className={`${styles.wrapper} mt-4  upload_main`}>
         <div
           className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -247,7 +247,7 @@ function Index() {
             <tbody>
              
               <tr className="table_row">
-                <td className={styles.doc_name}>LC AMENDANT DRAFT <strong className='text-danger ml-n1'>*</strong> </td>
+                <td className={styles.doc_name}>LC AMENDMENT DRAFT <strong className='text-danger ml-n1'>*</strong> </td>
                 <td>
                   <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                 </td>
