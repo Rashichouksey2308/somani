@@ -226,7 +226,10 @@ const Index = () => {
                         termsheetDetails={termsheetDetails}
                         handleSave={handleSave}
                         termsheet={termsheet} />
-                    <AdditionalComment addCommentHandler={addCommentHandler} additionalComments={additionalComments} termsheet={termsheet} />
+                    <AdditionalComment
+                     addCommentHandler={addCommentHandler}
+                      additionalComments={additionalComments}
+                        />
                     <OtherTerms
                         otherTermConditions={otherTermsAndConditions}
                         onChangeInsurance={onChangeInsurance}

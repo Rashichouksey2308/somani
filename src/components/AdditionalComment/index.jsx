@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react'
 
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
+import { toast } from 'react-toastify'
 
-const Index = ({ additionalComments, addCommentHandler }) => {
+const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) => {
     const [commentType, setCommentType] = useState("5. Lc Opening Bank")
     const [comment, setComment] = useState("")
     const [isCommentEditable, setIsCommentEditable] = useState({})
@@ -17,14 +18,13 @@ const Index = ({ additionalComments, addCommentHandler }) => {
 
     }, [additionalComments])
 
-    const manageCommentEditable = (index) => {
-        
+    const manageCommentEditable = (index) => {    
         setIsCommentEditable(prev => ({ ...prev, [index]: !isCommentEditable[index] }))
     }
     
     const addNewCommentHandler = () => {
        
-        if (comment.length ===  "") {
+        if (comment ===  "") {
             let toastMessage = 'cannot add an Empty Comment'
             if (!toast.isActive(toastMessage)) {
                 toast.error(toastMessage, { toastId: toastMessage })
@@ -33,8 +33,6 @@ const Index = ({ additionalComments, addCommentHandler }) => {
         } else {
             addCommentHandler(commentType,comment)
         }
-       
-        
     }
 
 
@@ -92,7 +90,6 @@ const Index = ({ additionalComments, addCommentHandler }) => {
                                                 alt="Edit"
                                                 index={index}
                                                 onClick={(e) => manageCommentEditable(index)}
-
                                             />
                                             <img
                                                 src="/static/delete.svg"
