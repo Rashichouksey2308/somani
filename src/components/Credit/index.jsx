@@ -614,7 +614,9 @@ const index = ({
           data-parent="#profileAccordion"
         >
           <div className={`${styles.datatable} card-body datatable`}>
-            <table
+           <div className={`${styles.table_scroll_outer}`}>
+            <div  className={`${styles.table_scroll_inner}`}>
+             <table
               className={`${styles.table} table`}
               cellPadding="0"
               cellSpacing="0"
@@ -759,6 +761,7 @@ const index = ({
                 </tbody>
               ))}
             </table>
+            </div></div>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
               <span>+</span>
               <div>Add More Rows</div>

@@ -676,7 +676,7 @@ function Index() {
                         className={` ${styles.cardBody_compliance} card-body border_color`}
                       >
                         <Row className={` ${styles.row} mt-1 mb-1`}>
-                          <Col className={`${styles.col}`} sm={2}>
+                          <Col className={`${styles.col}`} sm={12}>
                             <span
                               className={`${styles.head} d-flex align-items-center justify-content-flex-start`}
                             >
