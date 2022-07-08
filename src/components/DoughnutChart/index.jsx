@@ -60,7 +60,7 @@ function Index() {
     
     },
      responsive: false, 
-     cutout: 50
+     cutout: 55
    
   }
  
@@ -87,7 +87,7 @@ function Index() {
           <Doughnut data={data} options={options} />
           <div className={`${styles.total_value} `}>
             <span>₹ 24.00 Cr</span>
-            <span>50%</span>
+            <span className="mt-1">50%</span>
           </div>
         </div>
       </Card.Body>
