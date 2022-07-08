@@ -19,7 +19,7 @@ function Index() {
                 {fields("Supplier Name",buyerList?.order?.supplierName,false)}
                 {fields("Country Of Origin",buyerList?.order?.countryOfOrigin,false)}
                 {fields("INCO Terms",buyerList?.order?.incoTerm,false)}
-                {fields("Transaction Type",buyerList?.order?.transactionType)}
+                {/* {fields("Transaction Type",buyerList?.order?.transactionType)} */}
                 {fields("Port Of Discharge",buyerList?.order?.portOfDischarge,false)}
                 {fields("Expected Date Of Shipment",buyerList?.order?.ExpectedDateOfShipment,false)}
                 {fields("Document Name",buyerList?.company?.documents?.typeOfDocument,true)}
@@ -32,7 +32,7 @@ export default Index
 const fields =(head,value,isButton)=>{
     return (
         <>
-            <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-3`}>
+            <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
                 <span className={`${styles.top} label`}>{head}</span>
                 <div>
                     <span className={`${styles.value} value `}>
