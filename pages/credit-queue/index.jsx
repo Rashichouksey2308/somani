@@ -10,6 +10,7 @@ import {
   GetAllOrders,
   GetBuyer,
 } from '../../src/redux/registerBuyer/action'
+import {GetCompanyDetails} from '../../src/redux/companyDetail/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 import { setPageName } from '../../src/redux/userData/action'
 
@@ -31,9 +32,12 @@ function Index() {
     dispatch(setPageName('credit-queue'))
   })
   
+  
   const handleRoute = (buyer) => {
+    console.log(buyer,'butyer')
     if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))
+      dispatch(GetCompanyDetails( {"company" : buyer.company._id}))
       Router.push('/review')
     }
   }
