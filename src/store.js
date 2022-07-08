@@ -1,14 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { useDispatch, useSelector } from 'react-redux'
-import { createLogger } from 'redux-logger'
-import config from 'config'
-import { repoSearchReducer } from 'features/repoSearch/repoSearchSlice'
-import AuthReducer from 'redux/authentication/reducer'
-import BuyerReducer from 'redux/registerBuyer/reducer'
-import UserReducer from 'redux/userData/reducer'
-import { sidebar } from 'redux/toggleState/Reducer/reducer'
+import { configureStore } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
+import { createLogger } from 'redux-logger';
+import config from 'config';
+import { repoSearchReducer } from 'features/repoSearch/repoSearchSlice';
+import AuthReducer from 'redux/authentication/reducer';
+import BuyerReducer from 'redux/registerBuyer/reducer';
+import UserReducer from 'redux/userData/reducer';
+import { sidebar } from 'redux/toggleState/Reducer/reducer';
 import OrderReducer from 'redux/buyerProfile/reducer';
 import MarginMoneyReducer from 'redux/marginMoney/reducer';
+import CompanyReducer from 'redux/companyDetail/reducer';
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -30,7 +31,8 @@ export const createStore = (preloadedState) => {
       sidebar: sidebar,
       order: OrderReducer,
       user: UserReducer,
-      marginMoney: MarginMoneyReducer
+      marginMoney: MarginMoneyReducer,
+      companyDetails: CompanyReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

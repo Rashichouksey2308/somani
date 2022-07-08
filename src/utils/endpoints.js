@@ -6,46 +6,38 @@ export default {
   authbaseUrl: `${config.authServerUrl}`,
   corebaseUrl: `${config.coreServerUrl}`,
 
- // auth
-  login: "/api/auth/login",
-  logout: "/api/auth/logout",
+  // auth
+  login: '/api/auth/login',
+  logout: '/api/auth/logout',
 
-
-  //  leads 
-  registerCompany: "/api/core/lead/company-details",
-  getBuyers: "/api/core/lead/get-all-leads",
-  uploadDocuments: "/api/core/order/doc-upoad",
-  search: "/api/core/lead/search?searchTerm=",
+  //  leads
+  registerCompany: '/api/core/lead/company-details',
+  getBuyers: '/api/core/lead/get-all-leads',
+  uploadDocuments: '/api/core/order/doc-upoad',
+  search: '/api/core/lead/search?searchTerm=',
 
   //orders
-  getBuyerOrder: "/api/core/lead/order-review",
-  updateBuyer: "/api/core/lead/order-action",
-  orderDetail: "/api/core/order/detail",
-  orderDetailUpdate: "/api/core/order/detail",
-  updateCredit: "/api/core/order/credit",
+  getBuyerOrder: '/api/core/lead/order-review',
+  updateBuyer: '/api/core/lead/order-action',
+  orderDetail: '/api/core/order/detail',
+  orderDetailUpdate: '/api/core/order/detail',
+  updateCredit: '/api/core/order/credit',
 
-  // gst 
-  getGst: "/api/get-gst",
- 
+  // gst
+  getGst: '/api/get-gst',
 
   //token
-  generateToken: "/api/auth/generate-token",
-  verifyToken: "/api/auth/verify-token",
-
+  generateToken: '/api/auth/generate-token',
+  verifyToken: '/api/auth/verify-token',
 
   //termsheet
-  gettermsheet: "/api/core/termsheet",
-  updatetermsheet : "/api/core/termsheet",
+  gettermsheet: '/api/core/termsheet',
+  updatetermsheet: '/api/core/termsheet',
 
   //marginMoney
-  getMarginMoney: "/api/core/margin-money",
-  updateMarginMoney:"/api/core/margin-money"
+  getMarginMoney: '/api/core/margin-money',
+  updateMarginMoney: '/api/core/margin-money',
 
+  // companydetails
+  getCompanyDetails: '/api/core/lead/fetchCompanyDetail',
 }
-
-
-
-
-
-
-

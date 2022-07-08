@@ -33,20 +33,23 @@ import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 import { Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { UpdateCredit, UpdateOrderShipment } from '../../src/redux/buyerProfile/action'
+import {
+  UpdateCredit,
+  UpdateOrderShipment,
+} from '../../src/redux/buyerProfile/action'
 import { element } from 'prop-types'
-import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
 
-  useEffect(() => {
-     dispatch(setPageName('credit-queue'))
-     dispatch(setDynamicName(orderList?.company?.companyName))
-  },[orderList])
   const { orderList } = useSelector((state) => state.buyer)
 
+  useEffect(() => {
+    dispatch(setPageName('credit-queue'))
+    dispatch(setDynamicName(orderList?.company?.companyName))
+  }, [orderList, dispatch])
 
   const [selectedTab, setSelectedTab] = useState('Profile')
 
@@ -99,97 +102,97 @@ function Index() {
   }
 
   const onOrderSave = () => {
-    if (orderDetails?.transactionType?.trim() === "") {
+    if (orderDetails?.transactionType?.trim() === '') {
       let toastMessage = 'Invalid Transaction Type'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.commodity?.trim() === "") {
+    } else if (orderDetails?.commodity?.trim() === '') {
       let toastMessage = 'the Commodity can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.quantity === "") {
+    } else if (orderDetails?.quantity === '') {
       let toastMessage = 'Quantity can not be Empty '
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.unitOfQuantity?.trim() === "") {
+    } else if (orderDetails?.unitOfQuantity?.trim() === '') {
       let toastMessage = 'Please Provide a unit Of Quantity  '
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.orderValue === "") {
+    } else if (orderDetails?.orderValue === '') {
       let toastMessage = 'Please Check the orderValue  '
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.orderCurrency?.trim() === "") {
+    } else if (orderDetails?.orderCurrency?.trim() === '') {
       let toastMessage = 'the orderCurrency can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.unitOfValue?.trim() === "") {
+    } else if (orderDetails?.unitOfValue?.trim() === '') {
       let toastMessage = 'Please Set the unit of value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.supplierName?.trim() === "") {
+    } else if (orderDetails?.supplierName?.trim() === '') {
       let toastMessage = 'the supplier Name can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.countryOfOrigin.trim() === "") {
+    } else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'the country Of Origin can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.portOfDischarge?.trim() === "") {
+    } else if (orderDetails?.portOfDischarge?.trim() === '') {
       let toastMessage = 'the port Of Discharge can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.ExpectedDateOfShipment?.trim() === "") {
+    } else if (orderDetails?.ExpectedDateOfShipment?.trim() === '') {
       let toastMessage = 'the Expected Date Of Shipment can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.incoTerm?.trim() === "") {
+    } else if (orderDetails?.incoTerm?.trim() === '') {
       let toastMessage = 'the incoTerm can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.grade?.trim() === "") {
+    } else if (orderDetails?.grade?.trim() === '') {
       let toastMessage = 'the grade can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.tolerance === "") {
+    } else if (orderDetails?.tolerance === '') {
       let toastMessage = 'the tolerance can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.transactionPeriodDays === "") {
+    } else if (orderDetails?.transactionPeriodDays === '') {
       let toastMessage = 'the transaction Period Days can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.manufacturerName?.trim() === "") {
+    } else if (orderDetails?.manufacturerName?.trim() === '') {
       let toastMessage = 'the manufacturer Name can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -213,12 +216,11 @@ function Index() {
         dispatch(UpdateOrderShipment(obj))
       }
     }
-
   }
 
   const [product, setProduct] = useState({
     AvgMonthlyElectricityBill:
-    orderList?.productSummary?.AvgMonthlyElectricityBill,
+      orderList?.productSummary?.AvgMonthlyElectricityBill,
     availableStock: orderList?.productSummary?.availableStock,
     averageStockInTransit: orderList?.productSummary?.averageStockInTransit,
     averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity,
@@ -287,17 +289,25 @@ function Index() {
     },
   ])
 
+  const [financialsComment, setFinancialsComment] = useState(
+    orderList?.company?.recommendations?.commentsOnFinancials,
+  )
 
-  const [financialsComment, setFinancialsComment] = useState(orderList?.company?.recommendations?.commentsOnFinancials)
+  const [companyComment, setCompanyComment] = useState(
+    orderList?.company?.recommendations?.companyProfile,
+  )
 
-  const [companyComment, setCompanyComment] = useState(orderList?.company?.recommendations?.companyProfile)
+  const [sanctionComment, setSanctionComment] = useState(
+    orderList?.company?.recommendations?.sanctionTerms,
+  )
 
+  const [strengthsComment, setStrengthsComment] = useState(
+    orderList?.company?.recommendations?.strengths,
+  )
 
-  const [sanctionComment, setSanctionComment] = useState(orderList?.company?.recommendations?.sanctionTerms)
-
-  const [strengthsComment, setStrengthsComment] = useState(orderList?.company?.recommendations?.strengths)
-
-  const [weaknessComment, setWeaknessComment] = useState(orderList?.company?.recommendations?.weakness)
+  const [weaknessComment, setWeaknessComment] = useState(
+    orderList?.company?.recommendations?.weakness,
+  )
 
   const addCompanyCommentArr = (companyComments) => {
     let newArr = [...companyComment]
@@ -324,7 +334,6 @@ function Index() {
     newArr.push(weaknessComments)
     setWeaknessComment(newArr)
   }
-
 
   const [debtData, setDebtData] = useState([
     {
@@ -428,33 +437,38 @@ function Index() {
       order: orderList._id,
       keyContactPerson: [...personData],
       keyAddress: [...keyAddData],
-      recommendation: { companyProfile: [...companyComment], commentsOnFinancials: [...financialsComment], strengths: [...strengthsComment], sanctionTerms: [...sanctionComment], weakness: [...weaknessComment] },
-      debtProfile: [...debtData]
+      recommendation: {
+        companyProfile: [...companyComment],
+        commentsOnFinancials: [...financialsComment],
+        strengths: [...strengthsComment],
+        sanctionTerms: [...sanctionComment],
+        weakness: [...weaknessComment],
+      },
+      debtProfile: [...debtData],
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
   }
 
   const currentOpenLink = (e) => {
-
     setSelectedTab(e.target.attributes[4].nodeValue)
   }
   const onNext = () => {
-    let list = document.getElementsByClassName("nav-tabs")
-    
+    let list = document.getElementsByClassName('nav-tabs')
+
     for (let i = 0; i < list[0].children.length; i++) {
-  
-      if (list[0].children[i].children[0].attributes[5].nodeValue == true || list[0].children[i].children[0].attributes[5].nodeValue == "true") {
+      if (
+        list[0].children[i].children[0].attributes[5].nodeValue == true ||
+        list[0].children[i].children[0].attributes[5].nodeValue == 'true'
+      ) {
+        list[0].children[i].children[0].attributes[5].nodeValue = false
+        let temIndex = i
+        setSelectedTab(
+          list[0].children[temIndex++].children[0].attributes[4].nodeValue,
+        )
 
-        list[0].children[i].children[0].attributes[5].nodeValue = false;
-        let temIndex = i;
-        setSelectedTab(list[0].children[temIndex++].children[0].attributes[4].nodeValue)
-  
         //  list[0].children[temIndex++].children[0].attributes[5].nodeValue=true
-
       }
-
-
     }
   }
   return (
@@ -463,8 +477,9 @@ function Index() {
         <div className={`${styles.tabHeader} tabHeader `}>
           <h1 className={`${styles.title} heading pt-3 pb-3`}>
             <img
-              src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
-                }`}
+              src={`${
+                darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
+              }`}
               alt="arrow right"
               className="img-fluid image_arrow"
             />
@@ -1407,10 +1422,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-        'Compliance' ||
-        'Orders' ||
-        'Credit' ||
-        'DocumentsTab' ? (
+      'Compliance' ||
+      'Orders' ||
+      'Credit' ||
+      'DocumentsTab' ? (
         <PreviousBar />
       ) : null}
       {selectedTab == 'Profile' ? (
