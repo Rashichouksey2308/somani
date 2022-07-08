@@ -30,7 +30,7 @@ function Index() {
         </a>
         <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
-        <img src="/static/close.svg" className="img-fluid" alt="Close" />
+        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
       </a>
       
       </div>
@@ -94,7 +94,7 @@ function Index() {
         </div>
         
       </div>
-      <TableMain tableName='Loading, Transit &amp; Unloading'
+      <TableMain tableName='Transit Details'
       isVesselHeader={true}
       isDateHeader={true} />
       

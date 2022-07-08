@@ -6,18 +6,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 export default function Index() {
   return (
     <>
-      <div className={`${styles.dashboardTab} tabHeader w-100`}>
-            <div className={`${styles.tabHeader} tabHeader `}>
-              <div className="d-flex align-items-center justify-content-between">
-                <h1 className={`${styles.title} heading`}><img src="/static/arrow-right.svg" alt="arrow right" className="img-fluid image_arrow" />Vessel Name ABC</h1>
-                <div className="ml-auto">
-                  <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-                </div>
-              </div>
-             
-            </div>
-           
-        </div>
+      
         <div className={`${styles.backgroundMain} container-fluid background2`}>
         <div className={`${styles.vessel_card}`}>
         <div className={`${styles.main} mt-4 card border-color`}>
@@ -25,7 +14,7 @@ export default function Index() {
         <h3 className={`${styles.heading}`}>Inspection Type</h3>
         <div className='d-flex'>
         <div className='mr-5'>
-        <label className={`${styles.dropDown_label} text`}>Shipment Type</label>
+        <label className={`${styles.dropDown_label} text`}>Shipment Type:</label>
         <select className={`${styles.dropDown} input`}>
             <option>Bulk</option>
             <option>Liner</option>
@@ -33,7 +22,7 @@ export default function Index() {
         </select>   
         </div>
         <div >
-        <label className={`${styles.dropDown_label} text`}>Part Shipment Allowed</label>
+        <label className={`${styles.dropDown_label} text`}>Part Shipment Allowed:</label>
         <select className={`${styles.dropDown} input`}>
             <option>Yes</option>
             <option>No</option>
@@ -98,8 +87,8 @@ export default function Index() {
             <div className={`${styles.main} card border-color mt-4 mb-4`}>
              <div className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`} >
               <h3 className={`${styles.heading}`}>Inspection Details</h3>
-              <button className={styles.product_btn} type="button"> Product Specifications
-              <img className='img-fluid' src= "./static/blue-eye.svg" alt="blue-eye" />
+              <button className={styles.product_btn} type="button"> Product Specification
+              <img className='img-fluid ml-2' src= "./static/blue-eye.svg" alt="blue-eye" />
               </button>
                 </div>  
                 <div className={`${styles.dashboard_form} card-body`}>
@@ -160,12 +149,14 @@ export default function Index() {
                 >
               <div className={`${styles.table_form}`}>
               <div className={styles.table_container}>
+              <div className={styles.table_scroll_outer}>
+          <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                     <thead>
                         <tr>
-                            <th>DOCUMENT NAME</th>
-                            <th>FORMAT</th>
-                            <th>DOCUMENT DATE</th>
+                            <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
+                            <th>FORMAT <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
+                            <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
                             <th>ACTION</th>
                         </tr>
                         </thead>                        
@@ -231,6 +222,8 @@ export default function Index() {
                                         
                     </tbody>
                 </table>
+                </div>
+                </div>
                 <div className={`${styles.doc_name} ${styles.dashboard_form} mb-3`} >
                  <strong className="text-danger">*</strong> 
                  Any one document is mandatory</div>
@@ -286,6 +279,8 @@ export default function Index() {
           </Form>
         </div>
         <div className={styles.table_container}>
+        <div className={styles.table_scroll_outer}>
+          <div className={styles.table_scroll_inner}>
           <table
             className={`${styles.table} table`}
             cellPadding="0"
@@ -294,10 +289,10 @@ export default function Index() {
           >
             <thead>
               <tr>
-                <th>DOCUMENT NAME</th>
-                <th>FORMAT</th>
-                <th>DOCUMENT DATE</th>
-                <th>UPLOADED BY</th>
+                <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>FORMAT <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>UPLOADED BY <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
                 <th>STATUS</th>
                 <th>ACTION</th>
                 <th>
@@ -347,6 +342,8 @@ export default function Index() {
              
             </tbody>
           </table>
+          </div>
+          </div>
         </div>
             </div> 
             </div>  
