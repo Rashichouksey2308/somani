@@ -23,6 +23,7 @@ const Index = ({
   const [editStren, setEditStren] = useState(false)
   const [editWeak, setEditWeak] = useState(false)
   const [editSanc, setEditSanc] = useState(false)
+  const [addRow, setAddRow] = useState(false)
 
   const [companyComments, setCompanyComments] = useState('')
   const [strengthsComments, setStrengthsComments] = useState('')
@@ -168,7 +169,9 @@ const Index = ({
                 </tr>
               </thead>
               <tbody>
-                <tr className="table_row">
+ 
+
+                <tr className="table_row" >
                   <td className={styles.number}>1 </td>
                   <td>
                     <input className= {styles.input} readOnly={!saveTable} />
@@ -210,6 +213,49 @@ const Index = ({
                     </div>
                   </td>
                 </tr>
+
+                { !addRow ? (<tr className="table_row" >
+                  <td className={styles.number}>1 </td>
+                  <td>
+                    <input className= {styles.input} readOnly={!saveTable} />
+                  </td>
+                  <td>
+                    <input className= {styles.input} readOnly={!saveTable} />
+                  </td>
+                  <td>
+                    <input className= {styles.input} readOnly={!saveTable} />
+                  </td>
+                  <td>
+                    <input className= {styles.input} readOnly={!saveTable} />
+                  </td>
+                  <td>
+                    <div>
+                      {!saveTable ? (
+                        <img
+                          src="/static/mode_edit.svg"
+                          className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
+                          onClick={(e) => {
+                            setSaveTable(true)
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src="/static/save-3.svg"
+                          className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
+                          alt="save"
+                          onClick={(e) => {
+                            setSaveTable(false)
+                          }}
+                        />
+                      )}
+                      <img
+                        src="/static/delete 2.svg"
+                        className={`${styles.delete_image} img-fluid`}
+                        alt="delete"
+                      />
+                    </div>
+                  </td>
+                </tr>) : ''}
               </tbody>
             </table>
             </div>
@@ -218,7 +264,9 @@ const Index = ({
               className={`${styles.add_image} p-3 d-flex justify-content-end`}
             >
               
-              <div><span>+</span>Add More Rows</div>
+              <div onClick={(e) => setAddRow(!addRow)}><span>+</span>Add More Rows</div>
+          
+
             </div>
           </div>
           <span className={styles.view_order}>View Past Orders</span>
