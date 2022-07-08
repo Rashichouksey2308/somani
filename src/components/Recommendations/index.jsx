@@ -15,8 +15,9 @@ const Index = ({
   addStrengthsCommentArr,
   addWeaknessCommentArr,
   addSanctionCommentArr,
+  groupExposureData,
+  addGroupExposureArr,
 }) => {
-
   const [editProfile, setEditProfile] = useState(false)
   const [editFinance, setEditFinance] = useState(false)
   const [saveTable, setSaveTable] = useState(false)
@@ -31,7 +32,22 @@ const Index = ({
   const [sanctionComments, setSanctionComments] = useState('')
   const [weaknessComments, setWeaknessComments] = useState('')
 
+  const [exposureData, setExposureData] = useState({
+    accountConduct: '',
+      limit: null,
+      name: '',
+      outstandingLimit: null
+  })
 
+  const handleGroupExpChange = (name, value) => {
+    const newInput = { ...exposureData }
+    newInput[name] = value
+    setExposureData(newInput)
+  }
+
+  const onExpSave = () => {
+    addGroupExposureArr(exposureData)
+  }
 
   return (
     <>
@@ -89,7 +105,7 @@ const Index = ({
                 rows={3}
                 placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} form-control`}
-                onChange={(e)=> setCompanyComments(e.target.value)}
+                onChange={(e) => setCompanyComments(e.target.value)}
               />
               <label className={`${styles.label_heading}`}>Comments</label>
 
@@ -97,36 +113,42 @@ const Index = ({
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
-                onClick={()=> companyComments.length > 0 && addCompanyCommentArr(companyComments)}
+                onClick={() =>
+                  companyComments.length > 0 &&
+                  addCompanyCommentArr(companyComments)
+                }
               />
             </div>
           </div>
           <hr className={styles.line}></hr>
           <div className={`${styles.dashboard_form} mr-3`}>
             <h5 className={styles.sub_heading}>Comments On Financials</h5>
-            {financialsComment && financialsComment.map((comment, index) => ( <div key={index} className={`${styles.comment_para} d-flex `}>
-              <Form.Control
-                className={`${styles.comment}`}
-                defaultValue={comment}
-                as="textarea"
-                rows={3}
-                readOnly={editFinance}
-              />
-              <div className="ml-3">
-                <img
-                  src="/static/mode_edit.svg"
-                  className={`${styles.edit_image} img-fluid mb-3`}
-                  onClick={() => {
-                    setEditFinance(!editFinance)
-                  }}
-                />
-                <img
-                  src="/static/delete 2.svg"
-                  className="img-fluid"
-                  alt="delete"
-                />
-              </div>
-            </div>))}
+            {financialsComment &&
+              financialsComment.map((comment, index) => (
+                <div key={index} className={`${styles.comment_para} d-flex `}>
+                  <Form.Control
+                    className={`${styles.comment}`}
+                    defaultValue={comment}
+                    as="textarea"
+                    rows={3}
+                    readOnly={editFinance}
+                  />
+                  <div className="ml-3">
+                    <img
+                      src="/static/mode_edit.svg"
+                      className={`${styles.edit_image} img-fluid mb-3`}
+                      onClick={() => {
+                        setEditFinance(!editFinance)
+                      }}
+                    />
+                    <img
+                      src="/static/delete 2.svg"
+                      className="img-fluid"
+                      alt="delete"
+                    />
+                  </div>
+                </div>
+              ))}
 
             <div className="d-flex mt-4 pb-4">
               <input
@@ -134,7 +156,7 @@ const Index = ({
                 rows={3}
                 placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} form-control`}
-                onChange={(e)=> setFinancialsComments(e.target.value)}
+                onChange={(e) => setFinancialsComments(e.target.value)}
               />
               <label className={`${styles.label_heading}`}>Comments</label>
 
@@ -142,7 +164,10 @@ const Index = ({
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
-                onClick={()=>financialsComments.length > 0 &&  addFinancialsCommentArr(financialsComments)}
+                onClick={() =>
+                  financialsComments.length > 0 &&
+                  addFinancialsCommentArr(financialsComments)
+                }
               />
             </div>
           </div>
@@ -152,121 +177,135 @@ const Index = ({
             <h5>Group Exposure Details</h5>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-            <table
-              className={`${styles.table} table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
-              <thead>
-                <tr>
-                  <th>S.NO.</th>
-                  <th>NAME OF THE BUYER</th>
-                  <th>LIMIT AMOUNT</th>
-                  <th>OUTSTANDING LIMIT</th>
-                  <th>ACCOUNT CONDUCT</th>
-                  <th>ACTION</th>
-                </tr>
-              </thead>
-              <tbody>
- 
+                <table
+                  className={`${styles.table} table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="0"
+                >
+                  <thead>
+                    <tr>
+                      <th>S.NO.</th>
+                      <th>NAME OF THE BUYER</th>
+                      <th>LIMIT AMOUNT</th>
+                      <th>OUTSTANDING LIMIT</th>
+                      <th>ACCOUNT CONDUCT</th>
+                      <th>ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {groupExposureData && groupExposureData.map((exp, index) => (  <tr key={index} className="table_row">
+                      <td className={styles.number}>{index += 1} </td>
+                      <td>
+                        <input name='name' defaultValue={exp.name} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
+                      </td>
+                      <td>
+                        <input limit='limit' defaultValue={exp.limit} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
+                      </td>
+                      <td>
+                        <input name='outstandingLimit' defaultValue={exp.outstandingLimit} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
+                      </td>
+                      <td>
+                        <input name='accountConduct' defaultValue={exp.accountConduct} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
+                      </td>
+                      <td>
+                        <div>
+                          {!saveTable ? (
+                            <img
+                              src="/static/mode_edit.svg"
+                              className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
+                              onClick={(e) => {
+                                setSaveTable(true)
+                              }}
+                            />
+                          ) : (
+                            <img
+                              src="/static/save-3.svg"
+                              className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
+                              alt="save"
+                              onClick={(e) => {
+                                onExpSave(exposureData)
+                                setSaveTable(false)
+                              }}
+                            />
+                          )}
+                          <img
+                            src="/static/delete 2.svg"
+                            className={`${styles.delete_image} img-fluid`}
+                            alt="delete"
+                          />
+                        </div>
+                      </td>
+                    </tr> ))}
 
-                <tr className="table_row" >
-                  <td className={styles.number}>1 </td>
-                  <td>
-                    <input className= {styles.input} readOnly={!saveTable} />
-                  </td>
-                  <td>
-                    <input className= {styles.input} readOnly={!saveTable} />
-                  </td>
-                  <td>
-                    <input className= {styles.input} readOnly={!saveTable} />
-                  </td>
-                  <td>
-                    <input className= {styles.input} readOnly={!saveTable} />
-                  </td>
-                  <td>
-                    <div>
-                      {!saveTable ? (
-                        <img
-                          src="/static/mode_edit.svg"
-                          className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
-                          onClick={(e) => {
-                            setSaveTable(true)
-                          }}
-                        />
-                      ) : (
-                        <img
-                          src="/static/save-3.svg"
-                          className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
-                          alt="save"
-                          onClick={(e) => {
-                            setSaveTable(false)
-                          }}
-                        />
-                      )}
-                      <img
-                        src="/static/delete 2.svg"
-                        className={`${styles.delete_image} img-fluid`}
-                        alt="delete"
-                      />
-                    </div>
-                  </td>
-                </tr>
-
-                { !addRow ? (<tr className="table_row" >
-                  <td className={styles.number}>1 </td>
-                  <td>
-                    <input className= {styles.input} readOnly={!saveTable} />
-                  </td>
-                  <td>
-                    <input className= {styles.input} readOnly={!saveTable} />
-                  </td>
-                  <td>
-                    <input className= {styles.input} readOnly={!saveTable} />
-                  </td>
-                  <td>
-                    <input className= {styles.input} readOnly={!saveTable} />
-                  </td>
-                  <td>
-                    <div>
-                      {!saveTable ? (
-                        <img
-                          src="/static/mode_edit.svg"
-                          className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
-                          onClick={(e) => {
-                            setSaveTable(true)
-                          }}
-                        />
-                      ) : (
-                        <img
-                          src="/static/save-3.svg"
-                          className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
-                          alt="save"
-                          onClick={(e) => {
-                            setSaveTable(false)
-                          }}
-                        />
-                      )}
-                      <img
-                        src="/static/delete 2.svg"
-                        className={`${styles.delete_image} img-fluid`}
-                        alt="delete"
-                      />
-                    </div>
-                  </td>
-                </tr>) : ''}
-              </tbody>
-            </table>
-            </div>
+                    {!addRow ? (
+                      <tr className="table_row">
+                        <td className={styles.number}>1 </td>
+                        <td>
+                          <input
+                            className={styles.input}
+                            readOnly={!saveTable}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            className={styles.input}
+                            readOnly={!saveTable}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            className={styles.input}
+                            readOnly={!saveTable}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            className={styles.input}
+                            readOnly={!saveTable}
+                          />
+                        </td>
+                        <td>
+                          <div>
+                            {!saveTable ? (
+                              <img
+                                src="/static/mode_edit.svg"
+                                className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
+                                onClick={(e) => {
+                                  setSaveTable(true)
+                                }}
+                              />
+                            ) : (
+                              <img
+                                src="/static/save-3.svg"
+                                className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
+                                alt="save"
+                                onClick={(e) => {
+                                  setSaveTable(false)
+                                }}
+                              />
+                            )}
+                            <img
+                              src="/static/delete 2.svg"
+                              className={`${styles.delete_image} img-fluid`}
+                              alt="delete"
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ) : (
+                      ''
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div
               className={`${styles.add_image} p-3 d-flex justify-content-end`}
             >
-              
-              <div onClick={(e) => setAddRow(!addRow)}><span>+</span>Add More Rows</div>
-          
-
+              <div onClick={(e) => setAddRow(!addRow)}>
+                <span>+</span>Add More Rows
+              </div>
             </div>
           </div>
           <span className={styles.view_order}>View Past Orders</span>
@@ -281,7 +320,7 @@ const Index = ({
                 rows={3}
                 placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} input form-control`}
-                onChange={(e)=> setStrengthsComments(e.target.value)}
+                onChange={(e) => setStrengthsComments(e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
                 Comments
@@ -291,34 +330,40 @@ const Index = ({
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
-                onClick={()=> strengthsComments.length > 0 && addStrengthsCommentArr(strengthsComments) }
+                onClick={() =>
+                  strengthsComments.length > 0 &&
+                  addStrengthsCommentArr(strengthsComments)
+                }
               />
             </div>
             <div className={`${styles.strength} value`}>Strengths</div>
-            {strengthsComment && strengthsComment.map((strengths, index) => (  <div key={index} className="d-flex justify-content-between">
-              <Form.Control
-                className={`${styles.paragraph} input`}
-                defaultValue={strengths}
-                as="textarea"
-                rows={3}
-                readOnly={editStren}
-              />
-              <div className="mt-3">
-                <img
-                  src="/static/delete 2.svg"
-                  className="img-fluid mr-4"
-                  alt="delete"
-                />
-                <img
-                  src="/static/mode_edit.svg"
-                  className={`${styles.edit_image} img-fluid`}
-                  alt="edit"
-                  onClick={(e) => {
-                    setEditStren(!editStren)
-                  }}
-                />
-              </div>
-            </div>))}
+            {strengthsComment &&
+              strengthsComment.map((strengths, index) => (
+                <div key={index} className="d-flex justify-content-between">
+                  <Form.Control
+                    className={`${styles.paragraph} input`}
+                    defaultValue={strengths}
+                    as="textarea"
+                    rows={3}
+                    readOnly={editStren}
+                  />
+                  <div className="mt-3">
+                    <img
+                      src="/static/delete 2.svg"
+                      className="img-fluid mr-4"
+                      alt="delete"
+                    />
+                    <img
+                      src="/static/mode_edit.svg"
+                      className={`${styles.edit_image} img-fluid`}
+                      alt="edit"
+                      onClick={(e) => {
+                        setEditStren(!editStren)
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
             {/* <hr></hr> */}
             {/* <div className="d-flex justify-content-between">
               <Form.Control
@@ -350,7 +395,7 @@ const Index = ({
                 rows={3}
                 placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} form-control`}
-                onChange={(e)=> setWeaknessComments(e.target.value)}
+                onChange={(e) => setWeaknessComments(e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
                 Comments
@@ -360,34 +405,40 @@ const Index = ({
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
-                onClick={()=> weaknessComments.length > 0 && addWeaknessCommentArr(weaknessComments)}
+                onClick={() =>
+                  weaknessComments.length > 0 &&
+                  addWeaknessCommentArr(weaknessComments)
+                }
               />
             </div>
             <div className={`${styles.strength} value`}>Weakness</div>
-            {weaknessComment && weaknessComment.map((weakness, index) => (     <div key={index} className="d-flex justify-content-between">
-              <Form.Control
-                className={`${styles.paragraph} input`}
-                defaultValue={weakness}
-                as="textarea"
-                rows={3}
-                readOnly={editWeak}
-              />
-              <div className="mt-3">
-                <img
-                  src="/static/delete 2.svg"
-                  className="img-fluid mr-4"
-                  alt="delete"
-                />
-                <img
-                  src="/static/mode_edit.svg"
-                  className={`${styles.edit_image} img-fluid`}
-                  alt="edit"
-                  onClick={(e) => {
-                    setEditWeak(!editWeak)
-                  }}
-                />
-              </div>
-            </div>))}
+            {weaknessComment &&
+              weaknessComment.map((weakness, index) => (
+                <div key={index} className="d-flex justify-content-between">
+                  <Form.Control
+                    className={`${styles.paragraph} input`}
+                    defaultValue={weakness}
+                    as="textarea"
+                    rows={3}
+                    readOnly={editWeak}
+                  />
+                  <div className="mt-3">
+                    <img
+                      src="/static/delete 2.svg"
+                      className="img-fluid mr-4"
+                      alt="delete"
+                    />
+                    <img
+                      src="/static/mode_edit.svg"
+                      className={`${styles.edit_image} img-fluid`}
+                      alt="edit"
+                      onClick={(e) => {
+                        setEditWeak(!editWeak)
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
             {/* <hr></hr> */}
 
             {/* <div className="d-flex justify-content-between">
@@ -461,7 +512,7 @@ const Index = ({
                 rows={3}
                 placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} form-control`}
-                onChange={(e)=> setSanctionComments(e.target.value)}
+                onChange={(e) => setSanctionComments(e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
                 Sanction Condition
@@ -471,36 +522,42 @@ const Index = ({
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
-                onClick={()=> sanctionComments.length > 0 && addSanctionCommentArr(sanctionComments)}
+                onClick={() =>
+                  sanctionComments.length > 0 &&
+                  addSanctionCommentArr(sanctionComments)
+                }
               />
             </div>
             <div className={`${styles.strength} value`}>
               Sanction Conditions
             </div>
-        { sanctionComment && sanctionComment.map((sanction, index) => (  <div key={index} className="d-flex justify-content-between">
-              <Form.Control
-                className={`${styles.paragraph} input`}
-                defaultValue={sanction}
-                as="textarea"
-                rows={3}
-                readOnly={editSanc}
-              />
-              <div className="mt-3">
-                <img
-                  src="/static/delete 2.svg"
-                  className="img-fluid mr-4"
-                  alt="delete"
-                />
-                <img
-                  src="/static/mode_edit.svg"
-                  className={`${styles.edit_image} img-fluid`}
-                  alt="edit"
-                  onClick={(e) => {
-                    setEditSanc(!editSanc)
-                  }}
-                />
-              </div>
-            </div>))}
+            {sanctionComment &&
+              sanctionComment.map((sanction, index) => (
+                <div key={index} className="d-flex justify-content-between">
+                  <Form.Control
+                    className={`${styles.paragraph} input`}
+                    defaultValue={sanction}
+                    as="textarea"
+                    rows={3}
+                    readOnly={editSanc}
+                  />
+                  <div className="mt-3">
+                    <img
+                      src="/static/delete 2.svg"
+                      className="img-fluid mr-4"
+                      alt="delete"
+                    />
+                    <img
+                      src="/static/mode_edit.svg"
+                      className={`${styles.edit_image} img-fluid`}
+                      alt="edit"
+                      onClick={(e) => {
+                        setEditSanc(!editSanc)
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
             {/* <hr></hr> */}
 
             {/* <div className="d-flex justify-content-between">

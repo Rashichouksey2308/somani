@@ -46,6 +46,8 @@ function Index() {
 
   const { orderList } = useSelector((state) => state.buyer)
 
+  console.log(orderList, 'this is order list')
+
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
     dispatch(setDynamicName(orderList?.company?.companyName))
@@ -357,7 +359,30 @@ function Index() {
     },
   ])
 
+  const [groupExposureData, setGroupExposureData] = useState([
+    {
+      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
+      limit: orderList?.company?.groupExposureDetail?.limit,
+      name: orderList?.company?.groupExposureDetail?.name,
+      outstandingLimit:
+        orderList?.company?.groupExposureDetail?.outstandingLimit,
+    },
+  ])
+
+  const addGroupExpArr = (exposureData) => {
+    let newArr = [...groupExposureData]
+    newArr.push(exposureData)
+    setGroupExposureData(newArr)
+  }
+
   useEffect(() => {
+
+    let groupExposureArr = []
+    orderList?.company?.groupExposureDetail?.forEach((element) => {
+      groupExposureArr.push(element)
+    })
+    setGroupExposureData(groupExposureArr)
+  
     let debtArr = []
     orderList?.company?.debtProfile?.forEach((element) => {
       // console.log(element,"useEE")
@@ -1093,6 +1118,8 @@ function Index() {
                   />
                   <Recommendations
                     creditDetail={orderList}
+                    groupExposureData={groupExposureData}
+                    addGroupExpArr={addGroupExpArr}
                     financialsComment={financialsComment}
                     addWeaknessCommentArr={addWeaknessCommentArr}
                     addStrengthsCommentArr={addStrengthsCommentArr}
