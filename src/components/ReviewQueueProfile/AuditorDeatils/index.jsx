@@ -66,7 +66,7 @@ function Index() {
                        <div className={`${styles.entities_content}`}>
                          <p>Other Associated Entities</p>
                          <div className={`${styles.row} row`}>
-                            <div class="form-check col-md-3">
+                            <div className="form-check col-md-3">
                               <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
                               <label className="form-check-label" htmlFor="flexRadioDefault1">
                                 Current
@@ -187,7 +187,7 @@ function Index() {
                        <div className={`${styles.entities_content}`}>
                          <p>Other Associated Entities</p>
                          <div className={`${styles.row} row`}>
-                            <div class="form-check col-md-3">
+                            <div className ="form-check col-md-3">
                               <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
                               <label className="form-check-label" htmlFor="flexRadioDefault1">
                                 Current
@@ -308,7 +308,7 @@ function Index() {
                        <div className={`${styles.entities_content}`}>
                          <p>Other Associated Entities</p>
                          <div className={`${styles.row} row`}>
-                            <div class="form-check col-md-3">
+                            <div className="form-check col-md-3">
                               <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
                               <label className="form-check-label" htmlFor="flexRadioDefault1">
                                 Current

@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import {Row, Col} from "react-bootstrap"
 import GrowInput from '../GrowInput'
 import AgreementsContent from '../AggrementContent'
-function index() {
+function Index() {
   const [active,setActive]=useState("Buyer")
   const changeActiveValue=(val)=>{
   setActive(val)
@@ -149,7 +149,7 @@ function index() {
   )
 }
 
-export default index
+export default Index
 
 const sales=()=>{
   return(
