@@ -62,14 +62,14 @@
 
 
 body.light-mode {
-  font-family: 'Helvetica';
+  font-family: 'Helvetica Neue';
   background: #fff !important;
   color: #333 !important;
   transition: background-color 0.3s ease;
 }
 
 body.dark-mode {
-  font-family: 'Helvetica';
+  font-family: 'Helvetica Neue';
   background-color: #171E27 !important;
   color: #ffffff !important;
   transition: background-color 0.3s ease;
@@ -463,13 +463,19 @@ body.dark-mode .table_heading {
 }
 body.light-mode .table_row {
   // background: #ffffff;
-  color: #000000;
+  color: rgba(17, 17, 17, 0.7);
   border-bottom: 2px solid #F2F5F9;
 }
 body.dark-mode .table_row {
   color: #FFFFFF80;
   background: #232936;
   border-bottom: 2px solid #434E61 !important;
+}
+body.light-mode .table_row .buyerName{
+  color: #111111;
+}
+body.dark-mode .table_row .buyerName{
+  color: #FFFFFF;
 }
 body.light-mode .table_credit {
   background: #ffffff;
@@ -672,7 +678,7 @@ body.dark-mode td {
 }
 body.light-mode td {
   border-color: #D9DDE8 !important;
-  color: #111111;
+  color: rgba(17, 17, 17, 0.7);
 }
 body.dark-mode .row_head {
   background-color: #232936 !important;
