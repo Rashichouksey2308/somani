@@ -1,5 +1,7 @@
 import styles from './vessel.module.scss'
 import UploadOther from '../../src/components/UploadOther'
+import UploadDocument from '../../src/components/UploadDocument'
+
 
 export default function Home() {
   return (
@@ -13,7 +15,7 @@ export default function Home() {
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
-              Vessel Details
+              Ramakrishna Traders
             </h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
@@ -39,7 +41,6 @@ export default function Home() {
                   <option>Yes</option>
                   <option>No</option>
                 </select>
-                <button className={styles.add_btn}>Add</button>
               </div>
             </div>
             <div className={`${styles.dashboard_form} card-body`}>
@@ -158,11 +159,49 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
             <hr></hr>
             <div className={`${styles.dashboard_form} card-body`}>
-              <h3 className={styles.sub_heading}>Vessel Information</h3>
+              <h3 className={styles.sub_heading}>Shipping Information</h3>
 
+              <div className="row">
+                
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <input
+                    className={`${styles.input_field} input form-control`}
+                    type="text"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Shipping Line/Charter<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <input
+                    className={`${styles.input_field} input form-control`}
+                    type="number"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    No. of Containers<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="number"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Free Detention Period At Discharge Port (Days)<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+               
+              </div>
+            </div>
+
+            <div className={`${styles.dashboard_form} card-body`}>
+              <div className={`${styles.vessel_card}`}>
+                <div className='d-flex justify-content-between align-items-center'>
+              <h3 className={styles.sub_heading}>Vessel Information</h3>
+              <button className={styles.add_btn}>Add</button>
+              </div>
               <div className="row">
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <input
@@ -195,124 +234,30 @@ export default function Home() {
                   </label>
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                    <input className={`${styles.input_field} input form-control`} type="date"/> 
+                    <input className={`${styles.input_field} input form-control`} type="number"/> 
                      <label className={`${styles.label_heading} label_heading`}>Year of Built<strong className="text-danger">*</strong></label>                   
                 </div> 
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Shipping Line<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    No. of Containers<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Free Detention Period At Discharge Port (Days)
-                    <strong className="text-danger">*</strong>
-                  </label>
-                </div>
+               
               </div>
             </div>
-          </div>
-          <div className={`${styles.main} mb-4 card border-color mt-4`}>
-            <div
-              className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
-            >
-              <h3 className={styles.heading}>Upload Documents</h3>
-              <span>+</span>
             </div>
-            <div className={`${styles.table_form}`}>
-              <div className={styles.table_container}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
-                  <thead>
-                    <tr>
-                      <th>DOCUMENT NAME</th>
-                      <th>FORMAT</th>
-                      <th>DOCUMENT DATE</th>
-                      <th>ACTION</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="table_row">
-                      <td className={styles.doc_name}>
-                        Booking Details
-                        <strong className="text-danger">*</strong>
-                      </td>
-                      <td>
-                        <img
-                          src="/static/pdf.svg"
-                          className="img-fluid"
-                          alt="Pdf"
-                        />
-                      </td>
-                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                      <td>
-                        {' '}
-                        <input
-                          className={styles.input_field}
-                          type="text"
-                          placeholder="Booking_Details.pdf"
-                        />
-                        <img
-                          className={`${styles.close_image} img-fluid `}
-                          src="/static/close.svg"
-                          alt="close"
-                        />{' '}
-                      </td>
-                    </tr>
-                    <tr className="table_row">
-                      <td className={styles.doc_name}>Container List</td>
-                      <td>
-                        <img
-                          src="/static/pdf.svg"
-                          className="img-fluid"
-                          alt="Pdf"
-                        />
-                      </td>
-                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                      <td>
-                        {' '}
-                        <input
-                          className={styles.input_field}
-                          type="text"
-                          placeholder="Container_List.pdf"
-                        />
-                        <img
-                          className={`${styles.close_image} img-fluid `}
-                          src="/static/close.svg"
-                          alt="close"
-                        />{' '}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <hr></hr>
+            <div className={`${styles.dashboard_form} card-body`}>
+              <h3 className={styles.sub_heading}>Container Number(s)</h3>
+
+            
+                <div className={`${styles.form_group} d-flex justify-content-start`}>
+                  <button className={`${styles.upload_btn}`}>Upload Excel</button>
+                  <div className={`${styles.upload_text}`}><strong className='text-danger mr-1'>*</strong>
+                  ONLY .XLS FILES ARE ALLOWED 
+                  <br/> &amp; MAX FILE SIZE UP TO 50MB</div>
+                </div>
+               
+             
             </div>
           </div>
-       
+         
+        <UploadDocument/>
         <UploadOther/>
         </div>
         </div>
