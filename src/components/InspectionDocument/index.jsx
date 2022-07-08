@@ -171,7 +171,7 @@ const Index = () => {
               <tr className="table_row">
                 <td className={styles.doc_name}>Container No. List</td>
                 <td>
-                  <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                  <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                 </td>
                 <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                 <td className={styles.doc_row}>Buyer</td>
@@ -185,12 +185,12 @@ const Index = () => {
                  <div  className={styles.actionContainer}>  
                   <img
                     src="/static/delete.svg"
-                    className="img-fluid mr-3"
+                    className={`${styles.binImage} mr-3 img-fluid`}
                     alt="Bin"
                   />
                   <img
                     src="/static/upload.svg"
-                    className="img-fluid"
+                    className={`${styles.shareImage} img-fluid`}
                     alt="Share"
                   /></div>
                 </td>
