@@ -98,17 +98,41 @@
                 cursor: pointer;
                 border-bottom: none;
                 padding: 25px 35px !important;
+                @include respond(md-desktop) {
+                        padding: 0 15px 0 15px !important;
+                    }
                 h2 {
                     font-size: 22px;
                     color: #3687e8;
                     font-weight: bold;
                     line-height: 27px;
+                        @include respond(md-desktop) {
+                                font-size: 18px !important;
+                                line-height: 1.3;
+                                margin: 20px 0px 20px 0px !important;
+                            }
+                        
+                            @include respond(sm-desktop) {
+                                font-size: 18px !important;
+                                line-height: 1.3;
+                                margin: 20px 0px 20px 0px !important;
+                            }
+                        
+                            @include respond(phone) {
+                                font-size: 16px !important;
+                                margin: 13px 0px 13px 0px !important;
+                            }
                 }
                 span {
                     font-size: 45px;
                     color: #3687e8;
                     font-weight: normal;
                     line-height: 20px;
+                    @include respond(phone) {
+                            font-size: 30px;
+                            line-height: 20px;
+                    
+                        }
                 }
                 .label {
                     font-size: 16px;
@@ -116,18 +140,56 @@
                     line-height: 17px;
                     margin-bottom: 10px;
                     letter-spacing: 0.53px;
+                    @include respond(phone) {
+                            font-size: 12px;
+                            line-height: 20px;
+                    
+                        }
                 }
                 .categories {
                     margin-right: 1rem;
                     width: 80%; 
+                    @include respond(md-desktop) {
+                        width: 100%;
+                    
+                    
+                        }
+                    
+                        @include respond(sm-desktop) {
+                        width: 100%;
+                    
+                    
+                        }
+                    
+                        @include respond(phone) {
+                        width: 100%;
+                    
+                        }
                     .label {
                         margin-right: 1rem;
                         margin-bottom: 0px;
+                        @include respond(md-desktop) {
+                                margin-right: 0.5rem !important;
+                        
+                        
+                            }
+                        
+                            @include respond(sm-desktop) {
+                                margin-right: 0.5rem !important;
+                        
+                        
+                            }
+                        
+                            @include respond(phone) {
+                                margin-right: 0.5rem !important;
+                        
+                            }
                     }
                     .status {
                         height: 31px;
                         background: #ea3f3f42 0% 0% no-repeat padding-box;
                         letter-spacing: 0px;
+                      
                         span {
                             padding-left: 0.5rem;
                             padding-right: 0.5rem;
@@ -137,6 +199,25 @@
                             font-weight: bold;
                             height: 19px;
                             color: #ea3f3f;
+                            @include respond(md-desktop) {
+                                    font-size: 15px !important;
+                                white-space: nowrap;
+                                  
+                                }
+                            
+                                @include respond(sm-desktop) {
+                                    font-size: 14px !important;
+                                white-space: nowrap;
+                                 
+                                }
+                            
+                                @include respond(phone) {
+                                    font-size: 12px !important;
+                                    width: fit-content;
+                                    white-space: nowrap;
+                                   
+                                }
+
                         }
                     }
                 }
@@ -144,6 +225,7 @@
             .cardBody {
                 padding: 25px 35px;
                 border-top:2px solid red;
+                
                 .label {
                     font-size: 16px;                  
                     font-weight: 500;
@@ -414,6 +496,20 @@
             height: 300px;
             padding-left: 42px !important;
             border-top: 2px solid red ;
+                @include respond(md-desktop) {
+                        padding: 15px !important;
+                        width: 100vw;
+                    }
+                
+                    @include respond(sm-desktop) {
+                        padding: 15px !important;
+                        width: 100vw;
+                    }
+                
+                    @include respond(phone) {
+                        padding: 15px !important;
+                        width: 100vw;
+                    }
             .row {
                 min-height: 60px;
                 border-bottom: 2px solid rgba(217, 217, 217, 0.316);
@@ -430,16 +526,41 @@
                     }
                 }
             }
-            // .card_compliance_wrapper {
-            //   // height: 70px;
-            // }
+            .card_compliance_wrapper {
+
+            }
         }
         .cardBody_litigations {
             border-top:2px solid red;
             padding-left: 35px;
-            // .checkbox_Container {
-            // }
+            @include respond(md-desktop) {
+                    padding: 15px !important;
+                    
+                }
+            .checkbox_Container {
+                @include respond(md-desktop) {
+                        flex-direction: column;
+                        align-items: flex-start !important;
+                
+                    }
+                    .leftGroup{
+                    @include respond(md-desktop) {
+                          margin-bottom: 0.5rem;
+                          font-size:13px
+                    
+                        }
+                    }
+                                                                   .rightGroup {
+                                                                       @include respond(md-desktop) {
+                                                                           margin-bottom: 0.5rem;
+                                                                           font-size: 13px
+                                                                       }
+                                                                   }
+            }
             .risk_Container {
+                @include respond(md-desktop) {
+                    flex-wrap: wrap;
+                    }
                 .risk {
                     width: 25%;
                     height: 114px;
@@ -471,9 +592,27 @@
         .cardBody_details {
             padding-left: 0px;
             padding-right: 0px;
-            padding-top:0px
+            padding-top:0px;
+            @include respond(md-desktop) {
+                    width: calc(100vw - 30px);
+                        overflow-x: auto;
+                }
+            
+                @include respond(sm-desktop) {
+                    width: calc(100vw - 30px);
+                        overflow-x: auto;
+                }
+            
+                @include respond(phone) {
+                    width: calc(100vw - 30px);
+                    overflow-x: auto;
+                }
+           
         }
     }
+}
+.val{
+    flex-direction: column;
 }
 .compliance_purple {
     width: fit-content;
@@ -484,6 +623,21 @@
     margin-left: 1rem;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
+    @include respond(md-desktop) {
+            margin-left: 0rem;
+        }
+    
+        @include respond(sm-desktop) {
+            margin-left: 0rem;
+            width: 100%;
+                justify-content: flex-start !important;
+        }
+    
+        @include respond(phone) {
+            margin-left: 0rem;
+            width: 100%;
+                justify-content: flex-start !important;
+        }
     .purple_dot {
         width: 14px;
         height: 14px;
@@ -504,6 +658,21 @@
     margin-left: 1rem;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
+    @include respond(md-desktop) {
+            margin-left: 0rem;
+        }
+    
+        @include respond(sm-desktop) {
+            margin-left: 0rem;
+            width: 100%;
+                justify-content: flex-start !important;
+        }
+    
+        @include respond(phone) {
+            margin-left: 0rem;
+            width: 100%;
+                justify-content: flex-start !important;
+        }
     .red_dot {
         width: 14px;
         height: 14px;
@@ -524,6 +693,21 @@
     margin-left: 1rem;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
+    @include respond(md-desktop) {
+            margin-left: 0rem;
+        }
+    
+        @include respond(sm-desktop) {
+            margin-left: 0rem;
+            width: 100%;
+                justify-content: flex-start !important;
+        }
+    
+        @include respond(phone) {
+            margin-left: 0rem;
+            width: 100%;
+                justify-content: flex-start !important;
+        }
     .yellow_dot {
         width: 14px;
         height: 14px;
@@ -544,6 +728,21 @@
     margin-left: 1rem;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
+    @include respond(md-desktop) {
+            margin-left: 0rem;
+        }
+    
+        @include respond(sm-desktop) {
+            margin-left: 0rem;
+            width: 100%;
+                justify-content: flex-start !important;
+        }
+    
+        @include respond(phone) {
+            margin-left: 0rem;
+            width: 100%;
+                justify-content: flex-start !important;
+        }
     .orange_dot {
         width: 14px;
         height: 14px;
@@ -639,6 +838,10 @@
 }
 .table_details {   
     border-collapse: collapse;
+    @include respond(md-desktop) {
+            width: 100%;
+           
+        }
     thead {
         tr {
             th {
@@ -647,6 +850,19 @@
                 font-weight: bold;
                 font-size: 15px;
                 color: #3687e8;
+                @include respond(md-desktop) {
+                        font-size: 14px;
+                        line-height: 1.2;
+                    }
+                
+                    @include respond(sm-desktop) {
+                        font-size: 13px;
+                    }
+                
+                    @include respond(phone) {
+                        font-size: 12px;
+                        white-space: nowrap;
+                    }
             }
         }
     }
@@ -654,6 +870,21 @@
         tr {
             border: none;
             font-size: 19px;
+            @include respond(md-desktop) {
+                    font-size: 17px;
+                    padding: 18px 10px;
+                }
+            
+                @include respond(sm-desktop) {
+                    font-size: 15px;
+                    padding: 15px 10px;
+                }
+            
+                @include respond(phone) {
+                    font-size: 14px;
+                    padding: 10px;
+                    white-space: nowrap;
+                }
             .firstCell {
                 font-weight: bold;
             }

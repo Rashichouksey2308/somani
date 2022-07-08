@@ -34,24 +34,17 @@ import { Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { UpdateCredit, UpdateOrderShipment } from '../../src/redux/buyerProfile/action'
-
-
+import { element } from 'prop-types'
+import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
 function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
-    if (
-      localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true
-    ) {
-      setDarkMode(true)
-    } else {
-      setDarkMode(false)
-    }
-  }, [])
-
+     dispatch(setPageName('credit-queue'))
+     dispatch(setDynamicName(orderList?.company?.companyName))
+  },[orderList])
   const { orderList } = useSelector((state) => state.buyer)
 
 
@@ -673,7 +666,7 @@ function Index() {
                         className={` ${styles.cardBody_compliance} card-body border_color`}
                       >
                         <Row className={` ${styles.row} mt-1 mb-1`}>
-                          <Col className={`${styles.col}`} sm={2}>
+                          <Col className={`${styles.col}`} sm={12}>
                             <span
                               className={`${styles.head} d-flex align-items-center justify-content-flex-start`}
                             >

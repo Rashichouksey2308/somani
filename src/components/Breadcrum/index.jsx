@@ -67,7 +67,12 @@ export default function Index({isQuery}) {
       
     }
      if ("credit-queue" == pageName) {
-      router.route = "/Leads" + "/Credit Queue";
+        if(id!==null) {
+        router.route = "/Leads"  + "/Credit Queue" +`/${id}`;
+      }else{
+        router.route = "/Leads" + "/Credit Queue";
+      }
+     
     }
     if ("termsheet" == pageName) {
       router.route = "/Leads" + "/Termsheets";

@@ -165,6 +165,22 @@
 
                             @include respond(phone) {
                                 font-size: 12px;
+                                    white-space: nowrap;
+                            }
+                            h3{
+                                @include respond(md-desktop) {
+                                        font-size: 14px;
+                                        line-height: 1.2;
+                                    }
+                                
+                                    @include respond(sm-desktop) {
+                                        font-size: 14px;
+                                    }
+                                
+                                    @include respond(phone) {
+                                        font-size: 14px;
+                                            white-space: nowrap;
+                                    }
                             }
                     }
 
@@ -195,6 +211,7 @@
                             @include respond(phone) {
                                 font-size: 14px;
                                 padding: 10px;
+                                    white-space: nowrap;
                             }
                     }
 
