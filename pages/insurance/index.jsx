@@ -7,33 +7,50 @@ function Index() {
   return (
     <div className='container-fluid p-0 border-0'> 
     <div className={styles.container_inner}>
-      <div className={`${styles.filter} d-flex align-items-center`}>
-        <div className={styles.head_header}>
-            <img
-              className={`${styles.arrow} img-fluid`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="ArrowRight"
-            />
-            <h1 className={styles.heading}>Loading, Transit &amp; Unloading </h1>
-          </div>
-          <div className={styles.search}>
-            <div className="input-group">
-              <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
-                <img src="/static/search.svg" className="img-fluid" alt="Search" />
+    <div className={`${styles.filter} d-flex align-items-center`}>
+            <div className={styles.search}>
+              <div className="input-group">
+                <div
+                  className={`${styles.inputGroupPrepend} input-group-prepend`}
+                >
+                  <img
+                    src="/static/search.svg"
+                    className="img-fluid"
+                    alt="Search"
+                  />
+                </div>
+                <input
+                  type="text"
+                  className={`${styles.formControl} form-control formControl `}
+                  placeholder="Search"
+                />
               </div>
-              <input type="text" className={`${styles.formControl} form-control formControl `} placeholder="Search" />
+             
             </div>
-          
+            <a className={styles.filterIcon}>
+              <img
+                src="/static/filter.svg"
+                className="img-fluid"
+                alt="Filter"
+              />
+            </a>
+             <a href="#" className={`${styles.filterList} filterList`}>
+              Ramesh Shetty
+              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
+            </a>
+            
+            <a href="#" className={`${styles.filterList} filterList`}>
+              Raj Traders
+              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
+            </a> 
+
+            <button
+              type="button"
+              className={`${styles.btnPrimary} btn ml-auto btn-primary`}
+            >
+              Add
+            </button>
           </div>
-          <a className={styles.filterIcon}>
-          <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
-        </a>
-        <a href="#" className={`${styles.filterList} filterList `}>
-        Bhutani Traders
-        <img src="/static/close.svg" className="img-fluid" alt="Close" />
-      </a>
-      
-      </div>
      
       <div className={`${styles.statusBox} statusBox  d-flex align-items-center justify-content-between`}>
         <div className={`${styles.all} ${styles.boxInner}`}>
@@ -57,12 +74,12 @@ function Index() {
               <img src="/static/check.svg" className="img-fluid" alt="Check" />
             </div>
             <h3>
-              <span>TOTAL INSPECTION</span>
+              <span>ACTIVE</span>
               780
             </h3>
           </div>
         </div>
-        <div className={`${styles.review} ${styles.boxInner}`}>
+        <div className={`${styles.rejected} ${styles.boxInner}`}>
           <div className="d-lg-flex align-items-center d-inline-block">
             <div className={styles.iconBox}>
               <img
@@ -72,7 +89,7 @@ function Index() {
               />
             </div>
             <h3>
-              <span>BL GENERATION</span>
+              <span>EXPIRED</span>
               800
             </h3>
           </div>
@@ -94,9 +111,10 @@ function Index() {
         </div>
         
       </div>
-      <TableMain tableName='Loading, Transit &amp; Unloading'
-      isVesselHeader={true}
-      isDateHeader={true} />
+      
+      <TableMain tableName='List of Insurance'
+      isVesselHeader={false}
+      isDateHeader={false} />
       
       </div>
     </div>
