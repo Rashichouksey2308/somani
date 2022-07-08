@@ -125,17 +125,32 @@
                         font-size: 10px;
                     }
                 }
+                
+                }
+            
+        
+        }
+        
+        .dashboard_form {
+            padding: 20px 35px 25px 40px;
+            .vessel_card {
+                background: #FFFFFF;
+                border: 1px solid #707070;
+                border-radius: 6px;
+                opacity: 0.4;
+                padding: 35px;
                 .add_btn {
                     color: #3687E8;
                     text-transform: capitalize;
                     border: 3px solid #3687E8;
                     border-radius: 5px;
                     font-size: 18px;
+                    font-weight: bold;
                     line-height: 23px;
                     background-color: transparent;
                     margin: 0 15px 0 30px;
                     width: 78px;
-                    height: 38px;
+                    height: 36px;
                     @include respond(md-desktop) {
                         font-size: 16px;
                     }
@@ -150,13 +165,8 @@
                         border-radius: 3px;
                     }
                 }
-                }
-            
-        
-        }
-        
-        .dashboard_form {
-            padding: 20px 35px 25px 40px;
+
+            }
             .sub_heading {
                 text-align: left;
                 font-size:20px;
@@ -187,7 +197,54 @@
                 }
                 .search_image {
                     margin-left: -40px;
-                }    
+                }  
+                .upload_btn{
+                    text-align: center;
+                    color: #3687E8;
+                    text-transform: capitalize;
+                    border: 3px solid #3687E8;
+                    border-radius: 5px;
+                    width: 226px;
+                    height: 48px;
+                    font-size: 20px;
+                    font-weight: bold;
+                    line-height: 25px;
+                    background-color: transparent;
+                    white-space: nowrap;
+                    @include respond(md-desktop) {
+                        font-size: 18px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 16px;
+                        width: 200px;
+                        height: 40px;
+
+                    }
+                    @include respond(phone) {
+                        font-size: 14px;
+                        width: 180px;
+                        height: 32px;
+                    }
+
+                }  
+                .upload_text{
+                    color: #8492A6;
+                    text-transform: uppercase;
+                    font-size: 15px;
+                    line-height: 24px;
+                    font-weight: bold;
+                    margin-left: 30px;
+                    
+                    @include respond(sm-desktop) {
+                        font-size: 14px;
+                        
+
+                    }
+                    @include respond(phone) {
+                        font-size: 12px;
+                        
+                    }
+                }
                 .label_heading {
                     font-size: 16px;
                     letter-spacing: 0.53px;
