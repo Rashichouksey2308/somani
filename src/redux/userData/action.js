@@ -33,7 +33,6 @@ function dynamicPage(value = null) {
 export const ChangeTheme = () => async (dispatch, getState, api) => {
   dispatch(changeTheme())
   let isDark = localStorage.getItem('darkMode')
-  console.log(isDark, 'reducerlight')
   if (isDark == 'true' || isDark == true) {
     document.body.classList.remove('dark-mode')
     document.body.classList.add('light-mode')
@@ -43,34 +42,32 @@ export const ChangeTheme = () => async (dispatch, getState, api) => {
   } else {
     document.body.classList.remove('light-mode')
     document.body.classList.add('dark-mode')
-    console.log('reducerlight2')
     localStorage.setItem('darkMode', true)
     dispatch(changeThemeSuccess(true))
   }
-  console.log(localStorage.getItem('darkMode'), 'darkkkki')
 }
 
 export const setTheme = () => async (dispatch, getState, api) => {
   dispatch(changeTheme())
   let isDark = localStorage.getItem('darkMode')
-  console.log(isDark, 'reducerlight')
+  
   if (isDark == 'true' || isDark == true) {
     document.body.classList.add('dark-mode')
     localStorage.setItem('darkMode', true)
     dispatch(changeThemeSuccess(true))
   } else {
     document.body.classList.add('light-mode')
-    console.log('reducerlight2')
+    
     localStorage.setItem('darkMode', false)
     dispatch(changeThemeSuccess(false))
   }
 }
 export const setPageName = (value) => async (dispatch, getState, api) => {
-  console.log(value, 'value')
+  
   dispatch(pageName(value))
 }
 
 export const setDynamicName = (value) => async (dispatch, getState, api) => {
-  console.log(value, 'value')
+
   dispatch(dynamicPage(value))
 }

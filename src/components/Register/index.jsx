@@ -248,7 +248,7 @@ function Index() {
 
     return (
       <Card className={`${styles.card} card2`}>
-        <Card.Header className={styles.head_container}>
+        <Card.Header className={`${styles.head_container} border-0 pr-0 pl-2`}>
           <div className={styles.head_header}>
             <img
               className={`${styles.arrow} img-fluid`}

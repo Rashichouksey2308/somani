@@ -197,7 +197,7 @@ const Index = () => {
                                     <p className={`${styles.value} accordion_Text`}>{sheet?.company?.customerId}</p>
                                 </div>
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                                    <h3 className={`${styles.label} label_heading`}>Buyers Name</h3>
+                                    <h3 className={`${styles.label} label_heading`}>Buyer Name</h3>
                                     <p className={`${styles.value} accordion_Text`}>{sheet?.company?.companyName}</p>
                                 </div>
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>

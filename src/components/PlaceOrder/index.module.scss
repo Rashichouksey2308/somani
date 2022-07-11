@@ -1,150 +1,141 @@
-@import "../../../src/components/styles/Core/config";
-
-
+@import "../styles/Core/config";
 .card {
-    padding: 25px;
-  
+    padding: 25px;  
     .head_container {
-      display: flex;
-      background: none;
-      flex-direction: row;
-      justify-content: space-between;
-      @include respond(sm-desktop) {
-        margin-top: 15px;
-        margin-bottom: -20px;
-    }
-    @include respond(phone) {
-        margin-top: 15px;
-        margin-bottom: -20px;
-
-    }
-  
-      .head_header {
         display: flex;
-        justify-content: space-around;
+        background: none;
         flex-direction: row;
-  
-        .arrow {
-          width: 13px;
-          height: 21px;
-          background: transparent;
-          margin-top: 10px;
-          margin-left: 10px;
-        @include respond(md-desktop) {
-            width: 12px;
-            height: 19px;
-        }
-         
+        justify-content: space-between;
         @include respond(sm-desktop) {
-            width: 10px;
-          height: 17px;
-          margin-top: 12px;
+            margin-top: 15px;
+            margin-bottom: -20px;
         }
         @include respond(phone) {
-            margin-top: 12px;
-            width: 9px;
-            height: 14px;
+            margin-top: 15px;
+            margin-bottom: -20px;
+        }  
+        .head_header {
+            display: flex;
+            justify-content: space-around;
+            flex-direction: row;
+            .arrow {
+                width: 13px;
+                height: 21px;
+                background: transparent;
+                margin-top: 10px;
+                margin-left: 10px;
+                @include respond(md-desktop) {
+                    width: 12px;
+                    height: 19px;
+                }            
+                @include respond(sm-desktop) {
+                    width: 10px;
+                    height: 17px;
+                    margin-top: 12px;
+                }
+                @include respond(phone) {
+                    margin-top: 12px;
+                    width: 9px;
+                    height: 14px;
+                }
+            }
+            .heading {
+                padding-left: 30px;
+                font-weight: bold;
+                font-size: 34px;
+                text-align: left;
+                line-height: 41px;         
+                //   text-transform: capitalize;
+                margin-top: 0;
+                @include respond(md-desktop) {
+                    font-size: 30px;
+                    line-height: 41px;         
+                }
+                @include respond(sm-desktop) {
+                    font-size: 26px;     
+                    line-height: 38px;         
+                }
+                @include respond(phone) {
+                    font-size: 22px;
+                    line-height: 30px;
+                    padding-top: 5px;
+                }
+            }
         }
-        }
-        .heading {
-          padding-left: 30px;
-          font-weight: bold;
-          font-size: 34px;
-          text-align: left;
-          line-height: 41px;         
-          text-transform: capitalize;
-          margin-top: 0;
-          @include respond(md-desktop) {
-            font-size: 30px;
-            line-height: 41px;         
-        }
-        @include respond(sm-desktop) {
-
-            font-size: 26px;     
-             line-height: 38px;         
-        }
-        @include respond(phone) {
-            font-size: 22px;
-            line-height: 30px;
-            padding-top: 5px;         
-
-        }
-        }
-      }
-      .clear_btn {
-        width: 116px;
-        height: 38px; 
-        text-align: center;
-        font-weight: bold;
-        font-size: 16px;
-        @include respond(md-desktop) {
+        .clear_btn {
+            width: 116px;
+            height: 38px; 
+            text-align: center;
+            font-weight: bold;
             font-size: 16px;
+            @include respond(md-desktop) {
+                font-size: 16px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 14px;
+                width: 100px;
+                height: 32px;
+            }
+            @include respond(phone) {
+                font-size: 12px;
+                width: 80px;
+                height: 30px;
+            }
         }
-        @include respond(sm-desktop) {
-            font-size: 14px;
-            width: 100px;
-            height: 32px;
-        }
-        @include respond(phone) {
-            font-size: 12px;
-            width: 80px;
-            height: 30px;
-        }
-      }
-    }
-  
+    }  
     .main {
-      border-radius: 6px;
-  
-      .head_container {
-          padding: 25px 35px !important;
-         border-bottom: 2px solid #CAD6E6;
-
-          .heading{
-              color: #3687e8;
-              font-weight:bold;
-              font-size: 22px;
-              text-transform: capitalize;
-              line-height: 27px;
-            
-          }
-          
-          }
-          
-          .dashboard_form {
+        border-radius: 6px;  
+        .head_container {
+            padding: 25px 35px !important;
+            border-bottom: 2px solid #CAD6E6;
+            .heading {
+                color: #3687e8;
+                font-weight:bold;
+                font-size: 22px;
+                text-transform: capitalize;
+                line-height: 27px;
+                @include respond(md-desktop) {
+                    font-size: 18px !important;
+                    line-height: 1.3;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 18px !important;
+                }
+                @include respond(phone) {
+                    font-size: 16px !important;
+                }
+            }          
+        }          
+        .dashboard_form {
             padding: 20px 35px 25px 40px;
            .label {
-            font-size: 16px;
-            letter-spacing: 0.53px;
-            line-height: 17px;
-            top: 26px;
-            font-weight: 500;
-            left: 30px;
-            margin-bottom: 15px;
-            color: #00000080;
-
-           }
-           .value {
-                    font-size: 20px;
-                    height: 60px;
-                    line-height: 25px;
-                    font-weight: 500;
-
-           }
-           .comment_field {
-            height: 106px;
-            background-color: #C3C3C31F;
-            border: 1px solid #0000001F;
-            border-radius: 4px;
-            font-size: 20px;
-            font-weight: 500;
-            outline: none;
-            box-shadow: none;
-            position: relative;
-            box-sizing: border-box;
-            
-        }
-       
+                font-size: 16px;
+                letter-spacing: 0.53px;
+                line-height: 17px;
+                top: 26px;
+                font-weight: 500;
+                left: 30px;
+                margin-bottom: 15px;
+                color: #00000080;
+            }
+            .value {
+                font-size: 20px;
+                height: 60px;
+                line-height: 25px;
+                font-weight: 500;
+            }
+            .comment_field {
+                height: 106px;
+                background-color: #C3C3C31F;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                font-size: 20px;
+                font-weight: 500;
+                outline: none;
+                box-shadow: none;
+                position: relative;
+                box-sizing: border-box;            
+            }       
             .sub_heading {
                 font-size:20px;
                 font-weight: bold;
@@ -170,8 +161,7 @@
                 margin-bottom: 10px;
                 .search_image {
                     margin-left: -40px;
-                } 
-                 
+                }                 
                 .label_heading {
                     font-size: 16px;
                     letter-spacing: 0.53px;
@@ -184,13 +174,10 @@
                     box-sizing: border-box;
                     transform: translateY(-29px);
                     transition: 0.3s all ease-in-out;
-                }
-                
+                }                
                 .line {
                     border: 3px solid #D9DDE8;
-
-                }
-                
+                }                
                 .input_field {
                     font-size: 20px;
                     height: 60px;
@@ -214,12 +201,8 @@
                     }
                 }
             }
-            
         }
-  }
-
-    
-   
-  }
+    }
+}
 
  
