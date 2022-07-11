@@ -184,7 +184,7 @@ const Index = () => {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mt-4" lg={4} md={6} sm={6}>
+                  <Col className="mt-5" lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="number"
