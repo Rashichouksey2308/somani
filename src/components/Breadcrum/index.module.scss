@@ -39,7 +39,6 @@
             padding:0px;
             .breadcrumcontainer {
                 padding: 0px;
-                color: #2837566A;
                 span {                  
                     height: 19px;                            
                     font-weight: bold;
@@ -58,12 +57,12 @@
                     }                        
                 }
                 .values {
-                    height: 19px;                      
+                    height: 19px;
                     font-weight: bold;
                     font-size: 16px;
                     line-height: 19px;
                     margin-left: 0.5rem;
-                    white-space: nowrap;                
+                    white-space: nowrap;
                     @include respond(sm-desktop) {
                         font-size: 16px;
                         line-height: 1.2;

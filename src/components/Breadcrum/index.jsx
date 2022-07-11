@@ -110,9 +110,9 @@ console.log( router.route," router.route")
           {myUrl.map((val,index)=>{
             {console.log(myUrl.length-1==index,"val")}
             return(
-               <div key={index} className={`${styles.breadcrumcontainer} ${myUrlLength-1==index?`${styles.highlight}`:null}`}>
-              <span>/</span>
-              <span className={`${styles.value}`}>{val}</span>
+               <div key={index} className={`${styles.breadcrumcontainer} ${myUrlLength-1==index?`${styles.highlight} highlight`:null}`}>
+              <span className='breadcrum_mode'>/</span>
+              <span className={`${styles.value} breadcrum_mode`}>{val}</span>
             </div>
             )
           })}

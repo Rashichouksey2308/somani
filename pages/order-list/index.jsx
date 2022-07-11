@@ -205,6 +205,7 @@ function Index() {
                     <tr className="table_row">
                       <th >ORDER ID <img className={`mb-1`} src="./static/icons8-sort-24.png "/></th>
                       <th>COMMODITY</th>
+                      <th>CREATED BY</th>
                       <th>CREATED ON</th>
                       <th>STATUS</th>
                       
@@ -223,7 +224,7 @@ function Index() {
                           >
                             {buyer.commodity}
                           </td>
-                         
+                          <td></td>
                          
                           <td>{buyer.createdAt.split('T')[0]}</td>
                           <td>
