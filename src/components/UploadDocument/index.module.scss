@@ -5,8 +5,10 @@
     border-radius: 6px;
 
     .head_container {
+        cursor: pointer;
+       // border-bottom: none;
         padding: 25px 35px !important;
-       border-bottom: 2px solid #CAD6E6;
+        border-bottom: 2px solid #CAD6E6;
 
         .heading{
             color: #3687e8;

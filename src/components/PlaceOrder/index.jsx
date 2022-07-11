@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import Order from '../Order'
 import ShipmentDetails from '../ShipmentDetails'
+import CommonSave from '../CommonSave'
 
 const index = () => {
   return (
@@ -59,6 +60,8 @@ const index = () => {
               </div>
          <Order/>
        <ShipmentDetails/>
+       <CommonSave />
+
  
     </div>
   )
