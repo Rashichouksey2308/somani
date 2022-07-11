@@ -23,6 +23,30 @@ function getComanyDetailsFailed() {
   }
 }
 
+
+function updateComanyDetails() {
+  return {
+    type: types.UPDATE_COMPANY_DETAIL,
+  }
+}
+
+function updateComanyDetailsSuccess(payload) {
+  return {
+    type: types.UPDATE_COMPANY_DETAIL_SUCCESS,
+    payload,
+  }
+}
+
+function updateComanyDetailsFailed() {
+  return {
+    type: types.UPDATE_COMPANY_DETAIL_FAILED,
+  }
+}
+
+
+
+
+
 export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -32,7 +56,7 @@ export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
 
   try {
     Axios.post(
-      `${API.corebaseUrl}${API.getCompanyDetails}`,payload,
+      `${API.corebaseUrl}${API.getCompanyDetails}`, payload,
       {
         headers: headers,
       },
@@ -49,6 +73,44 @@ export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
     })
   } catch (error) {
     dispatch(getComanyDetailsFailed())
+
+    let toastMessage = 'COULD NOT FETCH COMPANY DETAILS'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}
+
+
+
+
+
+export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+
+  try {
+    Axios.post(
+      `${API.corebaseUrl}${API.getCompanyDetails}`, payload,
+      {
+        headers: headers,
+      },
+    ).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(updateComanyDetailsSuccess(response.data.data))
+      } else {
+        dispatch(updateComanyDetailsFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(updateComanyDetailsFailed())
 
     let toastMessage = 'COULD NOT FETCH COMPANY DETAILS'
     if (!toast.isActive(toastMessage)) {
