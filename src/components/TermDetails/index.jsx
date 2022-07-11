@@ -62,14 +62,14 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>Currency<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='quantity' className={`${styles.value} input form-control`} value={`${termsheetDetails?.commodityDetails?.quantity} ${termsheetDetails?.commodityDetails?.unitOfQuantity}`} onChange={onChangeCommodityDetails} type="text" required />
-                            <span className={styles.percent}><strong>MT</strong></span>
+                            <input id='quantity' className={`${styles.value} input form-control`} value={`${termsheetDetails?.commodityDetails?.quantity} `} onChange={onChangeCommodityDetails} type="text" required />
+                            <span className={styles.percent}><strong>{termsheetDetails?.commodityDetails?.unitOfQuantity}</strong></span>
 
                             <label className={`${styles.label} label_heading`}>Quantity<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='perUnitPrice' className={`${styles.value} input form-control`} value={`${termsheetDetails?.commodityDetails?.perUnitPrice} ${termsheetDetails?.commodityDetails?.orderCurrency}`} onChange={onChangeCommodityDetails} type="text" required />
-                            <span className={styles.percent}><strong>USD</strong></span>
+                            <input id='perUnitPrice' className={`${styles.value} input form-control`} value={`${termsheetDetails?.commodityDetails?.perUnitPrice} `} onChange={onChangeCommodityDetails} type="text" required />
+                            <span className={styles.percent}><strong>{termsheetDetails?.commodityDetails?.orderCurrency}</strong></span>
 
                             <label className={`${styles.label} label_heading`}>Unit Price<strong className="text-danger">*</strong></label>
                         </div>
