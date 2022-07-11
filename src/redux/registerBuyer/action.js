@@ -1,9 +1,9 @@
-import * as types from './actionType';
-import API from '../../utils/endpoints';
-import Axios from 'axios';
-import Router from 'next/router';
-import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
+import * as types from './actionType'
+import API from '../../utils/endpoints'
+import Axios from 'axios'
+import Router from 'next/router'
+import Cookies from 'js-cookie'
+import { toast } from 'react-toastify'
 
 function createBuyer() {
   return {
@@ -93,6 +93,7 @@ function getAllBuyerFailed() {
     type: types.GET_ALL_BUYER_FAILED,
   }
 }
+
 function getAllOrder() {
   return {
     type: types.GET_ALL_ORDER,
@@ -109,6 +110,25 @@ function getAllOrderSuccess(payload) {
 function getAllOrderFailed() {
   return {
     type: types.GET_ALL_ORDER_FAILED,
+  }
+}
+
+function getOrder() {
+  return {
+    type: types.GET_ORDER,
+  }
+}
+
+function getOrderSuccess(payload) {
+  return {
+    type: types.GET_ORDER_SUCCESSFULL,
+    payload,
+  }
+}
+
+function getOrderFailed() {
+  return {
+    type: types.GET_ORDER_FAILED,
   }
 }
 
@@ -138,9 +158,9 @@ function uploadingDocument() {
 }
 
 function uploadingDocumentSuccess(payload) {
-  return { 
+  return {
     type: types.UPLOADDOCUMENT_SUCCESS,
-    payload
+    payload,
   }
 }
 
@@ -159,20 +179,18 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
     Axios.post(`${API.corebaseUrl}${API.registerCompany}`, payload, {
       headers: headers,
     }).then((response) => {
-  
       if (response.data.code === 200) {
         dispatch(createBuyerSuccess(response.data.data))
         setTimeout(() => {
           Router.push('/leads')
-        }, 1500);
+        }, 1500)
         // payload.history.goBack()
       } else {
         dispatch(createBuyerFailed(response.data.data))
-          let toastMessage = response.data.message
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          } 
-        
+        let toastMessage = response.data.message
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -181,7 +199,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
     let toastMessage = error.message
     if (!toast.isActive(toastMessage)) {
       toast.error(toastMessage, { toastId: toastMessage })
-    } 
+    }
   }
 }
 
@@ -227,7 +245,7 @@ export const settingDocument = (payload) => {
 export const GetBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
   // console.log(company, "in getbuyer1")
-  let cookie = await Cookies.get('SOMANI')
+  let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
@@ -261,7 +279,7 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload ? payload : ""}`, {
+    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload ? payload : ''}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
@@ -283,8 +301,6 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
 
 export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
   try {
-    // var authorization = Cookies.get('jwtAccessToken')
-
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -307,6 +323,35 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(getAllOrderFailed())
     console.log(error, 'GET ALL ORDER API FAILED')
+  }
+}
+
+export const GetOrders = (payload) => async (dispatch, getState, api) => {
+  try {
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    Axios.get(
+      `${API.corebaseUrl}${API.getBuyers}${payload ? payload : ''}`,
+      {
+        headers: headers,
+      },
+    ).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getOrderSuccess(response.data.data))
+      } else {
+        dispatch(getOrderFailed(response.data.data))
+        let toastMessage = 'Getting Order List Failed'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(getOrderFailed())
+    console.log(error, 'GET ALL ORDERS API FAILED')
   }
 }
 
