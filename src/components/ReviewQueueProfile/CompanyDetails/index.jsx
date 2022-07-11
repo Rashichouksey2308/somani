@@ -1,8 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from '../profile.module.scss'
 
-function Index() {
+function Index({ companyDetail }) {
+
   return (
+    
    <>
    <div className={`${styles.card}  card`}>
     <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#companyDetails" aria-expanded="true" aria-controls="companyDetails">
