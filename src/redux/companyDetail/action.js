@@ -32,7 +32,7 @@ export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
 
   try {
     Axios.post(
-      `${API.corebaseUrl}${API.getCompanyDetails}${payload ? payload : ''}`,
+      `${API.corebaseUrl}${API.getCompanyDetails}`,payload,
       {
         headers: headers,
       },

@@ -1,11 +1,11 @@
 @import "../styles/Core/config";
 .card {
-    max-height: 278px;
+    max-height: 279px;
     border: 1px solid #D2D7E5;
     border-radius: 8px;
     margin-bottom: 24px;
     @include respond(sm-desktop) {
-        min-height: 278px;
+        min-height: 279px;
     }
     @include respond(phone) {
         max-height: none;

@@ -282,7 +282,10 @@
                     font-size: 14px;
                     padding: 10px;
                 }
+
               }
+
+              
             }
               .buyerName {
                   color: #3687E8;
@@ -771,3 +774,18 @@ background: #26DD73;
 .rejected {
 background: #FF9D00;
 }
+
+.pdfImage{
+    width: 57px;
+    height: 25px;
+
+    @include respond(sm-desktop) {
+        width: 50px;
+        height: 22px;
+    }
+    @include respond(phone) {
+        width: 35px;
+        height: 15px;
+    }
+
+  }

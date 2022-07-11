@@ -31,7 +31,7 @@
         padding-top:2rem;
         display: flex; 
         flex-direction: column;
-        padding: 17px 22px;
+        padding: 17px 24px 21px;
         @include respond(md-desktop) {
             padding: 15px;
         }
@@ -60,20 +60,23 @@
             color: #2884DE;
             text-transform: capitalize;
             font-weight: bold;
-            @include respond(xl-desktop) {
+            @include respond(lg-desktop) {
                 margin-top: -18px;
                 font-size: 19px;
             }
-            @include respond(lg-desktop) {
+            @include respond(md-desktop) {
                 margin-top: -17px;
                 font-size: 17px;
             }
-            @include respond(md-desktop) {
+            @include respond(sm-desktop) {
                 margin-top: -15px;
                 font-size: 15px;
             }
         }
         .total {
+            &:first-child {
+                border-top: none;
+            }
             margin-bottom: 1.2rem;
             font-size:14px ;
             padding-top: 25px;
@@ -82,6 +85,7 @@
             display: flex;
             justify-content:center;
             align-items:flex-end;
+            border-top: 1px solid rgba(112, 112, 112, 0.1);
             .totalText {
                 width: fit-content;
                 display: flex;
@@ -92,8 +96,8 @@
             }
             .dotted {
                 flex: 1;
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
+                margin-left: 0.5rem;
+                margin-right: 0.5rem;
                 border-bottom:2.5px dotted #8492A6;
             }
             .value {
