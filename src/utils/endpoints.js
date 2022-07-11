@@ -40,4 +40,5 @@ export default {
 
   // companydetails
   getCompanyDetails: '/api/core/lead/fetchCompanyDetail',
+  updateCompanyDetails: '/api/core/lead/update-company',
 }

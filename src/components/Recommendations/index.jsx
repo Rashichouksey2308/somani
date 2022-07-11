@@ -16,7 +16,7 @@ const Index = ({
   addWeaknessCommentArr,
   addSanctionCommentArr,
   groupExposureData,
-  addGroupExposureArr,
+  addGroupExpArr,
 }) => {
   const [editProfile, setEditProfile] = useState(false)
   const [editFinance, setEditFinance] = useState(false)
@@ -46,7 +46,7 @@ const Index = ({
   }
 
   const onExpSave = () => {
-    addGroupExposureArr(exposureData)
+    addGroupExpArr(exposureData)
   }
 
   return (

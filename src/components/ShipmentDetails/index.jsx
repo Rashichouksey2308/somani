@@ -14,13 +14,13 @@ const index = ({orderDetail, saveShipmentData}) => {
 
   return (
     <div className={`${styles.main} border-color  card`}>
-        <div className={`${styles.head_container} d-flex justify-content-between`}  data-toggle="collapse" data-target="#shipmentDetails" aria-expanded="true" aria-controls="shipmentDetails">
+        <div className={`${styles.head_container} d-flex border_color head_container card-header justify-content-between bg-transparent`}  data-toggle="collapse" data-target="#shipmentDetails" aria-expanded="true" aria-controls="shipmentDetails">
         <h3 className={`${styles.heading} mb-0`}>Shipment Details</h3>
         <span>+</span>
         </div>
         <div id="shipmentDetails" className="collapse" aria-labelledby="shipmentDetails" >      
 
-        <div className={`${styles.dashboard_form} card-body`}>
+        <div className={`${styles.dashboard_form}`}>
         
             <Form>
             <div className='row'>

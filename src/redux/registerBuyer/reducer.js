@@ -1,9 +1,9 @@
 import * as types from './actionType'
 
 const initialState = {
-  gettingBuyerList: true,
+  gettingBuyerList: false,
   buyerList: null,
-  gettingAllBuyerList: true,
+  gettingAllBuyerList: false,
   allBuyerList: [],
   creatingBuyer: false,
   createdBuyerResponse: null,
@@ -14,11 +14,12 @@ const initialState = {
   selectedBuyer: null,
   document: {},
   gstDocument: {},
-  gettingGstList: true,
+  gettingGstList: false,
   gstList: null,
-  gettingOrderList: true,
-  orderList: null
-
+  gettingOrderList: false,
+  orderList: null,
+  gettingSingleOrder: false,
+  singleOrder: [],
 }
 
 function BuyerReducer(state = initialState, action) {
@@ -63,6 +64,7 @@ function BuyerReducer(state = initialState, action) {
         gettingAllBuyerList: false,
         allBuyerList: [],
       }
+
     case types.GET_ALL_ORDER:
       return {
         ...state,
@@ -82,6 +84,27 @@ function BuyerReducer(state = initialState, action) {
         ...state,
         gettingOrderList: false,
         orderList: null,
+      }
+
+    case types.GET_ORDER:
+      return {
+        ...state,
+        gettingSingleOrder: true,
+        singleOrder: [],
+      }
+
+    case types.GET_ORDER_SUCCESSFULL:
+      return {
+        ...state,
+        gettingSingleOrder: false,
+        singleOrder: action.payload,
+      }
+
+    case types.GET_ORDER_FAILED:
+      return {
+        ...state,
+        gettingSingleOrder: false,
+        singleOrder: [],
       }
 
     case types.REGISTER_BUYER:
@@ -155,19 +178,19 @@ function BuyerReducer(state = initialState, action) {
       }
 
     case types.UPLOADDOCUMENT:
-      return{
+      return {
         ...state,
-        gstDocument: {}
+        gstDocument: {},
       }
     case types.UPLOADDOCUMENT_SUCCESS:
-      return{
+      return {
         ...state,
-        gstDocument: action.payload
+        gstDocument: action.payload,
       }
     case types.UPLOADDOCUMENT_FAILED:
-      return{
+      return {
         ...state,
-        gstDocument: {}
+        gstDocument: {},
       }
 
     case types.GET_GST:
