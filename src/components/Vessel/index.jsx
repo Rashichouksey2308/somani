@@ -25,19 +25,19 @@ function Index  ({vesselName,isPartShipment}) {
       
                <div className='row '>
                
-                <div className={`${styles.form_group} col-md-3 col-sm-6`} >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
                      <label className={`${styles.label_heading} label_heading`}>Shipment Type<strong className="text-danger">*</strong></label>                   
                 </div>
-                <div className={`${styles.form_group} col-md-3 col-sm-6`} >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
                      <label className={`${styles.label_heading} label_heading`}>Commodity<strong className="text-danger">*</strong></label>                   
                 </div>
-                <div className={`${styles.form_group} col-md-3 col-sm-6`} >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
                      <label className={`${styles.label_heading} label_heading`}>Quantity<strong className="text-danger">*</strong></label>                   
                 </div>
-                <div className={`${styles.form_group} d-flex col-md-3 col-sm-6`}>
+                <div className={`${styles.form_group} d-flex col-lg-3 col-md-6 col-sm-6`}>
                 <select className={`${styles.input_field}} pl-3 input w-35 border-right-0`}
                 style={{color:"#3687E8"}}>
                 <option>USD</option>
@@ -60,40 +60,40 @@ function Index  ({vesselName,isPartShipment}) {
             <h3 className={styles.sub_heading}>Transit Details</h3>
            
                 <div className='row'>               
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
                         <select className={`${styles.input_field} input form-control`} required>
                             <option>Australia</option>
                             <option>India</option>
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>Country of Origin<strong className="text-danger">*</strong></label>
                     </div>
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}>
                     <select className={`${styles.input_field} input form-control`} required>
                             <option>Perth</option>
                             <option>Perth</option>
                         </select>                    
                         <label className={`${styles.label_heading} label_heading`}>Port of Loading<strong className="text-danger">*</strong></label>
                     </div>
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
                         <select className={`${styles.input_field} input form-control`}required>
                             <option>Navasheva</option>
                             <option>Navasheva</option>
                         </select>
                         <label className={`${styles.label_heading} label_heading`}>Port of Discharge<strong className="text-danger">*</strong></label>
                     </div>  
-                    <div className={`${styles.form_group} col-md-2 col-sm-6`} >
+                    <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`} >
                     <input className={`${styles.input_field} input form-control`} type="date"/> 
                      <label className={`${styles.label_heading} label_heading`}>Laycan from<strong className="text-danger">*</strong></label>                   
                     </div>
-                    <div className={`${styles.form_group} col-md-2 col-sm-6`} >
+                    <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`} >
                         <input className={`${styles.input_field} input form-control`} type="date"/> 
                         <label className={`${styles.label_heading} label_heading`}>Laycan to<strong className="text-danger">*</strong></label>                   
                     </div>              
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
                     <input className={`${styles.input_field} input form-control`} type="date"/> 
                      <label className={`${styles.label_heading} label_heading`}>ETD at Load Port<strong className="text-danger">*</strong></label>                   
                     </div>
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
                         <input className={`${styles.input_field} input form-control`} type="date"/> 
                         <label className={`${styles.label_heading} label_heading`}>ETA at Discharge Port<strong className="text-danger">*</strong></label>                   
                     </div>
@@ -108,23 +108,23 @@ function Index  ({vesselName,isPartShipment}) {
             <h3 className={styles.sub_heading}>Vessel Information</h3>
            
                 <div className='row'>    
-                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
                      <label className={`${styles.label_heading} label_heading`}>Vessel Name<strong className="text-danger">*</strong></label>                   
                 </div> 
-                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
                      <label className={`${styles.label_heading} label_heading`}>IMO Number<strong className="text-danger">*</strong></label>                   
                 </div> 
-                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
                      <label className={`${styles.label_heading} label_heading`}>Flag<strong className="text-danger">*</strong></label>                   
                 </div> 
-                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
                     <input className={`${styles.input_field} input form-control`} type="number"/> 
                      <label className={`${styles.label_heading} label_heading`}>Year of Built<strong className="text-danger">*</strong></label>                   
                 </div> 
-                <div className={`${styles.form_group} col-md-4 col-sm-6`} >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
                     <input className={`${styles.input_field} input form-control`} required type="text"/> 
                      <label className={`${styles.label_heading} label_heading`}>Shipping Line<strong className="text-danger">*</strong></label>                   
                 </div> 

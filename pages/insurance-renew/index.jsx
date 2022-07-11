@@ -1,6 +1,8 @@
 import React from 'react'
-import styles from './insurance.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
+import styles from './index.module.scss'
+import { Form} from 'react-bootstrap'
+import InsuranceDetails from '../../src/components/InsuranceDetails'
+import UploadDocument from '../../src/components/UploadDocument'
 
 
 const Index = () => {
@@ -58,200 +60,16 @@ const Index = () => {
         </div>
         </div>
         </div>
+        <InsuranceDetails 
+           headerName = 'Marine Insurance Policy Details'/>
+
+        <InsuranceDetails 
+           headerName = 'Storage Insurance Details'/>
+        <UploadDocument/>   
       </div>
 
-      <div className={`${styles.wrapper} mt-4 card`}>
-        <div
-          className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#marineInsurance"
-          aria-expanded="true"
-          aria-controls="marineInsurance"
-        >
-          <h2 className="mb-0">Basic Details</h2>
-          <span>+</span>
-        </div>
-        <div
-          id="marineInsurance"
-          className="collapse"
-          aria-labelledby="marineInsurance"
-          data-parent="#marineInsurance"
-        >
-          <div className={` ${styles.cardBody} card-body  border_color`}>
-            <div className={` ${styles.content}`}> 
-              <div className={` ${styles.body}`}>
-                <Row>
-                <Col lg={4} md={6} sm={6}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Commodity
-                    </div>
-                    <div className={styles.col_body}>Iron</div>
-                  </Col>
-                  <Col lg={4} md={6} sm={6}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Quantity
-                    </div>
-                    <div className={styles.col_body}>5,000.00 MT</div>
-                  </Col>
-                  <Col lg={4} md={6} sm={6}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Country of Origin
-                    </div>
-                    <div className={styles.col_body}>India</div>
-                  </Col>
-                  <Col lg={4} md={6} sm={6}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Vessel Name
-                    </div>
-                    <div className={styles.col_body}>Abcz</div>
-                  </Col>  
-                  
-                  <Col lg={4} md={6} sm={6}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      IMO Number
-                    </div>
-                    <div className={styles.col_body}>5261334</div>
-                  </Col>
-                  <Col lg={4} md={6} sm={6}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Year of Built
-                    </div>
-                    <div className={styles.col_body}>
-                      2019
-                    </div>
-                  </Col>
-                  <Col lg={4} md={6} sm={6}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Port of Loading
-                    </div>
-                    <div className={styles.col_body}>Navasheva</div>
-                  </Col>
-                  <Col lg={4} md={6} sm={6}>
-                    <div className={`${styles.col_header} label_heading`}>
-                      Port of Discharge
-                    </div>
-                    <div className={styles.col_body}>
-                      Gangavaram Port, Andhra Pradesh
-                    </div>
-                  </Col>
-                  <Col className="mb-4 mt-4" md={4}>
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option>HDFC Bank</option>
-                      <option>SBI</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Loss Payee Bank<strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                  <Col className="mt-4" lg={2} md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Laycan from
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                  <Col className="mt-4" lg={2} md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                     Laycan to
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                  <Col className="mt-4" lg={4} md={6} sm={6}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Expected time of Dispatch
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                  <Col className="mt-4" lg={4} md={6} sm={6}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Expected time of Arrival
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                  <Col className="mt-4" lg={4} md={6} sm={6}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="number"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Sum Insured
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                </Row>
-              </div>
-            </div>
-           <hr></hr>
-
-            <div className={` ${styles.content}`}>
-              <div className={` ${styles.body}`}>
-              <h5>Storage Details</h5>
-                <Row>
-                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                  <select
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option>Visakhapatnam, AP, India</option>
-                      <option>Mumbai</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Place of Storage<strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="number"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Period of Insurance (days)<strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Storage Plot Address<strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                </Row>
-              </div>
-            </div>
-            <hr></hr>
-            <div className={` ${styles.content}`}>
-             <div className={` ${styles.body}`}>
-             <h5>Additional Information (if Any)</h5>
-              <textarea className={`${styles.remark_field} form-control`}
-              as rows={3}
-              />
-         
-          </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      
+     
     </div>
   )
 }
