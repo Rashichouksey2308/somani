@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-import NewOrder from '../Order'
-import NewShipmentDetails from '../ShipmentDetails'
+import NewOrder from '../NewOrder'
+import NewShipmentDetails from '../NewShipmentDetails'
 import CommonSave from '../CommonSave'
 
 const index = () => {
