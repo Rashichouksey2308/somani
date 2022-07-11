@@ -37,7 +37,7 @@ function Index() {
     console.log(buyer,'butyer')
     if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))
-      dispatch(GetCompanyDetails( {"company" : buyer.company._id}))
+      dispatch(GetCompanyDetails( {company : buyer.company._id}))
       Router.push('/review')
     }
   }

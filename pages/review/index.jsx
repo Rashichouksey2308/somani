@@ -470,6 +470,7 @@ function Index() {
         weakness: [...weaknessComment],
       },
       debtProfile: [...debtData],
+      groupExposureDetail: [...groupExposureData]
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
