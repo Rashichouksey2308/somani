@@ -106,7 +106,7 @@
                 padding: 13px 30px 13px 17px;
                 border: 1px solid #0000001F;
                 &:invalid + label {
-                    background: none;
+                    //background: none;
                     transform:translateY(0);
                 }
                 &:focus {
@@ -114,6 +114,7 @@
                         transform:translateY(-29px);
                     }
                 }
+
             }
             .marginPercent{
                 padding-right: 82%;
