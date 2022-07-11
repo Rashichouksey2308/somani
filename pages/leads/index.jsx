@@ -1,10 +1,11 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
+import { GetAllBuyer, GetBuyer, GetOrders } from '../../src/redux/registerBuyer/action'
 import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
 import { setPageName } from '../../src/redux/userData/action'
 function Index() {
@@ -14,7 +15,7 @@ function Index() {
 
   const { allBuyerList } = useSelector((state) => state.buyer)
   const { searchedLeads } = useSelector((state) => state.order)
-  console.log(searchedLeads, "searched items")
+  
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
@@ -24,14 +25,10 @@ function Index() {
   })
 
   const handleRoute = (buyer) => {
-    // if (buyer.queue === 'ReviewQueue') {
-    //   dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
-    //   Router.push('/review/id')
-    // }
-    // else if (buyer.queue === 'CreditQueue') {
-    //   dispatch(GetAllOrders({ orderId: buyer._id }))
-    //   Router.push('/review')
-    // }
+    
+    dispatch(GetOrders( `?company=${buyer.company._id}` ))
+  
+    
      Router.push('/order-list')
   }
 

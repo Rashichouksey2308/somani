@@ -1,23 +1,26 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllBuyer, GetAllOrders, GetBuyer } from '../../src/redux/registerBuyer/action'
-import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
+import { GetOrders } from '../../src/redux/registerBuyer/action'
 import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
+
 function Index() {
-  const [serachterm, setSearchTerm] = useState("");
+
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch()
 
-  const { allBuyerList } = useSelector((state) => state.buyer)
-  const { searchedLeads } = useSelector((state) => state.order)
-  console.log(searchedLeads, "searched items")
-  useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}`))
-  }, [dispatch, currentPage])
+  const { singleOrder } = useSelector((state) => state.buyer)
+  
+
+  console.log(singleOrder?.data, 'all order listtt1')
+
+  // useEffect(() => {
+  //   dispatch(GetOrders(`?page=${currentPage}`))
+  // }, [dispatch, currentPage])
   
  useEffect(() => {
      dispatch(setPageName('leads'))
@@ -36,19 +39,6 @@ function Index() {
     //  Router.push('/lc-module')
   }
 
-  const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
-    if (query.length >= 3) {
-      dispatch(SearchLeads(query))
-    }
-  }
-
-  const handleFilteredData = (e) => {
-    setSearchTerm("")
-    const id = `${e.target.id}`
-    dispatch(GetAllBuyer(`?company=${id}`))
-  }
 
 
 
@@ -63,7 +53,7 @@ function Index() {
              <div className={styles.head_header}>
                     <img className={`${styles.arrow} img-fluid`}
                         src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-                    <h1 className={`${styles.heading} heading`}>Name Of Company</h1>
+                    <h1 className={`${styles.heading} heading`}>{singleOrder?.data[0].company.companyName}</h1>
                 </div>
         
 
@@ -165,7 +155,7 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}</span>
+                <span>Showing Page {currentPage + 1}  out of {Math.ceil(singleOrder?.data?.totalCount / 10)}</span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -187,7 +177,7 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage+1 < Math.ceil(allBuyerList?.data?.totalCount / 10)) {
+                    if (currentPage+1 < Math.ceil(singleOrder?.data?.totalCount / 10)) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
 
@@ -222,21 +212,21 @@ function Index() {
                     </tr>
                   </thead>
                   <tbody>
-                    {allBuyerList &&
-                      allBuyerList.data?.data?.map((buyer, index) => (
+                    {singleOrder &&
+                      singleOrder?.data?.map((buyer, index) => (
                         <tr key={index} className={`${styles.table_row} table_row`}>
-                          <td>{buyer.company.customerId}</td>
+                          <td>{buyer.orderId}</td>
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
                               handleRoute(buyer)
                             }}
                           >
-                            {buyer.company.companyName}
+                            {buyer.commodity}
                           </td>
                           <td></td>
                          
-                          <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                          <td>{buyer.createdAt.split('T')[0]}</td>
                           <td>
                             <span
                               className={`${styles.status} ${

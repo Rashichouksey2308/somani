@@ -1,8 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from '../profile.module.scss'
 
-function Index() {
+function Index({ companyDetail }) {
+console.log(companyDetail,"company detailes")
   return (
+    
    <>
    <div className={`${styles.card}  card`}>
     <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#companyDetails" aria-expanded="true" aria-controls="companyDetails">
@@ -14,67 +17,67 @@ function Index() {
             <div className="row">
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Company Name</div>
-                    <div className={`${styles.value} accordion_Text`}>Ramakrishna Traders</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.companyName}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>CIN</div>
-                    <div className={`${styles.value} accordion_Text`}>U55101UR1986PL007811</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.CIN}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Company PAN</div>
-                    <div className={`${styles.value} accordion_Text`}>AAOCS3552N <img src="/static/approved.svg" alt="Approved" className="img-fluid mt-n1" /></div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.pans[0]} <img src="/static/approved.svg" alt="Approved" className="img-fluid mt-n1" /></div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>IEC Number</div>
-                    <div className={`${styles.value} accordion_Text`}>2904000291</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.IEC}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Type of Business</div>
-                    <div className={`${styles.value} accordion_Text`}>Manufacturer</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.typeOfBusiness[0]}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Date of Incorporation</div>
-                    <div className={`${styles.value} accordion_Text`}>13-01-2019</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.dateOfIncorporation}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Listing Status</div>
-                    <div className={`${styles.value} accordion_Text`}>Unlisted</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.listingStatus}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Constitution</div>
-                    <div className={`${styles.value} accordion_Text`}>Public Ltd.</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.Constitution}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Active Compliant</div>
-                    <div className={`${`${styles.value} accordion_Text`} ${styles.warning}`}>No</div>
+                    <div className={`${`${styles.value} accordion_Text`} ${companyDetail.activeCompliance ? styles.success : styles.warning }`}>{companyDetail.activeCompliance ? "YES" : "NO"}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Contact Number</div>
-                    <div className={`${styles.value} accordion_Text`}>0612-7894523</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.contactNumber}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Email Domain</div>
-                    <div className={`${styles.value} accordion_Text`}>ramkrishnatraders@gmail.com</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.emailDomain}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Number of Shareholders</div>
-                    <div className={`${styles.value} accordion_Text`}>6</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.numberOfShareholders}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Shell/ Hawala Score</div>
-                    <div className={`${styles.value} accordion_Text`}>60</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.hawalaScore}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Paid-Up Capital (Cr)</div>
-                    <div className={`${styles.value} accordion_Text`}>100.00</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.paidUpCapital}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Last Balance Sheet</div>
-                    <div className={`${`${styles.value} accordion_Text`} ${styles.warning}`}>13-03-2019</div>
+                    <div className={`${`${styles.value} accordion_Text`} ${companyDetail.lastBalanceSheet ? styles.success : styles.warning }`}>{companyDetail.lastBalanceSheet}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Employee Count</div>
-                    <div className={`${styles.value} accordion_Text`}>25</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.employeeCount}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Existing Limit (Cr)</div>
@@ -86,11 +89,11 @@ function Index() {
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Registered Address</div>
-                    <div className={`${styles.value} accordion_Text`}>123, My Building Famous Lane Hyderabad, Telangana - 500072</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.registeredAddress}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Corporate Address</div>
-                    <div className={`${styles.value} accordion_Text`}>561, My Building Lane No. 11 Delhi, Delhi - 110001</div>
+                    <div className={`${styles.value} accordion_Text`}>{companyDetail.registeredAddress}</div>
                 </div>
                 <div className="col-md-3">
                     <div className={`${styles.label} label_heading`}>Referral Code</div>

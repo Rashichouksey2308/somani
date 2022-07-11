@@ -46,7 +46,10 @@ function Index() {
 
   const { orderList } = useSelector((state) => state.buyer)
 
-  console.log(orderList, 'this is order list')
+  // console.log(orderList, 'this is order list')
+
+  const {companyData} = useSelector((state)=> state.companyDetails)
+  console.log(companyData, "this is company data")
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
@@ -470,6 +473,7 @@ function Index() {
         weakness: [...weaknessComment],
       },
       debtProfile: [...debtData],
+      groupExposureDetail: [...groupExposureData]
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
@@ -644,7 +648,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <CompanyDetails />
+                    <CompanyDetails companyDetail={companyData?.profile?.companyDetail} />
                     <AuditorDeatils />
                     <ShareHoldingPattern />
                     <CreditRatings />

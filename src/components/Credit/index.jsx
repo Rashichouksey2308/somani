@@ -638,48 +638,7 @@ const index = ({
               </thead>
               {personData?.map((person, index) => (
                 <tbody key={index}>
-                  {/* <tr className="table_credit">
-                      <td>
-                        <select
-                          className={`${styles.dropDown} font-weight-bold heading`}
-                        >
-                          <option>{person.name}</option>
-                          <option>Krishna</option>
-                        </select>
-                      </td>
-                      <td>
-                        <select className={`${styles.dropDown} heading`}>
-                          <option>{person.designation}</option>
-                          <option>Manager</option>
-                        </select>
-                      </td>
-                      <td>
-                        <select className={`${styles.dropDown} heading`}>
-                          <option>{person.department}</option>
-                          <option>Organiser</option>
-                        </select>
-                      </td>
-                      <td>
-                        <input defaultValue={person.contact.number} />
-                      </td>
-                      <td>
-                        <input defaultValue={person.email} />
-                      </td>
-                      <td>
-                        <div>
-                          <img
-                            src="/static/save-3.svg"
-                            className={`${styles.edit_image} mr-3 img-fluid`}
-                            alt="save"
-                          />
-                          <img
-                            src="/static/delete 2.svg"
-                            className="img-fluid"
-                            alt="delete"
-                          />
-                        </div>
-                      </td>
-                    </tr> */}
+                  
                   <tr className="table_credit">
                     <td>
                       <input

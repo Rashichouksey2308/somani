@@ -7,7 +7,6 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   GetAllBuyer,
-  GetAllOrders,
   GetBuyer,
 } from '../../src/redux/registerBuyer/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
