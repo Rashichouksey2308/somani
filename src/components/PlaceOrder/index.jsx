@@ -23,10 +23,10 @@ const index = () => {
 
           <div className={`${styles.main} mt-4 mb-4 card border-color`}>
           <div className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`} >
-           <h3 className={`${styles.heading}`}>Limit Details</h3>
+           <h3 className={`${styles.heading} mb-0`}>Limit Details</h3>
               </div>  
                 
-                  <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
+                  <div className={`${styles.dashboard_form} mt-2 mb-4`}>
                     <div className='row'>
                       <div className='col-md-2 col-sm-4'>
                         <div className={`${styles.label} text`}>

@@ -15,7 +15,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
   return (
     <div className={`${styles.main} card border-color`}>
       <div
-        className={`${styles.head_container} card-header head_container d-flex justify-content-between bg-transparent`}
+        className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between bg-transparent`}
         data-toggle="collapse"
         data-target="#orderSummary"
         aria-expanded="true"
@@ -113,7 +113,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Quantity in MT<strong className="text-danger">*</strong>
+                  Quantity<strong className="text-danger">*</strong>
                 </Form.Label>
               </Form.Group>
 
