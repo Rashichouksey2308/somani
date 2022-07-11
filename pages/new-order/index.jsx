@@ -9,6 +9,7 @@ const Index = () => {
   })
   return (
     <PlaceOrder/>
+    
   )
 }
 
