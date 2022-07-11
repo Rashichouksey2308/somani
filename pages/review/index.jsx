@@ -648,7 +648,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <CompanyDetails companyDetail={companyData} />
+                    <CompanyDetails companyDetail={companyData?.profile?.companyDetail} />
                     <AuditorDeatils />
                     <ShareHoldingPattern />
                     <CreditRatings />

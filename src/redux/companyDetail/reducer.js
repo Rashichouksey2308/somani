@@ -3,6 +3,7 @@ import * as types from './actionType'
 const initialState = {
   gettingCompanyDetail: false,
   companyData: null,
+  updatingCompany: false
 }
 
 function CompanyReducer(state = initialState, action) {
@@ -22,6 +23,21 @@ function CompanyReducer(state = initialState, action) {
         gettingCompanyDetail: false,
         companyData: null,
       }
+      case types.UPDATE_COMPANY_DETAIL:
+        return {
+          ...state,
+          updatingCompany: true
+        }
+      case types.UPDATE_COMPANY_DETAIL_SUCCESS:
+        return {
+          ...state,
+          updatingCompany: false
+        }
+      case types.UPDATE_COMPANY_DETAIL_FAILED:
+        return {
+          ...state,
+          updatingCompany: false
+        }
     default:
       return state
   }
