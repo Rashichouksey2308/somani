@@ -4,7 +4,7 @@ import styles from './index.module.scss'
 
 const Index = () => {
   return (
-    <div className={`${styles.main} card mb-4 border-color mt-4`}>
+    <div className={`${styles.main} border_color mb-4 card mt-4`}>
     <div className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
     data-toggle="collapse"
     data-target="#upload"

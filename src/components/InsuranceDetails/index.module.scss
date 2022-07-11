@@ -1,0 +1,182 @@
+@import "../styles/Core/config";
+
+
+.wrapper{
+    margin-bottom: 1rem;
+        border-radius: 6px !important;
+}
+.cardHeader {
+     cursor: pointer;
+     border-bottom: none;
+     padding: 25px 35px !important;
+
+     h2 {
+         font-size: 22px;
+         color: #3687E8;
+         font-weight: bold;
+         line-height: 27px;
+         @include respond(md-desktop) {
+            font-size: 22px;
+        }
+        @include respond(sm-desktop) {
+            font-size: 18px;
+        }
+        @include respond(phone) {
+            font-size: 15px;
+        }
+     }
+
+     span {
+         font-size: 45px;
+         color: #3687E8;
+         font-weight: normal;
+         line-height: 20px;
+         @include respond(md-desktop) {
+            font-size: 42px;
+        }
+        @include respond(sm-desktop) {
+            font-size: 35px;
+        }
+        @include respond(phone) {
+            font-size: 30px;
+        }
+     }
+         
+    
+}
+ .cardBody {
+     padding:0px;
+     border-top: 2px solid red !important;
+     .content{
+        
+     
+     .body{
+        padding: 25px 35px !important;
+        h5{
+            font-size: 22px ;
+            line-height:27px;
+            text-transform: capitalize;
+            font-weight: bold;
+            @include respond(md-desktop) {
+                font-size: 20px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 18px;
+            }
+            @include respond(phone) {
+                font-size: 15px;
+            }
+          }
+        .col_header{
+            font-weight: medium;
+            font-size: 16px;
+            line-height: 17px;
+            margin-top: 1.5rem;
+            letter-spacing: 0.53px;
+            @include respond(md-desktop) {
+                font-size: 16px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 14px;
+            }
+            @include respond(phone) {
+                font-size: 12px;
+            }
+              
+        }
+        .col_body{
+               font-weight: bold;
+                font-size: 20px;
+                line-height: 25px;
+                margin-top:0.5rem;
+                margin-bottom: 1rem;
+                @include respond(md-desktop) {
+                    font-size: 18px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 16px;
+                }
+                @include respond(phone) {
+                    font-size: 14px;
+                }
+         
+        }
+
+        .label_heading {
+            top: 27px;
+            left: 30px;
+            font-size: 16px;
+            line-height: 0.5;
+           // margin-bottom: 0;
+            letter-spacing: 0.53px;
+            position: absolute;
+            pointer-events: none;
+            box-sizing: border-box;
+            transform: translateY(-31px);
+            transition: 0.3s all ease-in-out;
+            @include respond(md-desktop) {
+                font-size: 16px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 14px;
+            }
+            @include respond(phone) {
+                font-size: 12px;
+            }
+          }
+          .input_field {  
+            height: 60px;
+            background-color: #C3C3C31F;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            font-size: 20px;
+            font-weight: 500;
+            outline: none;
+            box-shadow: none;
+            position: relative;
+            box-sizing: border-box;
+            &:invalid + label {
+                transform:translateY(0);
+            }
+            &:focus {
+                & + label {
+                    transform:translateY(-31px);
+                }
+            }
+            @include respond(md-desktop) {
+                font-size: 18px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 16px;
+            }
+            @include respond(phone) {
+                font-size: 14px;
+            }
+        }
+        
+     }
+    }
+     .remark_field{
+        margin: 25px 0 35px 0;
+        padding: 20px;
+        letter-spacing: 0.19px;
+        color: #111111;
+        background: #C3C3C31F;
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        font-size: 20px;
+        line-height: 25px;
+        @include respond(md-desktop) {
+            font-size: 18px;
+        }
+        @include respond(sm-desktop) {
+            font-size: 16px;
+
+        }
+        @include respond(phone) {
+            font-size: 14px;
+
+        }
+     }
+    
+ }
