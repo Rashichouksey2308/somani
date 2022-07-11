@@ -5,19 +5,20 @@
     padding: 25px;
   
     .head_container {
-      display: flex;
-      background: none;
-      flex-direction: row;
-      justify-content: space-between;
-      @include respond(sm-desktop) {
+        margin: 15px 0px 0px 15px;  
+        display: flex;
+        background: none;
+        flex-direction: row;
+        justify-content: space-between;
+        @include respond(sm-desktop) {
         margin-top: 15px;
         margin-bottom: -20px;
-    }
-    @include respond(phone) {
-        margin-top: 15px;
-        margin-bottom: -20px;
+        }
+        @include respond(phone) {
+            margin-top: 15px;
+            margin-bottom: -20px;
 
-    }
+        }
   
       .head_header {
         display: flex;
@@ -33,11 +34,11 @@
             width: 12px;
             height: 19px;
         }
-         
+        
         @include respond(sm-desktop) {
             width: 10px;
-          height: 17px;
-          margin-top: 12px;
+        height: 17px;
+        margin-top: 12px;
         }
         @include respond(phone) {
             margin-top: 12px;

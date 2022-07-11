@@ -113,11 +113,12 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>LC Opening Bank<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <select id='incoTerm' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
+                            {/* <select id='incoTerm' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.incoTerm}>{termsheetDetails?.transactionDetails?.incoTerm} </option>
                                 <option value="FOB">FOB</option>
                                 <option value="India">India</option>
-                            </select>
+                            </select> */}
+                            <input id='incoTerm' className={`${styles.value} input form-control`} type="text" required/>
                             <label className={`${styles.label} label_heading`}>INCO Terms<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
