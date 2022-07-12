@@ -109,7 +109,7 @@ const index = () => {
               <tr className="table_row">
                 <td className={styles.doc_name}>Insurance Quotation</td>
                 <td>
-                  <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                 </td>
                 <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                 <td className={styles.doc_row}>John Doe</td>
@@ -136,7 +136,7 @@ const index = () => {
               <tr className="table_row">
                 <td className={styles.doc_name}>Container No. List</td>
                 <td>
-                  <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                 </td>
                 <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                 <td className={styles.doc_row}>Buyer</td>
@@ -163,7 +163,7 @@ const index = () => {
               <tr className="table_row">
                 <td className={styles.doc_name}>Container Seal No. List</td>
                 <td>
-                  <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                 </td>
                 <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                 <td className={styles.doc_row}>Rama Krishnan</td>
@@ -198,7 +198,7 @@ const index = () => {
               <tr className="table_row">
                 <td className={styles.doc_name}>Insurance Quotation</td>
                 <td>
-                  <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                 </td>
                 <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                 <td className={styles.doc_row}>John Doe</td>
@@ -225,7 +225,7 @@ const index = () => {
               <tr className="table_row">
                 <td className={styles.doc_name}>Container No. List</td>
                 <td>
-                  <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                 </td>
                 <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                 <td className={styles.doc_row}>Buyer</td>

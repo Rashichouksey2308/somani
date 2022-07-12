@@ -144,7 +144,7 @@ const Index = () => {
               <tr className="table_row">
                 <td className={styles.doc_name}>LC Draft</td>
                 <td>
-                  <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
+                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                 </td>
                 <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                 <td className={styles.doc_row}>John Doe</td>

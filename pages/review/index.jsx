@@ -49,7 +49,7 @@ function Index() {
 
   // console.log(orderList, 'this is order list')
 
-  const {companyData} = useSelector((state)=> state.companyDetails)
+  const { companyData } = useSelector((state) => state.companyDetails)
   console.log(companyData, "this is company data")
 
   useEffect(() => {
@@ -386,7 +386,7 @@ function Index() {
       groupExposureArr.push(element)
     })
     setGroupExposureData(groupExposureArr)
-  
+
     let debtArr = []
     orderList?.company?.debtProfile?.forEach((element) => {
       // console.log(element,"useEE")
@@ -507,9 +507,8 @@ function Index() {
         <div className={`${styles.tabHeader} tabHeader `}>
           <h1 className={`${styles.title} heading pt-3 pb-3`}>
             <img
-              src={`${
-                darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
-              }`}
+              src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
+                }`}
               alt="arrow right"
               className="img-fluid image_arrow"
             />
@@ -649,11 +648,11 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <CompanyDetails companyDetail={companyData?.profile?.companyDetail}/>
+                    <CompanyDetails companyDetail={companyData?.profile?.companyDetail} />
                     <AuditorsDetail />
                     <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
-                    <ShareHoldingPattern />
-                    <CreditRatings />
+                    <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
+                    <CreditRatings creditRating={companyData?.profile?.creditRating} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
@@ -1455,10 +1454,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-      'Compliance' ||
-      'Orders' ||
-      'Credit' ||
-      'DocumentsTab' ? (
+        'Compliance' ||
+        'Orders' ||
+        'Credit' ||
+        'DocumentsTab' ? (
         <PreviousBar />
       ) : null}
       {selectedTab == 'Profile' ? (
