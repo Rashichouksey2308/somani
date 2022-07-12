@@ -664,7 +664,7 @@ function Index() {
                   <div className="accordion" id="FinancialsAccordion">
                     <BalanceSheet balanceData={companyData?.financial?.balanceSheet} />
 
-                    <IncomeStatement incomeData={companyData.financial?.incomeStatement} />
+                    <IncomeStatement incomeData={companyData?.financial?.incomeStatement} />
 
                     <CashFlow />
 
