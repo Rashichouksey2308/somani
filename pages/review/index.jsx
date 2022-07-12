@@ -505,16 +505,21 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <h1 className={`${styles.title} heading pt-3 pb-3`}>
-            <img
-              src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
-                }`}
-              alt="arrow right"
-              className="img-fluid image_arrow"
-            />
-            {orderList?.company?.companyName}
-          </h1>
-
+          <div class="d-flex align-items-center">
+            <h1 className={`${styles.title} heading pt-3 pb-3`}>
+              <img
+                src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
+                  }`}
+                alt="arrow right"
+                className="img-fluid image_arrow"
+              />
+              {orderList?.company?.companyName}
+            </h1>
+            <div className="ml-auto">
+                <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
+                <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
+            </div>
+          </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
               <a
