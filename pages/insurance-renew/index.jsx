@@ -24,7 +24,7 @@ const Index = () => {
       <div className={`${styles.vessel_card} mt-3 border_color`}>
       <div className={`${styles.wrapper} p-2 card`}>
 
-        <div className='d-lg-flex align-items-center d-inline-block  pl-4'>
+        <div className='d-lg-flex align-items-center d-inline-block mt-4 mb-4 pl-4'>
       <h2 className="mb-0">Insurance Type</h2>
         <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
           {['radio'].map((type) => (
@@ -67,8 +67,36 @@ const Index = () => {
           aria-expanded="true"
           aria-controls="marineInsurance"
         >
-          <h2 className="mb-0">Marine Insurance</h2>
+          <h2 className="mb-0">Marine Insurance Policy Details</h2>
+          <div className='d-flex justify-content-between align-items-center'>
+          <h5  className={`${styles.radio_label} mr-3`}>Insurance From:</h5>
+          <div className={`${styles.radio_form} `}>
+          {['radio'].map((type) => (
+            <div key={`inline-${type}`} className={styles.radio_group}>
+              <Form.Check
+                className={styles.radio}
+                inline
+                label="Domestic"
+                name="group1"
+                type={type}
+                id={`inline-${type}-1`}
+              />
+              
+              <Form.Check
+                className={styles.radio}
+                inline
+                label="International"
+                name="group1"
+                type={type}
+                id={`inline-${type}-2`}
+              />
+
+            </div>
+          ))}
+        </div>
+       
           <span>+</span>
+          </div>
         </div>
         <div
           id="marineInsurance"
@@ -101,15 +129,22 @@ const Index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                    <select
+                  <div className="d-flex">
+                  <input
                       className={`${styles.input_field} input form-control`}
-                    >
-                      <option>COA202138329477</option>
-                      <option>DSDA202138329477</option>
-                    </select>
+                      required
+                      style={{borderColor: '#43C34D'}}
+                      type="text"
+                    />
                     <label className={`${styles.label_heading} label_heading`}>
                       GST of Insured
                     </label>
+                    <img
+                    className={`${styles.checked_image} img-fluid`}
+                    src="/static/approved.svg"
+                    alt="Approve"
+                  />
+                  </div>
                   </Col>
 
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -201,8 +236,20 @@ const Index = () => {
           aria-controls="storageInsurance"
         >
           <h2 className="mb-0">Storage Insurance Details</h2>
-          <span>+</span>
+          <div className={styles.radio_label}>Insurance From: <span className={styles.insurance_from} style={{color: "#111111"}}>Domestic</span></div>
+          <div className='d-flex justify-content-between align-items-center'>
+          <div className={styles.radio_label} >Is the Insurer same as Marine Insurance?</div>
+          <div className={`${styles.radio_form} `}>
+          <Form.Check 
+            type="switch"
+            id="custom-switch"
+            label=""
+          />
+        
         </div>
+       
+          <span>+</span>
+          </div>        </div>
         <div
           id="storageInsurance"
           className="collapse"
@@ -213,14 +260,23 @@ const Index = () => {
               <div className={` ${styles.body}`}>
                 <Row>
                 <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                <div className="d-flex">
                     <input
                       className={`${styles.input_field} input form-control`}
+                      style={{color:"#EA3F3F"}}
                       required
                       type="text"
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Policy Number<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                    className={`${styles.checked_image} img-fluid`}
+                    src="/static/approved.svg"
+                    alt="Info circle"
+                  />
+                  </div>
+
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <select
@@ -234,15 +290,23 @@ const Index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                    <select
+                  <div className="d-flex">
+
+                  <input
                       className={`${styles.input_field} input form-control`}
-                    >
-                      <option>COA202138329477</option>
-                      <option>DSDA202138329477</option>
-                    </select>
+                      style={{borderColor: '#43C34D'}}
+                      required
+                      type="text"
+                    />
                     <label className={`${styles.label_heading} label_heading`}>
                       GST of Insured
                     </label>
+                    <img
+                    className={`${styles.checked_image} img-fluid`}
+                    src="/static/approved.svg"
+                    alt="Approve"
+                  />
+                  </div>
                   </Col>
 
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -256,6 +320,7 @@ const Index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                    
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -265,6 +330,7 @@ const Index = () => {
                       GST of Insured
                       <strong className="text-danger">*</strong>
                     </label>
+                    
                   </Col>
                   <Col className="mb-4 mt-4" lg={2} md={6}>
                     <input
