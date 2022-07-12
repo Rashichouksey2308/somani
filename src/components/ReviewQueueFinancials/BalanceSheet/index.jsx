@@ -32,8 +32,8 @@ function Index() {
                                           
                                         </div>
                                         <div id="balanceSheet1" className="collapse show" aria-labelledby="balanceSheet1" data-parent="#FinancialsAccordion">
-                                            <div className={`${styles.noBorderTable} ${styles.cardBody} card-body border_color`}>
-                                              <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+                                            <div className={`${styles.noBorderTable} ${styles.cardBody} card-body`}>
+                                              <table className={`${styles.table} table border_color`} cellPadding="0" cellSpacing="0" border="0">
                                                 <thead>
                                                   <tr>
                                                     <th width="50%"><h3>Liabilities</h3></th>
@@ -116,9 +116,20 @@ function Index() {
                                                     <td className="text-center border-top"><strong>1,900.00</strong></td>
                                                     <td className="text-center border-top"><img src="/static/profit.svg" alt="Profit" className="img-fluid" /></td>
                                                   </tr>
-
+                                                </tbody>
+                                              </table><table className={`${styles.table} table border_color`} cellPadding="0" cellSpacing="0" border="0">
+                                                <thead>
                                                   <tr>
-                                                    <td>Net Block (Land, Building, Plant & Machinery)</td>
+                                                    <th width="50%"><h3>Assets</h3></th>
+                                                    <th className="text-center" width="12.5%">MAR-20</th>
+                                                    <th className="text-center" width="12.5%">MAR-19</th>
+                                                    <th className="text-center" width="12.5%">MAR-18</th>
+                                                    <th className="text-center" width="12.5%">TREND</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <td>Net Block (Land, Building, Plant &amp; Machinery)</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
                                                     <td className="text-center">1,900.00</td>
