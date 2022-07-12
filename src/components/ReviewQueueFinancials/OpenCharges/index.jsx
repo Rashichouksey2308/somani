@@ -4,7 +4,7 @@ import styles from '../index.module.scss'
 
 function Index({chargesData}) {
 
-  console.log(chargesData?.financial?.openCharges, 'THIS IS OPEN CHARGES')
+  // console.log(chargesData?.financial?.openCharges, 'THIS IS OPEN CHARGES')
 
   return (
     <>
