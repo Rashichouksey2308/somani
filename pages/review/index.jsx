@@ -654,7 +654,7 @@ function Index() {
                 >
                   <div className="accordion" id="profileAccordion">
                     <CompanyDetails companyDetail={companyData?.profile?.companyDetail} />
-                    <AuditorsDetail />
+                    <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
                     <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
                     <CreditRatings creditRating={companyData?.profile?.creditRating} />
@@ -664,7 +664,7 @@ function Index() {
                   <div className="accordion" id="FinancialsAccordion">
                     <BalanceSheet balanceData={companyData?.financial?.balanceSheet} />
 
-                    <IncomeStatement incomeData={companyData.financial?.incomeStatement} />
+                    <IncomeStatement incomeData={companyData?.financial?.incomeStatement} />
 
                     <CashFlow />
 
