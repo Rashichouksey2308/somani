@@ -4,11 +4,11 @@ import moment from 'moment'
 
 function Index({ auditorsDetails }) {
     console.log(auditorsDetails,"auditorsDetails")
-    const latestYearData = auditorsDetails[0]
+    const latestYearData = auditorsDetails && auditorsDetails[0]
 
-    const previousYearData = auditorsDetails[1]
+    const previousYearData = auditorsDetails && auditorsDetails[1]
 
-    const lastYearData = auditorsDetails[2]
+    const lastYearData = auditorsDetails && auditorsDetails[2]
     return (
 
         <div className={`${styles.card}  card`}>
@@ -23,13 +23,13 @@ function Index({ auditorsDetails }) {
                             <tr>
                                 <th width="25%"></th>
                                 <th width="25%">
-                                    {moment(latestYearData.financialEndDate).format('MMM-YY').toUpperCase()}
+                                    {moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()}
                                 </th>
                                 <th width="25%">
-                                    {moment(previousYearData.financialEndDate).format('MMM-YY').toUpperCase()}
+                                    {moment(previousYearData?.financialEndDate).format('MMM-YY').toUpperCase()}
                                 </th>
                                 <th width="25%">
-                                    {moment(lastYearData.financialEndDate).format('MMM-YY').toUpperCase()}
+                                    {moment(lastYearData?.financialEndDate).format('MMM-YY').toUpperCase()}
                                 </th>
 
 
@@ -38,20 +38,20 @@ function Index({ auditorsDetails }) {
                         <tbody>
                             <tr>
                                 <td>Name of Auditor</td>
-                                <td>{latestYearData.nameOfAuditor}</td>
-                                <td>{previousYearData.nameOfAuditor}</td>
-                                <td>{lastYearData.nameOfAuditor}</td>
+                                <td>{latestYearData?.nameOfAuditor}</td>
+                                <td>{previousYearData?.nameOfAuditor}</td>
+                                <td>{lastYearData?.nameOfAuditor}</td>
                             </tr>
                             <tr>
                                 <td>Registration Number</td>
-                                <td>{latestYearData.regstrnNum}</td>
-                                <td>{previousYearData.regstrnNum}</td>
-                                <td>{lastYearData.regstrnNum}</td>
+                                <td>{latestYearData?.regstrnNum}</td>
+                                <td>{previousYearData?.regstrnNum}</td>
+                                <td>{lastYearData?.regstrnNum}</td>
                             </tr>
                             <tr>
                                 <td>Change in Auditor</td>
-                                <td className={styles.danger}>{latestYearData.nameOfAuditor === previousYearData.nameOfAuditor ? " NO" : "Yes"}</td>
-                                <td>{ previousYearData.nameOfAuditor === lastYearData.regstrnNum ? " NO" : "Yes"}</td>
+                                <td className={styles.danger}>{latestYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? " NO" : "Yes"}</td>
+                                <td>{ previousYearData?.nameOfAuditor === lastYearData?.regstrnNum ? " NO" : "Yes"}</td>
                                 <td>No</td>
                             </tr>
                         </tbody>
