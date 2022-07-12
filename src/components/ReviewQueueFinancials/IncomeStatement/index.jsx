@@ -4,7 +4,7 @@ import styles from '../index.module.scss'
 import moment from 'moment'
 
 function Index({ incomeData }) {
-  console.log(incomeData, 'THIS IS INCOME DATA')
+  // console.log(incomeData?.financial?.incomeStatement[0], 'THIS IS INCOME DATA')
 
   const latestYearData = incomeData?.financial?.incomeStatement[0]
 
@@ -50,7 +50,9 @@ function Index({ incomeData }) {
                 <tr>
                   <th width="50%"></th>
                   <th className="text-center" width="12.5%">
-                    {moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()}
+                    {moment(latestYearData?.financialEndDate)
+                      .format('MMM-YY')
+                      .toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
                     {moment(previousYearData?.financialEndDate)
@@ -58,7 +60,9 @@ function Index({ incomeData }) {
                       .toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
-                    {moment(lastYearData?.financialEndDate).format('MMM-YY').toUpperCase()}
+                    {moment(lastYearData?.financialEndDate)
+                      .format('MMM-YY')
+                      .toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
                     TREND
@@ -68,9 +72,15 @@ function Index({ incomeData }) {
               <tbody>
                 <tr>
                   <td>Revenue From Operation</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {latestYearData?.revenue?.revenueFromOperations}
+                  </td>
+                  <td className="text-center">
+                    {previousYearData?.revenue?.revenueFromOperations}
+                  </td>
+                  <td className="text-center">
+                    {lastYearData?.revenue?.revenueFromOperations}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
@@ -81,9 +91,15 @@ function Index({ incomeData }) {
                 </tr>
                 <tr>
                   <td>Other Income</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {latestYearData?.revenue?.otherIncome}
+                  </td>
+                  <td className="text-center">
+                    {previousYearData?.revenue?.otherIncome}
+                  </td>
+                  <td className="text-center">
+                    {lastYearData?.revenue?.otherIncome}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/average.svg"
@@ -97,13 +113,13 @@ function Index({ incomeData }) {
                     <strong>Total Income</strong>
                   </td>
                   <td className="text-center">
-                    <strong>2,480.00</strong>
+                    <strong>{latestYearData?.revenue?.totalRev}</strong>
                   </td>
                   <td className="text-center">
-                    <strong>1,260.00</strong>
+                    <strong>{previousYearData?.revenue?.totalRev}</strong>
                   </td>
                   <td className="text-center">
-                    <strong>7,400.00</strong>
+                    <strong>{lastYearData?.revenue?.totalRev}</strong>
                   </td>
                   <td className="text-center">
                     <img
@@ -116,9 +132,15 @@ function Index({ incomeData }) {
 
                 <tr>
                   <td>Purchases</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {latestYearData?.expenses?.purchaseStock}
+                  </td>
+                  <td className="text-center">
+                    {previousYearData?.expenses?.purchaseStock}
+                  </td>
+                  <td className="text-center">
+                    {lastYearData?.expenses?.purchaseStock}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
@@ -129,9 +151,15 @@ function Index({ incomeData }) {
                 </tr>
                 <tr>
                   <td>Other Expenses (Ex Dep, Int, Tax)</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {latestYearData?.expenses?.othExp}
+                  </td>
+                  <td className="text-center">
+                    {previousYearData?.expenses?.othExp}
+                  </td>
+                  <td className="text-center">
+                    {lastYearData?.expenses?.othExp}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
@@ -145,13 +173,13 @@ function Index({ incomeData }) {
                     <strong>Total Expenses</strong>
                   </td>
                   <td className="text-center">
-                    <strong>2,480.00</strong>
+                    <strong>{latestYearData?.expenses?.totExp}</strong>
                   </td>
                   <td className="text-center">
-                    <strong>1,260.00</strong>
+                    <strong>{previousYearData?.expenses?.totExp}</strong>
                   </td>
                   <td className="text-center">
-                    <strong>7,400.00</strong>
+                    <strong>{lastYearData?.expenses?.totExp}</strong>
                   </td>
                   <td className="text-center">
                     <img
@@ -166,9 +194,24 @@ function Index({ incomeData }) {
                   <td>
                     <strong>EBITA</strong>
                   </td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {latestYearData?.revenue?.revenueFromOperations -
+                      latestYearData?.expenses?.totExp +
+                      latestYearData?.expenses?.finCost +
+                      latestYearData?.expenses?.deprcnAmort}
+                  </td>
+                  <td className="text-center">
+                    {previousYearData?.revenue?.revenueFromOperations -
+                      previousYearData?.expenses?.totExp +
+                      previousYearData?.expenses?.finCost +
+                      previousYearData?.expenses?.deprcnAmort}
+                  </td>
+                  <td className="text-center">
+                    {lastYearData?.revenue?.revenueFromOperations -
+                      lastYearData?.expenses?.totExp +
+                      lastYearData?.expenses?.finCost +
+                      lastYearData?.expenses?.deprcnAmort}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
@@ -179,9 +222,15 @@ function Index({ incomeData }) {
                 </tr>
                 <tr>
                   <td>Depreciation</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {latestYearData?.expenses?.deprcnAmort}
+                  </td>
+                  <td className="text-center">
+                    {previousYearData?.expenses?.deprcnAmort}
+                  </td>
+                  <td className="text-center">
+                    {lastYearData?.expenses?.deprcnAmort}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
@@ -194,9 +243,21 @@ function Index({ incomeData }) {
                   <td>
                     <strong>EBIT</strong>
                   </td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {latestYearData?.revenue?.revenueFromOperations -
+                      latestYearData?.expenses?.totExp +
+                      latestYearData?.expenses?.finCost}
+                  </td>
+                  <td className="text-center">
+                    {previousYearData?.revenue?.revenueFromOperations -
+                      previousYearData?.expenses?.totExp +
+                      previousYearData?.expenses?.finCost}
+                  </td>
+                  <td className="text-center">
+                    {lastYearData?.revenue?.revenueFromOperations -
+                      lastYearData?.expenses?.totExp +
+                      lastYearData?.expenses?.finCost}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
@@ -207,9 +268,15 @@ function Index({ incomeData }) {
                 </tr>
                 <tr>
                   <td>Interest Cost</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {latestYearData?.expenses?.finCost}
+                  </td>
+                  <td className="text-center">
+                    {previousYearData?.expenses?.finCost}
+                  </td>
+                  <td className="text-center">
+                    {lastYearData?.expenses?.finCost}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
@@ -222,9 +289,15 @@ function Index({ incomeData }) {
                   <td>
                     <strong>PBT</strong>
                   </td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {latestYearData?.profLossBefTax}
+                  </td>
+                  <td className="text-center">
+                    {previousYearData?.profLossBefTax}
+                  </td>
+                  <td className="text-center">
+                    {lastYearData?.profLossBefTax}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
@@ -235,9 +308,15 @@ function Index({ incomeData }) {
                 </tr>
                 <tr>
                   <td>Less: Tax</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {latestYearData?.totalTaxExpense}
+                  </td>
+                  <td className="text-center">
+                    {previousYearData?.totalTaxExpense}
+                  </td>
+                  <td className="text-center">
+                    {lastYearData?.totalTaxExpense}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
@@ -250,9 +329,11 @@ function Index({ incomeData }) {
                   <td>
                     <strong>PAT</strong>
                   </td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">{latestYearData?.profitLoss}</td>
+                  <td className="text-center">
+                    {previousYearData?.profitLoss}
+                  </td>
+                  <td className="text-center">{lastYearData?.profitLoss}</td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
@@ -263,9 +344,21 @@ function Index({ incomeData }) {
                 </tr>
                 <tr>
                   <td>Effective Tax Rate %</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
-                  <td className="text-center">1,900.00</td>
+                  <td className="text-center">
+                    {(latestYearData?.totalTaxExpense /
+                      latestYearData?.profLossBefTax) *
+                      100}
+                  </td>
+                  <td className="text-center">
+                    {(previousYearData?.totalTaxExpense /
+                      previousYearData?.profLossBefTax) *
+                      100}
+                  </td>
+                  <td className="text-center">
+                    {(lastYearData?.totalTaxExpense /
+                      lastYearData?.profLossBefTax) *
+                      100}
+                  </td>
                   <td className="text-center">
                     <img
                       src="/static/profit.svg"
