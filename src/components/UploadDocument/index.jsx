@@ -36,7 +36,9 @@ const Index = () => {
            
             <tr className='table_row'>
                 <td className={styles.doc_name}>Nomination Document<strong className="text-danger">*</strong></td>
-                <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
+                <td>
+                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
+                  </td>
                 <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                 <td> <input className={styles.input_field} type="text" placeholder='Nomination_Document.pdf'/>
                 <img className={`${styles.close_image} img-fluid `} src="/static/close.svg" alt="close"/> </td>
