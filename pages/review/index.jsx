@@ -21,6 +21,7 @@ import CommonSave from '../../src/components/CommonSave'
 import CompanyDetails from '../../src/components/ReviewQueueProfile/CompanyDetails'
 import ShareHoldingPattern from '../../src/components/ReviewQueueProfile/ShareHoldingPattern'
 import AuditorDeatils from '../../src/components/ReviewQueueProfile/AuditorDeatils'
+import AuditorsDetail from '../../src/components/ReviewQueueProfile/AuditorsDetails'
 import CreditRatings from '../../src/components/ReviewQueueProfile/CreditRatings'
 
 import BalanceSheet from '../../src/components/ReviewQueueFinancials/BalanceSheet'
@@ -48,7 +49,7 @@ function Index() {
 
   // console.log(orderList, 'this is order list')
 
-  const {companyData} = useSelector((state)=> state.companyDetails)
+  const { companyData } = useSelector((state) => state.companyDetails)
   console.log(companyData, "this is company data")
 
   useEffect(() => {
@@ -385,7 +386,7 @@ function Index() {
       groupExposureArr.push(element)
     })
     setGroupExposureData(groupExposureArr)
-  
+
     let debtArr = []
     orderList?.company?.debtProfile?.forEach((element) => {
       // console.log(element,"useEE")
@@ -504,17 +505,21 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <h1 className={`${styles.title} heading pt-3 pb-3`}>
-            <img
-              src={`${
-                darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
-              }`}
-              alt="arrow right"
-              className="img-fluid image_arrow"
-            />
-            {orderList?.company?.companyName}
-          </h1>
-
+          <div class="d-flex align-items-center">
+            <h1 className={`${styles.title} heading pt-3 pb-3`}>
+              <img
+                src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
+                  }`}
+                alt="arrow right"
+                className="img-fluid image_arrow"
+              />
+              {orderList?.company?.companyName}
+            </h1>
+            <div className="ml-auto">
+                <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
+                <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
+            </div>
+          </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
               <a
@@ -648,10 +653,11 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <CompanyDetails companyDetail={companyData?.profile?.companyDetail}/>
+                    <CompanyDetails companyDetail={companyData?.profile?.companyDetail} />
+                    <AuditorsDetail />
                     <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
-                    <ShareHoldingPattern />
-                    <CreditRatings />
+                    <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
+                    <CreditRatings creditRating={companyData?.profile?.creditRating} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
@@ -1453,10 +1459,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-      'Compliance' ||
-      'Orders' ||
-      'Credit' ||
-      'DocumentsTab' ? (
+        'Compliance' ||
+        'Orders' ||
+        'Credit' ||
+        'DocumentsTab' ? (
         <PreviousBar />
       ) : null}
       {selectedTab == 'Profile' ? (
