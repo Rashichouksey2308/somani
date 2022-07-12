@@ -21,11 +21,11 @@ function Index({ balanceData }) {
     }
   }, [])
 
-  const latestYearData = balanceData[0]
+  const latestYearData = balanceData?.financial?.balanceSheet[0]
 
-  const previousYearData = balanceData[1]
+  const previousYearData = balanceData?.financial?.balanceSheet[1]
 
-  const lastYearData = balanceData[2]
+  const lastYearData = balanceData?.financial?.balanceSheet[1]
 
   // const checkTrend = (latest,previous,last) => {
   //   if(latest>=previous && previous>last){
@@ -74,15 +74,15 @@ function Index({ balanceData }) {
                     <h3>Liabilities</h3>
                   </th>
                   <th className="text-center" width="12.5%">
-                    {moment(latestYearData.date).format('MMM-YY').toUpperCase()}
+                    {moment(latestYearData?.date).format('MMM-YY').toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
-                    {moment(previousYearData.date)
+                    {moment(previousYearData?.date)
                       .format('MMM-YY')
                       .toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
-                    {moment(lastYearData.date).format('MMM-YY').toUpperCase()}
+                    {moment(lastYearData?.date).format('MMM-YY').toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
                     TREND
@@ -320,15 +320,15 @@ function Index({ balanceData }) {
                     <h3>Assets</h3>
                   </th>
                   <th className="text-center" width="12.5%">
-                    {moment(latestYearData.date).format('MMM-YY').toUpperCase()}
+                    {moment(latestYearData?.date).format('MMM-YY').toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
-                    {moment(previousYearData.date)
+                    {moment(previousYearData?.date)
                       .format('MMM-YY')
                       .toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
-                    {moment(lastYearData.date).format('MMM-YY').toUpperCase()}
+                    {moment(lastYearData?.date).format('MMM-YY').toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
                     TREND
