@@ -6,11 +6,11 @@ import moment from 'moment'
 function Index({ incomeData }) {
   console.log(incomeData, 'THIS IS INCOME DATA')
 
-  const latestYearData = incomeData[0]
+  const latestYearData = incomeData?.financial?.incomeStatement[0]
 
-  const previousYearData = incomeData[1]
+  const previousYearData = incomeData?.financial?.incomeStatement[1]
 
-  const lastYearData = incomeData[2]
+  const lastYearData = incomeData?.financial?.incomeStatement[2]
 
   return (
     <>
@@ -50,15 +50,15 @@ function Index({ incomeData }) {
                 <tr>
                   <th width="50%"></th>
                   <th className="text-center" width="12.5%">
-                    {moment(latestYearData.financialEndDate).format('MMM-YY').toUpperCase()}
+                    {moment(latestYearData?.financialEndDate).format('MMM-YY').toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
-                    {moment(previousYearData.financialEndDate)
+                    {moment(previousYearData?.financialEndDate)
                       .format('MMM-YY')
                       .toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
-                    {moment(lastYearData.financialEndDate).format('MMM-YY').toUpperCase()}
+                    {moment(lastYearData?.financialEndDate).format('MMM-YY').toUpperCase()}
                   </th>
                   <th className="text-center" width="12.5%">
                     TREND
