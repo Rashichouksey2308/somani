@@ -2,9 +2,10 @@ import React from 'react'
 import styles from '../profile.module.scss'
 
 function
-  Index({creditRating}) {
+  Index({ creditRating }) {
 
-    
+
+  console.log(creditRating, "creditRating")
   return (
     <>
       <div className={`${styles.card} card mb-6`}>
@@ -25,42 +26,28 @@ function
                   <th colSpan="3" className="text-center">CREDIT RATING</th>
                 </tr>
                 <tr>
+                  <th width="8%" className="text-center">2021</th>
                   <th width="8%" className="text-center">2020</th>
                   <th width="8%" className="text-center">2019</th>
-                  <th width="8%" className="text-center">2018</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>30-04-2020</td>
-                  <td>Birchwood</td>
-                  <td>Long Term</td>
-                  <td>Long term bank loan 12.60 Crore</td>
-                  <td className="text-center"><img src="/static/arrow-up-green.svg" alt="Arrow Red" className="img-fluid" /></td>
-                  <td className={`${styles.stable} text-center`}>AA+<span>(Stable)</span></td>
-                  <td className="text-center">-</td>
-                  <td className="text-center">-</td>
-                </tr>
-                <tr>
-                  <td>30-04-2019</td>
-                  <td>America First</td>
-                  <td>-</td>
-                  <td>Long term bank loan 165 Crore</td>
-                  <td className="text-center"><img src="/static/arrow-down-red.svg" alt="Arrow Red" className="img-fluid" /></td>
-                  <td className="text-center">-</td>
-                  <td className={`${styles.negative} text-center`}>BB+<span>(Negative)</span></td>
-                  <td className="text-center">-</td>
-                </tr>
-                <tr>
-                  <td>30-04-2018</td>
-                  <td>Alliant</td>
-                  <td>Long Term</td>
-                  <td>Long term bank loan 12.60 Crore</td>
-                  <td className="text-center"><img src="/static/arrow-up-green.svg" alt="Arrow Red" className="img-fluid" /></td>
-                  <td className="text-center">-</td>
-                  <td className="text-center">-</td>
-                  <td className={`${styles.positive} text-center`}>AA+<span>(Positive)</span></td>
-                </tr>
+
+                {creditRating && creditRating.map((rating, index) => {
+                  if (rating?.ratingTerm=== "Long Term" && rating?.rating !== null  ) {
+                    return (
+                      <tr key={index}>
+                        <td>{(rating?.dateOfIssuance)?.slice(0,10)}</td>
+                        <td>{rating?.ratingAgency}</td>
+                        <td>{rating?.ratingTerm}</td>
+                        <td>{rating?.instrument}</td>
+                        <td className="text-center"><img src={ rating?.rating_ ?"/static/arrow-up-green.svg" : "/static/arrow-down-red.svg" }  alt="Arrow Red" className="img-fluid" /></td>
+                        <td className={`${styles.stable} text-center`}>{rating?.rating_}<span>({rating?.outlook})</span></td>
+                        <td className="text-center">-</td>
+                        <td className="text-center">-</td>
+                      </tr>)
+                  }
+                })}
               </tbody>
             </table>
           </div>
