@@ -4,7 +4,7 @@ import styles from '../index.module.scss'
 import moment from 'moment'
 
 function Index({ cashData }) {
-  console.log(cashData?.financial?.cashFlowStatement[0], 'THIS IS CASH DATA')
+  // console.log(cashData?.financial?.cashFlowStatement[0], 'THIS IS CASH DATA')
 
   const latestYearData = cashData?.financial?.cashFlowStatement[0]
 

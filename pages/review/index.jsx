@@ -668,7 +668,7 @@ function Index() {
 
                     <CashFlow cashData={companyData} />
 
-                    <Ratios />
+                    <Ratios ratioData={companyData} />
 
                     <Peer />
 
