@@ -21,6 +21,7 @@ import CommonSave from '../../src/components/CommonSave'
 import CompanyDetails from '../../src/components/ReviewQueueProfile/CompanyDetails'
 import ShareHoldingPattern from '../../src/components/ReviewQueueProfile/ShareHoldingPattern'
 import AuditorDeatils from '../../src/components/ReviewQueueProfile/AuditorDeatils'
+import AuditorsDetail from '../../src/components/ReviewQueueProfile/AuditorsDetails'
 import CreditRatings from '../../src/components/ReviewQueueProfile/CreditRatings'
 
 import BalanceSheet from '../../src/components/ReviewQueueFinancials/BalanceSheet'
@@ -649,6 +650,7 @@ function Index() {
                 >
                   <div className="accordion" id="profileAccordion">
                     <CompanyDetails companyDetail={companyData?.profile?.companyDetail}/>
+                    <AuditorsDetail />
                     <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
                     <ShareHoldingPattern />
                     <CreditRatings />
