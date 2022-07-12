@@ -40,10 +40,10 @@ function Index() {
                   <button type="button" className={`${styles.btnPrimary} btn btn-primary`}>Print</button>
                  
                 </div>
-                    <div className="ml-auto">
+                    {/* <div className="ml-auto">
                   <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                   <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-                </div>
+                </div> */}
                
                 </div>
               </div>
