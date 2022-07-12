@@ -662,9 +662,9 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
                   <div className="accordion" id="FinancialsAccordion">
-                    <BalanceSheet />
+                    <BalanceSheet balanceData={companyData?.financial?.balanceSheet} />
 
-                    <IncomeStatement />
+                    <IncomeStatement incomeData={companyData.financial?.incomeStatement} />
 
                     <CashFlow />
 

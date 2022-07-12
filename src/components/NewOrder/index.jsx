@@ -4,12 +4,10 @@ import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 
 const Index = ({ orderDetail, saveOrderData }) => {
-
-
   const saveDate = (e) => {
-    const d = new Date(e.target.value);
+    const d = new Date(e.target.value)
     let text = d.toISOString()
-    saveOrderData( e.target.name, text)
+    saveOrderData(e.target.name, text)
   }
 
   return (
@@ -27,16 +25,25 @@ const Index = ({ orderDetail, saveOrderData }) => {
             <h5 className={`${styles.unit_label} accordion_Text`}>
               Quantity :
             </h5>
-            <select className={`${styles.options} accordion_DropDown`} name='unitOfQuantity' onChange={()=>{saveOrderData(e.target.name, e.target.value)}}>
-              <option>{orderDetail?.unitOfQuantity}</option>
+            <select
+              className={`${styles.options} accordion_DropDown`}
+              name="unitOfQuantity"
+              onChange={() => {
+                saveOrderData(e.target.name, e.target.value)
+              }}
+            >
+              <option>L</option>
               <option>MT</option>
             </select>
           </div>
 
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
-            <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' onChange={()=>saveOrderData(e.target.name, e.target.value)}>
-              <option>{orderDetail?.unitOfValue}</option>
+            <select
+              className={`${styles.options} accordion_DropDown `}
+              name="unitOfValue"
+              onChange={() => saveOrderData(e.target.name, e.target.value)}
+            >
               <option>Crores</option>
               <option>Million</option>
             </select>
@@ -48,7 +55,6 @@ const Index = ({ orderDetail, saveOrderData }) => {
         id="orderSummary"
         className="collapse"
         aria-labelledby="orderSummary"
-       
       >
         <div className={`${styles.dashboard_form} card-body`}>
           <div className={styles.radio_form}>
@@ -59,8 +65,9 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={styles.radio}
                   inline
                   label="Import"
-                  onChange={(e)=>{saveOrderData("transactionType", "Import")}}
-                  defaultChecked={orderDetail?.transactionType === 'Import'}
+                  onChange={(e) => {
+                    saveOrderData('transactionType', 'Import')
+                  }}
                   name="group1"
                   type={type}
                   id={`inline-${type}-1`}
@@ -69,8 +76,9 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={styles.radio}
                   inline
                   label="Domestic"
-                  onChange={(e)=>{saveOrderData("transactionType", "Domestic")}}
-                  defaultChecked={orderDetail?.transactionType === 'Domestic'}
+                  onChange={(e) => {
+                    saveOrderData('transactionType', 'Domestic')
+                  }}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}
@@ -86,9 +94,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
-                    name='commodity'
-                    defaultValue={orderDetail?.commodity}
-                    onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+                    name="commodity"
+                    onChange={(e) => {
+                      saveOrderData(e.target.name, e.target.value)
+                    }}
                   />
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
@@ -108,9 +117,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  name='quantity'
-                  defaultValue={orderDetail?.quantity}
-                  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+                  name="quantity"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Quantity in MT<strong className="text-danger">*</strong>
@@ -122,9 +132,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  name='orderValue'
-                  defaultValue={orderDetail?.orderValue}
-                  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+                  name="orderValue"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Order Value<strong className="text-danger">*</strong>
@@ -136,9 +147,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  name='grade'
-                  defaultValue={orderDetail?.grade}
-                  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+                  name="grade"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Grade<strong className="text-danger">*</strong>
@@ -146,8 +158,13 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='countryOfOrigin'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}>
-                  <option value="volvo">{orderDetail?.countryOfOrigin}</option>
+                <select
+                  className={`${styles.input_field} input form-control`}
+                  name="countryOfOrigin"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
+                >
                   <option value="India">India</option>
                   <option value="America">America</option>
                   <option value="Russia">Russia</option>
@@ -162,9 +179,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  name='tolerance'
-                  defaultValue={orderDetail?.tolerance}
-                  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+                  name="tolerance"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Tolerance (+/-) Percentage
@@ -173,8 +191,13 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='supplierName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}>
-                  <option value="volvo">{orderDetail?.supplierName}</option>
+                <select
+                  className={`${styles.input_field} input form-control`}
+                  name="supplierName"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
+                >
                   <option value="TATA">TATA</option>
                   <option value="Mittal">Mittal</option>
                   <option value="Reliance">Reliance</option>
@@ -185,8 +208,13 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='manufacturerName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
-                  <option value="volvo">{orderDetail?.manufacturerName}</option>
+                <select
+                  className={`${styles.input_field} input form-control`}
+                  name="manufacturerName"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
+                >
                   <option value="CBX">CBX</option>
                   <option value="ABX">ABX</option>
                 </select>
@@ -197,8 +225,13 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='portOfDischarge'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
-                  <option value="volvo">{orderDetail?.portOfDischarge}</option>
+                <select
+                  className={`${styles.input_field} input form-control`}
+                  name="portOfDischarge"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
+                >
                   <option value="Mumbai">Mumbai</option>
                   <option value="Vizag">Vizag</option>
                 </select>
@@ -208,8 +241,13 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='incoTerm' onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
-                  <option value="volvo">{orderDetail?.incoTerm}</option>
+                <select
+                  className={`${styles.input_field} input form-control`}
+                  name="incoTerm"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
+                >
                   <option value="CFR">CFR</option>
                   <option value="CIF">CIF</option>
                   <option value="FOB">FOB</option>
@@ -223,9 +261,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
-                  defaultValue={orderDetail?.ExpectedDateOfShipment.split('T')[0]}
-                  name='ExpectedDateOfShipment'
-                  onChange={(e) => { saveDate(e, e.target.value) }}
+                  name="ExpectedDateOfShipment"
+                  onChange={(e) => {
+                    saveDate(e, e.target.value)
+                  }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Expected Date Of Shipment
@@ -238,9 +277,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={orderDetail?.transactionPeriodDays}
-                  name='transactionPeriodDays'
-                  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+                  name="transactionPeriodDays"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Transaction Period (Days)
