@@ -3,7 +3,6 @@ import styles from './index.module.scss'
 import { Form, Row, Col} from 'react-bootstrap'
 import UploadDocument from '../../src/components/UploadDocument'
 
-
 const Index = () => {
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>

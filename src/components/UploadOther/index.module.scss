@@ -327,3 +327,18 @@
     }
 
 }
+
+.pdfImage{
+    width: 57px;
+    height: 25px;
+
+    @include respond(sm-desktop) {
+        width: 50px;
+        height: 22px;
+    }
+    @include respond(phone) {
+        width: 35px;
+        height: 15px;
+    }
+
+  }
