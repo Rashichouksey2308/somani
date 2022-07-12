@@ -85,7 +85,6 @@
 
             .cardBody {
                 padding: 25px 35px;
-                border-top: 2px solid red;
                 @include respond(md-desktop) {
                         padding: 15px !important;
                     }
@@ -139,6 +138,7 @@
                     padding: 15px 15px !important;
                 }
                 .table {
+                    border-top: 2px solid #D9DDE8;
 
                     th {
                         font-size: 15px;
@@ -217,7 +217,7 @@
 
                     h3 {
                         font-size: 22px;
-
+                        color: #111111;
                         font-weight: bold;
                         line-height: 27px;
                         margin-bottom: 0;
