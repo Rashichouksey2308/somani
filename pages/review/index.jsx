@@ -670,9 +670,9 @@ function Index() {
 
                     <Ratios ratioData={companyData} />
 
-                    <Peer />
+                    <Peer peerData={companyData} />
 
-                    <OpenCharges />
+                    <OpenCharges chargesData={companyData} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
