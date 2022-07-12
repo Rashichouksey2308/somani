@@ -505,7 +505,7 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div class="d-flex align-items-center">
+          <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading pt-3 pb-3`}>
               <img
                 src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
