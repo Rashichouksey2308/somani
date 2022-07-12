@@ -666,7 +666,7 @@ function Index() {
 
                     <IncomeStatement incomeData={companyData} />
 
-                    <CashFlow />
+                    <CashFlow cashData={companyData} />
 
                     <Ratios />
 
