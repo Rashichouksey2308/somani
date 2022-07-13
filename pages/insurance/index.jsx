@@ -34,7 +34,7 @@ function Index() {
                 alt="Filter"
               />
             </a>
-             <a href="#" className={`${styles.filterList} filterList`}>
+             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>
@@ -42,7 +42,7 @@ function Index() {
             <a href="#" className={`${styles.filterList} filterList`}>
               Raj Traders
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-            </a> 
+            </a>  */}
 
             <button
               type="button"
