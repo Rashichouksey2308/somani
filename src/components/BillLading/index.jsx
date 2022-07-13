@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-
+import SaveBar from '../SaveBar'
 
 export default function Index() {
   return (
@@ -277,7 +277,7 @@ export default function Index() {
             
            
           </div>
-          <div className={`${styles.upload_main} mt-4 upload_main`}>
+          <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
       <div
         className={`${styles.head_container} border_color d-flex justify-content-between`}
         data-toggle="collapse"
@@ -416,7 +416,8 @@ export default function Index() {
     </div>
 
       </div>
-           
+      <SaveBar/>
+
               </div>
            </>
 

@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form} from 'react-bootstrap'
 import InspectionDocument from '../InspectionDocument'
+import SaveBar from '../SaveBar'
+
 
 export default function Index() {
   return (
@@ -30,6 +32,7 @@ export default function Index() {
            <InspectionDocument/>
            </div>
               </div>
+              <SaveBar/>
               </div>
            </>
 
