@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
@@ -25,7 +27,10 @@ Chart.register(
   CategoryScale,
   Filler,
 )
-function index() {
+function index({camData}) {
+
+  console.log(camData, "THIS IS CAM DATA")
+
   let tempArr = [
     { name: 'Sagar Sinha', value: '21', color: '#9675CE' },
     { name: 'Radhe Singh', value: '23', color: '#4CAF50' },
@@ -87,9 +92,9 @@ function index() {
   }
   return (
     <>
-      {basicInfo()}
-      {supplierInfo()}
-      {groupExposure()}
+      {basicInfo(camData)}
+      {supplierInfo(camData)}
+      {groupExposure(camData)}
       {orderSummary()}
       {creditProfile()}
       {directorDetails()}
@@ -111,7 +116,7 @@ function index() {
 
 export default index
 
-const basicInfo = () => {
+const basicInfo = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -145,7 +150,7 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading pl-5`}>
                     City
                   </span>
-                  <span className={`${styles.value} `}>Agra</span>
+                  <span className={`${styles.value} `}>{camData?.company?.keyAddress[0]?.city}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -153,13 +158,13 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     Customer
                   </span>
-                  <span className={`${styles.value} pr-5`}>Jaiswal Nico</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.company?.companyName}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     State
                   </span>
-                  <span className={`${styles.value}`}>Uttar Pradesh</span>
+                  <span className={`${styles.value}`}>{camData?.company?.keyAddress[0]?.state}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -167,7 +172,7 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     Type of Business
                   </span>
-                  <span className={`${styles.value} pr-5`}>Manufacturer</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.company?.typeOfBusiness}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
@@ -183,38 +188,38 @@ const basicInfo = () => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} `}>Order Value</span>
-                  <span className={`${styles.value} pr-5`}>500 CR</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.orderValue} {camData?.unitOfValue}</span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
                   md={5}
                 >
                   <span className={`${styles.key}  pl-5`}>Commodity</span>
-                  <span className={`${styles.value} `}>Iron</span>
+                  <span className={`${styles.value} `}>{camData?.commodity}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} `}>Quantity</span>
-                  <span className={`${styles.value} pr-5`}>500 MT</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.quantity} {camData?.unitOfQuantity}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}  pl-5`}>Supplier</span>
                   <span className={`${styles.value}`}>
-                    Ramakrishnan Traders
+                    {camData?.supplierName}
                   </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} `}>Country of Origins</span>
-                  <span className={`${styles.value} pr-5`}>India</span>
+                  <span className={`${styles.key} `}>Country of Origin</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.countryOfOrigin}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}  pl-5`}>
-                    Transaction Periody
+                    Transaction Period
                   </span>
-                  <span className={`${styles.value}`}>90 Days</span>
+                  <span className={`${styles.value}`}>{camData?.transactionPeriodDays}</span>
                 </Col>
               </Row>
             </div>
@@ -235,7 +240,7 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading pl-5`}>
                     Port of Discharge
                   </span>
-                  <span className={`${styles.value} `}>Vishakapatnam, AP</span>
+                  <span className={`${styles.value} `}>{camData?.portOfDischarge}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -243,13 +248,13 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     Exp. Date of Shipment
                   </span>
-                  <span className={`${styles.value} pr-5`}>14-05-2022</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.ExpectedDateOfShipment.split('T')[0]}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     ETA at Discharge port
                   </span>
-                  <span className={`${styles.value}`}>30-05-2022</span>
+                  <span className={`${styles.value}`}>{camData?.shipmentDetail?.ETAofDischarge?.fromDate?.split('T')[0]}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -257,13 +262,13 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     Laycan from
                   </span>
-                  <span className={`${styles.value} pr-5`}>14-06-2022</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     Laycan to
                   </span>
-                  <span className={`${styles.value}`}>14-06-2022</span>
+                  <span className={`${styles.value}`}>{camData?.shipmentDetail?.loadPort?.toDate?.split('T')[0]}</span>
                 </Col>
               </Row>
             </div>
@@ -273,7 +278,7 @@ const basicInfo = () => {
     </>
   )
 }
-const supplierInfo = () => {
+const supplierInfo = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -300,7 +305,7 @@ const supplierInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     No. of Shipments
                   </span>
-                  <span className={`${styles.value} pr-5`}>9,000</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.supplierCredential?.shipmentNumber}</span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
@@ -309,7 +314,7 @@ const supplierInfo = () => {
                   <span className={`${styles.key} label_heading pl-5`}>
                     Port of Destination
                   </span>
-                  <span className={`${styles.value} `}>9,000</span>
+                  <span className={`${styles.value} `}>{camData?.supplierCredential?.portOfDestination}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -317,13 +322,13 @@ const supplierInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     No. of Consignees
                   </span>
-                  <span className={`${styles.value} pr-5`}>9,000</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.supplierCredential?.consigneesNumber}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     Latest Shipment date
                   </span>
-                  <span className={`${styles.value}`}>22-02-2022</span>
+                  <span className={`${styles.value}`}>{camData?.supplierCredential?.latestShipmentDate?.split('T')[0]}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -331,13 +336,13 @@ const supplierInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     No. of HS codes
                   </span>
-                  <span className={`${styles.value} pr-5`}>9,000</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.supplierCredential?.HSCodesNumber}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     Oldest shipment date
                   </span>
-                  <span className={`${styles.value}`}>22-05-2022</span>
+                  <span className={`${styles.value}`}>{camData?.supplierCredential?.oldestShipmentDate?.split('T')[0]}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -345,7 +350,7 @@ const supplierInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     Country of Origins
                   </span>
-                  <span className={`${styles.value} pr-5`}>India</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.supplierCredential?.countryOfOrigin}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
@@ -354,7 +359,7 @@ const supplierInfo = () => {
                   <span
                     className={`${styles.value} ${styles.danger_highlight}`}
                   >
-                    15%
+                    {camData?.supplierCredential?.commodityOfTotalTrade} %
                   </span>
                 </Col>
               </Row>
@@ -362,10 +367,7 @@ const supplierInfo = () => {
             <div className={`${styles.remark_Wrapper}`}>
               <p className={`${styles.remark_head} label_heading`}>Remark</p>
               <p>
-                Lorem ipsum is a name for a common type of placeholder text.
-                Also known as filler or dummy text, this is simply text copy
-                that serves to fill a space without actually saying anything
-                meaningful.
+               {camData?.supplierCredential?.remarks}
               </p>
             </div>
           </div>
@@ -374,7 +376,7 @@ const supplierInfo = () => {
     </>
   )
 }
-const groupExposure = () => {
+const groupExposure = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -395,8 +397,74 @@ const groupExposure = () => {
           data-parent="#profileAccordion"
         >
           <div className={`${styles.info_wrapper} card-body border_color`}>
-            <Row className={`${styles.row}`}>
+          { camData && camData?.company?.groupExposureDetail?.map((exp, index) => ( <Row key={index} className={`${styles.row}`}>
               <Col md={4}>
+                <div className={`${styles.exposureCard}`}>
+                  <Row>
+                    <Col
+                      sm={12}
+                      className={`d-flex justify-content-start align-content-center  mb-5`}
+                    >
+                      <div className={`${styles.icon} `}>
+                        <span
+                          className={`d-flex justify-content-center align-content-center`}
+                        >
+                          ET
+                        </span>
+                      </div>
+
+                      <span className={` ${styles.name} ml-3  `}>
+                        {exp.name}
+                      </span>
+                    </Col>
+                    <Col sm={12} className={`${styles.limit}   mb-5`}>
+                      <div
+                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                      >
+                        <div className={`${styles.limit_box} `}>
+                          <span className={`${styles.limit_label} `}>
+                            LIMIT
+                          </span>
+                        </div>
+                        <span>{exp.limit}</span>
+                      </div>
+                      <div className={`${styles.bar}`}>
+                        <div className={`${styles.fill}`}></div>
+                      </div>
+                    </Col>
+                    <Col sm={12} className={`${styles.limit}   mb-5`}>
+                      <div
+                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                      >
+                        <div className={`${styles.limit_box} `}>
+                          <span className={`${styles.limit_label} `}>
+                            O/S BALANCE
+                          </span>
+                        </div>
+                        <span>{exp.outstandingLimit}</span>
+                      </div>
+                      <div className={`${styles.bar}`}>
+                        <div className={`${styles.fill}`}></div>
+                      </div>
+                    </Col>
+                    <Col sm={12} className={`${styles.limit}   mb-5`}>
+                      <div
+                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                      >
+                        <div className={`${styles.limit_box} `}>
+                          <span className={`${styles.limit_label} `}>
+                            CONDUCT
+                          </span>
+                        </div>
+                      </div>
+                      <p>
+                        {exp.accountConduct}
+                      </p>
+                    </Col>
+                  </Row>
+                </div>
+              </Col>
+              {/* <Col md={4}>
                 <div className={`${styles.exposureCard}`}>
                   <Row>
                     <Col
@@ -533,77 +601,8 @@ const groupExposure = () => {
                     </Col>
                   </Row>
                 </div>
-              </Col>
-              <Col md={4}>
-                <div className={`${styles.exposureCard}`}>
-                  <Row>
-                    <Col
-                      sm={12}
-                      className={`d-flex justify-content-start align-content-center  mb-5`}
-                    >
-                      <div className={`${styles.icon} `}>
-                        <span
-                          className={`d-flex justify-content-center align-content-center`}
-                        >
-                          ET
-                        </span>
-                      </div>
-
-                      <span className={` ${styles.name} ml-3  `}>
-                        Emerging Traders
-                      </span>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            LIMIT
-                          </span>
-                        </div>
-                        <span>1,900.00</span>
-                      </div>
-                      <div className={`${styles.bar}`}>
-                        <div className={`${styles.fill}`}></div>
-                      </div>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            O/S BALANCE
-                          </span>
-                        </div>
-                        <span>1,900.00</span>
-                      </div>
-                      <div className={`${styles.bar}`}>
-                        <div className={`${styles.fill}`}></div>
-                      </div>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            CONDUCT
-                          </span>
-                        </div>
-                      </div>
-                      <p>
-                        {' '}
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam
-                      </p>
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </Row>
+              </Col> */}
+            </Row>))}
           </div>
         </div>
       </div>

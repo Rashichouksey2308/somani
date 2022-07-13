@@ -271,6 +271,49 @@ function Index() {
     supplierName: orderList?.supplierCredentials?.supplierName,
   })
 
+  useEffect(()=>{
+    setProduct({
+      AvgMonthlyElectricityBill:
+        orderList?.productSummary?.AvgMonthlyElectricityBill,
+      availableStock: orderList?.productSummary?.availableStock,
+      averageStockInTransit: orderList?.productSummary?.averageStockInTransit,
+      averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity,
+      capacityUtilization: orderList?.productSummary?.capacityUtilization,
+      contributionCommoditySenstivity:
+        orderList?.productSummary?.contributionCommoditySenstivity,
+      dailyConsumptionOfCommodity:
+        orderList?.productSummary?.dailyConsumptionOfCommodity,
+      existingCHA: [],
+      existingProcurementOfCommodity:
+        orderList?.productSummary?.existingProcurementOfCommodity,
+      existingSuppliers: [],
+      monthlyProductionCapacity:
+        orderList?.productSummary?.monthlyProductionCapacity,
+      paymentStatusForElectricityBills:
+        orderList?.productSummary?.paymentStatusForElectricityBills,
+      stockCoverageOfCommodity:
+        orderList?.productSummary?.stockCoverageOfCommodity,
+      typeOfCurrency: orderList?.productSummary?.typeOfCurrency,
+      unitOfQuantity: orderList?.productSummary?.unitOfQuantity,
+    })
+    setSupplierCred({
+      HSCodesNumber: orderList?.supplierCredentials?.HSCodesNumber,
+      commodityOfTotalTrade:
+        orderList?.supplierCredentials?.commodityOfTotalTrade,
+      consigneesNumber: orderList?.supplierCredentials?.consigneesNumber,
+      countryOfOrigin: orderList?.supplierCredentials?.countryOfOrigin,
+      latestShipmentDate: orderList?.supplierCredentials?.lastDateOfShipment,
+      oldestShipmentDate: orderList?.supplierCredentials?.oldestShipmentDate,
+      portOfDestination: orderList?.supplierCredentials?.portOfDestination,
+      remarks: orderList?.supplierCredentials?.remarks,
+      shipmentNumber: orderList?.supplierCredentials?.shipmentNumber,
+      supplierName: orderList?.supplierCredentials?.supplierName,
+    })
+    
+  },[orderList])
+
+  console.log(supplierCred, "THIS IS SUPPLIER CRED")
+
   const saveSupplierData = (name, value) => {
     const newInput = { ...supplierCred }
     newInput[name] = value
