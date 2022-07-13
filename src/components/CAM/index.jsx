@@ -120,10 +120,10 @@ function index({ camData }) {
       {orderSummary(camData)}
       {creditProfile(camData, openChargesLength, primaryBankName, latestAuditorData, previousAuditorData)}
       {directorDetails(camData)}
-      {shareHolding(data, options, tempArr)}
-      {chargeDetails(data, options, tempArr)}
-      {debtProfile(data, options, tempArr)}
-      {operationalDetails()}
+      {shareHolding(data, options, tempArr, camData)}
+      {chargeDetails(data, options, tempArr, camData)}
+      {debtProfile(data, options, tempArr, camData)}
+      {operationalDetails(camData)}
       {revenuDetails()}
       {trends(dataline, lineOption)}
       {skewness(data, options, tempArr)}
@@ -939,7 +939,7 @@ const directorDetails = (camData) => {
     </>
   )
 }
-const shareHolding = (data, options, tempArr) => {
+const shareHolding = (data, options, tempArr, camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -999,7 +999,7 @@ const shareHolding = (data, options, tempArr) => {
                     <th>DIRECTOR</th>
                   </tr>
 
-                  <tr>
+              {  camData && camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map((share, index) => ( <tr key={index}>
                     <td
                       className={`d-flex justify-content-start align-content-center`}
                     >
@@ -1012,14 +1012,14 @@ const shareHolding = (data, options, tempArr) => {
                       </div>
 
                       <span className={` ${styles.name} ml-3  `}>
-                        % SHAREHOLDING
+                        {share?.fullName}
                       </span>
                     </td>
-                    <td>120</td>
-                    <td>80% </td>
-                    <td>Yes</td>
-                  </tr>
-                  <tr>
+                    <td>{share?.numberOfShares}</td>
+                    <td>{share?.percentageShareHolding}</td>
+                    <td>{share?.director ? 'Yes' : 'No'}</td>
+                  </tr>))}
+                  {/* <tr>
                     <td
                       className={`d-flex justify-content-start align-content-center`}
                     >
@@ -1058,7 +1058,7 @@ const shareHolding = (data, options, tempArr) => {
                     <td>120</td>
                     <td>80% </td>
                     <td>Yes</td>
-                  </tr>
+                  </tr> */}
                 </table>
               </Col>
             </Row>
@@ -1068,7 +1068,7 @@ const shareHolding = (data, options, tempArr) => {
     </>
   )
 }
-const chargeDetails = (data, options, tempArr) => {
+const chargeDetails = (data, options, tempArr, camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1127,7 +1127,7 @@ const chargeDetails = (data, options, tempArr) => {
                     <th>DATE OF CREATION</th>
                   </tr>
 
-                  <tr>
+              {  camData && camData?.company?.detailedCompanyInfo?.financial?.openCharges.map((charge, index) => ( <tr key={index}>
                     <td
                       className={`d-flex justify-content-start align-content-center`}
                     >
@@ -1140,14 +1140,14 @@ const chargeDetails = (data, options, tempArr) => {
                       </div>
 
                       <span className={` ${styles.name} ml-3  `}>
-                        % SHAREHOLDING
+                        {charge?.nameOfChargeHolder1}
                       </span>
                     </td>
-                    <td>1,900.00</td>
+                    <td>{charge?.finalAmountSecured}</td>
 
-                    <td>22-02-2020</td>
-                  </tr>
-                  <tr>
+                    <td>{charge?.dateOfCreationOfCharge}</td>
+                  </tr>))}
+                  {/* <tr>
                     <td
                       className={`d-flex justify-content-start align-content-center`}
                     >
@@ -1186,7 +1186,7 @@ const chargeDetails = (data, options, tempArr) => {
                     <td>1,900.00</td>
 
                     <td>22-02-2020</td>
-                  </tr>
+                  </tr> */}
                 </table>
               </Col>
             </Row>
@@ -1196,7 +1196,7 @@ const chargeDetails = (data, options, tempArr) => {
     </>
   )
 }
-const debtProfile = (data, options, tempArr) => {
+const debtProfile = (data, options, tempArr, camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1296,19 +1296,20 @@ const debtProfile = (data, options, tempArr) => {
                     <th>CONDUCT</th>
                   </tr>
 
-                  <tr>
-                    <td>ICICI Bank</td>
+              { camData && camData?.company?.debtProfile?.map((debt, index) => ( <tr key={index}>
+                    <td>{debt?.bankName}</td>
                     <td>
                       <input
                         className={`${styles.value} form-control`}
+                        defaultValue={debt?.limitType}
                         disabled={true}
                       />
                     </td>
 
-                    <td>₹ 800.00</td>
-                    <td className={`${styles.conduct} danger`}>Poor</td>
-                  </tr>
-                  <tr>
+                    <td>{debt?.limit}</td>
+                    <td className={`${styles.conduct} danger`}>{debt?.conduct}</td>
+                  </tr>))}
+                  {/* <tr>
                     <td>ICICI Bank</td>
                     <td>
                       <input
@@ -1331,7 +1332,7 @@ const debtProfile = (data, options, tempArr) => {
 
                     <td>₹ 800.00</td>
                     <td className={`${styles.conduct}`}>Poor</td>
-                  </tr>
+                  </tr> */}
                 </table>
               </Col>
             </Row>
@@ -1341,7 +1342,7 @@ const debtProfile = (data, options, tempArr) => {
     </>
   )
 }
-const operationalDetails = () => {
+const operationalDetails = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1368,7 +1369,7 @@ const operationalDetails = () => {
                   <span className={`${styles.key}`}>
                     Plant Production Capacity
                   </span>
-                  <span className={`${styles.value} pr-5`}>4,320.00 MTk</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.monthlyProductionCapacity}</span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
@@ -1377,19 +1378,19 @@ const operationalDetails = () => {
                   <span className={`${styles.key} pl-5`}>
                     Stock in Transit - Commodity
                   </span>
-                  <span className={`${styles.value} `}>4,320.00 MT</span>
+                  <span className={`${styles.value} `}>{camData?.productSummary?.averageStockInTransit}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}`}>Capacity Utilization</span>
-                  <span className={`${styles.value} pr-5`}>80%</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.productSummary?.capacityUtilization}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} pl-5`}>
                     Stock Coverage of Commodity
                   </span>
-                  <span className={`${styles.value}`}>30 Days</span>
+                  <span className={`${styles.value}`}>{camData?.productSummary?.averageStockOfCommodity}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1397,13 +1398,13 @@ const operationalDetails = () => {
                   <span className={`${styles.key}`}>
                     Available Stock of Commodity
                   </span>
-                  <span className={`${styles.value} pr-5`}>4,320.00 MT</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.productSummary?.availableStock}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} pl-5`}>
                     Avg Monthly Electricity Bill
                   </span>
-                  <span className={`${styles.value} `}>₹ 4,320.00</span>
+                  <span className={`${styles.value} `}>{camData?.productSummary?.AvgMonthlyElectricityBill}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1411,7 +1412,7 @@ const operationalDetails = () => {
                   <span className={`${styles.key} pl-5`}>
                     Daily Consumption of Commodity
                   </span>
-                  <span className={`${styles.value} `}>4,320.00 MT</span>
+                  <span className={`${styles.value} `}>{camData?.productSummary?.dailyConsumptionOfCommodity}</span>
                 </Col>
               </Row>
             </div>
