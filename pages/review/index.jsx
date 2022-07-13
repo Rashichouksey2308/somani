@@ -40,11 +40,17 @@ import {
 } from '../../src/redux/buyerProfile/action'
 import { element } from 'prop-types'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+
+import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
+
+
+
 function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
-  const [uploadBtn , setUploadBtn] = useState(true)
+  const [uploadBtn, setUploadBtn] = useState(true)
+  const [complienceFilter, setComplienceFilter] = useState("")
 
 
   const { orderList } = useSelector((state) => state.buyer)
@@ -52,7 +58,7 @@ function Index() {
   // console.log(orderList, 'this is order list')
 
   const { companyData } = useSelector((state) => state.companyDetails)
-  console.log(companyData, "this is company data")
+  console.log(companyData?.compliance, "this is company data")
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
@@ -502,7 +508,11 @@ function Index() {
         //  list[0].children[temIndex++].children[0].attributes[5].nodeValue=true
       }
     }
+
   }
+
+
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -517,9 +527,9 @@ function Index() {
               />
               {orderList?.company?.companyName}
             </h1>
-            {uploadBtn ? 
-                 <div className="ml-auto">
-                 {uploadButton()} </div> : null}
+            {uploadBtn ?
+              <div className="ml-auto">
+                {uploadButton()} </div> : null}
             {/* <div className="ml-auto">
                 <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                 <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
@@ -601,8 +611,8 @@ function Index() {
                 aria-controls="Orders"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e); 
-                  setUploadBtn(false)                 
+                  currentOpenLink(e);
+                  setUploadBtn(false)
 
                 }}
               >
@@ -619,7 +629,7 @@ function Index() {
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(false)                 
+                  setUploadBtn(false)
 
 
                 }}
@@ -637,7 +647,7 @@ function Index() {
                 aria-selected="true"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(false)                
+                  setUploadBtn(false)
 
                 }}
               >
@@ -654,7 +664,7 @@ function Index() {
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(false)                
+                  setUploadBtn(false)
 
 
                 }}
@@ -960,8 +970,14 @@ function Index() {
                           className={`${styles.categories} mb-0  d-flex align-items-center justify-content-between `}
                         >
                           <label className={styles.label}>Categories:</label>
-                          <select className="form-control">
-                            <option>Statutory Compliance</option>
+                          <select onChange={(e) => setComplienceFilter(e.target.value)} className="form-control">
+
+                            <option value="High" >High</option>
+                            <option value="Medium" >Medium</option>
+                            <option value="low" >low</option>
+                            <option value="Severe" >Severe</option>
+
+
                           </select>
                         </div>
                       </div>
@@ -976,7 +992,7 @@ function Index() {
                       <div
                         className={` ${styles.cardBody_details} card-body border_color`}
                       >
-                        {table2()}
+                        {table2(companyData, complienceFilter)}
                       </div>
                     </div>
                   </div>
@@ -1518,11 +1534,11 @@ export default Index
 
 const uploadButton = () => {
   return (
- 
-     <>
-                <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-                <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-            </>
+
+    <>
+      <button onClick={() => dispatch(RefetchCombineKarza(companyData.company))} type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
+      <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
+    </>
 
   )
 }
@@ -1538,7 +1554,12 @@ const ligitations = () => {
   )
 }
 
-const table2 = () => {
+const table2 = (companyData, complienceFilter) => {
+  const filteredData = companyData?.compliance?.alerts?.filter((data)=> data.severity.trim().toLowerCase() === complienceFilter.trim().toLowerCase());
+  const alerts = companyData 
+  console.log(companyData,filteredData,"fileteredData")
+
+
   return (
     <table
       className={`${styles.table_details} table border-color`}
@@ -1558,7 +1579,7 @@ const table2 = () => {
       </thead>
       <tbody>
         <tr>
-          <td className={styles.firstCell} rowSpan="3">
+          <td className={styles.firstCell} rowSpan='3'>
             Statutory Compliance
           </td>
           <td> EPF Transaction Default</td>
@@ -1567,23 +1588,17 @@ const table2 = () => {
           <td> Establishment ID</td>
           <td> MRMRT0015543000, UKDDN0020827000</td>
         </tr>
-        <tr>
-          <td> IEC In Denied Entity List</td>
-          <td> Medium</td>
-          <td> IEC</td>
-          <td> IEC</td>
-          <td> 290000291</td>
-        </tr>
+       {filteredData?.map((alert,index)=> (
+         <tr key={index}>
+         <td> {alert.alert}</td>
+         <td> {alert.idType}</td>
+         <td> {alert.severity}</td>
+         <td> {alert.source}</td>
+         <td> {alert.value}</td>
+       </tr>
+       ))}
 
-        <tr>
-          {/* <td rowspan="3">Statutory Compliance</td> */}
-
-          <td> GST Transaction Default</td>
-          <td> Medium</td>
-          <td> GST</td>
-          <td> GSTIN</td>
-          <td>05AAGCS8808K2ZY, 09AAGCS8808K1ZR</td>
-        </tr>
+       
 
         <tr>
           <td className={styles.firstCell} rowSpan="6">

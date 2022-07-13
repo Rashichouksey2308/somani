@@ -44,6 +44,28 @@ function updateCompanyDetailsFailed() {
 }
 
 
+function refetchCombineKarza() {
+  return {
+    type: types.REFETCH_COMBINE_KARZA,
+  }
+}
+
+function refetchCombineKarzaSuccess(payload) {
+  return {
+    type: types.REFETCH_COMBINE_KARZA_SUCCESS,
+    payload,
+  }
+}
+
+function refetchCombineKarzaFailed() {
+  return {
+    type: types.REFETCH_COMBINE_KARZA_FAILED,
+  }
+}
+
+
+
+
 
 
 
@@ -113,6 +135,43 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
     dispatch(updateCompanyDetailsFailed())
 
     let toastMessage = 'COULD NOT UPDATE COMPANY DETAILS'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}
+
+
+
+
+export const RefetchCombineKarza = (payload) => (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+
+  try {
+    Axios.post(
+      `${API.corebaseUrl}${API.refetchCombineKarza}`, payload,
+      {
+        headers: headers,
+      },
+    ).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(refetchCombineKarzaSuccess(response.data.data))
+      } else {
+        dispatch(refetchCombineKarzaFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(refetchCombineKarzaFailed())
+
+    let toastMessage = 'COULD NOT FETCH DATA FROM KARZA'
     if (!toast.isActive(toastMessage)) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
