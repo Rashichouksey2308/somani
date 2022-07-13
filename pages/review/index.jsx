@@ -876,8 +876,6 @@ function Index() {
                                       </div>
                                     )
                                   }
-
-
                                 })}
                               </div>
                             </div>
@@ -981,7 +979,7 @@ function Index() {
                                 className="form-check-label"
                                 htmlFor="flexCheckDefault"
                               >
-                                Pending (4)
+                                Pending ({companyData?.compliance?.litigations[0]?.pendingCase})
                               </label>
                             </div>
                             <div className="form-check ml-4">
@@ -995,7 +993,7 @@ function Index() {
                                 className="form-check-label"
                                 htmlFor="flexCheckDefault"
                               >
-                                Disposed (2)
+                                Disposed ({companyData?.compliance?.litigations[0]?.disposedCase})
                               </label>
                             </div>
                             <div className="form-check  ml-4">
@@ -1009,7 +1007,7 @@ function Index() {
                                 className="form-check-label"
                                 htmlFor="flexCheckDefault"
                               >
-                                Total Cases (5)
+                                Total Cases ({companyData?.compliance?.litigations[0]?.totalCase})
                               </label>
                             </div>
                             </div>
@@ -1099,7 +1097,7 @@ function Index() {
 
                   
                   />
-                  <span className={styles.control__content}><span>{`High Risk (5)`}</span></span>
+                  <span className={styles.control__content}><span>{`High Risk (${companyData?.compliance?.litigations[0]?.highRisk})`}</span></span>
                   </label>
 
                   <label  className={styles.control} htmlFor={"medium"}>
@@ -1112,7 +1110,7 @@ function Index() {
 
                   
                   />
-                  <span className={styles.control__content}><span>{`Medium Risk (5)`}</span></span>
+                  <span className={styles.control__content}><span>{`Medium Risk (${companyData?.compliance?.litigations[0]?.mediumRisk})`}</span></span>
                   </label>
                   <label  className={styles.control} htmlFor={"Relevance"}>
                   <input
@@ -1124,7 +1122,7 @@ function Index() {
 
                   
                   />
-                  <span className={styles.control__content}><span>{`High Relevance (5)`}</span></span>
+                  <span className={styles.control__content}><span>{`High Relevance (${companyData?.compliance?.litigations[0]?.highPriority})`}</span></span>
                   </label>
                   </div>
 
@@ -1591,8 +1589,6 @@ const ligitations = (companyData) => {
 const table2 = (companyData, complienceFilter) => {
   const filteredData = companyData?.compliance?.alerts?.filter((data)=> data.severity.trim().toLowerCase() === complienceFilter.trim().toLowerCase());
   const length = filteredData?.length
-  console.log(length,"length")
-  //console.log(companyData,filteredData,"fileteredData")
 
 
   return (
