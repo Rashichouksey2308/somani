@@ -44,6 +44,8 @@ function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
+  const [uploadBtn , setUploadBtn] = useState(true)
+
 
   const { orderList } = useSelector((state) => state.buyer)
 
@@ -515,10 +517,13 @@ function Index() {
               />
               {orderList?.company?.companyName}
             </h1>
-            <div className="ml-auto">
+            {uploadBtn ? 
+                 <div className="ml-auto">
+                 {uploadButton()} </div> : null}
+            {/* <div className="ml-auto">
                 <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                 <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-            </div>
+            </div> */}
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
@@ -530,7 +535,8 @@ function Index() {
                 aria-controls="Profile"
                 aria-selected="true"
                 onClick={(e) => {
-                  currentOpenLink(e)
+                  currentOpenLink(e);
+                  setUploadBtn(true)
                 }}
               >
                 Profile
@@ -545,7 +551,8 @@ function Index() {
                 aria-controls="Financials"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e)
+                  currentOpenLink(e);
+                  setUploadBtn(true)
                 }}
               >
                 Financials
@@ -560,7 +567,9 @@ function Index() {
                 aria-controls="GST"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e)
+                  currentOpenLink(e);
+                  setUploadBtn(true)
+
                 }}
               >
                 GST
@@ -575,7 +584,9 @@ function Index() {
                 aria-controls="Compliance"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e)
+                  currentOpenLink(e);
+                  setUploadBtn(true)
+
                 }}
               >
                 Compliance
@@ -590,7 +601,9 @@ function Index() {
                 aria-controls="Orders"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e)
+                  currentOpenLink(e); 
+                  setUploadBtn(false)                 
+
                 }}
               >
                 Orders
@@ -605,7 +618,10 @@ function Index() {
                 aria-controls="Credit"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e)
+                  currentOpenLink(e);
+                  setUploadBtn(false)                 
+
+
                 }}
               >
                 Credit
@@ -620,7 +636,9 @@ function Index() {
                 aria-controls="DocumentsTab"
                 aria-selected="true"
                 onClick={(e) => {
-                  currentOpenLink(e)
+                  currentOpenLink(e);
+                  setUploadBtn(false)                
+
                 }}
               >
                 Documents
@@ -635,7 +653,10 @@ function Index() {
                 aria-controls="CAM"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e)
+                  currentOpenLink(e);
+                  setUploadBtn(false)                
+
+
                 }}
               >
                 CAM
@@ -1494,6 +1515,17 @@ function Index() {
   )
 }
 export default Index
+
+const uploadButton = () => {
+  return (
+ 
+     <>
+                <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
+                <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
+            </>
+
+  )
+}
 
 const ligitations = () => {
   return (
