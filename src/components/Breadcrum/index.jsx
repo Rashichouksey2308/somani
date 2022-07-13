@@ -12,7 +12,7 @@ export default function Index({isQuery}) {
       show.units=false
       show.currency=false
       setShow({...show})
-    }else if(isQuery?.match("/credit-queue")||isQuery?.match("/termsheet")||isQuery?.match("/margin-money")){
+    }else if(isQuery?.match("/credit-queue")||isQuery?.match("/termsheet")||isQuery?.match("/margin-money")|| isQuery?.match("/review")){
       show.units=false
       show.currency=true
       setShow({...show})
@@ -23,12 +23,12 @@ export default function Index({isQuery}) {
       setShow({...show})
     }
     else{
-       show.units=true
+      show.units=true
       show.currency=true
       setShow({...show})
     }
   },[isQuery])
- 
+ console.log(isQuery,"isQuery")
   const [myUrl, setUrl] = useState([]);
    const [myUrlLength, setUrlLength] = useState([]);
   var url = [];
