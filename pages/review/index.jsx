@@ -49,7 +49,7 @@ function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
-  const [uploadBtn, setUploadBtn] = useState(true)
+  const [uploadBtn, setUploadBtn] = useState(false)
   const [complienceFilter, setComplienceFilter] = useState("")
 
 
@@ -58,7 +58,7 @@ function Index() {
   // console.log(orderList, 'this is order list')
 
   const { companyData } = useSelector((state) => state.companyDetails)
-  console.log(companyData?.compliance, "this is company data")
+  console.log(companyData, "this is company data")
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
@@ -707,7 +707,7 @@ function Index() {
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(false)
+                  setUploadBtn(true)
 
 
                 }}
@@ -774,7 +774,7 @@ function Index() {
                           <div
                             className={`${styles.status} d-flex align-items-center justify-content-between`}
                           >
-                            <span> NON-COMPLIANT HIGH RISK</span>
+                            <span>{companyData?.compliance?.other?.complianceStatus} </span>
                           </div>
                         </div>
                       </div>
@@ -1605,7 +1605,10 @@ const uploadButton = () => {
   return (
 
     <>
-      <button onClick={() => dispatch(RefetchCombineKarza(companyData.company))} type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
+      <button onClick={() =>
+      console.log("update initiated ")
+       //  dispatch(RefetchCombineKarza(companyData.company))
+         } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
       <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
     </>
 
@@ -1623,7 +1626,7 @@ const ligitations = (companyData) => {
       <LigitationsTable data={supremeCourtData} Heading={"Supreme Court"} val={'LigitationsTable1'} />
       <LigitationsTable data={highCourtData} Heading={"High Court"} val={'LigitationsTable2'} />
       <LigitationsTable data={districtCourtData} Heading={"District Court"} val={'LigitationsTable3'} />
-      <LigitationsTable data={tribunalCourtsData} Heading={"Tribunal Courts"} val={'LigitationsTable3'} />
+      <LigitationsTable data={tribunalCourtsData} Heading={"Tribunal Courts"} val={'LigitationsTable4'} />
     </>
   )
 }
