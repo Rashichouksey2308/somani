@@ -1216,14 +1216,10 @@ const debtProfile = (data, options, tempArr) => {
                   <tr>
                     <td>ICICI Bank</td>
                     <td>
-                      <select
+                      <input
                         className={`${styles.value} form-control`}
-                        required
-                      >
-                        <option>Cash Credit</option>
-                        <option>Post Ship Credit</option>
-                        <option>Bank Guarantee</option>
-                      </select>
+                        disabled={true}
+                      /> 
                     </td>
 
                     <td>₹ 800.00</td>
@@ -1232,14 +1228,10 @@ const debtProfile = (data, options, tempArr) => {
                   <tr>
                     <td>ICICI Bank</td>
                     <td>
-                      <select
+                      <input
                         className={`${styles.value} form-control`}
-                        required
-                      >
-                        <option>Cash Credit</option>
-                        <option>Post Ship Credit</option>
-                        <option>Bank Guarantee</option>
-                      </select>
+                        disabled={true}
+                      /> 
                     </td>
 
                     <td>₹ 800.00</td>
@@ -1248,14 +1240,10 @@ const debtProfile = (data, options, tempArr) => {
                   <tr>
                     <td>ICICI Bank</td>
                     <td>
-                      <select
+                      <input
                         className={`${styles.value} form-control`}
-                        required
-                      >
-                        <option>Cash Credit</option>
-                        <option>Post Ship Credit</option>
-                        <option>Bank Guarantee</option>
-                      </select>
+                        disabled={true}
+                      /> 
                     </td>
 
                     <td>₹ 800.00</td>
@@ -1826,9 +1814,8 @@ const sectionTerms = () => {
                 <td>
                   <input type="checkbox"></input>
                 </td>
-                <td>
-                  <input type="text" placeholder="1,900.00"></input>
-                </td>
+                <td>1,900.00</td>
+
               </tr>
               <tr>
                 <td>Limit Value</td>
@@ -1838,9 +1825,8 @@ const sectionTerms = () => {
                 <td>
                   <input type="checkbox"></input>
                 </td>
-                <td>
-                  <input type="text" placeholder="1,900.00"></input>
-                </td>
+                <td>1,900.00</td>
+
               </tr>
             </table>
             <div>
