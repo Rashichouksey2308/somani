@@ -1219,7 +1219,7 @@ const debtProfile = (data, options, tempArr) => {
                       <input
                         className={`${styles.value} form-control`}
                         disabled={true}
-                      /> 
+                      />
                     </td>
 
                     <td>₹ 800.00</td>
@@ -1231,7 +1231,7 @@ const debtProfile = (data, options, tempArr) => {
                       <input
                         className={`${styles.value} form-control`}
                         disabled={true}
-                      /> 
+                      />
                     </td>
 
                     <td>₹ 800.00</td>
@@ -1243,7 +1243,7 @@ const debtProfile = (data, options, tempArr) => {
                       <input
                         className={`${styles.value} form-control`}
                         disabled={true}
-                      /> 
+                      />
                     </td>
 
                     <td>₹ 800.00</td>
@@ -1815,7 +1815,6 @@ const sectionTerms = () => {
                   <input type="checkbox"></input>
                 </td>
                 <td>1,900.00</td>
-
               </tr>
               <tr>
                 <td>Limit Value</td>
@@ -1826,7 +1825,6 @@ const sectionTerms = () => {
                   <input type="checkbox"></input>
                 </td>
                 <td>1,900.00</td>
-
               </tr>
             </table>
             <div>
