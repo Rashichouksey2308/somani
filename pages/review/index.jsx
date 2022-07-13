@@ -1630,8 +1630,8 @@ const ligitations = (companyData) => {
 
 const table2 = (companyData, complienceFilter) => {
   const filteredData = companyData?.compliance?.alerts?.filter((data)=> data.severity.trim().toLowerCase() === complienceFilter.trim().toLowerCase());
-  const length = filteredData.length
-  console.log(length,"length")
+  const length = filteredData?.length
+  // console.log(length,"length")
   //console.log(companyData,filteredData,"fileteredData")
 
 
