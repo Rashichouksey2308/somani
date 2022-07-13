@@ -24,8 +24,8 @@ function Index() {
   
  useEffect(() => {
      dispatch(setPageName('leads'))
-     dispatch(setDynamicName("Name of Company"))
-  })
+     dispatch(setDynamicName(singleOrder?.data[0]?.company?.companyName))
+  },[singleOrder])
 
   const handleRoute = (buyer) => {
     // if (buyer.queue === 'ReviewQueue') {
@@ -53,7 +53,7 @@ function Index() {
              <div className={styles.head_header}>
                     <img className={`${styles.arrow} img-fluid`}
                         src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-                    <h1 className={`${styles.heading} heading`}>{singleOrder?.data[0].company.companyName}</h1>
+                    <h1 className={`${styles.heading} heading`}>{singleOrder?.data[0]?.company?.companyName}</h1>
                 </div>
         
 
