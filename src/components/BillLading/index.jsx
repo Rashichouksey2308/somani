@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-
+import SaveBar from '../SaveBar'
 
 export default function Index() {
   return (
@@ -177,8 +177,13 @@ export default function Index() {
                 </div>
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                   <div className='d-flex justify-content-start'>
-                  <button className={`${styles.upload_btn}`}>Upload Excel</button>
-                  <div className={`${styles.upload_text}`}>
+                  <div className={styles.uploadBtnWrapper}>
+                              <input type="file" name="myfile" />
+                              <button className={`${styles.upload_btn} btn`}>
+                                Upload Excel
+                              </button>
+                            </div>
+                <div className={`${styles.upload_text}`}>
                   ONLY .XLS FILES ARE ALLOWED 
                   <br/> &amp; MAX FILE SIZE UP TO 50MB</div>
                  </div>
@@ -193,9 +198,9 @@ export default function Index() {
                 <table className={`${styles.table} table mt-5`} cellPadding="0" cellSpacing="0" border="0">
                     <thead>
                         <tr>
-                            <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src = "./static/icons8-sort-24.png " alt="Sort icon"/></th>
-                            <th>FORMAT <img className={`${styles.sort_img} mb-1`} src ="./static/icons8-sort-24.png " alt="Sort icon"/></th>
-                            <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src ="./static/icons8-sort-24.png " alt="Sort icon"/></th>
+                            <th>DOCUMENT NAME <img className={`${styles.sort_image} mb-1`} src = "./static/icons8-sort-24.png " alt="Sort icon"/></th>
+                            <th>FORMAT <img className={`${styles.sort_image} mb-1`} src ="./static/icons8-sort-24.png " alt="Sort icon"/></th>
+                            <th>DOCUMENT DATE <img className={`${styles.sort_image} mb-1`} src ="./static/icons8-sort-24.png " alt="Sort icon"/></th>
                             <th>ACTION</th>
                         </tr>
                         </thead>                        
@@ -207,8 +212,12 @@ export default function Index() {
                             <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
                             <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                             <td> 
-                            <button className={styles.upload_btn}>Upload</button>
-                   
+                            <div className={styles.uploadBtnWrapper}>
+                              <input type="file" name="myfile" />
+                              <button className={`${styles.upload_btn} btn`}>
+                                Upload
+                              </button>
+                            </div>                   
                             </td>
                         </tr>
                               
@@ -250,8 +259,12 @@ export default function Index() {
                             <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
                             <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                             <td> 
-                            <button className={styles.upload_btn}>Upload</button>
-                   
+                            <div className={styles.uploadBtnWrapper}>
+                              <input type="file" name="myfile" />
+                              <button className={`${styles.upload_btn} btn`}>
+                                Upload
+                              </button>
+                            </div>                   
                             </td>
                         </tr>
                               
@@ -264,7 +277,7 @@ export default function Index() {
             
            
           </div>
-          <div className={`${styles.upload_main} mt-4 upload_main`}>
+          <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
       <div
         className={`${styles.head_container} border_color d-flex justify-content-between`}
         data-toggle="collapse"
@@ -403,7 +416,8 @@ export default function Index() {
     </div>
 
       </div>
-           
+      <SaveBar/>
+
               </div>
            </>
 

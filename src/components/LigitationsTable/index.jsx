@@ -2,7 +2,10 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 
-function index({ val }) {
+function index({data,Heading, val }) {
+  const totalNumberOfCases = data?.length
+  //const pendingCases = data.filter((e)=> e.)
+  console.log(totalNumberOfCases,'totalNumberOfCases')
   return (
     <div className={`${styles.card_litigations} card`}>
       <div className={`${styles.card_ligitations_holder}`}>
@@ -15,7 +18,7 @@ function index({ val }) {
         >
           <Row className={`${styles.row}`}>
             <Col md={3} sm={2}>
-              <div className="mb-0">Tribunals</div>
+              <div className="mb-0">{Heading}</div>
             </Col>
             <Col md={3} sm={2}>
               <div className={`${styles.head} mb-0 d-flex align-items-center `}>
@@ -73,20 +76,21 @@ function index({ val }) {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1.</td>
-                  <td className="">DLND0201</td>
-                  <td className="">CC NI ACT/4476/2021</td>
-                  <td className="">CC NI ACT</td>
-                  <td className="">U/S 7 lbc 2016</td>
-                  <td className="">Ms. Juhi Singh</td>
-                  <td className="">Ms. Juhi Singh</td>
+               {data && data?.map((courtCase, index)=> (
+                 <tr key={index}>
+                  <td>{index+1}</td>
+                  <td className="">{courtCase.cin}</td>
+                  <td className="">{courtCase.caseNumber}</td>
+                  <td className="">{courtCase.caseType}</td>
+                  <td className="">{courtCase.section}</td>
+                  <td className="">{courtCase.petitioner}</td>
+                  <td className="">{courtCase.cin}</td>
                   <td className="text-center">
                     <img src="./static/blue-eye.svg"
                     className='img-fluid'
                     alt="blue eye"></img>
                   </td>
-                </tr>
+                </tr>))}
               </tbody>
             </table>
 

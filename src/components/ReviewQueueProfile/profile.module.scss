@@ -711,7 +711,19 @@
                         margin-left: -40px;
         
                     }
-        
+                    .saveBtn {
+                        background: #3687E8;
+                        border-radius: 5px;
+                        text-align: center;
+                        color: #FFFFFF;
+                        font-size: 20px;
+                        font-weight: bold;
+                        line-height: 25px;
+                        text-transform: capitalize;
+                        border: none;
+                        width: 260px;
+                        height: 48px;
+                    }
                     .label_heading {
                         top: 27px;
                         left: 30px;

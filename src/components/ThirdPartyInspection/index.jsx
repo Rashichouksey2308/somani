@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
+import SaveBar from '../SaveBar'
 
 
 export default function Index() {
@@ -350,6 +351,7 @@ export default function Index() {
             </div>         
                 </div>
               </div>
+              <SaveBar/>
               </div>
            </>
 
