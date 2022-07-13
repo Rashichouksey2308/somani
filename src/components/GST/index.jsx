@@ -752,9 +752,9 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <td className={styles.second_head}>TURNOVER</td>
                 <td className={styles.second_head}>% SHARE</td>
 
-                <td className={styles.second_head}>CUSTOMERS</td>
+                {/* <td className={styles.second_head}>CUSTOMERS</td>
                 <td className={styles.second_head}>INVOICES</td>
-                <td className={styles.second_head}>AVG. SALES PER CUSTOMER</td>
+                <td className={styles.second_head}>AVG. SALES PER CUSTOMER</td> */}
               </tr>
               <tr>
                 <td className={` ${styles.first}`}>Ferro-Alloys</td>
@@ -762,9 +762,9 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <td>25.40</td>
                 <td>25.40E</td>
 
-                <td>24</td>
+                {/* <td>24</td>
                 <td>19</td>
-                <td>1.05</td>
+                <td>1.05</td> */}
               </tr>
               <tr>
                 <td className={` ${styles.first}`}>Ferro-Alloys</td>
@@ -772,9 +772,9 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <td>25.40</td>
                 <td>25.40E</td>
 
-                <td>24</td>
+                {/* <td>24</td>
                 <td>19</td>
-                <td>1.05</td>
+                <td>1.05</td> */}
               </tr>
               <tr>
                 <td className={` ${styles.first}`}>Ferro-Alloys</td>
@@ -782,9 +782,9 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <td>25.40</td>
                 <td>25.40E</td>
 
-                <td>24</td>
+                {/* <td>24</td>
                 <td>19</td>
-                <td>1.05</td>
+                <td>1.05</td> */}
               </tr>
             </table> 
    
