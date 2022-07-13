@@ -162,7 +162,13 @@ function Index({ companyId, companyDetail }) {
                                     <strong className="text-danger">*</strong>
                                 </label>
                             </div>
+                            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                             <button className={`${styles.saveBtn} `}>Save</button>
+                            </div>
+
+                            {/* <div className='mt-3 ml-3'>
                             <CommonSave onSave={saveHandler} />
+                            </div> */}
                         </div>
                     </div>
                 </div>

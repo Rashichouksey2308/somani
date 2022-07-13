@@ -937,7 +937,20 @@ function Index() {
                       aria-expanded="true"
                       aria-controls="litigations"
                     >
-                      <h2 className="mb-3">Litigations</h2>
+                      <div
+                        className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
+                      >
+                      <h2 className="w-100 mb-3">Litigations</h2>
+                      <div
+                          className={`${styles.categories}  d-flex align-items-center `}>
+                          <label className={styles.label}>Litigations Status:</label>
+                          <select className="form-control">
+                            <option>Pending</option>
+                            <option>Active</option>
+
+                          </select>
+                          </div>
+                        </div>
                       <span>+</span>
                     </div>
                     <div
@@ -1191,6 +1204,7 @@ function Index() {
                     weaknessComment={weaknessComment}
                   />
                   <CommonSave onSave={onCreditSave} />
+                 
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM />

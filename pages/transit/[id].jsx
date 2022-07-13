@@ -86,7 +86,7 @@ function Index() {
             <div className="col-md-12 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
-                  className="tab-pane fade"
+                  className="tab-pane show active fade"
                   id="billLanding"
                   role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
