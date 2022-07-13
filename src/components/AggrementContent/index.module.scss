@@ -1,5 +1,6 @@
  @import "../styles/Core/config";
 .container{
+    padding: 0rem !important;
     .form_group {
         position: relative;
         margin-bottom: 20px;
@@ -9,8 +10,8 @@
         }
     
         .label_heading {
-            top: 60px;
-            left: 45px;
+            top: 40px;
+                left: 30px;
             
             font-size: 16px;
             line-height: 0.5;
@@ -49,7 +50,7 @@
     
             &:focus {
                 &+label {
-                    transform: translateY(-31px);
+                    transform: translateY(-28px);
                 }
             }
     
@@ -72,5 +73,268 @@
            left: 30px;  
         }
     
+    }
+    .addressContainer{
+      span{
+        font-size: 20px;
+        line-height:25px;
+        font-weight: bold;
+        margin-bottom: 3rem;
+        
+      }
+      .registeredAddress{
+        margin-top: 1rem;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border: 2px solid #CAD6E6;
+        border-radius: 9px;
+        span{
+            color: #3687E8;
         }
+        div{
+           
+            margin-top:1rem !important;
+            margin-bottom: 1rem !important;
+            padding: 0px !important;
+            letter-spacing: 0.19px;
+            margin: 0px;
+            div{
+                width: 99%;
+            }
+        }
+      }
+      .addressEdit{
+        background: #C3C3C31F 0% 0% no-repeat padding-box;
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .newAddressContainer{
+            .newAddress {
+                    padding: 0px !important;
+                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    border: 2px solid #CAD6E6;
+                    border-radius: 9px;
+            
+                    .newAddressHead {
+                        color: #3687E8;
+                        font-size: 22px;
+                        line-height: 27px;
+                        font-weight: bold;
+                        border-bottom: 2px solid red;
+                    }
+            
+                    .row {
+                        margin: 0px;
+                        padding: 0px !important;
+            
+                        div {
+                            padding-bottom: 0px !important;
+                            
+                            margin-bottom: 0px !important;
+                            max-width: 100%;
+                        }
+            
+                        .each_input {
+                            position: relative;
+                            margin-bottom: 20px;
+                            margin-top: 20px;
+            
+                            @include respond(phone) {
+                                margin: 20px 0px 20px;
+                            }
+            
+                            .label_heading {
+                                top: 40px;
+                                left: 30px;
+                                font-size: 16px;
+                                line-height: 0.5;
+                                margin-bottom: 0;
+                                letter-spacing: 0.53px;
+                                position: absolute;
+                                pointer-events: none;
+                                box-sizing: border-box;
+                                transform: translateY(-31px);
+                                transition: 0.3s all ease-in-out;
+            
+                                @include respond(lg-desktop) {
+                                    font-size: $font_size_mobile_input_label;
+                                }
+            
+                                @include respond(md-desktop) {
+                                    font-size: $font_size_mobile_input_label;
+                                }
+            
+                                @include respond(sm-desktop) {
+                                    font-size: $font_size_sm_input_label;
+                                }
+            
+                                @include respond(phone) {
+                                    font-size: $font_size_mobile_input_label;
+                                }
+                            }
+            
+                            .slider_value {
+                                background: #C3C3C31F;
+                                border: 1px solid #0000001F;
+                                border-radius: 4px;
+                                letter-spacing: 0.53px;
+                                color: #00000080;
+                                font-size: 16px;
+                                line-height: 17px;
+                                font-weight: 500;
+                                padding: 5px 25px 5px 25px;
+                                margin-top: -12px;
+                                margin-left: 20px;
+            
+                                span {
+                                    letter-spacing: 0.19px;
+                                    color: #111111;
+                                    text-transform: capitalize;
+                                    font-size: 20px;
+                                    line-height: 25px;
+            
+                                }
+            
+                            }
+            
+                            .input_field {
+                                height: 60px;
+                                border-radius: 4px;
+                                font-size: 20px;
+                                font-weight: 500;
+                                outline: none;
+                                box-shadow: none;
+                                position: relative;
+                                box-sizing: border-box;
+            
+                                &:invalid+label {
+                                    transform: translateY(0);
+                                }
+            
+                                &:focus {
+                                    &+label {
+                                        transform: translateY(-31px);
+                                    }
+                                }
+                            }
+            
+                            .slidecontainer {
+                                width: 100%;
+                                margin-top: 38px;
+                                position: relative;
+            
+                                .slider {
+                                    -webkit-appearance: none;
+                                    /* Override default CSS styles */
+                                    width: 100%;
+                                    /* Full-width */
+                                    opacity: 0.7;
+                                    /* Set transparency (for mouse-over effects on hover) */
+                                    -webkit-transition: .2s;
+                                    /* 0.2 seconds transition on hover */
+                                    transition: opacity .2s;
+                                    outline: none;
+                                    // background: linear-gradient(90deg, #3687E8 55%, #C3C3C31F 40%);
+                                    border: 1px solid #0000001F;
+                                    border-radius: 4px;
+                                    height: 13px;
+                                }
+            
+                                datalist {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    font-size: 16px;
+                                    letter-spacing: 0.15px;
+                                    color: #666666;
+                                    text-transform: capitalize;
+                                    width: 100%;
+                                    margin-top: 8px;
+            
+                                    option {
+                                        position: relative;
+            
+                                        &::after {
+                                            content: "";
+                                            position: absolute;
+                                            background: #707070;
+                                            width: 2px;
+                                            height: 5px;
+                                            top: -4px;
+                                            left: 50%;
+                                            transform: translateX(-50%);
+                                        }
+                                    }
+                                }
+            
+                                .more_label {
+                                    text-align: center;
+                                    letter-spacing: 0.12px;
+                                    color: #666666;
+                                    font-size: 13px;
+                                    line-height: 13px;
+                                }
+            
+                                .slider::-webkit-slider-thumb {
+                                    -webkit-appearance: none;
+                                    appearance: none;
+                                    width: 29px;
+                                    height: 16px;
+                                    background: transparent;
+                                    box-shadow: 0px 3px 6px #697AB429;
+                                    border: 3px solid #3579F6;
+                                    border-radius: 4px;
+                                    position: relative;
+                                    margin-top: -19px;
+                                }
+                            }
+            
+                            .phone_card {
+                                display: flex;
+                                padding: 0px !important;
+            
+                                .code_phone {
+                                    font-size: 19px;
+                                    letter-spacing: 0.18px;
+                                    color: #3687E8;
+                                    text-transform: capitalize;
+                                    outline: none;
+                                    border-radius: 4px 0 0 4px;
+                                }
+                            }
+            
+                            .range_field {
+                                background-color: #3687E8;
+                                border-radius: 4px;
+                            }
+                        }
+            
+                        .phone {
+                            .label_heading {
+                                left: 90px;
+                                transform: translate(-61px, -31px);
+                            }
+            
+                            .input_field {
+                                &:focus {
+                                    &+label {
+                                        transform: translate(-61px, -31px);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    span{
+                      font-size: 20px;
+                      line-height:25px;
+                      font-weight: bold;
+                      padding: 1rem !important;
+                      margin-top:1rem;
+                      margin-bottom: 1rem;
+                    
+                    }
+                }
+    }
+
 }

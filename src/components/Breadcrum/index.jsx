@@ -8,7 +8,7 @@ export default function Index({isQuery}) {
     currency:true
   })
   useEffect(() => {
-    if(isQuery?.match("/leads")||isQuery?.match("/review")) {
+    if(isQuery?.match("/leads")||isQuery?.match("/review")||isQuery?.match("/order-list") ||isQuery?.match("/new-order")) {
       show.units=false
       show.currency=false
       setShow({...show})
