@@ -84,7 +84,7 @@ const Index = () => {
         }
 
     }, [termsheet])
-    console.log(otherTermsAndConditions, "otherTerms")
+    // console.log(otherTermsAndConditions, "otherTerms")
 
 
     useEffect(() => {
@@ -97,7 +97,7 @@ const Index = () => {
     const onChangeCommodityDetails = (e) => {
         const Key = e.target.id
         const value = e.target.value
-        console.log(Key, ":", value)
+        // console.log(Key, ":", value)
         setTermsheetDetails(prev => ({ ...prev, commodityDetails: { ...prev.commodityDetails, [Key]: value } }))
     }
 
@@ -124,14 +124,14 @@ const Index = () => {
     const onChangeCha = (e) => {
         const Key = e.target.id
         const value = !otherTermsAndConditions?.chaOrstevedoringCharges[Key]
-        console.log("onChangeCha")
+        // console.log("onChangeCha")
         setOtherTermConditions(prev => ({ ...prev, chaOrstevedoringCharges: { ...prev.chaOrstevedoringCharges, [Key]: value } }))
     }
 
     const onChangeLcOpening = (e) => {
         const Key = e.target.id
         const value = !otherTermsAndConditions?.lcOpeningCharges[Key]
-        console.log("onChangeLcOpening")
+        // console.log("onChangeLcOpening")
         setOtherTermConditions(prev => ({ ...prev, lcOpeningCharges: { ...prev.lcOpeningCharges, [Key]: value } }))
     }
     const onChangeOther = (e) => {
@@ -152,7 +152,7 @@ const Index = () => {
 
     const handleSave = () => {
         const UpdatedTermsheet = { ...termsheetDetails, otherTermsAndConditions,additionalComments }
-        console.log(UpdatedTermsheet, "updatedtermsheet")
+        // console.log(UpdatedTermsheet, "updatedtermsheet")
         dispatch(updateTermsheet(UpdatedTermsheet))
         //router.push('/termsheet')
     }
@@ -168,7 +168,7 @@ const Index = () => {
     }
 
     const addCommentHandler = (commentType, comment) => {
-        console.log(commentType,"commentType")
+        // console.log(commentType,"commentType")
         const newComment = {
             additionalCommentType: commentType,
             comment: comment

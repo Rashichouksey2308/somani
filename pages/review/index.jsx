@@ -44,15 +44,14 @@ function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
-  const [uploadBtn , setUploadBtn] = useState(true)
-
+  const [uploadBtn, setUploadBtn] = useState(true)
 
   const { orderList } = useSelector((state) => state.buyer)
 
   // console.log(orderList, 'this is order list')
 
   const { companyData } = useSelector((state) => state.companyDetails)
-  console.log(companyData, "this is company data")
+  // console.log(companyData, 'this is company data')
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
@@ -382,7 +381,6 @@ function Index() {
   }
 
   useEffect(() => {
-
     let groupExposureArr = []
     orderList?.company?.groupExposureDetail?.forEach((element) => {
       groupExposureArr.push(element)
@@ -476,7 +474,7 @@ function Index() {
         weakness: [...weaknessComment],
       },
       debtProfile: [...debtData],
-      groupExposureDetail: [...groupExposureData]
+      groupExposureDetail: [...groupExposureData],
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
@@ -510,16 +508,19 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading pt-3 pb-3`}>
               <img
-                src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
-                  }`}
+                src={`${
+                  darkMode
+                    ? `/static/white-arrow.svg`
+                    : `/static/arrow-right.svg`
+                }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
               {orderList?.company?.companyName}
             </h1>
-            {uploadBtn ? 
-                 <div className="ml-auto">
-                 {uploadButton()} </div> : null}
+            {uploadBtn ? (
+              <div className="ml-auto">{uploadButton()} </div>
+            ) : null}
             {/* <div className="ml-auto">
                 <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                 <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
@@ -535,7 +536,7 @@ function Index() {
                 aria-controls="Profile"
                 aria-selected="true"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(false)
                 }}
               >
@@ -551,7 +552,7 @@ function Index() {
                 aria-controls="Financials"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(true)
                 }}
               >
@@ -567,9 +568,8 @@ function Index() {
                 aria-controls="GST"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(true)
-
                 }}
               >
                 GST
@@ -584,9 +584,8 @@ function Index() {
                 aria-controls="Compliance"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(true)
-
                 }}
               >
                 Compliance
@@ -601,9 +600,8 @@ function Index() {
                 aria-controls="Orders"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e); 
-                  setUploadBtn(false)                 
-
+                  currentOpenLink(e)
+                  setUploadBtn(false)
                 }}
               >
                 Orders
@@ -618,10 +616,8 @@ function Index() {
                 aria-controls="Credit"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
-                  setUploadBtn(false)                 
-
-
+                  currentOpenLink(e)
+                  setUploadBtn(false)
                 }}
               >
                 Credit
@@ -636,9 +632,8 @@ function Index() {
                 aria-controls="DocumentsTab"
                 aria-selected="true"
                 onClick={(e) => {
-                  currentOpenLink(e);
-                  setUploadBtn(false)                
-
+                  currentOpenLink(e)
+                  setUploadBtn(false)
                 }}
               >
                 Documents
@@ -653,10 +648,8 @@ function Index() {
                 aria-controls="CAM"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
-                  setUploadBtn(false)                
-
-
+                  currentOpenLink(e)
+                  setUploadBtn(false)
                 }}
               >
                 CAM
@@ -674,11 +667,21 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <CompanyDetails companyDetail={companyData?.profile?.companyDetail} />
-                    <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
-                    <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
-                    <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
-                    <CreditRatings creditRating={companyData?.profile?.creditRating} />
+                    <CompanyDetails
+                      companyDetail={companyData?.profile?.companyDetail}
+                    />
+                    <AuditorsDetail
+                      auditorsDetails={companyData?.profile?.auditorDetail}
+                    />
+                    <AuditorDeatils
+                      directorDetail={companyData?.profile?.directorDetail}
+                    />
+                    <ShareHoldingPattern
+                      shareHolding={companyData?.profile?.shareholdingPattern}
+                    />
+                    <CreditRatings
+                      creditRating={companyData?.profile?.creditRating}
+                    />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
@@ -1165,7 +1168,7 @@ function Index() {
                   <CommonSave onSave={onCreditSave} />
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
-                  <CAM />
+                  <CAM camData={orderList} />
                 </div>
                 <div
                   className="tab-pane fade"
@@ -1480,10 +1483,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-        'Compliance' ||
-        'Orders' ||
-        'Credit' ||
-        'DocumentsTab' ? (
+      'Compliance' ||
+      'Orders' ||
+      'Credit' ||
+      'DocumentsTab' ? (
         <PreviousBar />
       ) : null}
       {selectedTab == 'Profile' ? (
@@ -1518,12 +1521,15 @@ export default Index
 
 const uploadButton = () => {
   return (
- 
-     <>
-                <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-                <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-            </>
-
+    <>
+      <button type="button" className={`${styles.btnPrimary} btn btn-primary`}>
+        <img src="/static/refresh.svg" alt="refresh" className="img-fluid" />
+        Update Info
+      </button>
+      <div className={`${styles.lastModified} text `}>
+        <span>Last Modified:</span> 28 Jan,11:34am
+      </div>
+    </>
   )
 }
 

@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 import React,{useState,useEffect} from 'react'
 import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
@@ -27,7 +30,7 @@ export default function Index({isQuery}) {
       show.currency=true
       setShow({...show})
     }
-  },[isQuery])
+  },[isQuery, show])
  
   const [myUrl, setUrl] = useState([]);
    const [myUrlLength, setUrlLength] = useState([]);
@@ -35,7 +38,7 @@ export default function Index({isQuery}) {
   const router = useRouter();
   const pageName = useSelector((state) => state?.user.pageName)
   const id = useSelector((state) => state?.user.id)
- console.log(id,"pageName",pageName)
+//  console.log(id,"pageName",pageName)
   useEffect(() => {
 
     if ("dashboard" == pageName) {
@@ -77,10 +80,10 @@ export default function Index({isQuery}) {
     if ("termsheet" == pageName) {
       router.route = "/Leads" + "/Termsheets";
     }
-console.log( router.route," router.route")
+// console.log( router.route," router.route")
 
     router.route.split("/").map((subRoute, index) => {
-      console.log(subRoute,"subRoute")
+      // console.log(subRoute,"subRoute")
 
       if (subRoute !== "") {
         if (subRoute == "[id]") {
@@ -100,15 +103,15 @@ console.log( router.route," router.route")
 
       }
     });
-  }, [pageName,id]);
-  console.log(myUrl,"url")
+  }, [pageName, id, router, url]);
+  // console.log(myUrl,"url")
   return (
     <div className={`${styles.main_container} d-sm-flex d-block justify-content-between background1`}>
       <div>
         <img src="/static/home.svg"></img>
         <div className={`${styles.breadcrumItem}`}>
           {myUrl.map((val,index)=>{
-            {console.log(myUrl.length-1==index,"val")}
+            // {console.log(myUrl.length-1==index,"val")}
             return(
                <div key={index} className={`${styles.breadcrumcontainer} ${myUrlLength-1==index?`${styles.highlight} highlight`:null}`}>
               <span className='breadcrum_mode'>/</span>

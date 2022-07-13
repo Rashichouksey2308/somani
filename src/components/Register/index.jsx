@@ -21,10 +21,10 @@ function Index() {
       localStorage.getItem('darkMode') == 'true' ||
       localStorage.getItem('darkMode') == true
     ) {
-      console.log('this')
+      // console.log('this')
       setDarkMode(true)
     } else {
-      console.log('this2')
+      // console.log('this2')
       setDarkMode(false)
     }
   }, [])
@@ -236,7 +236,7 @@ function Index() {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      console.log(companyDetails.companyName, "companyName")
+      // console.log(companyDetails.companyName, "companyName")
 
     }, 3000)
     return () => clearTimeout(delayDebounceFn)
