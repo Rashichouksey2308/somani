@@ -44,7 +44,7 @@ function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
-  const [uploadBtn , setUploadBtn] = useState(true)
+  const [uploadBtn , setUploadBtn] = useState(false)
 
 
   const { orderList } = useSelector((state) => state.buyer)
