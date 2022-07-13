@@ -404,15 +404,11 @@
         
         
             }
-        .scrollouter {
-        
-                display: table;
-                table-layout: fixed;
-        
-               
-        
+        .scrollouter {        
+            width: 100%;
+            display: table;
+            table-layout: fixed;
                 .scrollInner {
-                    width: 100%;
                     display: table-cell;
                     overflow-x: auto;
                             .table1 {
@@ -613,16 +609,15 @@
             }
  }
 .scrollouter {
-           
-            display: table;
-            table-layout: fixed;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
     @include respond(phone) {
             width: calc(100vw - 35px);
            
             
         }
     .scrollInner {
-        width: 100%;
         display: table-cell;
         overflow-x: auto;
          .table_annual {

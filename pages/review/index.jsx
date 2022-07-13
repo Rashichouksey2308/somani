@@ -536,7 +536,7 @@ function Index() {
                 aria-selected="true"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(true)
+                  setUploadBtn(false)
                 }}
               >
                 Profile

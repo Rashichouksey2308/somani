@@ -7,7 +7,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllBuyer, GetBuyer, GetOrders } from '../../src/redux/registerBuyer/action'
 import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
-import { setPageName } from '../../src/redux/userData/action'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 function Index() {
   const [serachterm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
@@ -22,6 +22,7 @@ function Index() {
   
  useEffect(() => {
     dispatch(setPageName('leads'))
+    dispatch(setDynamicName(""))
   })
 
   const handleRoute = (buyer) => {
