@@ -10,36 +10,6 @@ export default function Index() {
         <div className={`${styles.backgroundMain} container-fluid`}>
         <div className={`${styles.vessel_card} mt-3 border_color`}>
 
-        <div className={`${styles.wrapper} border_color p-2 card`}>
-
-          <div className='d-lg-flex align-items-center d-inline-block  pl-4'>
-        <h2 className="mb-0">Shipment Type</h2>
-          <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
-            {['radio'].map((type) => (
-              <div key={`inline-${type}`} className={styles.radio_group}>
-                <Form.Check
-                  className={styles.radio}
-                  inline
-                  label="Bulk"
-                  name="group1"
-                  type={type}
-                  id={`inline-${type}-1`}
-                />
-                <Form.Check
-                  className={styles.radio}
-                  inline
-                  label="Liner"
-                  name="group1"
-                  type={type}
-                  id={`inline-${type}-2`}
-                />
-              
-              </div>
-            ))}
-          </div>
-          </div>
-          </div>
-
         <div className={`${styles.main} border_color mt-4 card `}>
         <div className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`} >
         <h3 className={`${styles.heading}`}>Commodity Details</h3>
