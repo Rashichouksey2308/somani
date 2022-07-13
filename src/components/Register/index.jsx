@@ -212,79 +212,75 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (!termsCheck) {
-      let toastMessage = 'Please Accept Our Terms'
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      } else {
-        const fd = new FormData()
+    } else {
+      const fd = new FormData()
 
-        fd.append('companyProfile', JSON.stringify(companyDetails))
-        fd.append('orderDetails', JSON.stringify(orderDetails))
-        fd.append('documentType', JSON.stringify(documents.typeOfDocument))
-        fd.append('document1', documents.document1)
-        fd.append('document2', documents.document2)
-        // console.log(fd, "this is payload")
+      fd.append('companyProfile', JSON.stringify(companyDetails))
+      fd.append('orderDetails', JSON.stringify(orderDetails))
+      fd.append('documentType', JSON.stringify(documents.typeOfDocument))
+      fd.append('document1', documents.document1)
+      fd.append('document2', documents.document2)
+      // console.log(fd, "this is payload")
 
-        dispatch(CreateBuyer(fd))
-      }
-    }
-  }
-    const clearData = () => {
-      document.getElementById('CompanyDetailsForm').reset()
-      document.getElementById('OrderDetailsForm').reset()
+      dispatch(CreateBuyer(fd))
     }
 
-
-
-
-    useEffect(() => {
-      const delayDebounceFn = setTimeout(() => {
-        console.log(companyDetails.companyName, "companyName")
-
-      }, 3000)
-      return () => clearTimeout(delayDebounceFn)
-    }, [companyDetails.companyName])
-
-    return (
-      <Card className={`${styles.card} card2`}>
-        <Card.Header className={`${styles.head_container} border-0 pr-0 pl-2`}>
-          <div className={styles.head_header}>
-            <img
-              className={`${styles.arrow} img-fluid`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="ArrowRight"
-            />
-            <h1 className={styles.heading}>Register Your Company</h1>
-          </div>
-          <div>
-            <button
-              onClick={clearData}
-              className={`${styles.clear_btn} clear_btn`}
-            >
-              Clear All
-            </button>
-          </div>
-        </Card.Header>
-
-        <Card.Body className={styles.body}>
-          <CompanyDetails
-            darkMode={darkMode}
-            whatsappFunction={whatsappFunction}
-            mobileFunction={mobileFunction}
-            saveOrderData={saveOrderData}
-            saveCompanyData={saveCompanyData}
-          />
-          <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData} />
-          <Documents
-            darkMode={darkMode}
-            saveDocument={saveDocument}
-            uploadDocument1={uploadDocument1}
-            uploadDocument2={uploadDocument2}
-          />
-          <Terms chanegTermsCheck={chanegTermsCheck} termsCheck={termsCheck} darkMode={darkMode} submitData={submitData} />
-        </Card.Body>
-      </Card>
-    )
   }
- export default Index
+  const clearData = () => {
+    document.getElementById('CompanyDetailsForm').reset()
+    document.getElementById('OrderDetailsForm').reset()
+  }
+
+
+
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      console.log(companyDetails.companyName, "companyName")
+
+    }, 3000)
+    return () => clearTimeout(delayDebounceFn)
+  }, [companyDetails.companyName])
+
+  return (
+    <Card className={`${styles.card} card2`}>
+      <Card.Header className={`${styles.head_container} border-0 pr-0 pl-2`}>
+        <div className={styles.head_header}>
+          <img
+            className={`${styles.arrow} img-fluid`}
+            src="/static/keyboard_arrow_right-3.svg"
+            alt="ArrowRight"
+          />
+          <h1 className={styles.heading}>Register Your Company</h1>
+        </div>
+        <div>
+          <button
+            onClick={clearData}
+            className={`${styles.clear_btn} clear_btn`}
+          >
+            Clear All
+          </button>
+        </div>
+      </Card.Header>
+
+      <Card.Body className={styles.body}>
+        <CompanyDetails
+          darkMode={darkMode}
+          whatsappFunction={whatsappFunction}
+          mobileFunction={mobileFunction}
+          saveOrderData={saveOrderData}
+          saveCompanyData={saveCompanyData}
+        />
+        <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData} />
+        <Documents
+          darkMode={darkMode}
+          saveDocument={saveDocument}
+          uploadDocument1={uploadDocument1}
+          uploadDocument2={uploadDocument2}
+        />
+        <Terms chanegTermsCheck={chanegTermsCheck} termsCheck={termsCheck} darkMode={darkMode} submitData={submitData} />
+      </Card.Body>
+    </Card>
+  )
+}
+export default Index
