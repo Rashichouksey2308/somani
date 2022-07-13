@@ -10,7 +10,7 @@ function Index() {
     <div className='container-fluid p-0 border-0'> 
           <div className={styles.container_inner}>
 
-        <div className={`${styles.filter} ml-2 d-flex align-items-center`}>
+        <div className={`${styles.filter} d-flex align-items-center`}>
       
           <div className={styles.head_header}>
               <img
