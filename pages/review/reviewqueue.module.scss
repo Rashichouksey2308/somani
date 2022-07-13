@@ -538,26 +538,65 @@
                     
                 }
             .checkbox_Container {
-                @include respond(md-desktop) {
-                        flex-direction: column;
-                        align-items: flex-start !important;
-                
-                    }
-                    .leftGroup{
-                    @include respond(md-desktop) {
-                          margin-bottom: 0.5rem;
-                          font-size:13px
-                    
-                        }
-                    }
-                                                                   .rightGroup {
-                                                                       @include respond(md-desktop) {
-                                                                           margin-bottom: 0.5rem;
-                                                                           font-size: 13px
-                                                                       }
-                                                                   }
+             p{
+                color: #00000080;
+                font-size:16px;
+                line-height:17px;
+             }
+                                                                 
             }
             .risk_Container {
+                margin-top:5rem;
+                div{
+                .control {
+                        display: inline-flex;
+                        position: relative;
+                        margin: 10px;
+                        cursor: pointer;
+                        border-radius: 99em;
+                
+                        .checkbox {
+                            display: none;
+                        }
+                
+                        .control__content {
+                            display: inline-flex;
+                            align-items: center;
+                            width: 197px;
+                            height: 61px;
+                            background: #F8F8F8 0% 0% no-repeat padding-box;
+                            border: 2px solid #CCCCCC;
+                            border-radius: 31px;
+                            span{
+                                width:100%; 
+                                text-align: center;
+                                font-size: 19px;
+                                line-height: 24px;
+                                font-weight:500;
+
+                            }
+                
+                            &:hover {
+                                background-color: #3687E8;
+                                color: #fff;
+                                border: none;
+                            }
+                
+                            &:checked {
+                                background-color: #3687E8;
+                                color: #fff;
+                                border: none;
+                            }
+                        }
+                    }
+                
+                    .control input:checked~.control__content {
+                       
+                        background-color: #3687E8;
+                        color: #fff;
+                        border: none;
+                    }
+                }
                 @include respond(md-desktop) {
                     flex-wrap: wrap;
                     }
@@ -611,9 +650,14 @@
         }
     }
 }
-.val{
-    flex-direction: column;
-}
+.val {
+    @include respond(sm-desktop) {
+        flex-direction: column;
+    }
+
+    @include respond(phone) {
+        flex-direction: column;
+    }}
 .compliance_purple {
     width: fit-content;
     background: #f4ebff 0% 0% no-repeat padding-box;
@@ -1057,3 +1101,4 @@
         }
     }
 }
+
