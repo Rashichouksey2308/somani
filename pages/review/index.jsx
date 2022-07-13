@@ -664,7 +664,7 @@ function Index() {
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(false)
+                  setUploadBtn(true)
 
 
                 }}
