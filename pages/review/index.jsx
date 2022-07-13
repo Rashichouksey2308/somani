@@ -673,7 +673,7 @@ function Index() {
                 >
                   <div className="accordion" id="profileAccordion">
                     <CompanyDetails companyDetail={companyData?.profile?.companyDetail} />
-                    <AuditorsDetail />
+                    <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
                     <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
                     <CreditRatings creditRating={companyData?.profile?.creditRating} />
@@ -681,13 +681,13 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
                   <div className="accordion" id="FinancialsAccordion">
-                    <BalanceSheet />
+                    <BalanceSheet balanceData={companyData} />
 
-                    <IncomeStatement />
+                    <IncomeStatement incomeData={companyData} />
 
-                    <CashFlow />
+                    <CashFlow cashData={companyData} />
 
-                    <Ratios />
+                    <Ratios ratioData={companyData} />
 
                     <Peer />
 
