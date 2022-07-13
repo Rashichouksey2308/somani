@@ -5,6 +5,7 @@ import styles from '../profile.module.scss'
 
 function Index({ directorDetail }) {
   const [darkMode, setDarkMode] = useState(false)
+  console.log(directorDetail,"directorDetails")
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -35,7 +36,7 @@ function Index({ directorDetail }) {
           directorDetail.map((director, index) => (
             <div
               key={index}
-              id={`directorDetails${index}`}
+              id={`directorDetails`}
               className="collapse show"
               aria-labelledby="directorDetails3"
               data-parent="#profileAccordion"
@@ -304,18 +305,19 @@ function Index({ directorDetail }) {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>U55101GR1986PLC004444</td>
-                                    <td>XYZ InfoTech Private Ltd</td>
-                                    <td>22-02-2022</td>
-                                    <td>22-02-2023</td>
-                                  </tr>
-                                  <tr>
-                                    <td>U55101GR1986PLC004444</td>
-                                    <td>XYZ InfoTech Private Ltd</td>
-                                    <td>22-02-2022</td>
-                                    <td>22-02-2023</td>
-                                  </tr>
+                                  {director && director?.otherAssociatedEntitiesCurrent.map((associates, index)=> {
+                                  const fromDate =  associates?.fromDate
+                                  const toDate =  associates?.toDate
+
+                                    return(
+                                       <tr key={index}>
+                                       <td>{associates?.entityId}</td>
+                                       <td>{associates?.entityName}</td>
+                                       <td>{fromDate?.slice(0,10)}</td>
+                                       <td>{toDate?.slice(0,10)}</td>
+                                     </tr>
+                                  )})}
+                             
                                 </tbody>
                               </table>
                             </div>

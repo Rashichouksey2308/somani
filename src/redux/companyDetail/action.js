@@ -24,20 +24,20 @@ function getComanyDetailsFailed() {
 }
 
 
-function updateComanyDetails() {
+function updateCompanyDetails() {
   return {
     type: types.UPDATE_COMPANY_DETAIL,
   }
 }
 
-function updateComanyDetailsSuccess(payload) {
+function updateCompanyDetailsSuccess(payload) {
   return {
     type: types.UPDATE_COMPANY_DETAIL_SUCCESS,
     payload,
   }
 }
 
-function updateComanyDetailsFailed() {
+function updateCompanyDetailsFailed() {
   return {
     type: types.UPDATE_COMPANY_DETAIL_FAILED,
   }
@@ -94,15 +94,15 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
 
   try {
     Axios.post(
-      `${API.corebaseUrl}${API.getCompanyDetails}`, payload,
+      `${API.corebaseUrl}${API.updateCompanyDetails}`, payload,
       {
         headers: headers,
       },
     ).then((response) => {
       if (response.data.code === 200) {
-        dispatch(updateComanyDetailsSuccess(response.data.data))
+        dispatch(updateCompanyDetailsSuccess(response.data.data))
       } else {
-        dispatch(updateComanyDetailsFailed(response.data.data))
+        dispatch(updateCompanyDetailsFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage })
@@ -110,9 +110,9 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
       }
     })
   } catch (error) {
-    dispatch(updateComanyDetailsFailed())
+    dispatch(updateCompanyDetailsFailed())
 
-    let toastMessage = 'COULD NOT FETCH COMPANY DETAILS'
+    let toastMessage = 'COULD NOT UPDATE COMPANY DETAILS'
     if (!toast.isActive(toastMessage)) {
       toast.error(toastMessage, { toastId: toastMessage })
     }

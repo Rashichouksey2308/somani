@@ -667,21 +667,11 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <CompanyDetails
-                      companyDetail={companyData?.profile?.companyDetail}
-                    />
-                    <AuditorsDetail
-                      auditorsDetails={companyData?.profile?.auditorDetail}
-                    />
-                    <AuditorDeatils
-                      directorDetail={companyData?.profile?.directorDetail}
-                    />
-                    <ShareHoldingPattern
-                      shareHolding={companyData?.profile?.shareholdingPattern}
-                    />
-                    <CreditRatings
-                      creditRating={companyData?.profile?.creditRating}
-                    />
+                    <CompanyDetails companyId={companyData?.company} companyDetail={companyData?.profile?.companyDetail} />
+                    <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
+                    <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
+                    <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
+                    <CreditRatings creditRating={companyData?.profile?.creditRating} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
@@ -740,7 +730,7 @@ function Index() {
                         className={` ${styles.cardBody_compliance} card-body border_color`}
                       >
                         <Row className={` ${styles.row} mt-1 mb-1`}>
-                          <Col className={`${styles.col}`} sm={12}>
+                          <Col className={`${styles.col}`} sm={2}>
                             <span
                               className={`${styles.head} d-flex align-items-center justify-content-flex-start`}
                             >
@@ -752,7 +742,7 @@ function Index() {
                               className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}
                             >
                               <div
-                                className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
+                                className={`${styles.val} d-flex align-items-center justify-content-start`}
                               >
                                 <div
                                   className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}
@@ -991,7 +981,7 @@ function Index() {
                       aria-expanded="true"
                       aria-controls="litigations"
                     >
-                      <h2 className="mb-0">Litigations</h2>
+                      <h2 className="mb-3">Litigations</h2>
                       <span>+</span>
                     </div>
                     <div
@@ -1004,12 +994,13 @@ function Index() {
                         className={` ${styles.cardBody_litigations} card-body border_color`}
                       >
                         <div
-                          className={`${styles.checkbox_Container} d-flex align-items-center justify-content-between`}
+                          className={`${styles.checkbox_Container}`}
                           data-toggle="collapse"
                         >
-                          <div
-                            className={`${styles.leftGroup}  d-flex align-items-center justify-content-start`}
-                          >
+                          <Row>
+                            <Col md={4}>
+                            <p className={`mb-3`}>Filter by</p>
+                            <div className={` d-flex align-items-center justify-content-start`}>
                             <div className="form-check">
                               <input
                                 className="form-check-input"
@@ -1052,45 +1043,123 @@ function Index() {
                                 Total Cases (5)
                               </label>
                             </div>
-                          </div>
-                          <div
-                            className={`${styles.rightGroup} d-flex align-items-center justify-content-start`}
-                          >
-                            <div className="form-check mr-4">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                name="flexRadioDefault"
-                                id="flexRadioDefault1"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexRadioDefault1"
-                              >
-                                Respondent
-                              </label>
                             </div>
+                            </Col>
+                            <Col md={4}>
+                            <p className={`mb-3`}>Select a Party</p>
+                            <div className={` d-flex align-items-center justify-content-start`}>
                             <div className="form-check">
                               <input
                                 className="form-check-input"
                                 type="radio"
-                                name="flexRadioDefault"
-                                id="flexRadioDefault2"
-                                checked
+                                value=""
+                                id="Respondent"
                               />
                               <label
                                 className="form-check-label"
-                                htmlFor="flexRadioDefault2"
+                                htmlFor="Respondent"
+                              >
+                                Respondent
+                              </label>
+                            </div>
+                            <div className="form-check ml-4">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                value=""
+                                id="Respondent"
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="Respondent"
                               >
                                 Petitioner
                               </label>
                             </div>
-                          </div>
+                         
+                            </div>
+                            </Col>
+                            <Col md={4}>
+                            <p className={`mb-3`}>Classification</p>
+                            <div className={` d-flex align-items-center justify-content-start`}>
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                value=""
+                                id="Classification"
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="Classification"
+                              >
+                                Civil
+                              </label>
+                            </div>
+                            <div className="form-check ml-4">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                value=""
+                                id="Classification"
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="Classification"
+                              >
+                                Criminal
+                              </label>
+                            </div>
+                         
+                            </div>
+                            </Col>
+                          </Row>
+
                         </div>
                         <div
-                          className={`${styles.risk_Container} d-flex align-items-center justify-content-between mt-4 mb-4`}
+                          className={`${styles.risk_Container} d-flex align-items-center justify-content-between  mb-4`}
                         >
-                          <ComplianceLigitations
+                  <div className={` w-100 d-flex align-items-center justify-content-start  `}>
+                  <label  className={styles.control} htmlFor={"high"}>
+                  <input
+                    className={styles.checkbox}
+                    type="radio"
+                    name="topics"
+                    value={"high"}
+                    id={"high"}
+
+                  
+                  />
+                  <span className={styles.control__content}><span>{`High Risk (5)`}</span></span>
+                  </label>
+
+                  <label  className={styles.control} htmlFor={"medium"}>
+                  <input
+                    className={styles.checkbox}
+                    type="radio"
+                    name="topics"
+                    value={"medium"}
+                    id={"medium"}
+
+                  
+                  />
+                  <span className={styles.control__content}><span>{`Medium Risk (5)`}</span></span>
+                  </label>
+                  <label  className={styles.control} htmlFor={"Relevance"}>
+                  <input
+                    className={styles.checkbox}
+                    type="radio"
+                    name="topics"
+                    value={"Relevance"}
+                    id={"Relevance"}
+
+                  
+                  />
+                  <span className={styles.control__content}><span>{`High Relevance (5)`}</span></span>
+                  </label>
+                  </div>
+
+                          {/* <ComplianceLigitations
                             icon={'/static/danger.svg'}
                             backColor={'#E3F0FF'}
                             iconBackGroudColor={'#3687E8 '}
@@ -1117,7 +1186,7 @@ function Index() {
                             iconBackGroudColor={'#EA3F3F'}
                             heading={'Stagnant Cases (5)'}
                             content={'Pending Case: 4 Disposed Case: 4'}
-                          />
+                          /> */}
                         </div>
 
                         <div>{ligitations()}</div>
