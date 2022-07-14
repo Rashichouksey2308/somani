@@ -51,28 +51,9 @@ function Index() {
               <ul className={`${styles.navTabs} nav nav-tabs`}>
                  
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#SalesContract" role="tab" aria-controls="SalesContract" aria-selected="false">Sales Agreement</a>
+                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#SalesContract" role="tab" aria-controls="SalesContract" aria-selected="false">Generic</a>
                   </li>
-                  <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Associateship" role="tab" aria-controls="GST" aria-selected="false">Associateship Agreement</a>
-                  </li>
-                  <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#TPASeller" role="tab" aria-controls="tpaSeller" aria-selected="false">TPA (Seller)</a>
-                  </li>
-                  <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#TPACMA" role="tab" aria-controls="TPACMA" aria-selected="false">TPA (CMA)</a>
-                  </li>
-                  <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Assignment" role="tab" aria-controls="assignmentLetter" aria-selected="false">Assignment Letter</a>
-                  </li>
-
-                <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#QPA" role="tab" aria-controls="qpaAgreement" aria-selected="false">QPA</a>
-                  </li>
-                  <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#Compliance" role="tab" aria-controls="Compliance" aria-selected="false">Document</a>
-                  </li>
-             
+                 
               </ul>
             </div>
             <div className="container-fluid">

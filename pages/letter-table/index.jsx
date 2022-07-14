@@ -1,9 +1,9 @@
 import React from 'react'
-import LcApplication from '../../src/components/LcApplication'
+import LetterCredit from '../../src/components/LetterCredit'
 
 const Index = () => {
   return (
-   <LcApplication/>
+    <LetterCredit/>
   )
 }
 
