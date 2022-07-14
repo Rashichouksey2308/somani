@@ -9,7 +9,22 @@ function Index() {
       <div className={styles.container}>
         <Form>
           <div className="row border-bottom border-color ">
-
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <select
+                className={`${styles.input_field} input form-control`}
+                name="countryOfOrigin"
+                onChange={(e) => {
+                  saveOrderData(e.target.name, e.target.value)
+                }}
+              >
+                <option value="Registered">Registered</option>
+              </select>
+              <Form.Label
+                className={`${styles.label_heading} ${styles.select} label_heading`}
+              >
+                Address Type
+              </Form.Label>
+            </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
@@ -89,22 +104,25 @@ function Index() {
                   </Form.Label>
                 </Form.Group>
               </Col>
-              <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
+                <Col md={4} sm={12}>
+                <div className={`${styles.form_group} d-flex`}>
+                  <input
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
-                    name="commodity"
+                    name="existingSuppliers"
+
                   />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Pin Code<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Pin Code
+                    <strong className="text-danger">*</strong>
+                  </label>
+                  <img
+                    className={`${styles.search_image} img-fluid`}
+                    src="/static/search-grey.svg"
+                    alt="Search"
+                  />
+                </div>
               </Col>
               <Col md={4} sm={12}>
                 <Form.Group
@@ -140,6 +158,23 @@ function Index() {
                   </Form.Label>
                 </Form.Group>
               </Col>
+                            <Col md={4} sm={12}>
+                <Form.Group
+                  className={`${styles.form_group} col-md-4 col-sm-6`}
+                >
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="commodity"
+                  />
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Country<strong className="text-danger">*</strong>
+                  </Form.Label>
+                </Form.Group>
+              </Col>
             </Row>
             <Row className={`${styles.row}`}>
               <Col md={12} sm={12}>
@@ -155,44 +190,11 @@ function Index() {
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
                   >
-                    Address Line 1
+                    Address
                   </Form.Label>
                 </Form.Group>
               </Col>
-              <Col md={12} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Address Line 2
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-              <Col md={12} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Address Line 3
-                  </Form.Label>
-                </Form.Group>
-              </Col>
+
             </Row>
             <Row className={`${styles.row}`}>
               <Col md={4} sm={12}>
@@ -286,7 +288,108 @@ function Index() {
                 </div>
               </Col>
             </Row>
+            <div className="mt-4">
+              <span>Authorised Person / Stevedore Agent</span>
+           </div>
+            <Row className={`${styles.row}`}>
+              <Col md={4} sm={12}>
+                <Form.Group
+                  className={`${styles.form_group} col-md-4 col-sm-6`}
+                >
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="commodity"
+                  />
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Name<strong className="text-danger">*</strong>
+                  </Form.Label>
+                </Form.Group>
+              </Col>
 
+              <Col md={4} sm={12}>
+              <Form.Group
+                  className={`${styles.form_group} col-md-4 col-sm-6`}
+                >
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="commodity"
+                  />
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Designation<strong className="text-danger">*</strong>
+                  </Form.Label>
+                </Form.Group>
+              </Col>
+          
+            </Row>
+           <Row className={`${styles.row}`}>
+            <Col md={5} sm={12} className="d-flex justify-content-start align-items-center">
+                <Form.Group
+                  className={`${styles.form_group} `}
+                >
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="commodity"
+                  />
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Email*<strong className="text-danger">*</strong>
+                  </Form.Label>
+                </Form.Group>
+                <img
+                      className={`img-fluid ml-2 ${styles.image}`}
+                      src="/static/add-btn.svg"
+                      alt="add button"
+                      
+                  />
+            </Col>
+            <Col md={5} sm={12} className="d-flex justify-content-start align-items-center">
+                <div
+                  className={`${styles.each_input} ${styles.phone} `}
+                >
+                  <div className={styles.phone_card}>
+                    <select
+                      id="Code"
+                      className={`${styles.code_phone} input border-right-0`}
+                    >
+                      <option>+91</option>
+                      <option>+1</option>
+                      <option>+92</option>
+                      <option>+95</option>
+                      <option>+24</option>
+                    </select>
+                    <input
+                      type="tel"
+                      id="textNumber"
+                      name="primary"
+                      className={`${styles.input_field} input form-control border-left-0`}
+                      required
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textNumber"
+                    >
+                      Other Phone No.<strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                </div>
+                  <img
+                       className={`img-fluid ml-2 ${styles.image}`}
+                      src="/static/add-btn.svg"
+                      alt="add button"
+                    />
+            </Col>
+           </Row>
 
             <div className={`${styles.buttons} d-flex`}>
               <div className={styles.add}>

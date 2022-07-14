@@ -123,21 +123,24 @@ function Index() {
                 </Form.Group>
               </Col>
               <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
+                <div className={`${styles.form_group} d-flex`}>
+                  <input
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
-                    name="commodity"
+                    name="existingSuppliers"
+
                   />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Pin Code<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Pin Code
+                    <strong className="text-danger">*</strong>
+                  </label>
+                  <img
+                    className={`${styles.search_image} img-fluid`}
+                    src="/static/search-grey.svg"
+                    alt="Search"
+                  />
+                </div>
               </Col>
               <Col md={4} sm={12}>
                 <Form.Group
@@ -173,6 +176,23 @@ function Index() {
                   </Form.Label>
                 </Form.Group>
               </Col>
+              <Col md={4} sm={12}>
+                <Form.Group
+                  className={`${styles.form_group} col-md-4 col-sm-6`}
+                >
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="commodity"
+                  />
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Country<strong className="text-danger">*</strong>
+                  </Form.Label>
+                </Form.Group>
+              </Col>
             </Row>
             <Row className={`${styles.row}`}>
               <Col md={12} sm={12}>
@@ -188,44 +208,11 @@ function Index() {
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
                   >
-                    Address Line 1
+                    Address
                   </Form.Label>
                 </Form.Group>
               </Col>
-              <Col md={12} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Address Line 2
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-              <Col md={12} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Address Line 3
-                  </Form.Label>
-                </Form.Group>
-              </Col>
+
             </Row>
             <Row className={`${styles.row}`}>
               <Col md={4} sm={12}>
@@ -320,7 +307,7 @@ function Index() {
               </Col>
             </Row>
             <div className="mt-4">
-              <span>Authorised Signatory Details</span>
+              <span>Authorised Person / Stevedore Agent</span>
            </div>
             <Row className={`${styles.row}`}>
               <Col md={4} sm={12}>
@@ -360,9 +347,10 @@ function Index() {
               </Col>
           
             </Row>
-              <div className="d-flex">
+           <Row className={`${styles.row}`}>
+            <Col md={5} sm={12} className="d-flex justify-content-start align-items-center">
                 <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
+                  className={`${styles.form_group} `}
                 >
                   <Form.Control
                     className={`${styles.input_field} input form-control`}
@@ -376,15 +364,16 @@ function Index() {
                     Email*<strong className="text-danger">*</strong>
                   </Form.Label>
                 </Form.Group>
-                   <img
-                      className="img-fluid ml-4"
+                <img
+                      className={`img-fluid ml-2 ${styles.image}`}
                       src="/static/add-btn.svg"
                       alt="add button"
-                    />
-            </div>
-            <div className="d-flex">
-                              <div
-                  className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}
+                      
+                  />
+            </Col>
+            <Col md={5} sm={12} className="d-flex justify-content-start align-items-center">
+                <div
+                  className={`${styles.each_input} ${styles.phone} `}
                 >
                   <div className={styles.phone_card}>
                     <select
@@ -412,12 +401,13 @@ function Index() {
                     </label>
                   </div>
                 </div>
-                                   <img
-                      className="img-fluid ml-4"
+                  <img
+                       className={`img-fluid ml-2 ${styles.image}`}
                       src="/static/add-btn.svg"
                       alt="add button"
                     />
-            </div>
+            </Col>
+           </Row>
 
             <div className={`${styles.buttons} d-flex`}>
               <div className={styles.add}>

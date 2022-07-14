@@ -11,11 +11,12 @@
         border-radius: 6px;
         margin-bottom: 2rem;
         .sidebar_content{
-            padding:2rem ;
+            padding:0.5rem ;
             height: 70px;
+
             .content2 {
                 color: #28487B;
-                
+                cursor: pointer;
                
                 input{
                     width: 27px;
@@ -23,8 +24,9 @@
                 }
                     height: 100%;
                     span{
-                       font-size: 22px;
+                       font-size: 20px;
                         opacity: 0.6;
+                        line-height: 26px;
                         
                         
                         
@@ -53,7 +55,7 @@
                                         
                 }
                                  .selected {
-                                    opacity: 1 !important;
+                                     opacity: 1 !important;
                                      color: #3687E8 !important
                                  }
         }

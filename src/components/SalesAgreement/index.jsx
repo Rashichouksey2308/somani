@@ -15,12 +15,24 @@ import Seller from '../AggrementContent/seller'
 import Stevedore from '../AggrementContent/stevedore'
 import Thirdparty from '../AggrementContent/thirdparty'
 function Index() {
-  const [active,setActive]=useState("Buyer")
-  const changeActiveValue=(val)=>{
+  const [active,setActive]=useState("Manufacturer/ Supplier")
+  const changeActiveValue=(val,index)=>{
     console.log(val,"val")
   setActive(val)
   showContent()
+  let tempArr=sideBar;
+  for(let i=0;i<tempArr.length;i++) {
+    if(i==index){
+      tempArr[i].state="current"
+    }else{
+      tempArr[i].state="default"
+    }
+
   }
+  console.log(tempArr,"name")
+  setSidebar(tempArr)
+  }
+  
   const showContent =()=>{
     if(active=="Buyer"){
       return(
@@ -47,7 +59,7 @@ function Index() {
         <CMA/>
       )
     }
-      if(active=="Manufacturer/ Supplier/ Shipper"){
+      if(active=="Manufacturer/ Supplier"){
       return(
         <Manufecture/>
       )
@@ -67,24 +79,45 @@ function Index() {
         <Stevedore/>
       )
     }
-            if(active=="Third Party Inspection Agency"){
+            if(active=="Appointment of Third Party"){
       return(
         <Thirdparty/>
       )
     }
   }
+  const [sideBar,setSidebar] =useState(
+    [
+    {name:"Manufacturer/ Supplier",state:"current",value:"Manufacturer/ Supplier"},
+    {name:"Seller",state:"default",value:"Seller"},
+    {name:"Buyer",state:"default",value:"Buyer"},
+    {name:"Associate Buyer",state:"default",value:"Associate Buyer"},
+    {name:"Financing Bank",state:"default",value:"Financing Bank"},
+    {name:"Shipping Line",state:"default",value:"Shipping Line"},
+    {name:"CHA",state:"default",value:"CHA"},
+    {name:"Stevedore",state:"default",value:"Stevedore"},
+    {name:"CMA",state:"default",value:"CMA"},
+    {name:"Appointment of Third Party",state:"default",value:"Appointment of Third Party"}
+    ]
+  )
+
   return (
     <div className={`${styles.root}`}>
       <div className={`${styles.sidebar} card card-body`}>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
+       {sideBar.map((row,index)=>{
+        return(
+          <>
+          <div key={index} className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
             <div 
-            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
+            className={`${styles.content2} ${row.state=="current"?styles.selected:null}  d-flex justify-content-between align-items-center`}
                    onClick={(e)=>{
-                    changeActiveValue("Buyer")
+                    changeActiveValue(row.name,index)
                   }}
             >
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Buyer</span>
+             
+               <img src={`${
+                row.state=="current"?"/static/Group 203255.svg":"/static/Group 3256.svg"
+               }`}></img>
+                 <span className="ml-3">{row.name}</span>
             </div>
            <img
                         src="/static/keyboard_arrow_right-3.svg"
@@ -93,160 +126,9 @@ function Index() {
                       />
 
         </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div 
-            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
-            onClick={(e)=>{
-                    changeActiveValue("Associate Buyer")
-            }}
-            >
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Associate Buyer</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div 
-            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
-                onClick={(e)=>{
-                    changeActiveValue("Seller")
-            }}
-            >
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Seller</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div 
-            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
-            onClick={(e)=>{
-                    changeActiveValue("CHA")
-            }}
-            >
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">CHA</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div 
-            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
-                        onClick={(e)=>{
-                    changeActiveValue("CMA")
-            }}
-            >
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">CMA</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div 
-            className={`${styles.content2} ${styles.selected}  d-flex justify-content-between align-items-center`}
-             onClick={(e)=>{
-                    changeActiveValue("Manufacturer/ Supplier/ Shipper")
-            }}
-            >
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Manufacturer/ Supplier/ Shipper</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`
-          
-          }
-             onClick={(e)=>{
-                    changeActiveValue("Shipping Line")
-            }}
-          >
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Shipping Line</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div 
-            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
-                                   onClick={(e)=>{
-                    changeActiveValue("Financing Bank")
-            }}
-            >
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Financing Bank</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-                <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div 
-            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
-                                   onClick={(e)=>{
-                    changeActiveValue("Stevedore")
-            }}
-            >
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Stevedore</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-                <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div 
-            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
-                                   onClick={(e)=>{
-                    changeActiveValue("Third Party Inspection Agency")
-            }}
-            >
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Third Party Inspection Agency</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
+          </>
+        )
+       })}
 
       </div>
       <div className={`${styles.content} card`}>
@@ -256,7 +138,17 @@ function Index() {
                     className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
 
                   >
-                   
+                   {active=="Stevedore"?
+                    <div>
+                      <span>Same as CHA</span>
+                       <span>Yes</span>
+                      <label className={styles.switch}>
+                        <input type="checkbox"></input>
+                        <span className={`${styles.slider} ${styles.round}` }></span>
+                      </label>
+                      <span>No</span>
+                    </div>
+                   :null}
                     <a href="#" className={`${styles.arrow} ${`leftArrow`}`}>
                       {' '}
                       <img

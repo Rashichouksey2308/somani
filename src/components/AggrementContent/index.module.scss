@@ -8,11 +8,9 @@
         @include respond(phone) {
                 margin-top: 10px;
         }
-    
         .label_heading {
             top: 40px;
-                left: 30px;
-            
+            left: 30px;
             font-size: 16px;
             line-height: 0.5;
             margin-bottom: 0;
@@ -28,7 +26,6 @@
             @include respond(phone) {
                     font-size: 14px;
                     //top: 20px;
-    
             }
             }
     
@@ -132,7 +129,12 @@
                     .row {
                         margin: 0px;
                         padding: 0px !important;
-            
+                        .image{
+                            margin-top: 2.1rem;
+                        }
+                                                .actionIcon{
+                                                margin-top: 3rem;
+                                                }
                         div {
                             padding-bottom: 0px !important;
                             
@@ -532,6 +534,10 @@
        }
    }
 
+   .buttons{
+    padding-left:2rem !important;
+    margin-top:2rem;
+   }
    .add{
     width: 220px;
     height: 48px;
@@ -541,6 +547,7 @@
     display:flex;
     justify-content: center;
     align-items: center;
+    margin-left: 1rem;
     span{
      font-size:20px;
      line-height:25px;
@@ -566,4 +573,8 @@ border: 2.5px solid var(--unnamed-color-3687e8);
     
             color: #3687E8;
             }
+        }
+
+        .search_image{
+            margin-left: -40px;
         }
