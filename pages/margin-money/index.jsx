@@ -2,7 +2,7 @@ import React ,{ useEffect, useState }from 'react'
 import MarginMain from '../../src/components/MarginMain'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName,setDynamicName } from '../../src/redux/userData/action'
-const index = () => {
+const Index = () => {
     const dispatch = useDispatch()
    useEffect(() => {
     dispatch(setPageName('leads'))
@@ -13,4 +13,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index
