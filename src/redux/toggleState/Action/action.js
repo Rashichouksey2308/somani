@@ -27,6 +27,6 @@ export const setMobile = (value) => {
 }
 
 export const settingMobile = (value) => async (dispatch, getState, api) => {
-  console.log('set')
+  // console.log('set')
   dispatch(setMobile(value))
 }

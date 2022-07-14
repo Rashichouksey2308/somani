@@ -21,7 +21,7 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
 
   const { margin} = useSelector((state) => state.marginMoney)
-  console.log(margin?.data[0], 'id.jsx response')
+  // console.log(margin?.data[0], 'id.jsx response')
 
   useEffect(() => {
     if (

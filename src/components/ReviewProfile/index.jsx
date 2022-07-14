@@ -32,7 +32,7 @@ function Index({ handleChange, reviewedProfile}) {
     )
   }
 
-  console.log(reviewedProfile, "this is reviewed")
+  // console.log(reviewedProfile, "this is reviewed")
 
   return (
     <div className={`${styles.leads} leads `}>

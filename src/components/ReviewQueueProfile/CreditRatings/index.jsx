@@ -5,7 +5,7 @@ function
   Index({ creditRating }) {
 
 
-  console.log(creditRating, "creditRating")
+  // console.log(creditRating, "creditRating")
   return (
     <>
       <div className={`${styles.card} card mb-6`}>

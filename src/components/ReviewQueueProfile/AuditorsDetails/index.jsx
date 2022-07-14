@@ -3,7 +3,7 @@ import styles from '../profile.module.scss'
 import moment from 'moment'
 
 function Index({ auditorsDetails }) {
-    console.log(auditorsDetails,"auditorsDetails")
+    // console.log(auditorsDetails,"auditorsDetails")
     const latestYearData = auditorsDetails && auditorsDetails[0]
 
     const previousYearData = auditorsDetails && auditorsDetails[1]
