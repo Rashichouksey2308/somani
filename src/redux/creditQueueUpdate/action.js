@@ -52,9 +52,10 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateCam}`, payload, {
+    Axios.put(`${API.corebaseUrl}${API.updateCam}`,  {
       headers: headers,
-    }).then((response) => {
+    },
+    payload,).then((response) => {
       if (response.data.code === 200) {
         dispatch(updatingCamSuccess(response.data.data))
         let toastMessage = 'CAM APPROVED'
@@ -85,7 +86,6 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
     console.log('here in getDocuments')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    console.log('headders', headers)
     Axios.get(
       `${API.corebaseUrl}${API.getDocuments}`,
       {
