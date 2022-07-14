@@ -45,6 +45,7 @@ import { element } from 'prop-types'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 
 import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
+import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
 
 
 
@@ -360,6 +361,9 @@ function Index() {
   const [sanctionComment, setSanctionComment] = useState(
     orderList?.company?.recommendations?.sanctionTerms,
   )
+  const [approveComment, setApproveComment] = useState(
+    orderList?.cam?.approvalRemarks,
+  )
 
   const [strengthsComment, setStrengthsComment] = useState(
     orderList?.company?.recommendations?.strengths,
@@ -383,6 +387,11 @@ function Index() {
     let newArr = [...sanctionComment]
     newArr.push(sanctionComments)
     setSanctionComment(newArr)
+  }
+  const addApproveRemarkArr = (sanctionComments) => {
+    let newArr = [...approveComment]
+    newArr.push(sanctionComments)
+    setApproveComment(newArr)
   }
   const addStrengthsCommentArr = (strengthsComments) => {
     let newArr = [...strengthsComment]
@@ -531,6 +540,22 @@ function Index() {
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
+  }
+
+  const handleCamApprove = () => {
+    const obj = {
+      approvalRemarks: [...approveComment],
+      order: orderList._id,
+      status: 'Approved'
+    }
+    dispatch(UpdateCam(obj))
+  }
+  const handleCamReject = () => {
+    const obj = {
+      order: orderList._id,
+      status: 'Rejected'
+    }
+    dispatch(UpdateCam(obj))
   }
 
   const currentOpenLink = (e) => {
@@ -1260,7 +1285,7 @@ function Index() {
 
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
-                  <CAM companyData={companyData} camData={orderList} />
+                  <CAM camData={orderList} companyData={companyData} addApproveRemarkArr={addApproveRemarkArr}approveComment={approveComment} />
                 </div>
                 <div
                   className="tab-pane fade"
@@ -1602,6 +1627,8 @@ function Index() {
         <DownloadBar
           downLoadButtonName={`CAM`}
           isPrevious={true}
+          handleApprove={handleCamApprove}
+          handleReject={handleCamReject}
           leftButtonName={`Decline`}
           rightButtonName={`Approve`}
         />
