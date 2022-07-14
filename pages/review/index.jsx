@@ -357,6 +357,9 @@ function Index() {
   const [sanctionComment, setSanctionComment] = useState(
     orderList?.company?.recommendations?.sanctionTerms,
   )
+  const [approveComment, setApproveComment] = useState(
+    orderList?.cam?.approvalRemarks,
+  )
 
   const [strengthsComment, setStrengthsComment] = useState(
     orderList?.company?.recommendations?.strengths,
@@ -380,6 +383,11 @@ function Index() {
     let newArr = [...sanctionComment]
     newArr.push(sanctionComments)
     setSanctionComment(newArr)
+  }
+  const addApproveRemarkArr = (sanctionComments) => {
+    let newArr = [...approveComment]
+    newArr.push(sanctionComments)
+    setApproveComment(newArr)
   }
   const addStrengthsCommentArr = (strengthsComments) => {
     let newArr = [...strengthsComment]
@@ -1248,7 +1256,7 @@ function Index() {
                  
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
-                  <CAM camData={orderList} companyData={companyData} />
+                  <CAM camData={orderList} companyData={companyData} addApproveRemarkArr={addApproveRemarkArr}approveComment={approveComment} />
                 </div>
                 <div
                   className="tab-pane fade"

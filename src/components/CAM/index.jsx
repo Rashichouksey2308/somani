@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import moment from 'moment'
 import { Row, Col } from 'react-bootstrap'
@@ -29,13 +29,15 @@ Chart.register(
   Filler,
 )
 
-function index({ camData, companyData }) {
+function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
   console.log(camData, 'THIS IS CAM DATA')
   console.log(companyData, 'THIS IS COMPANY DATA')
 
+  const [sanctionComments, setSanctionComments] = useState('')
+
   const latestBalanceData = companyData?.financial?.balanceSheet[0]
   console.log(
-     camData?.company?.recommendation?.weakness[0],
+    camData?.company?.recommendation?.weakness[0],
     'THIS IS LATEST BALANCE',
   )
   const previousBalanceData = companyData?.financial?.balanceSheet[1]
@@ -163,13 +165,19 @@ function index({ camData, companyData }) {
       )}
       {compilanceStatus(companyData, camData)}
       {strengthAndWeakness(camData)}
-      {sectionTerms(camData)}
+      {sectionTerms(
+        camData,
+        sanctionComments,
+        setSanctionComments,
+        addApproveRemarkArr,
+        approveComment
+      )}
       {Documents()}
     </>
   )
 }
 
-export default index
+export default Index
 
 const basicInfo = (camData) => {
   return (
@@ -2160,7 +2168,7 @@ const compilanceStatus = (companyData, camData) => {
     </>
   )
 }
-const strengthAndWeakness = (data, options, tempArr, camData) => { console.log(camData, "THIS IS STRENGTHS ")
+const strengthAndWeakness = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2241,12 +2249,13 @@ const strengthAndWeakness = (data, options, tempArr, camData) => { console.log(c
                   <ul>
                     {camData &&
                       camData?.company?.recommendation?.weakness?.map(
-                        (comment, index) => { console.log(comment, "THISI IS COMMENT")
-                        return   (
-                            <span key={index} className={`mt-4`}>
-                              {{comment}}
-                            </span>
-                          ) }
+                        (comment, index) => {
+                          return (
+                            <li key={index} className={`mt-4`}>
+                              {comment}
+                            </li>
+                          )
+                        },
                       )}
                     {/* <li className={`mt-4`}>
                       — Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
@@ -2274,7 +2283,15 @@ const strengthAndWeakness = (data, options, tempArr, camData) => { console.log(c
     </>
   )
 }
-const sectionTerms = (camData) => {
+const sectionTerms = (
+  
+  camData,
+  sanctionComments,
+  setSanctionComments,
+  addApproveRemarkArr,
+  approveComment
+  
+) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2336,9 +2353,10 @@ const sectionTerms = (camData) => {
                 Sanction Conditions
               </div>
               <ul className="mt-3 mb-3">
-            {camData && camData?.company?.recommendation?.sanctionTerms?.map((condition, index)  => ( <li key={index}>
-                  {condition}
-                </li>))}
+                {camData &&
+                  camData?.company?.recommendation?.sanctionTerms?.map(
+                    (condition, index) => <li key={index}>{condition}</li>,
+                  )}
                 {/* <li>
                   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                   diam sadipscing elitr, sed diam
@@ -2359,20 +2377,26 @@ const sectionTerms = (camData) => {
             </div>
             <div>
               <div className={`${styles.approve}`}>
-                <div className={`${styles.remarks}`}>
-                  <span>Remarks</span>
-                </div>
-                <div className={`${styles.remarks}`}>
-                  <span>Remarks2</span>
-                </div>
+                {approveComment &&
+                  approveComment?.map((approve, index) => (
+                    <div key={index} className={`${styles.remarks}`}>
+                      <span>{approve}</span>
+                    </div>
+                  ))}
+
                 <div className={`mb-3`}>Approval Remarks</div>
                 <textarea
                   className="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  onChange={(e) => setSanctionComments(e.target.value)}
                 ></textarea>
                 <button
                   className={`${styles.button} mt-3 d-flex  align-items-center justify-content-center `}
+                  onClick={() =>
+                    sanctionComments.length > 0 &&
+                    addApproveRemarkArr(sanctionComments)
+                  }
                 >
                   Add
                 </button>
