@@ -37,7 +37,7 @@ function gettingDocuments() {
 function gettingDocumentsSuccess(payload) {
   return {
     type: types.GET_DOCUMENT_SUCCESS,
-    payload
+    payload,
   }
 }
 function gettingDocumentsFailed() {
@@ -79,12 +79,17 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
   try {
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-
+    console.log('here in getDocuments')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    Axios.get(`${API.corebaseUrl}${API.getDocuments}`, payload, {
-      headers: headers,
-    }).then((response) => {
+    console.log('headders', headers)
+    Axios.get(
+      `${API.corebaseUrl}${API.getDocuments}`,
+      {
+        headers: headers,
+      },
+      payload,
+    ).then((response) => {
       if (response.data.code === 200) {
         dispatch(gettingDocumentsSuccess(response.data.data))
       } else {
