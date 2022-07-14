@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import TableMain from '../../src/components/TableMain'
-
+import Router from 'next/router'
 
 function Index() {
   return (
@@ -47,7 +47,8 @@ function Index() {
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
-            >
+              onClick={()=>{Router.push("/insurance/form/both")}}
+              >
               Add
             </button>
           </div>

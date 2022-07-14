@@ -344,6 +344,38 @@ export default function Index() {
                   </div>
                 </Form>
               </div>
+              <div className={`${styles.search_container} d-flex justify-content-between pt-3 pl-3 pr-3`}>
+          <div>
+          <select className={`${styles.dropDown} input form-control`} >
+                  <option value="volvo">Loading, Transit, Unloading</option>
+                  <option value="India">India</option>
+                 
+                </select>
+          </div>
+
+        <div className={`${styles.filter} d-flex align-items-center`}>
+            <div className={styles.search}>
+              <div className="input-group">
+                <div
+                  className={`${styles.inputGroupPrepend} input-group-prepend`}
+                >
+                  <img
+                    src="/static/search.svg"
+                    className="img-fluid"
+                    alt="Search"
+                  />
+                </div>
+                <input
+                  type="text"
+                  className={`${styles.formControl} form-control formControl `}
+                  placeholder="Search"
+                />
+              </div>
+             
+            </div>
+           
+          </div>
+          </div>
               <div className={styles.table_container}>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>

@@ -2,7 +2,7 @@ import * as types from './actionType'
 
 const initialState = {
     gettingDocuments: false,
-    DocumentsFetched: null,
+    documentsFetched: null,
     updatingCam: false
 }
 
@@ -21,7 +21,7 @@ function CreditReducer(state = initialState, action) {
             return {
                 ...state,
                 gettingDocuments: false,
-                DocumentsFetched: action.payload
+                documentsFetched: action.payload
             }
         case types.GET_DOCUMENT_FAILED:
             return {

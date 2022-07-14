@@ -16,8 +16,15 @@ function Index({chargesData}) {
           aria-expanded="true"
           aria-controls="openCharges"
         >
-          <h2 className="mb-0">Open Charges</h2>
-
+          <h2 className="mb-0">Charges</h2>
+          <div className={`${styles.charges} form-group`}>
+            <input type="radio" id="all" name="charges" value="All" checked />
+            <label for="all">All</label>
+            <input type="radio" id="open" name="charges" value="Open" />
+            <label for="open">Open</label>
+            <input type="radio" id="closed" name="charges" value="Closed" />
+            <label for="closed">Closed</label>
+          </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
             <select className={`${styles.options} accordion_DropDown`}>
