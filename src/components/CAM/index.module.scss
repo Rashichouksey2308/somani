@@ -182,8 +182,17 @@
         padding-left: 35px;
     }
     .approve{
+
        padding-left: 35px;
        padding-right: 35px;
+       .remarks{
+        background: #C3C3C31F 0% 0% no-repeat padding-box;
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        padding:25px;
+        margin-bottom: 2rem;
+
+       }
        .button{
         margin-bottom:2rem;
         width: 190px;
