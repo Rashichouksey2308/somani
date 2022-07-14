@@ -5,7 +5,7 @@ import CommonSave from '../../CommonSave'
 import { useDispatch} from 'react-redux'
 import {UpdateCompanyDetails} from '../../../redux/companyDetail/action'
 
-function Index({ companyId, companyDetail }) {
+function Index({order, companyId, companyDetail }) {
     const [updateCompany, setUpdateCompany] = useState({
         _id: companyId
     })
@@ -23,6 +23,7 @@ function Index({ companyId, companyDetail }) {
         //console.log(updateCompany,"updateCompany")
         dispatch(UpdateCompanyDetails(updateCompany))
     }
+    console.log(order,'order')
 
     return (
 
@@ -126,10 +127,9 @@ function Index({ companyId, companyDetail }) {
                                 <select id='sourceChanel' onChange={onChangeHandler}
                                     className={`${styles.input_field} input form-control`}
                                     name="Sourcing">
-
-                                    <option value="Website">Website</option>
-                                    <option value="SocialMedia">SocialMedia</option>
-
+                                    <option value="SocialMedia">{}</option>
+                            <option value="Website">Website</option>
+                                    
                                 </select>
                                 <label className={`${styles.label_heading} label_heading`}>
                                     Sourcing Channel*
