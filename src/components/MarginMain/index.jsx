@@ -167,17 +167,17 @@ function Index() {
                   {marginMoneyResponse?.data?.map((margin, index) => (
                     <tbody key={index}>
                       <tr className="table_row">
-                        <td>{margin.order.orderId}</td>
+                        <td>{margin?.order?.orderId}</td>
                         <td
                           className={styles.buyerName}
                           onClick={() => {
                             handleRoute(margin)
                           }}
                         >
-                          {margin.company.companyName}
+                          {margin?.company?.companyName}
                         </td>
-                        <td>{margin.order.existingCustomer ? 'Yes' : 'No'}</td>
-                        <td>{margin.createdAt.split('T')[0]}</td>
+                        <td>{margin?.order?.existingCustomer ? 'Yes' : 'No'}</td>
+                        <td>{margin?.createdAt.split('T')[0]}</td>
                         <td>
                           <span
                             className={`${styles.status} ${
@@ -191,7 +191,7 @@ function Index() {
                             }`}
                           ></span>
 
-                          {margin.status === 'Pending'
+                          {margin?.status === 'Pending'
                             ? 'Pending'
                             : margin.status === 'Rejected'
                             ? 'Rejected'
