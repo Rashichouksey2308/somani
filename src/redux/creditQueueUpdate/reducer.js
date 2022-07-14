@@ -43,6 +43,8 @@ function CreditReducer(state = initialState, action) {
                 ...state,
                 updatingCam: false
             }
+        default:
+            return state
     }
 }
 
