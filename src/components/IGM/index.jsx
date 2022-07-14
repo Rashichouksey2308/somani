@@ -133,7 +133,7 @@ export default function Index() {
               <div className='d-flex align-items-center'>
               <div className={`${styles.label} text`}>
                Balance Quantity:</div>
-                <div className={`${styles.value}`}>4,500</div>
+                <div className={`${styles.value} ml-2 mr-4`}>4,500</div>
               <button className={styles.add_btn}><span className={styles.add_sign}>+</span>Add</button>
               </div>
             </div>
