@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
+import moment from 'moment'
 import { Row, Col } from 'react-bootstrap'
 import { Doughnut, Line } from 'react-chartjs-2'
 import {
@@ -27,8 +28,21 @@ Chart.register(
   CategoryScale,
   Filler,
 )
-function index({ camData }) {
+
+function index({ camData, companyData }) {
+
   console.log(camData, 'THIS IS CAM DATA')
+  console.log(companyData, 'THIS IS COMPANY DATA')
+
+  const latestBalanceData = companyData?.financial?.balanceSheet[0]
+  console.log(moment(companyData?.financial?.balanceSheet[0]?.date).format('MMM-YY').toUpperCase(), "THIS IS LATEST BALANCE")
+  const previousBalanceData = companyData?.financial?.balanceSheet[1]
+
+  const latestIncomeData = companyData?.financial?.incomeStatement[0]
+  const previousIncomeData = companyData?.financial?.incomeStatement[1]
+
+  const latestYearData = companyData?.financial?.ratioAnalysis[0]
+  const previousYearData = companyData?.financial?.ratioAnalysis[1]
 
   const openChargesLength = () => {
     const filteredData =
@@ -127,7 +141,7 @@ function index({ camData }) {
       {revenuDetails()}
       {trends(dataline, lineOption)}
       {skewness(data, options, tempArr)}
-      {financeDetails()}
+      {financeDetails(data, options, tempArr, latestBalanceData, previousBalanceData, companyData, latestYearData, previousYearData)}
       {compilanceStatus()}
       {strengthAndWeakness()}
       {sectionTerms()}
@@ -163,7 +177,7 @@ const basicInfo = (camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading`}>Channel</span>
-                  <span className={`${styles.value} pr-5`}>Online</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.company?.sourceChanel}</span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
@@ -208,7 +222,7 @@ const basicInfo = (camData) => {
                   <span className={`${styles.key} label_heading pl-5`}>
                     Industry
                   </span>
-                  <span className={`${styles.value}`}>Construction</span>
+                  <span className={`${styles.value}`}>{camData?.company?.typeOfBusiness}</span>
                 </Col>
               </Row>
             </div>
@@ -742,7 +756,7 @@ const orderSummary = (camData) => {
                     {camData?.company?.companyName}
                   </span>
                 </td>
-                <td>{camData?._id}</td>
+                <td>{camData?.orderId}</td>
                 <td>{camData?.orderValue}</td>
                 <td>{camData?.commodity}</td>
                 <td>In Process</td>
@@ -1369,7 +1383,7 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.key}`}>
                     Plant Production Capacity
                   </span>
-                  <span className={`${styles.value} pr-5`}>{camData?.monthlyProductionCapacity}</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.productSummary?.monthlyProductionCapacity}</span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
@@ -1489,7 +1503,7 @@ const revenuDetails = () => {
     </>
   )
 }
-const financeDetails = (data, options, tempArr) => {
+const financeDetails = (latestBalanceData, previousBalanceData, data, options, tempArr,companyData,  latestYearData, previousYearData ) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1519,55 +1533,62 @@ const financeDetails = (data, options, tempArr) => {
                 >
                   <tr>
                     <th>Liabilities</th>
-                    <th>MAR-20</th>
-                    <th>MAR-19</th>
+                    <th>{moment(companyData?.financial?.balanceSheet[0]?.date).format('MMM-YY').toUpperCase()}</th>
+                    <th>{moment(companyData?.financial?.balanceSheet[1]?.date).format('MMM-YY').toUpperCase()}</th>
                   </tr>
-                  <tr>
+                   <tr>
                     <td>Net Worth</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.balanceSheet[0]?.equityLiabilities?.totalEquity}</td>
+                    <td>{companyData?.financial?.balanceSheet[1]?.equityLiabilities?.totalEquity}</td>
                   </tr>
                   <tr>
                     <td>Total Borrowings</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.balanceSheet[0]?.equityLiabilities?.borrowingsCurrent +
+                        companyData?.financial?.balanceSheet[0]?.equityLiabilities?.borrowingsNonCurrent}</td>
+                    <td>{companyData?.financial?.balanceSheet[1]?.equityLiabilities?.borrowingsCurrent +
+                        companyData?.financial?.balanceSheet[1]?.equityLiabilities?.borrowingsNonCurrent}</td>
                   </tr>
-                  <tr>
+                   <tr>
                     <td>Creditors</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
-                  </tr>
-                  <tr>
+                    <td>{companyData?.financial?.balanceSheet[0]?.equityLiabilities?.tradePay +
+                      companyData?.financial?.balanceSheet[0]?.equityLiabilities
+                        ?.tradePayablesNoncurrent}</td>
+                    <td>{companyData?.financial?.balanceSheet[1]?.equityLiabilities?.tradePay +
+                      companyData?.financial?.balanceSheet[1]?.equityLiabilities
+                        ?.tradePayablesNoncurrent}</td>
+                   </tr>
+                   <tr>
                     <td>Other Current Liabilities</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.balanceSheet[0]?.equityLiabilities?.otherCurrentLiabilities}</td>
+                    <td>{companyData?.financial?.balanceSheet[1]?.equityLiabilities?.otherCurrentLiabilities}</td>
                   </tr>
 
-                  <tr>
+                   <tr>
                     <th colSpan={3} className={`${styles.Border}`}>
                       Assets
                     </th>
                   </tr>
 
-                  <tr>
+                   <tr>
                     <td>Working Capital Turnover ratio</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.workingCapitalTurnover}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.workingCapitalTurnover}</td>
                   </tr>
-                  <tr>
+                   <tr>
                     <td>Debtors period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.daysOfSalesOutstanding}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.daysOfSalesOutstanding}</td>
                   </tr>
                   <tr>
                     <td>Creditors Period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.daysOfPayablesOutstanding}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.daysOfPayablesOutstanding}</td>
+                    
                   </tr>
-                  <tr>
+                   <tr>
                     <td>Inventory Period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.daysOfInventoryOutstanding}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.daysOfInventoryOutstanding}</td>
                   </tr>
                   <tr>
                     <th colSpan={3} className={`${styles.Border}`}>
@@ -1577,18 +1598,18 @@ const financeDetails = (data, options, tempArr) => {
 
                   <tr>
                     <td>Interest Coverage</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.interestCoverage}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.interestCoverage}</td>
                   </tr>
                   <tr>
                     <td>Current Ratio</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.currentRatio}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.currentRatio}</td>
                   </tr>
                   <tr>
                     <td>Debt Equity</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.debtEquity}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.debtEquity}</td>
                   </tr>
                 </table>
               </Col>
@@ -1600,24 +1621,24 @@ const financeDetails = (data, options, tempArr) => {
                 >
                   <tr>
                     <th>Ratios</th>
-                    <th>MAR-20</th>
-                    <th>MAR-19</th>
+                    <th> {moment(companyData?.financial?.ratioAnalysis[0]?.financialEndDate).format('MMM-YY').toUpperCase()}</th>
+                    <th> {moment(companyData?.financial?.ratioAnalysis[1]?.financialEndDate).format('MMM-YY').toUpperCase()}</th>
                   </tr>
-                  <tr>
+                   <tr>
                     <td>Cash from Operations</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.cashFlowStatement[0]?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities}</td>
+                    <td>{companyData?.financial?.cashFlowStatement[1]?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities}</td>
                   </tr>
-                  <tr>
+                   <tr>
                     <td>Cash from Financing</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.cashFlowStatement[0]?.cashFlowsFromUsedInFinancingActivities?.cashFlowsFromUsedInFinancingActivities}</td>
+                    <td>{companyData?.financial?.cashFlowStatement[1]?.cashFlowsFromUsedInFinancingActivities?.cashFlowsFromUsedInFinancingActivities}</td>
                   </tr>
                   <tr>
                     <td>Cash from Investing</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
-                  </tr>
+                    <td>{companyData?.financial?.cashFlowStatement[0]?.cashFlowsFromUsedInInvestingActivities?.cashFlowsFromUsedInInvestingActivities}</td>
+                    <td>{companyData?.financial?.cashFlowStatement[1]?.cashFlowsFromUsedInInvestingActivities?.cashFlowsFromUsedInInvestingActivities}</td>
+                  </tr> 
 
                   <tr>
                     <td className={`${styles.no_Border}`}></td>
@@ -1627,23 +1648,23 @@ const financeDetails = (data, options, tempArr) => {
 
                   <tr>
                     <td>Working Capital Turnover ratio</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.workingCapitalTurnover}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.workingCapitalTurnover}</td>
                   </tr>
                   <tr>
                     <td>Debtors period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.daysOfSalesOutstanding}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.daysOfSalesOutstanding}</td>
                   </tr>
                   <tr>
                     <td>Creditors Period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.daysOfPayablesOutstanding}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.daysOfPayablesOutstanding}</td>
                   </tr>
                   <tr>
                     <td>Inventory Period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.daysOfInventoryOutstanding}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.daysOfInventoryOutstanding}</td>
                   </tr>
                   <tr>
                     <td className={`${styles.no_Border}`}></td>
@@ -1653,19 +1674,19 @@ const financeDetails = (data, options, tempArr) => {
 
                   <tr>
                     <td>Interest Coverage</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.interestCoverage}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.interestCoverage}</td>
                   </tr>
                   <tr>
                     <td>Current Ratio</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.currentRatio}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.currentRatio}</td>
                   </tr>
                   <tr>
                     <td>Debt Equity</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
-                  </tr>
+                    <td>{companyData?.financial?.ratioAnalysis[0]?.debtEquity}</td>
+                    <td>{companyData?.financial?.ratioAnalysis[1]?.debtEquity}</td>
+                  </tr> 
                 </table>
               </Col>
             </Row>

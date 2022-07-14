@@ -1250,7 +1250,7 @@ function Index() {
                  
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
-                  <CAM camData={orderList} />
+                  <CAM camData={orderList} companyData={companyData} />
                 </div>
                 <div
                   className="tab-pane fade"
@@ -1602,12 +1602,13 @@ function Index() {
 export default Index
 
 const uploadButton = () => {
+
   return (
 
     <>
       <button onClick={() =>
       console.log("update initiated ")
-       //  dispatch(RefetchCombineKarza(companyData.company))
+        // dispatch(RefetchCombineKarza(companyData.company))
          } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
       <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
     </>
