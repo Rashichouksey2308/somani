@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
+import Router from 'next/router'
 
 function Index() {
   const [edit, setEdit] = useState(false)
@@ -38,7 +39,7 @@ function Index() {
           </a> */}
         
           <button className={styles.createBtn}
-          onClick={()=>{router.push("/new-order")}}
+          onClick={()=>{Router.push("/lc-module/lc-application")}}
           style={{ position: "absolute", right: 25 }}>
           Create</button>
           </div>
