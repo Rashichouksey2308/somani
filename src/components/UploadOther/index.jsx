@@ -82,10 +82,10 @@ const index = () => {
           >
             <thead>
               <tr>
-                <th>DOCUMENT NAME <img className={`${styles.sort_image} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
-                <th>FORMAT <img className={`${styles.sort_image} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
-                <th>DOCUMENT DATE <img className={`${styles.sort_image} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
-                <th>UPLOADED BY <img className={`${styles.sort_image} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>DOCUMENT NAME <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>FORMAT <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>DOCUMENT DATE <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>UPLOADED BY <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
                 <th>STATUS </th>
                 <th>ACTION</th>
                 <th>
