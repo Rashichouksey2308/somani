@@ -22,7 +22,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
         <form id="CompanyDetailsForm">
           <div className={`${styles.heading} heading_card_switch_blue`}>Company Profile</div>
           <div className={styles.radio_form}>
-            <div className={styles.sub_heading}>Transaction Type</div>
+            <div className={`${styles.sub_heading} sub_heading`}>Transaction Type</div>
             {['radio'].map((type, index) => (
               <div key={`inline-${index}`} className={styles.radio_group}>
                 <Form.Check
@@ -149,7 +149,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                   required
                 />
                 <label className={`${styles.label_heading} label_heading`} id="textNumber">
-                  Phone<strong className='text-danger'>*</strong>
+                  Phone Number<strong className='text-danger'>*</strong>
                 </label>
               </div>
             </div>
@@ -175,8 +175,8 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
               </label>
             </div>
             <div className={`${styles.each_input} col-md-6 col-lg-4 col-sm-6`}>
-              <div className={`${styles.label_heading} d-flex label-heading ml-n3`}>
-                Turn Over(in Crores)<strong className='text-danger'>*</strong>
+              <div className={`${styles.label_heading} sub_heading d-flex label-heading ml-n3`}>
+                Turn Over (in Crores)<strong className='text-danger'>*</strong>
                 <div className={styles.slider_value}>
                   <span>{slider}</span> Cr
                 </div>

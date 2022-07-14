@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie'
 import Axios from 'axios'
-import Router from 'next/router'
 import API from '../../utils/endpoints'
 import * as types from './actionType'
 import { toast } from 'react-toastify'
@@ -58,6 +57,10 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updatingCamSuccess(response.data.data))
+        let toastMessage = 'CAM APPROVED'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
       } else {
         dispatch(updatingCamFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
@@ -94,7 +97,7 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
         dispatch(gettingDocumentsSuccess(response.data.data))
       } else {
         dispatch(gettingDocumentsFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage })
         }
