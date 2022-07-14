@@ -7,8 +7,6 @@ function Index() {
     const [editStren, setEditStren] = useState(true)
     const [edit, setEdit] = useState(true)
 
-
-
   return (
     <>
       {' '}

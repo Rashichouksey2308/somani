@@ -5,6 +5,8 @@ import React, { useState } from 'react'
 import styles from './transit.module.scss'
 import BillLanding from '../../src/components/BillLading'
 import CIMS from '../../src/components/CIMS'
+import IGM from '../../src/components/IGM'
+
 
 function Index() {
 
@@ -69,9 +71,9 @@ function Index() {
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
-                href="#plotInspection"
+                href="#igm"
                 role="tab"
-                aria-controls="plotInspection"
+                aria-controls="igm"
                 aria-selected="false"
               >
                 IGM
@@ -99,6 +101,14 @@ function Index() {
                   role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <CIMS />
+                  </div>
+                </div>
+                <div
+                  className="tab-pane fade"
+                  id="igm"
+                  role="tabpanel">
+                  <div className={`${styles.card}  accordion_body`}>
+                    <IGM />
                   </div>
                 </div>
 
