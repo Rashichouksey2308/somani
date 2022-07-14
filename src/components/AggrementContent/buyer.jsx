@@ -325,152 +325,104 @@ function Index() {
                 <Form.Group
                   className={`${styles.form_group} col-md-4 col-sm-6`}
                 >
-                  <select
+                  <Form.Control
                     className={`${styles.input_field} input form-control`}
-                    name="countryOfOrigin"
-                    onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value)
-                    }}
-                  >
-                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                  </select>
+                    required
+                    type="text"
+                    name="commodity"
+                  />
                   <Form.Label
-                    className={`${styles.label_heading} ${styles.select} label_heading`}
+                    className={`${styles.label_heading} label_heading`}
                   >
-                    GSTIN<strong className="text-danger">*</strong>
+                    Name<strong className="text-danger">*</strong>
                   </Form.Label>
                 </Form.Group>
               </Col>
 
               <Col md={4} sm={12}>
-                <div
-                  className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}
+              <Form.Group
+                  className={`${styles.form_group} col-md-4 col-sm-6`}
                 >
-                  <div className={styles.phone_card}>
-                    <select
-                      id="Code"
-                      className={`${styles.code_phone} input border-right-0`}
-                    >
-                      <option>+91</option>
-                      <option>+1</option>
-                      <option>+92</option>
-                      <option>+95</option>
-                      <option>+24</option>
-                    </select>
-                    <input
-                      type="tel"
-                      id="textNumber"
-                      name="primary"
-                      onChange={(e) => {
-                        if (phoneValidation(e.target.value)) {
-                          // saveCompanyData(e.target.name, e.target.value)
-                          mobileFunction(e)
-
-                          //green tick
-                        } else {
-                          //red mark
-                          console.log('phone formaat invalid')
-                        }
-                      }}
-                      className={`${styles.input_field} input form-control border-left-0`}
-                      required
-                    />
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textNumber"
-                    >
-                      Phone<strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                </div>
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="commodity"
+                  />
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Designation<strong className="text-danger">*</strong>
+                  </Form.Label>
+                </Form.Group>
               </Col>
-              <Col md={4} sm={12}>
-                <div
-                  className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}
-                >
-                  <div className={styles.phone_card}>
-                    <select
-                      id="Code"
-                      className={`${styles.code_phone} input border-right-0`}
-                    >
-                      <option>+91</option>
-                      <option>+1</option>
-                      <option>+92</option>
-                      <option>+95</option>
-                      <option>+24</option>
-                    </select>
-                    <input
-                      type="tel"
-                      id="textNumber"
-                      name="primary"
-                      onChange={(e) => {
-                        if (phoneValidation(e.target.value)) {
-                          // saveCompanyData(e.target.name, e.target.value)
-                          mobileFunction(e)
-
-                          //green tick
-                        } else {
-                          //red mark
-                          console.log('phone formaat invalid')
-                        }
-                      }}
-                      className={`${styles.input_field} input form-control border-left-0`}
-                      required
-                    />
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textNumber"
-                    >
-                      Phone<strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                </div>
-              </Col>
+          
             </Row>
-            <div>
-              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select
-                  className={`${styles.input_field} input form-control`}
-                  name="countryOfOrigin"
-                  onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
-                  }}
+              <div className="d-flex">
+                <Form.Group
+                  className={`${styles.form_group} col-md-4 col-sm-6`}
                 >
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select} label_heading`}
-                >
-                  GSTIN<strong className="text-danger">*</strong>
-                </Form.Label>
-              </Form.Group>
-              <div></div>
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="commodity"
+                  />
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Email*<strong className="text-danger">*</strong>
+                  </Form.Label>
+                </Form.Group>
+                   <img
+                      className="img-fluid ml-4"
+                      src="/static/add-btn.svg"
+                      alt="add button"
+                    />
             </div>
-            <div>
-              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select
-                  className={`${styles.input_field} input form-control`}
-                  name="countryOfOrigin"
-                  onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
-                  }}
+            <div className="d-flex">
+                              <div
+                  className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}
                 >
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                </select>
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select} label_heading`}
-                >
-                  GSTIN<strong className="text-danger">*</strong>
-                </Form.Label>
-              </Form.Group>
-              <div></div>
+                  <div className={styles.phone_card}>
+                    <select
+                      id="Code"
+                      className={`${styles.code_phone} input border-right-0`}
+                    >
+                      <option>+91</option>
+                      <option>+1</option>
+                      <option>+92</option>
+                      <option>+95</option>
+                      <option>+24</option>
+                    </select>
+                    <input
+                      type="tel"
+                      id="textNumber"
+                      name="primary"
+                      className={`${styles.input_field} input form-control border-left-0`}
+                      required
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textNumber"
+                    >
+                      Other Phone No.<strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                </div>
+                                   <img
+                      className="img-fluid ml-4"
+                      src="/static/add-btn.svg"
+                      alt="add button"
+                    />
             </div>
+
             <div className={`${styles.buttons} d-flex`}>
-              <div>
+              <div className={styles.add}>
                 <span>Add</span>
               </div>
-              <div>
-                <span>Cancel</span>
+              <div className={`${styles.cancel} ml-2`}>
+                <span >Cancel</span>
               </div>
             </div>
           </div>
