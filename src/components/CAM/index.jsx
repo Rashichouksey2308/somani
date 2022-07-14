@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
@@ -25,7 +27,32 @@ Chart.register(
   CategoryScale,
   Filler,
 )
-function index() {
+function index({ camData }) {
+  console.log(camData, 'THIS IS CAM DATA')
+
+  const openChargesLength = () => {
+    const filteredData =
+      camData?.company?.detailedCompanyInfo?.financial?.openCharges?.filter(
+        (data) => data.dateOfSatisfactionOfChargeInFull === null,
+      )
+
+    const length = filteredData?.length
+
+    return length
+  }
+
+  const primaryBankName = () => {
+    const filteredData = camData?.company?.debtProfile?.filter(
+      (data) => data.primaryBank,
+    )
+    const length = filteredData?.bankName
+
+    return length
+  }
+
+  const latestAuditorData = camData?.company?.detailedCompanyInfo?.profile?.auditorDetail[0]
+  const previousAuditorData = camData?.company?.detailedCompanyInfo?.profile?.auditorDetail[1]
+
   let tempArr = [
     { name: 'Sagar Sinha', value: '21', color: '#9675CE' },
     { name: 'Radhe Singh', value: '23', color: '#4CAF50' },
@@ -87,16 +114,16 @@ function index() {
   }
   return (
     <>
-      {basicInfo()}
-      {supplierInfo()}
-      {groupExposure()}
-      {orderSummary()}
-      {creditProfile()}
-      {directorDetails()}
-      {shareHolding(data, options, tempArr)}
-      {chargeDetails(data, options, tempArr)}
-      {debtProfile(data, options, tempArr)}
-      {operationalDetails()}
+      {basicInfo(camData)}
+      {supplierInfo(camData)}
+      {groupExposure(camData)}
+      {orderSummary(camData)}
+      {creditProfile(camData, openChargesLength, primaryBankName, latestAuditorData, previousAuditorData)}
+      {directorDetails(camData)}
+      {shareHolding(data, options, tempArr, camData)}
+      {chargeDetails(data, options, tempArr, camData)}
+      {debtProfile(data, options, tempArr, camData)}
+      {operationalDetails(camData)}
       {revenuDetails()}
       {trends(dataline, lineOption)}
       {skewness(data, options, tempArr)}
@@ -111,7 +138,7 @@ function index() {
 
 export default index
 
-const basicInfo = () => {
+const basicInfo = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -145,7 +172,9 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading pl-5`}>
                     City
                   </span>
-                  <span className={`${styles.value} `}>Agra</span>
+                  <span className={`${styles.value} `}>
+                    {camData?.company?.keyAddress[0]?.city}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -153,13 +182,17 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     Customer
                   </span>
-                  <span className={`${styles.value} pr-5`}>Jaiswal Nico</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.company?.companyName}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     State
                   </span>
-                  <span className={`${styles.value}`}>Uttar Pradesh</span>
+                  <span className={`${styles.value}`}>
+                    {camData?.company?.keyAddress[0]?.state}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -167,7 +200,9 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     Type of Business
                   </span>
-                  <span className={`${styles.value} pr-5`}>Manufacturer</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.company?.typeOfBusiness}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
@@ -183,38 +218,48 @@ const basicInfo = () => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} `}>Order Value</span>
-                  <span className={`${styles.value} pr-5`}>500 CR</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.orderValue} {camData?.unitOfValue}
+                  </span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
                   md={5}
                 >
                   <span className={`${styles.key}  pl-5`}>Commodity</span>
-                  <span className={`${styles.value} `}>Iron</span>
+                  <span className={`${styles.value} `}>
+                    {camData?.commodity}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} `}>Quantity</span>
-                  <span className={`${styles.value} pr-5`}>500 MT</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.quantity} {camData?.unitOfQuantity}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}  pl-5`}>Supplier</span>
                   <span className={`${styles.value}`}>
-                    Ramakrishnan Traders
+                    {camData?.supplierName}
                   </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} `}>Country of Origins</span>
-                  <span className={`${styles.value} pr-5`}>India</span>
+                  <span className={`${styles.key} `}>Country of Origin</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.countryOfOrigin}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}  pl-5`}>
-                    Transaction Periody
+                    Transaction Period
                   </span>
-                  <span className={`${styles.value}`}>90 Days</span>
+                  <span className={`${styles.value}`}>
+                    {camData?.transactionPeriodDays}
+                  </span>
                 </Col>
               </Row>
             </div>
@@ -235,7 +280,9 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading pl-5`}>
                     Port of Discharge
                   </span>
-                  <span className={`${styles.value} `}>Vishakapatnam, AP</span>
+                  <span className={`${styles.value} `}>
+                    {camData?.portOfDischarge}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -243,13 +290,21 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     Exp. Date of Shipment
                   </span>
-                  <span className={`${styles.value} pr-5`}>14-05-2022</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.ExpectedDateOfShipment.split('T')[0]}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     ETA at Discharge port
                   </span>
-                  <span className={`${styles.value}`}>30-05-2022</span>
+                  <span className={`${styles.value}`}>
+                    {
+                      camData?.shipmentDetail?.ETAofDischarge?.fromDate?.split(
+                        'T',
+                      )[0]
+                    }
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -257,13 +312,17 @@ const basicInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     Laycan from
                   </span>
-                  <span className={`${styles.value} pr-5`}>14-06-2022</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     Laycan to
                   </span>
-                  <span className={`${styles.value}`}>14-06-2022</span>
+                  <span className={`${styles.value}`}>
+                    {camData?.shipmentDetail?.loadPort?.toDate?.split('T')[0]}
+                  </span>
                 </Col>
               </Row>
             </div>
@@ -273,7 +332,7 @@ const basicInfo = () => {
     </>
   )
 }
-const supplierInfo = () => {
+const supplierInfo = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -300,7 +359,9 @@ const supplierInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     No. of Shipments
                   </span>
-                  <span className={`${styles.value} pr-5`}>9,000</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.supplierCredential?.shipmentNumber}
+                  </span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
@@ -309,7 +370,9 @@ const supplierInfo = () => {
                   <span className={`${styles.key} label_heading pl-5`}>
                     Port of Destination
                   </span>
-                  <span className={`${styles.value} `}>9,000</span>
+                  <span className={`${styles.value} `}>
+                    {camData?.supplierCredential?.portOfDestination}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -317,13 +380,21 @@ const supplierInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     No. of Consignees
                   </span>
-                  <span className={`${styles.value} pr-5`}>9,000</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.supplierCredential?.consigneesNumber}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     Latest Shipment date
                   </span>
-                  <span className={`${styles.value}`}>22-02-2022</span>
+                  <span className={`${styles.value}`}>
+                    {
+                      camData?.supplierCredential?.latestShipmentDate?.split(
+                        'T',
+                      )[0]
+                    }
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -331,13 +402,21 @@ const supplierInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     No. of HS codes
                   </span>
-                  <span className={`${styles.value} pr-5`}>9,000</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.supplierCredential?.HSCodesNumber}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     Oldest shipment date
                   </span>
-                  <span className={`${styles.value}`}>22-05-2022</span>
+                  <span className={`${styles.value}`}>
+                    {
+                      camData?.supplierCredential?.oldestShipmentDate?.split(
+                        'T',
+                      )[0]
+                    }
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -345,7 +424,9 @@ const supplierInfo = () => {
                   <span className={`${styles.key} label_heading`}>
                     Country of Origins
                   </span>
-                  <span className={`${styles.value} pr-5`}>India</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.supplierCredential?.countryOfOrigin}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
@@ -354,19 +435,14 @@ const supplierInfo = () => {
                   <span
                     className={`${styles.value} ${styles.danger_highlight}`}
                   >
-                    15%
+                    {camData?.supplierCredential?.commodityOfTotalTrade} %
                   </span>
                 </Col>
               </Row>
             </div>
             <div className={`${styles.remark_Wrapper}`}>
               <p className={`${styles.remark_head} label_heading`}>Remark</p>
-              <p>
-                Lorem ipsum is a name for a common type of placeholder text.
-                Also known as filler or dummy text, this is simply text copy
-                that serves to fill a space without actually saying anything
-                meaningful.
-              </p>
+              <p>{camData?.supplierCredential?.remarks}</p>
             </div>
           </div>
         </div>
@@ -374,7 +450,7 @@ const supplierInfo = () => {
     </>
   )
 }
-const groupExposure = () => {
+const groupExposure = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -395,8 +471,74 @@ const groupExposure = () => {
           data-parent="#profileAccordion"
         >
           <div className={`${styles.info_wrapper} card-body border_color`}>
-            <Row className={`${styles.row}`}>
-              <Col md={4}>
+            {camData &&
+              camData?.company?.groupExposureDetail?.map((exp, index) => (
+                <Row key={index} className={`${styles.row}`}>
+                  <Col md={4}>
+                    <div className={`${styles.exposureCard}`}>
+                      <Row>
+                        <Col
+                          sm={12}
+                          className={`d-flex justify-content-start align-content-center  mb-5`}
+                        >
+                          <div className={`${styles.icon} `}>
+                            <span
+                              className={`d-flex justify-content-center align-content-center`}
+                            >
+                              ET
+                            </span>
+                          </div>
+
+                          <span className={` ${styles.name} ml-3  `}>
+                            {exp.name}
+                          </span>
+                        </Col>
+                        <Col sm={12} className={`${styles.limit}   mb-5`}>
+                          <div
+                            className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                          >
+                            <div className={`${styles.limit_box} `}>
+                              <span className={`${styles.limit_label} `}>
+                                LIMIT
+                              </span>
+                            </div>
+                            <span>{exp.limit}</span>
+                          </div>
+                          <div className={`${styles.bar}`}>
+                            <div className={`${styles.fill}`}></div>
+                          </div>
+                        </Col>
+                        <Col sm={12} className={`${styles.limit}   mb-5`}>
+                          <div
+                            className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                          >
+                            <div className={`${styles.limit_box} `}>
+                              <span className={`${styles.limit_label} `}>
+                                O/S BALANCE
+                              </span>
+                            </div>
+                            <span>{exp.outstandingLimit}</span>
+                          </div>
+                          <div className={`${styles.bar}`}>
+                            <div className={`${styles.fill}`}></div>
+                          </div>
+                        </Col>
+                        <Col sm={12} className={`${styles.limit}   mb-5`}>
+                          <div
+                            className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                          >
+                            <div className={`${styles.limit_box} `}>
+                              <span className={`${styles.limit_label} `}>
+                                CONDUCT
+                              </span>
+                            </div>
+                          </div>
+                          <p>{exp.accountConduct}</p>
+                        </Col>
+                      </Row>
+                    </div>
+                  </Col>
+                  {/* <Col md={4}>
                 <div className={`${styles.exposureCard}`}>
                   <Row>
                     <Col
@@ -533,84 +675,16 @@ const groupExposure = () => {
                     </Col>
                   </Row>
                 </div>
-              </Col>
-              <Col md={4}>
-                <div className={`${styles.exposureCard}`}>
-                  <Row>
-                    <Col
-                      sm={12}
-                      className={`d-flex justify-content-start align-content-center  mb-5`}
-                    >
-                      <div className={`${styles.icon} `}>
-                        <span
-                          className={`d-flex justify-content-center align-content-center`}
-                        >
-                          ET
-                        </span>
-                      </div>
-
-                      <span className={` ${styles.name} ml-3  `}>
-                        Emerging Traders
-                      </span>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            LIMIT
-                          </span>
-                        </div>
-                        <span>1,900.00</span>
-                      </div>
-                      <div className={`${styles.bar}`}>
-                        <div className={`${styles.fill}`}></div>
-                      </div>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            O/S BALANCE
-                          </span>
-                        </div>
-                        <span>1,900.00</span>
-                      </div>
-                      <div className={`${styles.bar}`}>
-                        <div className={`${styles.fill}`}></div>
-                      </div>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            CONDUCT
-                          </span>
-                        </div>
-                      </div>
-                      <p>
-                        {' '}
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam
-                      </p>
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </Row>
+              </Col> */}
+                </Row>
+              ))}
           </div>
         </div>
       </div>
     </>
   )
 }
-const orderSummary = () => {
+const orderSummary = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -621,7 +695,7 @@ const orderSummary = () => {
           aria-expanded="true"
           aria-controls="orderSummary"
         >
-          <h2 className="mb-0">Order Summary In Past 12 Months</h2>
+          <h2 className="mb-0">Order Summary - Last 6 Orders</h2>
           <span>+</span>
         </div>
         <div
@@ -646,7 +720,7 @@ const orderSummary = () => {
                 <th>DAYS DUE</th>
               </tr>
               <tr>
-                <td>SEP 2021 - DEC 2021</td>
+                <td>JUL 2022 - JUN 2023</td>
 
                 <td colSpan={5}>
                   <div className={`${styles.dashedLine}`}></div>
@@ -665,12 +739,12 @@ const orderSummary = () => {
                   </div>
 
                   <span className={` ${styles.name} ml-3  `}>
-                    Emerging Traders
+                    {camData?.company?.companyName}
                   </span>
                 </td>
-                <td>2765470865</td>
-                <td>1,900.00</td>
-                <td>Iron</td>
+                <td>{camData?._id}</td>
+                <td>{camData?.orderValue}</td>
+                <td>{camData?.commodity}</td>
                 <td>In Process</td>
 
                 <td>12</td>
@@ -682,7 +756,7 @@ const orderSummary = () => {
     </>
   )
 }
-const creditProfile = () => {
+const creditProfile = (camData, openChargesLength, primaryBankName, latestAuditorData, previousAuditorData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -709,7 +783,9 @@ const creditProfile = () => {
                   <span className={`${styles.key} label_heading`}>
                     Main Banker
                   </span>
-                  <span className={`${styles.value} pr-5`}>HDFC Bank</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {primaryBankName()}
+                  </span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
@@ -726,7 +802,9 @@ const creditProfile = () => {
                   <span className={`${styles.key} label_heading`}>
                     Open Charges
                   </span>
-                  <span className={`${styles.value} pr-5`}>4652348723</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {openChargesLength()}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
@@ -740,13 +818,18 @@ const creditProfile = () => {
                   <span className={`${styles.key} label_heading`}>
                     Name of Auditor
                   </span>
-                  <span className={`${styles.value} pr-5`}>John Doe</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {
+                      camData?.company?.detailedCompanyInfo?.profile
+                        ?.auditorDetail[0]?.nameOfAuditor
+                    }
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading pl-5`}>
                     Change in Auditor
                   </span>
-                  <span className={`${styles.value} `}>Yes</span>
+                  <span className={`${styles.value} `}>{latestAuditorData?.nameOfAuditor === previousAuditorData?.nameOfAuditor ? " NO" : "Yes"}</span>
                 </Col>
               </Row>
             </div>
@@ -756,7 +839,7 @@ const creditProfile = () => {
     </>
   )
 }
-const directorDetails = () => {
+const directorDetails = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -790,7 +873,7 @@ const directorDetails = () => {
                 <th>% SHAREHOLDING</th>
               </tr>
 
-              <tr>
+           {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map((director, index) => ( <tr key={index}>
                 <td
                   className={`d-flex justify-content-start align-content-center`}
                 >
@@ -803,15 +886,15 @@ const directorDetails = () => {
                   </div>
 
                   <span className={` ${styles.name} ml-3  `}>
-                    % SHAREHOLDING
+                    {director?.name}
                   </span>
                 </td>
-                <td>27AAATW4183</td>
-                <td>17872982008 </td>
-                <td>20-08-2011</td>
+                <td>{director?.pan[0]}</td>
+                <td>{director.din}</td>
+                <td>{director.tenureStartDate}</td>
                 <td>30%</td>
-              </tr>
-              <tr>
+              </tr>))}
+              {/* <tr>
                 <td
                   className={`d-flex justify-content-start align-content-center`}
                 >
@@ -848,7 +931,7 @@ const directorDetails = () => {
                 <td>17872982008 </td>
                 <td>20-08-2011</td>
                 <td>30%</td>
-              </tr>
+              </tr> */}
             </table>
           </div>
         </div>
@@ -856,7 +939,7 @@ const directorDetails = () => {
     </>
   )
 }
-const shareHolding = (data, options, tempArr) => {
+const shareHolding = (data, options, tempArr, camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -916,7 +999,7 @@ const shareHolding = (data, options, tempArr) => {
                     <th>DIRECTOR</th>
                   </tr>
 
-                  <tr>
+              {  camData && camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map((share, index) => ( <tr key={index}>
                     <td
                       className={`d-flex justify-content-start align-content-center`}
                     >
@@ -929,14 +1012,14 @@ const shareHolding = (data, options, tempArr) => {
                       </div>
 
                       <span className={` ${styles.name} ml-3  `}>
-                        % SHAREHOLDING
+                        {share?.fullName}
                       </span>
                     </td>
-                    <td>120</td>
-                    <td>80% </td>
-                    <td>Yes</td>
-                  </tr>
-                  <tr>
+                    <td>{share?.numberOfShares}</td>
+                    <td>{share?.percentageShareHolding}</td>
+                    <td>{share?.director ? 'Yes' : 'No'}</td>
+                  </tr>))}
+                  {/* <tr>
                     <td
                       className={`d-flex justify-content-start align-content-center`}
                     >
@@ -975,7 +1058,7 @@ const shareHolding = (data, options, tempArr) => {
                     <td>120</td>
                     <td>80% </td>
                     <td>Yes</td>
-                  </tr>
+                  </tr> */}
                 </table>
               </Col>
             </Row>
@@ -985,7 +1068,7 @@ const shareHolding = (data, options, tempArr) => {
     </>
   )
 }
-const chargeDetails = (data, options, tempArr) => {
+const chargeDetails = (data, options, tempArr, camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1044,7 +1127,7 @@ const chargeDetails = (data, options, tempArr) => {
                     <th>DATE OF CREATION</th>
                   </tr>
 
-                  <tr>
+              {  camData && camData?.company?.detailedCompanyInfo?.financial?.openCharges.map((charge, index) => ( <tr key={index}>
                     <td
                       className={`d-flex justify-content-start align-content-center`}
                     >
@@ -1057,14 +1140,14 @@ const chargeDetails = (data, options, tempArr) => {
                       </div>
 
                       <span className={` ${styles.name} ml-3  `}>
-                        % SHAREHOLDING
+                        {charge?.nameOfChargeHolder1}
                       </span>
                     </td>
-                    <td>1,900.00</td>
+                    <td>{charge?.finalAmountSecured}</td>
 
-                    <td>22-02-2020</td>
-                  </tr>
-                  <tr>
+                    <td>{charge?.dateOfCreationOfCharge}</td>
+                  </tr>))}
+                  {/* <tr>
                     <td
                       className={`d-flex justify-content-start align-content-center`}
                     >
@@ -1103,7 +1186,7 @@ const chargeDetails = (data, options, tempArr) => {
                     <td>1,900.00</td>
 
                     <td>22-02-2020</td>
-                  </tr>
+                  </tr> */}
                 </table>
               </Col>
             </Row>
@@ -1113,7 +1196,7 @@ const chargeDetails = (data, options, tempArr) => {
     </>
   )
 }
-const debtProfile = (data, options, tempArr) => {
+const debtProfile = (data, options, tempArr, camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1213,25 +1296,26 @@ const debtProfile = (data, options, tempArr) => {
                     <th>CONDUCT</th>
                   </tr>
 
-                  <tr>
-                    <td>ICICI Bank</td>
+              { camData && camData?.company?.debtProfile?.map((debt, index) => ( <tr key={index}>
+                    <td>{debt?.bankName}</td>
                     <td>
                       <input
                         className={`${styles.value} form-control`}
+                        defaultValue={debt?.limitType}
                         disabled={true}
-                      /> 
+                      />
                     </td>
 
-                    <td>₹ 800.00</td>
-                    <td className={`${styles.conduct} danger`}>Poor</td>
-                  </tr>
-                  <tr>
+                    <td>{debt?.limit}</td>
+                    <td className={`${styles.conduct} danger`}>{debt?.conduct}</td>
+                  </tr>))}
+                  {/* <tr>
                     <td>ICICI Bank</td>
                     <td>
                       <input
                         className={`${styles.value} form-control`}
                         disabled={true}
-                      /> 
+                      />
                     </td>
 
                     <td>₹ 800.00</td>
@@ -1243,12 +1327,12 @@ const debtProfile = (data, options, tempArr) => {
                       <input
                         className={`${styles.value} form-control`}
                         disabled={true}
-                      /> 
+                      />
                     </td>
 
                     <td>₹ 800.00</td>
                     <td className={`${styles.conduct}`}>Poor</td>
-                  </tr>
+                  </tr> */}
                 </table>
               </Col>
             </Row>
@@ -1258,7 +1342,7 @@ const debtProfile = (data, options, tempArr) => {
     </>
   )
 }
-const operationalDetails = () => {
+const operationalDetails = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1285,7 +1369,7 @@ const operationalDetails = () => {
                   <span className={`${styles.key}`}>
                     Plant Production Capacity
                   </span>
-                  <span className={`${styles.value} pr-5`}>4,320.00 MTk</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.monthlyProductionCapacity}</span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
@@ -1294,19 +1378,19 @@ const operationalDetails = () => {
                   <span className={`${styles.key} pl-5`}>
                     Stock in Transit - Commodity
                   </span>
-                  <span className={`${styles.value} `}>4,320.00 MT</span>
+                  <span className={`${styles.value} `}>{camData?.productSummary?.averageStockInTransit}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}`}>Capacity Utilization</span>
-                  <span className={`${styles.value} pr-5`}>80%</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.productSummary?.capacityUtilization}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} pl-5`}>
                     Stock Coverage of Commodity
                   </span>
-                  <span className={`${styles.value}`}>30 Days</span>
+                  <span className={`${styles.value}`}>{camData?.productSummary?.averageStockOfCommodity}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1314,13 +1398,13 @@ const operationalDetails = () => {
                   <span className={`${styles.key}`}>
                     Available Stock of Commodity
                   </span>
-                  <span className={`${styles.value} pr-5`}>4,320.00 MT</span>
+                  <span className={`${styles.value} pr-5`}>{camData?.productSummary?.availableStock}</span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} pl-5`}>
                     Avg Monthly Electricity Bill
                   </span>
-                  <span className={`${styles.value} `}>₹ 4,320.00</span>
+                  <span className={`${styles.value} `}>{camData?.productSummary?.AvgMonthlyElectricityBill}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1328,7 +1412,7 @@ const operationalDetails = () => {
                   <span className={`${styles.key} pl-5`}>
                     Daily Consumption of Commodity
                   </span>
-                  <span className={`${styles.value} `}>4,320.00 MT</span>
+                  <span className={`${styles.value} `}>{camData?.productSummary?.dailyConsumptionOfCommodity}</span>
                 </Col>
               </Row>
             </div>
@@ -1815,7 +1899,6 @@ const sectionTerms = () => {
                   <input type="checkbox"></input>
                 </td>
                 <td>1,900.00</td>
-
               </tr>
               <tr>
                 <td>Limit Value</td>
@@ -1826,7 +1909,6 @@ const sectionTerms = () => {
                   <input type="checkbox"></input>
                 </td>
                 <td>1,900.00</td>
-
               </tr>
             </table>
             <div>

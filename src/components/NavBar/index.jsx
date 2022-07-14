@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, {useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './index.module.scss'
@@ -19,7 +20,7 @@ function Index() {
     
      dispatch(setTheme())
  
-    },[])
+    },[dispatch])
 
      useEffect(() => {
     if (window !== undefined) {
@@ -32,7 +33,7 @@ function Index() {
             return true;
           } else {
             if (document.body.clientWidth <= 1199) {
-                  console.log('yes')
+                  // console.log('yes')
                   dispatch(settingMobile(true))
                   dispatch(hideSidebar())
                 }else{
@@ -45,7 +46,7 @@ function Index() {
         isZooming()
       })
     }
-  }, [])
+  }, [dispatch])
       useEffect(() => {
  
    
@@ -88,7 +89,7 @@ function Index() {
   //                     localStorage.setItem("darkMode",false)
   //                    }
   }
-  console.log(darkMode,"darkmode123")
+  // console.log(darkMode,"darkmode123")
   
   return (
 
