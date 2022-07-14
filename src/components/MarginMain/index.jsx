@@ -18,7 +18,7 @@ function Index() {
   const { searchedLeads } = useSelector((state) => state.order)
 
   const { marginMoneyResponse } = useSelector((state) => state.marginMoney)
-  
+  // console.log(marginMoneyResponse, 'THIS IS MARGIN MONEY RESPONSE')
 
   useEffect(() => {
     dispatch(GetAllMarginMoney(`?page=${currentPage}`))
@@ -39,7 +39,8 @@ function Index() {
   }
 
   const handleRoute = (margin) => {
-    dispatch(GetMarginMoney({ orderId: margin._id }))
+    // console.log(margin, "THIS IS MARGIN MONEY")
+    dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
     Router.push('/margin-money/id')
   }
 
@@ -167,17 +168,17 @@ function Index() {
                   {marginMoneyResponse?.data?.map((margin, index) => (
                     <tbody key={index}>
                       <tr className="table_row">
-                        <td>{margin.order.orderId}</td>
+                        <td>{margin?.order?.orderId}</td>
                         <td
                           className={styles.buyerName}
                           onClick={() => {
                             handleRoute(margin)
                           }}
                         >
-                          {margin.company.companyName}
+                          {margin?.company?.companyName}
                         </td>
-                        <td>{margin.order.existingCustomer ? 'Yes' : 'No'}</td>
-                        <td>{margin.createdAt.split('T')[0]}</td>
+                        <td>{margin?.order?.existingCustomer ? 'Yes' : 'No'}</td>
+                        <td>{margin?.createdAt?.split('T')[0]}</td>
                         <td>
                           <span
                             className={`${styles.status} ${

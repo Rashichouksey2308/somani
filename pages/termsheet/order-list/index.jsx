@@ -6,26 +6,24 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../../src/redux/registerBuyer/action'
-import { setPageName ,setDynamicName} from '../../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../../src/redux/userData/action'
 
 function Index() {
-
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
 
   const { singleOrder } = useSelector((state) => state.buyer)
-  
 
-  console.log(singleOrder?.data, 'all order listtt1')
+  console.log(singleOrder, 'all order listtt1')
 
   // useEffect(() => {
   //   dispatch(GetOrders(`?page=${currentPage}`))
   // }, [dispatch, currentPage])
-  
- useEffect(() => {
-     dispatch(setPageName('termsheet'))
-     dispatch(setDynamicName("Company Name"))
-  },[singleOrder])
+
+  useEffect(() => {
+    dispatch(setPageName('termsheet'))
+    dispatch(setDynamicName('Company Name'))
+  }, [singleOrder])
 
   const handleRoute = (buyer) => {
     // if (buyer.queue === 'ReviewQueue') {
@@ -39,9 +37,6 @@ function Index() {
     //  Router.push('/lc-module')
   }
 
-
-
-
   return (
     <>
       {' '}
@@ -49,15 +44,16 @@ function Index() {
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            
-             <div className={styles.head_header}>
-                    <img className={`${styles.arrow} img-fluid`}
-                        src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-                    <h1 className={`${styles.heading} heading`}>{`Termsheet all orders`}</h1>
-                </div>
-        
-
-  
+            <div className={styles.head_header}>
+              <img
+                className={`${styles.arrow} img-fluid`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow"
+              />
+              <h1
+                className={`${styles.heading} heading`}
+              >{`Termsheet all orders`}</h1>
+            </div>
           </div>
 
           {/*status Box*/}
@@ -149,7 +145,10 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage + 1}  out of {Math.ceil(singleOrder?.data?.totalCount / 10)}</span>
+                <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(singleOrder?.data?.totalCount / 10)}
+                </span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -163,7 +162,6 @@ function Index() {
                 >
                   {' '}
                   <img
-
                     src="/static/keyboard_arrow_right-3.svg"
                     alt="arrow right"
                     className="img-fluid"
@@ -171,10 +169,12 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage+1 < Math.ceil(singleOrder?.data?.totalCount / 10)) {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(singleOrder?.data?.totalCount / 10)
+                    ) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
-
                   }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
@@ -197,43 +197,52 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th >ORDER ID <img className={`mb-1`} src="./static/icons8-sort-24.png "/></th>
+                      <th>
+                        ORDER ID{' '}
+                        <img
+                          className={`mb-1`}
+                          src="./static/icons8-sort-24.png "
+                        />
+                      </th>
                       <th>COMMODITY</th>
                       <th>CREATED BY</th>
                       <th>CREATED ON</th>
                       <th>STATUS</th>
-                      
                     </tr>
                   </thead>
                   <tbody>
-                  
-                                    <td>
-                    NEWT001000001
-                   </td>
-                   <td onClick={(e)=>{Router.push("/termsheet/12")}}>Iron</td>
-                  
-                   <td>2022-07-13</td>
-                   <td>2022-07-13</td>
-                  <td>
-                            <span
-                              className={`${styles.status} ${
-                              "Rejected" === 'Rejected' ? styles.rejected :  buyer.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : buyer.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
-                            ></span>
-                            
-                          {"Rejected" === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
-                              ? 'Review'
-                              : buyer.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
-                          </td>
-                         
+                    <td>NEWT001000001</td>
+                    <td
+                      onClick={(e) => {
+                        Router.push('/termsheet/12')
+                      }}
+                    >
+                      Iron
+                    </td>
 
-                  
+                    <td>2022-07-13</td>
+                    <td>2022-07-13</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${
+                          'Rejected' === 'Rejected'
+                            ? styles.rejected
+                            : buyer.queue === 'ReviewQueue'
+                            ? styles.review
+                            : buyer.queue === 'CreditQueue'
+                            ? styles.approved
+                            : styles.rejected
+                        }`}
+                      ></span>
+
+                      {'Rejected' === 'Rejected'
+                        ? 'Rejected'
+                        : buyer.queue === 'ReviewQueue'
+                        ? 'Review'
+                        : buyer.queue === 'CreditQueue'
+                        ? 'Approved'
+                        : 'Rejected'}
+                    </td>
                   </tbody>
                 </table>
               </div>

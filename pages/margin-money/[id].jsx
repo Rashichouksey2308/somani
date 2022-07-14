@@ -21,7 +21,7 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
 
   const { margin} = useSelector((state) => state.marginMoney)
-  // console.log(margin?.data[0], 'id.jsx response')
+  // console.log(margin, 'id.jsx response')
 
   useEffect(() => {
     if (
@@ -102,12 +102,12 @@ function Index() {
 
   const handleUpdate = () => {
     const obj = {
-        "marginMoneyId": margin?.data[0]?._id,
-        "conversionRate": forCalculation.conversionRate,
-        "isUsanceInterestIncluded": forCalculation.isUsanceInterestIncluded,
-        "numberOfPDC": forCalculation.numberOfPDC,
-        "additionalPDC": forCalculation.additionalPDC,
-        "invoiceDetail": {...invoiceData}
+        marginMoneyId: margin?.data[0]?._id,
+        conversionRate: forCalculation.conversionRate,
+        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded,
+        numberOfPDC: forCalculation.numberOfPDC,
+        additionalPDC: forCalculation.additionalPDC,
+        invoiceDetail: {...invoiceData}
     }
 
     dispatch(UpdateMarginMoney(obj))
@@ -213,7 +213,7 @@ function Index() {
                           Commodity
                         </span>
                         <span className={`${styles.comm_val} heading`}>
-                          {margin?.data[0].order.commodity}
+                          {margin?.data[0]?.order?.commodity}
                         </span>
                       </div>
                       <div
@@ -234,7 +234,7 @@ function Index() {
                         <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
                         >
-                            <option> {margin?.data[0].order.unitOfValue}</option>
+                            <option> {margin?.data[0]?.order?.unitOfValue}</option>
                           <option>Million</option>
                         </select>
                         <span>+</span>
