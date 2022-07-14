@@ -1326,15 +1326,8 @@ const debtProfile = (data, options, tempArr, camData) => {
                     <td>
                       <select
                         className={`${styles.value} form-control`}
-<<<<<<< HEAD
-                       
-                      > 
-                       <options>Bank Guarantee</options>
-                      </select>
-=======
                         disabled={true}
                       />
->>>>>>> dcc6949a08cf7e672dabab89f44fa409aed3c368
                     </td>
 
                     <td>₹ 800.00</td>
