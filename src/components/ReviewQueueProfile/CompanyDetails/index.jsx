@@ -78,7 +78,7 @@ function Index({order, companyId, companyDetail }) {
                             </div>
                             <div className="col-md-3">
                                 <div className={`${styles.label} label_heading`}>Email Domain</div>
-                                <div className={`${styles.value} accordion_Text`}>{companyDetail?.emailDomain}</div>
+                                <div className={`${styles.value} accordion_Text`}>{companyDetail?.emailDomain} <img src='/static/approved.svg' alt='approved' className='img-fluid'/></div>
                             </div>
                             <div className="col-md-3">
                                 <div className={`${styles.label} label_heading`}>Number of Shareholders</div>
@@ -116,10 +116,10 @@ function Index({order, companyId, companyDetail }) {
                                 <div className={`${styles.label} label_heading`}>Corporate Address</div>
                                 <div className={`${styles.value} accordion_Text`}>{companyDetail?.registeredAddress}</div>
                             </div>
-                            <div className="col-md-3">
+                            {/* <div className="col-md-3">
                                 <div className={`${styles.label} label_heading`}>Referral Code</div>
                                 <div className={`${styles.value} accordion_Text`}>U55101UR19</div>
-                            </div>
+                            </div> */}
 
                         </div>
                         <div className="row">
@@ -162,9 +162,9 @@ function Index({order, companyId, companyDetail }) {
                                     <strong className="text-danger">*</strong>
                                 </label>
                             </div>
-                            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            {/* <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                              <button onClick={saveHandler} className={`${styles.saveBtn} `}>Save</button>
-                            </div>
+                            </div> */}
 
                             {/* <div className='mt-3 ml-3'>
                             <CommonSave onSave={saveHandler} />

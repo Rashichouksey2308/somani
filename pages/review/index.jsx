@@ -426,21 +426,7 @@ function Index() {
     },
   ])
 
-  const [groupExposureData, setGroupExposureData] = useState([
-    {
-      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
-      limit: orderList?.company?.groupExposureDetail?.limit,
-      name: orderList?.company?.groupExposureDetail?.name,
-      outstandingLimit:
-        orderList?.company?.groupExposureDetail?.outstandingLimit,
-    },
-  ])
-
-  const addGroupExpArr = (exposureData) => {
-    let newArr = [...groupExposureData]
-    newArr.push(exposureData)
-    setGroupExposureData(newArr)
-  }
+ 
 
   useEffect(() => {
     let groupExposureArr = []
@@ -502,6 +488,24 @@ function Index() {
     })
     setWeaknessComment(weaknessArr)
   }, [orderList, orderList?.company])
+
+  const [groupExposureData, setGroupExposureData] = useState([
+    {
+      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
+      limit: orderList?.company?.groupExposureDetail?.limit,
+      name: orderList?.company?.groupExposureDetail?.name,
+      outstandingLimit:
+        orderList?.company?.groupExposureDetail?.outstandingLimit,
+    },
+  ])
+
+  console.log(groupExposureData, "THIS IS GROUP EXP DATA")
+
+  const addGroupExpArr = (exposureData) => {
+    let newArr = [...groupExposureData]
+    newArr.push(exposureData)
+    setGroupExposureData(newArr)
+  }
 
   const keyAddDataArr = (keyAddressData) => {
     let newArr = [...keyAddData]
@@ -1369,6 +1373,38 @@ function Index() {
                             </div>
                           </Form>
                         </div>
+                        <div className={`${styles.search_container} d-flex justify-content-between pt-3 pl-3 pr-3`}>
+          <div>
+          <select className={`${styles.dropDown} input form-control`} >
+                  <option value="volvo">Loading, Transit, Unloading</option>
+                  <option value="India">India</option>
+                 
+                </select>
+          </div>
+
+        <div className={`${styles.filter} d-flex align-items-center`}>
+            <div className={styles.search}>
+              <div className="input-group">
+                <div
+                  className={`${styles.inputGroupPrepend} input-group-prepend`}
+                >
+                  <img
+                    src="/static/search.svg"
+                    className="img-fluid"
+                    alt="Search"
+                  />
+                </div>
+                <input
+                  type="text"
+                  className={`${styles.formControl} form-control formControl `}
+                  placeholder="Search"
+                />
+              </div>
+             
+            </div>
+           
+          </div>
+          </div>
 
                         <div className={styles.table_container}>
                           <table

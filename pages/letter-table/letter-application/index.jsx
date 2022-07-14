@@ -1,9 +1,9 @@
 import React from 'react'
-import LcModule from  '../../src/components/LcModule'
+import LcApplication from '../../../src/components/LcApplication'
 
 const Index = () => {
   return (
-    <LcModule/>
+   <LcApplication/>
   )
 }
 

@@ -130,8 +130,12 @@ export default function Index() {
               className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Bill of Lading</h3>
+              <div className='d-flex align-items-center'>
+              <div className={`${styles.label} text`}>
+               Balance Quantity:</div>
+                <div className={`${styles.value} ml-2 mr-4`}>4,500</div>
               <button className={styles.add_btn}><span className={styles.add_sign}>+</span>Add</button>
-
+              </div>
             </div>
             <div className={`${styles.dashboard_form} mt-3 card-body`}>
             <div className='row'>
@@ -163,24 +167,102 @@ export default function Index() {
                 </div> 
                 <div className='col-lg-4 col-md-6 col-sm-6'>
                       <div className={`${styles.label} text`}>
-                      Commodity <strong className="text-danger ml-n1">*</strong> 
+                      BL Date <strong className="text-danger ml-n1">*</strong> 
                      </div>
-                      <span className={styles.value}>Iron</span>
+                      <span className={styles.value}>22-02-2022</span>
                     </div>
-                    <div className='col-lg-2 col-md-6 col-sm-6'>
+                    <div className='col-lg-2 col-md-4 col-sm-6'>
                       <div className={`${styles.label} text`}>
-                      Commodity <strong className="text-danger ml-n1">*</strong> 
+                      BL Quantity <strong className="text-danger ml-n1">*</strong> 
                      </div>
-                      <span className={styles.value}>Iron</span>
+                      <span className={styles.value}>4,000 MT</span>
+                    </div>
+                    <div className='col-lg-2 col-md-4 col-sm-6'>
+                    <img
+                      src="/static/preview.svg"
+                      className={`${styles.previewImg} img-fluid ml-n4`}
+                      alt="Preview"
+                    />
+                    <img
+                       src="/static/add-btn.svg"
+                      className="img-fluid ml-5"
+                      alt="Preview"
+                    />
+                    </div>
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                    <input 
+                    className={`${styles.input_field} input form-control`} type="number"/> 
+                     <label className={`${styles.label_heading} label_heading`}>
+                      BL Number<strong className="text-danger">*</strong></label>                   
+                </div> 
+                <div className='col-lg-4 col-md-6 col-sm-6'>
+                      <div className={`${styles.label} text`}>
+                      BL Date <strong className="text-danger ml-n1">*</strong> 
+                     </div>
+                      <span className={styles.value}>22-02-2022</span>
+                    </div>
+                    <div className='col-lg-2 col-md-4 col-sm-6'>
+                      <div className={`${styles.label} text`}>
+                      BL Quantity <strong className="text-danger ml-n1">*</strong> 
+                     </div>
+                      <span className={styles.value}>4,000 MT</span>
+                    </div>
+                    <div className='col-lg-2 col-md-4 col-sm-6'>
+                    <img
+                      src="/static/preview.svg"
+                      className={`${styles.previewImg} img-fluid ml-n4`}
+                      alt="Preview"
+                    />
+                    <img
+                      src="/static/add-btn.svg"
+                      className="img-fluid ml-5"
+                      alt="Preview"
+                    />
+                     <img
+                      src="/static/delete 2.svg"
+                      className="img-fluid ml-5"
+                      alt="Preview"
+                    />
                     </div>
                    
                   </div>
            
             </div>
-            
+            <div className={styles.table_scroll_outer}>
+                  <div className={styles.table_scroll_inner}>
+                    <table className={`${styles.table} table mt-3`} cellPadding="0" cellSpacing="0" border="0">
+                      <thead>
+                        <tr>
+                          <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
+                          <th>FORMAT <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
+                          <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
+                          <th>ACTION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr className='table_row'>
+                          <td className={styles.doc_name}>BL Acknowledgement Copy<strong className="text-danger ml-0">*</strong>
+                          </td>
+                          <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf" /></td>
+                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                          <td>
+                            <div className={styles.uploadBtnWrapper}>
+                              <input type="file" name="myfile" />
+                              <button className={`${styles.upload_btn} btn`}>
+                                Upload
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
            
           </div>
-         <div className='mt-4'>
+         <div className='mt-4 mb-5'>
          <InspectionDocument/>
          </div>
           </div>

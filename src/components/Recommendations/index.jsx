@@ -39,6 +39,8 @@ const Index = ({
       outstandingLimit: null
   })
 
+  console.log(exposureData, "THIS IS EXPOSURE")
+
   const handleGroupExpChange = (name, value) => {
     const newInput = { ...exposureData }
     newInput[name] = value
@@ -200,7 +202,7 @@ const Index = ({
                         <input name='name' defaultValue={exp.name} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
                       </td>
                       <td>
-                        <input limit='limit' defaultValue={exp.limit} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
+                        <input name='limit' defaultValue={exp.limit} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
                       </td>
                       <td>
                         <input name='outstandingLimit' defaultValue={exp.outstandingLimit} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
@@ -242,28 +244,16 @@ const Index = ({
                       <tr className="table_row">
                         <td className={styles.number}>1 </td>
                         <td>
-                          <input
-                            className={styles.input}
-                            readOnly={!saveTable}
-                          />
+                        <input name='name' onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
                         </td>
                         <td>
-                          <input
-                            className={styles.input}
-                            readOnly={!saveTable}
-                          />
+                        <input name='limit' onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
                         </td>
                         <td>
-                          <input
-                            className={styles.input}
-                            readOnly={!saveTable}
-                          />
+                        <input name='outstandingLimit' onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
                         </td>
                         <td>
-                          <input
-                            className={styles.input}
-                            readOnly={!saveTable}
-                          />
+                        <input name='accountConduct' onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
                         </td>
                         <td>
                           <div>
@@ -273,6 +263,7 @@ const Index = ({
                                 className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
                                 onClick={(e) => {
                                   setSaveTable(true)
+                                  onExpSave(exposureData)
                                 }}
                               />
                             ) : (
