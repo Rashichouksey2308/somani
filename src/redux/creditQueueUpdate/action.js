@@ -52,10 +52,9 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateCam}`,  {
+    Axios.put(`${API.corebaseUrl}${API.updateCam}`, payload, {
       headers: headers,
-    },
-    payload,).then((response) => {
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updatingCamSuccess(response.data.data))
         let toastMessage = 'CAM APPROVED'
