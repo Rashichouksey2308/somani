@@ -4,9 +4,9 @@ import styles from './index.module.scss'
 
 const index = () => {
   return (
-    <div className={`${styles.upload_main} upload_main`}>
+    <div className={`${styles.upload_main} card border_color`}>
       <div
-        className={`${styles.head_container} border_color d-flex justify-content-between`}
+        className={`${styles.head_container} border_color d-flex justify-content-between bg-transparent`}
         data-toggle="collapse"
         data-target="#uploadOther"
         aria-expanded="true"
@@ -82,10 +82,10 @@ const index = () => {
           >
             <thead>
               <tr>
-                <th>DOCUMENT NAME <img className={`${styles.sort_image} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
-                <th>FORMAT <img className={`${styles.sort_image} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
-                <th>DOCUMENT DATE <img className={`${styles.sort_image} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
-                <th>UPLOADED BY <img className={`${styles.sort_image} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>DOCUMENT NAME <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>FORMAT <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>DOCUMENT DATE <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>UPLOADED BY <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
                 <th>STATUS </th>
                 <th>ACTION</th>
                 <th>
@@ -106,33 +106,7 @@ const index = () => {
                   </select>
                 </td>
               </tr>
-              <tr className="table_row">
-                <td className={styles.doc_name}>Insurance Quotation</td>
-                <td>
-                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                </td>
-                <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                <td className={styles.doc_row}>John Doe</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.approved}`}
-                  ></span>
-                  Verified
-                </td>
-                <td colSpan="2" >
-                 <div  className={styles.actionContainer}>  
-                  <img
-                    src="/static/delete.svg"
-                    className="img-fluid mr-3"
-                    alt="Bin"
-                  />
-                  <img
-                    src="/static/upload.svg"
-                    className="img-fluid"
-                    alt="Share"
-                  /></div>
-                </td>
-              </tr>
+             
               <tr className="table_row">
                 <td className={styles.doc_name}>Container No. List</td>
                 <td>
@@ -195,33 +169,7 @@ const index = () => {
                   </select>
                 </td>
               </tr>
-              <tr className="table_row">
-                <td className={styles.doc_name}>Insurance Quotation</td>
-                <td>
-                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                </td>
-                <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                <td className={styles.doc_row}>John Doe</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.approved}`}
-                  ></span>
-                  Verified
-                </td>
-                <td colSpan="2" >
-                 <div  className={styles.actionContainer}>  
-                  <img
-                    src="/static/delete.svg"
-                    className="img-fluid mr-3"
-                    alt="Bin"
-                  />
-                  <img
-                    src="/static/upload.svg"
-                    className="img-fluid"
-                    alt="Share"
-                  /></div>
-                </td>
-              </tr>
+             
               <tr className="table_row">
                 <td className={styles.doc_name}>Container No. List</td>
                 <td>
