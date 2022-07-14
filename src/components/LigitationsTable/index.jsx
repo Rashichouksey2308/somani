@@ -23,7 +23,7 @@ function index({data,Heading, val }) {
             <Col md={3} sm={2}>
               <div className={`${styles.head} mb-0 d-flex align-items-center `}>
                 <span className={``}>Pending Case</span>
-                <span className={`${styles.lower} sub_heading`}>4</span>
+                <span className={`${styles.lower} sub_heading`}>{data?.pendingCase}</span>
               </div>
             </Col>
             <Col md={3} sm={2}>
@@ -31,7 +31,7 @@ function index({data,Heading, val }) {
                 className={`${styles.head}  mb-0 d-flex align-items-center `}
               >
                 <span>Disposed case</span>
-                <span className={`${styles.lower} sub_heading`}>4</span>
+                <span className={`${styles.lower} sub_heading`}>{data?.disposedCase}</span>
               </div>
             </Col>
             <Col md={3} sm={2}>
@@ -40,7 +40,7 @@ function index({data,Heading, val }) {
                 <div className={styles.chart}>
                   <div className={styles.container}>
                     <div className={styles.fill}></div>
-                    <span className={`sub_heading`}>11</span>
+                    <span className={`sub_heading`}>{data?.totalCase}</span>
                   </div>
                 </div>
               </div>
@@ -76,7 +76,7 @@ function index({data,Heading, val }) {
                 </tr>
               </thead>
               <tbody>
-               {data && data?.map((courtCase, index)=> (
+               {data && data?.cases.map((courtCase, index)=> (
                  <tr key={index}>
                   <td>{index+1}</td>
                   <td className="">{courtCase.cin}</td>
