@@ -360,10 +360,9 @@ function Index() {
               </Col>
           
             </Row>
-           <Row className={`${styles.row}`}>
-            <Col md={6} sm={12} className="d-flex justify-content-between align-items-center">
+              <div className="d-flex">
                 <Form.Group
-                  className={`${styles.form_group} `}
+                  className={`${styles.form_group} col-md-4 col-sm-6`}
                 >
                   <Form.Control
                     className={`${styles.input_field} input form-control`}
@@ -377,16 +376,15 @@ function Index() {
                     Email*<strong className="text-danger">*</strong>
                   </Form.Label>
                 </Form.Group>
-                <img
-                      className="img-fluid ml-4 mt-1"
+                   <img
+                      className="img-fluid ml-4"
                       src="/static/add-btn.svg"
                       alt="add button"
-                      
-                  />
-            </Col>
-            <Col md={6} sm={12} className="d-flex justify-content-between align-items-center">
-                <div
-                  className={`${styles.each_input} ${styles.phone} `}
+                    />
+            </div>
+            <div className="d-flex">
+                              <div
+                  className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}
                 >
                   <div className={styles.phone_card}>
                     <select
@@ -414,13 +412,12 @@ function Index() {
                     </label>
                   </div>
                 </div>
-                  <img
-                      className="img-fluid ml-4 mt-1"
+                                   <img
+                      className="img-fluid ml-4"
                       src="/static/add-btn.svg"
                       alt="add button"
                     />
-            </Col>
-           </Row>
+            </div>
 
             <div className={`${styles.buttons} d-flex`}>
               <div className={styles.add}>

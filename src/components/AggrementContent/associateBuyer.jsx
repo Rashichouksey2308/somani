@@ -318,7 +318,7 @@ function Index() {
                 </div>
               </Col>
             </Row>
-           <div className="mt-4c">
+           <div className="mt-4">
               <span>Authorised Signatory Details</span>
            </div>
             <Row className={`${styles.row}`}>

@@ -4,6 +4,16 @@ import {Row, Col} from "react-bootstrap"
 import GrowInput from '../GrowInput'
 import Buyer from '../AggrementContent/buyer'
 import AssociateBuyer from '../AggrementContent/associateBuyer'
+import CHA from '../AggrementContent/cha'
+import CMA from '../AggrementContent/cma'
+import Finance from '../AggrementContent/finance'
+import Manufecture from '../AggrementContent/manufecture'
+
+import Shipping from '../AggrementContent/shipping'
+import Seller from '../AggrementContent/seller'
+
+import Stevedore from '../AggrementContent/stevedore'
+import Thirdparty from '../AggrementContent/thirdparty'
 function Index() {
   const [active,setActive]=useState("Buyer")
   const changeActiveValue=(val)=>{
@@ -22,6 +32,46 @@ function Index() {
         <AssociateBuyer/>
       )
     }
+    if(active=="Seller"){
+      return(
+        <Seller/>
+      )
+    }
+        if(active=="CHA"){
+      return(
+        <CHA/>
+      )
+    }
+    if(active=="CMA"){
+      return(
+        <CMA/>
+      )
+    }
+      if(active=="Manufacturer/ Supplier/ Shipper"){
+      return(
+        <Manufecture/>
+      )
+    }
+      if(active=="Shipping Line"){
+      return(
+        <Shipping/>
+      )
+    }
+      if(active=="Financing Bank"){
+      return(
+        <Finance/>
+      )
+    }
+        if(active=="Stevedore"){
+      return(
+        <Stevedore/>
+      )
+    }
+            if(active=="Third Party Inspection Agency"){
+      return(
+        <Thirdparty/>
+      )
+    }
   }
   return (
     <div className={`${styles.root}`}>
@@ -29,7 +79,7 @@ function Index() {
         <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
             <div 
             className={`${styles.content2}  d-flex justify-content-between align-items-center`}
-                        onClick={(e)=>{
+                   onClick={(e)=>{
                     changeActiveValue("Buyer")
                   }}
             >
@@ -61,9 +111,14 @@ function Index() {
 
         </div>
         <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
+            <div 
+            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
+                onClick={(e)=>{
+                    changeActiveValue("Seller")
+            }}
+            >
                <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Manufacturer / Supplier / Shipper</span>
+                 <span className="ml-3">Seller</span>
             </div>
            <img
                         src="/static/keyboard_arrow_right-3.svg"
@@ -73,9 +128,14 @@ function Index() {
 
         </div>
         <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
+            <div 
+            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
+            onClick={(e)=>{
+                    changeActiveValue("CHA")
+            }}
+            >
                <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">End User / Buyer</span>
+                 <span className="ml-3">CHA</span>
             </div>
            <img
                         src="/static/keyboard_arrow_right-3.svg"
@@ -85,9 +145,14 @@ function Index() {
 
         </div>
         <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
+            <div 
+            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
+                        onClick={(e)=>{
+                    changeActiveValue("CMA")
+            }}
+            >
                <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Execution Date</span>
+                 <span className="ml-3">CMA</span>
             </div>
            <img
                         src="/static/keyboard_arrow_right-3.svg"
@@ -97,9 +162,14 @@ function Index() {
 
         </div>
         <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2} ${styles.selected}  d-flex justify-content-between align-items-center`}>
+            <div 
+            className={`${styles.content2} ${styles.selected}  d-flex justify-content-between align-items-center`}
+             onClick={(e)=>{
+                    changeActiveValue("Manufacturer/ Supplier/ Shipper")
+            }}
+            >
                <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">{ `sd`}</span>
+                 <span className="ml-3">Manufacturer/ Supplier/ Shipper</span>
             </div>
            <img
                         src="/static/keyboard_arrow_right-3.svg"
@@ -109,9 +179,15 @@ function Index() {
 
         </div>
         <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
+            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`
+          
+          }
+             onClick={(e)=>{
+                    changeActiveValue("Shipping Line")
+            }}
+          >
                <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Total Order Value</span>
+                 <span className="ml-3">Shipping Line</span>
             </div>
            <img
                         src="/static/keyboard_arrow_right-3.svg"
@@ -121,9 +197,48 @@ function Index() {
 
         </div>
         <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
+            <div 
+            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
+                                   onClick={(e)=>{
+                    changeActiveValue("Financing Bank")
+            }}
+            >
                <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Discharge Port</span>
+                 <span className="ml-3">Financing Bank</span>
+            </div>
+           <img
+                        src="/static/keyboard_arrow_right-3.svg"
+                        alt="arrow right"
+                        className={`${styles.image_reverse} img-fluid`}
+                      />
+
+        </div>
+                <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
+            <div 
+            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
+                                   onClick={(e)=>{
+                    changeActiveValue("Stevedore")
+            }}
+            >
+               <img src="./static/Component 147 – 2.svg"></img>
+                 <span className="ml-3">Stevedore</span>
+            </div>
+           <img
+                        src="/static/keyboard_arrow_right-3.svg"
+                        alt="arrow right"
+                        className={`${styles.image_reverse} img-fluid`}
+                      />
+
+        </div>
+                <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
+            <div 
+            className={`${styles.content2}  d-flex justify-content-between align-items-center`}
+                                   onClick={(e)=>{
+                    changeActiveValue("Third Party Inspection Agency")
+            }}
+            >
+               <img src="./static/Component 147 – 2.svg"></img>
+                 <span className="ml-3">Third Party Inspection Agency</span>
             </div>
            <img
                         src="/static/keyboard_arrow_right-3.svg"
