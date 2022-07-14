@@ -10,6 +10,7 @@ import { sidebar } from 'redux/toggleState/Reducer/reducer';
 import OrderReducer from 'redux/buyerProfile/reducer';
 import MarginMoneyReducer from 'redux/marginMoney/reducer';
 import CompanyReducer from 'redux/companyDetail/reducer';
+import CreditReducer from 'redux/creditQueueUpdate/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -33,6 +34,7 @@ export const createStore = (preloadedState) => {
       user: UserReducer,
       marginMoney: MarginMoneyReducer,
       companyDetails: CompanyReducer,
+      creditQueue: CreditReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

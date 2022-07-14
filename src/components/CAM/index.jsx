@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
+import moment from 'moment'
 import { Row, Col } from 'react-bootstrap'
 import { Doughnut, Line } from 'react-chartjs-2'
 import {
@@ -27,8 +28,25 @@ Chart.register(
   CategoryScale,
   Filler,
 )
-function index({ camData }) {
+
+function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
   console.log(camData, 'THIS IS CAM DATA')
+  console.log(companyData, 'THIS IS COMPANY DATA')
+
+  const [sanctionComments, setSanctionComments] = useState('')
+
+  const latestBalanceData = companyData?.financial?.balanceSheet[0]
+  console.log(
+    camData?.company?.recommendation?.weakness[0],
+    'THIS IS LATEST BALANCE',
+  )
+  const previousBalanceData = companyData?.financial?.balanceSheet[1]
+
+  const latestIncomeData = companyData?.financial?.incomeStatement[0]
+  const previousIncomeData = companyData?.financial?.incomeStatement[1]
+
+  const latestYearData = companyData?.financial?.ratioAnalysis[0]
+  const previousYearData = companyData?.financial?.ratioAnalysis[1]
 
   const openChargesLength = () => {
     const filteredData =
@@ -50,8 +68,10 @@ function index({ camData }) {
     return length
   }
 
-  const latestAuditorData = camData?.company?.detailedCompanyInfo?.profile?.auditorDetail[0]
-  const previousAuditorData = camData?.company?.detailedCompanyInfo?.profile?.auditorDetail[1]
+  const latestAuditorData =
+    camData?.company?.detailedCompanyInfo?.profile?.auditorDetail[0]
+  const previousAuditorData =
+    camData?.company?.detailedCompanyInfo?.profile?.auditorDetail[1]
 
   let tempArr = [
     { name: 'Sagar Sinha', value: '21', color: '#9675CE' },
@@ -118,7 +138,13 @@ function index({ camData }) {
       {supplierInfo(camData)}
       {groupExposure(camData)}
       {orderSummary(camData)}
-      {creditProfile(camData, openChargesLength, primaryBankName, latestAuditorData, previousAuditorData)}
+      {creditProfile(
+        camData,
+        openChargesLength,
+        primaryBankName,
+        latestAuditorData,
+        previousAuditorData,
+      )}
       {directorDetails(camData)}
       {shareHolding(data, options, tempArr, camData)}
       {chargeDetails(data, options, tempArr, camData)}
@@ -127,16 +153,31 @@ function index({ camData }) {
       {revenuDetails()}
       {trends(dataline, lineOption)}
       {skewness(data, options, tempArr)}
-      {financeDetails()}
-      {compilanceStatus()}
-      {strengthAndWeakness()}
-      {sectionTerms()}
+      {financeDetails(
+        data,
+        options,
+        tempArr,
+        latestBalanceData,
+        previousBalanceData,
+        companyData,
+        latestYearData,
+        previousYearData,
+      )}
+      {compilanceStatus(companyData, camData)}
+      {strengthAndWeakness(camData)}
+      {sectionTerms(
+        camData,
+        sanctionComments,
+        setSanctionComments,
+        addApproveRemarkArr,
+        approveComment
+      )}
       {Documents()}
     </>
   )
 }
 
-export default index
+export default Index
 
 const basicInfo = (camData) => {
   return (
@@ -163,7 +204,9 @@ const basicInfo = (camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label_heading`}>Channel</span>
-                  <span className={`${styles.value} pr-5`}>Online</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.company?.sourceChanel}
+                  </span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
@@ -208,7 +251,9 @@ const basicInfo = (camData) => {
                   <span className={`${styles.key} label_heading pl-5`}>
                     Industry
                   </span>
-                  <span className={`${styles.value}`}>Construction</span>
+                  <span className={`${styles.value}`}>
+                    {camData?.company?.typeOfBusiness}
+                  </span>
                 </Col>
               </Row>
             </div>
@@ -742,7 +787,7 @@ const orderSummary = (camData) => {
                     {camData?.company?.companyName}
                   </span>
                 </td>
-                <td>{camData?._id}</td>
+                <td>{camData?.orderId}</td>
                 <td>{camData?.orderValue}</td>
                 <td>{camData?.commodity}</td>
                 <td>In Process</td>
@@ -756,7 +801,13 @@ const orderSummary = (camData) => {
     </>
   )
 }
-const creditProfile = (camData, openChargesLength, primaryBankName, latestAuditorData, previousAuditorData) => {
+const creditProfile = (
+  camData,
+  openChargesLength,
+  primaryBankName,
+  latestAuditorData,
+  previousAuditorData,
+) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -829,7 +880,12 @@ const creditProfile = (camData, openChargesLength, primaryBankName, latestAudito
                   <span className={`${styles.key} label_heading pl-5`}>
                     Change in Auditor
                   </span>
-                  <span className={`${styles.value} `}>{latestAuditorData?.nameOfAuditor === previousAuditorData?.nameOfAuditor ? " NO" : "Yes"}</span>
+                  <span className={`${styles.value} `}>
+                    {latestAuditorData?.nameOfAuditor ===
+                    previousAuditorData?.nameOfAuditor
+                      ? ' NO'
+                      : 'Yes'}
+                  </span>
                 </Col>
               </Row>
             </div>
@@ -873,27 +929,31 @@ const directorDetails = (camData) => {
                 <th>% SHAREHOLDING</th>
               </tr>
 
-           {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map((director, index) => ( <tr key={index}>
-                <td
-                  className={`d-flex justify-content-start align-content-center`}
-                >
-                  <div className={`${styles.icon} `}>
-                    <span
-                      className={`d-flex justify-content-center align-content-center`}
+              {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map(
+                (director, index) => (
+                  <tr key={index}>
+                    <td
+                      className={`d-flex justify-content-start align-content-center`}
                     >
-                      AJ
-                    </span>
-                  </div>
+                      <div className={`${styles.icon} `}>
+                        <span
+                          className={`d-flex justify-content-center align-content-center`}
+                        >
+                          AJ
+                        </span>
+                      </div>
 
-                  <span className={` ${styles.name} ml-3  `}>
-                    {director?.name}
-                  </span>
-                </td>
-                <td>{director?.pan[0]}</td>
-                <td>{director.din}</td>
-                <td>{director.tenureStartDate}</td>
-                <td>30%</td>
-              </tr>))}
+                      <span className={` ${styles.name} ml-3  `}>
+                        {director?.name}
+                      </span>
+                    </td>
+                    <td>{director?.pan[0]}</td>
+                    <td>{director.din}</td>
+                    <td>{director.tenureStartDate}</td>
+                    <td>30%</td>
+                  </tr>
+                ),
+              )}
               {/* <tr>
                 <td
                   className={`d-flex justify-content-start align-content-center`}
@@ -999,26 +1059,31 @@ const shareHolding = (data, options, tempArr, camData) => {
                     <th>DIRECTOR</th>
                   </tr>
 
-              {  camData && camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map((share, index) => ( <tr key={index}>
-                    <td
-                      className={`d-flex justify-content-start align-content-center`}
-                    >
-                      <div className={`${styles.icon} `}>
-                        <span
-                          className={`d-flex justify-content-center align-content-center`}
-                        >
-                          AJ
-                        </span>
-                      </div>
+                  {camData &&
+                    camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
+                      (share, index) => (
+                        <tr key={index}>
+                          <td
+                            className={`d-flex justify-content-start align-content-center`}
+                          >
+                            <div className={`${styles.icon} `}>
+                              <span
+                                className={`d-flex justify-content-center align-content-center`}
+                              >
+                                AJ
+                              </span>
+                            </div>
 
-                      <span className={` ${styles.name} ml-3  `}>
-                        {share?.fullName}
-                      </span>
-                    </td>
-                    <td>{share?.numberOfShares}</td>
-                    <td>{share?.percentageShareHolding}</td>
-                    <td>{share?.director ? 'Yes' : 'No'}</td>
-                  </tr>))}
+                            <span className={` ${styles.name} ml-3  `}>
+                              {share?.fullName}
+                            </span>
+                          </td>
+                          <td>{share?.numberOfShares}</td>
+                          <td>{share?.percentageShareHolding}</td>
+                          <td>{share?.director ? 'Yes' : 'No'}</td>
+                        </tr>
+                      ),
+                    )}
                   {/* <tr>
                     <td
                       className={`d-flex justify-content-start align-content-center`}
@@ -1127,26 +1192,31 @@ const chargeDetails = (data, options, tempArr, camData) => {
                     <th>DATE OF CREATION</th>
                   </tr>
 
-              {  camData && camData?.company?.detailedCompanyInfo?.financial?.openCharges.map((charge, index) => ( <tr key={index}>
-                    <td
-                      className={`d-flex justify-content-start align-content-center`}
-                    >
-                      <div className={`${styles.icon} `}>
-                        <span
-                          className={`d-flex justify-content-center align-content-center`}
-                        >
-                          AJ
-                        </span>
-                      </div>
+                  {camData &&
+                    camData?.company?.detailedCompanyInfo?.financial?.openCharges.map(
+                      (charge, index) => (
+                        <tr key={index}>
+                          <td
+                            className={`d-flex justify-content-start align-content-center`}
+                          >
+                            <div className={`${styles.icon} `}>
+                              <span
+                                className={`d-flex justify-content-center align-content-center`}
+                              >
+                                AJ
+                              </span>
+                            </div>
 
-                      <span className={` ${styles.name} ml-3  `}>
-                        {charge?.nameOfChargeHolder1}
-                      </span>
-                    </td>
-                    <td>{charge?.finalAmountSecured}</td>
+                            <span className={` ${styles.name} ml-3  `}>
+                              {charge?.nameOfChargeHolder1}
+                            </span>
+                          </td>
+                          <td>{charge?.finalAmountSecured}</td>
 
-                    <td>{charge?.dateOfCreationOfCharge}</td>
-                  </tr>))}
+                          <td>{charge?.dateOfCreationOfCharge}</td>
+                        </tr>
+                      ),
+                    )}
                   {/* <tr>
                     <td
                       className={`d-flex justify-content-start align-content-center`}
@@ -1296,19 +1366,24 @@ const debtProfile = (data, options, tempArr, camData) => {
                     <th>CONDUCT</th>
                   </tr>
 
-              { camData && camData?.company?.debtProfile?.map((debt, index) => ( <tr key={index}>
-                    <td>{debt?.bankName}</td>
-                    <td>
-                      <select
-                        className={`${styles.value} form-control`}
-                        defaultValue={debt?.limitType}
-                        disabled={true}
-                      />
-                    </td>
+                  {camData &&
+                    camData?.company?.debtProfile?.map((debt, index) => (
+                      <tr key={index}>
+                        <td>{debt?.bankName}</td>
+                        <td>
+                          <select
+                            className={`${styles.value} form-control`}
+                            defaultValue={debt?.limitType}
+                            disabled={true}
+                          />
+                        </td>
 
-                    <td>{debt?.limit}</td>
-                    <td className={`${styles.conduct} danger`}>{debt?.conduct}</td>
-                  </tr>))}
+                        <td>{debt?.limit}</td>
+                        <td className={`${styles.conduct} danger`}>
+                          {debt?.conduct}
+                        </td>
+                      </tr>
+                    ))}
                   {/* <tr>
                     <td>ICICI Bank</td>
                     <td>
@@ -1369,7 +1444,9 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.key}`}>
                     Plant Production Capacity
                   </span>
-                  <span className={`${styles.value} pr-5`}>{camData?.monthlyProductionCapacity}</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.productSummary?.monthlyProductionCapacity}
+                  </span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
@@ -1378,19 +1455,25 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.key} pl-5`}>
                     Stock in Transit - Commodity
                   </span>
-                  <span className={`${styles.value} `}>{camData?.productSummary?.averageStockInTransit}</span>
+                  <span className={`${styles.value} `}>
+                    {camData?.productSummary?.averageStockInTransit}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}`}>Capacity Utilization</span>
-                  <span className={`${styles.value} pr-5`}>{camData?.productSummary?.capacityUtilization}</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.productSummary?.capacityUtilization}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} pl-5`}>
                     Stock Coverage of Commodity
                   </span>
-                  <span className={`${styles.value}`}>{camData?.productSummary?.averageStockOfCommodity}</span>
+                  <span className={`${styles.value}`}>
+                    {camData?.productSummary?.averageStockOfCommodity}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1398,13 +1481,17 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.key}`}>
                     Available Stock of Commodity
                   </span>
-                  <span className={`${styles.value} pr-5`}>{camData?.productSummary?.availableStock}</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.productSummary?.availableStock}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} pl-5`}>
                     Avg Monthly Electricity Bill
                   </span>
-                  <span className={`${styles.value} `}>{camData?.productSummary?.AvgMonthlyElectricityBill}</span>
+                  <span className={`${styles.value} `}>
+                    {camData?.productSummary?.AvgMonthlyElectricityBill}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1412,7 +1499,9 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.key} pl-5`}>
                     Daily Consumption of Commodity
                   </span>
-                  <span className={`${styles.value} `}>{camData?.productSummary?.dailyConsumptionOfCommodity}</span>
+                  <span className={`${styles.value} `}>
+                    {camData?.productSummary?.dailyConsumptionOfCommodity}
+                  </span>
                 </Col>
               </Row>
             </div>
@@ -1482,7 +1571,7 @@ const revenuDetails = () => {
                 <td>1,900.00</td>
                 <td>40%</td>
               </tr>
-               <tr>
+              <tr>
                 <td>Intra Organization Sales</td>
                 <td>
                   <img
@@ -1580,7 +1669,16 @@ const revenuDetails = () => {
     </>
   )
 }
-const financeDetails = (data, options, tempArr) => {
+const financeDetails = (
+  latestBalanceData,
+  previousBalanceData,
+  data,
+  options,
+  tempArr,
+  companyData,
+  latestYearData,
+  previousYearData,
+) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1610,28 +1708,76 @@ const financeDetails = (data, options, tempArr) => {
                 >
                   <tr>
                     <th>Liabilities</th>
-                    <th>MAR-20</th>
-                    <th>MAR-19</th>
+                    <th>
+                      {moment(companyData?.financial?.balanceSheet[0]?.date)
+                        .format('MMM-YY')
+                        .toUpperCase()}
+                    </th>
+                    <th>
+                      {moment(companyData?.financial?.balanceSheet[1]?.date)
+                        .format('MMM-YY')
+                        .toUpperCase()}
+                    </th>
                   </tr>
                   <tr>
                     <td>Net Worth</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.balanceSheet[0]
+                          ?.equityLiabilities?.totalEquity
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.balanceSheet[1]
+                          ?.equityLiabilities?.totalEquity
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Total Borrowings</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {companyData?.financial?.balanceSheet[0]
+                        ?.equityLiabilities?.borrowingsCurrent +
+                        companyData?.financial?.balanceSheet[0]
+                          ?.equityLiabilities?.borrowingsNonCurrent}
+                    </td>
+                    <td>
+                      {companyData?.financial?.balanceSheet[1]
+                        ?.equityLiabilities?.borrowingsCurrent +
+                        companyData?.financial?.balanceSheet[1]
+                          ?.equityLiabilities?.borrowingsNonCurrent}
+                    </td>
                   </tr>
                   <tr>
                     <td>Creditors</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {companyData?.financial?.balanceSheet[0]
+                        ?.equityLiabilities?.tradePay +
+                        companyData?.financial?.balanceSheet[0]
+                          ?.equityLiabilities?.tradePayablesNoncurrent}
+                    </td>
+                    <td>
+                      {companyData?.financial?.balanceSheet[1]
+                        ?.equityLiabilities?.tradePay +
+                        companyData?.financial?.balanceSheet[1]
+                          ?.equityLiabilities?.tradePayablesNoncurrent}
+                    </td>
                   </tr>
                   <tr>
                     <td>Other Current Liabilities</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.balanceSheet[0]
+                          ?.equityLiabilities?.otherCurrentLiabilities
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.balanceSheet[1]
+                          ?.equityLiabilities?.otherCurrentLiabilities
+                      }
+                    </td>
                   </tr>
 
                   <tr>
@@ -1642,23 +1788,63 @@ const financeDetails = (data, options, tempArr) => {
 
                   <tr>
                     <td>Working Capital Turnover ratio</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.workingCapitalTurnover
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.workingCapitalTurnover
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Debtors period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.daysOfSalesOutstanding
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.daysOfSalesOutstanding
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Creditors Period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.daysOfPayablesOutstanding
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.daysOfPayablesOutstanding
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Inventory Period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.daysOfInventoryOutstanding
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.daysOfInventoryOutstanding
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <th colSpan={3} className={`${styles.Border}`}>
@@ -1668,18 +1854,36 @@ const financeDetails = (data, options, tempArr) => {
 
                   <tr>
                     <td>Interest Coverage</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.interestCoverage
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.interestCoverage
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Current Ratio</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {companyData?.financial?.ratioAnalysis[0]?.currentRatio}
+                    </td>
+                    <td>
+                      {companyData?.financial?.ratioAnalysis[1]?.currentRatio}
+                    </td>
                   </tr>
                   <tr>
                     <td>Debt Equity</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {companyData?.financial?.ratioAnalysis[0]?.debtEquity}
+                    </td>
+                    <td>
+                      {companyData?.financial?.ratioAnalysis[1]?.debtEquity}
+                    </td>
                   </tr>
                 </table>
               </Col>
@@ -1691,23 +1895,75 @@ const financeDetails = (data, options, tempArr) => {
                 >
                   <tr>
                     <th>Ratios</th>
-                    <th>MAR-20</th>
-                    <th>MAR-19</th>
+                    <th>
+                      {' '}
+                      {moment(
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.financialEndDate,
+                      )
+                        .format('MMM-YY')
+                        .toUpperCase()}
+                    </th>
+                    <th>
+                      {' '}
+                      {moment(
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.financialEndDate,
+                      )
+                        .format('MMM-YY')
+                        .toUpperCase()}
+                    </th>
                   </tr>
                   <tr>
                     <td>Cash from Operations</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.cashFlowStatement[0]
+                          ?.cashFlowsFromUsedInOperatingActivities
+                          ?.cashFlowsFromUsedInOperatingActivities
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.cashFlowStatement[1]
+                          ?.cashFlowsFromUsedInOperatingActivities
+                          ?.cashFlowsFromUsedInOperatingActivities
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Cash from Financing</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.cashFlowStatement[0]
+                          ?.cashFlowsFromUsedInFinancingActivities
+                          ?.cashFlowsFromUsedInFinancingActivities
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.cashFlowStatement[1]
+                          ?.cashFlowsFromUsedInFinancingActivities
+                          ?.cashFlowsFromUsedInFinancingActivities
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Cash from Investing</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.cashFlowStatement[0]
+                          ?.cashFlowsFromUsedInInvestingActivities
+                          ?.cashFlowsFromUsedInInvestingActivities
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.cashFlowStatement[1]
+                          ?.cashFlowsFromUsedInInvestingActivities
+                          ?.cashFlowsFromUsedInInvestingActivities
+                      }
+                    </td>
                   </tr>
 
                   <tr>
@@ -1718,23 +1974,63 @@ const financeDetails = (data, options, tempArr) => {
 
                   <tr>
                     <td>Working Capital Turnover ratio</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.workingCapitalTurnover
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.workingCapitalTurnover
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Debtors period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.daysOfSalesOutstanding
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.daysOfSalesOutstanding
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Creditors Period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.daysOfPayablesOutstanding
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.daysOfPayablesOutstanding
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Inventory Period</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.daysOfInventoryOutstanding
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.daysOfInventoryOutstanding
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td className={`${styles.no_Border}`}></td>
@@ -1744,18 +2040,36 @@ const financeDetails = (data, options, tempArr) => {
 
                   <tr>
                     <td>Interest Coverage</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[0]
+                          ?.interestCoverage
+                      }
+                    </td>
+                    <td>
+                      {
+                        companyData?.financial?.ratioAnalysis[1]
+                          ?.interestCoverage
+                      }
+                    </td>
                   </tr>
                   <tr>
                     <td>Current Ratio</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {companyData?.financial?.ratioAnalysis[0]?.currentRatio}
+                    </td>
+                    <td>
+                      {companyData?.financial?.ratioAnalysis[1]?.currentRatio}
+                    </td>
                   </tr>
                   <tr>
                     <td>Debt Equity</td>
-                    <td>-2,988.00</td>
-                    <td>2,988.00</td>
+                    <td>
+                      {companyData?.financial?.ratioAnalysis[0]?.debtEquity}
+                    </td>
+                    <td>
+                      {companyData?.financial?.ratioAnalysis[1]?.debtEquity}
+                    </td>
                   </tr>
                 </table>
               </Col>
@@ -1766,7 +2080,7 @@ const financeDetails = (data, options, tempArr) => {
     </>
   )
 }
-const compilanceStatus = () => {
+const compilanceStatus = (companyData, camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1798,29 +2112,41 @@ const compilanceStatus = () => {
                   md={5}
                 >
                   <span className={`${styles.key} pl-5`}>NCLT</span>
-                  <span className={`${styles.value} `}>text</span>
+                  <span className={`${styles.value} `}>
+                    {companyData?.compliance.other?.nclt ? 'YES' : 'NO'}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}`}>EPF Status</span>
-                  <span className={`${styles.value} pr-5`}>Text</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {companyData?.compliance.other?.epfStatus ? 'YES' : 'NO'}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} pl-5`}>BIFR</span>
-                  <span className={`${styles.value}`}>text</span>
+                  <span className={`${styles.value}`}>
+                    {companyData?.compliance.other?.bifr ? 'YES' : 'NO'}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}`}>Litigation Status</span>
-                  <span className={`${styles.value} pr-5`}>text</span>
+                  <span className={`${styles.value} pr-5`}>
+                    {camData?.company?.litigationStatus}
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} pl-5`}>
                     Defaulter Company
                   </span>
-                  <span className={`${styles.value}`}>text</span>
+                  <span className={`${styles.value}`}>
+                    {companyData?.compliance.other?.defaulterCompany
+                      ? 'YES'
+                      : 'NO'}
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1842,7 +2168,7 @@ const compilanceStatus = () => {
     </>
   )
 }
-const strengthAndWeakness = (data, options, tempArr) => {
+const strengthAndWeakness = (camData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1879,7 +2205,15 @@ const strengthAndWeakness = (data, options, tempArr) => {
                 </div>
                 <div>
                   <ul>
-                    <li className={`mt-4`}>
+                    {camData &&
+                      camData?.company?.recommendation?.strengths?.map(
+                        (comment, index) => (
+                          <li key={index} className={`mt-4`}>
+                            {comment}
+                          </li>
+                        ),
+                      )}
+                    {/* <li className={`mt-4`}>
                       — Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                       sed diam
                     </li>
@@ -1894,11 +2228,7 @@ const strengthAndWeakness = (data, options, tempArr) => {
                     <li className={`mt-4`}>
                       — Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                       sed diam
-                    </li>
-                    <li className={`mt-4`}>
-                      — Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                      sed diam
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </Col>
@@ -1917,7 +2247,17 @@ const strengthAndWeakness = (data, options, tempArr) => {
                 </div>
                 <div>
                   <ul>
-                    <li className={`mt-4`}>
+                    {camData &&
+                      camData?.company?.recommendation?.weakness?.map(
+                        (comment, index) => {
+                          return (
+                            <li key={index} className={`mt-4`}>
+                              {comment}
+                            </li>
+                          )
+                        },
+                      )}
+                    {/* <li className={`mt-4`}>
                       — Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                       sed diam
                     </li>
@@ -1932,11 +2272,7 @@ const strengthAndWeakness = (data, options, tempArr) => {
                     <li className={`mt-4`}>
                       — Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                       sed diam
-                    </li>
-                    <li className={`mt-4`}>
-                      — Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                      sed diam
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </Col>
@@ -1947,7 +2283,15 @@ const strengthAndWeakness = (data, options, tempArr) => {
     </>
   )
 }
-const sectionTerms = () => {
+const sectionTerms = (
+  
+  camData,
+  sanctionComments,
+  setSanctionComments,
+  addApproveRemarkArr,
+  approveComment
+  
+) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2009,7 +2353,11 @@ const sectionTerms = () => {
                 Sanction Conditions
               </div>
               <ul className="mt-3 mb-3">
-                <li>
+                {camData &&
+                  camData?.company?.recommendation?.sanctionTerms?.map(
+                    (condition, index) => <li key={index}>{condition}</li>,
+                  )}
+                {/* <li>
                   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                   diam sadipscing elitr, sed diam
                 </li>
@@ -2024,29 +2372,31 @@ const sectionTerms = () => {
                 <li>
                   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                   diam sadipscing elitr, sed diam
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam sadipscing elitr, sed diam
-                </li>
+                </li> */}
               </ul>
             </div>
             <div>
               <div className={`${styles.approve}`}>
-                <div className={`${styles.remarks}`}>
-                  <span>Remarks</span>
-                </div>
-                <div className={`${styles.remarks}`}>
-                  <span>Remarks2</span>
-                </div>
+                {approveComment &&
+                  approveComment?.map((approve, index) => (
+                    <div key={index} className={`${styles.remarks}`}>
+                      <span>{approve}</span>
+                    </div>
+                  ))}
+
                 <div className={`mb-3`}>Approval Remarks</div>
                 <textarea
                   className="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  onChange={(e) => setSanctionComments(e.target.value)}
                 ></textarea>
                 <button
                   className={`${styles.button} mt-3 d-flex  align-items-center justify-content-center `}
+                  onClick={() =>
+                    sanctionComments.length > 0 &&
+                    addApproveRemarkArr(sanctionComments)
+                  }
                 >
                   Add
                 </button>
