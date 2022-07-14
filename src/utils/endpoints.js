@@ -43,5 +43,14 @@ export default {
   updateCompanyDetails: '/api/core/lead/update-company',
 
   // Refetch Karza 
-  refetchCombineKarza : '/api/core/lead/refetch-combine-karza'
+  refetchCombineKarza : '/api/core/lead/refetch-combine-karza',
+
+
+//getDocumentsCam : 
+ getDocuments : '/api/core/order/order-document',
+
+
+ //Update Cam Sheet
+
+ updateCam : '/api/core/order/cam',
 }
