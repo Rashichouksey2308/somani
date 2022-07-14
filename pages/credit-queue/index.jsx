@@ -13,7 +13,8 @@ import {
 import {GetCompanyDetails} from '../../src/redux/companyDetail/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 import { setPageName } from '../../src/redux/userData/action'
-import {GetDocuments} from '../../src/redux/creditQueueUpdate/action'
+import { GetDocuments } from '../../src/redux/creditQueueUpdate/action'
+
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('')
@@ -36,9 +37,10 @@ function Index() {
   
   const handleRoute = (buyer) => {
     // console.log(buyer,'butyer')
+     console.log(" before go to get document")
     if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))
-      dispatch(GetDocuments({orderId: buyer._id}))
+      dispatch(GetDocuments({order: buyer._id}))
       dispatch(GetCompanyDetails( {company : buyer.company._id}))
       Router.push('/review')
     }

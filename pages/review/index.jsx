@@ -426,21 +426,7 @@ function Index() {
     },
   ])
 
-  const [groupExposureData, setGroupExposureData] = useState([
-    {
-      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
-      limit: orderList?.company?.groupExposureDetail?.limit,
-      name: orderList?.company?.groupExposureDetail?.name,
-      outstandingLimit:
-        orderList?.company?.groupExposureDetail?.outstandingLimit,
-    },
-  ])
-
-  const addGroupExpArr = (exposureData) => {
-    let newArr = [...groupExposureData]
-    newArr.push(exposureData)
-    setGroupExposureData(newArr)
-  }
+ 
 
   useEffect(() => {
     let groupExposureArr = []
@@ -502,6 +488,24 @@ function Index() {
     })
     setWeaknessComment(weaknessArr)
   }, [orderList, orderList?.company])
+
+  const [groupExposureData, setGroupExposureData] = useState([
+    {
+      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
+      limit: orderList?.company?.groupExposureDetail?.limit,
+      name: orderList?.company?.groupExposureDetail?.name,
+      outstandingLimit:
+        orderList?.company?.groupExposureDetail?.outstandingLimit,
+    },
+  ])
+
+  console.log(groupExposureData, "THIS IS GROUP EXP DATA")
+
+  const addGroupExpArr = (exposureData) => {
+    let newArr = [...groupExposureData]
+    newArr.push(exposureData)
+    setGroupExposureData(newArr)
+  }
 
   const keyAddDataArr = (keyAddressData) => {
     let newArr = [...keyAddData]

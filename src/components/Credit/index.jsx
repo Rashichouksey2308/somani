@@ -32,9 +32,9 @@ const index = ({
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
     GSTIN_document: {
-      'name': gstDocument.name,
-      'path': gstDocument.path,
-      'date': gstDocument.date,
+      name: gstDocument?.name,
+      path: gstDocument?.path,
+      date: gstDocument?.date,
     },
     addressType: '',
     branch: '',
