@@ -279,7 +279,11 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <span
                   className={` d-flex align-items-center justify-content-between`}
                 >
-                  <span className={styles.light}>GST :</span>09AAGCS8808K1ZR
+                  <span className={styles.light}>GST :</span>
+                  <select className={`${styles.gst_list}`}>
+                    <option value="09AAGCS8808K1ZR" selected>09AAGCS8808K1ZR</option>
+                    <option value="09AAGCS8808K77R">09AAGCS8808K77R</option>
+                  </select>
                 </span>
               </div>
               <div className={` ${styles.body}`}>

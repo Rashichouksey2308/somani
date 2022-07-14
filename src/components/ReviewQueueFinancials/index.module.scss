@@ -1,52 +1,277 @@
  @import "../styles/Core/config";
- 
-
+ .card {
+    margin-bottom: 1rem;
+    // box-shadow: 0 3px 6px #cad0e2;
+    .cardHeader {
+        cursor: pointer;
+        border-bottom: none;
+        padding: 25px 35px !important;
+        @include respond(md-desktop) {
+            padding: 0 15px 0 15px !important;
+        }
+        h2 {
+            font-size: 22px;
+            color: #3687e8;
+            font-weight: bold;
+            line-height: 27px;
+            @include respond(md-desktop) {
+                font-size: 18px !important;
+                line-height: 1.3;
+                margin: 20px 0px 20px 0px !important;
+            }
+            @include respond(sm-desktop) {
+                font-size: 18px !important;
+                line-height: 1.3;
+                margin: 20px 0px 20px 0px !important;
+            }
+            @include respond(phone) {
+                font-size: 16px !important;
+                margin: 13px 0px 13px 0px !important;
+            }
+        }
+        .charges {
+            margin: 0 auto 0 128px !important;
+            label {
+                font-size: 20px;
+                color: #111111;
+                font-weight: normal;
+                line-height: 25px;
+                letter-spacing: 0.19px;
+                margin: 0 40px 0 0;
+            }
+        }
+        span {
+            font-size: 45px;
+            color: #3687e8;
+            font-weight: normal;
+            line-height: 20px;
+            @include respond(phone) {
+                font-size: 30px;
+                line-height: 20px;
+            }
+        }
+        .label {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 17px;
+            margin-bottom: 10px;
+            letter-spacing: 0.53px;
+        }
+        .categories {
+            margin-right: 1rem;
+            width: 80%;
+            .label {
+                margin-right: 1rem;
+                margin-bottom: 0px;
+            }
+            .status {
+                height: 31px;
+                background: #ea3f3f42 0% 0% no-repeat padding-box;
+                letter-spacing: 0px;
+                span {
+                    padding-left: 0.5rem;
+                    padding-right: 0.5rem;
+                    width: 100%;
+                    opacity: 1 !important;
+                    font-size: 16px;
+                    font-weight: bold;
+                    height: 19px;
+                    color: #ea3f3f;
+                }
+            }
+        }
+    }
+    .cardBody {
+        padding: 25px 35px;
+        @include respond(md-desktop) {
+            padding: 15px !important;
+        }
+        @include respond(sm-desktop) {
+            padding: 15px !important;
+        }
+        @include respond(phone) {
+            padding: 15px !important;
+        }
+        .label {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 17px;
+            margin-bottom: 10px;
+            letter-spacing: 0.53px;
+        }
+        .value {
+            font-size: 20px;
+            color: #111111;
+            font-weight: bold;
+            line-height: 25px;
+            min-height: 70px;
+            &.warning {
+                color: #ea3f3f !important;
+            }
+        }
+    }
+    .noBorderTable {
+        padding-bottom: 20px;
+        @include respond(md-desktop) {
+            width: calc(100vw - 30px);
+            overflow-x: auto;
+            padding: 15px 15px !important;
+        }
+        @include respond(sm-desktop) {
+            width: calc(100vw - 30px);
+            overflow-x: auto;
+            padding: 15px 15px !important;
+        }
+        @include respond(phone) {
+            width: calc(100vw - 30px);
+            overflow-x: auto;
+            padding: 15px 15px !important;
+        }
+        .table {
+            border-top: 2px solid #D9DDE8;
+            th {
+                font-size: 15px;
+                color: #3687e8;
+                font-weight: bold;
+                line-height: 18px;
+                border: none;
+                padding: 25px 35px;
+                &:first-child {
+                    @include respond(md-desktop) {
+                        padding-left: 15px;
+                    }
+                }
+                @include respond(md-desktop) {
+                    font-size: 14px;
+                    line-height: 1.2;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 13px;
+                }
+                @include respond(phone) {
+                    font-size: 12px;
+                    white-space: nowrap;
+                }
+                h3 {
+                    @include respond(md-desktop) {
+                        font-size: 14px;
+                        line-height: 1.2;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 14px;
+                    }
+                    @include respond(phone) {
+                        font-size: 14px;
+                        white-space: nowrap;
+                    }
+                }
+            }
+            td {
+                font-size: 19px;
+                font-weight: normal;
+                border: none;
+                line-height: 23px;
+                padding: 15px 35px;
+                &:first-child {
+                    @include respond(md-desktop) {
+                        padding-left: 15px;
+                    }
+                }
+                @include respond(md-desktop) {
+                    font-size: 17px;
+                    padding: 18px 10px;
+                }
+                @include respond(sm-desktop) {
+                    font-size: 15px;
+                    padding: 15px 10px;
+                }
+                @include respond(phone) {
+                    font-size: 14px;
+                    padding: 10px;
+                    white-space: nowrap;
+                }
+            }
+            h3 {
+                font-size: 22px;
+                color: #111111;
+                font-weight: bold;
+                line-height: 27px;
+                margin-bottom: 0;
+            }
+        }
+    }
+    .borderTable {
+        padding: 35px;
+        box-sizing: border-box;
+        .table {
+            th {
+                font-size: 15px;
+                color: #8492a6;
+                font-weight: bold;
+                line-height: 18px;
+                padding: 13px 30px;
+                background: #fafafb;
+                vertical-align: middle;
+                text-transform: uppercase;
+                border: 3px solid #f0f2f6;
+            }
+            td {
+                font-size: 19px;
+                //color: rgba(17, 17, 17, 0.7);
+                font-weight: 500;
+                line-height: 24px;
+                padding: 15px 30px;
+                vertical-align: middle;
+                border: 3px solid #f0f2f6;
+                &.stable {
+                    line-height: 19px;
+                    span {
+                        font-size: 16px;
+                        color: #ff9d00;
+                        display: block;
+                    }
+                }
+                &.negative {
+                    line-height: 19px;
+                    span {
+                        font-size: 16px;
+                        color: #ea3f3f;
+                        display: block;
+                    }
+                }
+                &.positive {
+                    line-height: 19px;
+                    span {
+                        font-size: 16px;
+                        color: #43c34d;
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+    .directorDetails {
         .card {
             margin-bottom: 1rem;
-
-            // box-shadow: 0 3px 6px #cad0e2;
+            border-radius: 6px !important;
+            // border: 1px solid #D2D7E5;
+            // box-shadow: 0 3px 6px #CAD0E2;
             .cardHeader {
                 cursor: pointer;
                 border-bottom: none;
                 padding: 25px 35px !important;
-            @include respond(md-desktop) {
-                    padding: 0 15px 0 15px !important;
-                }
                 h2 {
                     font-size: 22px;
-                    color: #3687e8;
+                    color: #3687E8;
                     font-weight: bold;
                     line-height: 27px;
-                    @include respond(md-desktop) {
-                            font-size: 18px !important;
-                            line-height: 1.3;
-                            margin: 20px 0px 20px 0px !important;
-                        }
-                    
-                        @include respond(sm-desktop) {
-                            font-size: 18px !important;
-                            line-height: 1.3;
-                            margin: 20px 0px 20px 0px !important;
-                        }
-                    
-                        @include respond(phone) {
-                            font-size: 16px !important;
-                            margin: 13px 0px 13px 0px !important;
-                        }
                 }
-
                 span {
                     font-size: 45px;
-                    color: #3687e8;
+                    color: #3687E8;
                     font-weight: normal;
                     line-height: 20px;
-                    @include respond(phone) {
-                            font-size: 30px;
-                            line-height: 20px;
-                    
-                        }
                 }
-
                 .label {
                     font-size: 16px;
                     font-weight: 500;
@@ -54,21 +279,17 @@
                     margin-bottom: 10px;
                     letter-spacing: 0.53px;
                 }
-
                 .categories {
                     margin-right: 1rem;
-                    width: 80%;
-
+                    width: 30%;
                     .label {
                         margin-right: 1rem;
                         margin-bottom: 0px;
                     }
-
                     .status {
                         height: 31px;
                         background: #ea3f3f42 0% 0% no-repeat padding-box;
                         letter-spacing: 0px;
-
                         span {
                             padding-left: 0.5rem;
                             padding-right: 0.5rem;
@@ -77,335 +298,47 @@
                             font-size: 16px;
                             font-weight: bold;
                             height: 19px;
-                            color: #ea3f3f;
+                            color: #EA3F3F
                         }
                     }
                 }
             }
-
-            .cardBody {
-                padding: 25px 35px;
-                @include respond(md-desktop) {
-                        padding: 15px !important;
-                    }
-
-                    @include respond(sm-desktop) {
-                        padding: 15px !important;
-                    }
-
-                    @include respond(phone) {
-                        padding: 15px !important;
-                    }
-                .label {
-                    font-size: 16px;
-
-                    font-weight: 500;
-                    line-height: 17px;
-                    margin-bottom: 10px;
-                    letter-spacing: 0.53px;
-                }
-
-                .value {
-                    font-size: 20px;
-                    color: #111111;
-                    font-weight: bold;
-                    line-height: 25px;
-                    min-height: 70px;
-
-                    &.warning {
-                        color: #ea3f3f !important;
-                    }
-                }
-            }
-
-            .noBorderTable {
-                padding: 0 0 20px;
-            @include respond(md-desktop) {
-                    width: calc(100vw - 30px);
-                    overflow-x: auto;
-                    padding: 15px 15px !important;
-                }
-            
-                @include respond(sm-desktop) {
-                    width: calc(100vw - 30px);
-                    overflow-x: auto;
-                    padding: 15px 15px !important;
-                }
-            
-                @include respond(phone) {
-                    width: calc(100vw - 30px);
-                    overflow-x: auto;
-                    padding: 15px 15px !important;
-                }
-                .table {
-                    border-top: 2px solid #D9DDE8;
-
-                    th {
-                        font-size: 15px;
-                        color: #3687e8;
-                        font-weight: bold;
-                        line-height: 18px;
-                        border: none;
-                        padding: 25px 35px;
-                        &:first-child {
-                        
-                        
-                                @include respond(md-desktop) {
-                                    padding-left: 15px;
-                                }
-                            }
-                        @include respond(md-desktop) {
-                                font-size: 14px;
-                                line-height: 1.2;
-                            }
-
-                            @include respond(sm-desktop) {
-                                font-size: 13px;
-                            }
-
-                            @include respond(phone) {
-                                font-size: 12px;
-                                    white-space: nowrap;
-                            }
-                            h3{
-                                @include respond(md-desktop) {
-                                        font-size: 14px;
-                                        line-height: 1.2;
-                                    }
-                                
-                                    @include respond(sm-desktop) {
-                                        font-size: 14px;
-                                    }
-                                
-                                    @include respond(phone) {
-                                        font-size: 14px;
-                                            white-space: nowrap;
-                                    }
-                            }
-                    }
-
-                    td {
-                        font-size: 19px;
-
-                        font-weight: normal;
-                        border: none;
-                        line-height: 23px;
-                        padding: 15px 35px;
-                        &:first-child {
-                               
-                        
-                                @include respond(md-desktop) {
-                                    padding-left: 15px;
-                                }
-                            }
-                        @include respond(md-desktop) {
-                                font-size: 17px;
-                                padding: 18px 10px;
-                            }
-                        
-                            @include respond(sm-desktop) {
-                                font-size: 15px;
-                                padding: 15px 10px;
-                            }
-                        
-                            @include respond(phone) {
-                                font-size: 14px;
-                                padding: 10px;
-                                    white-space: nowrap;
-                            }
-                    }
-
-                    h3 {
-                        font-size: 22px;
-                        color: #111111;
-                        font-weight: bold;
-                        line-height: 27px;
-                        margin-bottom: 0;
-                    }
-
-                }
-            }
-
-            .borderTable {
-                padding: 35px;
-                box-sizing: border-box;
-
-                .table {
-                    th {
-                        font-size: 15px;
-                        color: #8492a6;
-                        font-weight: bold;
-                        line-height: 18px;
-                        padding: 13px 30px;
-                        background: #fafafb;
-                        vertical-align: middle;
-                        text-transform: uppercase;
-                        border: 3px solid #f0f2f6;
-                    }
-
-                    td {
-                        font-size: 19px;
-                        //color: rgba(17, 17, 17, 0.7);
-                        font-weight: 500;
-                        line-height: 24px;
-                        padding: 15px 30px;
-                        vertical-align: middle;
-                        border: 3px solid #f0f2f6;
-
-                        &.stable {
-                            line-height: 19px;
-
-                            span {
-                                font-size: 16px;
-                                color: #ff9d00;
-                                display: block;
-                            }
-                        }
-
-                        &.negative {
-                            line-height: 19px;
-
-                            span {
-                                font-size: 16px;
-                                color: #ea3f3f;
-                                display: block;
-                            }
-                        }
-
-                        &.positive {
-                            line-height: 19px;
-
-                            span {
-                                font-size: 16px;
-                                color: #43c34d;
-                                display: block;
-                            }
-                        }
-                    }
-                }
-            }
-
-           
-
-            .directorDetails {
-                .card {
-                    margin-bottom: 1rem;
-                    border-radius: 6px !important;
-
-                    // border: 1px solid #D2D7E5;
-                    // box-shadow: 0 3px 6px #CAD0E2;
-                    .cardHeader {
-                        cursor: pointer;
-                        border-bottom: none;
-                        padding: 25px 35px !important;
-
-                       
-
-                        h2 {
-                            font-size: 22px;
-                            color: #3687E8;
-                            font-weight: bold;
-                            line-height: 27px;
-                        }
-
-                        span {
-                            font-size: 45px;
-                            color: #3687E8;
-                            font-weight: normal;
-                            line-height: 20px;
-                        }
-
-                        .label {
-                            font-size: 16px;
-
-                            font-weight: 500;
-                            line-height: 17px;
-                            margin-bottom: 10px;
-                            letter-spacing: 0.53px;
-                        }
-
-                        .categories {
-                            margin-right: 1rem;
-                            width: 30%;
-
-                            .label {
-                                margin-right: 1rem;
-                                margin-bottom: 0px;
-                            }
-
-                            .status {
-                                height: 31px;
-                                background: #ea3f3f42 0% 0% no-repeat padding-box;
-                                letter-spacing: 0px;
-
-                                span {
-                                    padding-left: 0.5rem;
-                                    padding-right: 0.5rem;
-                                    width: 100%;
-                                    opacity: 1 !important;
-                                    font-size: 16px;
-                                    font-weight: bold;
-                                    height: 19px;
-                                    color: #EA3F3F
-                                }
-                            }
-                        }
-                    }
-
-                    &.collapsed {
-                        border-radius: 8px !important;
-
-                        .downArrow {
-                            right: 46px;
-                            margin-top: -8px;
-                            transform: rotate(-90deg);
-                        }
-                    }
-                }
-
-                .detailsBox {
-                    font-size: 20px;
-
-                    font-weight: 500;
-                    line-height: 25px;
-
-                    &.warning {
-                        color: #ea3f3f !important;
-                    }
-
-                    &.success {
-                        color: #43c34d !important;
-                    }
-
-                    label {
-                        font-size: 16px;
-
-                        font-weight: 500;
-                        line-height: 17px;
-                        display: block;
-                        letter-spacing: 0.53px;
-                    }
-                }
-
-                .cardBody {
-                    padding: 17px 25px;
-                    // border: 2px solid #e6eaf0;
-                    // border-left: 9px solid #c4d7ef;
+            &.collapsed {
+                border-radius: 8px !important;
+                .downArrow {
+                    right: 46px;
+                    margin-top: -8px;
+                    transform: rotate(-90deg);
                 }
             }
         }
-
-     
-    
-
-
-
-
-
+        .detailsBox {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 25px;
+            &.warning {
+                color: #ea3f3f !important;
+            }
+            &.success {
+                color: #43c34d !important;
+            }
+            label {
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 17px;
+                display: block;
+                letter-spacing: 0.53px;
+            }
+        }
+        .cardBody {
+            padding: 17px 25px;
+            // border: 2px solid #e6eaf0;
+            // border-left: 9px solid #c4d7ef;
+        }
+    }
+}
 .table_details {
-
     border-collapse: collapse;
-
     thead {
         tr {
             th {
@@ -417,23 +350,18 @@
             }
         }
     }
-
     tbody {
         tr {
             border: none;
             font-size: 19px;
-
             .firstCell {
                 font-weight: bold;
             }
         }
     }
 }
-
 .unit_container {
-
     padding-right: 15px;
-
     .unit_label {
         font-size: 18px;
         // color: #2837566A;
@@ -443,17 +371,15 @@
         padding-right: 10px;
         line-height: 23px;
         @include respond(phone) {
-                font-size: 12px;
-            }
+            font-size: 12px;
+        }
     }
-
     .options {
         font-size: 18px;
         line-height: 23px;
         color: #3687E8;
         text-transform: capitalize;
         margin-right: 10px;
-
         border-radius: 14px;
         border: none;
         font-weight: bold;
@@ -464,8 +390,8 @@
         padding-bottom: 4px;
         margin-right: 50px;
         @include respond(phone) {
-                font-size: 12px;
-                margin-right: 20px;
-            }
+            font-size: 12px;
+            margin-right: 20px;
+        }
     }
 }
