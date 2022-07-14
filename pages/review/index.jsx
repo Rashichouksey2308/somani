@@ -31,6 +31,9 @@ import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
+//redux
+import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
+
 import { Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -42,6 +45,7 @@ import { element } from 'prop-types'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 
 import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
+import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
 
 
 
@@ -55,7 +59,7 @@ function Index() {
 
   const { orderList } = useSelector((state) => state.buyer)
 
-  // console.log(orderList, 'this is order list')
+   console.log(orderList, 'this is order list')
 
   const { companyData } = useSelector((state) => state.companyDetails)
   console.log(companyData, "this is company data")
@@ -278,7 +282,7 @@ function Index() {
     supplierName: orderList?.supplierCredentials?.supplierName,
   })
 
-  useEffect(()=>{
+  useEffect(() => {
     setProduct({
       AvgMonthlyElectricityBill:
         orderList?.productSummary?.AvgMonthlyElectricityBill,
@@ -316,8 +320,8 @@ function Index() {
       shipmentNumber: orderList?.supplierCredentials?.shipmentNumber,
       supplierName: orderList?.supplierCredentials?.supplierName,
     })
-    
-  },[orderList])
+
+  }, [orderList])
 
   console.log(supplierCred, "THIS IS SUPPLIER CRED")
 
@@ -357,6 +361,9 @@ function Index() {
   const [sanctionComment, setSanctionComment] = useState(
     orderList?.company?.recommendations?.sanctionTerms,
   )
+  const [approveComment, setApproveComment] = useState(
+    orderList?.cam?.approvalRemarks,
+  )
 
   const [strengthsComment, setStrengthsComment] = useState(
     orderList?.company?.recommendations?.strengths,
@@ -380,6 +387,11 @@ function Index() {
     let newArr = [...sanctionComment]
     newArr.push(sanctionComments)
     setSanctionComment(newArr)
+  }
+  const addApproveRemarkArr = (sanctionComments) => {
+    let newArr = [...approveComment]
+    newArr.push(sanctionComments)
+    setApproveComment(newArr)
   }
   const addStrengthsCommentArr = (strengthsComments) => {
     let newArr = [...strengthsComment]
@@ -530,6 +542,22 @@ function Index() {
     dispatch(UpdateCredit(obj))
   }
 
+  const handleCamApprove = () => {
+    const obj = {
+      approvalRemarks: [...approveComment],
+      order: orderList._id,
+      status: 'Approved'
+    }
+    dispatch(UpdateCam(obj))
+  }
+  const handleCamReject = () => {
+    const obj = {
+      order: orderList._id,
+      status: 'Rejected'
+    }
+    dispatch(UpdateCam(obj))
+  }
+
   const currentOpenLink = (e) => {
     setSelectedTab(e.target.attributes[4].nodeValue)
   }
@@ -553,6 +581,10 @@ function Index() {
 
   }
 
+  const updateLitigationStatus = (e) => {
+    dispatch(UpdateCompanyDetails({ _id: orderList?.company?._id, litigationStatus: e.target.value }))
+  }
+
 
 
   return (
@@ -562,11 +594,10 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading pt-3 pb-3`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -574,7 +605,7 @@ function Index() {
             </h1>
             {uploadBtn ?
               <div className="ml-auto">
-                {uploadButton()} </div> : null}
+                {uploadButton(dispatch,orderList)} </div> : null}
             {/* <div className="ml-auto">
                 <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                 <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
@@ -727,7 +758,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <CompanyDetails companyId={companyData?.company} companyDetail={companyData?.profile?.companyDetail} />
+                    <CompanyDetails order={orderList?.company} companyId={companyData?.company} companyDetail={companyData?.profile?.companyDetail} />
                     <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
                     <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
@@ -814,13 +845,11 @@ function Index() {
                                         <div
                                           className={`${styles.compliance_content} Compliance ml-1`}
                                         >
-                                         {alert.alert}
+                                          {alert.alert}
                                         </div>
                                       </div>
                                     )
                                   }
-
-
                                 })}
                               </div>
                             </div>
@@ -847,7 +876,7 @@ function Index() {
                                         <div
                                           className={`${styles.compliance_content} Compliance ml-1`}
                                         >
-                                         {alert.alert}
+                                          {alert.alert}
                                         </div>
                                       </div>
                                     )
@@ -855,7 +884,7 @@ function Index() {
 
 
                                 })}
-                                
+
                               </div>
                             </div>
                           </Col>
@@ -871,7 +900,7 @@ function Index() {
                               <div
                                 className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
                               >
-                             {companyData?.compliance?.alerts?.map((alert, index) => {
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
                                   if (alert.severity.trim().toLowerCase() === "medium") {
                                     return (
                                       <div key={index}
@@ -881,7 +910,7 @@ function Index() {
                                         <div
                                           className={`${styles.compliance_content} Compliance ml-1`}
                                         >
-                                         {alert.alert}
+                                          {alert.alert}
                                         </div>
                                       </div>
                                     )
@@ -904,7 +933,7 @@ function Index() {
                               <div
                                 className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
                               >
-                               {companyData?.compliance?.alerts?.map((alert, index) => {
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
                                   if (alert.severity.trim().toLowerCase() === "Low") {
                                     return (
                                       <div key={index}
@@ -914,7 +943,7 @@ function Index() {
                                         <div
                                           className={`${styles.compliance_content} Compliance ml-1`}
                                         >
-                                         {alert.alert}
+                                          {alert.alert}
                                         </div>
                                       </div>
                                     )
@@ -981,17 +1010,25 @@ function Index() {
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
                       >
-                      <h2 className="w-100 mb-3">Litigations</h2>
-                      <div
+                        <h2 className="w-100 mb-3">Litigations</h2>
+                        <div
                           className={`${styles.categories}  d-flex align-items-center `}>
                           <label className={styles.label}>Litigations Status:</label>
-                          <select className="form-control">
-                            <option>Pending</option>
-                            <option>Active</option>
+                          <select onChange={updateLitigationStatus} className="form-control">
+
+                            {orderList?.company?.litigationStatus !== 'Active' ?
+                              <>
+                                <option value='Pending'>Pending</option>
+                                <option value='Active'>Active</option></>
+                              :
+                              <>
+                                <option value='Active'>Active</option>
+                                <option value='Pending'>Pending</option>
+                              </>}
 
                           </select>
-                          </div>
                         </div>
+                      </div>
                       <span>+</span>
                     </div>
                     <div
@@ -1009,119 +1046,119 @@ function Index() {
                         >
                           <Row>
                             <Col md={4}>
-                            <p className={`mb-3`}>Filter by</p>
-                            <div className={` d-flex align-items-center justify-content-start`}>
-                            <div className="form-check">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexCheckDefault"
-                              >
-                                Pending ({companyData?.compliance?.litigations[0]?.pendingCase})
-                              </label>
-                            </div>
-                            <div className="form-check ml-4">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexCheckDefault"
-                              >
-                                Disposed ({companyData?.compliance?.litigations[0]?.disposedCase})
-                              </label>
-                            </div>
-                            <div className="form-check  ml-4">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexCheckDefault"
-                              >
-                                Total Cases ({companyData?.compliance?.litigations[0]?.totalCase})
-                              </label>
-                            </div>
-                            </div>
+                              <p className={`mb-3`}>Filter by</p>
+                              <div className={` d-flex align-items-center justify-content-start`}>
+                                <div className="form-check">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="flexCheckDefault"
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="flexCheckDefault"
+                                  >
+                                    Pending ({companyData?.compliance?.litigations[0]?.pendingCase})
+                                  </label>
+                                </div>
+                                <div className="form-check ml-4">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="flexCheckDefault"
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="flexCheckDefault"
+                                  >
+                                    Disposed ({companyData?.compliance?.litigations[0]?.disposedCase})
+                                  </label>
+                                </div>
+                                <div className="form-check  ml-4">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="flexCheckDefault"
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="flexCheckDefault"
+                                  >
+                                    Total Cases ({companyData?.compliance?.litigations[0]?.totalCase})
+                                  </label>
+                                </div>
+                              </div>
                             </Col>
                             <Col md={4}>
-                            <p className={`mb-3`}>Select a Party</p>
-                            <div className={` d-flex align-items-center justify-content-start`}>
-                            <div className="form-check">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                value=""
-                                id="Respondent"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="Respondent"
-                              >
-                                Respondent
-                              </label>
-                            </div>
-                            <div className="form-check ml-4">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                value=""
-                                id="Respondent"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="Respondent"
-                              >
-                                Petitioner
-                              </label>
-                            </div>
-                         
-                            </div>
+                              <p className={`mb-3`}>Select a Party</p>
+                              <div className={` d-flex align-items-center justify-content-start`}>
+                                <div className="form-check">
+                                  <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    value=""
+                                    id="Respondent"
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="Respondent"
+                                  >
+                                    Respondent
+                                  </label>
+                                </div>
+                                <div className="form-check ml-4">
+                                  <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    value=""
+                                    id="Respondent"
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="Respondent"
+                                  >
+                                    Petitioner
+                                  </label>
+                                </div>
+
+                              </div>
                             </Col>
                             <Col md={4}>
-                            <p className={`mb-3`}>Classification</p>
-                            <div className={` d-flex align-items-center justify-content-start`}>
-                            <div className="form-check">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                value=""
-                                id="Classification"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="Classification"
-                              >
-                                Civil
-                              </label>
-                            </div>
-                            <div className="form-check ml-4">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                value=""
-                                id="Classification"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="Classification"
-                              >
-                                Criminal
-                              </label>
-                            </div>
-                         
-                            </div>
+                              <p className={`mb-3`}>Classification</p>
+                              <div className={` d-flex align-items-center justify-content-start`}>
+                                <div className="form-check">
+                                  <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    value=""
+                                    id="Classification"
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="Classification"
+                                  >
+                                    Civil
+                                  </label>
+                                </div>
+                                <div className="form-check ml-4">
+                                  <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    value=""
+                                    id="Classification"
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="Classification"
+                                  >
+                                    Criminal
+                                  </label>
+                                </div>
+
+                              </div>
                             </Col>
                           </Row>
 
@@ -1129,45 +1166,45 @@ function Index() {
                         <div
                           className={`${styles.risk_Container} d-flex align-items-center justify-content-between  mb-4`}
                         >
-                  <div className={` w-100 d-flex align-items-center justify-content-start  `}>
-                  <label  className={styles.control} htmlFor={"high"}>
-                  <input
-                    className={styles.checkbox}
-                    type="radio"
-                    name="topics"
-                    value={"high"}
-                    id={"high"}
+                          <div className={` w-100 d-flex align-items-center justify-content-start  `}>
+                            <label className={styles.control} htmlFor={"high"}>
+                              <input
+                                className={styles.checkbox}
+                                type="radio"
+                                name="topics"
+                                value={"high"}
+                                id={"high"}
 
-                  
-                  />
-                  <span className={styles.control__content}><span>{`High Risk (${companyData?.compliance?.litigations[0]?.highRisk})`}</span></span>
-                  </label>
 
-                  <label  className={styles.control} htmlFor={"medium"}>
-                  <input
-                    className={styles.checkbox}
-                    type="radio"
-                    name="topics"
-                    value={"medium"}
-                    id={"medium"}
+                              />
+                              <span className={styles.control__content}><span>{`High Risk (${companyData?.compliance?.litigations[0]?.highRisk})`}</span></span>
+                            </label>
 
-                  
-                  />
-                  <span className={styles.control__content}><span>{`Medium Risk (${companyData?.compliance?.litigations[0]?.mediumRisk})`}</span></span>
-                  </label>
-                  <label  className={styles.control} htmlFor={"Relevance"}>
-                  <input
-                    className={styles.checkbox}
-                    type="radio"
-                    name="topics"
-                    value={"Relevance"}
-                    id={"Relevance"}
+                            <label className={styles.control} htmlFor={"medium"}>
+                              <input
+                                className={styles.checkbox}
+                                type="radio"
+                                name="topics"
+                                value={"medium"}
+                                id={"medium"}
 
-                  
-                  />
-                  <span className={styles.control__content}><span>{`High Relevance (${companyData?.compliance?.litigations[0]?.highPriority})`}</span></span>
-                  </label>
-                  </div>
+
+                              />
+                              <span className={styles.control__content}><span>{`Medium Risk (${companyData?.compliance?.litigations[0]?.mediumRisk})`}</span></span>
+                            </label>
+                            <label className={styles.control} htmlFor={"Relevance"}>
+                              <input
+                                className={styles.checkbox}
+                                type="radio"
+                                name="topics"
+                                value={"Relevance"}
+                                id={"Relevance"}
+
+
+                              />
+                              <span className={styles.control__content}><span>{`High Relevance (${companyData?.compliance?.litigations[0]?.highPriority})`}</span></span>
+                            </label>
+                          </div>
 
                           {/* <ComplianceLigitations
                             icon={'/static/danger.svg'}
@@ -1245,10 +1282,10 @@ function Index() {
                     weaknessComment={weaknessComment}
                   />
                   <CommonSave onSave={onCreditSave} />
-                 
+
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
-                  <CAM camData={orderList} />
+                  <CAM camData={orderList} companyData={companyData} addApproveRemarkArr={addApproveRemarkArr}approveComment={approveComment} />
                 </div>
                 <div
                   className="tab-pane fade"
@@ -1563,10 +1600,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-      'Compliance' ||
-      'Orders' ||
-      'Credit' ||
-      'DocumentsTab' ? (
+        'Compliance' ||
+        'Orders' ||
+        'Credit' ||
+        'DocumentsTab' ? (
         <PreviousBar />
       ) : null}
       {selectedTab == 'Profile' ? (
@@ -1590,6 +1627,8 @@ function Index() {
         <DownloadBar
           downLoadButtonName={`CAM`}
           isPrevious={true}
+          handleApprove={handleCamApprove}
+          handleReject={handleCamReject}
           leftButtonName={`Decline`}
           rightButtonName={`Approve`}
         />
@@ -1599,14 +1638,14 @@ function Index() {
 }
 export default Index
 
-const uploadButton = () => {
+const uploadButton = (dispatch, orderList) => {
   return (
 
     <>
       <button onClick={() =>
-      console.log("update initiated ")
-       //  dispatch(RefetchCombineKarza(companyData.company))
-         } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
+        console.log("update initiated ")
+         // dispatch(RefetchCombineKarza({ company: orderList?.company?._id}))
+      } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
       <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
     </>
 
@@ -1630,7 +1669,7 @@ const ligitations = (companyData) => {
 }
 
 const table2 = (companyData, complienceFilter) => {
-  const filteredData = companyData?.compliance?.alerts?.filter((data)=> data.severity.trim().toLowerCase() === complienceFilter.trim().toLowerCase());
+  const filteredData = companyData?.compliance?.alerts?.filter((data) => data.severity.trim().toLowerCase() === complienceFilter.trim().toLowerCase());
   const length = filteredData?.length
 
 
@@ -1653,7 +1692,7 @@ const table2 = (companyData, complienceFilter) => {
       </thead>
       <tbody>
         <tr>
-          <td className={styles.firstCell} rowSpan={length +1}>
+          <td className={styles.firstCell} rowSpan={length + 1}>
             Statutory Compliance
           </td>
           <td></td>
@@ -1662,17 +1701,17 @@ const table2 = (companyData, complienceFilter) => {
           <td></td>
           <td></td>
         </tr>
-       {filteredData?.map((alert,index)=> (
-         <tr key={index}>
-         <td> {alert.alert}</td>
-         <td> {alert.severity}</td>
-         <td> {alert.source}</td>
-         <td> {alert.idType}</td>
-         <td> {alert.value}</td>
-       </tr>
-       ))}
+        {filteredData?.map((alert, index) => (
+          <tr key={index}>
+            <td> {alert.alert}</td>
+            <td> {alert.severity}</td>
+            <td> {alert.source}</td>
+            <td> {alert.idType}</td>
+            <td> {alert.value}</td>
+          </tr>
+        ))}
 
-       
+
 
         <tr>
           <td className={styles.firstCell} rowSpan="6">
