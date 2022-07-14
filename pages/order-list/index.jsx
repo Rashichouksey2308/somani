@@ -16,7 +16,7 @@ function Index() {
   const { singleOrder } = useSelector((state) => state.buyer)
   
 
-  console.log(singleOrder?.data, 'all order listtt1')
+  // console.log(singleOrder?.data, 'all order listtt1')
 
   // useEffect(() => {
   //   dispatch(GetOrders(`?page=${currentPage}`))
@@ -25,7 +25,7 @@ function Index() {
  useEffect(() => {
      dispatch(setPageName('leads'))
      dispatch(setDynamicName(singleOrder?.data[0]?.company?.companyName))
-  },[singleOrder])
+  },[dispatch, singleOrder])
 
   const handleRoute = (buyer) => {
     // if (buyer.queue === 'ReviewQueue') {

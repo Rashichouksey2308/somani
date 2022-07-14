@@ -183,7 +183,7 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
 export const UpdateOrderShipment =
   (payload) => async (dispatch, getState, api) => {
     //   dispatch(updateOrder()
-    console.log(payload, 'update order shipment')
+    // console.log(payload, 'update order shipment')
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 

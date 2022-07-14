@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React,{useState, useEffect} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
@@ -20,10 +21,10 @@ function Index() {
     
     if( localStorage.getItem('darkMode') == 'true' ||
       localStorage.getItem('darkMode') == true){
-      console.log("this")
+      // console.log("this")
      setDarkMode(true)
     }else{
-      console.log("this2")
+      // console.log("this2")
        setDarkMode(false)
     }
  

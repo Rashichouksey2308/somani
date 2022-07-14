@@ -13,10 +13,10 @@ function Index({ balanceData }) {
       localStorage.getItem('darkMode') == 'true' ||
       localStorage.getItem('darkMode') == true
     ) {
-      console.log('this')
+      // console.log('this')
       setDarkMode(true)
     } else {
-      console.log('this2')
+      // console.log('this2')
       setDarkMode(false)
     }
   }, [])

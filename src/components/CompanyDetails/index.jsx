@@ -14,7 +14,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
       background: `${(slider * 100) / 100}`,
     };
   }
-  console.log(sliderBackground())
+  // console.log(sliderBackground())
 
   return (
     <>
