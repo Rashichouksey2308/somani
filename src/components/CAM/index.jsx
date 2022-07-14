@@ -693,7 +693,7 @@ const creditProfile = () => {
           aria-expanded="true"
           aria-controls="creditProfile"
         >
-          <h2 className="mb-0">Credit Profile</h2>
+          <h2 className="mb-0">Operational Details</h2>
           <span>+</span>
         </div>
         <div
@@ -1216,10 +1216,12 @@ const debtProfile = (data, options, tempArr) => {
                   <tr>
                     <td>ICICI Bank</td>
                     <td>
-                      <input
+                      <select
                         className={`${styles.value} form-control`}
-                        disabled={true}
-                      /> 
+                        
+                      > 
+                      <options>Cash Credit</options>
+                      </select>
                     </td>
 
                     <td>₹ 800.00</td>
@@ -1228,10 +1230,12 @@ const debtProfile = (data, options, tempArr) => {
                   <tr>
                     <td>ICICI Bank</td>
                     <td>
-                      <input
+                      <select
                         className={`${styles.value} form-control`}
-                        disabled={true}
-                      /> 
+                        
+                      >
+                         <options>Post Ship Credit</options>
+                        </select> 
                     </td>
 
                     <td>₹ 800.00</td>
@@ -1240,10 +1244,12 @@ const debtProfile = (data, options, tempArr) => {
                   <tr>
                     <td>ICICI Bank</td>
                     <td>
-                      <input
+                      <select
                         className={`${styles.value} form-control`}
-                        disabled={true}
-                      /> 
+                       
+                      > 
+                       <options>Bank Guarantee</options>
+                      </select>
                     </td>
 
                     <td>₹ 800.00</td>
@@ -1387,6 +1393,97 @@ const revenuDetails = () => {
               </tr>
               <tr>
                 <td>Related Party Sales</td>
+                <td>
+                  <img
+                    src="/static/arrow-down-red.svg"
+                    alt="Arrow Red"
+                    className="img-fluid"
+                  />
+                </td>
+                <td>11,900.00 </td>
+                <td>1,900.00</td>
+                <td>40%</td>
+              </tr>
+               <tr>
+                <td>Intra Organization Sales</td>
+                <td>
+                  <img
+                    src="/static/arrow-down-red.svg"
+                    alt="Arrow Red"
+                    className="img-fluid"
+                  />
+                </td>
+                <td>11,900.00 </td>
+                <td>1,900.00</td>
+                <td>40%</td>
+              </tr>
+              <tr>
+                <td>B2B Sales</td>
+                <td>
+                  <img
+                    src="/static/arrow-down-red.svg"
+                    alt="Arrow Red"
+                    className="img-fluid"
+                  />
+                </td>
+                <td>11,900.00 </td>
+                <td>1,900.00</td>
+                <td>40%</td>
+              </tr>
+              <tr>
+                <td>B2C Sales</td>
+                <td>
+                  <img
+                    src="/static/arrow-down-red.svg"
+                    alt="Arrow Red"
+                    className="img-fluid"
+                  />
+                </td>
+                <td>11,900.00 </td>
+                <td>1,900.00</td>
+                <td>40%</td>
+              </tr>
+              <tr>
+                <td>Export Sales</td>
+                <td>
+                  <img
+                    src="/static/arrow-down-red.svg"
+                    alt="Arrow Red"
+                    className="img-fluid"
+                  />
+                </td>
+                <td>11,900.00 </td>
+                <td>1,900.00</td>
+                <td>40%</td>
+              </tr>
+              <tr>
+                <td>Total Customers</td>
+                <td>
+                  <img
+                    src="/static/arrow-down-red.svg"
+                    alt="Arrow Red"
+                    className="img-fluid"
+                  />
+                </td>
+                <td>11,900.00 </td>
+                <td>1,900.00</td>
+                <td>40%</td>
+              </tr>
+              <tr>
+                <td>Total Invoices</td>
+                <td>
+                  <img
+                    src="/static/arrow-down-red.svg"
+                    alt="Arrow Red"
+                    className="img-fluid"
+                  />
+                </td>
+                <td>11,900.00 </td>
+                <td>1,900.00</td>
+                <td>40%</td>
+              </tr>
+              <tr>
+                <td>Gross Margin</td>
                 <td>
                   <img
                     src="/static/arrow-down-red.svg"
@@ -1860,6 +1957,12 @@ const sectionTerms = () => {
             </div>
             <div>
               <div className={`${styles.approve}`}>
+                <div className={`${styles.remarks}`}>
+                  <span>Remarks</span>
+                </div>
+                <div className={`${styles.remarks}`}>
+                  <span>Remarks2</span>
+                </div>
                 <div className={`mb-3`}>Approval Remarks</div>
                 <textarea
                   className="form-control"
