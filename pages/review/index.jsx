@@ -278,6 +278,49 @@ function Index() {
     supplierName: orderList?.supplierCredentials?.supplierName,
   })
 
+  useEffect(()=>{
+    setProduct({
+      AvgMonthlyElectricityBill:
+        orderList?.productSummary?.AvgMonthlyElectricityBill,
+      availableStock: orderList?.productSummary?.availableStock,
+      averageStockInTransit: orderList?.productSummary?.averageStockInTransit,
+      averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity,
+      capacityUtilization: orderList?.productSummary?.capacityUtilization,
+      contributionCommoditySenstivity:
+        orderList?.productSummary?.contributionCommoditySenstivity,
+      dailyConsumptionOfCommodity:
+        orderList?.productSummary?.dailyConsumptionOfCommodity,
+      existingCHA: [],
+      existingProcurementOfCommodity:
+        orderList?.productSummary?.existingProcurementOfCommodity,
+      existingSuppliers: [],
+      monthlyProductionCapacity:
+        orderList?.productSummary?.monthlyProductionCapacity,
+      paymentStatusForElectricityBills:
+        orderList?.productSummary?.paymentStatusForElectricityBills,
+      stockCoverageOfCommodity:
+        orderList?.productSummary?.stockCoverageOfCommodity,
+      typeOfCurrency: orderList?.productSummary?.typeOfCurrency,
+      unitOfQuantity: orderList?.productSummary?.unitOfQuantity,
+    })
+    setSupplierCred({
+      HSCodesNumber: orderList?.supplierCredentials?.HSCodesNumber,
+      commodityOfTotalTrade:
+        orderList?.supplierCredentials?.commodityOfTotalTrade,
+      consigneesNumber: orderList?.supplierCredentials?.consigneesNumber,
+      countryOfOrigin: orderList?.supplierCredentials?.countryOfOrigin,
+      latestShipmentDate: orderList?.supplierCredentials?.lastDateOfShipment,
+      oldestShipmentDate: orderList?.supplierCredentials?.oldestShipmentDate,
+      portOfDestination: orderList?.supplierCredentials?.portOfDestination,
+      remarks: orderList?.supplierCredentials?.remarks,
+      shipmentNumber: orderList?.supplierCredentials?.shipmentNumber,
+      supplierName: orderList?.supplierCredentials?.supplierName,
+    })
+    
+  },[orderList])
+
+  console.log(supplierCred, "THIS IS SUPPLIER CRED")
+
   const saveSupplierData = (name, value) => {
     const newInput = { ...supplierCred }
     newInput[name] = value
@@ -388,7 +431,6 @@ function Index() {
   }
 
   useEffect(() => {
-
     let groupExposureArr = []
     orderList?.company?.groupExposureDetail?.forEach((element) => {
       groupExposureArr.push(element)
@@ -482,7 +524,7 @@ function Index() {
         weakness: [...weaknessComment],
       },
       debtProfile: [...debtData],
-      groupExposureDetail: [...groupExposureData]
+      groupExposureDetail: [...groupExposureData],
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
@@ -520,8 +562,11 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading pt-3 pb-3`}>
               <img
-                src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
-                  }`}
+                src={`${
+                  darkMode
+                    ? `/static/white-arrow.svg`
+                    : `/static/arrow-right.svg`
+                }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -545,7 +590,7 @@ function Index() {
                 aria-controls="Profile"
                 aria-selected="true"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(false)
                 }}
               >
@@ -561,7 +606,7 @@ function Index() {
                 aria-controls="Financials"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(true)
                 }}
               >
@@ -577,9 +622,8 @@ function Index() {
                 aria-controls="GST"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(true)
-
                 }}
               >
                 GST
@@ -594,9 +638,8 @@ function Index() {
                 aria-controls="Compliance"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(true)
-
                 }}
               >
                 Compliance
@@ -701,9 +744,9 @@ function Index() {
 
                     <Ratios ratioData={companyData} />
 
-                    <Peer />
+                    <Peer peerData={companyData} />
 
-                    <OpenCharges />
+                    <OpenCharges chargesData={companyData} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
@@ -1205,7 +1248,7 @@ function Index() {
                  
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
-                  <CAM />
+                  <CAM camData={orderList} />
                 </div>
                 <div
                   className="tab-pane fade"
@@ -1520,10 +1563,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-        'Compliance' ||
-        'Orders' ||
-        'Credit' ||
-        'DocumentsTab' ? (
+      'Compliance' ||
+      'Orders' ||
+      'Credit' ||
+      'DocumentsTab' ? (
         <PreviousBar />
       ) : null}
       {selectedTab == 'Profile' ? (

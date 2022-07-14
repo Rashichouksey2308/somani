@@ -7,7 +7,7 @@ function Index({ shareHolding }) {
 
   const [totalShares, setTotalShares] = useState(0)
 
-  console.log(shareHolding, "shareholding")
+  // console.log(shareHolding, "shareholding")
   Chart.register(ArcElement)
   let tempArr = [
     { name: 'Sail', value: '21', color: '#9675CE' },

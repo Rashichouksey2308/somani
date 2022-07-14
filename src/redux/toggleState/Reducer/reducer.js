@@ -22,7 +22,7 @@ export const sidebar = (state = initialState, action) => {
         isMobile: action.value,
       }
     case 'SET_MOBILE':
-      console.log(action, 'setmobie')
+      // console.log(action, 'setmobie')
       return {
         ...state,
         isMobile: action.value,

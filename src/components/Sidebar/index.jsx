@@ -83,7 +83,7 @@ function Index() {
    setIndex("")
    return
     }
-   console.log("open",val)
+  //  console.log("open",val)
    setClassName(`${styles.openlist} `)
    setcategory(val)
     setIndex(index)
@@ -91,9 +91,9 @@ function Index() {
   }
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
-  console.log(isMobile,"isMobile123")
-  console.log("sidebar",)
-console.log(tempArr,"yem")
+//   console.log(isMobile,"isMobile123")
+//   console.log("sidebar",)
+// console.log(tempArr,"yem")
   return (
    <>
    {isMobile ?

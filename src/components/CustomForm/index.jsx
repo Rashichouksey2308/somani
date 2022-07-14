@@ -265,7 +265,7 @@ function BranchCreation(props) {
     let { dealerData } = props
 
     if (dealerData !== null) {
-      console.log(dealerData)
+      // console.log(dealerData)
       state.storeManagerName = dealerData.storeManagerName
       state.dealerName = dealerData.dealerName
       state.dealerId = dealerData.dealerId
@@ -459,7 +459,7 @@ function BranchCreation(props) {
     }
   }
 
-  console.log(props.countriesBranch)
+  // console.log(props.countriesBranch)
 
   return (
     <React.Fragment>
