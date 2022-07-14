@@ -19,7 +19,7 @@ function Index() {
 
 
   const handleRoute = (sheet) => {
-    dispatch(GetTermsheet(`?companyId=${sheet.company._id}`))
+    dispatch(GetTermsheet(`?company=${sheet.company._id}`))
     Router.push('/termsheet/order-list')
   }
 

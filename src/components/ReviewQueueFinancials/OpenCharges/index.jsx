@@ -19,11 +19,11 @@ function Index({chargesData}) {
           <h2 className="mb-0">Charges</h2>
           <div className={`${styles.charges} form-group`}>
             <input type="radio" id="all" name="charges" value="All" checked />
-            <label for="all">All</label>
+            <label htmlFor="all">All</label>
             <input type="radio" id="open" name="charges" value="Open" />
-            <label for="open">Open</label>
+            <label htmlFor="open">Open</label>
             <input type="radio" id="closed" name="charges" value="Closed" />
-            <label for="closed">Closed</label>
+            <label htmlFor="closed">Closed</label>
           </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>

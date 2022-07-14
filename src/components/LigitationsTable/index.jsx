@@ -76,7 +76,7 @@ function index({data,Heading, val }) {
                 </tr>
               </thead>
               <tbody>
-               {data && data?.cases.map((courtCase, index)=> (
+               {data && data?.cases?.map((courtCase, index)=> (
                  <tr key={index}>
                   <td>{index+1}</td>
                   <td className="">{courtCase.cin}</td>
