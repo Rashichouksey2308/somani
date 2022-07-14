@@ -16,6 +16,7 @@ const index = ({ saveOrderData, darkMode }) => {
       <form id="OrderDetailsForm">
         <div className={`${styles.input_container} row`}>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+           <div className="d-flex">
             <input
               type="text"
               id="textInput"
@@ -28,6 +29,13 @@ const index = ({ saveOrderData, darkMode }) => {
             <label className={`${styles.label_heading}  label_heading`} id="textInput">
               Commodity<strong className='text-danger'>*</strong>
             </label>
+            <img
+            className={`${styles.search_image} img-fluid`}
+            src="/static/search-grey.svg"
+            alt="Search"
+              />
+           </div>
+
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
             <input
@@ -60,7 +68,7 @@ const index = ({ saveOrderData, darkMode }) => {
                 required
               />
               <label className={`${styles.label_heading} label_heading`} id="textInput">
-                Order value<strong className='text-danger'>*</strong>
+                Order Value<strong className='text-danger'>*</strong>
               </label>
             </div>
           </div>
@@ -75,7 +83,7 @@ const index = ({ saveOrderData, darkMode }) => {
               required
             />
             <label className={`${styles.label_heading} label_heading`} id="textInput">
-              Supplier Name<strong className='text-danger'>*</strong>
+              Supplier Name
             </label>
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
@@ -86,7 +94,8 @@ const index = ({ saveOrderData, darkMode }) => {
               className={`${styles.input_field} input form-control`}
               required
             >
-              <option value="India" selected>India</option>
+              <option value="none" selected></option>
+              <option value="India" >India</option>
               <option value="America">America</option>
             </select>
             <label className={`${styles.label_heading} label_heading`} id="dropCountry">
@@ -102,7 +111,8 @@ const index = ({ saveOrderData, darkMode }) => {
               className={`${styles.input_field} input form-control`}
               required
             >
-              <option value="VishakaPatnam" selected>Visakhapatnam</option>
+              <option value="none" selected></option>
+              <option value="VishakaPatnam" >Visakhapatnam</option>
               <option value="Mumbai">Mumbai</option>
             </select>
             <label className={`${styles.label_heading} label_heading`} id="dropPort">
