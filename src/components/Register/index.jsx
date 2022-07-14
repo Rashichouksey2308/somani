@@ -220,11 +220,10 @@ function Index() {
       fd.append('documentType', JSON.stringify(documents.typeOfDocument))
       fd.append('document1', documents.document1)
       fd.append('document2', documents.document2)
-      // console.log(fd, "this is payload")
+       //console.log(fd, "this is payload")
 
       dispatch(CreateBuyer(fd))
     }
-
   }
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset()

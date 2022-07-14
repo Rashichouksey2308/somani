@@ -40,11 +40,17 @@ import {
 } from '../../src/redux/buyerProfile/action'
 import { element } from 'prop-types'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+
+import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
+
+
+
 function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
-  const [uploadBtn , setUploadBtn] = useState(true)
+  const [uploadBtn, setUploadBtn] = useState(false)
+  const [complienceFilter, setComplienceFilter] = useState("")
 
 
   const { orderList } = useSelector((state) => state.buyer)
@@ -502,7 +508,11 @@ function Index() {
         //  list[0].children[temIndex++].children[0].attributes[5].nodeValue=true
       }
     }
+
   }
+
+
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -517,9 +527,9 @@ function Index() {
               />
               {orderList?.company?.companyName}
             </h1>
-            {uploadBtn ? 
-                 <div className="ml-auto">
-                 {uploadButton()} </div> : null}
+            {uploadBtn ?
+              <div className="ml-auto">
+                {uploadButton()} </div> : null}
             {/* <div className="ml-auto">
                 <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                 <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
@@ -601,8 +611,8 @@ function Index() {
                 aria-controls="Orders"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e); 
-                  setUploadBtn(false)                 
+                  currentOpenLink(e);
+                  setUploadBtn(false)
 
                 }}
               >
@@ -619,7 +629,7 @@ function Index() {
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(false)                 
+                  setUploadBtn(false)
 
 
                 }}
@@ -637,7 +647,7 @@ function Index() {
                 aria-selected="true"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(false)                
+                  setUploadBtn(false)
 
                 }}
               >
@@ -654,7 +664,7 @@ function Index() {
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e);
-                  setUploadBtn(false)                
+                  setUploadBtn(true)
 
 
                 }}
@@ -674,7 +684,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <CompanyDetails companyDetail={companyData?.profile?.companyDetail} />
+                    <CompanyDetails companyId={companyData?.company} companyDetail={companyData?.profile?.companyDetail} />
                     <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
                     <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
@@ -721,7 +731,7 @@ function Index() {
                           <div
                             className={`${styles.status} d-flex align-items-center justify-content-between`}
                           >
-                            <span> NON-COMPLIANT HIGH RISK</span>
+                            <span>{companyData?.compliance?.other?.complianceStatus} </span>
                           </div>
                         </div>
                       </div>
@@ -751,16 +761,24 @@ function Index() {
                               <div
                                 className={`${styles.val} d-flex align-items-center justify-content-start`}
                               >
-                                <div
-                                  className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.purple_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    IBBB
-                                  </div>
-                                </div>
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert.severity.trim().toLowerCase() === "severe") {
+                                    return (
+                                      <div key={index}
+                                        className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.purple_dot}></div>
+                                        <div
+                                          className={`${styles.compliance_content} Compliance ml-1`}
+                                        >
+                                         {alert.alert}
+                                        </div>
+                                      </div>
+                                    )
+                                  }
+
+
+                                })}
                               </div>
                             </div>
                           </Col>
@@ -776,46 +794,25 @@ function Index() {
                               <div
                                 className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
                               >
-                                <div
-                                  className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.red_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    EPF Transaction Default
-                                  </div>
-                                </div>
-                                <div
-                                  className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.red_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    Credit Rating Suspended
-                                  </div>
-                                </div>
-                                <div
-                                  className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.red_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    Credit Rating Withdrawn
-                                  </div>
-                                </div>
-                                <div
-                                  className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.red_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    Qualified Opinion
-                                  </div>
-                                </div>
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert.severity.trim().toLowerCase() === "high") {
+                                    return (
+                                      <div key={index}
+                                        className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.red_dot}></div>
+                                        <div
+                                          className={`${styles.compliance_content} Compliance ml-1`}
+                                        >
+                                         {alert.alert}
+                                        </div>
+                                      </div>
+                                    )
+                                  }
+
+
+                                })}
+                                
                               </div>
                             </div>
                           </Col>
@@ -831,26 +828,24 @@ function Index() {
                               <div
                                 className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
                               >
-                                <div
-                                  className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.yellow_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    Generic Address
-                                  </div>
-                                </div>
-                                <div
-                                  className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.yellow_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    GST Transaction Delay
-                                  </div>
-                                </div>
+                             {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert.severity.trim().toLowerCase() === "medium") {
+                                    return (
+                                      <div key={index}
+                                        className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.yellow_dot}></div>
+                                        <div
+                                          className={`${styles.compliance_content} Compliance ml-1`}
+                                        >
+                                         {alert.alert}
+                                        </div>
+                                      </div>
+                                    )
+                                  }
+
+
+                                })}
                               </div>
                             </div>
                           </Col>
@@ -866,76 +861,24 @@ function Index() {
                               <div
                                 className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
                               >
-                                <div
-                                  className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.orange_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    GST Inactive
-                                  </div>
-                                </div>
-                                <div
-                                  className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.orange_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    GST Transaction Default
-                                  </div>
-                                </div>
-                                <div
-                                  className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.orange_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    IEC In Denied Entity List
-                                  </div>
-                                </div>
-                                <div
-                                  className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.orange_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    TDS Payment Delay
-                                  </div>
-                                </div>
-                                <div
-                                  className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.orange_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    EPF Closed
-                                  </div>
-                                </div>
-                                <div
-                                  className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.orange_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    EPF Transaction Delay
-                                  </div>
-                                </div>
-                                <div
-                                  className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
-                                >
-                                  <div className={styles.orange_dot}></div>
-                                  <div
-                                    className={`${styles.compliance_content} Compliance ml-1`}
-                                  >
-                                    Credit Rating Outlook Negative
-                                  </div>
-                                </div>
+                               {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert.severity.trim().toLowerCase() === "Low") {
+                                    return (
+                                      <div key={index}
+                                        className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.orange_dot}></div>
+                                        <div
+                                          className={`${styles.compliance_content} Compliance ml-1`}
+                                        >
+                                         {alert.alert}
+                                        </div>
+                                      </div>
+                                    )
+                                  }
+
+
+                                })}
                               </div>
                             </div>
                           </Col>
@@ -960,8 +903,14 @@ function Index() {
                           className={`${styles.categories} mb-0  d-flex align-items-center justify-content-between `}
                         >
                           <label className={styles.label}>Categories:</label>
-                          <select className="form-control">
-                            <option>Statutory Compliance</option>
+                          <select onChange={(e) => setComplienceFilter(e.target.value)} className="form-control">
+
+                            <option value="High" >High</option>
+                            <option value="Medium" >Medium</option>
+                            <option value="low" >low</option>
+                            <option value="Severe" >Severe</option>
+
+
                           </select>
                         </div>
                       </div>
@@ -976,7 +925,7 @@ function Index() {
                       <div
                         className={` ${styles.cardBody_details} card-body border_color`}
                       >
-                        {table2()}
+                        {table2(companyData, complienceFilter)}
                       </div>
                     </div>
                   </div>
@@ -988,7 +937,20 @@ function Index() {
                       aria-expanded="true"
                       aria-controls="litigations"
                     >
-                      <h2 className="mb-3">Litigations</h2>
+                      <div
+                        className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
+                      >
+                      <h2 className="w-100 mb-3">Litigations</h2>
+                      <div
+                          className={`${styles.categories}  d-flex align-items-center `}>
+                          <label className={styles.label}>Litigations Status:</label>
+                          <select className="form-control">
+                            <option>Pending</option>
+                            <option>Active</option>
+
+                          </select>
+                          </div>
+                        </div>
                       <span>+</span>
                     </div>
                     <div
@@ -1196,7 +1158,7 @@ function Index() {
                           /> */}
                         </div>
 
-                        <div>{ligitations()}</div>
+                        <div>{ligitations(companyData)}</div>
                       </div>
                     </div>
                   </div>
@@ -1242,6 +1204,7 @@ function Index() {
                     weaknessComment={weaknessComment}
                   />
                   <CommonSave onSave={onCreditSave} />
+                 
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM />
@@ -1597,27 +1560,41 @@ export default Index
 
 const uploadButton = () => {
   return (
- 
-     <>
-                <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-                <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-            </>
+
+    <>
+      <button onClick={() =>
+      console.log("update initiated ")
+       //  dispatch(RefetchCombineKarza(companyData.company))
+         } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
+      <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
+    </>
 
   )
 }
 
-const ligitations = () => {
+const ligitations = (companyData) => {
+  const highCourtData = companyData?.compliance?.highCourt
+  const supremeCourtData = companyData?.compliance?.supremeCourt
+  const districtCourtData = companyData?.compliance?.districtCourt
+  const tribunalCourtsData = companyData?.compliance?.tribunalCourts
+
   return (
     <>
-      <LigitationsTable val={'LigitationsTable1'} />
-      <LigitationsTable val={'LigitationsTable2'} />
-      <LigitationsTable val={'LigitationsTable3'} />
-      <LigitationsTable val={'LigitationsTable3'} />
+      <LigitationsTable data={supremeCourtData} Heading={"Supreme Court"} val={'LigitationsTable1'} />
+      <LigitationsTable data={highCourtData} Heading={"High Court"} val={'LigitationsTable2'} />
+      <LigitationsTable data={districtCourtData} Heading={"District Court"} val={'LigitationsTable3'} />
+      <LigitationsTable data={tribunalCourtsData} Heading={"Tribunal Courts"} val={'LigitationsTable4'} />
     </>
   )
 }
 
-const table2 = () => {
+const table2 = (companyData, complienceFilter) => {
+  const filteredData = companyData?.compliance?.alerts?.filter((data)=> data.severity.trim().toLowerCase() === complienceFilter.trim().toLowerCase());
+  const length = filteredData?.length
+  console.log(length,"length")
+  //console.log(companyData,filteredData,"fileteredData")
+
+
   return (
     <table
       className={`${styles.table_details} table border-color`}
@@ -1637,32 +1614,26 @@ const table2 = () => {
       </thead>
       <tbody>
         <tr>
-          <td className={styles.firstCell} rowSpan="3">
+          <td className={styles.firstCell} rowSpan={length +1}>
             Statutory Compliance
           </td>
-          <td> EPF Transaction Default</td>
-          <td> High</td>
-          <td> EPF</td>
-          <td> Establishment ID</td>
-          <td> MRMRT0015543000, UKDDN0020827000</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
-        <tr>
-          <td> IEC In Denied Entity List</td>
-          <td> Medium</td>
-          <td> IEC</td>
-          <td> IEC</td>
-          <td> 290000291</td>
-        </tr>
+       {filteredData?.map((alert,index)=> (
+         <tr key={index}>
+         <td> {alert.alert}</td>
+         <td> {alert.severity}</td>
+         <td> {alert.source}</td>
+         <td> {alert.idType}</td>
+         <td> {alert.value}</td>
+       </tr>
+       ))}
 
-        <tr>
-          {/* <td rowspan="3">Statutory Compliance</td> */}
-
-          <td> GST Transaction Default</td>
-          <td> Medium</td>
-          <td> GST</td>
-          <td> GSTIN</td>
-          <td>05AAGCS8808K2ZY, 09AAGCS8808K1ZR</td>
-        </tr>
+       
 
         <tr>
           <td className={styles.firstCell} rowSpan="6">

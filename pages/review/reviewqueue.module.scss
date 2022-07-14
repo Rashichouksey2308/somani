@@ -140,6 +140,7 @@
                     line-height: 17px;
                     margin-bottom: 10px;
                     letter-spacing: 0.53px;
+                    white-space: nowrap;
                     @include respond(phone) {
                             font-size: 12px;
                             line-height: 20px;

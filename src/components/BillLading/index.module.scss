@@ -619,117 +619,109 @@
                     tr {
                         &:last-child {
                             border-bottom: none;
-                        }
-                        td {
-                            font-size: 19px;
-                            font-weight: 500;
-                            line-height: 24px;
-                            padding: 24px 15px;
-                            border-top: none;
-                            vertical-align: middle;
-                            border-bottom: 2px solid #F2F5F9;
-                            white-space: nowrap;
-                            white-space: nowrap;
-                            &:first-child {
-                                padding-left: 35px;
-                                @include respond(md-desktop) {
-                                    padding-left: 15px;
+                            td {
+                                font-size: 19px;
+                                font-weight: 500;
+                                line-height: 24px;
+                                padding: 24px 15px;
+                                border-top: none;
+                                vertical-align: middle;
+                                border-bottom: 2px solid #F2F5F9; 
+                                white-space: nowrap;
+                                white-space: nowrap;
+                                &:first-child {
+                                    padding-left: 35px;
+                                    @include respond(md-desktop) {
+                                        padding-left: 15px;
+                                    }
                                 }
-                            }
-                            @include respond(md-desktop) {
-                                font-size: 17px;
-                                padding: 18px 10px;
-                            }
-                            @include respond(sm-desktop) {
-                                font-size: 15px;
-                                padding: 15px 10px;
-                            }
-                            @include respond(phone) {
-                                font-size: 14px;
-                                padding: 10px;
-                            }
-                            .actionContainer {
-                                @include respond(phone) {
-                                    display: flex;
+                                @include respond(md-desktop) {
+                                    font-size: 17px;
+                                    padding: 18px 10px;
                                 }
                                 @include respond(sm-desktop) {
-                                    display: flex;
+                                    font-size: 15px;
+                                    padding: 15px 10px;
+                                }
+                                @include respond(phone) {
+                                    font-size: 14px;
+                                    padding: 10px;
                                 }
                             }
+                            .module {
+                                background: #8492A6;
+                                font-size: 15px;
+                                line-height: 18px;
+                                font-weight: bold;
+                                color: #FFFFFF;
+                                text-transform: uppercase;
+                                padding: 0 35px;
+                                height: 38px;
+                                border-radius: 0;
+                                @include respond(md-desktop) {
+                                    font-size: 15px;
+                                }
+                                @include respond(sm-desktop) {
+                                    font-size: 13px;
+                                }
+                                @include respond(phone) {
+                                    font-size: 11px;
+                                }
+                            }
+                            .doc_name {
+                                font-weight: bold;
+                                line-height: 25px;
+                                font-size: 20px;
+                                text-transform: capitalize;
+                                padding-left: 35px;
+                                @include respond(md-desktop) {
+                                    font-size: 18px;
+                                }
+                                @include respond(sm-desktop) {
+                                    font-size: 16px;
+                                }
+                                @include respond(phone) {
+                                    font-size: 14px;
+                                }
+                            }
+                            .doc_row {
+                                font-size: 19px;
+                                line-height: 24px;
+                                opacity: 0.7;
+                                font-weight: 500;
+                                @include respond(md-desktop) {
+                                    font-size: 17px;
+                                }
+                                @include respond(sm-desktop) {
+                                    font-size: 15px;
+                                }
+                                @include respond(phone) {
+                                    font-size: 12px;
+                                }
+                            }
+                            .status {
+                                width: 15px;
+                                height: 15px;
+                                margin-right: 10px;
+                                border-radius: 50%;
+                                display: inline-block;
+                                vertical-align: middle;
+                                @include respond(sm-desktop) {
+                                    width: 12px;
+                                    height: 12px;
+                                }
+                                @include respond(phone) {
+                                    width: 10px;
+                                    height: 10px;
+                                }
+                            }
+                            .approved {
+                                background: #26DD73;
+                            }
+                            .rejected {
+                                background: #FF9D00;
+                            }
                         }
-                    }
-                    .module {
-                        background: #8492A6;
-                        font-size: 15px;
-                        line-height: 18px;
-                        font-weight: bold;
-                        color: #FFFFFF;
-                        text-transform: uppercase;
-                        padding: 0 35px;
-                        height: 38px;
-                        border-radius: 0;
-                        @include respond(md-desktop) {
-                            font-size: 15px;
-                        }
-                        @include respond(sm-desktop) {
-                            font-size: 13px;
-                        }
-                        @include respond(phone) {
-                            font-size: 11px;
-                        }
-                    }
-                    .doc_name {
-                        font-weight: bold;
-                        line-height: 25px;
-                        font-size: 20px;
-                        text-transform: capitalize;
-                        padding-left: 35px;
-                        @include respond(md-desktop) {
-                            font-size: 18px;
-                        }
-                        @include respond(sm-desktop) {
-                            font-size: 16px;
-                        }
-                        @include respond(phone) {
-                            font-size: 14px;
-                        }
-                    }
-                    .doc_row {
-                        font-size: 19px;
-                        line-height: 24px;
-                        opacity: 0.7;
-                        font-weight: 500;
-                        @include respond(md-desktop) {
-                            font-size: 17px;
-                        }
-                        @include respond(sm-desktop) {
-                            font-size: 15px;
-                        }
-                        @include respond(phone) {
-                            font-size: 12px;
-                        }
-                    }
-                    .status {
-                        width: 15px;
-                        height: 15px;
-                        margin-right: 10px;
-                        border-radius: 50%;
-                        display: inline-block;
-                        vertical-align: middle;
-                        @include respond(sm-desktop) {
-                            width: 12px;
-                            height: 12px;
-                        }
-                        @include respond(phone) {
-                            width: 10px;
-                            height: 10px;
-                        }
-                    }
-                    .approved {
-                        background: #26DD73;
-                    }
-                    .rejected {
-                        background: #FF9D00;
                     }
                 }
             }
@@ -812,4 +804,49 @@
         width: 35px;
         height: 15px;
     }
+
+  }
+  .uploadBtnWrapper {
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    input {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        cursor: pointer;
+        position: absolute;
+    }
+    @include respond(phone){
+        width: 100%;
+    }
+    .upload_btn {
+        text-align: center;
+        color: #3687E8;
+        border: 3px solid #3687E8;
+        font-size: 18px;
+        line-height: 23px;
+        font-weight: bold;
+        border-radius: 5px;
+        background: transparent;
+        text-transform: capitalize;
+        padding: 8px 30px 8px 30px ;
+        @include respond(md-desktop) {
+            font-size: 16px;
+        }
+        @include respond(sm-desktop) {
+            font-size: 14px;
+            padding: 4px 25px 4px 25px ;
+
+        }
+        @include respond(phone) {
+            font-size: 12px;
+            padding: 0px 15px  0 15px;
+
+        } 
+        }
+        
+    
 }
