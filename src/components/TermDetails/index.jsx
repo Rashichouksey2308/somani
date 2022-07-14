@@ -90,7 +90,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='lcValue' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required />
+                            <input id='lcValue' value={termsheetDetails?.transactionDetails?.lcValue} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required />
                             {/* <option value={termsheetDetails?.transactionDetails?.lcValue}>{termsheetDetails?.transactionDetails?.lcValue} </option>
                                 <option value="USD 2000">USD 2000</option>
                                 <option value="RS 1000">RS 1000</option> 
@@ -118,7 +118,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 <option value="FOB">FOB</option>
                                 <option value="India">India</option>
                             </select> */}
-                            <input id='incoTerm' className={`${styles.value} input form-control`} type="text" required/>
+                            <input id='incoTerm' defaultValue={termsheetDetails?.transactionDetails?.incoTerms} className={`${styles.value} input form-control`} type="text" required/>
                             <label className={`${styles.label} label_heading`}>INCO Terms<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>

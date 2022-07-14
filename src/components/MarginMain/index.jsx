@@ -192,7 +192,7 @@ function Index() {
                             }`}
                           ></span>
 
-                          {margin.status === 'Pending'
+                          {margin?.status === 'Pending'
                             ? 'Pending'
                             : margin.status === 'Rejected'
                             ? 'Rejected'

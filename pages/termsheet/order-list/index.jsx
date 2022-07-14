@@ -7,14 +7,20 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../../src/redux/registerBuyer/action'
 import { setPageName, setDynamicName } from '../../../src/redux/userData/action'
+import { GetTermsheet } from '../../../src/redux/buyerProfile/action'
+
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
 
   const { singleOrder } = useSelector((state) => state.buyer)
+  const { termsheet } = useSelector((state) => state.order)
 
-  console.log(singleOrder, 'all order listtt1')
+
+  console.log(singleOrder?.data, 'all order listtt1')
+  console.log(termsheet, "TErmshetTermsheet")
+
 
   // useEffect(() => {
   //   dispatch(GetOrders(`?page=${currentPage}`))
@@ -22,19 +28,16 @@ function Index() {
 
   useEffect(() => {
     dispatch(setPageName('termsheet'))
-    dispatch(setDynamicName('Company Name'))
+    dispatch(setDynamicName("Company Name"))
   }, [singleOrder])
 
-  const handleRoute = (buyer) => {
-    // if (buyer.queue === 'ReviewQueue') {
-    //   dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
-    //   Router.push('/review/id')
-    // }
-    // else if (buyer.queue === 'CreditQueue') {
-    //   dispatch(GetAllOrders({ orderId: buyer._id }))
-    //   Router.push('/review')
-    // }
-    //  Router.push('/lc-module')
+  const handleRoute = (term) => {
+    console.log(term._id, "termtrem")
+
+    //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
+    dispatch(GetTermsheet(`?termsheetId=${term._id}`))
+    Router.push("/termsheet/12")
+    // Router.push('/lc-module')
   }
 
   return (
@@ -44,16 +47,15 @@ function Index() {
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
+
             <div className={styles.head_header}>
-              <img
-                className={`${styles.arrow} img-fluid`}
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="arrow"
-              />
-              <h1
-                className={`${styles.heading} heading`}
-              >{`Termsheet all orders`}</h1>
+              <img className={`${styles.arrow} img-fluid`}
+                src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
+              <h1 className={`${styles.heading} heading`}>{`Termsheet all orders`}</h1>
             </div>
+
+
+
           </div>
 
           {/*status Box*/}
@@ -169,10 +171,7 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (
-                      currentPage + 1 <
-                      Math.ceil(singleOrder?.data?.totalCount / 10)
-                    ) {
+                    if (currentPage + 1 < Math.ceil(singleOrder?.data?.totalCount / 10)) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
@@ -197,53 +196,43 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th>
-                        ORDER ID{' '}
-                        <img
-                          className={`mb-1`}
-                          src="./static/icons8-sort-24.png "
-                        />
-                      </th>
+                      <th >ORDER ID <img className={`mb-1`} src="./static/icons8-sort-24.png " /></th>
                       <th>COMMODITY</th>
                       <th>CREATED BY</th>
                       <th>CREATED ON</th>
                       <th>STATUS</th>
+
                     </tr>
                   </thead>
-                  <tbody>
-                    <td>NEWT001000001</td>
-                    <td
-                      onClick={(e) => {
-                        Router.push('/termsheet/12')
-                      }}
-                    >
-                      Iron
-                    </td>
+                  {termsheet && termsheet?.data?.map((term, index) => (<tbody Key={index}>
 
-                    <td>2022-07-13</td>
-                    <td>2022-07-13</td>
+                    <td onClick={() => handleRoute(term)}>
+                      {term?.order?.orderId}
+                    </td>
+                    <td >{term?.order?.commodity}</td>
+
+                    <td>{term?.order?.createdBy}</td>
+                    <td>{term?.order?.createdAt?.slice(0, 10)}</td>
                     <td>
                       <span
-                        className={`${styles.status} ${
-                          'Rejected' === 'Rejected'
-                            ? styles.rejected
-                            : buyer.queue === 'ReviewQueue'
-                            ? styles.review
-                            : buyer.queue === 'CreditQueue'
+                        className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
+                          ? styles.review
+                          : term?.order?.queue === 'CreditQueue'
                             ? styles.approved
                             : styles.rejected
-                        }`}
+                          }`}
                       ></span>
 
-                      {'Rejected' === 'Rejected'
-                        ? 'Rejected'
-                        : buyer.queue === 'ReviewQueue'
+                      {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
                         ? 'Review'
-                        : buyer.queue === 'CreditQueue'
-                        ? 'Approved'
-                        : 'Rejected'}
+                        : term?.order?.queue === 'CreditQueue'
+                          ? 'Approved'
+                          : 'Rejected'}
                     </td>
-                  </tbody>
+
+
+
+                  </tbody>))}
                 </table>
               </div>
             </div>
