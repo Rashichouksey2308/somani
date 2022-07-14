@@ -44,9 +44,12 @@ function Index() {
           {
             main:"Agreement & Lc Module",
             Other:[
-               {name: "Generic",image:"/static/Credit Queue.svg",route:"/agreement"},
+               {name: "Generic",image:"/static/Credit Queue.svg",route:"/generic"},
                {name: "Agreement",image:"/static/Credit Queue.svg",route:"/agreement"},
-               {name: "LC Module",image:"/static/Review Queue.svg",route:"/lc-module"},
+               {name: "LC Module",image:"/static/Review Queue.svg",route:"/letter-table"},
+               {name: "Vessel Nomination",image:"/static/Review Queue.svg",route:"/vessel"},
+               {name: "Insurance",image:"/static/Review Queue.svg",route:"/insurance"},
+
                 "Termsheets",   
             ],
               image:"/static/Agreement&LCModule.svg"
@@ -67,7 +70,6 @@ function Index() {
                 {name: "User Roles",image:"/static/Review Queue.svg",route:""},
                 {name: "Vendors",image:"/static/Review Queue.svg",route:""},
                 {name: "Third-Party Inspection",image:"/static/Review Queue.svg",route:""},
-                {name: "Insurance Company",image:"/static/Review Queue.svg",route:""},
                   
             ],
                 image:"/static/Masters.svg",

@@ -1,8 +1,20 @@
 import React from 'react'
 import styles from './insurance.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
+import Router from 'next/router'
 
 const Index = () => {
+
+//   const handleRadioBtn = (e) => {
+//     if (e.target.value == "Both") {
+//       Router.push('/insurance/form/both')
+//     }
+// else {
+//   Router.push('/insurance/form')
+// }
+    //console.log(e.target.value, 'This is radio');
+
+ // }
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={styles.head_container}>
@@ -33,6 +45,8 @@ const Index = () => {
                 label="Marine Insurance"
                 name="group1"
                 type={type}
+                value='Marine Insurance'
+                //onChange={(e) => { handleRadioBtn(e)}}
                 id={`inline-${type}-1`}
               />
               <Form.Check
@@ -41,6 +55,8 @@ const Index = () => {
                 label="Storage Insurance"
                 name="group1"
                 type={type}
+                value='Storage Insurance'
+               // onChange={(e) => { handleRadioBtn(e)}}
                 id={`inline-${type}-2`}
               />
               <Form.Check
@@ -49,6 +65,8 @@ const Index = () => {
                 label="Both"
                 name="group1"
                 type={type}
+                value='Both'
+               // onChange={(e) => { handleRadioBtn(e)}}
                 id={`inline-${type}-2`}
               />
 

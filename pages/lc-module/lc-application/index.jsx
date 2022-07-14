@@ -1,9 +1,9 @@
 import React from 'react'
-import LcModule from  '../../src/components/LcModule'
+import LCredit from '../../../src/components/LCredit'
 
 const Index = () => {
   return (
-    <LcModule/>
+    <LCredit/>
   )
 }
 

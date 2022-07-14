@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col} from 'react-bootstrap'
-import UploadDocument from '../../src/components/UploadDocument'
+import UploadDocument from '../../../../src/components/UploadDocument'
 
 const Index = () => {
   return (

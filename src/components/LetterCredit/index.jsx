@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
+import Router from 'next/router'
 
 
 function Index() {
@@ -35,7 +36,9 @@ function Index() {
       </a>
      
       <button className={styles.createBtn}
-      style={{ position: "absolute", right: 25 }}>
+      style={{ position: "absolute", right: 25 }}
+      onClick={()=>{Router.push("/letter-table/letter-application")}}
+      >
        Create</button>
       </div>
      
@@ -65,7 +68,7 @@ function Index() {
           <tbody>
           <tr className="table_row">
               <td>124621</td>
-              <td className={styles.buyerName}>Ramakrishna Traders</td>
+              <td className={styles.buyerName} onClick={() => (Router.push('/lc-module'))} >Ramakrishna Traders</td>
               <td>RM-Sales</td>
               <td>
                 <span className={`${styles.status} ${styles.review}`}></span>
@@ -76,7 +79,7 @@ function Index() {
             
             <tr className="table_row">
               <td>124621</td>
-              <td className={styles.buyerName}>Ramakrishna Traders</td>
+              <td className={styles.buyerName} onClick={() => (Router.push('/lc-module'))} >Ramakrishna Traders</td>
               <td>RM-Sales</td>
               <td>
                 <span className={`${styles.status} ${styles.approved}`}></span>
@@ -86,7 +89,7 @@ function Index() {
             </tr>
             <tr className="table_row">
               <td>124621</td>
-              <td className={styles.buyerName}>Ramakrishna Traders</td>
+              <td className={styles.buyerName} onClick={() => (Router.push('/lc-module'))} >Ramakrishna Traders</td>
               <td>RM-Sales</td>
               <td>
                 <span className={`${styles.status} ${styles.approved}`}></span>

@@ -320,15 +320,23 @@
                 font-weight: bold;
 
             }
+            .previewImg{
+                background: #C3C3C31F;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                width: 40px;
+                height: 40px;
+                padding: 5px;
+            }
            .label {
-            font-size: 16px;
-            letter-spacing: 0.53px;
-            line-height: 17px;
-            top: 26px;
-            font-weight: 500;
-            left: 30px;
-            margin-bottom: 15px;
-            color: #00000080;
+                font-size: 16px;
+                letter-spacing: 0.53px;
+                line-height: 17px;
+                top: 26px;
+                font-weight: 500;
+                left: 30px;
+                margin-bottom: 15px;
+                color: #00000080;
 
            }
            .value {
@@ -452,6 +460,132 @@
                 }
             }
             
+        }
+        .table_scroll_outer {
+            width: 100%;
+            display: table;
+            table-layout: fixed;
+            .table_scroll_inner {
+                display: table-cell;
+                overflow-x: auto;
+                .table {
+                    th {
+                        font-size: 15px;
+                        color: #8492A6;
+                        font-weight: bold;
+                        border: none !important;
+                        line-height: 18px;
+                        padding: 20px 15px;
+                        vertical-align: middle;
+                        text-transform: uppercase;
+                        white-space: nowrap;
+                        &:first-child {
+                            padding-left: 35px;
+                            @include respond(md-desktop) {
+                                padding-left: 15px;
+                            }
+                        }
+                        .sort_img {
+                            opacity: 0.4;
+                            width: 14px;
+                            height: 14px;
+                        }
+                        @include respond(md-desktop) {
+                            font-size: 14px;
+                            line-height: 1.2;
+                        }
+                        @include respond(sm-desktop) {
+                            font-size: 13px;
+                        }
+                        @include respond(phone) {
+                            font-size: 12px;
+                        }
+                    }
+                    tr {
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                        td {
+                            font-size: 19px;
+                            font-weight: 500;
+                            line-height: 24px;
+                            padding: 24px 15px;
+                            border-top: none;
+                            vertical-align: middle;
+                            white-space: nowrap;
+                            @include respond(md-desktop) {
+                                font-size: 17px;
+                                padding: 18px 10px;
+                            }
+                            @include respond(sm-desktop) {
+                                font-size: 15px;
+                                padding: 15px 10px;
+                            }
+                            @include respond(phone) {
+                                font-size: 14px;
+                                padding: 10px;
+                            }
+                            .upload_btn {
+                                text-align: center;
+                                color: #3687E8;
+                                border: 3px solid #3687E8;
+                                font-size: 18px;
+                                line-height: 23px;
+                                font-weight: bold;
+                                border-radius: 5px;
+                                background: transparent;
+                                text-transform: capitalize;
+                                padding: 8px 30px;
+                                @include respond(md-desktop) {
+                                    font-size: 16px;
+                                }
+                                @include respond(sm-desktop) {
+                                    font-size: 14px;
+                                    padding: 4px 25px;
+
+                                }
+                                @include respond(phone) {
+                                    font-size: 12px;
+                                    padding: 0 15px;
+
+                                }
+                            }
+                        }
+                    }
+                    span {
+                        margin-left: 20px;
+                        text-decoration: underline;
+                        color: #3687E8;
+                        font-weight: bold;
+                        line-height: 25px;
+                        font-size: 20px;
+                    }
+                    .input_field {
+                        background: #C3C3C31F;
+                        border-radius: 4px;
+                        font-size: 20px;
+                        line-height: 25px;
+                        letter-spacing: 0.19px;
+                        color: #111111;
+                        border: none;
+                        padding: 5px 0 5px 15px;
+                        width: 299px;
+                    }
+                    .doc_name {
+                        font-weight: bold;
+                        line-height: 25px;
+                        font-size: 20px;
+                        text-transform: capitalize;
+                        padding-left: 35px;
+                    }
+                    .doc_row {
+                        font-size: 19px;
+                        line-height: 24px;
+                        opacity: 0.7;
+                        font-weight: 500;
+                    }
+                }
+            }
         }
     }
 
