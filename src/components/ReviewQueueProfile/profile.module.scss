@@ -1,51 +1,315 @@
-
- @import "../styles/Core/config";
-
+@import "../styles/Core/config";
+.card {
+    margin-bottom: 1rem;
+    // box-shadow: 0 3px 6px #cad0e2;
+    .cardHeader {
+        cursor: pointer;
+        border-bottom: none;
+        padding: 25px 35px !important;
+        @include respond(md-desktop) {
+            padding: 0 15px 0 15px !important;
+        }
+        h2 {
+            font-size: 22px;
+            color: #3687e8;
+            font-weight: bold;
+            line-height: 27px;
+            @include respond(md-desktop) {
+                font-size: 18px !important;
+                line-height: 1.3;
+                margin: 20px 0px 20px 0px !important;
+            }
+            @include respond(sm-desktop) {
+                font-size: 18px !important;
+                line-height: 1.3;
+                margin: 20px 0px 20px 0px !important;
+            }
+            @include respond(phone) {
+                font-size: 16px !important;
+                margin: 13px 0px 13px 0px !important;
+            }
+        }
+        span {
+            font-size: 45px;
+            color: #3687e8;
+            font-weight: normal;
+            line-height: 20px;
+            @include respond(phone) {
+                font-size: 30px;
+                line-height: 20px;
+            }
+        }
+        .label {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 17px;
+            margin-bottom: 10px;
+            letter-spacing: 0.53px;
+        }
+        .categories {
+            margin-right: 1rem;
+            width: 80%;
+            .label {
+                margin-right: 1rem;
+                margin-bottom: 0px;
+            }
+            .status {
+                height: 31px;
+                background: #ea3f3f42 0% 0% no-repeat padding-box;
+                letter-spacing: 0px;
+                span {
+                    padding-left: 0.5rem;
+                    padding-right: 0.5rem;
+                    width: 100%;
+                    opacity: 1 !important;
+                    font-size: 16px;
+                    font-weight: bold;
+                    height: 19px;
+                    color: #ea3f3f;
+                }
+            }
+        }
+    }
+    .cardBody {
+        padding: 25px 35px;
+        border-top: 2px solid red;
+        @include respond(md-desktop) {
+            padding: 15px !important;
+        }
+        @include respond(sm-desktop) {
+            padding: 15px !important;
+        }
+        @include respond(phone) {
+            padding: 15px !important;
+        }
+        .label {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 17px;
+            margin-bottom: 10px;
+            letter-spacing: 0.53px;
+        }
+        .value {
+            font-size: 20px;
+            color: #111111;
+            font-weight: bold;
+            line-height: 25px;
+            min-height: 70px;
+            &.warning {
+                color: #ea3f3f !important;
+            }
+        }
+    }
+    .noBorderTable {
+        padding: 0 0 20px;
+        .table {
+            th {
+                font-size: 15px;
+                color: #3687e8;
+                font-weight: bold;
+                line-height: 18px;
+                border: none;
+                padding: 25px 35px;
+            }
+            td {
+                font-size: 19px;
+                font-weight: normal;
+                border: none;
+                line-height: 23px;
+                padding: 15px 35px;
+            }
+            h3 {
+                font-size: 22px;
+                font-weight: bold;
+                line-height: 27px;
+                margin-bottom: 0;
+            }
+        }
+    }
+    .borderTable {
+        padding: 35px;
+        box-sizing: border-box;
+        width: 100%;
+        @include respond(md-desktop) {
+            width: calc(100vw - 30px);
+            overflow-x: auto;
+            padding: 15px 15px !important;
+        }
+        @include respond(sm-desktop) {
+            width: calc(100vw - 30px);
+            overflow-x: auto;
+            padding: 15px 15px !important;
+        }
+        @include respond(phone) {
+            width: calc(100vw - 30px);
+            overflow-x: auto;
+            padding: 15px 15px !important;
+        }
+        .table {
+            th {
+                font-size: 15px;
+                color: #8492a6;
+                font-weight: bold;
+                line-height: 18px;
+                padding: 13px 30px;
+                background: #fafafb;
+                vertical-align: middle;
+                text-transform: uppercase;
+                border: 3px solid #f0f2f6;
+            }
+            td {
+                font-size: 19px;
+                //color: rgba(17, 17, 17, 0.7);
+                font-weight: 500;
+                line-height: 24px;
+                padding: 15px 30px;
+                vertical-align: middle;
+                border: 3px solid #f0f2f6;
+                &.stable {
+                    line-height: 19px;
+                    span {
+                        font-size: 16px;
+                        color: #ff9d00;
+                        display: block;
+                    }
+                }
+                &.negative {
+                    line-height: 19px;
+                    span {
+                        font-size: 16px;
+                        color: #ea3f3f;
+                        display: block;
+                    }
+                }
+                &.positive {
+                    line-height: 19px;
+                    span {
+                        font-size: 16px;
+                        color: #43c34d;
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+    .graphTable {
+        padding: 25px 35px;
+        box-sizing: border-box;
+        @include respond(md-desktop) {
+            width: calc(100vw - 30px);
+            overflow-x: auto;
+            padding: 15px 15px !important;
+        }
+        @include respond(sm-desktop) {
+            width: calc(100vw - 30px);
+            overflow-x: auto;
+            padding: 15px 15px !important;
+        }
+        @include respond(phone) {
+            width: calc(100vw - 30px);
+            overflow-x: auto;
+            padding: 15px 15px !important;
+        }
+        h3 {
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 25px;
+            margin-bottom: 15px;
+        }
+        .table {
+            th {
+                font-size: 15px;
+                color: #8492a6;
+                font-weight: bold;
+                line-height: 18px;
+                padding: 13px 30px;
+                vertical-align: middle;
+                text-transform: uppercase;
+                border: 3px solid #f0f2f6;
+            }
+            td {
+                font-size: 19px;
+                font-weight: 500;
+                line-height: 24px;
+                padding: 15px 30px;
+                vertical-align: middle;
+                border: 3px solid #f0f2f6;
+                &.name {
+                    color: #111111;
+                }
+                span {
+                    width: 17px;
+                    height: 17px;
+                    border-radius: 4px;
+                    display: inline-block;
+                }
+                &.green {
+                    span {
+                        background: #4caf50;
+                    }
+                }
+                &.blue {
+                    span {
+                        background: #2884de;
+                    }
+                }
+                &.yellow {
+                    span {
+                        background: #ffce00;
+                    }
+                }
+            }
+        }
+    }
+    .directorDetails {
         .card {
             margin-bottom: 1rem;
-
-            // box-shadow: 0 3px 6px #cad0e2;
+            border-radius: 6px !important;
+            // border: 1px solid #D2D7E5;
+            // box-shadow: 0 3px 6px #CAD0E2;
             .cardHeader {
                 cursor: pointer;
                 border-bottom: none;
                 padding: 25px 35px !important;
-                @include respond(md-desktop) {
-                        padding: 0 15px 0 15px !important;
+                .unit_container {
+                    padding-right: 15px;
+                    .unit_label {
+                        font-size: 18px;
+                        // color: #2837566A;
+                        text-transform: capitalize;
+                        font-weight: bold;
+                        margin-top: 10px;
+                        padding-right: 15px;
                     }
+                    .options {
+                        font-size: 18px;
+                        color: #3687E8;
+                        text-transform: capitalize;
+                        margin-right: 10px;
+                        background: #F3F4F7;
+                        border-radius: 14px;
+                        border: none;
+                        font-weight: bold;
+                        text-align: center;
+                        padding-left: 8px;
+                        padding-right: 6px;
+                        padding-top: 4px;
+                        padding-bottom: 4px;
+                        margin-right: 50px;
+                    }
+                }
                 h2 {
                     font-size: 22px;
-                    color: #3687e8;
+                    color: #3687E8;
                     font-weight: bold;
                     line-height: 27px;
-                    @include respond(md-desktop) {
-                            font-size: 18px !important;
-                            line-height: 1.3;
-                            margin: 20px 0px 20px 0px !important;
-                        }
-                    @include respond(sm-desktop) {
-                        font-size: 18px !important;
-                        line-height: 1.3;
-                        margin: 20px 0px 20px 0px !important;
-                    }
-                            
-                    @include respond(phone) {
-                        font-size: 16px !important;
-                         margin: 13px 0px 13px 0px !important;
-                    }
                 }
-
                 span {
                     font-size: 45px;
-                    color: #3687e8;
+                    color: #3687E8;
                     font-weight: normal;
                     line-height: 20px;
-                    @include respond(phone) {
-                            font-size: 30px;
-                            line-height: 20px;
-                            
-                    }
                 }
-
                 .label {
                     font-size: 16px;
                     font-weight: 500;
@@ -53,21 +317,17 @@
                     margin-bottom: 10px;
                     letter-spacing: 0.53px;
                 }
-
                 .categories {
                     margin-right: 1rem;
-                    width: 80%;
-
+                    width: 30%;
                     .label {
                         margin-right: 1rem;
                         margin-bottom: 0px;
                     }
-
                     .status {
                         height: 31px;
                         background: #ea3f3f42 0% 0% no-repeat padding-box;
                         letter-spacing: 0px;
-
                         span {
                             padding-left: 0.5rem;
                             padding-right: 0.5rem;
@@ -76,543 +336,178 @@
                             font-size: 16px;
                             font-weight: bold;
                             height: 19px;
-                            color: #ea3f3f;
+                            color: #EA3F3F
                         }
                     }
                 }
             }
-
-            .cardBody {
-                padding: 25px 35px;
-                border-top: 2px solid red;
-                @include respond(md-desktop) {
-                    padding: 15px !important;
-                }
-                @include respond(sm-desktop) {
-                     padding: 15px !important;
-                }
-                @include respond(phone){
-                    padding: 15px !important;
-                }
-                .label {
-                    font-size: 16px;
-
-                    font-weight: 500;
-                    line-height: 17px;
-                    margin-bottom: 10px;
-                    letter-spacing: 0.53px;
-                }
-
-                .value {
-                    font-size: 20px;
-                    color: #111111;
-                    font-weight: bold;
-                    line-height: 25px;
-                    min-height: 70px;
-
-                    &.warning {
-                        color: #ea3f3f !important;
-                    }
-                }
-            }
-
-            .noBorderTable {
-                padding: 0 0 20px;
-
-                .table {
-
-                    th {
-                        font-size: 15px;
-                        color: #3687e8;
-                        font-weight: bold;
-                        line-height: 18px;
-                        border: none;
-                        padding: 25px 35px;
-
-                    }
-
-                    td {
-                        font-size: 19px;
-
-                        font-weight: normal;
-                        border: none;
-                        line-height: 23px;
-                        padding: 15px 35px;
-                    }
-
-                    h3 {
-                        font-size: 22px;
-
-                        font-weight: bold;
-                        line-height: 27px;
-                        margin-bottom: 0;
-                    }
-
-                }
-            }
-
-            .borderTable {
-                padding: 35px;
-                box-sizing: border-box;
-                width:100%;
-            @include respond(md-desktop) {
-                    width: calc(100vw - 30px);
-                    overflow-x: auto;
-                    padding: 15px 15px !important;
-                }
-            
-                @include respond(sm-desktop) {
-                    width: calc(100vw - 30px);
-                    overflow-x: auto;
-                    padding: 15px 15px !important;
-                }
-            
-                @include respond(phone) {
-                    width: calc(100vw - 30px);
-                    overflow-x: auto;
-                    padding: 15px 15px !important;
-                }
-
-                .table {
-                    th {
-                        font-size: 15px;
-                        color: #8492a6;
-                        font-weight: bold;
-                        line-height: 18px;
-                        padding: 13px 30px;
-                        background: #fafafb;
-                        vertical-align: middle;
-                        text-transform: uppercase;
-                        border: 3px solid #f0f2f6;
-                    }
-
-                    td {
-                        font-size: 19px;
-                        //color: rgba(17, 17, 17, 0.7);
-                        font-weight: 500;
-                        line-height: 24px;
-                        padding: 15px 30px;
-                        vertical-align: middle;
-                        border: 3px solid #f0f2f6;
-
-                        &.stable {
-                            line-height: 19px;
-
-                            span {
-                                font-size: 16px;
-                                color: #ff9d00;
-                                display: block;
-                            }
-                        }
-
-                        &.negative {
-                            line-height: 19px;
-
-                            span {
-                                font-size: 16px;
-                                color: #ea3f3f;
-                                display: block;
-                            }
-                        }
-
-                        &.positive {
-                            line-height: 19px;
-
-                            span {
-                                font-size: 16px;
-                                color: #43c34d;
-                                display: block;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .graphTable {
-                padding: 25px 35px;
-                box-sizing: border-box;
-                @include respond(md-desktop) {
-                    width: calc(100vw - 30px);
-                        overflow-x: auto;
-                        padding: 15px 15px !important;
-                }
-                @include respond(sm-desktop) {
-                    width: calc(100vw - 30px);
-                        overflow-x: auto;
-                        padding: 15px 15px  !important;
-                }
-                @include respond(phone){
-                    width:calc(100vw - 30px);
-                    overflow-x: auto;
-                    padding: 15px 15px!important;
-                }
-
-
-                h3 {
-                    font-size: 20px;
-
-                    font-weight: bold;
-                    line-height: 25px;
-                    margin-bottom: 15px;
-                }
-
-                .table {
-                    th {
-                        font-size: 15px;
-                        color: #8492a6;
-                        font-weight: bold;
-                        line-height: 18px;
-                        padding: 13px 30px;
-
-                        vertical-align: middle;
-                        text-transform: uppercase;
-                        border: 3px solid #f0f2f6;
-                    }
-
-                    td {
-                        font-size: 19px;
-                        font-weight: 500;
-                        line-height: 24px;
-                        padding: 15px 30px;
-
-                        vertical-align: middle;
-                        border: 3px solid #f0f2f6;
-
-                        &.name {
-                            color: #111111;
-                        }
-
-                        span {
-                            width: 17px;
-                            height: 17px;
-                            border-radius: 4px;
-                            display: inline-block;
-                        }
-
-                        &.green {
-                            span {
-                                background: #4caf50;
-                            }
-                        }
-
-                        &.blue {
-                            span {
-                                background: #2884de;
-                            }
-                        }
-
-                        &.yellow {
-                            span {
-                                background: #ffce00;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .directorDetails {
-                .card {
-                    margin-bottom: 1rem;
-                    border-radius: 6px !important;
-
-                    // border: 1px solid #D2D7E5;
-                    // box-shadow: 0 3px 6px #CAD0E2;
-                    .cardHeader {
-                        cursor: pointer;
-                        border-bottom: none;
-                        padding: 25px 35px !important;
-
-                        .unit_container {
-                            padding-right: 15px;
-
-                            .unit_label {
-                                font-size: 18px;
-                                // color: #2837566A;
-                                text-transform: capitalize;
-                                font-weight: bold;
-                                margin-top: 10px;
-                                padding-right: 15px;
-                            }
-
-                            .options {
-                                font-size: 18px;
-                                color: #3687E8;
-                                text-transform: capitalize;
-                                margin-right: 10px;
-                                background: #F3F4F7;
-                                border-radius: 14px;
-                                border: none;
-                                font-weight: bold;
-                                text-align: center;
-                                padding-left: 8px;
-                                padding-right: 6px;
-                                padding-top: 4px;
-                                padding-bottom: 4px;
-                                margin-right: 50px;
-                            }
-                        }
-
-                        h2 {
-                            font-size: 22px;
-                            color: #3687E8;
-                            font-weight: bold;
-                            line-height: 27px;
-                        }
-
-                        span {
-                            font-size: 45px;
-                            color: #3687E8;
-                            font-weight: normal;
-                            line-height: 20px;
-                        }
-
-                        .label {
-                            font-size: 16px;
-
-                            font-weight: 500;
-                            line-height: 17px;
-                            margin-bottom: 10px;
-                            letter-spacing: 0.53px;
-                        }
-
-                        .categories {
-                            margin-right: 1rem;
-                            width: 30%;
-
-                            .label {
-                                margin-right: 1rem;
-                                margin-bottom: 0px;
-                            }
-
-                            .status {
-                                height: 31px;
-                                background: #ea3f3f42 0% 0% no-repeat padding-box;
-                                letter-spacing: 0px;
-
-                                span {
-                                    padding-left: 0.5rem;
-                                    padding-right: 0.5rem;
-                                    width: 100%;
-                                    opacity: 1 !important;
-                                    font-size: 16px;
-                                    font-weight: bold;
-                                    height: 19px;
-                                    color: #EA3F3F
-                                }
-                            }
-                        }
-                    }
-
-                    &.collapsed {
-                        border-radius: 8px !important;
-                        
-
-                        .downArrow {
-                            margin-right: 2rem;
-                            right: 46px;
-                            margin-top: -8px;
-                            img{
-                                    transform: rotate(270deg);
-                                        opacity: 0.5;
-                            }
-                           
-                        }
-                    }
-                }
-
-                .detailsBox {
-                    font-size: 20px;
-
-                    font-weight: 500;
-                    line-height: 25px;
-
-                    &.warning {
-                        color: #ea3f3f !important;
-                    }
-
-                    &.success {
-                        color: #43c34d !important;
-                    }
-
-                    label {
-                       
-                        font-size: 16px;
-
-                        font-weight: 500;
-                        line-height: 17px;
-                        display: block;
-                        letter-spacing: 0.53px;
-                        
-                       
-                    }
-                }
-
-                .cardBody {
-                    padding: 17px 25px;
-                    // border: 2px solid #e6eaf0;
-                    // border-left: 9px solid #c4d7ef;
-                }
-            }
-            .entities{
-                border-top: 2px solid #E6EAF0;
-                margin-top:5rem;
-                .entities_content{
-                    margin-top:1.5rem;
-                    background: #FFFFFF 0% 0% no-repeat padding-box;
-                    border: 2px solid #E6EAF0;
-                    border-radius: 6px;
-                    p{
-                        padding:15px;
-                        font-size: 20px;
-                        font-weight: bold;
-                        line-height:25px;
-                        margin: 0 !important;
-                    }
-                    .row{
-                        margin:0 !important;
-                        padding: 15px;
-                        div{
-                           max-width: 160px;
-                        }
-
-                    }
-                    .hr{
-                        border-top: 2px solid #E6EAF0
-                    }
-                    span{
-                        padding: 15px;
-                        color: #3687E8;
-                        font-size: 20px;
-                        font-weight: 500;
-                        line-height: 25px;
-                    }
-                    .table{
-                        padding: 15px;
-                        
-                        .table_details {
-                        
-                                border-collapse: collapse;
-                             
-                                thead {
-                                    tr {
-                                        th {
-                                            font-weight: bold;
-                                            font-size: 16px;
-                                            line-height: 17px;
-                                            color: #00000080;
-                                            border-top:none;
-                                            border-bottom: 2px solid #E6EAF0
-                                        }
-                                    }
-                                }
-                        
-                                tbody {
-                                    tr {
-                                       
-                                        border: none;
-                                        font-size: 20px;
-                                        line-height: 25px;
-                                        font-weight: 500;
-                                        td{
-                                        border: none;
-                                        }
-                        
-                                      
-                                    }
-                                }
-                            }
-                        
+            &.collapsed {
+                border-radius: 8px !important;
+                .downArrow {
+                    margin-right: 2rem;
+                    right: 46px;
+                    margin-top: -8px;
+                    img {
+                        transform: rotate(270deg);
+                        opacity: 0.5;
                     }
                 }
             }
         }
-
-        .cardBody_compliance {
-            overflow-y: auto;
-            height: 300px;
-            padding-left: 42px !important;
-            border-top: 2px solid red;
-
+        .detailsBox {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 25px;
+            &.warning {
+                color: #ea3f3f !important;
+            }
+            &.success {
+                color: #43c34d !important;
+            }
+            label {
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 17px;
+                display: block;
+                letter-spacing: 0.53px;
+            }
+        }
+        .cardBody {
+            padding: 17px 25px;
+            // border: 2px solid #e6eaf0;
+            // border-left: 9px solid #c4d7ef;
+        }
+    }
+    .entities {
+        border-top: 2px solid #E6EAF0;
+        margin-top: 5rem;
+        .entities_content {
+            margin-top: 1.5rem;
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 2px solid #E6EAF0;
+            border-radius: 6px;
+            p {
+                padding: 15px;
+                font-size: 20px;
+                font-weight: bold;
+                line-height: 25px;
+                margin: 0 !important;
+            }
             .row {
-                min-height: 60px;
-                border-bottom: 2px solid rgba(217, 217, 217, 0.316);
-
-                .col {
-                    span {
-                        font-size: 16px;
-                        line-height: 18px;
-                        font-weight: bold;
-                        margin-top: 0.5rem;
-                    }
-
-                    .val {
-                        flex-grow: 1;
-                        flex-wrap: wrap;
-                    }
+                margin: 0 !important;
+                padding: 15px;
+                div {
+                    max-width: 160px;
                 }
             }
-
-            // .card_compliance_wrapper {
-            //   // height: 70px;
-            // }
-        }
-
-        .cardBody_litigations {
-            border-top: 2px solid red;
-            padding-left: 35px;
-
-            // .checkbox_Container {
-            // }
-            .risk_Container {
-                .risk {
-                    width: 25%;
-                    height: 114px;
-                    background: #e3f0ff 0% 0% no-repeat padding-box;
-                    border-radius: 5px;
-                    padding: 0.5rem;
-
-                    .risk_icon {
-                        width: 78px;
-                        height: 78px;
-                        border-radius: 100%;
-                        background: #3687e8 0% 0% no-repeat padding-box;
+            .hr {
+                border-top: 2px solid #E6EAF0
+            }
+            span {
+                padding: 15px;
+                color: #3687E8;
+                font-size: 20px;
+                font-weight: 500;
+                line-height: 25px;
+            }
+            .table {
+                padding: 15px;
+                .table_details {
+                    border-collapse: collapse;
+                    thead {
+                        tr {
+                            th {
+                                font-weight: bold;
+                                font-size: 16px;
+                                line-height: 17px;
+                                color: #00000080;
+                                border-top: none;
+                                border-bottom: 2px solid #E6EAF0
+                            }
+                        }
                     }
-
-                    div {
-                        width: 50%;
-
-                        div {
-                            width: 100%;
-                            font-weight: bold;
+                    tbody {
+                        tr {
+                            border: none;
                             font-size: 20px;
-                        }
-
-                        span {
-                            font-size: 16px;
-
-                            letter-spacing: 0.53px;
-                            color: #00000080;
+                            line-height: 25px;
+                            font-weight: 500;
+                            td {
+                                border: none;
+                            }
                         }
                     }
                 }
             }
         }
-
-        .cardBody_details {
-            padding-left: 0px;
-            padding-right: 0px;
-            padding-top: 0px
+    }
+}
+.cardBody_compliance {
+    overflow-y: auto;
+    height: 300px;
+    padding-left: 42px !important;
+    border-top: 2px solid red;
+    .row {
+        min-height: 60px;
+        border-bottom: 2px solid rgba(217, 217, 217, 0.316);
+        .col {
+            span {
+                font-size: 16px;
+                line-height: 18px;
+                font-weight: bold;
+                margin-top: 0.5rem;
+            }
+            .val {
+                flex-grow: 1;
+                flex-wrap: wrap;
+            }
         }
-    
-
-
-
-
-
+    }
+    // .card_compliance_wrapper {
+    //   // height: 70px;
+    // }
+}
+.cardBody_litigations {
+    border-top: 2px solid red;
+    padding-left: 35px;
+    // .checkbox_Container {
+    // }
+    .risk_Container {
+        .risk {
+            width: 25%;
+            height: 114px;
+            background: #e3f0ff 0% 0% no-repeat padding-box;
+            border-radius: 5px;
+            padding: 0.5rem;
+            .risk_icon {
+                width: 78px;
+                height: 78px;
+                border-radius: 100%;
+                background: #3687e8 0% 0% no-repeat padding-box;
+            }
+            div {
+                width: 50%;
+                div {
+                    width: 100%;
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+                span {
+                    font-size: 16px;
+                    letter-spacing: 0.53px;
+                    color: #00000080;
+                }
+            }
+        }
+    }
+}
+.cardBody_details {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px
+}
 .table_details {
-
-    border-collapse: collapse;
-
+   border-collapse: collapse;
     thead {
         tr {
             th {
@@ -624,50 +519,45 @@
             }
         }
     }
-
     tbody {
         tr {
             border: none;
             font-size: 19px;
-
             .firstCell {
                 font-weight: bold;
             }
         }
     }
 }
-
-.collapsed{
+.collapsed {
     width: 99%;
 }
-.downArrow{
-    margin-right: 2rem;
-    img{
-            transform: rotate(270deg);
-            opacity: 0.7;
-            height: 20px ;
+.downArrow {
+    right: 2rem;
+    position: absolute;
+    pointer-events: none;
+    img {
+        transform: rotate(270deg);
+        opacity: 0.7;
+        height: 20px;
     }
 }
 .success {
     font-size: 20px !important;
-
     font-weight: 500 !important;
     line-height: 25px !important;
     color: #43c34d !important;
 }
 .chart {
-   
     height: 177px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-
     canvas {
         height: 177px !important;
         width: 177px !important;
     }
-
     .total_value {
         width: 100%;
         height: 100%;
@@ -683,130 +573,109 @@
         letter-spacing: 0px;
         top: 0px;
         left: 0px;
-
-        .headSpan{
+        .headSpan {
             color: #111111;
-            font-size:  16px;
+            font-size: 16px;
             font-weight: bold;
         }
-        .subSpan{
-       color: #4CAF50 !important;
-        font-size: 16px;
-        font-weight: bold;
+        .subSpan {
+            color: #4CAF50 !important;
+            font-size: 16px;
+            font-weight: bold;
         }
     }
 }
-                .form_group {
-                    position: relative;
-                    margin-bottom: 20px;
-                    margin-top: 20px;
-                    max-width: 350px;
-        
-                    @include respond(phone) {
-                        margin-top: 10px;
-                        max-width: 100%;
-                    }
-        
-                    .search_image {
-                        margin-left: -40px;
-        
-                    }
-                    .saveBtn {
-                        background: #3687E8;
-                        border-radius: 5px;
-                        text-align: center;
-                        color: #FFFFFF;
-                        font-size: 20px;
-                        font-weight: bold;
-                        line-height: 25px;
-                        text-transform: capitalize;
-                        border: none;
-                        width: 260px;
-                        height: 48px;
-                    }
-                    .label_heading {
-                        top: 27px;
-                        left: 30px;
-                        font-size: 16px;
-                        line-height: 0.5;
-                        margin-bottom: 0;
-                        letter-spacing: 0.53px;
-                        position: absolute;
-                        pointer-events: none;
-                        box-sizing: border-box;
-                        transform: translateY(-31px);
-                        transition: 0.3s all ease-in-out;
-        
-                        @include respond(sm-desktop) {
-                            font-size: 16px;
-                        }
-        
-                        @include respond(phone) {
-                            font-size: 14px;
-                            //top: 20px;
-        
-                        }
-                    }
-        
-                    .input_field {
-                        height: 60px;
-                        background-color: #C3C3C31F;
-                        border: 1px solid #0000001F;
-                        border-radius: 4px;
-                        font-size: 20px;
-                        font-weight: 500;
-                        outline: none;
-                        box-shadow: none;
-                        position: relative;
-                        box-sizing: border-box;
-        
-                        &:invalid+label {
-                            background: none;
-                            transform: translateY(0);
-                        }
-        
-                        &:focus {
-                            &+label {
-                                transform: translateY(-31px);
-                            }
-                        }
-        
-                        @include respond(md-desktop) {
-                            font-size: 18px;
-                        }
-        
-                        @include respond(sm-desktop) {
-                            font-size: 16px;
-                            height: 55px;
-        
-                        }
-        
-                        @include respond(phone) {
-                            font-size: 14px;
-                            height: 45px;
-                            padding: 0px 12px 0px 12px;
-                        }
-        
-        
-        
-                    }
-        
-                    .percent {
-                        color: #EA3F3F !important;
-                    }
-        
-                    .remark_field {
-                        background: #C3C3C31F;
-                        border: 1px solid #0000001F;
-                        border-radius: 4px;
-                        margin-bottom: 2rem !important;
-        
-                    }
-        
-                }
+.form_group {
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    max-width: 350px;
+    @include respond(phone) {
+        margin-top: 10px;
+        max-width: 100%;
+    }
+    .search_image {
+        margin-left: -40px;
+
+    }
+    .saveBtn {
+        background: #3687E8;
+        border-radius: 5px;
+        text-align: center;
+        color: #FFFFFF;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 25px;
+        text-transform: capitalize;
+        border: none;
+        width: 260px;
+        height: 48px;
+    }
+    .label_heading {
+        top: 27px;
+        left: 30px;
+        font-size: 16px;
+        line-height: 0.5;
+        margin-bottom: 0;
+        letter-spacing: 0.53px;
+        position: absolute;
+        pointer-events: none;
+        box-sizing: border-box;
+        transform: translateY(-31px);
+        transition: 0.3s all ease-in-out;
+        @include respond(sm-desktop) {
+            font-size: 16px;
+        }
+        @include respond(phone) {
+            font-size: 14px;
+            //top: 20px;
+        }
+    }
+    .input_field {
+        height: 60px;
+        background-color: #C3C3C31F;
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        font-size: 20px;
+        font-weight: 500;
+        outline: none;
+        box-shadow: none;
+        position: relative;
+        box-sizing: border-box;
+        &:invalid+label {
+            background: none;
+            transform: translateY(0);
+        }
+        &:focus {
+            &+label {
+                transform: translateY(-31px);
+            }
+        }
+        @include respond(md-desktop) {
+            font-size: 18px;
+        }
+        @include respond(sm-desktop) {
+            font-size: 16px;
+            height: 55px;
+        }
+        @include respond(phone) {
+            font-size: 14px;
+            height: 45px;
+            padding: 0px 12px 0px 12px;
+        }
+    }
+    .percent {
+        color: #EA3F3F !important;
+    }
+    .remark_field {
+        background: #C3C3C31F;
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        margin-bottom: 2rem !important;
+    }
+}
 .danger {
     font-size: 20px !important;
-
     font-weight: 500 !important;
     line-height: 25px !important;
     color: #EA3F3F !important;
