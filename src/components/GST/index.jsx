@@ -46,164 +46,164 @@ function Index() {
     // gradient.addColorStop(0, 'rgba(224, 195, 155, 0.5)');
     // gradient.addColorStop(1, 'rgba(100, 100, 0,0)');
 
-  console.log(gradient,"gradient")
-  return gradient;
-}
+    console.log(gradient, "gradient")
+    return gradient;
+  }
 
   useEffect(() => {
     const chart = chartRef.current;
-   console.log("here",chart.ctx)
+    console.log("here", chart.ctx)
     if (!chart) {
       return
     }
 
-    let color= createGradient(chart.ctx, chart.chartArea)
-    console.log(color,"color")
- const data = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jun","Jun","Jun","Jun"],
-  datasets: [
-    {
-      label: "First dataset",
-      data: [70, 53, 85, 20, 44, 70,34,45,67,90],
-      fill: true,
+    let color = createGradient(chart.ctx, chart.chartArea)
+    console.log(color, "color")
+    const data = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jun", "Jun", "Jun", "Jun"],
+      datasets: [
+        {
+          label: "First dataset",
+          data: [70, 53, 85, 20, 44, 70, 34, 45, 67, 90],
+          fill: true,
 
-     
-      backgroundColor:  color,
-      borderColor: "rgba(224, 195, 155, 1)"
-    },
-     {
-      label: "First dataset",
-      data: [70, 53, 85, 41, 44, 65,34,45,67,],
-      fill: true,
 
-     
-      backgroundColor:  color,
-      borderColor: "rgba(224, 195, 155, 1)"
-    },
- 
-  ]
-};
+          backgroundColor: color,
+          borderColor: "rgba(224, 195, 155, 1)"
+        },
+        {
+          label: "First dataset",
+          data: [70, 53, 85, 41, 44, 65, 34, 45, 67,],
+          fill: true,
+
+
+          backgroundColor: color,
+          borderColor: "rgba(224, 195, 155, 1)"
+        },
+
+      ]
+    };
 
     setChartData(data);
-  },[chartRef.current]);
-const getOrCreateTooltip = (chart) => {
-  let tooltipEl = chart.canvas.parentNode.querySelector('div');
+  }, [chartRef.current]);
+  const getOrCreateTooltip = (chart) => {
+    let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
-  if (!tooltipEl) {
-    tooltipEl = document.createElement('div');
-    tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
-    tooltipEl.style.borderRadius = '3px';
-    tooltipEl.style.color = 'white';
-    tooltipEl.style.opacity = 1;
-    tooltipEl.style.pointerEvents = 'none';
-    tooltipEl.style.position = 'absolute';
-    tooltipEl.style.transform = 'translate(-50%, 0)';
-    tooltipEl.style.transition = 'all .1s ease';
+    if (!tooltipEl) {
+      tooltipEl = document.createElement('div');
+      tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
+      tooltipEl.style.borderRadius = '3px';
+      tooltipEl.style.color = 'white';
+      tooltipEl.style.opacity = 1;
+      tooltipEl.style.pointerEvents = 'none';
+      tooltipEl.style.position = 'absolute';
+      tooltipEl.style.transform = 'translate(-50%, 0)';
+      tooltipEl.style.transition = 'all .1s ease';
 
-    const table = document.createElement('table');
-    table.style.margin = '0px';
+      const table = document.createElement('table');
+      table.style.margin = '0px';
 
-    tooltipEl.appendChild(table);
-    chart.canvas.parentNode.appendChild(tooltipEl);
-  }
-
-  return tooltipEl;
-};
-
-const externalTooltipHandler = (context) => {
-  // Tooltip Element
-  const {chart, tooltip} = context;
-  const tooltipEl = getOrCreateTooltip(chart);
-
-  // Hide if no tooltip
-  if (tooltip.opacity === 0) {
-    tooltipEl.style.opacity = 0;
-    return;
-  }
-
-  // Set Text
-  if (tooltip.body) {
-    const titleLines = tooltip.title || [];
-    const bodyLines = tooltip.body.map(b => b.lines);
-
-    const tableHead = document.createElement('thead');
-
-    titleLines.forEach(title => {
-      const tr = document.createElement('tr');
-      tr.style.borderWidth = 0;
-
-      const th = document.createElement('th');
-      th.style.borderWidth = 0;
-      const text = document.createTextNode(title);
-
-      th.appendChild(text);
-      tr.appendChild(th);
-      tableHead.appendChild(tr);
-    });
-
-    const tableBody = document.createElement('tbody');
-    bodyLines.forEach((body, i) => {
-      const colors = tooltip.labelColors[i];
-
-      const span = document.createElement('span');
-      span.style.background = colors.backgroundColor;
-      span.style.borderColor = colors.borderColor;
-      span.style.borderWidth = '2px';
-      span.style.marginRight = '10px';
-      span.style.height = '10px';
-      span.style.width = '10px';
-      span.style.display = 'inline-block';
-
-      const tr = document.createElement('tr');
-      tr.style.backgroundColor = 'inherit';
-      tr.style.borderWidth = 0;
-
-      const td = document.createElement('td');
-      td.style.borderWidth = 0;
-
-      const text = document.createTextNode(body);
-
-      td.appendChild(span);
-      td.appendChild(text);
-      tr.appendChild(td);
-      tableBody.appendChild(tr);
-    });
-
-    const tableRoot = tooltipEl.querySelector('table');
-
-    // Remove old children
-    while (tableRoot.firstChild) {
-      tableRoot.firstChild.remove();
+      tooltipEl.appendChild(table);
+      chart.canvas.parentNode.appendChild(tooltipEl);
     }
 
-    // Add new children
-    tableRoot.appendChild(tableHead);
-    tableRoot.appendChild(tableBody);
-  }
+    return tooltipEl;
+  };
 
-  const {offsetLeft: positionX, offsetTop: positionY} = chart.canvas;
+  const externalTooltipHandler = (context) => {
+    // Tooltip Element
+    const { chart, tooltip } = context;
+    const tooltipEl = getOrCreateTooltip(chart);
 
-  // Display, position, and set styles for font
-  tooltipEl.style.opacity = 1;
-  tooltipEl.style.left = positionX + tooltip.caretX + 'px';
-  tooltipEl.style.top = positionY + tooltip.caretY + 'px';
-  tooltipEl.style.font = tooltip.options.bodyFont.string;
-  tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
-};
+    // Hide if no tooltip
+    if (tooltip.opacity === 0) {
+      tooltipEl.style.opacity = 0;
+      return;
+    }
 
-const DATA_COUNT = 7;
-const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100, decimals: 0};
+    // Set Text
+    if (tooltip.body) {
+      const titleLines = tooltip.title || [];
+      const bodyLines = tooltip.body.map(b => b.lines);
 
-const lineOption={
-  tension:0.2,
- 
-  fill:true,
-  //  elements: {
-  //                   point:{
-  //                       radius: 2
-  //                   }
-  //               },
-   scales: {
+      const tableHead = document.createElement('thead');
+
+      titleLines.forEach(title => {
+        const tr = document.createElement('tr');
+        tr.style.borderWidth = 0;
+
+        const th = document.createElement('th');
+        th.style.borderWidth = 0;
+        const text = document.createTextNode(title);
+
+        th.appendChild(text);
+        tr.appendChild(th);
+        tableHead.appendChild(tr);
+      });
+
+      const tableBody = document.createElement('tbody');
+      bodyLines.forEach((body, i) => {
+        const colors = tooltip.labelColors[i];
+
+        const span = document.createElement('span');
+        span.style.background = colors.backgroundColor;
+        span.style.borderColor = colors.borderColor;
+        span.style.borderWidth = '2px';
+        span.style.marginRight = '10px';
+        span.style.height = '10px';
+        span.style.width = '10px';
+        span.style.display = 'inline-block';
+
+        const tr = document.createElement('tr');
+        tr.style.backgroundColor = 'inherit';
+        tr.style.borderWidth = 0;
+
+        const td = document.createElement('td');
+        td.style.borderWidth = 0;
+
+        const text = document.createTextNode(body);
+
+        td.appendChild(span);
+        td.appendChild(text);
+        tr.appendChild(td);
+        tableBody.appendChild(tr);
+      });
+
+      const tableRoot = tooltipEl.querySelector('table');
+
+      // Remove old children
+      while (tableRoot.firstChild) {
+        tableRoot.firstChild.remove();
+      }
+
+      // Add new children
+      tableRoot.appendChild(tableHead);
+      tableRoot.appendChild(tableBody);
+    }
+
+    const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+
+    // Display, position, and set styles for font
+    tooltipEl.style.opacity = 1;
+    tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+    tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+    tooltipEl.style.font = tooltip.options.bodyFont.string;
+    tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
+  };
+
+  const DATA_COUNT = 7;
+  const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100, decimals: 0 };
+
+  const lineOption = {
+    tension: 0.2,
+
+    fill: true,
+    //  elements: {
+    //                   point:{
+    //                       radius: 2
+    //                   }
+    //               },
+    scales: {
       x: {
         grid: {
           color: '#ff000000',
@@ -211,10 +211,10 @@ const lineOption={
           tickColor: '#ff000000'
         }
       },
-         y: {
+      y: {
         grid: {
-         
-           borderColor: '#ff000000',
+
+          borderColor: '#ff000000',
           tickColor: '#ff000000'
         }
       }
@@ -223,8 +223,8 @@ const lineOption={
       mode: 'index',
       intersect: false,
     },
-      plugins: {
-     
+    plugins: {
+
       tooltip: {
         enabled: false,
         position: 'nearest',
@@ -232,24 +232,26 @@ const lineOption={
       }
     }
 
-}
-let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-  datasets: [
-    {
-      label: "First dataset",
-      data: [33, 53, 85, 41, 44, 65],
-      fill: true,
-      backgroundColor:  'rgba(75,192,192,1)',
-      borderColor: "rgba(75,192,192,1)"
-    },
-    {
-      label: "Second dataset",
-      data: [33, 25, 35, 51, 54, 76],
-      fill: true,
-      backgroundColor: 'rgba(75,192,192,1)',
-      borderColor: "#742774"
-    }
-  ]}
+  }
+  let data = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    datasets: [
+      {
+        label: "First dataset",
+        data: [33, 53, 85, 41, 44, 65],
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: "rgba(75,192,192,1)"
+      },
+      {
+        label: "Second dataset",
+        data: [33, 25, 35, 51, 54, 76],
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: "#742774"
+      }
+    ]
+  }
 
   return (
     <>
@@ -294,41 +296,47 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                     </div>
                     <div className={styles.col_body}>Supplier Of Services</div>
                   </Col>
-                  <Col md={3}  sm={12}>
+                  <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Date of Registration
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>12-12-1990</div>
                   </Col>
-                  <Col md={3}  sm={12}>
+                  <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      State of Registration
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>Uttar Pradesh</div>
                   </Col>
-                  <Col md={3}  sm={12}>
+                  <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Email ID
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>ramakrishanan@email.com</div>
                   </Col>
-                  <Col md={3}  sm={12}>
+                  <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Contact Details
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>+91 9876543210</div>
                   </Col>
-                  <Col md={3}  sm={12}>
+                  <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Compliance Status
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>Active</div>
                   </Col>
-                  <Col md={3}  sm={12}>
+                  <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Latest Return Filed GSTR 1
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>22-04-2022</div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className={`${styles.col_header} label_heading`}>
+                      Latest Return Filed GSTR 3B
+                    </div>
+                    <div className={styles.col_body}>22-04-2022</div>
                   </Col>
                 </Row>
               </div>
@@ -343,7 +351,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <Row className={` ${styles.row}`}>
                   <Col
                     md={2}
-                     sm={12}
+                    sm={12}
                     className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}
                   >
                     <div className={styles.dot}></div>
@@ -353,7 +361,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                 <Row className={` ${styles.row}`}>
                   <Col
                     md={3}
-                     sm={12}
+                    sm={12}
                     className={`${styles.gst_cancelled} gst_profile_alerts  d-flex align-items-center justify-content-start`}
                   >
                     <div
@@ -364,23 +372,23 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </Col>
                   <Col
                     md={3}
-                     sm={12}
-                    className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
-                  >
-                    <div
-                      className={styles.dot}
-                      style={{ backgroundColor: '#EA3FD6' }}
-                    ></div>
-                    <span>GST Provisional</span>
-                  </Col>
-                  <Col
-                    md={3}
-                     sm={12}
+                    sm={12}
                     className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
                   >
                     <div
                       className={styles.dot}
                       style={{ backgroundColor: '#3F66EA' }}
+                    ></div>
+                    <span>GST Provisional</span>
+                  </Col>
+                  <Col
+                    md={3}
+                    sm={12}
+                    className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
+                  >
+                    <div
+                      className={styles.dot}
+                      style={{ backgroundColor: '#EA3FD6' }}
                     ></div>
                     <span>GST Transaction delay</span>
                   </Col>
@@ -415,24 +423,24 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </Col>
                   <Col
                     md={3}
-                     sm={12}
+                    sm={12}
                     className={`  d-flex align-items-center justify-content-between`}
                   >
-                    <span>- Kalyan</span>
+                    <span>- Krishna</span>
                   </Col>
                   <Col
                     md={3}
-                     sm={12}
+                    sm={12}
                     className={`  d-flex align-items-center justify-content-between`}
                   >
-                    <span>- Kalyan</span>
+                    <span>- Balkrishna</span>
                   </Col>
                   <Col
                     md={3}
-                     sm={12}
+                    sm={12}
                     className={`  d-flex align-items-center justify-content-between`}
                   >
-                    <span>- Kalyan</span>
+                    <span>- Sai Krishna</span>
                   </Col>
                 </Row>
                 <Row></Row>
@@ -472,50 +480,74 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </Col>
                   <Col md={3}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Gross Purchases
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      Supplier Of Services
+                      37.79
                     </div>
                   </Col>
                   <Col md={3}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Gross Margins %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      Supplier Of Services
+                      10%
                     </div>
                   </Col>
                   <Col md={3}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Total clients
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      Supplier Of Services
+                      25
                     </div>
                   </Col>
                   <Col md={3}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Total Invoices
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      Supplier Of Services
+                      10
                     </div>
                   </Col>
                   <Col md={3}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Intra Organisation Sales %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      Supplier Of Services
+                      10%
                     </div>
                   </Col>
                   <Col md={3}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Related Party Sales %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      Supplier Of Services
+                      3%
+                    </div>
+                  </Col>
+                  <Col md={3}>
+                    <div className={`${styles.col_header} label_heading`}>
+                      Export Sales %
+                    </div>
+                    <div className={`${styles.col_body} accordion_text`}>
+                      20%
+                    </div>
+                  </Col>
+                  <Col md={3}>
+                    <div className={`${styles.col_header} label_heading`}>
+                      GST Paid
+                    </div>
+                    <div className={`${styles.col_body} accordion_text`}>
+                      2.50
+                    </div>
+                  </Col>
+                  <Col md={3}>
+                    <div className={`${styles.col_header} label_heading`}>
+                      GST Payble
+                    </div>
+                    <div className={`${styles.col_body} accordion_text`}>
+                      24.30
                     </div>
                   </Col>
                 </Row>
@@ -558,10 +590,16 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                       data={chartData}
                       options={lineOption}
                     />
+                    <div className={`${styles.legend_box} text-center`}>
+                      <span className={`${styles.blue_legend} ${styles.legend}`}>Total Sales</span>
+                      <span className={`${styles.red_legend} ${styles.legend}`}>Third Party Sales</span>
+                      <span className={`${styles.yellow_legend} ${styles.legend}`}>Related Party Sales</span>
+                      <span className={`${styles.green_legend} ${styles.legend}`}>Intra Org Sales</span>
+                    </div>
                   </div>
                 </div>
               </Col>
-              <Col md={6}  sm={12} className={styles.col2}>
+              <Col md={6} sm={12} className={styles.col2}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
@@ -571,10 +609,14 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </div>
                   <div className={styles.chart}>
                     <Line data={data} />
+                    <div className={`${styles.legend_box} text-center`}>
+                      <span className={`${styles.blue_legend} ${styles.legend}`}>Gross Turnover</span>
+                      <span className={`${styles.red_legend} ${styles.legend}`}>Gross Purchases</span>
+                    </div>
                   </div>
                 </div>
               </Col>
-              <Col md={6}  sm={12} className={styles.col}>
+              <Col md={6} sm={12} className={styles.col}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
@@ -587,7 +629,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </div>
                 </div>
               </Col>
-              <Col md={6}  sm={12} className={styles.col2}>
+              <Col md={6} sm={12} className={styles.col2}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
@@ -600,7 +642,7 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </div>
                 </div>
               </Col>
-              <Col md={6}  sm={12} className={styles.col2}>
+              <Col md={6} sm={12} className={styles.col2}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
@@ -610,10 +652,13 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </div>
                   <div className={styles.chart}>
                     <Bar data={data} />
+                    <div className={`${styles.legend_box} text-center`}>
+                      <span className={`${styles.legend}`}>Financial Period 07-2018 to 06-2029</span>
+                    </div>
                   </div>
                 </div>
               </Col>
-              <Col md={6}  sm={12} className={styles.col2}>
+              <Col md={6} sm={12} className={styles.col2}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
@@ -623,6 +668,11 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </div>
                   <div className={styles.chart}>
                     <Line data={data} />
+                    <div className={`${styles.legend_box} text-center`}>
+                      <span className={`${styles.blue_legend} ${styles.legend}`}>No. of Customers</span>
+                      <span className={`${styles.red_legend} ${styles.legend}`}>No. of Invoices</span>
+                      <span className={`${styles.green_legend} ${styles.legend}`}>Avg. Monthly Sales</span>
+                    </div>
                   </div>
                 </div>
               </Col>
@@ -649,28 +699,28 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
           data-parent="#profileAccordion"
         >
           <div className={` ${styles.cardBody} card-body   border_color`}>
-        <div className={`${styles.scrollouter}`}>
-        <div className={`${styles.scrollInner}`}>
-         <table
-              className={`${styles.table_annual}  table border_color`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="1"
-            >
-              <tr>
-                <th className={`${styles.first}`} colSpan={2}>
-                  Annual Summary
-                </th>
-                <th colSpan={2}>MAR 2020 - APR 2021</th>
-                <th colSpan={2}>MAR 2021 - APR 2022</th>
-              </tr>
-              <tr className={styles.second_head}>
-                <td className={`${styles.first}`} colSpan={2}></td>
-                <td>VALUE</td>
-                <td>% ON GROSS REVENUE</td>
-                <td>VALUE</td>
-                <td>% ON GROSS REVENUE</td>
-                {/* <td    className=" d-flex align-items-center justify-content-between">
+            <div className={`${styles.scrollouter}`}>
+              <div className={`${styles.scrollInner}`}>
+                <table
+                  className={`${styles.table_annual}  table border_color`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="1"
+                >
+                  <tr>
+                    <th className={`${styles.first}`} colSpan={2}>
+                      Annual Summary
+                    </th>
+                    <th colSpan={2}>MAR 2020 - APR 2021</th>
+                    <th colSpan={2}>MAR 2021 - APR 2022</th>
+                  </tr>
+                  <tr className={styles.second_head}>
+                    <td colSpan={2}></td>
+                    <td>VALUE</td>
+                    <td>% ON GROSS REVENUE</td>
+                    <td>VALUE</td>
+                    <td>% ON GROSS REVENUE</td>
+                    {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
              </td>
@@ -678,123 +728,213 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
              </td> */}
-              </tr>
-              <tr>
-                <td className={`${styles.first}`} colSpan={2}>
-                  Gross Revenue
-                </td>
-                <td>1,900.00</td>
-                <td>80%</td>
-                <td>1,900.00</td>
-                <td>80%</td>
-              </tr>
-            </table>
-            <table
-              className={`${styles.table_average} border_color  table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="1"
-            >
-              <tr>
-                <th>Averages</th>
-                <th>MAR 2020 - APR 2021</th>
-                <th>MAR 2021 - APR 2022</th>
-              </tr>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Gross Revenue
+                    </td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Recurring Sales
+                    </td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Related Party Sales
+                    </td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Intra Organization Sales
+                    </td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      B2B Sales
+                    </td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      B2C Sales
+                    </td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Export Sales
+                    </td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Total Customers
+                    </td>
+                    <td>1,900.00</td>
+                    <td></td>
+                    <td>1,900.00</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Total Invoices
+                    </td>
+                    <td>1,900.00</td>
+                    <td></td>
+                    <td>1,900.00</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      <strong>Sales Growth Rate</strong>
+                    </td>
+                    <td></td>
+                    <td><strong>-47.73%</strong></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      <strong>Quarterly Growth Rate</strong>
+                    </td>
+                    <td></td>
+                    <td><strong>50%</strong></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </table>
+                <table
+                  className={`${styles.table_average} border_color  table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="1"
+                >
+                  <tr>
+                    <th className={`${styles.first}`} >Averages</th>
+                    <th>MAR 2020 - APR 2021</th>
+                    <th>MAR 2021 - APR 2022</th>
+                  </tr>
 
-              <tr className={styles.second_head}>
-                <td></td>
-                <td>VALUE</td>
+                  <tr className={styles.second_head}>
+                    <td></td>
+                    <td>VALUE</td>
 
-                <td>VALUE</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
+                    <td>VALUE</td>
+                  </tr>
+                  <tr>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
+                    <td>1,900.00</td>
+                  </tr>
+                  <tr>
+                    <td>Average Quarterly Sales</td>
+                    <td>1,900.00</td>
 
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
+                    <td>1,900.00</td>
+                  </tr>
+                  <tr>
+                    <td>Average Sales per Customer</td>
+                    <td>1,900.00</td>
 
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
+                    <td>1,900.00</td>
+                  </tr>
+                  <tr>
+                    <td>Average Sales per Invoice</td>
+                    <td>1,900.00</td>
 
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
+                    <td>1,900.00</td>
+                  </tr>
+                  <tr>
+                    <td>Average Invoices per Customer</td>
+                    <td>1,900.00</td>
 
-                <td>1,900.00</td>
-              </tr>
-            </table>
-            <table
-              className={`${styles.table_pricioal} border_color  table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="1"
-            >
-              <tr>
-                <th>Principal/ HSN Wise Sales</th>
-                <th colSpan={6}>Financial Period:1</th>
-              </tr>
-              <tr>
-                <td className={`${styles.second_head} ${styles.first}`}>
-                  PRODUCT
-                </td>
-                <td className={styles.second_head}>HSN CODE</td>
-                <td className={styles.second_head}>TURNOVER</td>
-                <td className={styles.second_head}>% SHARE</td>
+                    <td>1,900.00</td>
+                  </tr>
+                </table>
+                <table
+                  className={`${styles.table_pricipal} border_color  table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="1"
+                >
+                  <tr>
+                    <th className={`${styles.first}`}>Principal/ HSN Wise Sales</th>
+                    <th colSpan={6}>Financial Period: MAR 2020 - APR 2021</th>
+                  </tr>
+                  <tr className={`${styles.second_head}`}>
+                    <td>
+                      PRODUCT
+                    </td>
+                    <td>HSN CODE</td>
+                    <td>TURNOVER</td>
+                    <td>% SHARE</td>
 
-                {/* <td className={styles.second_head}>CUSTOMERS</td>
-                <td className={styles.second_head}>INVOICES</td>
-                <td className={styles.second_head}>AVG. SALES PER CUSTOMER</td> */}
-              </tr>
-              <tr>
-                <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                <td>72022900E</td>
-                <td>25.40</td>
-                <td>25.40E</td>
+                    <td>CUSTOMERS</td>
+                    <td>INVOICES</td>
+                    <td>AVG. SALES PER CUSTOMER</td>
+                  </tr>
+                  <tr>
+                    <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                    <td>72022900E</td>
+                    <td>25.40</td>
+                    <td>25.40E</td>
 
-                {/* <td>24</td>
-                <td>19</td>
-                <td>1.05</td> */}
-              </tr>
-              <tr>
-                <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                <td>72022900E</td>
-                <td>25.40</td>
-                <td>25.40E</td>
+                    <td>24</td>
+                    <td>19</td>
+                    <td>1.05</td>
+                  </tr>
+                  <tr>
+                    <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                    <td>72022900E</td>
+                    <td>25.40</td>
+                    <td>25.40E</td>
 
-                {/* <td>24</td>
-                <td>19</td>
-                <td>1.05</td> */}
-              </tr>
-              <tr>
-                <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                <td>72022900E</td>
-                <td>25.40</td>
-                <td>25.40E</td>
+                    <td>24</td>
+                    <td>19</td>
+                    <td>1.05</td>
+                  </tr>
+                  <tr>
+                    <td className={` ${styles.first}`}>Ferro-Alloys</td>
+                    <td>72022900E</td>
+                    <td>25.40</td>
+                    <td>25.40E</td>
 
-                {/* <td>24</td>
-                <td>19</td>
-                <td>1.05</td> */}
-              </tr>
-            </table> 
-   
-          </div>
-        </div>
-           
+                    <td>24</td>
+                    <td>19</td>
+                    <td>1.05</td>
+                  </tr>
+                </table>
+
+              </div>
+            </div>
+
           </div>
         </div>{' '}
       </div>
@@ -818,27 +958,27 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
         >
           <div className={` ${styles.cardBody} card-body   border_color`}>
             <div className={`${styles.scrollouter}`}>
-        <div className={`${styles.scrollInner}`}>
-            <table
-              className={`${styles.table_annual}  table border_color`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="1"
-            >
-              <tr>
-                <th className={`${styles.first}`} colSpan={2}>
-                  Annual Summary
-                </th>
-                <th colSpan={2}>MAR 2020 - APR 2021</th>
-                <th colSpan={2}>MAR 2021 - APR 2022</th>
-              </tr>
-              <tr className={styles.second_head}>
-                <td className={`${styles.first}`} colSpan={2}></td>
-                <td>VALUE</td>
-                <td>% ON GROSS REVENUE</td>
-                <td>VALUE</td>
-                <td>% ON GROSS REVENUE</td>
-                {/* <td    className=" d-flex align-items-center justify-content-between">
+              <div className={`${styles.scrollInner}`}>
+                <table
+                  className={`${styles.table_annual}  table border_color`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="1"
+                >
+                  <tr>
+                    <th className={`${styles.first}`} colSpan={2}>
+                      Annual Summary
+                    </th>
+                    <th colSpan={2}>MAR 2020 - APR 2021</th>
+                    <th colSpan={2}>MAR 2021 - APR 2022</th>
+                  </tr>
+                  <tr className={styles.second_head}>
+                    <td colSpan={2}></td>
+                    <td>VALUE</td>
+                    <td>% ON GROSS REVENUE</td>
+                    <td>VALUE</td>
+                    <td>% ON GROSS REVENUE</td>
+                    {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
              </td>
@@ -846,122 +986,122 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
              </td> */}
-              </tr>
-              <tr>
-                <td className={`${styles.first}`} colSpan={2}>
-                  Gross Revenue
-                </td>
-                <td>1,900.00</td>
-                <td>80%</td>
-                <td>1,900.00</td>
-                <td>80%</td>
-              </tr>
-            </table>
-            <table
-              className={`${styles.table_average} border_color  table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="1"
-            >
-              <tr>
-                <th>Averages</th>
-                <th>MAR 2020 - APR 2021</th>
-                <th>MAR 2021 - APR 2022</th>
-              </tr>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Gross Revenue
+                    </td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                  </tr>
+                </table>
+                <table
+                  className={`${styles.table_average} border_color  table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="1"
+                >
+                  <tr>
+                    <th className={`${styles.first}`}>Averages</th>
+                    <th>MAR 2020 - APR 2021</th>
+                    <th>MAR 2021 - APR 2022</th>
+                  </tr>
 
-              <tr className={styles.second_head}>
-                <td></td>
-                <td>VALUE</td>
+                  <tr className={styles.second_head}>
+                    <td></td>
+                    <td>VALUE</td>
 
-                <td>VALUE</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
+                    <td>VALUE</td>
+                  </tr>
+                  <tr>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
+                    <td>1,900.00</td>
+                  </tr>
+                  <tr>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
+                    <td>1,900.00</td>
+                  </tr>
+                  <tr>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
+                    <td>1,900.00</td>
+                  </tr>
+                  <tr>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                <td>1,900.00</td>
-              </tr>
-              <tr>
-                <td>Average Monthly Sales</td>
-                <td>1,900.00</td>
+                    <td>1,900.00</td>
+                  </tr>
+                  <tr>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                <td>1,900.00</td>
-              </tr>
-            </table>
-            <table
-              className={`${styles.table_pricioal} border_color  table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="1"
-            >
-              <tr>
-                <th>Principal/ HSN Wise Sales</th>
-                <th colSpan={6}>Financial Period:1</th>
-              </tr>
-              <tr>
-                <td className={`${styles.second_head} ${styles.first}`}>
-                  PRODUCT
-                </td>
-                <td className={styles.second_head}>HSN CODE</td>
-                <td className={styles.second_head}>TURNOVER</td>
-                <td className={styles.second_head}>% SHARE</td>
+                    <td>1,900.00</td>
+                  </tr>
+                </table>
+                <table
+                  className={`${styles.table_pricipal} border_color  table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="1"
+                >
+                  <tr>
+                    <th className={`${styles.first}`}>Principal/ HSN Wise Sales</th>
+                    <th colSpan={6}>Financial Period:1</th>
+                  </tr>
+                  <tr className={`${styles.second_head}`}>
+                    <td>
+                      PRODUCT
+                    </td>
+                    <td>HSN CODE</td>
+                    <td>TURNOVER</td>
+                    <td>% SHARE</td>
 
-                <td className={styles.second_head}>CUSTOMERS</td>
-                <td className={styles.second_head}>INVOICES</td>
-                <td className={styles.second_head}>AVG. SALES PER CUSTOMER</td>
-              </tr>
-              <tr>
-                <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                <td>72022900E</td>
-                <td>25.40</td>
-                <td>25.40E</td>
+                    <td>CUSTOMERS</td>
+                    <td>INVOICES</td>
+                    <td>AVG. SALES PER CUSTOMER</td>
+                  </tr>
+                  <tr>
+                    <td>Ferro-Alloys</td>
+                    <td>72022900E</td>
+                    <td>25.40</td>
+                    <td>25.40E</td>
 
-                <td>24</td>
-                <td>19</td>
-                <td>1.05</td>
-              </tr>
-              <tr>
-                <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                <td>72022900E</td>
-                <td>25.40</td>
-                <td>25.40E</td>
+                    <td>24</td>
+                    <td>19</td>
+                    <td>1.05</td>
+                  </tr>
+                  <tr>
+                    <td>Ferro-Alloys</td>
+                    <td>72022900E</td>
+                    <td>25.40</td>
+                    <td>25.40E</td>
 
-                <td>24</td>
-                <td>19</td>
-                <td>1.05</td>
-              </tr>
-              <tr>
-                <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                <td>72022900E</td>
-                <td>25.40</td>
-                <td>25.40E</td>
+                    <td>24</td>
+                    <td>19</td>
+                    <td>1.05</td>
+                  </tr>
+                  <tr>
+                    <td>Ferro-Alloys</td>
+                    <td>72022900E</td>
+                    <td>25.40</td>
+                    <td>25.40E</td>
 
-                <td>24</td>
-                <td>19</td>
-                <td>1.05</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-          
+                    <td>24</td>
+                    <td>19</td>
+                    <td>1.05</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
           </div>
         </div>{' '}
       </div>
@@ -989,28 +1129,28 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
           data-parent="#profileAccordion"
         >
           <div className={` ${styles.cardBody} card-body   border_color`}>
-        <div className={`${styles.scrollouter}`}>
-        <div className={`${styles.scrollInner}`}>
-           <table
-              className={`${styles.table_annual}  table border_color`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="1"
-            >
-              <tr>
-                <th className={`${styles.first}`} colSpan={2}></th>
-                <th colSpan={2}>GSTR1 (SALES)</th>
-                <th colSpan={2}>GSTR3B (CONSOLIDATED)</th>
-              </tr>
-              <tr className={styles.second_head}>
-                <td className={`${styles.first}`} colSpan={2}>
-                  MONTH
-                </td>
-                <td>DATE OF FILING</td>
-                <td>DAYS OF DELAY</td>
-                <td>DATE OF FILING</td>
-                <td>DAYS OF DELAY</td>
-                {/* <td    className=" d-flex align-items-center justify-content-between">
+            <div className={`${styles.scrollouter}`}>
+              <div className={`${styles.scrollInner}`}>
+                <table
+                  className={`${styles.table_annual}  table border_color`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="1"
+                >
+                  <tr>
+                    <th className={`${styles.first}`} colSpan={2}></th>
+                    <th colSpan={2}>GSTR1 (SALES)</th>
+                    <th colSpan={2}>GSTR3B (CONSOLIDATED)</th>
+                  </tr>
+                  <tr className={styles.second_head}>
+                    <td colSpan={2}>
+                      MONTH
+                    </td>
+                    <td>DATE OF FILING</td>
+                    <td>DAYS OF DELAY</td>
+                    <td>DATE OF FILING</td>
+                    <td>DAYS OF DELAY</td>
+                    {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
              </td>
@@ -1018,20 +1158,20 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
              </td> */}
-              </tr>
-              <tr>
-                <td className={`${styles.first}`} colSpan={2}>
-                  Gross Revenue
-                </td>
-                <td>1,900.00</td>
-                <td>80%</td>
-                <td>1,900.00</td>
-                <td>80%</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-           
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Gross Revenue
+                    </td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
           </div>
         </div>{' '}
       </div>
@@ -1085,315 +1225,307 @@ const gstCustomerDetail = () => {
         >
           <div className={`${styles.CustomercardBody} card-body border_color`}>
             <div className={`${styles.content}`}>
-              <div
-                className={` ${styles.header}  card_sub_header card_sub_header  d-flex align-items-center justify-content-between`}
-              >
-                <span>Recurring Party Sales In Last 12 Months</span>
-              </div>
               <div className={` ${styles.body}`}>
-          <div className={`${styles.scrollouter}`}>
-        <div className={`${styles.scrollInner}`}>
-         <table
-                  className={`${styles.table2} border_color  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>CUSTOMER NAME</th>
-                    <th>PAN</th>
-                    <th>SALES</th>
-                    <th>% OF TOTAL SALES</th>
-                    <th>OF INVOICES</th>
-                    <th>SALES PER INVOICE</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Abs International Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Sdf Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                  </tbody>
-                </table>
-        </div>
-        </div>
-               
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table2} border_color  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr>
+                        <th className={`${styles.first}`} colSpan={6}>Recurring Party Sales In Last 12 Months</th>
+                      </tr>
+                      <tr className={styles.second_head}>
+                        <td>CUSTOMER NAME</td>
+                        <td>PAN</td>
+                        <td>SALES</td>
+                        <td>% OF TOTAL SALES</td>
+                        <td>OF INVOICES</td>
+                        <td>SALES PER INVOICE</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Abs International Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
-              <div
-                className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}
-              >
-                <span>Related Party Sales In Last 12 Monthss</span>
-              </div>
               <div className={` ${styles.body}`}>
-                  <div className={`${styles.scrollouter}`}>
-             <div className={`${styles.scrollInner}`}>
-           <table
-                  className={`${styles.table1}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>CUSTOMER NAME</th>
-                    <th>PAN</th>
-                    <th>SALES</th>
-                    <th>% OF TOTAL SALES</th>
-                    <th>OF INVOICES</th>
-                    <th>SALES PER INVOICE</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Abs International Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Sdf Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                  </tbody>
-                </table>
-          </div>
-        </div>
-               
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table1}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr>
+                        <th className={`${styles.first}`} colSpan={6}>Related Party Sales In Last 12 Monthss</th>
+                      </tr>
+                      <tr className={styles.second_head}>
+                        <td>CUSTOMER NAME</td>
+                        <td>PAN</td>
+                        <td>SALES</td>
+                        <td>% OF TOTAL SALES</td>
+                        <td>OF INVOICES</td>
+                        <td>SALES PER INVOICE</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Abs International Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
-              <div
-                className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}
-              >
-                <span>Top 10 Customers</span>
-              </div>
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
-                     <div className={`${styles.scrollouter}`}>
-             <div className={`${styles.scrollInner}`}>
-               <table
-                  className={`${styles.table1}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>CUSTOMER NAME</th>
-                    <th>PAN</th>
-                    <th>SALES</th>
-                    <th>% OF TOTAL SALES</th>
-                    <th>OF INVOICES</th>
-                    <th>SALES PER INVOICE</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Abs International</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Sdf Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-             </div>
-               
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table1}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr>
+                        <th className={`${styles.first}`} colSpan={6}>Top 10 Customers</th>
+                      </tr>
+                      <tr className={styles.second_head}>
+                        <td>CUSTOMER NAME</td>
+                        <td>PAN</td>
+                        <td>SALES</td>
+                        <td>% OF TOTAL SALES</td>
+                        <td>OF INVOICES</td>
+                        <td>SALES PER INVOICE</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Abs International</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
-              <div
-                className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}
-              >
-                <span>Statewise Sales</span>
-              </div>
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
-                       <div className={`${styles.scrollouter}`}>
-             <div className={`${styles.scrollInner}`}>
-               <table
-                  className={`${styles.table1}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>CUSTOMER NAME</th>
-                    <th>PAN</th>
-                    <th>SALES</th>
-                    <th>% OF TOTAL SALES</th>
-                    <th>OF INVOICES</th>
-                    <th>SALES PER INVOICE</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Abs International</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Sdf Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-             </div>
-               
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table1}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr>
+                        <th className={`${styles.first}`} colSpan={6}>Statewise Sales</th>
+                      </tr>
+                      <tr className={styles.second_head}>
+                        <td>CUSTOMER NAME</td>
+                        <td>PAN</td>
+                        <td>SALES</td>
+                        <td>% OF TOTAL SALES</td>
+                        <td>OF INVOICES</td>
+                        <td>SALES PER INVOICE</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Abs International</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -1440,317 +1572,309 @@ const gstSupplierDetail = () => {
         >
           <div className={` ${styles.CustomercardBody} card-body border_color`}>
             <div className={` ${styles.content}`}>
-              <div
-                className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}
-              >
-                <span>Recurring Party Sales In Last 12 Months</span>
-              </div>
               <div className={` ${styles.body}`}>
-             <div className={`${styles.scrollouter}`}>
-             <div className={`${styles.scrollInner}`}>
-               <table
-                  className={`${styles.table1}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>CUSTOMER NAME</th>
-                    <th>PAN</th>
-                    <th>SALES</th>
-                    <th>% OF TOTAL SALES</th>
-                    <th>OF INVOICES</th>
-                    <th>SALES PER INVOICE</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Abs International Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Sdf Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-             </div>
-               
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table1}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr>
+                        <th className={`${styles.first}`} colSpan={6}>Recurring Party Sales In Last 12 Months</th>
+                      </tr>
+                      <tr className={styles.second_head}>
+                        <td>CUSTOMER NAME</td>
+                        <td>PAN</td>
+                        <td>SALES</td>
+                        <td>% OF TOTAL SALES</td>
+                        <td>OF INVOICES</td>
+                        <td>SALES PER INVOICE</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Abs International Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
-              <div
-                className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}
-              >
-                <span>Related Party Sales In Last 12 Monthss</span>
-              </div>
               <div className={` ${styles.body}`}>
-             <div className={`${styles.scrollouter}`}>
-             <div className={`${styles.scrollInner}`}>
-                <table
-                  className={`${styles.table1}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>CUSTOMER NAME</th>
-                    <th>PAN</th>
-                    <th>SALES</th>
-                    <th>% OF TOTAL SALES</th>
-                    <th>OF INVOICES</th>
-                    <th>SALES PER INVOICE</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Abs International Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Sdf Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-             </div>
-              
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table1}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr>
+                        <th className={`${styles.first}`} colSpan={6}>Related Party Sales In Last 12 Monthss</th>
+                      </tr>
+                      <tr className={styles.second_head}>
+                        <td>CUSTOMER NAME</td>
+                        <td>PAN</td>
+                        <td>SALES</td>
+                        <td>% OF TOTAL SALES</td>
+                        <td>OF INVOICES</td>
+                        <td>SALES PER INVOICE</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Abs International Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
-              <div
-                className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}
-              >
-                <span>Top 10 Customers</span>
-              </div>
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
-             <div className={`${styles.scrollouter}`}>
-             <div className={`${styles.scrollInner}`}>
-               <table
-                  className={`${styles.table1}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>CUSTOMER NAME</th>
-                    <th>PAN</th>
-                    <th>SALES</th>
-                    <th>% OF TOTAL SALES</th>
-                    <th>OF INVOICES</th>
-                    <th>SALES PER INVOICE</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Abs International</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Sdf Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-             </div>
-               
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table1}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr>
+                        <th className={`${styles.first}`} colSpan={6}>Top 10 Customers</th>
+                      </tr>
+                      <tr className={styles.second_head}>
+                        <td>CUSTOMER NAME</td>
+                        <td>PAN</td>
+                        <td>SALES</td>
+                        <td>% OF TOTAL SALES</td>
+                        <td>OF INVOICES</td>
+                        <td>SALES PER INVOICE</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Abs International</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
-              <div
-                className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}
-              >
-                <span>Statewise Sales</span>
-              </div>
               <div
                 className={` ${styles.body} ${styles.body_noscroll} border_color`}
               >
-             <div className={`${styles.scrollouter}`}>
-             <div className={`${styles.scrollInner}`}>
-              <table
-                  className={`${styles.table1}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>CUSTOMER NAME</th>
-                    <th>PAN</th>
-                    <th>SALES</th>
-                    <th>% OF TOTAL SALES</th>
-                    <th>OF INVOICES</th>
-                    <th>SALES PER INVOICE</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Abs International</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Sdf Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd.</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Xyz Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Mnb Pvt. Ltd..</td>
-                      <td>ABCDE1234F</td>
-                      <td>50.00</td>
-                      <td>80%</td>
-                      <td>10</td>
-                      <td>10</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-             </div>
-               
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table1}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr>
+                        <th className={`${styles.first}`} colSpan={6}>Statewise Sales</th>
+                      </tr>
+                      <tr className={styles.second_head}>
+                        <td>CUSTOMER NAME</td>
+                        <td>PAN</td>
+                        <td>SALES</td>
+                        <td>% OF TOTAL SALES</td>
+                        <td>OF INVOICES</td>
+                        <td>SALES PER INVOICE</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Abs International</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -1797,371 +1921,373 @@ const gstSalesAndPurchase = (head) => {
         >
           <div className={` ${styles.CustomercardBody} card-body border_color`}>
             <div className={` ${styles.content}`}>
-              <div
-                className={` ${styles.header}  card_sub_header d-flex align-items-center justify-content-between`}
-              >
-                <span>Financial Period 2020- 2021</span>
-              </div>
               <div className={` ${styles.body}`}>
-             <div className={`${styles.scrollouter}`}>
-             <div className={`${styles.scrollInner}`}>
-             <table
-                  className={`${styles.table2}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>REVENUE BREAKUP</th>
-                    <th>FEB’ 22</th>
-                    <th>JAN’ 22</th>
-                    <th>DEC’21</th>
-                    <th>NOV’21</th>
-                    <th>OCT’21</th>
-                    <th>SEP’21</th>
-                    <th>AUG’21</th>
-                    <th>JUL’21</th>
-                    <th>JUN’21</th>
-                    <th>MAY’21</th>
-                    <th>APR’21</th>
-                    <th>MAR’21</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                  </tbody>
-                </table>
-            </div>
-             </div>
-               
-              </div>
-            </div>
-            <div className={` ${styles.content}`}>
-              <div className={` ${styles.body}`}>
-            <div className={`${styles.scrollouter}`}>
-             <div className={`${styles.scrollInner}`}>
-                <table
-                  className={`${styles.table2}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>REVENUE %</th>
-                    <th>FEB’ 22</th>
-                    <th>JAN’ 22</th>
-                    <th>DEC’21</th>
-                    <th>NOV’21</th>
-                    <th>OCT’21</th>
-                    <th>SEP’21</th>
-                    <th>AUG’21</th>
-                    <th>JUL’21</th>
-                    <th>JUN’21</th>
-                    <th>MAY’21</th>
-                    <th>APR’21</th>
-                    <th>MAR’21</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-             </div>
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table2}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr>
+                        <th className={`${styles.first}`} colSpan={13}>Financial Period 2020- 2021</th>
+                      </tr>
+                      <tr className={styles.second_head}>
+                        <td>REVENUE BREAKUP</td>
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
 
               </div>
             </div>
             <div className={` ${styles.content}`}>
               <div className={` ${styles.body}`}>
-                <table
-                  className={`${styles.table2}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>CLIENTS</th>
-                    <th>FEB’ 22</th>
-                    <th>JAN’ 22</th>
-                    <th>DEC’21</th>
-                    <th>NOV’21</th>
-                    <th>OCT’21</th>
-                    <th>SEP’21</th>
-                    <th>AUG’21</th>
-                    <th>JUL’21</th>
-                    <th>JUN’21</th>
-                    <th>MAY’21</th>
-                    <th>APR’21</th>
-                    <th>MAR’21</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table2}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr className={styles.second_head}>
+                        <td>REVENUE %</td>
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
               <div className={` ${styles.body}`}>
-            <div className={`${styles.scrollouter}`}>
-             <div className={`${styles.scrollInner}`}>
-               <table
-                  className={`${styles.table2}  table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                >
-                  <tr>
-                    <th>NO. OF INVOICES</th>
-                    <th>FEB’ 22</th>
-                    <th>JAN’ 22</th>
-                    <th>DEC’21</th>
-                    <th>NOV’21</th>
-                    <th>OCT’21</th>
-                    <th>SEP’21</th>
-                    <th>AUG’21</th>
-                    <th>JUL’21</th>
-                    <th>JUN’21</th>
-                    <th>MAY’21</th>
-                    <th>APR’21</th>
-                    <th>MAR’21</th>
-                  </tr>
-                  <tbody>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Total Sales</td>
-                      <td>2.22</td>
-                      <td>2.220</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>22</td>
-                      <td>34</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>12</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table2}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr className={styles.second_head}>
+                        <td>CLIENTS</td>
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
-             </div>
-               
+            </div>
+            <div className={` ${styles.content}`}>
+              <div className={` ${styles.body}`}>
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table2}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr className={styles.second_head}>
+                        <td>NO. OF INVOICES</td>
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Total Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
