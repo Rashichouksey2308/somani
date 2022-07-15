@@ -73,7 +73,7 @@ function Index() {
   }, [companyDetails.companyPan])
 
   const [orderDetails, setOrderDetails] = useState({
-    transactionType: '',
+    transactionType: 'Import',
     commodity: '',
     quantity: null,
     unitOfQuantity: 'mt',
@@ -177,13 +177,21 @@ function Index() {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
-    } else if (orderDetails.supplierName.trim() === '') {
-      let toastMessage = 'Please Fill A valid Supplier Name'
+    } else if (!orderDetails.orderValue) {
+      let toastMessage = 'Please Fill A valid order value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails.countryOfOrigin.trim() === '') {
+    }  
+
+    // else if (orderDetails.supplierName.trim() === '') {
+    //   let toastMessage = 'Please Fill A valid Supplier Name'
+    //   if (!toast.isActive(toastMessage)) {
+    //     toast.error(toastMessage, { toastId: toastMessage })
+    //   }
+    //   return
+    // }
+     else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'Please Fill A valid Country Of origin'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -206,15 +214,15 @@ function Index() {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
-    } else if (!documents.document1 && !documents.document1) {
-      let toastMessage = 'Please Check Document Upload'
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      }
-      return
-    } else {
+    }
+    //  else if (!documents.document1 && !documents.document1) {
+    //   let toastMessage = 'Please Check Document Upload'
+    //   if (!toast.isActive(toastMessage)) {
+    //     toast.error(toastMessage, { toastId: toastMessage })
+    //   }
+    // }
+     else {
       const fd = new FormData()
-
       fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(orderDetails))
       fd.append('documentType', JSON.stringify(documents.typeOfDocument))
