@@ -227,7 +227,12 @@ function Index() {
             >
               <thead>
                 <tr className={`${styles.table_row} table_row`}>
-                  <th>CUSTOMER ID</th>
+                  <th>CUSTOMER ID
+                  <img
+                    className={`mb-1`}
+                    rc="./static/icons8-sort-24.png "
+                  />
+                  </th>
                   <th>CUSTOMER NAME</th>
                   <th>CREATED BY</th>
                   <th>USERNAME</th>

@@ -23,7 +23,30 @@
               font-size: 20px;
               color: #111111;
               letter-spacing: 0.19px;
+              line-height: 25px;
               padding-right: 25px;
+              input{
+                width: 15px;
+                height: 15px;
+                @include respond(lg-desktop) {
+                        width: 13px;
+                        height: 13px;
+                    }
+                
+                    // @include respond(sm-desktop) {
+                    //     font-size: 14px;
+                    //     padding-right: 0px;
+                    // }
+                
+                    // @include respond(phone) {
+                    //     font-size: 12px;
+                
+                    // }
+              }
+                                @include respond(xl-desktop) {
+                                    padding-right: 0px;
+                                   
+                                }
                 @include respond(lg-desktop) {
                     padding-right: 0px;
                         font-size: $font_size_mobile_input_label;
@@ -49,15 +72,15 @@
                     }
                 
                     @include respond(md-desktop) {
-                        font-size: 19px;
+                          font-size: 14px;
                         padding-right: 0px;
                     }
                 
                     @include respond(sm-desktop) {
-                        font-size: 19px;
+                        font-size: 14px;
                         padding-right: 0px;
                     }
-                @include respond(phone) {
+                    @include respond(phone) {
                         font-size: 12px;
                        
                     }
@@ -209,11 +232,14 @@
                   border-radius: 4px;
                   position: relative;
                   margin-top: -19px;
+                  background-color: white;
               }
           }            
           .phone_card{
               display: flex;
               .code_phone {
+                border-top-right-radius: 0px;
+                    border-bottom-right-radius: 0px;
                   font-size: 19px;
                   letter-spacing: 0.18px;
                   color: #3687E8;
@@ -233,6 +259,8 @@
               transform: translate(-61px, -31px);
           }
           .input_field {
+            border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
               &:focus {
                   & + label {
                       transform: translate(-61px, -31px);
