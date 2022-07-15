@@ -25,7 +25,7 @@ function Index({chargesData}) {
       )
       setChargesData(filteredData)
     }
-    else if(e==='all'){
+    else {
       setChargesData(chargesData?.financial?.openCharges)
     }
   }
