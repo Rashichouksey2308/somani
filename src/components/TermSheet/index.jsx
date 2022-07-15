@@ -79,7 +79,56 @@ const Index = () => {
     useEffect(() => {
         {
             termsheet && termsheet?.data?.map((sheet, index) => {
-                setOtherTermConditions(sheet.otherTermsAndConditions)
+                setOtherTermConditions({
+                    chaOrstevedoringCharges: {
+                        customClearingCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.customClearingCharges,
+                        wharfaceCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.wharfaceCharges,
+                        pollutionCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.pollutionCharges,
+                        royalyAndPenaltyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.royalyAndPenaltyCharges,
+                        tarpaulinCoverageCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.tarpaulinCoverageCharges,
+                        wheighmentAndWeighmentSurveyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.wheighmentAndWeighmentSurveyCharges,
+                        draughtSurveyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.draughtSurveyCharges,
+                        boatingWhileDraughtSurveyCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.boatingWhileDraughtSurveyCharges,
+                        hmcCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.hmcCharges,
+                        securityCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.securityCharges,
+                        piotRentalAndStorageCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.piotRentalAndStorageCharges,
+                        bondingOfCargoCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.bondingOfCargoCharges,
+                        exBondDocumentationCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.exBondDocumentationCharges,
+                        transferOfOwnershipCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.transferOfOwnershipCharges,
+                        customsBondOfficerOvertimeCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.customsBondOfficerOvertimeCharges,
+                        grabHireCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.grabHireCharges,
+                        craneHireCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.craneHireCharges,
+                        handlingLosses: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.handlingLosses,
+                        insuranceCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.insuranceCharges,
+                        waterSprinklingCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.waterSprinklingCharges,
+                        others: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.others
+                    },
+                    lcOpeningCharges: {
+                        lcOpeningCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.lcOpeningCharges,
+                        lcAmendmentCost: sheet?.otherTermsAndConditions?.lcOpeningCharges?.lcAmendmentCost,
+                        cmaFeesIncludingSupervisionAndSurvey: sheet?.otherTermsAndConditions?.lcOpeningCharges?.cmaFeesIncludingSupervisionAndSurvey,
+                        bankDoIssuanceCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.bankDoIssuanceCharges,
+                        remmittanceCharges: sheet?.otherTermsAndConditions?.lcOpeningCharges?.remmittanceCharges,
+                        usanceInterest: sheet?.otherTermsAndConditions?.lcOpeningCharges?.usanceInterest
+                    },
+                    otherCharges: {
+                        demurrageOrDetentionChargesOfVessel: sheet?.otherTermsAndConditions?.otherCharges?.demurrageOrDetentionChargesOfVessel,
+                        transportationCharges: sheet?.otherTermsAndConditions?.otherCharges?.transportationCharges,
+                        wagonHaulageCharges: sheet?.otherTermsAndConditions?.otherCharges?.wagonHaulageCharges,
+                        thirdPartyInspectionCharges: sheet?.otherTermsAndConditions?.otherCharges?.thirdPartyInspectionCharges,
+                        hedgingCharges: sheet?.otherTermsAndConditions?.otherCharges?.hedgingCharges,
+                        anyOtherCostIncurredOnBehalfOfBuyer: sheet?.otherTermsAndConditions?.otherCharges?.anyOtherCostIncurredOnBehalfOfBuyer
+                    },
+                    dutyAndTaxes: {
+                        customsDutyWithAllGovtCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.customsDutyWithAllGovtCess,
+                        igstWithCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
+                        cimsCharges: sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges
+                    },
+                    insurance: {
+                        marineInsurance: sheet?.otherTermsAndConditions?.insurance?.marineInsurance,
+                        storageInsurance: sheet?.otherTermsAndConditions?.insurance?.storageInsurance
+                    }
+                })
             })
         }
 
@@ -151,7 +200,7 @@ const Index = () => {
     }
 
     const handleSave = () => {
-        const UpdatedTermsheet = { ...termsheetDetails, otherTermsAndConditions,additionalComments }
+        const UpdatedTermsheet = { ...termsheetDetails, otherTermsAndConditions, additionalComments }
         // console.log(UpdatedTermsheet, "updatedtermsheet")
         dispatch(updateTermsheet(UpdatedTermsheet))
         //router.push('/termsheet')
@@ -210,11 +259,11 @@ const Index = () => {
                                 </div>
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                                     <h3 className={`${styles.label} label_heading`}>Approved Date</h3>
-                                    <p className={`${styles.value} accordion_Text`}></p>
+                                    <p className={`${styles.value} accordion_Text`}>{sheet?.order?.cam?.approvedAt.slice(0, 10)}</p>
                                 </div>
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                                    <h3 className={`${styles.label} label_heading`}>Status</h3>
-                                    <p className={`${styles.value} accordion_Text`}><span className={`${styles.status}`}></span>{sheet.status}</p>
+                                    <h3 className={`${styles.label} label_heading`}>Status </h3>
+                                    <p className={`${styles.value} accordion_Text`}><span className={`${styles.status}`}></span>{sheet?.order.cam.status}</p>
                                 </div>
                             </div>
                         </div>))}
@@ -227,9 +276,9 @@ const Index = () => {
                         handleSave={handleSave}
                         termsheet={termsheet} />
                     <AdditionalComment
-                     addCommentHandler={addCommentHandler}
-                      additionalComments={additionalComments}
-                        />
+                        addCommentHandler={addCommentHandler}
+                        additionalComments={additionalComments}
+                    />
                     <OtherTerms
                         otherTermConditions={otherTermsAndConditions}
                         onChangeInsurance={onChangeInsurance}
