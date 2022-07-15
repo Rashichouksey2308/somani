@@ -1,8 +1,20 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
+import { useState } from 'react'
 
 const index = () => {
+   const [editInput, setEditInput] = useState(true)
+
+  const handleDropdown = (e) => {
+    
+    if (e.target.value="Others") {
+    setEditInput(!editInput)
+    }
+    else {
+      setEditInput(editInput)
+    }
+  }
   return (
     <div className={`${styles.upload_main} card border_color`}>
       <div
@@ -46,10 +58,10 @@ const index = () => {
                   </Form.Label>
                   <select
                     className={`${styles.value} input form-control`}
-                    id="docType"
-                  >
-                    <option>Others</option>
+                        id="docType" onChange={(e) => handleDropdown(e)}>
+                  
                     <option>N/A</option>
+                        <option value='Others'>Others</option>
                   </select>
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
@@ -59,6 +71,7 @@ const index = () => {
                   <Form.Control
                     className={`${styles.value} input form-control`}
                     type="text"
+                    disabled={editInput}
                   />
                 </Form.Group>
                 <div className={styles.uploadBtnWrapper}>

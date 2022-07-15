@@ -165,19 +165,19 @@ export default function Index() {
                      <label className={`${styles.label_heading} label_heading`}>
                       BL Number<strong className="text-danger">*</strong></label>                   
                 </div> 
-                <div className='col-lg-4 col-md-6 col-sm-6'>
+                <div className='col-lg-4 col-md-6 col-sm-6' style={{top:"35px"}}>
                       <div className={`${styles.label} text`}>
                       BL Date <strong className="text-danger ml-n1">*</strong> 
                      </div>
                       <span className={styles.value}>22-02-2022</span>
                     </div>
-                    <div className='col-lg-2 col-md-4 col-sm-6'>
+                    <div className='col-lg-2 col-md-4 col-sm-6' style={{top:"35px"}}>
                       <div className={`${styles.label} text`}>
                       BL Quantity <strong className="text-danger ml-n1">*</strong> 
                      </div>
                       <span className={styles.value}>4,000 MT</span>
                     </div>
-                    <div className='col-lg-2 col-md-4 col-sm-6'>
+                    <div className='col-lg-2 col-md-4 col-sm-6'  style={{top:"35px"}}>
                     <img
                       src="/static/preview.svg"
                       className={`${styles.previewImg} img-fluid ml-n4`}
@@ -195,19 +195,19 @@ export default function Index() {
                      <label className={`${styles.label_heading} label_heading`}>
                       BL Number<strong className="text-danger">*</strong></label>                   
                 </div> 
-                <div className='col-lg-4 col-md-6 col-sm-6'>
+                <div className='col-lg-4 col-md-6 col-sm-6'  style={{top:"35px"}}>
                       <div className={`${styles.label} text`}>
                       BL Date <strong className="text-danger ml-n1">*</strong> 
                      </div>
                       <span className={styles.value}>22-02-2022</span>
                     </div>
-                    <div className='col-lg-2 col-md-4 col-sm-6'>
+                    <div className='col-lg-2 col-md-4 col-sm-6' style={{top:"35px"}}>
                       <div className={`${styles.label} text`}>
                       BL Quantity <strong className="text-danger ml-n1">*</strong> 
                      </div>
                       <span className={styles.value}>4,000 MT</span>
                     </div>
-                    <div className='col-lg-2 col-md-4 col-sm-6'>
+                    <div className='col-lg-2 col-md-4 col-sm-6' style={{top:"35px"}}>
                     <img
                       src="/static/preview.svg"
                       className={`${styles.previewImg} img-fluid ml-n4`}
