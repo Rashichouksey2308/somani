@@ -14,6 +14,7 @@ import Seller from '../AggrementContent/seller'
 
 import Stevedore from '../AggrementContent/stevedore'
 import Thirdparty from '../AggrementContent/thirdparty'
+import { cssNumber } from 'jquery'
 function Index() {
   const [active,setActive]=useState("Manufacturer/ Supplier")
   const changeActiveValue=(val,index)=>{
@@ -99,6 +100,48 @@ function Index() {
     {name:"Appointment of Third Party",state:"default",value:"Appointment of Third Party"}
     ]
   )
+  const onLeftChange=()=>{
+     let tempArr=sideBar;
+  for(let i=0;i<tempArr.length;i++) {
+    if(tempArr[i].state=="current"){
+     if(i!=0){
+      tempArr[i].state="default"
+      let a=i-1
+      console.log(a,"tempArr[a]234")
+      tempArr[a].state="current"
+      setActive(tempArr[a].name)
+     }
+    }else{
+      tempArr[i].state="default"
+    }
+
+  }
+  console.log("aasdaa",tempArr)
+  setSidebar(tempArr)
+  }
+    const onRightChange=()=>{
+     let tempArr=sideBar;
+     console.log(tempArr,"987789")
+  for(let i=0;i<tempArr.length;i++) {
+    console.log(tempArr[i],"987")
+    if(tempArr[i].state=="current"){
+     if(i!=tempArr.length){
+        tempArr[i].state="default"
+        console.log( tempArr[i].state,"tempArr[a]")
+      let a=i+1
+        console.log(a,"tempArr[a]234")
+      tempArr[a].state="current"
+      setActive(tempArr[a].name)
+     }
+    }else{
+      tempArr[i].state="default"
+    }
+
+  }
+  console.log("aasdaa",tempArr)
+  setSidebar(tempArr)
+  }
+  console.log(sideBar,"opk")
 
   return (
     <div className={`${styles.root}`}>
@@ -139,25 +182,34 @@ function Index() {
 
                   >
                    {active=="Stevedore"?
-                    <div>
-                      <span>Same as CHA</span>
-                       <span>Yes</span>
+                    <div className={`${styles.switchContainer}`}>
+                      <span className={`mr-5`}>Same as CHA</span>
+                      <span className={` ${styles.yes}`}>Yes</span>
                       <label className={styles.switch}>
                         <input type="checkbox"></input>
                         <span className={`${styles.slider} ${styles.round}` }></span>
                       </label>
-                      <span>No</span>
+                      <span  className={`ml-3`}>No</span>
                     </div>
                    :null}
-                    <a href="#" className={`${styles.arrow} ${`leftArrow`}`}>
+                    <a href="#" className={`${styles.arrow} ${`leftArrow`}`} 
+                    onClick={()=>{
+                      onLeftChange()
+                    }}
+                    >
                       {' '}
                       <img
                         src="/static/keyboard_arrow_right-3.svg"
                         alt="arrow right"
                         className="img-fluid"
+
                       />
                     </a>
-                    <a href="#" className={`${styles.arrow} ${`rightArrow`}`}>
+                    <a href="#" className={`${styles.arrow} ${`rightArrow`}`}
+                                        onClick={()=>{
+                      onRightChange()
+                    }}
+                    >
                       <img
                         src="/static/keyboard_arrow_right-3.svg"
                         alt="arrow right"
