@@ -911,6 +911,7 @@ const directorDetails = (camData) => {
           className="collapse"
           aria-labelledby="directorDetails"
           data-parent="#profileAccordion"
+          
         >
           <div className={`${styles.order_wrapper} card-body`}>
             <table
@@ -951,44 +952,7 @@ const directorDetails = (camData) => {
                   </tr>
                 ),
               )}
-              {/* <tr>
-                <td
-                  className={`d-flex justify-content-start align-content-center`}
-                >
-                  <div className={`${styles.icon} `}>
-                    <span
-                      className={`d-flex justify-content-center align-content-center`}
-                    >
-                      SS
-                    </span>
-                  </div>
 
-                  <span className={` ${styles.name} ml-3  `}>Sagar Sinha</span>
-                </td>
-                <td>27AAATW4183</td>
-                <td>17872982008 </td>
-                <td>20-08-2011</td>
-                <td>30%</td>
-              </tr>
-              <tr>
-                <td
-                  className={`d-flex justify-content-start align-content-center`}
-                >
-                  <div className={`${styles.icon} `}>
-                    <span
-                      className={`d-flex justify-content-center align-content-center`}
-                    >
-                      RS
-                    </span>
-                  </div>
-
-                  <span className={` ${styles.name} ml-3  `}>Radhe Singh</span>
-                </td>
-                <td>27AAATW4183</td>
-                <td>17872982008 </td>
-                <td>20-08-2011</td>
-                <td>30%</td>
-              </tr> */}
             </table>
           </div>
         </div>
