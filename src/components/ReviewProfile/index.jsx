@@ -85,6 +85,32 @@ function Index({ handleChange, reviewedProfile}) {
         </thead>
         <tbody>
           <tr className={`${styles.table_row} border_color table_row`}>
+            <td>Transaction Type</td>
+            <td>{reviewedProfile?.transactionType?.originalValue}</td>
+            <td>
+              <div className={styles.tick}>
+                <img
+                  src={
+                    reviewedProfile?.transactionType?.apiResponse
+                      ? '/static/check.svg'
+                      : '/static/close-b.svg'
+                  }
+                  alt="Check"
+                  className="img-fluid"
+                />
+              </div>
+            </td>
+            <td>
+              <input
+                //onChange={(e) => handleCheckBox(e)}
+                className={styles.checkBox}
+                type="checkbox"
+              />
+            </td>
+            {!reviewedProfile?.transactionType?.apiResponse &&
+              DropDown(transactionTypeDropdown, 'transactionType')}
+          </tr>
+          <tr className={`${styles.table_row} border_color table_row`}>
             <td>Type Of Business</td>
             <td>{reviewedProfile?.typeOfBusiness?.originalValue}</td>
             <td>
@@ -145,33 +171,6 @@ function Index({ handleChange, reviewedProfile}) {
               />
             )}
             </td>
-          </tr>
-
-          <tr className={`${styles.table_row} border_color table_row`}>
-            <td>Transaction Type</td>
-            <td>{reviewedProfile?.transactionType?.originalValue}</td>
-            <td>
-              <div className={styles.tick}>
-                <img
-                  src={
-                    reviewedProfile?.transactionType?.apiResponse
-                      ? '/static/check.svg'
-                      : '/static/close-b.svg'
-                  }
-                  alt="Check"
-                  className="img-fluid"
-                />
-              </div>
-            </td>
-            <td>
-              <input
-                //onChange={(e) => handleCheckBox(e)}
-                className={styles.checkBox}
-                type="checkbox"
-              />
-            </td>
-            {!reviewedProfile?.transactionType?.apiResponse &&
-              DropDown(transactionTypeDropdown, 'transactionType')}
           </tr>
 
           <tr className={`${styles.table_row} border_color table_row`}>
