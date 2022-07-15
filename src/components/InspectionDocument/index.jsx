@@ -1,9 +1,21 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Form} from 'react-bootstrap'
+import { useState } from 'react'
 
 
 const Index = () => {
+   const [editInput, setEditInput] = useState(true)
+
+  const handleDropdown = (e) => {
+    
+    if (e.target.value="Others") {
+    setEditInput(!editInput)
+    }
+    else {
+      setEditInput(editInput)
+    }
+  }
   return (
     <div className={`${styles.upload_main} upload_main`}>
       <div
@@ -81,10 +93,10 @@ const Index = () => {
                   </Form.Label>
                   <select
                     className={`${styles.value} input form-control`}
-                    id="docType"
-                  >
-                    <option>Others</option>
+                 id="docType" onChange={(e) => handleDropdown(e)}>
+
                     <option>N/A</option>
+                    <option value='Others'>Others</option>
                   </select>
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
@@ -94,6 +106,7 @@ const Index = () => {
                   <Form.Control
                     className={`${styles.value} input form-control`}
                     type="text"
+                   disabled={editInput}
                   />
                 </Form.Group>
                 <div className={styles.uploadBtnWrapper}>
@@ -106,9 +119,9 @@ const Index = () => {
             </div>
           </Form>
         </div>
-        <div className={`${styles.search_container} d-flex justify-content-between pt-3 pl-3 pr-3`}>
+        <div className={`${styles.search_container} search_container  d-flex justify-content-between pt-3 pl-3 pr-3`}>
           <div>
-          <select className={`${styles.dropDown} input form-control`} >
+          <select className={`${styles.dropDown} input formControl form-control`} >
                   <option value="volvo">Loading, Transit, Unloading</option>
                   <option value="India">India</option>
                  
@@ -189,9 +202,15 @@ const Index = () => {
                   />
                   <img
                     src="/static/upload.svg"
+                    className="img-fluid mr-3"
+                    alt="Share"
+                  />
+                   <img
+                    src="/static/upload.svg"
                     className="img-fluid"
                     alt="Share"
-                  /></div>
+                  />
+                  </div>
                 </td>
               </tr>
               <tr className="table_row">
@@ -213,6 +232,11 @@ const Index = () => {
                     src="/static/delete.svg"
                     className={`${styles.binImage} mr-3 img-fluid`}
                     alt="Bin"
+                  />
+                   <img
+                    src="/static/upload.svg"
+                    className="img-fluid mr-3"
+                    alt="Share"
                   />
                   <img
                     src="/static/upload.svg"

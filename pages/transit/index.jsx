@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './index.module.scss'
-import TableMain from '../../src/components/TableMain'
 
 
 function Index() {

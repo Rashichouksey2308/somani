@@ -15,14 +15,11 @@ function Index() {
   useEffect(() => {
     dispatch(getAllTermsheet(`?page=${currentPage}&limit=7`))
   }, [dispatch,currentPage])
-  //console.log(termsheet, "termsheet")
-
 
   const handleRoute = (sheet) => {
     dispatch(GetTermsheet(`?company=${sheet.company._id}`))
     Router.push('/termsheet/order-list')
   }
-console.log(allTermsheets?.totalCount,"allTermsheets?.data?.totalCount")
   return (
     <>
       {' '}
@@ -57,11 +54,11 @@ console.log(allTermsheets?.totalCount,"allTermsheets?.data?.totalCount")
             </a>
             <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
+              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>
             <a href="#" className={`${styles.filterList} filterList`}>
               Raj Traders
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
+              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>
           </div>
           <div className={`${styles.datatable} datatable `}>

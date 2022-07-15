@@ -135,6 +135,10 @@ export const UpdateMarginMoney =
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateMarginMoneySuccess(response.data))
+          let toastMessage = 'SAVED SUCCESSFULLY'
+          if (!toast.isActive(toastMessage)) {
+            toast.success(toastMessage, { toastId: toastMessage })
+          }
         } else {
           dispatch(updateMarginMoneyFailed(response.data))
           let toastMessage = 'UPDATE REQUEST FAILED'

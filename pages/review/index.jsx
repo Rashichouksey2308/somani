@@ -236,30 +236,7 @@ function Index() {
     }
   }
 
-  const [product, setProduct] = useState({
-    AvgMonthlyElectricityBill:
-      orderList?.productSummary?.AvgMonthlyElectricityBill,
-    availableStock: orderList?.productSummary?.availableStock,
-    averageStockInTransit: orderList?.productSummary?.averageStockInTransit,
-    averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity,
-    capacityUtilization: orderList?.productSummary?.capacityUtilization,
-    contributionCommoditySenstivity:
-      orderList?.productSummary?.contributionCommoditySenstivity,
-    dailyConsumptionOfCommodity:
-      orderList?.productSummary?.dailyConsumptionOfCommodity,
-    existingCHA: [],
-    existingProcurementOfCommodity:
-      orderList?.productSummary?.existingProcurementOfCommodity,
-    existingSuppliers: [],
-    monthlyProductionCapacity:
-      orderList?.productSummary?.monthlyProductionCapacity,
-    paymentStatusForElectricityBills:
-      orderList?.productSummary?.paymentStatusForElectricityBills,
-    stockCoverageOfCommodity:
-      orderList?.productSummary?.stockCoverageOfCommodity,
-    typeOfCurrency: orderList?.productSummary?.typeOfCurrency,
-    unitOfQuantity: orderList?.productSummary?.unitOfQuantity,
-  })
+  const [product, setProduct] = useState()
 
   const saveProductData = (name, value) => {
     const newInput = { ...product }
@@ -268,21 +245,10 @@ function Index() {
     setProduct(newInput)
   }
 
-  const [supplierCred, setSupplierCred] = useState({
-    HSCodesNumber: orderList?.supplierCredentials?.HSCodesNumber,
-    commodityOfTotalTrade:
-      orderList?.supplierCredentials?.commodityOfTotalTrade,
-    consigneesNumber: orderList?.supplierCredentials?.consigneesNumber,
-    countryOfOrigin: orderList?.supplierCredentials?.countryOfOrigin,
-    latestShipmentDate: orderList?.supplierCredentials?.lastDateOfShipment,
-    oldestShipmentDate: orderList?.supplierCredentials?.oldestShipmentDate,
-    portOfDestination: orderList?.supplierCredentials?.portOfDestination,
-    remarks: orderList?.supplierCredentials?.remarks,
-    shipmentNumber: orderList?.supplierCredentials?.shipmentNumber,
-    supplierName: orderList?.supplierCredentials?.supplierName,
-  })
+  const [supplierCred, setSupplierCred] = useState()
 
   useEffect(() => {
+    console.log("this is order list",orderList)
     setProduct({
       AvgMonthlyElectricityBill:
         orderList?.productSummary?.AvgMonthlyElectricityBill,
@@ -308,22 +274,23 @@ function Index() {
       unitOfQuantity: orderList?.productSummary?.unitOfQuantity,
     })
     setSupplierCred({
-      HSCodesNumber: orderList?.supplierCredentials?.HSCodesNumber,
+      HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber,
       commodityOfTotalTrade:
-        orderList?.supplierCredentials?.commodityOfTotalTrade,
-      consigneesNumber: orderList?.supplierCredentials?.consigneesNumber,
-      countryOfOrigin: orderList?.supplierCredentials?.countryOfOrigin,
-      latestShipmentDate: orderList?.supplierCredentials?.lastDateOfShipment,
-      oldestShipmentDate: orderList?.supplierCredentials?.oldestShipmentDate,
-      portOfDestination: orderList?.supplierCredentials?.portOfDestination,
-      remarks: orderList?.supplierCredentials?.remarks,
-      shipmentNumber: orderList?.supplierCredentials?.shipmentNumber,
-      supplierName: orderList?.supplierCredentials?.supplierName,
+        orderList?.supplierCredential?.commodityOfTotalTrade,
+      consigneesNumber: orderList?.supplierCredential?.consigneesNumber,
+      countryOfOrigin: orderList?.supplierCredential?.countryOfOrigin,
+      latestShipmentDate: orderList?.supplierCredential?.lastDateOfShipment,
+      oldestShipmentDate: orderList?.supplierCredential?.oldestShipmentDate,
+      portOfDestination: orderList?.supplierCredential?.portOfDestination,
+      remarks: orderList?.supplierCredential?.remarks,
+      shipmentNumber: orderList?.supplierCredential?.shipmentNumber,
+      supplierName: orderList?.supplierCredential?.supplierName,
     })
 
   }, [orderList])
 
   console.log(supplierCred, "THIS IS SUPPLIER CRED")
+  console.log(product, "THIS IS prduct CRED")
 
   const saveSupplierData = (name, value) => {
     const newInput = { ...supplierCred }
