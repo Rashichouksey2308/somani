@@ -57,11 +57,11 @@ function Index() {
             </a>
             <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
+              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>
             <a href="#" className={`${styles.filterList} filterList`}>
               Raj Traders
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
+              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>
           </div>
           <div className={`${styles.datatable} datatable `}>
@@ -115,7 +115,12 @@ function Index() {
             >
               <thead>
                <tr className="table_row">
-                  <th>ORDER ID</th>
+                  <th>ORDER ID
+                     <img
+                    className={`mb-1`}
+                    src="./static/icons8-sort-24.png "
+                  />
+                  </th>
                   <th>BUYER NAME</th>
                   <th>EXISTING CUSTOMER</th>
                   <th>CREATED ON</th>

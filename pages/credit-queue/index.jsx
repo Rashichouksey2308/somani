@@ -230,7 +230,7 @@ function Index() {
                   <th>CUSTOMER ID
                   <img
                     className={`mb-1`}
-                    rc="./static/icons8-sort-24.png "
+                    src="./static/icons8-sort-24.png "
                   />
                   </th>
                   <th>CUSTOMER NAME</th>

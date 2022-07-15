@@ -36,10 +36,7 @@ function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
   const [sanctionComments, setSanctionComments] = useState('')
 
   const latestBalanceData = companyData?.financial?.balanceSheet[0]
-  console.log(
-    camData?.company?.recommendation?.weakness[0],
-    'THIS IS LATEST BALANCE',
-  )
+
   const previousBalanceData = companyData?.financial?.balanceSheet[1]
 
   const latestIncomeData = companyData?.financial?.incomeStatement[0]

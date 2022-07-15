@@ -21,7 +21,7 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
 
   const { margin} = useSelector((state) => state.marginMoney)
-  // console.log(margin, 'id.jsx response')
+  console.log(margin, 'id.jsx response')
 
   useEffect(() => {
     if (
@@ -37,11 +37,15 @@ function Index() {
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: margin?.data[0]?.isUsanceInterestIncluded,
     status: margin?.data[0]?.status,
-    quantity:margin?.data[0]?.order?.quantity,
+    quantity: margin?.data[0]?.order?.quantity,
     additionalPDC: margin?.data[0]?.additionalPDC,
     conversionRate: margin?.data[0]?.conversionRate,
-
+    perUnitPrice: margin?.data[0]?.order?.perUnitPrice,
+    usanceInterestPercetage: margin?.data[0]?.order?.termsheet?.commercials?.usanceInterestPercetage,
     numberOfPDC: margin?.data[0]?.numberOfPDC,
+    tradeMarginPercentage: margin?.data[0]?.order?.termsheet?.commercials?.tradeMarginPercentage,
+    tolerance: margin?.data[0]?.order?.tolerance,
+    marginMoney: margin?.data[0]?.order?.termsheet?.transactionDetails?.marginMoney
   })
 
   const saveForCalculation = (name, value) => {
@@ -285,8 +289,10 @@ function Index() {
                               </div>
                               <input
                                 type="text"
+                                disabled
                                 id="textInput"
-                                name="companyPan"
+                                defaultValue={margin?.data[0]?.order?.perUnitPrice}
+                                name="perUnitPrice"
                                 onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -336,8 +342,10 @@ function Index() {
                               </div>
                               <input
                                 type="text"
+                                disabled
                                 id="textInput"
-                                name="companyPan"
+                                name="usanceInterestPercetage"
+                                defaultValue={margin?.data[0]?.order?.termsheet?.commercials?.usanceInterestPercetage}
                                 onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
                                 className={`${styles.input_field} input form-control`}
                                 style={{ width: '50%' }}
@@ -362,7 +370,7 @@ function Index() {
                               <input
                                 className="form-check-input ml-3"
                                 type="radio"
-                                name="inlineRadioOptions"
+                                name="isUsanceInterestIncluded"
                                 defaultChecked={margin?.data[0]?.isUsanceInterestIncluded === true}
                                 onChange={(e)=>saveForCalculation("isUsanceInterestIncluded", true)}
                               />
@@ -375,7 +383,7 @@ function Index() {
                               <input
                                 className="form-check-input ml-2"
                                 type="radio"
-                                name="inlineRadioOptions"
+                                name="isUsanceInterestIncluded"
                                 defaultChecked={margin?.data[0]?.isUsanceInterestIncluded === false}
                                 onChange={(e)=>saveForCalculation('isUsanceInterestIncluded', false)}
                               />
@@ -396,8 +404,10 @@ function Index() {
                               </div>
                               <input
                                 type="text"
+                                disabled
                                 id="textInput"
-                                name="companyPan"
+                                name="tradeMarginPercentage"
+                                defaultValue={margin?.data[0]?.order?.termsheet?.commercials?.tradeMarginPercentage}
                                 onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -421,8 +431,10 @@ function Index() {
                               </div>
                               <input
                                 type="text"
+                                disabled
                                 id="textInput"
-                                name="companyPan"
+                                name="tolerance"
+                                defaultValue={margin?.data[0]?.order?.tolerance}
                                 onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -447,7 +459,8 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyPan"
+                                name="marginMoney"
+                                defaultValue={margin?.data[0]?.order?.termsheet?.transactionDetails?.marginMoney}
                                 onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
                                 className={`${styles.input_field} input form-control`}
                                 required
