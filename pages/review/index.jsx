@@ -794,9 +794,9 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <CompanyDetails order={orderList?.company} companyId={companyData?.company} companyDetail={companyData?.profile?.companyDetail} />
+                    <CompanyDetails order={orderList?.company} companyId={companyData?.company} companyDetail={companyData} />
                     <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
-                    <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
+                    <AuditorDeatils directorData={companyData} />
                     <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
                     <CreditRatings creditRating={companyData?.profile?.creditRating} />
                   </div>
@@ -1714,8 +1714,8 @@ const uploadButton = (dispatch, orderList) => {
 
     <>
       <button onClick={() =>
-        console.log("update initiated ")
-         // dispatch(RefetchCombineKarza({ company: orderList?.company?._id}))
+        //console.log("update initiated ")
+          dispatch(RefetchCombineKarza({ company: orderList?.company?._id}))
       } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
       <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
     </>

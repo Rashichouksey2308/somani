@@ -5,7 +5,7 @@ import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
-const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whatsappFunction }) => {
+const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whatsappFunction,mobileCallingCodeFunction, whatsappCallingCodeFunction }) => {
 
   const { gstList } = useSelector((state) => state.buyer)
   const [slider, setSlider] = useState("60")
@@ -111,7 +111,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                 className={`${styles.input_field} input form-control`}
                 required
               >
-                <option value="none"></option>
+                 <option value="" selected></option>
                 <option value="Manufacturer">Manufacturer</option>
                 <option value="Retailer">Retailer</option>
                 <option value="Trading">Trading</option>
@@ -123,7 +123,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
 
             <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
               <div className={styles.phone_card}>
-                <select id="Code" className={`${styles.code_phone} input border-right-0`}>
+                <select name="callingCode" id="Code" onChange={(e)=> mobileCallingCodeFunction(e)} className={`${styles.code_phone} input border-right-0`}>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>
@@ -254,7 +254,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
 
             <div className={`${styles.each_input} ${styles.phone}  col-lg-4  col-md-6 col-sm-6`}>
               <div className={styles.phone_card}>
-                <select id="Code" className={`${styles.code_phone} input border-right-0`}>
+                <select name="callingCode" id="Code" onChange={(e)=> whatsappCallingCodeFunction(e)} className={`${styles.code_phone} input border-right-0`}>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>
