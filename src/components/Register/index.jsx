@@ -14,6 +14,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 
+
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
@@ -52,7 +53,7 @@ function Index() {
 
     turnOverUnit: 'Cr',
   })
-  console.log(companyDetails,"companyDetailscompanyDetails")
+  console.log(companyDetails, "companyDetailscompanyDetails")
 
 
   const mobileFunction = (e) => {
@@ -99,6 +100,7 @@ function Index() {
     ExpectedDateOfShipment: null,
     incoTerm: '',
   })
+  console.log(orderDetails, "orderDetailjdefhk")
 
   const [documents, setDocuments] = useState({
     typeOfDocument: [null],
@@ -155,6 +157,13 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
+    }
+    else if (companyDetails.transactionType.trim().length !== 10) {
+      let toastMessage = 'Please Select a valid transaction Type'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+      return
     } else if (companyDetails.mobile.primary.number.trim().length !== 10) {
       let toastMessage = 'Please Provide a Valid Phone Number '
       if (!toast.isActive(toastMessage)) {
@@ -195,7 +204,7 @@ function Index() {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
-    }  
+    }
 
     // else if (orderDetails.supplierName.trim() === '') {
     //   let toastMessage = 'Please Fill A valid Supplier Name'
@@ -204,7 +213,7 @@ function Index() {
     //   }
     //   return
     // }
-     else if (orderDetails.countryOfOrigin.trim() === '') {
+    else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'Please Fill A valid Country Of origin'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -234,14 +243,14 @@ function Index() {
     //     toast.error(toastMessage, { toastId: toastMessage })
     //   }
     // }
-     else {
+    else {
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(orderDetails))
       fd.append('documentType', JSON.stringify(documents.typeOfDocument))
       fd.append('document1', documents.document1)
       fd.append('document2', documents.document2)
-       //console.log(fd, "this is payload")
+      //console.log(fd, "this is payload")
 
       dispatch(CreateBuyer(fd))
     }
@@ -285,8 +294,8 @@ function Index() {
 
       <Card.Body className={styles.body}>
         <CompanyDetails
-        mobileCallingCodeFunction={mobileCallingCodeFunction}
-        whatsappCallingCodeFunction={whatsappCallingCodeFunction}
+          mobileCallingCodeFunction={mobileCallingCodeFunction}
+          whatsappCallingCodeFunction={whatsappCallingCodeFunction}
           darkMode={darkMode}
           whatsappFunction={whatsappFunction}
           mobileFunction={mobileFunction}

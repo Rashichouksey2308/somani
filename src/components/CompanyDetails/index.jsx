@@ -111,6 +111,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                 className={`${styles.input_field} input form-control`}
                 required
               >
+                 <option value="" selected></option>
                 <option value="Manufacturer">Manufacturer</option>
                 <option value="Retailer">Retailer</option>
                 <option value="Trading">Trading</option>

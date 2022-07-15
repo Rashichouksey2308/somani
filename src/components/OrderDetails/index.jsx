@@ -94,7 +94,7 @@ const index = ({ saveOrderData, darkMode }) => {
               className={`${styles.input_field} input form-control`}
               required
             >
-              <option value="none" selected></option>
+              <option value="" selected></option>
               <option value="India" >India</option>
               <option value="America">America</option>
             </select>
@@ -111,9 +111,9 @@ const index = ({ saveOrderData, darkMode }) => {
               className={`${styles.input_field} input form-control`}
               required
             >
-              <option value="none" selected></option>
-              <option value="VishakaPatnam" >Visakhapatnam</option>
-              <option value="Mumbai">Mumbai</option>
+              <option value="" selected></option>
+              <option value="VishakaPatnam, India" >Visakhapatnam, India</option>
+              <option value="Mumbai, India">Mumbai, India</option>
             </select>
             <label className={`${styles.label_heading} label_heading`} id="dropPort">
               Port Of Discharge<strong className='text-danger'>*</strong>
