@@ -122,7 +122,22 @@
                     letter-spacing: 0.18px;
                     color: #3687E8;
                     text-transform: capitalize;
-                    outline: none;                  
+                    outline: none; 
+                                    @include respond(lg-desktop) {
+                                            font-size: $font_size_mobile_input_label;
+                                        }
+                                    
+                                        @include respond(md-desktop) {
+                                            font-size: $font_size_mobile_input_label;
+                                        }
+                                    
+                                        @include respond(sm-desktop) {
+                                            font-size: $font_size_sm_input_label;
+                                        }
+                                    
+                                        @include respond(phone) {
+                                            font-size: $font_size_mobile_input_label;
+                                        }
                 }
             }
         }
