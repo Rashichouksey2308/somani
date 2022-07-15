@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-function Index ({tableName , isVesselHeader, isDateHeader}) {
+function Index ({tableName , isVesselHeader, dateHeading}) {
   return (
     <div className={`${styles.datatable} datatable card `}>
     <div className={`${styles.tableFilter} d-flex justify-content-between`}>
@@ -45,11 +45,8 @@ function Index ({tableName , isVesselHeader, isDateHeader}) {
           :
           <th>INSURANCE TYPE</th>
           }
-          { isDateHeader ? 
-          <th>DATE</th>
-          :
-          <th>ETD</th>
-}
+          <th>{dateHeading}</th>
+          
           <th>STATUS  <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/> </th>
           <th>ACTION</th>
         </tr>

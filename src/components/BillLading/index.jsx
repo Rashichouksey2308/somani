@@ -344,9 +344,9 @@ export default function Index() {
                   </div>
                 </Form>
               </div>
-              <div className={`${styles.search_container} d-flex justify-content-between pt-3 pl-3 pr-3`}>
+              <div className={`${styles.search_container} search_container d-flex justify-content-between pt-3 pl-3 pr-3`}>
           <div>
-          <select className={`${styles.dropDown} input form-control`} >
+          <select className={`${styles.dropDown} formControl input form-control`} >
                   <option value="volvo">Loading, Transit, Unloading</option>
                   <option value="India">India</option>
                  
@@ -393,13 +393,7 @@ export default function Index() {
                           <th>UPLOADED BY <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
                           <th>STATUS </th>
                           <th>ACTION</th>
-                          <th>
-                            <img
-                              src="/static/search-blue.svg"
-                              className="img-fluid"
-                              alt="Search"
-                            />
-                          </th>
+                         
                         </tr>
                       </thead>
                       <tbody>
