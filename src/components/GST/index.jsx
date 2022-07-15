@@ -296,41 +296,48 @@ let data={  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                   </Col>
                   <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Date of Registration
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>12-12-1990</div>
                   </Col>
                   <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      State of Registration
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>Uttar Pradesh</div>
                   </Col>
                   <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Email ID
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>ramakrishanan@email.com</div>
                   </Col>
                   <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Contact Details
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>+91 9876543210</div>
                   </Col>
                   <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Compliance Status
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>Active</div>
                   </Col>
                   <Col md={3}  sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
-                      Business Activity
+                      Latest Return Filed GSTR 1
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>22-04-2022</div>
+                  </Col>
+                  <Col md={3}  sm={12}>
+                    <div className={`${styles.col_header} label_heading`}>
+                      Latest Return Filed GSTR 3B
+                    </div>
+                    <div className={styles.col_body}>22-04-2022</div>
                   </Col>
                 </Row>
+                
               </div>
             </div>
             <div className={` ${styles.content}`}>

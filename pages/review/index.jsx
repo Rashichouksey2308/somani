@@ -567,20 +567,52 @@ function Index() {
   }
   const onNext = () => {
     let list = document.getElementsByClassName('nav-tabs')
+    let tab = document.getElementsByClassName('tab-content')
+ for (let i = 0; i < list[0].children.length; i++) {
+       
+         console.log(list[0].children[i].children[0].innerHTML,"check")
+         if(list[0].children[i].children[0].classList.contains("active")){
+         
+          let tempIndex=i+1;
+          if(tempIndex<list[0].children.length){
+          setSelectedTab(list[0].children[tempIndex].children[0].innerHTML)
+          list[0].children[i].children[0].classList.remove("active")
+          list[0].children[tempIndex].children[0].classList.add("active")
+          tab[0].children[i].classList.remove("show")
+          tab[0].children[i].classList.remove("active")
+          tab[0].children[tempIndex].classList.add("show")
+          tab[0].children[tempIndex].classList.add("active")
+          break;
+          }
+          
 
-    for (let i = 0; i < list[0].children.length; i++) {
-      if (
-        list[0].children[i].children[0].attributes[5].nodeValue == true ||
-        list[0].children[i].children[0].attributes[5].nodeValue == 'true'
-      ) {
-        list[0].children[i].children[0].attributes[5].nodeValue = false
-        let temIndex = i
-        setSelectedTab(
-          list[0].children[temIndex++].children[0].attributes[4].nodeValue,
-        )
+         }
+        
+    }
 
-        //  list[0].children[temIndex++].children[0].attributes[5].nodeValue=true
-      }
+  }
+    const onBack = () => {
+    let list = document.getElementsByClassName('nav-tabs')
+    let tab = document.getElementsByClassName('tab-content')
+ for (let i = 0; i < list[0].children.length; i++) {
+       
+         console.log(list[0].children[i].children[0].classList,"check")
+         if(list[0].children[i].children[0].classList.contains("active")){
+          let tempIndex=i-1;
+          if(tempIndex>=0){
+          setSelectedTab(list[0].children[tempIndex].children[0].innerHTML)
+          list[0].children[i].children[0].classList.remove("active")
+          list[0].children[tempIndex].children[0].classList.add("active")
+          tab[0].children[i].classList.remove("show")
+          tab[0].children[i].classList.remove("active")
+          tab[0].children[tempIndex].classList.add("show")
+          tab[0].children[tempIndex].classList.add("active")
+          break;
+          }
+          
+
+         }
+        
     }
 
   }
@@ -1640,7 +1672,7 @@ function Index() {
         'Orders' ||
         'Credit' ||
         'DocumentsTab' ? (
-        <PreviousBar />
+        <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
       {selectedTab == 'Profile' ? (
         <DownloadBar
@@ -1649,6 +1681,7 @@ function Index() {
           leftButtonName={``}
           rightButtonName={`Next`}
           handleApprove={onNext}
+          
         />
       ) : null}
       {selectedTab == 'gst' ? (
@@ -1657,6 +1690,8 @@ function Index() {
           isPrevious={true}
           leftButtonName={`Previous`}
           rightButtonName={`Next`}
+          handleApprove={onNext}
+      
         />
       ) : null}
       {selectedTab == 'CAM' ? (
