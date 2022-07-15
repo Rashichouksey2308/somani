@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllTermsheet,GetTermsheet } from 'redux/buyerProfile/action'
+import { getAllTermsheet, GetTermsheet } from 'redux/buyerProfile/action'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -13,8 +13,8 @@ function Index() {
   const { allTermsheets } = useSelector((state) => state.order)
 
   useEffect(() => {
-    dispatch(getAllTermsheet())
-  }, [dispatch])
+    dispatch(getAllTermsheet(`?page=${currentPage}&limit=7`))
+  }, [dispatch,currentPage])
   //console.log(termsheet, "termsheet")
 
 
@@ -22,12 +22,12 @@ function Index() {
     dispatch(GetTermsheet(`?company=${sheet.company._id}`))
     Router.push('/termsheet/order-list')
   }
-
+console.log(allTermsheets?.totalCount,"allTermsheets?.data?.totalCount")
   return (
     <>
       {' '}
-      <div className='container-fluid p-0 border-0'> 
-      <div className={styles.container_inner}>
+      <div className='container-fluid p-0 border-0'>
+        <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} mb-4 d-flex align-items-center`}>
             <div className={styles.search}>
@@ -70,7 +70,7 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage + 1}  out of {Math.ceil(allTermsheets?.data?.totalCount / 10)}</span>
+                 <span>Showing Page {currentPage + 1}  out of {Math.ceil(allTermsheets?.totalCount / 7)}</span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -89,7 +89,7 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(termsheet?.data?.totalCount / 10)) {
+                    if (currentPage + 1 < Math.ceil(allTermsheets?.totalCount / 7)) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
 
@@ -105,50 +105,50 @@ function Index() {
                 </a>
               </div>
             </div>
-             <div className={styles.table_scroll_outer}>
+            <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-            <table
-              className={`${styles.table} table table_row`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
-              <thead>
-               <tr className="table_row">
-                  <th>ORDER ID</th>
-                  <th>BUYER NAME</th>
-                  <th>EXISTING CUSTOMER</th>
-                  <th>CREATED ON</th>
-                  <th>STATUS</th>
-                  <th>PREVIEW</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allTermsheets && allTermsheets?.data?.map((sheet, index) => (
-                  <tr key={index} className={`${styles.table_row} table_row`}>
-                    <td>{sheet.order.orderId}</td>
-                    <td onClick={() => {handleRoute(sheet) }} className={`${styles.buyerName}`}>{sheet.company.companyName}</td>
-                    <td>{sheet.order.existingCustomer ? "yes" : "No"}</td>
-                    <td>{(sheet.createdAt).slice(0, 10)}</td>
-                    <td>
-                      <span className={`${styles.status} ${styles.approved}`}></span>
-                      {sheet.status}
-                    </td>
-                    <td>
-                      <img
-                        src="/static/preview.svg"
-                        className="img-fluid"
-                        alt="Preview"
-                        onClick={()=>{Router.push("/termsheet-preview")}}
+                <table
+                  className={`${styles.table} table table_row`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="0"
+                >
+                  <thead>
+                    <tr className="table_row">
+                      <th>ORDER ID</th>
+                      <th>BUYER NAME</th>
+                      <th>EXISTING CUSTOMER</th>
+                      <th>CREATED ON</th>
+                      <th>STATUS</th>
+                      <th>PREVIEW</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {allTermsheets && allTermsheets?.data?.map((sheet, index) => (
+                      <tr key={index} className={`${styles.table_row} table_row`}>
+                        <td>{sheet.order.orderId}</td>
+                        <td onClick={() => { handleRoute(sheet) }} className={`${styles.buyerName}`}>{sheet.company.companyName}</td>
+                        <td>{sheet.order.existingCustomer ? "yes" : "No"}</td>
+                        <td>{(sheet.createdAt).slice(0, 10)}</td>
+                        <td>
+                          <span className={`${styles.status} ${styles.approved}`}></span>
+                          {sheet.status}
+                        </td>
+                        <td>
+                          <img
+                            src="/static/preview.svg"
+                            className="img-fluid"
+                            alt="Preview"
+                            onClick={() => { Router.push("/termsheet-preview") }}
 
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-              </div>
+            </div>
 
           </div>
         </div>

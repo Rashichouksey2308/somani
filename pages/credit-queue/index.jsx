@@ -24,10 +24,14 @@ function Index() {
   const { allBuyerList } = useSelector((state) => state.buyer)
   const { searchedLeads } = useSelector((state) => state.order)
 
+  console.log(allBuyerList,"allBuyerListallBuyerList")
+
   // console.log(currentPage)
 
+
+
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}`))
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}`))
   }, [dispatch, currentPage])
 
   useEffect(() => {
@@ -185,7 +189,7 @@ function Index() {
           <div
             className={`${styles.pageList} d-flex justify-content-end align-items-center`}
           >
-            <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}</span>
+            <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 7)}</span>
             <a
               onClick={() => {
                 if (currentPage === 0) {
@@ -203,8 +207,11 @@ function Index() {
               />
             </a>
             <a
-              onClick={() => {
-                setCurrentPage((prevState) => prevState + 1)
+               onClick={() => {
+                if (currentPage+1 < Math.ceil(allBuyerList?.data?.totalCount / 7)) {
+                  setCurrentPage((prevState) => prevState + 1)
+                }
+
               }}
               href="#"
               className={`${styles.arrow} ${styles.rightArrow} arrow`}
@@ -245,8 +252,8 @@ function Index() {
                 {allBuyerList &&
                   allBuyerList.data?.data?.map((buyer, index) => (
                     <tr key={index} className={`${styles.table_row} table_row`}>
-                      {buyer.queue === 'CreditQueue' ? (
-                        <>
+                     
+                        
                           <td>{buyer.company.customerId}</td>
                           <td className={styles.buyerName} onClick={()=>handleRoute(buyer)}>
                             {buyer.company.companyName}
@@ -274,8 +281,8 @@ function Index() {
                               }}
                             />
                           </td>
-                        </>
-                      ) : null}
+                        
+                    
                     </tr>
                   ))}
                 {/* <tr>

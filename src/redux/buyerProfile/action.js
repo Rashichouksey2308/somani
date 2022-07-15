@@ -257,7 +257,7 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    Axios.get(`${API.corebaseUrl}${API.gettermsheet}`, {
+    Axios.get(`${API.corebaseUrl}${API.gettermsheet}${payload ? payload: ''}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {

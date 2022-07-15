@@ -21,7 +21,7 @@ function Index() {
   // console.log(marginMoneyResponse, 'THIS IS MARGIN MONEY RESPONSE')
 
   useEffect(() => {
-    dispatch(GetAllMarginMoney(`?page=${currentPage}`))
+    dispatch(GetAllMarginMoney(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
 
   const handleSearch = (e) => {
@@ -112,7 +112,7 @@ function Index() {
               >
                 <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(marginMoneyResponse?.totalCount / 10)}
+                  {Math.ceil(marginMoneyResponse?.totalCount / 7)}
                 </span>
                 <a
                   onClick={() => {
@@ -133,9 +133,12 @@ function Index() {
                   />
                 </a>
                 <a
-                  onClick={() => {
-                    setCurrentPage((prevState) => prevState + 1)
-                  }}
+                    onClick={() => {
+                      if (currentPage+1 < Math.ceil(marginMoneyResponse?.totalCount / 7)) {
+                        setCurrentPage((prevState) => prevState + 1)
+                      }
+  
+                    }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
                 >
