@@ -1,11 +1,34 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
+import { useState } from 'react'
 import styles from '../index.module.scss'
 
 function Index({chargesData}) {
 
-  // console.log(chargesData?.financial?.openCharges, 'THIS IS OPEN CHARGES')
+  const[chargesDatas,setChargesData]= useState()
 
+  const handleRadioSelect=(e)=>{
+  
+    if(e==='open'){
+      
+      const filteredData =
+      chargesData.financial?.openCharges?.filter(
+        (data) => data.dateOfSatisfactionOfChargeInFull == null,
+      )
+      setChargesData(filteredData)
+    
+    }
+    else if(e==='close'){
+      const filteredData =
+      chargesData?.financial?.openCharges?.filter(
+        (data) => data.dateOfSatisfactionOfChargeInFull !== null,
+      )
+      setChargesData(filteredData)
+    }
+    else if(e==='all'){
+      setChargesData(chargesData?.financial?.openCharges)
+    }
+  }
   return (
     <>
       <div className={`${styles.card} card mb-6`}>
@@ -18,11 +41,11 @@ function Index({chargesData}) {
         >
           <h2 className="mb-0">Charges</h2>
           <div className={`${styles.charges} form-group`}>
-            <input type="radio" id="all" name="charges" value="All" checked />
+            <input type="radio" id="all" onClick={()=>{handleRadioSelect('all')}} name="charges" value="All" />
             <label htmlFor="all">All</label>
-            <input type="radio" id="open" name="charges" value="Open" />
-            <label htmlFor="open">Open</label>
-            <input type="radio" id="closed" name="charges" value="Closed" />
+            <input type="radio" id="open" name="charges" value="Open" onClick={()=>{handleRadioSelect('open')}}/>
+            <label htmlFor="open" >Open</label>
+            <input type="radio" id="closed" name="charges" onClick={()=>{handleRadioSelect('close')}} value="Closed" />
             <label htmlFor="closed">Closed</label>
           </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
@@ -70,7 +93,8 @@ function Index({chargesData}) {
                 </tr>
               </thead>
               <tbody>
-               {chargesData && chargesData?.financial?.openCharges?.map((charges, index) => ( <tr key={index}>
+                {console.log(chargesDatas,"chargesDatas")}
+               {chargesDatas && chargesDatas?.map((charges, index) => ( <tr key={index}>
                   <td>{charges.chargeId}</td>
                   <td>{charges.nameOfChargeHolder1}</td>
                   <td className="text-center">{charges.finalAmountSecured}</td>
