@@ -18,7 +18,19 @@ function Index() {
                 name="commodity"
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-                Name Of The Shipping Line *<strong className="text-danger">*</strong>
+                Name Of The Shipping Line <strong className="text-danger">*</strong>
+              </Form.Label>
+            </Form.Group>
+
+                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="commodity"
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+               Vessel Name 
               </Form.Label>
             </Form.Group>
 

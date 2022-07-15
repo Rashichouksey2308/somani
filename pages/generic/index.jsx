@@ -38,7 +38,7 @@ function Index() {
                 <h1 className={`${styles.title} heading`}><img src={`${darkMode?`/static/white-arrow.svg`:`/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Name</h1>
                 <div className={"ml-auto d-flex"}>
                    <div className="ml-auto  mr-2">
-                  <button type="button" className={`${styles.btnPrimary} btn btn-primary`}>Print</button>
+                   <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
                  
                 </div>
                     {/* <div className="ml-auto">
@@ -51,7 +51,7 @@ function Index() {
               <ul className={`${styles.navTabs} nav nav-tabs`}>
                  
                   <li className={`${styles.navItem} nav-item`}>
-                      <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#SalesContract" role="tab" aria-controls="SalesContract" aria-selected="false">Generic</a>
+                      <a className={`${styles.navLink} navLink nav-link active`} data-toggle="tab" href="#SalesContract" role="tab" aria-controls="SalesContract" aria-selected="false">Generic</a>
                   </li>
                  
               </ul>
@@ -61,46 +61,13 @@ function Index() {
                     <div className="col-md-12  accordion_body">
                         <div className={`${styles.tabContent} tab-content`}>
                            
-                               <div className="tab-pane fade" id="Profile" role="tabpanel">
+                               <div lassName="tab-pane fade show active" id="Profile" role="tabpanel">
                                 <div className="accordion" id="profileAccordion">
                                    <SalesAgreement/>
                                  
                                 </div>
                             </div>
-                              <div className="tab-pane fade" id="SalesContract" role="tabpanel">
-                                <div className="accordion" id="profileAccordion">
-                                   <SalesContract/>
-                                 
-                                </div>
-                            </div>
-                             <div className="tab-pane fade" id="Associateship" role="tabpanel">
-                                <div className="accordion" id="assignmentLetter">
-                                   <AssociateshipAgreement/>
-                                 
-                                </div>
-                            </div>
-                            <div className="tab-pane fade" id="Assignment" role="tabpanel">
-                                <div className="accordion" id="assignmentLetter">
-                                   <AssignmentLetter/>
-                                 
-                                </div>
-                            </div>
-                            <div className="tab-pane fade" id="TPASeller" role="tabpanel">
-                                <div className="accordion" id="tpaSeller">
-                                   <TPASeller/>
-                              </div>
-                            </div>
-                             <div className="tab-pane fade" id="TPACMA" role="tabpanel">
-                                <div className="accordion" id="tpaSeller">
-                                   <TPAIGI/>
-                              </div>
-                            </div>
-                            <div className="tab-pane fade" id="QPA" role="tabpanel">
-                                <div className="accordion" id="qpaAgreement">
-                                   <QPA/>
-                                 
-                                </div>
-                            </div>
+
                              
                             {/* <div className="tab-pane fade" id="Financials" role="tabpanel">
                                 <div className="accordion" id="FinancialsAccordion">

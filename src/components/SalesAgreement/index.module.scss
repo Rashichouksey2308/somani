@@ -1,3 +1,4 @@
+ @import "../styles/Core/config";
 .root{
     position: relative;
   .sidebar{
@@ -11,11 +12,12 @@
         border-radius: 6px;
         margin-bottom: 2rem;
         .sidebar_content{
-            padding:2rem ;
+            padding:0.5rem ;
             height: 70px;
+
             .content2 {
                 color: #28487B;
-                
+                cursor: pointer;
                
                 input{
                     width: 27px;
@@ -23,8 +25,9 @@
                 }
                     height: 100%;
                     span{
-                       font-size: 22px;
+                       font-size: 20px;
                         opacity: 0.6;
+                        line-height: 26px;
                         
                         
                         
@@ -53,7 +56,7 @@
                                         
                 }
                                  .selected {
-                                    opacity: 1 !important;
+                                     opacity: 1 !important;
                                      color: #3687E8 !important
                                  }
         }
@@ -71,6 +74,103 @@
         font-size: 22px;
         border-bottom: 2px solid #D2D7E5;
         color: #3687E8;
+        .switchContainer{
+            position: relative;
+                    .switch input {
+                            opacity: 0;
+                            width: 0;
+                            height: 0;
+                        }
+                        .yes{
+                            margin-right:60px;
+                        }
+                    
+                        .slider {
+                            top: 20px;
+                                position: absolute;
+                                cursor: pointer;
+                                width: 52px;
+                                height: 36px;
+                                left: 60%;
+                                right: 0;
+                                bottom: 0;
+                                background-color: rgba(69, 142, 225, 0.8784313725);
+                                transition: 0.4s;
+                                height: 1.5rem;
+                    
+                            @include respond(lg-desktop) {}
+                    
+                            @include respond(md-desktop) {
+                                bottom: 2px;
+                                height: 1.2rem;
+                            }
+                    
+                            @include respond(sm-desktop) {
+                                bottom: 4px;
+                                height: 1rem;
+                            }
+                        }
+                    
+                        .slider:before {
+                            position: absolute;
+                            content: "";
+                            height: 2rem;
+                            width: 2rem;
+                            left: -2px;
+                            bottom: -3px;
+                            background-color: #214e80;
+                            -webkit-transition: .4s;
+                            transition: .4s;
+                    
+                            @include respond(lg-desktop) {
+                                height: 1.8rem;
+                                width: 1.8rem;
+                            }
+                    
+                            @include respond(md-desktop) {
+                                height: 1.5rem;
+                                width: 1.5rem;
+                            }
+                    
+                            @include respond(sm-desktop) {
+                                height: 1.3rem;
+                                width: 1.3rem;
+                                bottom: -3px;
+                            }
+                        }
+                    
+                        input:checked+.slider {
+                            background-color: #214e80;
+                        }
+                    
+                        input:checked+.slider:before {
+                            -webkit-transform: translateX(30px);
+                            -ms-transform: translateX(30px);
+                            transform: translateX(30px);
+                    
+                            @include respond(md-desktop) {
+                                -webkit-transform: translateX(25px);
+                                -ms-transform: translateX(25px);
+                                transform: translateX(25px);
+                            }
+                    
+                            @include respond(phone) {
+                                -webkit-transform: translateX(20px);
+                                -ms-transform: translateX(20px);
+                                transform: translateX(20px);
+                            }
+                        }
+                    
+                        /* Rounded sliders */
+                        .slider.round {
+                            border-radius: 34px;
+                        }
+                    
+                        .slider.round:before {
+                            border-radius: 50%;
+                        }
+        }
+
 
     }
     div{
@@ -168,4 +268,4 @@
       width: 8px;
       height: 13px;
   }
-                 
+/* The slider */
