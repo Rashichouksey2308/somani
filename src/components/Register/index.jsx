@@ -52,6 +52,7 @@ function Index() {
 
     turnOverUnit: 'Cr',
   })
+  console.log(companyDetails,"companyDetailscompanyDetails")
 
 
   const mobileFunction = (e) => {
@@ -60,9 +61,21 @@ function Index() {
     setCompanyDetails(newObj)
   }
 
+  const mobileCallingCodeFunction = (e) => {
+    const newObj = { ...companyDetails }
+    newObj.mobile.primary.callingCode = e.target.value
+    setCompanyDetails(newObj)
+  }
+
   const whatsappFunction = (e) => {
     const newObj = { ...companyDetails }
     newObj.mobile.whatsapp.number = e.target.value
+    setCompanyDetails(newObj)
+  }
+
+  const whatsappCallingCodeFunction = (e) => {
+    const newObj = { ...companyDetails }
+    newObj.mobile.whatsapp.callingCode = e.target.value
     setCompanyDetails(newObj)
   }
 
@@ -272,6 +285,8 @@ function Index() {
 
       <Card.Body className={styles.body}>
         <CompanyDetails
+        mobileCallingCodeFunction={mobileCallingCodeFunction}
+        whatsappCallingCodeFunction={whatsappCallingCodeFunction}
           darkMode={darkMode}
           whatsappFunction={whatsappFunction}
           mobileFunction={mobileFunction}
