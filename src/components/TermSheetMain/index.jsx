@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllTermsheet,getTermsheet } from 'redux/buyerProfile/action'
+import { getAllTermsheet,GetTermsheet } from 'redux/buyerProfile/action'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -19,7 +19,7 @@ function Index() {
 
 
   const handleRoute = (sheet) => {
-    dispatch(getTermsheet({companyId: sheet.company._id}))
+    dispatch(GetTermsheet(`?company=${sheet.company._id}`))
     Router.push('/termsheet/order-list')
   }
 

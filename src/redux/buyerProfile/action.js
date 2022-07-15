@@ -218,7 +218,7 @@ export const UpdateOrderShipment =
 
 //////////********** termsheet *************/////////
 
-export const getTermsheet = (payload) => async (dispatch, getState, api) => {
+export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
   try {
     dispatch(gettermsheet())
     let cookie = Cookies.get('SOMANI')
@@ -227,7 +227,7 @@ export const getTermsheet = (payload) => async (dispatch, getState, api) => {
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     Axios.get(
-      `${API.corebaseUrl}${API.gettermsheet}?company=${payload.companyId}`,
+      `${API.corebaseUrl}${API.gettermsheet}${payload ? payload: ''}`,
       { headers: headers },
     ).then((response) => {
       if (response.data.code === 200) {

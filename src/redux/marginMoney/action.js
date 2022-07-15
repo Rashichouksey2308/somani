@@ -97,7 +97,7 @@ export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.get(
-      `${API.corebaseUrl}${API.getMarginMoney}?orderId=${payload.orderId}`,
+      `${API.corebaseUrl}${API.getMarginMoney}?order=${payload.orderId}`,
       {
         headers: headers,
       },

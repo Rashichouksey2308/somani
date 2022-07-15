@@ -8,7 +8,7 @@ import ApproveBar from '../ApproveBar'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setPageName } from '../../redux/userData/action'
-import { getTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
+import { GetTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
 import { useRouter } from 'next/router'
 import { data } from 'jquery'
 
@@ -163,7 +163,7 @@ const Index = () => {
     }
 
     const handlePreview = () => {
-        // dispatch(getTermsheet({companyId: sheet.company._id}))
+        // dispatch(GetTermsheet({companyId: sheet.company._id}))
         router.push('/termsheet-preview')
     }
 
