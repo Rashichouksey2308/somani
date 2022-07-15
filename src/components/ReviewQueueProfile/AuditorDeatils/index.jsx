@@ -152,7 +152,7 @@ function Index({ directorData }) {
                               <label className={`accordion_Text`}>
                                 Contact
                               </label>
-                              Approved
+                             +91 9876543210
                             </div>
 
                             <div
@@ -211,8 +211,8 @@ function Index({ directorData }) {
                         <div className={`${styles.entities} border-color`}>
                           <div className={`${styles.entities_content}`}>
                             <p>Other Associated Entities</p>
-                            <div className={`${styles.row} row`}>
-                              <div className="form-check col-md-3">
+                            <div className={`${styles.row}  d-flex justify-content-between align-items-center`}>
+                              <div className="form-check ">
                                 <input
                                   className="form-check-input"
                                   type="radio"
@@ -226,7 +226,7 @@ function Index({ directorData }) {
                                   Current
                                 </label>
                               </div>
-                              <div className="form-check col-md-3">
+                              <div className="form-check ">
                                 <input
                                   className="form-check-input"
                                   type="radio"
@@ -241,7 +241,7 @@ function Index({ directorData }) {
                                   Former
                                 </label>
                               </div>
-                              <div className="form-check col-md-3">
+                              <div className="form-check ">
                                 <input
                                   className="form-check-input"
                                   type="radio"
@@ -256,7 +256,7 @@ function Index({ directorData }) {
                                   Independent
                                 </label>
                               </div>
-                              <div className="form-check col-md-3">
+                              <div className="form-check ">
                                 <input
                                   className="form-check-input"
                                   type="radio"
@@ -271,7 +271,7 @@ function Index({ directorData }) {
                                   Additional
                                 </label>
                               </div>
-                              <div className="form-check col-md-3">
+                              <div className="form-check ">
                                 <input
                                   className="form-check-input"
                                   type="radio"
