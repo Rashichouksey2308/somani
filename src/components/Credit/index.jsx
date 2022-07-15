@@ -301,8 +301,8 @@ const index = ({
                         ?.existingProcurementOfCommodity
                     }
                   </option>
-                  <option value="volvo">Import</option>
-                  <option value="audi">Manufacturers</option>
+                  <option value="Import">Import</option>
+                  <option value="Manufacturers">Manufacturers</option>
                 </select>
                 <label className={`${styles.label_heading} label_heading`}>
                   Existing Procurement of Commodity
@@ -351,8 +351,10 @@ const index = ({
                         ?.contributionCommoditySenstivity
                     }
                   </option>
-                  <option value="volvo">High</option>
-                  <option value="audi">Low</option>
+                  <option value="Very High">Very High</option>
+                  <option value="High">High</option>
+                  <option value="Low">Low</option>
+                  <option value="Very Low">Very Low</option>
                 </select>
                 <label className={`${styles.label_heading} label_heading`}>
                   Commodity Contribution Senstivity
