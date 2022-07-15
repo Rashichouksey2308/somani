@@ -14,6 +14,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 
+
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
@@ -52,6 +53,7 @@ function Index() {
 
     turnOverUnit: 'Cr',
   })
+  console.log(companyDetails, "companyDetailscompanyDetails")
 
 
   const mobileFunction = (e) => {
@@ -60,9 +62,21 @@ function Index() {
     setCompanyDetails(newObj)
   }
 
+  const mobileCallingCodeFunction = (e) => {
+    const newObj = { ...companyDetails }
+    newObj.mobile.primary.callingCode = e.target.value
+    setCompanyDetails(newObj)
+  }
+
   const whatsappFunction = (e) => {
     const newObj = { ...companyDetails }
     newObj.mobile.whatsapp.number = e.target.value
+    setCompanyDetails(newObj)
+  }
+
+  const whatsappCallingCodeFunction = (e) => {
+    const newObj = { ...companyDetails }
+    newObj.mobile.whatsapp.callingCode = e.target.value
     setCompanyDetails(newObj)
   }
 
@@ -73,7 +87,7 @@ function Index() {
   }, [companyDetails.companyPan])
 
   const [orderDetails, setOrderDetails] = useState({
-    transactionType: '',
+    transactionType: 'Import',
     commodity: '',
     quantity: null,
     unitOfQuantity: 'mt',
@@ -86,6 +100,7 @@ function Index() {
     ExpectedDateOfShipment: null,
     incoTerm: '',
   })
+  console.log(orderDetails, "orderDetailjdefhk")
 
   const [documents, setDocuments] = useState({
     typeOfDocument: [null],
@@ -142,6 +157,13 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
+    }
+    else if (companyDetails.transactionType.trim().length !== 10) {
+      let toastMessage = 'Please Select a valid transaction Type'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+      return
     } else if (companyDetails.mobile.primary.number.trim().length !== 10) {
       let toastMessage = 'Please Provide a Valid Phone Number '
       if (!toast.isActive(toastMessage)) {
@@ -177,13 +199,21 @@ function Index() {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
-    } else if (orderDetails.supplierName.trim() === '') {
-      let toastMessage = 'Please Fill A valid Supplier Name'
+    } else if (!orderDetails.orderValue) {
+      let toastMessage = 'Please Fill A valid order value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails.countryOfOrigin.trim() === '') {
+    }
+
+    // else if (orderDetails.supplierName.trim() === '') {
+    //   let toastMessage = 'Please Fill A valid Supplier Name'
+    //   if (!toast.isActive(toastMessage)) {
+    //     toast.error(toastMessage, { toastId: toastMessage })
+    //   }
+    //   return
+    // }
+    else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'Please Fill A valid Country Of origin'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -206,21 +236,21 @@ function Index() {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
-    } else if (!documents.document1 && !documents.document1) {
-      let toastMessage = 'Please Check Document Upload'
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      }
-      return
-    } else {
+    }
+    //  else if (!documents.document1 && !documents.document1) {
+    //   let toastMessage = 'Please Check Document Upload'
+    //   if (!toast.isActive(toastMessage)) {
+    //     toast.error(toastMessage, { toastId: toastMessage })
+    //   }
+    // }
+    else {
       const fd = new FormData()
-
       fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(orderDetails))
       fd.append('documentType', JSON.stringify(documents.typeOfDocument))
       fd.append('document1', documents.document1)
       fd.append('document2', documents.document2)
-       //console.log(fd, "this is payload")
+      //console.log(fd, "this is payload")
 
       dispatch(CreateBuyer(fd))
     }
@@ -264,6 +294,8 @@ function Index() {
 
       <Card.Body className={styles.body}>
         <CompanyDetails
+          mobileCallingCodeFunction={mobileCallingCodeFunction}
+          whatsappCallingCodeFunction={whatsappCallingCodeFunction}
           darkMode={darkMode}
           whatsappFunction={whatsappFunction}
           mobileFunction={mobileFunction}

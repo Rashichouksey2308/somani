@@ -71,9 +71,9 @@ const index = () => {
             </div>
           </Form>
         </div>
-        <div className={`${styles.search_container} d-flex justify-content-between pt-3 pl-3 pr-3`}>
+        <div className={`${styles.search_container} search_container d-flex justify-content-between pt-3 pl-3 pr-3`}>
           <div>
-          <select className={`${styles.dropDown} input form-control`} >
+          <select className={`${styles.dropDown} formControl input form-control`} >
                   <option value="volvo">Loading, Transit, Unloading</option>
                   <option value="India">India</option>
                  
@@ -103,8 +103,6 @@ const index = () => {
            
           </div>
           </div>
-       
-
         <div className={styles.table_container}>
         <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
@@ -155,11 +153,17 @@ const index = () => {
                     className="img-fluid mr-3"
                     alt="Bin"
                   />
+                   <img
+                    src="/static/upload.svg"
+                    className="img-fluid mr-3"
+                    alt="Share"
+                  />
                   <img
                     src="/static/upload.svg"
                     className="img-fluid"
                     alt="Share"
-                  /></div>
+                  />
+                  </div>
                 </td>
               </tr>
               <tr className="table_row">
@@ -181,6 +185,11 @@ const index = () => {
                     src="/static/delete.svg"
                     className="img-fluid mr-3"
                     alt="Bin"
+                  />
+                   <img
+                    src="/static/upload.svg"
+                    className="img-fluid mr-3"
+                    alt="Share"
                   />
                   <img
                     src="/static/upload.svg"
@@ -217,6 +226,11 @@ const index = () => {
                     src="/static/delete.svg"
                     className="img-fluid mr-3"
                     alt="Bin"
+                  />
+                   <img
+                    src="/static/upload.svg"
+                    className="img-fluid mr-3"
+                    alt="Share"
                   />
                   <img
                     src="/static/upload.svg"

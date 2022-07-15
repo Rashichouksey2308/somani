@@ -3,9 +3,9 @@ import index from 'components/Footer'
 import React, { useState, useEffect } from 'react'
 import styles from '../profile.module.scss'
 
-function Index({ directorDetail }) {
+function Index({ directorData }) {
   const [darkMode, setDarkMode] = useState(false)
-  console.log(directorDetail,"directorDetails")
+  console.log(directorData,"directorDetails")
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -32,8 +32,8 @@ function Index({ directorDetail }) {
           <span>+</span>
         </div>
 
-        {directorDetail &&
-          directorDetail.map((director, index) => (
+        {
+          directorData?.profile?.directorDetail?.map((director, index) => (
             <div
               key={index}
               id={`directorDetails`}

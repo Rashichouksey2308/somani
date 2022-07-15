@@ -96,7 +96,7 @@ function Index() {
       </div>
       <TableMain tableName='Transit Details'
       isVesselHeader={true}
-      isDateHeader={true} />
+      dateHeading='DATE'/>
       
       </div>
     </div>

@@ -106,9 +106,9 @@ const Index = () => {
             </div>
           </Form>
         </div>
-        <div className={`${styles.search_container} d-flex justify-content-between pt-3 pl-3 pr-3`}>
+        <div className={`${styles.search_container} search_container  d-flex justify-content-between pt-3 pl-3 pr-3`}>
           <div>
-          <select className={`${styles.dropDown} input form-control`} >
+          <select className={`${styles.dropDown} input formControl form-control`} >
                   <option value="volvo">Loading, Transit, Unloading</option>
                   <option value="India">India</option>
                  
@@ -189,9 +189,15 @@ const Index = () => {
                   />
                   <img
                     src="/static/upload.svg"
+                    className="img-fluid mr-3"
+                    alt="Share"
+                  />
+                   <img
+                    src="/static/upload.svg"
                     className="img-fluid"
                     alt="Share"
-                  /></div>
+                  />
+                  </div>
                 </td>
               </tr>
               <tr className="table_row">
@@ -213,6 +219,11 @@ const Index = () => {
                     src="/static/delete.svg"
                     className={`${styles.binImage} mr-3 img-fluid`}
                     alt="Bin"
+                  />
+                   <img
+                    src="/static/upload.svg"
+                    className="img-fluid mr-3"
+                    alt="Share"
                   />
                   <img
                     src="/static/upload.svg"

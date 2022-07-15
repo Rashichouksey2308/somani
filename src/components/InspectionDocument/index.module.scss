@@ -414,7 +414,7 @@ margin-bottom: 1rem;
         text-transform: capitalize;
         width: 220px;
         height: 46px;
-        background-color: #ffffff;
+        //background-color: #ffffff;
         @include respond(md-desktop) {
             font-size: 18px;
         }
@@ -495,7 +495,7 @@ margin-bottom: 1rem;
     }
 }
 .search_container {
-    background: #F0F0F0;
+    //background: #F0F0F0;
     height: 62px;
 
     .dropDown{
