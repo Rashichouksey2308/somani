@@ -23,8 +23,10 @@ function Index() {
   const { searchedLeads } = useSelector((state) => state.order)
   // console.log(searchedLeads, 'searched items')
 
+
+
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}`))
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}`))
   }, [dispatch, currentPage])
 
   useEffect(() => {
@@ -186,7 +188,7 @@ function Index() {
               >
                 <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(allBuyerList?.data?.totalCount / 10)}
+                  {Math.ceil(allBuyerList?.data?.totalCount / 7)}
                 </span>
                 <a
                   onClick={() => {
@@ -207,8 +209,11 @@ function Index() {
                   />
                 </a>
                 <a
-                  onClick={() => {
-                    setCurrentPage((prevState) => prevState + 1)
+                   onClick={() => {
+                    if (currentPage+1 < Math.ceil(allBuyerList?.data?.totalCount / 7)) {
+                      setCurrentPage((prevState) => prevState + 1)
+                    }
+
                   }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
