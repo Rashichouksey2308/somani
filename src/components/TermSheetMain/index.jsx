@@ -105,6 +105,8 @@ function Index() {
                 </a>
               </div>
             </div>
+             <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
             <table
               className={`${styles.table} table table_row`}
               cellPadding="0"
@@ -112,7 +114,7 @@ function Index() {
               border="0"
             >
               <thead>
-                <tr>
+               <tr className="table_row">
                   <th>ORDER ID</th>
                   <th>BUYER NAME</th>
                   <th>EXISTING CUSTOMER</th>
@@ -123,9 +125,9 @@ function Index() {
               </thead>
               <tbody>
                 {allTermsheets && allTermsheets?.data?.map((sheet, index) => (
-                  < tr key={index}>
+                  <tr key={index} className={`${styles.table_row} table_row`}>
                     <td>{sheet.order.orderId}</td>
-                    <td onClick={() => {handleRoute(sheet) }} className={styles.buyerName}>{sheet.company.companyName}</td>
+                    <td onClick={() => {handleRoute(sheet) }} className={`${styles.buyerName}`}>{sheet.company.companyName}</td>
                     <td>{sheet.order.existingCustomer ? "yes" : "No"}</td>
                     <td>{(sheet.createdAt).slice(0, 10)}</td>
                     <td>
@@ -145,6 +147,9 @@ function Index() {
                 ))}
               </tbody>
             </table>
+              </div>
+              </div>
+
           </div>
         </div>
       </div>

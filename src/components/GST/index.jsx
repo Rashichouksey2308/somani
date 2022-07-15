@@ -339,6 +339,7 @@ function Index() {
                     <div className={styles.col_body}>22-04-2022</div>
                   </Col>
                 </Row>
+                
               </div>
             </div>
             <div className={` ${styles.content}`}>

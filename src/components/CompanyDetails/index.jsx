@@ -22,7 +22,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
         <form id="CompanyDetailsForm">
           <div className={`${styles.heading} heading_card_switch_blue`}>Company Profile</div>
           <div className={styles.radio_form}>
-            <div className={`${styles.sub_heading} sub_heading`}>Transaction Type</div>
+            <div className={`${styles.sub_heading} sub_heading`}>Transaction Type <strong className='text-danger'>*</strong></div>
             {['radio'].map((type, index) => (
               <div key={`inline-${index}`} className={styles.radio_group}>
                 <Form.Check
@@ -111,6 +111,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
                 className={`${styles.input_field} input form-control`}
                 required
               >
+                <option value="none"></option>
                 <option value="Manufacturer">Manufacturer</option>
                 <option value="Retailer">Retailer</option>
                 <option value="Trading">Trading</option>

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import styles from "./index.module.scss";
 import dash from '../../../public/static/Dashboard.svg'
 import accord from '../../../public/static/next-logo.png'
@@ -79,18 +79,33 @@ function Index() {
     ]
  const [className,setClassName] =useState("")
  const [category,setcategory] =useState("Dashboard")
+ const [subCategory,setsubCategory] =useState(null)
  const [index12,setIndex] =useState("")
-  const handleOpen=(val,index)=>{
-    if(index12==index){
-   setIndex("")
-   return
-    }
-  //  console.log("open",val)
+ useEffect(() => {
+   if(window){
+      sessionStorage.setItem("sideBarMain","Dashboard")
+      sessionStorage.setItem("subsideBarMain",null)
+      setcategory(sessionStorage.getItem("sideBarMain"))
+      setsubCategory(sessionStorage.getItem("subsideBarMain"))
+   }
+ },[])
+  const handleOpen=(val,index,from)=>{
+    console.log(val,"val233")
+   if(from=="main"){
+    sessionStorage.setItem("sideBarMain",val)
+    sessionStorage.setItem("subsideBarMain",null)
+   setsubCategory(sessionStorage.getItem("subsideBarMain"))
+   setcategory(sessionStorage.getItem("sideBarMain"))
    setClassName(`${styles.openlist} `)
    setcategory(val)
-    setIndex(index)
+   setIndex(index)
    return index
+   }else{
+     sessionStorage.setItem("subsideBarMain",val)
+     setsubCategory(sessionStorage.getItem("subsideBarMain"))
+   }
   }
+  console.log("ioooooo",category,subCategory)
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
 //   console.log(isMobile,"isMobile123")
@@ -99,19 +114,18 @@ function Index() {
   return (
    <>
    {isMobile ?
-   <div className={`${styles.main_container_mobile} sidebar-bg  ${
+     <div className={`${styles.main_container_mobile} sidebar-bg  ${
                 !sidebar ? styles.collapse_sidebar_mobile : null
               }`} >
       {tempArr.map((val,index)=>{
-         const className1 = category==val.main?`${styles.selected}`:null
+               const className1 = subCategory==null || subCategory=="null"?category==val.main?`${styles.selected}`:null:null;
             return (
                
            <>
                 <div key={index} className={styles.wrapper}>
                 <div className={`${styles.header} ${className1}`} onClick={(e)=>{
-                  handleOpen(val.main,index)
-                  console.log("router",val.route)
-                    Router.push(val.route);
+                  handleOpen(val.main,index,"main")
+                  Router.push(val.route);
                 }}>
                    <div>
                     <img src={`${val.image}`}></img>
@@ -129,14 +143,15 @@ function Index() {
                          index12 == index?`${styles.openlist} sidebar-selected`: null
                      return(
                      <>
-                      <div index={index2} className={`${styles.sub_header} ${className12}`}
+                      <div index={index2} className={`${styles.sub_header} ${subCategory==null?null:subCategory==other.name?styles.subSelected:null}`}
                       onClick={()=>{
+                         handleOpen(other.name,index2,"")
                          Router.push(other.route);
                       }}
                       >
                       <div>
                       <img src={`${other.image}`}></img>
-                      <span>{other.name}</span>
+                      <span className={`${subCategory==null?null:subCategory==other.name?styles.subSelected:null}`}>{other.name}</span>
                       </div>
                      </div>
                      </>
@@ -152,17 +167,17 @@ function Index() {
          
         })}
     </div>:
-     <div className={`${styles.main_container} sidebar-bg  ${
+    <div className={`${styles.main_container} sidebar-bg  ${
                 !sidebar ? styles.collapse_sidebar : null
               }`} >
       {tempArr.map((val,index)=>{
-         const className1 = category==val.main?`${styles.selected}`:null
+          const className1 = subCategory==null || subCategory=="null"?category==val.main?`${styles.selected}`:null:null;
             return (
                
            <>
-                <div key={index} className={styles.wrapper}>
+                <div key={index} className={`${styles.wrapper} ${category==val.main?styles.wrapperSlected:null} `}>
                 <div className={`${styles.header} ${className1}`} onClick={(e)=>{
-                  handleOpen(val.main,index)
+                  handleOpen(val.main,index,"main")
                   console.log("router",val.route)
                     Router.push(val.route);
                 }}>
@@ -182,14 +197,15 @@ function Index() {
                          index12 == index?`${styles.openlist} sidebar-selected`: null
                      return(
                      <>
-                      <div index={index2} className={`${styles.sub_header} ${className12}`}
+                      <div index={index2} className={`${styles.sub_header} ${subCategory==null?null:subCategory==other.name?styles.subSelected:null}`}
                       onClick={()=>{
+                         handleOpen(other.name,index2,"")
                          Router.push(other.route);
                       }}
                       >
                       <div>
                       <img src={`${other.image}`}></img>
-                      <span>{other.name}</span>
+                      <span className={`${subCategory==null?null:subCategory==other.name?styles.subSelected:null}`}>{other.name}</span>
                       </div>
                      </div>
                      </>
