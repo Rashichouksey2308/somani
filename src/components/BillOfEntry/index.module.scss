@@ -141,12 +141,49 @@
         }
         .dashboard_form {
             padding: 20px 35px 25px 40px;
-            .bill_landing {
-                //background: #FFFFFF;
-                border: 2px solid #CAD6E6;
-                border-radius: 9px;
-            .vessel_card {
-                
+            .form_heading {
+                    font-size: 22px;
+                    line-height: 27px;
+                    font-weight: bold;
+                    text-transform: capitalize;
+            
+                    @include respond(md-desktop) {
+                        font-size: 18px;
+                    }
+            
+                    @include respond(sm-desktop) {
+                        font-size: 16px;
+                        line-height: 20px;
+                    }
+            
+                    @include respond(phone) {
+                        font-size: 14px;
+                        line-height: 15px;
+            
+            
+                    }
+                }
+                .total_quantity {
+                        letter-spacing: 0.53px;
+                        color: #00000080;
+                        font-size: 16px;
+                        line-height: 17px;
+                        font-weight: 500;
+                         
+                        span {
+                            color: #111111;
+                            font-size: 20px;
+                            line-height: 23px;
+                            font-weight: 500;
+                        }
+
+                }
+                .bill_landing {
+                    //background: #FFFFFF;
+                    border: 2px solid #CAD6E6;
+                    border-radius: 9px;
+                .vessel_card {
+                    
                 padding: 0px 35px 0px 35px;
                 .add_btn {
                     color: #3687E8;
@@ -469,6 +506,7 @@
                 display: table-cell;
                 overflow-x: auto;
                 .table {
+                    border-top: 3px solid #D9DDE8;
                     th {
                         font-size: 15px;
                         color: #8492A6;

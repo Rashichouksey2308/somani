@@ -54,13 +54,13 @@ export default function Index() {
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
           
                 <div className={styles.radio_form}>
-                <div className={styles.sub_heading}>Transaction Type</div>
+                <div className={styles.sub_heading}>BOE Assessment</div>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
                     <Form.Check
                       className={styles.radio}
                       inline
-                      label="Import"
+                      label="Provisional"
                       name="group1"
                       type={type}
                       id={`inline-${type}-1`}
@@ -68,7 +68,7 @@ export default function Index() {
                     <Form.Check
                       className={styles.radio}
                       inline
-                      label="Domestic"
+                      label="Final"
                       name="group1"
                       type={type}
                       id={`inline-${type}-2`}
@@ -105,9 +105,142 @@ export default function Index() {
                 </div> 
                 
                   </div>
-           
+            <hr></hr>
             </div>
-            <div className={styles.table_scroll_outer}>
+             <div className={`${styles.dashboard_form} card-body`}>
+            <h3 className={styles.form_heading}>BOE Details</h3>
+                    <div className='row mb-5'>
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                      Commodity <strong className="text-danger ml-n1">*</strong> 
+                     </div>
+                      <span className={styles.value}>Iron</span>
+                    </div>
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                      Quantity <strong className="text-danger ml-n1">*</strong></div>
+                      <span className={styles.value}>500 Mt</span>
+                    </div>
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                       Vessel Name <strong className="text-danger ml-n1">*</strong> </div>
+                      <span className={styles.value}>Iron</span>
+                    </div>
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                        Country of origin<strong className="text-danger">*</strong> </div>
+                      <span className={styles.value}>India</span>
+                    </div>
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                        Port Of Discharge<strong className="text-danger">*</strong> </div>
+                      <span className={styles.value}>Visakhapatnam</span>
+                    </div>
+                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                    <input 
+                    className={`${styles.input_field} input form-control`} type="number"/> 
+                     <label className={`${styles.label_heading} label_heading`}>
+                      Invoice Quantity<strong className="text-danger">*</strong></label>                   
+                </div> 
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                        IGM Number<strong className="text-danger">*</strong> </div>
+                      <span className={styles.value}>1E3IOH2FIUU80</span>
+                    </div>
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                        IGM Filing Date<strong className="text-danger">*</strong> </div>
+                      <span className={styles.value}>22-02-2022</span>
+                    </div>
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                        CIRC Number<strong className="text-danger">*</strong> </div>
+                      <span className={styles.value}>COA20210003344</span>
+                    </div>
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                        CIRC Date<strong className="text-danger">*</strong> </div>
+                      <span className={styles.value}>22-02-2022</span>
+                    </div>
+
+                  </div>
+                  <hr></hr>
+                  
+                   <div className='row ml-auto'>
+                    
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <Form.Check aria-label="option 1" />
+                          <div className={`${styles.label} text ml-4`}>
+                          BL Number <strong className="text-danger ml-n1">*</strong></div>
+                          <span className={`${styles.value} ml-4`}>2345678</span>
+                        </div>
+                    <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                       BL Date <strong className="text-danger ml-n1">*</strong> </div>
+                      <span className={styles.value}>22-02-2022</span>
+                    </div>
+                     <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                       No.of Containers <strong className="text-danger ml-n1">*</strong> </div>
+                      <span className={styles.value}>18</span>
+                    </div>
+                     <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                       BL Quantity <strong className="text-danger ml-n1">*</strong> </div>
+                      <span className={styles.value}>4,000 MT</span>
+                    </div>
+                     <div className='col-lg-2 col-md-4 col-sm-6 text-center'  
+                    style={{top:'40px'}}
+                     >
+                    <img
+                      src="/static/preview.svg"
+                      className={`${styles.previewImg} img-fluid ml-n4`}
+                      alt="Preview"
+                    />
+                   
+                    </div>
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                      <Form.Check aria-label="option 1" />
+                          <div className={`${styles.label} text ml-4`}>
+                          BL Number <strong className="text-danger ml-n1">*</strong></div>
+                          <span className={`${styles.value} ml-4`}>2345678</span>
+                        </div>
+                    <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                       BL Date <strong className="text-danger ml-n1">*</strong> </div>
+                      <span className={styles.value}>22-02-2022</span>
+                    </div>
+                     <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                       No.of Containers <strong className="text-danger ml-n1">*</strong> </div>
+                      <span className={styles.value}>18</span>
+                    </div>
+                     <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} text`}>
+                       BL Quantity <strong className="text-danger ml-n1">*</strong> </div>
+                      <span className={styles.value}>4,000 MT</span>
+                    </div>
+                     <div className='col-lg-2 col-md-4 col-sm-6 text-center'  
+                    style={{top:'40px'}}
+                     >
+                    <img
+                      src="/static/preview.svg"
+                      className={`${styles.previewImg} img-fluid ml-n4`}
+                      alt="Preview"
+                    />
+                   
+                    </div>
+                  </div>
+                  <hr></hr>
+                  <div className='text-right'>
+                    <div className={`${styles.total_quantity}`}>Total: <span>8,000</span></div>
+                  </div>
+
+               
+        
+            </div>
+          
+             <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
                     <table className={`${styles.table} table mt-3`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
