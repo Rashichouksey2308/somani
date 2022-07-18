@@ -100,10 +100,6 @@ function Index() {
     amountPerSPDC: margin?.data[0]?.calculation?.amountPerSPDC,
   })
 
-  const [termsheetData, setTermsheetData] = useState({
-
-  })
-
   const routeChange = () => {
     Router.push('/margin-preview')
   }

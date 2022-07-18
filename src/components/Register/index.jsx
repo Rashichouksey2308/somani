@@ -158,7 +158,7 @@ function Index() {
       }
       return
     }
-    else if (companyDetails.transactionType.trim().length !== 10) {
+    else if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })

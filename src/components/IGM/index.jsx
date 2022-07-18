@@ -186,7 +186,7 @@ export default function Index() {
                     <img
                        src="/static/add-btn.svg"
                       className="img-fluid ml-5"
-                      alt="Preview"
+                      alt="Add"
                     />
                     </div>
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
@@ -216,12 +216,12 @@ export default function Index() {
                     <img
                       src="/static/add-btn.svg"
                       className="img-fluid ml-5"
-                      alt="Preview"
+                      alt="Add"
                     />
                      <img
                       src="/static/delete 2.svg"
                       className="img-fluid ml-5"
-                      alt="Preview"
+                      alt="delete"
                     />
                     </div>
                    
