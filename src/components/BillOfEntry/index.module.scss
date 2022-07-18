@@ -171,7 +171,7 @@
                         font-weight: 500;
                          
                         span {
-                            color: #111111;
+                           // color: #111111;
                             font-size: 20px;
                             line-height: 23px;
                             font-weight: 500;
@@ -407,7 +407,7 @@
                 } 
                 .toggle_label {
                         letter-spacing: 0.19px;
-                        color: #111111;
+                        //color: #111111;
                         font-size: 20px;
                         line-height: 25px;
                         @include respond(sm-desktop) {

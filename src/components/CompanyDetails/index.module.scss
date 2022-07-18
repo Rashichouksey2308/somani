@@ -12,6 +12,84 @@
       font-weight: bold;
       line-height: 25px;
   }
+  .unit_container {
+
+      padding-right: 15px;
+
+      .unit_label {
+          font-size: 18px;
+          text-transform: capitalize;
+          font-weight: bold;
+          margin-top: 10px;
+          padding-right: 10px;
+          line-height: 23px;
+
+          @include respond(md-desktop) {
+              font-size: 18px;
+          }
+
+          @include respond(sm-desktop) {
+              font-size: 16px;
+          }
+
+          @include respond(phone) {
+              font-size: 12px;
+          }
+      }
+
+      .options {
+          font-size: 18px;
+          text-transform: capitalize;
+          margin-right: 10px;
+          border-radius: 14px;
+          border: none;
+          line-height: 23px;
+          font-weight: bold;
+          text-align: center;
+          padding-left: 8px;
+          padding-right: 6px;
+          padding-top: 4px;
+          padding-bottom: 4px;
+          margin-right: 30px;
+
+          @include respond(md-desktop) {
+              font-size: 18px;
+              margin-right: 5px;
+          }
+
+          @include respond(sm-desktop) {
+              font-size: 16px;
+              margin-right: 5px;
+          }
+
+          @include respond(phone) {
+              font-size: 12px;
+              margin-right: 5px;
+              //line-height: 15px;
+
+          }
+      }
+
+      span {
+          font-size: 45px;
+          color: #3687e8;
+          font-weight: normal;
+          line-height: 20px;
+          margin-left: 25px;
+
+          @include respond(md-desktop) {
+              font-size: 42px;
+          }
+
+          @include respond(sm-desktop) {
+              font-size: 35px;
+          }
+
+          @include respond(phone) {
+              font-size: 30px;
+          }
+      }
+  }
   .radio_form {
       padding-top: 20px;
       .radio_group {
@@ -269,6 +347,84 @@
           }
       }
   }
+}
+.unit_container {
+
+    padding-right: 15px;
+
+    .unit_label {
+        font-size: 18px;
+        text-transform: capitalize;
+        font-weight: bold;
+        margin-top: 10px;
+        padding-right: 10px;
+        line-height: 23px;
+
+        @include respond(md-desktop) {
+            font-size: 18px;
+        }
+
+        @include respond(sm-desktop) {
+            font-size: 16px;
+        }
+
+        @include respond(phone) {
+            font-size: 12px;
+        }
+    }
+
+    .options {
+        font-size: 18px;
+        text-transform: capitalize;
+        margin-right: 10px;
+        border-radius: 14px;
+        border: none;
+        line-height: 23px;
+        font-weight: bold;
+        text-align: center;
+        padding-left: 8px;
+        padding-right: 6px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        margin-right: 30px;
+
+        @include respond(md-desktop) {
+            font-size: 18px;
+            margin-right: 5px;
+        }
+
+        @include respond(sm-desktop) {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+
+        @include respond(phone) {
+            font-size: 12px;
+            margin-right: 5px;
+            //line-height: 15px;
+
+        }
+    }
+
+    span {
+        font-size: 45px;
+        color: #3687e8;
+        font-weight: normal;
+        line-height: 20px;
+        margin-left: 25px;
+
+        @include respond(md-desktop) {
+            font-size: 42px;
+        }
+
+        @include respond(sm-desktop) {
+            font-size: 35px;
+        }
+
+        @include respond(phone) {
+            font-size: 30px;
+        }
+    }
 }
 .customSelect {
     appearance: none;

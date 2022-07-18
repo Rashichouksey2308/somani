@@ -225,7 +225,7 @@
         position: relative;
         box-sizing: border-box;
         &:invalid + label {
-            background: none;
+           // background: none;
             transform:translateY(0);
         }
         &:focus {

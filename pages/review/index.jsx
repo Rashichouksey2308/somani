@@ -1377,8 +1377,12 @@ function Index() {
                                     alt="Browse"
                                   />
                                   <p className={styles.drop_para}>
-                                    Drop Files here <br />
-                                    or <a href="#">Browse</a>
+                                    Drop Files here or<br />
+                                    
+                                  <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" name="myfile" />
+                                  <a href="#">Browse</a>
+                                  </div>
                                   </p>
                                 </div>
                               </div>
