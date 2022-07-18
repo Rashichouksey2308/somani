@@ -1,57 +1,32 @@
 import React from 'react'
 import styles from './index.module.scss'
 import TableMain from '../../src/components/TableMain'
-import Router from 'next/router'
+
 
 function Index() {
   return (
     <div className='container-fluid p-0 border-0'> 
     <div className={styles.container_inner}>
-    <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={styles.search}>
-              <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
-                </div>
-                <input
-                  type="text"
-                  className={`${styles.formControl} form-control formControl `}
-                  placeholder="Search"
-                />
+      <div className={`${styles.filter} pt-3 d-flex align-items-center`}>
+       
+          <div className={styles.search}>
+            <div className="input-group">
+              <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                <img src="/static/search.svg" className="img-fluid" alt="Search" />
               </div>
-             
+              <input type="text" className={`${styles.formControl} form-control formControl `} placeholder="Search" />
             </div>
-            <a className={styles.filterIcon}>
-              <img
-                src="/static/filter.svg"
-                className="img-fluid"
-                alt="Filter"
-              />
-            </a>
-             {/* <a href="#" className={`${styles.filterList} filterList`}>
-              Ramesh Shetty
-              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-            </a>
-            
-            <a href="#" className={`${styles.filterList} filterList`}>
-              Raj Traders
-              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-            </a>  */}
-
-            <button
-              type="button"
-              className={`${styles.btnPrimary} btn ml-auto btn-primary`}
-              onClick={()=>{Router.push("/insurance/form/both")}}
-              >
-              Add
-            </button>
+          
           </div>
+         <a className={styles.filterIcon}>
+          <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
+        </a> 
+        {/* <a href="#" className={`${styles.filterList} filterList `}>
+        Bhutani Traders
+        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
+      </a>
+       */}
+      </div>
      
       <div className={`${styles.statusBox} statusBox  d-flex align-items-center justify-content-between`}>
         <div className={`${styles.all} ${styles.boxInner}`}>
@@ -75,12 +50,12 @@ function Index() {
               <img src="/static/check.svg" className="img-fluid" alt="Check" />
             </div>
             <h3>
-              <span>ACTIVE</span>
+              <span>FINAL ASSESSMENT</span>
               780
             </h3>
           </div>
         </div>
-        <div className={`${styles.rejected} ${styles.boxInner}`}>
+        <div className={`${styles.review} ${styles.boxInner}`}>
           <div className="d-lg-flex align-items-center d-inline-block">
             <div className={styles.iconBox}>
               <img
@@ -90,7 +65,7 @@ function Index() {
               />
             </div>
             <h3>
-              <span>EXPIRED</span>
+              <span>PROVISIONAL</span>
               800
             </h3>
           </div>
@@ -112,11 +87,10 @@ function Index() {
         </div>
         
       </div>
-      
-      <TableMain tableName='List of Insurance'
-      isVesselHeader={false}
-      dateHeading='ETD' 
-      isStatus={true}/>
+      <TableMain tableName='Payment, Invoicing &amp; Delivery'
+      isVesselHeader={true}
+      dateHeading='BOE DATE'
+      isStatus={false}/>
       
       </div>
     </div>
