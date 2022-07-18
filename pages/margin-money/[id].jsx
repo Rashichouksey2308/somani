@@ -21,7 +21,7 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
 
   const { margin} = useSelector((state) => state.marginMoney)
-  console.log(margin, 'id.jsx response')
+
 
   useEffect(() => {
     if (
@@ -94,10 +94,6 @@ function Index() {
     marginMoney: margin?.data[0]?.calculation?.marginMoney,
     totalSPDC: margin?.data[0]?.calculation?.totalSPDC,
     amountPerSPDC: margin?.data[0]?.calculation?.amountPerSPDC,
-  })
-
-  const [termsheetData, setTermsheetData] = useState({
-
   })
 
   const routeChange = () => {
