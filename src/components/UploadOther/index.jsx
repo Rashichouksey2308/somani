@@ -115,7 +115,7 @@ const Index = () => {
             <tbody>
               <tr>
                <div
-                          className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
+                   className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
                           <div>
                             <select
                               className={`${styles.dropDown} input form-control`}
@@ -142,99 +142,25 @@ const Index = () => {
                   ></span>
                   Verified
                 </td>
-                 <td colSpan="2" >
-                 <div  className={styles.actionContainer}>  
-                  <img
-                    src="/static/delete.svg"
-                    className="img-fluid mr-3"
-                    alt="Bin"
-                  />
-                   <img
-                    src="/static/upload.svg"
-                    className="img-fluid mr-3"
-                    alt="Share"
-                  />
-                  <img
-                    src="/static/upload.svg"
-                    className="img-fluid"
-                    alt="Share"
-                  />
-                  </div>
-                </td>
-              </tr>
-              <tr className="table_row">
-                <td className={styles.doc_name}>Container Seal No. List</td>
-                <td>
-                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                </td>
-                <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                <td className={styles.doc_row}>Rama Krishnan</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.rejected}`}
-                  ></span>
-                  Pending
-                </td>
-               <td colSpan="2" >
-                 <div  className={styles.actionContainer}>  
-                  <img
-                    src="/static/delete.svg"
-                    className="img-fluid mr-3"
-                    alt="Bin"
-                  />
-                   <img
-                    src="/static/upload.svg"
-                    className="img-fluid mr-3"
-                    alt="Share"
-                  />
-                  <img
-                    src="/static/upload.svg"
-                    className="img-fluid"
-                    alt="Share"
-                  /></div>
-                </td>
-              </tr>
-              <tr>
-                <td colSpan="7" className="p-0">
-                  <select className={`${styles.module} form-control`}>
-                    <option>MODULE 2</option>
-                    <option>MODULE 1</option>
-                  </select>
-                </td>
+                <td colSpan="2">
+                    <img
+                      src="/static/delete.svg"
+                      className={`${styles.delete_image} img-fluid mr-3`}
+                      alt="Bin"
+                    />
+                    <img
+                      src="/static/upload.svg"
+                      className="img-fluid mr-3"
+                      alt="Share"
+                    />
+                    <img
+                      src="/static/drive_file.svg"
+                      className={`${styles.edit_image} img-fluid mr-3`}
+                      alt="Share"
+                    />
+                  </td>
               </tr>
              
-              <tr className="table_row">
-                <td className={styles.doc_name}>Container No. List</td>
-                <td>
-                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                </td>
-                <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                <td className={styles.doc_row}>Buyer</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.approved}`}
-                  ></span>
-                  Verified
-                </td>
-               <td colSpan="2" >
-                 <div  className={styles.actionContainer}>  
-                  <img
-                    src="/static/delete.svg"
-                    className="img-fluid mr-3"
-                    alt="Bin"
-                  />
-                   <img
-                    src="/static/upload.svg"
-                    className="img-fluid mr-3"
-                    alt="Share"
-                  />
-                  <img
-                    src="/static/upload.svg"
-                    className="img-fluid"
-                    alt="Share"
-                  /></div>
-                </td>
-              </tr>
             </tbody>
           </table>
           </div>

@@ -1447,21 +1447,22 @@ function Index() {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
+                        <tr className="table_row">
+
                                 <td colSpan="7" className="p-0">
                                   <div
-                          className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
-                          <div>
-                            <select
-                              className={`${styles.dropDown} input form-control`}
-                            >
-                              <option value="volvo">
-                                Loading, Transit, Unloading
-                              </option>
-                              <option value="India">India</option>
-                            </select>
-                          </div>
-                        </div>
+                                  className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
+                                  <div>
+                                    <select
+                                      className={`${styles.dropDown} table_container input form-control`}
+                                    >
+                                      <option value="volvo">
+                                        Loading, Transit, Unloading
+                                      </option>
+                                      <option value="India">India</option>
+                                    </select>
+                                  </div>
+                                </div>
 
                                 </td>
                               </tr>
