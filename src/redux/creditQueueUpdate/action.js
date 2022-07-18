@@ -121,7 +121,7 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     Axios.get(
-      `${API.corebaseUrl}${API.getDocuments}`,
+      `${API.corebaseUrl}${API.getDocuments}${payload}`,
       {
         headers: headers,
       },
