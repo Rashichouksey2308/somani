@@ -124,7 +124,7 @@
             padding: 15px !important;       
         }
         .radio_form {
-            padding-top: 20px;
+            // padding-top: 20px;
             .radio_group {
                 display: flex;
                 padding-bottom: 20px;
@@ -207,6 +207,7 @@
                 box-shadow: none;
                 position: relative;
                 box-sizing: border-box;
+           
                 &:invalid + label {
                     // background: none;
                     transform:translateY(0);
@@ -244,4 +245,33 @@
     align-items: center;
     justify-content: center;
     margin-left: 1rem;
+}
+.customSelect{
+    appearance: none;
+    // position: relative;
+
+}
+.arrow{
+   
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+    input[type="date"]::-webkit-inner-spin-button,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+       
+       
+}
+.calanderIcon {
+
+    margin-left: -40px;
+    margin-top: 15px;
+    width: 23px;
+    height: 26px;
+    pointer-events: none;
+
+   
+
 }
