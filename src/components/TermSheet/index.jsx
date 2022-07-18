@@ -200,8 +200,8 @@ const Index = () => {
     }
 
     const handleSave = () => {
-        const UpdatedTermsheet = { ...termsheetDetails, otherTermsAndConditions, additionalComments }
-        // console.log(UpdatedTermsheet, "updatedtermsheet")
+        const UpdatedTermsheet = { ...termsheetDetails,  status: "Approved", otherTermsAndConditions, additionalComments }
+         console.log(UpdatedTermsheet, "updatedtermsheet")
         dispatch(updateTermsheet(UpdatedTermsheet))
         //router.push('/termsheet')
     }

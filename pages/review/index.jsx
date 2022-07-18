@@ -54,10 +54,12 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
   const [uploadBtn, setUploadBtn] = useState(false)
   const [complienceFilter, setComplienceFilter] = useState('')
-  const [addDoc, setAddDoc] = useState({
+  const [newDoc, setNewDoc] = useState({
+    document: null,
+    order: orderList?.termsheet?.order,
+    type: '',
     name: '',
     module: '',
-    
   })
 
   const { orderList } = useSelector((state) => state.buyer)
