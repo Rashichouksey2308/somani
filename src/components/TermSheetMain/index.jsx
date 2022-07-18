@@ -62,7 +62,7 @@ function Index() {
             </a>
           </div>
           <div className={`${styles.datatable} datatable `}>
-            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
+            <div className={`${styles.tableFilter} d-flex justify-content-between table_container`}>
               <h3 className="heading_card">Termsheets</h3>
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
@@ -105,7 +105,7 @@ function Index() {
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table
-                  className={`${styles.table} table table_row`}
+                  className={`${styles.table} table table_row_head`}
                   cellPadding="0"
                   cellSpacing="0"
                   border="0"

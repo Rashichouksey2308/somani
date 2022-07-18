@@ -22,7 +22,7 @@ function Index() {
   
  useEffect(() => {
     dispatch(setPageName('leads'))
-    dispatch(setDynamicName(""))
+    dispatch(setDynamicName(null))
   })
 
   const handleRoute = (buyer) => {
