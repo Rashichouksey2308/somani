@@ -44,6 +44,41 @@ function gettingDocumentsFailed() {
     type: types.GET_DOCUMENT_FAILED,
   }
 }
+function addingDocuments() {
+  return {
+    type: types.ADD_DOCUMENT,
+  }
+}
+
+function addingDocumentsSuccess(payload) {
+  return {
+    type: types.ADD_DOCUMENT_SUCCESS,
+    payload,
+  }
+}
+function addingDocumentsFailed() {
+  return {
+    type: types.ADD_DOCUMENT_FAILED,
+  }
+}
+
+function deleteDocuments() {
+  return {
+    type: types.DELETE_DOCUMENT,
+  }
+}
+
+function deleteDocumentsSuccess(payload) {
+  return {
+    type: types.DELETE_DOCUMENT_SUCCESS,
+    payload,
+  }
+}
+function deleteDocumentsFailed() {
+  return {
+    type: types.DELETE_DOCUMENT_FAILED,
+  }
+}
 
 export const UpdateCam = (payload) => async (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
@@ -110,3 +145,71 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
     }
   }
 }
+
+
+export const AddingDocument = (payload) => async (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.post(`${API.corebaseUrl}${API.addDocuments}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(addingDocumentsSuccess(response.data.data))
+        let toastMessage = 'Document Successfully Added'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      } else {
+        dispatch(addingDocumentsFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(addingDocumentsFailed())
+    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}
+
+export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.post(`${API.corebaseUrl}${API.deleteDocument}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(deleteDocumentsSuccess(response.data.data))
+        let toastMessage = 'Document Successfully Added'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      } else {
+        dispatch(deleteDocumentsFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(deleteDocumentsFailed())
+    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}
+
