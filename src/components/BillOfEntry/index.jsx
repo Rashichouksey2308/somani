@@ -49,12 +49,13 @@ export default function Index() {
               <button className={styles.add_btn}><span className={styles.add_sign}>+</span>Add</button>
            
             </div>
-            <div className={`${styles.dashboard_form} mt-3 card-body`}>
+            <div className={`${styles.dashboard_form} card-body`}>
             <div className='row'>
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
           
-                <div className={styles.radio_form}>
-                <div className={styles.sub_heading}>BOE Assessment</div>
+                <div className={`${styles.radio_form} p-0 mt-n2`}>
+               <div className={`${styles.label} text`}> 
+                   BOE Assessment</div>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
                     <Form.Check
@@ -77,12 +78,19 @@ export default function Index() {
                 ))}
               </div>
               </div>
-              <div className='col-lg-6 col-md-6 col-sm-6'>
+                    <div className={`${styles.form_group} col-lg-6 col-md-6 col-sm-6 `} >
                   <div className={`${styles.label} text`}>
                     PF Bond <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>Iron</span>
-                </div>
+                  <div className={`${styles.theme} d-flex align-items-center`}>
+                  <div className={`${styles.toggle_label} mr-3`}>Yes</div>
+                    <label className={styles.switch}>
+                      <input type="checkbox"/>
+                      <span className={`${styles.slider} ${styles.round}` }></span>
+                    </label>
+                      <div className={`${styles.toggle_label} ml-3`}>No</div>
+                    </div>
+                            </div>
 
 
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
@@ -245,7 +253,7 @@ export default function Index() {
                     <table className={`${styles.table} table mt-3`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
-                          <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
+                          <th width='35%' >DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
                           <th>FORMAT <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
                           <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
                           <th>ACTION</th>
