@@ -9,7 +9,7 @@ export default function Index() {
     <>
       
         <div className={`${styles.backgroundMain} container-fluid`}>
-        <div className={`${styles.vessel_card} mt-3 border_color`}>
+        <div className={`${styles.vessel_card} border_color`}>
 
           <div className={`${styles.main} mt-4 card border_color`}>
             <div
