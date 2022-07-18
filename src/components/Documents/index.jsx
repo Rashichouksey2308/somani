@@ -17,22 +17,31 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
 
       <div className={`${styles.input_container} row align-items-center`}>
         <div className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4`}>
-          <label className={`${styles.label_heading} label_heading mb-4`} id="dropDoc">
+            <label className={`${styles.label_heading} label_heading mb-4`} id="dropDoc">
             Type Of Document
           </label>
+           <div className="d-flex">
+           
           <select
             id="dropDoc"
             name="0"
             onChange={(e) => {
               saveDocument(e)
             }}
-            className={`${styles.input_field} input form-control`}
+            className={`${styles.input_field} ${styles.customSelect} input form-control`}
           >
             <option value="Incorporation Certificate" selected>
               Incorporation Certificate
             </option>
             <option value="Certificate">Certificate</option>
           </select>
+          <img
+            className={`${styles.arrow} img-fluid`}
+            src="/static/inputDropDown.svg"
+            alt="Search"
+          />
+           </div>
+
         </div>
         <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4 `}>
           <label className={`${styles.label_heading} label_heading mb-4`}>Attach Document</label>
@@ -70,8 +79,9 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
         </div>
         <hr className={styles.hr_line}></hr>
         <div className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}>
-          <select
-            className={`${styles.input_field} input form-control`}
+          <div className="d-flex">
+            <select
+            className={`${styles.input_field} ${styles.customSelect} input form-control`}
             name="1"
             onChange={(e) => {
               saveDocument(e)
@@ -80,6 +90,13 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
             <option value="GST Certification" selected>GST Certification</option>
             <option value="Certification">Certification</option>
           </select>
+          <img
+            className={`${styles.arrow} img-fluid`}
+            src="/static/inputDropDown.svg"
+            alt="Search"
+          />
+          </div>
+
         </div>
 
         <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}>

@@ -87,11 +87,12 @@ const index = ({ saveOrderData, darkMode }) => {
             </label>
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-            <select
+            <div className="d-flex">
+              <select
               id="dropCountry"
               name='countryOfOrigin'
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
-              className={`${styles.input_field} input form-control`}
+              className={`${styles.input_field} ${styles.customSelect} input form-control`}
               required
             >
               <option value="" selected></option>
@@ -101,14 +102,22 @@ const index = ({ saveOrderData, darkMode }) => {
             <label className={`${styles.label_heading} label_heading`} id="dropCountry">
               Country Of Origin<strong className='text-danger'>*</strong>
             </label>
+            <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+            </div>
+
           </div>
 
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-            <select
+             <div className="d-flex">
+              <select
               id="dropPort"
               name='portOfDischarge'
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
-              className={`${styles.input_field} input form-control`}
+              className={`${styles.input_field} ${styles.customSelect} input form-control`}
               required
             >
               <option value="" selected></option>
@@ -119,6 +128,12 @@ const index = ({ saveOrderData, darkMode }) => {
               Port Of Discharge<strong className='text-danger'>*</strong>
             </label>
             <label className={`${styles.label_heading} label_heading`}>Port Of Discharge<strong className="text-danger">*</strong></label>
+            <img
+            className={`${styles.arrow} img-fluid`}
+            src="/static/inputDropDown.svg"
+            alt="Search"
+              />
+             </div>
 
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>

@@ -448,8 +448,27 @@
         padding: 5px;
     }
 }
-
 .delete_image {
+    @include respond(md-desktop) {
+            height: 30px;
+        }
+    
+        @include respond(sm-desktop) {
+            height: 28px;
+        }
+    
+        @include respond(phone) {
+            height: 25px;
+        }
+}
+.del_image {
+    background: #C3C3C31F;
+    border: 1px solid #0000001F;
+    border-radius: 4px;
+    padding: 7px 5px;
+    width: 40px;
+    height: 40px;
+
     @include respond(md-desktop) {
         height: 30px;
     }

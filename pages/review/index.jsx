@@ -1466,7 +1466,8 @@ function Index() {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
+                        <tr className="table_row">
+
                                 <td colSpan="7" className="p-0">
                                   <div
                                     className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
