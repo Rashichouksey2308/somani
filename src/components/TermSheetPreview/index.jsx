@@ -148,6 +148,7 @@ function Index() {
           <h1 className={`${styles.heading} heading`}>Termsheet Preview</h1>
         </div>
       </div>
+      
       <div  className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
        <Row className={`h-50`}>
            <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
@@ -580,6 +581,9 @@ function Index() {
       </Card>
       
     </div>
+
+
+
     <Paginatebar openbar={openbar} />
      {open ? <TermsheetPopUp close={close} open={open}/>:null}
       </>

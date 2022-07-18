@@ -2,9 +2,21 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
+import { useState } from 'react'
 
 
 export default function Index() {
+  const [editInput, setEditInput] = useState(true)
+
+  const handleDropdown = (e) => {
+    
+    if (e.target.value="Others") {
+    setEditInput(!editInput)
+    }
+    else {
+      setEditInput(editInput)
+    }
+  }
   return (
     <>
       
@@ -148,10 +160,9 @@ export default function Index() {
                       </Form.Label>
                       <select
                         className={`${styles.value} input form-control`}
-                        id="docType"
-                      >
-                        <option>Others</option>
+                        id="docType" onChange={(e) => handleDropdown(e)}>
                         <option>N/A</option>
+                        <option value='Others'>Others</option>
                       </select>
                     </Form.Group>
                     <Form.Group className={styles.form_group}>
@@ -161,6 +172,8 @@ export default function Index() {
                       <Form.Control
                         className={`${styles.value} input form-control`}
                         type="text"
+                        disabled={editInput}
+
                       />
                     </Form.Group>
                     <div className={styles.uploadBtnWrapper}>
