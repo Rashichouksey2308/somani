@@ -259,11 +259,11 @@ const Index = () => {
                                 </div>
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                                     <h3 className={`${styles.label} label_heading`}>Approved Date</h3>
-                                    <p className={`${styles.value} accordion_Text`}>{sheet?.order?.cam?.approvedAt.slice(0, 10)}</p>
+                                    <p className={`${styles.value} accordion_Text`}>{sheet?.order?.cam?.approvedAt?.slice(0, 10)}</p>
                                 </div>
                                 <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                                     <h3 className={`${styles.label} label_heading`}>Status </h3>
-                                    <p className={`${styles.value} accordion_Text`}><span className={`${styles.status}`}></span>{sheet?.order.cam.status}</p>
+                                    <p className={`${styles.value} accordion_Text`}><span className={`${styles.status}`}></span>{sheet?.order?.cam?.status}</p>
                                 </div>
                             </div>
                         </div>))}

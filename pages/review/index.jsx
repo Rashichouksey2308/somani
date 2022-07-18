@@ -54,6 +54,11 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
   const [uploadBtn, setUploadBtn] = useState(false)
   const [complienceFilter, setComplienceFilter] = useState('')
+  const [addDoc, setAddDoc] = useState({
+    name: '',
+    module: '',
+    
+  })
 
   const { orderList } = useSelector((state) => state.buyer)
 
@@ -65,6 +70,7 @@ function Index() {
   const { documentsFetched } = useSelector((state) => state.review)
   console.log(documentsFetched, 'documentsFetched')
 
+
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
     dispatch(setDynamicName(orderList?.company?.companyName))
@@ -73,7 +79,6 @@ function Index() {
 
   useEffect(() => {
     dispatch(GetDocuments(`?order=${orderList?.termsheet?.order}`))
-
   }, [dispatch, companyData])
 
   const [selectedTab, setSelectedTab] = useState('Profile')
@@ -596,8 +601,8 @@ function Index() {
             <h1 className={`${styles.title} heading pt-3 pb-3`}>
               <img
                 src={`${darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
                   }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
@@ -1400,12 +1405,15 @@ function Index() {
                                   >
                                     Document Type
                                   </Form.Label>
-                                  <select
+                                  <select  onChange={()=> console.log("djsf")}
                                     className={`${styles.value} input form-control`}
                                     id="docType"
                                   >
-                                    <option value="volvo">Others</option>
-                                    <option value="audi">N/A</option>
+                                    <option value="LeadOnboarding,OrderApproval">Lead Onboarding & Order Approval</option>
+                                    <option value="Agreements,Insurance,LCOpening">Agreements, Insurance & LC Opening</option>
+                                    <option value="Loading-Transit-Unloading">Loading-Transit- Unloading</option>
+                                    <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
+                                    <option value="others">Others</option>
                                   </select>
                                 </Form.Group>
                                 <Form.Group className={styles.form_group}>
@@ -1466,10 +1474,11 @@ function Index() {
                                       <select
                                         className={`${styles.dropDown} input form-control`}
                                       >
-                                        <option value="volvo">
-                                          Loading, Transit, Unloading
-                                        </option>
-                                        <option value="India">India</option>
+                                        <option value="LeadOnboarding&OrderApproval">Lead Onboarding & Order Approval</option>
+                                        <option value="Agreements,Insurance&LCOpening">Agreements, Insurance & LC Opening</option>
+                                        <option value="Loading-Transit-Unloading">Loading-Transit- Unloading</option>
+                                        <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
+                                        <option value="others">Others</option>
                                       </select>
                                     </div>
                                   </div>
@@ -1515,87 +1524,56 @@ function Index() {
                                   />
                                 </td>
                               </tr>
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  Container No. List
-                                </td>
-                                <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                </td>
-                                <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
-                                </td>
-                                <td className={styles.doc_row}>Buyer</td>
-                                <td>
-                                  <span
-                                    className={`${styles.status} ${styles.approved}`}
-                                  ></span>
-                                  Verified
-                                </td>
-                                <td colSpan="2">
-                                  <img
-                                    src="/static/delete.svg"
-                                    className={`${styles.delete_image} img-fluid mr-3`}
-                                    alt="Bin"
-                                  />
-                                  <img
-                                    src="/static/upload.svg"
-                                    className="img-fluid mr-3"
-                                    alt="Share"
-                                  />
-                                  <img
-                                    src="/static/drive_file.svg"
-                                    className={`${styles.edit_image} img-fluid mr-3`}
-                                    alt="Share"
-                                  />
-                                </td>
-                              </tr>
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  Container Seal No. List
-                                </td>
-                                <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                </td>
-                                <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
-                                </td>
-                                <td className={styles.doc_row}>
-                                  Rama Krishnan
-                                </td>
-                                <td>
-                                  <span
-                                    className={`${styles.status} ${styles.rejected}`}
-                                  ></span>
-                                  Pending
-                                </td>
-                                <td colSpan="2">
-                                  <img
-                                    src="/static/delete.svg"
-                                    className={`${styles.delete_image} img-fluid mr-3`}
-                                    alt="Bin"
-                                  />
-                                  <img
-                                    src="/static/upload.svg"
-                                    className="img-fluid mr-3"
-                                    alt="Share"
-                                  />
-                                  <img
-                                    src="/static/drive_file.svg"
-                                    className={`${styles.edit_image} img-fluid mr-3`}
-                                    alt="Share"
-                                  />
-                                </td>
-                              </tr>
 
+
+                              {/* {documentsFetched && documentsFetched?.documents?.map((document, index) => {
+                                if (document.deleted) {
+                                  return null
+                                } else {
+                                  return (
+                                    <tr key={index} className="table_row">
+                                      <td className={`${styles.doc_name}`}>
+                                        {document.name}
+                                      </td>
+                                      <td>
+                                        <img
+                                          src="/static/pdf.svg"
+                                          className="img-fluid"
+                                          alt="Pdf"
+                                        />
+                                      </td>
+                                      <td className={styles.doc_row}>
+                                        {document.date}
+                                      </td>
+                                      <td className={styles.doc_row}>{document.uploadedBy}</td>
+                                      <td>
+                                        <span
+                                          className={`${styles.status} ${styles.approved}`}
+                                        ></span>
+                                        {document?.verification?.status}
+                                      </td>
+                                      <td colSpan="2">
+                                        <img
+                                          onClick={() => dispatch(DeleteDocument({ orderDocumentId: documentsFetched._id, name: document.name }))}
+                                          src="/static/delete.svg"
+                                          className={`${styles.delete_image} img-fluid mr-3`}
+                                          alt="Bin"
+                                        />
+                                        <img
+                                          src="/static/upload.svg"
+                                          className="img-fluid mr-3"
+                                          alt="Share"
+                                        />
+                                        <img
+                                          src="/static/drive_file.svg"
+                                          className={`${styles.edit_image} img-fluid mr-3`}
+                                          alt="Share"
+                                        />
+                                      </td>
+                                    </tr>
+                                  )
+                                }
+                              })} */}
                             </tbody>
                           </table>
                         </div>
