@@ -11,8 +11,8 @@ import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
-import { UpdateMarginMoney, GetMarginMoney } from '../../src/redux/marginMoney/action'
-
+import { UpdateMarginMoney } from '../../src/redux/marginMoney/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
@@ -20,14 +20,16 @@ function Index() {
 
   const [darkMode, setDarkMode] = useState(false)
 
-  const { margin} = useSelector((state) => state.marginMoney)
-
-  console.log(margin , "THIS IS MARGIN ")
-  const marginData = margin?.data?.data[0]
+  const { margin } = useSelector((state) => state.marginMoney)
 
   
+  const marginData = margin?.data?.data[0]
 
-
+  useEffect(() => {
+    dispatch(setPageName('margin-money'))
+    dispatch(setDynamicName(marginData?.company.companyName))
+  }, [dispatch, marginData?.company.companyName])
+  
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -46,11 +48,14 @@ function Index() {
     additionalPDC: marginData?.additionalPDC || '',
     conversionRate: marginData?.conversionRate || '',
     perUnitPrice: marginData?.order?.perUnitPrice || '',
-    usanceInterestPercetage: marginData?.order?.termsheet?.commercials?.usanceInterestPercetage || '',
+    usanceInterestPercetage:
+      marginData?.order?.termsheet?.commercials?.usanceInterestPercetage || '',
     numberOfPDC: marginData?.numberOfPDC || '',
-    tradeMarginPercentage: marginData?.order?.termsheet?.commercials?.tradeMarginPercentage || '',
+    tradeMarginPercentage:
+      marginData?.order?.termsheet?.commercials?.tradeMarginPercentage || '',
     tolerance: marginData?.order?.tolerance || '',
-    marginMoney: marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
+    marginMoney:
+      marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
   })
 
   const saveForCalculation = (name, value) => {
@@ -64,7 +69,8 @@ function Index() {
     buyerName: marginData?.invoiceDetail?.buyerName || '',
     buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
     buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
-    isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || '',
+    isConsigneeSameAsBuyer:
+      marginData?.invoiceDetail?.isConsigneeSameAsBuyer || '',
     consigneeName: marginData?.invoiceDetail?.consigneeName || '',
     consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
     consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
@@ -87,7 +93,7 @@ function Index() {
   }
 
   const [calcData, setCalcData] = useState({
-    orderValue: marginData?.calculation?.orderValue ,
+    orderValue: marginData?.calculation?.orderValue,
     orderValueCurrency: marginData?.calculation?.orderValueCurrency,
     orderValueInINR: marginData?.calculation?.orderValueInINR,
     usanceInterest: marginData?.calculation?.usanceInterest,
@@ -95,7 +101,8 @@ function Index() {
     grossOrderValue: marginData?.calculation?.grossOrderValue,
     toleranceValue: marginData?.calculation?.toleranceValue,
     totalOrderValue: marginData?.calculation?.totalOrderValue,
-    provisionalUnitPricePerTon: marginData?.calculation?.provisionalUnitPricePerTon,
+    provisionalUnitPricePerTon:
+      marginData?.calculation?.provisionalUnitPricePerTon,
     marginMoney: marginData?.calculation?.marginMoney,
     totalSPDC: marginData?.calculation?.totalSPDC,
     amountPerSPDC: marginData?.calculation?.amountPerSPDC,
@@ -107,12 +114,12 @@ function Index() {
 
   const handleUpdate = () => {
     const obj = {
-        marginMoneyId: marginData?._id,
-        conversionRate: forCalculation.conversionRate,
-        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded,
-        numberOfPDC: forCalculation.numberOfPDC,
-        additionalPDC: forCalculation.additionalPDC,
-        invoiceDetail: {...invoiceData}
+      marginMoneyId: marginData?._id,
+      conversionRate: forCalculation.conversionRate,
+      isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded,
+      numberOfPDC: forCalculation.numberOfPDC,
+      additionalPDC: forCalculation.additionalPDC,
+      invoiceDetail: { ...invoiceData },
     }
 
     dispatch(UpdateMarginMoney(obj))
@@ -234,12 +241,12 @@ function Index() {
                           </div>
                         </div>
                         <h5 className={`${styles.unit_label} accordion_Text`}>
-                          Units :
+                          Unit :
                         </h5>
                         <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
                         >
-                            <option> {marginData?.order?.unitOfValue}</option>
+                          <option> {marginData?.order?.unitOfValue}</option>
                           <option>Million</option>
                         </select>
                         <span>+</span>
@@ -255,10 +262,10 @@ function Index() {
                         <div className={`${styles.content} border_color`}>
                           <div className={`${styles.input_container} row`}>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                             >
                               <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
                               >
                                 <span>A</span>
                               </div>
@@ -267,7 +274,12 @@ function Index() {
                                 id="textInput"
                                 name="quantity"
                                 defaultValue={marginData?.order?.quantity}
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -294,7 +306,12 @@ function Index() {
                                 id="textInput"
                                 defaultValue={marginData?.order?.perUnitPrice}
                                 name="perUnitPrice"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -319,7 +336,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="conversionRate"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
                                 defaultValue={marginData?.conversionRate}
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -346,8 +368,16 @@ function Index() {
                                 disabled
                                 id="textInput"
                                 name="usanceInterestPercetage"
-                                defaultValue={marginData?.order?.termsheet?.commercials?.usanceInterestPercetage}
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                defaultValue={
+                                  marginData?.order?.termsheet?.commercials
+                                    ?.usanceInterestPercetage
+                                }
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 style={{ width: '50%' }}
                                 required
@@ -372,8 +402,15 @@ function Index() {
                                 className="form-check-input ml-3"
                                 type="radio"
                                 name="isUsanceInterestIncluded"
-                                defaultChecked={marginData?.isUsanceInterestIncluded === true}
-                                onChange={(e)=>saveForCalculation("isUsanceInterestIncluded", true)}
+                                defaultChecked={
+                                  marginData?.isUsanceInterestIncluded === true
+                                }
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    'isUsanceInterestIncluded',
+                                    true,
+                                  )
+                                }
                               />
                               <label
                                 className="form-check-label mr-2"
@@ -385,8 +422,15 @@ function Index() {
                                 className="form-check-input ml-2"
                                 type="radio"
                                 name="isUsanceInterestIncluded"
-                                defaultChecked={marginData?.isUsanceInterestIncluded === false}
-                                onChange={(e)=>saveForCalculation('isUsanceInterestIncluded', false)}
+                                defaultChecked={
+                                  marginData?.isUsanceInterestIncluded === false
+                                }
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    'isUsanceInterestIncluded',
+                                    false,
+                                  )
+                                }
                               />
                               <label
                                 className="form-check-label"
@@ -408,8 +452,16 @@ function Index() {
                                 disabled
                                 id="textInput"
                                 name="tradeMarginPercentage"
-                                defaultValue={marginData?.order?.termsheet?.commercials?.tradeMarginPercentage}
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                defaultValue={
+                                  marginData?.order?.termsheet?.commercials
+                                    ?.tradeMarginPercentage
+                                }
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -436,7 +488,12 @@ function Index() {
                                 id="textInput"
                                 name="tolerance"
                                 defaultValue={marginData?.order?.tolerance}
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -462,8 +519,16 @@ function Index() {
                                 disabled
                                 id="textInput"
                                 name="marginMoney"
-                                defaultValue={marginData?.order?.termsheet?.transactionDetails?.marginMoney}
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                defaultValue={
+                                  marginData?.order?.termsheet
+                                    ?.transactionDetails?.marginMoney
+                                }
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -488,7 +553,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="numberOfPDC"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
                                 defaultValue={marginData?.numberOfPDC}
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -514,7 +584,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="additionalPDC"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
                                 defaultValue={marginData?.additionalPDC}
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -545,7 +620,9 @@ function Index() {
                                 disabled={true}
                                 type="text"
                                 id="textInput"
-                                defaultValue={marginData?.calculation?.orderValue}
+                                defaultValue={
+                                  marginData?.calculation?.orderValue
+                                }
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -574,7 +651,9 @@ function Index() {
                                 disabled={true}
                                 type="text"
                                 id="textInput"
-                                defaultValue={marginData?.calculation?.orderValueInINR}
+                                defaultValue={
+                                  marginData?.calculation?.orderValueInINR
+                                }
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -601,11 +680,12 @@ function Index() {
                               </div>
                               <input
                                 disabled={true}
-                                
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={marginData?.calculation?.usanceInterest}
+                                defaultValue={
+                                  marginData?.calculation?.usanceInterest
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -634,7 +714,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={marginData?.calculation?.tradeMargin}
+                                defaultValue={
+                                  marginData?.calculation?.tradeMargin
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -663,7 +745,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={marginData?.calculation?.grossOrderValue}
+                                defaultValue={
+                                  marginData?.calculation?.grossOrderValue
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -693,7 +777,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={marginData?.calculation?.toleranceValue}
+                                defaultValue={
+                                  marginData?.calculation?.toleranceValue
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -722,7 +808,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={marginData?.calculation?.totalOrderValue}
+                                defaultValue={
+                                  marginData?.calculation?.totalOrderValue
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -751,7 +839,10 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={marginData?.calculation?.provisionalUnitPricePerTon}
+                                defaultValue={
+                                  marginData?.calculation
+                                    ?.provisionalUnitPricePerTon
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -780,7 +871,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={marginData?.calculation?.marginMoney}
+                                defaultValue={
+                                  marginData?.calculation?.marginMoney
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -810,7 +903,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={marginData?.calculation?.totalSPDC}
+                                defaultValue={
+                                  marginData?.calculation?.totalSPDC
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -839,7 +934,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={marginData?.calculation?.amountPerSPDC}
+                                defaultValue={
+                                  marginData?.calculation?.amountPerSPDC
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -888,10 +985,14 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="buyerName"
-                                defaultValue={marginData?.invoiceDetail?.buyerName}
+                                defaultValue={
+                                  marginData?.invoiceDetail?.buyerName
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -909,13 +1010,19 @@ function Index() {
                                 name="buyerGSTIN"
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                               >
                                 <option value="GTSDT789652JKH">
                                   {marginData?.invoiceDetail?.buyerGSTIN}
                                 </option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -932,10 +1039,14 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="buyerAddress"
-                                defaultValue={marginData?.invoiceDetail?.buyerAddress}
+                                defaultValue={
+                                  marginData?.invoiceDetail?.buyerAddress
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -962,9 +1073,15 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="Yes"
-                                      defaultChecked={marginData?.invoiceDetail?.isConsigneeSameAsBuyer === true}
+                                      defaultChecked={
+                                        marginData?.invoiceDetail
+                                          ?.isConsigneeSameAsBuyer === true
+                                      }
                                       onChange={() =>
-                                        saveInvoiceData('isConsigneeSameAsBuyer', true )
+                                        saveInvoiceData(
+                                          'isConsigneeSameAsBuyer',
+                                          true,
+                                        )
                                       }
                                       name="group1"
                                       type={type}
@@ -974,9 +1091,15 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
-                                      defaultChecked={marginData?.invoiceDetail?.isConsigneeSameAsBuyer === false}
+                                      defaultChecked={
+                                        marginData?.invoiceDetail
+                                          ?.isConsigneeSameAsBuyer === false
+                                      }
                                       onChange={() =>
-                                        saveInvoiceData('isConsigneeSameAsBuyer', false)
+                                        saveInvoiceData(
+                                          'isConsigneeSameAsBuyer',
+                                          false,
+                                        )
                                       }
                                       name="group1"
                                       type={type}
@@ -993,8 +1116,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="consigneeName"
-                                defaultValue={marginData?.invoiceDetail?.consigneeName}
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={
+                                  marginData?.invoiceDetail?.consigneeName
+                                }
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1013,13 +1140,19 @@ function Index() {
                                 name="consigneeGSTIN"
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                               >
                                 <option value="GTSDT789652JKH">
                                   {marginData?.invoiceDetail?.consigneeGSTIN}
                                 </option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -1036,8 +1169,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="consigneeAddress"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.consigneeAddress}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.consigneeAddress
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1066,9 +1203,15 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="Yes"
-                                      defaultChecked={marginData?.invoiceDetail?.isConsigneeSameAsBuyer === true}
+                                      defaultChecked={
+                                        marginData?.invoiceDetail
+                                          ?.isConsigneeSameAsBuyer === true
+                                      }
                                       onChange={() =>
-                                        saveInvoiceData('isConsigneeSameAsBuyer', true)
+                                        saveInvoiceData(
+                                          'isConsigneeSameAsBuyer',
+                                          true,
+                                        )
                                       }
                                       name="group1"
                                       type={type}
@@ -1078,9 +1221,15 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
-                                      defaultChecked={marginData?.invoiceDetail?.isConsigneeSameAsBuyer === false}
+                                      defaultChecked={
+                                        marginData?.invoiceDetail
+                                          ?.isConsigneeSameAsBuyer === false
+                                      }
                                       onChange={() =>
-                                        saveInvoiceData('isConsigneeSameAsBuyer', false)
+                                        saveInvoiceData(
+                                          'isConsigneeSameAsBuyer',
+                                          false,
+                                        )
                                       }
                                       name="group1"
                                       type={type}
@@ -1097,8 +1246,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="consigneeName"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.consigneeName}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.consigneeName
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1115,15 +1268,21 @@ function Index() {
                               <select
                                 id="Code"
                                 name="consigneeGSTIN"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               >
                                 <option value="GTSDT789652JKH">
                                   {marginData?.invoiceDetail?.consigneeGSTIN}
                                 </option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -1140,8 +1299,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="consigneeAddress"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.consigneeAddress}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.consigneeAddress
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1163,9 +1326,13 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name='importerName'
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.importerName}
+                                name="importerName"
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.importerName
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1184,8 +1351,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="branchOffice"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.branchOffice}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.branchOffice
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1204,8 +1375,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyAddress"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.companyAddress}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.companyAddress
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1224,8 +1399,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="importerGSTIN"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.importerGSTIN}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.importerGSTIN
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1244,8 +1423,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="bankName"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.bankName}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.bankName
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1264,7 +1447,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="branch"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                                 defaultValue={marginData?.invoiceDetail?.branch}
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -1283,8 +1468,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="branchAddress"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.branchAddress}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.branchAddress
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1303,8 +1492,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="IFSCcode"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.IFSCcode}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.IFSCcode
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1323,8 +1516,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="accountNo"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={marginData?.invoiceDetail?.accountNo}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.accountNo
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />

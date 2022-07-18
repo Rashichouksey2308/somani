@@ -254,10 +254,14 @@ export default function Index() {
                               src="/static/browse.svg"
                               alt="Browse"
                             />
-                            <p className={styles.drop_para}>
-                              Drop Files here <br />
-                              or <a href="#">Browse</a>
-                            </p>
+                             <p className={styles.drop_para}>
+                                    Drop Files here or<br />
+                                    
+                                  <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" name="myfile" />
+                                  <a href="#">Browse</a>
+                                  </div>
+                                  </p>
                           </div>
                         </div>
                         <div className="col-md-4 offset-md-1 col-sm-6">
@@ -291,38 +295,7 @@ export default function Index() {
                       </div>
                     </Form>
                   </div>
-                   <div className={`${styles.search_container} search_container d-flex justify-content-between pt-3 pl-3 pr-3`}>
-          <div>
-          <select className={`${styles.dropDown} input formControl form-control`} >
-                  <option value="volvo">Loading, Transit, Unloading</option>
-                  <option value="India">India</option>
-                 
-                </select>
-          </div>
-
-        <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={styles.search}>
-              <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
-                </div>
-                <input
-                  type="text"
-                  className={`${styles.formControl} form-control formControl `}
-                  placeholder="Search"
-                />
-              </div>
-             
-            </div>
-           
-          </div>
-          </div>
+                
                   <div className={styles.table_container}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
@@ -350,15 +323,25 @@ export default function Index() {
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td colSpan="7" className="p-0">
-                                <select className={`${styles.module} form-control`}>
-                                  <option>INSURANCE</option>
-                                  <option>INSURANCE DOC</option>
-                                </select>
-                              </td>
-                            </tr>
                             <tr className="table_row">
+                        <td colSpan="7" className="p-0">
+                          <div
+                          className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
+                          <div>
+                            <select
+                              className={`${styles.dropDown} table_container input form-control`}
+                            >
+                              <option value="volvo">
+                                Loading, Transit, Unloading
+                              </option>
+                              <option value="India">India</option>
+                            </select>
+                          </div>
+                        </div>
+
+                            </td>
+                          </tr>
+                                    <tr className="table_row">
                               <td className={styles.doc_name}>Policy Document - Marine</td>
                               <td>
                                 <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
@@ -371,19 +354,24 @@ export default function Index() {
                                 ></span>
                                 Verified
                               </td>
-                              <td colSpan="2">
-                                <img
-                                  src="/static/delete.svg"
-                                  className="img-fluid mr-3"
-                                  alt="Bin"
-                                />
-                                <img
-                                  src="/static/upload.svg"
-                                  className="img-fluid"
-                                  alt="Share"
-                                />
-                              </td>
-                            </tr>
+                                        <td colSpan="2">
+                              <img
+                                src="/static/delete.svg"
+                                className={`${styles.delete_image} img-fluid mr-3`}
+                                alt="Bin"
+                              />
+                              <img
+                                src="/static/upload.svg"
+                                className="img-fluid mr-3"
+                                alt="Share"
+                              />
+                              <img
+                                src="/static/drive_file.svg"
+                                className={`${styles.edit_image} img-fluid mr-3`}
+                                alt="Share"
+                              />
+                            </td>
+                                      </tr>
 
                           </tbody>
                         </table>

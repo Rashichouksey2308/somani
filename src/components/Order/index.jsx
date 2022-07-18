@@ -146,8 +146,9 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='countryOfOrigin'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}>
-                  <option value="volvo">{orderDetail?.countryOfOrigin}</option>
+                <div className="d-flex">
+                   <select className={`${styles.input_field} ${styles.customSelect} input form-control`} name='countryOfOrigin'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}>
+                  <option value="volvo">{orderDetail?.input_field}</option>
                   <option value="India">India</option>
                   <option value="America">America</option>
                   <option value="Russia">Russia</option>
@@ -155,6 +156,14 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Country Of Origin<strong className="text-danger">*</strong>
                 </Form.Label>
+                  <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+               
+              
+                </div>
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -173,7 +182,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='supplierName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}>
+                 <div className="d-flex">
+                <select className={`${styles.input_field} ${styles.customSelect} input form-control`} name='supplierName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}>
                   <option value="volvo">{orderDetail?.supplierName}</option>
                   <option value="TATA">TATA</option>
                   <option value="Mittal">Mittal</option>
@@ -182,10 +192,18 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Supplier Name<strong className="text-danger">*</strong>
                 </Form.Label>
+                <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                 </div>
+
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='manufacturerName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
+                <div className="d-flex">
+                <select className={`${styles.input_field} ${styles.customSelect} input form-control`} name='manufacturerName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
                   <option value="volvo">{orderDetail?.manufacturerName}</option>
                   <option value="CBX">CBX</option>
                   <option value="ABX">ABX</option>
@@ -194,10 +212,18 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   Manufacturer / Mines name
                   <strong className="text-danger">*</strong>
                 </Form.Label>
+                    <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='portOfDischarge'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
+                 <div className="d-flex">
+                <select className={`${styles.input_field} ${styles.customSelect} input form-control`} name='portOfDischarge'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
                   <option value="volvo">{orderDetail?.portOfDischarge}</option>
                   <option value="Mumbai">Mumbai</option>
                   <option value="Vizag">Vizag</option>
@@ -205,10 +231,18 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Port Of Discharge<strong className="text-danger">*</strong>
                 </Form.Label>
+                <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                 </div>
+
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <select className={`${styles.input_field} input form-control`} name='incoTerm' onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
+                <div className="d-flex">
+                <select className={`${styles.input_field}  ${styles.customSelect} input form-control`} name='incoTerm' onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
                   <option value="volvo">{orderDetail?.incoTerm}</option>
                   <option value="CFR">CFR</option>
                   <option value="CIF">CIF</option>
@@ -217,11 +251,19 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   INCO Terms<strong className="text-danger">*</strong>
                 </Form.Label>
+             <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <div className="d-flex">
                 <input
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                   type="date"
                   defaultValue={orderDetail?.ExpectedDateOfShipment.split('T')[0]}
                   name='ExpectedDateOfShipment'
@@ -231,6 +273,15 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   Expected Date Of Shipment
                   <strong className="text-danger">*</strong>
                 </Form.Label>
+              
+                <img
+                    className={`${styles.calanderIcon} img-fluid`}
+                    src="/static/caldericon.svg"
+                    alt="Search"
+                  />
+                
+                </div>
+
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

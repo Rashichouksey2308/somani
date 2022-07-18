@@ -239,12 +239,12 @@ const Index = () => {
           <div className='d-flex justify-content-between align-items-center'>
           <div className={`${styles.radio_label} mr-5`} >Is the Insurer same as Marine Insurance?</div>
          <div className={`${styles.theme} d-flex align-items-center`}>
-            <div className={`${styles.toggle_label} mr-2`}>Yes</div>
+            <div className={`${styles.toggle_label} form-check-label mr-2`}>Yes</div>
               <label className={styles.switch}>
                 <input type="checkbox"/>
                 <span className={`${styles.slider} ${styles.round}` }></span>
               </label>
-                <div className={`${styles.toggle_label} ml-2 mr-3`}>No</div>
+                <div className={`${styles.toggle_label} form-check-label ml-2 mr-3`}>No</div>
               </div>
        
           <span>+</span>

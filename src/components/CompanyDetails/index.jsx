@@ -20,7 +20,33 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
     <>
       <div className={`${styles.main} border_color`}>
         <form id="CompanyDetailsForm">
+          <div className='d-flex justify-content-between align-items-center'>
           <div className={`${styles.heading} heading_card_switch_blue`}>Company Profile</div>
+           <div className="d-flex">
+          <div className={`${styles.unit_container} d-flex align-items-center`}>
+            <h5 className={`${styles.unit_label} accordion_Text`}>
+              Quantity :
+            </h5>
+            <select
+              className={`${styles.options} accordion_DropDown`}
+              name="unitOfQuantity" >
+              <option>L</option>
+              <option>MT</option>
+            </select>
+          </div>
+
+          <div className={`${styles.unit_container} d-flex align-items-center`}>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
+            <select
+              className={`${styles.options} accordion_DropDown`}
+              name="unitOfQuantity" >
+              <option>Crores</option>
+              <option>Millions</option>
+            </select>
+            
+          </div>
+        </div>
+        </div>
           <div className={styles.radio_form}>
             <div className={`${styles.sub_heading} sub_heading`}>Transaction Type <strong className='text-danger'>*</strong></div>
             {['radio'].map((type, index) => (
@@ -87,11 +113,12 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
             </div>
 
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <select
+              <div className="d-flex">
+                   <select
                 id="drop"
                 onChange={(e) => { saveCompanyData(e.target.name, e.target.value) }}
                 name="GST"
-                className={`${styles.input_field} input form-control`}
+                className={`${styles.input_field} ${styles.customSelect} input form-control`}
                 required
               >
                 {gstList && gstList.GstinIdArray.map((gstId, index) => (<option key={index} value={gstId}>{gstId}</option>))}
@@ -102,13 +129,21 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
               <label className={`${styles.label_heading} label_heading`} id="drop">
                 GST<strong className='text-danger'>*</strong>
               </label>
+              <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+              </div>
+           
             </div>
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-              <select
+              <div className="d-flex">
+                <select
                 id="Code"
                 onChange={(e) => { saveCompanyData(e.target.name, e.target.value) }}
                 name="typeOfBusiness"
-                className={`${styles.input_field} input form-control`}
+                className={`${styles.input_field}   ${styles.customSelect} input form-control`}
                 required
               >
                  <option value="" selected></option>
@@ -119,6 +154,13 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
               <label className={`${styles.label_heading} label_heading`} id="textInput">
                 Type Of Business<strong className='text-danger'>*</strong>
               </label>
+               <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+              </div>
+
             </div>
 
             <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}>
