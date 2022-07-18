@@ -12,7 +12,7 @@ import {
 } from '../../src/redux/registerBuyer/action'
 import {GetCompanyDetails} from '../../src/redux/companyDetail/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
-import { setPageName } from '../../src/redux/userData/action'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 import { GetDocuments } from '../../src/redux/creditQueueUpdate/action'
 
 
@@ -36,6 +36,7 @@ function Index() {
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
+    dispatch(setDynamicName(null))
   })
   
   

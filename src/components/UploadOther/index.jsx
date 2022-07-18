@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import { useState } from 'react'
 
-const index = () => {
+const Index = () => {
    const [editInput, setEditInput] = useState(true)
 
   const handleDropdown = (e) => {
@@ -262,4 +262,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index

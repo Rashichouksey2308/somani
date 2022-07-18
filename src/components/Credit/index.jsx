@@ -295,7 +295,8 @@ const index = ({
                     saveProductData(e.target.name, e.target.value)
                   }}
                 >
-                  <option>
+                  <option value={creditDetail?.productSummary
+                        ?.existingProcurementOfCommodity}>
                     {
                       creditDetail?.productSummary
                         ?.existingProcurementOfCommodity
@@ -345,7 +346,8 @@ const index = ({
                     saveProductData(e.target.name, e.target.value)
                   }}
                 >
-                  <option>
+                  <option value={creditDetail?.productSummary
+                        ?.contributionCommoditySenstivity}>
                     {
                       creditDetail?.productSummary
                         ?.contributionCommoditySenstivity

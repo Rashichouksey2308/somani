@@ -12,17 +12,21 @@ import DownloadBar from '../../src/components/DownloadBar'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { UpdateMarginMoney } from '../../src/redux/marginMoney/action'
-
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
   const dispatch = useDispatch()
 
+
   const [darkMode, setDarkMode] = useState(false)
 
   const { margin} = useSelector((state) => state.marginMoney)
   console.log(margin, 'id.jsx response')
-
+  useEffect(() => {
+    dispatch(setPageName('margin-money'))
+    dispatch(setDynamicName(margin?.data[0].company.companyName))
+  },[margin])
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -94,10 +98,6 @@ function Index() {
     marginMoney: margin?.data[0]?.calculation?.marginMoney,
     totalSPDC: margin?.data[0]?.calculation?.totalSPDC,
     amountPerSPDC: margin?.data[0]?.calculation?.amountPerSPDC,
-  })
-
-  const [termsheetData, setTermsheetData] = useState({
-
   })
 
   const routeChange = () => {
@@ -233,12 +233,12 @@ function Index() {
                           </div>
                         </div>
                         <h5 className={`${styles.unit_label} accordion_Text`}>
-                          Units :
+                          Unit :
                         </h5>
                         <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
                         >
-                            <option> {margin?.data[0]?.order?.unitOfValue}</option>
+                            <option> {margin?.data[0]?.order?.unitOfValue=="Cr"?"Crores":null}</option>
                           <option>Million</option>
                         </select>
                         <span>+</span>
@@ -333,7 +333,7 @@ function Index() {
                               </label>
                             </div>
                             <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-2 col-sm-4`}
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-4`}
                             >
                               <div
                                 className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}

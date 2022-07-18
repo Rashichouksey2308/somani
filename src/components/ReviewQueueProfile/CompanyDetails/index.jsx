@@ -134,7 +134,7 @@ function Index({order, companyDetail }) {
                                     
                                 </select>
                                 <label className={`${styles.label_heading} label_heading`}>
-                                    Sourcing Channel*
+                                    Sourcing Channel
                                     <strong className="text-danger">*</strong>
                                 </label>
                             </div>
