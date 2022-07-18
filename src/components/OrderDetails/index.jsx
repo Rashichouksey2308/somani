@@ -47,7 +47,7 @@ const index = ({ saveOrderData, darkMode }) => {
               required
             />
             <label className={`${styles.label_heading}  label_heading`} id="textInput">
-              Quantity (in MT)<strong className='text-danger'>*</strong>
+              Quantity<strong className='text-danger'>*</strong>
             </label>
           </div>
 

@@ -92,7 +92,8 @@ function Index() {
       </div>
       <TableMain tableName='Bill of Entries'
       isVesselHeader={true}
-      dateHeading='BOE DATE' />
+      dateHeading='BOE DATE' 
+      isStatus={true}/>
       
       </div>
     </div>

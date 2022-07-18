@@ -152,10 +152,14 @@ export default function Index() {
                           src="/static/browse.svg"
                           alt="Browse"
                         />
-                        <p className={styles.drop_para}>
-                          Drop Files here <br />
-                          or <a href="#">Browse</a>
-                        </p>
+                         <p className={styles.drop_para}>
+                                    Drop Files here or<br />
+                                    
+                                  <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" name="myfile" />
+                                  <a href="#">Browse</a>
+                                  </div>
+                                  </p>
                       </div>
                     </div>
                     <div className="col-md-4 offset-md-1 col-sm-6">

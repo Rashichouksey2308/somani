@@ -5,6 +5,7 @@ import SaveBar from '../SaveBar'
 import InspectionDocument from '../InspectionDocument'
 
 export default function Index() {
+  
   return (
     <>
       
@@ -83,12 +84,12 @@ export default function Index() {
                     PF Bond <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <div className={`${styles.theme} d-flex align-items-center`}>
-                  <div className={`${styles.toggle_label} mr-3`}>Yes</div>
+                  <div className={`${styles.toggle_label} form-check-label mr-3`}>Yes</div>
                     <label className={styles.switch}>
                       <input type="checkbox"/>
                       <span className={`${styles.slider} ${styles.round}` }></span>
                     </label>
-                      <div className={`${styles.toggle_label} ml-3`}>No</div>
+                      <div className={`${styles.toggle_label} form-check-label ml-3`}>No</div>
                     </div>
                             </div>
 
@@ -241,16 +242,13 @@ export default function Index() {
                   </div>
                   <hr></hr>
                   <div className='text-right'>
-                    <div className={`${styles.total_quantity}`}>Total: <span>8,000</span></div>
+                    <div className={`${styles.total_quantity} text `}>Total: <span className='form-check-label ml-2'>8,000</span></div>
                   </div>
-
-               
-        
             </div>
           
              <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
-                    <table className={`${styles.table} table mt-3`} cellPadding="0" cellSpacing="0" border="0">
+                    <table className={`${styles.table} border_color table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th width='35%' >DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
