@@ -62,7 +62,7 @@ function Index() {
   const { companyData } = useSelector((state) => state.companyDetails)
   console.log(companyData, 'this is company data')
 
-  const {documentsFetched} = useSelector((state) => state.review)
+  const { documentsFetched } = useSelector((state) => state.review)
   console.log(documentsFetched, 'documentsFetched')
 
   useEffect(() => {
@@ -73,8 +73,8 @@ function Index() {
 
   useEffect(() => {
     dispatch(GetDocuments(`?order=${orderList?.termsheet?.order}`))
-  
-  }, [ dispatch,companyData])
+
+  }, [dispatch, companyData])
 
   const [selectedTab, setSelectedTab] = useState('Profile')
 
@@ -398,7 +398,7 @@ function Index() {
       name: orderList?.company?.keyContactPerson?.name,
     },
   ])
-  
+
 
 
   useEffect(() => {
@@ -595,11 +595,10 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading pt-3 pb-3`}>
               <img
-                src={`${
-                  darkMode
+                src={`${darkMode
                     ? `/static/white-arrow.svg`
                     : `/static/arrow-right.svg`
-                }`}
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -1049,7 +1048,7 @@ function Index() {
                             className="form-control"
                           >
                             {orderList?.company?.litigationStatus !==
-                            'Active' ? (
+                              'Active' ? (
                               <>
                                 <option value="Pending">Pending</option>
                                 <option value="Active">Active</option>
@@ -1433,43 +1432,6 @@ function Index() {
                             </div>
                           </Form>
                         </div>
-                        <div
-                          className={`${styles.search_container} d-flex justify-content-between pt-3 pl-3 pr-3`}
-                        >
-                          <div>
-                            <select
-                              className={`${styles.dropDown} input form-control`}
-                            >
-                              <option value="volvo">
-                                Loading, Transit, Unloading
-                              </option>
-                              <option value="India">India</option>
-                            </select>
-                          </div>
-
-                          <div
-                            className={`${styles.filter} d-flex align-items-center`}
-                          >
-                            <div className={styles.search}>
-                              <div className="input-group">
-                                <div
-                                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                                >
-                                  <img
-                                    src="/static/search.svg"
-                                    className="img-fluid"
-                                    alt="Search"
-                                  />
-                                </div>
-                                <input
-                                  type="text"
-                                  className={`${styles.formControl} form-control formControl `}
-                                  placeholder="Search"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
 
                         <div className={styles.table_container}>
                           <table
@@ -1498,12 +1460,20 @@ function Index() {
                             <tbody>
                               <tr>
                                 <td colSpan="7" className="p-0">
-                                  <select
-                                    className={`${styles.module} form-control`}
-                                  >
-                                    <option>ORDERS</option>
-                                    <option>ORDERS 2</option>
-                                  </select>
+                                  <div
+                                    className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
+                                    <div>
+                                      <select
+                                        className={`${styles.dropDown} input form-control`}
+                                      >
+                                        <option value="volvo">
+                                          Loading, Transit, Unloading
+                                        </option>
+                                        <option value="India">India</option>
+                                      </select>
+                                    </div>
+                                  </div>
+
                                 </td>
                               </tr>
                               <tr className="table_row">
@@ -1530,57 +1500,17 @@ function Index() {
                                 <td colSpan="2">
                                   <img
                                     src="/static/delete.svg"
-                                    className="img-fluid mr-3"
+                                    className={`${styles.delete_image} img-fluid mr-3`}
                                     alt="Bin"
                                   />
                                   <img
                                     src="/static/upload.svg"
-                                    className="img-fluid"
+                                    className="img-fluid mr-3"
                                     alt="Share"
                                   />
-                                </td>
-                              </tr>
-                       
-                              <tr>
-                                <td colSpan="7" className="p-0">
-                                  <select
-                                    className={`${styles.module} form-control`}
-                                  >
-                                    <option>AGREEMENTS</option>
-                                    <option>AGREEMENTS 1</option>
-                                  </select>
-                                </td>
-                              </tr>
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  Insurance Quotation
-                                </td>
-                                <td>
                                   <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                </td>
-                                <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
-                                </td>
-                                <td className={styles.doc_row}>John Doe</td>
-                                <td>
-                                  <span
-                                    className={`${styles.status} ${styles.approved}`}
-                                  ></span>
-                                  Verified
-                                </td>
-                                <td colSpan="2">
-                                  <img
-                                    src="/static/delete.svg"
-                                    className="img-fluid mr-3"
-                                    alt="Bin"
-                                  />
-                                  <img
-                                    src="/static/upload.svg"
-                                    className="img-fluid"
+                                    src="/static/drive_file.svg"
+                                    className={`${styles.edit_image} img-fluid mr-3`}
                                     alt="Share"
                                   />
                                 </td>
@@ -1609,16 +1539,63 @@ function Index() {
                                 <td colSpan="2">
                                   <img
                                     src="/static/delete.svg"
-                                    className="img-fluid mr-3"
+                                    className={`${styles.delete_image} img-fluid mr-3`}
                                     alt="Bin"
                                   />
                                   <img
                                     src="/static/upload.svg"
-                                    className="img-fluid"
+                                    className="img-fluid mr-3"
+                                    alt="Share"
+                                  />
+                                  <img
+                                    src="/static/drive_file.svg"
+                                    className={`${styles.edit_image} img-fluid mr-3`}
                                     alt="Share"
                                   />
                                 </td>
                               </tr>
+                              <tr className="table_row">
+                                <td className={styles.doc_name}>
+                                  Container Seal No. List
+                                </td>
+                                <td>
+                                  <img
+                                    src="/static/pdf.svg"
+                                    className="img-fluid"
+                                    alt="Pdf"
+                                  />
+                                </td>
+                                <td className={styles.doc_row}>
+                                  28-02-2022,5:30 PM
+                                </td>
+                                <td className={styles.doc_row}>
+                                  Rama Krishnan
+                                </td>
+                                <td>
+                                  <span
+                                    className={`${styles.status} ${styles.rejected}`}
+                                  ></span>
+                                  Pending
+                                </td>
+                                <td colSpan="2">
+                                  <img
+                                    src="/static/delete.svg"
+                                    className={`${styles.delete_image} img-fluid mr-3`}
+                                    alt="Bin"
+                                  />
+                                  <img
+                                    src="/static/upload.svg"
+                                    className="img-fluid mr-3"
+                                    alt="Share"
+                                  />
+                                  <img
+                                    src="/static/drive_file.svg"
+                                    className={`${styles.edit_image} img-fluid mr-3`}
+                                    alt="Share"
+                                  />
+                                </td>
+                              </tr>
+
                             </tbody>
                           </table>
                         </div>
@@ -1632,10 +1609,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-      'Compliance' ||
-      'Orders' ||
-      'Credit' ||
-      'DocumentsTab' ? (
+        'Compliance' ||
+        'Orders' ||
+        'Credit' ||
+        'DocumentsTab' ? (
         <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
       {selectedTab == 'Profile' ? (
