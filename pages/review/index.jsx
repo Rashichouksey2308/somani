@@ -46,6 +46,7 @@ import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 
 import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
+import { GetDocuments, AddingDocument, DeleteDocument } from '../../src/redux/creditQueueUpdate/action'
 
 function Index() {
   const dispatch = useDispatch()
@@ -53,6 +54,11 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
   const [uploadBtn, setUploadBtn] = useState(false)
   const [complienceFilter, setComplienceFilter] = useState('')
+  const [addDoc, setAddDoc] = useState({
+    name: '',
+    module: '',
+    
+  })
 
   const { orderList } = useSelector((state) => state.buyer)
 
@@ -61,10 +67,19 @@ function Index() {
   const { companyData } = useSelector((state) => state.companyDetails)
   console.log(companyData, 'this is company data')
 
+  const { documentsFetched } = useSelector((state) => state.review)
+  console.log(documentsFetched, 'documentsFetched')
+
+
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
     dispatch(setDynamicName(orderList?.company?.companyName))
   }, [orderList, dispatch])
+
+
+  useEffect(() => {
+    dispatch(GetDocuments(`?order=${orderList?.termsheet?.order}`))
+  }, [dispatch, companyData])
 
   const [selectedTab, setSelectedTab] = useState('Profile')
 
@@ -245,7 +260,7 @@ function Index() {
   const [supplierCred, setSupplierCred] = useState()
 
   useEffect(() => {
-    // console.log("this is order list",orderList)
+    //console.log("this is order list", orderList)
     setProduct({
       AvgMonthlyElectricityBill:
         orderList?.productSummary?.AvgMonthlyElectricityBill,
@@ -389,6 +404,8 @@ function Index() {
     },
   ])
 
+
+
   useEffect(() => {
     let groupExposureArr = []
     orderList?.company?.groupExposureDetail?.forEach((element) => {
@@ -460,7 +477,7 @@ function Index() {
     },
   ])
 
-  // console.log(groupExposureData, "THIS IS GROUP EXP DATA")
+  //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
 
   const addGroupExpArr = (exposureData) => {
     let newArr = [...groupExposureData]
@@ -583,11 +600,10 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading pt-3 pb-3`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -1037,7 +1053,7 @@ function Index() {
                             className="form-control"
                           >
                             {orderList?.company?.litigationStatus !==
-                            'Active' ? (
+                              'Active' ? (
                               <>
                                 <option value="Pending">Pending</option>
                                 <option value="Active">Active</option>
@@ -1393,12 +1409,15 @@ function Index() {
                                   >
                                     Document Type
                                   </Form.Label>
-                                  <select
+                                  <select  onChange={()=> console.log("djsf")}
                                     className={`${styles.value} input form-control`}
                                     id="docType"
                                   >
-                                    <option value="volvo">Others</option>
-                                    <option value="audi">N/A</option>
+                                    <option value="LeadOnboarding,OrderApproval">Lead Onboarding & Order Approval</option>
+                                    <option value="Agreements,Insurance,LCOpening">Agreements, Insurance & LC Opening</option>
+                                    <option value="Loading-Transit-Unloading">Loading-Transit- Unloading</option>
+                                    <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
+                                    <option value="others">Others</option>
                                   </select>
                                 </Form.Group>
                                 <Form.Group className={styles.form_group}>
@@ -1425,7 +1444,7 @@ function Index() {
                             </div>
                           </Form>
                         </div>
-                       
+
                         <div className={styles.table_container}>
                           <table
                             className={`${styles.table} table`}
@@ -1455,18 +1474,19 @@ function Index() {
 
                                 <td colSpan="7" className="p-0">
                                   <div
-                                  className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
-                                  <div>
-                                    <select
-                                      className={`${styles.dropDown} table_container input form-control`}
-                                    >
-                                      <option value="volvo">
-                                        Loading, Transit, Unloading
-                                      </option>
-                                      <option value="India">India</option>
-                                    </select>
+                                    className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
+                                    <div>
+                                      <select
+                                        className={`${styles.dropDown} input form-control`}
+                                      >
+                                        <option value="LeadOnboarding&OrderApproval">Lead Onboarding & Order Approval</option>
+                                        <option value="Agreements,Insurance&LCOpening">Agreements, Insurance & LC Opening</option>
+                                        <option value="Loading-Transit-Unloading">Loading-Transit- Unloading</option>
+                                        <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
+                                        <option value="others">Others</option>
+                                      </select>
+                                    </div>
                                   </div>
-                                </div>
 
                                 </td>
                               </tr>
@@ -1509,87 +1529,56 @@ function Index() {
                                   />
                                 </td>
                               </tr>
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  Container No. List
-                                </td>
-                                <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                </td>
-                                <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
-                                </td>
-                                <td className={styles.doc_row}>Buyer</td>
-                                <td>
-                                  <span
-                                    className={`${styles.status} ${styles.approved}`}
-                                  ></span>
-                                  Verified
-                                </td>
-                                <td colSpan="2">
-                                  <img
-                                    src="/static/delete.svg"
-                                    className={`${styles.delete_image} img-fluid mr-3`}
-                                    alt="Bin"
-                                  />
-                                  <img
-                                    src="/static/upload.svg"
-                                    className="img-fluid mr-3"
-                                    alt="Share"
-                                  />
-                                  <img
-                                    src="/static/drive_file.svg"
-                                    className={`${styles.edit_image} img-fluid mr-3`}
-                                    alt="Share"
-                                  />
-                                </td>
-                              </tr>
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  Container Seal No. List
-                                </td>
-                                <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                </td>
-                                <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
-                                </td>
-                                <td className={styles.doc_row}>
-                                  Rama Krishnan
-                                </td>
-                                <td>
-                                  <span
-                                    className={`${styles.status} ${styles.rejected}`}
-                                  ></span>
-                                  Pending
-                                </td>
-                                <td colSpan="2">
-                                  <img
-                                    src="/static/delete.svg"
-                                    className={`${styles.delete_image} img-fluid mr-3`}
-                                    alt="Bin"
-                                  />
-                                  <img
-                                    src="/static/upload.svg"
-                                    className="img-fluid mr-3"
-                                    alt="Share"
-                                  />
-                                  <img
-                                    src="/static/drive_file.svg"
-                                    className={`${styles.edit_image} img-fluid mr-3`}
-                                    alt="Share"
-                                  />
-                                </td>
-                              </tr>
-                             
+
+
+                              {/* {documentsFetched && documentsFetched?.documents?.map((document, index) => {
+                                if (document.deleted) {
+                                  return null
+                                } else {
+                                  return (
+                                    <tr key={index} className="table_row">
+                                      <td className={`${styles.doc_name}`}>
+                                        {document.name}
+                                      </td>
+                                      <td>
+                                        <img
+                                          src="/static/pdf.svg"
+                                          className="img-fluid"
+                                          alt="Pdf"
+                                        />
+                                      </td>
+                                      <td className={styles.doc_row}>
+                                        {document.date}
+                                      </td>
+                                      <td className={styles.doc_row}>{document.uploadedBy}</td>
+                                      <td>
+                                        <span
+                                          className={`${styles.status} ${styles.approved}`}
+                                        ></span>
+                                        {document?.verification?.status}
+                                      </td>
+                                      <td colSpan="2">
+                                        <img
+                                          onClick={() => dispatch(DeleteDocument({ orderDocumentId: documentsFetched._id, name: document.name }))}
+                                          src="/static/delete.svg"
+                                          className={`${styles.delete_image} img-fluid mr-3`}
+                                          alt="Bin"
+                                        />
+                                        <img
+                                          src="/static/upload.svg"
+                                          className="img-fluid mr-3"
+                                          alt="Share"
+                                        />
+                                        <img
+                                          src="/static/drive_file.svg"
+                                          className={`${styles.edit_image} img-fluid mr-3`}
+                                          alt="Share"
+                                        />
+                                      </td>
+                                    </tr>
+                                  )
+                                }
+                              })} */}
                             </tbody>
                           </table>
                         </div>
@@ -1603,10 +1592,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-      'Compliance' ||
-      'Orders' ||
-      'Credit' ||
-      'DocumentsTab' ? (
+        'Compliance' ||
+        'Orders' ||
+        'Credit' ||
+        'DocumentsTab' ? (
         <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
       {selectedTab == 'Profile' ? (
@@ -1647,7 +1636,7 @@ const uploadButton = (dispatch, orderList) => {
     <>
       <button onClick={() =>
         //console.log("update initiated ")
-          dispatch(RefetchCombineKarza({ company: orderList?.company?._id}))
+        dispatch(RefetchCombineKarza({ company: orderList?.company?._id }))
       } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
       <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
     </>

@@ -34,7 +34,7 @@ export const createStore = (preloadedState) => {
       user: UserReducer,
       marginMoney: MarginMoneyReducer,
       companyDetails: CompanyReducer,
-      creditQueue: CreditReducer,
+      review: CreditReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>
