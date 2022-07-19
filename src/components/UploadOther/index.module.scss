@@ -423,3 +423,23 @@ height: 40px;
         height: 25px;
     }
 }
+.arrow {
+
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+
+
+}
+
+.customSelect {
+    appearance: none;
+    // position: relative;
+
+}

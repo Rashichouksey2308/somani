@@ -103,8 +103,9 @@ export default function Home() {
 
               <div className="row">
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                   <div className='d-flex'>
                   <select
-                    className={`${styles.input_field} input form-control`}
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     required
                   >
                     <option>Australia</option>
@@ -113,10 +114,17 @@ export default function Home() {
                   <label className={`${styles.label_heading} label_heading`}>
                     Country of Origin<strong className="text-danger">*</strong>
                   </label>
+                   <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                 <div className='d-flex'>
                   <select
-                    className={`${styles.input_field} input form-control`}
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     required
                   >
                     <option value="volvo">Perth</option>
@@ -125,10 +133,17 @@ export default function Home() {
                   <label className={`${styles.label_heading} label_heading`}>
                     Port of Loading<strong className="text-danger">*</strong>
                   </label>
+                   <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                   <div className='d-flex'>
                   <select
-                    className={`${styles.input_field} input form-control`}
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     required
                   >
                     <option value="volvo">Navasheva</option>
@@ -137,8 +152,15 @@ export default function Home() {
                   <label className={`${styles.label_heading} label_heading`}>
                     Port of Discharge<strong className="text-danger">*</strong>
                   </label>
+                   <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
                 </div>
                 <div className={`${styles.form_group} col-md-3 col-sm-6`}>
+                    <div className="d-flex">
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="date"
@@ -146,8 +168,15 @@ export default function Home() {
                   <label className={`${styles.label_heading} label_heading`}>
                     ETD at Load Port<strong className="text-danger">*</strong>
                   </label>
+                   <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>    
                 </div>
                 <div className={`${styles.form_group} col-md-3 col-sm-6`}>
+                 <div className="d-flex">
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="date"
@@ -156,6 +185,12 @@ export default function Home() {
                     ETA at Discharge Port
                     <strong className="text-danger">*</strong>
                   </label>
+                   <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>    
                 </div>
               </div>
             </div>
