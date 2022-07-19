@@ -46,7 +46,7 @@ const Index = () => {
 
   return (
     <>
-      <div className={`${styles.root_Container} card`}>
+      <div className={`${styles.root_Container} `}>
         <div className={styles.wrapper}>
           <div className={styles.head}>
             <img onClick={()=>  Router.push('/leads')}

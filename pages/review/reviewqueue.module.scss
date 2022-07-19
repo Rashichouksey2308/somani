@@ -56,6 +56,13 @@
             border-bottom: none;
             overflow-x: auto;
             width: 100%;
+          @include respond(xl-desktop) {
+
+          }
+            @include respond(lg-desktop) {
+                 
+                    flex-wrap: nowrap;
+                }
             @include respond(md-desktop) {
                     width: calc(100vw - 60px);
                     flex-wrap: nowrap;
@@ -79,6 +86,10 @@
                     margin: 0 22px;
                     border-radius: 0;
                     border-bottom: 6px solid transparent;
+                    @include respond(lg-desktop) {
+                        font-size: 22px;
+                        margin: 0 10px;
+                        }
                     @include respond(phone) {
                         font-size:15px;
                         margin: 0 2px;
@@ -1039,7 +1050,7 @@
         height: 62px;
     
         .dropDown{
-            background: #FFFFFF;
+            //background: #FFFFFF;
             border: 1px solid #0000001F;
             border-radius: 4px;
             color: #3687E8;
@@ -1319,3 +1330,44 @@
     }
 }
 
+.edit_image {
+    background: #C3C3C31F;
+    border: 1px solid #0000001F;
+    border-radius: 4px;
+    padding: 10px 9px 10px 9px;
+
+    @include respond(md-desktop) {
+        height: 30px;
+        padding: 7px;
+    }
+
+    @include respond(sm-desktop) {
+        height: 28px;
+        padding: 6px;
+    }
+
+    @include respond(phone) {
+        height: 25px;
+        padding: 5px;
+    }
+}
+
+.delete_image {
+    background: #C3C3C31F;
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        padding: 7px 5px;
+    width: 40px;
+        height: 40px;
+    @include respond(md-desktop) {
+        height: 30px;
+    }
+
+    @include respond(sm-desktop) {
+        height: 28px;
+    }
+
+    @include respond(phone) {
+        height: 25px;
+    }
+}

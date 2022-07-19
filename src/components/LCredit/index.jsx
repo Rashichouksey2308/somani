@@ -219,9 +219,9 @@ function Index() {
           >
             <thead>
               <tr>
-                <th>DOCUMENT NAME  <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
-                <th>FORMAT <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/></th>
-                <th>DOCUMENT DATE <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/> </th>
+                <th>DOCUMENT NAME  <img className={`mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>FORMAT <img className={`mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
+                <th>DOCUMENT DATE <img className={`mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/> </th>
                 <th width="30%" >ACTION</th>
                 
               </tr>
@@ -255,9 +255,13 @@ function Index() {
                     alt="Browse"
                   />
                   <p className={styles.drop_para}>
-                    Drop Files here <br />
-                    or <a href="#">Browse</a>
-                  </p>
+                                    Drop Files here or<br />
+                                    
+                                  <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" name="myfile" />
+                                  <a href="#">Browse</a>
+                                  </div>
+                                  </p>
                 </div>
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">

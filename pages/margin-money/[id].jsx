@@ -12,17 +12,21 @@ import DownloadBar from '../../src/components/DownloadBar'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { UpdateMarginMoney } from '../../src/redux/marginMoney/action'
-
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
   const dispatch = useDispatch()
 
+
   const [darkMode, setDarkMode] = useState(false)
 
   const { margin} = useSelector((state) => state.marginMoney)
-  // console.log(margin, 'id.jsx response')
-
+  console.log(margin, 'id.jsx response')
+  useEffect(() => {
+    dispatch(setPageName('margin-money'))
+    dispatch(setDynamicName(margin?.data[0].company.companyName))
+  },[margin])
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -37,11 +41,15 @@ function Index() {
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: margin?.data[0]?.isUsanceInterestIncluded,
     status: margin?.data[0]?.status,
-    quantity:margin?.data[0]?.order?.quantity,
+    quantity: margin?.data[0]?.order?.quantity,
     additionalPDC: margin?.data[0]?.additionalPDC,
     conversionRate: margin?.data[0]?.conversionRate,
-
+    perUnitPrice: margin?.data[0]?.order?.perUnitPrice,
+    usanceInterestPercetage: margin?.data[0]?.order?.termsheet?.commercials?.usanceInterestPercetage,
     numberOfPDC: margin?.data[0]?.numberOfPDC,
+    tradeMarginPercentage: margin?.data[0]?.order?.termsheet?.commercials?.tradeMarginPercentage,
+    tolerance: margin?.data[0]?.order?.tolerance,
+    marginMoney: margin?.data[0]?.order?.termsheet?.transactionDetails?.marginMoney
   })
 
   const saveForCalculation = (name, value) => {
@@ -90,10 +98,6 @@ function Index() {
     marginMoney: margin?.data[0]?.calculation?.marginMoney,
     totalSPDC: margin?.data[0]?.calculation?.totalSPDC,
     amountPerSPDC: margin?.data[0]?.calculation?.amountPerSPDC,
-  })
-
-  const [termsheetData, setTermsheetData] = useState({
-
   })
 
   const routeChange = () => {
@@ -229,12 +233,12 @@ function Index() {
                           </div>
                         </div>
                         <h5 className={`${styles.unit_label} accordion_Text`}>
-                          Units :
+                          Unit :
                         </h5>
                         <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
                         >
-                            <option> {margin?.data[0]?.order?.unitOfValue}</option>
+                            <option> {margin?.data[0]?.order?.unitOfValue=="Cr"?"Crores":null}</option>
                           <option>Million</option>
                         </select>
                         <span>+</span>
@@ -249,270 +253,140 @@ function Index() {
                       <div className={`${styles.cardBody} card-body `}>
                         <div className={`${styles.content} border_color`}>
                           <div className={`${styles.input_container} row`}>
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
+                              <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>A</span>
                               </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="quantity"
-                                defaultValue={margin?.data[0]?.order?.quantity}
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Quantity
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                 Quantity<strong className='text-danger'>*</strong>
+                                </label>
+                                 <div className={`${styles.val}  heading`}>{margin?.data[0]?.order?.quantity}</div>
+                                </div>
+                          </div>
+                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>B</span>
                               </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Unit Price
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                 Unit Price<strong className='text-danger'>*</strong>
+                                </label>
+                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.order?.perUnitPrice}</div>
+                                </div>
+                          </div>
+                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>C</span>
                               </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="conversionRate"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.conversionRate}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Conversation Rate
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-2 col-sm-4`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                 Conversion Rate<strong className='text-danger'>*</strong>
+                                </label>
+                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.conversionRate}</div>
+                                </div>
+                          </div>
+                                                        <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>D</span>
                               </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
-                                className={`${styles.input_field} input form-control`}
-                                style={{ width: '50%' }}
-                                required
-                              />
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                Usance Interest (%) (For 90 Days)<strong className='text-danger'>*</strong>
+                                </label>
+                                 <div className={`${styles.val} heading d-flex align-items-center`}>{margin?.data[0]?.order?.termsheet?.commercials?.usanceInterestPercetage}
+                                 <div className={` d-flex align-items-center`}>
+                                <label className={`${styles.label_heading} ml-3 label_heading mb-0`} id="textInput">Include in Calculation
+                                 
+                                 </label>
+                                                                         <Form>
+                                {['radio'].map((type) => (
+                                    <div key={`inline-${type}`} className={`${styles.radio_group} d-flex ml-3`}>
+                                    <Form.Check
+                                        className={`${styles.radio} radio`}
+                                        inline
+                                        label="Yes"
+                                        
+                                        name="group1"
+                                        type={type}
+                                        id={`inline-${type}-1`}
+                                    />
+                                    <Form.Check
+                                        className={`${styles.radio} radio`}
+                                        inline
+                                        label="No"
+                                        
+                                        name="group1"
+                                        type={type}
+                                        id={`inline-${type}-2`}
+                                    />
 
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Usance Interest (%)
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>
-                            <div
-                              className={`${styles.radio_heading} ml-n5 mt-4 form-check form-check-inline`}
-                              //style={{top:"50px", left:"100px"}}
-                            >
-                              {' '}
-                              Include in Calculation
-                              <input
-                                className="form-check-input ml-3"
-                                type="radio"
-                                name="inlineRadioOptions"
-                                defaultChecked={margin?.data[0]?.isUsanceInterestIncluded === true}
-                                onChange={(e)=>saveForCalculation("isUsanceInterestIncluded", true)}
-                              />
-                              <label
-                                className="form-check-label mr-2"
-                                for="inlineRadio1"
-                              >
-                                Yes
-                              </label>
-                              <input
-                                className="form-check-input ml-2"
-                                type="radio"
-                                name="inlineRadioOptions"
-                                defaultChecked={margin?.data[0]?.isUsanceInterestIncluded === false}
-                                onChange={(e)=>saveForCalculation('isUsanceInterestIncluded', false)}
-                              />
-                              <label
-                                className="form-check-label"
-                                for="inlineRadio2"
-                              >
-                                No
-                              </label>
-                            </div>
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
+                                    
+                                    </div>
+                                ))}
+                                </Form>
+                                 </div>
+                   
+
+                                 </div>
+                                </div>
+                          </div>
+                            <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>E</span>
                               </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Trade Margin (%)
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>{' '}
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                 Trade Margin (%)<strong className='text-danger'>*</strong>
+                                </label>
+                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.order?.termsheet?.commercials?.tradeMarginPercentage}</div>
+                                </div>
+                          </div>
+                            <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>F</span>
                               </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Tolerance (+/-) Percentage
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>{' '}
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                                Tolerance (+/-) Percentage<strong className='text-danger'>*</strong>
+                                </label>
+                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.order?.toleranc}</div>
+                                </div>
+                          </div>
+                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>G</span>
                               </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="companyPan"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Margin Money (%)
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>{' '}
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                               Margin Money (%)<strong className='text-danger'>*</strong>
+                                </label>
+                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.order?.termsheet?.transactionDetails?.marginMoney}</div>
+                                </div>
+                          </div>
+                           <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>H</span>
                               </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="numberOfPDC"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.numberOfPDC}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                No. of PDC's
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>
-                            <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                              {` No. of PDC's`}<strong className='text-danger'>*</strong>
+                                </label>
+                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.numberOfPDC}</div>
+                                </div>
+                          </div>
+                           <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>I</span>
                               </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="additionalPDC"
-                                onChange={(e)=>saveForCalculation(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.additionalPDC}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Additional PDC's
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>
+                                <div className={`${styles.val_wrapper} ml-3`}>
+                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
+                              {`Additional PDC's`}<strong className='text-danger'>*</strong>
+                                </label>
+                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.additionalPDC}</div>
+                                </div>
+                          </div>
+
                           </div>
                         </div>
                         <div className={`${styles.content} border_color`}>

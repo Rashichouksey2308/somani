@@ -46,28 +46,40 @@ import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 
 import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
-
-
+import { GetDocuments, AddingDocument, DeleteDocument } from '../../src/redux/creditQueueUpdate/action'
 
 function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
   const [uploadBtn, setUploadBtn] = useState(false)
-  const [complienceFilter, setComplienceFilter] = useState("")
-
+  const [complienceFilter, setComplienceFilter] = useState('')
+  const [addDoc, setAddDoc] = useState({
+    name: '',
+    module: '',
+    
+  })
 
   const { orderList } = useSelector((state) => state.buyer)
 
-   console.log(orderList, 'this is order list')
+  console.log(orderList, 'this is order list')
 
   const { companyData } = useSelector((state) => state.companyDetails)
-  console.log(companyData, "this is company data")
+  console.log(companyData, 'this is company data')
+
+  const { documentsFetched } = useSelector((state) => state.review)
+  console.log(documentsFetched, 'documentsFetched')
+
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
     dispatch(setDynamicName(orderList?.company?.companyName))
   }, [orderList, dispatch])
+
+
+  useEffect(() => {
+    dispatch(GetDocuments(`?order=${orderList?.termsheet?.order}`))
+  }, [dispatch, companyData])
 
   const [selectedTab, setSelectedTab] = useState('Profile')
 
@@ -92,15 +104,15 @@ function Index() {
 
   const [shipment, setShipment] = useState({
     ETAofDischarge: {
-      fromDate: orderList?.shipmentDetails?.ETAofDischarge.fromDate,
-      toDate: orderList?.shipmentDetails?.ETAofDischarge?.toDate,
+      fromDate: orderList?.shipmentDetail?.ETAofDischarge?.fromDate,
+      toDate: orderList?.shipmentDetail?.ETAofDischarge?.toDate,
     },
-    lastDateOfShipment: orderList?.shipmentDetails?.lastDateOfShipment,
+    lastDateOfShipment: orderList?.shipmentDetail?.lastDateOfShipment,
     loadPort: {
-      fromDate: orderList?.shipmentDetails?.loadPort?.fromDate,
-      toDate: orderList?.shipmentDetails?.loadPort?.toDate,
+      fromDate: orderList?.shipmentDetail?.loadPort?.fromDate,
+      toDate: orderList?.shipmentDetail?.loadPort?.toDate,
     },
-    shipmentType: orderList?.shipmentDetails?.shipmentType,
+    shipmentType: orderList?.shipmentDetail?.shipmentType,
   })
 
   const saveOrderData = (name, value) => {
@@ -236,30 +248,7 @@ function Index() {
     }
   }
 
-  const [product, setProduct] = useState({
-    AvgMonthlyElectricityBill:
-      orderList?.productSummary?.AvgMonthlyElectricityBill,
-    availableStock: orderList?.productSummary?.availableStock,
-    averageStockInTransit: orderList?.productSummary?.averageStockInTransit,
-    averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity,
-    capacityUtilization: orderList?.productSummary?.capacityUtilization,
-    contributionCommoditySenstivity:
-      orderList?.productSummary?.contributionCommoditySenstivity,
-    dailyConsumptionOfCommodity:
-      orderList?.productSummary?.dailyConsumptionOfCommodity,
-    existingCHA: [],
-    existingProcurementOfCommodity:
-      orderList?.productSummary?.existingProcurementOfCommodity,
-    existingSuppliers: [],
-    monthlyProductionCapacity:
-      orderList?.productSummary?.monthlyProductionCapacity,
-    paymentStatusForElectricityBills:
-      orderList?.productSummary?.paymentStatusForElectricityBills,
-    stockCoverageOfCommodity:
-      orderList?.productSummary?.stockCoverageOfCommodity,
-    typeOfCurrency: orderList?.productSummary?.typeOfCurrency,
-    unitOfQuantity: orderList?.productSummary?.unitOfQuantity,
-  })
+  const [product, setProduct] = useState()
 
   const saveProductData = (name, value) => {
     const newInput = { ...product }
@@ -268,27 +257,17 @@ function Index() {
     setProduct(newInput)
   }
 
-  const [supplierCred, setSupplierCred] = useState({
-    HSCodesNumber: orderList?.supplierCredentials?.HSCodesNumber,
-    commodityOfTotalTrade:
-      orderList?.supplierCredentials?.commodityOfTotalTrade,
-    consigneesNumber: orderList?.supplierCredentials?.consigneesNumber,
-    countryOfOrigin: orderList?.supplierCredentials?.countryOfOrigin,
-    latestShipmentDate: orderList?.supplierCredentials?.lastDateOfShipment,
-    oldestShipmentDate: orderList?.supplierCredentials?.oldestShipmentDate,
-    portOfDestination: orderList?.supplierCredentials?.portOfDestination,
-    remarks: orderList?.supplierCredentials?.remarks,
-    shipmentNumber: orderList?.supplierCredentials?.shipmentNumber,
-    supplierName: orderList?.supplierCredentials?.supplierName,
-  })
+  const [supplierCred, setSupplierCred] = useState()
 
   useEffect(() => {
+    //console.log("this is order list", orderList)
     setProduct({
       AvgMonthlyElectricityBill:
         orderList?.productSummary?.AvgMonthlyElectricityBill,
       availableStock: orderList?.productSummary?.availableStock,
       averageStockInTransit: orderList?.productSummary?.averageStockInTransit,
-      averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity,
+      averageStockOfCommodity:
+        orderList?.productSummary?.averageStockOfCommodity,
       capacityUtilization: orderList?.productSummary?.capacityUtilization,
       contributionCommoditySenstivity:
         orderList?.productSummary?.contributionCommoditySenstivity,
@@ -308,22 +287,21 @@ function Index() {
       unitOfQuantity: orderList?.productSummary?.unitOfQuantity,
     })
     setSupplierCred({
-      HSCodesNumber: orderList?.supplierCredentials?.HSCodesNumber,
+      HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber,
       commodityOfTotalTrade:
-        orderList?.supplierCredentials?.commodityOfTotalTrade,
-      consigneesNumber: orderList?.supplierCredentials?.consigneesNumber,
-      countryOfOrigin: orderList?.supplierCredentials?.countryOfOrigin,
-      latestShipmentDate: orderList?.supplierCredentials?.lastDateOfShipment,
-      oldestShipmentDate: orderList?.supplierCredentials?.oldestShipmentDate,
-      portOfDestination: orderList?.supplierCredentials?.portOfDestination,
-      remarks: orderList?.supplierCredentials?.remarks,
-      shipmentNumber: orderList?.supplierCredentials?.shipmentNumber,
-      supplierName: orderList?.supplierCredentials?.supplierName,
+        orderList?.supplierCredential?.commodityOfTotalTrade,
+      consigneesNumber: orderList?.supplierCredential?.consigneesNumber,
+      countryOfOrigin: orderList?.supplierCredential?.countryOfOrigin,
+      latestShipmentDate: orderList?.supplierCredential?.latestShipmentDate,
+      oldestShipmentDate: orderList?.supplierCredential?.oldestShipmentDate,
+      portOfDestination: orderList?.supplierCredential?.portOfDestination,
+      remarks: orderList?.supplierCredential?.remarks,
+      shipmentNumber: orderList?.supplierCredential?.shipmentNumber,
+      supplierName: orderList?.supplierCredential?.supplierName,
     })
-
   }, [orderList])
 
-  console.log(supplierCred, "THIS IS SUPPLIER CRED")
+
 
   const saveSupplierData = (name, value) => {
     const newInput = { ...supplierCred }
@@ -426,7 +404,7 @@ function Index() {
     },
   ])
 
- 
+
 
   useEffect(() => {
     let groupExposureArr = []
@@ -499,7 +477,7 @@ function Index() {
     },
   ])
 
-  console.log(groupExposureData, "THIS IS GROUP EXP DATA")
+  //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
 
   const addGroupExpArr = (exposureData) => {
     let newArr = [...groupExposureData]
@@ -550,14 +528,14 @@ function Index() {
     const obj = {
       approvalRemarks: [...approveComment],
       order: orderList._id,
-      status: 'Approved'
+      status: 'Approved',
     }
     dispatch(UpdateCam(obj))
   }
   const handleCamReject = () => {
     const obj = {
       order: orderList._id,
-      status: 'Rejected'
+      status: 'Rejected',
     }
     dispatch(UpdateCam(obj))
   }
@@ -568,60 +546,52 @@ function Index() {
   const onNext = () => {
     let list = document.getElementsByClassName('nav-tabs')
     let tab = document.getElementsByClassName('tab-content')
- for (let i = 0; i < list[0].children.length; i++) {
-       
-         console.log(list[0].children[i].children[0].innerHTML,"check")
-         if(list[0].children[i].children[0].classList.contains("active")){
-         
-          let tempIndex=i+1;
-          if(tempIndex<list[0].children.length){
+    for (let i = 0; i < list[0].children.length; i++) {
+      //  console.log(list[0].children[i].children[0].innerHTML,"check")
+      if (list[0].children[i].children[0].classList.contains('active')) {
+        let tempIndex = i + 1
+        if (tempIndex < list[0].children.length) {
           setSelectedTab(list[0].children[tempIndex].children[0].innerHTML)
-          list[0].children[i].children[0].classList.remove("active")
-          list[0].children[tempIndex].children[0].classList.add("active")
-          tab[0].children[i].classList.remove("show")
-          tab[0].children[i].classList.remove("active")
-          tab[0].children[tempIndex].classList.add("show")
-          tab[0].children[tempIndex].classList.add("active")
-          break;
-          }
-          
-
-         }
-        
+          list[0].children[i].children[0].classList.remove('active')
+          list[0].children[tempIndex].children[0].classList.add('active')
+          tab[0].children[i].classList.remove('show')
+          tab[0].children[i].classList.remove('active')
+          tab[0].children[tempIndex].classList.add('show')
+          tab[0].children[tempIndex].classList.add('active')
+          break
+        }
+      }
     }
-
   }
-    const onBack = () => {
+  const onBack = () => {
     let list = document.getElementsByClassName('nav-tabs')
     let tab = document.getElementsByClassName('tab-content')
- for (let i = 0; i < list[0].children.length; i++) {
-       
-         console.log(list[0].children[i].children[0].classList,"check")
-         if(list[0].children[i].children[0].classList.contains("active")){
-          let tempIndex=i-1;
-          if(tempIndex>=0){
+    for (let i = 0; i < list[0].children.length; i++) {
+      //  console.log(list[0].children[i].children[0].classList,"check")
+      if (list[0].children[i].children[0].classList.contains('active')) {
+        let tempIndex = i - 1
+        if (tempIndex >= 0) {
           setSelectedTab(list[0].children[tempIndex].children[0].innerHTML)
-          list[0].children[i].children[0].classList.remove("active")
-          list[0].children[tempIndex].children[0].classList.add("active")
-          tab[0].children[i].classList.remove("show")
-          tab[0].children[i].classList.remove("active")
-          tab[0].children[tempIndex].classList.add("show")
-          tab[0].children[tempIndex].classList.add("active")
-          break;
-          }
-          
-
-         }
-        
+          list[0].children[i].children[0].classList.remove('active')
+          list[0].children[tempIndex].children[0].classList.add('active')
+          tab[0].children[i].classList.remove('show')
+          tab[0].children[i].classList.remove('active')
+          tab[0].children[tempIndex].classList.add('show')
+          tab[0].children[tempIndex].classList.add('active')
+          break
+        }
+      }
     }
-
   }
 
   const updateLitigationStatus = (e) => {
-    dispatch(UpdateCompanyDetails({ _id: orderList?.company?._id, litigationStatus: e.target.value }))
+    dispatch(
+      UpdateCompanyDetails({
+        _id: orderList?.company?._id,
+        litigationStatus: e.target.value,
+      }),
+    )
   }
-
-
 
   return (
     <>
@@ -639,9 +609,11 @@ function Index() {
               />
               {orderList?.company?.companyName}
             </h1>
-            {uploadBtn ?
+            {uploadBtn ? (
               <div className="ml-auto">
-                {uploadButton(dispatch,orderList)} </div> : null}
+                {uploadButton(dispatch, orderList)}{' '}
+              </div>
+            ) : null}
             {/* <div className="ml-auto">
                 <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                 <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
@@ -721,9 +693,8 @@ function Index() {
                 aria-controls="Orders"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(false)
-
                 }}
               >
                 Orders
@@ -738,10 +709,8 @@ function Index() {
                 aria-controls="Credit"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(false)
-
-
                 }}
               >
                 Credit
@@ -756,9 +725,8 @@ function Index() {
                 aria-controls="DocumentsTab"
                 aria-selected="true"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(false)
-
                 }}
               >
                 Documents
@@ -773,10 +741,8 @@ function Index() {
                 aria-controls="CAM"
                 aria-selected="false"
                 onClick={(e) => {
-                  currentOpenLink(e);
+                  currentOpenLink(e)
                   setUploadBtn(true)
-
-
                 }}
               >
                 CAM
@@ -794,9 +760,9 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <CompanyDetails order={orderList?.company} companyId={companyData?.company} companyDetail={companyData?.profile?.companyDetail} />
+                    <CompanyDetails order={orderList?.company} companyId={companyData?.company} companyDetail={companyData} />
                     <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
-                    <AuditorDeatils directorDetail={companyData?.profile?.directorDetail} />
+                    <AuditorDeatils directorData={companyData} />
                     <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
                     <CreditRatings creditRating={companyData?.profile?.creditRating} />
                   </div>
@@ -841,7 +807,9 @@ function Index() {
                           <div
                             className={`${styles.status} d-flex align-items-center justify-content-between`}
                           >
-                            <span>{companyData?.compliance?.other?.complianceStatus} </span>
+                            <span>
+                              {companyData?.compliance?.other?.complianceStatus}{' '}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -871,22 +839,30 @@ function Index() {
                               <div
                                 className={`${styles.val} d-flex align-items-center justify-content-start`}
                               >
-                                {companyData?.compliance?.alerts?.map((alert, index) => {
-                                  if (alert.severity.trim().toLowerCase() === "severe") {
-                                    return (
-                                      <div key={index}
-                                        className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}
-                                      >
-                                        <div className={styles.purple_dot}></div>
+                                {companyData?.compliance?.alerts?.map(
+                                  (alert, index) => {
+                                    if (
+                                      alert.severity.trim().toLowerCase() ===
+                                      'severe'
+                                    ) {
+                                      return (
                                         <div
-                                          className={`${styles.compliance_content} Compliance ml-1`}
+                                          key={index}
+                                          className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}
                                         >
-                                          {alert.alert}
+                                          <div
+                                            className={styles.purple_dot}
+                                          ></div>
+                                          <div
+                                            className={`${styles.compliance_content} Compliance ml-1`}
+                                          >
+                                            {alert.alert}
+                                          </div>
                                         </div>
-                                      </div>
-                                    )
-                                  }
-                                })}
+                                      )
+                                    }
+                                  },
+                                )}
                               </div>
                             </div>
                           </Col>
@@ -902,25 +878,28 @@ function Index() {
                               <div
                                 className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
                               >
-                                {companyData?.compliance?.alerts?.map((alert, index) => {
-                                  if (alert.severity.trim().toLowerCase() === "high") {
-                                    return (
-                                      <div key={index}
-                                        className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
-                                      >
-                                        <div className={styles.red_dot}></div>
+                                {companyData?.compliance?.alerts?.map(
+                                  (alert, index) => {
+                                    if (
+                                      alert.severity.trim().toLowerCase() ===
+                                      'high'
+                                    ) {
+                                      return (
                                         <div
-                                          className={`${styles.compliance_content} Compliance ml-1`}
+                                          key={index}
+                                          className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
                                         >
-                                          {alert.alert}
+                                          <div className={styles.red_dot}></div>
+                                          <div
+                                            className={`${styles.compliance_content} Compliance ml-1`}
+                                          >
+                                            {alert.alert}
+                                          </div>
                                         </div>
-                                      </div>
-                                    )
-                                  }
-
-
-                                })}
-
+                                      )
+                                    }
+                                  },
+                                )}
                               </div>
                             </div>
                           </Col>
@@ -936,24 +915,30 @@ function Index() {
                               <div
                                 className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
                               >
-                                {companyData?.compliance?.alerts?.map((alert, index) => {
-                                  if (alert.severity.trim().toLowerCase() === "medium") {
-                                    return (
-                                      <div key={index}
-                                        className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}
-                                      >
-                                        <div className={styles.yellow_dot}></div>
+                                {companyData?.compliance?.alerts?.map(
+                                  (alert, index) => {
+                                    if (
+                                      alert.severity.trim().toLowerCase() ===
+                                      'medium'
+                                    ) {
+                                      return (
                                         <div
-                                          className={`${styles.compliance_content} Compliance ml-1`}
+                                          key={index}
+                                          className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}
                                         >
-                                          {alert.alert}
+                                          <div
+                                            className={styles.yellow_dot}
+                                          ></div>
+                                          <div
+                                            className={`${styles.compliance_content} Compliance ml-1`}
+                                          >
+                                            {alert.alert}
+                                          </div>
                                         </div>
-                                      </div>
-                                    )
-                                  }
-
-
-                                })}
+                                      )
+                                    }
+                                  },
+                                )}
                               </div>
                             </div>
                           </Col>
@@ -969,22 +954,30 @@ function Index() {
                               <div
                                 className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
                               >
-                                {companyData?.compliance?.alerts?.map((alert, index) => {
-                                  if (alert.severity.trim().toLowerCase() === "Low") {
-                                    return (
-                                      <div key={index}
-                                        className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
-                                      >
-                                        <div className={styles.orange_dot}></div>
+                                {companyData?.compliance?.alerts?.map(
+                                  (alert, index) => {
+                                    if (
+                                      alert.severity.trim().toLowerCase() ===
+                                      'Low'
+                                    ) {
+                                      return (
                                         <div
-                                          className={`${styles.compliance_content} Compliance ml-1`}
+                                          key={index}
+                                          className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
                                         >
-                                          {alert.alert}
+                                          <div
+                                            className={styles.orange_dot}
+                                          ></div>
+                                          <div
+                                            className={`${styles.compliance_content} Compliance ml-1`}
+                                          >
+                                            {alert.alert}
+                                          </div>
                                         </div>
-                                      </div>
-                                    )
-                                  }
-                                })}
+                                      )
+                                    }
+                                  },
+                                )}
                               </div>
                             </div>
                           </Col>
@@ -1009,14 +1002,16 @@ function Index() {
                           className={`${styles.categories} mb-0  d-flex align-items-center justify-content-between `}
                         >
                           <label className={styles.label}>Categories:</label>
-                          <select onChange={(e) => setComplienceFilter(e.target.value)} className="form-control">
-
-                            <option value="High" >High</option>
-                            <option value="Medium" >Medium</option>
-                            <option value="low" >low</option>
-                            <option value="Severe" >Severe</option>
-
-
+                          <select
+                            onChange={(e) =>
+                              setComplienceFilter(e.target.value)
+                            }
+                            className="form-control"
+                          >
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="low">low</option>
+                            <option value="Severe">Severe</option>
                           </select>
                         </div>
                       </div>
@@ -1048,20 +1043,27 @@ function Index() {
                       >
                         <h2 className="w-100 mb-3">Litigations</h2>
                         <div
-                          className={`${styles.categories}  d-flex align-items-center `}>
-                          <label className={styles.label}>Litigations Status:</label>
-                          <select onChange={updateLitigationStatus} className="form-control">
-
-                            {orderList?.company?.litigationStatus !== 'Active' ?
+                          className={`${styles.categories}  d-flex align-items-center `}
+                        >
+                          <label className={styles.label}>
+                            Litigations Status:
+                          </label>
+                          <select
+                            onChange={updateLitigationStatus}
+                            className="form-control"
+                          >
+                            {orderList?.company?.litigationStatus !==
+                              'Active' ? (
                               <>
-                                <option value='Pending'>Pending</option>
-                                <option value='Active'>Active</option></>
-                              :
+                                <option value="Pending">Pending</option>
+                                <option value="Active">Active</option>
+                              </>
+                            ) : (
                               <>
-                                <option value='Active'>Active</option>
-                                <option value='Pending'>Pending</option>
-                              </>}
-
+                                <option value="Active">Active</option>
+                                <option value="Pending">Pending</option>
+                              </>
+                            )}
                           </select>
                         </div>
                       </div>
@@ -1083,7 +1085,9 @@ function Index() {
                           <Row>
                             <Col md={4}>
                               <p className={`mb-3`}>Filter by</p>
-                              <div className={` d-flex align-items-center justify-content-start`}>
+                              <div
+                                className={` d-flex align-items-center justify-content-start`}
+                              >
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"
@@ -1095,7 +1099,12 @@ function Index() {
                                     className="form-check-label"
                                     htmlFor="flexCheckDefault"
                                   >
-                                    Pending ({companyData?.compliance?.litigations[0]?.pendingCase})
+                                    Pending (
+                                    {
+                                      companyData?.compliance?.litigations[0]
+                                        ?.pendingCase
+                                    }
+                                    )
                                   </label>
                                 </div>
                                 <div className="form-check ml-4">
@@ -1109,7 +1118,12 @@ function Index() {
                                     className="form-check-label"
                                     htmlFor="flexCheckDefault"
                                   >
-                                    Disposed ({companyData?.compliance?.litigations[0]?.disposedCase})
+                                    Disposed (
+                                    {
+                                      companyData?.compliance?.litigations[0]
+                                        ?.disposedCase
+                                    }
+                                    )
                                   </label>
                                 </div>
                                 <div className="form-check  ml-4">
@@ -1123,14 +1137,21 @@ function Index() {
                                     className="form-check-label"
                                     htmlFor="flexCheckDefault"
                                   >
-                                    Total Cases ({companyData?.compliance?.litigations[0]?.totalCase})
+                                    Total Cases (
+                                    {
+                                      companyData?.compliance?.litigations[0]
+                                        ?.totalCase
+                                    }
+                                    )
                                   </label>
                                 </div>
                               </div>
                             </Col>
                             <Col md={4}>
                               <p className={`mb-3`}>Select a Party</p>
-                              <div className={` d-flex align-items-center justify-content-start`}>
+                              <div
+                                className={` d-flex align-items-center justify-content-start`}
+                              >
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"
@@ -1159,12 +1180,13 @@ function Index() {
                                     Petitioner
                                   </label>
                                 </div>
-
                               </div>
                             </Col>
                             <Col md={4}>
                               <p className={`mb-3`}>Classification</p>
-                              <div className={` d-flex align-items-center justify-content-start`}>
+                              <div
+                                className={` d-flex align-items-center justify-content-start`}
+                              >
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"
@@ -1193,52 +1215,58 @@ function Index() {
                                     Criminal
                                   </label>
                                 </div>
-
                               </div>
                             </Col>
                           </Row>
-
                         </div>
                         <div
                           className={`${styles.risk_Container} d-flex align-items-center justify-content-between  mb-4`}
                         >
-                          <div className={` w-100 d-flex align-items-center justify-content-start  `}>
-                            <label className={styles.control} htmlFor={"high"}>
+                          <div
+                            className={` w-100 d-flex align-items-center justify-content-start  `}
+                          >
+                            <label className={styles.control} htmlFor={'high'}>
                               <input
                                 className={styles.checkbox}
                                 type="radio"
                                 name="topics"
-                                value={"high"}
-                                id={"high"}
-
-
+                                value={'high'}
+                                id={'high'}
                               />
-                              <span className={styles.control__content}><span>{`High Risk (${companyData?.compliance?.litigations[0]?.highRisk})`}</span></span>
+                              <span className={styles.control__content}>
+                                <span>{`High Risk (${companyData?.compliance?.litigations[0]?.highRisk})`}</span>
+                              </span>
                             </label>
 
-                            <label className={styles.control} htmlFor={"medium"}>
+                            <label
+                              className={styles.control}
+                              htmlFor={'medium'}
+                            >
                               <input
                                 className={styles.checkbox}
                                 type="radio"
                                 name="topics"
-                                value={"medium"}
-                                id={"medium"}
-
-
+                                value={'medium'}
+                                id={'medium'}
                               />
-                              <span className={styles.control__content}><span>{`Medium Risk (${companyData?.compliance?.litigations[0]?.mediumRisk})`}</span></span>
+                              <span className={styles.control__content}>
+                                <span>{`Medium Risk (${companyData?.compliance?.litigations[0]?.mediumRisk})`}</span>
+                              </span>
                             </label>
-                            <label className={styles.control} htmlFor={"Relevance"}>
+                            <label
+                              className={styles.control}
+                              htmlFor={'Relevance'}
+                            >
                               <input
                                 className={styles.checkbox}
                                 type="radio"
                                 name="topics"
-                                value={"Relevance"}
-                                id={"Relevance"}
-
-
+                                value={'Relevance'}
+                                id={'Relevance'}
                               />
-                              <span className={styles.control__content}><span>{`High Relevance (${companyData?.compliance?.litigations[0]?.highPriority})`}</span></span>
+                              <span className={styles.control__content}>
+                                <span>{`High Relevance (${companyData?.compliance?.litigations[0]?.highPriority})`}</span>
+                              </span>
                             </label>
                           </div>
 
@@ -1318,10 +1346,14 @@ function Index() {
                     weaknessComment={weaknessComment}
                   />
                   <CommonSave onSave={onCreditSave} />
-
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
-                  <CAM camData={orderList} companyData={companyData} addApproveRemarkArr={addApproveRemarkArr}approveComment={approveComment} />
+                  <CAM
+                    camData={orderList}
+                    companyData={companyData}
+                    addApproveRemarkArr={addApproveRemarkArr}
+                    approveComment={approveComment}
+                  />
                 </div>
                 <div
                   className="tab-pane fade"
@@ -1361,8 +1393,12 @@ function Index() {
                                     alt="Browse"
                                   />
                                   <p className={styles.drop_para}>
-                                    Drop Files here <br />
-                                    or <a href="#">Browse</a>
+                                    Drop Files here or<br />
+                                    
+                                  <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" name="myfile" />
+                                  <a href="#">Browse</a>
+                                  </div>
                                   </p>
                                 </div>
                               </div>
@@ -1373,12 +1409,15 @@ function Index() {
                                   >
                                     Document Type
                                   </Form.Label>
-                                  <select
+                                  <select  onChange={()=> console.log("djsf")}
                                     className={`${styles.value} input form-control`}
                                     id="docType"
                                   >
-                                    <option value="volvo">Others</option>
-                                    <option value="audi">N/A</option>
+                                    <option value="LeadOnboarding,OrderApproval">Lead Onboarding & Order Approval</option>
+                                    <option value="Agreements,Insurance,LCOpening">Agreements, Insurance & LC Opening</option>
+                                    <option value="Loading-Transit-Unloading">Loading-Transit- Unloading</option>
+                                    <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
+                                    <option value="others">Others</option>
                                   </select>
                                 </Form.Group>
                                 <Form.Group className={styles.form_group}>
@@ -1405,38 +1444,6 @@ function Index() {
                             </div>
                           </Form>
                         </div>
-                        <div className={`${styles.search_container} d-flex justify-content-between pt-3 pl-3 pr-3`}>
-          <div>
-          <select className={`${styles.dropDown} input form-control`} >
-                  <option value="volvo">Loading, Transit, Unloading</option>
-                  <option value="India">India</option>
-                 
-                </select>
-          </div>
-
-        <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={styles.search}>
-              <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
-                </div>
-                <input
-                  type="text"
-                  className={`${styles.formControl} form-control formControl `}
-                  placeholder="Search"
-                />
-              </div>
-             
-            </div>
-           
-          </div>
-          </div>
 
                         <div className={styles.table_container}>
                           <table
@@ -1463,14 +1470,24 @@ function Index() {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
+                        <tr className="table_row">
+
                                 <td colSpan="7" className="p-0">
-                                  <select
-                                    className={`${styles.module} form-control`}
-                                  >
-                                    <option>ORDERS</option>
-                                    <option>ORDERS 2</option>
-                                  </select>
+                                  <div
+                                    className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
+                                    <div>
+                                      <select
+                                        className={`${styles.dropDown} input form-control`}
+                                      >
+                                        <option value="LeadOnboarding&OrderApproval">Lead Onboarding & Order Approval</option>
+                                        <option value="Agreements,Insurance&LCOpening">Agreements, Insurance & LC Opening</option>
+                                        <option value="Loading-Transit-Unloading">Loading-Transit- Unloading</option>
+                                        <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
+                                        <option value="others">Others</option>
+                                      </select>
+                                    </div>
+                                  </div>
+
                                 </td>
                               </tr>
                               <tr className="table_row">
@@ -1497,164 +1514,71 @@ function Index() {
                                 <td colSpan="2">
                                   <img
                                     src="/static/delete.svg"
-                                    className="img-fluid mr-3"
+                                    className={`${styles.delete_image} img-fluid mr-3`}
                                     alt="Bin"
                                   />
                                   <img
                                     src="/static/upload.svg"
-                                    className="img-fluid"
-                                    alt="Share"
-                                  />
-                                </td>
-                              </tr>
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  Container No. List
-                                </td>
-                                <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                </td>
-                                <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
-                                </td>
-                                <td className={styles.doc_row}>Buyer</td>
-                                <td>
-                                  <span
-                                    className={`${styles.status} ${styles.approved}`}
-                                  ></span>
-                                  Verified
-                                </td>
-                                <td colSpan="2">
-                                  <img
-                                    src="/static/delete.svg"
                                     className="img-fluid mr-3"
-                                    alt="Bin"
+                                    alt="Share"
                                   />
                                   <img
-                                    src="/static/upload.svg"
-                                    className="img-fluid"
+                                    src="/static/drive_file.svg"
+                                    className={`${styles.edit_image} img-fluid mr-3`}
                                     alt="Share"
                                   />
                                 </td>
                               </tr>
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  Container Seal No. List
-                                </td>
-                                <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                </td>
-                                <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
-                                </td>
-                                <td className={styles.doc_row}>
-                                  Rama Krishnan
-                                </td>
-                                <td>
-                                  <span
-                                    className={`${styles.status} ${styles.rejected}`}
-                                  ></span>
-                                  Pending
-                                </td>
-                                <td colSpan="2">
-                                  <img
-                                    src="/static/delete.svg"
-                                    className="img-fluid mr-3"
-                                    alt="Bin"
-                                  />
-                                  <img
-                                    src="/static/upload.svg"
-                                    className="img-fluid"
-                                    alt="Share"
-                                  />
-                                </td>
-                              </tr>
-                              <tr>
-                                <td colSpan="7" className="p-0">
-                                  <select
-                                    className={`${styles.module} form-control`}
-                                  >
-                                    <option>AGREEMENTS</option>
-                                    <option>AGREEMENTS 1</option>
-                                  </select>
-                                </td>
-                              </tr>
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  Insurance Quotation
-                                </td>
-                                <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                </td>
-                                <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
-                                </td>
-                                <td className={styles.doc_row}>John Doe</td>
-                                <td>
-                                  <span
-                                    className={`${styles.status} ${styles.approved}`}
-                                  ></span>
-                                  Verified
-                                </td>
-                                <td colSpan="2">
-                                  <img
-                                    src="/static/delete.svg"
-                                    className="img-fluid mr-3"
-                                    alt="Bin"
-                                  />
-                                  <img
-                                    src="/static/upload.svg"
-                                    className="img-fluid"
-                                    alt="Share"
-                                  />
-                                </td>
-                              </tr>
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  Container No. List
-                                </td>
-                                <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                </td>
-                                <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
-                                </td>
-                                <td className={styles.doc_row}>Buyer</td>
-                                <td>
-                                  <span
-                                    className={`${styles.status} ${styles.approved}`}
-                                  ></span>
-                                  Verified
-                                </td>
-                                <td colSpan="2">
-                                  <img
-                                    src="/static/delete.svg"
-                                    className="img-fluid mr-3"
-                                    alt="Bin"
-                                  />
-                                  <img
-                                    src="/static/upload.svg"
-                                    className="img-fluid"
-                                    alt="Share"
-                                  />
-                                </td>
-                              </tr>
+
+
+                              {/* {documentsFetched && documentsFetched?.documents?.map((document, index) => {
+                                if (document.deleted) {
+                                  return null
+                                } else {
+                                  return (
+                                    <tr key={index} className="table_row">
+                                      <td className={`${styles.doc_name}`}>
+                                        {document.name}
+                                      </td>
+                                      <td>
+                                        <img
+                                          src="/static/pdf.svg"
+                                          className="img-fluid"
+                                          alt="Pdf"
+                                        />
+                                      </td>
+                                      <td className={styles.doc_row}>
+                                        {document.date}
+                                      </td>
+                                      <td className={styles.doc_row}>{document.uploadedBy}</td>
+                                      <td>
+                                        <span
+                                          className={`${styles.status} ${styles.approved}`}
+                                        ></span>
+                                        {document?.verification?.status}
+                                      </td>
+                                      <td colSpan="2">
+                                        <img
+                                          onClick={() => dispatch(DeleteDocument({ orderDocumentId: documentsFetched._id, name: document.name }))}
+                                          src="/static/delete.svg"
+                                          className={`${styles.delete_image} img-fluid mr-3`}
+                                          alt="Bin"
+                                        />
+                                        <img
+                                          src="/static/upload.svg"
+                                          className="img-fluid mr-3"
+                                          alt="Share"
+                                        />
+                                        <img
+                                          src="/static/drive_file.svg"
+                                          className={`${styles.edit_image} img-fluid mr-3`}
+                                          alt="Share"
+                                        />
+                                      </td>
+                                    </tr>
+                                  )
+                                }
+                              })} */}
                             </tbody>
                           </table>
                         </div>
@@ -1681,7 +1605,6 @@ function Index() {
           leftButtonName={``}
           rightButtonName={`Next`}
           handleApprove={onNext}
-          
         />
       ) : null}
       {selectedTab == 'gst' ? (
@@ -1691,7 +1614,6 @@ function Index() {
           leftButtonName={`Previous`}
           rightButtonName={`Next`}
           handleApprove={onNext}
-      
         />
       ) : null}
       {selectedTab == 'CAM' ? (
@@ -1711,15 +1633,13 @@ export default Index
 
 const uploadButton = (dispatch, orderList) => {
   return (
-
     <>
       <button onClick={() =>
-        console.log("update initiated ")
-         // dispatch(RefetchCombineKarza({ company: orderList?.company?._id}))
+        //console.log("update initiated ")
+        dispatch(RefetchCombineKarza({ company: orderList?.company?._id }))
       } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
       <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
     </>
-
   )
 }
 
@@ -1731,18 +1651,37 @@ const ligitations = (companyData) => {
 
   return (
     <>
-      <LigitationsTable data={supremeCourtData} Heading={"Supreme Court"} val={'LigitationsTable1'} />
-      <LigitationsTable data={highCourtData} Heading={"High Court"} val={'LigitationsTable2'} />
-      <LigitationsTable data={districtCourtData} Heading={"District Court"} val={'LigitationsTable3'} />
-      <LigitationsTable data={tribunalCourtsData} Heading={"Tribunal Courts"} val={'LigitationsTable4'} />
+      <LigitationsTable
+        data={supremeCourtData}
+        Heading={'Supreme Court'}
+        val={'LigitationsTable1'}
+      />
+      <LigitationsTable
+        data={highCourtData}
+        Heading={'High Court'}
+        val={'LigitationsTable2'}
+      />
+      <LigitationsTable
+        data={districtCourtData}
+        Heading={'District Court'}
+        val={'LigitationsTable3'}
+      />
+      <LigitationsTable
+        data={tribunalCourtsData}
+        Heading={'Tribunal Courts'}
+        val={'LigitationsTable4'}
+      />
     </>
   )
 }
 
 const table2 = (companyData, complienceFilter) => {
-  const filteredData = companyData?.compliance?.alerts?.filter((data) => data.severity.trim().toLowerCase() === complienceFilter.trim().toLowerCase());
+  const filteredData = companyData?.compliance?.alerts?.filter(
+    (data) =>
+      data.severity.trim().toLowerCase() ===
+      complienceFilter.trim().toLowerCase(),
+  )
   const length = filteredData?.length
-
 
   return (
     <table
@@ -1781,8 +1720,6 @@ const table2 = (companyData, complienceFilter) => {
             <td> {alert.value}</td>
           </tr>
         ))}
-
-
 
         <tr>
           <td className={styles.firstCell} rowSpan="6">

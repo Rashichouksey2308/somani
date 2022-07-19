@@ -143,7 +143,7 @@ const index = () => {
                           </div>
                            <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
                               <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
-                                <span>F</span>
+                                <span>H</span>
                               </div>
                                 <div className={`${styles.val_wrapper} ml-3`}>
                                     <label className={`${styles.label_heading} label_heading`} id="textInput">

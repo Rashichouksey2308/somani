@@ -47,7 +47,7 @@ function Layout({ children }) {
       router.events.off('routeChangeStart', doMagic) // remove listener
     }
   }, [])
-  // console.log(isQuery, 'isQuery')
+  console.log(isQuery, 'isQuery')
   return (
     <>
       {isLogin ? (

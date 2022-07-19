@@ -43,6 +43,22 @@
      }
      
      }
+          .toggle_label {
+              letter-spacing: 0.19px;
+              font-size: 20px;
+              line-height: 25px;
+              font-weight: bold;
+    
+              @include respond(sm-desktop) {
+                  font-size: 16px;
+              }
+    
+              @include respond(phone) {
+                  font-size: 12px;
+    
+              }
+    
+          }
      .radio_label{
         letter-spacing: 0.19px;
         font-size: 20px;
@@ -378,4 +394,235 @@
     
   }
 
-  
+  .theme {
+      margin-right: 40px;
+
+      @include respond(lg-desktop) {
+          margin-right: 30px;
+      }
+
+      @include respond(md-desktop) {
+          margin-right: 20px;
+      }
+
+      @include respond(sm-desktop) {
+          margin-right: 10px;
+      }
+
+      @include respond(phone) {
+          margin-right: 0;
+      }
+
+      a {
+          margin: 0 5px 0 4px;
+          display: inline-block;
+
+          img {
+              @include respond(lg-desktop) {
+                  height: 35px;
+                  margin-left: 10px !important;
+                  margin-right: 10px !important;
+              }
+
+              @include respond(md-desktop) {
+                  height: 30px;
+                  margin-left: 5px !important;
+                  margin-right: 5px !important;
+              }
+
+              @include respond(sm-desktop) {
+                  height: 25px;
+                  margin-left: 0 !important;
+                  margin-right: 0 !important;
+              }
+          }
+
+          &:last-child {
+              img {
+                  margin-right: 7px !important;
+              }
+          }
+      }
+  }
+
+  .switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 34px;
+
+      @include respond(lg-desktop) {
+          width: 50px;
+      }
+
+      @include respond(md-desktop) {
+          width: 45px;
+      }
+
+      @include respond(sm-desktop) {
+          width: 40px;
+      }
+
+      @include respond(phone) {
+          width: 35px;
+      }
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+  }
+
+  /* The slider */
+  .slider {
+      position: absolute;
+      cursor: pointer;
+
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #00000029;
+      -webkit-transition: .4s;
+      transition: .4s;
+      height: 1.5rem;
+
+      @include respond(lg-desktop) {}
+
+      @include respond(md-desktop) {
+          bottom: 2px;
+          height: 1.2rem;
+      }
+
+      @include respond(sm-desktop) {
+          bottom: 4px;
+          height: 1rem;
+      }
+  }
+
+  .slider:before {
+      position: absolute;
+      content: "";
+      height: 2rem;
+      width: 2rem;
+      left: -2px;
+      bottom: -3px;
+      background-color: #3687E8;
+      -webkit-transition: .4s;
+      transition: .4s;
+
+      @include respond(lg-desktop) {
+          height: 1.8rem;
+          width: 1.8rem;
+      }
+
+      @include respond(md-desktop) {
+          height: 1.5rem;
+          width: 1.5rem;
+      }
+
+      @include respond(sm-desktop) {
+          height: 1.3rem;
+          width: 1.3rem;
+          bottom: -3px;
+      }
+  }
+
+  input:checked+.slider {
+      background-color: #00000029;
+  }
+
+  input:checked+.slider:before {
+      -webkit-transform: translateX(30px);
+      -ms-transform: translateX(30px);
+      transform: translateX(30px);
+
+      @include respond(md-desktop) {
+          -webkit-transform: translateX(25px);
+          -ms-transform: translateX(25px);
+          transform: translateX(25px);
+      }
+
+      @include respond(phone) {
+          -webkit-transform: translateX(20px);
+          -ms-transform: translateX(20px);
+          transform: translateX(20px);
+      }
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+      border-radius: 34px;
+  }
+
+  .slider.round:before {
+      border-radius: 50%;
+  }
+
+  .pdfImage {
+      width: 57px;
+      height: 25px;
+
+      @include respond(sm-desktop) {
+          width: 50px;
+          height: 22px;
+      }
+
+      @include respond(phone) {
+          width: 35px;
+          height: 15px;
+      }
+
+  }
+
+  .uploadBtnWrapper {
+      overflow: hidden;
+      position: relative;
+      display: inline-block;
+
+      input {
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          opacity: 0;
+          cursor: pointer;
+          position: absolute;
+      }
+
+      @include respond(phone) {
+          width: 100%;
+      }
+
+      .upload_btn {
+          text-align: center;
+          color: #3687E8;
+          border: 3px solid #3687E8;
+          font-size: 18px;
+          line-height: 23px;
+          font-weight: bold;
+          border-radius: 5px;
+          background: transparent;
+          text-transform: capitalize;
+          padding: 8px 30px 8px 30px;
+
+          @include respond(md-desktop) {
+              font-size: 16px;
+          }
+
+          @include respond(sm-desktop) {
+              font-size: 14px;
+              padding: 4px 25px 4px 25px;
+
+          }
+
+          @include respond(phone) {
+              font-size: 12px;
+              padding: 0px 15px 0 15px;
+
+          }
+      }
+
+
+  }

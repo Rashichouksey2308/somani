@@ -12,7 +12,7 @@ import {
 } from '../../src/redux/registerBuyer/action'
 import {GetCompanyDetails} from '../../src/redux/companyDetail/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
-import { setPageName } from '../../src/redux/userData/action'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 import { GetDocuments } from '../../src/redux/creditQueueUpdate/action'
 
 
@@ -24,14 +24,19 @@ function Index() {
   const { allBuyerList } = useSelector((state) => state.buyer)
   const { searchedLeads } = useSelector((state) => state.order)
 
+  console.log(allBuyerList,"allBuyerListallBuyerList")
+
   // console.log(currentPage)
 
+
+
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}`))
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}`))
   }, [dispatch, currentPage])
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
+    dispatch(setDynamicName(null))
   })
   
   
@@ -185,7 +190,7 @@ function Index() {
           <div
             className={`${styles.pageList} d-flex justify-content-end align-items-center`}
           >
-            <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}</span>
+            <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 7)}</span>
             <a
               onClick={() => {
                 if (currentPage === 0) {
@@ -203,8 +208,11 @@ function Index() {
               />
             </a>
             <a
-              onClick={() => {
-                setCurrentPage((prevState) => prevState + 1)
+               onClick={() => {
+                if (currentPage+1 < Math.ceil(allBuyerList?.data?.totalCount / 7)) {
+                  setCurrentPage((prevState) => prevState + 1)
+                }
+
               }}
               href="#"
               className={`${styles.arrow} ${styles.rightArrow} arrow`}
@@ -230,10 +238,10 @@ function Index() {
                   <th>CUSTOMER ID
                   <img
                     className={`mb-1`}
-                    rc="./static/icons8-sort-24.png "
+                    src="./static/icons8-sort-24.png "
                   />
                   </th>
-                  <th>CUSTOMER NAME</th>
+                  <th>BUYER NAME</th>
                   <th>CREATED BY</th>
                   <th>USERNAME</th>
                   <th>EXISTING CUSTOMER</th>
@@ -245,8 +253,8 @@ function Index() {
                 {allBuyerList &&
                   allBuyerList.data?.data?.map((buyer, index) => (
                     <tr key={index} className={`${styles.table_row} table_row`}>
-                      {buyer.queue === 'CreditQueue' ? (
-                        <>
+                     
+                        
                           <td>{buyer.company.customerId}</td>
                           <td className={styles.buyerName} onClick={()=>handleRoute(buyer)}>
                             {buyer.company.companyName}
@@ -274,8 +282,8 @@ function Index() {
                               }}
                             />
                           </td>
-                        </>
-                      ) : null}
+                        
+                    
                     </tr>
                   ))}
                 {/* <tr>

@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 
 function Index() {
     const {buyerList} = useSelector((state)=>state.buyer)
+
+    console.log(buyerList, "THIS IS BUYER LIST")
     return (
         <Card className={`${styles.sub_card} sub_card`}>
             <Card.Header className={`${styles.header}`}>
@@ -14,8 +16,8 @@ function Index() {
             {/* <hr className={styles.hr}/> */}
             <Card.Body className={`${styles.body} value_card row`}>
                 {fields("Commodity",buyerList?.order?.commodity)}
-                {fields("Quantity (in MT)",buyerList?.order?.Quantity,false)}
-                {fields("Order values (in INR)",buyerList?.order?.order?.Value,false)}
+                {fields("Quantity (in MT)",buyerList?.order?.quantity,false)}
+                {fields("Order values (in INR)",buyerList?.order?.orderValue,false)}
                 {fields("Supplier Name",buyerList?.order?.supplierName,false)}
                 {fields("Country Of Origin",buyerList?.order?.countryOfOrigin,false)}
                 {fields("INCO Terms",buyerList?.order?.incoTerm,false)}

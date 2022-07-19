@@ -65,6 +65,7 @@
     box-sizing: border-box;
     // padding: 0px !important;
     .top {
+        white-space: nowrap;
         font-size: 16px;
         color: #00000080;
         line-height: 17px;
@@ -97,6 +98,7 @@
             font-size: 14px;                
         }
         .value {
+            white-space: nowrap;
         }
         .button {
             color: #3687E8;

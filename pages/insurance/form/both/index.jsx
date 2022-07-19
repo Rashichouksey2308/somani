@@ -237,15 +237,15 @@ const Index = () => {
           <h2 className="mb-0">Storage Insurance Details</h2>
           <div className={styles.radio_label}>Insurance From: <span className={styles.insurance_from} style={{color: "#111111"}}>Domestic</span></div>
           <div className='d-flex justify-content-between align-items-center'>
-          <div className={styles.radio_label} >Is the Insurer same as Marine Insurance?</div>
-          <div className={`${styles.radio_form} `}>
-          <Form.Check 
-            type="switch"
-            id="custom-switch"
-            label=""
-          />
-        
-        </div>
+          <div className={`${styles.radio_label} mr-5`} >Is the Insurer same as Marine Insurance?</div>
+         <div className={`${styles.theme} d-flex align-items-center`}>
+            <div className={`${styles.toggle_label} form-check-label mr-2`}>Yes</div>
+              <label className={styles.switch}>
+                <input type="checkbox"/>
+                <span className={`${styles.slider} ${styles.round}` }></span>
+              </label>
+                <div className={`${styles.toggle_label} form-check-label ml-2 mr-3`}>No</div>
+              </div>
        
           <span>+</span>
           </div>        </div>

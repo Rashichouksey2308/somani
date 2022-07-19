@@ -3,7 +3,9 @@ import * as types from './actionType'
 const initialState = {
     gettingDocuments: false,
     documentsFetched: null,
-    updatingCam: false
+    addingDocument: false,
+    deletingDocumet: false,
+    updatingCam: false,
 }
 
 
@@ -42,6 +44,36 @@ function CreditReducer(state = initialState, action) {
             return {
                 ...state,
                 updatingCam: false
+            }
+        case types.ADD_DOCUMENT:
+            return {
+                ...state,
+                addingDocument: true
+            }
+        case types.ADD_DOCUMENT_SUCCESS:
+            return {
+                ...state,
+                addingDocument: false
+            }
+        case types.ADD_DOCUMENT_FAILED:
+            return {
+                ...state,
+                addingDocument: false
+            }
+        case types.DELETE_DOCUMENT:
+            return {
+                ...state,
+                deletingDocumet: true
+            }
+        case types.DELETE_DOCUMENT_SUCCESS:
+            return {
+                ...state,
+                deletingDocumet: false
+            }
+        case types.DELETE_DOCUMENT_FAILED:
+            return {
+                ...state,
+                deletingDocumet: false
             }
         default:
             return state

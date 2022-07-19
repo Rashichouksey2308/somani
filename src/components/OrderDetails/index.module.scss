@@ -180,94 +180,35 @@
     }
 }
   
-.mainDark {
-    padding: 20px;
-    //display: flex;
-    //flex-direction: column;  
-    .heading {
-        text-align: left;
-        font-weight: bold;
-        font-size: 20px;
-        color: #52A4FF;
-        text-transform: capitalize;
-        padding-top: 15px;
-    }  
-    .radio_form {
-        padding-top: 20px;  
-        .radio_group {
-            display: flex;      
-            @include respond(phone) {
-              justify-content: space-between;
-            }      
-            .radio {
-                font-size: 20px;
-                color: #111111;
-                letter-spacing: 0.19px;
-                padding-right: 25px;        
-                @include respond(phone) {
-                    font-size: 16px;
-                    padding-right: 0px;
-                }
-                label {
-                    @include respond(phone) {
-                      font-size: 16px;          
-                    }
-                }
-            }        
-        }  
-        .sub_heading {
-            padding-top: 10px;
-            text-align: left;
-            letter-spacing: 0.53px;
-            color: #FFFFFF80;
-            text-transform: capitalize;
-            opacity: 1;
-            font-size: 16px;
-            padding-bottom: 15px;
-        }
-    }  
-    .input_container {
-        margin-top: 50px;
-        margin-bottom: 10px;
-        padding-bottom: 14px;  
-        .each_input {
-            position: relative;
-            margin-bottom: 50px;  
-            .label_heading {
-                text-align: left;
-                font-size: 16px;
-                line-height: 1;
-                letter-spacing: 0.53px;
-                color: #FFFFFF80;
-                position: absolute;
-                left: 30px;
-                top: -8px;
-                background: #293141;            
-            }  
-            .phone_card {
-                display: flex;      
-                .code_phone {
-                    border: 1px solid #0000001f;
-                    border-radius: 4px;
-                    background-color: #c3c3c31f;
-                    color: var(--unnamed-color-3687e8);
-                    text-align: left;
-                    font-size: 19px;
-                    letter-spacing: 0.18px;
-                    color: #3687e8;
-                    text-transform: capitalize;
-                }
-            }  
-            .input_field {
-                height: 60px;
-                background-color: #1D2530;
-                border: 1px solid #434E61;
-                border-radius: 4px;
-                color: white;
-                text-align: left;
-                font-size: 20px;
-            }
-        }
-    }
+.customSelect {
+    appearance: none;
+    // position: relative;
+
 }
-  
+
+.arrow {
+
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+
+
+}
+
+.calanderIcon {
+
+    margin-left: -40px;
+    margin-top: 15px;
+    width: 23px;
+    height: 26px;
+    pointer-events: none;
+
+
+
+}

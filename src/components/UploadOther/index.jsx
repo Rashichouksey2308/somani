@@ -1,8 +1,20 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
+import { useState } from 'react'
 
-const index = () => {
+const Index = () => {
+   const [editInput, setEditInput] = useState(true)
+
+  const handleDropdown = (e) => {
+    
+    if (e.target.value="Others") {
+    setEditInput(!editInput)
+    }
+    else {
+      setEditInput(editInput)
+    }
+  }
   return (
     <div className={`${styles.upload_main} card border_color`}>
       <div
@@ -34,9 +46,13 @@ const index = () => {
                     alt="Browse"
                   />
                   <p className={styles.drop_para}>
-                    Drop Files here <br />
-                    or <a href="#">Browse</a>
-                  </p>
+                      Drop Files here or<br />
+                      
+                    <div className={styles.uploadBtnWrapper}>
+                    <input type="file" name="myfile" />
+                    <a href="#">Browse</a>
+                    </div>
+                    </p>
                 </div>
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">
@@ -46,10 +62,10 @@ const index = () => {
                   </Form.Label>
                   <select
                     className={`${styles.value} input form-control`}
-                    id="docType"
-                  >
-                    <option>Others</option>
+                        id="docType" onChange={(e) => handleDropdown(e)}>
+                  
                     <option>N/A</option>
+                        <option value='Others'>Others</option>
                   </select>
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
@@ -59,6 +75,7 @@ const index = () => {
                   <Form.Control
                     className={`${styles.value} input form-control`}
                     type="text"
+                    disabled={editInput}
                   />
                 </Form.Group>
                 <div className={styles.uploadBtnWrapper}>
@@ -71,38 +88,7 @@ const index = () => {
             </div>
           </Form>
         </div>
-        <div className={`${styles.search_container} search_container d-flex justify-content-between pt-3 pl-3 pr-3`}>
-          <div>
-          <select className={`${styles.dropDown} formControl input form-control`} >
-                  <option value="volvo">Loading, Transit, Unloading</option>
-                  <option value="India">India</option>
-                 
-                </select>
-          </div>
-
-        <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={styles.search}>
-              <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
-                </div>
-                <input
-                  type="text"
-                  className={`${styles.formControl} form-control formControl `}
-                  placeholder="Search"
-                />
-              </div>
-             
-            </div>
-           
-          </div>
-          </div>
+       
         <div className={styles.table_container}>
         <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
@@ -120,17 +106,31 @@ const index = () => {
                 <th>UPLOADED BY <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon"/></th>
                 <th>STATUS </th>
                 <th>ACTION</th>
+                <th>
+                  <img
+                    src="/static/search-blue.svg"
+                    className="img-fluid"
+                    alt="Search"
+                  />
+                </th>
                
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colSpan="7" className="p-0">
-                  <select className={`${styles.module} form-control`}>
-                    <option>MODULE 1</option>
-                    <option>MODULE 2</option>
-                  </select>
-                </td>
+               <div
+                   className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
+                          <div>
+                            <select
+                              className={`${styles.dropDown} input form-control`}
+                            >
+                              <option value="volvo">
+                                Loading, Transit, Unloading
+                              </option>
+                              <option value="India">India</option>
+                            </select>
+                          </div>
+                        </div>
               </tr>
              
               <tr className="table_row">
@@ -146,99 +146,25 @@ const index = () => {
                   ></span>
                   Verified
                 </td>
-                 <td colSpan="2" >
-                 <div  className={styles.actionContainer}>  
-                  <img
-                    src="/static/delete.svg"
-                    className="img-fluid mr-3"
-                    alt="Bin"
-                  />
-                   <img
-                    src="/static/upload.svg"
-                    className="img-fluid mr-3"
-                    alt="Share"
-                  />
-                  <img
-                    src="/static/upload.svg"
-                    className="img-fluid"
-                    alt="Share"
-                  />
-                  </div>
-                </td>
-              </tr>
-              <tr className="table_row">
-                <td className={styles.doc_name}>Container Seal No. List</td>
-                <td>
-                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                </td>
-                <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                <td className={styles.doc_row}>Rama Krishnan</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.rejected}`}
-                  ></span>
-                  Pending
-                </td>
-               <td colSpan="2" >
-                 <div  className={styles.actionContainer}>  
-                  <img
-                    src="/static/delete.svg"
-                    className="img-fluid mr-3"
-                    alt="Bin"
-                  />
-                   <img
-                    src="/static/upload.svg"
-                    className="img-fluid mr-3"
-                    alt="Share"
-                  />
-                  <img
-                    src="/static/upload.svg"
-                    className="img-fluid"
-                    alt="Share"
-                  /></div>
-                </td>
-              </tr>
-              <tr>
-                <td colSpan="7" className="p-0">
-                  <select className={`${styles.module} form-control`}>
-                    <option>MODULE 2</option>
-                    <option>MODULE 1</option>
-                  </select>
-                </td>
+                <td colSpan="2">
+                    <img
+                      src="/static/delete.svg"
+                      className={`${styles.delete_image} img-fluid mr-3`}
+                      alt="Bin"
+                    />
+                    <img
+                      src="/static/upload.svg"
+                      className="img-fluid mr-3"
+                      alt="Share"
+                    />
+                    <img
+                      src="/static/drive_file.svg"
+                      className={`${styles.edit_image} img-fluid mr-3`}
+                      alt="Share"
+                    />
+                  </td>
               </tr>
              
-              <tr className="table_row">
-                <td className={styles.doc_name}>Container No. List</td>
-                <td>
-                <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
-                </td>
-                <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                <td className={styles.doc_row}>Buyer</td>
-                <td>
-                  <span
-                    className={`${styles.status} ${styles.approved}`}
-                  ></span>
-                  Verified
-                </td>
-               <td colSpan="2" >
-                 <div  className={styles.actionContainer}>  
-                  <img
-                    src="/static/delete.svg"
-                    className="img-fluid mr-3"
-                    alt="Bin"
-                  />
-                   <img
-                    src="/static/upload.svg"
-                    className="img-fluid mr-3"
-                    alt="Share"
-                  />
-                  <img
-                    src="/static/upload.svg"
-                    className="img-fluid"
-                    alt="Share"
-                  /></div>
-                </td>
-              </tr>
             </tbody>
           </table>
           </div>
@@ -249,4 +175,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index

@@ -361,7 +361,7 @@
                         font-size: 19px;
                         font-weight: 500;
                         line-height: 24px;
-                        padding: 21px 15px;
+                        padding: 21px 10px;
                         border-top: none;
                         white-space: nowrap;
                         &:first-child {
@@ -416,4 +416,23 @@
             }
         }
     }
+}
+.container{
+    height: calc(100vh - 159px);
+    @include respond(lg-desktop) {
+            height: calc(100vh - 155px);
+        }
+        @include respond(md-desktop) {
+                height: calc(100vh - 151px);
+            }
+        
+
+    @include respond(sm-desktop) {
+        height: calc(100vh - 150px);
+        }
+    
+        @include respond(phone) {
+            height: calc(100vh - 165px);
+        }
+    
 }

@@ -21,7 +21,7 @@ function Index() {
   // console.log(marginMoneyResponse, 'THIS IS MARGIN MONEY RESPONSE')
 
   useEffect(() => {
-    dispatch(GetAllMarginMoney(`?page=${currentPage}`))
+    dispatch(GetAllMarginMoney(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
 
   const handleSearch = (e) => {
@@ -47,7 +47,7 @@ function Index() {
   return (
     <>
       {' '}
-      <div className='container-fluid p-0 border-0'> 
+      <div className={`container-fluid p-0 border-0 ${styles.container}`}> 
       <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} mb-4 d-flex align-items-center`}>
@@ -95,16 +95,16 @@ function Index() {
             </a>
             <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
+              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>
             <a href="#" className={`${styles.filterList} filterList`}>
               Raj Traders
-              <img src="/static/close.svg" className="img-fluid" alt="Close" />
+              <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>
           </div>
-          <div className={`${styles.datatable} datatable `}>
+          <div className={`${styles.datatable} datatable  `}>
             <div
-              className={`${styles.tableFilter} d-flex justify-content-between`}
+              className={`${styles.tableFilter} d-flex justify-content-between table_container`}
             >
               <h3 className="heading_card">Margin Money</h3>
               <div
@@ -112,7 +112,7 @@ function Index() {
               >
                 <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(marginMoneyResponse?.totalCount / 10)}
+                  {Math.ceil(marginMoneyResponse?.totalCount / 7)}
                 </span>
                 <a
                   onClick={() => {
@@ -133,9 +133,12 @@ function Index() {
                   />
                 </a>
                 <a
-                  onClick={() => {
-                    setCurrentPage((prevState) => prevState + 1)
-                  }}
+                    onClick={() => {
+                      if (currentPage+1 < Math.ceil(marginMoneyResponse?.totalCount / 7)) {
+                        setCurrentPage((prevState) => prevState + 1)
+                      }
+  
+                    }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
                 >
@@ -150,13 +153,13 @@ function Index() {
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table
-                  className={`${styles.table} table`}
+                  className={`${styles.table} table `}
                   cellPadding="0"
                   cellSpacing="0"
                   border="0"
                 >
                   <thead>
-                    <tr className="table_row">
+                    <tr className="table_row table_row_head">
                       <th>ORDER ID</th>
                       <th>BUYER NAME</th>
                       <th>EXISTING CUSTOMER</th>

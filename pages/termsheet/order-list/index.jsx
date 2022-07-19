@@ -43,7 +43,7 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid p-0 border-0">
+      <div className={`${styles.container} container-fluid p-0 border-0`}>
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
@@ -196,7 +196,7 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th >ORDER ID <img className={`mb-1`} src="./static/icons8-sort-24.png " /></th>
+                      <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.png " /></th>
                       <th>COMMODITY</th>
                       <th>CREATED BY</th>
                       <th>CREATED ON</th>
@@ -206,10 +206,10 @@ function Index() {
                   </thead>
                   {termsheet && termsheet?.data?.map((term, index) => (<tbody Key={index}>
 
-                    <td onClick={() => handleRoute(term)}>
+                    <td className={`${styles.first}`} onClick={() => handleRoute(term)}>
                       {term?.order?.orderId}
                     </td>
-                    <td >{term?.order?.commodity}</td>
+                    <td className={`${styles.buyerName}`} >{term?.order?.commodity}</td>
 
                     <td>{term?.order?.createdBy}</td>
                     <td>{term?.order?.createdAt?.slice(0, 10)}</td>

@@ -8,7 +8,8 @@ export default function Index({isQuery}) {
     currency:true
   })
   useEffect(() => {
-    if(isQuery?.match("/leads")||isQuery?.match("/review")||isQuery?.match("/order-list") ||isQuery?.match("/new-order")) {
+ 
+    if(isQuery?.match("/leads")||isQuery?.match("/order-list") ||isQuery?.match("/new-order")) {
       show.units=false
       show.currency=false
       setShow({...show})
@@ -69,11 +70,20 @@ export default function Index({isQuery}) {
      if ("credit-queue" == pageName) {
         if(id!==null) {
         router.route = "/Leads"  + "/Credit Queue" +`/${id}`;
+       
       }else{
         router.route = "/Leads" + "/Credit Queue";
+      }}
+         if ("margin-money" == pageName) {
+        if(id!==null) {
+        router.route = "/Leads"  + "/Margin Money" +`/${id}`+ "/Order ID";
+        console.log("router123",router.route)
+      }else{
+        router.route = "/Leads" + "/Margin Money";
       }
      
     }
+   
     if ("termsheet" == pageName) {
       router.route = "/Leads" + "/Termsheets";
     }
@@ -85,7 +95,8 @@ console.log( router.route," router.route")
       if (subRoute !== "") {
         if (subRoute == "[id]") {
           // setUrl([...url, router.query.id])
-          url.push(router.query.id);
+          // url.push(router.query.id);
+          url.push(subRoute);
         } else {
           // setUrl([...url, subRoute])
           url.push(subRoute);
@@ -110,7 +121,7 @@ console.log( router.route," router.route")
           {myUrl.map((val,index)=>{
             {console.log(myUrl.length-1==index,"val")}
             return(
-               <div key={index} className={`${styles.breadcrumcontainer} ${myUrlLength-1==index?`${styles.highlight} highlight`:null}`}>
+               <div key={index} className={`${styles.breadcrumcontainer} ${myUrlLength==4?myUrlLength-2==index?`${styles.highlight} highlight`:myUrlLength-1==index?`${styles.highlight} highlight`:null:myUrlLength-1==index?`${styles.highlight} highlight`:null}`}>
               <span className='breadcrum_mode'>/</span>
               <span className={`${styles.value} breadcrum_mode`}>{val}</span>
             </div>

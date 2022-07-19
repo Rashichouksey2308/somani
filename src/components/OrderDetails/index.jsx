@@ -47,7 +47,7 @@ const index = ({ saveOrderData, darkMode }) => {
               required
             />
             <label className={`${styles.label_heading}  label_heading`} id="textInput">
-              Quantity (in MT)<strong className='text-danger'>*</strong>
+              Quantity<strong className='text-danger'>*</strong>
             </label>
           </div>
 
@@ -87,38 +87,53 @@ const index = ({ saveOrderData, darkMode }) => {
             </label>
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-            <select
+            <div className="d-flex">
+              <select
               id="dropCountry"
               name='countryOfOrigin'
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
-              className={`${styles.input_field} input form-control`}
+              className={`${styles.input_field} ${styles.customSelect} input form-control`}
               required
             >
-              <option value="none" selected></option>
+              <option value="" selected></option>
               <option value="India" >India</option>
               <option value="America">America</option>
             </select>
             <label className={`${styles.label_heading} label_heading`} id="dropCountry">
               Country Of Origin<strong className='text-danger'>*</strong>
             </label>
+            <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+            </div>
+
           </div>
 
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-            <select
+             <div className="d-flex">
+              <select
               id="dropPort"
               name='portOfDischarge'
               onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
-              className={`${styles.input_field} input form-control`}
+              className={`${styles.input_field} ${styles.customSelect} input form-control`}
               required
             >
-              <option value="none" selected></option>
-              <option value="VishakaPatnam" >Visakhapatnam</option>
-              <option value="Mumbai">Mumbai</option>
+              <option value="" selected></option>
+              <option value="VishakaPatnam, India" >Visakhapatnam, India</option>
+              <option value="Mumbai, India">Mumbai, India</option>
             </select>
             <label className={`${styles.label_heading} label_heading`} id="dropPort">
               Port Of Discharge<strong className='text-danger'>*</strong>
             </label>
             <label className={`${styles.label_heading} label_heading`}>Port Of Discharge<strong className="text-danger">*</strong></label>
+            <img
+            className={`${styles.arrow} img-fluid`}
+            src="/static/inputDropDown.svg"
+            alt="Search"
+              />
+             </div>
 
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
