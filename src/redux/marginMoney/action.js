@@ -3,6 +3,8 @@ import Axios from 'axios'
 import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
+import router from 'next/router'
+
 
 function getAllMarginMoney() {
   return {
@@ -103,7 +105,7 @@ export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
       },
     ).then((response) => {
       if (response.data.code === 200) {
-        dispatch(getMarginMoneySuccess(response.data.data))
+        dispatch(getMarginMoneySuccess(response.data))
       } else {
         dispatch(getMarginMoneyFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
@@ -139,6 +141,7 @@ export const UpdateMarginMoney =
           if (!toast.isActive(toastMessage)) {
             toast.success(toastMessage, { toastId: toastMessage })
           }
+          router.push('/margin-money')
         } else {
           dispatch(updateMarginMoneyFailed(response.data))
           let toastMessage = 'UPDATE REQUEST FAILED'
