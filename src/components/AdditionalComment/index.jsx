@@ -79,7 +79,7 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                             </div>
                          </div> 
                         </div>
-                        </div>
+                       
                         <hr></hr>
                         <div className={`${styles.dashboard_form} card-body`}>
 
@@ -115,7 +115,7 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                                 </div>
                             )
                         })}
-               
+                </div>
                 </div>
            
         </div>

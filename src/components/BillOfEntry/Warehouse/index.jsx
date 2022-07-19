@@ -62,10 +62,17 @@ export default function Index() {
                       Quantity<strong className="text-danger">*</strong></label>                   
                 </div> 
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`} >
+                    <div className="d-flex">
                     <input 
                     className={`${styles.input_field} input form-control`} type="date"/> 
                      <label className={`${styles.label_heading} label_heading`}>
-                      Date of Storage<strong className="text-danger">*</strong></label>                   
+                      Date of Storage<strong className="text-danger">*</strong></label>   
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>                    
                 </div> 
                 
                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`} >
@@ -135,16 +142,24 @@ export default function Index() {
                   </div>
                   <div className="col-md-4 offset-md-1 col-sm-6">
                     <Form.Group className={styles.form_group}>
-                      <Form.Label className={`${styles.label} label_heading`}>
-                        Document Type
-                      </Form.Label>
-                      <select
-                        className={`${styles.value} input form-control`}
-                        id="docType" onChange={(e) => handleDropdown(e)}>
-                        <option>N/A</option>
-                        <option value='Others'>Others</option>
-                      </select>
-                    </Form.Group>
+                 <div className="d-flex">
+                  <select
+                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                   id="docType" onChange={(e) => handleDropdown(e)}>
+
+                    <option>N/A</option>
+                    <option value='Others'>Others</option>
+                  </select>
+                  <Form.Label className={`${styles.label} label_heading`}>
+                    Document Type
+                  </Form.Label>
+                   <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>  
+                </Form.Group>
                     <Form.Group className={styles.form_group}>
                       <Form.Label className={`${styles.label} label_heading`}>
                         Please Specify Document Name
