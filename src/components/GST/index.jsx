@@ -862,21 +862,19 @@ function Index(GstData) {
                   </tr>
                   <tr>
                     <td>Average Sales per Customer</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.current}</td>
-
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.previous}</td>
+
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.current}</td>
                   </tr>
                   <tr>
                     <td>Average Sales per Invoice</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalinv?.current}</td>
-
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalinv?.previous}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalinv?.current}</td>
                   </tr>
                   <tr>
                     <td>Average Invoices per Customer</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalcust?.current}</td>
-
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalcust?.previous}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalcust?.current}</td>
                   </tr>
                 </table>
                 <table
@@ -901,19 +899,19 @@ function Index(GstData) {
                     <td>INVOICES</td>
                     <td>AVG. SALES PER CUSTOMER</td>
                   </tr>
-                  
-                  {gstFilteredData && gstFilteredData?.detail?.salesDetailAnnual?.hsnWiseSales?.map((sales, index)=>(
-                    <tr key={index}>
-                    <td className={` ${styles.first}`}>{sales.hsnDesc}</td>
-                    <td>{sales.hsnSc}</td>
-                    <td>{sales.turnover}</td>
-                    <td>{sales.sharePercent}</td>
 
-                    <td>24</td>
-                    <td>19</td>
-                    <td>1.05</td>
-                  </tr>
-                  )) }
+                  {gstFilteredData && gstFilteredData?.detail?.salesDetailAnnual?.hsnWiseSales?.map((sales, index) => (
+                    <tr key={index}>
+                      <td className={` ${styles.first}`}>{sales.hsnDesc}</td>
+                      <td>{sales.hsnSc}</td>
+                      <td>{sales.turnover}</td>
+                      <td>{sales.sharePercent}</td>
+
+                      <td>24</td>
+                      <td>19</td>
+                      <td>1.05</td>
+                    </tr>
+                  ))}
                 </table>
 
               </div>
@@ -973,12 +971,97 @@ function Index(GstData) {
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                      Gross Revenue
+                      Gross Purchases
                     </td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.percentage}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Recurring Purchases
+                    </td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.percentage}</td>
+                  </tr>
+
+                  <tr>
+                    <td colSpan={2}>
+                      Related Party Purchases
+                    </td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.percentage}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      Intra Organization Purchases
+                    </td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.percentage}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                    B2B  Purchases
+                    </td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.percentage}</td>
+                  </tr>
+
+                  <tr>
+                    <td colSpan={2}>
+                    Import   Purchases
+                    </td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.percentage}</td>
+                  </tr>
+
+                  <tr>
+                    <td colSpan={2}>
+                    Total Suppliers
+                    </td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.percentage}</td>
+                  </tr>
+
+                  <tr>
+                    <td colSpan={2}>
+                    Total Invoices
+                    </td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.percentage}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      <strong>Purchases Growth Rate</strong>
+                    </td>
+                    <td></td>
+                    <td><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value}</strong></td>
+                    <td></td>
+                    <td><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value}</strong></td>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      <strong>Quarterly Growth Rate</strong>
+                    </td>
+                    <td></td>
+                    <td><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value}</strong></td>
+                    <td></td>
+                    <td><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value}</strong></td>
                   </tr>
                 </table>
                 <table
