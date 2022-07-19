@@ -48,11 +48,18 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                     <Form>
                         <div className='row'>
                             <div className={`${styles.form_group} col-md-3`} >
-                                <select className={`${styles.value} input form-control`} onChange={(e) => setCommentType(e.target.value)} required>
+                                  <div className='d-flex'>
+                                <select className={`${styles.value} ${styles.customSelect} input form-control`} onChange={(e) => setCommentType(e.target.value)} required>
                                     <option value="5. Lc Opening Bank">5. Lc Opening Bank</option>
                                     <option value="a4. Lc Opening Bankdi">4. Lc Opening Bank</option>
                                 </select>
                                 <Form.Label className={`${styles.label} label_heading`}>Select<strong className="text-danger">*</strong></Form.Label>
+                             <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                             </div>
                             <Form.Group className={`${styles.form_group} col-md-9`}>
                                 <div className='d-flex justify-content-between align-items-center'>
