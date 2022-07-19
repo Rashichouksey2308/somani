@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import styles from './index.module.scss'
@@ -187,7 +188,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <select id='shipmentType' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.shipmentType}>{termsheetDetails?.transactionDetails?.shipmentType} </option>
                                 <option value="Bulk">Bulk</option>
-                                <option value="India">India</option>
+                                <option value="Liner">Liner</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Shipment Type<strong className="text-danger">*</strong></label>
                            <img
@@ -217,8 +218,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                              <div className='d-flex'>
                             <select id='portOfDischarge' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.portOfDischarge}>{termsheetDetails?.transactionDetails?.portOfDischarge} </option>
-                                <option value="Visakhapatnam">Visakhapatnam</option>
-                                <option value="India">India</option>
+                                <option value="Visakhapatnam, India">Visakhapatnam, India</option>
+                                <option value="Vizag, India">Vizag, India</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Port Of Discharge<strong className="text-danger">*</strong></label>
                         <img
@@ -248,7 +249,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                               <div className='d-flex'>
                             <select id='thirdPartyInspectionReq' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={(e) => updateThirdPartyInspection(e.target.value)} required>
                                 <option value="No">No</option>
-                                <option value="yes">Yes</option>
+                                <option value="Yes">Yes</option>
 
                             </select>
                             <label className={`${styles.label} label_heading`}>3rd Party Inspection Required<strong className="text-danger">*</strong></label>

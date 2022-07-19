@@ -38,7 +38,7 @@ function Index() {
                 {fields("INCO Terms",buyerList?.order?.incoTerm,false)}
                 {/* {fields("Transaction Type",buyerList?.order?.transactionType)} */}
                 {fields("Port Of Discharge",buyerList?.order?.portOfDischarge,false)}
-                {fields("Expected Date Of Shipment",buyerList?.order?.ExpectedDateOfShipment,false)}
+                {fields("Expected Date Of Shipment",buyerList?.order?.ExpectedDateOfShipment?.split('T')[0],false)}
                 {fields("Document Name",buyerList?.company?.documents?.typeOfDocument,true)}
             
         </div>
@@ -57,7 +57,7 @@ const fields =(head,value,isButton)=>{
                     <span className={`${styles.value} value `}>
                   {value}                  
                     </span>
-                    {isButton?<span className={styles.button}>View</span>:null}
+                    {isButton?<a href={value} className={styles.button}>View</a>:null}
                 </div>
             </div>
         </>

@@ -33,7 +33,7 @@ function Index() {
                 {fields("Company Name",buyerList?.companyName)}
                 {fields("Company PAN",buyerList?.company.companyPan)}
                 {fields("Type Of Business",buyerList?.company.typeOfBusiness)}
-                {fields("Transaction Type",buyerList?.company.transactionType)}
+                {fields("Transaction Type",buyerList?.transactionType?.originalValue)}
                 {fields("Turn-Over (in Cr)",buyerList?.company.turnOver)}
                 {fields("Email ID",buyerList?.company.email)}
                                 
