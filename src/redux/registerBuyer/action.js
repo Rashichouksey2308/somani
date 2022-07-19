@@ -181,9 +181,14 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(createBuyerSuccess(response.data.data))
-        setTimeout(() => {
+        // document.getElementById('CompanyDetailsForm').reset()
+        // document.getElementById('OrderDetailsForm').reset()
+        let toastMessage = 'Lead Created Successfully'
+        if (!toast.isActive(toastMessage)) {
+          toast.success(toastMessage, { toastId: toastMessage })
+        }
           Router.push('/leads')
-        }, 1500)
+        
         // payload.history.goBack()
       } else {
         dispatch(createBuyerFailed(response.data.data))
