@@ -117,8 +117,9 @@ const Index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                     <div className='d-flex'>
                     <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                     >
                       <option>Ramakrishna Traders</option>
                       <option>Balaji Traders</option>
@@ -126,6 +127,12 @@ const Index = () => {
                     <label className={`${styles.label_heading} label_heading`}>
                       Name of Insurer<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <div className="d-flex">
@@ -168,6 +175,7 @@ const Index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={2} md={6}>
+                      <div className="d-flex">
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="date"
@@ -175,8 +183,15 @@ const Index = () => {
                     <label className={`${styles.label_heading} label_heading`}>
                       Insurance from<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>    
                   </Col>
                   <Col className="mb-4 mt-4" lg={2} md={6}>
+                   <div className="d-flex">
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="date"
@@ -184,6 +199,12 @@ const Index = () => {
                     <label className={`${styles.label_heading} label_heading`}>
                       Insurance to<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>    
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
@@ -197,15 +218,21 @@ const Index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                                            <div className='d-flex'>
                     <select
-                      className={`${styles.input_field} input form-control`}
-                    >
+                      className={`${styles.input_field} ${styles.customSelect}  input form-control`}>
                       <option>HDFC Bank</option>
                       <option>SBI</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Loss Payee Bank<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
@@ -278,8 +305,9 @@ const Index = () => {
 
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                   <div className='d-flex'>
                     <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     >
                       <option>Ramakrishna Traders</option>
                       <option>Balaji Traders</option>
@@ -287,6 +315,12 @@ const Index = () => {
                     <label className={`${styles.label_heading} label_heading`}>
                       Name of Insurer<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <div className="d-flex">
@@ -332,6 +366,7 @@ const Index = () => {
                     
                   </Col>
                   <Col className="mb-4 mt-4" lg={2} md={6}>
+                     <div className="d-flex">
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="date"
@@ -339,8 +374,15 @@ const Index = () => {
                     <label className={`${styles.label_heading} label_heading`}>
                       Insurance from<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>    
                   </Col>
                   <Col className="mb-4 mt-4" lg={2} md={6}>
+                     <div className="d-flex">
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="date"
@@ -348,6 +390,12 @@ const Index = () => {
                     <label className={`${styles.label_heading} label_heading`}>
                       Insurance to<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>    
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
@@ -361,8 +409,9 @@ const Index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                                            <div className='d-flex'>
                     <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option>HDFC Bank</option>
                       <option>SBI</option>
@@ -370,6 +419,12 @@ const Index = () => {
                     <label className={`${styles.label_heading} label_heading`}>
                       Loss Payee Bank<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
