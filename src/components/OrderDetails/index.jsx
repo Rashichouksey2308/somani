@@ -37,7 +37,7 @@ const index = ({ saveOrderData, darkMode }) => {
            </div>
 
           </div>
-          <div className={`${styles.each_input} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
+          <div className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
             <input
               type="number"
               id="textInput"
@@ -51,7 +51,7 @@ const index = ({ saveOrderData, darkMode }) => {
             </label>
           </div>
 
-          <div className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
+          <div className={`${styles.each_input} ${styles.small_box} ${styles.phone} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
             <div className={styles.phone_card}>
               <select className={`${styles.code_phone} input border-right-0`}
               style={{width:"64px"}}>
