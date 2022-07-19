@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 function Index() {
     const {buyerList} = useSelector((state)=> state.buyer)
-    // console.log(buyerList, "this is buyer list")
+    console.log(buyerList, "this is buyer list")
     return ( 
         <div className={`${styles.wrapper} card`} >
         <div
@@ -39,7 +39,7 @@ function Index() {
                 {/* {fields("Transaction Type",buyerList?.order?.transactionType)} */}
                 {fields("Port Of Discharge",buyerList?.order?.portOfDischarge,false)}
                 {fields("Expected Date Of Shipment",buyerList?.order?.ExpectedDateOfShipment?.split('T')[0],false)}
-                {fields("Document Name",buyerList?.company?.documents?.typeOfDocument,true)}
+                {fields("Document Name",buyerList?.company?.documents[0]?.typeOfDocument,true)}
             
         </div>
         </div>
@@ -57,7 +57,7 @@ const fields =(head,value,isButton)=>{
                     <span className={`${styles.value} value `}>
                   {value}                  
                     </span>
-                    {isButton?<a href={value} className={styles.button}>View</a>:null}
+                    {isButton?<a onClick={()=>window.open(value)} className={styles.button}>View</a>:null}
                 </div>
             </div>
         </>

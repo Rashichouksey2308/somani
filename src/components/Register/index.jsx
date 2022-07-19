@@ -49,11 +49,22 @@ function Index() {
     },
     email: '',
     turnOver: '',
-    communicationMode: [null],
+    communicationMode: [],
 
     turnOverUnit: 'Cr',
   })
   console.log(companyDetails, "companyDetailscompanyDetails")
+
+  const handleCommunication = (e) => {
+    let communicationArr = { ...companyDetails }
+    if(e.target.checked){
+    communicationArr.communicationMode.push(e.target.name)
+    }else{
+      communicationArr.communicationMode.pop(e.target.name)
+    }
+    setCompanyDetails(communicationArr)
+
+  }
 
 
   const mobileFunction = (e) => {
@@ -292,6 +303,7 @@ function Index() {
       <Card.Body className={styles.body}>
         <CompanyDetails
           mobileCallingCodeFunction={mobileCallingCodeFunction}
+          handleCommunication={handleCommunication}
           whatsappCallingCodeFunction={whatsappCallingCodeFunction}
           darkMode={darkMode}
           whatsappFunction={whatsappFunction}
