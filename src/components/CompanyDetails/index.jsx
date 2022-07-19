@@ -14,6 +14,7 @@ const Index = ({
   whatsappFunction,
   mobileCallingCodeFunction,
   whatsappCallingCodeFunction,
+  handleCommunication,
 }) => {
   const { gstList } = useSelector((state) => state.buyer)
   const [slider, setSlider] = useState('60')
@@ -329,10 +330,11 @@ const Index = ({
                         inline
                         // defaultChecked={true}
                         label="Email ID"
-                        onChange={() =>
-                          saveCompanyData('communicationMode', 'email id')
+                        onChange={(e) =>
+                          // saveCompanyData('communicationMode', 'Email')
+                          handleCommunication(e)
                         }
-                        name="group1"
+                        name="Email"
                         type={type}
                         id={`inline-${type}-1`}
                       />
@@ -340,9 +342,10 @@ const Index = ({
                         className={`${styles.radio} radio`}
                         inline
                         label="SMS"
-                        name="group1"
-                        onChange={() =>
-                          saveCompanyData('communicationMode', 'SMS')
+                        name="SMS"
+                        onChange={(e) =>
+                          // saveCompanyData('communicationMode', 'SMS')
+                          handleCommunication(e)
                         }
                         type={type}
                         id={`inline-${type}-2`}
@@ -352,11 +355,13 @@ const Index = ({
                         className={`${styles.radio} radio`}
                         inline
                         label="Whatsapp"
-                        onChange={() =>
-                          saveCompanyData('communicationMode', 'Whatsapp')
+                        onChange={(e) =>{
+                          console.log(e, "this is e")
+                          // saveCompanyData('communicationMode', 'Whatsapp')
+                          handleCommunication(e)}
                         }
-                        name="group1"
-                        type={type}
+                        name="Whatsapp"
+                        // type={type}
                         id={`inline-${type}-2`}
                       />
                     </div>
