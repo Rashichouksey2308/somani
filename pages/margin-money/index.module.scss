@@ -255,6 +255,16 @@
                     .each_input {
                         position: relative;
                         margin: 30px 0 20px;
+                        .alphabet {
+                                width: 26px;
+                                height: 26px;
+                                /* UI Properties */
+                                background: #F0F8FF;
+                                border-radius: 6px;
+                        
+                                color: #3687E8;
+                                }
+                            
                         // .alphabet{
                         //     width: 26px;
                         //         height: 26px;
