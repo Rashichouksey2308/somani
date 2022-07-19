@@ -55,22 +55,33 @@ function Index() {
   const [uploadBtn, setUploadBtn] = useState(false)
   const [complienceFilter, setComplienceFilter] = useState('')
   const [newDoc, setNewDoc] = useState({
-    document: null,
+    document: [],
     order: orderList?.termsheet?.order,
     type: '',
     name: '',
     module: '',
   })
+  const [manualDocModule, setManualDocModule] = useState(true)
+  const [filteredDoc, setFilteredDoc] = useState([])
+  console.log(newDoc, "newDoc")
+
+  const { documentsFetched } = useSelector((state) => state.review)
+  //console.log(documentsFetched, 'documentsFetched')
 
   const { orderList } = useSelector((state) => state.buyer)
 
-  console.log(orderList, 'this is order list')
+  // console.log(orderList, 'this is order list')
 
   const { companyData } = useSelector((state) => state.companyDetails)
-  console.log(companyData, 'this is company data')
+  //console.log(companyData, 'this is company data')
 
-  const { documentsFetched } = useSelector((state) => state.review)
-  console.log(documentsFetched, 'documentsFetched')
+  // useEffect(()=> {
+  //   const filtered = documentsFetched?.document.filter((doc)=> !doc.deleted )
+  //   setFilteredDoc(prev => [...prev, filtered ])
+
+  // },[documentsFetched])
+
+
 
 
   useEffect(() => {
@@ -82,6 +93,9 @@ function Index() {
   useEffect(() => {
     dispatch(GetDocuments(`?order=${orderList?.termsheet?.order}`))
   }, [dispatch, companyData])
+
+
+
 
   const [selectedTab, setSelectedTab] = useState('Profile')
 
@@ -594,6 +608,26 @@ function Index() {
       }),
     )
   }
+
+
+  const handleNewDocModule = (e) => {
+    if (e.target.value === 'others') {
+      setManualDocModule(false)
+    } else {
+      setManualDocModule(true)
+      setNewDoc({ ...newDoc, module: e.target.value })
+    }
+  }
+
+
+  const uploadDocument2 = (e) => {
+    const newUploadDoc1 = { ...newDoc }
+    newUploadDoc1.document = e.target.files[0]
+
+    setNewDoc(newUploadDoc1)
+  }
+
+
 
   return (
     <>
@@ -1396,11 +1430,17 @@ function Index() {
                                   />
                                   <p className={styles.drop_para}>
                                     Drop Files here or<br />
-                                    
-                                  <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
-                                  <a href="#">Browse</a>
-                                  </div>
+
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        onChange={(e) => uploadDocument2(e)}
+                                        type="file"
+                                        name="myfile"
+                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+
+                                      />
+                                      <a href="#">Browse</a>
+                                    </div>
                                   </p>
                                 </div>
                               </div>
@@ -1411,7 +1451,7 @@ function Index() {
                                   >
                                     Document Type
                                   </Form.Label>
-                                  <select  onChange={()=> console.log("djsf")}
+                                  <select onChange={(e) => handleNewDocModule(e)}
                                     className={`${styles.value} input form-control`}
                                     id="docType"
                                   >
@@ -1428,14 +1468,21 @@ function Index() {
                                   >
                                     Please Specify Document Name
                                   </Form.Label>
-                                  <Form.Control
+                                  <input
+                                    onChange={(e) => setNewDoc({ ...newDoc, module: e.target.value })}
                                     className={`${styles.value} input form-control`}
                                     type="text"
                                     placeholder="Insurance Quotation"
+                                    disabled={manualDocModule}
                                   />
                                 </Form.Group>
                                 <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
+                                  <input
+                                   
+                                    type="file"
+                                    name="myfile"
+                                    
+                                  />
                                   <button
                                     className={`${styles.upload_button} btn`}
                                   >
@@ -1472,7 +1519,7 @@ function Index() {
                               </tr>
                             </thead>
                             <tbody>
-                        <tr className="table_row">
+                              <tr className="table_row">
 
                                 <td colSpan="7" className="p-0">
                                   <div
@@ -1481,8 +1528,8 @@ function Index() {
                                       <select
                                         className={`${styles.dropDown} input form-control`}
                                       >
-                                        <option value="LeadOnboarding&OrderApproval">Lead Onboarding & Order Approval</option>
-                                        <option value="Agreements,Insurance&LCOpening">Agreements, Insurance & LC Opening</option>
+                                        <option value="LeadOnboarding,OrderApproval">Lead Onboarding & Order Approval</option>
+                                        <option value="Agreements,Insurance,LCOpening">Agreements, Insurance & LC Opening</option>
                                         <option value="Loading-Transit-Unloading">Loading-Transit- Unloading</option>
                                         <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
                                         <option value="others">Others</option>
@@ -1531,9 +1578,7 @@ function Index() {
                                   />
                                 </td>
                               </tr>
-
-
-                              {/* {documentsFetched && documentsFetched?.documents?.map((document, index) => {
+                              {documentsFetched && documentsFetched?.documents?.map((document, index) => {
                                 if (document.deleted) {
                                   return null
                                 } else {
@@ -1580,7 +1625,7 @@ function Index() {
                                     </tr>
                                   )
                                 }
-                              })} */}
+                              })}
                             </tbody>
                           </table>
                         </div>
