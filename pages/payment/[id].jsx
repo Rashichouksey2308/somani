@@ -3,9 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 import styles from './payment.module.scss'
-import BillOfEntry from '../../src/components/BillOfEntry'
-import DischargeCargo from '../../src/components/BillOfEntry/DischargeCargo'
-import Warehouse from '../../src/components/BillOfEntry/Warehouse'
+import ReleaseOrder from '../../src/components/ReleaseOrder'
 
 function Index() {
 
@@ -34,9 +32,9 @@ function Index() {
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
                 data-toggle="tab"
-                href="#billEntry"
+                href="#releaseOrder"
                 role="tab"
-                aria-controls="billEntry"
+                aria-controls="releaseOrder"
                 aria-selected="true"
               >
                 Release Order
@@ -64,10 +62,10 @@ function Index() {
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane show active fade"
-                  id="billEntry"
+                  id="releaseOrder"
                   role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <BillOfEntry />
+                    <ReleaseOrder />
                   </div>
                 </div>
 

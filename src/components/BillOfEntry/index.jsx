@@ -95,10 +95,17 @@ export default function Index() {
 
 
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                    <div className="d-flex">
                     <input 
                     className={`${styles.input_field} input form-control`} type="date"/> 
                      <label className={`${styles.label_heading} label_heading`}>
-                      Bill of Entry for<strong className="text-danger">*</strong></label>                   
+                      Bill of Entry for<strong className="text-danger">*</strong></label> 
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>                     
                 </div> 
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
                     <input 
