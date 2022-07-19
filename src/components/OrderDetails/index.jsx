@@ -42,7 +42,6 @@ const index = ({ saveOrderData, darkMode }) => {
               type="text"
               id="textInput"
               name='quantity'
-              inputmode='numeric'
               onChange={(e) => { saveOrderData(e.target.name, Number(e.target.value)) }}
               className={`${styles.input_field} input form-control`}
               required
