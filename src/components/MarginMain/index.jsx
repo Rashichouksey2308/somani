@@ -102,7 +102,7 @@ function Index() {
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>
           </div>
-          <div className={`${styles.datatable} datatable table_container`}>
+          <div className={`${styles.datatable} datatable table_container card`}>
             <div
               className={`${styles.tableFilter} d-flex justify-content-between`}
             >

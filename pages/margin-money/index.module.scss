@@ -840,17 +840,20 @@
     }
 }
 .container {
-    height: calc(100vh - 159px);
+    min-height: 85.2vh;
+    margin-bottom: 120px;
     @include respond(lg-desktop) {
-        height: calc(100vh - 155px);
+        // height: calc(100vh - 155px);
     }
     @include respond(md-desktop) {
-        height: calc(100vh - 151px);
+        // height: calc(100vh - 151px);
     }
     @include respond(sm-desktop) {
-        height: calc(100vh - 150px);
+        // height: calc(100vh - 150px);
     }
     @include respond(phone) {
-        height: calc(100vh - 165px);
+        min-height: auto;
+        margin-bottom: 140px;
+        // height: calc(100vh - 165px);
     }
 }
