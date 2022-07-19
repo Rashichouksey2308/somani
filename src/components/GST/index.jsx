@@ -27,11 +27,26 @@ Chart.register(
   BarElement,
 )
 // Chart.register(linear);
-function Index() {
+function Index(GstData) {
+
+  console.log(GstData, "GSTDATA")
   const chartRef = useRef(null)
   const [chartData, setChartData] = useState({
     datasets: [],
   })
+  const [gstFilteredData, SetGstFilteredData] = useState()
+  const [gstNumbers, setGstNumbers] = useState([])
+
+  useEffect(() => {
+    const filteredData = GstData?.GstData?.map((gstData) => {
+      const data = { ...gstData }
+      SetGstFilteredData(data)
+    })
+  }, [GstData])
+  console.log(gstFilteredData, 'gstFilteredData')
+
+
+
   function createGradient(ctx, area) {
     // const colorStart = faker.random.arrayElement(colors);
     // const colorMid = faker.random.arrayElement(
@@ -51,6 +66,7 @@ function Index() {
   }
 
   useEffect(() => {
+
     const chart = chartRef.current;
     console.log("here", chart.ctx)
     if (!chart) {
@@ -294,52 +310,53 @@ function Index() {
                     <div className={`${styles.col_header} label_heading`}>
                       Business Activity
                     </div>
-                    <div className={styles.col_body}>Supplier Of Services</div>
+                    <div className={styles.col_body}>
+                      {gstFilteredData?.detail?.summaryInformation?.businessProfile?.businessActivity[0]}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Date of Registration
                     </div>
-                    <div className={styles.col_body}>12-12-1990</div>
+                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.rgdt}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       State of Registration
                     </div>
-                    <div className={styles.col_body}>Uttar Pradesh</div>
+                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.stj}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Email ID
                     </div>
-                    <div className={styles.col_body}>ramakrishanan@email.com</div>
+                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.email}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Contact Details
                     </div>
-                    <div className={styles.col_body}>+91 9876543210</div>
+                    <div className={styles.col_body}>+91 {gstFilteredData?.detail?.summaryInformation?.businessProfile?.mobNum}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Compliance Status
                     </div>
-                    <div className={styles.col_body}>Active</div>
+                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.complianceStatus}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Latest Return Filed GSTR 1
                     </div>
-                    <div className={styles.col_body}>22-04-2022</div>
+                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Latest Return Filed GSTR 3B
                     </div>
-                    <div className={styles.col_body}>22-04-2022</div>
+                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1}</div>
                   </Col>
                 </Row>
-                
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -415,34 +432,17 @@ function Index() {
               </div>
               <div className={` ${styles.body}`}>
                 <Row>
-                  <Col
-                    md={3}
-                    sm={12}
-                    className={`  d-flex align-items-center justify-content-between`}
-                  >
-                    <span>- Kalyan</span>
-                  </Col>
-                  <Col
-                    md={3}
-                    sm={12}
-                    className={`  d-flex align-items-center justify-content-between`}
-                  >
-                    <span>- Krishna</span>
-                  </Col>
-                  <Col
-                    md={3}
-                    sm={12}
-                    className={`  d-flex align-items-center justify-content-between`}
-                  >
-                    <span>- Balkrishna</span>
-                  </Col>
-                  <Col
-                    md={3}
-                    sm={12}
-                    className={`  d-flex align-items-center justify-content-between`}
-                  >
-                    <span>- Sai Krishna</span>
-                  </Col>
+
+                  {gstFilteredData?.detail?.summaryInformation?.keyManagerialPerson?.map((keyPerson, index) => (
+                    <Col
+                      key={index}
+                      md={3}
+                      sm={12}
+                      className={`  d-flex align-items-center justify-content-between`}
+                    >
+                      <span>- {keyPerson}</span>
+                    </Col>
+                  ))}
                 </Row>
                 <Row></Row>
               </div>
@@ -476,7 +476,7 @@ function Index() {
                       Gross Turnover
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      1,900.00
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossTurnover}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -484,7 +484,7 @@ function Index() {
                       Gross Purchases
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      37.79
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossPurchases}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -492,7 +492,7 @@ function Index() {
                       Gross Margins %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      10%
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossMargin}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -500,7 +500,7 @@ function Index() {
                       Total clients
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      25
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.ttlCustomer}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -508,7 +508,7 @@ function Index() {
                       Total Invoices
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      10
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.ttlInv}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -516,7 +516,7 @@ function Index() {
                       Intra Organisation Sales %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      10%
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.intraOrgSalesPercent}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -524,7 +524,7 @@ function Index() {
                       Related Party Sales %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      3%
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.relatedPartySales}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -532,7 +532,7 @@ function Index() {
                       Export Sales %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      20%
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.exportSalesPercent}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -540,7 +540,7 @@ function Index() {
                       GST Paid
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      2.50
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.gstPaid}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -548,7 +548,7 @@ function Index() {
                       GST Payble
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      24.30
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.gstPayable}
                     </div>
                   </Col>
                 </Row>
@@ -734,81 +734,81 @@ function Index() {
                     <td colSpan={2}>
                       Gross Revenue
                     </td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Recurring Sales
                     </td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Related Party Sales
                     </td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Intra Organization Sales
                     </td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       B2B Sales
                     </td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       B2C Sales
                     </td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Export Sales
                     </td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Total Customers
                     </td>
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.current?.value}</td>
                     <td></td>
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value}</td>
                     <td></td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Total Invoices
                     </td>
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.current?.value}</td>
                     <td></td>
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value}</td>
                     <td></td>
                   </tr>
                   <tr>
@@ -850,33 +850,33 @@ function Index() {
                   </tr>
                   <tr>
                     <td>Average Monthly Sales</td>
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgMonthlySales?.current}</td>
 
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgMonthlySales?.previous}</td>
                   </tr>
                   <tr>
                     <td>Average Quarterly Sales</td>
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgQuarterlySales?.current}</td>
 
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgQuarterlySales?.previous}</td>
                   </tr>
                   <tr>
                     <td>Average Sales per Customer</td>
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.current}</td>
 
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.previous}</td>
                   </tr>
                   <tr>
                     <td>Average Sales per Invoice</td>
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalinv?.current}</td>
 
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalinv?.previous}</td>
                   </tr>
                   <tr>
                     <td>Average Invoices per Customer</td>
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalcust?.current}</td>
 
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalcust?.previous}</td>
                   </tr>
                 </table>
                 <table
@@ -901,36 +901,19 @@ function Index() {
                     <td>INVOICES</td>
                     <td>AVG. SALES PER CUSTOMER</td>
                   </tr>
-                  <tr>
-                    <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                    <td>72022900E</td>
-                    <td>25.40</td>
-                    <td>25.40E</td>
+                  
+                  {gstFilteredData && gstFilteredData?.detail?.salesDetailAnnual?.hsnWiseSales?.map((sales, index)=>(
+                    <tr key={index}>
+                    <td className={` ${styles.first}`}>{sales.hsnDesc}</td>
+                    <td>{sales.hsnSc}</td>
+                    <td>{sales.turnover}</td>
+                    <td>{sales.sharePercent}</td>
 
                     <td>24</td>
                     <td>19</td>
                     <td>1.05</td>
                   </tr>
-                  <tr>
-                    <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                    <td>72022900E</td>
-                    <td>25.40</td>
-                    <td>25.40E</td>
-
-                    <td>24</td>
-                    <td>19</td>
-                    <td>1.05</td>
-                  </tr>
-                  <tr>
-                    <td className={` ${styles.first}`}>Ferro-Alloys</td>
-                    <td>72022900E</td>
-                    <td>25.40</td>
-                    <td>25.40E</td>
-
-                    <td>24</td>
-                    <td>19</td>
-                    <td>1.05</td>
-                  </tr>
+                  )) }
                 </table>
 
               </div>
@@ -2297,3 +2280,4 @@ const gstSalesAndPurchase = (head) => {
     </>
   )
 }
+

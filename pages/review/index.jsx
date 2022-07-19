@@ -71,10 +71,10 @@ function Index() {
 
   const { orderList } = useSelector((state) => state.buyer)
 
-  // console.log(orderList, 'this is order list')
+   console.log(orderList, 'this is order list')
 
   const { companyData } = useSelector((state) => state.companyDetails)
-  //console.log(companyData, 'this is company data')
+  console.log(companyData, 'this is company data')
 
   // useEffect(()=> {
   //   const filtered = documentsFetched?.document.filter((doc)=> !doc.deleted )
@@ -821,7 +821,7 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <GST />
+                    <GST GstData={companyData?.GST} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Compliance" role="tabpanel">
