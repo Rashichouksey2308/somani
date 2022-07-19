@@ -1,157 +1,135 @@
 @import "../styles/Core/config";
+
 .card {
-  padding: 20px;
-  background: none;
-
-  .head_container {
-    display: flex;
+    padding: 20px;
     background: none;
-    flex-direction: row;
-    justify-content: space-between;
-    @include respond(phone) {
-      align-items: center;
-      padding: 0.75rem 0rem;
-      }
-    .head_header {
-      display: flex;
-      justify-content: space-around;
-      flex-direction: row;
-
-      .arrow {
-        width: 13px;
-        height: 21px;
-        background: transparent;
-        margin-top: 10px;
-        @include respond(phone){
-          margin-top: 0px;
-          height: 18px;
-        }
-      }
-      .heading {
-        padding-left: 18px;
-        font-weight: bold;
-        font-size: 30px;
-        text-align: left;
-        letter-spacing: 0px;
-       
-        text-transform: capitalize;
-        margin-top: 0;
+    .head_container {
+        display: flex;
+        background: none;
+        flex-direction: row;
+        justify-content: space-between;
         @include respond(phone) {
-          font-size: $font_size_mobile_head;
-          margin:0px;
-          padding-left: 10px;
-          }
-      }
-    }
-    .clear_btn {
-      width: 116px;
-      height: 38px;
-       
-      text-align: center;
-      font-weight: bold;
-      font-size: 16px;
-      @include respond(phone) {
-          font-size: $font_size_mobile_button;
+            align-items: center;
+            padding: 0.75rem 0rem;
+        }
+        .head_header {
+            display: flex;
+            justify-content: space-around;
+            flex-direction: row;
+            .arrow {
+                width: 13px;
+                height: 21px;
+                background: transparent;
+                margin-top: 10px;
+                @include respond(phone) {
+                    margin-top: 0px;
+                    height: 18px;
+                }
+            }
+            .heading {
+                padding-left: 18px;
+                font-weight: bold;
+                font-size: 30px;
+                text-align: left;
+                letter-spacing: 0px;
+                text-transform: capitalize;
+                margin-top: 0;
+                @include respond(phone) {
+                    font-size: $font_size_mobile_head;
+                    margin: 0px;
+                    padding-left: 10px;
+                }
+            }
+        }
+        .clear_btn {
+            width: 116px;
+            height: 38px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            @include respond(phone) {
+                font-size: $font_size_mobile_button;
+            }
         }
     }
-  }
-
-  .body {
-    padding: 0;
-    background-color: #F3F4F7;
-    box-shadow: 0px 3px 12px #cad0e2;
-    border: 1px solid #d2d7e5;
-    border-radius: 6px !important;
-  }
+    .body {
+        padding: 0;
+        background-color: #F3F4F7;
+        box-shadow: 0px 3px 12px #cad0e2;
+        border: 1px solid #d2d7e5;
+        border-radius: 6px !important;
+    }
 }
-
 .cardDark {
-  padding: 20px;
-  background: none;
-   background:#171E27;
-  .head_container {
-    display: flex;
+    padding: 20px;
     background: none;
-    flex-direction: row;
-    justify-content: space-between;
-
-    .head_header {
-      display: flex;
-      justify-content: space-around;
-      flex-direction: row;
-
-      .arrow {
-        width: 13px;
-        height: 21px;
-        background: transparent;
-        margin-top: 10px;
-      }
-
-      .heading {
-        padding-left: 18px;
-        font-weight: bold;
-        font-size: 30px;
-        text-align: left;
-        letter-spacing: 0px;
-        color: #ffffff;
-        text-transform: capitalize;
-        margin-top: 0;
-      }
+    background: #171E27;
+    .head_container {
+        display: flex;
+        background: none;
+        flex-direction: row;
+        justify-content: space-between;
+        .head_header {
+            display: flex;
+            justify-content: space-around;
+            flex-direction: row;
+            .arrow {
+                width: 13px;
+                height: 21px;
+                background: transparent;
+                margin-top: 10px;
+            }
+            .heading {
+                padding-left: 18px;
+                font-weight: bold;
+                font-size: 30px;
+                text-align: left;
+                letter-spacing: 0px;
+                color: #ffffff;
+                text-transform: capitalize;
+                margin-top: 0;
+            }
+        }
+        .clear_btn {
+            width: 116px;
+            height: 38px;
+            background: #171E27;
+            box-shadow: 0px 4px 12px #72727234;
+            border: 1px solid #3687e8;
+            border-radius: 8px;
+            color: #3687e8;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
     }
-
-    .clear_btn {
-      width: 116px;
-      height: 38px;
-      background: #171E27;
-      box-shadow: 0px 4px 12px #72727234;
-      border: 1px solid #3687e8;
-      border-radius: 8px;
-      color: #3687e8;
-      text-align: center;
-      font-weight: bold;
-      font-size: 16px;
+    .body {
+        background: #293141 0% 0% no-repeat padding-box;
+        box-shadow: 0px 8px 25px #72727234;
+        border-radius: 6px;
+        .line {
+            border: 2px solid #3687e8;
+        }
     }
-  }
-
-  .body {
-    background: #293141 0% 0% no-repeat padding-box;
-      box-shadow: 0px 8px 25px #72727234;
-    border-radius: 6px;
-
-    .line {
-      border: 2px solid #3687e8;
-    }
-  }
 }
 .customSelect {
-  appearance: none;
-  // position: relative;
-
+    appearance: none;
+    // position: relative;
 }
-
 .arrow {
-
-  margin-left: -40px;
-  width: 13px;
-  pointer-events: none;
-
-  input[type="date"]::-webkit-inner-spin-button,
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-  }
-
-
+    // margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
 }
-
 .calanderIcon {
-
-  margin-left: -40px;
-  margin-top: 15px;
-  width: 23px;
-  height: 26px;
-  pointer-events: none;
-
-
-
+    margin-left: -40px;
+    margin-top: 15px;
+    width: 23px;
+    height: 26px;
+    pointer-events: none;
 }
