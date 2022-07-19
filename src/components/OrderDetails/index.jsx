@@ -39,9 +39,10 @@ const index = ({ saveOrderData, darkMode }) => {
           </div>
           <div className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
             <input
-              type="number"
+              type="text"
               id="textInput"
               name='quantity'
+              inputmode='numeric'
               onChange={(e) => { saveOrderData(e.target.name, Number(e.target.value)) }}
               className={`${styles.input_field} input form-control`}
               required
@@ -127,7 +128,6 @@ const index = ({ saveOrderData, darkMode }) => {
             <label className={`${styles.label_heading} label_heading`} id="dropPort">
               Port Of Discharge<strong className='text-danger'>*</strong>
             </label>
-            <label className={`${styles.label_heading} label_heading`}>Port Of Discharge<strong className="text-danger">*</strong></label>
             <img
             className={`${styles.arrow} img-fluid`}
             src="/static/inputDropDown.svg"
