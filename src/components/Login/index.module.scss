@@ -134,7 +134,7 @@
                     pointer-events: none;
                     box-sizing: border-box;
                     background: #ffffff;
-                    transform: translateY(-31px);
+                    transform: translateY(-29px);
                     transition: 0.3s all ease-in-out;
                 }
                 .formControl {
@@ -160,7 +160,7 @@
                     &:focus {
                         &+label {
                             background: #ffffff;
-                            transform: translateY(-31px);
+                            transform: translateY(-29px);
                         }
                     }
                     &:-webkit-autofill,
@@ -211,6 +211,11 @@
                 .formControl {
                     &:invalid+label {
                         background: none;
+                    }
+                    &:focus {
+                        &+label {
+                            background: #ffffff;
+                        }
                     }
                 }
             }
