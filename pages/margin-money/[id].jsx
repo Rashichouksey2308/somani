@@ -247,7 +247,7 @@ function Index() {
                           <select
                             className={`${styles.options} mr-4 accordion_DropDown`}
                           >
-                            <option> {marginData?.order?.unitOfValue}</option>
+                            <option> {marginData?.order?.unitOfValue=="Cr"?"Crores":null}</option>
                             <option>Million</option>
                           </select>
                           <span>+</span>
@@ -263,24 +263,24 @@ function Index() {
                           <div className={`${styles.content} border_color`}>
                             <div className={`${styles.input_container} row`}>
                               <div
-                                className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                                className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                               >
                                 <div
-                                  className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                                  className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
                                 >
                                   <span>A</span>
                                 </div>
                                 <input
                                   type="text"
                                   id="textInput"
-                                  name="quantity"
-                                  defaultValue={marginData?.order?.quantity}
+                                  name="conversionRate"
                                   onChange={(e) =>
                                     saveForCalculation(
                                       e.target.name,
                                       e.target.value,
                                     )
                                   }
+                                  defaultValue={marginData?.order?.quantity}
                                   className={`${styles.input_field} input form-control`}
                                   required
                                 />
@@ -289,10 +289,11 @@ function Index() {
                                   id="textInput"
                                   style={{ left: '70px' }}
                                 >
-                                  Quantity
+                                  Conversation Rate
                                   <strong className="text-danger">*</strong>
                                 </label>
                               </div>
+                             
                               <div
                                 className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                               >
@@ -356,254 +357,182 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                               </div>
+                            <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
                               <div
-                                className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-2 col-sm-4`}
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
                               >
-                                <div
-                                  className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                                >
-                                  <span>D</span>
-                                </div>
-                                <input
-                                  type="text"
-                                  disabled
-                                  id="textInput"
-                                  name="usanceInterestPercetage"
-                                  defaultValue={
-                                    marginData?.order?.termsheet?.commercials
-                                      ?.usanceInterestPercetage
-                                  }
-                                  onChange={(e) =>
-                                    saveForCalculation(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
-                                  }
-                                  className={`${styles.input_field} input form-control`}
-                                  style={{ width: '50%' }}
-                                  required
-                                />
-
+                                <span>D</span>
+                              </div>
+                              <div className={`${styles.val_wrapper} ml-3`}>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
-                                  style={{ left: '70px' }}
                                 >
-                                  Usance Interest (%)
+                                  Usance Interest (%) (For 90 Days)
                                   <strong className="text-danger">*</strong>
                                 </label>
-                              </div>
-                              <div
-                                className={`${styles.radio_heading} ml-n5 mt-4 form-check form-check-inline`}
-                                //style={{top:"50px", left:"100px"}}
-                              >
-                                {' '}
-                                Include in Calculation
-                                <input
-                                  className="form-check-input ml-3"
-                                  type="radio"
-                                  name="isUsanceInterestIncluded"
-                                  defaultChecked={
-                                    marginData?.isUsanceInterestIncluded === true
-                                  }
-                                  onChange={(e) =>
-                                    saveForCalculation(
-                                      'isUsanceInterestIncluded',
-                                      true,
-                                    )
-                                  }
-                                />
-                                <label
-                                  className="form-check-label mr-2"
-                                  for="inlineRadio1"
-                                >
-                                  Yes
-                                </label>
-                                <input
-                                  className="form-check-input ml-2"
-                                  type="radio"
-                                  name="isUsanceInterestIncluded"
-                                  defaultChecked={
-                                    marginData?.isUsanceInterestIncluded === false
-                                  }
-                                  onChange={(e) =>
-                                    saveForCalculation(
-                                      'isUsanceInterestIncluded',
-                                      false,
-                                    )
-                                  }
-                                />
-                                <label
-                                  className="form-check-label"
-                                  for="inlineRadio2"
-                                >
-                                  No
-                                </label>
-                              </div>
-                              <div
-                                className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                              >
                                 <div
-                                  className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                                  className={`${styles.val} heading d-flex align-items-center`}
                                 >
-                                  <span>E</span>
+                                  {
+                                     marginData?.order?.termsheet?.commercials
+                                      ?.usanceInterestPercetage
+                                  }
+                                  <div className={` d-flex align-items-center`}>
+                                    <label
+                                      className={`${styles.label_heading} ml-3 label_heading mb-0`}
+                                      id="textInput"
+                                    >
+                                      Include in Calculation
+                                    </label>
+                                    <Form>
+                                      {['radio'].map((type) => (
+                                        <div
+                                          key={`inline-${type}`}
+                                          className={`${styles.radio_group} d-flex ml-3`}
+                                        >
+                                          <Form.Check
+                                            className={`${styles.radio} radio`}
+                                            inline
+                                            label="Yes"
+                                            name="group1"
+                                            type={type}
+                                            id={`inline-${type}-1`}
+                                               defaultChecked={
+                                               marginData?.isUsanceInterestIncluded === true
+                                              }
+                                          />
+                                          <Form.Check
+                                            className={`${styles.radio} radio`}
+                                            inline
+                                            label="No"
+                                            name="group1"
+                                            type={type}
+                                            id={`inline-${type}-2`}
+                                            defaultChecked={
+                                             marginData?.isUsanceInterestIncluded === false
+                                            }
+                                          />
+                                        </div>
+                                      ))}
+                                    </Form>
+                                  </div>
                                 </div>
-                                <input
-                                  type="text"
-                                  disabled
-                                  id="textInput"
-                                  name="tradeMarginPercentage"
-                                  defaultValue={
-                                    marginData?.order?.termsheet?.commercials
-                                      ?.tradeMarginPercentage
-                                  }
-                                  onChange={(e) =>
-                                    saveForCalculation(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
-                                  }
-                                  className={`${styles.input_field} input form-control`}
-                                  required
-                                />
+                              </div>
+                            </div>
+                            <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                              >
+                                <span>E</span>
+                              </div>
+                              <div className={`${styles.val_wrapper} ml-3`}>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
-                                  style={{ left: '70px' }}
                                 >
                                   Trade Margin (%)
                                   <strong className="text-danger">*</strong>
                                 </label>
-                              </div>{' '}
-                              <div
-                                className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                              >
-                                <div
-                                  className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                                >
-                                  <span>F</span>
-                                </div>
-                                <input
-                                  type="text"
-                                  disabled
-                                  id="textInput"
-                                  name="tolerance"
-                                  defaultValue={marginData?.order?.tolerance}
-                                  onChange={(e) =>
-                                    saveForCalculation(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
+                                <div className={`${styles.val} heading`}>
+                                  {
+                                    marginData?.order?.termsheet?.commercials
+                                      ?.tradeMarginPercentage
                                   }
-                                  className={`${styles.input_field} input form-control`}
-                                  required
-                                />
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                              >
+                                <span>F</span>
+                              </div>
+                              <div className={`${styles.val_wrapper} ml-3`}>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
-                                  style={{ left: '70px' }}
                                 >
                                   Tolerance (+/-) Percentage
                                   <strong className="text-danger">*</strong>
                                 </label>
-                              </div>{' '}
-                              <div
-                                className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                              >
-                                <div
-                                  className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                                >
-                                  <span>G</span>
+                                <div className={`${styles.val} heading`}>
+                                  {marginData?.order?.tolerance}
                                 </div>
-                                <input
-                                  type="text"
-                                  disabled
-                                  id="textInput"
-                                  name="marginMoney"
-                                  defaultValue={
-                                    marginData?.order?.termsheet
-                                      ?.transactionDetails?.marginMoney
-                                  }
-                                  onChange={(e) =>
-                                    saveForCalculation(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
-                                  }
-                                  className={`${styles.input_field} input form-control`}
-                                  required
-                                />
+                              </div>
+                            </div>
+                            <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                              >
+                                <span>G</span>
+                              </div>
+                              <div className={`${styles.val_wrapper} ml-3`}>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
-                                  style={{ left: '70px' }}
                                 >
                                   Margin Money (%)
                                   <strong className="text-danger">*</strong>
                                 </label>
-                              </div>{' '}
-                              <div
-                                className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                              >
-                                <div
-                                  className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                                >
-                                  <span>H</span>
-                                </div>
-                                <input
-                                  type="text"
-                                  id="textInput"
-                                  name="numberOfPDC"
-                                  onChange={(e) =>
-                                    saveForCalculation(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
+                                <div className={`${styles.val} heading`}>
+                                  {
+                                    marginData?.order?.termsheet
+                                      ?.transactionDetails?.marginMoney
                                   }
-                                  defaultValue={marginData?.numberOfPDC}
-                                  className={`${styles.input_field} input form-control`}
-                                  required
-                                />
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                              >
+                                <span>H</span>
+                              </div>
+                              <div className={`${styles.val_wrapper} ml-3`}>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
-                                  style={{ left: '70px' }}
                                 >
-                                  No. of PDC's
+                                  {` No. of PDC's`}
                                   <strong className="text-danger">*</strong>
                                 </label>
-                              </div>
-                              <div
-                                className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                              >
-                                <div
-                                  className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                                >
-                                  <span>I</span>
+                                <div className={`${styles.val} heading`}>
+                                  {marginData?.numberOfPDC}
                                 </div>
-                                <input
-                                  type="text"
-                                  id="textInput"
-                                  name="additionalPDC"
-                                  onChange={(e) =>
-                                    saveForCalculation(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
-                                  }
-                                  defaultValue={marginData?.additionalPDC}
-                                  className={`${styles.input_field} input form-control`}
-                                  required
-                                />
+                              </div>
+                            </div>
+                            <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                              >
+                                <span>I</span>
+                              </div>
+                              <div className={`${styles.val_wrapper} ml-3`}>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
-                                  style={{ left: '70px' }}
                                 >
-                                  Additional PDC's
+                                  {`Additional PDC's`}
                                   <strong className="text-danger">*</strong>
                                 </label>
+                                <div className={`${styles.val} heading`}>
+                                  {marginData?.additionalPDC}
+                                </div>
                               </div>
+                            </div>
                             </div>
                           </div>
                           <div className={`${styles.content} border_color`}>
@@ -622,7 +551,7 @@ function Index() {
                                   type="text"
                                   id="textInput"
                                   defaultValue={
-                                    marginData?.calculation?.orderValue
+                                   marginData?.calculation?.orderValue
                                   }
                                   name="companyPan"
                                   className={`${styles.input_field} input form-control`}

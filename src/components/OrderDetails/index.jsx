@@ -136,7 +136,7 @@ const index = ({ saveOrderData, darkMode }) => {
               name='ExpectedDateOfShipment'
               id="ExpectedDateOfShipment"
               onChange={(e) => { saveDate(e, e.target.value)}}
-              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+              className={`${styles.calender} ${styles.customSelect}  input form-control`}
               required
             />
             
