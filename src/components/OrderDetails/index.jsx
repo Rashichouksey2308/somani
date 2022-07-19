@@ -40,7 +40,7 @@ const index = ({ saveOrderData, darkMode }) => {
           </div>
           <div className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
             <input
-              type="number"
+              type="text"
               id="textInput"
               name='quantity'
               onChange={(e) => { saveOrderData(e.target.name, Number(e.target.value)) }}
