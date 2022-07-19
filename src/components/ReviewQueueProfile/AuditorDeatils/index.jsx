@@ -2,10 +2,13 @@
 import index from 'components/Footer'
 import React, { useState, useEffect } from 'react'
 import styles from '../profile.module.scss'
+import moment from 'moment'
 
 function Index({ directorData }) {
   const [darkMode, setDarkMode] = useState(false)
   console.log(directorData,"directorDetails")
+
+
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -33,7 +36,8 @@ function Index({ directorData }) {
         </div>
 
         {
-          directorData?.profile?.directorDetail?.map((director, index) => (
+          directorData?.profile?.directorDetail?.map((director, index) => {
+            return(
             <div
               key={index}
               id={`directorDetails`}
@@ -85,7 +89,8 @@ function Index({ directorData }) {
                         </div>
                         <div className={`${styles.detailsBox}  col-md-2`}>
                           <label className={`accordion_Text`}>DSC Status</label>
-                          {director?.dscStatus}
+                          
+                          {  moment(director?.dscStatus).format('DD MM YYYY') < moment(new Date).format('DD MM YYYY')    ? "Approved" : "Expired" }
                         </div>
                       </div>
                       <div className={`${styles.downArrow} `}>
@@ -329,7 +334,7 @@ function Index({ directorData }) {
                 </div>
               </div>
             </div>
-          ))}
+          )})}
       </div>
     </>
   )
