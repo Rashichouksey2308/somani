@@ -142,21 +142,14 @@ const Index = ({
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select
-                  id="drop"
-                  onChange={(e) => {
-                    saveCompanyData(e.target.name, e.target.value)
-                  }}
-                  name="GST"
-                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  required
-                >
-                  {gstList &&
-                    gstList.GstinIdArray.map((gstId, index) => (
-                      <option key={index} value={gstId}>
-                        {gstId}
-                      </option>
-                    ))}
-                  {/* <option value="gst1">282176JDEJ88UD</option>
+                id="drop"
+                onChange={(e) => { saveCompanyData(e.target.name, e.target.value) }}
+                name="GST"
+                className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                required
+              >
+                {gstList && gstList.GstinIdArray.map((gstId, index) => (<option key={index} value={gstId}>{gstId}</option>))}
+                {/* <option value="gst1">282176JDEJ88UD</option>
                 <option value="gst2">27AAATW46786C2ZG</option>
                 <option value="gst3">VW5688TW4183C2ZG</option> */}
                 </select>

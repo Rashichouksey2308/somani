@@ -135,7 +135,7 @@ function Index() {
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
-                    src="/static/check.svg"
+                    src="/static/darktick.svg"
                     className="img-fluid"
                     alt="Check"
                   />
