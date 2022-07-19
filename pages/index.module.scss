@@ -46,6 +46,12 @@
         // }
         margin-left: -10px;
         margin-right: -10px;
+        .left_Container {
+            @include respond(xl-desktop) {
+                flex: 0 0 28.4%;
+                max-width: 28.4%;
+            }
+        }
         .right_Container {
             // height: 100%;
             // width: 70%;
@@ -54,6 +60,10 @@
             // align-items: center;
             // flex-direction: column;
             // padding-right: 0.5rem;
+            @include respond(xl-desktop) {
+                flex: 0 0 71.6%;
+                max-width: 71.6%;
+            }
             .upper_Container {
                 // display: flex;
                 // justify-content: space-between;
@@ -123,7 +133,7 @@
                                 color: #718096;
                                 font-weight: 500;
                                 line-height: 23px;
-                                margin-right: 38px;
+                                margin-right: 9px;
                                 @include respond(phone) {
                                     font-size: 14px;
                                     line-height: 20px;
