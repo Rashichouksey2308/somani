@@ -115,6 +115,24 @@
                     }
                 }
             }
+            .calender {
+                            height: 60px;
+                            border-radius: 4px;
+                            font-size: 20px;
+                            font-weight: normal;
+                            line-height: 25px;
+                            outline: none;
+                            box-shadow: none;
+                            position: relative;
+                            letter-spacing: 0.19px;
+                            box-sizing: border-box;
+            
+                            &:invalid+label {
+                            transform: translateY(-31px);
+                            }
+            
+                           
+                        }
             .phone_card {
                 display: flex;
                 .code_phone {

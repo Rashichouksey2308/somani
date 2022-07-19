@@ -91,17 +91,24 @@ const Index = () => {
                 </div>
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">
-                <Form.Group className={styles.form_group}>
-                  <Form.Label className={`${styles.label} label_heading`}>
-                    Document Type
-                  </Form.Label>
+                 <Form.Group className={styles.form_group}>
+                 <div className="d-flex">
                   <select
-                    className={`${styles.value} input form-control`}
-                 id="docType" onChange={(e) => handleDropdown(e)}>
+                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                   id="docType" onChange={(e) => handleDropdown(e)}>
 
                     <option>N/A</option>
                     <option value='Others'>Others</option>
                   </select>
+                  <Form.Label className={`${styles.label} label_heading`}>
+                    Document Type
+                  </Form.Label>
+                   <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>  
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
                   <Form.Label className={`${styles.label} label_heading`}>

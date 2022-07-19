@@ -3,13 +3,15 @@
 
 .dashboardTab {
     .tabHeader {
-        padding: 29px 28px 0;
+        padding: 25px 30px 0;
+
         .title {
             font-size: 34px;
             font-weight: bold;
             line-height: 41px;
             margin: 0;
             text-transform: capitalize;
+
             span {
                 @include respond(phone) {
                     font-size: 13px;
@@ -17,72 +19,54 @@
                     padding-left: 0px;
                 }
             }
+
             img {
                 width: 13px;
                 height: 21px;
                 margin: -5px 25px 0 0;
+
                 @include respond(phone) {
                     margin: 7px 7px 0 0;
                 }
             }
         }
-        .btnPrimary {
-            font-size: 18px;
-            color: #ffffff;
-            font-weight: bold;
-            line-height: 23px;
-            width: 211px;
-            height: 48px;
-            padding: 12px 0;
-            box-shadow: none;
-            text-align: center;
-            border-radius: 5px;
-            background: #3687e8;
-            display: inline-block;
-            text-transform: capitalize;
-            @include respond(phone) {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100px;
-                height: 30px;
-                font-size: 12px;
-                margin: 0 0 0 auto
-            }
-            img {
-                margin-right: 9px;
-                @include respond(phone) {
-                    width: 10px
-                }
-            }
-        }
+
+
+
         .lastModified {
             font-size: 14px;
             color: rgba(40, 55, 86, 0.6);
             font-weight: normal;
             line-height: 16px;
             margin-top: 7px;
+
             @include respond(phone) {
                 font-size: 11px;
             }
+
             span {
                 @include respond(phone) {
                     font-size: 10px;
                 }
+
                 color: #283756;
                 font-weight: bold;
                 line-height: 17px;
             }
         }
+
         .navTabs {
-            // margin-top: 1rem;
+            margin-top: 2rem;
             border-bottom: none;
+
             @include respond(phone) {
                 display: flex;
                 justify-content: space-between;
             }
+
             .navItem {
                 background: transparent;
+
                 .navLink {
                     font-size: 22px;
                     font-weight: bold;
@@ -92,23 +76,30 @@
                     margin: 0 22px;
                     border-radius: 0;
                     border-bottom: 6px solid transparent;
+
                     @include respond(phone) {
                         font-size: 10px;
                         margin: 0 10px;
                     }
+
+                    &.active {}
                 }
             }
         }
     }
+
     .tabContent {
-        margin: 26px 28px;
+        margin-top: 26px;
+
         .card {
             margin-bottom: 1rem;
+
             // box-shadow: 0 3px 6px #cad0e2;
             .cardHeader {
                 cursor: pointer;
                 border-bottom: none;
                 padding: 25px 35px !important;
+
                 h2 {
                     font-size: 22px;
                     color: #3687e8;
@@ -116,30 +107,37 @@
                     line-height: 27px;
 
                 }
+
                 span {
                     font-size: 45px;
                     color: #3687e8;
                     font-weight: normal;
                     line-height: 20px;
                 }
+
                 .label {
                     font-size: 16px;
+
                     font-weight: 500;
                     line-height: 17px;
                     margin-bottom: 10px;
                     letter-spacing: 0.53px;
                 }
+
                 .categories {
                     margin-right: 1rem;
                     width: 80%;
+
                     .label {
                         margin-right: 1rem;
                         margin-bottom: 0px;
                     }
+
                     .status {
                         height: 31px;
                         background: #ea3f3f42 0% 0% no-repeat padding-box;
                         letter-spacing: 0px;
+
                         span {
                             padding-left: 0.5rem;
                             padding-right: 0.5rem;
@@ -152,11 +150,13 @@
                         }
                     }
                 }
+
                 .commodity {
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-start;
                     align-items: flex-start;
+
                     .comm_head {
                         letter-spacing: 0.53px;
                         text-transform: capitalize;
@@ -164,21 +164,26 @@
                         line-height: 17px;
                         font-weight: 500;
                         background: transparent;
+
                         @include respond(phone) {
                             font-size: 10px;
                         }
                     }
+
                     .comm_val {
                         text-transform: capitalize;
                         font-weight: 500;
                         line-height: 25px;
                         font-size: 20px;
+
                         @include respond(phone) {
                             font-size: 15px;
                         }
                     }
                 }
+
                 .unit_container {
+
                     .unit_label {
                         font-size: 18px;
                         text-transform: capitalize;
@@ -186,10 +191,13 @@
                         margin-top: 10px;
                         padding-right: 10px;
                         line-height: 23px;
+
                         @include respond(phone) {
+
                             font-size: 10px;
                         }
                     }
+
                     .options {
                         font-size: 18px;
                         line-height: 23px;
@@ -200,17 +208,22 @@
                         font-weight: bold;
                         text-align: center;
                         padding: 4px 6px 4px 8px;
+
                         @include respond(phone) {
+
                             margin-right: 0px;
                         }
                     }
+
                     .pay {
                         display: flex;
+
                         @include respond(phone) {
                             flex-direction: column;
                             margin-right: 0px !important;
                             font-size: 10px;
                         }
+
                         .round {
                             width: 15px;
                             height: 15px;
@@ -218,33 +231,42 @@
                             /* UI Properties */
                             background: #FF9D00 0% 0% no-repeat padding-box;
                         }
+
                         span {
                             font-size: 20px;
                             letter-spacing: 0px;
                             color: #111111;
+
                             @include respond(phone) {
                                 font-size: 15px;
                             }
                         }
                     }
                 }
+
             }
+
             .cardBody {
+
                 padding: 0px;
+
                 .content {
                     padding: 25px 35px;
                     border-top: 2px solid red
                 }
+
                 span {
                     text-transform: capitalize;
                     font-weight: bold;
                     font-size: 20px;
                     line-height: 25px;
                 }
+
                 .input_container {
                     margin-top: 20px;
                     margin-bottom: 10px;
                     padding-bottom: 14px;
+
                     .radio_heading {
                         letter-spacing: 0.53px;
                         color: #00000080;
@@ -252,32 +274,26 @@
                         line-height: 17px;
                         font-weight: 500;
                     }
+
                     .each_input {
                         position: relative;
                         margin: 30px 0 20px;
+
                         .alphabet {
-                                width: 26px;
-                                height: 26px;
-                                /* UI Properties */
-                                background: #F0F8FF;
-                                border-radius: 6px;
-                        
+                            width: 26px;
+                            height: 26px;
+                            /* UI Properties */
+                            background: #F0F8FF 0% 0% no-repeat padding-box;
+                            border-radius: 6px;
+
+                            span {
+                                font-size: 16px;
+                                font-weight: bold;
+                                letter-spacing: 0.53px;
                                 color: #3687E8;
-                                }
-                            
-                        // .alphabet{
-                        //     width: 26px;
-                        //         height: 26px;
-                        //         /* UI Properties */
-                        //         background: #F0F8FF 0% 0% no-repeat padding-box;
-                        //         border-radius: 6px;
-                        //         span{
-                        //             font-size: 16px;
-                        //             font-weight: bold;
-                        //             letter-spacing: 0.53px;
-                        //             color: #3687E8;
-                        //     }
-                        // }
+                            }
+                        }
+
                         .label_heading {
                             top: 27px;
                             left: 30px;
@@ -290,10 +306,12 @@
                             box-sizing: border-box;
                             transform: translateY(-31px);
                             transition: 0.3s all ease-in-out;
+
                             .blue {
                                 color: #3687E8;
                             }
                         }
+
                         .input_field {
                             height: 60px;
                             border-radius: 4px;
@@ -303,17 +321,23 @@
                             box-shadow: none;
                             position: relative;
                             box-sizing: border-box;
+
                             &:invalid+label {
                                 transform: translateY(0);
                             }
+
                             &:focus {
                                 &+label {
                                     transform: translateY(-31px);
                                 }
                             }
                         }
+
+
+
                         .phone_card {
                             display: flex;
+
                             .code_phone {
                                 font-size: 19px;
                                 letter-spacing: 0.18px;
@@ -323,15 +347,19 @@
                                 border-radius: 4px 0 0 4px;
                             }
                         }
+
                         .range_field {
                             background-color: #3687E8;
                             border-radius: 4px;
                         }
                     }
+
                     .radio_form {
                         padding-top: 20px;
+
                         .radio_group {
                             display: flex;
+
                             .radio {
                                 font-size: 20px;
                                 color: #111111;
@@ -339,12 +367,15 @@
                                 padding-right: 25px;
                             }
                         }
+
                     }
+
                     .phone {
                         .label_heading {
                             left: 90px;
                             transform: translate(-61px, -31px);
                         }
+
                         .input_field {
                             &:focus {
                                 &+label {
@@ -355,9 +386,12 @@
                     }
                 }
             }
+
             .noBorderTable {
                 padding: 0 0 20px;
+
                 .table {
+
                     th {
                         font-size: 15px;
                         color: #3687e8;
@@ -365,25 +399,33 @@
                         line-height: 18px;
                         border: none;
                         padding: 25px 35px;
+
                     }
+
                     td {
                         font-size: 19px;
+
                         font-weight: normal;
                         border: none;
                         line-height: 23px;
                         padding: 15px 35px;
                     }
+
                     h3 {
                         font-size: 22px;
+
                         font-weight: bold;
                         line-height: 27px;
                         margin-bottom: 0;
                     }
+
                 }
             }
+
             .borderTable {
                 padding: 35px;
                 box-sizing: border-box;
+
                 .table {
                     th {
                         font-size: 15px;
@@ -396,6 +438,7 @@
                         text-transform: uppercase;
                         border: 3px solid #f0f2f6;
                     }
+
                     td {
                         font-size: 19px;
                         color: rgba(17, 17, 17, 0.7);
@@ -404,24 +447,30 @@
                         padding: 15px 30px;
                         vertical-align: middle;
                         border: 3px solid #f0f2f6;
+
                         &.stable {
                             line-height: 19px;
+
                             span {
                                 font-size: 16px;
                                 color: #ff9d00;
                                 display: block;
                             }
                         }
+
                         &.negative {
                             line-height: 19px;
+
                             span {
                                 font-size: 16px;
                                 color: #ea3f3f;
                                 display: block;
                             }
                         }
+
                         &.positive {
                             line-height: 19px;
+
                             span {
                                 font-size: 16px;
                                 color: #43c34d;
@@ -431,15 +480,19 @@
                     }
                 }
             }
+
             .graphTable {
                 padding: 25px 35px;
                 box-sizing: border-box;
+
                 h3 {
                     font-size: 20px;
+
                     font-weight: bold;
                     line-height: 25px;
                     margin-bottom: 15px;
                 }
+
                 .table {
                     th {
                         font-size: 15px;
@@ -447,37 +500,45 @@
                         font-weight: bold;
                         line-height: 18px;
                         padding: 13px 30px;
+
                         vertical-align: middle;
                         text-transform: uppercase;
                         border: 3px solid #f0f2f6;
                     }
+
                     td {
                         font-size: 19px;
                         color: rgba(17, 17, 17, 0.7);
                         font-weight: 500;
                         line-height: 24px;
                         padding: 15px 30px;
+
                         vertical-align: middle;
                         border: 3px solid #f0f2f6;
+
                         &.name {
                             color: #111111;
                         }
+
                         span {
                             width: 17px;
                             height: 17px;
                             border-radius: 4px;
                             display: inline-block;
                         }
+
                         &.green {
                             span {
                                 background: #4caf50;
                             }
                         }
+
                         &.blue {
                             span {
                                 background: #2884de;
                             }
                         }
+
                         &.yellow {
                             span {
                                 background: #ffce00;
@@ -486,46 +547,58 @@
                     }
                 }
             }
+
             .directorDetails {
                 .card {
                     margin-bottom: 1rem;
                     border-radius: 6px !important;
+
                     // border: 1px solid #D2D7E5;
                     // box-shadow: 0 3px 6px #CAD0E2;
                     .cardHeader {
                         cursor: pointer;
                         border-bottom: none;
                         padding: 25px 35px !important;
+
+
+
                         h2 {
                             font-size: 22px;
                             color: #3687E8;
                             font-weight: bold;
                             line-height: 27px;
                         }
+
                         span {
                             font-size: 45px;
                             color: #3687E8;
                             font-weight: normal;
                             line-height: 20px;
                         }
+
                         .label {
                             font-size: 16px;
+
                             font-weight: 500;
                             line-height: 17px;
                             margin-bottom: 10px;
                             letter-spacing: 0.53px;
                         }
+
                         .categories {
                             margin-right: 1rem;
                             width: 30%;
+
                             .label {
                                 margin-right: 1rem;
                                 margin-bottom: 0px;
                             }
+
                             .status {
                                 height: 31px;
                                 background: #ea3f3f42 0% 0% no-repeat padding-box;
                                 letter-spacing: 0px;
+
                                 span {
                                     padding-left: 0.5rem;
                                     padding-right: 0.5rem;
@@ -539,8 +612,10 @@
                             }
                         }
                     }
+
                     &.collapsed {
                         border-radius: 8px !important;
+
                         .downArrow {
                             right: 46px;
                             margin-top: -8px;
@@ -548,24 +623,31 @@
                         }
                     }
                 }
+
                 .detailsBox {
                     font-size: 20px;
+
                     font-weight: 500;
                     line-height: 25px;
+
                     &.warning {
                         color: #ea3f3f !important;
                     }
+
                     &.success {
                         color: #43c34d !important;
                     }
+
                     label {
                         font-size: 16px;
+
                         font-weight: 500;
                         line-height: 17px;
                         display: block;
                         letter-spacing: 0.53px;
                     }
                 }
+
                 .cardBody {
                     padding: 17px 25px;
                     // border: 2px solid #e6eaf0;
@@ -573,14 +655,17 @@
                 }
             }
         }
+
         .cardBody_compliance {
             overflow-y: auto;
             height: 300px;
             padding-left: 42px !important;
             border-top: 2px solid red !important;
+
             .row {
                 min-height: 60px;
                 border-bottom: 2px solid rgba(217, 217, 217, 0.316);
+
                 .col {
                     span {
                         font-size: 16px;
@@ -588,18 +673,22 @@
                         font-weight: bold;
                         margin-top: 0.5rem;
                     }
+
                     .val {
                         flex-grow: 1;
                         flex-wrap: wrap;
                     }
                 }
             }
+
             // .card_compliance_wrapper {
             //   // height: 70px;
             // }
         }
+
         .cardBody_litigations {
             padding-left: 35px;
+
             // .checkbox_Container {
             // }
             .risk_Container {
@@ -609,21 +698,26 @@
                     background: #e3f0ff 0% 0% no-repeat padding-box;
                     border-radius: 5px;
                     padding: 0.5rem;
+
                     .risk_icon {
                         width: 78px;
                         height: 78px;
                         border-radius: 100%;
                         background: #3687e8 0% 0% no-repeat padding-box;
                     }
+
                     div {
                         width: 50%;
+
                         div {
                             width: 100%;
                             font-weight: bold;
                             font-size: 20px;
                         }
+
                         span {
                             font-size: 16px;
+
                             letter-spacing: 0.53px;
                             color: #00000080;
                         }
@@ -631,236 +725,13 @@
                 }
             }
         }
+
         .cardBody_details {
             padding-left: 0px;
             padding-right: 0px;
         }
     }
-}
-.compliance_purple {
-    width: fit-content;
-    background: #f4ebff 0% 0% no-repeat padding-box;
-    border-radius: 5px;
-    height: 30px;
-    padding: 0.5rem;
-    margin-left: 1rem;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
-    .purple_dot {
-        width: 14px;
-        height: 14px;
-        background: #9675ce 0% 0% no-repeat padding-box;
-        border-radius: 100px;
-        .compliance_content {
-            font-size: 16px;
-            line-height: 18px;
-        }
-    }
-}
-.compliance_red {
-    width: fit-content;
-    background: #fee4e2 0% 0% no-repeat padding-box;
-    border-radius: 5px;
-    height: 30px;
-    padding: 0.5rem;
-    margin-left: 1rem;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
-    .red_dot {
-        width: 14px;
-        height: 14px;
-        background: #ea3f3f 0% 0% no-repeat padding-box;
-        border-radius: 100px;
-        .compliance_content {
-            font-size: 16px;
-            line-height: 18px;
-        }
-    }
-}
-.compliance_yellow {
-    width: fit-content;
-    background: #fffacf 0% 0% no-repeat padding-box;
-    border-radius: 5px;
-    height: 30px;
-    padding: 0.5rem;
-    margin-left: 1rem;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
-    .yellow_dot {
-        width: 14px;
-        height: 14px;
-        background: #ffe438 0% 0% no-repeat padding-box;
-        border-radius: 100px;
-        .compliance_content {
-            font-size: 16px;
-            line-height: 18px;
-        }
-    }
-}
-.compliance_orange {
-    width: fit-content;
-    background: #fef0c7 0% 0% no-repeat padding-box;
-    border-radius: 5px;
-    height: 30px;
-    padding: 0.5rem;
-    margin-left: 1rem;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
-    .orange_dot {
-        width: 14px;
-        height: 14px;
-        background: #ff9d00 0% 0% no-repeat padding-box;
-        border-radius: 100px;
-        .compliance_content {
-            font-size: 16px;
-            line-height: 18px;
-        }
-    }
-}
-.card_ligitations_holder {
-    .cardHeader_litigations {
-        font-weight: bold;
-        font-size: 19px;
-        .row {
-            flex-grow: 1;
-            .head {
-                font-weight: normal;
-                font-size: 16px;
-                color: #00000080;
-                flex-direction: column;
-                span {
-                    width: 100%;
-                }
-                .lower {
-                    width: 100%;
-                    color: black;
-                    font-size: 20px;
-                }
-                .chart {
-                    width: 100%;
-                    font-size: 19px;
-                    color: black;
-                    .container {
-                        margin-top: 0.5rem;
-                        width: 267px;
-                        height: 8px;
-                        background: #e2e2e2 0% 0% no-repeat padding-box;
-                        border-radius: 2px;
-                        position: relative;
-                        .fill {
-                            background: #3687e8 0% 0% no-repeat padding-box;
-                            border-radius: 2px;
-                            top: 0;
-                            left: 0;
-                            height: 100%;
-                            width: 20%;
-                        }
-                        span {
-                            width: fit-content;
-                            position: absolute;
-                            right: -23px;
-                            top: -13px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-.card_litigations {
-    margin-bottom: 0.5rem;
-    .cardBody_Tribunals {
-        height: 300px;
-        overflow-y: auto;
-        padding: 0px;
-        table {
-            padding-right: 15px !important;
-            padding-left: 15px !important;
-            thead {
-                tr {
-                    th {
-                        font-weight: bold;
-                        font-size: 15px;
-                        color: #3687e8;
-                        height: 67px;
-                        background: #f3f4f7 0% 0% no-repeat padding-box;
-                        &:first-child {
-                            padding-left: 15px;
-                        }
-                    }
-                    td {
-                        font-size: 19px;
-                        &:first-child {
-                            padding-left: 15px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-.table_details {
-    border-collapse: collapse;
-    thead {
-        tr {
-            th {
-                background: #fafafb 0% 0% no-repeat padding-box;
-                // border: none;
-                font-weight: bold;
-                font-size: 15px;
-                color: #3687e8;
-            }
-        }
-    }
-    tbody {
-        tr {
-            border: none;
-            font-size: 19px;
-            .firstCell {
-                font-weight: bold;
-            }
-        }
-    }
-}
-.filed {
-    margin: 30px 0 20px;
-    .alphabet {
-        width: 26px;
-        height: 26px;
-        /* UI Properties */
-        background: #F0F8FF;
-        border-radius: 6px;
-        span {
-            font-size: 16px;
-            font-weight: bold;
-            letter-spacing: 0.53px;
-            color: #3687E8;
-        }
-    }
-    .val_wrapper {
-        .val {
-            text-transform: capitalize;
-            font-size: 20px;
-            line-height: 25px;
-            font-weight: medium;
-        }
-        .blue {
-            color: #3687E8 !important;
-        }
-    }
-}
-.container {
-    height: calc(100vh - 159px);
-    @include respond(lg-desktop) {
-        height: calc(100vh - 155px);
-    }
-    @include respond(md-desktop) {
-        height: calc(100vh - 151px);
-    }
-    @include respond(sm-desktop) {
-        height: calc(100vh - 150px);
-    }
-    @include respond(phone) {
-        height: calc(100vh - 165px);
-    }
+
+
+
 }

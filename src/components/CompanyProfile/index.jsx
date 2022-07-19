@@ -6,14 +6,30 @@ import { useSelector } from 'react-redux'
 function Index() {
     const {buyerList} = useSelector((state)=> state.buyer)
     // console.log(buyerList, "this is buyer list")
-    return (
-        <Card className={`${styles.sub_card} sub_card`}>
-            <Card.Header className={`${styles.header} label_heading`}>
-                <span>Company Profile</span>   
-                <span className={styles.addicon}>+</span>     
-            </Card.Header>
-            {/* <hr className={styles.hr}/> */}
-           <Card.Body className={`${styles.body} value_card row`}>
+    return ( 
+        <div className={`${styles.wrapper} card`} >
+        <div
+          className={`${styles.sub_card} sub_card card-header d-flex align-items-center justify-content-between bg-transparent`}
+          data-toggle="collapse"
+          data-target="#customerDetail"
+          aria-expanded="true"
+          aria-controls="customerDetail"
+        >
+        <div className={styles.header}>
+          <h2 className={`mb-0`}>Customer Details</h2>
+          <span className=" d-flex align-items-center justify-content-between">
+          
+            +
+          </span>
+        </div>
+        </div>
+        <div
+          id="customerDetail"
+          className={`collapse ${styles.body} value_card card-body row`}
+          aria-labelledby="customerDetail"
+        //   data-parent="#profileAccordion"
+        >
+              
                 {fields("Company Name",buyerList?.companyName)}
                 {fields("Company PAN",buyerList?.company.companyPan)}
                 {fields("Type Of Business",buyerList?.company.typeOfBusiness)}
@@ -24,8 +40,10 @@ function Index() {
                 {fields("Phone Number",buyerList?.company.mobile.primary.number)}
                 {fields("Whatsapp Number",buyerList?.company.mobile.whatsapp.number)}
                 {fields("Communication Mode",buyerList?.company.communicationMode)}
-            </Card.Body>
-        </Card>
+            
+        </div>
+        </div>
+       
     )
 }
 

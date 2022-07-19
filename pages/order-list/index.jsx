@@ -59,7 +59,7 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary d-flex align-items-center`}
               onClick={() => Router.push('/new-order')}
             >
-              <span className={`ml-4 mb-1`}>+</span>< span className={`mr-4`}>New Order</span>
+              <span className={`ml-4 mb-1`}>+</span>< span className={`mr-3 ml-1 `}>New Order</span>
             </button>
           </div>
 

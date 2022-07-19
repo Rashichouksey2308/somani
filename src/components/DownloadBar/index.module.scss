@@ -1,8 +1,8 @@
 @import "../styles/Core/config";
-.root{
-    position: fixed;
-    bottom: 0;
-    width: 80%;
+.root {
+    // position: fixed;
+    bottom: 0px;
+    width: 100%;
     z-index: 4;
     height: 84px;
     box-shadow: 0px 3px 12px #CAD0E2;
@@ -12,18 +12,16 @@
     justify-content: space-between;
     font-weight: bold;
     font-size: 20px;
-     line-height: 25px;
-     flex-direction: row;
-     padding:0rem 2rem 0rem 2rem;
-
+    line-height: 25px;
+    flex-direction: row;
+    padding: 0rem 2rem 0rem 2rem;
     @include respond(md-desktop) {
         justify-content: space-between;
         width: 100%;
         padding: 0rem 1rem 0rem 1rem;
     }
-   
-    .reject{
-        cursor:pointer;
+    .reject {
+        cursor: pointer;
         width: 260px;
         height: 48px;
         border: 3px solid #3687E8;
@@ -33,12 +31,12 @@
         align-items: center;
         justify-content: center;
         @include respond(md-desktop) {
-          width: 120px;
-          height: 48px;
-          font-size: 12px;
+            width: 120px;
+            height: 48px;
+            font-size: 12px;
         }
     }
-    .approve{
+    .approve {
         cursor: pointer;
         width: 260px;
         height: 48px;
@@ -48,11 +46,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        
         @include respond(md-desktop) {
             width: 120px;
             height: 48px;
             font-size: 12px;
-            }
+        }
     }
 }

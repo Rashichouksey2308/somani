@@ -27,12 +27,19 @@ export default function Index() {
             <div className='row'>
 
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
-                    <select className={`${styles.input_field} input form-control`}>
+                     <div className='d-flex'>
+                    <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                     <option value="India">India</option>
                     <option value="America">America</option>
                   </select> 
                      <label className={`${styles.label_heading} label_heading`}>
-                      Vessel Name<strong className="text-danger">*</strong></label>                   
+                      Vessel Name<strong className="text-danger">*</strong></label>    
+                       <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>               
                 </div> 
                  <div className='col-lg-4 col-md-6 col-sm-6'
                  >
@@ -55,16 +62,30 @@ export default function Index() {
                       Vessel Arrival Date<strong className="text-danger">*</strong></label>                   
                 </div> 
                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                    <div className="d-flex">
                     <input 
                     className={`${styles.input_field} input form-control`} type="date"/> 
                      <label className={`${styles.label_heading} label_heading`}>
-                      Discharge Start Date<strong className="text-danger">*</strong></label>                   
+                      Discharge Start Date<strong className="text-danger">*</strong></label>  
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>                    
                 </div> 
                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                     <div className="d-flex">
                     <input 
                     className={`${styles.input_field} input form-control`} type="date"/> 
                      <label className={`${styles.label_heading} label_heading`}>
-                      Discharge End Date<strong className="text-danger">*</strong></label>                   
+                      Discharge End Date<strong className="text-danger">*</strong></label>  
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>                    
                 </div> 
                 
                   </div>
