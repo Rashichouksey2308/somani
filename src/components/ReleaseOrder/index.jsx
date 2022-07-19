@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useState } from "react";
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import InspectionDocument from '../InspectionDocument'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import DateCalender from '../DateCalender'
 
 export default function Index() {
-  
+    const [startDate, setStartDate] = useState(new Date());
+
   return (
     <>
       
@@ -59,6 +63,20 @@ export default function Index() {
                         </div>
                    <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `} >
                     <div className="d-flex">
+                    <DatePicker selected={startDate} 
+                    dateFormat="dd/MM/yyyy"
+                    className={`${styles.input_field} input form-control`}
+                    onChange={(startDate) => setStartDate(startDate)} />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Release Order Date<strong className="text-danger">*</strong></label> 
+                       <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>  
+
+                    {/* <div className="d-flex">
                     <input 
                     className={`${styles.input_field} input form-control`} type="date"/> 
                      <label className={`${styles.label_heading} label_heading`}>
@@ -68,7 +86,7 @@ export default function Index() {
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>                 
+                    </div>                  */}
                 </div> 
                 <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `} >
                     <input 
@@ -101,6 +119,14 @@ export default function Index() {
                         </div>
                    <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `} >
                     <div className="d-flex">
+                    <DateCalender/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>           
+                    {/* <div className="d-flex">
                     <input 
                     className={`${styles.input_field} input form-control`} type="date"/> 
                      <label className={`${styles.label_heading} label_heading`}>
@@ -110,7 +136,7 @@ export default function Index() {
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>                 
+                    </div>                  */}
                 </div> 
                 <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `} >
                     <input 
