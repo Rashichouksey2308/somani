@@ -81,6 +81,7 @@
             padding: 0 13px 0 15px;
             margin-right: 30px;
             outline: none;
+            min-width: 102px;
             @include respond(md-desktop) {
                 font-size: 18px;
                 margin-right: 5px;
@@ -90,6 +91,7 @@
                 margin-right: 5px;
             }
             @include respond(phone) {
+                min-width: auto;
                 font-size: 12px;
                 margin-right: 5px;
                 //line-height: 15px;
