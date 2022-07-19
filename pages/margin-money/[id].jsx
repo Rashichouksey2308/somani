@@ -12,21 +12,24 @@ import DownloadBar from '../../src/components/DownloadBar'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { UpdateMarginMoney } from '../../src/redux/marginMoney/action'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
   const dispatch = useDispatch()
 
-
   const [darkMode, setDarkMode] = useState(false)
 
-  const { margin} = useSelector((state) => state.marginMoney)
-  console.log(margin, 'id.jsx response')
+  const { margin } = useSelector((state) => state.marginMoney)
+
+  
+  const marginData = margin?.data?.data[0]
+
   useEffect(() => {
     dispatch(setPageName('margin-money'))
-    dispatch(setDynamicName(margin?.data[0].company.companyName))
-  },[margin])
+    dispatch(setDynamicName(marginData?.company.companyName))
+  }, [dispatch, marginData?.company.companyName])
+  
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -39,17 +42,20 @@ function Index() {
   }, [])
 
   const [forCalculation, setForCalculation] = useState({
-    isUsanceInterestIncluded: margin?.data[0]?.isUsanceInterestIncluded,
-    status: margin?.data[0]?.status,
-    quantity: margin?.data[0]?.order?.quantity,
-    additionalPDC: margin?.data[0]?.additionalPDC,
-    conversionRate: margin?.data[0]?.conversionRate,
-    perUnitPrice: margin?.data[0]?.order?.perUnitPrice,
-    usanceInterestPercetage: margin?.data[0]?.order?.termsheet?.commercials?.usanceInterestPercetage,
-    numberOfPDC: margin?.data[0]?.numberOfPDC,
-    tradeMarginPercentage: margin?.data[0]?.order?.termsheet?.commercials?.tradeMarginPercentage,
-    tolerance: margin?.data[0]?.order?.tolerance,
-    marginMoney: margin?.data[0]?.order?.termsheet?.transactionDetails?.marginMoney
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || '',
+    status: marginData?.status || '',
+    quantity: marginData?.order?.quantity || '',
+    additionalPDC: marginData?.additionalPDC || '',
+    conversionRate: marginData?.conversionRate || '',
+    perUnitPrice: marginData?.order?.perUnitPrice || '',
+    usanceInterestPercetage:
+      marginData?.order?.termsheet?.commercials?.usanceInterestPercetage || '',
+    numberOfPDC: marginData?.numberOfPDC || '',
+    tradeMarginPercentage:
+      marginData?.order?.termsheet?.commercials?.tradeMarginPercentage || '',
+    tolerance: marginData?.order?.tolerance || '',
+    marginMoney:
+      marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
   })
 
   const saveForCalculation = (name, value) => {
@@ -60,22 +66,23 @@ function Index() {
   }
 
   const [invoiceData, setInvoiceData] = useState({
-    buyerName: margin?.data[0]?.invoiceDetail?.buyerName,
-    buyerGSTIN: margin?.data[0]?.invoiceDetail?.buyerGSTIN,
-    buyerAddress: margin?.data[0]?.invoiceDetail?.buyerAddress,
-    isConsigneeSameAsBuyer: margin?.data[0]?.invoiceDetail?.isConsigneeSameAsBuyer,
-    consigneeName: margin?.data[0]?.invoiceDetail?.consigneeName,
-    consigneeGSTIN: margin?.data[0]?.invoiceDetail?.consigneeGSTIN,
-    consigneeAddress: margin?.data[0]?.invoiceDetail?.consigneeAddress,
-    importerName: margin?.data[0]?.invoiceDetail?.importerName,
-    branchOffice: margin?.data[0]?.invoiceDetail?.branchOffice,
-    companyAddress: margin?.data[0]?.invoiceDetail?.companyAddress,
-    importerGSTIN: margin?.data[0]?.invoiceDetail?.importerGSTIN,
-    bankName: margin?.data[0]?.invoiceDetail?.bankName,
-    branch: margin?.data[0]?.invoiceDetail?.branch,
-    branchAddress: margin?.data[0]?.invoiceDetail?.branchAddress,
-    IFSCcode: margin?.data[0]?.invoiceDetail?.IFSCcode,
-    accountNo: margin?.data[0]?.invoiceDetail?.accountNo,
+    buyerName: marginData?.invoiceDetail?.buyerName || '',
+    buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+    buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
+    isConsigneeSameAsBuyer:
+      marginData?.invoiceDetail?.isConsigneeSameAsBuyer || '',
+    consigneeName: marginData?.invoiceDetail?.consigneeName || '',
+    consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
+    consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
+    importerName: marginData?.invoiceDetail?.importerName || '',
+    branchOffice: marginData?.invoiceDetail?.branchOffice || '',
+    companyAddress: marginData?.invoiceDetail?.companyAddress || '',
+    importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
+    bankName: marginData?.invoiceDetail?.bankName || '',
+    branch: marginData?.invoiceDetail?.branch || '',
+    branchAddress: marginData?.invoiceDetail?.branchAddress || '',
+    IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
+    accountNo: marginData?.invoiceDetail?.accountNo || '',
   })
 
   const saveInvoiceData = (name, value) => {
@@ -86,18 +93,19 @@ function Index() {
   }
 
   const [calcData, setCalcData] = useState({
-    orderValue: margin?.data[0]?.calculation?.orderValue ,
-    orderValueCurrency: margin?.data[0]?.calculation?.orderValueCurrency,
-    orderValueInINR: margin?.data[0]?.calculation?.orderValueInINR,
-    usanceInterest: margin?.data[0]?.calculation?.usanceInterest,
-    tradeMargin: margin?.data[0]?.calculation?.tradeMargin,
-    grossOrderValue: margin?.data[0]?.calculation?.grossOrderValue,
-    toleranceValue: margin?.data[0]?.calculation?.toleranceValue,
-    totalOrderValue: margin?.data[0]?.calculation?.totalOrderValue,
-    provisionalUnitPricePerTon: margin?.data[0]?.calculation?.provisionalUnitPricePerTon,
-    marginMoney: margin?.data[0]?.calculation?.marginMoney,
-    totalSPDC: margin?.data[0]?.calculation?.totalSPDC,
-    amountPerSPDC: margin?.data[0]?.calculation?.amountPerSPDC,
+    orderValue: marginData?.calculation?.orderValue,
+    orderValueCurrency: marginData?.calculation?.orderValueCurrency,
+    orderValueInINR: marginData?.calculation?.orderValueInINR,
+    usanceInterest: marginData?.calculation?.usanceInterest,
+    tradeMargin: marginData?.calculation?.tradeMargin,
+    grossOrderValue: marginData?.calculation?.grossOrderValue,
+    toleranceValue: marginData?.calculation?.toleranceValue,
+    totalOrderValue: marginData?.calculation?.totalOrderValue,
+    provisionalUnitPricePerTon:
+      marginData?.calculation?.provisionalUnitPricePerTon,
+    marginMoney: marginData?.calculation?.marginMoney,
+    totalSPDC: marginData?.calculation?.totalSPDC,
+    amountPerSPDC: marginData?.calculation?.amountPerSPDC,
   })
 
   const routeChange = () => {
@@ -106,12 +114,12 @@ function Index() {
 
   const handleUpdate = () => {
     const obj = {
-        marginMoneyId: margin?.data[0]?._id,
-        conversionRate: forCalculation.conversionRate,
-        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded,
-        numberOfPDC: forCalculation.numberOfPDC,
-        additionalPDC: forCalculation.additionalPDC,
-        invoiceDetail: {...invoiceData}
+      marginMoneyId: marginData?._id,
+      conversionRate: forCalculation.conversionRate,
+      isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded,
+      numberOfPDC: forCalculation.numberOfPDC,
+      additionalPDC: forCalculation.additionalPDC,
+      invoiceDetail: { ...invoiceData },
     }
 
     dispatch(UpdateMarginMoney(obj))
@@ -217,7 +225,7 @@ function Index() {
                           Commodity
                         </span>
                         <span className={`${styles.comm_val} heading`}>
-                          {margin?.data[0]?.order?.commodity}
+                          {marginData?.order?.commodity}
                         </span>
                       </div>
                       <div
@@ -238,7 +246,7 @@ function Index() {
                         <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
                         >
-                            <option> {margin?.data[0]?.order?.unitOfValue=="Cr"?"Crores":null}</option>
+                          <option> {marginData?.order?.unitOfValue}</option>
                           <option>Million</option>
                         </select>
                         <span>+</span>
@@ -253,140 +261,348 @@ function Index() {
                       <div className={`${styles.cardBody} card-body `}>
                         <div className={`${styles.content} border_color`}>
                           <div className={`${styles.input_container} row`}>
-                              <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                            <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                              >
                                 <span>A</span>
                               </div>
-                                <div className={`${styles.val_wrapper} ml-3`}>
-                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                 Quantity<strong className='text-danger'>*</strong>
-                                </label>
-                                 <div className={`${styles.val}  heading`}>{margin?.data[0]?.order?.quantity}</div>
-                                </div>
-                          </div>
-                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="quantity"
+                                defaultValue={marginData?.order?.quantity}
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Quantity
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>B</span>
                               </div>
-                                <div className={`${styles.val_wrapper} ml-3`}>
-                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                 Unit Price<strong className='text-danger'>*</strong>
-                                </label>
-                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.order?.perUnitPrice}</div>
-                                </div>
-                          </div>
-                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                              <input
+                                type="text"
+                                disabled
+                                id="textInput"
+                                defaultValue={marginData?.order?.perUnitPrice}
+                                name="perUnitPrice"
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Unit Price
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>C</span>
                               </div>
-                                <div className={`${styles.val_wrapper} ml-3`}>
-                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                 Conversion Rate<strong className='text-danger'>*</strong>
-                                </label>
-                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.conversionRate}</div>
-                                </div>
-                          </div>
-                                                        <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="conversionRate"
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
+                                defaultValue={marginData?.conversionRate}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Conversation Rate
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-2 col-sm-4`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>D</span>
                               </div>
-                                <div className={`${styles.val_wrapper} ml-3`}>
-                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                Usance Interest (%) (For 90 Days)<strong className='text-danger'>*</strong>
-                                </label>
-                                 <div className={`${styles.val} heading d-flex align-items-center`}>{margin?.data[0]?.order?.termsheet?.commercials?.usanceInterestPercetage}
-                                 <div className={` d-flex align-items-center`}>
-                                <label className={`${styles.label_heading} ml-3 label_heading mb-0`} id="textInput">Include in Calculation
-                                 
-                                 </label>
-                                                                         <Form>
-                                {['radio'].map((type) => (
-                                    <div key={`inline-${type}`} className={`${styles.radio_group} d-flex ml-3`}>
-                                    <Form.Check
-                                        className={`${styles.radio} radio`}
-                                        inline
-                                        label="Yes"
-                                        
-                                        name="group1"
-                                        type={type}
-                                        id={`inline-${type}-1`}
-                                    />
-                                    <Form.Check
-                                        className={`${styles.radio} radio`}
-                                        inline
-                                        label="No"
-                                        
-                                        name="group1"
-                                        type={type}
-                                        id={`inline-${type}-2`}
-                                    />
+                              <input
+                                type="text"
+                                disabled
+                                id="textInput"
+                                name="usanceInterestPercetage"
+                                defaultValue={
+                                  marginData?.order?.termsheet?.commercials
+                                    ?.usanceInterestPercetage
+                                }
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
+                                className={`${styles.input_field} input form-control`}
+                                style={{ width: '50%' }}
+                                required
+                              />
 
-                                    
-                                    </div>
-                                ))}
-                                </Form>
-                                 </div>
-                   
-
-                                 </div>
-                                </div>
-                          </div>
-                            <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Usance Interest (%)
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.radio_heading} ml-n5 mt-4 form-check form-check-inline`}
+                              //style={{top:"50px", left:"100px"}}
+                            >
+                              {' '}
+                              Include in Calculation
+                              <input
+                                className="form-check-input ml-3"
+                                type="radio"
+                                name="isUsanceInterestIncluded"
+                                defaultChecked={
+                                  marginData?.isUsanceInterestIncluded === true
+                                }
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    'isUsanceInterestIncluded',
+                                    true,
+                                  )
+                                }
+                              />
+                              <label
+                                className="form-check-label mr-2"
+                                for="inlineRadio1"
+                              >
+                                Yes
+                              </label>
+                              <input
+                                className="form-check-input ml-2"
+                                type="radio"
+                                name="isUsanceInterestIncluded"
+                                defaultChecked={
+                                  marginData?.isUsanceInterestIncluded === false
+                                }
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    'isUsanceInterestIncluded',
+                                    false,
+                                  )
+                                }
+                              />
+                              <label
+                                className="form-check-label"
+                                for="inlineRadio2"
+                              >
+                                No
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>E</span>
                               </div>
-                                <div className={`${styles.val_wrapper} ml-3`}>
-                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                 Trade Margin (%)<strong className='text-danger'>*</strong>
-                                </label>
-                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.order?.termsheet?.commercials?.tradeMarginPercentage}</div>
-                                </div>
-                          </div>
-                            <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                              <input
+                                type="text"
+                                disabled
+                                id="textInput"
+                                name="tradeMarginPercentage"
+                                defaultValue={
+                                  marginData?.order?.termsheet?.commercials
+                                    ?.tradeMarginPercentage
+                                }
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Trade Margin (%)
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>{' '}
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>F</span>
                               </div>
-                                <div className={`${styles.val_wrapper} ml-3`}>
-                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                                Tolerance (+/-) Percentage<strong className='text-danger'>*</strong>
-                                </label>
-                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.order?.toleranc}</div>
-                                </div>
-                          </div>
-                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                              <input
+                                type="text"
+                                disabled
+                                id="textInput"
+                                name="tolerance"
+                                defaultValue={marginData?.order?.tolerance}
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Tolerance (+/-) Percentage
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>{' '}
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>G</span>
                               </div>
-                                <div className={`${styles.val_wrapper} ml-3`}>
-                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                               Margin Money (%)<strong className='text-danger'>*</strong>
-                                </label>
-                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.order?.termsheet?.transactionDetails?.marginMoney}</div>
-                                </div>
-                          </div>
-                           <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                              <input
+                                type="text"
+                                disabled
+                                id="textInput"
+                                name="marginMoney"
+                                defaultValue={
+                                  marginData?.order?.termsheet
+                                    ?.transactionDetails?.marginMoney
+                                }
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Margin Money (%)
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>{' '}
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>H</span>
                               </div>
-                                <div className={`${styles.val_wrapper} ml-3`}>
-                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                              {` No. of PDC's`}<strong className='text-danger'>*</strong>
-                                </label>
-                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.numberOfPDC}</div>
-                                </div>
-                          </div>
-                           <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
-                              <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="numberOfPDC"
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
+                                defaultValue={marginData?.numberOfPDC}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                No. of PDC's
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
+                              >
                                 <span>I</span>
                               </div>
-                                <div className={`${styles.val_wrapper} ml-3`}>
-                                    <label className={`${styles.label_heading} label_heading`} id="textInput">
-                              {`Additional PDC's`}<strong className='text-danger'>*</strong>
-                                </label>
-                                 <div className={`${styles.val} heading`}>{margin?.data[0]?.additionalPDC}</div>
-                                </div>
-                          </div>
-
+                              <input
+                                type="text"
+                                id="textInput"
+                                name="additionalPDC"
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
+                                defaultValue={marginData?.additionalPDC}
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                                style={{ left: '70px' }}
+                              >
+                                Additional PDC's
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
                           </div>
                         </div>
                         <div className={`${styles.content} border_color`}>
@@ -404,7 +620,9 @@ function Index() {
                                 disabled={true}
                                 type="text"
                                 id="textInput"
-                                defaultValue={margin?.data[0]?.calculation?.orderValue}
+                                defaultValue={
+                                  marginData?.calculation?.orderValue
+                                }
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -433,7 +651,9 @@ function Index() {
                                 disabled={true}
                                 type="text"
                                 id="textInput"
-                                defaultValue={margin?.data[0]?.calculation?.orderValueInINR}
+                                defaultValue={
+                                  marginData?.calculation?.orderValueInINR
+                                }
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -460,11 +680,12 @@ function Index() {
                               </div>
                               <input
                                 disabled={true}
-                                
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={margin?.data[0]?.calculation?.usanceInterest}
+                                defaultValue={
+                                  marginData?.calculation?.usanceInterest
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -493,7 +714,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={margin?.data[0]?.calculation?.tradeMargin}
+                                defaultValue={
+                                  marginData?.calculation?.tradeMargin
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -522,7 +745,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={margin?.data[0]?.calculation?.grossOrderValue}
+                                defaultValue={
+                                  marginData?.calculation?.grossOrderValue
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -552,7 +777,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={margin?.data[0]?.calculation?.toleranceValue}
+                                defaultValue={
+                                  marginData?.calculation?.toleranceValue
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -581,7 +808,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={margin?.data[0]?.calculation?.totalOrderValue}
+                                defaultValue={
+                                  marginData?.calculation?.totalOrderValue
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -610,7 +839,10 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={margin?.data[0]?.calculation?.provisionalUnitPricePerTon}
+                                defaultValue={
+                                  marginData?.calculation
+                                    ?.provisionalUnitPricePerTon
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -639,7 +871,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={margin?.data[0]?.calculation?.marginMoney}
+                                defaultValue={
+                                  marginData?.calculation?.marginMoney
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -669,7 +903,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={margin?.data[0]?.calculation?.totalSPDC}
+                                defaultValue={
+                                  marginData?.calculation?.totalSPDC
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -698,7 +934,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={margin?.data[0]?.calculation?.amountPerSPDC}
+                                defaultValue={
+                                  marginData?.calculation?.amountPerSPDC
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -747,10 +985,14 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="buyerName"
-                                defaultValue={margin?.data[0]?.invoiceDetail?.buyerName}
+                                defaultValue={
+                                  marginData?.invoiceDetail?.buyerName
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -768,13 +1010,19 @@ function Index() {
                                 name="buyerGSTIN"
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                               >
                                 <option value="GTSDT789652JKH">
-                                  {margin?.data[0]?.invoiceDetail?.buyerGSTIN}
+                                  {marginData?.invoiceDetail?.buyerGSTIN}
                                 </option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -791,10 +1039,14 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="buyerAddress"
-                                defaultValue={margin?.data[0]?.invoiceDetail?.buyerAddress}
+                                defaultValue={
+                                  marginData?.invoiceDetail?.buyerAddress
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -821,9 +1073,15 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="Yes"
-                                      defaultChecked={margin?.data[0]?.invoiceDetail?.isConsigneeSameAsBuyer === true}
+                                      defaultChecked={
+                                        marginData?.invoiceDetail
+                                          ?.isConsigneeSameAsBuyer === true
+                                      }
                                       onChange={() =>
-                                        saveInvoiceData('isConsigneeSameAsBuyer', true )
+                                        saveInvoiceData(
+                                          'isConsigneeSameAsBuyer',
+                                          true,
+                                        )
                                       }
                                       name="group1"
                                       type={type}
@@ -833,9 +1091,15 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
-                                      defaultChecked={margin?.data[0]?.invoiceDetail?.isConsigneeSameAsBuyer === false}
+                                      defaultChecked={
+                                        marginData?.invoiceDetail
+                                          ?.isConsigneeSameAsBuyer === false
+                                      }
                                       onChange={() =>
-                                        saveInvoiceData('isConsigneeSameAsBuyer', false)
+                                        saveInvoiceData(
+                                          'isConsigneeSameAsBuyer',
+                                          false,
+                                        )
                                       }
                                       name="group1"
                                       type={type}
@@ -852,8 +1116,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="consigneeName"
-                                defaultValue={margin?.data[0]?.invoiceDetail?.consigneeName}
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                defaultValue={
+                                  marginData?.invoiceDetail?.consigneeName
+                                }
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -872,13 +1140,19 @@ function Index() {
                                 name="consigneeGSTIN"
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                               >
                                 <option value="GTSDT789652JKH">
-                                  {margin?.data[0]?.invoiceDetail?.consigneeGSTIN}
+                                  {marginData?.invoiceDetail?.consigneeGSTIN}
                                 </option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -895,8 +1169,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="consigneeAddress"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.consigneeAddress}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.consigneeAddress
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -925,9 +1203,15 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="Yes"
-                                      defaultChecked={margin?.data[0]?.invoiceDetail?.isConsigneeSameAsBuyer === true}
+                                      defaultChecked={
+                                        marginData?.invoiceDetail
+                                          ?.isConsigneeSameAsBuyer === true
+                                      }
                                       onChange={() =>
-                                        saveInvoiceData('isConsigneeSameAsBuyer', true)
+                                        saveInvoiceData(
+                                          'isConsigneeSameAsBuyer',
+                                          true,
+                                        )
                                       }
                                       name="group1"
                                       type={type}
@@ -937,9 +1221,15 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
-                                      defaultChecked={margin?.data[0]?.invoiceDetail?.isConsigneeSameAsBuyer === false}
+                                      defaultChecked={
+                                        marginData?.invoiceDetail
+                                          ?.isConsigneeSameAsBuyer === false
+                                      }
                                       onChange={() =>
-                                        saveInvoiceData('isConsigneeSameAsBuyer', false)
+                                        saveInvoiceData(
+                                          'isConsigneeSameAsBuyer',
+                                          false,
+                                        )
                                       }
                                       name="group1"
                                       type={type}
@@ -956,8 +1246,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="consigneeName"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.consigneeName}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.consigneeName
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -974,15 +1268,21 @@ function Index() {
                               <select
                                 id="Code"
                                 name="consigneeGSTIN"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               >
                                 <option value="GTSDT789652JKH">
-                                  {margin?.data[0]?.invoiceDetail?.consigneeGSTIN}
+                                  {marginData?.invoiceDetail?.consigneeGSTIN}
                                 </option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                                <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
+                                <option value="GTSDT789652JKH">
+                                  GTSDT789652JKH
+                                </option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -999,8 +1299,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="consigneeAddress"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.consigneeAddress}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.consigneeAddress
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1022,9 +1326,13 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name='importerName'
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.importerName}
+                                name="importerName"
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.importerName
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1043,8 +1351,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="branchOffice"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.branchOffice}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.branchOffice
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1063,8 +1375,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyAddress"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.companyAddress}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.companyAddress
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1083,8 +1399,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="importerGSTIN"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.importerGSTIN}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.importerGSTIN
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1103,8 +1423,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="bankName"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.bankName}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.bankName
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1123,8 +1447,10 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="branch"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.branch}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={marginData?.invoiceDetail?.branch}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1142,8 +1468,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="branchAddress"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.branchAddress}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.branchAddress
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1162,8 +1492,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="IFSCcode"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.IFSCcode}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.IFSCcode
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1182,8 +1516,12 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="accountNo"
-                                onChange={(e)=>saveInvoiceData(e.target.name, e.target.value)}
-                                defaultValue={margin?.data[0]?.invoiceDetail?.accountNo}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                defaultValue={
+                                  marginData?.invoiceDetail?.accountNo
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1226,7 +1564,7 @@ function Index() {
         downLoadButtonName={`Download`}
         isPrevious={true}
         handleUpdate={handleUpdate}
-        leftButtonName={`Save`}
+        leftButtonName={`Save & Calculate`}
         rightButtonName={`Preview`}
         handleApprove={routeChange}
       />

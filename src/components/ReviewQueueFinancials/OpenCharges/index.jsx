@@ -93,7 +93,7 @@ function Index({chargesData}) {
                 </tr>
               </thead>
               <tbody>
-                {console.log(chargesDatas,"chargesDatas")}
+              
                {chargesDatas && chargesDatas?.map((charges, index) => ( <tr key={index}>
                   <td>{charges.chargeId}</td>
                   <td>{charges.nameOfChargeHolder1}</td>

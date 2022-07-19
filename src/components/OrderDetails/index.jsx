@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
@@ -137,10 +138,9 @@ const index = ({ saveOrderData, darkMode }) => {
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
             <input
-              type="date"
+              type="date" 
               name='ExpectedDateOfShipment'
-              id="textDate"
-              // onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}
+              id="ExpectedDateOfShipment"
               onChange={(e) => { saveDate(e, e.target.value)}}
               className={`${styles.input_field} input form-control`}
               required

@@ -14,9 +14,6 @@ function Index() {
   const dispatch = useDispatch()
 
   const { singleOrder } = useSelector((state) => state.buyer)
-  
-
-  // console.log(singleOrder?.data, 'all order listtt1')
 
   // useEffect(() => {
   //   dispatch(GetOrders(`?page=${currentPage}`))
@@ -224,7 +221,7 @@ function Index() {
                           >
                             {buyer.commodity}
                           </td>
-                          <td></td>
+                          <td>{buyer.createdBy.fName}</td>
                          
                           <td>{buyer.createdAt.split('T')[0]}</td>
                           <td>
