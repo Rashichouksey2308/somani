@@ -130,19 +130,26 @@ const index = ({ saveOrderData, darkMode }) => {
 
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-            <input
+             <div className="d-flex">
+              <input
               type="date" 
               name='ExpectedDateOfShipment'
               id="ExpectedDateOfShipment"
               onChange={(e) => { saveDate(e, e.target.value)}}
-              className={`${styles.input_field} input form-control`}
+              className={`${styles.input_field} ${styles.customSelect} input form-control`}
               required
             />
-            <div>
+            
               <label className={`${styles.label_heading} label_heading`} id="textDate">
                 Expected Date Of Shipment<strong className='text-danger'>*</strong>
               </label>
-            </div>
+             <img
+                   className={`${styles.calanderIcon} img-fluid`}
+                   src="/static/caldericon.svg"
+                   alt="Search"
+               />
+             </div>
+
           </div>
 
           <div className={`${styles.radio_form} col-md-12`}>
