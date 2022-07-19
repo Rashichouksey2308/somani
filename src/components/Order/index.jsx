@@ -29,7 +29,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
             </h5>
             <select className={`${styles.options} accordion_DropDown`} name='unitOfQuantity' onChange={(e)=>{saveOrderData(e.target.name, e.target.value)}}>
               <option>{orderDetail?.unitOfQuantity}</option>
-              <option>MT</option>
+              <option selected>MT</option>
             </select>
           </div>
 
@@ -37,7 +37,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
             <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
             <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' onChange={(e)=>saveOrderData(e.target.name, e.target.value)}>
               <option>{orderDetail?.unitOfValue}</option>
-              <option>Crores</option>
+              <option selected>Crores</option>
               <option>Million</option>
             </select>
             <span>+</span>
