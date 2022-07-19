@@ -6,7 +6,7 @@ const index = () => {
   return (
     <>
             <div className={`${styles.card}  accordionMargin card`}>
-                <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">
+                <div className={`${styles.cardHeader} d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">
                  <div className={`${styles.commodity}`}>
                    <span className={`${styles.comm_head} sub_heading mb-2`}>Commodity</span>
                    <span className={`${styles.comm_val} heading`}>Thermal Coal</span>
@@ -293,7 +293,7 @@ const index = () => {
             </div>
 
             <div className={`${styles.card}  accordionMargin card`}>
-            <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#invoice" aria-expanded="true" aria-controls="invoice">
+            <div className={`${styles.cardHeader} d-flex align-items-center justify-content-between`} data-toggle="collapse" data-target="#invoice" aria-expanded="true" aria-controls="invoice">
                 <h2 className="mb-0">Invoice Details</h2>
                 <span className='ml-3'>+</span>
             </div>
