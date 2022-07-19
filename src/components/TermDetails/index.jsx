@@ -46,20 +46,35 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='unitOfQuantity' className={`${styles.value} input form-control`} onChange={onChangeCommodityDetails} required>
+                                          <div className="d-flex">
+
+                            <select id='unitOfQuantity' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommodityDetails} required>
                                 <option value={termsheetDetails?.commodityDetails?.unitOfQuantity}>{termsheetDetails?.commodityDetails?.unitOfQuantity} </option>
                                 <option value="MT">MT</option>
                                 <option value="KG">KG</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Units of Measurement (UOM)<strong className="text-danger">*</strong></label>
+                                    <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='orderCurrency' className={`${styles.value} input form-control`} onChange={onChangeCommodityDetails} required>
+                         <div className='d-flex'>
+                            <select id='orderCurrency' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommodityDetails} required>
                                 <option value={termsheetDetails?.commodityDetails?.orderCurrency}>{termsheetDetails?.commodityDetails?.orderCurrency}</option>
                                 <option value="USD">USD</option>
-                                <option value="Rupee">Rupee</option>
+                                <option value="Rupee">INR</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Currency<strong className="text-danger">*</strong></label>
+                            <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                             <input id='quantity' className={`${styles.value} input form-control`} value={`${termsheetDetails?.commodityDetails?.quantity} `} onChange={onChangeCommodityDetails} type="text" required />
@@ -74,12 +89,20 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>Unit Price<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='tolerance' className={`${styles.value} input form-control`} onChange={onChangeCommodityDetails} required>
+                                                     <div className='d-flex'>
+
+                            <select id='tolerance' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeCommodityDetails} required>
                                 <option value={termsheetDetails?.commodityDetails?.tolerance}>±{termsheetDetails?.commodityDetails?.tolerance}% </option>
                                 <option value="10">±10%</option>
                                 <option value="20">±20%</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Tolerance (+/-) Percentage<strong className="text-danger">*</strong></label>
+                         <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                     </div>
 
@@ -105,12 +128,19 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>Margin Money (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <select id='lcOpeningBank' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
+                           <div className='d-flex'>
+                            <select id='lcOpeningBank' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.lcOpeningBank}>{termsheetDetails?.transactionDetails?.lcOpeningBank} </option>
                                 <option value="First Class European Bank">First Class European Bank</option>
                                 <option value="US Bank">US Bank</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>LC Opening Bank<strong className="text-danger">*</strong></label>
+                            <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                             {/* <select id='incoTerm' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
@@ -118,94 +148,167 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 <option value="FOB">FOB</option>
                                 <option value="India">India</option>
                             </select> */}
+
                             <input id='incoTerm' defaultValue={termsheetDetails?.transactionDetails?.incoTerms} className={`${styles.value} input form-control`} type="text" required/>
                             <label className={`${styles.label} label_heading`}>INCO Terms<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='loadPort' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
+                              <div className='d-flex'>
+                            <select id='loadPort' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option>
                                 <option value="Abbot Port">Abbot Port</option>
                                 <option value="India Port">India Port</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Port Of Loading<strong className="text-danger">*</strong></label>
+                           <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='countryOfOrigin' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
+                           <div className='d-flex'>
+                            <select id='countryOfOrigin' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.countryOfOrigin}>{termsheetDetails?.transactionDetails?.countryOfOrigin} </option>
                                 <option value="Australia">Australia</option>
                                 <option value="India">India</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Country Of Origin<strong className="text-danger">*</strong></label>
+                           <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='shipmentType' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
+                             <div className='d-flex'>
+                            <select id='shipmentType' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.shipmentType}>{termsheetDetails?.transactionDetails?.shipmentType} </option>
                                 <option value="Bulk">Bulk</option>
                                 <option value="India">India</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Shipment Type<strong className="text-danger">*</strong></label>
+                           <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='partShipmentAllowed' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
+                            <div className='d-flex'>
+                            <select id='partShipmentAllowed' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.partShipmentAllowed}>{termsheetDetails?.transactionDetails?.partShipmentAllowed} </option>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
                             </select>
+
                             <label className={`${styles.label} label_heading`}>Part Shipment Allowed<strong className="text-danger">*</strong></label>
+                               <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='portOfDischarge' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
+                             <div className='d-flex'>
+                            <select id='portOfDischarge' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.portOfDischarge}>{termsheetDetails?.transactionDetails?.portOfDischarge} </option>
                                 <option value="Visakhapatnam">Visakhapatnam</option>
                                 <option value="India">India</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Port Of Discharge<strong className="text-danger">*</strong></label>
+                        <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='billOfEntity' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
+                             <div className='d-flex'>
+                            <select id='billOfEntity' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.billOfEntity}>{termsheetDetails?.transactionDetails?.billOfEntity} </option>
                                 <option value="Home Consumption">Home Consumption</option>
                                 <option value="Abroad">Abroad</option>
                             </select>
-                            <label className={`${styles.label} label_heading`}>Bill of Entry<strong className="text-danger">*</strong></label>
+                            
+                        <label className={`${styles.label} label_heading`}>Bill of Entry<strong className="text-danger">*</strong></label>
+                         <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='thirdPartyInspectionReq' className={`${styles.value} input form-control`} onChange={(e) => updateThirdPartyInspection(e.target.value)} required>
+                              <div className='d-flex'>
+                            <select id='thirdPartyInspectionReq' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={(e) => updateThirdPartyInspection(e.target.value)} required>
                                 <option value="No">No</option>
                                 <option value="yes">Yes</option>
 
                             </select>
                             <label className={`${styles.label} label_heading`}>3rd Party Inspection Required<strong className="text-danger">*</strong></label>
+                         <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         {thirdPartyInspection && <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select className={`${styles.value} input form-control`} required>
+                            <div className='d-flex'>
+                            <select className={`${styles.value} ${styles.customSelect} input form-control`} required>
                                 <option value="volvo">Load Port</option>
                                 <option value="audi">India</option>
                             </select>
                             <label className={`${styles.label} label_heading`}><strong className="text-danger">*</strong></label>
+                         <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>}
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='storageOfGoods' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
+                          <div className='d-flex'>
+                            <select id='storageOfGoods' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
                                 <option value={termsheetDetails?.transactionDetails?.storageOfGoods}>{termsheetDetails?.transactionDetails?.storageOfGoods} </option>
                                 <option value="Gangavaram Port, Andhra Pradesh">Gangavaram Port, Andhra Pradesh</option>
                                 <option value="Mumbai Port, Mumbai">Mumbai Port, Mumbai</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Storage of Goods<strong className="text-danger">*</strong></label>
+                        <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                     </div>
 
 
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
-                    <h3 className={styles.sub_heading}>Payment Due Date</h3>
+                    <h3 className={styles.sub_heading}>Deliveries/Due date/Payment</h3>
 
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <select id='computationOfDueDate' onChange={(e) => payementchangeFunc(e.target.value)} className={`${styles.value} input form-control`} required>
+                            <div className='d-flex'>
+                            <select id='computationOfDueDate' onChange={(e) => payementchangeFunc(e.target.value)} className={`${styles.value} ${styles.customSelect}  input form-control`} required>
                                 <option value="DaysfromBLDate"  >Days from BL Date</option>
                                 <option value="DaysfromVesselDischargeDate" > Days from Vessel Discharge Date </option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Computation of Due date<strong className="text-danger">*</strong></label>
+                        <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <input id='daysFromBlDate' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromBlDate} onChange={onChangePaymentDueDate} disabled={IsBlSelected} required />
@@ -245,32 +348,56 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>Overdue Interest per Month (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='exchangeFluctuation' className={`${styles.value} input form-control`} onChange={onChangeCommercialTerms} required>
+                           <div className='d-flex'>
+                            <select id='exchangeFluctuation' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommercialTerms} required>
                                 <option value={termsheetDetails?.commercials?.exchangeFluctuation}>{termsheetDetails?.commercials?.exchangeFluctuation} </option>
                                 <option value="On Buyers A/C">On Buyers A/C</option>
                                 <option value="On Sellers A/C">On Sellers A/C</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Exchange Fluctation<strong className="text-danger">*</strong></label>
+                        <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='forexHedging' className={`${styles.value} input form-control`} onChange={onChangeCommercialTerms} required>
+                            <div className='d-flex'>
+                            <select id='forexHedging' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommercialTerms} required>
                                 <option value={termsheetDetails?.commercials?.forexHedging}>{termsheetDetails?.commercials?.forexHedging} </option>
                                 <option value="yes">Yes</option>
                                 <option value="No">No</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Forex Hedging<strong className="text-danger">*</strong></label>
+                        <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
                         </div>
+                        </div>
+                       
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                            
                             <input id='otherTermsAndConditions' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.otherTermsAndConditions} onChange={onChangeCommercialTerms} required />
                             <label className={`${styles.label} label_heading`}>Other Terms &amp; Conditions<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <select id='version' className={`${styles.value} input form-control`} onChange={onChangeCommercialTerms} required>
+                        <div className='d-flex'>
+
+                            <select id='version' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeCommercialTerms} required>
                                 <option value={termsheetDetails?.commercials?.version}>{termsheetDetails?.commercials?.version} </option>
                                 <option value="1.1">1.1</option>
                                 <option value="2.1">2.1</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Version<strong className="text-danger">*</strong></label>
+                         <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                            />
+                        </div>
                         </div>
                     </div>
 
