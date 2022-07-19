@@ -41,12 +41,13 @@ import {
   UpdateCredit,
   UpdateOrderShipment,
 } from '../../src/redux/buyerProfile/action'
-import { element } from 'prop-types'
+
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 
 import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
 import { GetDocuments, AddingDocument, DeleteDocument } from '../../src/redux/creditQueueUpdate/action'
+import moment from 'moment'
 
 function Index() {
   const dispatch = useDispatch()
@@ -613,7 +614,7 @@ function Index() {
             </h1>
             {uploadBtn ? (
               <div className="ml-auto">
-                {uploadButton(dispatch, orderList)}{' '}
+                {uploadButton(dispatch, orderList, companyData)}{' '}
               </div>
             ) : null}
             {/* <div className="ml-auto">
@@ -1633,14 +1634,15 @@ function Index() {
 }
 export default Index
 
-const uploadButton = (dispatch, orderList) => {
+const uploadButton = (dispatch, orderList, companyData) => {
+
   return (
     <>
       <button onClick={() =>
-        //console.log("update initiated ")
+  
         dispatch(RefetchCombineKarza({ company: orderList?.company?._id }))
       } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-      <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
+      <div className={`${styles.lastModified} text `}><span>Last Modified:</span>{moment(companyData?.updatedAt).format(' D MMM , h:mm a')}</div>
     </>
   )
 }
