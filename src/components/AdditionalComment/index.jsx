@@ -1,6 +1,6 @@
 import index from 'components/Footer'
 import React, { useState, useEffect } from 'react'
-
+import GrowInput from '../GrowInput'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import { toast } from 'react-toastify'
@@ -45,37 +45,45 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
             </div>
             <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#additional">
                 <div className={`${styles.dashboard_form} card-body`}>
-                    <Form>
-                        <div className='row'>
-                            <div className={`${styles.form_group} col-md-3`} >
-                                  <div className='d-flex'>
-                                <select className={`${styles.value} ${styles.customSelect} input form-control`} onChange={(e) => setCommentType(e.target.value)} required>
-                                    <option value="5. Lc Opening Bank">5. Lc Opening Bank</option>
-                                    <option value="a4. Lc Opening Bankdi">4. Lc Opening Bank</option>
+                    <div className={`${styles.bill_landing}  border_color`}>
+                <div className={`${styles.vessel_card}`}>
+                    <div>
+                       
+                           
+                            <div className={`${styles.form_group} d-flex justify-content-between`} >
+                                  <div className='d-flex' style={{width:"460px"}}>
+                                 <select className={`${styles.value} ${styles.customSelect} input form-control`} onChange={(e) => setCommentType(e.target.value)} required>
+                                    <option value="5. Lc Opening Bank">Deliveries/Due Date/Payment</option>
+                                    <option value="a4. Lc Opening Bankdi">Bank</option>
                                 </select>
-                                <Form.Label className={`${styles.label} label_heading`}>Select<strong className="text-danger">*</strong></Form.Label>
-                             <img
-                                className={`${styles.arrow} img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                            />
-                        </div>
-                            </div>
-                            <Form.Group className={`${styles.form_group} col-md-9`}>
-                                <div className='d-flex justify-content-between align-items-center'>
-                                    <input className={`${styles.value}  input form-control`} onChange={(e) => setComment(e.target.value)} type="text"
-                                        required />
-                                    <Form.Label className={`${styles.label} label_heading`}>Comment<strong className="text-danger">*</strong></Form.Label>
-                                    <div onClick={addNewCommentHandler} className='ml-3'>
-                                        <img 
-                                         src="/static/add-btn.svg"
-                                          className='img-fluid' alt="Add"
-                                          />
+                                <label className={`${styles.label} label_heading`}
+                                  style={{left:"20px"}}
+                                  >Select</label>
+                                    <img
+                                        className={`${styles.arrow} img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                    />
                                     </div>
-                                </div>
-                            </Form.Group>
+                                     <img 
+                                    src="/static/add-btn.svg"
+                                    className='img-fluid' alt="Add"
+                                    />
+                                    </div>
+                               
+                               <div className={`${styles.form_group}  `}>
+                                <p><GrowInput className={styles.grow_input} type="text"/> from the vessel/container(s) at discharge date at discharge port or <GrowInput className={styles.grow_input} type="text"/>  from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
+                                 </p>
+                                </div>      
+                            </div>
+                            </div>
+                         </div> 
                         </div>
-                        <h3 className={`${styles.comment_heading} font-weight-medium pt-3`}>Comments</h3>
+                        </div>
+                        <hr></hr>
+                        <div className={`${styles.dashboard_form} card-body`}>
+
+                        <h3 className={`${styles.comment_heading} font-weight-medium`}>Comments</h3>
                         {additionalComments && additionalComments.map((comment, index) => {
                             const commentindex = isCommentEditable[index]
                             return (
@@ -107,9 +115,9 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                                 </div>
                             )
                         })}
-                    </Form>
+               
                 </div>
-            </div>
+           
         </div>
     )
 }
