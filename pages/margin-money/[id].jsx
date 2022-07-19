@@ -333,7 +333,7 @@ function Index() {
                                 <span>C</span>
                               </div>
                               <input
-                                type="text"
+                                type="number"
                                 id="textInput"
                                 name="conversionRate"
                                 onChange={(e) =>
