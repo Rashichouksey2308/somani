@@ -8,7 +8,7 @@ import { GetAllMarginMoney, GetMarginMoney } from 'redux/marginMoney/action'
 import { SearchLeads } from 'redux/buyerProfile/action'
 
 function Index() {
-  
+
   const [currentPage, setCurrentPage] = useState(0)
 
   const [searchTerm, setSearchTerm] = useState('')
@@ -47,8 +47,8 @@ function Index() {
   return (
     <>
       {' '}
-      <div className={`container-fluid p-0 border-0 ${styles.container}`}> 
-      <div className={styles.container_inner}>
+      <div className={`container-fluid p-0 border-0 ${styles.container}`}>
+        <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} mb-4 d-flex align-items-center`}>
             <div className={styles.search}>
@@ -102,9 +102,9 @@ function Index() {
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>
           </div>
-          <div className={`${styles.datatable} datatable  `}>
+          <div className={`${styles.datatable} datatable table_container`}>
             <div
-              className={`${styles.tableFilter} d-flex justify-content-between table_container`}
+              className={`${styles.tableFilter} d-flex justify-content-between`}
             >
               <h3 className="heading_card">Margin Money</h3>
               <div
@@ -133,12 +133,12 @@ function Index() {
                   />
                 </a>
                 <a
-                    onClick={() => {
-                      if (currentPage+1 < Math.ceil(marginMoneyResponse?.totalCount / 7)) {
-                        setCurrentPage((prevState) => prevState + 1)
-                      }
-  
-                    }}
+                  onClick={() => {
+                    if (currentPage + 1 < Math.ceil(marginMoneyResponse?.totalCount / 7)) {
+                      setCurrentPage((prevState) => prevState + 1)
+                    }
+
+                  }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
                 >
@@ -184,24 +184,23 @@ function Index() {
                         <td>{margin?.createdAt?.split('T')[0]}</td>
                         <td>
                           <span
-                            className={`${styles.status} ${
-                              margin.status === 'Pending'
+                            className={`${styles.status} ${margin.status === 'Pending'
                                 ? styles.review
                                 : margin.status === 'Rejected'
-                                ? styles.review
-                                : margin.status === 'Approved'
-                                ? styles.approved
-                                : styles.rejected
-                            }`}
+                                  ? styles.review
+                                  : margin.status === 'Approved'
+                                    ? styles.approved
+                                    : styles.rejected
+                              }`}
                           ></span>
 
                           {margin?.status === 'Pending'
                             ? 'Pending'
                             : margin.status === 'Rejected'
-                            ? 'Rejected'
-                            : margin.status === 'Approved'
-                            ? 'Approved'
-                            : 'Rejected'}
+                              ? 'Rejected'
+                              : margin.status === 'Approved'
+                                ? 'Approved'
+                                : 'Rejected'}
                         </td>
                         <td>
                           <img
