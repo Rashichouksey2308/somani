@@ -28,16 +28,16 @@ const Index = ({ orderDetail, saveOrderData }) => {
               Quantity :
             </h5>
             <select className={`${styles.options} accordion_DropDown`} name='unitOfQuantity' onChange={(e)=>{saveOrderData(e.target.name, e.target.value)}}>
-              <option>{orderDetail?.unitOfQuantity}</option>
-              <option selected>MT</option>
+              <option>{orderDetail?.unitOfQuantity.toUpperCase()}</option>
+              {/* <option selected>MT</option> */}
             </select>
           </div>
 
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
             <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' onChange={(e)=>saveOrderData(e.target.name, e.target.value)}>
-              <option>{orderDetail?.unitOfValue}</option>
-              <option selected>Crores</option>
+              <option>{orderDetail?.unitOfValue=="Cr"?"Crores":null}</option>
+              {/* <option selected>Crores</option> */}
               <option>Million</option>
             </select>
             <span>+</span>

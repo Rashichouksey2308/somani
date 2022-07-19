@@ -114,7 +114,7 @@ const Index = ({ saveCompanyData, saveOrderData, darkMode, mobileFunction, whats
 
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <div className="d-flex">
-                   <select
+                <select
                 id="drop"
                 onChange={(e) => { saveCompanyData(e.target.name, e.target.value) }}
                 name="GST"
