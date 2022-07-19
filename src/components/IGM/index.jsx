@@ -99,14 +99,21 @@ export default function Index() {
                       <span className={styles.value}>Text</span>
                     </div>
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                   <div className="d-flex">
                     <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option>Indo German</option>
                       <option>Balaji Traders</option>
                     </select>
                      <label className={`${styles.label_heading} label_heading`}>
-                      Consignee Name<strong className="text-danger">*</strong></label>                   
+                      Consignee Name<strong className="text-danger">*</strong></label>  
+                       <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>                    
                 </div> 
                
                     <div className='col-lg-4 col-md-6 col-sm-6 mt-4'>
@@ -129,7 +136,7 @@ export default function Index() {
             <div
               className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
             >
-              <h3 className={`${styles.heading}`}>Bill of Lading</h3>
+              <h3 className={`${styles.heading}`}>IGM</h3>
               <div className='d-flex align-items-center'>
               <div className={`${styles.label} text`}>
                Balance Quantity:</div>
@@ -140,12 +147,23 @@ export default function Index() {
             <div className={`${styles.dashboard_form} mt-3 card-body`}>
             <div className='row'>
                    
-                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
-                    <input 
-                    className={`${styles.input_field} input form-control`} type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>
-                      Vessel Name<strong className="text-danger">*</strong></label>                   
-                </div> 
+                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
+                  <div className='d-flex'>
+                 <select
+                    className={`${styles.input_field} ${styles.customSelect}  input form-control`}>
+                    <option>text</option>
+                    <option>N/A</option>
+                  </select>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Vessel Name<strong className="text-danger">*</strong>
+                  </label>
+                   <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
+                </div>
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
                     <input 
                     className={`${styles.input_field} input form-control`} type="number"/> 
@@ -153,10 +171,17 @@ export default function Index() {
                       IGM No./Rotation No.<strong className="text-danger">*</strong></label>                   
                 </div> 
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
+                   <div className="d-flex">
                     <input 
                     className={`${styles.input_field} input form-control`} type="date"/> 
                      <label className={`${styles.label_heading} label_heading`}>
-                      IGM Filing Date<strong className="text-danger">*</strong></label>                   
+                      IGM Filing Date<strong className="text-danger">*</strong></label>   
+                       <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>                    
                 </div> 
                 <hr></hr>
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >

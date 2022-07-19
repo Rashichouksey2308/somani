@@ -130,7 +130,7 @@ function Index({order, companyDetail }) {
                                     className={`${styles.input_field} input form-control`}
                                     name="Sourcing">
                                     <option value="SocialMedia">{order?.sourceChanel}</option>
-                            <option value="Website">Website</option>
+                                    <option value="Website">Website</option>
                                     
                                 </select>
                                 <label className={`${styles.label_heading} label_heading`}>
@@ -144,7 +144,7 @@ function Index({order, companyDetail }) {
                                     name="Sourcing" >
 
                                     <option value="CHA">{order?.referedBy}</option>
-                                    <option value="CHA">Not CHA</option>
+                                    <option value="Not CHA">Not CHA</option>
                                 </select>
                                 <label className={`${styles.label_heading} label_heading`}>
                                     Referred By

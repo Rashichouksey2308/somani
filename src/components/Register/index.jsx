@@ -100,7 +100,7 @@ function Index() {
     ExpectedDateOfShipment: null,
     incoTerm: '',
   })
-  console.log(orderDetails, "orderDetailjdefhk")
+  // console.log(orderDetails, "orderDetailjdefhk")
 
   const [documents, setDocuments] = useState({
     typeOfDocument: [null],
@@ -188,18 +188,14 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (!orderDetails.quantity) {
+    } else if (orderDetails.quantity === null) {
       let toastMessage = 'Please Fill A valid quantity'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (!orderDetails.orderValue) {
-      let toastMessage = 'Please Fill A valid order value'
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      }
-    } else if (!orderDetails.orderValue) {
+    }
+     else if (orderDetails.orderValue === null) {
       let toastMessage = 'Please Fill A valid order value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -253,6 +249,7 @@ function Index() {
       //console.log(fd, "this is payload")
 
       dispatch(CreateBuyer(fd))
+      
     }
   }
   const clearData = () => {

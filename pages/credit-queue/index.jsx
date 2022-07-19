@@ -130,7 +130,7 @@ function Index() {
         <div className={`${styles.approved} ${styles.boxInner}`}>
           <div className="d-lg-flex align-items-center d-inline-block">
             <div className={styles.iconBox}>
-              <img src="/static/check.svg" className="img-fluid" alt="Check" />
+              <img src="/static/darktick.svg" className="img-fluid" alt="Check" />
             </div>
             <h3>
               <span>APPROVED</span>
