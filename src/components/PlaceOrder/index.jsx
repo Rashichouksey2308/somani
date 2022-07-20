@@ -189,7 +189,7 @@ const Index = () => {
         </div>
       </div>
 
-      <div className={`${styles.main} mt-4 mb-4 card border-color`}>
+      <div className={`${styles.main} card border-color`}>
         <div
           className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
         >

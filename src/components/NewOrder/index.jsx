@@ -23,7 +23,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>
-              Quantity :
+              Quantity:
             </h5>
             <select
               className={`${styles.options} accordion_DropDown`}
@@ -37,8 +37,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
             </select>
           </div>
 
-          <div className={`${styles.unit_container} d-flex align-items-center`}>
-            <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
+          <div className={`${styles.unit_container} ${styles.last} d-flex align-items-center`}>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Units:</h5>
             <select
               className={`${styles.options} accordion_DropDown `}
               name="unitOfValue"
@@ -47,8 +47,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
               <option>Crores</option>
               <option>Million</option>
             </select>
-            <span>+</span>
-          </div>
+          </div>          
+          <span>+</span>
         </div>
       </div>
       <div
