@@ -123,7 +123,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Quantity in MT<strong className="text-danger">*</strong>
+                  Quantity<strong className="text-danger">*</strong>
                 </Form.Label>
               </Form.Group>
 
