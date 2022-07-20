@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
+import DateCalender from '../DateCalender'
 
 export default function Index() {
    const [editInput, setEditInput] = useState(true)
@@ -134,17 +135,16 @@ export default function Index() {
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`} >
-                    <div className="d-flex">
-                      <input
-                        className={`${styles.input_field} input form-control`} type="date" />
-                      <label className={`${styles.label_heading} label_heading`}>
-                        BL Date<strong className="text-danger">*</strong></label>
-                         <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                      />
-                      </div>           
+                       <div className="d-flex">
+                    <DateCalender labelName='BL Date'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
+                         
                     </div>
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`} >
                       <input
@@ -156,29 +156,27 @@ export default function Index() {
                       ETA at Discharge Port<strong className="text-danger">*</strong></div>
                     <div className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`} >
                       <div className="d-flex">
-                      <input
-                        className={`${styles.input_field} input form-control`} type="date" />
-                      <label className={`${styles.label_heading} label_heading`}>
-                        From<strong className="text-danger">*</strong></label>
-                         <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                      />
-                      </div>   
+                    <DateCalender labelName='From'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
+                     
                     </div>
                     <div className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`} >
                       <div className="d-flex">
-                      <input
-                        className={`${styles.input_field} input form-control`} type="date" />
-                      <label className={`${styles.label_heading} label_heading`}>
-                        To<strong className="text-danger">*</strong></label>
-                        <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                      />
-                      </div>   
+                    <DateCalender labelName='To'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
+                     
                     </div>
 
                   </div>
@@ -265,17 +263,16 @@ export default function Index() {
                   <div className="row">
 
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`} >
-                                            <div className="d-flex">
-                      <input
-                        className={`${styles.input_field} input form-control`} type="date" />
-                      <label className={`${styles.label_heading} label_heading`}>
-                        BL Surrender Date<strong className="text-danger">*</strong></label>
-                        <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                      />
-                      </div>   
+                       <div className="d-flex">
+                    <DateCalender labelName='BL Surrender Date'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
+                     
                     </div>
 
                   </div>

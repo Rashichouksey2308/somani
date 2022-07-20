@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import {Row, Col, Form} from 'react-bootstrap'
+import DateCalender from '../DateCalender'
+
 
 function Index() {
     const [editStren, setEditStren] = useState(true)
@@ -44,8 +46,9 @@ function Index() {
               <div className={` ${styles.body}`}>
                 <Row>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                   <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     >
                       <option>Irrevocable</option>
                       <option>Balaji Traders</option>
@@ -54,6 +57,12 @@ function Index() {
                     <label className={`${styles.label_heading} label_heading`}>
                       (40A) Form of Documentary Credit<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <input
@@ -66,13 +75,14 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
-                  <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
+                     <div className="d-flex">
+                    <DateCalender labelName='(31D) Date Of Expiry'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      (31D) Date Of Expiry<strong className="text-danger">*</strong>
-                    </label>
+                  </div>
                   </Col>
 
                   <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
@@ -86,8 +96,9 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                  <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     >
                       <option>First Class European Bank</option>
                       <option>Balaji Traders</option>
@@ -96,10 +107,17 @@ function Index() {
                       (51D) LC Issuing Bank
                       <strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
+                   <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     >
                       <option>Indo International Trading Fzco</option>
                       <option>Balaji Traders</option>
@@ -107,12 +125,19 @@ function Index() {
                     <label className={`${styles.label_heading} label_heading`}>
                       (50) Applicant<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
 
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
-                      type="date"
+                      required
+                      type="text"
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       (59) Beneficiary<strong className="text-danger">*</strong>
@@ -140,8 +165,9 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
+                   <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     >
                       <option>BNP PARIBAS PARIBAS _ BNPAFRPPS</option>
                       <option>Balaji Traders</option>
@@ -150,10 +176,17 @@ function Index() {
                     <label className={`${styles.label_heading} label_heading`}>
                       (41A) Credit Available With<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                   <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     >
                       <option>By Negotiation</option>
                       <option>Balaji Traders</option>
@@ -162,10 +195,17 @@ function Index() {
                     <label className={`${styles.label_heading} label_heading`}>
                     (41A) Credit Available By<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
+                   <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     >
                       <option>Documentary Credit</option>
                       <option>Balaji Traders</option>
@@ -174,6 +214,12 @@ function Index() {
                     <label className={`${styles.label_heading} label_heading`}>
                       (42C) At Sight<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={1} md={6} sm={6}>
                     <input
@@ -209,8 +255,9 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                    <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     >
                       <option>Prohibited</option>
                       <option>Balaji Traders</option>
@@ -219,10 +266,17 @@ function Index() {
                       (43P) Partial Shipment
                       <strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                    <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     >
                       <option>Prohibited</option>
                       <option>Balaji Traders</option>
@@ -231,6 +285,12 @@ function Index() {
                       (43T) Transhipments
                       <strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <div className='d-flex'>
@@ -239,8 +299,6 @@ function Index() {
                       required
                       type="text"
                     />
-                    
-
                     <label className={`${styles.label_heading} label_heading`}>
                       (44A) Shipment From
                       <strong className="text-danger">*</strong>
@@ -252,28 +310,53 @@ function Index() {
                   />
                   </div>
                   </Col>
-                 
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                  <select
+                    <div className='d-flex'>
+                    <input
                       className={`${styles.input_field} input form-control`}
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      (44E) Port of Loading
+                      <strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                    className={`${styles.search_image} img-fluid`}
+                    src="/static/search-grey.svg"
+                    alt="Search"
+                  />
+                  </div>
+                  </Col>
+                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                    <div className="d-flex">
+                  <select
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     >
                       <option>Visakhapatnam Port, India</option>
                       <option>Balaji Traders</option>
                     </select>
                    
                     <label className={`${styles.label_heading} label_heading`}>
-                      (44F) At Sight<strong className="text-danger">*</strong>
+                      (44F) Port of Discharge<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
+                     <div className="d-flex">
+                    <DateCalender labelName='(44C) Latest Date Of Shipment'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      (44C) Latest Date Of Shipment
-                      <strong className="text-danger">*</strong>
-                    </label>
+                      
+                    </div>  
                   </Col>
                   <Col className="mb-4 mt-4" md={12}>
                     <textarea
@@ -495,8 +578,9 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                    <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}>
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}>
                       <option>Bnp Paribas Paribas - Bnpafrppxx</option>
                       <option>Balaji Traders</option>
                     </select>
@@ -504,10 +588,17 @@ function Index() {
                       (53A) Reimbursing Bank
                       <strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                     <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`} >
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`} >
                       <option>Bnp Paribas Paribas - Bnpafrppxx</option>
                       <option>Balaji Traders</option>
                     </select>
@@ -515,6 +606,12 @@ function Index() {
                       (57) Advise Through Bank
                       <strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                  
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>

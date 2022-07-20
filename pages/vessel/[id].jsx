@@ -1,6 +1,7 @@
 import styles from './vessel.module.scss'
 import UploadOther from '../../src/components/UploadOther'
 import UploadDocument from '../../src/components/UploadDocument'
+import DateCalender from '../../src/components/DateCalender'
 
 
 export default function Home() {
@@ -159,39 +160,31 @@ export default function Home() {
                     />
                         </div>
                 </div>
-                <div className={`${styles.form_group} col-md-3 col-sm-6`}>
-                    <div className="d-flex">
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="date"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    ETD at Load Port<strong className="text-danger">*</strong>
-                  </label>
-                   <img
+                             
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
+                     <div className="d-flex">
+                    <DateCalender labelName='ETA at Load Port'/>
+                     <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>    
-                </div>
-                <div className={`${styles.form_group} col-md-3 col-sm-6`}>
-                 <div className="d-flex">
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="date"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    ETA at Discharge Port
-                    <strong className="text-danger">*</strong>
-                  </label>
-                   <img
+                      
+                    </div> 
+                    </div>
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
+                        <div className="d-flex">
+                    <DateCalender labelName='ETA at Discharge Port'/>
+                     <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>    
+                              
                 </div>
+           
+           </div>
+
               </div>
             </div>
             <hr></hr>

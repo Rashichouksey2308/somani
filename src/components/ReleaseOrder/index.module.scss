@@ -323,7 +323,8 @@
                                 width: 299px;
 
                             }
-
+ 
+ 
                             .doc_name {
                                 font-weight: bold;
                                 line-height: 25px;
@@ -864,4 +865,9 @@ input:checked+.slider:before {
     width: 23px;
     height: 26px;
     pointer-events: none;
+}
+.close_image {
+    margin-left: -30px;
+
+    @include respond(phone) {}
 }
