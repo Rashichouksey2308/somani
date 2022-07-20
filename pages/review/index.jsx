@@ -1486,6 +1486,8 @@ function Index() {
                                   />
                                   <button
                                     className={`${styles.upload_button} btn`}
+                                   disabled={manualDocModule}
+
                                   >
                                     Upload
                                   </button>

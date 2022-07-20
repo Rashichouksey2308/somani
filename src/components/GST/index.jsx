@@ -677,17 +677,17 @@ function Index(GstData) {
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
-          data-target="#litigations1"
+          data-target="#summaryCharts"
           aria-expanded="true"
-          aria-controls="litigations1"
+          aria-controls="summaryCharts"
         >
           <h2 className="mb-0">Summary Chart</h2>
           <span>+</span>
         </div>
         <div
-          id="litigations1"
+          id="summaryCharts"
           className="collapse"
-          aria-labelledby="litigations1"
+          aria-labelledby="summaryCharts"
           data-parent="#profileAccordion"
         >
           <div className={` ${styles.cardBody} card-body  border_color`}>
@@ -801,17 +801,17 @@ function Index(GstData) {
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
-          data-target="#litigations2"
+          data-target="#salesDetails"
           aria-expanded="true"
-          aria-controls="litigations2"
+          aria-controls="salesDetails"
         >
           <h2 className="mb-0">Sales Details</h2>
           <span>+</span>
         </div>
         <div
-          id="litigations2"
+          id="salesDetails"
           className="collapse"
-          aria-labelledby="litigations2"
+          aria-labelledby="salesDetails"
           data-parent="#profileAccordion"
         >
           <div className={` ${styles.cardBody} card-body   border_color`}>
@@ -1040,17 +1040,17 @@ function Index(GstData) {
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
-          data-target="#litigations2"
+          data-target="#purchaseDetails"
           aria-expanded="true"
-          aria-controls="litigations2"
+          aria-controls="purchaseDetails"
         >
           <h2 className="mb-0">Purchase Details</h2>
           <span>+</span>
         </div>
         <div
-          id="litigations2"
+          id="purchaseDetails"
           className="collapse"
-          aria-labelledby="litigations2"
+          aria-labelledby="purchaseDetails"
           data-parent="#profileAccordion"
         >
           <div className={` ${styles.cardBody} card-body   border_color`}>
@@ -1274,9 +1274,9 @@ function Index(GstData) {
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
-          data-target="#litigations2"
+          data-target="#Compliance"
           aria-expanded="true"
-          aria-controls="litigations2"
+          aria-controls="Compliance"
         >
           <h2 className="mb-0">Compliance</h2>
           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
@@ -1287,9 +1287,9 @@ function Index(GstData) {
           <span>+</span>
         </div>
         <div
-          id="litigations2"
+          id="Compliance"
           className="collapse"
-          aria-labelledby="litigations2"
+          aria-labelledby="Compliance"
           data-parent="#profileAccordion"
         >
           <div className={` ${styles.cardBody} card-body   border_color`}>
@@ -1345,10 +1345,10 @@ function Index(GstData) {
 
       {/* CistomerDetail                                    */}
 
-      {gstCustomerDetail(gstFilteredData)}
-      {gstSupplierDetail(gstFilteredData)}
-      {gstSalesAndPurchase('Sales')}
-      {gstSalesAndPurchase('Purchase')}
+      {gstCustomerDetail()}
+      {gstSupplierDetail()}
+      {gstSales('Sales')}
+      {gstPurchase('Purchase')}
     </>
   )
 }
@@ -1746,7 +1746,7 @@ const gstSupplierDetail = (gstFilteredData) => {
   )
 }
 
-const gstSalesAndPurchase = (head) => {
+const gstSales = (head) => {
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -1856,7 +1856,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>EXPORT Sales</td>
+                          <td>Export Sales</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -1871,7 +1871,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>GROWTH TREND</td>
+                          <td>Growth Trend</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2009,6 +2009,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                           <td>12</td>
                         </tr>
+
                       </tbody>
                     </table>
                   </div>
@@ -2041,7 +2042,7 @@ const gstSalesAndPurchase = (head) => {
                       </tr>
                       <tbody>
                         <tr>
-                          <td>Total </td>
+                          <td>Total</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2086,7 +2087,376 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>EXPORT</td>
+                          <td>Export</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+const gstPurchase = (head) => {
+  return (
+    <>
+      <div className={`${styles.wrapper} ${styles.lastComponent} card`}>
+        <div
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
+          data-toggle="collapse"
+          data-target="#purchase"
+          aria-expanded="true"
+          aria-controls="purchase"
+        >
+          <h2 className="mb-0">{head}</h2>
+          <span className=" d-flex align-items-center justify-content-between">
+            <span
+              className={` d-flex align-items-center justify-content-between`}
+            >
+              <span className={styles.light}>Unit :</span>
+              <select
+                className={`${styles.selectHead}  accordion_DropDown form-select`}
+                aria-label="Default select example"
+              >
+                <option selected value="1">
+                  Crores
+                </option>
+              </select>
+            </span>
+            +
+          </span>
+        </div>
+        <div
+          id="purchase"
+          className="collapse"
+          aria-labelledby="purchase"
+          data-parent="#profileAccordion"
+        >
+          <div className={` ${styles.CustomercardBody} card-body border_color`}>
+            <div className={` ${styles.content}`}>
+              <div className={` ${styles.body}`}>
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table2}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr>
+                        <th className={`${styles.first}`} colSpan={13}>Financial Period 2020- 2021</th>
+                      </tr>
+                      <tr className={styles.second_head}>
+                        <td>PURCHASES</td>
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Total Purchase</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>B2B Purchase</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>B2C Purchase</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Import</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Growth Trend</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div className={` ${styles.content}`}>
+              <div className={` ${styles.body}`}>
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table2}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr className={styles.second_head}>
+                        <td>PURCHASE %</td>
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>New Suppliers</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Recurring Suppliers</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div className={` ${styles.content}`}>
+              <div className={` ${styles.body}`}>
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table2}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr className={styles.second_head}>
+                        <td>SUPPLIERS</td>
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>New</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Recurring</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={` ${styles.content}`}>
+              <div className={` ${styles.body}`}>
+                <div className={`${styles.scrollouter}`}>
+                  <div className={`${styles.scrollInner}`}>
+                    <table
+                      className={`${styles.table2}  table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                    >
+                      <tr className={styles.second_head}>
+                        <td>NO. OF INVOICES</td>
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Total</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>B2B</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>B2C</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>Import</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
