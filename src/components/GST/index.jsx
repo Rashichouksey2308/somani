@@ -67,6 +67,17 @@ function Index(GstData) {
     return gradient;
   }
 
+  const covertMonths = (months) => {
+    const CovertedMonts = []
+    months?.map((month) => {
+      let convertedMonths = []
+      CovertedMonts.push(...convertedMonths, moment(month, 'MMYYYY').format('MMMM'))
+      console.log(CovertedMonts, "hjdsfguhsdgfvkjsfvchukjgf")
+    })
+    return CovertedMonts
+  }
+
+
   useEffect(() => {
 
     const chart = chartRef.current;
@@ -78,26 +89,45 @@ function Index(GstData) {
     let color = createGradient(chart.ctx, chart.chartArea)
     console.log(color, "color")
     const data = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jun", "Jun", "Jun", "Jun"],
+      labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
       datasets: [
         {
           label: "First dataset",
-          data: [70, 53, 85, 20, 44, 70, 34, 45, 67, 90],
+          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales,
           fill: true,
 
 
           backgroundColor: color,
-          borderColor: "rgba(224, 195, 155, 1)"
+          borderColor: "#2979F2"
         },
         {
           label: "First dataset",
-          data: [70, 53, 85, 41, 44, 65, 34, 45, 67,],
+          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales,
           fill: true,
 
 
           backgroundColor: color,
-          borderColor: "rgba(224, 195, 155, 1)"
+          borderColor: "#FA5F1C"
         },
+        {
+          label: "First dataset",
+          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales,
+          fill: true,
+
+
+          backgroundColor: color,
+          borderColor: "#FFD950"
+        },
+        {
+          label: "First dataset",
+          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales,
+          fill: true,
+
+
+          backgroundColor: color,
+          borderColor: "#02BC77"
+        },
+
 
       ]
     };
@@ -251,23 +281,106 @@ function Index(GstData) {
     }
 
   }
-  let data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  let turOverdataAndPurchases = {
+    labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.month),
     datasets: [
       {
         label: "First dataset",
-        data: [33, 53, 85, 41, 44, 65],
+        data: gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.sale,
         fill: true,
         backgroundColor: 'rgba(75,192,192,1)',
         borderColor: "rgba(75,192,192,1)"
       },
       {
-        label: "Second dataset",
-        data: [33, 25, 35, 51, 54, 76],
+        label: "First dataset",
+        data: gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.purchase,
         fill: true,
         backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "#742774"
+        borderColor: "rgba(75,192,192,1)"
       }
+
+    ]
+  }
+  let data = {
+    labels: gstFilteredData?.detail?.summaryCharts?.top10Cus?.names,
+    datasets: [
+      {
+        label: "First dataset",
+        data: [33, 53, 85, 41, 44, 120],
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: "rgba(75,192,192,1)"
+      }
+
+    ]
+  }
+
+  let top10Customers = {
+    labels: gstFilteredData?.detail?.summaryCharts?.top10Cus?.names,
+    datasets: [
+      {
+        label: "First dataset",
+        data: gstFilteredData?.detail?.summaryCharts?.top10Cus?.values,
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: "rgba(75,192,192,1)"
+      }
+
+    ]
+  }
+  let top10Supplier = {
+    labels: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.names,
+    datasets: [
+      {
+        label: "First dataset",
+        data: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.values,
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: "rgba(75,192,192,1)"
+      }
+
+    ]
+  }
+
+  let stateWiseSales = {
+    labels: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.names,
+    datasets: [
+      {
+        label: "First dataset",
+        data: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.values,
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: "rgba(75,192,192,1)"
+      }
+
+    ]
+  }
+
+  let averageRate = {
+    labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months),
+    datasets: [
+      {
+        label: "First dataset",
+        data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers,
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: "rgba(75,192,192,1)"
+      },
+      {
+        label: "First dataset",
+        data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.invoices,
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: "rgba(75,192,192,1)"
+      },
+      {
+        label: "First dataset",
+        data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.avgMonthlySales,
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: "rgba(75,192,192,1)"
+      }
+
     ]
   }
 
@@ -611,7 +724,7 @@ function Index(GstData) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Line data={data} />
+                    <Line data={turOverdataAndPurchases} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.blue_legend} ${styles.legend}`}>Gross Turnover</span>
                       <span className={`${styles.red_legend} ${styles.legend}`}>Gross Purchases</span>
@@ -628,7 +741,7 @@ function Index(GstData) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={data} />
+                    <Bar data={top10Customers} />
                   </div>
                 </div>
               </Col>
@@ -641,7 +754,7 @@ function Index(GstData) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={data} />
+                    <Bar data={top10Supplier} />
                   </div>
                 </div>
               </Col>
@@ -654,7 +767,7 @@ function Index(GstData) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={data} />
+                    <Bar data={stateWiseSales} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.legend}`}>Financial Period 07-2018 to 06-2029</span>
                     </div>
@@ -670,7 +783,7 @@ function Index(GstData) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Line data={data} />
+                    <Line data={averageRate} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.blue_legend} ${styles.legend}`}>No. of Customers</span>
                       <span className={`${styles.red_legend} ${styles.legend}`}>No. of Invoices</span>
@@ -1166,11 +1279,11 @@ function Index(GstData) {
           aria-controls="litigations2"
         >
           <h2 className="mb-0">Compliance</h2>
-            <div className={`${styles.subHeadContainer} d-flex ml-5`}>
-                <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</span>09AAGCS8808K1ZR</span> 
-                <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</span>Quaterly</span>   
-                <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</span>2021-2022</span>     
-            </div>
+          <div className={`${styles.subHeadContainer} d-flex ml-5`}>
+            <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</span>{gstFilteredData?.detail?.complianceDetail?.filingHistory}</span>
+            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</span>{gstFilteredData?.detail?.complianceDetail?.filingFrequency}</span>
+            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</span>{gstFilteredData?.detail?.complianceDetail?.financialPeriod}</span>
+          </div>
           <span>+</span>
         </div>
         <div
@@ -1833,7 +1946,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                           <td>12</td>
                         </tr>
-                        
+
                       </tbody>
                     </table>
                   </div>
