@@ -22,14 +22,13 @@ function Index() {
 
   const { margin } = useSelector((state) => state.marginMoney)
 
-  
   const marginData = margin?.data?.data[0]
 
   useEffect(() => {
     dispatch(setPageName('margin-money'))
     dispatch(setDynamicName(marginData?.company.companyName))
   }, [dispatch, marginData?.company.companyName])
-  
+
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -48,7 +47,7 @@ function Index() {
     additionalPDC: marginData?.additionalPDC || '',
     conversionRate: marginData?.conversionRate || '',
     perUnitPrice: marginData?.order?.perUnitPrice || '',
-    usanceInterestPercetage:
+    usanceInterestPercentage:
       marginData?.order?.termsheet?.commercials?.usanceInterestPercetage || '',
     numberOfPDC: marginData?.numberOfPDC || '',
     tradeMarginPercentage:
@@ -64,6 +63,30 @@ function Index() {
     // console.log(newInput)
     setForCalculation(newInput)
   }
+
+  let orderValue = parseFloat(forCalculation.quantity * forCalculation.perUnitPrice).toFixed(2) //J
+  let orderValueCurrency = 'USD'
+  let orderValueInINR = parseFloat(orderValue * forCalculation.conversionRate).toFixed(2) //K
+  let usanceInterest =
+  parseFloat((orderValueInINR * (forCalculation.isUsanceInterestIncluded ? forCalculation.usanceInterestPercentage : 1) * 90) / 365 ).toFixed(2) //L
+  let tradeMargin = parseFloat(orderValueInINR * forCalculation.tradeMarginPercentage).toFixed(2) //M
+  let grossOrderValue = parseFloat(orderValueInINR + usanceInterest + tradeMargin).toFixed(2) //N
+  let toleranceValue = parseFloat(grossOrderValue * forCalculation.tolerance).toFixed(2) //O
+  let totalOrderValue = parseFloat(grossOrderValue + toleranceValue).toFixed(2) //P
+  let provisionalUnitPricePerTon = parseFloat(grossOrderValue / forCalculation.quantity ).toFixed(2)//Q
+  let marginMoney = parseFloat(totalOrderValue * forCalculation.marginMoney ).toFixed(2)//R
+  let totalSPDC = parseFloat(totalOrderValue - marginMoney).toFixed(2) //S
+  let amountPerSPDC = parseFloat(totalSPDC / forCalculation.numberOfPDC).toFixed(2) //T
+
+  console.log((orderValueInINR + usanceInterest + tradeMargin), 'calculates oder',typeof(orderValueInINR + usanceInterest + tradeMargin))
+
+ 
+
+  const routeChange = () => {
+    Router.push('/margin-preview')
+  }
+
+
 
   const [invoiceData, setInvoiceData] = useState({
     buyerName: marginData?.invoiceDetail?.buyerName || '',
@@ -92,34 +115,34 @@ function Index() {
     setInvoiceData(newInput)
   }
 
-  const [calcData, setCalcData] = useState({
-    orderValue: marginData?.calculation?.orderValue,
-    orderValueCurrency: marginData?.calculation?.orderValueCurrency,
-    orderValueInINR: marginData?.calculation?.orderValueInINR,
-    usanceInterest: marginData?.calculation?.usanceInterest,
-    tradeMargin: marginData?.calculation?.tradeMargin,
-    grossOrderValue: marginData?.calculation?.grossOrderValue,
-    toleranceValue: marginData?.calculation?.toleranceValue,
-    totalOrderValue: marginData?.calculation?.totalOrderValue,
-    provisionalUnitPricePerTon:
-      marginData?.calculation?.provisionalUnitPricePerTon,
-    marginMoney: marginData?.calculation?.marginMoney,
-    totalSPDC: marginData?.calculation?.totalSPDC,
-    amountPerSPDC: marginData?.calculation?.amountPerSPDC,
-  })
-
-  const routeChange = () => {
-    Router.push('/margin-preview')
-  }
-
   const handleUpdate = () => {
-    const obj = {
+    let obj = {
       marginMoneyId: marginData?._id,
       conversionRate: forCalculation.conversionRate,
       isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded,
       numberOfPDC: forCalculation.numberOfPDC,
       additionalPDC: forCalculation.additionalPDC,
       invoiceDetail: { ...invoiceData },
+      calculation: {
+        orderValue: orderValue,
+        orderValueCurrency: orderValueCurrency,
+        orderValueInINR: orderValueInINR,
+        usanceInterest: usanceInterest,
+        tradeMargin: tradeMargin,
+        grossOrderValue: grossOrderValue,
+        toleranceValue: toleranceValue,
+        totalOrderValue: totalOrderValue,
+        provisionalUnitPricePerTon: provisionalUnitPricePerTon,
+        marginMoney: marginMoney,
+        totalSPDC: totalSPDC,
+        amountPerSPDC: amountPerSPDC,
+      },
+    }
+    if(marginData?.order?.perUnitPrice !== forCalculation.perUnitPrice || marginData?.order?.quantity !== forCalculation.quantity){
+      obj= {...obj, orderObj: {
+        quantity: forCalculation.quantity,
+        perUnitPrice: forCalculation.perUnitPrice,
+      }}
     }
 
     dispatch(UpdateMarginMoney(obj))
@@ -302,7 +325,6 @@ function Index() {
                               </div>
                               <input
                                 type="text"
-                                disabled
                                 id="textInput"
                                 defaultValue={marginData?.order?.perUnitPrice}
                                 name="perUnitPrice"
@@ -620,8 +642,8 @@ function Index() {
                                 disabled={true}
                                 type="text"
                                 id="textInput"
-                                defaultValue={
-                                  marginData?.calculation?.orderValue
+                                value={
+                                  orderValue
                                 }
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
@@ -651,8 +673,8 @@ function Index() {
                                 disabled={true}
                                 type="text"
                                 id="textInput"
-                                defaultValue={
-                                  marginData?.calculation?.orderValueInINR
+                                value={
+                                orderValueInINR
                                 }
                                 name="companyPan"
                                 className={`${styles.input_field} input form-control`}
@@ -683,8 +705,8 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={
-                                  marginData?.calculation?.usanceInterest
+                              value={
+                                  usanceInterest
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -714,8 +736,8 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={
-                                  marginData?.calculation?.tradeMargin
+                                value={
+                                  tradeMargin
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -745,8 +767,8 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={
-                                  marginData?.calculation?.grossOrderValue
+                                value={
+                                  grossOrderValue
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -777,8 +799,8 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={
-                                  marginData?.calculation?.toleranceValue
+                                value={
+                                  toleranceValue
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -808,8 +830,8 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={
-                                  marginData?.calculation?.totalOrderValue
+                                value={
+                                  totalOrderValue
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -839,9 +861,8 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={
-                                  marginData?.calculation
-                                    ?.provisionalUnitPricePerTon
+                                value={
+                                  provisionalUnitPricePerTon
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -871,8 +892,8 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={
-                                  marginData?.calculation?.marginMoney
+                                value={
+                                  marginMoney
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -903,8 +924,8 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={
-                                  marginData?.calculation?.totalSPDC
+                                value={
+                                  totalSPDC
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -934,8 +955,8 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="companyPan"
-                                defaultValue={
-                                  marginData?.calculation?.amountPerSPDC
+                              value={
+                                  amountPerSPDC
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
