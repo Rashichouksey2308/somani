@@ -78,8 +78,6 @@ function Index() {
   let totalSPDC = parseFloat(totalOrderValue - marginMoney).toFixed(2) //S
   let amountPerSPDC = parseFloat(totalSPDC / forCalculation.numberOfPDC).toFixed(2) //T
 
-  console.log((orderValueInINR + usanceInterest + tradeMargin), 'calculates oder',typeof(orderValueInINR + usanceInterest + tradeMargin))
-
  
 
   const routeChange = () => {
