@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { Form} from 'react-bootstrap'
 import InspectionDocument from '../InspectionDocument'
 import SaveBar from '../SaveBar'
-
+import DateCalender from '../DateCalender'
 
 export default function Index() {
   return (
@@ -19,8 +19,15 @@ export default function Index() {
                 <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
                   <div className='row'>
                   <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                    <input className={`${styles.input_field} input form-control`} type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>Plot Inspection Date<strong className="text-danger ml-1">*</strong></label>                   
+                     <div className="d-flex">
+                    <DateCalender labelName='Plot Inspection Date'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
                 </div> 
                    
 

@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
+import DateCalender from '../DateCalender'
 
 export default function Index() {
   const [editInput, setEditInput] = useState(true)
@@ -42,23 +43,37 @@ export default function Index() {
                 <div className={`${styles.dashboard_form} mt-2 card-body`}>
                   <div className='row'>
                   <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
+               <div className='d-flex'>
                   <select
-                    className={`${styles.input_field} input form-control`}>
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                     <option>Indo German</option>
                     <option>N/A</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Bank Name<strong className="text-danger">*</strong>
                   </label>
+                   <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
                 </div>
                 <div className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`} >
+                                    <div className='d-flex'>
                 <select
-                    className={`${styles.input_field} input form-control`}>
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                     <option>USD</option>
                     <option>N/A</option>
                   </select>
                      <label className={`${styles.label_heading} label_heading`}>
-                      Currency<strong className="text-danger">*</strong></label>                   
+                      Currency<strong className="text-danger">*</strong></label> 
+                       <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>                  
                 </div> 
                 <div className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`} >
                     <input 
@@ -78,20 +93,26 @@ export default function Index() {
                 </div>
                 
                 <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`} >
-                <input
-                    className={`${styles.input_field} input form-control`} 
-                    type="date"
-                  />
-                     <label className={`${styles.label_heading} label_heading`}>
-                      Validity from<strong className="text-danger">*</strong></label>                   
+                  <div className="d-flex">
+                    <DateCalender labelName='IValidity from'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>                  
                 </div> 
                 <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`} >
-                <input
-                    className={`${styles.input_field} input form-control`} 
-                    type="date"
-                  />
-                     <label className={`${styles.label_heading} label_heading`}>
-                     Validity to<strong className="text-danger">*</strong></label>                   
+                  <div className="d-flex">
+                    <DateCalender labelName='Validity to'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>                
                 </div> 
                
                   </div>
@@ -164,16 +185,24 @@ export default function Index() {
                     </div>
                     <div className="col-md-4 offset-md-1 col-sm-6">
                       <Form.Group className={styles.form_group}>
-                        <Form.Label className={`${styles.label} label_heading`}>
-                          Document Type
-                        </Form.Label>
-                        <select
-                          className={`${styles.value} input form-control`}
-                           id="docType" onChange={(e) => handleDropdown(e)}>
-                        <option>N/A</option>
-                        <option value='Others'>Others</option>
-                        </select>
-                      </Form.Group>
+                 <div className="d-flex">
+                  <select
+                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                   id="docType" onChange={(e) => handleDropdown(e)}>
+
+                    <option>N/A</option>
+                    <option value='Others'>Others</option>
+                  </select>
+                  <Form.Label className={`${styles.label} label_heading`}>
+                    Document Type
+                  </Form.Label>
+                   <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>  
+                </Form.Group>
                       <Form.Group className={styles.form_group}>
                         <Form.Label className={`${styles.label} label_heading`}>
                           Please Specify Document Name

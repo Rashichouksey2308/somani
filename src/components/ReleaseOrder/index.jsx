@@ -3,12 +3,9 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import InspectionDocument from '../InspectionDocument'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import DateCalender from '../DateCalender'
 
 export default function Index() {
-    const [startDate, setStartDate] = useState(new Date());
 
   return (
     <>
@@ -63,30 +60,15 @@ export default function Index() {
                         </div>
                    <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `} >
                     <div className="d-flex">
-                    <DatePicker selected={startDate} 
-                    dateFormat="dd/MM/yyyy"
-                    className={`${styles.input_field} input form-control`}
-                    onChange={(startDate) => setStartDate(startDate)} />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Release Order Date<strong className="text-danger">*</strong></label> 
-                       <img
+                    <DateCalender labelName='Release Order Date'/>
+                     <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
+                      
                     </div>  
 
-                    {/* <div className="d-flex">
-                    <input 
-                    className={`${styles.input_field} input form-control`} type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>
-                      Release Order Date<strong className="text-danger">*</strong></label>  
-                    <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                    </div>                  */}
                 </div> 
                 <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `} >
                     <input 
@@ -97,18 +79,16 @@ export default function Index() {
                      <div className='col-lg-3 col-md-4 col-sm-6 text-center'  
                      style={{top:'50px'}}
                      >
-                    <div className={styles.uploadBtnWrapper}>
-                        <input type="file" name="myfile" />
-                        <button className={`${styles.upload_btn} mr-2 btn`}>
-                        Upload
-                        </button>
-                    </div>
+                      <div className="d-flex">
+                     <input className={styles.input_field} type="text" placeholder='Nomination.pdf'/>
+                    <img className={`${styles.close_image} img-fluid `} src="/static/close.svg" alt="close"/> 
+                     
                     <img
                       src="/static/delete 2.svg"
-                      className={`${styles.delete_image} mt-n4 img-fluid mr-2`}
-                      alt="Preview"
+                      className={`${styles.delete_image} ml-4 img-fluid `}
+                      alt="delete"
                     />
-                    
+                    </div>
                    
                     </div>
 
@@ -119,24 +99,14 @@ export default function Index() {
                         </div>
                    <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `} >
                     <div className="d-flex">
-                    <DateCalender/>
+                    <DateCalender labelName='Release Order Date'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
                     </div>           
-                    {/* <div className="d-flex">
-                    <input 
-                    className={`${styles.input_field} input form-control`} type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>
-                      Release Order Date<strong className="text-danger">*</strong></label>  
-                    <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                    </div>                  */}
+                    
                 </div> 
                 <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `} >
                     <input 

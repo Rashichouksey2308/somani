@@ -537,6 +537,11 @@
                         padding-left: 15px;
                     }
                 }
+                img {
+                    opacity: 0.4;
+                    width: 14px;
+                    height: 14px;
+                }
                 @include respond(md-desktop) {
                     font-size: 14px;
                     line-height: 1.2;
@@ -705,5 +710,32 @@
             
         }
       }
+
+}
+.calanderIcon {
+    margin-left: -40px;
+    margin-top: 15px;
+    width: 23px;
+    height: 26px;
+    pointer-events: none;
+}
+.arrow {
+
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+
+
+}
+
+.customSelect {
+    appearance: none;
+    // position: relative;
 
 }

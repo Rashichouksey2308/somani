@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
-
+import DateCalender from '../DateCalender'
 
 export default function Index() {
    const [editInput, setEditInput] = useState(true)
@@ -120,8 +120,15 @@ export default function Index() {
                   <label className={`${styles.label_heading} label_heading`}>Inspected By<strong className="text-danger">*</strong></label>
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                  <input className={`${styles.input_field} input form-control`} type="date" />
-                  <label className={`${styles.label_heading} label_heading`}>Start Date<strong className="text-danger">*</strong></label>
+                   <div className="d-flex">
+                    <DateCalender labelName='Start Date'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
                 </div>
               </div>
             </div>
@@ -246,35 +253,42 @@ export default function Index() {
                     <Form>
                       <div className="row align-items-center pb-4">
                         <div
-                          className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
-                        >
-                          <div className="text-center">
-                            <img
-                              className={`${styles.upload_image} img-fluid`}
-                              src="/static/browse.svg"
-                              alt="Browse"
-                            />
-                             <p className={styles.drop_para}>
-                                    Drop Files here or<br />
-                                    
-                                  <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
-                                  <a href="#">Browse</a>
-                                  </div>
-                                  </p>
-                          </div>
-                        </div>
+                className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
+              >
+                <div className="text-center">
+                  <img
+                    className={`${styles.upload_image} img-fluid`}
+                    src="/static/browse.svg"
+                    alt="Browse"
+                  />
+                  <p className={styles.drop_para}>
+                        Drop Files here or<br />
+                        
+                      <div className={styles.uploadBtnWrapper}>
+                      <input type="file" name="myfile" />
+                      <a href="#">Browse</a>
+                      </div>
+                      </p>
+                </div>
+                      </div>
                         <div className="col-md-4 offset-md-1 col-sm-6">
                           <Form.Group className={styles.form_group}>
-                            <Form.Label className={`${styles.label_heading} label_heading`}>
-                              Document Type
-                            </Form.Label>
+                                            <div className="d-flex">
                             <select
-                              className={`${styles.value} input form-control`}
+                              className={`${styles.value} ${styles.customSelect} input form-control`}
                                id="docType" onChange={(e) => handleDropdown(e)}>
                                 <option>N/A</option>
                                 <option value='Others'>Others</option>
                             </select>
+                             <Form.Label className={`${styles.label_heading} label_heading`}>
+                              Document Type
+                            </Form.Label>
+                             <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>  
                           </Form.Group>
                           <Form.Group className={styles.form_group}>
                             <Form.Label className={`${styles.label_heading} label_heading`}>

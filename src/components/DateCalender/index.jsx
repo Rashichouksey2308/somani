@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from './index.module.scss'
 
 
-const Index = () => {
+const Index = ({labelName}) => {
      const [startDate, setStartDate] = useState(new Date());
 
   return (
@@ -14,7 +14,7 @@ const Index = () => {
         className={`${styles.input_field} input form-control`}
         onChange={(startDate) => setStartDate(startDate)} />
         <label className={`${styles.label_heading} label_heading`}>
-            Release Order Date<strong className="text-danger">*</strong></label> 
+          {labelName}<strong className="text-danger">*</strong></label> 
            
         </>
   )

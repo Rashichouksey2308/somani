@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
+import DateCalender from '../DateCalender'
 
 function Index  ({vesselName,isPartShipment}) {
   return (
@@ -104,48 +105,45 @@ function Index  ({vesselName,isPartShipment}) {
                     </div>  
                     <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`} >
                     <div className="d-flex">
-                    <input className={`${styles.input_field} input form-control`} type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>Laycan from<strong className="text-danger">*</strong></label>                   
+                    <DateCalender labelName='Laycan from'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>    
+                      
+                    </div>   
                     </div>
                     <div className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`} >
                        <div className="d-flex">
-                       <input className={`${styles.input_field} input form-control`} type="date"/> 
-                        <label className={`${styles.label_heading} label_heading`}>Laycan to<strong className="text-danger">*</strong></label>                   
+                    <DateCalender labelName='Laycan to'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
+                
                     </div>    
                     </div>              
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
-                    <div className="d-flex">
-                    <input className={`${styles.input_field} input form-control`} type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>ETD at Load Port<strong className="text-danger">*</strong></label>                   
-                    <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                    </div>    
-                    </div>
-                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
-                         <div className="d-flex">
-                        <input className={`${styles.input_field} input form-control`} type="date"/> 
-                        <label className={`${styles.label_heading} label_heading`}>ETA at Discharge Port<strong className="text-danger">*</strong></label>                   
+                     <div className="d-flex">
+                    <DateCalender labelName='ETA at Load Port'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>    
+                      
+                    </div> 
                     </div>
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
+                        <div className="d-flex">
+                    <DateCalender labelName='ETA at Discharge Port'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
                               
                 </div>
            
@@ -181,6 +179,8 @@ function Index  ({vesselName,isPartShipment}) {
            
            </div>
 
+            </div>
+            </div>
             </div>
   )
 }
