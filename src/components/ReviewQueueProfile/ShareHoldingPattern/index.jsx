@@ -69,7 +69,7 @@ function Index({ shareHolding }) {
             <table className={`${styles.table} table mb-4`} cellPadding="0" cellSpacing="0" border="0">
               <tbody>
                 <tr>
-                  <th rowSpan={shareHolding.length}>
+                  <th rowSpan={shareHolding ? shareHolding?.length : '7' }>
                     <div className={styles.chart}>
                       <Doughnut data={data} options={options} />
                       <div className={`${styles.total_value} `}>
