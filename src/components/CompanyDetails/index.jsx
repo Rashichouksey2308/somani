@@ -306,7 +306,7 @@ const Index = ({
                     )
                     setSlider(e.target.value)
                   }}
-                  className={`${styles.slider}   input form-control`}
+                  className={`${styles.slider} px-0 input form-control`}
                   id="myRange"
                   style={{
                     background: `linear-gradient(90deg, #3687E8 ${slider}%, #C3C3C31F ${
