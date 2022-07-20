@@ -8,15 +8,15 @@ import DateCalender from '../DateCalender'
 export default function Index() {
    const [editInput, setEditInput] = useState(true)
 
-  const handleDropdown = (e) => {
-    
-    if (e.target.value="Others") {
-    setEditInput(!editInput)
+ const handleDropdown = (e) => {
+    if (e.target.value == "Others") {
+      setEditInput(false)
     }
     else {
-      setEditInput(editInput)
+      setEditInput(true)
     }
   }
+
   return (
     <>
 
@@ -277,9 +277,12 @@ export default function Index() {
                             <select
                               className={`${styles.value} ${styles.customSelect} input form-control`}
                                id="docType" onChange={(e) => handleDropdown(e)}>
-                                <option>N/A</option>
+                                <option>Lead Onboarding &amp; Order Approval</option>
+                                <option>Agreements, Insurance &amp; LC Opening</option>
+                                <option>Loading-Transit-Unloading</option>
+                                <option>Custom Clearance And Warehousing</option>
                                 <option value='Others'>Others</option>
-                            </select>
+                                        </select>
                              <Form.Label className={`${styles.label_heading} label_heading`}>
                               Document Type
                             </Form.Label>
@@ -301,7 +304,8 @@ export default function Index() {
                             />
                           </Form.Group>
 
-                          <button className={`${styles.upload_button} mt-4 btn`}>
+                          <button className={`${styles.upload_button} mt-4 btn`}
+                          disabled={editInput}>
                             Upload
                           </button>
 
