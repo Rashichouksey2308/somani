@@ -8,13 +8,12 @@ import DateCalender from '../DateCalender'
 export default function Index() {
    const [editInput, setEditInput] = useState(true)
 
-  const handleDropdown = (e) => {
-    
-    if (e.target.value="Others") {
-    setEditInput(!editInput)
+ const handleDropdown = (e) => {
+    if (e.target.value == "Others") {
+      setEditInput(false)
     }
     else {
-      setEditInput(editInput)
+      setEditInput(true)
     }
   }
   return (
@@ -359,8 +358,11 @@ export default function Index() {
                         <select
                           className={`${styles.value} input ${styles.customSelect}  form-control`}
                              id="docType" onChange={(e) => handleDropdown(e)}>
-                        <option>N/A</option>
-                        <option value='Others'>Others</option>
+                       <option>Lead Onboarding &amp; Order Approval</option>
+                    <option>Agreements, Insurance &amp; LC Opening</option>
+                    <option>Loading-Transit-Unloading</option>
+                    <option>Custom Clearance And Warehousing</option>
+                    <option value='Others'>Others</option>
                           
                         </select>
                          <Form.Label className={`${styles.label} label_heading`}>
@@ -385,7 +387,8 @@ export default function Index() {
                       </Form.Group>
                       <div className={styles.uploadBtnWrapper}>
                         <input type="file" name="myfile" />
-                        <button className={`${styles.upload_button} btn`}>
+                        <button className={`${styles.upload_button} btn`}
+                        disabled={editInput}>
                           Upload
                         </button>
                       </div>
@@ -429,10 +432,11 @@ export default function Index() {
                             <select
                               className={`${styles.dropDown} table_container input form-control`}
                             >
-                              <option value="volvo">
-                                Loading, Transit, Unloading
-                              </option>
-                              <option value="India">India</option>
+                             <option>Lead Onboarding &amp; Order Approval</option>
+                            <option>Agreements, Insurance &amp; LC Opening</option>
+                            <option>Loading-Transit-Unloading</option>
+                            <option>Custom Clearance And Warehousing</option>
+                            <option value='Others'>Others</option>
                             </select>
                           </div>
                         </div>
