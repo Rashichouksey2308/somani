@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import {Row, Col, Form} from 'react-bootstrap'
+import DateCalender from '../DateCalender'
 
 function Index() {
     const [editStren, setEditStren] = useState(true)
@@ -44,8 +45,9 @@ function Index() {
               <div className={` ${styles.body}`}>
                 <Row>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+               <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option>BNP PARIBAS PARIBAS - BNPAFPPX</option>
                       <option>Balaji Traders</option>
@@ -54,6 +56,12 @@ function Index() {
                     <label className={`${styles.label_heading} label_heading`}>
                       (51D) LC Issuing Bank<strong className="text-danger">*</strong>
                     </label>
+                     <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <input
@@ -66,13 +74,16 @@ function Index() {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4"  lg={4} md={6} sm={6}>
-                  <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
+                     <div className="d-flex">
+                    <DateCalender labelName='(31C) Date Of Issue'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      (31C) Date Of Issue<strong className="text-danger">*</strong>
-                    </label>
+                      
+                    </div>  
+                 
                   </Col>
                 </Row>
               </div>
@@ -83,8 +94,9 @@ function Index() {
               <div className={` ${styles.body}`}>
                 <Row>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                  <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option>(44A) Shipment From</option>
                       <option>Balaji Traders</option>
@@ -93,6 +105,12 @@ function Index() {
                     <label className={`${styles.label_heading} label_heading`}>
                       Clause<strong className="text-danger">*</strong>
                     </label>
+                     <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <input
@@ -108,7 +126,8 @@ function Index() {
                     <div className='d-flex'>
                     <input
                         className={`${styles.input_field} input form-control`}
-                        type="date"
+                        required
+                        type="text"
                       />
                       <label className={`${styles.label_heading} label_heading`}>
                         New Value<strong className="text-danger">*</strong>
@@ -266,16 +285,23 @@ function Index() {
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">
                 <Form.Group className={styles.form_group}>
+                 <div className="d-flex">
+                  <select
+                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                   id="docType" onChange={(e) => handleDropdown(e)}>
+
+                    <option>N/A</option>
+                    <option value='Others'>Others</option>
+                  </select>
                   <Form.Label className={`${styles.label} label_heading`}>
                     Document Type
                   </Form.Label>
-                  <select
-                    className={`${styles.value} input form-control`}
-                    id="docType"
-                  >
-                    <option>Others</option>
-                    <option>N/A</option>
-                  </select>
+                   <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>  
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
                   <Form.Label className={`${styles.label} label_heading`}>

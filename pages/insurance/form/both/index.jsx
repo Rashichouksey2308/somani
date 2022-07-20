@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col} from 'react-bootstrap'
 import UploadDocument from '../../../../src/components/UploadDocument'
+import DateCalender from '../../../../src/components/DateCalender'
 
 const Index = () => {
   return (
@@ -175,36 +176,28 @@ const Index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={2} md={6}>
-                      <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Insurance from<strong className="text-danger">*</strong>
-                    </label>
-                    <img
+                     <div className="d-flex">
+                    <DateCalender labelName='Insurance from'/>
+                     <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>    
+                      
+                    </div>  
+                      
                   </Col>
                   <Col className="mb-4 mt-4" lg={2} md={6}>
-                   <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Insurance to<strong className="text-danger">*</strong>
-                    </label>
-                    <img
+                  <div className="d-flex">
+                    <DateCalender labelName='Insurance to'/>
+                     <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>    
+                      
+                    </div>  
+                      
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input
@@ -367,35 +360,27 @@ const Index = () => {
                   </Col>
                   <Col className="mb-4 mt-4" lg={2} md={6}>
                      <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Insurance from<strong className="text-danger">*</strong>
-                    </label>
-                    <img
+                    <DateCalender labelName='Insurance from'/>
+                     <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>    
+                      
+                    </div>  
+                      
                   </Col>
                   <Col className="mb-4 mt-4" lg={2} md={6}>
-                     <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Insurance to<strong className="text-danger">*</strong>
-                    </label>
-                    <img
+                  <div className="d-flex">
+                    <DateCalender labelName='Insurance to'/>
+                     <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>    
+                      
+                    </div>  
+                      
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <input

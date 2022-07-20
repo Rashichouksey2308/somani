@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
 import { useState } from 'react'
+import DateCalender from '../../DateCalender'
 
 export default function Index() {
 
@@ -62,17 +63,16 @@ export default function Index() {
                       Quantity<strong className="text-danger">*</strong></label>                   
                 </div> 
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`} >
-                    <div className="d-flex">
-                    <input 
-                    className={`${styles.input_field} input form-control`} type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>
-                      Date of Storage<strong className="text-danger">*</strong></label>   
-                      <img
+                   <div className="d-flex">
+                    <DateCalender labelName='Date of Storage'/>
+                     <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-                    </div>                    
+                   
+                    </div> 
+                                 
                 </div> 
                 
                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`} >

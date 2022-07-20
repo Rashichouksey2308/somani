@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styles from './letter.module.scss'
 import {Row, Col, Form} from 'react-bootstrap'
 import InspectionDocument from '../../src/components/InspectionDocument'
+import DateCalender from '../../src/components/DateCalender'
+
 
 function Index() {
     const [editStren, setEditStren] = useState(true)
@@ -42,45 +44,33 @@ function Index() {
             <div className={` ${styles.content}`}>
               <div className={` ${styles.body}`}>
                 <Row>
-                  <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
-                  <select
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option>BNP PARIBAS PARIBAS - BNPAFPPX</option>
-                      <option>Balaji Traders</option>
-                    </select>
-                   
-                    <label className={`${styles.label_heading} label_heading`}>
-                      (51D) LC Issuing Bank<strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                  <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
-                  <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      (20) Documentary Credit Number<strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
+                   <div className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label} mb-2 text`}>
+                      (51D) LC Issuing Bank <strong className="text-danger ml-n1">*</strong> 
+                     </div>
+                      <span className={`${styles.value}`}>Iron</span>
+                    </div>
+                <div className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label}  mb-2 text`}>
+                      (20) Documentary Credit Number <strong className="text-danger ml-n1">*</strong></div>
+                      <span className={styles.value}>500 Mt</span>
+                    </div>
+                <div className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `} >
+                      <div className={`${styles.label}  mb-2 text`}>
+                       (31C) Date Of Issue <strong className="text-danger ml-n1">*</strong> </div>
+                      <span className={styles.value}>Iron</span>
+                    </div>
                   <Col className="mb-4 mt-4"  lg={3} md={6} sm={6}>
-                  <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
+                    <div className="d-flex">
+                    <DateCalender labelName='(30) Date Of Ammendment'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      (31C) Date Of Issue<strong className="text-danger">*</strong>
-                    </label>
-                  </Col>
-                  <Col className="mb-4 mt-4"  lg={3} md={6} sm={6}>
-                  <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      (30) Date Of Ammendment<strong className="text-danger">*</strong>
-                    </label>
+                      
+                    </div>  
+                 
                   </Col>
                   <Col className="mb-4 mt-4"  lg={3} md={6} sm={6}>
                   <input
@@ -100,8 +90,9 @@ function Index() {
               <div className={` ${styles.body}`}>
                 <Row>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                   <div className="d-flex">
                   <select
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option>(44A) Shipment From</option>
                       <option>Balaji Traders</option>
@@ -110,14 +101,22 @@ function Index() {
                     <label className={`${styles.label_heading} label_heading`}>
                       Clause<strong className="text-danger">*</strong>
                     </label>
+                    <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>   
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                   <input
                       className={`${styles.input_field} input form-control`}
+                      style={{opacity: '0.5'}}
                       required
                       type="text"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
+                    <label className={`${styles.label_heading} label_heading`}
+                    >
                       Existing Value
                     </label>
                   </Col>

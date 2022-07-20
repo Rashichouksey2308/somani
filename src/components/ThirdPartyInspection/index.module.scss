@@ -218,7 +218,7 @@
                 .search_container {
                     //background: #F0F0F0;
                     height: 62px;
-        
+       
                     .dropDown {
                         //background: #FFFFFF;
                         border: 1px solid #0000001F;
@@ -517,3 +517,80 @@
         height: 25px;
     }
 }
+.calanderIcon {
+    margin-left: -40px;
+    margin-top: 15px;
+    width: 23px;
+    height: 26px;
+    pointer-events: none;
+}
+
+.arrow {
+
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+
+
+}
+
+.customSelect {
+    appearance: none;
+    // position: relative;
+
+}
+ .drop_container {
+     background-color: #C3C3C31F;
+     border: 1px dashed #00000045;
+     border-radius: 4px;
+     height: 284px;
+     line-height: 1;
+
+     .upload_image {
+         width: 83px;
+         height: 83px;
+         line-height: 83px;
+     }
+
+     .drop_para {
+         font-size: 19px;
+         line-height: 24px;
+         font-weight: 500;
+
+         @include respond(md-desktop) {
+             font-size: 17px;
+         }
+
+         @include respond(sm-desktop) {
+             font-size: 15px;
+         }
+
+         @include respond(phone) {
+             font-size: 12px;
+         }
+
+         a {
+             text-decoration: underline;
+             font-size: 19px;
+             color: #3687E8;
+
+             @include respond(md-desktop) {
+                 font-size: 17px;
+             }
+
+             @include respond(sm-desktop) {
+                 font-size: 15px;
+             }
+
+             @include respond(phone) {
+                 font-size: 12px;
+             }
+         }
+     }
+ }

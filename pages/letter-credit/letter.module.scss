@@ -101,6 +101,13 @@
             .body{
             padding: 25px 35px !important;
 
+            .value {
+                    //color: #111111;
+                    font-size: 20px;
+                    line-height: 25px;
+                    font-weight: 500;
+            }
+
             .label_heading {
                 top: 27px;
                 left: 30px;
@@ -409,4 +416,31 @@
     }
 
 }
-  
+ .calanderIcon {
+     margin-left: -40px;
+     margin-top: 15px;
+     width: 23px;
+     height: 26px;
+     pointer-events: none;
+ }
+
+ .arrow {
+
+     margin-left: -40px;
+     width: 13px;
+     pointer-events: none;
+
+     input[type="date"]::-webkit-inner-spin-button,
+     input[type="date"]::-webkit-calendar-picker-indicator {
+         display: none;
+         -webkit-appearance: none;
+     }
+
+
+ }
+
+ .customSelect {
+     appearance: none;
+     // position: relative;
+
+ }
