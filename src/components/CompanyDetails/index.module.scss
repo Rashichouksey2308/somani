@@ -279,9 +279,10 @@
                   text-transform: capitalize;
                   width: 100%;
                   margin-top: 8px;
-
                   option {
                     position: relative;
+                    width: 30px;
+                    text-align: center;
                     &::after {
                         content: "";
                         position: absolute;

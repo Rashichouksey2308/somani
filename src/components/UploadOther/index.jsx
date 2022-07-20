@@ -5,14 +5,13 @@ import { useState } from 'react'
 
 const Index = () => {
   const [editInput, setEditInput] = useState(true)
-
+  
   const handleDropdown = (e) => {
-
-    if (e.target.value = "Others") {
-      setEditInput(!editInput)
+    if (e.target.value == "Others") {
+      setEditInput(false)
     }
     else {
-      setEditInput(editInput)
+      setEditInput(true)
     }
   }
   return (
@@ -62,7 +61,10 @@ const Index = () => {
                     className={`${styles.value} ${styles.customSelect} input form-control`}
                    id="docType" onChange={(e) => handleDropdown(e)}>
 
-                    <option>N/A</option>
+                    <option>Lead Onboarding &amp; Order Approval</option>
+                    <option>Agreements, Insurance &amp; LC Opening</option>
+                    <option>Loading-Transit-Unloading</option>
+                    <option>Custom Clearance And Warehousing</option>
                     <option value='Others'>Others</option>
                   </select>
                   <Form.Label className={`${styles.label} label_heading`}>
@@ -87,7 +89,8 @@ const Index = () => {
                 </Form.Group>
                 <div className={styles.uploadBtnWrapper}>
                   <input type="file" name="myfile" />
-                  <button className={`${styles.upload_button} btn`}>
+                  <button className={`${styles.upload_button} btn`}
+                  disabled={editInput}>
                     Upload
                   </button>
                 </div>
@@ -130,11 +133,12 @@ const Index = () => {
                       <div>
                         <select
                           className={`${styles.dropDown} input form-control`}
-                        >
-                          <option value="volvo">
-                            Loading, Transit, Unloading
-                          </option>
-                          <option value="India">India</option>
+                        >    
+                        <option>Lead Onboarding &amp; Order Approval</option>
+                          <option>Agreements, Insurance & LC Opening</option>
+                          <option>Loading-Transit-Unloading</option>
+                          <option>Custom Clearance And Warehousing</option>
+                          <option value='Others'>Others</option>
                         </select>
                       </div>
                     </div>
