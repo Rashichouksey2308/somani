@@ -97,14 +97,14 @@ function Index() {
           <a className={styles.filterIcon}>
             <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
           </a>
-          <a href="#" className={`${styles.filterList} filterList `}>
+          {/* <a href="#" className={`${styles.filterList} filterList `}>
             Ramesh Shetty
             <img src="/static/close.svg" className="img-fluid" alt="Close" />
           </a>
           <a href="#" className={`${styles.filterList} filterList `}>
             Raj Traders
             <img src="/static/close.svg" className="img-fluid" alt="Close" />
-          </a>
+          </a> */}
       </div>
 
       {/*<button type="button" className={`${styles.btnPrimary} btn ml-auto btn-primary`}>Add</button>*/}
