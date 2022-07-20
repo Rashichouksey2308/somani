@@ -71,7 +71,7 @@ function Index() {
 
   const { orderList } = useSelector((state) => state.buyer)
 
-   console.log(orderList, 'this is order list')
+  console.log(orderList, 'this is order list')
 
   const { companyData } = useSelector((state) => state.companyDetails)
   console.log(companyData, 'this is company data')
@@ -1479,10 +1479,10 @@ function Index() {
                                 </Form.Group>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
-                                   
+
                                     type="file"
                                     name="myfile"
-                                    
+
                                   />
                                   <button
                                     className={`${styles.upload_button} btn`}
@@ -1598,7 +1598,7 @@ function Index() {
                                       <td className={styles.doc_row}>
                                         {document.date}
                                       </td>
-                                      <td className={styles.doc_row}>{document.uploadedBy}</td>
+                                      <td className={styles.doc_row}>{document.uploadedBy?.fName} {document.uploadedBy?.lName}</td>
                                       <td>
                                         <span
                                           className={`${styles.status} ${styles.approved}`}
@@ -1684,7 +1684,7 @@ const uploadButton = (dispatch, orderList, companyData) => {
   return (
     <>
       <button onClick={() =>
-  
+
         dispatch(RefetchCombineKarza({ company: orderList?.company?._id }))
       } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
       <div className={`${styles.lastModified} text `}><span>Last Modified:</span>{moment(companyData?.updatedAt).format(' D MMM , h:mm a')}</div>

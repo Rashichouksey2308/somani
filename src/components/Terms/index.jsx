@@ -1,9 +1,11 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 
 const Index = ({submitData, darkMode, termsCheck, chanegTermsCheck}) => {
+    const {creatingBuyer} = useSelector((state)=>state.buyer)
     const router = useRouter()
     return (
         <div className={`${darkMode?styles.mainDark:styles.main} `}>
@@ -13,7 +15,7 @@ const Index = ({submitData, darkMode, termsCheck, chanegTermsCheck}) => {
             </div>
             <div className={styles.btn_container}>
                 <button className={`${styles.cancel_btn} cancel_btn`}onClick={()=> router.push('/leads')}>Cancel</button>
-                <button className={`${styles.submit_btn} submit_btn`} onClick={()=>submitData()}>Submit</button>
+                <button className={`${styles.submit_btn} submit_btn`} disabled={creatingBuyer} onClick={()=>submitData()}>Submit</button>
             </div>
         </div>
     )

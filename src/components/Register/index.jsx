@@ -9,8 +9,7 @@ import Terms from '../Terms'
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
 import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
-import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 
 
@@ -29,6 +28,8 @@ function Index() {
       setDarkMode(false)
     }
   }, [])
+
+  
 
   const dispatch = useDispatch()
   const [termsCheck, setTermsCheck] = useState(false)
@@ -53,7 +54,7 @@ function Index() {
 
     turnOverUnit: 'Cr',
   })
-  console.log(companyDetails, "companyDetailscompanyDetails")
+
 
   const handleCommunication = (e) => {
     let communicationArr = { ...companyDetails }
