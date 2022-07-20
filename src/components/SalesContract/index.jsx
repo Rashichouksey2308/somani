@@ -1,16 +1,60 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react';
 import styles from './index.module.scss'
 import {Row, Col} from "react-bootstrap"
 import GrowInput from '../GrowInput'
 
-function index() {
+function Index() {
+     const [active,setActive]=useState("Seller")
+  const changeActiveValue=(val,index)=>{
+    console.log(val,"val")
+  setActive(val)
+  // showContent()
+  let tempArr=sideBar;
+  for(let i=0;i<tempArr.length;i++) {
+    if(i==index){
+      tempArr[i].state="current"
+    }else{
+      tempArr[i].state="default"
+    }
+
+  }
+  console.log(tempArr,"name")
+  setSidebar(tempArr)
+  }
+
+  const [sideBar,setSidebar] =useState(
+    [
+    {name:"Seller",state:"current",value:"Seller"},
+    {name:"Buyer",state:"default",value:"Buyer"},
+    {name:"Manufacturer/Supplier /Shipper",state:"default",value:"Manufacturer/Supplier /Shipper"},
+    {name:"End User / Buyer",state:"default",value:"End User / Buyer"},
+    {name:"Execution Date",state:"default",value:"Execution Date"},
+    {name:"Commodity, Quantity, Unit Price",state:"default",value:"Commodity, Quantity, Unit Price"},
+    {name:"Product Specifications",state:"default",value:"Product Specifications"},
+    {name:"Total Order Value",state:"default",value:"Total Order Value"},
+    {name:"Discharge Port",state:"default",value:"Discharge Port"},
+    {name:"Loading Port",state:"default",value:"Loading Port"}
+    ]
+  )
   return (
     <div className={`${styles.root}`}>
+   
       <div className={`${styles.sidebar} card card-body`}>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Seller</span>
+       {sideBar.map((row,index)=>{
+        return(
+          <>
+          <div key={index} className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
+            <div 
+            className={`${styles.content2} ${row.state=="current"?styles.selected:null}  d-flex justify-content-between align-items-center`}
+                   onClick={(e)=>{
+                    changeActiveValue(row.name,index)
+                  }}
+            >
+             
+               <img src={`${
+                row.state=="current"?"/static/Group 203255.svg":"/static/Group 3256.svg"
+               }`}></img>
+                 <span className="ml-3">{row.name}</span>
             </div>
            <img
                         src="/static/keyboard_arrow_right-3.svg"
@@ -19,95 +63,14 @@ function index() {
                       />
 
         </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Buyer</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Manufacturer / Supplier / Shipper</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">End User / Buyer</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Execution Date</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2} ${styles.selected}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Payment Terms</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Total Order Value</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Discharge Port</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
+          </>
+        )
+       })}
 
       </div>
       <div className={`${styles.content} card`}>
           <div className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
-                                               <h2 className="mb-0">Payment Terms</h2>
+                                               <h2 className="mb-0">{active}</h2>
                                           
      <div
                     className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
@@ -132,7 +95,7 @@ function index() {
                                               
                                            
           </div>
-           {sales()}
+           {sales(active)}
            <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
               <div className={styles.reject}><span>Save</span></div>
         <div className={styles.approve}><span>Submit</span></div>                                
@@ -145,10 +108,52 @@ function index() {
   )
 }
 
-export default index
-const sales=()=>{
+export default Index
+const seller=()=>{
   return(
      <div className="card-body">
+
+     </div>
+  )
+}
+const sales=(active)=>{
+  return(
+     <div className="card-body">
+        {/* <div className={styles.payment}>
+       <table className={`styles.table table border-color` } cellPadding="0" cellSpacing="0" border="1">
+       
+          <tr>
+            <th className={`${styles.firsChild}`}>icon</th>
+            <th className={`${styles.secondChild}`}>S.NO.</th>
+            <th>ELEMENTS</th>
+            <th>TYPICAL (IN PCT)</th>
+            <th>GUARANTEED (IN PCT)</th>
+            <th className={`${styles.lastChild}`}>+</th>
+          </tr>
+        
+        <tbody>
+          <tr>
+            <td>icon</td>
+            <td>01</td>
+            <td>SiO2</td>
+            <td>44.50</td>
+            <td>44.50</td>
+            <th>+</th>
+
+          </tr>
+            <tr>
+            <td>+</td>
+            <td colSpan={5}></td>
+            
+
+          </tr>
+        </tbody>
+      </table>
+      <div className={`d-flex justify-content-between align-items-center p-0 ${styles.inputContainer}`}>
+     <input as="textarea" rows="3" placeholder="5000 Wet Metric Tons (Wmt) +/- 10Pct Of Mmd: Manganeseore Of Gabon Origin (44,50Pct Mn Typical - 5Pct Moisture), Ciffo Visakhapatnam Port Packing In Bulk."/>
+      <img class="img-fluid ml-4" src="/static/add-btn.svg" alt="add button"/>
+      </div>
+     </div> */}
       <Row className={styles.rowhead}>
         <Col md={8} className={styles.col}><p>Sales Contract No.: IIT/IGIPL/2021/032 (system generated)</p></Col>
         <Col md={4}><p className={`text-align-center`}>Date:<GrowInput placeholder={`31.08.2021`}/></p></Col>
@@ -156,15 +161,17 @@ const sales=()=>{
        
         <p className={`${styles.heading} text-align-center`}>SALES CONTRACT</p>      
         
+      {active=="Seller"?
          <Row className={styles.row}>
-        <Col md={4} className={styles.col}><p>1.</p> <p>2. Seller</p></Col>
-        <Col md={8}><p><GrowInput placeholder={`INDO INTERNATIONAL TRADING FZCO`}/></p>
+        {/* <Col md={4} className={styles.col}><p>1.</p> <p>2. Seller</p></Col> */}
+        <Col md={12}><p><GrowInput placeholder={`INDO INTERNATIONAL TRADING FZCO`}/></p>
         <p><GrowInput placeholder={`JAFZA VIEW – 18, LOB-180504, JEBEL ALI, DUBAI, UAE.`}/></p>
         </Col>
       </Row>
-       <Row className={styles.row}>
-        <Col md={4} className={styles.col}><p>3. Buyer</p></Col>
-        <Col md={8}><p><GrowInput 
+        :null}
+      {active=="Buyer"? <Row className={styles.row}>
+       
+        <Col md={12}><p><GrowInput 
         text={`text`} 
         placeholder={`Indo German International Pvt. Ltd.
               Plot No-49-48-6/1, Lalitha Nagar, 
@@ -174,10 +181,11 @@ const sales=()=>{
               `}/></p>
        
         </Col>
-      </Row>
+      </Row>:null}
+      {active=="Manufacturer/Supplier /Shipper"?
        <Row className={styles.row}>
-        <Col md={4} className={styles.col}><p>4. Manufacturer/Supplier / Shipper</p></Col>
-        <Col md={8}><p><GrowInput placeholder={`Manufacturer/Supplier / Shipper
+        {/* <Col md={4} className={styles.col}><p>4. Manufacturer/Supplier / Shipper</p></Col> */}
+        <Col md={12}><p><GrowInput placeholder={`Manufacturer/Supplier / Shipper
           ERAMET MARKETING SERVICES 
           10 BOULEVARD DE GRENELLE CS 63205 - 75015 
           PARIS - FRANCE
@@ -187,19 +195,25 @@ const sales=()=>{
        
         </Col>
       </Row>
-       <Row className={styles.row}>
-        <Col md={4} className={styles.col}><p>5. End User / Buyer
-        </p></Col>
-        <Col md={8}><p><GrowInput placeholder={`HIRA POWER AND STEELS LTD, 
+      :null}
+
+      {active=="End User / Buyer"?
+        <Row className={styles.row}>
+        {/* <Col md={4} className={styles.col}><p>5. End User / Buyer */}
+        {/* </p></Col> */}
+        <Col md={12}><p><GrowInput placeholder={`HIRA POWER AND STEELS LTD, 
                   511/1, 512/2, URLA INDUSTRIAL COMPLEX, 
                   RAIPUR – 493221, C.G., INDIA
 
 
 
-              `}/></p>
+        `}/></p>
        
         </Col>
       </Row>
+      :null}
+      
+
        <Row className={styles.row}>
         <Col md={4} className={styles.col}><p>6.Execution Date
         </p></Col>

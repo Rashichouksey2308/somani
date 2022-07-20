@@ -55,6 +55,23 @@
             line-height: 20px;
         }
     }
+    .subHeadContainer{
+        margin-left: 20rem;
+        .lightCompliance {
+                color: #2837566A;
+                font-size: 18px;
+                line-height: 23px;
+                font-weight: bold;
+         }
+        
+        .complaintExtra {
+                color: #111111;
+                font-size: 18px;
+                line-height: 23px;
+                font-weight: 500;
+        }
+    }
+
 }
 .cardBody {
     padding: 0px;
