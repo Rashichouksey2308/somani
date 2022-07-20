@@ -1,5 +1,6 @@
 .root{
     position: relative;
+   
   .sidebar{
         width: 376px;
         height: 678px;
@@ -75,7 +76,7 @@
     }
    
     div{
-       
+  
             padding: 1rem !important;
             .rowhead {
                 padding: 0px !important;
@@ -169,35 +170,89 @@
 
 
 
-         .reject {
-             cursor: pointer;
-            width: 260px;
-            height: 48px;
-             border: 3px solid #3687E8;
-             border-radius: 5px;
-             color: #3687E8;
-             display: flex;
-             align-items: center;
-             justify-content: center;
-         }
-    
-         .approve {
-             cursor: pointer;
-             width: 260px;
-             height: 48px;
-             background: #3687E8 0% 0% no-repeat padding-box;
-             border-radius: 5px;
-             color: #FFFFFF;
-             display: flex;
-             align-items: center;
-             justify-content: center;
-             margin-left: 1rem;
-         }
+.reject {
+    cursor: pointer;
+width: 260px;
+height: 48px;
+    border: 3px solid #3687E8;
+    border-radius: 5px;
+    color: #3687E8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-               
-        .image_reverse {
-            transform: rotate(180deg);
-            width: 8px;
-            height: 13px;
+.approve {
+    cursor: pointer;
+    width: 260px;
+    height: 48px;
+    background: #3687E8 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+}
+
+    
+.image_reverse {
+transform: rotate(180deg);
+width: 8px;
+height: 13px;
+}
+ .payment {
+     .table {
+       
+             tr {
+   .firsChild {
+        width: 5%;
+
+    }
+
+    .secondChild {
+        width: 10%;
+    }
+
+    .lastChild {
+        width: 5%;
+    }
+
+                 th {
+                     width: 23.3%;
+
+
+                 }
+             }
+       
+
+         tbody {
+             tr {
+                 &:first-child {
+                     width: 44px;
+                 }
+             }
+         }
+     }
+    .inputContainer{
+        padding: 0px !important;
+        input{
+            height: 103px;    
+            width:100%;
+            font-size:20px;
+            line-height:25px;
+            letter-spacing: 0.19px;
+            border: 1px solid #0000001F;
+            background: #C3C3C31F 0% 0% no-repeat padding-box;
         }
+        img {
+            width: 36px;
+            height: 36px;
+        }
+     }
+
+ }
+
+ 
+
                  

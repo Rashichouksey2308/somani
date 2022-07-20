@@ -1182,11 +1182,11 @@ function Index(GstData) {
           aria-controls="litigations2"
         >
           <h2 className="mb-0">Compliance</h2>
-          {/* <div>
-                <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>GST :</span>09AAGCS8808K1ZR</span> 
-                 <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>GST :</span>09AAGCS8808K1ZR</span>   
-                  <span className={` d-flex align-items-center justify-content-between`}><span className={styles.light}>GST :</span>09AAGCS8808K1ZR</span>     
-            </div> */}
+            <div className={`${styles.subHeadContainer} d-flex ml-5`}>
+                <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</span>09AAGCS8808K1ZR</span> 
+                <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</span>Quaterly</span>   
+                <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</span>2021-2022</span>     
+            </div>
           <span>+</span>
         </div>
         <div

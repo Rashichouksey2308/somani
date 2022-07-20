@@ -537,7 +537,8 @@ const index = ({
                 </label>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <input
+               <div className={`d-flex`}>
+                  <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
@@ -551,6 +552,12 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Oldest Shipment Date<strong className="text-danger">*</strong>
                 </label>
+                 <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+               </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <input
