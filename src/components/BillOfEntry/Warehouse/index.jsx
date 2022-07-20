@@ -147,8 +147,12 @@ export default function Index() {
                     className={`${styles.value} ${styles.customSelect} input form-control`}
                    id="docType" onChange={(e) => handleDropdown(e)}>
 
-                    <option>N/A</option>
+                    <option>Lead Onboarding &amp; Order Approval</option>
+                    <option>Agreements, Insurance &amp; LC Opening</option>
+                    <option>Loading-Transit-Unloading</option>
+                    <option>Custom Clearance And Warehousing</option>
                     <option value='Others'>Others</option>
+                          
                   </select>
                   <Form.Label className={`${styles.label} label_heading`}>
                     Document Type
@@ -172,7 +176,8 @@ export default function Index() {
                     </Form.Group>
                     <div className={styles.uploadBtnWrapper}>
                       <input type="file" name="myfile" />
-                      <button className={`${styles.upload_button} mt-4  btn`}>
+                      <button className={`${styles.upload_button} mt-4  btn`}
+                      disabled={editInput}>
                         Upload
                       </button>
                     </div>
@@ -216,10 +221,12 @@ export default function Index() {
                     <select
                       className={`${styles.dropDown} table_container input form-control`}
                     >
-                      <option value="volvo">
-                        Loading, Transit, Unloading
-                      </option>
-                      <option value="India">India</option>
+                    <option>Lead Onboarding &amp; Order Approval</option>
+                    <option>Agreements, Insurance &amp; LC Opening</option>
+                    <option>Loading-Transit-Unloading</option>
+                    <option>Custom Clearance And Warehousing</option>
+                    <option value='Others'>Others</option>
+                          
                     </select>
                   </div>
                 </div>
