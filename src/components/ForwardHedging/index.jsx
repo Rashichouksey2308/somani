@@ -22,9 +22,9 @@ export default function Index() {
       
         <div className={`${styles.backgroundMain} mb-4 mt-3 container-fluid`}>
           <div className='pl-3 pr-3'>
-        <div className={`${styles.head_header} `}>
+        <div className={`${styles.head_header} ml-4`}>
           <img
-            className={`${styles.arrow} mr-3 img-fluid`}
+            className={`${styles.arrow}  img-fluid`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
           />

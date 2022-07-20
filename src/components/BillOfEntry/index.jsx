@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import InspectionDocument from '../InspectionDocument'
+import DateCalender from '../DateCalender'
 
 export default function Index() {
   
@@ -95,16 +96,14 @@ export default function Index() {
 
 
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
-                    <div className="d-flex">
-                    <input 
-                    className={`${styles.input_field} input form-control`} type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>
-                      Bill of Entry for<strong className="text-danger">*</strong></label> 
-                      <img
+                      <div className="d-flex">
+                    <DateCalender labelName='Bill of Entry for'/>
+                     <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
+                   
                     </div>                     
                 </div> 
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
@@ -114,10 +113,15 @@ export default function Index() {
                       BOE Number<strong className="text-danger">*</strong></label>                   
                 </div> 
                 <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `} >
-                    <input 
-                    className={`${styles.input_field} input form-control`} type="date"/> 
-                     <label className={`${styles.label_heading} label_heading`}>
-                      BOE Date<strong className="text-danger">*</strong></label>                   
+                  <div className="d-flex">
+                    <DateCalender labelName='BOE Date'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                    </div>    
+                              
                 </div> 
                 
                   </div>
