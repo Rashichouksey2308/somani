@@ -93,14 +93,14 @@ function Index() {
                 alt="Filter"
               />
             </a>
-            <a href="#" className={`${styles.filterList} filterList`}>
+            {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>
             <a href="#" className={`${styles.filterList} filterList`}>
               Raj Traders
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-            </a>
+            </a> */}
           </div>
           <div className={`${styles.datatable} datatable table_container card`}>
             <div
@@ -185,12 +185,12 @@ function Index() {
                         <td>
                           <span
                             className={`${styles.status} ${margin.status === 'Pending'
+                              ? styles.review
+                              : margin.status === 'Rejected'
                                 ? styles.review
-                                : margin.status === 'Rejected'
-                                  ? styles.review
-                                  : margin.status === 'Approved'
-                                    ? styles.approved
-                                    : styles.rejected
+                                : margin.status === 'Approved'
+                                  ? styles.approved
+                                  : styles.rejected
                               }`}
                           ></span>
 

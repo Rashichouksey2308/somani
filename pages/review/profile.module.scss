@@ -4,6 +4,23 @@
     height: 90%;
     // overflow-y: scroll;
     position: relative;
+    
+    min-height: 85.2vh;
+    margin-bottom: 120px;
+    @include respond(lg-desktop) {
+        // height: calc(100vh - 155px);
+    }
+    @include respond(md-desktop) {
+        // height: calc(100vh - 151px);
+    }
+    @include respond(sm-desktop) {
+        // height: calc(100vh - 150px);
+    }
+    @include respond(phone) {
+        min-height: auto;
+        margin-bottom: 140px;
+        // height: calc(100vh - 165px);
+    }
     .wrapper {
         margin: 28px;
         @include respond(sm-desktop) {
