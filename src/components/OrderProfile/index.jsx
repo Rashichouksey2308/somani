@@ -31,8 +31,8 @@ function Index() {
         >
               
                 {fields("Commodity",buyerList?.order?.commodity)}
-                {fields("Quantity (in MT)",buyerList?.order?.quantity,false)}
-                {fields("Order values (in INR)",buyerList?.order?.orderValue,false)}
+                {fields("Quantity",buyerList?.order?.quantity,false)}
+                {fields("Order values",buyerList?.order?.orderValue,false)}
                 {fields("Supplier Name",buyerList?.order?.supplierName,false)}
                 {fields("Country Of Origin",buyerList?.order?.countryOfOrigin,false)}
                 {fields("INCO Terms",buyerList?.order?.incoTerm,false)}
