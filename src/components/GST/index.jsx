@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 import { Line, Bar } from 'react-chartjs-2'
+import moment from 'moment'
 import {
   Chart,
   LineController,
@@ -44,6 +45,7 @@ function Index(GstData) {
     })
   }, [GstData])
   console.log(gstFilteredData, 'gstFilteredData')
+
 
 
 
@@ -1008,7 +1010,7 @@ function Index(GstData) {
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                    B2B  Purchases
+                      B2B  Purchases
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.value}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.percentage}</td>
@@ -1018,7 +1020,7 @@ function Index(GstData) {
 
                   <tr>
                     <td colSpan={2}>
-                    Import   Purchases
+                      Import   Purchases
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage}</td>
@@ -1028,7 +1030,7 @@ function Index(GstData) {
 
                   <tr>
                     <td colSpan={2}>
-                    Total Suppliers
+                      Total Suppliers
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.value}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.percentage}</td>
@@ -1038,7 +1040,7 @@ function Index(GstData) {
 
                   <tr>
                     <td colSpan={2}>
-                    Total Invoices
+                      Total Invoices
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.percentage}</td>
@@ -1083,34 +1085,34 @@ function Index(GstData) {
                     <td>VALUE</td>
                   </tr>
                   <tr>
-                    <td>Average Monthly Sales</td>
-                    <td>1,900.00</td>
+                    <td>Average Monthly Purchases</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.previous}</td>
 
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.current}</td>
                   </tr>
                   <tr>
-                    <td>Average Monthly Sales</td>
-                    <td>1,900.00</td>
+                    <td>Average Quarterly Purchases</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.previous}</td>
 
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.current}</td>
                   </tr>
                   <tr>
-                    <td>Average Monthly Sales</td>
-                    <td>1,900.00</td>
+                    <td>Average Purchases per Supplier</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerSupplier?.previous}</td>
 
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerSupplier?.current}</td>
                   </tr>
                   <tr>
-                    <td>Average Monthly Sales</td>
-                    <td>1,900.00</td>
+                    <td>Average Purchases per Invoices</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.previous}</td>
 
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.current}</td>
                   </tr>
                   <tr>
-                    <td>Average Monthly Sales</td>
-                    <td>1,900.00</td>
+                    <td>Average Invoices per Supplier</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.previous}</td>
 
-                    <td>1,900.00</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.current}</td>
                   </tr>
                 </table>
                 <table
@@ -1135,36 +1137,18 @@ function Index(GstData) {
                     <td>INVOICES</td>
                     <td>AVG. SALES PER CUSTOMER</td>
                   </tr>
-                  <tr>
-                    <td>Ferro-Alloys</td>
-                    <td>72022900E</td>
-                    <td>25.40</td>
-                    <td>25.40E</td>
+                  {gstFilteredData && gstFilteredData?.detail?.purchaseDetailAnnual?.hsnWisePurchase?.map((sales, index) => (
+                    <tr key={index}>
+                      <td className={` ${styles.first}`}>{sales.hsnDesc}</td>
+                      <td>{sales.hsnSc}</td>
+                      <td>{sales.turnover}</td>
+                      <td>{sales.sharePercent}</td>
 
-                    <td>24</td>
-                    <td>19</td>
-                    <td>1.05</td>
-                  </tr>
-                  <tr>
-                    <td>Ferro-Alloys</td>
-                    <td>72022900E</td>
-                    <td>25.40</td>
-                    <td>25.40E</td>
-
-                    <td>24</td>
-                    <td>19</td>
-                    <td>1.05</td>
-                  </tr>
-                  <tr>
-                    <td>Ferro-Alloys</td>
-                    <td>72022900E</td>
-                    <td>25.40</td>
-                    <td>25.40E</td>
-
-                    <td>24</td>
-                    <td>19</td>
-                    <td>1.05</td>
-                  </tr>
+                      <td>24</td>
+                      <td>19</td>
+                      <td>1.05</td>
+                    </tr>
+                  ))}
                 </table>
               </div>
             </div>
@@ -1226,15 +1210,18 @@ function Index(GstData) {
                <span >% ON GROSS REVENUE</span>
              </td> */}
                   </tr>
-                  <tr>
-                    <td colSpan={2}>
-                      Gross Revenue
-                    </td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
-                    <td>1,900.00</td>
-                    <td>80%</td>
-                  </tr>
+                  {gstFilteredData && gstFilteredData?.detail?.complianceDetail?.monthlyData?.map((customer, index) => (
+                    <tr key={index}>
+                      <td colSpan={2}>
+                        {moment(customer?.retPeriod, 'MMYYY').format('MMMM YYYY')}
+
+                      </td>
+                      <td>{customer?.GSTR1?.dof}</td>
+                      <td>{customer?.GSTR1?.delayDays}</td>
+                      <td>{customer?.GSTR3B?.dof}</td>
+                      <td>{customer?.GSTR3B?.delayDays}</td>
+                    </tr>
+                  ))}
                 </table>
               </div>
             </div>
@@ -1245,8 +1232,8 @@ function Index(GstData) {
 
       {/* CistomerDetail                                    */}
 
-      {gstCustomerDetail()}
-      {gstSupplierDetail()}
+      {gstCustomerDetail(gstFilteredData)}
+      {gstSupplierDetail(gstFilteredData)}
       {gstSalesAndPurchase('Sales')}
       {gstSalesAndPurchase('Purchase')}
     </>
@@ -1255,7 +1242,7 @@ function Index(GstData) {
 
 export default Index
 
-const gstCustomerDetail = () => {
+const gstCustomerDetail = (gstFilteredData) => {
   return (
     <>
       <div className={`${styles.wrapper} card  `}>
@@ -1312,38 +1299,16 @@ const gstCustomerDetail = () => {
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        <tr>
-                          <td>Abs International Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Sdf Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
+                        {gstFilteredData && gstFilteredData?.detail?.customerDetail?.recurringPartySales?.map((customer, index) => (
+                          <tr key={index}>
+                            <td>{customer?.name}</td>
+                            <td>{customer?.pan}</td>
+                            <td>{customer?.ttlVal}</td>
+                            <td>{customer?.percentageOfTotalSales}%</td>
+                            <td>{customer?.invoice}</td>
+                            <td>{customer?.salesPerInvoice}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -1372,43 +1337,21 @@ const gstCustomerDetail = () => {
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        <tr>
-                          <td>Abs International Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Sdf Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
+                        {gstFilteredData && gstFilteredData?.detail?.customerDetail?.relatedPartySales?.map((customer, index) => (
+                          <tr key={index}>
+                            <td>{customer?.name}</td>
+                            <td>{customer?.pan}</td>
+                            <td>{customer?.ttlVal}</td>
+                            <td>{customer?.percentageOfTotalSales}%</td>
+                            <td>{customer?.invoice}</td>
+                            <td>{customer?.salesPerInvoice}</td>
+                          </tr>
+                        ))}
+
                       </tbody>
                     </table>
                   </div>
                 </div>
-
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -1432,75 +1375,20 @@ const gstCustomerDetail = () => {
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        <tr>
-                          <td>Abs International</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Sdf Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
+                        {gstFilteredData && gstFilteredData?.detail?.customerDetail?.top10Customers?.map((customer, index) => (
+                          <tr key={index}>
+                            <td>{customer?.name}</td>
+                            <td>{customer?.pan}</td>
+                            <td>{customer?.ttlVal}</td>
+                            <td>{customer?.percentageOfTotalSales}%</td>
+                            <td>{customer?.invoice}</td>
+                            <td>{customer?.salesPerInvoice}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
                 </div>
-
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -1516,78 +1404,24 @@ const gstCustomerDetail = () => {
                         <th className={`${styles.first}`} colSpan={6}>Statewise Sales</th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>CUSTOMER NAME</td>
-                        <td>PAN</td>
+                        <td>STATE</td>
+                        <td>STATE CODE</td>
                         <td>SALES</td>
                         <td>% OF TOTAL SALES</td>
                         <td>OF INVOICES</td>
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        <tr>
-                          <td>Abs International</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Sdf Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
+                        {gstFilteredData && gstFilteredData?.detail?.customerDetail?.statewiseSales?.map((customer, index) => (
+                          <tr key={index}>
+                            <td>{customer?.stateName}</td>
+                            <td>{customer?.stateCode}</td>
+                            <td>{customer?.ttlVal}</td>
+                            <td>{customer?.percentageOfTotalSales}%</td>
+                            <td>{customer?.invoice}</td>
+                            <td>{customer?.salesPerInvoice}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -1602,7 +1436,7 @@ const gstCustomerDetail = () => {
   )
 }
 
-const gstSupplierDetail = () => {
+const gstSupplierDetail = (gstFilteredData) => {
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -1659,38 +1493,16 @@ const gstSupplierDetail = () => {
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        <tr>
-                          <td>Abs International Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Sdf Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
+                        {gstFilteredData && gstFilteredData?.detail?.supplierDetail?.recurringPartyPurchase?.map((customer, index) => (
+                          <tr key={index}>
+                            <td>{customer?.name}</td>
+                            <td>{customer?.pan}</td>
+                            <td>{customer?.ttlVal}</td>
+                            <td>{customer?.percentageOfTotalPurchase}%</td>
+                            <td>{customer?.invoice}</td>
+                            <td>{customer?.purchasePerInvoice}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -1719,38 +1531,16 @@ const gstSupplierDetail = () => {
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        <tr>
-                          <td>Abs International Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Sdf Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
+                        {gstFilteredData && gstFilteredData?.detail?.supplierDetail?.relatedPartyPurchase?.map((customer, index) => (
+                          <tr key={index}>
+                            <td>{customer?.name}</td>
+                            <td>{customer?.pan}</td>
+                            <td>{customer?.ttlVal}</td>
+                            <td>{customer?.percentageOfTotalPurchase}%</td>
+                            <td>{customer?.invoice}</td>
+                            <td>{customer?.purchasePerInvoice}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -1779,70 +1569,16 @@ const gstSupplierDetail = () => {
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        <tr>
-                          <td>Abs International</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Sdf Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
+                        {gstFilteredData && gstFilteredData?.detail?.supplierDetail?.top10Suppliers?.map((customer, index) => (
+                          <tr key={index}>
+                            <td>{customer?.name}</td>
+                            <td>{customer?.pan}</td>
+                            <td>{customer?.ttlVal}</td>
+                            <td>{customer?.percentageOfTotalPurchase}%</td>
+                            <td>{customer?.invoice}</td>
+                            <td>{customer?.purchasePerInvoice}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -1865,78 +1601,24 @@ const gstSupplierDetail = () => {
                         <th className={`${styles.first}`} colSpan={6}>Statewise Sales</th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>CUSTOMER NAME</td>
-                        <td>PAN</td>
+                        <td>STATE</td>
+                        <td>STATE CODE</td>
                         <td>SALES</td>
                         <td>% OF TOTAL SALES</td>
                         <td>OF INVOICES</td>
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        <tr>
-                          <td>Abs International</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Sdf Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd.</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Xyz Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>Mnb Pvt. Ltd..</td>
-                          <td>ABCDE1234F</td>
-                          <td>50.00</td>
-                          <td>80%</td>
-                          <td>10</td>
-                          <td>10</td>
-                        </tr>
+                        {gstFilteredData && gstFilteredData?.detail?.supplierDetail?.statewisePurchase?.map((customer, index) => (
+                          <tr key={index}>
+                            <td>{customer?.stateName}</td>
+                            <td>{customer?.stateCode}</td>
+                            <td>{customer?.ttlVal}</td>
+                            <td>{customer?.percentageOfTotalPurchase}%</td>
+                            <td>{customer?.invoice}</td>
+                            <td>{customer?.purchasePerInvoice}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -2031,7 +1713,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>Total Sales</td>
+                          <td>B2B Sales</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2046,7 +1728,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>Total Sales</td>
+                          <td>B2C Sales</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2061,7 +1743,22 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>Total Sales</td>
+                          <td>EXPORT Sales</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                        </tr>
+                        <tr>
+                          <td>GROWTH TREND</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2079,7 +1776,6 @@ const gstSalesAndPurchase = (head) => {
                     </table>
                   </div>
                 </div>
-
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -2108,7 +1804,7 @@ const gstSalesAndPurchase = (head) => {
                       </tr>
                       <tbody>
                         <tr>
-                          <td>Total Sales</td>
+                          <td>New Customers</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2123,7 +1819,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>Total Sales</td>
+                          <td>Recurring Customers</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2137,36 +1833,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                           <td>12</td>
                         </tr>
-                        <tr>
-                          <td>Total Sales</td>
-                          <td>2.22</td>
-                          <td>2.220</td>
-                          <td>22</td>
-                          <td>22</td>
-                          <td>22</td>
-                          <td>34</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                        </tr>
-                        <tr>
-                          <td>Total Sales</td>
-                          <td>2.22</td>
-                          <td>2.220</td>
-                          <td>22</td>
-                          <td>22</td>
-                          <td>22</td>
-                          <td>34</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                        </tr>
+                        
                       </tbody>
                     </table>
                   </div>
@@ -2200,7 +1867,7 @@ const gstSalesAndPurchase = (head) => {
                       </tr>
                       <tbody>
                         <tr>
-                          <td>Total Sales</td>
+                          <td>New</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2215,37 +1882,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>Total Sales</td>
-                          <td>2.22</td>
-                          <td>2.220</td>
-                          <td>22</td>
-                          <td>22</td>
-                          <td>22</td>
-                          <td>34</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                        </tr>
-                        <tr>
-                          <td>Total Sales</td>
-                          <td>2.22</td>
-                          <td>2.220</td>
-                          <td>22</td>
-                          <td>22</td>
-                          <td>22</td>
-                          <td>34</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                          <td>12</td>
-                        </tr>
-                        <tr>
-                          <td>Total Sales</td>
+                          <td>Recurring</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2291,7 +1928,7 @@ const gstSalesAndPurchase = (head) => {
                       </tr>
                       <tbody>
                         <tr>
-                          <td>Total Sales</td>
+                          <td>Total </td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2306,7 +1943,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>Total Sales</td>
+                          <td>B2B</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2321,7 +1958,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>Total Sales</td>
+                          <td>B2C</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2336,7 +1973,7 @@ const gstSalesAndPurchase = (head) => {
                           <td>12</td>
                         </tr>
                         <tr>
-                          <td>Total Sales</td>
+                          <td>EXPORT</td>
                           <td>2.22</td>
                           <td>2.220</td>
                           <td>22</td>
@@ -2354,7 +1991,6 @@ const gstSalesAndPurchase = (head) => {
                     </table>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
