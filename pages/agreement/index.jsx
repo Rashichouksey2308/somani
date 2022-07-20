@@ -15,6 +15,8 @@ import { Form } from 'react-bootstrap'
 import AssignmentLetter from '../../src/components/AssignmentLetter'
 
 function Index() {
+
+
    const [darkMode,setDarkMode] = useState(false)
     useEffect(() =>{
     
@@ -80,12 +82,7 @@ function Index() {
                     <div className="col-md-12  accordion_body">
                         <div className={`${styles.tabContent} tab-content`}>
                            
-                               <div className="tab-pane fade" id="Profile" role="tabpanel">
-                                <div className="accordion" id="profileAccordion">
-                                   <SalesAgreement/>
-                                 
-                                </div>
-                            </div>
+
                               <div className="tab-pane fade" id="SalesContract" role="tabpanel">
                                 <div className="accordion" id="profileAccordion">
                                    <SalesContract/>
