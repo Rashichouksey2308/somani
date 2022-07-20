@@ -9,7 +9,7 @@ import Terms from '../Terms'
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
 import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 
@@ -28,6 +28,8 @@ function Index() {
       setDarkMode(false)
     }
   }, [])
+
+  const {gstList} = useSelector((state)=>state.buyer)
 
   
 
@@ -54,6 +56,12 @@ function Index() {
 
     turnOverUnit: 'Cr',
   })
+
+  useEffect(() => {
+    const newInput = {...companyDetails}
+    newInput.companyName = gstList?.data?.companyData?.companyName
+    setCompanyDetails(newInput)
+  }, [gstList])
 
 
   const handleCommunication = (e) => {
@@ -157,7 +165,7 @@ function Index() {
 
 
   const submitData = () => {
-    if (companyDetails.companyName.trim() === '') {
+    if (companyDetails.companyName === '') {
       let toastMessage = 'Please Fill The Company Name'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })

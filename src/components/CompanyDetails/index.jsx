@@ -17,6 +17,8 @@ const Index = ({
   handleCommunication,
 }) => {
   const { gstList } = useSelector((state) => state.buyer)
+
+  // console.log(gstList?.data, "THIS IS GST LIST")
   const [slider, setSlider] = useState('60')
   const sliderBackground = () => {
     return {
@@ -43,7 +45,7 @@ const Index = ({
                 <select
                   className={`${styles.options} accordion_DropDown`}
                   name="unitOfQuantity"
-                  onChange={(e)=>saveOrderData(e.target.name, e.target.value)}
+                  onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
                   <option>L</option>
                   <option>MT</option>
@@ -59,7 +61,7 @@ const Index = ({
                 <select
                   className={`${styles.options} accordion_DropDown`}
                   name="unitOfValue"
-                  onChange={(e)=>saveOrderData(e.target.name, e.target.value)}
+                  onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
                   <option>Crores</option>
                   <option>Millions</option>
@@ -126,7 +128,8 @@ const Index = ({
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <input
                 type="text"
-                onChange={(e) => saveCompanyData(e.target.name, e.target.value)}
+                onBlur={(e) => saveCompanyData(e.target.name, e.target.value)}
+                defaultValue={gstList?.data?.companyData?.companyName}
                 id="textInput"
                 name="companyName"
                 className={`${styles.input_field} input form-control`}
@@ -143,14 +146,23 @@ const Index = ({
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select
-                id="drop"
-                onChange={(e) => { saveCompanyData(e.target.name, e.target.value) }}
-                name="GST"
-                className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                required
-              >
-                {gstList && gstList.GstinIdArray.map((gstId, index) => (<option key={index} value={gstId}>{gstId}</option>))}
-                {/* <option value="gst1">282176JDEJ88UD</option>
+                  id="drop"
+                  onChange={(e) => {
+                    saveCompanyData(e.target.name, e.target.value)
+                  }}
+                  name="GST"
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                  required
+                >
+                  {' '}
+                  <option key={'0'}></option>
+                  {gstList &&
+                    gstList?.data?.gstList?.map((gstId, index) => (
+                      <option key={index + 1} value={gstId}>
+                        {gstId}
+                      </option>
+                    ))}
+                  {/* <option value="gst1">282176JDEJ88UD</option>
                 <option value="gst2">27AAATW46786C2ZG</option>
                 <option value="gst3">VW5688TW4183C2ZG</option> */}
                 </select>
@@ -226,8 +238,8 @@ const Index = ({
                     } else {
                       //red mark
                       let toastMessage = 'Phone no. invalid'
-                      if(!toast.isActive(toastMessage)){
-                        toast.error(toastMessage, {toastId: toastMessage})
+                      if (!toast.isActive(toastMessage)) {
+                        toast.error(toastMessage, { toastId: toastMessage })
                       }
                     }
                   }}
@@ -254,8 +266,8 @@ const Index = ({
                   } else {
                     //red mark
                     let toastMessage = 'Email Invalid'
-                    if(!toast.isActive(toastMessage)) {
-                      toast.error(toastMessage, {toastId: toastMessage})
+                    if (!toast.isActive(toastMessage)) {
+                      toast.error(toastMessage, { toastId: toastMessage })
                     }
                   }
                 }}
@@ -288,7 +300,10 @@ const Index = ({
                   name="turnOver"
                   list="tickmarks"
                   onChange={(e) => {
-                    saveCompanyData(e.target.name, Number(e.target.value * 10000000))
+                    saveCompanyData(
+                      e.target.name,
+                      Number(e.target.value * 10000000),
+                    )
                     setSlider(e.target.value)
                   }}
                   className={`${styles.slider}   input form-control`}
@@ -355,11 +370,11 @@ const Index = ({
                         className={`${styles.radio} radio`}
                         inline
                         label="Whatsapp"
-                        onChange={(e) =>{
-                          console.log(e, "this is e")
+                        onChange={(e) => {
+                          console.log(e, 'this is e')
                           // saveCompanyData('communicationMode', 'Whatsapp')
-                          handleCommunication(e)}
-                        }
+                          handleCommunication(e)
+                        }}
                         name="Whatsapp"
                         // type={type}
                         id={`inline-${type}-2`}
