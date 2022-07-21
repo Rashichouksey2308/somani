@@ -1382,7 +1382,7 @@ function Index() {
                     strengthsComment={strengthsComment}
                     weaknessComment={weaknessComment}
                   />
-                  <CommonSave onSave={onCreditSave} />
+                  {/* <CommonSave onSave={onCreditSave} /> */}
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM
