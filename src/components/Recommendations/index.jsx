@@ -53,7 +53,7 @@ const Index = ({
 
   return (
     <>
-      <div className={`${styles.main} card border_color mb-4`}>
+      <div className={`${styles.main} card border_color `}>
         <div
           className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
