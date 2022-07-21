@@ -286,17 +286,32 @@
                         // }
                         .label_heading {
                             top: 27px;
-                            left: 30px;
-                            font-size: 16px;
-                            line-height: 17px;
-                            margin-bottom: 0;
-                            letter-spacing: 0.53px;
-                            position: absolute;
-                            pointer-events: none;
-                            box-sizing: border-box;
-                            transform: translateY(-31px);
-                            transition: 0.3s all ease-in-out;
-
+                                left: 30px;
+                                font-size: 16px;
+                                line-height: 0.5;
+                                margin-bottom: 0;
+                                letter-spacing: 0.53px;
+                                position: absolute;
+                                pointer-events: none;
+                                box-sizing: border-box;
+                                transform: translateY(-31px);
+                                transition: 0.3s all ease-in-out;
+                            
+                                @include respond(lg-desktop) {
+                                    font-size: $font_size_mobile_input_label;
+                                }
+                            
+                                @include respond(md-desktop) {
+                                    font-size: $font_size_mobile_input_label;
+                                }
+                            
+                                @include respond(sm-desktop) {
+                                    font-size: $font_size_sm_input_label;
+                                }
+                            
+                                @include respond(phone) {
+                                    font-size: $font_size_mobile_input_label;
+                                }
                         }
                         .input_field {
                             height: 60px;
