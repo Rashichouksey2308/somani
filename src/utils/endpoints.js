@@ -20,6 +20,7 @@ export default {
   getBuyerOrder: '/api/core/lead/order-review',
   updateBuyer: '/api/core/lead/order-action',
   orderDetail: '/api/core/order/detail',
+  newOrder: '/api/core/order',
   orderDetailUpdate: '/api/core/order/detail',
   updateCredit: '/api/core/order/credit',
 

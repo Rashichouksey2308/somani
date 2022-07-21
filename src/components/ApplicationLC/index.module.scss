@@ -1,0 +1,195 @@
+@import "../styles/Core/config";
+.root_container{
+    padding:25px;
+    width: 100%;
+    border-bottom: none !important;
+    .head_container {
+            width: 100%;
+            .head_header {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                @include respond(phone) {
+                        align-items: center;
+                        padding: 0.75rem 0rem;
+                    }   
+    
+                .arrow {
+                    width: 13px;
+                    height: 21px;
+                    background: transparent;
+                @include respond(phone) {
+                       
+                        height: 18px;
+                    }
+                }
+    
+                .heading {
+
+                    padding: 12px 0 12px 12px;
+                    font-weight: bold;
+                    font-size: 30px; 
+                    text-transform: capitalize;
+                    margin: 0;
+                    @include respond(phone) {
+                        padding: 12px 0 12px 12px;
+                            font-size: 20px;
+                            margin: 0px;
+                            padding-left: 10px;
+                        }
+    
+                }
+            }
+    
+          
+        }
+  .term_container {
+      padding: 10px 36px 18px 36px;
+      height: 126px;
+      background: #D8EAFF;
+      border: 1px solid #D2D7E5;
+      border-radius: 6px;
+
+     h3 {
+          color: #3687E8;
+         font-size: 34px;
+          line-height: 41px;
+        font-weight: bold;
+      }
+      .sub_heading {
+            color: #111111;
+            font-size: 20px;
+            line-height: 25px;
+            font-weight: 500;
+             span {
+                line-height: 24px;
+                opacity: 0.7;
+                font-weight: normal;
+             }
+      }     
+  }
+
+  .content {
+    margin-top: 32px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 1rem;
+
+    @include respond(phone) {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    
+        .row_head {
+        
+                .content_header {
+                    height: 67px;
+                    padding-left: 36px;
+                    font-size: 22px;
+                    line-height: 27px;
+                    font-weight: bold;
+                    color: #3687E8;
+                    border-right: 2px solid #e5e5e5;
+        
+                    @include respond(phone) {
+                        font-size: 15px;
+        
+                        padding-left: 20px;
+                    }
+        
+                    span {
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                    }
+        
+                }
+        
+                .content_header_other {
+                    height: 67px;
+                    font-size: 22px;
+                    line-height: 27px;
+                    font-weight: bold;
+                    color: #3687E8;
+                    padding-left: 36px;
+        
+                    @include respond(phone) {
+                        font-size: 15px;
+                        white-space: nowrap;
+                        padding-left: 20px;
+                    }
+        
+                    span {
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                    }
+                }
+            }
+        
+            .sub_content_other {
+                font-size: 20px;
+                line-height: 24px;
+                list-style: none;
+        
+                padding: 25px 0px 25px 37px;
+        
+                @include respond(phone) {
+                    font-size: 15px;
+                    padding-left: 12px;
+        
+                }
+        
+            }
+        
+            .sub_content {
+                border-right: 2px solid #e5e5e5;
+        
+                ol {
+                    font-size: 20px;
+                    line-height: 24px;
+                    list-style: none;
+        
+                    opacity: 0.7;
+                    padding-left: 12px;
+        
+                    @include respond(phone) {
+                        font-size: 15px;
+        
+        
+                    }
+        
+                    li {
+                        margin-bottom: 0.5rem;
+                        padding-bottom: 15px;
+                    }
+                }
+            }
+        
+            .sub_contentValue {
+        
+        
+                ul {
+                    font-size: 20px;
+                    line-height: 24px;
+                    list-style: none;
+        
+                    opacity: 1;
+                    padding-left: 12px;
+        
+                    @include respond(phone) {
+                        font-size: 15px;
+        
+        
+                    }
+                }
+        
+                li {
+                    margin-bottom: 0.5rem;
+                    padding-bottom: 15px;
+                }
+            }
+    }
+}
