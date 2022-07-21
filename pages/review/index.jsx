@@ -94,7 +94,7 @@ function Index() {
 
   useEffect(() => {
     dispatch(GetDocuments(`?order=${orderList?.termsheet?.order}`))
-  }, [dispatch, companyData])
+  }, [dispatch, companyData, orderList?.termsheet?.order])
 
 
 
