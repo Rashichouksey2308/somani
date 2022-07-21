@@ -3,6 +3,8 @@ import API from '../../utils/endpoints'
 import Axios from 'axios'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
+import { GetAllOrders } from 'redux/registerBuyer/action'
+import { GetCompanyDetails } from 'redux/companyDetail/action'
 
 function updateCredit() {
   return {
@@ -163,6 +165,10 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage })
         }
+        let id1 = sessionStorage.getItem('orderID')
+        let id2 = sessionStorage.getItem('companyID')
+        dispatch(GetAllOrders({ orderId: id1 }))
+        dispatch(GetCompanyDetails({ company: id2 }))
       } else {
         dispatch(updateCreditFailed(response.data))
         const toastMessage = 'UPDATE REQUEST FAILED'
@@ -199,6 +205,10 @@ export const UpdateOrderShipment =
           if (!toast.isActive(toastMessage)) {
             toast.success(toastMessage, { toastId: toastMessage })
           }
+          let id1 = sessionStorage.getItem('orderID')
+          let id2 = sessionStorage.getItem('companyID')
+          dispatch(GetAllOrders({ orderId: id1 }))
+          dispatch(GetCompanyDetails({ company: id2 }))
         } else {
           dispatch(updateOrderFailed(response.data.data))
           const toastMessage = 'UPDATE REQUEST FAILED'
@@ -227,7 +237,7 @@ export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     Axios.get(
-      `${API.corebaseUrl}${API.gettermsheet}${payload ? payload: ''}`,
+      `${API.corebaseUrl}${API.gettermsheet}${payload ? payload : ''}`,
       { headers: headers },
     ).then((response) => {
       if (response.data.code === 200) {
@@ -257,9 +267,12 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    Axios.get(`${API.corebaseUrl}${API.gettermsheet}${payload ? payload: ''}`, {
-      headers: headers,
-    }).then((response) => {
+    Axios.get(
+      `${API.corebaseUrl}${API.gettermsheet}${payload ? payload : ''}`,
+      {
+        headers: headers,
+      },
+    ).then((response) => {
       if (response.data.code === 200) {
         dispatch(getALLTermsheetsuccess(response.data.data))
       } else {
