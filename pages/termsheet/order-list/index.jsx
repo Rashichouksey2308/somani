@@ -29,7 +29,7 @@ function Index() {
   useEffect(() => {
     dispatch(setPageName('termsheet'))
     dispatch(setDynamicName("Company Name"))
-  }, [singleOrder])
+  }, [dispatch, singleOrder])
 
   const handleRoute = (term) => {
     console.log(term._id, "termtrem")
