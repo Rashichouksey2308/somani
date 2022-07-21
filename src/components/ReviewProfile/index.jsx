@@ -336,7 +336,7 @@ function Index({ handleChange, reviewedProfile }) {
                     />
                   </td>
                   <td>
-                    {!reviewedProfile?.turnOver?.apiResponse && (
+                    {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse && (
                       <Form.Control
                         type="date"
                         name="ExpectedDateOfShipment"

@@ -152,7 +152,7 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage + 1}  out of {Math.ceil(singleOrder?.data?.totalCount / 10)}</span>
+                <span>Showing Page {currentPage + 1}  out of {Math.ceil(singleOrder?.totalCount / 10)}</span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -174,7 +174,7 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage+1 < Math.ceil(singleOrder?.data?.totalCount / 10)) {
+                    if (currentPage+1 < Math.ceil(singleOrder?.totalCount / 10)) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
 
