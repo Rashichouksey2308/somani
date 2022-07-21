@@ -2706,26 +2706,26 @@ const customerRating = (dataline, lineOption) => {
                  <div className={`${styles.container}`}>
                     <svg width="100%" height="100%" viewBox="0 0 42 42" className={`${styles.donut}`}>
                       <circle className={`${styles.donutHole}`} cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                      <circle className={`${styles.donutRing}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ffffff" stroke-width="3"></circle>
+                      <circle className={`${styles.donutRing}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ffffff" strokeWidth="3"></circle>
 
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FF4230" stroke-width="3" stroke-dasharray="30 70" stroke-dashoffset="15"></circle>
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FFB700" stroke-width="3" stroke-dasharray="20 70" stroke-dashoffset="75"></circle>
+                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FF4230" strokeWidth="3" strokeDasharray="30 70" strokeDashoffset="15"></circle>
+                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FFB700" strokeWidth="3" strokeDasharray="20 70" strokeDashoffset="75"></circle>
                       
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#8AC41C" stroke-width="3" stroke-dasharray="10 90" stroke-dashoffset="65"></circle>
+                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#8AC41C" strokeWidth="3" strokeDasharray="10 90" strokeDashoffset="65"></circle>
                       
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#00B81E" stroke-width="3" stroke-dasharray="20 70" stroke-dashoffset="45"></circle>
+                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#00B81E" strokeWidth="3" strokeDasharray="20 70" strokeDashoffset="45"></circle>
 
                     </svg>
                     <svg width="65%" height="65%" viewBox="0 0 42 42" className={`${styles.donut2}`}>
                     <circle className={`${styles.donutHole}`} cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                    <circle className={`${styles.donutRing}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="white" stroke-width="3"></circle>
+                    <circle className={`${styles.donutRing}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="white" strokeWidth="3"></circle>
 
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" stroke-width="3" stroke-dasharray="29 71" stroke-dashoffset="15"></circle>
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" stroke-width="3" stroke-dasharray="19 71" stroke-dashoffset="75"></circle>
+                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="29 71" strokeDashoffset="15"></circle>
+                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="19 71" strokeDashoffset="75"></circle>
                       
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" stroke-width="3" stroke-dasharray="9 91" stroke-dashoffset="65"></circle>
+                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="9 91" strokeDashoffset="65"></circle>
                       
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" stroke-width="3" stroke-dasharray="19 71" stroke-dashoffset="45"></circle>
+                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="19 71" strokeDashoffset="45"></circle>
                       
                     </svg>
                    {/* <div className={`${styles.arrow}`}>
