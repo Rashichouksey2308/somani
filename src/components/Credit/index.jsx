@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import { UploadDocument } from 'redux/registerBuyer/action'
 import { phoneValidation } from 'utils/helper'
 import styles from './index.module.scss'
+import DateCalender from '../DateCalender'
 
 const index = ({
   creditDetail,
@@ -270,7 +271,16 @@ const index = ({
                 </label>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <input
+                 <div className="d-flex">
+                    <DateCalender labelName='Stock Coverage of Commodity'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
+                {/* <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
@@ -284,12 +294,13 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Stock Coverage of Commodity
                   <strong className="text-danger">*</strong>
-                </label>
+                </label> */}
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+               <div className='d-flex'>
                 <select
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="existingProcurementOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -309,6 +320,12 @@ const index = ({
                   Existing Procurement of Commodity
                   <strong className="text-danger">*</strong>
                 </label>
+                <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
@@ -339,8 +356,9 @@ const index = ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+             <div className='d-flex'>
                 <select
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                   name="contributionCommoditySenstivity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -362,6 +380,12 @@ const index = ({
                   Commodity Contribution Senstivity
                   <strong className="text-danger">*</strong>
                 </label>
+                <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -439,8 +463,9 @@ const index = ({
           <div className={`${styles.dashboard_form} card-body`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <div className='d-flex'>
                 <select
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="supplierName"
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
@@ -455,6 +480,12 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Supplier Name<strong className="text-danger">*</strong>
                 </label>
+                <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <input
@@ -543,7 +574,16 @@ const index = ({
                 </label>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-               <div className={`d-flex`}>
+                <div className="d-flex">
+                    <DateCalender labelName='Oldest Shipment Date'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
+               {/* <div className={`d-flex`}>
                   <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
@@ -563,10 +603,19 @@ const index = ({
                         src="/static/caldericon.svg"
                         alt="Search"
                     />
-               </div>
+               </div> */}
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <input
+                 <div className="d-flex">
+                    <DateCalender labelName='Latest Shipment Date'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div> 
+                {/* <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
@@ -579,7 +628,7 @@ const index = ({
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Latest Shipment Date<strong className="text-danger">*</strong>
-                </label>
+                </label> */}
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <input
@@ -957,8 +1006,9 @@ const index = ({
           <div className={`${styles.dashboard_form} card-body`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                <div className='d-flex'>
                 <select
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                   name="addressType"
                   onChange={(e) => {
                     handleChange(e.target.name, e.target.value)
@@ -971,6 +1021,12 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Address Type<strong className="text-danger">*</strong>
                 </label>
+                <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
               </div>
               <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                 <input
@@ -1055,6 +1111,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   type="text"
+                  required
                   name="completeAddress"
                   onChange={(e) => {
                     handleChange(e.target.name, e.target.value)
@@ -1069,6 +1126,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="text"
                   name="branch"
+                  required
                   onChange={(e) => {
                     handleChange(e.target.name, e.target.value)
                   }}

@@ -391,3 +391,31 @@ height: 48px;
      margin-bottom: 2rem !important;
 
  }
+.calanderIcon {
+    margin-left: -40px;
+    margin-top: 15px;
+    width: 23px;
+    height: 26px;
+    pointer-events: none;
+}
+
+.arrow {
+
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+
+
+}
+
+.customSelect {
+    appearance: none;
+    // position: relative;
+
+}

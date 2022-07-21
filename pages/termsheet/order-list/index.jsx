@@ -149,7 +149,7 @@ function Index() {
               >
                 <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(singleOrder?.data?.totalCount / 10)}
+                  {Math.ceil(singleOrder?.totalCount / 10)}
                 </span>
                 <a
                   onClick={() => {
@@ -171,7 +171,7 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(singleOrder?.data?.totalCount / 10)) {
+                    if (currentPage + 1 < Math.ceil(singleOrder?.totalCount / 10)) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
@@ -196,7 +196,7 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.png " /></th>
+                      <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
                       <th>COMMODITY</th>
                       <th>CREATED BY</th>
                       <th>CREATED ON</th>
@@ -211,7 +211,7 @@ function Index() {
                     </td>
                     <td className={`${styles.buyerName}`} >{term?.order?.commodity}</td>
 
-                    <td>{term?.order?.createdBy}</td>
+                    <td>{term?.order?.createdBy?.fName} {term?.order?.createdBy?.lName}</td>
                     <td>{term?.order?.createdAt?.slice(0, 10)}</td>
                     <td>
                       <span

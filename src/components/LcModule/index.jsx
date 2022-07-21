@@ -15,7 +15,7 @@ function Index() {
       
           <div className={styles.head_header}>
               <img
-                className={`${styles.arrow} img-fluid`}
+                className={`${styles.arrow} img-fluid mr-2`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
@@ -59,7 +59,7 @@ function Index() {
             >
               <thead>
                 <tr className="table_row">
-                  <th>ORDER ID <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/> </th>
+                  <th>ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon"/> </th>
                   <th>COMMODITY</th>
                   <th>CREATED BY</th>
                   <th>STATUS</th>
