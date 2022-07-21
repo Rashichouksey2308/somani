@@ -126,8 +126,9 @@ function Index({order, companyDetail }) {
                         </div>
                         <div className="row">
                             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                                 <div className='d-flex'>
                                 <select id='sourceChanel' onChange={onChangeHandler}
-                                    className={`${styles.input_field} input form-control`}
+                                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                     name="Sourcing">
                                     <option value="SocialMedia">{order?.sourceChanel}</option>
                                     <option value="Website">Website</option>
@@ -137,10 +138,17 @@ function Index({order, companyDetail }) {
                                     Sourcing Channel
                                     <strong className="text-danger">*</strong>
                                 </label>
+                                <img
+                                    className={`${styles.arrow} img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="Search"
+                                />
+                           </div>
                             </div>
                             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                                <div className='d-flex'>
                                 <select id='referedBy' onChange={onChangeHandler}
-                                    className={`${styles.input_field} input form-control`}
+                                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                     name="Sourcing" >
 
                                     <option value="CHA">{order?.referedBy}</option>
@@ -150,10 +158,17 @@ function Index({order, companyDetail }) {
                                     Referred By
                                     <strong className="text-danger">*</strong>
                                 </label>
+                                <img
+                                    className={`${styles.arrow} img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="Search"
+                                />
+                        </div>
                             </div>
                             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                                  <div className='d-flex'>
                                 <select id='referalName' onChange={onChangeHandler}
-                                    className={`${styles.input_field} input form-control`}
+                                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                     name="Sourcing">
 
                                     <option value="">Bhutani Traders</option>
@@ -163,6 +178,12 @@ function Index({order, companyDetail }) {
                                     Referral Name
                                     <strong className="text-danger">*</strong>
                                 </label>
+                                 <img
+                                    className={`${styles.arrow} img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="Search"
+                                />
+                        </div>
                             </div>
                             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                              <button onClick={saveHandler} className={`${styles.saveBtn} `}>Save</button>

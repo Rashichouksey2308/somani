@@ -35,7 +35,7 @@ const Index = ({
             <div className={`${styles.heading} heading_card_switch_blue`}>
               Company Profile
             </div>
-            <div className="d-flex">
+            <div className="mr-n5 d-flex">
               <div
                 className={`${styles.unit_container} d-flex align-items-center`}
               >

@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 
-
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
