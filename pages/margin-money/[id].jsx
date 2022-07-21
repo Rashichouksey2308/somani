@@ -23,6 +23,7 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney)
 
   const marginData = margin?.data?.data[0]
+ 
 
   useEffect(() => {
     dispatch(setPageName('margin-money'))
@@ -554,7 +555,7 @@ function Index() {
                                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                                Order Value <strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(A*B)`}</span>
                                 </label>
-                                 <div className={`${styles.val} heading`}>{orderValue?.toLocaleString()}</div>
+                                 <div className={`${styles.val} heading`}>{marginData?.order?.unitOfValue }  {orderValue?.toLocaleString()}</div>
                                 </div>
                            </div>
                             <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
