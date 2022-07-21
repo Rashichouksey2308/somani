@@ -1,9 +1,10 @@
 @import "../styles/Core/config";
 .root {
+    left: 0;
+    right: 0;
+    bottom: 42px;
+    position: fixed;
     z-index: 4;
-    width: 80%;
-    bottom: 0;
-    position:fixed;
     height: 84px;
     box-shadow: 0px 3px 12px #CAD0E2;
     border: 1px solid #D2D7E5;
@@ -15,13 +16,18 @@
     line-height: 25px;
     padding: 0rem 2rem 0rem 2rem;
     background-color: white;
-    @include respond(sm-desktop) {
-            width: 100%;
-        }
-    @include respond(phone){
-        width: 100%;
+    margin-left: 345px;
+    @include respond(lg-desktop) {
+        margin-left: 20%;
     }
-
+    @include respond(md-desktop) {
+        padding: 0rem 1rem 0rem 1rem;
+        margin-left: 0;
+    }
+    @include respond(phone) {
+        bottom: 55px;
+        height: auto;
+    }
     .reject {
         cursor: pointer;
         width: 260px;
@@ -33,36 +39,34 @@
         align-items: center;
         justify-content: center;
         margin-right: 1rem;
-        img{
+        img {
             margin-left: 0.5rem;
             @include respond(phone) {
-                    width: 10px;
-                }
+                width: 10px;
+            }
         }
-        span{
+        span {
             @include respond(phone) {
-                        font-size: 12px;
-                }
+                font-size: 12px;
+            }
         }
-                  @include respond(phone) {
-                      font-size: 12px;
-                      width: 200px;
-        
-                  }
+        @include respond(phone) {
+            font-size: 12px;
+            width: 200px;
+        }
     }
-    .navigate{
+    .navigate {
         width: 300px;
         font-size: 18px;
-        line-height:31px;
-        font-weight:normal;
+        line-height: 31px;
+        font-weight: normal;
         display: flex;
-            align-items: center;
-            justify-content: space-between;
+        align-items: center;
+        justify-content: space-between;
         @include respond(phone) {
-                font-size: 10px;
-               
-            }
-        span{
+            font-size: 10px;
+        }
+        span {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -71,69 +75,51 @@
             background: #C3C3C31F 0% 0% no-repeat padding-box;
             border: 1px solid #0000001F;
             border-radius: 4px;
-           
-                    @include respond(phone) {
-                        font-size: 12px;
-                        width: 20px;
-                            height: 19px;
-                    }
-                
-        }
-                
-        .zoom{
-            width: 58px;
-                height: 36px;
-                @include respond(sm-desktop) {
-                
-                        font-size: 15px;
-                        width: 30px;
-                        height: 19px
-                    }
-                @include respond(phone) {
-                        font-size: 12px;
-                        width: 20px;
-                        height: 19px;
-                    }
-                                      
-        }
-        .button{
-            width: 24px;
-                height: 4px;
-                background: #667085 0% 0% no-repeat padding-box;
-                @include respond(sm-desktop) {
-                
-                        width: 20px;
-                
-                    }
-                @include respond(phone) {
-                       
-                        width: 10px;
-                       
-                    }
-                                      
-        }
-        img{
-            @include respond(sm-desktop) {
-            
-                    width: 20px;
-            
-                }
             @include respond(phone) {
-            
-                    width: 10px;
-            
-                }
-                               
+                font-size: 12px;
+                width: 20px;
+                height: 19px;
+            }
         }
-        .button2{
+        .zoom {
+            width: 58px;
+            height: 36px;
+            @include respond(sm-desktop) {
+                font-size: 15px;
+                width: 30px;
+                height: 19px
+            }
+            @include respond(phone) {
+                font-size: 12px;
+                width: 20px;
+                height: 19px;
+            }
+        }
+        .button {
             width: 24px;
-                height: 24px;
-                background: #667085 0% 0% no-repeat padding-box;
-               
+            height: 4px;
+            background: #667085 0% 0% no-repeat padding-box;
+            @include respond(sm-desktop) {
+                width: 20px;
+            }
+            @include respond(phone) {
+                width: 10px;
+            }
         }
-        
+        img {
+            @include respond(sm-desktop) {
+                width: 20px;
+            }
+            @include respond(phone) {
+                width: 10px;
+            }
+        }
+        .button2 {
+            width: 24px;
+            height: 24px;
+            background: #667085 0% 0% no-repeat padding-box;
+        }
     }
-
     .approve {
         cursor: pointer;
         width: 260px;
@@ -146,14 +132,13 @@
         justify-content: center;
         margin-left: 1rem;
         span {
-                @include respond(phone) {
-                    font-size: 12px;
-                }
+            @include respond(phone) {
+                font-size: 12px;
             }
-                        @include respond(phone) {
-                            font-size: 12px;
-                            width: 200px;
-            
-                        }
+        }
+        @include respond(phone) {
+            font-size: 12px;
+            width: 200px;
+        }
     }
 }
