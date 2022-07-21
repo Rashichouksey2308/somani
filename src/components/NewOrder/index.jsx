@@ -2,6 +2,7 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
+import DateCalender from '../DateCalender'
 
 const Index = ({ orderDetail, saveOrderData }) => {
   const saveDate = (e) => {
@@ -158,8 +159,9 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                 <div className='d-flex'>
                 <select
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="countryOfOrigin"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -172,6 +174,12 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Country Of Origin<strong className="text-danger">*</strong>
                 </Form.Label>
+                 <img
+                      className={`${styles.arrow} img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                  />
+                        </div>
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -191,8 +199,9 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                 <div className='d-flex'>
                 <select
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="supplierName"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -205,11 +214,18 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Supplier Name<strong className="text-danger">*</strong>
                 </Form.Label>
+                 <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                    />
+                        </div>
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+               <div className='d-flex'>
                 <select
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                   name="manufacturerName"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -222,11 +238,18 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   Manufacturer / Mines name
                   <strong className="text-danger">*</strong>
                 </Form.Label>
+                <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <div className='d-flex'>
                 <select
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                   name="portOfDischarge"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -238,11 +261,18 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Port Of Discharge<strong className="text-danger">*</strong>
                 </Form.Label>
+                 <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <div className='d-flex'>
                 <select
-                  className={`${styles.input_field} input form-control`}
+                  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                   name="incoTerm"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -255,10 +285,25 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   INCO Terms<strong className="text-danger">*</strong>
                 </Form.Label>
+                 <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <input
+                 <div className="d-flex">
+                    <DateCalender labelName='Expected Date Of Shipment'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
+                {/* <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   name="ExpectedDateOfShipment"
@@ -269,7 +314,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Expected Date Of Shipment
                   <strong className="text-danger">*</strong>
-                </Form.Label>
+                </Form.Label> */}
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

@@ -1447,13 +1447,9 @@ function Index() {
                               </div>
                               <div className="col-md-4 offset-md-1 col-sm-6">
                                 <Form.Group className={styles.form_group}>
-                                  <Form.Label
-                                    className={`${styles.label} label_heading`}
-                                  >
-                                    Document Type
-                                  </Form.Label>
+                                  <div className='d-flex'>
                                   <select onChange={(e) => handleNewDocModule(e)}
-                                    className={`${styles.value} input form-control`}
+                                    className={`${styles.value} ${styles.customSelect} input form-control`}
                                     id="docType"
                                   >
                                     <option value="LeadOnboarding,OrderApproval">Lead Onboarding & Order Approval</option>
@@ -1462,6 +1458,17 @@ function Index() {
                                     <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
                                     <option value="others">Others</option>
                                   </select>
+                                   <Form.Label
+                                    className={`${styles.label} label_heading`}
+                                  >
+                                    Document Type
+                                  </Form.Label>
+                                   <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
                                 </Form.Group>
                                 <Form.Group className={styles.form_group}>
                                   <Form.Label
