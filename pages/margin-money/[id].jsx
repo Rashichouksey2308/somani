@@ -294,7 +294,7 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="quantity"
-                                defaultValue={marginData?.order?.quantity}
+                                defaultValue={marginData?.order?.quantity?.toLocaleString()}
                                 onChange={(e) =>
                                   saveForCalculation(
                                     e.target.name,
@@ -554,7 +554,7 @@ function Index() {
                                     <label className={`${styles.label_heading} label_heading`} id="textInput">
                                Order Value <strong className='text-danger'>*</strong><span className={`${styles.blue}`}>{`(A*B)`}</span>
                                 </label>
-                                 <div className={`${styles.val} heading`}>{orderValue}</div>
+                                 <div className={`${styles.val} heading`}>{orderValue?.toLocaleString()}</div>
                                 </div>
                            </div>
                             <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
