@@ -12,7 +12,7 @@ function Index() {
    
       <div className={styles.head_header}>
           <img
-            className={`${styles.arrow} img-fluid`}
+            className={`${styles.arrow} img-fluid mr-2`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
           />
@@ -30,10 +30,10 @@ function Index() {
         <a className={styles.filterIcon}>
         <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
       </a>
-      <a href="#" className={`${styles.filterList} filterList `}>
+      {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-      </a>
+      </a> */}
      
       <button className={styles.createBtn}
       style={{ position: "absolute", right: 25 }}
@@ -58,7 +58,7 @@ function Index() {
         >
           <thead>
             <tr className="table_row">
-              <th>ORDER ID</th>
+              <th>ORDER ID <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon" /></th>
               <th>BUYER NAME</th>
               <th>CREATED BY</th>
               <th>STATUS</th>
