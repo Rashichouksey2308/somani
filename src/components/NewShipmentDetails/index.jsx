@@ -1,15 +1,16 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 
-const index = ({ orderDetail, saveShipmentData }) => {
+const index = ({ saveShipmentData, shipment }) => {
   // const {shipmentDetail}= orderDetail;
 
-  const saveDate = (e) => {
-    const d = new Date(e.target.value)
+  const saveDate = (value, name) => {
+    const d = new Date(value)
     let text = d.toISOString()
-    saveShipmentData(e.target.name, text)
+    saveShipmentData(name, text)
   }
 
   return (
@@ -30,41 +31,43 @@ const index = ({ orderDetail, saveShipmentData }) => {
         aria-labelledby="shipmentDetails"
       >
         <div className={`${styles.dashboard_form} card-body`}>
-          <Form>
+          <Form id="ShipmentDetailsForm">
             <div className="row">
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-               <div className='d-flex'>
-                <select
-                  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                  name="shipmentType"
-                  onChange={(e) => {
-                    saveShipmentData(e.target.name, e.target.value)
-                  }}
-                >
-                  <option value="Liner">Liner</option>
-                  <option value="Bulk">Bulk</option>
-                </select>
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Shipment Type<strong className="text-danger">*</strong>
-                </Form.Label>
-                 <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                    />
-                        </div>
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                    name="shipmentType"
+                    onChange={(e) => {
+                      saveShipmentData(e.target.name, e.target.value)
+                    }}
+                  >
+                    <option selected></option>
+                    <option value="Liner">Liner</option>
+                    <option value="Bulk">Bulk</option>
+                  </select>
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Shipment Type<strong className="text-danger">*</strong>
+                  </Form.Label>
+                  <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
-                 <div className="d-flex">
-                    <DateCalender labelName='Laycan at Load Port from'/>
-                     <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                      
-                    </div>  
+                <div className="d-flex">
+                  <DateCalender value={shipment.ETAofDischarge.fromDate} name='ETAofDischarge.fromDate'  saveDate={saveDate}  labelName="Laycan at Load Port from" />
+                  <img
+                    className={`${styles.calanderIcon} img-fluid`}
+                    src="/static/caldericon.svg"
+                    alt="Search"
+                  />
+                </div>
                 {/* <Form.Control
                   className={`${styles.input_field} input form-control`}
                   name="ETAofDischarge.fromDate"
@@ -80,15 +83,14 @@ const index = ({ orderDetail, saveShipmentData }) => {
                 </Form.Label> */}
               </Form.Group>
               <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
-                 <div className="d-flex">
-                    <DateCalender labelName='Laycan at Load Port to'/>
-                     <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                      
-                    </div>  
+                <div className="d-flex">
+                  <DateCalender value={shipment.ETAofDischarge.toDate} name="ETAofDischarge.toDate" saveDate={saveDate} labelName="Laycan at Load Port to" />
+                  <img
+                    className={`${styles.calanderIcon} img-fluid`}
+                    src="/static/caldericon.svg"
+                    alt="Search"
+                  />
+                </div>
                 {/* <Form.Control
                   className={`${styles.input_field} input form-control`}
                   name="ETAofDischarge.toDate"
@@ -104,15 +106,14 @@ const index = ({ orderDetail, saveShipmentData }) => {
               </Form.Group>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                    <DateCalender labelName='Last date of shipment'/>
-                     <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                      
-                    </div>  
-                
+                  <DateCalender name="lastDateOfShipment" saveDate={saveDate} labelName="Last date of shipment" />
+                  <img
+                    className={`${styles.calanderIcon} img-fluid`}
+                    src="/static/caldericon.svg"
+                    alt="Search"
+                  />
+                </div>
+
                 {/* <input
                   className={`${styles.input_field} input form-control`}
                   name="lastDateOfShipment"
@@ -128,15 +129,14 @@ const index = ({ orderDetail, saveShipmentData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-3 col-sm-6`}>
-                 <div className="d-flex">
-                    <DateCalender labelName='ETA at Discharge Port from'/>
-                     <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                      
-                    </div>  
+                <div className="d-flex">
+                  <DateCalender name="loadPort.fromDate" saveDate={saveDate} labelName="ETA at Discharge Port from" />
+                  <img
+                    className={`${styles.calanderIcon} img-fluid`}
+                    src="/static/caldericon.svg"
+                    alt="Search"
+                  />
+                </div>
                 {/* <div>
                   <Form.Control
                     className={`${styles.input_field} input form-control`}
@@ -155,15 +155,14 @@ const index = ({ orderDetail, saveShipmentData }) => {
                 </div> */}
               </Form.Group>
               <Form.Group className={`${styles.form_group}  col-md-3 col-sm-6`}>
-                 <div className="d-flex">
-                    <DateCalender labelName='ETA at Discharge Port to'/>
-                     <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                      
-                    </div>  
+                <div className="d-flex">
+                  <DateCalender name="loadPort.toDate" saveDate={saveDate} labelName="ETA at Discharge Port to" />
+                  <img
+                    className={`${styles.calanderIcon} img-fluid`}
+                    src="/static/caldericon.svg"
+                    alt="Search"
+                  />
+                </div>
                 {/* <div>
                   <Form.Control
                     className={`${styles.input_field} input form-control`}

@@ -132,6 +132,7 @@ function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
   return (
     <>
       {basicInfo(camData)}
+      {customerRating()}
       {supplierInfo(camData)}
       {groupExposure(camData)}
       {orderSummary(camData)}
@@ -2264,6 +2265,11 @@ const sectionTerms = (
           aria-controls="sectionTerms"
         >
           <h2 className="mb-0">Sanction Terms</h2>
+           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
+            <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Total Limit:</span>1,900.00</span>
+            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Utilised Limit:</span>1,900.00</span>
+            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Available Limit:</span>1,900.00</span>
+          </div>
           <span>+</span>
         </div>
         <div
@@ -2274,15 +2280,17 @@ const sectionTerms = (
         >
           <div className={`${styles.terms_wrapper} card-body border_color`}>
             <table
-              className={`${styles.table} table  border_color `}
+              className={`${styles.sectionTable} table   `}
               cellPadding="0"
               cellSpacing="0"
+              border="0"
             >
               <tr>
                 <th></th>
                 <th>PREVIOUS LIMIT</th>
                 <th>APPLIED VALUE</th>
-                <th>RECOMMENDED VALUE</th>
+                <th>DERIVED VALUE</th>
+                <th>SUGGESTED VALUE</th>
                 <th>REVISED</th>
                 <th>APPROVED VALUE</th>
               </tr>
@@ -2290,26 +2298,28 @@ const sectionTerms = (
                 <td>Limit Value</td>
                 <td>1,200.00</td>
                 <td>-</td>
+                <td>1,200.00</td>
                 <td>1,900.00</td>
                 <td>
                   <input type="checkbox"></input>
                 </td>
-                <td>1,900.00</td>
+                <td><input className={`${styles.text}`} type="text" placeholder="1,900.00"></input></td>
               </tr>
               <tr>
-                <td>Limit Value</td>
+                <td>Order Value</td>
                 <td>1,200.00</td>
                 <td>-</td>
+                <td>1,200.00</td>
                 <td>1,900.00</td>
                 <td>
                   <input type="checkbox"></input>
                 </td>
-                <td>1,900.00</td>
+              <td><input className={`${styles.text}`} type="text" placeholder="1,900.00"></input></td>
               </tr>
             </table>
             <div>
               <div
-                className={`${styles.heading} heading d-flex  align-items-center justify-content-start`}
+                className={`${styles.heading} heading  card_sub_header d-flex  align-items-center justify-content-start`}
               >
                 Sanction Conditions
               </div>
@@ -2345,9 +2355,9 @@ const sectionTerms = (
                     </div>
                   ))}
 
-                <div className={`mb-3`}>Approval Remarks</div>
+                <div className={`mb-3 ${styles.heading} heading `}>Approval Remarks</div>
                 <textarea
-                  className="form-control"
+                  className="form-control input"
                   id="exampleFormControlTextarea1"
                   rows="3"
                   onChange={(e) => setSanctionComments(e.target.value)}
@@ -2653,6 +2663,106 @@ const skewness = (data, options, tempArr) => {
                 </div>
                 <div className={`${styles.chart}`}>
                   {/* <Line data={dataline} options={lineOption} /> */}
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+const customerRating = (dataline, lineOption) => {
+  return (
+    <>
+      <div className={`${styles.card} card`}>
+        <div
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
+          data-toggle="collapse"
+          data-target="#trends"
+          aria-expanded="true"
+          aria-controls="trends"
+        >
+          <h2 className="mb-0">Customer Rating</h2>
+          <span className=" d-flex align-items-center justify-content-between">
+            <span
+              className={` d-flex align-items-center justify-content-between`}
+            >
+             
+            </span>
+            +
+          </span>
+        </div>
+        <div
+          id="trends"
+          className="collapse"
+          aria-labelledby="trends"
+          data-parent="#profileAccordion"
+        >
+          <div className={`${styles.rating_wrapper} card-body`}>
+            <Row className={`m-0`}>
+              <Col className={`${styles.leftCol} p-0 border_color d-flex`} md={6}>
+                <div className={`${styles.gauge}`}>
+                  Gauge
+                </div>
+                <div className={`${styles.score} `}>
+                  <div className={`${styles.excellent}`}>
+                    <span>EXCELLENT</span>
+                  </div>
+                  <div className={`${styles.creditScore}`}>
+                    <div className={`${styles.tickContainer}`}>
+                      <img src="static/darktick.svg"></img>
+                    </div>
+                    <div className={`${styles.content}`}>
+                       <span className={`${styles.content_heading}`}>CREDIT SCORE</span>
+                       <div>
+                        <span>9.0</span><span>/10</span>
+                       </div>
+                    </div>
+                  </div>
+
+                </div>
+              
+              </Col>
+              <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
+                <div className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}>
+                    <div>
+                    <span>BUSINESS PROFILE</span>
+                    <div className={`${styles.bar} ${styles.small_bar}`}>
+                   
+                    <div
+                      style={{ backgroundColor: '#FFB700' }}
+                      className={`${styles.fill}`}
+                    ></div>
+                    <span>80%</span>
+                  </div>
+                    </div>
+                </div>
+                <div className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}>
+                    <div>
+                    <span>BUSINESS PROFILE</span>
+                    <div className={`${styles.bar} ${styles.small_bar}`}>
+                   
+                    <div
+                      style={{ backgroundColor: '#FF4230' }}
+                      className={`${styles.fill}`}
+                    ></div>
+                    <span>80%</span>
+                  </div>
+                    </div>
+                </div>
+                <div className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}>
+                    <div>
+                    <span>BUSINESS PROFILE</span>
+                    <div className={`${styles.bar} ${styles.small_bar}`}>
+                   
+                    <div
+                      style={{ backgroundColor: '#83C400' }}
+                      className={`${styles.fill}`}
+                    ></div>
+                    <span>80%</span>
+                  </div>
+                    </div>
                 </div>
               </Col>
             </Row>
