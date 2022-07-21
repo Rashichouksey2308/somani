@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 import { Line, Bar } from 'react-chartjs-2'
-import moment from 'moment'
 import {
   Chart,
   LineController,
@@ -37,10 +36,6 @@ function Index(GstData) {
   })
   const [gstFilteredData, SetGstFilteredData] = useState()
   const [gstNumbers, setGstNumbers] = useState([])
-  const [customerDetailsUnit,setCustomerDetailsUnit] = useState(10000000)
-  const [supplierDetailsUnit,setSupplierDetailsUnit] = useState(10000000)
-  const [salesUnit,setSalesUnit] = useState(10000000)
-  const [purchasesUnit,setPurchasesUnit] = useState(10000000)
 
   useEffect(() => {
     const filteredData = GstData?.GstData?.map((gstData) => {
@@ -49,7 +44,6 @@ function Index(GstData) {
     })
   }, [GstData])
   console.log(gstFilteredData, 'gstFilteredData')
-
 
 
 
@@ -71,16 +65,6 @@ function Index(GstData) {
     return gradient;
   }
 
-  const covertMonths = (months) => {
-    const CovertedMonts = []
-    months?.map((month) => {
-      let convertedMonths = []
-      CovertedMonts.push(...convertedMonths, moment(month, 'MMYYYY').format('MMMM'))
-    })
-    return CovertedMonts
-  }
-
-
   useEffect(() => {
 
     const chart = chartRef.current;
@@ -92,45 +76,26 @@ function Index(GstData) {
     let color = createGradient(chart.ctx, chart.chartArea)
     console.log(color, "color")
     const data = {
-      labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jun", "Jun", "Jun", "Jun"],
       datasets: [
         {
           label: "First dataset",
-          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales,
+          data: [70, 53, 85, 20, 44, 70, 34, 45, 67, 90],
           fill: true,
 
 
           backgroundColor: color,
-          borderColor: "#2979F2"
+          borderColor: "rgba(224, 195, 155, 1)"
         },
         {
           label: "First dataset",
-          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales,
+          data: [70, 53, 85, 41, 44, 65, 34, 45, 67,],
           fill: true,
 
 
           backgroundColor: color,
-          borderColor: "#FA5F1C"
+          borderColor: "rgba(224, 195, 155, 1)"
         },
-        {
-          label: "First dataset",
-          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales,
-          fill: true,
-
-
-          backgroundColor: color,
-          borderColor: "#FFD950"
-        },
-        {
-          label: "First dataset",
-          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales,
-          fill: true,
-
-
-          backgroundColor: color,
-          borderColor: "#02BC77"
-        },
-
 
       ]
     };
@@ -284,106 +249,23 @@ function Index(GstData) {
     }
 
   }
-  let turOverdataAndPurchases = {
-    labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.month),
-    datasets: [
-      {
-        label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.sale,
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
-      },
-      {
-        label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.purchase,
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
-      }
-
-    ]
-  }
   let data = {
-    labels: gstFilteredData?.detail?.summaryCharts?.top10Cus?.names,
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
       {
         label: "First dataset",
-        data: [33, 53, 85, 41, 44, 120],
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
-      }
-
-    ]
-  }
-
-  let top10Customers = {
-    labels: gstFilteredData?.detail?.summaryCharts?.top10Cus?.names,
-    datasets: [
-      {
-        label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.top10Cus?.values,
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
-      }
-
-    ]
-  }
-  let top10Supplier = {
-    labels: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.names,
-    datasets: [
-      {
-        label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.values,
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
-      }
-
-    ]
-  }
-
-  let stateWiseSales = {
-    labels: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.names,
-    datasets: [
-      {
-        label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.values,
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
-      }
-
-    ]
-  }
-
-  let averageRate = {
-    labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months),
-    datasets: [
-      {
-        label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers,
+        data: [33, 53, 85, 41, 44, 65],
         fill: true,
         backgroundColor: 'rgba(75,192,192,1)',
         borderColor: "rgba(75,192,192,1)"
       },
       {
-        label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.invoices,
+        label: "Second dataset",
+        data: [33, 25, 35, 51, 54, 76],
         fill: true,
         backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
-      },
-      {
-        label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.avgMonthlySales,
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
+        borderColor: "#742774"
       }
-
     ]
   }
 
@@ -727,7 +609,7 @@ function Index(GstData) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Line data={turOverdataAndPurchases} />
+                    <Line data={data} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.blue_legend} ${styles.legend}`}>Gross Turnover</span>
                       <span className={`${styles.red_legend} ${styles.legend}`}>Gross Purchases</span>
@@ -744,7 +626,7 @@ function Index(GstData) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={top10Customers} />
+                    <Bar data={data} />
                   </div>
                 </div>
               </Col>
@@ -757,7 +639,7 @@ function Index(GstData) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={top10Supplier} />
+                    <Bar data={data} />
                   </div>
                 </div>
               </Col>
@@ -770,7 +652,7 @@ function Index(GstData) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={stateWiseSales} />
+                    <Bar data={data} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.legend}`}>Financial Period 07-2018 to 06-2029</span>
                     </div>
@@ -786,7 +668,7 @@ function Index(GstData) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Line data={averageRate} />
+                    <Line data={data} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.blue_legend} ${styles.legend}`}>No. of Customers</span>
                       <span className={`${styles.red_legend} ${styles.legend}`}>No. of Invoices</span>
@@ -1126,7 +1008,7 @@ function Index(GstData) {
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                      B2B  Purchases
+                    B2B  Purchases
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.value}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.percentage}</td>
@@ -1136,7 +1018,7 @@ function Index(GstData) {
 
                   <tr>
                     <td colSpan={2}>
-                      Import   Purchases
+                    Import   Purchases
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage}</td>
@@ -1146,7 +1028,7 @@ function Index(GstData) {
 
                   <tr>
                     <td colSpan={2}>
-                      Total Suppliers
+                    Total Suppliers
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.value}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.percentage}</td>
@@ -1156,7 +1038,7 @@ function Index(GstData) {
 
                   <tr>
                     <td colSpan={2}>
-                      Total Invoices
+                    Total Invoices
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.percentage}</td>
@@ -1201,34 +1083,34 @@ function Index(GstData) {
                     <td>VALUE</td>
                   </tr>
                   <tr>
-                    <td>Average Monthly Purchases</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.previous}</td>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.current}</td>
+                    <td>1,900.00</td>
                   </tr>
                   <tr>
-                    <td>Average Quarterly Purchases</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.previous}</td>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.current}</td>
+                    <td>1,900.00</td>
                   </tr>
                   <tr>
-                    <td>Average Purchases per Supplier</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerSupplier?.previous}</td>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerSupplier?.current}</td>
+                    <td>1,900.00</td>
                   </tr>
                   <tr>
-                    <td>Average Purchases per Invoices</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.previous}</td>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.current}</td>
+                    <td>1,900.00</td>
                   </tr>
                   <tr>
-                    <td>Average Invoices per Supplier</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.previous}</td>
+                    <td>Average Monthly Sales</td>
+                    <td>1,900.00</td>
 
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.current}</td>
+                    <td>1,900.00</td>
                   </tr>
                 </table>
                 <table
@@ -1253,18 +1135,36 @@ function Index(GstData) {
                     <td>INVOICES</td>
                     <td>AVG. SALES PER CUSTOMER</td>
                   </tr>
-                  {gstFilteredData && gstFilteredData?.detail?.purchaseDetailAnnual?.hsnWisePurchase?.map((sales, index) => (
-                    <tr key={index}>
-                      <td className={` ${styles.first}`}>{sales.hsnDesc}</td>
-                      <td>{sales.hsnSc}</td>
-                      <td>{sales.turnover}</td>
-                      <td>{sales.sharePercent}</td>
+                  <tr>
+                    <td>Ferro-Alloys</td>
+                    <td>72022900E</td>
+                    <td>25.40</td>
+                    <td>25.40E</td>
 
-                      <td>24</td>
-                      <td>19</td>
-                      <td>1.05</td>
-                    </tr>
-                  ))}
+                    <td>24</td>
+                    <td>19</td>
+                    <td>1.05</td>
+                  </tr>
+                  <tr>
+                    <td>Ferro-Alloys</td>
+                    <td>72022900E</td>
+                    <td>25.40</td>
+                    <td>25.40E</td>
+
+                    <td>24</td>
+                    <td>19</td>
+                    <td>1.05</td>
+                  </tr>
+                  <tr>
+                    <td>Ferro-Alloys</td>
+                    <td>72022900E</td>
+                    <td>25.40</td>
+                    <td>25.40E</td>
+
+                    <td>24</td>
+                    <td>19</td>
+                    <td>1.05</td>
+                  </tr>
                 </table>
               </div>
             </div>
@@ -1282,11 +1182,11 @@ function Index(GstData) {
           aria-controls="Compliance"
         >
           <h2 className="mb-0">Compliance</h2>
-          <div className={`${styles.subHeadContainer} d-flex ml-5`}>
-            <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</span>{gstFilteredData?.detail?.complianceDetail?.filingHistory}</span>
-            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</span>{gstFilteredData?.detail?.complianceDetail?.filingFrequency}</span>
-            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</span>{gstFilteredData?.detail?.complianceDetail?.financialPeriod}</span>
-          </div>
+            <div className={`${styles.subHeadContainer} d-flex ml-5`}>
+                <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</span>09AAGCS8808K1ZR</span> 
+                <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</span>Quaterly</span>   
+                <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</span>2021-2022</span>     
+            </div>
           <span>+</span>
         </div>
         <div
@@ -1326,18 +1226,15 @@ function Index(GstData) {
                <span >% ON GROSS REVENUE</span>
              </td> */}
                   </tr>
-                  {gstFilteredData && gstFilteredData?.detail?.complianceDetail?.monthlyData?.map((customer, index) => (
-                    <tr key={index}>
-                      <td colSpan={2}>
-                        {moment(customer?.retPeriod, 'MMYYY').format('MMMM YYYY')}
-
-                      </td>
-                      <td>{customer?.GSTR1?.dof}</td>
-                      <td>{customer?.GSTR1?.delayDays}</td>
-                      <td>{customer?.GSTR3B?.dof}</td>
-                      <td>{customer?.GSTR3B?.delayDays}</td>
-                    </tr>
-                  ))}
+                  <tr>
+                    <td colSpan={2}>
+                      Gross Revenue
+                    </td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                    <td>1,900.00</td>
+                    <td>80%</td>
+                  </tr>
                 </table>
               </div>
             </div>
@@ -1348,17 +1245,17 @@ function Index(GstData) {
 
       {/* CistomerDetail                                    */}
 
-      {gstCustomerDetail(gstFilteredData,customerDetailsUnit,setCustomerDetailsUnit)}
-      {gstSupplierDetail(gstFilteredData,supplierDetailsUnit,setSupplierDetailsUnit)}
-      {gstSales('Sales', gstFilteredData,salesUnit,setSalesUnit)}
-      {gstPurchase('Purchase', gstFilteredData,purchasesUnit,setPurchasesUnit)}
+      {gstCustomerDetail()}
+      {gstSupplierDetail()}
+      {gstSales('Sales')}
+      {gstPurchase('Purchase')}
     </>
   )
 }
 
 export default Index
 
-const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetailsUnit) => {
+const gstCustomerDetail = () => {
   return (
     <>
       <div className={`${styles.wrapper} card  `}>
@@ -1415,16 +1312,38 @@ const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetail
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        {gstFilteredData && gstFilteredData?.detail?.customerDetail?.recurringPartySales?.map((customer, index) => (
-                          <tr key={index}>
-                            <td>{customer?.name}</td>
-                            <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal/supplierDetailsUnit.toFixed(2)}</td>
-                            <td>{customer?.percentageOfTotalSales}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.salesPerInvoice}</td>
-                          </tr>
-                        ))}
+                        <tr>
+                          <td>Abs International Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -1453,21 +1372,43 @@ const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetail
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        {gstFilteredData && gstFilteredData?.detail?.customerDetail?.relatedPartySales?.map((customer, index) => (
-                          <tr key={index}>
-                            <td>{customer?.name}</td>
-                            <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal}</td>
-                            <td>{customer?.percentageOfTotalSales}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.salesPerInvoice}</td>
-                          </tr>
-                        ))}
-
+                        <tr>
+                          <td>Abs International Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -1491,20 +1432,75 @@ const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetail
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        {gstFilteredData && gstFilteredData?.detail?.customerDetail?.top10Customers?.map((customer, index) => (
-                          <tr key={index}>
-                            <td>{customer?.name}</td>
-                            <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal}</td>
-                            <td>{customer?.percentageOfTotalSales}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.salesPerInvoice}</td>
-                          </tr>
-                        ))}
+                        <tr>
+                          <td>Abs International</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -1520,24 +1516,78 @@ const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetail
                         <th className={`${styles.first}`} colSpan={6}>Statewise Sales</th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>STATE</td>
-                        <td>STATE CODE</td>
+                        <td>CUSTOMER NAME</td>
+                        <td>PAN</td>
                         <td>SALES</td>
                         <td>% OF TOTAL SALES</td>
                         <td>OF INVOICES</td>
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        {gstFilteredData && gstFilteredData?.detail?.customerDetail?.statewiseSales?.map((customer, index) => (
-                          <tr key={index}>
-                            <td>{customer?.stateName}</td>
-                            <td>{customer?.stateCode}</td>
-                            <td>{customer?.ttlVal}</td>
-                            <td>{customer?.percentageOfTotalSales}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.salesPerInvoice}</td>
-                          </tr>
-                        ))}
+                        <tr>
+                          <td>Abs International</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -1552,7 +1602,7 @@ const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetail
   )
 }
 
-const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDetailsUnit) => {
+const gstSupplierDetail = () => {
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -1569,11 +1619,11 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
               className={` d-flex align-items-center justify-content-between`}
             >
               <span className={styles.light}>Unit :</span>
-              <select onChange={(e)=> setCustomerDetailsUnit(e.target.value)}
+              <select
                 className={`${styles.selectHead} accordion_DropDown  form-select`}
                 aria-label="Default select example"
               >
-                <option selected value="10000000">
+                <option selected value="1">
                   Crores
                 </option>
               </select>
@@ -1609,16 +1659,38 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        {gstFilteredData && gstFilteredData?.detail?.supplierDetail?.recurringPartyPurchase?.map((customer, index) => (
-                          <tr key={index}>
-                            <td>{customer?.name}</td>
-                            <td>{customer?.pan}</td>
-                            <td>{(customer?.ttlVal/customerDetailsUnit).toFixed(2)}</td>
-                            <td>{customer?.percentageOfTotalPurchase}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.purchasePerInvoice}</td>
-                          </tr>
-                        ))}
+                        <tr>
+                          <td>Abs International Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -1647,16 +1719,38 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        {gstFilteredData && gstFilteredData?.detail?.supplierDetail?.relatedPartyPurchase?.map((customer, index) => (
-                          <tr key={index}>
-                            <td>{customer?.name}</td>
-                            <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal}</td>
-                            <td>{customer?.percentageOfTotalPurchase}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.purchasePerInvoice}</td>
-                          </tr>
-                        ))}
+                        <tr>
+                          <td>Abs International Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -1685,16 +1779,70 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        {gstFilteredData && gstFilteredData?.detail?.supplierDetail?.top10Suppliers?.map((customer, index) => (
-                          <tr key={index}>
-                            <td>{customer?.name}</td>
-                            <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal}</td>
-                            <td>{customer?.percentageOfTotalPurchase}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.purchasePerInvoice}</td>
-                          </tr>
-                        ))}
+                        <tr>
+                          <td>Abs International</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -1717,24 +1865,78 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
                         <th className={`${styles.first}`} colSpan={6}>Statewise Sales</th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>STATE</td>
-                        <td>STATE CODE</td>
+                        <td>CUSTOMER NAME</td>
+                        <td>PAN</td>
                         <td>SALES</td>
                         <td>% OF TOTAL SALES</td>
                         <td>OF INVOICES</td>
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
-                        {gstFilteredData && gstFilteredData?.detail?.supplierDetail?.statewisePurchase?.map((customer, index) => (
-                          <tr key={index}>
-                            <td>{customer?.stateName}</td>
-                            <td>{customer?.stateCode}</td>
-                            <td>{customer?.ttlVal}</td>
-                            <td>{customer?.percentageOfTotalPurchase}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.purchasePerInvoice}</td>
-                          </tr>
-                        ))}
+                        <tr>
+                          <td>Abs International</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Sdf Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd.</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Xyz Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>Mnb Pvt. Ltd..</td>
+                          <td>ABCDE1234F</td>
+                          <td>50.00</td>
+                          <td>80%</td>
+                          <td>10</td>
+                          <td>10</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -1749,7 +1951,7 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
   )
 }
 
-const gstSales = (head, gstFilteredData) => {
+const gstSales = (head) => {
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -1799,48 +2001,100 @@ const gstSales = (head, gstFilteredData) => {
                       </tr>
                       <tr className={styles.second_head}>
                         <td>REVENUE BREAKUP</td>
-
-                        {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((month, index) => (
-                          <td key={index}>{moment(month.retPeriod, 'MMYYYY').format('MMM"YY')}</td>
-                        ))}
-
-
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
                       </tr>
                       <tbody>
                         <tr>
                           <td>Total Sales</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.totalSales}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>B2B Sales</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.b2bSales}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>B2C Sales</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.b2cSales}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>Export Sales</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.exportSales}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>Growth Trend</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.growthTrend}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
+
               </div>
             </div>
             <div className={` ${styles.content}`}>
@@ -1854,22 +2108,49 @@ const gstSales = (head, gstFilteredData) => {
                     >
                       <tr className={styles.second_head}>
                         <td>REVENUE %</td>
-                        {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((month, index) => (
-                          <td key={index}>{moment(month.retPeriod, 'MMYYYY').format('MMM"YY')}</td>
-                        ))}
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
                       </tr>
                       <tbody>
                         <tr>
                           <td>New Customers</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
-                            <td key={index}>{sales?.newCustomer}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>Recurring Customers</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
-                            <td key={index}>{sales?.RecurringCustomer}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
 
                       </tbody>
@@ -1890,22 +2171,49 @@ const gstSales = (head, gstFilteredData) => {
                     >
                       <tr className={styles.second_head}>
                         <td>CLIENTS</td>
-                        {gstFilteredData?.detail?.salesDeatail?.clients.map((month, index) => (
-                          <td key={index}>{moment(month.retPeriod, 'MMYYYY').format('MMM"YY')}</td>
-                        ))}
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
                       </tr>
                       <tbody>
                         <tr>
                           <td>New</td>
-                          {gstFilteredData?.detail?.salesDeatail?.clients.map((sales, index) => (
-                            <td key={index}>{sales?.new}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>Recurring</td>
-                          {gstFilteredData?.detail?.salesDeatail?.clients.map((sales, index) => (
-                            <td key={index}>{sales?.Recurring}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
 
                       </tbody>
@@ -1925,34 +2233,79 @@ const gstSales = (head, gstFilteredData) => {
                     >
                       <tr className={styles.second_head}>
                         <td>NO. OF INVOICES</td>
-                        {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((month, index) => (
-                          <td key={index}>{moment(month.retPeriod, 'MMYYYY').format('MMM"YY')}</td>
-                        ))}
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
                       </tr>
                       <tbody>
                         <tr>
                           <td>Total</td>
-                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.total}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>B2B</td>
-                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.b2b}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>B2C</td>
-                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.b2c}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>Export</td>
-                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.export}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                       </tbody>
                     </table>
@@ -1967,7 +2320,7 @@ const gstSales = (head, gstFilteredData) => {
     </>
   )
 }
-const gstPurchase = (head, gstFilteredData) => {
+const gstPurchase = (head) => {
   return (
     <>
       <div className={`${styles.wrapper} ${styles.lastComponent} card`}>
@@ -2017,40 +2370,94 @@ const gstPurchase = (head, gstFilteredData) => {
                       </tr>
                       <tr className={styles.second_head}>
                         <td>PURCHASES</td>
-                        {gstFilteredData?.detail?.purchaseDetail?.purchases?.map((month, index) => (
-                          <td key={index}>{moment(month.retPeriod, 'MMYYYY').format('MMM"YY')}</td>
-                        ))}
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
                       </tr>
                       <tbody>
                         <tr>
                           <td>Total Purchase</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.totalPurchase}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>B2B Purchase</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.b2b}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>B2C Purchase</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.b2c}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>Import</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.import}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>Growth Trend</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.growthTrend}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                       </tbody>
                     </table>
@@ -2070,23 +2477,51 @@ const gstPurchase = (head, gstFilteredData) => {
                     >
                       <tr className={styles.second_head}>
                         <td>PURCHASE %</td>
-                        {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map((month, index) => (
-                          <td key={index}>{moment(month.retPeriod, 'MMYYYY').format('MMM"YY')}</td>
-                        ))}
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
                       </tr>
                       <tbody>
                         <tr>
                           <td>New Suppliers</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map((sales, index) => (
-                            <td key={index}>{sales?.newSuppliers}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
-                        {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map((sales, index) => (
-                            <td key={index}>{sales?.recurringSuppliers}</td>
-                          ))}
+                          <td>Recurring Suppliers</td>
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
-
+                   
                       </tbody>
                     </table>
                   </div>
@@ -2104,24 +2539,52 @@ const gstPurchase = (head, gstFilteredData) => {
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
-                      {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map((month, index) => (
-                          <td key={index}>{moment(month.retPeriod, 'MMYYYY').format('MMM"YY')}</td>
-                        ))}
+                        <td>SUPPLIERS</td>
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
                       </tr>
                       <tbody>
                         <tr>
                           <td>New</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map((sales, index) => (
-                            <td key={index}>{sales?.new}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>Recurring</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map((sales, index) => (
-                            <td key={index}>{sales?.recurring}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
-
+                    
                       </tbody>
                     </table>
                   </div>
@@ -2139,39 +2602,85 @@ const gstPurchase = (head, gstFilteredData) => {
                     >
                       <tr className={styles.second_head}>
                         <td>NO. OF INVOICES</td>
-                        {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((month, index) => (
-                          <td key={index}>{moment(month.retPeriod, 'MMYYYY').format('MMM"YY')}</td>
-                        ))}
+                        <td>FEB’ 22</td>
+                        <td>JAN’ 22</td>
+                        <td>DEC’21</td>
+                        <td>NOV’21</td>
+                        <td>OCT’21</td>
+                        <td>SEP’21</td>
+                        <td>AUG’21</td>
+                        <td>JUL’21</td>
+                        <td>JUN’21</td>
+                        <td>MAY’21</td>
+                        <td>APR’21</td>
+                        <td>MAR’21</td>
                       </tr>
                       <tbody>
                         <tr>
                           <td>Total</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((sales, index) => (
-                            <td key={index}>{sales?.total}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>B2B</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((sales, index) => (
-                            <td key={index}>{sales?.b2b}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>B2C</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((sales, index) => (
-                            <td key={index}>{sales?.b2c}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                         <tr>
                           <td>Import</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((sales, index) => (
-                            <td key={index}>{sales?.import}</td>
-                          ))}
+                          <td>2.22</td>
+                          <td>2.220</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>22</td>
+                          <td>34</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
+                          <td>12</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>

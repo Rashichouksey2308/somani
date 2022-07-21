@@ -2264,6 +2264,11 @@ const sectionTerms = (
           aria-controls="sectionTerms"
         >
           <h2 className="mb-0">Sanction Terms</h2>
+           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
+            <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Total Limit:</span>{1,900.00}</span>
+            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Utilised Limit:</span>{1,900.00}</span>
+            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Available Limit:</span>{1,900.00}</span>
+          </div>
           <span>+</span>
         </div>
         <div
@@ -2274,15 +2279,17 @@ const sectionTerms = (
         >
           <div className={`${styles.terms_wrapper} card-body border_color`}>
             <table
-              className={`${styles.table} table  border_color `}
+              className={`${styles.sectionTable} table   `}
               cellPadding="0"
               cellSpacing="0"
+              border="0"
             >
               <tr>
                 <th></th>
                 <th>PREVIOUS LIMIT</th>
                 <th>APPLIED VALUE</th>
-                <th>RECOMMENDED VALUE</th>
+                <th>DERIVED VALUE</th>
+                <th>SUGGESTED VALUE</th>
                 <th>REVISED</th>
                 <th>APPROVED VALUE</th>
               </tr>
@@ -2290,26 +2297,28 @@ const sectionTerms = (
                 <td>Limit Value</td>
                 <td>1,200.00</td>
                 <td>-</td>
+                <td>1,200.00</td>
                 <td>1,900.00</td>
                 <td>
                   <input type="checkbox"></input>
                 </td>
-                <td>1,900.00</td>
+                <td><input className={`${styles.text}`} type="text" placeholder="1,900.00"></input></td>
               </tr>
               <tr>
-                <td>Limit Value</td>
+                <td>Order Value</td>
                 <td>1,200.00</td>
                 <td>-</td>
+                <td>1,200.00</td>
                 <td>1,900.00</td>
                 <td>
                   <input type="checkbox"></input>
                 </td>
-                <td>1,900.00</td>
+              <td><input className={`${styles.text}`} type="text" placeholder="1,900.00"></input></td>
               </tr>
             </table>
             <div>
               <div
-                className={`${styles.heading} heading d-flex  align-items-center justify-content-start`}
+                className={`${styles.heading} heading  card_sub_header d-flex  align-items-center justify-content-start`}
               >
                 Sanction Conditions
               </div>
@@ -2345,9 +2354,9 @@ const sectionTerms = (
                     </div>
                   ))}
 
-                <div className={`mb-3`}>Approval Remarks</div>
+                <div className={`mb-3 ${styles.heading} heading `}>Approval Remarks</div>
                 <textarea
-                  className="form-control"
+                  className="form-control input"
                   id="exampleFormControlTextarea1"
                   rows="3"
                   onChange={(e) => setSanctionComments(e.target.value)}
