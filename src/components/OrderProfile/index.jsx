@@ -31,9 +31,9 @@ function Index() {
         >
               
                 {fields("Commodity",buyerList?.order?.commodity)}
-                {fields("Quantity",buyerList?.order?.quantity,false)}
-                {fields("Order values",buyerList?.order?.orderValue,false)}
-                {fields("Supplier Name",buyerList?.order?.supplierName,false)}
+                {fields("Quantity",buyerList?.order?.quantity,false,buyerList?.order?.unitOfQuantity)}
+                {fields("Order values",(buyerList?.order?.orderValue).toLocaleString(),false)}
+                {fields("Supplier Name",buyerList?.order?.supplierName ,false)}
                 {fields("Country Of Origin",buyerList?.order?.countryOfOrigin,false)}
                 {fields("INCO Terms",buyerList?.order?.incoTerm,false)}
                 {/* {fields("Transaction Type",buyerList?.order?.transactionType)} */}
@@ -48,14 +48,14 @@ function Index() {
 }
 
 export default Index
-const fields =(head,value,isButton)=>{
+const fields =(head,value,isButton,value2)=>{
     return (
         <>
             <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
                 <span className={`${styles.top} label`}>{head}</span>
                 <div>
                     <span className={`${styles.value} value `}>
-                  {value}                  
+                  {value}      {value2 ? value2 : ''}            
                     </span>
                     {isButton?<a onClick={()=>window.open(value)} className={styles.button}>View</a>:null}
                 </div>

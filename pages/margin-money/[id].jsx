@@ -324,7 +324,7 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="quantity"
-                                defaultValue={marginData?.order?.quantity}
+                                defaultValue={marginData?.order?.quantity?.toLocaleString()}
                                 onChange={(e) =>
                                   saveForCalculation(
                                     e.target.name,
