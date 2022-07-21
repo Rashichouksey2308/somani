@@ -282,7 +282,7 @@ function Index() {
                       <div className={`${styles.cardBody} card-body `}>
                         <div className={`${styles.content} border_color`}>
                           <div className={`${styles.input_container} row`}>
-   <div
+                            <div
                               className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                             >
                               <div
