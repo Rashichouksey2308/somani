@@ -37,7 +37,7 @@ function Index({ tableName, isVesselHeader, isStatus, dateHeading }) {
           >
             <thead>
               <tr className="table_row">
-                <th>ORDER ID <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon" /> </th>
+                <th>ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /> </th>
                 <th>BUYER NAME</th>
                 <th>COMMODITY</th>
                 {isVesselHeader ?
@@ -48,7 +48,7 @@ function Index({ tableName, isVesselHeader, isStatus, dateHeading }) {
                 <th>{dateHeading}</th>
 
                 {isStatus ?
-                  <th>STATUS  <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon" /> </th>
+                  <th>STATUS  <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /> </th>
                   :
                   <th>PAYMENT STATUS</th>
 

@@ -59,7 +59,7 @@ function Index() {
             >
               <thead>
                 <tr className="table_row">
-                  <th>ORDER ID <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/> </th>
+                  <th>ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon"/> </th>
                   <th>COMMODITY</th>
                   <th>CREATED BY</th>
                   <th>STATUS</th>

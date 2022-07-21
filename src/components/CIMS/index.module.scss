@@ -359,10 +359,8 @@
         img {
                      
             &.sort_image {
-               opacity: 0.4;
-            width: 14px;
-            height: 14px;
-
+                width: 14px;
+                height: 14px;
             }
         }
 
@@ -682,13 +680,10 @@
                     }
                 }
 
-                img {
-                     
+                img {                     
                     &.sort_image {
-                       opacity: 0.4;
-                    width: 14px;
-                    height: 14px;
-
+                        width: 14px;
+                        height: 14px;
                     }
                 }
                 @include respond(md-desktop) {
@@ -842,7 +837,6 @@
   }
   
   .sort_image {
-    opacity: 0.4;
  width: 14px;
  height: 14px;
 

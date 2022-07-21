@@ -37,8 +37,8 @@ function Index() {
                 {fields("Turn-Over (in Cr)",buyerList?.company.turnOver)}
                 {fields("Email ID",buyerList?.company.email)}
                                 
-                {fields("Phone Number",buyerList?.company.mobile.primary.number)}
-                {fields("Whatsapp Number",buyerList?.company.mobile.whatsapp.number)}
+                {fields("Phone Number",buyerList?.company.mobile.primary.number,buyerList?.company.mobile.primary.callingCode)}
+                {fields("Whatsapp Number",buyerList?.company.mobile.whatsapp.number,buyerList?.company.mobile.whatsapp.callingCode)}
                 {fields("Communication Mode",buyerList?.company.communicationMode)}
             
         </div>
@@ -48,14 +48,14 @@ function Index() {
 }
 
 export default Index
-const fields =(head,value)=>{
+const fields =(head,value,countryCode)=>{
     return (
         <>
             <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
                 <span className={`${styles.top} label`}>{head}</span>
                 <div>
                     <span className={`${styles.value} value `}>
-                  {value}                  
+                  {countryCode? countryCode : ''} {value}                  
                     </span>
                 </div>
             </div>

@@ -64,7 +64,7 @@ function Index() {
         >
           <thead>
           <tr className="table_row">
-              <th>SR. NO. <img className={`mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon"/> </th>
+              <th>SR. NO. <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon"/> </th>
               <th>VESSEL NAME</th>
               <th>IMO NUMBER</th>
               <th>CONTAINER NUMBER</th>

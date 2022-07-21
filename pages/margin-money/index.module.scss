@@ -8,6 +8,7 @@
             font-size: 34px;
             font-weight: bold;
             line-height: 41px;
+            letter-spacing: 0.53px;
             margin: 0;
             text-transform: capitalize;
             span {
@@ -31,6 +32,7 @@
             color: #ffffff;
             font-weight: bold;
             line-height: 23px;
+            letter-spacing: 0.53px;
             width: 211px;
             height: 48px;
             padding: 12px 0;
@@ -58,6 +60,7 @@
         }
         .lastModified {
             font-size: 14px;
+            letter-spacing: 0.53px;
             color: rgba(40, 55, 86, 0.6);
             font-weight: normal;
             line-height: 16px;
@@ -87,6 +90,7 @@
                     font-size: 22px;
                     font-weight: bold;
                     line-height: 27px;
+                    letter-spacing: 0.53px;
                     padding: 5px;
                     border: none;
                     margin: 0 22px;
@@ -240,9 +244,10 @@
                     font-weight: bold;
                     font-size: 20px;
                     line-height: 25px;
+                    letter-spacing: 0.53px;
                 }
                 .input_container {
-                    margin-top: 20px;
+                    // margin-top: 20px;
                     margin-bottom: 10px;
                     padding-bottom: 14px;
                     .radio_heading {
@@ -251,6 +256,7 @@
                         font-size: 16px;
                         line-height: 17px;
                         font-weight: 500;
+                        letter-spacing: 0.53px;
                     }
                     .each_input {
                         position: relative;
@@ -282,7 +288,7 @@
                             top: 27px;
                             left: 30px;
                             font-size: 16px;
-                            line-height: 0.5;
+                            line-height: 17px;
                             margin-bottom: 0;
                             letter-spacing: 0.53px;
                             position: absolute;
@@ -290,9 +296,7 @@
                             box-sizing: border-box;
                             transform: translateY(-31px);
                             transition: 0.3s all ease-in-out;
-                            .blue {
-                                color: #3687E8;
-                            }
+
                         }
                         .input_field {
                             height: 60px;
@@ -866,4 +870,51 @@
         margin-bottom: 140px;
         // height: calc(100vh - 165px);
     }
+}
+.subHeading{
+    font-size:16px;
+    line-height:17px;
+    letter-spacing: 0.53px;
+    font-weight:500;
+}
+.blue {
+    color: #3687E8;
+    font-size: 16px !important;
+    line-height: 17px !important;
+    letter-spacing: 0.53px !important;
+}
+.lastComponent{
+    margin-bottom:10rem !important;
+}
+.search_image{
+        margin-left: -40px;
+}
+.comments{
+    font-size:16px !important;
+    line-height: 17px !important;
+    letter-spacing: 0.53px !important;
+    font-weight: 500 !important;
+    margin-left: 5rem;
+    margin-top: 0.7rem;
+
+}
+.customSelect {
+    appearance: none;
+    // position: relative;
+
+}
+
+.arrow {
+
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+
+
 }
