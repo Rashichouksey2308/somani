@@ -5,11 +5,11 @@ import { Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 
 const index = ({ saveOrderData, darkMode }) => {
-  const saveDate = (e) => {
+  const saveDate = (value, name) => {
     // console.log(e.target.value, "this is date")
-    const d = new Date(e.target.value)
+    const d = new Date(value)
     let text = d.toISOString()
-    saveOrderData(e.target.name, text)
+    saveOrderData(name, text)
   }
   return (
     <div className={`${styles.main} border_color`}>
@@ -164,9 +164,7 @@ const index = ({ saveOrderData, darkMode }) => {
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
              <div className="d-flex">
-                    <DateCalender labelName='Expected Date Of Shipment'
-                      name='ExpectedDateOfShipment'
-                      onChange={(e) => { saveDate(e, e.target.value)}}
+                    <DateCalender name='ExpectedDateOfShipment' saveDate={saveDate} labelName='Expected Date Of Shipment'
                     />
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
