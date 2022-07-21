@@ -623,11 +623,12 @@ function Index() {
 
   const uploadDocumentHandler = () => {
     const fd = new FormData()
+    console.log(newDoc,newDoc.document,"pdfFile",newDoc.module)
     fd.append('document', newDoc.document)
-    fd.append('module', JSON.stringify(newDoc.module))
-    fd.append('order', JSON.stringify(orderList?.termsheet?.order))
-    fd.append('type', JSON.stringify(newDoc.type))
-    fd.append('name', JSON.stringify(newDoc.name))
+    fd.append('module', newDoc.module)
+    fd.append('order', orderList?.termsheet?.order)
+    // fd.append('type', newDoc.type))
+    fd.append('name', newDoc.name)
     
     dispatch(AddingDocument(fd))
   }
