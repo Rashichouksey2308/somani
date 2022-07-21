@@ -200,7 +200,7 @@
                         height: 31px;
                         background: #ea3f3f42 0% 0% no-repeat padding-box;
                         letter-spacing: 0px;
-                      
+                    
                         span {
                             padding-left: 0.5rem;
                             padding-right: 0.5rem;
@@ -213,20 +213,20 @@
                             @include respond(md-desktop) {
                                     font-size: 15px !important;
                                 white-space: nowrap;
-                                  
+                                
                                 }
                             
                                 @include respond(sm-desktop) {
                                     font-size: 14px !important;
                                 white-space: nowrap;
-                                 
+                                
                                 }
                             
                                 @include respond(phone) {
                                     font-size: 12px !important;
                                     width: fit-content;
                                     white-space: nowrap;
-                                   
+                                
                                 }
 
                         }
@@ -336,7 +336,7 @@
                 box-sizing: border-box;
                 h3 {
                     font-size: 20px;
-                 
+                
                     font-weight: bold;
                     line-height: 25px;
                     margin-bottom: 15px;
@@ -348,7 +348,7 @@
                         font-weight: bold;
                         line-height: 18px;
                         padding: 13px 30px;
-                      
+                    
                         vertical-align: middle;
                         text-transform: uppercase;
                         border: 3px solid #f0f2f6;
@@ -469,11 +469,11 @@
                         }                                                
                     }
                     &.collapsed {
-                      border-radius: 8px !important;
+                    border-radius: 8px !important;
                         .downArrow {
-                          right: 46px;
-                          margin-top: -8px;
-                          transform: rotate(-90deg);
+                        right: 46px;
+                        margin-top: -8px;
+                        transform: rotate(-90deg);
                         }
                     }
                 }
@@ -526,14 +526,14 @@
                 border-bottom: 2px solid rgba(217, 217, 217, 0.316);
                 .col {
                     span {
-                      font-size: 16px;
-                      line-height: 18px;
-                      font-weight: bold;
-                      margin-top: 0.5rem;
+                    font-size: 16px;
+                    line-height: 18px;
+                    font-weight: bold;
+                    margin-top: 0.5rem;
                     }
                     .val {
-                      flex-grow: 1;
-                      flex-wrap: wrap;
+                    flex-grow: 1;
+                    flex-wrap: wrap;
                     }
                 }
             }
@@ -546,12 +546,12 @@
                     
                 }
             .checkbox_Container {
-             p{
+            p{
                 color: #00000080;
                 font-size:16px;
                 line-height:17px;
-             }
-                                                                 
+            }
+                                                                
             }
             .risk_Container {
                 margin-top:5rem;
@@ -599,7 +599,7 @@
                     }
                 
                     .control input:checked~.control__content {
-                       
+                    
                         background-color: #3687E8;
                         color: #fff;
                         border: none;
@@ -641,20 +641,19 @@
             padding-right: 0px;
             padding-top:0px;
             @include respond(md-desktop) {
-                    width: calc(100vw - 30px);
-                        overflow-x: auto;
-                }
-            
-                @include respond(sm-desktop) {
-                    width: calc(100vw - 30px);
-                        overflow-x: auto;
-                }
-            
-                @include respond(phone) {
-                    width: calc(100vw - 30px);
-                    overflow-x: auto;
-                }
-           
+                width: calc(100vw - 30px);
+                overflow-x: auto;
+            }
+        
+            @include respond(sm-desktop) {
+                width: calc(100vw - 30px);
+                overflow-x: auto;
+            }
+        
+            @include respond(phone) {
+                width: calc(100vw - 30px);
+                overflow-x: auto;
+            }            
         }
     }
 }
@@ -948,7 +947,7 @@
 
 .main {
     border-radius: 6px;
-    margin-top: 20px;
+    margin-bottom: 26px;
     .head_container {
         padding: 25px;
         text-align: center;

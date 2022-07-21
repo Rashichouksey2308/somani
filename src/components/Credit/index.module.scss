@@ -2,7 +2,7 @@
 
 
 .main {
-    margin-bottom: 1rem;
+    margin-bottom: 26px;
         border-radius: 6px !important;
   
     .head_container {
@@ -224,7 +224,7 @@ height: 48px;
     .datatable {
         border-radius: 6px;
         padding: 0px;
-        width:calc(100vw - 30px);
+        // width:calc(100vw - 30px);
         .table_scroll_outer {
             width: 100%;
             display: table;
