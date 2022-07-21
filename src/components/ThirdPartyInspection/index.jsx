@@ -101,7 +101,7 @@ export default function Index() {
             <div className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`} >
               <h3 className={`${styles.heading}`}>Inspection Details</h3>
               <button className={styles.product_btn} type="button"> Product Specification
-                <img className='img-fluid ml-2' src="./static/blue-eye.svg" alt="blue-eye" />
+                <img className='img-fluid ml-2' src="/static/blue-eye.svg" alt="blue-eye" />
               </button>
             </div>
             <div className={`${styles.dashboard_form} card-body`}>
@@ -174,9 +174,9 @@ export default function Index() {
                       <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                         <thead>
                           <tr>
-                            <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon" /></th>
-                            <th>FORMAT <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon" /></th>
-                            <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon" /></th>
+                            <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /></th>
+                            <th>FORMAT <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /></th>
+                            <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /></th>
                             <th>ACTION</th>
                           </tr>
                         </thead>
@@ -325,10 +325,10 @@ export default function Index() {
                         >
                           <thead>
                             <tr>
-                              <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon" /> </th>
-                              <th>FORMAT <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon" /> </th>
-                              <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon" /> </th>
-                              <th>UPLOADED BY <img className={`${styles.sort_img} mb-1`} src="./static/icons8-sort-24.png " alt="Sort icon" /> </th>
+                              <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /> </th>
+                              <th>FORMAT <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /> </th>
+                              <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /> </th>
+                              <th>UPLOADED BY <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /> </th>
                               <th>STATUS</th>
                               <th>ACTION</th>
                               <th>

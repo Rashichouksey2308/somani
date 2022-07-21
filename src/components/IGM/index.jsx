@@ -258,9 +258,9 @@ export default function Index() {
                     <table className={`${styles.table} table mt-3`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
-                          <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
-                          <th>FORMAT <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
-                          <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.png " alt="Sort icon" /></th>
+                          <th>DOCUMENT NAME <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /></th>
+                          <th>FORMAT <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /></th>
+                          <th>DOCUMENT DATE <img className={`${styles.sort_img} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /></th>
                           <th>ACTION</th>
                         </tr>
                       </thead>
