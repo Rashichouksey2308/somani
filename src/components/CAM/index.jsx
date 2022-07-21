@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import moment from 'moment'
 import { Row, Col } from 'react-bootstrap'
@@ -17,6 +17,9 @@ import {
   CategoryScale,
   Filler,
 } from 'chart.js'
+import { useDispatch } from 'react-redux'
+import { GetAllOrders } from 'redux/registerBuyer/action'
+import { GetCompanyDetails } from 'redux/companyDetail/action'
 
 Chart.register(
   ArcElement,
@@ -30,6 +33,17 @@ Chart.register(
 )
 
 function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (window) {
+      let id1 = sessionStorage.getItem('orderID')
+      let id2 = sessionStorage.getItem('companyID')
+      dispatch(GetAllOrders({ orderId: id1 }))
+      dispatch(GetCompanyDetails({ company: id2 }))
+    }
+  }, [dispatch])
+
   console.log(camData, 'THIS IS CAM DATA')
   console.log(companyData, 'THIS IS COMPANY DATA')
 
@@ -168,7 +182,7 @@ function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
         sanctionComments,
         setSanctionComments,
         addApproveRemarkArr,
-        approveComment
+        approveComment,
       )}
       {Documents()}
     </>
@@ -912,7 +926,6 @@ const directorDetails = (camData) => {
           className="collapse"
           aria-labelledby="directorDetails"
           data-parent="#profileAccordion"
-          
         >
           <div className={`${styles.order_wrapper} card-body`}>
             <table
@@ -953,7 +966,6 @@ const directorDetails = (camData) => {
                   </tr>
                 ),
               )}
-
             </table>
           </div>
         </div>
@@ -2246,13 +2258,11 @@ const strengthAndWeakness = (camData) => {
   )
 }
 const sectionTerms = (
-  
   camData,
   sanctionComments,
   setSanctionComments,
   addApproveRemarkArr,
-  approveComment
-  
+  approveComment,
 ) => {
   return (
     <>
@@ -2265,10 +2275,31 @@ const sectionTerms = (
           aria-controls="sectionTerms"
         >
           <h2 className="mb-0">Sanction Terms</h2>
-           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
-            <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Total Limit:</span>1,900.00</span>
-            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Utilised Limit:</span>1,900.00</span>
-            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Available Limit:</span>1,900.00</span>
+          <div className={`${styles.subHeadContainer} d-flex ml-5`}>
+            <span
+              className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}
+            >
+              <span className={`${styles.lightCompliance} mr-2`}>
+                Total Limit:
+              </span>
+              1,900.00
+            </span>
+            <span
+              className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}
+            >
+              <span className={`${styles.lightCompliance} mr-2`}>
+                Utilised Limit:
+              </span>
+              1,900.00
+            </span>
+            <span
+              className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}
+            >
+              <span className={`${styles.lightCompliance} mr-2`}>
+                Available Limit:
+              </span>
+              1,900.00
+            </span>
           </div>
           <span>+</span>
         </div>
@@ -2303,7 +2334,13 @@ const sectionTerms = (
                 <td>
                   <input type="checkbox"></input>
                 </td>
-                <td><input className={`${styles.text}`} type="text" placeholder="1,900.00"></input></td>
+                <td>
+                  <input
+                    className={`${styles.text}`}
+                    type="text"
+                    placeholder="1,900.00"
+                  ></input>
+                </td>
               </tr>
               <tr>
                 <td>Order Value</td>
@@ -2314,7 +2351,13 @@ const sectionTerms = (
                 <td>
                   <input type="checkbox"></input>
                 </td>
-              <td><input className={`${styles.text}`} type="text" placeholder="1,900.00"></input></td>
+                <td>
+                  <input
+                    className={`${styles.text}`}
+                    type="text"
+                    placeholder="1,900.00"
+                  ></input>
+                </td>
               </tr>
             </table>
             <div>
@@ -2355,7 +2398,9 @@ const sectionTerms = (
                     </div>
                   ))}
 
-                <div className={`mb-3 ${styles.heading} heading `}>Approval Remarks</div>
+                <div className={`mb-3 ${styles.heading} heading `}>
+                  Approval Remarks
+                </div>
                 <textarea
                   className="form-control input"
                   id="exampleFormControlTextarea1"
@@ -2687,9 +2732,7 @@ const customerRating = (dataline, lineOption) => {
           <span className=" d-flex align-items-center justify-content-between">
             <span
               className={` d-flex align-items-center justify-content-between`}
-            >
-             
-            </span>
+            ></span>
             +
           </span>
         </div>
@@ -2701,10 +2744,11 @@ const customerRating = (dataline, lineOption) => {
         >
           <div className={`${styles.rating_wrapper} card-body`}>
             <Row className={`m-0`}>
-              <Col className={`${styles.leftCol} p-0 border_color d-flex`} md={6}>
-                <div className={`${styles.gauge}`}>
-                  Gauge
-                </div>
+              <Col
+                className={`${styles.leftCol} p-0 border_color d-flex`}
+                md={6}
+              >
+                <div className={`${styles.gauge}`}>Gauge</div>
                 <div className={`${styles.score} `}>
                   <div className={`${styles.excellent}`}>
                     <span>EXCELLENT</span>
@@ -2714,55 +2758,59 @@ const customerRating = (dataline, lineOption) => {
                       <img src="static/darktick.svg"></img>
                     </div>
                     <div className={`${styles.content}`}>
-                       <span className={`${styles.content_heading}`}>CREDIT SCORE</span>
-                       <div>
-                        <span>9.0</span><span>/10</span>
-                       </div>
+                      <span className={`${styles.content_heading}`}>
+                        CREDIT SCORE
+                      </span>
+                      <div>
+                        <span>9.0</span>
+                        <span>/10</span>
+                      </div>
                     </div>
                   </div>
-
                 </div>
-              
               </Col>
               <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
-                <div className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}>
-                    <div>
+                <div
+                  className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}
+                >
+                  <div>
                     <span>BUSINESS PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
-                   
-                    <div
-                      style={{ backgroundColor: '#FFB700' }}
-                      className={`${styles.fill}`}
-                    ></div>
-                    <span>80%</span>
-                  </div>
+                      <div
+                        style={{ backgroundColor: '#FFB700' }}
+                        className={`${styles.fill}`}
+                      ></div>
+                      <span>80%</span>
                     </div>
+                  </div>
                 </div>
-                <div className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}>
-                    <div>
+                <div
+                  className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}
+                >
+                  <div>
                     <span>BUSINESS PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
-                   
-                    <div
-                      style={{ backgroundColor: '#FF4230' }}
-                      className={`${styles.fill}`}
-                    ></div>
-                    <span>80%</span>
-                  </div>
+                      <div
+                        style={{ backgroundColor: '#FF4230' }}
+                        className={`${styles.fill}`}
+                      ></div>
+                      <span>80%</span>
                     </div>
+                  </div>
                 </div>
-                <div className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}>
-                    <div>
+                <div
+                  className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}
+                >
+                  <div>
                     <span>BUSINESS PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
-                   
-                    <div
-                      style={{ backgroundColor: '#83C400' }}
-                      className={`${styles.fill}`}
-                    ></div>
-                    <span>80%</span>
-                  </div>
+                      <div
+                        style={{ backgroundColor: '#83C400' }}
+                        className={`${styles.fill}`}
+                      ></div>
+                      <span>80%</span>
                     </div>
+                  </div>
                 </div>
               </Col>
             </Row>

@@ -47,6 +47,8 @@ function Index() {
       dispatch(GetAllOrders({ orderId: buyer._id }))
       dispatch(GetDocuments({order: buyer._id}))
       dispatch(GetCompanyDetails( {company : buyer.company._id}))
+      sessionStorage.setItem('orderID', buyer._id)
+      sessionStorage.setItem('companyID', buyer.company._id)
       Router.push('/review')
     }
   }

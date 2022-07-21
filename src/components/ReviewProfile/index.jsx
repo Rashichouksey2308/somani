@@ -179,7 +179,7 @@ function Index({ handleChange, reviewedProfile }) {
                         id="textDate"
                         className={`${styles.input}`}
                         onBlur={(e) =>
-                          handleChange(e.target.name, e.target.value)
+                          handleChange(e.target.name, Number(e.target.value * 10000000))
                         }
                       />
                     )}
@@ -244,7 +244,7 @@ function Index({ handleChange, reviewedProfile }) {
                         id="textDate"
                         className={`${styles.input}`}
                         onBlur={(e) =>
-                          handleChange(e.target.name, e.target.value)
+                          handleChange(e.target.name, Number(e.target.value * 10000000))
                         }
                       />
                     )}

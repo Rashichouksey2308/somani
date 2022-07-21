@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
@@ -7,11 +8,11 @@ const index = ({orderDetail, saveShipmentData}) => {
 
     // const {shipmentDetail}= orderDetail;
 
-    const saveDate = (e) => {
-        const d = new Date(e.target.value);
-        let text = d.toISOString()
-        saveShipmentData( e.target.name, text)
-      }
+    const saveDate = (value, name) => {
+      const d = new Date(value);
+      let text = d.toISOString()
+      saveShipmentData( name, text)
+    }
 
   return (
     <div className={`${styles.main} border-color  card`}>
@@ -43,7 +44,7 @@ const index = ({orderDetail, saveShipmentData}) => {
                 </Form.Group>
                 <Form.Group className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                   <div className="d-flex">
-                    <DateCalender labelName='Laycan at Load Port from'/>
+                    <DateCalender name='loadPort.fromDate' saveDate={saveDate} labelName='Laycan at Load Port from'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -65,7 +66,7 @@ const index = ({orderDetail, saveShipmentData}) => {
 
                     <Form.Group className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                       <div className="d-flex">
-                    <DateCalender labelName='Laycan at Load Port to'/>
+                    <DateCalender name='loadPort.toDate' saveDate={saveDate} labelName='Laycan at Load Port to'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -86,7 +87,7 @@ const index = ({orderDetail, saveShipmentData}) => {
                     </Form.Group>
                 <Form.Group className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`} >
                   <div className="d-flex">
-                    <DateCalender labelName='Last date of shipment'/>
+                    <DateCalender name='lastDateOfShipment' saveDate={saveDate} labelName='Last date of shipment'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -109,7 +110,7 @@ const index = ({orderDetail, saveShipmentData}) => {
               
                 <Form.Group className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`} >
                    <div className="d-flex">
-                    <DateCalender labelName='ETA at Discharge Port from'/>
+                    <DateCalender name="ETAofDischarge.fromDate" saveDate={saveDate} labelName='ETA at Discharge Port from'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -129,7 +130,7 @@ const index = ({orderDetail, saveShipmentData}) => {
                 </Form.Group>
                 <Form.Group className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`} >
                    <div className="d-flex">
-                    <DateCalender labelName='ETA at Discharge Port to'/>
+                    <DateCalender name="ETAofDischarge.toDate" saveDate={saveDate} labelName='ETA at Discharge Port to'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
