@@ -2180,4 +2180,3 @@ const gstPurchase = (head, gstFilteredData) => {
     </>
   )
 }
-

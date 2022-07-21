@@ -13,18 +13,18 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 mt-2 border-0">
-        <div className="p-4">
-        <div className={styles.head_header}>
+      <div className="container-fluid mb-5 mt-2 border-0">
+        <div className="p-3">
+        <div className={`${styles.head_header} ml-5`}>
           <img
-            className={`${styles.arrow} mr-3 img-fluid`}
+            className={`${styles.arrow} mr-2 img-fluid`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
           />
           <h1 className={`${styles.heading}`}>Letter of Credit </h1>
         </div>
 
-        <div className={`${styles.wrapper} mt-4 card`}>
+        <div className={`${styles.wrapper} mt-3 card`}>
         <div
           className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -227,7 +227,8 @@ function Index() {
                       required
                       type="number"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
+                    <label className={`${styles.label_heading} label_heading`}
+                    style={{left:'20px'}}>
                       No. of Days
                       <strong className="text-danger">*</strong>
                     </label>
@@ -580,7 +581,8 @@ function Index() {
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                     <div className="d-flex">
                   <select
-                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}>
+                      className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                      >
                       <option>Bnp Paribas Paribas - Bnpafrppxx</option>
                       <option>Balaji Traders</option>
                     </select>
@@ -620,7 +622,7 @@ function Index() {
                       required
                       type="text"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
+                    <label className={`${styles.label_heading} label_heading`} style={{top:'22px'}}>
                       (57A) Second Advising Bank, if Applicable
                       <strong className="text-danger">*</strong>
                     </label>
@@ -631,7 +633,7 @@ function Index() {
                       required
                       type="text"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
+                    <label className={`${styles.label_heading} label_heading`} style={{top:'22px'}}>
                       (58A) Requested Confirmation Party
                       <strong className="text-danger">*</strong>
                     </label>

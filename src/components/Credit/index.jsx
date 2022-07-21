@@ -432,7 +432,13 @@ const index = ({
                   />
                 </div>
               </div>
+             
+  
+            
             </div>
+          <div className={`${styles.saveButton} m-0 mt-4`}>
+              <div className={`${styles.button} ml-0`} ><span>Save</span></div>
+          </div>
           </div>
         </div>
       </div>
