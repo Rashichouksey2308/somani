@@ -132,6 +132,7 @@
             display: table-cell;
             overflow-x: auto;
             .table {
+                margin-bottom: 0px;
                 th {
                     font-size: 15px;
                     font-weight: bold;
@@ -145,6 +146,11 @@
                         @include respond(sm-desktop) {
                             padding-left: 15px;
                         }
+                    }
+                    img {
+                        opacity: 0.4;
+                        width: 14px;
+                        height: 14px;
                     }
                     @include respond(md-desktop) {
                         font-size: 14px;
