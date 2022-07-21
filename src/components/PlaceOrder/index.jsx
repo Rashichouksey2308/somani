@@ -1,14 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
 import NewOrder from '../NewOrder'
 import NewShipmentDetails from '../NewShipmentDetails'
 import CommonSave from '../CommonSave'
 import { toast } from 'react-toastify'
+import { useSelector, useDispatch } from 'react-redux'
+import { PlaceNewOrder } from 'redux/newOrder/action'
+
 
 const Index = () => {
-  const [orderDetails, setOrderDetails] = useState({
+
+  const dispatch = useDispatch()
+
+  const {singleOrder} = useSelector((state)=>state.buyer)
+
+  const [orderData, setOrderData] = useState({
     transactionType: '',
     commodity: '',
     quantity: null,
@@ -40,11 +47,14 @@ const Index = () => {
     shipmentType: '',
   })
 
+  console.log(shipment, "THIS IS SHIPMENT ")
+
+
   const saveOrderData = (name, value) => {
-    const newInput = { ...orderDetails }
+    const newInput = { ...orderData }
     newInput[name] = value
     // console.log(newInput)
-    setOrderDetails(newInput)
+    setOrderData(newInput)
   }
 
   const saveShipmentData = (name, value) => {
@@ -57,120 +67,119 @@ const Index = () => {
   }
 
   const onOrderSave = () => {
-    if (orderDetails?.transactionType?.trim() === '') {
+    if (orderData?.transactionType?.trim() === '') {
       let toastMessage = 'Invalid Transaction Type'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.commodity?.trim() === '') {
+    } else if (orderData?.commodity?.trim() === '') {
       let toastMessage = 'Commodity can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.quantity === '') {
+    } else if (orderData?.quantity === '') {
       let toastMessage = 'Quantity can not be Empty '
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.unitOfQuantity?.trim() === '') {
+    } else if (orderData?.unitOfQuantity?.trim() === '') {
       let toastMessage = 'Please Provide unit Of Quantity'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.orderValue === '') {
+    } else if (orderData?.orderValue === '') {
       let toastMessage = 'Please check the Order value  '
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.orderCurrency?.trim() === '') {
-      let toastMessage = 'Order Currency cannot be empty'
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      }
-      return
-    } else if (orderDetails?.unitOfValue?.trim() === '') {
+    } 
+    // else if (orderData?.orderCurrency?.trim() === '') {
+    //   let toastMessage = 'Order Currency cannot be empty'
+    //   if (!toast.isActive(toastMessage)) {
+    //     toast.error(toastMessage, { toastId: toastMessage })
+    //   }
+    //   return
+    // } 
+    else if (orderData?.unitOfValue?.trim() === '') {
       let toastMessage = 'Please set the unit of value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.supplierName?.trim() === '') {
+    } else if (orderData?.supplierName?.trim() === '') {
       let toastMessage = 'Supplier Name cannot be empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.countryOfOrigin.trim() === '') {
+    } else if (orderData.countryOfOrigin.trim() === '') {
       let toastMessage = 'Country Of Origin can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.portOfDischarge?.trim() === '') {
+    } else if (orderData?.portOfDischarge?.trim() === '') {
       let toastMessage = 'Port Of Discharge can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.ExpectedDateOfShipment?.trim() === '') {
+    } else if (orderData?.ExpectedDateOfShipment?.trim() === '') {
       let toastMessage = 'Expected Date Of Shipment can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.incoTerm?.trim() === '') {
+    } else if (orderData?.incoTerm?.trim() === '') {
       let toastMessage = 'the incoTerm can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.grade?.trim() === '') {
+    } else if (orderData?.grade?.trim() === '') {
       let toastMessage = 'Grade can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.tolerance === '') {
+    } else if (orderData?.tolerance === '') {
       let toastMessage = 'Tolerance can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.transactionPeriodDays === '') {
+    } else if (orderData?.transactionPeriodDays === '') {
       let toastMessage = 'Transaction Period Days can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.manufacturerName?.trim() === '') {
+    } else if (orderData?.manufacturerName?.trim() === '') {
       let toastMessage = 'Manufacturer Name can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else {
-      if (orderDetails.unitOfValue === 'Cr' || 'Crores') {
+      
         const obj = {
-          ...orderDetails,
+          orderDetails:{...orderData},
           shipmentDetail: { ...shipment },
-          // company: singleOrder._id,
-          orderValue: orderDetails.orderValue * 10000000,
+          company: singleOrder?.data[0]?.company?._id,
         }
-        dispatch(UpdateOrderShipment(obj))
-      } else {
-        const obj = {
-          ...orderDetails,
-          shipmentDetail: { ...shipment },
-          order: orderList._id,
-        }
-        dispatch(UpdateOrderShipment(obj))
-      }
+        dispatch(PlaceNewOrder(obj))
+      
     }
+  }
+
+  const clearData = () => {
+    document.getElementById('ShipmentDetailsForm').reset()
+    document.getElementById('OrderDetailsForm').reset()
   }
 
   return (
@@ -185,7 +194,7 @@ const Index = () => {
           <h1 className={styles.heading}>Place a New Order</h1>
         </div>
         <div>
-          <button className={`${styles.clear_btn} clear_btn`}>Clear All</button>
+          <button onClick={()=>clearData()} className={`${styles.clear_btn} clear_btn`}>Clear All</button>
         </div>
       </div>
 
@@ -221,9 +230,9 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <NewOrder saveOrderData={saveOrderData} />
-      <NewShipmentDetails saveShipmentData={saveShipmentData} />
-      <CommonSave />
+      <NewOrder orderData={orderData} saveOrderData={saveOrderData} />
+      <NewShipmentDetails shipment={shipment} saveShipmentData={saveShipmentData} />
+      <CommonSave onSave={onOrderSave} />
     </div>
   )
 }

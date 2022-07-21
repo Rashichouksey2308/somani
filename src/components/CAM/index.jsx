@@ -2266,9 +2266,9 @@ const sectionTerms = (
         >
           <h2 className="mb-0">Sanction Terms</h2>
            <div className={`${styles.subHeadContainer} d-flex ml-5`}>
-            <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Total Limit:</span>{1,900.00}</span>
-            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Utilised Limit:</span>{1,900.00}</span>
-            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Available Limit:</span>{1,900.00}</span>
+            <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Total Limit:</span>1,900.00</span>
+            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Utilised Limit:</span>1,900.00</span>
+            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} mr-2`}>Available Limit:</span>1,900.00</span>
           </div>
           <span>+</span>
         </div>

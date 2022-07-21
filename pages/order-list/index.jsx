@@ -6,38 +6,26 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
-import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 
 function Index() {
-
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
 
   const { singleOrder } = useSelector((state) => state.buyer)
 
-  // useEffect(() => {
-  //   dispatch(GetOrders(`?page=${currentPage}`))
-  // }, [dispatch, currentPage])
-  
- useEffect(() => {
-     dispatch(setPageName('leads'))
-     dispatch(setDynamicName(singleOrder?.data[0]?.company?.companyName))
-  },[dispatch, singleOrder])
+  useEffect(() => {
+    dispatch(setPageName('leads'))
+    dispatch(setDynamicName(singleOrder?.data[0]?.company?.companyName))
+  }, [dispatch, singleOrder])
 
-  const handleRoute = (buyer) => {
-    // if (buyer.queue === 'ReviewQueue') {
-    //   dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
-    //   Router.push('/review/id')
-    // }
-    // else if (buyer.queue === 'CreditQueue') {
-    //   dispatch(GetAllOrders({ orderId: buyer._id }))
-    //   Router.push('/review')
-    // }
-    //  Router.push('/lc-module')
+  const handleRoute = () => {
+    dispatch(GetOrders(`?company=${singleOrder?.data[0]?.company?._id}`))
+    setTimeout(() => {
+      Router.push('/new-order')
+    }, 1000);
+    
   }
-
-
-
 
   return (
     <>
@@ -46,20 +34,24 @@ function Index() {
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            
-             <div className={styles.head_header}>
-                    <img className={`${styles.arrow} img-fluid`}
-                        src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-                    <h1 className={`${styles.heading} heading`}>{singleOrder?.data[0]?.company?.companyName}</h1>
-                </div>
-        
+            <div className={styles.head_header}>
+              <img
+                className={`${styles.arrow} img-fluid`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow"
+              />
+              <h1 className={`${styles.heading} heading`}>
+                {singleOrder?.data[0]?.company?.companyName}
+              </h1>
+            </div>
 
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary d-flex align-items-center`}
-              onClick={() => Router.push('/new-order')}
+              onClick={() => handleRoute()}
             >
-              <span className={`ml-4 mb-1`}>+</span>< span className={`mr-3 ml-1 `}>New Order</span>
+              <span className={`ml-4 mb-1`}>+</span>
+              <span className={`mr-3 ml-1 `}>New Order</span>
             </button>
           </div>
 
@@ -166,7 +158,6 @@ function Index() {
                 >
                   {' '}
                   <img
-
                     src="/static/keyboard_arrow_right-3.svg"
                     alt="arrow right"
                     className="img-fluid"
@@ -177,7 +168,6 @@ function Index() {
                     if (currentPage+1 < Math.ceil(singleOrder?.totalCount / 10)) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
-
                   }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
@@ -200,18 +190,26 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg"/></th>
+                      <th>
+                        ORDER ID{' '}
+                        <img
+                          className={`mb-1`}
+                          src="/static/icons8-sort-24.svg"
+                        />
+                      </th>
                       <th>COMMODITY</th>
                       <th>CREATED BY</th>
                       <th>CREATED ON</th>
                       <th>STATUS</th>
-                      
                     </tr>
                   </thead>
                   <tbody>
                     {singleOrder &&
                       singleOrder?.data?.map((buyer, index) => (
-                        <tr key={index} className={`${styles.table_row} table_row`}>
+                        <tr
+                          key={index}
+                          className={`${styles.table_row} table_row`}
+                        >
                           <td>{buyer.orderId}</td>
                           <td
                             className={`${styles.buyerName}`}
@@ -222,20 +220,24 @@ function Index() {
                             {buyer.commodity}
                           </td>
                           <td>{buyer.createdBy.fName}</td>
-                         
+
                           <td>{buyer.createdAt.split('T')[0]}</td>
                           <td>
                             <span
                               className={`${styles.status} ${
-                              buyer.queue === 'Rejected' ? styles.rejected :  buyer.queue === 'ReviewQueue'
+                                buyer.queue === 'Rejected'
+                                  ? styles.rejected
+                                  : buyer.queue === 'ReviewQueue'
                                   ? styles.review
                                   : buyer.queue === 'CreditQueue'
                                   ? styles.approved
                                   : styles.rejected
                               }`}
                             ></span>
-                            
-                          {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
+
+                            {buyer.queue === 'Rejected'
+                              ? 'Rejected'
+                              : buyer.queue === 'ReviewQueue'
                               ? 'Review'
                               : buyer.queue === 'CreditQueue'
                               ? 'Approved'
@@ -243,7 +245,6 @@ function Index() {
                           </td>
                         </tr>
                       ))}
-                  
                   </tbody>
                 </table>
               </div>
