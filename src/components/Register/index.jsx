@@ -288,8 +288,8 @@ function Index() {
   }, [companyDetails.companyName])
 
   return (
-    <Card className={`${styles.card} card2`}>
-      <Card.Header className={`${styles.head_container} border-0 pr-0 pl-2`}>
+    <Card className={`${styles.card}`}>
+      <Card.Header className={`${styles.head_container} border-0`}>
         <div className={styles.head_header}>
           <img
             className={`${styles.arrow} img-fluid`}
