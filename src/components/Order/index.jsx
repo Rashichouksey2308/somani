@@ -2,6 +2,7 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
+import DateCalender from '../DateCalender'
 
 const Index = ({ orderDetail, saveOrderData }) => {
 
@@ -261,7 +262,16 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                 <div className="d-flex">
+                    <DateCalender labelName='Laycan at Load Port from'/>
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
+                {/* <div className="d-flex">
                 <input
                   className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                   type="date"
@@ -280,7 +290,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                     alt="Search"
                   />
                 
-                </div>
+                </div> */}
 
               </Form.Group>
 

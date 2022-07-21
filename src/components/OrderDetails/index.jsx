@@ -2,6 +2,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
 
 const index = ({ saveOrderData, darkMode }) => {
   const saveDate = (e) => {
@@ -163,6 +164,19 @@ const index = ({ saveOrderData, darkMode }) => {
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
              <div className="d-flex">
+                    <DateCalender labelName='Expected Date Of Shipment'
+                      name='ExpectedDateOfShipment'
+                      onChange={(e) => { saveDate(e, e.target.value)}}
+                    />
+                     <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                    />
+                      
+                    </div>  
+                 
+             {/* <div className="d-flex">
               <input
               type="date" 
               name='ExpectedDateOfShipment'
@@ -180,7 +194,7 @@ const index = ({ saveOrderData, darkMode }) => {
                    src="/static/caldericon.svg"
                    alt="Search"
                />
-             </div>
+             </div> */}
 
           </div>
 

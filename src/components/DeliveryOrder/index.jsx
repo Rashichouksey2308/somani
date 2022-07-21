@@ -60,7 +60,39 @@ export default function Index() {
                      <div className='col-lg-3 col-md-4 col-sm-6 text-center'  
                      style={{top:'50px'}}
                      > 
-                     <button className={`${styles.generateBtn} btn`}>Generate</button>
+                     <button className={`${styles.generateBtn} ml-n5 mr-4 btn`}>Generate</button>
+                     <img 
+                      className={`${styles.edit_image} img-fluid mr-3`} 
+                      src="/static/mode_edit.svg" 
+                      alt="edit" />
+                     <img
+                      src="/static/add-btn.svg"
+                      className={`${styles.delete_image} img-fluid`}
+                      alt="add"
+                    />
+                    </div>
+                    <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `} >
+                    <input 
+                    className={`${styles.input_field} input form-control`} type="number"/> 
+                     <label className={`${styles.label_heading} label_heading`}>
+                      Release Order Number<strong className="text-danger">*</strong></label>                   
+                </div> 
+                    <div className='col-lg-3 col-md-6 col-sm-6' style={{top:"35px"}}>
+                      <div className={`${styles.label} text`}>
+                        Quantity Released
+                     </div>
+                      <span className={styles.value}>20,000 MT</span>
+                    </div>
+                <div className='col-lg-3 col-md-6 col-sm-6' style={{top:"35px"}}>
+                      <div className={`${styles.label} text`}>
+                        Delivery Order No.
+                     </div>
+                      <span className={styles.value}>547896589</span>
+                    </div>
+                     <div className='col-lg-3 col-md-4 col-sm-6 text-center'  
+                     style={{top:'50px'}}
+                     > 
+                     <button className={`${styles.generateBtn} mr-4 ml-n5 btn`}>Generate</button>
                      <img 
                       className={`${styles.edit_image} img-fluid mr-3`} 
                       src="/static/mode_edit.svg" 

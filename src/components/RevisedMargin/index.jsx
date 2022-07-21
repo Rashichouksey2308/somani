@@ -29,7 +29,7 @@ const index = () => {
                 <div id="commodityAccordion" className="collapse" aria-labelledby="commodityAccordion" data-parent="#commodityAccordion">
                     <div className={`${styles.cardBody} card-body `}>
                            <div className={`${styles.content} border_color`}>
-                             <div className={`${styles.input_container} row`}>
+                          <div className={`${styles.input_container} row`}>
                           <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
                               <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>A</span>
@@ -63,7 +63,7 @@ const index = () => {
                                  <div className={`${styles.val} heading`}>75</div>
                                 </div>
                           </div>
-                               <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                          <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
                               <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>D</span>
                               </div>
@@ -172,7 +172,7 @@ const index = () => {
                             <span>Calculation</span>
                              <div className={`${styles.input_container} row`}>
                          
-                                <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
+                              <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
                               <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
                                 <span>I</span>
                               </div>
@@ -182,7 +182,7 @@ const index = () => {
                                 </label>
                                  <div className={`${styles.val} heading`}>USD 38,50,000.00</div>
                                 </div>
-                          </div>
+                           </div>
           
                                 <div className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}>
                               <div className={`${styles.alphabet} d-flex justify-content-center align-content-center`}>
