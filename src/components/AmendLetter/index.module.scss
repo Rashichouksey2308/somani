@@ -1,0 +1,138 @@
+@import "../styles/Core/config";
+.root_container{
+    padding:25px;
+    width: 100%;
+    border-bottom: none !important;
+    .head_container {
+            width: 100%;
+            .head_header {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                @include respond(phone) {
+                        align-items: center;
+                        padding: 0.75rem 0rem;
+                    }   
+    
+                .arrow {
+                    width: 13px;
+                    height: 21px;
+                    background: transparent;
+                @include respond(phone) {
+                       
+                        height: 18px;
+                    }
+                }
+    
+                .heading {
+
+                    padding: 12px 0 12px 12px;
+                    font-weight: bold;
+                    font-size: 30px; 
+                    text-transform: capitalize;
+                    margin: 0;
+                    @include respond(phone) {
+                        padding: 12px 0 12px 12px;
+                            font-size: 20px;
+                            margin: 0px;
+                            padding-left: 10px;
+                        }
+    
+                }
+            }
+    
+          
+        }
+  .term_container {
+      padding: 10px 36px 18px 36px;
+      height: 126px;
+      background: #D8EAFF;
+      border: 1px solid #D2D7E5;
+      border-radius: 6px;
+
+     h3 {
+          color: #3687E8;
+         font-size: 34px;
+          line-height: 41px;
+        font-weight: bold;
+      }
+      .sub_heading {
+            color: #111111;
+            font-size: 20px;
+            line-height: 25px;
+            font-weight: 500;
+             span {
+                line-height: 24px;
+                opacity: 0.7;
+                font-weight: normal;
+             }
+      }     
+  }
+
+  .content {
+    
+          .datatable {
+             
+              box-shadow: none !important;
+              border: none !important;
+    
+              .table_scroll_outer {
+                  width: 100%;
+                  display: table;
+                  table-layout: fixed;
+    
+                  .table_scroll_inner {
+                      display: table-cell;
+                      overflow-x: auto;
+    
+                      .table {
+        
+                          
+                          td {
+                              font-size: 20px;
+                              font-weight: 500;
+                              line-height: 25px;
+                              padding: 24px 15px;
+                              border: 1px solid #CAD6E6;
+                              white-space: nowrap;
+    
+                              span {
+                                opacity: 0.7;
+                                line-height: 24px;
+                                font-weight: normal;
+                              }
+                              &:first-child {
+                                  padding-left: 35px;
+    
+                                  @include respond(sm-desktop) {
+                                      padding-left: 15px;
+                                  }
+                              }
+    
+                              @include respond(md-desktop) {
+                                  font-size: 17px;
+                                  padding: 18px 10px;
+                              }
+    
+                              @include respond(sm-desktop) {
+                                  font-size: 15px;
+                                  padding: 15px 10px;
+                              }
+    
+                              @include respond(phone) {
+                                  font-size: 14px;
+                                  padding: 10px;
+                              }
+                          }
+    
+                         
+                      }
+                  }
+              }
+          }
+    
+          .line {
+              border: 2px solid #CAD6E6;
+          }
+    }
+}
