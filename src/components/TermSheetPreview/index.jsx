@@ -148,8 +148,36 @@ function Index() {
           <h1 className={`${styles.heading} heading`}>Termsheet Preview</h1>
         </div>
       </div>
-      
-      <div  className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
+    <div  className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
+       <Row className={`h-50`}>
+         <Col md={4} className={`d-flex justify-content-start align-items-start`}>
+        {termsheet && termsheet?.data?.map((sheet, index) => (
+          <div key={index}>
+          <div>
+            <span className={styles.termSub_head}>Order ID:</span>
+            <span className={styles.termValue}>{sheet.order.orderId}</span>   
+            </div>
+           <div className={`mt-1`}>
+            <span className={styles.termSub_head}>Buyer:</span>
+            <span className={styles.termValue}>{sheet.company.companyName}</span>
+            </div>
+          </div>
+
+           
+       ))}
+
+           </Col>
+            <Col md={4} className={`d-flex justify-content-center align-items-center`}>
+           <span>TERMSHEET</span>
+           </Col>
+            <Col md={4} className={`d-flex justify-content-end  align-items-end`}>
+           <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>22-02-2022</span></div>
+           </Col>
+        
+       </Row>
+       
+      </div>
+      {/* <div  className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
        <Row className={`h-50`}>
            <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
            <span>TERMSHEET</span>
@@ -166,7 +194,7 @@ function Index() {
            </Col>
            
        </Row>))}
-      </div>
+      </div> */}
       <Card className={styles.content}>
        <div>
         <Row className={`${styles.row_head} row_head`}>

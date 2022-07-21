@@ -25,7 +25,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
         }
     }
    
-
+console.log(termsheetDetails?.commodityDetails?.unitOfQuantity,"termsheetDetails?.commodityDetails?.unitOfQuantity")
     return (
         <div className={`${styles.main} main`}>
             <div className={`${styles.head_container} border_color d-flex justify-content-between`} data-toggle="collapse" data-target="#termDetails" aria-expanded="true" aria-controls="termDetails">
@@ -50,8 +50,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                           <div className="d-flex">
 
                             <select id='unitOfQuantity' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommodityDetails} required>
-                                <option value={termsheetDetails?.commodityDetails?.unitOfQuantity}>{termsheetDetails?.commodityDetails?.unitOfQuantity} </option>
-                                <option value="MT">MT</option>
+                                <option value={termsheetDetails?.commodityDetails?.unitOfQuantity}>{termsheetDetails?.commodityDetails?.unitOfQuantity=="mt"?"MT":null} </option>
+                               
                                 <option value="KG">KG</option>
                             </select>
                             <label className={`${styles.label} label_heading`}>Units of Measurement (UOM)<strong className="text-danger">*</strong></label>
@@ -79,18 +79,19 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                             <input id='quantity' className={`${styles.value} input form-control`} value={`${termsheetDetails?.commodityDetails?.quantity} `} onChange={onChangeCommodityDetails} type="text" required />
-                            <span className={styles.percent}><strong>{termsheetDetails?.commodityDetails?.unitOfQuantity}</strong></span>
+                            <span className={styles.percent}><strong>{termsheetDetails?.commodityDetails?.unitOfQuantity=="mt"?"MT":null}</strong></span>
 
                             <label className={`${styles.label} label_heading`}>Quantity<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='perUnitPrice' className={`${styles.value} input form-control`} value={`${termsheetDetails?.commodityDetails?.perUnitPrice} `} onChange={onChangeCommodityDetails} type="text" required />
-                            <span className={styles.percent}><strong>{termsheetDetails?.commodityDetails?.orderCurrency}</strong></span>
+                             <span className={styles.inr}><strong>{termsheetDetails?.commodityDetails?.orderCurrency}</strong></span>
+                            <input id='perUnitPrice' className={`${styles.value} ${styles.inrValue} input form-control`} value={`${termsheetDetails?.commodityDetails?.perUnitPrice} `} onChange={onChangeCommodityDetails} type="text" required />
+                           
 
                             <label className={`${styles.label} label_heading`}>Unit Price<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                                                     <div className='d-flex'>
+                        <div className='d-flex'>
 
                             <select id='tolerance' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeCommodityDetails} required>
                                 <option value={termsheetDetails?.commodityDetails?.tolerance}>±{termsheetDetails?.commodityDetails?.tolerance}% </option>
