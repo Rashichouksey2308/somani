@@ -1,4 +1,4 @@
-//common
+
 .card{
         margin-bottom: 1rem;
 }
@@ -960,13 +960,50 @@ border:none;
         .gauge{
             width:50%;
             height: 100%;
-            background-color:red;
+            .container{
+                width: 100%;
+                height: 100%;
+                positon: relative;
+             .donut{
+                transform: rotate(180deg);
+             }
+            .donut2 {
+                top: 17%;
+                left: -5%;
+                position: absolute;
+                transform: rotate(180deg);
+            }
+            }
+            .score{
+             position: absolute;
+             z-index: 1000;
+             color: #008015;
+             font-size: 30px;
+             font-weight: bold;
+             line-height: 37px;
+             top: 0%;
+             left: 3%;
+            }
+            .arrow {
+                position: absolute;
+                z-index: 1000;
+                color: #008015;
+                font-size: 30px;
+                font-weight: bold;
+                line-height: 37px;
+                top: 50%;
+                left: 50%;
+            }
+
+            
+       
+            
         }
         .score{
             width: 50%;
             height: 100%;
             display: flex;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
             flex-direction: column;
             .excellent{
@@ -1011,13 +1048,29 @@ border:none;
                     flex-direction: column;
                     .content_heading{
                         color: #8492A6;
-                        font-style: 16;
+                        font-style: 16px;
                         line-height:19px;
+                        font-weight: bold;
+
                     }
+                 div{
+                    display: flex;
+                    .score {
+                            font-size: 30px;
+                            line-height: 37px;
+                            font-weight: bold;
+                        }
+                        .outOF{
+                            margin-top: 0.5rem;
+                            margin-left: 0.5rem;
+                            color: #111111;
+                        }
+                 }
 
                 }
             }
         }
+       
       
     }
 
