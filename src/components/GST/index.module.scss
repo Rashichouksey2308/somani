@@ -39,6 +39,7 @@
         color: #3687E8;
         font-weight: normal;
         line-height: 20px;
+        margin-top: -7px;
         @include respond(phone) {
             font-size: 30px;
             line-height: 20px;
@@ -74,7 +75,7 @@
 }
 .cardBody {
     padding: 0px;
-    border-top: 2px solid red !important;
+    border-top: 2px solid red;
     @include respond(md-desktop) {
         padding: 15px !important;
         width: calc(100vw - 35px);
@@ -357,7 +358,7 @@
 }
 .CustomercardBody {
     padding: 0px;
-    border-top: 2px solid red !important;
+    border-top: 2px solid red;
     .content {
         margin-bottom: 1.5rem;
         .header {

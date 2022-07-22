@@ -792,7 +792,7 @@ function Index() {
         </div>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-12  accordion_body">
+            <div className="col-md-12 px-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane fade show active"
@@ -1420,7 +1420,7 @@ function Index() {
                         aria-labelledby="documents"
                         data-parent="#profileAccordion"
                       >
-                        <div className={`${styles.dashboard_form} card-body`}>
+                        <div className={`${styles.dashboard_form} card-body border_color`}>
                           <Form>
                             <div className="row align-items-center pb-4">
                               <div
