@@ -5,10 +5,8 @@ import DateCalender from '../DateCalender'
 
 
 function Index() {
-    const [editStren, setEditStren] = useState(true)
-    const [edit, setEdit] = useState(true)
-
-
+    const [editStren, setEditStren] = useState(false)
+    const [edit, setEdit] = useState(false)
 
   return (
     <>
@@ -398,25 +396,24 @@ function Index() {
                 <div className={`${styles.number} mr-n3`}>1.</div>
                 <Form.Control className={`${styles.paragraph} input`} 
                         as="textarea"
-                        rows={3} 
-                        
-                readOnly={editStren} />
-                <div>
-                <img
-                src="/static/mode_edit.svg"
-                className='img-fluid'
-                alt="edit"
-                onClick={(e) => {setEditStren(!editStren)}}/>
-                <img
-                src="/static/delete 2.svg"
-                className="img-fluid ml-3"
-                alt="delete" />
-               </div>
-        
-              </div>
-              <hr></hr>
-              </div>
-              <hr className={styles.line}></hr>
+                        rows={3}    
+                        readOnly={editStren} />
+                        <div>
+                        <img
+                        src="/static/mode_edit.svg"
+                        className='img-fluid'
+                        alt="edit"
+                        onClick={(e) => {setEditStren(!editStren)}}/>
+                        <img
+                        src="/static/delete 2.svg"
+                        className="img-fluid ml-3"
+                        alt="delete" />
+                      </div>
+                
+                      </div>
+                      <hr></hr>
+                      </div>
+                      <hr className={styles.line}></hr>
 
              
             <div className={`${styles.dashboard_form}`}>
@@ -456,34 +453,14 @@ function Index() {
                 alt="delete" />
             </div>
             </div>
-            <hr></hr>
-            <div className="d-flex justify-content-between pt-4 pb-3">
-            <div className={`${styles.number} mr-n3`}>2.</div>
-                <Form.Control className={`${styles.paragraph} input`} 
-                        as="textarea"
-                        rows={3} 
-                        
-                readOnly={edit} />
-                <div>
-                <img
-                src="/static/mode_edit.svg"
-                className='img-fluid'
-                alt="edit"
-                onClick={(e) => {setEdit(!edit)}}/>
-              
-                <img
-                src="/static/delete 2.svg"
-                className="img-fluid ml-3"
-                alt="delete" />
-            </div>
-            </div>
+           
             </div>
 
             <hr></hr>
             <div className={`${styles.dashboard_form}`}>
             <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
                 <div className='d-flex'>
-            <div className={`${styles.number}`}>3.</div>
+            <div className={`${styles.number}`}>2.</div>
             <h5>PRODUCT SPECIFICATION</h5>
             </div>
                 <div>
@@ -491,9 +468,7 @@ function Index() {
                 src="/static/mode_edit.svg"
                 className='img-fluid'
                 alt="edit"
-                />
-
-              
+                />       
                 <img
                 src="/static/delete 2.svg"
                 className="img-fluid ml-3"
@@ -586,7 +561,7 @@ function Index() {
                       <option>Bnp Paribas Paribas - Bnpafrppxx</option>
                       <option>Balaji Traders</option>
                     </select>
-                    <label className={`${styles.label_heading} label_heading`}>
+                    <label className={`${styles.labels} label_heading`}>
                       (53A) Reimbursing Bank
                       <strong className="text-danger">*</strong>
                     </label>
@@ -604,7 +579,7 @@ function Index() {
                       <option>Bnp Paribas Paribas - Bnpafrppxx</option>
                       <option>Balaji Traders</option>
                     </select>
-                    <label className={`${styles.label_heading} label_heading`}>
+                    <label className={`${styles.labels} label_heading`}>
                       (57) Advise Through Bank
                       <strong className="text-danger">*</strong>
                     </label>

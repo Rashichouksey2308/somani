@@ -123,6 +123,31 @@
                     font-size: 12px;
                 }
                 }
+                .labels {
+                    top: -4px;
+                    left: 30px;
+                    font-size: 16px;
+                    line-height: 0.5;
+                    letter-spacing: 0.53px;
+                    position: absolute;
+                    pointer-events: none;
+                    box-sizing: border-box;
+                    //transform: translateY(-31px);
+                    //transition: 0.3s all ease-in-out;
+                    white-space: nowrap;
+
+                    @include respond(md-desktop) {
+                        font-size: 16px;
+                    }
+
+                    @include respond(sm-desktop) {
+                        font-size: 14px;
+                    }
+
+                    @include respond(phone) {
+                        font-size: 12px;
+                    }
+                }
                 .input_field {
                 
                 height: 60px;
