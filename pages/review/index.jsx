@@ -49,6 +49,7 @@ import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
 import { GetDocuments, AddingDocument, DeleteDocument } from '../../src/redux/creditQueueUpdate/action'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 function Index() {
   const dispatch = useDispatch()
@@ -94,7 +95,7 @@ function Index() {
 
   useEffect(() => {
     dispatch(GetDocuments(`?order=${orderList?.termsheet?.order}`))
-  }, [dispatch, companyData])
+  }, [dispatch, companyData, orderList?.termsheet?.order])
 
 
 
@@ -180,13 +181,15 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails?.orderCurrency?.trim() === '') {
-      let toastMessage = 'the orderCurrency can not be Empty'
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      }
-      return
-    } else if (orderDetails?.unitOfValue?.trim() === '') {
+    } 
+    // else if (orderDetails?.orderCurrency?.trim() === '') {
+    //   let toastMessage = 'the orderCurrency can not be Empty'
+    //   if (!toast.isActive(toastMessage)) {
+    //     toast.error(toastMessage, { toastId: toastMessage })
+    //   }
+    //   return
+    // } 
+    else if (orderDetails?.unitOfValue?.trim() === '') {
       let toastMessage = 'Please Set the unit of value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -1395,7 +1398,7 @@ function Index() {
                     strengthsComment={strengthsComment}
                     weaknessComment={weaknessComment}
                   />
-                  <CommonSave onSave={onCreditSave} />
+                  {/* <CommonSave onSave={onCreditSave} /> */}
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM

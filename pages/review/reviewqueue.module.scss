@@ -1,6 +1,7 @@
 @import "../../src/components/styles/Core/config";
 /*-----Dashboard Tab------*/
 .dashboardTab {
+    margin-bottom: 126px;
     .tabHeader {
         padding: 25px 30px 0;
         margin-bottom: 26px;
@@ -93,8 +94,6 @@
                     @include respond(phone) {
                         font-size:15px;
                         margin: 0 2px;
-                    }
-                    &.active {                      
                     }
                 }
             }
@@ -537,9 +536,6 @@
                       flex-wrap: wrap;
                     }
                 }
-            }
-            .card_compliance_wrapper {
-
             }
         }
         .cardBody_litigations {

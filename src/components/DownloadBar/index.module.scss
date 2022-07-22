@@ -1,8 +1,9 @@
 @import "../styles/Core/config";
 .root {
+    left: 0;
+    right: 0;
+    bottom: 42px;
     position: fixed;
-    bottom: 0px;
-    width: 83%;
     z-index: 4;
     height: 84px;
     box-shadow: 0px 3px 12px #CAD0E2;
@@ -15,13 +16,18 @@
     line-height: 25px;
     flex-direction: row;
     padding: 0rem 2rem 0rem 2rem;
+    margin-left: 345px;
+    @include respond(lg-desktop) {
+        margin-left: 20%;
+    }
     @include respond(md-desktop) {
         justify-content: space-between;
-        width: 100%;
         padding: 0rem 1rem 0rem 1rem;
+        margin-left: 0;
     }
     @include respond(phone) {
         bottom: 55px;
+        height: auto;
     }
     .reject {
         cursor: pointer;

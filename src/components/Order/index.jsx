@@ -7,10 +7,10 @@ import DateCalender from '../DateCalender'
 const Index = ({ orderDetail, saveOrderData }) => {
 
 
-  const saveDate = (e) => {
-    const d = new Date(e.target.value);
+  const saveDate = (value, name) => {
+    const d = new Date(value);
     let text = d.toISOString()
-    saveOrderData( e.target.name, text)
+    saveOrderData( name, text)
   }
 
   return (
@@ -263,7 +263,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
-                    <DateCalender labelName='Laycan at Load Port from'/>
+                    <DateCalender name='ExpectedDateOfShipment' saveDate={saveDate} labelName='Laycan at Load Port from'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
