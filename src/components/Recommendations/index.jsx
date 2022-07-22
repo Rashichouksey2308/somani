@@ -6,6 +6,7 @@ import styles from './index.module.scss'
 
 const Index = ({
   financialsComment,
+  creditDetail,
   companyComment,
   sanctionComment,
   strengthsComment,
@@ -17,6 +18,7 @@ const Index = ({
   addSanctionCommentArr,
   groupExposureData,
   addGroupExpArr,
+  saveSuggestedCreditData,
 }) => {
   const [editProfile, setEditProfile] = useState(false)
   const [editFinance, setEditFinance] = useState(false)
@@ -32,14 +34,21 @@ const Index = ({
   const [sanctionComments, setSanctionComments] = useState('')
   const [weaknessComments, setWeaknessComments] = useState('')
 
+  console.log(creditDetail, 'THIS IS CREDIT DETAIL')
+
+  const filteredCreditRating =
+    creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
+      return creditDetail?._id === rating.order
+    })
+
+  console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING')
+
   const [exposureData, setExposureData] = useState({
     accountConduct: '',
-      limit: null,
-      name: '',
-      outstandingLimit: null
+    limit: null,
+    name: '',
+    outstandingLimit: null,
   })
-
-  console.log(exposureData, "THIS IS EXPOSURE")
 
   const handleGroupExpChange = (name, value) => {
     const newInput = { ...exposureData }
@@ -196,64 +205,151 @@ const Index = ({
                     </tr>
                   </thead>
                   <tbody>
-                  {groupExposureData && groupExposureData.map((exp, index) => (  <tr key={index} className="table_row">
-                      <td className={styles.number}>{index += 1} </td>
-                      <td>
-                        <input name='name' defaultValue={exp.name} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
-                      </td>
-                      <td>
-                        <input name='limit' defaultValue={exp.limit} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
-                      </td>
-                      <td>
-                        <input name='outstandingLimit' defaultValue={exp.outstandingLimit} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
-                      </td>
-                      <td>
-                        <input name='accountConduct' defaultValue={exp.accountConduct} onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
-                      </td>
-                      <td>
-                        <div>
-                          {!saveTable ? (
-                            <img
-                              src="/static/mode_edit.svg"
-                              className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
-                              onClick={(e) => {
-                                setSaveTable(true)
+                    {groupExposureData &&
+                      groupExposureData.map((exp, index) => (
+                        <tr key={index} className="table_row">
+                          <td className={styles.number}>{(index += 1)} </td>
+                          <td>
+                            <input
+                              name="name"
+                              defaultValue={exp.name}
+                              onChange={(e) => {
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value,
+                                )
                               }}
+                              className={styles.input}
+                              readOnly={!saveTable}
                             />
-                          ) : (
-                            <img
-                              src="/static/save-3.svg"
-                              className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
-                              alt="save"
-                              onClick={(e) => {
-                                onExpSave(exposureData)
-                                setSaveTable(false)
+                          </td>
+                          <td>
+                            <input
+                              name="limit"
+                              defaultValue={exp.limit}
+                              onChange={(e) => {
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value,
+                                )
                               }}
+                              className={styles.input}
+                              readOnly={!saveTable}
                             />
-                          )}
-                          <img
-                            src="/static/delete 2.svg"
-                            className={`${styles.delete_image} img-fluid`}
-                            alt="delete"
-                          />
-                        </div>
-                      </td>
-                    </tr> ))}
+                          </td>
+                          <td>
+                            <input
+                              name="outstandingLimit"
+                              defaultValue={exp.outstandingLimit}
+                              onChange={(e) => {
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value,
+                                )
+                              }}
+                              className={styles.input}
+                              readOnly={!saveTable}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              name="accountConduct"
+                              defaultValue={exp.accountConduct}
+                              onChange={(e) => {
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value,
+                                )
+                              }}
+                              className={styles.input}
+                              readOnly={!saveTable}
+                            />
+                          </td>
+                          <td>
+                            <div>
+                              {!saveTable ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
+                                  onClick={(e) => {
+                                    setSaveTable(true)
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    onExpSave(exposureData)
+                                    setSaveTable(false)
+                                  }}
+                                />
+                              )}
+                              <img
+                                src="/static/delete 2.svg"
+                                className={`${styles.delete_image} img-fluid`}
+                                alt="delete"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
 
                     {!addRow ? (
                       <tr className="table_row">
                         <td className={styles.number}>1 </td>
                         <td>
-                        <input name='name' onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
+                          <input
+                            name="name"
+                            onChange={(e) => {
+                              handleGroupExpChange(
+                                e.target.name,
+                                e.target.value,
+                              )
+                            }}
+                            className={styles.input}
+                            readOnly={!saveTable}
+                          />
                         </td>
                         <td>
-                        <input name='limit' onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
+                          <input
+                            name="limit"
+                            onChange={(e) => {
+                              handleGroupExpChange(
+                                e.target.name,
+                                e.target.value,
+                              )
+                            }}
+                            className={styles.input}
+                            readOnly={!saveTable}
+                          />
                         </td>
                         <td>
-                        <input name='outstandingLimit' onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
+                          <input
+                            name="outstandingLimit"
+                            onChange={(e) => {
+                              handleGroupExpChange(
+                                e.target.name,
+                                e.target.value,
+                              )
+                            }}
+                            className={styles.input}
+                            readOnly={!saveTable}
+                          />
                         </td>
                         <td>
-                        <input name='accountConduct' onChange={(e)=>{handleGroupExpChange(e.target.name, e.target.value)}} className={styles.input} readOnly={!saveTable} />
+                          <input
+                            name="accountConduct"
+                            onChange={(e) => {
+                              handleGroupExpChange(
+                                e.target.name,
+                                e.target.value,
+                              )
+                            }}
+                            className={styles.input}
+                            readOnly={!saveTable}
+                          />
                         </td>
                         <td>
                           <div>
@@ -466,17 +562,24 @@ const Index = ({
                 className={`${styles.limit_container} d-flex justify-content-center`}
               >
                 <div className={styles.limit}>
-                  Total Limit: <span>1,900.00</span>
+                  Total Limit:{' '}
+                  <span>{creditDetail?.company?.creditLimit?.totalLimit}</span>
                 </div>
                 <div className={styles.limit}>
-                  Utilised Limit: <span>1,900.00</span>
+                  Utilised Limit:{' '}
+                  <span>
+                    {creditDetail?.company?.creditLimit?.utilizedLimit}
+                  </span>
                 </div>
                 <div className={styles.limit}>
-                  Available Limit: <span>1,900.00</span>
+                  Available Limit:{' '}
+                  <span>
+                    {creditDetail?.company?.creditLimit?.availableLimit}
+                  </span>
                 </div>
               </div>
             </div>
-               <table
+            <table
               className={`${styles.sectionTable} table   `}
               cellPadding="0"
               cellSpacing="0"
@@ -488,41 +591,43 @@ const Index = ({
                 <th>APPLIED VALUE</th>
                 <th>DERIVED VALUE</th>
                 <th>SUGGESTED VALUE</th>
-                
               </tr>
               <tr>
                 <td>Limit Value</td>
-                <td>1,200.00</td>
+                <td>{creditDetail?.company?.creditLimit?.availableLimit}</td>
                 <td>-</td>
-               
-                <td>1,900.00</td>
-                
+
+                {filteredCreditRating && filteredCreditRating.length > 0 && filteredCreditRating.map((val, index)=> (<td key={index}>{val.derived.value}</td>))}
+
                 <td>
                   <input
                     className={`${styles.text}`}
                     type="text"
-                    placeholder="1,900.00"
+                    name='suggestedCreditLimit'
+                    defaultValue={creditDetail?.suggestedCreditLimit}
+                    onChange={(e)=>{saveSuggestedCreditData(e.target.name, Number(e.target.value * 10000000))}}
                   ></input>
                 </td>
               </tr>
               <tr>
                 <td>Order Value</td>
-                <td>1,200.00</td>
                 <td>-</td>
-               
-                <td>1,900.00</td>
-                
+                <td>{creditDetail?.orderValue}</td>
+
+                <td>-</td>
+
                 <td>
                   <input
                     className={`${styles.text}`}
-                    type="text"
-                    placeholder="1,900.00"
+                    type="number"
+                    name='suggestedOrderValue'
+                    defaultValue={creditDetail?.suggestedOrderValue}
+                    onChange={(e)=>{saveSuggestedCreditData(e.target.name, Number(e.target.value * 10000000))}}
                   ></input>
                 </td>
               </tr>
             </table>
             <div className="d-flex justify-content-start align-items-center pt-5 pl-5">
-            
               {/* <div className={`${styles.form_group} mr-5`}>
                 <div className={`${styles.label_sanction}`}>Limit Value</div>
                 <div>100 CR</div>

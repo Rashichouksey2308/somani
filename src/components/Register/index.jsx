@@ -60,7 +60,11 @@ function Index() {
     const newInput = {...companyDetails}
     newInput.companyName = gstList?.data?.companyData?.companyName
     setCompanyDetails(newInput)
+    setGstListData(stList?.data?.gstList)
   }, [gstList])
+
+  const [gstListData, setGstListData] = useState(gstList?.data?.gstList)
+  console.log(gstListData, "THIS IS GST LIST DATA")
 
 
   const handleCommunication = (e) => {
@@ -265,6 +269,7 @@ function Index() {
       fd.append('documentType', JSON.stringify(documents.typeOfDocument))
       fd.append('document1', documents.document1)
       fd.append('document2', documents.document2)
+      fd.append('gstList', JSON.stringify(gstListData))
       //console.log(fd, "this is payload")
 
       dispatch(CreateBuyer(fd))

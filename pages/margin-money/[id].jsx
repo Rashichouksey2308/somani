@@ -49,13 +49,13 @@ function Index() {
     conversionRate: marginData?.conversionRate || '',
     perUnitPrice: marginData?.order?.perUnitPrice || '',
     usanceInterestPercentage:
-      marginData?.order?.termsheet?.commercials?.usanceInterestPercetage || '',
+      Number(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage / 100) || '',
     numberOfPDC: marginData?.numberOfPDC || '',
     tradeMarginPercentage:
-      marginData?.order?.termsheet?.commercials?.tradeMarginPercentage || '',
-    tolerance: marginData?.order?.tolerance || '',
+      Number(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage / 100) || '',
+    tolerance: Number(marginData?.order?.tolerance / 100) || '',
     marginMoney:
-      marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
+      Number(marginData?.order?.termsheet?.transactionDetails?.marginMoney / 100) || '',
   })
 
   const saveForCalculation = (name, value) => {
@@ -81,7 +81,7 @@ function Index() {
       365,
   ).toFixed(2) //L
   let tradeMargin = parseFloat(
-    orderValueInINR * forCalculation.tradeMarginPercentage,
+    orderValueInINR * forCalculation.tradeMarginPercentage
   ).toFixed(2) //M
   let grossOrderValue = parseFloat(
     orderValueInINR + usanceInterest + tradeMargin,
