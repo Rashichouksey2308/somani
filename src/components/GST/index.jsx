@@ -675,6 +675,53 @@ function Index(GstData) {
           </div>
         </div>
       </div>
+      <div className={`${styles.verify_gst} card verify_gst`}>
+        <div className={`${styles.card_header} card-header bg-transparent`}>
+          <h3>Verify GST</h3>
+        </div>
+        <div className={`${styles.card_body} card-body`}>
+          <p className="card-text">Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator. OTP</p>
+          <ul className={`${styles.nav_tabs} nav nav-tabs`} id="verifyGST" role="tablist">
+            <li className={`${styles.nav_item} nav-item`}>
+              <a className={`${styles.nav_link} nav-link active`} id="via-email" data-toggle="tab" href="#viaEmail" role="tab" aria-controls="viaEmail" aria-selected="true"><img src="/static/email-icon.png" className='img-fluid' alt='Via Email' />Via Email</a>
+            </li>
+            <li className={`${styles.nav_item} nav-item`}>
+              <a className={`${styles.nav_link} nav-link`} id="via-phone" data-toggle="tab" href="#viaPhone" role="tab" aria-controls="viaPhone" aria-selected="false"><img src="/static/phone-icon.png" className='img-fluid' alt='Via Email' />Via Phone No.</a>
+            </li>
+          </ul>
+          <form>
+            <div className={`${styles.tab_content} tab-content`} id="myTabContent">
+              <div className="tab-pane fade show active" id="viaEmail" role="tabpanel" aria-labelledby="via-email">
+                <div className={`${styles.labelFloat} form-group`}>
+                  <input type='text' id='email' name="email" className={`${styles.formControl} ${styles.input} input form-control`} required />
+                  <label className={`label_heading_login`} htmlFor='email'>Email or Username</label>
+                </div>
+                <div className={`${styles.labelFloat} ${styles.password} form-group`}>
+                  <div className='input-group align-items-center' id='password'>
+                    <input type='password' name="password" className={`${styles.formControl} ${styles.input} input form-control`} required />
+                    <label className={`label_heading_login`} htmlFor='password'>Password</label>
+                    <img src='/static/eye.svg' alt='Show Password' className='img-fluid' />
+                  </div>
+                </div>                
+                <div className='d-flex justify-content-between'>
+                  <button type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                  <button type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Submit</button>
+                </div>
+              </div>
+              <div className="tab-pane fade" id="viaPhone" role="tabpanel" aria-labelledby="via-phone">
+                <div className={`${styles.labelFloat} form-group`}>
+                  <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
+                  <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
+                </div>
+                <div className='d-flex justify-content-between'>
+                  <button type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                  <button type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Get OTP</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <div className={`${styles.wrapper} card`}>
         <div
