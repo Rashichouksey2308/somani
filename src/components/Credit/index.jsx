@@ -70,23 +70,23 @@ const index = ({
     addDebtArr(debt)
   }
 
-  // const [keyPerson, setKeyPerson] = useState({
-  //   personName: '',
-  //   designationPerson: '',
-  //   departmentPerson: null,
-  //   contactNo: '',
-  //   emailId: ''
-  // })
+  //  const [keyPerson, setKeyPerson] = useState({
+  //    personName: '',
+  //    designationPerson: '',
+  //    departmentPerson: '',
+  //    contactNo: '',
+  //    emailId: ''
+  //  })
 
-  // const handleKeyPerson = (name, value) => {
-  //   const newInput = { ...keyAddData }
-  //   newInput[name] = value
-  //   setKeyPerson(newInput)
-  // }
+  //  const handleKeyPerson = (name, value1) => {
+  //    const newInput = { ...personData }
+  //    newInput[name] = value1
+  //    setKeyPerson(newInput)
+  //  }
 
-  // const onKeyPersonSave = () => {
-  //   addPersonArr(keyPerson)
-  // }
+  //  const onKeyPersonSave = () => {
+  //    keyAddDataArr(keyPerson)
+  //  }
 
   const [keyPersonData, setKeyPersonData] = useState(
     personData,
@@ -836,13 +836,11 @@ const index = ({
               ))}
             </table>
             </div></div>
-            <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
+            <div className={`${styles.add_row} p-3 d-flex justify-content-end`}
+            // 
+            >
               <span>+</span>
-              <div 
-              // onClick={(e) => {
-              //                   onKeyPersonSave(keyPerson)
-              //                 }}
-                              >Add More Rows</div>
+              <div>Add More Rows</div>
             </div>
           </div>
         </div>
@@ -1020,7 +1018,7 @@ const index = ({
           ))}
 
             <div className={`${styles.main} m-4 card border_color`}>
-           <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+           <div className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
               >
           <h3 className={`${styles.heading}`}>Add a new address</h3>
           <img src="/static/accordion_close_black.svg"/>
