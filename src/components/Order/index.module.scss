@@ -1,12 +1,13 @@
  @import "../styles/Core/config";
 .main {
-    margin-bottom: 1rem;
+    margin-bottom: 26px;
     border-radius: 6px !important;
     @include respond(md-desktop) {
         padding: 0 15px 0 15px !important;
-    }  
+    }
     .head_container {
         cursor: pointer;
+        border-bottom: none;
         padding: 25px 35px !important;
         @include respond(md-desktop) {
             align-items: center !important;
@@ -14,19 +15,19 @@
         }
         .heading {
             color: #3687e8;
-            font-weight:bold;
+            font-weight: bold;
             font-size: 22px;
             text-transform: capitalize;
             @include respond(md-desktop) {
                 font-size: 18px !important;
                 line-height: 1.3;
                 margin: 20px 0px 20px 0px !important;
-            }            
+            }
             @include respond(sm-desktop) {
                 font-size: 18px !important;
                 line-height: 1.3;
                 margin: 20px 0px 20px 0px !important;
-            }            
+            }
             @include respond(phone) {
                 font-size: 16px !important;
                 margin: 13px 0px 13px 0px !important;
@@ -51,14 +52,13 @@
     }
     .unit_container {
         // padding-right: 15px;
-         .unit_label {
-            font-size:18px;
+        .unit_label {
+            font-size: 18px;
             text-transform: capitalize;
             font-weight: bold;
             margin: 0;
             padding-right: 10px;
             line-height: 23px;
-
             @include respond(md-desktop) {
                 font-size: 18px;
             }
@@ -70,8 +70,7 @@
             }
         }
         .options {
-            font-size:18px;
-            text-transform: capitalize;
+            font-size: 18px;
             margin-right: 10px;
             border-radius: 14px;
             border: none;
@@ -113,17 +112,17 @@
             }
         }
     }
-    .dashboard_form { 
+    .dashboard_form {
         padding: 25px 35px !important;
+        border-top: 2px solid #CAD6E6;
         @include respond(md-desktop) {
-            padding: 15px !important;      
+            padding: 15px !important;
         }
         @include respond(sm-desktop) {
-            padding: 15px !important;        
+            padding: 15px !important;
         }
-
         @include respond(phone) {
-            padding: 15px !important;       
+            padding: 15px !important;
         }
         .radio_form {
             // padding-top: 20px;
@@ -169,13 +168,11 @@
             margin-top: 20px;
             @include respond(phone) {
                 margin-top: 10px;
-            }     
+            }
             .search_image {
                 margin-left: -40px;
-                @include respond(sm-desktop) {
-                }
-                @include respond(phone) {
-                }
+                @include respond(sm-desktop) {}
+                @include respond(phone) {}
             }
             .label_heading {
                 top: 27px;
@@ -195,7 +192,6 @@
                 @include respond(phone) {
                     font-size: 14px;
                     //top: 20px;
-
                 }
             }
             .input_field {
@@ -209,14 +205,13 @@
                 box-shadow: none;
                 position: relative;
                 box-sizing: border-box;
-           
-                &:invalid + label {
+                &:invalid+label {
                     // background: none;
-                    transform:translateY(0);
+                    transform: translateY(0);
                 }
                 &:focus {
-                    & + label {
-                        transform:translateY(-31px);
+                    &+label {
+                        transform: translateY(-31px);
                     }
                 }
                 @include respond(md-desktop) {
@@ -231,49 +226,41 @@
                     height: 45px;
                     padding: 0px 12px 0px 12px;
                 }
-            }    
+            }
         }
     }
 }
 .button {
-    padding: 25px 35px !important;
-    cursor: pointer;
-    width: 260px;
-    height: 48px;
-    background: #3687E8;
-    border-radius: 5px;
-    color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 1rem;
+     padding: 25px 35px !important;
+     cursor: pointer;
+     width: 260px;
+     height: 48px;
+     background: #3687E8;
+     border-radius: 5px;
+     color: #FFFFFF;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin-left: 1rem;
 }
-.customSelect{
+.customSelect {
     appearance: none;
     // position: relative;
-
 }
-.arrow{
-   
+.arrow {
     margin-left: -40px;
     width: 13px;
     pointer-events: none;
     input[type="date"]::-webkit-inner-spin-button,
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-        }
-       
-       
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
 }
 .calanderIcon {
-
     margin-left: -40px;
     margin-top: 15px;
     width: 23px;
     height: 26px;
     pointer-events: none;
-
-   
-
 }

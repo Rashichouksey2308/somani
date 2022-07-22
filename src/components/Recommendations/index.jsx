@@ -476,8 +476,54 @@ const Index = ({
                 </div>
               </div>
             </div>
+               <table
+              className={`${styles.sectionTable} table   `}
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+            >
+              <tr>
+                <th></th>
+                <th>PREVIOUS LIMIT</th>
+                <th>APPLIED VALUE</th>
+                <th>DERIVED VALUE</th>
+                <th>SUGGESTED VALUE</th>
+                
+              </tr>
+              <tr>
+                <td>Limit Value</td>
+                <td>1,200.00</td>
+                <td>-</td>
+               
+                <td>1,900.00</td>
+                
+                <td>
+                  <input
+                    className={`${styles.text}`}
+                    type="text"
+                    placeholder="1,900.00"
+                  ></input>
+                </td>
+              </tr>
+              <tr>
+                <td>Order Value</td>
+                <td>1,200.00</td>
+                <td>-</td>
+               
+                <td>1,900.00</td>
+                
+                <td>
+                  <input
+                    className={`${styles.text}`}
+                    type="text"
+                    placeholder="1,900.00"
+                  ></input>
+                </td>
+              </tr>
+            </table>
             <div className="d-flex justify-content-start align-items-center pt-5 pl-5">
-              <div className={`${styles.form_group} mr-5`}>
+            
+              {/* <div className={`${styles.form_group} mr-5`}>
                 <div className={`${styles.label_sanction}`}>Limit Value</div>
                 <div>100 CR</div>
               </div>
@@ -495,7 +541,7 @@ const Index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Recommended Order Value
                 </label>
-              </div>
+              </div> */}
             </div>
             <div className="d-flex mt-5 pb-4">
               <input

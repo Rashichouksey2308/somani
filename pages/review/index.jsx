@@ -805,14 +805,14 @@ function Index() {
         </div>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-12  accordion_body">
+            <div className="col-md-12 px-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane fade show active"
                   id="Profile"
                   role="tabpanel"
                 >
-                  <div className="accordion" id="profileAccordion">
+                  <div className="accordion shadow-none" id="profileAccordion">
                     <CompanyDetails order={orderList?.company} companyId={companyData?.company} companyDetail={companyData} />
                     <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorData={companyData} />
@@ -821,7 +821,7 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
-                  <div className="accordion" id="FinancialsAccordion">
+                  <div className="accordion shadow-none" id="FinancialsAccordion">
                     <BalanceSheet balanceData={companyData} />
 
                     <IncomeStatement incomeData={companyData} />
@@ -1398,7 +1398,7 @@ function Index() {
                     strengthsComment={strengthsComment}
                     weaknessComment={weaknessComment}
                   />
-                  {/* <CommonSave onSave={onCreditSave} /> */}
+                  <CommonSave onSave={onCreditSave} />
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM
@@ -1414,9 +1414,9 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <div className={`${styles.main} card border_color mb-4`}>
+                    <div className={`${styles.main} card border_color`}>
                       <div
-                        className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between`}
+                        className={`${styles.head_container} card-header bg-transparent border_color head_container d-flex justify-content-between`}
                         data-toggle="collapse"
                         data-target="#documents"
                         aria-expanded="true"
@@ -1433,7 +1433,7 @@ function Index() {
                         aria-labelledby="documents"
                         data-parent="#profileAccordion"
                       >
-                        <div className={`${styles.dashboard_form} card-body`}>
+                        <div className={`${styles.dashboard_form} card-body border_color`}>
                           <Form>
                             <div className="row align-items-center pb-4">
                               <div

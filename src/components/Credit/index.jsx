@@ -160,7 +160,7 @@ const index = ({
           aria-labelledby="productSummary"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.dashboard_form} card-body`}>
+          <div className={`${styles.dashboard_form} card-body border_color`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <input
@@ -451,7 +451,7 @@ const index = ({
           aria-expanded="true"
           aria-controls="supplierCred"
         >
-          <h3 className={`${styles.heading}`}> {`Supplier's Credentials`}</h3>
+          <h3 className={`${styles.heading} mb-0`}> {`Supplier's Credentials`}</h3>
           <span>+</span>
         </div>
         <div
@@ -460,7 +460,7 @@ const index = ({
           aria-labelledby="supplierCred"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.dashboard_form} card-body`}>
+          <div className={`${styles.dashboard_form} card-body border_color`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className='d-flex'>
@@ -1003,7 +1003,7 @@ const index = ({
           aria-labelledby="addAddress"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.dashboard_form} card-body`}>
+          <div className={`${styles.dashboard_form} card-body border_color`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                 <div className='d-flex'>

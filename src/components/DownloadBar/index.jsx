@@ -19,8 +19,8 @@ function index({handleApprove, handleReject,downLoadButtonName,isPrevious,leftBu
          </div>
       </div>
        <div className="d-flex justify-content-between align-items-center"> 
-        {isPrevious?<div className={styles.reject} onClick={()=>{handleUpdate()}}><span>{leftButtonName}</span></div>:null}
-        <div className={styles.approve} onClick={()=>{ handleApprove()}}><span>{rightButtonName}</span></div>
+        {isPrevious?<div className={`${styles.reject} ml-3`} onClick={()=>{handleUpdate()}}><span>{leftButtonName}</span></div>:null}
+        <div className={`${styles.approve} ml-3`} onClick={()=>{ handleApprove()}}><span>{rightButtonName}</span></div>
         </div>
     </div>
   )
