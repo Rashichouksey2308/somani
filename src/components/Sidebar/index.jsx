@@ -27,21 +27,7 @@ function Index() {
                route:"/leads"
 
         },
-        {
-            main:"Loading, Transit & Unloading",
-            Other:[
-              
-               
-              {name: "Third-Party Inspection",image:"/static/Credit Queue.svg",route:"/third-party"},
-              {name: "BL Generation",image:"/static/Review Queue.svg",route:""},
-              {name: "Plot Inspection",image:"/static/Credit Queue.svg",route:""},
-              {name: "LOI",image:"/static/Credit Queue.svg",route:""},
-              
-            ],
-              image:"/static/Loading, Transit & Unloading.svg",
-               route:"/loading"
-        },
-          {
+                  {
             main:"Agreement & Lc Module",
             Other:[
                {name: "Generic",image:"/static/Credit Queue.svg",route:"/generic"},
@@ -50,10 +36,25 @@ function Index() {
                {name: "Vessel Nomination",image:"/static/Review Queue.svg",route:"/vessel"},
                {name: "Insurance",image:"/static/Review Queue.svg",route:"/insurance"},
 
-                "Termsheets",   
+                   
             ],
               image:"/static/Agreement&LCModule.svg"
         },
+        {
+            main:"Loading, Transit & Unloading",
+            Other:[
+              
+               
+              {name: "Inspection",image:"/static/Credit Queue.svg",route:"/third-party"},
+              {name: "Transit Details",image:"/static/Review Queue.svg",route:"/transit"},
+              {name: "Forward Hedging",image:"/static/Credit Queue.svg",route:"/forward-hedging"},
+              {name: "Track Shipments",image:"/static/Credit Queue.svg",route:"/track-shipment"},
+              
+            ],
+              image:"/static/Loading, Transit & Unloading.svg",
+               route:"/loading"
+        },
+
           {
             main:"Custom Clearance & WareHouse",
            Other:[
