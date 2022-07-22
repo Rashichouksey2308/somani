@@ -217,6 +217,157 @@
         margin-bottom: 1rem;
     }
 }
+.verify_gst {
+    width: 100%;
+    border: none;
+    margin: 0 auto;
+    max-width: 562px;
+    box-shadow: none;
+    border-radius: 12px;
+    .card_header {
+        padding: 28px 35px 21px;
+        border-bottom: 2px solid #CAD6E65E;
+        h3 {
+            font-size: 22px;
+            color: #3687E8;
+            font-weight: bold;
+            line-height: 27px;
+            margin-bottom: 0;
+        }
+    }
+    .card_body {
+        padding: 21px 35px 51px;
+        p {            
+            font-size: 16px;
+            color: #00000080;
+            font-weight: 500;
+            line-height: 22px;
+            letter-spacing: 0.53px;
+        }
+        .nav_tabs {
+            margin-top: 48px;
+            border-bottom: 1px solid #D2D7E5;
+            .nav_item {
+                width: 50%;
+                .nav_link {
+                    font-size: 20px;
+                    line-height: 25px;
+                    padding: 0 0 17px;
+                    height: 52px;
+                    letter-spacing: 0.19px;
+                    background: transparent;
+                    img {
+                        margin-right: 14px;
+                    }
+                }
+            }
+        }
+        .tab_content { 
+            margin-top: 42px;
+            .labelFloat {
+                position: relative;
+                margin-bottom: 32px;
+                &:last-child {
+                    margin-bottom: 40px;
+                }
+                @include respond(xl-desktop) {
+                    margin-bottom: 30px;
+                }
+                @include respond(phone) {
+                    margin-bottom: 20px;
+                }
+                label {
+                    top: 25px;
+                    left: 15px;
+                    font-size: 16px;
+                    z-index: 200;
+                    line-height: 0.5;
+                    font-weight: 500;
+                    margin-bottom: 0;
+                    letter-spacing: 0.53px;
+                    position: absolute;
+                    pointer-events: none;
+                    box-sizing: border-box;
+                    transform: translateY(-29px);
+                    transition: 0.3s all ease-in-out;
+                }
+                .formControl {
+                    font-size: 20px;
+                    line-height: 25px;
+                    font-weight: normal;
+                    height: 60px;
+                    outline: none;
+                    box-shadow: none;
+                    border-radius: 4px;
+                    position: relative;
+                    box-sizing: border-box;
+                    letter-spacing: 0.19px;
+                    padding: 19px 30px 19px 17px;
+                    &:invalid+label {
+                        background: none;
+                        transform: translateY(0);
+                    }
+                    &:focus {
+                        &+label {
+                            background: #ffffff;
+                            transform: translateY(-29px);
+                        }
+                    }
+                    &:-webkit-autofill,
+                    &:-webkit-autofill:hover,
+                    &:-webkit-autofill:focus,
+                    &:-webkit-autofill:active {
+                        box-shadow: 0 0 0 30px #F8F8F8 inset !important;
+                        -webkit-box-shadow: 0 0 0 30px #F8F8F8 inset !important;
+                    }
+                }
+                img {
+                    top: 50%;
+                    right: 14px;
+                    position: absolute;
+                    transform: translateY(-50%);
+                }
+            }
+            .password {
+                label {
+                    top: 25px;
+                }
+                .formControl {
+                    &:invalid+label {
+                        background: none;
+                    }
+                    &:focus {
+                        &+label {
+                            background: #ffffff;
+                        }
+                    }
+                }
+            }
+        }
+        .btn {
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 25px;
+            height: 48px;
+            cursor: pointer;
+            max-width: 239px;
+            border-radius: 5px;
+            @include respond(md-desktop) {
+                font-size: 16px;
+            }
+            &.close {
+                color: #4D4D4D;
+                background: #FFFFFF;
+                border: 3px solid #D5D5D5;
+            }
+            &.submit {
+                color: #FFFFFF;
+                background: #3687E8;
+                border: 3px solid #3687E8;
+            }
+        }
+    }
+}
 .gst_cancelled {
     background: #ea3f3f22 0% 0% no-repeat padding-box;
     border-radius: 5px;
