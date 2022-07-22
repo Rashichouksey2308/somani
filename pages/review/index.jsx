@@ -1229,15 +1229,15 @@ function Index() {
                               <div
                                 className={` d-flex align-items-center justify-content-start`}
                               >
-                                <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-                                <label class="form-check-label" htmlFor="flexRadioDefault1">
+                                <div className="form-check">
+                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                                <label className="form-check-label" htmlFor="flexRadioDefault1">
                                 Respondent
                                 </label>
                               </div>
-                              <div class="form-check ml-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
-                                <label class="form-check-label" htmlFor="flexRadioDefault2">
+                              <div className="form-check ml-4">
+                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+                                <label className="form-check-label" htmlFor="flexRadioDefault2">
                                   Petitioner
                                 </label>
                               </div>
@@ -1249,15 +1249,15 @@ function Index() {
                               <div
                                 className={` d-flex align-items-center justify-content-start`}
                               >
-                              <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault3"/>
-                                <label class="form-check-label" htmlFor="flexRadioDefault3">
+                              <div className="form-check">
+                                <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault3"/>
+                                <label className="form-check-label" htmlFor="flexRadioDefault3">
                                 Civil
                                 </label>
                               </div>
-                              <div class="form-check ml-3">
-                                <input class="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault4" checked/>
-                                <label class="form-check-label" htmlFor="flexRadioDefault4">
+                              <div className="form-check ml-3">
+                                <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault4" checked/>
+                                <label className="form-check-label" htmlFor="flexRadioDefault4">
                                   Criminal
                                 </label>
                               </div>
