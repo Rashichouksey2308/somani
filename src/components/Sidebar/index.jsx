@@ -64,6 +64,16 @@ function Index() {
             ],
               image:"/static/Warehouse.svg"
         },
+        {
+            main:"Payments, Invoicing & Delivery",
+            Other:[
+                "Review Queue",
+                "Credit Queue",
+                "Termsheets",   
+            ],
+                image:"/static/Masters.svg",
+                route:""
+        },
           {
             main:"Masters",
             Other:[
