@@ -8,6 +8,23 @@ import { useDispatch } from 'react-redux'
 const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => {
   const [name, setName] = useState(null)
 
+   const [addRow, setAddRow] = useState({
+     attachDoc: '',
+     action: ''
+   })
+    console.log(addRow, "THIS IS Document")
+
+ const handleRowChange = (name, value) => {
+     const newInput = { ...rowData}
+     newInput[name] = value
+     setAddRow(newInput)
+   }
+
+   const onAddDoc = () => {
+     addGroupArr(addRow)
+   }
+
+
   const [secondDocName, setSecondDocName] = useState(null)
   
 
@@ -136,9 +153,14 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
           </div>
         </div>
         <hr className={styles.hr_line}></hr>
+
         <div className={`${styles.add_document} col-md-12`}>
           <img className={styles.add_image} src="/static/add.svg" alt="Add" />
-          <p className={styles.add_para}>Add More Documents</p>
+          <p className={styles.add_para}
+            onClick={(e) => {
+                                onAddDoc(addDoc)
+                              }}
+           >Add More Documents</p>
         </div>
       </div>
     </div>
