@@ -24,6 +24,7 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney)
 
   const marginData = margin?.data?.data[0]
+ 
 
   useEffect(() => {
     dispatch(setPageName('margin-money'))
