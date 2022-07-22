@@ -125,7 +125,7 @@
     
  }
  .sanction_terms{
-    background: #FAFAFB;
+  
     padding: 20px 0 20px 35px;
     .sanction_heading {
         font-size: 20px;
@@ -385,4 +385,61 @@
             height: 25px;
         }
     }
+}
+.sectionTable {
+    //    border-top: 2px solid red !important;
+    border: none;
+
+    tr {
+        height: 67px;
+
+        border: none !important;
+
+        th {
+
+            text-align: center;
+            vertical-align: middle;
+            font-size: 15px;
+            line-height: 19px;
+            font-weight: bold;
+            border: none !important;
+            color: #8492A6;
+            background: #FAFAFB 0% 0% no-repeat padding-box;
+
+            :first-child {
+                width: 15%;
+                text-align: left;
+            }
+        }
+
+        td {
+            vertical-align: baseline;
+            text-align: center;
+            border: none !important;
+
+            input {
+                width: 19px;
+                height: 14px
+            }
+
+            .text {
+                width: 135px;
+                height: 50px;
+                background: #C3C3C31F 0% 0% no-repeat padding-box;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+            }
+
+
+            select {
+                width: 11rem;
+            }
+        }
+
+        :first-child {
+            padding-left: 35px;
+            text-align: left;
+        }
+    }
+
 }

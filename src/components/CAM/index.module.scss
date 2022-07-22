@@ -986,14 +986,12 @@ border:none;
              left: 3%;
             }
             .arrow {
-                position: absolute;
-                z-index: 1000;
-                color: #008015;
-                font-size: 30px;
-                font-weight: bold;
-                line-height: 37px;
-                top: 50%;
-                left: 50%;
+            position: absolute;
+            z-index: 500;
+            top: 40%;
+            left: 23%;
+            width: 130px;
+            height: 150px;
             }
 
             
