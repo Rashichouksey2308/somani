@@ -9,11 +9,13 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
 
 
-    const updateThirdPartyInspection = (value) => {
-        if (value === "No") {
+    const updateThirdPartyInspection = (e) => {
+        if (e.target.value === "false") {
             setThirdPartyInspection(false)
-        } else if (value === "yes") {
+            onChangeTransactionDetails(e)
+        } else if (e.target.value === "true") {
             setThirdPartyInspection(true)
+            onChangeTransactionDetails(e)
         }
     }
 
@@ -248,7 +250,7 @@ console.log(termsheetDetails?.commodityDetails?.unitOfQuantity,"termsheetDetails
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                               <div className='d-flex'>
-                            <select id='thirdPartyInspectionReq' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={(e) => updateThirdPartyInspection(e.target.value)} required>
+                            <select id='thirdPartyInspectionReq' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={(e) => updateThirdPartyInspection(e)} required>
                                 <option value="false">No</option>
                                 <option value="true">Yes</option>
 
@@ -264,8 +266,8 @@ console.log(termsheetDetails?.commodityDetails?.unitOfQuantity,"termsheetDetails
                         {thirdPartyInspection && <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
                             <select className={`${styles.value} ${styles.customSelect} input form-control`} required>
-                                <option value="volvo">Load Port</option>
-                                <option value="audi">India</option>
+                                <option value="Load Port">Load Port</option>
+                                <option value="India">India</option>
                             </select>
                             <label className={`${styles.label} label_heading`}><strong className="text-danger">*</strong></label>
                          <img
