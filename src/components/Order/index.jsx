@@ -149,7 +149,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                    <select className={`${styles.input_field} ${styles.customSelect} input form-control`} name='countryOfOrigin'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }}>
-                  <option value="volvo">{orderDetail?.input_field}</option>
+                  <option value="volvo">{orderDetail?.countryOfOrigin}</option>
                   <option value="India">India</option>
                   <option value="America">America</option>
                   <option value="Russia">Russia</option>
