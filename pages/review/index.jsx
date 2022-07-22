@@ -40,6 +40,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import {
   UpdateCredit,
+  UpdateCreditCalculate,
   UpdateOrderShipment,
 } from '../../src/redux/buyerProfile/action'
 
@@ -323,6 +324,22 @@ function Index() {
   }, [orderList])
 
 
+  const handleProductSave = () => {
+    if(product.capacityUtilization === '' || product.contributionCommoditySenstivity === ''){
+      let toastMessage = 'Please fill the required fields'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+    }else{
+    let obj = {
+      order: orderList._id,
+      productSummary: {...product},
+      gstin: 'test'
+    }
+    dispatch(UpdateCreditCalculate(obj))
+  }
+  }
+
 
   const saveSupplierData = (name, value) => {
     const newInput = { ...supplierCred }
@@ -498,6 +515,19 @@ function Index() {
     },
   ])
 
+  const [suggestedCredit, setSuggestedCredit] = useState({
+    suggestedCreditLimit: orderList?.suggestedCreditLimit,
+    suggestedOrderValue: orderList?.suggestedOrderValue
+  })
+
+  const saveSuggestedCreditData = (name, value) => {
+    const newInput = { ...suggestedCredit }
+    newInput[name] = value
+    // console.log(newInput)
+    setSuggestedCredit(newInput)
+  }
+
+
   //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
 
   const addGroupExpArr = (exposureData) => {
@@ -540,6 +570,8 @@ function Index() {
       },
       debtProfile: [...debtData],
       groupExposureDetail: [...groupExposureData],
+      suggestedOrderValue: suggestedCredit.suggestedOrderValue,
+      suggestedCreditLimit: suggestedCredit.suggestedCreditLimit
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
@@ -836,7 +868,7 @@ function Index() {
                   id="Profile"
                   role="tabpanel"
                 >
-                  <div className="accordion" id="profileAccordion">
+                  <div className="accordion shadow-none" id="profileAccordion">
                     <CompanyDetails order={orderList?.company} companyId={companyData?.company} companyDetail={companyData} />
                     <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorData={companyData} />
@@ -845,7 +877,7 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
-                  <div className="accordion" id="FinancialsAccordion">
+                  <div className="accordion shadow-none" id="FinancialsAccordion">
                     <BalanceSheet balanceData={companyData} />
 
                     <IncomeStatement incomeData={companyData} />
@@ -1071,28 +1103,17 @@ function Index() {
                       aria-expanded="true"
                       aria-controls="details"
                     >
-                      <div
-                        className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
-                      >
-                        <h2 className="mb-0 w-100 ">Details</h2>
-                        <div
-                          className={`${styles.categories} mb-0  d-flex align-items-center justify-content-between `}
-                        >
-                          <label className={styles.label}>Categories:</label>
-                          <select
-                            onChange={(e) =>
-                              setComplienceFilter(e.target.value)
-                            }
-                            className="form-control"
-                          >
-                            <option value="High">High</option>
-                            <option value="Medium">Medium</option>
-                            <option value="low">low</option>
-                            <option value="Severe">Severe</option>
-                          </select>
-                        </div>
+                      <h2 className="mb-0 ">Details</h2>
+                      <div className={`${styles.categories} mb-0 d-flex align-items-center`}>
+                        <label className={styles.label}>Categories:</label>
+                        <select onChange={(e) => setComplienceFilter(e.target.value)} className={`${styles.form_control} form-control`}>
+                          <option value="High">High</option>
+                          <option value="Medium">Medium</option>
+                          <option value="low">low</option>
+                          <option value="Severe">Severe</option>
+                        </select>
+                        <span>+</span>
                       </div>
-                      <span>+</span>
                     </div>
                     <div
                       id="details"
@@ -1108,27 +1129,13 @@ function Index() {
                     </div>
                   </div>
                   <div className={`${styles.card} card`}>
-                    <div
-                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-                      data-toggle="collapse"
-                      data-target="#litigations"
-                      aria-expanded="true"
-                      aria-controls="litigations"
+                    <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations" aria-expanded="true" aria-controls="litigations"
                     >
-                      <div
-                        className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
-                      >
-                        <h2 className="w-100 mb-3">Litigations</h2>
-                        <div
-                          className={`${styles.categories}  d-flex align-items-center `}
-                        >
-                          <label className={styles.label}>
-                            Litigations Status:
-                          </label>
-                          <select
-                            onChange={updateLitigationStatus}
-                            className="form-control"
-                          >
+                      <div className={`${styles.detail_head_container} d-flex align-items-center justify-content-between w-100`}>
+                        <h2 className="mb-0">Litigations</h2>
+                        <div className={`${styles.categories}  d-flex align-items-center`}>
+                          <label className={styles.label}>Litigations Status:</label>
+                          <select onChange={updateLitigationStatus} className={`${styles.form_control} form-control`}>
                             {orderList?.company?.litigationStatus !==
                               'Active' ? (
                               <>
@@ -1142,9 +1149,9 @@ function Index() {
                               </>
                             )}
                           </select>
+                          <span>+</span>
                         </div>
                       </div>
-                      <span>+</span>
                     </div>
                     <div
                       id="litigations"
@@ -1371,6 +1378,7 @@ function Index() {
                     addDebtArr={addDebtArr}
                     addPersonArr={addPersonArr}
                     saveProductData={saveProductData}
+                    handleProductSave={handleProductSave}
                     debtData={debtData}
                     personData={personData}
                     saveSupplierData={saveSupplierData}
@@ -1379,6 +1387,7 @@ function Index() {
                   <Recommendations
                     creditDetail={orderList}
                     groupExposureData={groupExposureData}
+                    saveSuggestedCreditData={saveSuggestedCreditData}
                     addGroupExpArr={addGroupExpArr}
                     financialsComment={financialsComment}
                     addWeaknessCommentArr={addWeaknessCommentArr}
@@ -1409,7 +1418,7 @@ function Index() {
                   <div className="accordion" id="profileAccordion">
                     <div className={`${styles.main} card border_color mb-4`}>
                       <div
-                        className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between`}
+                        className={`${styles.head_container} card-header bg-transparent border_color head_container d-flex justify-content-between`}
                         data-toggle="collapse"
                         data-target="#documents"
                         aria-expanded="true"
@@ -1426,7 +1435,7 @@ function Index() {
                         aria-labelledby="documents"
                         data-parent="#profileAccordion"
                       >
-                        <div className={`${styles.dashboard_form} card-body`}>
+                        <div className={`${styles.dashboard_form} border_color card-body`}>
                           <Form>
                             <div className="row align-items-center pb-4">
                               <div

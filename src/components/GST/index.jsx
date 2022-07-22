@@ -675,6 +675,53 @@ function Index(GstData) {
           </div>
         </div>
       </div>
+      <div className={`${styles.verify_gst} card verify_gst`}>
+        <div className={`${styles.card_header} card-header bg-transparent`}>
+          <h3>Verify GST</h3>
+        </div>
+        <div className={`${styles.card_body} card-body`}>
+          <p className="card-text">Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator. OTP</p>
+          <ul className={`${styles.nav_tabs} nav nav-tabs`} id="verifyGST" role="tablist">
+            <li className={`${styles.nav_item} nav-item`}>
+              <a className={`${styles.nav_link} nav-link active`} id="via-email" data-toggle="tab" href="#viaEmail" role="tab" aria-controls="viaEmail" aria-selected="true"><img src="/static/email-icon.png" className='img-fluid' alt='Via Email' />Via Email</a>
+            </li>
+            <li className={`${styles.nav_item} nav-item`}>
+              <a className={`${styles.nav_link} nav-link`} id="via-phone" data-toggle="tab" href="#viaPhone" role="tab" aria-controls="viaPhone" aria-selected="false"><img src="/static/phone-icon.png" className='img-fluid' alt='Via Email' />Via Phone No.</a>
+            </li>
+          </ul>
+          <form>
+            <div className={`${styles.tab_content} tab-content`} id="myTabContent">
+              <div className="tab-pane fade show active" id="viaEmail" role="tabpanel" aria-labelledby="via-email">
+                <div className={`${styles.labelFloat} form-group`}>
+                  <input type='text' id='email' name="email" className={`${styles.formControl} ${styles.input} input form-control`} required />
+                  <label className={`label_heading_login`} htmlFor='email'>Email or Username</label>
+                </div>
+                <div className={`${styles.labelFloat} ${styles.password} form-group`}>
+                  <div className='input-group align-items-center' id='password'>
+                    <input type='password' name="password" className={`${styles.formControl} ${styles.input} input form-control`} required />
+                    <label className={`label_heading_login`} htmlFor='password'>Password</label>
+                    <img src='/static/eye.svg' alt='Show Password' className='img-fluid' />
+                  </div>
+                </div>                
+                <div className='d-flex justify-content-between'>
+                  <button type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                  <button type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Submit</button>
+                </div>
+              </div>
+              <div className="tab-pane fade" id="viaPhone" role="tabpanel" aria-labelledby="via-phone">
+                <div className={`${styles.labelFloat} form-group`}>
+                  <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
+                  <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
+                </div>
+                <div className='d-flex justify-content-between'>
+                  <button type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                  <button type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Get OTP</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <div className={`${styles.wrapper} card`}>
         <div
@@ -1282,10 +1329,16 @@ function Index(GstData) {
           aria-controls="Compliance"
         >
           <h2 className="mb-0">Compliance</h2>
-          <div className={`${styles.subHeadContainer} d-flex ml-5`}>
-            <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</span>{gstFilteredData?.detail?.complianceDetail?.filingHistory}</span>
-            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</span>{gstFilteredData?.detail?.complianceDetail?.filingFrequency}</span>
-            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</span>{gstFilteredData?.detail?.complianceDetail?.financialPeriod}</span>
+          <div className={`${styles.subHeadContainer} d-flex mr-4 ml-auto`}>
+            <div className={` ${styles.complaintExtra} d-flex align-items-center`}>
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</div>{gstFilteredData?.detail?.complianceDetail?.filingHistory}
+            </div>
+            <div className={`${styles.complaintExtra} d-flex align-items-center`}>
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</div>{gstFilteredData?.detail?.complianceDetail?.filingFrequency}
+            </div>
+            <div className={`${styles.complaintExtra} d-flex align-items-center`}>
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</div>{gstFilteredData?.detail?.complianceDetail?.financialPeriod}
+            </div>
           </div>
           <span>+</span>
         </div>
@@ -1370,22 +1423,14 @@ const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetail
           aria-controls="gstCustomerDetail"
         >
           <h2 className="mb-0">Customer Details</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
+            <select className={`${styles.selectHead} accordion_body accordion_DropDown form-select`} aria-label="Default select example"
             >
-              <span className={`${styles.light}`}>Unit :</span>
-              <select
-                className={`${styles.selectHead} accordion_body form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="1">
-                  Crores
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+              <option selected value="1">Crores</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="gstCustomerDetail"
@@ -1564,22 +1609,13 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
           aria-controls="gstSupplierDetail"
         >
           <h2 className="mb-0">Suppliers Details</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
-            >
-              <span className={styles.light}>Unit :</span>
-              <select onChange={(e)=> setCustomerDetailsUnit(e.target.value)}
-                className={`${styles.selectHead} accordion_DropDown  form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="10000000">
-                  Crores
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
+            <select onChange={(e)=> setCustomerDetailsUnit(e.target.value)} className={`${styles.selectHead} accordion_DropDown form-select`} aria-label="Default select example">
+              <option selected value="10000000">Crores</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="gstSupplierDetail"
@@ -1761,22 +1797,13 @@ const gstSales = (head, gstFilteredData) => {
           aria-controls="gstSalesAndPurchase"
         >
           <h2 className="mb-0">{head}</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
-            >
-              <span className={styles.light}>Unit :</span>
-              <select
-                className={`${styles.selectHead}  accordion_DropDown form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="1">
-                  Crores
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
+            <select className={`${styles.selectHead} accordion_DropDown form-select`} aria-label="Default select example">
+              <option selected value="1">Crores</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="gstSalesAndPurchase"
@@ -1979,22 +2006,13 @@ const gstPurchase = (head, gstFilteredData) => {
           aria-controls="purchase"
         >
           <h2 className="mb-0">{head}</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
-            >
-              <span className={styles.light}>Unit :</span>
-              <select
-                className={`${styles.selectHead}  accordion_DropDown form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="1">
-                  Crores
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
+            <select className={`${styles.selectHead} accordion_DropDown form-select`}              aria-label="Default select example">
+              <option selected value="1">Crores</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="purchase"

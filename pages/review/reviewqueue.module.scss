@@ -105,11 +105,12 @@
             margin: 15px;
         }
         .card {
-            margin-bottom: 1rem;         
+            margin-bottom: 26px;         
             // box-shadow: 0 3px 6px #cad0e2;
             .cardHeader {
                 cursor: pointer;
                 border-bottom: none;
+                max-height: 89px;
                 padding: 25px 35px !important;
                 @include respond(md-desktop) {
                     padding: 0 15px 0 15px !important;
@@ -139,6 +140,7 @@
                     color: #3687e8;
                     font-weight: normal;
                     line-height: 20px;
+                    margin-top: -7px;
                     @include respond(phone) {
                         font-size: 30px;
                         line-height: 20px;                    
@@ -157,8 +159,8 @@
                     }
                 }
                 .categories {
-                    margin-right: 1rem;
-                    width: 80%; 
+                    // margin-right: 1rem;
+                    // width: 80%; 
                     @include respond(md-desktop) {
                         width: 100%;
                     
@@ -175,6 +177,18 @@
                         width: 100%;
                     
                         }
+                    .form_control {
+                        height: 48px;
+                        font-size: 20px;
+                        font-weight: normal;
+                        line-height: 25px;
+                        max-width: 272px;
+                        border-radius: 4px;
+                        letter-spacing: 0.19px;
+                        background: #C3C3C31F;
+                        border: 1px solid #0000001F;
+                        margin-right: 67px;
+                    }
                     .label {
                         margin-right: 1rem;
                         margin-bottom: 0px;
@@ -209,6 +223,7 @@
                             font-weight: bold;
                             height: 19px;
                             color: #ea3f3f;
+                            margin-top: 0;
                             @include respond(md-desktop) {
                                     font-size: 15px !important;
                                 white-space: nowrap;
