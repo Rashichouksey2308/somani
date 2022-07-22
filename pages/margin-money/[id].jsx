@@ -1228,7 +1228,7 @@ function Index() {
                                   className={`${styles.search_image} img-fluid`}
                                   src="/static/search-grey.svg"
                                   alt="Search"
-                                ></img>
+                                />
                               </div>
                             </div>
                             <div

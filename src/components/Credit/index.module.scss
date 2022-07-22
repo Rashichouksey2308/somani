@@ -45,6 +45,41 @@
  .dashboard_form { 
     padding: 25px 35px !important;
     border-top: 2px solid red;
+   
+.radio_form {
+        padding: 8px 0 20px 35px;
+
+        .radio_group {
+            display: flex;
+
+            .radio {
+                font-size: 20px;
+                list-style: 32px;
+                color: #111111;
+                letter-spacing: 0.19px;
+                padding-right: 50px;
+
+                @include respond(md-desktop) {
+                    font-size: 18px;
+                }
+
+                @include respond(sm-desktop) {
+                    font-size: 16px;
+                }
+
+                @include respond(phone) {
+                    font-size: 14px;
+                }
+
+                label {
+                    padding-left: 15px;
+                }
+            }
+        }
+
+       
+    }
+    
         .form_group {
         position: relative;
         margin-bottom: 20px;
@@ -129,6 +164,19 @@
         
     }
     .btn_container {
+        overflow: hidden;
+            position: relative;
+            display: inline-block;
+        
+            input {
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                opacity: 0;
+                cursor: pointer;
+                position: absolute;
+            }
         margin-top: 10px;
 
         .gst_btn {
@@ -358,6 +406,7 @@ height: 48px;
             margin-left: 1rem;
             margin: 10px 35px !important;
         }
+    
 }
 .button {
     padding: 25px 35px !important;
@@ -420,3 +469,21 @@ height: 48px;
     // position: relative;
 
 }
+ .sub_heading {
+     font-size: 20px;
+     line-height: 25px;
+     font-weight: bold;
+     padding: 10px 0 15px;
+
+     @include respond(md-desktop) {
+         font-size: 16px;
+     }
+
+     @include respond(sm-desktop) {
+         font-size: 14px;
+     }
+
+     @include respond(phone) {
+         font-size: 12px;
+     }
+ }
