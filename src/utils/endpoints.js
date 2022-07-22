@@ -23,6 +23,7 @@ export default {
   newOrder: '/api/core/order',
   orderDetailUpdate: '/api/core/order/detail',
   updateCredit: '/api/core/order/credit',
+  updateCreditCalculate: '/api/core/order/credit-calculate',
 
   // gst
   getGst: '/api/get-gst',

@@ -127,6 +127,8 @@ function Index() {
     document2: null,
   })
 
+  console.log(documents,'documents')
+
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails }
     newInput[name] = value
