@@ -364,7 +364,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
         dispatch(updatetermsheetsuccess(response.data))
       } else {
         dispatch(updatetermsheetfailed(response.data))
-        let toastMessage = 'UPDATE REQUEST FAILED'
+        let toastMessage = response.data.message
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage })
         }

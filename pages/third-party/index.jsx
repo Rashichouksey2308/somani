@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import styles from './index.module.scss'
 import ThirdPartyInspection from '../../src/components/ThirdPartyInspection'
 import PlotInspection from '../../src/components/PlotInspection'
-
+import Appointment from '../../src/components/Appointment'
 
 function Index() {
 
@@ -36,6 +36,18 @@ function Index() {
             </div>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
+             <li className={`${styles.navItem}  nav-item`}>
+              <a
+                className={`${styles.navLink} navLink  nav-link active`}
+                data-toggle="tab"
+                href="#appointment"
+                role="tab"
+                aria-controls="appointment"
+                aria-selected="true"
+              >
+                Appointment
+              </a>
+            </li>
             <li className={`${styles.navItem}  nav-item`}>
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
@@ -43,7 +55,7 @@ function Index() {
                 href="#thirdParty"
                 role="tab"
                 aria-controls="thirdParty"
-                aria-selected="true"
+                aria-selected="false"
               >
                 Third-Party Inspection
               </a>
@@ -68,8 +80,16 @@ function Index() {
           <div className="row">
             <div className="col-md-12 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                <div
+                 <div
                   className="tab-pane show active fade"
+                  id="appointment"
+                  role="tabpanel">
+                  <div className={`${styles.card}  accordion_body`}>
+                    <Appointment />
+                  </div>
+                </div>
+                <div
+                  className="tab-pane fade"
                   id="thirdParty"
                   role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
