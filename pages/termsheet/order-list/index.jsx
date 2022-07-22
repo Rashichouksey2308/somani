@@ -18,7 +18,8 @@ function Index() {
   const { termsheet } = useSelector((state) => state.order)
 
 
-  console.log(singleOrder?.data, 'all order listtt1')
+
+  console.log(singleOrder, 'all order listtt1')
   console.log(termsheet, "TErmshetTermsheet")
 
 
@@ -33,7 +34,6 @@ function Index() {
 
   const handleRoute = (term) => {
     console.log(term._id, "termtrem")
-
     //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
     dispatch(GetTermsheet(`?termsheetId=${term._id}`))
     Router.push("/termsheet/12")
@@ -211,7 +211,7 @@ function Index() {
                     </td>
                     <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.order?.commodity}</td>
 
-                    <td>{term?.order?.createdBy?.fName} {term?.order?.createdBy?.lName}</td>
+                    <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole: "RM"} </td>
                     <td>{term?.order?.createdAt?.slice(0, 10)}</td>
                     <td>
                       <span
