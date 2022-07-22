@@ -149,7 +149,7 @@ function Index() {
               >
                 <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(singleOrder?.totalCount / 10)}
+                  {Math.ceil(termsheet?.totalCount / 10)}
                 </span>
                 <a
                   onClick={() => {
@@ -171,7 +171,7 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(singleOrder?.totalCount / 10)) {
+                    if (currentPage + 1 < Math.ceil(termsheet?.totalCount / 10)) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
@@ -209,7 +209,7 @@ function Index() {
                     <td className={`${styles.first}`} onClick={() => handleRoute(term)}>
                       {term?.order?.orderId}
                     </td>
-                    <td className={`${styles.buyerName}`} >{term?.order?.commodity}</td>
+                    <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.order?.commodity}</td>
 
                     <td>{term?.order?.createdBy?.fName} {term?.order?.createdBy?.lName}</td>
                     <td>{term?.order?.createdAt?.slice(0, 10)}</td>

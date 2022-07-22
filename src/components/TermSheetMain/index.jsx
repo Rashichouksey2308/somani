@@ -14,7 +14,7 @@ function Index() {
 
   useEffect(() => {
     dispatch(getAllTermsheet(`?page=${currentPage}&limit=7`))
-  }, [dispatch,currentPage])
+  }, [dispatch, currentPage])
 
   const handleRoute = (sheet) => {
     dispatch(GetTermsheet(`?company=${sheet.company._id}`))
@@ -67,7 +67,7 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                 <span>Showing Page {currentPage + 1}  out of {Math.ceil(allTermsheets?.totalCount / 7)}</span>
+                <span>Showing Page {currentPage + 1}  out of {Math.ceil(allTermsheets?.totalCount / 7)}</span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -136,7 +136,10 @@ function Index() {
                             src="/static/preview.svg"
                             className="img-fluid"
                             alt="Preview"
-                            onClick={() => { Router.push("/termsheet-preview") }}
+                            onClick={() => {
+                              dispatch(GetTermsheet(`?company=${sheet.company._id}`))
+                              Router.push("/termsheet-preview")
+                            }}
 
                           />
                         </td>

@@ -24,10 +24,10 @@ export default function Home() {
          <Vessel vesselName='Vessel Information 1'
          isPartShipment={true}/>
          
-         <div className='mt-4'>
+         {/* <div className='mt-4'>
         <Vessel vesselName='Vessel Information 2'
          isPartShipment={false}/>
-       </div>
+       </div> */}
          <UploadDocument/>
            <UploadOther/>
            </div>

@@ -2771,9 +2771,9 @@ const customerRating = (dataline, lineOption) => {
                     <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="19 71" strokeDashoffset="45"></circle>
                       
                     </svg>
-                   {/* <div className={`${styles.arrow}`}>
-                    sd
-                   </div> */}
+                   <img src={`/static/gauge.svg`} className={`${styles.arrow}`}  >
+                   
+                   </img>
                     <div className={`${styles.score}`}>9.0</div>
                   </div>    
                 </div>

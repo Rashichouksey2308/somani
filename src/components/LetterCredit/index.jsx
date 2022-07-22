@@ -35,11 +35,11 @@ function Index() {
        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
       </a> */}
      
-      <button className={styles.createBtn}
+      {/* <button className={styles.createBtn}
       style={{ position: "absolute", right: 25 }}
       onClick={()=>{Router.push("/letter-table/letter-application")}}
       >
-       Create</button>
+       Create</button> */}
       </div>
      
      
