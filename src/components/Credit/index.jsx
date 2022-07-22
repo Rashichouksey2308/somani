@@ -8,6 +8,7 @@ import { UploadDocument } from 'redux/registerBuyer/action'
 import { phoneValidation } from 'utils/helper'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
+import { Form, Row, Col} from 'react-bootstrap'
 
 const index = ({
   creditDetail,
@@ -1017,32 +1018,43 @@ const index = ({
               {/* </div> */}
             </div>
           ))}
-        </div>
-      </div>
 
-      <div className={`${styles.main} card border_color`}>
-        <div
-          className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#addAddress"
-          aria-expanded="true"
-          aria-controls="addAddress"
-        >
-          <h3 className={`${styles.heading} mb-0`}>Add a new address</h3>
-          <img
-            src="/static/accordion_close_black.svg"
-            className="img-fluid mt-n2 mr-n2"
-            alt="Close"
-          />
+            <div className={`${styles.main} m-4 card border_color`}>
+           <div className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+              >
+          <h3 className={`${styles.heading}`}>Add a new address</h3>
+          <img src="/static/accordion_close_black.svg"/>
         </div>
-        <div
-          id="addAddress"
-          className="collapse"
-          aria-labelledby="addAddress"
-          data-parent="#profileAccordion"
-        >
-          <div className={`${styles.dashboard_form} card-body border_color`}>
-            <div className="row">
+           <div className={`${styles.dashboard_form} card-body border_color`}>
+            <div className='d-flex'>
+              <div className={`${styles.sub_heading} heading_card`}>
+          Communication Address
+        </div>
+        <div className={styles.radio_form}>
+          {['checkbox'].map((type) => (
+            <div key={`inline-${type}`} className={styles.radio_group}>
+              <Form.Check
+                className={styles.radio}
+                inline
+                label="Yes"
+                name="group1"
+                type={type}
+                id={`inline-${type}-1`}
+              />
+              <Form.Check
+                className={styles.radio}
+                inline
+                label="No"
+                name="group1"
+                type={type}
+                id={`inline-${type}-2`}
+              />
+            </div>
+          ))}
+        </div>
+        </div>
+            <div className='row'>
+          
               <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                 <div className='d-flex'>
                 <select
@@ -1067,6 +1079,7 @@ const index = ({
                         </div>
               </div>
               <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                <div className="d-flex">
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
@@ -1076,9 +1089,16 @@ const index = ({
                     handleChange(e.target.name, e.target.value)
                   }}
                 />
-                <label className={`${styles.label_heading} label_heading`}>
+                 <label className={`${styles.label_heading} label_heading`}>
                   Pin Code<strong className="text-danger">*</strong>
                 </label>
+                 <img
+                      className={`${styles.search_image} img-fluid`}
+                        src="/static/search-grey.svg"
+                        alt="Search"
+                      />
+                      </div>
+               
               </div>
 
               <div className={`${styles.form_group} col-md-2 col-sm-4`}>
@@ -1126,6 +1146,7 @@ const index = ({
                 </label>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                 <div className="d-flex">
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
@@ -1144,6 +1165,12 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Phone Number<strong className="text-danger">*</strong>
                 </label>
+                 <img
+                      className={`${styles.search_image} img-fluid`}
+                        src="/static/add.svg"
+                        alt="add"
+                      />
+                      </div>
               </div>
               <div className={`${styles.form_group} col-md-8 col-sm-6`}>
                 <input
@@ -1200,11 +1227,11 @@ const index = ({
                       uploadDocument(e)
                     }}
                   />
-                  {/* <img
+                   <img
                     className="img-fluid mr-2 mb-1"
                     src="/static/file_upload.svg"
                     alt="file upload"
-                  /> */}
+                  /> 
                   GST Doc
                 </button>
                 <button
@@ -1215,10 +1242,12 @@ const index = ({
                 </button>
               </div>
             </div>
+            </div>
           </div>
         </div>
       </div>
 
+     
       <div className={`${styles.main} card border_color`}>
         <div
           className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}

@@ -226,7 +226,7 @@ const Index = ({
                               className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
                               alt="save"
                               onClick={(e) => {
-                                onExpSave(exposureData)
+                                //onExpSave(exposureData)
                                 setSaveTable(false)
                               }}
                             />
@@ -263,7 +263,7 @@ const Index = ({
                                 className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
                                 onClick={(e) => {
                                   setSaveTable(true)
-                                  onExpSave(exposureData)
+                                  //onExpSave(exposureData)
                                 }}
                               />
                             ) : (
