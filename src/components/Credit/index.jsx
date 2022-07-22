@@ -129,16 +129,16 @@ const index = ({
     keyAddDataArr(keyAddressData)
   }
 
-  const saveDate = (e) => {
-    const d = new Date(e.target.value)
+  const saveDate = (value, name) => {
+    const d = new Date(value)
     let text = d.toISOString()
-    saveProductData(e.target.name, text)
+    saveProductData(name, text)
   }
 
-  const saveSupplierDate = (e) => {
-    const d = new Date(e.target.value)
+  const saveSupplierDate = (value, name) => {
+    const d = new Date(value)
     let text = d.toISOString()
-    saveSupplierData(e.target.name, text)
+    saveSupplierData(name, text)
   }
 
   return (
@@ -272,7 +272,7 @@ const index = ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
-                    <DateCalender labelName='Stock Coverage of Commodity'/>
+                    <DateCalender name='stockCoverageOfCommodity' saveDate={saveDate} labelName='Stock Coverage of Commodity'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -575,7 +575,7 @@ const index = ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                    <DateCalender labelName='Oldest Shipment Date'/>
+                    <DateCalender name='oldestShipmentDate' saveDate={saveSupplierDate} labelName='Oldest Shipment Date'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -607,7 +607,7 @@ const index = ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
-                    <DateCalender labelName='Latest Shipment Date'/>
+                    <DateCalender name='latestShipmentDate' saveDate={saveSupplierDate} labelName='Latest Shipment Date'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
