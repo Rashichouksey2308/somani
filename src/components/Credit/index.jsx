@@ -50,7 +50,7 @@ const index = ({
     pinCode: null,
   })
 
-  
+  //const [deleteRow, setDeleteRow] = useState(true)
 
   const [debt, setDebtData] = useState({
     bankName: '',
@@ -68,6 +68,24 @@ const index = ({
   const onDebtSave = () => {
     addDebtArr(debt)
   }
+
+  // const [keyPerson, setKeyPerson] = useState({
+  //   personName: '',
+  //   designationPerson: '',
+  //   departmentPerson: null,
+  //   contactNo: '',
+  //   emailId: ''
+  // })
+
+  // const handleKeyPerson = (name, value) => {
+  //   const newInput = { ...keyAddData }
+  //   newInput[name] = value
+  //   setKeyPerson(newInput)
+  // }
+
+  // const onKeyPersonSave = () => {
+  //   addPersonArr(keyPerson)
+  // }
 
   const [keyPersonData, setKeyPersonData] = useState(
     personData,
@@ -540,10 +558,9 @@ const index = ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
+                <div className='d-flex'>
+                <select
+                  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                   defaultValue={
                     creditDetail?.supplierCredential?.countryOfOrigin
                   }
@@ -551,16 +568,24 @@ const index = ({
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
                   }}
-                />
+                >
+                  <option>India</option>
+                  <option>USA</option>
+                </select>
                 <label className={`${styles.label_heading} label_heading`}>
                   Country of Origin<strong className="text-danger">*</strong>
                 </label>
+                <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
+                <div className='d-flex'>
+                <select
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   defaultValue={
                     creditDetail?.supplierCredential?.portOfDestination
                   }
@@ -568,10 +593,19 @@ const index = ({
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
                   }}
-                />
+                >
+                   <option>India</option>
+                  <option>USA</option>
+                </select>
                 <label className={`${styles.label_heading} label_heading`}>
                   Port of Destination<strong className="text-danger">*</strong>
                 </label>
+                 <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                    />
+                        </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
@@ -803,7 +837,11 @@ const index = ({
             </div></div>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
               <span>+</span>
-              <div>Add More Rows</div>
+              <div 
+              // onClick={(e) => {
+              //                   onKeyPersonSave(keyPerson)
+              //                 }}
+                              >Add More Rows</div>
             </div>
           </div>
         </div>
@@ -1273,6 +1311,9 @@ const index = ({
                             <img
                               src="/static/delete 2.svg"
                               className={`${styles.delete_image} img-fluid`}
+                              // onClick={() => {
+                              //   setDeleteRow(deleteRow)
+                              // }}
                               alt="delete"
                             />
                           </div>
@@ -1283,7 +1324,10 @@ const index = ({
                 </table>
               </div>
             </div>
-            <div className={`${styles.add_row} p-3 d-flex justify-content-end`}>
+            <div className={`${styles.add_row} p-3 d-flex justify-content-end`}
+            onClick={(e) => {
+                                onDebtSave(debt)
+                              }}>
               <span>+</span>
               <div>Add More Rows</div>
             </div>
