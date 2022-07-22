@@ -1329,10 +1329,16 @@ function Index(GstData) {
           aria-controls="Compliance"
         >
           <h2 className="mb-0">Compliance</h2>
-          <div className={`${styles.subHeadContainer} d-flex ml-5`}>
-            <span className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</span>{gstFilteredData?.detail?.complianceDetail?.filingHistory}</span>
-            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</span>{gstFilteredData?.detail?.complianceDetail?.filingFrequency}</span>
-            <span className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}><span className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</span>{gstFilteredData?.detail?.complianceDetail?.financialPeriod}</span>
+          <div className={`${styles.subHeadContainer} d-flex mr-4 ml-auto`}>
+            <div className={` ${styles.complaintExtra} d-flex align-items-center`}>
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</div>{gstFilteredData?.detail?.complianceDetail?.filingHistory}
+            </div>
+            <div className={`${styles.complaintExtra} d-flex align-items-center`}>
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</div>{gstFilteredData?.detail?.complianceDetail?.filingFrequency}
+            </div>
+            <div className={`${styles.complaintExtra} d-flex align-items-center`}>
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</div>{gstFilteredData?.detail?.complianceDetail?.financialPeriod}
+            </div>
           </div>
           <span>+</span>
         </div>
@@ -1417,22 +1423,14 @@ const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetail
           aria-controls="gstCustomerDetail"
         >
           <h2 className="mb-0">Customer Details</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
+            <select className={`${styles.selectHead} accordion_body accordion_DropDown form-select`} aria-label="Default select example"
             >
-              <span className={`${styles.light}`}>Unit :</span>
-              <select
-                className={`${styles.selectHead} accordion_body form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="1">
-                  Crores
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+              <option selected value="1">Crores</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="gstCustomerDetail"
@@ -1611,22 +1609,13 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
           aria-controls="gstSupplierDetail"
         >
           <h2 className="mb-0">Suppliers Details</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
-            >
-              <span className={styles.light}>Unit :</span>
-              <select onChange={(e)=> setCustomerDetailsUnit(e.target.value)}
-                className={`${styles.selectHead} accordion_DropDown  form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="10000000">
-                  Crores
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
+            <select onChange={(e)=> setCustomerDetailsUnit(e.target.value)} className={`${styles.selectHead} accordion_DropDown form-select`} aria-label="Default select example">
+              <option selected value="10000000">Crores</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="gstSupplierDetail"
@@ -1808,22 +1797,13 @@ const gstSales = (head, gstFilteredData) => {
           aria-controls="gstSalesAndPurchase"
         >
           <h2 className="mb-0">{head}</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
-            >
-              <span className={styles.light}>Unit :</span>
-              <select
-                className={`${styles.selectHead}  accordion_DropDown form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="1">
-                  Crores
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
+            <select className={`${styles.selectHead} accordion_DropDown form-select`} aria-label="Default select example">
+              <option selected value="1">Crores</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="gstSalesAndPurchase"
@@ -2026,22 +2006,13 @@ const gstPurchase = (head, gstFilteredData) => {
           aria-controls="purchase"
         >
           <h2 className="mb-0">{head}</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
-            >
-              <span className={styles.light}>Unit :</span>
-              <select
-                className={`${styles.selectHead}  accordion_DropDown form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="1">
-                  Crores
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
+            <select className={`${styles.selectHead} accordion_DropDown form-select`}              aria-label="Default select example">
+              <option selected value="1">Crores</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="purchase"

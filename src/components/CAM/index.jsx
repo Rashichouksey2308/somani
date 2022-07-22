@@ -2276,30 +2276,18 @@ const sectionTerms = (
         >
           <h2 className="mb-0">Sanction Terms</h2>
           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
-            <span
-              className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}
-            >
-              <span className={`${styles.lightCompliance} mr-2`}>
-                Total Limit:
-              </span>
+            <div className={` ${styles.complaintExtra} d-flex align-items-center`}>
+              <span className={`${styles.lightCompliance} mr-2`}>Total Limit:</span>
               1,900.00
-            </span>
-            <span
-              className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}
-            >
-              <span className={`${styles.lightCompliance} mr-2`}>
-                Utilised Limit:
-              </span>
+            </div>
+            <div className={`${styles.complaintExtra} d-flex align-items-center`}>
+              <span className={`${styles.lightCompliance} mr-2`}>Utilised Limit:</span>
               1,900.00
-            </span>
-            <span
-              className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}
-            >
-              <span className={`${styles.lightCompliance} mr-2`}>
-                Available Limit:
-              </span>
+            </div>
+            <div className={`${styles.complaintExtra} d-flex align-items-center`}>
+              <span className={`${styles.lightCompliance} mr-2`}>Available Limit:</span>
               1,900.00
-            </span>
+            </div>
           </div>
           <span>+</span>
         </div>
@@ -2553,26 +2541,13 @@ const trends = (dataline, lineOption) => {
           aria-controls="trends"
         >
           <h2 className="mb-0">Trends</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
-            >
-              <span
-                className={`${styles.light} ${styles.unit_label} accordion_Text`}
-              >
-                Display By:
-              </span>
-              <select
-                className={`${styles.select} accordion_body form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="1">
-                  Quarterly
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} ${styles.unit_label} accordion_Text`}>Display By:</h5>
+            <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
+              <option selected value="1">Quarterly</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="trends"
@@ -2628,26 +2603,13 @@ const skewness = (data, options, tempArr) => {
           aria-controls="skewness"
         >
           <h2 className="mb-0">Skewness</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
-            >
-              <span
-                className={`${styles.light}  ${styles.unit_label} accordion_Text`}
-              >
-                Display By:
-              </span>
-              <select
-                className={`${styles.select} accordion_body form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="1">
-                  Quarterly
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light}  ${styles.unit_label} accordion_Text`}>Display By:</h5>
+            <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
+              <option selected value="1">Quarterly</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="skewness"
