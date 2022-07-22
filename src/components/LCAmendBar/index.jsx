@@ -17,7 +17,7 @@ function index({openbar}) {
              <img src="/static/expand.svg" className='img-fluid' alt="Expand"/>
             
         </div>
-        <div className={styles.approve} onClick={
+        <div className={`${styles.approve} ml-3`} onClick={
        ()=>{ openbar()}
         }><span>Share</span></div>
     </div>

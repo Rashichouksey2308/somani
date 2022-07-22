@@ -4,18 +4,17 @@
     margin-bottom: 126px;
     .tabHeader {
         padding: 25px 30px 0;
-        margin-bottom: 26px;
         .title {
             font-size: 34px;
-             font-weight: bold;
+            font-weight: bold;
             line-height: 41px;
             margin: 0;
             text-transform: capitalize;
             @include respond(phone) {
-                    font-size: $font_size_mobile_head;
-                    margin: 0px;
-                    padding-left: 10px;
-                }
+                font-size: $font_size_mobile_head;
+                margin: 0px;
+                padding-left: 10px;
+            }
             img {
                 width: 13px;
                 height: 21px;
@@ -57,20 +56,18 @@
             border-bottom: none;
             overflow-x: auto;
             width: 100%;
-          @include respond(xl-desktop) {
-
-          }
-            @include respond(lg-desktop) {
-                 
-                    flex-wrap: nowrap;
-                }
+            @include respond(xl-desktop) {
+            }
+            @include respond(lg-desktop) {                 
+                flex-wrap: nowrap;
+            }
             @include respond(md-desktop) {
-                    width: calc(100vw - 60px);
-                    flex-wrap: nowrap;
-                }
+                width: calc(100vw - 60px);
+                flex-wrap: nowrap;
+            }
             @include respond(sm-desktop) {
-                    width: calc(100vw - 60px);
-                    flex-wrap: nowrap;
+                width: calc(100vw - 60px);
+                flex-wrap: nowrap;
             }
             @include respond(phone) {
                 width: calc(100vw - 60px);
@@ -90,7 +87,7 @@
                     @include respond(lg-desktop) {
                         font-size: 22px;
                         margin: 0 10px;
-                        }
+                    }
                     @include respond(phone) {
                         font-size:15px;
                         margin: 0 2px;
@@ -100,7 +97,13 @@
         }
     }    
     .tabContent {
-        // margin-top: 26px;
+        margin: 26px 28px 28px;
+        @include respond(md-desktop) {
+            margin: 20px;
+        }
+        @include respond(phone) {
+            margin: 15px;
+        }
         .card {
             margin-bottom: 1rem;         
             // box-shadow: 0 3px 6px #cad0e2;
@@ -109,29 +112,27 @@
                 border-bottom: none;
                 padding: 25px 35px !important;
                 @include respond(md-desktop) {
-                        padding: 0 15px 0 15px !important;
-                    }
+                    padding: 0 15px 0 15px !important;
+                }
                 h2 {
                     font-size: 22px;
                     color: #3687e8;
                     font-weight: bold;
                     line-height: 27px;
-                        @include respond(md-desktop) {
-                                font-size: 18px !important;
-                                line-height: 1.3;
-                                margin: 20px 0px 20px 0px !important;
-                            }
-                        
-                            @include respond(sm-desktop) {
-                                font-size: 18px !important;
-                                line-height: 1.3;
-                                margin: 20px 0px 20px 0px !important;
-                            }
-                        
-                            @include respond(phone) {
-                                font-size: 16px !important;
-                                margin: 13px 0px 13px 0px !important;
-                            }
+                    @include respond(md-desktop) {
+                        font-size: 18px !important;
+                        line-height: 1.3;
+                        margin: 20px 0px 20px 0px !important;
+                    }                        
+                    @include respond(sm-desktop) {
+                        font-size: 18px !important;
+                        line-height: 1.3;
+                        margin: 20px 0px 20px 0px !important;
+                    }                    
+                    @include respond(phone) {
+                        font-size: 16px !important;
+                        margin: 13px 0px 13px 0px !important;
+                    }
                 }
                 span {
                     font-size: 45px;
@@ -139,10 +140,9 @@
                     font-weight: normal;
                     line-height: 20px;
                     @include respond(phone) {
-                            font-size: 30px;
-                            line-height: 20px;
-                    
-                        }
+                        font-size: 30px;
+                        line-height: 20px;                    
+                    }
                 }
                 .label {
                     font-size: 16px;
@@ -152,10 +152,9 @@
                     letter-spacing: 0.53px;
                     white-space: nowrap;
                     @include respond(phone) {
-                            font-size: 12px;
-                            line-height: 20px;
-                    
-                        }
+                        font-size: 12px;
+                        line-height: 20px;                    
+                    }
                 }
                 .categories {
                     margin-right: 1rem;
@@ -200,7 +199,7 @@
                         height: 31px;
                         background: #ea3f3f42 0% 0% no-repeat padding-box;
                         letter-spacing: 0px;
-                      
+                    
                         span {
                             padding-left: 0.5rem;
                             padding-right: 0.5rem;
@@ -213,20 +212,20 @@
                             @include respond(md-desktop) {
                                     font-size: 15px !important;
                                 white-space: nowrap;
-                                  
+                                
                                 }
                             
                                 @include respond(sm-desktop) {
                                     font-size: 14px !important;
                                 white-space: nowrap;
-                                 
+                                
                                 }
                             
                                 @include respond(phone) {
                                     font-size: 12px !important;
                                     width: fit-content;
                                     white-space: nowrap;
-                                   
+                                
                                 }
 
                         }
@@ -336,7 +335,7 @@
                 box-sizing: border-box;
                 h3 {
                     font-size: 20px;
-                 
+                
                     font-weight: bold;
                     line-height: 25px;
                     margin-bottom: 15px;
@@ -348,7 +347,7 @@
                         font-weight: bold;
                         line-height: 18px;
                         padding: 13px 30px;
-                      
+                    
                         vertical-align: middle;
                         text-transform: uppercase;
                         border: 3px solid #f0f2f6;
@@ -469,11 +468,11 @@
                         }                                                
                     }
                     &.collapsed {
-                      border-radius: 8px !important;
+                    border-radius: 8px !important;
                         .downArrow {
-                          right: 46px;
-                          margin-top: -8px;
-                          transform: rotate(-90deg);
+                        right: 46px;
+                        margin-top: -8px;
+                        transform: rotate(-90deg);
                         }
                     }
                 }
@@ -507,33 +506,32 @@
             height: 300px;
             padding-left: 42px !important;
             border-top: 2px solid red ;
-                @include respond(md-desktop) {
-                        padding: 15px !important;
-                        width: 100vw;
-                    }
-                
-                    @include respond(sm-desktop) {
-                        padding: 15px !important;
-                        width: 100vw;
-                    }
-                
-                    @include respond(phone) {
-                        padding: 15px !important;
-                        width: 100vw;
-                    }
+            @include respond(md-desktop) {
+                padding: 15px !important;
+                width: 100vw;
+            }            
+            @include respond(sm-desktop) {
+                padding: 15px !important;
+                width: 100vw;
+            }
+        
+            @include respond(phone) {
+                padding: 15px !important;
+                width: 100vw;
+            }
             .row {
                 min-height: 60px;
                 border-bottom: 2px solid rgba(217, 217, 217, 0.316);
                 .col {
                     span {
-                      font-size: 16px;
-                      line-height: 18px;
-                      font-weight: bold;
-                      margin-top: 0.5rem;
+                    font-size: 16px;
+                    line-height: 18px;
+                    font-weight: bold;
+                    margin-top: 0.5rem;
                     }
                     .val {
-                      flex-grow: 1;
-                      flex-wrap: wrap;
+                    flex-grow: 1;
+                    flex-wrap: wrap;
                     }
                 }
             }
@@ -546,12 +544,12 @@
                     
                 }
             .checkbox_Container {
-             p{
-                color: #00000080;
-                font-size:16px;
-                line-height:17px;
-             }
-                                                                 
+                p{
+                    color: #00000080;
+                    font-size:16px;
+                    line-height:17px;
+                }
+                                                                
             }
             .risk_Container {
                 margin-top:5rem;
@@ -599,7 +597,7 @@
                     }
                 
                     .control input:checked~.control__content {
-                       
+                    
                         background-color: #3687E8;
                         color: #fff;
                         border: none;
@@ -641,20 +639,19 @@
             padding-right: 0px;
             padding-top:0px;
             @include respond(md-desktop) {
-                    width: calc(100vw - 30px);
-                        overflow-x: auto;
-                }
-            
-                @include respond(sm-desktop) {
-                    width: calc(100vw - 30px);
-                        overflow-x: auto;
-                }
-            
-                @include respond(phone) {
-                    width: calc(100vw - 30px);
-                    overflow-x: auto;
-                }
-           
+                width: calc(100vw - 30px);
+                overflow-x: auto;
+            }
+        
+            @include respond(sm-desktop) {
+                width: calc(100vw - 30px);
+                overflow-x: auto;
+            }
+        
+            @include respond(phone) {
+                width: calc(100vw - 30px);
+                overflow-x: auto;
+            }            
         }
     }
 }
@@ -948,9 +945,9 @@
 
 .main {
     border-radius: 6px;
-    margin-top: 20px;
+    margin-bottom: 26px;
     .head_container {
-        padding: 25px;
+        padding: 25px 35px;
         text-align: center;
         .heading {
             font-size: 22px;
@@ -968,6 +965,7 @@
     }
     .dashboard_form {
         padding: 40px 35px 40px 35px;
+        border-top: 2px solid red;
         .drop_container{
             background-color: #C3C3C31F;
             border: 1px dashed #00000045;

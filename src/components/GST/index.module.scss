@@ -1,6 +1,6 @@
 @import "../styles/Core/config";
 .wrapper {
-    margin-bottom: 1rem;
+    margin-bottom: 26px;
     border-radius: 6px !important;
     // border: 1px solid #D2D7E5;
     // -webkit-box-shadow: 0 3px 6px #cad0e2;
@@ -39,6 +39,7 @@
         color: #3687E8;
         font-weight: normal;
         line-height: 20px;
+        margin-top: -7px;
         @include respond(phone) {
             font-size: 30px;
             line-height: 20px;
@@ -59,24 +60,22 @@
     .subHeadContainer{
         margin-left: 20rem;
         .lightCompliance {
-                color: #2837566A;
-                font-size: 18px;
-                line-height: 23px;
-                font-weight: bold;
+            color: #2837566A;
+            font-size: 18px;
+            line-height: 23px;
+            font-weight: bold;
          }
-        
         .complaintExtra {
-                color: #111111;
-                font-size: 18px;
-                line-height: 23px;
-                font-weight: 500;
+            color: #111111;
+            font-size: 18px;
+            line-height: 23px;
+            font-weight: 500;
         }
     }
-
 }
 .cardBody {
     padding: 0px;
-    border-top: 2px solid red !important;
+    border-top: 2px solid red;
     @include respond(md-desktop) {
         padding: 15px !important;
         width: calc(100vw - 35px);
@@ -359,7 +358,7 @@
 }
 .CustomercardBody {
     padding: 0px;
-    border-top: 2px solid red !important;
+    border-top: 2px solid red;
     .content {
         margin-bottom: 1.5rem;
         .header {
@@ -931,6 +930,6 @@
         }
     }
 }
-.lastComponent {
-      margin-bottom: 10rem;
-  }
+// .lastComponent {
+//       margin-bottom: 10rem;
+//   }
