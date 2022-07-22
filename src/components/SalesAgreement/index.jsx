@@ -60,7 +60,7 @@ function Index() {
         <CMA/>
       )
     }
-      if(active=="Manufacturer/ Supplier"){
+      if(active=="Supplier"){
       return(
         <Manufecture/>
       )
@@ -88,7 +88,7 @@ function Index() {
   }
   const [sideBar,setSidebar] =useState(
     [
-    {name:"Manufacturer/ Supplier",state:"current",value:"Manufacturer/ Supplier"},
+    {name:"Supplier",state:"current",value:"Manufacturer/ Supplier"},
     {name:"Seller",state:"default",value:"Seller"},
     {name:"Buyer",state:"default",value:"Buyer"},
     {name:"Associate Buyer",state:"default",value:"Associate Buyer"},
@@ -141,7 +141,7 @@ function Index() {
   console.log("aasdaa",tempArr)
   setSidebar(tempArr)
   }
-  console.log(sideBar,"opk")
+ 
 
   return (
     <div className={`${styles.root}`}>
