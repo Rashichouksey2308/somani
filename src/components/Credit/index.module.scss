@@ -7,6 +7,7 @@
   
     .head_container {
         cursor: pointer;
+        border-bottom: none;
         padding: 25px 35px !important;
         .heading{
             color: #3687e8;
@@ -43,6 +44,7 @@
     
  .dashboard_form { 
     padding: 25px 35px !important;
+    border-top: 2px solid red;
         .form_group {
         position: relative;
         margin-bottom: 20px;

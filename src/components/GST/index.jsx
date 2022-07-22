@@ -693,7 +693,7 @@ function Index(GstData) {
           aria-labelledby="summaryCharts"
           data-parent="#profileAccordion"
         >
-          <div className={` ${styles.cardBody} card-body  border_color`}>
+          <div className={` ${styles.cardBody} card-body border-top-0 border_color`}>
             <Row className={styles.row}>
               <Col md={6} sm={12} className={styles.col}>
                 <div className={`${styles.chart_container} ${styles.noBorder}`}>
@@ -817,7 +817,7 @@ function Index(GstData) {
           aria-labelledby="salesDetails"
           data-parent="#profileAccordion"
         >
-          <div className={` ${styles.cardBody} card-body   border_color`}>
+          <div className={` ${styles.cardBody} card-body border-top-0  border_color`}>
             <div className={`${styles.scrollouter}`}>
               <div className={`${styles.scrollInner}`}>
                 <table
@@ -1056,7 +1056,7 @@ function Index(GstData) {
           aria-labelledby="purchaseDetails"
           data-parent="#profileAccordion"
         >
-          <div className={` ${styles.cardBody} card-body   border_color`}>
+          <div className={` ${styles.cardBody} card-body  border-top-0 border_color`}>
             <div className={`${styles.scrollouter}`}>
               <div className={`${styles.scrollInner}`}>
                 <table
@@ -1295,7 +1295,7 @@ function Index(GstData) {
           aria-labelledby="Compliance"
           data-parent="#profileAccordion"
         >
-          <div className={` ${styles.cardBody} card-body   border_color`}>
+          <div className={` ${styles.cardBody} card-body  border-top-0 border_color`}>
             <div className={`${styles.scrollouter}`}>
               <div className={`${styles.scrollInner}`}>
                 <table
@@ -1393,7 +1393,7 @@ const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetail
           aria-labelledby="gstCustomerDetail"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.CustomercardBody} card-body border_color`}>
+          <div className={`${styles.CustomercardBody} card-body border-top-0 border_color`}>
             <div className={`${styles.content}`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
@@ -1587,7 +1587,7 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
           aria-labelledby="gstSupplierDetail"
           data-parent="#gstSupplierDetail"
         >
-          <div className={` ${styles.CustomercardBody} card-body border_color`}>
+          <div className={` ${styles.CustomercardBody} card-body border-top-0 border_color`}>
             <div className={` ${styles.content}`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
@@ -1784,7 +1784,7 @@ const gstSales = (head, gstFilteredData) => {
           aria-labelledby="gstSalesAndPurchase"
           data-parent="#profileAccordion"
         >
-          <div className={` ${styles.CustomercardBody} card-body border_color`}>
+          <div className={` ${styles.CustomercardBody} card-body border-top-0 border_color`}>
             <div className={` ${styles.content}`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
@@ -2002,7 +2002,7 @@ const gstPurchase = (head, gstFilteredData) => {
           aria-labelledby="purchase"
           data-parent="#profileAccordion"
         >
-          <div className={` ${styles.CustomercardBody} card-body border_color`}>
+          <div className={` ${styles.CustomercardBody} card-body border-top-0 border_color`}>
             <div className={` ${styles.content}`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>

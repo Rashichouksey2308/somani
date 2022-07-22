@@ -31,6 +31,7 @@ import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
+
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
 
@@ -59,9 +60,9 @@ function Index() {
   const [newDoc, setNewDoc] = useState({
     document: [],
     order: orderList?.termsheet?.order,
-    type: '',
+    type: 'notrelevent',
     name: '',
-    module: '',
+    module: 'LeadOnboarding,OrderApproval',
   })
   const [manualDocModule, setManualDocModule] = useState(true)
   const [filteredDoc, setFilteredDoc] = useState([])
@@ -619,17 +620,29 @@ function Index() {
       setManualDocModule(false)
     } else {
       setManualDocModule(true)
-      setNewDoc({ ...newDoc, module: e.target.value })
+      setNewDoc({ ...newDoc, name: e.target.value })
     }
+  }
+
+  const uploadDocumentHandler = () => {
+    const fd = new FormData()
+    console.log(newDoc,newDoc.document,"pdfFile",newDoc.module)
+    fd.append('document', newDoc.document)
+    fd.append('module', newDoc.module)
+    fd.append('order', orderList?.termsheet?.order)
+    // fd.append('type', newDoc.type))
+    fd.append('name', newDoc.name)
+    
+    dispatch(AddingDocument(fd))
   }
 
 
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...newDoc }
     newUploadDoc1.document = e.target.files[0]
-
     setNewDoc(newUploadDoc1)
   }
+  console.log(newDoc,"documents")
 
 
 
@@ -792,7 +805,7 @@ function Index() {
         </div>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-12  accordion_body">
+            <div className="col-md-12 px-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane fade show active"
@@ -1385,7 +1398,7 @@ function Index() {
                     strengthsComment={strengthsComment}
                     weaknessComment={weaknessComment}
                   />
-                  {/* <CommonSave onSave={onCreditSave} /> */}
+                  <CommonSave onSave={onCreditSave} />
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM
@@ -1420,7 +1433,7 @@ function Index() {
                         aria-labelledby="documents"
                         data-parent="#profileAccordion"
                       >
-                        <div className={`${styles.dashboard_form} card-body`}>
+                        <div className={`${styles.dashboard_form} card-body border_color`}>
                           <Form>
                             <div className="row align-items-center pb-4">
                               <div
@@ -1451,27 +1464,31 @@ function Index() {
                               <div className="col-md-4 offset-md-1 col-sm-6">
                                 <Form.Group className={styles.form_group}>
                                   <div className='d-flex'>
-                                  <select onChange={(e) => handleNewDocModule(e)}
-                                    className={`${styles.value} ${styles.customSelect} input form-control`}
-                                    id="docType"
-                                  >
-                                    <option value="LeadOnboarding,OrderApproval">Lead Onboarding & Order Approval</option>
-                                    <option value="Agreements,Insurance,LCOpening">Agreements, Insurance & LC Opening</option>
-                                    <option value="Loading-Transit-Unloading">Loading-Transit- Unloading</option>
-                                    <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
-                                    <option value="others">Others</option>
-                                  </select>
-                                   <Form.Label
-                                    className={`${styles.label} label_heading`}
-                                  >
-                                    Document Type
-                                  </Form.Label>
-                                   <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                    />
-                        </div>
+                                    <select onChange={(e) => handleNewDocModule(e)}
+                                      className={`${styles.value} ${styles.customSelect} input form-control`}
+                                      id="docType"
+                                    >
+                                      <option value="CertificateofIncorporation">Certificate of Incorporation</option>
+                                      <option value="IECCertificate">IEC Certificate</option>
+                                      <option value="BusinessRegistrationCertificate ">Business Registration Certificate </option>
+                                      <option value="PANCard">PAN Card</option>
+                                      <option value="GSTCertificate">GST Certificate</option>
+                                      <option value="BankReferenceLetter">Bank Reference Letter</option>
+                                      <option value="FinancialYear ">Financial Year </option>
+
+                                      <option value="others">Others</option>
+                                    </select>
+                                    <Form.Label
+                                      className={`${styles.label} label_heading`}
+                                    >
+                                      Document Type
+                                    </Form.Label>
+                                    <img
+                                      className={`${styles.arrow} img-fluid`}
+                                      src="/static/inputDropDown.svg"
+                                      alt="Search"
+                                    />
+                                  </div>
                                 </Form.Group>
                                 <Form.Group className={styles.form_group}>
                                   <Form.Label
@@ -1480,23 +1497,19 @@ function Index() {
                                     Please Specify Document Name
                                   </Form.Label>
                                   <input
-                                    onChange={(e) => setNewDoc({ ...newDoc, module: e.target.value })}
+                                    onChange={(e) => setNewDoc({ ...newDoc, name: e.target.value })}
                                     className={`${styles.value} input form-control`}
                                     type="text"
                                     placeholder="Insurance Quotation"
                                     disabled={manualDocModule}
                                   />
                                 </Form.Group>
-                                <div className={styles.uploadBtnWrapper}>
+                                <div onClick={uploadDocumentHandler} className={styles.uploadBtnWrapper}>
                                   <input
-
-                                    type="file"
-                                    name="myfile"
-
                                   />
                                   <button
                                     className={`${styles.upload_button} btn`}
-                                   disabled={manualDocModule}
+                                    
 
                                   >
                                     Upload
