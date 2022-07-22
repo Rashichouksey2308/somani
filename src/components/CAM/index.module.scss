@@ -1,6 +1,6 @@
 
 .card{
-        margin-bottom: 1rem;
+    margin-bottom: 26px;
 }
 .cardHeader {
     cursor: pointer;
@@ -172,6 +172,7 @@
 }
 .terms_wrapper{
     padding:0px;
+    border-top: 2px solid red !important;
     .heading{
         height: 67px;
         font-size:22px;
@@ -246,7 +247,7 @@
 //orderSummary
 .order_wrapper{
   
-    padding:0px;
+    padding:0px 15px;
     .leftCol{
         padding: 25px 35px !important;
         border-top: 2px solid red !important;
