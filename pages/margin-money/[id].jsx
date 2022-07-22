@@ -24,6 +24,7 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney)
 
   const marginData = margin?.data?.data[0]
+ 
 
   useEffect(() => {
     dispatch(setPageName('margin-money'))
@@ -218,7 +219,7 @@ function Index() {
                 Margin Money
               </a>
             </li>
-            <li className={`${styles.navItem} nav-item`}>
+            {/* <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link`}
                 data-toggle="tab"
@@ -229,7 +230,7 @@ function Index() {
               >
                 Revised Margin Money
               </a>
-            </li>
+            </li> */}
             {/* <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
                   </li> */}
@@ -1227,7 +1228,7 @@ function Index() {
                                   className={`${styles.search_image} img-fluid`}
                                   src="/static/search-grey.svg"
                                   alt="Search"
-                                ></img>
+                                />
                               </div>
                             </div>
                             <div

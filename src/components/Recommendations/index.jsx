@@ -296,7 +296,7 @@ const Index = ({
                         </tr>
                       ))}
 
-                    {!addRow ? (
+                 
                       <tr className="table_row">
                         <td className={styles.number}>1 </td>
                         <td>
@@ -359,7 +359,7 @@ const Index = ({
                                 className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
                                 onClick={(e) => {
                                   setSaveTable(true)
-                                  onExpSave(exposureData)
+                                  //onExpSave(exposureData)
                                 }}
                               />
                             ) : (
@@ -380,9 +380,7 @@ const Index = ({
                           </div>
                         </td>
                       </tr>
-                    ) : (
-                      ''
-                    )}
+                   
                   </tbody>
                 </table>
               </div>
@@ -390,7 +388,9 @@ const Index = ({
             <div
               className={`${styles.add_image} p-3 d-flex justify-content-end`}
             >
-              <div onClick={(e) => setAddRow(!addRow)}>
+              <div  onClick={(e) => {
+                 onExpSave(exposureData)
+                  }}>
                 <span>+</span>Add More Rows
               </div>
             </div>

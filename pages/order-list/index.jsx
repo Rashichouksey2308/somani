@@ -6,19 +6,31 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
+import _get from "lodash/get"
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
 
   const { singleOrder } = useSelector((state) => state.buyer)
+  console.log(singleOrder,'singleorder')
 
-
-  useEffect(() => {
-    dispatch(setPageName('leads'))
-    dispatch(setDynamicName(singleOrder?.data[0]?.company?.companyName))
-  }, [dispatch, singleOrder])
+  // useEffect(() => {
+  //   dispatch(GetOrders(`?page=${currentPage}`))
+  // }, [dispatch, currentPage])
+  // {_get(
+  //   props,
+  //   "pageData.field_landing_page_flexi_content[0].component.content.field_form[0].field_car_number[2].field_placeholder",
+  //   "Ex. 1234"
+  // )}
+  
+ useEffect(() => {
+     dispatch(setPageName('leads'))
+     dispatch(setDynamicName(_get(singleOrder,
+      'data[0].company.companyName'
+      ," ")))
+  },[dispatch, singleOrder])
 
   const handleRoute = () => {
     dispatch(GetOrders(`?company=${singleOrder?.data[0]?.company?._id}`))
@@ -35,16 +47,13 @@ function Index() {
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={styles.head_header}>
-              <img
-                className={`${styles.arrow} img-fluid`}
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="arrow"
-              />
-              <h1 className={`${styles.heading} heading`}>
-                {singleOrder?.data[0]?.company?.companyName}
-              </h1>
-            </div>
+            
+             <div className={styles.head_header}>
+                    <img className={`${styles.arrow} img-fluid`}
+                        src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
+                    <h1 className={`${styles.heading} heading`}>{_get(singleOrder,'data[0].company.companyName', "")}</h1>
+                </div>
+        
 
             <button
               type="button"

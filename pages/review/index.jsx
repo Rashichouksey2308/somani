@@ -31,6 +31,7 @@ import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
+
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
 
@@ -60,9 +61,9 @@ function Index() {
   const [newDoc, setNewDoc] = useState({
     document: [],
     order: orderList?.termsheet?.order,
-    type: '',
+    type: 'notrelevent',
     name: '',
-    module: '',
+    module: 'LeadOnboarding,OrderApproval',
   })
   const [manualDocModule, setManualDocModule] = useState(true)
   const [filteredDoc, setFilteredDoc] = useState([])
@@ -593,6 +594,30 @@ function Index() {
   }
 
   const currentOpenLink = (e) => {
+    console.log(e.target.attributes[4].nodeValue,"eee")
+    if(e.target.attributes[4].nodeValue=="Compliance"){
+       let list = document.getElementsByClassName('nav-tabs')
+      let tab = document.getElementsByClassName('tab-content')
+          for (let i = 0; i < list[0].children.length; i++) {
+     
+     
+       
+       
+         
+          list[0].children[i].children[0].classList.remove('active')
+        
+          tab[0].children[i].classList.remove('show')
+          tab[0].children[i].classList.remove('active')
+          
+         
+        }
+   
+          list[0].children[3].children[0].classList.add('active')
+          
+          tab[0].children[3].classList.add('show')
+          tab[0].children[3].classList.add('active')
+        
+    }
     setSelectedTab(e.target.attributes[4].nodeValue)
   }
   const onNext = () => {
@@ -651,17 +676,29 @@ function Index() {
       setManualDocModule(false)
     } else {
       setManualDocModule(true)
-      setNewDoc({ ...newDoc, module: e.target.value })
+      setNewDoc({ ...newDoc, name: e.target.value })
     }
+  }
+
+  const uploadDocumentHandler = () => {
+    const fd = new FormData()
+    console.log(newDoc,newDoc.document,"pdfFile",newDoc.module)
+    fd.append('document', newDoc.document)
+    fd.append('module', newDoc.module)
+    fd.append('order', orderList?.termsheet?.order)
+    // fd.append('type', newDoc.type))
+    fd.append('name', newDoc.name)
+    
+    dispatch(AddingDocument(fd))
   }
 
 
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...newDoc }
     newUploadDoc1.document = e.target.files[0]
-
     setNewDoc(newUploadDoc1)
   }
+  console.log(newDoc,"documents")
 
 
 
@@ -824,14 +861,14 @@ function Index() {
         </div>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-12 px-0 accordion_body">
+            <div className="col-md-12  accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane fade show active"
                   id="Profile"
                   role="tabpanel"
                 >
-                  <div className="accordion shadow-none" id="profileAccordion">
+                  <div className="accordion" id="profileAccordion">
                     <CompanyDetails order={orderList?.company} companyId={companyData?.company} companyDetail={companyData} />
                     <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorData={companyData} />
@@ -840,7 +877,7 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
-                  <div className="accordion shadow-none" id="FinancialsAccordion">
+                  <div className="accordion" id="FinancialsAccordion">
                     <BalanceSheet balanceData={companyData} />
 
                     <IncomeStatement incomeData={companyData} />
@@ -1225,33 +1262,18 @@ function Index() {
                                 className={` d-flex align-items-center justify-content-start`}
                               >
                                 <div className="form-check">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    value=""
-                                    id="Respondent"
-                                  />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="Respondent"
-                                  >
-                                    Respondent
-                                  </label>
-                                </div>
-                                <div className="form-check ml-4">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    value=""
-                                    id="Respondent"
-                                  />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="Respondent"
-                                  >
-                                    Petitioner
-                                  </label>
-                                </div>
+                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                                <label className="form-check-label" htmlFor="flexRadioDefault1">
+                                Respondent
+                                </label>
+                              </div>
+                              <div className="form-check ml-4">
+                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+                                <label className="form-check-label" htmlFor="flexRadioDefault2">
+                                  Petitioner
+                                </label>
+                              </div>
+                             
                               </div>
                             </Col>
                             <Col md={4}>
@@ -1259,34 +1281,18 @@ function Index() {
                               <div
                                 className={` d-flex align-items-center justify-content-start`}
                               >
-                                <div className="form-check">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    value=""
-                                    id="Classification"
-                                  />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="Classification"
-                                  >
-                                    Civil
-                                  </label>
-                                </div>
-                                <div className="form-check ml-4">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    value=""
-                                    id="Classification"
-                                  />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="Classification"
-                                  >
-                                    Criminal
-                                  </label>
-                                </div>
+                              <div className="form-check">
+                                <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault3"/>
+                                <label className="form-check-label" htmlFor="flexRadioDefault3">
+                                Civil
+                                </label>
+                              </div>
+                              <div className="form-check ml-3">
+                                <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault4" checked/>
+                                <label className="form-check-label" htmlFor="flexRadioDefault4">
+                                  Criminal
+                                </label>
+                              </div>
                               </div>
                             </Col>
                           </Row>
@@ -1435,9 +1441,9 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <div className={`${styles.main} card border_color`}>
+                    <div className={`${styles.main} card border_color mb-4`}>
                       <div
-                        className={`${styles.head_container} card-header bg-transparent border_color head_container d-flex justify-content-between`}
+                        className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between`}
                         data-toggle="collapse"
                         data-target="#documents"
                         aria-expanded="true"
@@ -1454,7 +1460,7 @@ function Index() {
                         aria-labelledby="documents"
                         data-parent="#profileAccordion"
                       >
-                        <div className={`${styles.dashboard_form} card-body border_color`}>
+                        <div className={`${styles.dashboard_form} card-body`}>
                           <Form>
                             <div className="row align-items-center pb-4">
                               <div
@@ -1485,27 +1491,31 @@ function Index() {
                               <div className="col-md-4 offset-md-1 col-sm-6">
                                 <Form.Group className={styles.form_group}>
                                   <div className='d-flex'>
-                                  <select onChange={(e) => handleNewDocModule(e)}
-                                    className={`${styles.value} ${styles.customSelect} input form-control`}
-                                    id="docType"
-                                  >
-                                    <option value="LeadOnboarding,OrderApproval">Lead Onboarding & Order Approval</option>
-                                    <option value="Agreements,Insurance,LCOpening">Agreements, Insurance & LC Opening</option>
-                                    <option value="Loading-Transit-Unloading">Loading-Transit- Unloading</option>
-                                    <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
-                                    <option value="others">Others</option>
-                                  </select>
-                                   <Form.Label
-                                    className={`${styles.label} label_heading`}
-                                  >
-                                    Document Type
-                                  </Form.Label>
-                                   <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                    />
-                        </div>
+                                    <select onChange={(e) => handleNewDocModule(e)}
+                                      className={`${styles.value} ${styles.customSelect} input form-control`}
+                                      id="docType"
+                                    >
+                                      <option value="CertificateofIncorporation">Certificate of Incorporation</option>
+                                      <option value="IECCertificate">IEC Certificate</option>
+                                      <option value="BusinessRegistrationCertificate ">Business Registration Certificate </option>
+                                      <option value="PANCard">PAN Card</option>
+                                      <option value="GSTCertificate">GST Certificate</option>
+                                      <option value="BankReferenceLetter">Bank Reference Letter</option>
+                                      <option value="FinancialYear ">Financial Year </option>
+
+                                      <option value="others">Others</option>
+                                    </select>
+                                    <Form.Label
+                                      className={`${styles.label} label_heading`}
+                                    >
+                                      Document Type
+                                    </Form.Label>
+                                    <img
+                                      className={`${styles.arrow} img-fluid`}
+                                      src="/static/inputDropDown.svg"
+                                      alt="Search"
+                                    />
+                                  </div>
                                 </Form.Group>
                                 <Form.Group className={styles.form_group}>
                                   <Form.Label
@@ -1514,23 +1524,19 @@ function Index() {
                                     Please Specify Document Name
                                   </Form.Label>
                                   <input
-                                    onChange={(e) => setNewDoc({ ...newDoc, module: e.target.value })}
+                                    onChange={(e) => setNewDoc({ ...newDoc, name: e.target.value })}
                                     className={`${styles.value} input form-control`}
                                     type="text"
                                     placeholder="Insurance Quotation"
                                     disabled={manualDocModule}
                                   />
                                 </Form.Group>
-                                <div className={styles.uploadBtnWrapper}>
+                                <div onClick={uploadDocumentHandler} className={styles.uploadBtnWrapper}>
                                   <input
-
-                                    type="file"
-                                    name="myfile"
-
                                   />
                                   <button
                                     className={`${styles.upload_button} btn`}
-                                   disabled={manualDocModule}
+                                    
 
                                   >
                                     Upload

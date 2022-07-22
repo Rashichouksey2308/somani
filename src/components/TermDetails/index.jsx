@@ -249,8 +249,8 @@ console.log(termsheetDetails?.commodityDetails?.unitOfQuantity,"termsheetDetails
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                               <div className='d-flex'>
                             <select id='thirdPartyInspectionReq' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={(e) => updateThirdPartyInspection(e.target.value)} required>
-                                <option value="No">No</option>
-                                <option value="Yes">Yes</option>
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
 
                             </select>
                             <label className={`${styles.label} label_heading`}>3rd Party Inspection Required<strong className="text-danger">*</strong></label>
