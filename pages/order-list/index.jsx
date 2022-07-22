@@ -14,6 +14,7 @@ function Index() {
 
   const { singleOrder } = useSelector((state) => state.buyer)
 
+
   useEffect(() => {
     dispatch(setPageName('leads'))
     dispatch(setDynamicName(singleOrder?.data[0]?.company?.companyName))
