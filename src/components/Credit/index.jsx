@@ -14,6 +14,7 @@ const index = ({
   creditDetail,
   keyAddDataArr,
   saveProductData,
+  handleProductSave,
   saveSupplierData,
   keyAddData,
   debtData,
@@ -30,6 +31,8 @@ const index = ({
   const [saveContactTable, setContactTable] = useState(false)
 
   const { gstDocument } = useSelector((state) => state.buyer)
+
+  const {updatingCreditCalculate} = useSelector((state)=>state.review)
 
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
@@ -382,6 +385,7 @@ const index = ({
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
                   }}
+                  required
                 >
                   <option value={creditDetail?.productSummary
                         ?.contributionCommoditySenstivity}>
@@ -456,7 +460,7 @@ const index = ({
             
             </div>
           <div className={`${styles.saveButton} m-0 mt-4`}>
-              <div className={`${styles.button} ml-0`} ><span>Save</span></div>
+              <div className={`${styles.button} ml-0`} onClick={()=>{if(!updatingCreditCalculate){handleProductSave()}}} ><span>Save</span></div>
           </div>
           </div>
         </div>

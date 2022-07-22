@@ -94,7 +94,7 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
         dispatch(updatingCamSuccess(response.data.data))
         let toastMessage = 'CAM APPROVED'
         if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
+          toast.success(toastMessage, { toastId: toastMessage })
         }
       } else {
         dispatch(updatingCamFailed(response.data.data))

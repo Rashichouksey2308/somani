@@ -24,7 +24,6 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney)
 
   const marginData = margin?.data?.data[0]
- 
 
   useEffect(() => {
     dispatch(setPageName('margin-money'))
@@ -76,26 +75,26 @@ function Index() {
   let usanceInterest = parseFloat(
     (orderValueInINR *
       (forCalculation.isUsanceInterestIncluded
-        ? forCalculation.usanceInterestPercentage
+        ? Number(forCalculation.usanceInterestPercentage / 100)
         : 1) *
       90) /
       365,
   ).toFixed(2) //L
   let tradeMargin = parseFloat(
-    orderValueInINR * forCalculation.tradeMarginPercentage,
+    orderValueInINR * Number(forCalculation.tradeMarginPercentage / 100),
   ).toFixed(2) //M
   let grossOrderValue = parseFloat(
     orderValueInINR + usanceInterest + tradeMargin,
   ).toFixed(2) //N
   let toleranceValue = parseFloat(
-    grossOrderValue * forCalculation.tolerance,
+    grossOrderValue * Number(forCalculation.tolerance / 100),
   ).toFixed(2) //O
   let totalOrderValue = parseFloat(grossOrderValue + toleranceValue).toFixed(2) //P
   let provisionalUnitPricePerTon = parseFloat(
     grossOrderValue / forCalculation.quantity,
   ).toFixed(2) //Q
   let marginMoney = parseFloat(
-    totalOrderValue * forCalculation.marginMoney,
+    totalOrderValue * Number(forCalculation.marginMoney / 100),
   ).toFixed(2) //R
   let totalSPDC = parseFloat(totalOrderValue - marginMoney).toFixed(2) //S
   let amountPerSPDC = parseFloat(

@@ -40,6 +40,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import {
   UpdateCredit,
+  UpdateCreditCalculate,
   UpdateOrderShipment,
 } from '../../src/redux/buyerProfile/action'
 
@@ -323,6 +324,22 @@ function Index() {
   }, [orderList])
 
 
+  const handleProductSave = () => {
+    if(product.capacityUtilization === '' || product.contributionCommoditySenstivity === ''){
+      let toastMessage = 'Please fill the required fields'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+    }else{
+    let obj = {
+      order: orderList._id,
+      productSummary: {...product},
+      gstin: 'test'
+    }
+    dispatch(UpdateCreditCalculate(obj))
+  }
+  }
+
 
   const saveSupplierData = (name, value) => {
     const newInput = { ...supplierCred }
@@ -498,6 +515,19 @@ function Index() {
     },
   ])
 
+  const [suggestedCredit, setSuggestedCredit] = useState({
+    suggestedCreditLimit: orderList?.suggestedCreditLimit,
+    suggestedOrderValue: orderList?.suggestedOrderValue
+  })
+
+  const saveSuggestedCreditData = (name, value) => {
+    const newInput = { ...suggestedCredit }
+    newInput[name] = value
+    // console.log(newInput)
+    setSuggestedCredit(newInput)
+  }
+
+
   //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
 
   const addGroupExpArr = (exposureData) => {
@@ -540,6 +570,8 @@ function Index() {
       },
       debtProfile: [...debtData],
       groupExposureDetail: [...groupExposureData],
+      suggestedOrderValue: suggestedCredit.suggestedOrderValue,
+      suggestedCreditLimit: suggestedCredit.suggestedCreditLimit
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
@@ -1371,6 +1403,7 @@ function Index() {
                     addDebtArr={addDebtArr}
                     addPersonArr={addPersonArr}
                     saveProductData={saveProductData}
+                    handleProductSave={handleProductSave}
                     debtData={debtData}
                     personData={personData}
                     saveSupplierData={saveSupplierData}
@@ -1379,6 +1412,7 @@ function Index() {
                   <Recommendations
                     creditDetail={orderList}
                     groupExposureData={groupExposureData}
+                    saveSuggestedCreditData={saveSuggestedCreditData}
                     addGroupExpArr={addGroupExpArr}
                     financialsComment={financialsComment}
                     addWeaknessCommentArr={addWeaknessCommentArr}
