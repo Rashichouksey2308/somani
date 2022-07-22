@@ -527,6 +527,18 @@ function Index() {
     setSuggestedCredit(newInput)
   }
 
+  const [approvedCredit, setApprovedCredit] = useState({
+    approvedOrderValue: orderList?.cam?.approvedOrderValue,
+    approvedCreditValue: orderList?.cam?.approvedCreditValue
+  })
+
+  const saveApprovedCreditData = (name, value) => {
+    const newInput = { ...approvedCredit }
+    newInput[name] = value
+    // console.log(newInput)
+    setApprovedCredit(newInput)
+  }
+
 
   //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
 
@@ -1433,6 +1445,7 @@ function Index() {
                     companyData={companyData}
                     addApproveRemarkArr={addApproveRemarkArr}
                     approveComment={approveComment}
+                    saveApprovedCreditData={saveApprovedCreditData}
                   />
                 </div>
                 <div
