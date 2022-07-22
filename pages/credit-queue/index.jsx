@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
@@ -261,7 +262,7 @@ function Index() {
                           <td className={styles.buyerName} onClick={()=>handleRoute(buyer)}>
                             {buyer.company.companyName}
                           </td>
-                          <td>{buyer.createdBy.userRole}</td>
+                          <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : "RM"}</td>
                           <td>{buyer.createdBy.fName}</td>
                           <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>
@@ -288,132 +289,7 @@ function Index() {
                     
                     </tr>
                   ))}
-                {/* <tr>
-                  <td>124621</td>
-                  <td className={styles.buyerName}>Ramakrishna Traders</td>
-                  <td>Customer</td>
-                  <td>Sameer Soni</td>
-                  <td>Yes</td>
-                  <td>
-                    <span className={`${styles.status} ${styles.approved}`}></span>
-                    Approved
-                  </td>
-                  <td>
-                    <img
-                      src="/static/preview.svg"
-                      className="img-fluid"
-                      alt="Preview"
-                      onClick={() => {
-                        Router.push('/review')
-                      }}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>124621</td>
-                  <td className={styles.buyerName}>Somani Traders</td>
-                  <td>RM-Sales</td>
-                  <td>Sachin Shiv</td>
-                  <td>Yes</td>
-                  <td>
-                    <span className={`${styles.status} ${styles.approved}`}></span>
-                    Approved
-                  </td>
-                  <td>
-                    <img
-                      src="/static/preview.svg"
-                      className="img-fluid"
-                      alt="Preview"
-                      onClick={() => {
-                        Router.push('/review')
-                      }}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>124621</td>
-                  <td className={styles.buyerName}>Bhutani Traders</td>
-                  <td>Customer</td>
-                  <td>Mahendra Singh</td>
-                  <td>Yes</td>
-                  <td>
-                    <span className={`${styles.status} ${styles.approved}`}></span>
-                    Approved
-                  </td>
-                  <td>
-                    <img
-                      src="/static/preview.svg"
-                      className="img-fluid"
-                      alt="Preview"
-                      onClick={() => {
-                        Router.push('/review')
-                      }}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>124621</td>
-                  <td className={styles.buyerName}>Emerging Traders</td>
-                  <td>RM-Sales</td>
-                  <td>Amar Singh</td>
-                  <td>Yes</td>
-                  <td>
-                    <span className={`${styles.status} ${styles.approved}`}></span>
-                    Approved
-                  </td>
-                  <td>
-                    <img
-                      src="/static/preview.svg"
-                      className="img-fluid"
-                      alt="Preview"
-                      onClick={() => {
-                        Router.push('/review')
-                      }}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>124621</td>
-                  <td className={styles.buyerName}>Raj Traders</td>
-                  <td>Customer</td>
-                  <td>Rama Dev</td>
-                  <td>Yes</td>
-                  <td>
-                    <span className={`${styles.status} ${styles.approved}`}></span>
-                    Approved
-                  </td>
-                  <td>
-                    <img
-                      src="/static/preview.svg"
-                      className="img-fluid"
-                      alt="Preview"
-                      onClick={() => {
-                        Router.push('/review')
-                      }}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>124621</td>
-                  <td className={styles.buyerName}>Krishna Traders</td>
-                  <td>Customer</td>
-                  <td>Sameer Soni</td>
-                  <td>Yes</td>
-                  <td>
-                    <span className={`${styles.status} ${styles.approved}`}></span>
-                    Approved
-                  </td>
-                  <td>
-                    <img
-                      src="/static/preview.svg"
-                      className="img-fluid"
-                      alt="Preview"
-                      onClick={() => {
-                        Router.push('/review')
-                      }}
-                    />
-                  </td>
-                </tr> */}
+              
               </tbody>
             </table>
           </div>

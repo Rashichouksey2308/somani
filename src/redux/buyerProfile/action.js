@@ -23,6 +23,24 @@ function updateCreditFailed() {
     type: types.UPDATE_CREDIT_FAILED,
   }
 }
+function updateCreditCal() {
+  return {
+    type: types.UPDATE_CREDIT_CALCULATE,
+  }
+}
+
+function updateCreditCalSuccess(payload) {
+  return {
+    type: types.UPDATE_CREDIT_CALCULATE_SUCCESSFULL,
+    payload
+  }
+}
+
+function updateCreditCalFailed() {
+  return {
+    type: types.UPDATE_CREDIT_CALCULATE_FAILED,
+  }
+}
 
 function updateOrder() {
   return {
@@ -180,6 +198,44 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(updateCreditFailed())
     const toastMessage = 'UPDATE CREDIT REQUEST FAILED'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}
+
+export const UpdateCreditCalculate = (payload) => async (dispatch, getState, api) => {
+  
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.put(`${API.corebaseUrl}${API.updateCreditCalculate}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(updateCreditCalSuccess(response.data.data))
+        const toastMessage = 'UPDATE REQUEST SENT'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+        let id1 = sessionStorage.getItem('orderID')
+        let id2 = sessionStorage.getItem('companyID')
+        dispatch(GetAllOrders({ orderId: id1 }))
+        dispatch(GetCompanyDetails({ company: id2 }))
+      } else {
+        dispatch(updateCreditCalFailed(response.data.data))
+        const toastMessage = 'UPDATE REQUEST FAILED'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(updateCreditCalFailed())
+    const toastMessage = 'UPDATE CREDIT CALCULATE REQUEST FAILED'
     if (!toast.isActive(toastMessage)) {
       toast.error(toastMessage, { toastId: toastMessage })
     }

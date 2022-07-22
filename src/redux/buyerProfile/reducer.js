@@ -1,8 +1,10 @@
-import * as types from "./actionType";
+import * as types from './actionType'
 
 const initialState = {
   updatingCredit: false,
   updatingCreditResponse: null,
+  updatingCreditCalculate: false,
+  updatedCreditCalculateResponse: null,
   updatingOrder: false,
   updatingOrderResponse: null,
   searchingLeads: false,
@@ -12,90 +14,84 @@ const initialState = {
   termsheet: [],
   gettingAllTermsheet: false,
   allTermsheets: [],
-  termsheetPreview : {}
-
+  termsheetPreview: {},
 }
 
 function OrderReducer(state = initialState, action) {
-
   switch (action.type) {
     case types.GET_TERMSHEET:
       return {
         ...state,
-        gettingTermsheet: true
+        gettingTermsheet: true,
       }
 
     case types.GET_TERMSHEET_SUCCESSFULL:
       return {
         ...state,
         gettingTermsheet: false,
-        termsheet: action.payload
+        termsheet: action.payload,
       }
     case types.GET_TERMSHEET_FAILED:
       return {
         ...state,
         gettingTermsheet: false,
-        termsheet: []
+        termsheet: [],
       }
 
     case types.GET_ALL_TERMSHEET:
       return {
         ...state,
-        gettingAllTermsheet: true
+        gettingAllTermsheet: true,
       }
 
     case types.GET_ALL_TERMSHEET_SUCCESSFULL:
       return {
         ...state,
         gettingAllTermsheet: false,
-        allTermsheets: action.payload
+        allTermsheets: action.payload,
       }
     case types.GET_ALL_TERMSHEET_FAILED:
       return {
         ...state,
         gettingAllTermsheet: false,
-        allTermsheets: []
+        allTermsheets: [],
       }
 
     case types.UPDATE_TERMSHEET:
       return {
         ...state,
-        updatingTermsheet: true
+        updatingTermsheet: true,
       }
     case types.UPDATE_TERMSHEET_SUCCESSFULL:
       return {
         ...state,
         updatingTermsheet: false,
-        termsheetPreview: action.payload
+        termsheetPreview: action.payload,
       }
 
     case types.UPDATE_TERMSHEET:
       return {
         ...state,
         updatingTermsheet: false,
-        termsheet: action.payload
+        termsheet: action.payload,
       }
-
-
-
-
 
     case types.SEARCH_LEADS:
       return {
         ...state,
-        searchingLeads: true
+        searchingLeads: true,
       }
     case types.SEARCH_LEADS_SUCCESSFULL:
       return {
         ...state,
         searchingLeads: false,
-        searchedLeads: action.payload
+        searchedLeads: action.payload,
       }
     case types.SEARCH_LEADS_FAILED:
       return {
         ...state,
         searchingLeads: false,
-        searchedLeads: null
+        searchedLeads: null,
       }
 
     case types.UPDATE_CREDIT:
@@ -115,6 +111,25 @@ function OrderReducer(state = initialState, action) {
         ...state,
         updatingCredit: false,
         updatedCreditResponse: null,
+      }
+
+    case types.UPDATE_CREDIT_CALCULATE:
+      return {
+        ...state,
+        updatingCreditCalculate: true,
+        updatedCreditCalculateResponse: null,
+      }
+    case types.UPDATE_CREDIT_CALCULATE_SUCCESSFULL:
+      return {
+        ...state,
+        updatingCreditCalculate: false,
+        updatedCreditCalculateResponse: action.payload,
+      }
+    case types.UPDATE_CREDIT_CALCULATE_FAILED:
+      return {
+        ...state,
+        updatingCreditCalculate: false,
+        updatedCreditCalculateResponse: null,
       }
 
     case types.UPDATE_ORDER:
@@ -139,7 +154,6 @@ function OrderReducer(state = initialState, action) {
     default:
       return state
   }
-
 }
 
 export default OrderReducer

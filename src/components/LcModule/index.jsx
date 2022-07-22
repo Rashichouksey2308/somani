@@ -38,10 +38,10 @@ function Index() {
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
           </a> */}
         
-          <button className={styles.createBtn}
+          {/* <button className={styles.createBtn}
           onClick={()=>{Router.push("/lc-module/lc-application")}}
           style={{ position: "absolute", right: 25 }}>
-          Create</button>
+          Create</button> */}
           </div>
         
           <div className={`${styles.datatable} card datatable border-color`}>
@@ -71,7 +71,7 @@ function Index() {
               <tbody>
               <tr className="table_row">
                   <td>124621</td>
-                  <td className={styles.buyerName}>Iron</td>
+                  <td className={styles.buyerName} onClick={(e)=>{Router.push("/letter-credit/lc-create")}}>Iron</td>
                   <td>RM-Sales</td>
 
                   <td>
