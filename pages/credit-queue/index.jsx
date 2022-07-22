@@ -262,7 +262,7 @@ function Index() {
                           <td className={styles.buyerName} onClick={()=>handleRoute(buyer)}>
                             {buyer.company.companyName}
                           </td>
-                          <td>{buyer.createdBy.userRole}</td>
+                          <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : "RM"}</td>
                           <td>{buyer.createdBy.fName}</td>
                           <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>
