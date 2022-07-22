@@ -1353,12 +1353,9 @@ const debtProfile = (data, options, tempArr, camData) => {
                     camData?.company?.debtProfile?.map((debt, index) => (
                       <tr key={index}>
                         <td>{debt?.bankName}</td>
-                        <td>
-                          <select
-                            className={`${styles.value} form-control`}
-                            defaultValue={debt?.limitType}
-                            disabled={true}
-                          />
+                        <td defaultValue={debt?.limitType} 
+                            disabled={true} >
+                          
                         </td>
 
                         <td>{debt?.limit}</td>
@@ -2576,26 +2573,13 @@ const trends = (dataline, lineOption) => {
           aria-controls="trends"
         >
           <h2 className="mb-0">Trends</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
-            >
-              <span
-                className={`${styles.light} ${styles.unit_label} accordion_Text`}
-              >
-                Display By:
-              </span>
-              <select
-                className={`${styles.select} accordion_body form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="1">
-                  Quarterly
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} ${styles.unit_label} accordion_Text`}>Display By:</h5>
+            <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
+              <option selected value="1">Quarterly</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="trends"
@@ -2651,26 +2635,13 @@ const skewness = (data, options, tempArr) => {
           aria-controls="skewness"
         >
           <h2 className="mb-0">Skewness</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            <span
-              className={` d-flex align-items-center justify-content-between`}
-            >
-              <span
-                className={`${styles.light}  ${styles.unit_label} accordion_Text`}
-              >
-                Display By:
-              </span>
-              <select
-                className={`${styles.select} accordion_body form-select`}
-                aria-label="Default select example"
-              >
-                <option selected value="1">
-                  Quarterly
-                </option>
-              </select>
-            </span>
-            +
-          </span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light}  ${styles.unit_label} accordion_Text`}>Display By:</h5>
+            <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
+              <option selected value="1">Quarterly</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="skewness"

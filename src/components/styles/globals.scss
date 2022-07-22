@@ -633,6 +633,23 @@ border-bottom: 6px solid #3687e8 !important;
 
 }
 
+body.light-mode .verify_gst .nav-link {
+  border: none;
+  color: #344054;
+  border-bottom: 3px solid transparent;
+}
+body.dark-mode .verify_gst .nav-link {
+  border: none;
+  color: #FFFFFF80;
+  border-bottom: 3px solid transparent;
+}
+body.light-mode .verify_gst .nav-link.active {
+  border-bottom: 3px solid #3687E8;
+}
+body.dark-mode .verify_gst .nav-link.active {
+  border-bottom: 3px solid #3687E8;
+}
+
 body.light-mode .accordion {
 background: #F3F4F7 0% 0% no-repeat padding-box;
   color: #000000;
