@@ -10,7 +10,7 @@ import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import { Form, Row, Col} from 'react-bootstrap'
 
-const index = ({
+const index =  ({
   creditDetail,
   keyAddDataArr,
   saveProductData,
@@ -93,16 +93,16 @@ const index = ({
 
   const [keyPersonData, setKeyPersonData] = useState(
     personData,
-    // {
-    //   contact: {
-    //     callingCode: '',
-    //     number: '',
-    //   },
-    //   department: '',
-    //   designation: '',
-    //   email: '',
-    //   name: '',
-    // },
+    {
+       contact: {
+        callingCode: '',
+         number: '',
+       },
+       department: '',
+       designation: '',
+       email: '',
+       name: '',
+   },
   )
 
   useEffect(() => {
@@ -120,6 +120,11 @@ const index = ({
     }
     setKeyPersonData(newInput)
   }
+
+  const onKeyPersonSave = () => {
+      addPersonArr(keyPersonData)
+      //console.log(keyPersonData, 'This is person data')
+    }
 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData }
@@ -841,7 +846,10 @@ const index = ({
             </table>
             </div></div>
             <div className={`${styles.add_row} p-3 d-flex justify-content-end`}
-            // 
+             onClick={(e) => {
+                              onKeyPersonSave(keyPersonData)
+
+                            }}
             >
               <span>+</span>
               <div>Add More Rows</div>
@@ -862,7 +870,7 @@ const index = ({
           <span>+</span>
         </div>
         <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
-          {keyAddData.map((address, index) => (
+          {/* {keyAddData.map((address, index) => (
             <div key={index} className={`${styles.dashboard_form} card-body`}>
               <div className="d-flex justify-content-between">
                 <div className={`${styles.address_card} value background1`}>
@@ -906,7 +914,8 @@ const index = ({
                   </div>
                 </div>
 
-                {/* <div className={`${styles.address_card} value background1`}>
+                
+                <div className={`${styles.address_card} value background1`}>
                 <div className="d-flex justify-content-between">
                   <div>
                     <div className={styles.address_values}>
@@ -929,9 +938,66 @@ const index = ({
                   </div>
                 </div>
               </div> */}
+           
+
+               <div className={`${styles.dashboard_form} card-body`}>
+              <div className="d-flex justify-content-between">
+                <div className={`${styles.address_card} value background1`}>
+                  <div className="d-flex justify-content-between">
+                    <div>
+                      <input type="checkbox" />
+                      <label className={styles.label}>
+                        Registered Office Address
+                      </label>
+                      <div className={styles.address_values}>
+                        <p>N-11, 29 Tilak Marg, New Delhi</p>
+                        <p className="pt-3">
+                          <span>Email: </span>
+                          skapoor@gmail
+                        </p>
+                        <p>
+                          <span>Phone Number:</span>
+                          +91 987665443332
+                        </p>
+                       
+                      </div>
+                    </div>
+                    <div>
+                      <img
+                        className={`${styles.edit_image} img-fluid`}
+                        src="/static/mode_edit.svg"
+                        alt="Edit"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                 <div className={`${styles.address_card} value background1`}>
+                <div className="d-flex justify-content-between">
+                  <div>
+                    <div className={styles.address_values}>
+                      <h5>Corporate Office Address</h5>
+                      <p>N-11, 29 Tilak Marg, New Delhi</p>
+                      <p className="pt-3">
+                        <span>Email: </span>skapoor@gmail.com
+                      </p>
+                      <p>
+                        <span>Phone Number:</span>+91 9876543210, +91 9876543210
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <img
+                      className={`${styles.edit_image} img-fluid`}
+                      src="/static/mode_edit.svg"
+                      alt="Edit"
+                    />
+                  </div>
+                </div>
+              </div> 
               </div>
-              {/* <div className="d-flex justify-content-between"> */}
-              {/* <div className={`${styles.address_card} value background1`}>
+            <div className="d-flex justify-content-between"> 
+             <div className={`${styles.address_card} value background1`}>
                 <div
                   className={`${styles.address_values} d-flex justify-content-between`}
                 >
@@ -968,11 +1034,11 @@ const index = ({
                       {' '}
                       <span>GSTIN: </span>Gstdt789652Jkv
                     </p>
-                    <span className={styles.button}>View</span>
+                    <span className={styles.view_btn}>View</span>
                   </div>
                 </div>
-              </div> */}
-              {/* <div className={`${styles.address_card} value background1`}>
+              </div> 
+              <div className={`${styles.address_card} value background1`}>
                 <div className="d-flex justify-content-between">
                   <div>
                     <div
@@ -1011,17 +1077,21 @@ const index = ({
                           {' '}
                           <span>GSTIN: </span>Gstdt789652Jkv
                         </p>
-                        <span className={styles.button}>View</span>
+                        <span className={styles.view_btn}>View</span>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div> */}
-              {/* </div> */}
+              </div> 
+              </div> 
+           <div className={`${styles.add_row} pr-3 d-flex justify-content-end`}
+           >
+              <span>+</span>
+              <div>Add More Rows</div>
             </div>
-          ))}
-
-            <div className={`${styles.main} m-4 card border_color`}>
+          {/* ))} */}
+        </div>
+            <div className={`${styles.main} card border_color`} style={{margin:'10px 35px 32px 32px'}}>
            <div className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
               >
           <h3 className={`${styles.heading}`}>Add a new address</h3>
@@ -1246,9 +1316,9 @@ const index = ({
             </div>
             </div>
           </div>
-        </div>
+        
       </div>
-
+     </div>
      
       <div className={`${styles.main} card border_color`}>
         <div
@@ -1365,7 +1435,9 @@ const index = ({
           </div>
         </div>
       </div>
+      
     </>
+    
   )
 }
 
