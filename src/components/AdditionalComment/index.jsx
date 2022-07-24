@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import index from 'components/Footer'
 import React, { useState, useEffect } from 'react'
 import GrowInput from '../GrowInput'
@@ -48,8 +49,6 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                     <div className={`${styles.bill_landing}  border_color`}>
                 <div className={`${styles.vessel_card}`}>
                     <div>
-                       
-                           
                             <div className={`${styles.form_group} d-flex justify-content-between`} >
                                   <div className='d-flex' style={{width:"460px"}}>
                                  <select className={`${styles.value} ${styles.customSelect} input form-control`} onChange={(e) => setCommentType(e.target.value)} required>
@@ -97,14 +96,15 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                                             <Form.Control className={`${styles.comment}`}
                                                 as="textarea"
                                                 rows={2}
-
+                                                //On Change TO BE Done
                                                 readOnly={!isCommentEditable[index]}
                                                 defaultValue={comment.comment} />
+                                            // eslint-disable-next-line @next/next/no-img-element
                                             <img src="/static/mode_edit.svg"
                                                 className="img-fluid ml-2"
                                                 alt="Edit"
                                                 index={index}
-                                                onClick={(e) => manageCommentEditable(index)}
+                                                onClick={() => manageCommentEditable(index)}
                                             />
                                             <img
                                                 src="/static/delete.svg"

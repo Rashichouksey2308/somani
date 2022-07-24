@@ -12,7 +12,7 @@ import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
-import { UpdateMarginMoney } from '../../src/redux/marginMoney/action'
+import { UpdateMarginMoney, GetMarginMoney } from '../../src/redux/marginMoney/action'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 // import { Row, Col } from 'react-bootstrap'
 
@@ -26,6 +26,9 @@ function Index() {
   const marginData = margin?.data?.data[0]
 
   useEffect(() => {
+    let id =sessionStorage.getItem('marginId')
+    dispatch(GetMarginMoney({ orderId: id }))
+    
     dispatch(setPageName('margin-money'))
     dispatch(setDynamicName(marginData?.company.companyName))
   }, [dispatch, marginData?.company.companyName])

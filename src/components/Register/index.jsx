@@ -60,7 +60,7 @@ function Index() {
     const newInput = {...companyDetails}
     newInput.companyName = gstList?.data?.companyData?.companyName
     setCompanyDetails(newInput)
-    setGstListData(stList?.data?.gstList)
+    setGstListData(gstList?.data?.gstList)
   }, [gstList])
 
   const [gstListData, setGstListData] = useState(gstList?.data?.gstList)

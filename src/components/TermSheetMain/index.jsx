@@ -18,6 +18,7 @@ function Index() {
 
   const handleRoute = (sheet) => {
     dispatch(GetTermsheet(`?company=${sheet.company._id}`))
+    sessionStorage.setItem('termsheetId', sheet.company._id )
     Router.push('/termsheet/order-list')
   }
   return (

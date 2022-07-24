@@ -19,13 +19,14 @@ function Index() {
 
 
 
-  console.log(singleOrder, 'all order listtt1')
-  console.log(termsheet, "TErmshetTermsheet")
+  // console.log(singleOrder, 'all order listtt1')
+  //console.log(termsheet, "TErmshetTermsheet")
 
 
-  // useEffect(() => {
-  //   dispatch(GetOrders(`?page=${currentPage}`))
-  // }, [dispatch, currentPage])
+  useEffect(() => {
+    let Id = sessionStorage.getItem('termsheetId')
+    dispatch(GetTermsheet(`?company=${Id}`))
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(setPageName('termsheet'))
@@ -36,6 +37,7 @@ function Index() {
     console.log(term._id, "termtrem")
     //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
     dispatch(GetTermsheet(`?termsheetId=${term._id}`))
+    sessionStorage.setItem('termID', term._id)
     Router.push("/termsheet/12")
     // Router.push('/lc-module')
   }
@@ -211,7 +213,7 @@ function Index() {
                     </td>
                     <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.order?.commodity}</td>
 
-                    <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole: "RM"} </td>
+                    <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
                     <td>{term?.order?.createdAt?.slice(0, 10)}</td>
                     <td>
                       <span
