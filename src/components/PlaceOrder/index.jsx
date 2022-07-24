@@ -47,8 +47,6 @@ const Index = () => {
     shipmentType: '',
   })
 
-  console.log(shipment, "THIS IS SHIPMENT ")
-
 
   const saveOrderData = (name, value) => {
     const newInput = { ...orderData }
