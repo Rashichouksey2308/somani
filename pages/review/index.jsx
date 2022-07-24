@@ -295,10 +295,10 @@ function Index() {
         orderList?.productSummary?.contributionCommoditySenstivity,
       dailyConsumptionOfCommodity:
         orderList?.productSummary?.dailyConsumptionOfCommodity,
-      existingCHA: [],
+      existingCHA: orderList?.productSummary?.existingCHA,
       existingProcurementOfCommodity:
         orderList?.productSummary?.existingProcurementOfCommodity,
-      existingSuppliers: [],
+      existingSuppliers: orderList?.productSummary?.existingSuppliers,
       monthlyProductionCapacity:
         orderList?.productSummary?.monthlyProductionCapacity,
       paymentStatusForElectricityBills:
