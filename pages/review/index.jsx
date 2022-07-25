@@ -919,7 +919,7 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <GST GstData={companyData?.GST} />
+                    <GST companyData={companyData} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Compliance" role="tabpanel">

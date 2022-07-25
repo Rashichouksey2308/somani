@@ -79,6 +79,23 @@ function deleteDocumentsFailed() {
     type: types.DELETE_DOCUMENT_FAILED,
   }
 }
+function getGstKarza() {
+  return {
+    type: types.GET_GST_KARZA,
+  }
+}
+
+function getGstKarzaSuccess(payload) {
+  return {
+    type: types.GET_GST_KARZA_SUCCESS,
+    payload,
+  }
+}
+function getGstKarzaFailed() {
+  return {
+    type: types.GET_GST_KARZA_FAILED,
+  }
+}
 
 export const UpdateCam = (payload) => async (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
@@ -218,6 +235,40 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
     })
   } catch (error) {
     dispatch(deleteDocumentsFailed())
+    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}
+
+
+export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getGstKarzaSuccess(response.data.data))
+        let toastMessage = 'Document Successfully Added'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      } else {
+        dispatch(getGstKarzaFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(getGstKarzaFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
     if (!toast.isActive(toastMessage)) {
       toast.error(toastMessage, { toastId: toastMessage })
