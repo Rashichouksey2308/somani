@@ -597,7 +597,11 @@ const Index = ({
                 <td>{creditDetail?.company?.creditLimit?.availableLimit}</td>
                 <td>-</td>
 
-                {filteredCreditRating && filteredCreditRating.length > 0 && filteredCreditRating.map((val, index)=> (<td key={index}>{val.derived.value}</td>))}
+                { filteredCreditRating ? <> {filteredCreditRating &&
+                  filteredCreditRating.length > 0 &&
+                  filteredCreditRating.map((val, index) => (
+                    <td key={index}>{val.derived.value}</td>
+                  ))} </> : <td>-</td> }
 
                 <td>
                   <input
