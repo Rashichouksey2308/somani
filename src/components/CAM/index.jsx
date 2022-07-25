@@ -33,7 +33,13 @@ Chart.register(
   Filler,
 )
 
-function Index({ camData, companyData, addApproveRemarkArr, approveComment, saveApprovedCreditData }) {
+function Index({
+  camData,
+  companyData,
+  addApproveRemarkArr,
+  approveComment,
+  saveApprovedCreditData,
+}) {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -54,23 +60,23 @@ function Index({ camData, companyData, addApproveRemarkArr, approveComment, save
     })
 
   function getPercentageIncrease(numA, numB) {
-      if (!numA) {
-          return 0
-      }
-      return (Math.abs(numA - numB) / numB) * 100
+    if (!numA) {
+      return 0
+    }
+    return (Math.abs(numA - numB) / numB) * 100
   }
 
-  if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
-    // if diff is < 30% than error if approve vlaue not given
-    if (!approvedCreditValue) {
-        
-            let toastMessage = 'More than 30% diff in derived and suggested value,Approved credit value required'
-            if(!toast.isActive(toastMessage)){
-              toast.error(toastMessage, {toastId: toastMessage})
-            }
-        
-    }
-}
+  //   if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
+  //     // if diff is < 30% than error if approve vlaue not given
+  //     if (!approvedCreditValue) {
+
+  //             let toastMessage = 'More than 30% diff in derived and suggested value,Approved credit value required'
+  //             if(!toast.isActive(toastMessage)){
+  //               toast.error(toastMessage, {toastId: toastMessage})
+  //             }
+
+  //     }
+  // }
 
   // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING IN CAM')
 
@@ -211,7 +217,7 @@ function Index({ camData, companyData, addApproveRemarkArr, approveComment, save
         addApproveRemarkArr,
         approveComment,
         filteredCreditRating,
-        saveApprovedCreditData
+        saveApprovedCreditData,
       )}
       {Documents()}
     </>
@@ -1373,10 +1379,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                     camData?.company?.debtProfile?.map((debt, index) => (
                       <tr key={index}>
                         <td>{debt?.bankName}</td>
-                        <td defaultValue={debt?.limitType} 
-                            disabled={true} >
-                          
-                        </td>
+                        <td defaultValue={debt?.limitType} disabled={true}></td>
 
                         <td>{debt?.limit}</td>
                         <td className={`${styles.conduct} danger`}>
@@ -2290,7 +2293,7 @@ const sectionTerms = (
   addApproveRemarkArr,
   approveComment,
   filteredCreditRating,
-  saveApprovedCreditData
+  saveApprovedCreditData,
 ) => {
   return (
     <>
@@ -2360,12 +2363,26 @@ const sectionTerms = (
                 {filteredCreditRating &&
                   filteredCreditRating.length > 0 &&
                   filteredCreditRating.map((val, index) => (
-                    <td key={index}>{val.derived.value}</td>
+                    <>
+                      {' '}
+                      {filteredCreditRating ? (
+                        <td key={index}>{val.derived.value}</td>
+                      ) : (
+                        <td>-</td>
+                      )}{' '}
+                    </>
                   ))}
                 {filteredCreditRating &&
                   filteredCreditRating.length > 0 &&
                   filteredCreditRating.map((val, index) => (
-                    <td key={index}>{val.suggested.value}</td>
+                    <>
+                      {' '}
+                      {filteredCreditRating ? (
+                        <td key={index}>{val.suggested.value}</td>
+                      ) : (
+                        <td>-</td>
+                      )}{' '}
+                    </>
                   ))}
                 <td>
                   <input type="checkbox"></input>
@@ -2375,8 +2392,10 @@ const sectionTerms = (
                     className={`${styles.text}`}
                     type="number"
                     defaultValue={camData?.cam?.approvedCreditValue}
-                    name='approvedCreditValue'
-                    onChange={(e)=>{saveApprovedCreditData(e.target.name, e.target.value)}}
+                    name="approvedCreditValue"
+                    onChange={(e) => {
+                      saveApprovedCreditData(e.target.name, e.target.value)
+                    }}
                   ></input>
                 </td>
               </tr>
@@ -2393,9 +2412,11 @@ const sectionTerms = (
                   <input
                     className={`${styles.text}`}
                     type="number"
-                    name='approvedOrderValue'
+                    name="approvedOrderValue"
                     defaultValue={camData?.cam?.approvedOrderValue}
-                    onChange={(e)=>{saveApprovedCreditData(e.target.name, e.target.value)}}
+                    onChange={(e) => {
+                      saveApprovedCreditData(e.target.name, e.target.value)
+                    }}
                   ></input>
                 </td>
               </tr>
@@ -2594,9 +2615,18 @@ const trends = (dataline, lineOption) => {
         >
           <h2 className="mb-0">Trends</h2>
           <div className="d-flex align-items-center">
-            <h5 className={`${styles.light} ${styles.unit_label} accordion_Text`}>Display By:</h5>
-            <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
-              <option selected value="1">Quarterly</option>
+            <h5
+              className={`${styles.light} ${styles.unit_label} accordion_Text`}
+            >
+              Display By:
+            </h5>
+            <select
+              className={`${styles.select} accordion_body form-select`}
+              aria-label="Default select example"
+            >
+              <option selected value="1">
+                Quarterly
+              </option>
             </select>
             <span>+</span>
           </div>
@@ -2656,9 +2686,18 @@ const skewness = (data, options, tempArr) => {
         >
           <h2 className="mb-0">Skewness</h2>
           <div className="d-flex align-items-center">
-            <h5 className={`${styles.light}  ${styles.unit_label} accordion_Text`}>Display By:</h5>
-            <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
-              <option selected value="1">Quarterly</option>
+            <h5
+              className={`${styles.light}  ${styles.unit_label} accordion_Text`}
+            >
+              Display By:
+            </h5>
+            <select
+              className={`${styles.select} accordion_body form-select`}
+              aria-label="Default select example"
+            >
+              <option selected value="1">
+                Quarterly
+              </option>
             </select>
             <span>+</span>
           </div>

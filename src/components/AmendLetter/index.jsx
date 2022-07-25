@@ -8,9 +8,6 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
 
-
-
-
 function Index() {
   
   return (

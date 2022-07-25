@@ -30,13 +30,13 @@ function Index() {
               </div>
             
             </div>
-            {/* <a className={styles.filterIcon}>
+             <a className={styles.filterIcon}>
             <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
           </a>
-          <a href="#" className={`${styles.filterList} filterList `}>
+          {/* <a href="#" className={`${styles.filterList} filterList `}>
             Bhutani Traders
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-          </a> */}
+          </a>  */}
         
           {/* <button className={styles.createBtn}
           onClick={()=>{Router.push("/lc-module/lc-application")}}
