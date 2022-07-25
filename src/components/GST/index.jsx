@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 import { Line, Bar } from 'react-chartjs-2'
+import Modal from 'react-bootstrap/Modal'
 import moment from 'moment'
 import {
   Chart,
@@ -16,6 +17,10 @@ import {
   BarElement,
 } from 'chart.js'
 
+// Redux 
+import { useDispatch } from 'react-redux'
+import {VerifyGstKarza} from '../../redux/creditQueueUpdate/action'
+
 Chart.register(
   LineController,
   LineElement,
@@ -28,7 +33,10 @@ Chart.register(
   BarElement,
 )
 // Chart.register(linear);
-function Index(GstData) {
+function Index(companyData) {
+  const dispatch = useDispatch()
+  const GstData = companyData?.GST
+  console.log(companyData,'companyData')
 
   console.log(GstData, "GSTDATA")
   const chartRef = useRef(null)
@@ -42,6 +50,10 @@ function Index(GstData) {
   const [salesUnit,setSalesUnit] = useState(10000000)
   const [purchasesUnit,setPurchasesUnit] = useState(10000000)
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   useEffect(() => {
     const filteredData = GstData?.GstData?.map((gstData) => {
       const data = { ...gstData }
@@ -49,6 +61,18 @@ function Index(GstData) {
     })
   }, [GstData])
   console.log(gstFilteredData, 'gstFilteredData')
+
+  const gstinNumberChangeHandler = () => {
+    const payload =  {
+      company: companyData?.companyData?.company,
+      gstin : "test", 
+      username : "test",    
+      password : "test"
+  }
+
+    dispatch(VerifyGstKarza(...payload))
+  }
+  
 
 
 
@@ -416,7 +440,7 @@ function Index(GstData) {
                   className={` d-flex align-items-center justify-content-between`}
                 >
                   <span className={styles.light}>GST :</span>
-                  <select className={`${styles.gst_list}`}>
+                  <select className={`${styles.gst_list}`} onChange={handleShow}>
                     <option value="09AAGCS8808K1ZR" selected>09AAGCS8808K1ZR</option>
                     <option value="09AAGCS8808K77R">09AAGCS8808K77R</option>
                   </select>
@@ -675,11 +699,13 @@ function Index(GstData) {
           </div>
         </div>
       </div>
-      <div className={`${styles.verify_gst} card verify_gst`}>
-        <div className={`${styles.card_header} card-header bg-transparent`}>
-          <h3>Verify GST</h3>
-        </div>
-        <div className={`${styles.card_body} card-body`}>
+      <Modal show={show} className={`${styles.verify_gst} card verify_gst`}>
+        <Modal.Header className={`${styles.card_header} card-header bg-transparent`}>
+          <Modal.Title>
+            <h3>Verify GST</h3>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body onHide={handleClose} className={`${styles.card_body} card-body`}>
           <p className="card-text">Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator. OTP</p>
           <ul className={`${styles.nav_tabs} nav nav-tabs`} id="verifyGST" role="tablist">
             <li className={`${styles.nav_item} nav-item`}>
@@ -704,8 +730,8 @@ function Index(GstData) {
                   </div>
                 </div>                
                 <div className='d-flex justify-content-between'>
-                  <button type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
-                  <button type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Submit</button>
+                  <button onClick={handleClose} type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                  <button onClick={handleClose} type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Submit</button>
                 </div>
               </div>
               <div className="tab-pane fade" id="viaPhone" role="tabpanel" aria-labelledby="via-phone">
@@ -714,14 +740,14 @@ function Index(GstData) {
                   <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
                 </div>
                 <div className='d-flex justify-content-between'>
-                  <button type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
-                  <button type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Get OTP</button>
+                  <button onClick={handleClose} type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                  <button onClick={handleClose} type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Get OTP</button>
                 </div>
               </div>
             </div>
           </form>
-        </div>
-      </div>
+        </Modal.Body>
+      </Modal>
 
       <div className={`${styles.wrapper} card`}>
         <div

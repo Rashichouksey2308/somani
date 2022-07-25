@@ -23,3 +23,9 @@ export const DELETE_DOCUMENT_FAILED = "DELETE_DOCUMENT_FAILED";
 export const UPDATE_CAM = "UPDATE_CAM";
 export const UPDATE_CAM_SUCCESS = "UPDATE_CAM_SUCCESS";
 export const UPDATE_CAM_FAILED = "UPDATE_CAM_FAILED";
+
+
+// ******** get GSt Karza ********//
+export const GET_GST_KARZA = "GET_GST_KARZA";
+export const GET_GST_KARZA_SUCCESS = "GET_GST_KARZA_SUCCESS";
+export const GET_GST_KARZA_FAILED = "GET_GST_KARZA_FAILED";

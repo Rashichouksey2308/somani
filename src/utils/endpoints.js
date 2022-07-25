@@ -57,5 +57,10 @@ export default {
 
   //Update Cam Sheet
 
-  updateCam: '/api/core/order/cam',
+
+ updateCam : '/api/core/order/cam',
+
+
+ // karza Gst 
+ getGstKarza : '/api/core/lead/refetch-gst-karza',
 }

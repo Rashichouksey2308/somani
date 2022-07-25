@@ -377,9 +377,13 @@ function Index() {
   const [sanctionComment, setSanctionComment] = useState(
     orderList?.company?.recommendations?.sanctionTerms,
   )
-  const [approveComment, setApproveComment] = useState(
-    orderList?.cam?.approvalRemarks,
-  )
+  const [approveComment, setApproveComment] = useState()
+
+
+  useEffect(() => {
+    setApproveComment(orderList?.cam?.approvalRemarks)
+  }, [orderList])
+  
 
   const [strengthsComment, setStrengthsComment] = useState(
     orderList?.company?.recommendations?.strengths,
@@ -532,6 +536,8 @@ function Index() {
     approvedCreditValue: orderList?.cam?.approvedCreditValue
   })
 
+  console.log(approvedCredit, 'THIS IS APPROVED CREDIT')
+
   const saveApprovedCreditData = (name, value) => {
     const newInput = { ...approvedCredit }
     newInput[name] = value
@@ -599,13 +605,74 @@ function Index() {
     dispatch(UpdateCredit(obj))
   }
 
+  const filteredCreditRating =
+  orderList?.company?.creditLimit?.creditRating?.filter((rating) => {
+    return orderList?._id === rating.order
+  })
+
+let suggestedValue =
+  filteredCreditRating && filteredCreditRating.length > 0
+    ? filteredCreditRating[0]?.suggested?.value
+    : ''
+let derivedValue =
+  filteredCreditRating && filteredCreditRating.length > 0
+    ? filteredCreditRating[0]?.derived?.value
+    : ''
+let approvedCreditValue = approvedCredit.approvedCreditValue
+
+let suggestedOrder = orderList?.suggestedOrderValue
+let appliedOrder = orderList?.orderValue
+let approvedOrderValue = approvedCredit.approvedOrderValue
+
+function getPercentageIncrease(numA, numB) {
+  if (!numA) {
+    return 0
+  }
+  return (Math.abs(numA - numB) / numB) * 100
+}
+
+const gettingPercentageCredit = () => {
+  if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
+    // if diff is < 30% than error if approve vlaue not given
+    if (!approvedCreditValue) {
+      let toastMessage =
+        'More than 30% diff in derived and suggested value,Approved credit value required'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+        return false
+      }
+    }
+    return true
+  }
+}
+
+const gettingPercentageOrder = () => {
+  if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
+    // if diff is < 30% than error if approve vlaue not given
+    if (!approvedOrderValue) {
+      let toastMessage =
+        'More than 30% diff in applied and suggested order value,Approved order value required'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+        return false
+      }
+    }
+    return true
+  }
+}
+
+
   const handleCamApprove = () => {
+    if(gettingPercentageCredit && gettingPercentageOrder){
     const obj = {
       approvalRemarks: [...approveComment],
+      approvedOrderValue: approvedCredit.approvedOrderValue,
+      approvedCreditValue: approvedCredit.approvedCreditValue,
       order: orderList._id,
       status: 'Approved',
     }
     dispatch(UpdateCam(obj))
+  }
   }
   const handleCamReject = () => {
     const obj = {
@@ -915,7 +982,7 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <GST GstData={companyData?.GST} />
+                    <GST companyData={companyData} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Compliance" role="tabpanel">
@@ -1431,6 +1498,7 @@ function Index() {
                     addApproveRemarkArr={addApproveRemarkArr}
                     approveComment={approveComment}
                     saveApprovedCreditData={saveApprovedCreditData}
+                    approvedCredit={approvedCredit}
                   />
                 </div>
                 <div

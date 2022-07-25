@@ -230,10 +230,13 @@
     }
 }
 
-.datatable {
+.datatable {    
     border-radius: 6px;
+    margin-bottom: 76px;
     border: 1px solid #d2d7e5;
-
+    @include respond(phone) {
+        margin-bottom: 68px;
+    }
     .tableFilter {
         padding: 0 15px 0 35px;
 
@@ -384,6 +387,7 @@
                 tr {
                     &:last-child {
                         border-bottom: none;
+                        border-radius: 0 0 6px 6px;
                     }
 
                     td {

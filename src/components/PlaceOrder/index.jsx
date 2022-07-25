@@ -14,6 +14,8 @@ const Index = () => {
   const dispatch = useDispatch()
 
   const {singleOrder} = useSelector((state)=>state.buyer)
+  const {creditData} = useSelector((state)=>state.companyDetails)
+  console.log(creditData, "THIS IS CREDIT DATA")
 
   const [orderData, setOrderData] = useState({
     transactionType: '',
@@ -207,23 +209,23 @@ const Index = () => {
           <div className="row">
             <div className="col-md-2 col-sm-4">
               <div className={`${styles.label} text`}>Total Limit</div>
-              <span className={styles.value}>20 CR</span>
+              <span className={styles.value}>{creditData?.data?.totalLimit}</span>
             </div>
             <div className="col-md-2 col-sm-4">
               <div className={`${styles.label} text`}>Utilised Limit</div>
-              <span className={styles.value}>15 CR</span>
+              <span className={styles.value}>{creditData?.data?.utilizedLimit}</span>
             </div>
             <div className="col-md-2 col-sm-4">
               <div className={`${styles.label} text`}>Available Limit </div>
-              <span className={styles.value}>5 CR</span>
+              <span className={styles.value}>{creditData?.data?.availableLimit}</span>
             </div>
             <div className="col-md-2 col-sm-4">
               <div className={`${styles.label} text`}>Limit Expiry Date</div>
-              <span className={styles.value}>22-02-2022</span>
+              <span className={styles.value}>{creditData?.data?.limitExpiry?.split('T')[0]}</span>
             </div>
             <div className="col-md-2 col-sm-4">
               <div className={`${styles.label} text`}>Last Order Value</div>
-              <span className={styles.value}>2 CR</span>
+              <span className={styles.value}>{creditData?.lastOrder?.orderValue}</span>
             </div>
           </div>
         </div>

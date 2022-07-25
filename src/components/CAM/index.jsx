@@ -39,11 +39,12 @@ function Index({
   addApproveRemarkArr,
   approveComment,
   saveApprovedCreditData,
+  approvedCredit,
 }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (window) {
+    if (window) { 
       let id1 = sessionStorage.getItem('orderID')
       let id2 = sessionStorage.getItem('companyID')
       dispatch(GetAllOrders({ orderId: id1 }))
@@ -59,24 +60,67 @@ function Index({
       return camData?._id === rating.order
     })
 
-  function getPercentageIncrease(numA, numB) {
-    if (!numA) {
-      return 0
-    }
-    return (Math.abs(numA - numB) / numB) * 100
-  }
+  // let suggestedValue =
+  //   filteredCreditRating && filteredCreditRating.length > 0
+  //     ? filteredCreditRating[0]?.suggested?.value
+  //     : ''
+  // let derivedValue =
+  //   filteredCreditRating && filteredCreditRating.length > 0
+  //     ? filteredCreditRating[0]?.derived?.value
+  //     : ''
+  // let approvedCreditValue = approvedCredit.approvedCreditValue
 
+  // let suggestedOrder = camData?.suggestedOrderValue
+  // let appliedOrder = camData?.orderValue
+  // let approvedOrderValue = approvedCredit.approvedOrderValue
+
+  // function getPercentageIncrease(numA, numB) {
+  //   if (!numA) {
+  //     return 0
+  //   }
+  //   return (Math.abs(numA - numB) / numB) * 100
+  // }
+
+  // const gettingPercentageCredit = () => {
   //   if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
   //     // if diff is < 30% than error if approve vlaue not given
   //     if (!approvedCreditValue) {
-
-  //             let toastMessage = 'More than 30% diff in derived and suggested value,Approved credit value required'
-  //             if(!toast.isActive(toastMessage)){
-  //               toast.error(toastMessage, {toastId: toastMessage})
-  //             }
-
+  //       let toastMessage =
+  //         'More than 30% diff in derived and suggested value,Approved credit value required'
+  //       if (!toast.isActive(toastMessage)) {
+  //         toast.error(toastMessage, { toastId: toastMessage })
+  //         return false
+  //       }
   //     }
+  //     return true
+  //   }
   // }
+
+  // const gettingPercentageOrder = () => {
+  //   if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
+  //     // if diff is < 30% than error if approve vlaue not given
+  //     if (!approvedOrderValue) {
+  //       let toastMessage =
+  //         'More than 30% diff in applied and suggested order value,Approved order value required'
+  //       if (!toast.isActive(toastMessage)) {
+  //         toast.error(toastMessage, { toastId: toastMessage })
+  //         return false
+  //       }
+  //     }
+  //     return true
+  //   }
+  // }
+
+  const onApprove = (name, value) => {
+    // if (gettingPercentageCredit()) {
+      saveApprovedCreditData(name, value)
+    // }
+  }
+  const onApproveOrder = (name, value) => {
+    // if (gettingPercentageOrder()) {
+      saveApprovedCreditData(name, value)
+    // }
+  }
 
   // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING IN CAM')
 
@@ -218,6 +262,8 @@ function Index({
         approveComment,
         filteredCreditRating,
         saveApprovedCreditData,
+        onApprove,
+        onApproveOrder
       )}
       {Documents()}
     </>
@@ -2294,6 +2340,8 @@ const sectionTerms = (
   approveComment,
   filteredCreditRating,
   saveApprovedCreditData,
+  onApprove,
+  onApproveOrder
 ) => {
   return (
     <>
@@ -2360,41 +2408,42 @@ const sectionTerms = (
                 <td>Limit Value</td>
                 <td>{camData?.company?.creditLimit?.availableLimit}</td>
                 <td>-</td>
-                {filteredCreditRating &&
-                  filteredCreditRating.length > 0 &&
-                  filteredCreditRating.map((val, index) => (
-                    <>
-                      {' '}
-                      {filteredCreditRating ? (
+                {filteredCreditRating ? (
+                  <>
+                    {' '}
+                    {filteredCreditRating &&
+                      filteredCreditRating.length > 0 &&
+                      filteredCreditRating.map((val, index) => (
                         <td key={index}>{val.derived.value}</td>
-                      ) : (
-                        <td>-</td>
-                      )}{' '}
-                    </>
-                  ))}
-                {filteredCreditRating &&
-                  filteredCreditRating.length > 0 &&
-                  filteredCreditRating.map((val, index) => (
-                    <>
-                      {' '}
-                      {filteredCreditRating ? (
+                      ))}{' '}
+                  </>
+                ) : (
+                  <td>-</td>
+                )}
+                {filteredCreditRating ? (
+                  <>
+                    {' '}
+                    {filteredCreditRating &&
+                      filteredCreditRating.length > 0 &&
+                      filteredCreditRating.map((val, index) => (
                         <td key={index}>{val.suggested.value}</td>
-                      ) : (
-                        <td>-</td>
-                      )}{' '}
-                    </>
-                  ))}
+                      ))}{' '}
+                  </>
+                ) : (
+                  <td>-</td>
+                )}
                 <td>
                   <input type="checkbox"></input>
                 </td>
                 <td>
                   <input
                     className={`${styles.text}`}
+                    required={true}
                     type="number"
                     defaultValue={camData?.cam?.approvedCreditValue}
                     name="approvedCreditValue"
                     onChange={(e) => {
-                      saveApprovedCreditData(e.target.name, e.target.value)
+                      onApprove(e.target.name, Number(e.target.value * 10000000))
                     }}
                   ></input>
                 </td>
@@ -2415,7 +2464,7 @@ const sectionTerms = (
                     name="approvedOrderValue"
                     defaultValue={camData?.cam?.approvedOrderValue}
                     onChange={(e) => {
-                      saveApprovedCreditData(e.target.name, e.target.value)
+                      onApproveOrder(e.target.name, Number(e.target.value * 10000000))
                     }}
                   ></input>
                 </td>
