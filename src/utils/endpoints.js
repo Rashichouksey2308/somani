@@ -44,17 +44,18 @@ export default {
   getCompanyDetails: '/api/core/lead/fetchCompanyDetail',
   updateCompanyDetails: '/api/core/lead/update-company',
 
-  // Refetch Karza 
-  refetchCombineKarza : '/api/core/lead/refetch-combine-karza',
+  // Refetch Karza
+  refetchCombineKarza: '/api/core/lead/refetch-combine-karza',
 
+  // Credit Limit
+  creditLimit: '/api/core/credit-limit',
 
-//DocumentsCam : 
- getDocuments : '/api/core/order/order-document',
- addDocuments : '/api/core/order/order-document',
- deleteDocument : '/api/core/order/order-document',
+  //DocumentsCam :
+  getDocuments: '/api/core/order/order-document',
+  addDocuments: '/api/core/order/order-document',
+  deleteDocument: '/api/core/order/order-document',
 
+  //Update Cam Sheet
 
- //Update Cam Sheet
-
- updateCam : '/api/core/order/cam',
+  updateCam: '/api/core/order/cam',
 }

@@ -20,6 +20,7 @@ import {
 import { useDispatch } from 'react-redux'
 import { GetAllOrders } from 'redux/registerBuyer/action'
 import { GetCompanyDetails } from 'redux/companyDetail/action'
+import { toast } from 'react-toastify'
 
 Chart.register(
   ArcElement,
@@ -32,7 +33,7 @@ Chart.register(
   Filler,
 )
 
-function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
+function Index({ camData, companyData, addApproveRemarkArr, approveComment, saveApprovedCreditData }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -45,7 +46,33 @@ function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
   }, [dispatch])
 
   console.log(camData, 'THIS IS CAM DATA')
-  console.log(companyData, 'THIS IS COMPANY DATA')
+  // console.log(companyData, 'THIS IS COMPANY DATA')
+
+  const filteredCreditRating =
+    camData?.company?.creditLimit?.creditRating?.filter((rating) => {
+      return camData?._id === rating.order
+    })
+
+  function getPercentageIncrease(numA, numB) {
+      if (!numA) {
+          return 0
+      }
+      return (Math.abs(numA - numB) / numB) * 100
+  }
+
+  if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
+    // if diff is < 30% than error if approve vlaue not given
+    if (!approvedCreditValue) {
+        
+            let toastMessage = 'More than 30% diff in derived and suggested value,Approved credit value required'
+            if(!toast.isActive(toastMessage)){
+              toast.error(toastMessage, {toastId: toastMessage})
+            }
+        
+    }
+}
+
+  // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING IN CAM')
 
   const [sanctionComments, setSanctionComments] = useState('')
 
@@ -183,6 +210,8 @@ function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
         setSanctionComments,
         addApproveRemarkArr,
         approveComment,
+        filteredCreditRating,
+        saveApprovedCreditData
       )}
       {Documents()}
     </>
@@ -2260,6 +2289,8 @@ const sectionTerms = (
   setSanctionComments,
   addApproveRemarkArr,
   approveComment,
+  filteredCreditRating,
+  saveApprovedCreditData
 ) => {
   return (
     <>
@@ -2273,18 +2304,30 @@ const sectionTerms = (
         >
           <h2 className="mb-0">Sanction Terms</h2>
           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
-            <div className={` ${styles.complaintExtra} d-flex align-items-center`}>
-              <span className={`${styles.lightCompliance} mr-2`}>Total Limit:</span>
-              1,900.00
-            </div>
-            <div className={`${styles.complaintExtra} d-flex align-items-center`}>
-              <span className={`${styles.lightCompliance} mr-2`}>Utilised Limit:</span>
-              1,900.00
-            </div>
-            <div className={`${styles.complaintExtra} d-flex align-items-center`}>
-              <span className={`${styles.lightCompliance} mr-2`}>Available Limit:</span>
-              1,900.00
-            </div>
+            <span
+              className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}
+            >
+              <span className={`${styles.lightCompliance} mr-2`}>
+                Total Limit:
+              </span>
+              {camData?.company?.creditLimit?.totalLimit}
+            </span>
+            <span
+              className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}
+            >
+              <span className={`${styles.lightCompliance} mr-2`}>
+                Utilised Limit:
+              </span>
+              {camData?.company?.creditLimit?.utilizedLimit}
+            </span>
+            <span
+              className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}
+            >
+              <span className={`${styles.lightCompliance} mr-2`}>
+                Available Limit:
+              </span>
+              {camData?.company?.creditLimit?.availableLimit}
+            </span>
           </div>
           <span>+</span>
         </div>
@@ -2312,35 +2355,47 @@ const sectionTerms = (
               </tr>
               <tr>
                 <td>Limit Value</td>
-                <td>1,200.00</td>
+                <td>{camData?.company?.creditLimit?.availableLimit}</td>
                 <td>-</td>
-                <td>1,200.00</td>
-                <td>1,900.00</td>
+                {filteredCreditRating &&
+                  filteredCreditRating.length > 0 &&
+                  filteredCreditRating.map((val, index) => (
+                    <td key={index}>{val.derived.value}</td>
+                  ))}
+                {filteredCreditRating &&
+                  filteredCreditRating.length > 0 &&
+                  filteredCreditRating.map((val, index) => (
+                    <td key={index}>{val.suggested.value}</td>
+                  ))}
                 <td>
                   <input type="checkbox"></input>
                 </td>
                 <td>
                   <input
                     className={`${styles.text}`}
-                    type="text"
-                    placeholder="1,900.00"
+                    type="number"
+                    defaultValue={camData?.cam?.approvedCreditValue}
+                    name='approvedCreditValue'
+                    onChange={(e)=>{saveApprovedCreditData(e.target.name, e.target.value)}}
                   ></input>
                 </td>
               </tr>
               <tr>
                 <td>Order Value</td>
-                <td>1,200.00</td>
                 <td>-</td>
-                <td>1,200.00</td>
-                <td>1,900.00</td>
+                <td>{camData?.orderValue}</td>
+                <td>-</td>
+                <td>{camData?.suggestedOrderValue}</td>
                 <td>
                   <input type="checkbox"></input>
                 </td>
                 <td>
                   <input
                     className={`${styles.text}`}
-                    type="text"
-                    placeholder="1,900.00"
+                    type="number"
+                    name='approvedOrderValue'
+                    defaultValue={camData?.cam?.approvedOrderValue}
+                    onChange={(e)=>{saveApprovedCreditData(e.target.name, e.target.value)}}
                   ></input>
                 </td>
               </tr>
@@ -2703,40 +2758,160 @@ const customerRating = (dataline, lineOption) => {
         >
           <div className={`${styles.rating_wrapper} card-body`}>
             <Row className={`m-0`}>
-              <Col className={`${styles.leftCol} p-0 border_color d-flex`} md={6}>
+              <Col
+                className={`${styles.leftCol} p-0 border_color d-flex`}
+                md={6}
+              >
                 <div className={`${styles.gauge}`}>
-                 <div className={`${styles.container}`}>
-                    <svg width="100%" height="100%" viewBox="0 0 42 42" className={`${styles.donut}`}>
-                      <circle className={`${styles.donutHole}`} cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                      <circle className={`${styles.donutRing}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ffffff" strokeWidth="3"></circle>
+                  <div className={`${styles.container}`}>
+                    <svg
+                      width="100%"
+                      height="100%"
+                      viewBox="0 0 42 42"
+                      className={`${styles.donut}`}
+                    >
+                      <circle
+                        className={`${styles.donutHole}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="#fff"
+                      ></circle>
+                      <circle
+                        className={`${styles.donutRing}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#ffffff"
+                        strokeWidth="3"
+                      ></circle>
 
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FF4230" strokeWidth="3" strokeDasharray="30 70" strokeDashoffset="15"></circle>
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FFB700" strokeWidth="3" strokeDasharray="20 70" strokeDashoffset="75"></circle>
-                      
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#8AC41C" strokeWidth="3" strokeDasharray="10 90" strokeDashoffset="65"></circle>
-                      
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#00B81E" strokeWidth="3" strokeDasharray="20 70" strokeDashoffset="45"></circle>
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#FF4230"
+                        strokeWidth="3"
+                        strokeDasharray="30 70"
+                        strokeDashoffset="15"
+                      ></circle>
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#FFB700"
+                        strokeWidth="3"
+                        strokeDasharray="20 70"
+                        strokeDashoffset="75"
+                      ></circle>
 
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#8AC41C"
+                        strokeWidth="3"
+                        strokeDasharray="10 90"
+                        strokeDashoffset="65"
+                      ></circle>
+
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#00B81E"
+                        strokeWidth="3"
+                        strokeDasharray="20 70"
+                        strokeDashoffset="45"
+                      ></circle>
                     </svg>
-                    <svg width="65%" height="65%" viewBox="0 0 42 42" className={`${styles.donut2}`}>
-                    <circle className={`${styles.donutHole}`} cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                    <circle className={`${styles.donutRing}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="white" strokeWidth="3"></circle>
+                    <svg
+                      width="65%"
+                      height="65%"
+                      viewBox="0 0 42 42"
+                      className={`${styles.donut2}`}
+                    >
+                      <circle
+                        className={`${styles.donutHole}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="#fff"
+                      ></circle>
+                      <circle
+                        className={`${styles.donutRing}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="white"
+                        strokeWidth="3"
+                      ></circle>
 
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="29 71" strokeDashoffset="15"></circle>
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="19 71" strokeDashoffset="75"></circle>
-                      
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="9 91" strokeDashoffset="65"></circle>
-                      
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="19 71" strokeDashoffset="45"></circle>
-                      
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#D2D7E5"
+                        strokeWidth="3"
+                        strokeDasharray="29 71"
+                        strokeDashoffset="15"
+                      ></circle>
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#D2D7E5"
+                        strokeWidth="3"
+                        strokeDasharray="19 71"
+                        strokeDashoffset="75"
+                      ></circle>
+
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#D2D7E5"
+                        strokeWidth="3"
+                        strokeDasharray="9 91"
+                        strokeDashoffset="65"
+                      ></circle>
+
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#D2D7E5"
+                        strokeWidth="3"
+                        strokeDasharray="19 71"
+                        strokeDashoffset="45"
+                      ></circle>
                     </svg>
-                   <img src={`/static/gauge.svg`} className={`${styles.arrow}`}  >
-                   
-                   </img>
+                    <img
+                      src={`/static/gauge.svg`}
+                      className={`${styles.arrow}`}
+                    ></img>
                     <div className={`${styles.score}`}>9.0</div>
-                  </div>    
+                  </div>
                 </div>
-                
+
                 <div className={`${styles.score} `}>
                   <div className={`${styles.excellent}`}>
                     <span>EXCELLENT</span>
@@ -2746,10 +2921,13 @@ const customerRating = (dataline, lineOption) => {
                       <img src="static/darktick.svg"></img>
                     </div>
                     <div className={`${styles.content}`}>
-                       <span className={`${styles.content_heading}`}>CREDIT SCORE</span>
-                       <div>
-                      <span className={`${styles.score}`}>9.0</span><span className={`${styles.outOF}`}>/10</span>
-                       </div>
+                      <span className={`${styles.content_heading}`}>
+                        CREDIT SCORE
+                      </span>
+                      <div>
+                        <span className={`${styles.score}`}>9.0</span>
+                        <span className={`${styles.outOF}`}>/10</span>
+                      </div>
                     </div>
                   </div>
                   <div className={`${styles.creditScore}`}>
@@ -2757,10 +2935,12 @@ const customerRating = (dataline, lineOption) => {
                       <img src="static/darktick.svg"></img>
                     </div>
                     <div className={`${styles.content}`}>
-                       <span className={`${styles.content_heading}`}>RATING</span>
-                       <div>
-                      <span className={`${styles.score}`}>A</span>
-                       </div>
+                      <span className={`${styles.content_heading}`}>
+                        RATING
+                      </span>
+                      <div>
+                        <span className={`${styles.score}`}>A</span>
+                      </div>
                     </div>
                   </div>
                 </div>
