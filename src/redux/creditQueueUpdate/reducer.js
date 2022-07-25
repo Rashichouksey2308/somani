@@ -6,6 +6,8 @@ const initialState = {
     addingDocument: false,
     deletingDocumet: false,
     updatingCam: false,
+    fetchingKarzaGst: false,
+
 }
 
 
@@ -13,6 +15,22 @@ const initialState = {
 function CreditReducer(state = initialState, action) {
 
     switch (action.type) {
+        case types.GET_GST_KARZA:
+            return {
+                ...state,
+                fetchingKarzaGst: true
+            }
+
+        case types.GET_GST_KARZA_SUCCESS:
+            return {
+                ...state,
+                fetchingKarzaGst: false,
+            }
+        case types.GET_GST_KARZA_FAILED:
+            return {
+                ...state,
+                fetchingKarzaGst: false
+            }
         case types.GET_DOCUMENT:
             return {
                 ...state,

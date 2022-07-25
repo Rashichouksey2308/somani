@@ -16,6 +16,10 @@ import {
   BarElement,
 } from 'chart.js'
 
+// Redux 
+import { useDispatch } from 'react-redux'
+import {VerifyGstKarza} from '../../redux/creditQueueUpdate/action'
+
 Chart.register(
   LineController,
   LineElement,
@@ -28,7 +32,10 @@ Chart.register(
   BarElement,
 )
 // Chart.register(linear);
-function Index(GstData) {
+function Index(companyData) {
+  const dispatch = useDispatch()
+  const GstData = companyData?.GST
+  console.log(companyData,'companyData')
 
   console.log(GstData, "GSTDATA")
   const chartRef = useRef(null)
@@ -49,6 +56,18 @@ function Index(GstData) {
     })
   }, [GstData])
   console.log(gstFilteredData, 'gstFilteredData')
+
+  const gstinNumberChangeHandler = () => {
+    const payload =  {
+      company: companyData?.companyData?.company,
+      gstin : "test", 
+      username : "test",    
+      password : "test"
+  }
+
+    dispatch(VerifyGstKarza(...payload))
+  }
+  
 
 
 
