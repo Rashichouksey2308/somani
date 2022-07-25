@@ -335,7 +335,11 @@
 }
 .datatable {
     border-radius: 6px;
+    margin-bottom: 76px;
     border: 1px solid #d2d7e5;
+    @include respond(phone) {
+        margin-bottom: 68px;
+    }
     .tableFilter {
         padding: 0 15px 0 35px;
         @include respond(md-desktop) {
