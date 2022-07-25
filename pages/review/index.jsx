@@ -551,7 +551,17 @@ function Index() {
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
     // newArr.push(keyPersonData)
-    setPersonData(keyPersonData)
+    console.log(keyPersonData, 'This IS KEY PETDHDH')
+    setPersonData([...keyPersonData, {
+      contact: {
+        callingCode: '',
+        number: '',
+      },
+      department: '',
+      designation: '',
+      email: '',
+      name: '',
+    }])
   }
 
   const onCreditSave = () => {

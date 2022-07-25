@@ -6,25 +6,25 @@ import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
 
 const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => {
-// const [list,setList]=useState([
-//     {typeDocument:"Certificate",attachDoc:"false",
-//      actions:"true"
-//   },
-//       {typeDocument:"Certificate 2",attachDoc:"true",
-//      actions:"false"}
+ const [list,setList]=useState([
+     {typeDocument:"Certificate",attachDoc:"false",
+      actions:""
+   },
+       {typeDocument:"Certificate 2",attachDoc:"true",
+      actions:""}
   
-//   ])
+   ])
 
-//   const [name, setName] = useState(null)
+   const [name, setName] = useState(null)
 
   
 
-//    const onAddDoc = () => {
-//     setList([...list,{
-//       typeDocument:"",attachDoc:"",
-//       actions:"false"
-//     }])
-//    }
+    const onAddDoc = () => {
+     setList([...list,{
+       typeDocument:"",attachDoc:"",
+       actions:"false"
+     }])
+    }
 
 
   const [secondDocName, setSecondDocName] = useState(null)
@@ -99,7 +99,9 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
         <hr className={styles.hr_line}></hr>
 
         
-        <div className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}>
+
+          
+   {list && list.map((val,index) => ( <>    <div key={index}  className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}>
           <div className="d-flex">
             <select
             className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -147,7 +149,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
           )}
         </div>
 
-        <div className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}>
+        <div  className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}>
           <div onClick={() => setSecondDocName(null)} className={styles.image_card}>
             <img
               className={styles.image_delete}
@@ -157,7 +159,7 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
           </div>
         </div>
         <hr className={styles.hr_line}></hr>
-
+</> )) }
          {/* <div className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}>
           <div className="d-flex">
             <select
@@ -221,9 +223,9 @@ const Index = ({ saveDocument, uploadDocument1, uploadDocument2, darkMode }) => 
         <div className={`${styles.add_document} col-md-12`}>
           <img className={styles.add_image} src="/static/add.svg" alt="Add" />
           <p className={styles.add_para}
-            // onClick={(e) => {
-            //                     onAddDoc()
-            //                   }}
+             onClick={(e) => {
+                                 onAddDoc()
+                               }}
            >Add More Documents</p>
         </div>
       </div>

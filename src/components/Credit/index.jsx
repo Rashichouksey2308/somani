@@ -73,23 +73,6 @@ const index =  ({
     addDebtArr(debt)
   }
 
-  //  const [keyPerson, setKeyPerson] = useState({
-  //    personName: '',
-  //    designationPerson: '',
-  //    departmentPerson: '',
-  //    contactNo: '',
-  //    emailId: ''
-  //  })
-
-  //  const handleKeyPerson = (name, value1) => {
-  //    const newInput = { ...personData }
-  //    newInput[name] = value1
-  //    setKeyPerson(newInput)
-  //  }
-
-  //  const onKeyPersonSave = () => {
-  //    keyAddDataArr(keyPerson)
-  //  }
 
   const [keyPersonData, setKeyPersonData] = useState(
     personData,
@@ -121,7 +104,7 @@ const index =  ({
     setKeyPersonData(newInput)
   }
 
-  const onKeyPersonSave = () => {
+  const onKeyPersonSave = (data) => {
       addPersonArr(keyPersonData)
       //console.log(keyPersonData, 'This is person data')
     }
@@ -829,7 +812,7 @@ const index =  ({
                             alt="save"
                             onClick={(e) => {
                               setContactTable(false)
-                              addPersonArr(keyPersonData)
+                              //addPersonArr(keyPersonData)
                             }}
                           />
                         )}
