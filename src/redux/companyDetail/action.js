@@ -119,7 +119,7 @@ export const GetCreditLimit = (payload) => (dispatch, getState, api) => {
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
-    Axios.get(`${API.corebaseUrl}${API.creditLimit}?creditLimitId=${payload.creditId}`, {
+    Axios.get(`${API.corebaseUrl}${API.creditLimit}?company=${payload.companyId}`, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {

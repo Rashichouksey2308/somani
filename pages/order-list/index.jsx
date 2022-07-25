@@ -35,7 +35,7 @@ function Index() {
 
   const handleRoute = () => {
     dispatch(GetOrders(`?company=${singleOrder?.data[0]?.company?._id}`))
-    dispatch(GetCreditLimit({creditId: singleOrder?.data[0]?.company?._id }))
+    dispatch(GetCreditLimit({companyId: singleOrder?.data[0]?.company?._id }))
     setTimeout(() => {
       Router.push('/new-order')
     }, 1000);

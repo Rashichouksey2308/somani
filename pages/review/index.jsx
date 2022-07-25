@@ -532,6 +532,8 @@ function Index() {
     approvedCreditValue: orderList?.cam?.approvedCreditValue
   })
 
+  console.log(approvedCredit, 'THIS IS APPROVED CREDIT')
+
   const saveApprovedCreditData = (name, value) => {
     const newInput = { ...approvedCredit }
     newInput[name] = value
@@ -592,6 +594,8 @@ function Index() {
   const handleCamApprove = () => {
     const obj = {
       approvalRemarks: [...approveComment],
+      approvedOrderValue: approvedCredit.approvedOrderValue,
+      approvedCreditValue: approvedCredit.approvedCreditValue,
       order: orderList._id,
       status: 'Approved',
     }
@@ -1421,6 +1425,7 @@ function Index() {
                     addApproveRemarkArr={addApproveRemarkArr}
                     approveComment={approveComment}
                     saveApprovedCreditData={saveApprovedCreditData}
+                    approvedCredit={approvedCredit}
                   />
                 </div>
                 <div
