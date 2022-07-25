@@ -20,6 +20,7 @@ import {
 import { useDispatch } from 'react-redux'
 import { GetAllOrders } from 'redux/registerBuyer/action'
 import { GetCompanyDetails } from 'redux/companyDetail/action'
+import { toast } from 'react-toastify'
 
 Chart.register(
   ArcElement,
@@ -51,6 +52,25 @@ function Index({ camData, companyData, addApproveRemarkArr, approveComment, save
     camData?.company?.creditLimit?.creditRating?.filter((rating) => {
       return camData?._id === rating.order
     })
+
+  function getPercentageIncrease(numA, numB) {
+      if (!numA) {
+          return 0
+      }
+      return (Math.abs(numA - numB) / numB) * 100
+  }
+
+  if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
+    // if diff is < 30% than error if approve vlaue not given
+    if (!approvedCreditValue) {
+        
+            let toastMessage = 'More than 30% diff in derived and suggested value,Approved credit value required'
+            if(!toast.isActive(toastMessage)){
+              toast.error(toastMessage, {toastId: toastMessage})
+            }
+        
+    }
+}
 
   // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING IN CAM')
 
