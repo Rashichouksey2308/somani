@@ -179,6 +179,33 @@
                     font-size: 14px;
                 }
             }
+                        .input_labels {
+            
+                            height: 60px;
+                            background-color: #C3C3C31F;
+                            border: 1px solid #0000001F;
+                            border-radius: 4px;
+                            font-size: 20px;
+                            font-weight: 500;
+                            outline: none;
+                            box-shadow: none;
+                            position: relative;
+                            box-sizing: border-box;
+            
+                            
+            
+                            @include respond(md-desktop) {
+                                font-size: 18px;
+                            }
+            
+                            @include respond(sm-desktop) {
+                                font-size: 16px;
+                            }
+            
+                            @include respond(phone) {
+                                font-size: 14px;
+                            }
+                        }
             .search_image {
                 margin-left: -40px;
         
