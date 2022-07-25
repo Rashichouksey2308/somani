@@ -41,7 +41,7 @@ const Index = ({
       return creditDetail?._id === rating.order
     })
 
-  console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING')
+  // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING')
 
   const [exposureData, setExposureData] = useState({
     accountConduct: '',

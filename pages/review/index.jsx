@@ -295,10 +295,10 @@ function Index() {
         orderList?.productSummary?.contributionCommoditySenstivity,
       dailyConsumptionOfCommodity:
         orderList?.productSummary?.dailyConsumptionOfCommodity,
-      existingCHA: [],
+      existingCHA: orderList?.productSummary?.existingCHA,
       existingProcurementOfCommodity:
         orderList?.productSummary?.existingProcurementOfCommodity,
-      existingSuppliers: [],
+      existingSuppliers: orderList?.productSummary?.existingSuppliers,
       monthlyProductionCapacity:
         orderList?.productSummary?.monthlyProductionCapacity,
       paymentStatusForElectricityBills:
@@ -525,6 +525,18 @@ function Index() {
     newInput[name] = value
     // console.log(newInput)
     setSuggestedCredit(newInput)
+  }
+
+  const [approvedCredit, setApprovedCredit] = useState({
+    approvedOrderValue: orderList?.cam?.approvedOrderValue,
+    approvedCreditValue: orderList?.cam?.approvedCreditValue
+  })
+
+  const saveApprovedCreditData = (name, value) => {
+    const newInput = { ...approvedCredit }
+    newInput[name] = value
+    // console.log(newInput)
+    setApprovedCredit(newInput)
   }
 
 
@@ -1418,6 +1430,7 @@ function Index() {
                     companyData={companyData}
                     addApproveRemarkArr={addApproveRemarkArr}
                     approveComment={approveComment}
+                    saveApprovedCreditData={saveApprovedCreditData}
                   />
                 </div>
                 <div

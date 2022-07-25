@@ -282,7 +282,11 @@ const index =  ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
-                    <DateCalender name='stockCoverageOfCommodity' saveDate={saveDate} labelName='Stock Coverage of Commodity'/>
+                    <DateCalender name='stockCoverageOfCommodity' defaultDate={
+                    creditDetail?.productSummary?.stockCoverageOfCommodity?.split(
+                      'T',
+                    )[0]
+                  } saveDate={saveDate} labelName='Stock Coverage of Commodity'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -602,7 +606,11 @@ const index =  ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                    <DateCalender name='oldestShipmentDate' saveDate={saveSupplierDate} labelName='Oldest Shipment Date'/>
+                    <DateCalender name='oldestShipmentDate' defaultDate={
+                    creditDetail?.supplierCredential?.oldestShipmentDate?.split(
+                      'T',
+                    )[0]
+                  } saveDate={saveSupplierDate} labelName='Oldest Shipment Date'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -634,7 +642,11 @@ const index =  ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
-                    <DateCalender name='latestShipmentDate' saveDate={saveSupplierDate} labelName='Latest Shipment Date'/>
+                    <DateCalender name='latestShipmentDate' defaultDate={
+                    creditDetail?.supplierCredential?.latestShipmentDate?.split(
+                      'T',
+                    )[0]
+                  } saveDate={saveSupplierDate} labelName='Latest Shipment Date'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
