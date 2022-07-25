@@ -1,17 +1,16 @@
 import React from 'react'
 import LcApplication from '../../../src/components/LcApplication'
 import PreviewBar from '../../../src/components/PreviewBar'
-import Router from "next/router"
+import Router from 'next/router'
 
 function Index() {
-  const changeRoute=()=>{
-  Router.push("/")
+  const changeRoute = () => {
+    Router.push('/letter-amend/id')
   }
   return (
     <>
-   <LcApplication/>
-   <PreviewBar leftButtonClick={changeRoute}/>
-    
+      <LcApplication />
+      <PreviewBar leftButtonClick={changeRoute} />
     </>
   )
 }
