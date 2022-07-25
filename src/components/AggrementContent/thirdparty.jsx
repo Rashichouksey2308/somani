@@ -9,23 +9,7 @@ function Index() {
       <div className={styles.container}>
         <Form>
           <div className="row border-bottom border-color ">
-            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <select
-                className={`${styles.input_field} input form-control`}
-                name="countryOfOrigin"
-                onChange={(e) => {
-                  saveOrderData(e.target.name, e.target.value)
-                }}
-              >
-                <option value="Registered">Registered</option>
-              </select>
-              <Form.Label
-                className={`${styles.label_heading} ${styles.select} label_heading`}
-              >
-                Address Type
-              </Form.Label>
-            </Form.Group>
-            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+       <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -35,371 +19,144 @@ function Index() {
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Name<strong className="text-danger">*</strong>
               </Form.Label>
+                <img
+                    className={`${styles.search_image} img-fluid`}
+                    src="/static/search-grey.svg"
+                    alt="Search"
+                  />
             </Form.Group>
-
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="commodity"
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+                Short Name<strong className="text-danger">*</strong>
+              </Form.Label>
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <select
+                className={`${styles.input_field} input form-control`}
+                name="countryOfOrigin"
+                onChange={(e) => {
+                  saveOrderData(e.target.name, e.target.value)
+                }}
+              >
+                <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                <option value="India">India</option>
+                <option value="America">America</option>
+                <option value="Russia">Russia</option>
+              </select>
+              <Form.Label
+                className={`${styles.label_heading} ${styles.select}  label_heading`}
+              >
+                GSTIN<strong className="text-danger">*</strong>
+              </Form.Label>
+            </Form.Group>
           </div>
         </Form>
-        <div className={`${styles.addressContainer}`}>
+ <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
+          <div className={`d-flex justify-content-between align-items-center ${styles.multiAddContainer}`}>
           <div
-            className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
+            className={`${styles.registeredAddress} d-flex justify-content-between border-color w-40`}
           >
-            <div className={`${styles.registeredAddressHeading}`}>
+            <div className={`${styles.registeredAddressHeading} w-100`}>
               <span>Registered Address</span>
               <div>
                 Plot No-49-48-6/1, Lalitha Nagar, Ground Floor, Sakshi Office
                 Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 India
               </div>
             </div>
-            <div
-              className={`${styles.addressEdit} mt-3 d-flex justify-content-center align-items align-items-center`}
-            >
-              <img src="./static/mode_edit.svg" />
+
+          </div>
+          <div
+            className={`${styles.registeredAddress} d-flex justify-content-between border-color w-40`}
+          >
+            <div className={`${styles.registeredAddressHeading} w-100`}>
+              <span>Branch Address</span>
+              <div >
+                Plot No-49-48-6/1, Lalitha Nagar, Ground Floor, Sakshi Office
+                Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 India
+              </div>
             </div>
+
+          </div>
           </div>
         </div>
-        <div className={`${styles.newAddressContainer}`}>
-          <div className={`${styles.newAddress}`}>
-            <div className={`${styles.newAddressHead} border-color`}>
-              <span>Add a new address</span>
-            </div>
-            <Row className={`${styles.row}`}>
-              <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <select
-                    className={`${styles.input_field} input form-control`}
-                    name="countryOfOrigin"
-                    onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value)
-                    }}
-                  >
-                    <option value="Branch">Branch</option>
-                  </select>
-                  <Form.Label
-                    className={`${styles.label_heading} ${styles.select} label_heading`}
-                  >
-                    Address Type
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-              <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <select
-                    className={`${styles.input_field} input form-control`}
-                    name="countryOfOrigin"
-                    onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value)
-                    }}
-                  >
-                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                  </select>
-                  <Form.Label
-                    className={`${styles.label_heading} ${styles.select} label_heading`}
-                  >
-                    GSTIN<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-                <Col md={4} sm={12}>
-                <div className={`${styles.form_group} d-flex`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="existingSuppliers"
+        <div className={`${styles.tableContainer} border-color card p-0`}>
+      <div
+        className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
+        data-toggle="collapse"
+        data-target="#customerDetail"
+        aria-expanded="true"
+        aria-controls="customerDetail"
+      >
+        <div className={styles.header}>
+          <h2 className={`mb-0`}>Authorised Signatory Details</h2>
+          <span className=" d-flex align-items-center justify-content-between">
 
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Pin Code
-                    <strong className="text-danger">*</strong>
-                  </label>
-                  <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  />
-                </div>
-              </Col>
-              <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    State<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-              <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    City<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-                            <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Country<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row className={`${styles.row}`}>
-              <Col md={12} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Address
-                  </Form.Label>
-                </Form.Group>
-              </Col>
+            +
+          </span>
+        </div>
+      </div>
+      <div
+        id="customerDetail"
+        className={`collapse ${styles.body}  value_card card-body row`}
+        aria-labelledby="customerDetail"
+     
+      >
+        <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+          <tr>
+            <th>NAME</th>
+            <th>DESIGNATION</th>
+            <th>EMAIL</th>
+            <th>PHONE NO.</th>
+            <th>ACTION</th>
+          </tr>
+          <tbody>
+            {list.length>0 && list.map((val,index)=>{
+              return(
+                <>
+                {val.actions=="true"?
+                <tr key={index}>
+                  <td>{val.name}</td>
+                  <td>{val.designation}</td>
+                  <td>{val.email}</td>
+                  <td>{val.phone}</td>
+                  <td className={`d-flex justify-content-between`}>
+                  <img onClick={()=>(onEdit(index))} src="./static/mode_edit.svg"  />
+                   <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
+                  </td>
 
-            </Row>
-            <Row className={`${styles.row}`}>
-              <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Email<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-              <Col md={4} sm={12}>
-                <div
-                  className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}
-                >
-                  <div className={styles.phone_card}>
-                    <select
-                      id="Code"
-                      className={`${styles.code_phone} input border-right-0`}
-                    >
-                      <option>+91</option>
-                      <option>+1</option>
-                      <option>+92</option>
-                      <option>+95</option>
-                      <option>+24</option>
+                </tr>
+                :<tr key={index}>
+                  <td><select>
+                    <option>{val.name}</option>
                     </select>
-                    <input
-                      type="tel"
-                      id="textNumber"
-                      name="primary"
-                      onChange={(e) => {
-                        if (phoneValidation(e.target.value)) {
-                          // saveCompanyData(e.target.name, e.target.value)
-                          mobileFunction(e)
+                 </td>
+                  <td><input type="text" placeholder={val.designation}></input></td>
+                  <td><input type="text" placeholder={val.email}></input></td>
+                  <td><input type="text" placeholder={val.phone}></input></td>
+                  <td className={`d-flex  justify-content-between`}>
+                     <img  onClick={()=>(onEditRemove(index))}src="./static/mode_edit.sv"  />
+                     <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
+                  </td>
 
-                          //green tick
-                        } else {
-                          //red mark
-                          console.log('phone formaat invalid')
-                        }
-                      }}
-                      className={`${styles.input_field} input form-control border-left-0`}
-                      required
-                    />
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textNumber"
-                    >
-                      Phone No.<strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                </div>
-              </Col>
-              <Col md={4} sm={12}>
-                <div
-                  className={`${styles.each_input} ${styles.phone} col-md-4 col-sm-6`}
-                >
-                  <div className={styles.phone_card}>
-                    <select
-                      id="Code"
-                      className={`${styles.code_phone} input border-right-0`}
-                    >
-                      <option>+91</option>
-                      <option>+1</option>
-                      <option>+92</option>
-                      <option>+95</option>
-                      <option>+24</option>
-                    </select>
-                    <input
-                      type="tel"
-                      id="textNumber"
-                      name="primary"
-                      className={`${styles.input_field} input form-control border-left-0`}
-                      required
-                    />
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textNumber"
-                    >
-                      Other Phone No.<strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                </div>
-              </Col>
-            </Row>
-            <div className="mt-4">
-              <span>Authorised Person / Stevedore Agent</span>
-           </div>
-            <Row className={`${styles.row}`}>
-              <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Name<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-
-              <Col md={4} sm={12}>
-              <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Designation<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-          
-            </Row>
-           <Row className={`${styles.row}`}>
-            <Col md={5} sm={12} className="d-flex justify-content-start align-items-center">
-                <Form.Group
-                  className={`${styles.form_group} `}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="commodity"
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Email*<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
-                <img
-                      className={`img-fluid ml-2 ${styles.image}`}
-                      src="/static/add-btn.svg"
-                      alt="add button"
-                      
-                  />
-            </Col>
-            <Col md={5} sm={12} className="d-flex justify-content-start align-items-center">
-                <div
-                  className={`${styles.each_input} ${styles.phone} `}
-                >
-                  <div className={styles.phone_card}>
-                    <select
-                      id="Code"
-                      className={`${styles.code_phone} input border-right-0`}
-                    >
-                      <option>+91</option>
-                      <option>+1</option>
-                      <option>+92</option>
-                      <option>+95</option>
-                      <option>+24</option>
-                    </select>
-                    <input
-                      type="tel"
-                      id="textNumber"
-                      name="primary"
-                      className={`${styles.input_field} input form-control border-left-0`}
-                      required
-                    />
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textNumber"
-                    >
-                      Other Phone No.<strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                </div>
-                  <img
-                       className={`img-fluid ml-2 ${styles.image}`}
-                      src="/static/add-btn.svg"
-                      alt="add button"
-                    />
-            </Col>
-           </Row>
-
-            <div className={`${styles.buttons} d-flex`}>
-              <div className={styles.add}>
-                <span>Add</span>
-              </div>
-              <div className={`${styles.cancel} ml-2`}>
-                <span >Cancel</span>
-              </div>
-            </div>
-          </div>
+                </tr>}
+                </>
+              )
+            })}
+          </tbody>
+        </table>
+        <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+          addMoreRows()
+        }}>
+        <span>+</span>  Add more rows
+        </div>
+      </div>
         </div>
       </div>
     </>

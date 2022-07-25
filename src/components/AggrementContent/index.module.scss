@@ -83,6 +83,15 @@
         margin-bottom: 3rem;
         
       }
+      .multiAddContainer{
+        padding: 0rem !important;
+        div{
+            width: 49%;
+        }
+      }
+      .containerChild{
+        padding: 0rem !important;
+      }
       .registeredAddress{
         margin-top: 1rem;
         background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -103,13 +112,18 @@
             }
         }
       }
-      .addressEdit{
-        background: #C3C3C31F 0% 0% no-repeat padding-box;
-        border: 1px solid #0000001F;
-        border-radius: 4px;
-        width: 40px;
-        height: 40px;
+      .actions{
+        width:fit-content;
+        margin-top:0rem !important;
+    .addressEdit {
+            background: #C3C3C31F 0% 0% no-repeat padding-box;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            width: 40px;
+            height: 40px;
+        }
       }
+
     }
  
 .bankContainer {
@@ -117,6 +131,9 @@
         background: #FFFFFF 0% 0% no-repeat padding-box;
         
         border-radius: 9px;
+        span{
+                padding-left: 0px !important;
+        }
 
         .newAddressHead {
             color: #3687E8;
@@ -129,6 +146,7 @@
         .bankInputContainer {
             margin: 0px;
             padding: 0px !important;
+             
             .image{
                 margin-top: 2.1rem;
             }
@@ -137,7 +155,7 @@
                                     }
             div {
                 padding-bottom: 0px !important;
-                
+                padding-left: 0px !important;
                 margin-bottom: 0px !important;
                 max-width: 100%;
             }
@@ -341,57 +359,66 @@
         
         }
     }
-        .sub_card {
-            border-bottom: 2px solid #D2D7E5;
-            border-radius: 6px;
-    
-            .header {
-                width: 100%;
-                display: flex;
-                padding-left: 20px;
-                padding-right: 20px;
-                align-items: center;
-                background: none;
-                // padding: 0 40px 0 35px;
-                justify-content: space-between;
-    
-                @include respond(md-desktop) {
-                    padding-left: 15px;
-                    padding-right: 15px;
+        .tableContainer{
+            border: 2px solid #CAD6E6;
+            margin: 0rem 1rem 0rem 1rem  !important;
+            .sub_card {
+                    padding: 0rem !important;
+                        border: none;
+            
+                    .header {
+                        width: 100%;
+                        display: flex;
+                        // padding-left: 20px;
+                        // padding-right: 20px;
+                        padding-top:0px !important;
+                        padding-bottom: 0px !important;
+                        align-items: center;
+                        background: none;
+                        // padding: 0 40px 0 35px;
+                        justify-content: space-between;
+            
+                        @include respond(md-desktop) {
+                            padding-left: 15px;
+                            padding-right: 15px;
+                        }
+            
+                        h2 {
+                            font-size: 20px;
+                            
+                            font-weight: bold;
+                            line-height: 25px;
+            
+                            @include respond(sm-desktop) {
+                                font-size: 18px !important;
+                                line-height: 1.3;
+                                margin: 20px 0;
+                            }
+            
+                            @include respond(phone) {
+                                font-size: 16px !important;
+                                margin: 13px 0;
+                            }
+            
+                            @include respond(sm-desktop) {
+                                font-size: 18px;
+                            }
+            
+                            @include respond(phone) {
+                                font-size: 16px;
+                            }
+                        }
+            
+                        span {
+                            color: #3687E8;
+                            font-size: 2.5rem;
+                        }
+                    }
+            
                 }
-    
-                h2 {
-                    font-size: 22px;
-                    color: #3687E8;
-                    font-weight: bold;
-                    line-height: 27px;
-    
-                    @include respond(sm-desktop) {
-                        font-size: 18px !important;
-                        line-height: 1.3;
-                        margin: 20px 0;
-                    }
-    
-                    @include respond(phone) {
-                        font-size: 16px !important;
-                        margin: 13px 0;
-                    }
-    
-                    @include respond(sm-desktop) {
-                        font-size: 18px;
-                    }
-    
-                    @include respond(phone) {
-                        font-size: 16px;
-                    }
-                }
-    
-                span {
-                    color: #3687E8;
-                    font-size: 2.5rem;
-                }
+            .body{
+                padding: 0px !important;
             }
-
         }
     
 
@@ -632,10 +659,27 @@ border: 2.5px solid var(--unnamed-color-3687e8);
         }
 
                         .table {
+                            tr{
+                               th{
+                                &:first-child {
+                                        padding-left: 35px;
+                                    }
+                                &:last-child {
+                                    padding-right: 35px;
+                                }
+                               }
+                            }
                             tbody {
                                 tr {
                                     border:none !important;
+
                                     td {
+                                        &:first-child {
+                                                padding-left: 35px;
+                                            }
+                                        &:last-child {
+                                            padding-right: 35px;
+                                        }
                                         border: none !important;
                                         select {
                                             background: #C3C3C31F 0% 0% no-repeat padding-box;
@@ -681,3 +725,55 @@ border: 2.5px solid var(--unnamed-color-3687e8);
 
 
 }
+.form{
+    border-bottom: 2px solid #CAD6E6;
+}
+.info{
+    span{
+        letter-spacing: 0.53px;
+        color: #00000080;
+        font-size: 16px;
+        line-height:17px;
+
+    }
+    p{
+        font-size: 20px;
+            line-height: 25px;
+        letter-spacing: 0.19px;
+        color: #111111;
+        margin:0rem !important;
+    }
+}
+.newAddressContainer {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 2px solid #CAD6E6;
+    padding: 0rem !important;
+    margin: 1rem;
+    .newAddressHead{
+    padding: 0rem !important;
+        span {
+                font-size: 22px;
+                line-height: 27px;
+                font-weight: bold;
+                // margin-bottom: 3rem;
+                color: #3687E8;
+            }
+            border-bottom: 2px solid #CAD6E6;
+    }
+
+    .add{
+        background: #3687E8 0% 0% no-repeat padding-box;
+            border-radius: 5px;
+            width: 220px;
+                height: 48px;
+    }
+    .cancel{
+        border: 2.5px solid #3687E8;
+            border: 3px solid #3687E8;
+            border-radius: 5px;
+            margin-left: 3rem;
+    }
+
+
+
+    }

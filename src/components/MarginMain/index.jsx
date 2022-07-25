@@ -41,6 +41,7 @@ function Index() {
   const handleRoute = (margin) => {
     // console.log(margin, "THIS IS MARGIN MONEY")
     dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
+    sessionStorage.setItem('marginId', margin?.order?._id )
     Router.push('/margin-money/id')
   }
 

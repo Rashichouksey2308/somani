@@ -10,7 +10,7 @@ function Index() {
         <Form>
           <div className="row border-bottom-0 border-color ">
 
-            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+             <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -18,11 +18,16 @@ function Index() {
                 name="commodity"
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-                Name Of The Shipping Line <strong className="text-danger">*</strong>
+               Supplier Name<strong className="text-danger">*</strong>
               </Form.Label>
+                <img
+                    className={`${styles.search_image} img-fluid`}
+                    src="/static/search-grey.svg"
+                    alt="Search"
+                  />
             </Form.Group>
 
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -30,7 +35,18 @@ function Index() {
                 name="commodity"
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-               Vessel Name 
+              Vessel Name
+              </Form.Label>
+            </Form.Group>
+              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="commodity"
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+               GSTIN
               </Form.Label>
             </Form.Group>
 

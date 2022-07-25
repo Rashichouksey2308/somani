@@ -22,9 +22,15 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState([])
 
+
+
   useEffect(() => {
+    let Id = sessionStorage.getItem('termID')
+    dispatch(GetTermsheet(`?termsheetId=${Id}`))
     dispatch(setPageName('termsheet'))
-  })
+  }, [dispatch])
+
+
   useEffect(() => {
     {
       termsheet &&
