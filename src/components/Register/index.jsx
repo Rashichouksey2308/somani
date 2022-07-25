@@ -64,7 +64,6 @@ function Index() {
   }, [gstList])
 
   const [gstListData, setGstListData] = useState(gstList?.data?.gstList)
-  console.log(gstListData, "THIS IS GST LIST DATA")
 
 
   const handleCommunication = (e) => {
@@ -130,8 +129,6 @@ function Index() {
     document1: null,
     document2: null,
   })
-
-  console.log(documents,'documents')
 
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails }
@@ -281,6 +278,7 @@ function Index() {
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()
+    document.getElementById('documents').reset()
   }
 
 

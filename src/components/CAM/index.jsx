@@ -20,6 +20,7 @@ import {
 import { useDispatch } from 'react-redux'
 import { GetAllOrders } from 'redux/registerBuyer/action'
 import { GetCompanyDetails } from 'redux/companyDetail/action'
+import { toast } from 'react-toastify'
 
 Chart.register(
   ArcElement,
@@ -32,11 +33,18 @@ Chart.register(
   Filler,
 )
 
-function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
+function Index({
+  camData,
+  companyData,
+  addApproveRemarkArr,
+  approveComment,
+  saveApprovedCreditData,
+  approvedCredit,
+}) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (window) {
+    if (window) { 
       let id1 = sessionStorage.getItem('orderID')
       let id2 = sessionStorage.getItem('companyID')
       dispatch(GetAllOrders({ orderId: id1 }))
@@ -45,7 +53,76 @@ function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
   }, [dispatch])
 
   console.log(camData, 'THIS IS CAM DATA')
-  console.log(companyData, 'THIS IS COMPANY DATA')
+  // console.log(companyData, 'THIS IS COMPANY DATA')
+
+  const filteredCreditRating =
+    camData?.company?.creditLimit?.creditRating?.filter((rating) => {
+      return camData?._id === rating.order
+    })
+
+  let suggestedValue =
+    filteredCreditRating && filteredCreditRating.length > 0
+      ? filteredCreditRating[0]?.suggested?.value
+      : ''
+  let derivedValue =
+    filteredCreditRating && filteredCreditRating.length > 0
+      ? filteredCreditRating[0]?.derived?.value
+      : ''
+  let approvedCreditValue = approvedCredit.approvedCreditValue
+
+  let suggestedOrder = camData?.suggestedOrderValue
+  let appliedOrder = camData?.orderValue
+  let approvedOrderValue = approvedCredit.approvedOrderValue
+
+  function getPercentageIncrease(numA, numB) {
+    if (!numA) {
+      return 0
+    }
+    return (Math.abs(numA - numB) / numB) * 100
+  }
+
+  const gettingPercentageCredit = () => {
+    if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
+      // if diff is < 30% than error if approve vlaue not given
+      if (!approvedCreditValue) {
+        let toastMessage =
+          'More than 30% diff in derived and suggested value,Approved credit value required'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+          return false
+        }
+      }
+      return true
+    }
+  }
+
+  const gettingPercentageOrder = () => {
+    if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
+      // if diff is < 30% than error if approve vlaue not given
+      if (!approvedOrderValue) {
+        let toastMessage =
+          'More than 30% diff in applied and suggested order value,Approved order value required'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+          return false
+        }
+      }
+      return true
+    }
+  }
+
+  const onApprove = (name, value) => {
+    if (gettingPercentageCredit()) {
+      saveApprovedCreditData(name, value)
+    }
+  }
+  const onApproveOrder = (name, value) => {
+    if (gettingPercentageOrder()) {
+      saveApprovedCreditData(name, value)
+    }
+  }
+
+  // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING IN CAM')
 
   const [sanctionComments, setSanctionComments] = useState('')
 
@@ -183,6 +260,10 @@ function Index({ camData, companyData, addApproveRemarkArr, approveComment }) {
         setSanctionComments,
         addApproveRemarkArr,
         approveComment,
+        filteredCreditRating,
+        saveApprovedCreditData,
+        onApprove,
+        onApproveOrder
       )}
       {Documents()}
     </>
@@ -1344,10 +1425,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                     camData?.company?.debtProfile?.map((debt, index) => (
                       <tr key={index}>
                         <td>{debt?.bankName}</td>
-                        <td defaultValue={debt?.limitType} 
-                            disabled={true} >
-                          
-                        </td>
+                        <td defaultValue={debt?.limitType} disabled={true}></td>
 
                         <td>{debt?.limit}</td>
                         <td className={`${styles.conduct} danger`}>
@@ -2260,6 +2338,10 @@ const sectionTerms = (
   setSanctionComments,
   addApproveRemarkArr,
   approveComment,
+  filteredCreditRating,
+  saveApprovedCreditData,
+  onApprove,
+  onApproveOrder
 ) => {
   return (
     <>
@@ -2273,18 +2355,30 @@ const sectionTerms = (
         >
           <h2 className="mb-0">Sanction Terms</h2>
           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
-            <div className={` ${styles.complaintExtra} d-flex align-items-center`}>
-              <span className={`${styles.lightCompliance} mr-2`}>Total Limit:</span>
-              1,900.00
-            </div>
-            <div className={`${styles.complaintExtra} d-flex align-items-center`}>
-              <span className={`${styles.lightCompliance} mr-2`}>Utilised Limit:</span>
-              1,900.00
-            </div>
-            <div className={`${styles.complaintExtra} d-flex align-items-center`}>
-              <span className={`${styles.lightCompliance} mr-2`}>Available Limit:</span>
-              1,900.00
-            </div>
+            <span
+              className={` ${styles.complaintExtra} d-flex align-items-center justify-content-between`}
+            >
+              <span className={`${styles.lightCompliance} mr-2`}>
+                Total Limit:
+              </span>
+              {camData?.company?.creditLimit?.totalLimit}
+            </span>
+            <span
+              className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}
+            >
+              <span className={`${styles.lightCompliance} mr-2`}>
+                Utilised Limit:
+              </span>
+              {camData?.company?.creditLimit?.utilizedLimit}
+            </span>
+            <span
+              className={`${styles.complaintExtra}  d-flex align-items-center justify-content-between`}
+            >
+              <span className={`${styles.lightCompliance} mr-2`}>
+                Available Limit:
+              </span>
+              {camData?.company?.creditLimit?.availableLimit}
+            </span>
           </div>
           <span>+</span>
         </div>
@@ -2312,35 +2406,66 @@ const sectionTerms = (
               </tr>
               <tr>
                 <td>Limit Value</td>
-                <td>1,200.00</td>
+                <td>{camData?.company?.creditLimit?.availableLimit}</td>
                 <td>-</td>
-                <td>1,200.00</td>
-                <td>1,900.00</td>
+                {filteredCreditRating ? (
+                  <>
+                    {' '}
+                    {filteredCreditRating &&
+                      filteredCreditRating.length > 0 &&
+                      filteredCreditRating.map((val, index) => (
+                        <td key={index}>{val.derived.value}</td>
+                      ))}{' '}
+                  </>
+                ) : (
+                  <td>-</td>
+                )}
+                {filteredCreditRating ? (
+                  <>
+                    {' '}
+                    {filteredCreditRating &&
+                      filteredCreditRating.length > 0 &&
+                      filteredCreditRating.map((val, index) => (
+                        <td key={index}>{val.suggested.value}</td>
+                      ))}{' '}
+                  </>
+                ) : (
+                  <td>-</td>
+                )}
                 <td>
                   <input type="checkbox"></input>
                 </td>
                 <td>
                   <input
                     className={`${styles.text}`}
-                    type="text"
-                    placeholder="1,900.00"
+                    required={true}
+                    type="number"
+                    defaultValue={camData?.cam?.approvedCreditValue}
+                    name="approvedCreditValue"
+                    onChange={(e) => {
+                      onApprove(e.target.name, Number(e.target.value * 10000000))
+                    }}
                   ></input>
                 </td>
               </tr>
               <tr>
                 <td>Order Value</td>
-                <td>1,200.00</td>
                 <td>-</td>
-                <td>1,200.00</td>
-                <td>1,900.00</td>
+                <td>{camData?.orderValue}</td>
+                <td>-</td>
+                <td>{camData?.suggestedOrderValue}</td>
                 <td>
                   <input type="checkbox"></input>
                 </td>
                 <td>
                   <input
                     className={`${styles.text}`}
-                    type="text"
-                    placeholder="1,900.00"
+                    type="number"
+                    name="approvedOrderValue"
+                    defaultValue={camData?.cam?.approvedOrderValue}
+                    onChange={(e) => {
+                      onApproveOrder(e.target.name, Number(e.target.value * 10000000))
+                    }}
                   ></input>
                 </td>
               </tr>
@@ -2539,9 +2664,18 @@ const trends = (dataline, lineOption) => {
         >
           <h2 className="mb-0">Trends</h2>
           <div className="d-flex align-items-center">
-            <h5 className={`${styles.light} ${styles.unit_label} accordion_Text`}>Display By:</h5>
-            <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
-              <option selected value="1">Quarterly</option>
+            <h5
+              className={`${styles.light} ${styles.unit_label} accordion_Text`}
+            >
+              Display By:
+            </h5>
+            <select
+              className={`${styles.select} accordion_body form-select`}
+              aria-label="Default select example"
+            >
+              <option selected value="1">
+                Quarterly
+              </option>
             </select>
             <span>+</span>
           </div>
@@ -2601,9 +2735,18 @@ const skewness = (data, options, tempArr) => {
         >
           <h2 className="mb-0">Skewness</h2>
           <div className="d-flex align-items-center">
-            <h5 className={`${styles.light}  ${styles.unit_label} accordion_Text`}>Display By:</h5>
-            <select className={`${styles.select} accordion_body form-select`} aria-label="Default select example">
-              <option selected value="1">Quarterly</option>
+            <h5
+              className={`${styles.light}  ${styles.unit_label} accordion_Text`}
+            >
+              Display By:
+            </h5>
+            <select
+              className={`${styles.select} accordion_body form-select`}
+              aria-label="Default select example"
+            >
+              <option selected value="1">
+                Quarterly
+              </option>
             </select>
             <span>+</span>
           </div>
@@ -2703,40 +2846,160 @@ const customerRating = (dataline, lineOption) => {
         >
           <div className={`${styles.rating_wrapper} card-body`}>
             <Row className={`m-0`}>
-              <Col className={`${styles.leftCol} p-0 border_color d-flex`} md={6}>
+              <Col
+                className={`${styles.leftCol} p-0 border_color d-flex`}
+                md={6}
+              >
                 <div className={`${styles.gauge}`}>
-                 <div className={`${styles.container}`}>
-                    <svg width="100%" height="100%" viewBox="0 0 42 42" className={`${styles.donut}`}>
-                      <circle className={`${styles.donutHole}`} cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                      <circle className={`${styles.donutRing}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ffffff" strokeWidth="3"></circle>
+                  <div className={`${styles.container}`}>
+                    <svg
+                      width="100%"
+                      height="100%"
+                      viewBox="0 0 42 42"
+                      className={`${styles.donut}`}
+                    >
+                      <circle
+                        className={`${styles.donutHole}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="#fff"
+                      ></circle>
+                      <circle
+                        className={`${styles.donutRing}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#ffffff"
+                        strokeWidth="3"
+                      ></circle>
 
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FF4230" strokeWidth="3" strokeDasharray="30 70" strokeDashoffset="15"></circle>
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#FFB700" strokeWidth="3" strokeDasharray="20 70" strokeDashoffset="75"></circle>
-                      
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#8AC41C" strokeWidth="3" strokeDasharray="10 90" strokeDashoffset="65"></circle>
-                      
-                      <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#00B81E" strokeWidth="3" strokeDasharray="20 70" strokeDashoffset="45"></circle>
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#FF4230"
+                        strokeWidth="3"
+                        strokeDasharray="30 70"
+                        strokeDashoffset="15"
+                      ></circle>
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#FFB700"
+                        strokeWidth="3"
+                        strokeDasharray="20 70"
+                        strokeDashoffset="75"
+                      ></circle>
 
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#8AC41C"
+                        strokeWidth="3"
+                        strokeDasharray="10 90"
+                        strokeDashoffset="65"
+                      ></circle>
+
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#00B81E"
+                        strokeWidth="3"
+                        strokeDasharray="20 70"
+                        strokeDashoffset="45"
+                      ></circle>
                     </svg>
-                    <svg width="65%" height="65%" viewBox="0 0 42 42" className={`${styles.donut2}`}>
-                    <circle className={`${styles.donutHole}`} cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
-                    <circle className={`${styles.donutRing}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="white" strokeWidth="3"></circle>
+                    <svg
+                      width="65%"
+                      height="65%"
+                      viewBox="0 0 42 42"
+                      className={`${styles.donut2}`}
+                    >
+                      <circle
+                        className={`${styles.donutHole}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="#fff"
+                      ></circle>
+                      <circle
+                        className={`${styles.donutRing}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="white"
+                        strokeWidth="3"
+                      ></circle>
 
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="29 71" strokeDashoffset="15"></circle>
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="19 71" strokeDashoffset="75"></circle>
-                      
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="9 91" strokeDashoffset="65"></circle>
-                      
-                    <circle className={`${styles.donutSegment}`} cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#D2D7E5" strokeWidth="3" strokeDasharray="19 71" strokeDashoffset="45"></circle>
-                      
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#D2D7E5"
+                        strokeWidth="3"
+                        strokeDasharray="29 71"
+                        strokeDashoffset="15"
+                      ></circle>
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#D2D7E5"
+                        strokeWidth="3"
+                        strokeDasharray="19 71"
+                        strokeDashoffset="75"
+                      ></circle>
+
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#D2D7E5"
+                        strokeWidth="3"
+                        strokeDasharray="9 91"
+                        strokeDashoffset="65"
+                      ></circle>
+
+                      <circle
+                        className={`${styles.donutSegment}`}
+                        cx="21"
+                        cy="21"
+                        r="15.91549430918954"
+                        fill="transparent"
+                        stroke="#D2D7E5"
+                        strokeWidth="3"
+                        strokeDasharray="19 71"
+                        strokeDashoffset="45"
+                      ></circle>
                     </svg>
-                   <img src={`/static/gauge.svg`} className={`${styles.arrow}`}  >
-                   
-                   </img>
+                    <img
+                      src={`/static/gauge.svg`}
+                      className={`${styles.arrow}`}
+                    ></img>
                     <div className={`${styles.score}`}>9.0</div>
-                  </div>    
+                  </div>
                 </div>
-                
+
                 <div className={`${styles.score} `}>
                   <div className={`${styles.excellent}`}>
                     <span>EXCELLENT</span>
@@ -2746,10 +3009,13 @@ const customerRating = (dataline, lineOption) => {
                       <img src="static/darktick.svg"></img>
                     </div>
                     <div className={`${styles.content}`}>
-                       <span className={`${styles.content_heading}`}>CREDIT SCORE</span>
-                       <div>
-                      <span className={`${styles.score}`}>9.0</span><span className={`${styles.outOF}`}>/10</span>
-                       </div>
+                      <span className={`${styles.content_heading}`}>
+                        CREDIT SCORE
+                      </span>
+                      <div>
+                        <span className={`${styles.score}`}>9.0</span>
+                        <span className={`${styles.outOF}`}>/10</span>
+                      </div>
                     </div>
                   </div>
                   <div className={`${styles.creditScore}`}>
@@ -2757,10 +3023,12 @@ const customerRating = (dataline, lineOption) => {
                       <img src="static/darktick.svg"></img>
                     </div>
                     <div className={`${styles.content}`}>
-                       <span className={`${styles.content_heading}`}>RATING</span>
-                       <div>
-                      <span className={`${styles.score}`}>A</span>
-                       </div>
+                      <span className={`${styles.content_heading}`}>
+                        RATING
+                      </span>
+                      <div>
+                        <span className={`${styles.score}`}>A</span>
+                      </div>
                     </div>
                   </div>
                 </div>

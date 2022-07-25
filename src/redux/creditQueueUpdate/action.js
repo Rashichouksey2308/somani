@@ -115,7 +115,7 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
         }
       } else {
         dispatch(updatingCamFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        let toastMessage = response.data.message
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage })
         }

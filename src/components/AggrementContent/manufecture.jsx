@@ -180,7 +180,7 @@ function Index() {
         </div>
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
-           <div className={`d-flex justify-content-between p-0 `}>
+           <div className={`${styles.containerChild} d-flex justify-content-between  `}>
             <div
             className={`${styles.registeredAddress} w-100 d-flex justify-content-between border-color`}
           >
@@ -190,7 +190,7 @@ function Index() {
                 10 Boulevard De Grenelle Cs 63205 - 75015
               </div>
             </div>
-            <div className={"d-flex"}>
+            <div className={`d-flex justify-content-between align-items-start ${styles.actions} `}>
             <div
               className={`${styles.addressEdit} mt-3 d-flex justify-content-center align-items align-items-center`}
             >
@@ -206,15 +206,16 @@ function Index() {
 
            </div>
         </div>
-         <div
-        className={`${styles.sub_card} sub_card card-header d-flex align-items-center justify-content-between bg-transparent`}
+        <div className={`${styles.tableContainer} border-color card p-0`}>
+      <div
+        className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
         data-toggle="collapse"
         data-target="#customerDetail"
         aria-expanded="true"
         aria-controls="customerDetail"
       >
         <div className={styles.header}>
-          <h2 className={`mb-0`}>Customer Details</h2>
+          <h2 className={`mb-0`}>Authorised Signatory Details</h2>
           <span className=" d-flex align-items-center justify-content-between">
 
             +
@@ -223,11 +224,11 @@ function Index() {
       </div>
       <div
         id="customerDetail"
-        className={`collapse ${styles.body} value_card card-body row`}
+        className={`collapse ${styles.body}  value_card card-body row`}
         aria-labelledby="customerDetail"
      
       >
-        <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+        <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
           <tr>
             <th>NAME</th>
             <th>DESIGNATION</th>
@@ -245,7 +246,7 @@ function Index() {
                   <td>{val.designation}</td>
                   <td>{val.email}</td>
                   <td>{val.phone}</td>
-                  <td className={`d-flex`}>
+                  <td className={`d-flex justify-content-between`}>
                   <img onClick={()=>(onEdit(index))} src="./static/mode_edit.svg"  />
                    <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
                   </td>
@@ -259,7 +260,7 @@ function Index() {
                   <td><input type="text" placeholder={val.designation}></input></td>
                   <td><input type="text" placeholder={val.email}></input></td>
                   <td><input type="text" placeholder={val.phone}></input></td>
-                  <td className={`d-flex`}>
+                  <td className={`d-flex  justify-content-between`}>
                      <img  onClick={()=>(onEditRemove(index))}src="./static/mode_edit.sv"  />
                      <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
                   </td>
@@ -276,6 +277,7 @@ function Index() {
         <span>+</span>  Add more rows
         </div>
       </div>
+        </div>
 
       </div>
     </>

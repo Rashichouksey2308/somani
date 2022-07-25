@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState ,useEffect } from "react";
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Index  ({vesselName,isPartShipment}) {
+      const [startDate, setStartDate] = useState(null);
+     const [lastDate, setlastDate] = useState(new Date());
+     
   return (
     <div className={`${styles.main} card border-color`}>
         <div className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`} >
@@ -138,13 +143,26 @@ function Index  ({vesselName,isPartShipment}) {
                     </div>
                     <div className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`} >
                         <div className="d-flex">
-                    <DateCalender labelName='ETA at Discharge Port'/>
+                    {/* <DateCalender labelName='ETA at Discharge Port'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
-                    />
-                              
+                    /> */}
+                      <DatePicker 
+                        selected={startDate}
+                        dateFormat="dd/MM/yyyy"
+                        name={name}
+                        className={`${styles.input_field} input form-control`}
+                        onChange={(startDate) => {
+                        setStartDate(startDate)
+                        saveDate(startDate, name)}
+                        } 
+                        minDate={lastDate}
+                        />
+                        <label className={`${styles.label_heading} label_heading`}>
+                        ETA at Discharge Port</label> 
+                                            
                 </div>
            
            </div>

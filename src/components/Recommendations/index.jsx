@@ -41,7 +41,7 @@ const Index = ({
       return creditDetail?._id === rating.order
     })
 
-  console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING')
+  // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING')
 
   const [exposureData, setExposureData] = useState({
     accountConduct: '',
@@ -597,7 +597,11 @@ const Index = ({
                 <td>{creditDetail?.company?.creditLimit?.availableLimit}</td>
                 <td>-</td>
 
-                {filteredCreditRating && filteredCreditRating.length > 0 && filteredCreditRating.map((val, index)=> (<td key={index}>{val.derived.value}</td>))}
+                { filteredCreditRating ? <> {filteredCreditRating &&
+                  filteredCreditRating.length > 0 &&
+                  filteredCreditRating.map((val, index) => (
+                    <td key={index}>{val.derived.value}</td>
+                  ))} </> : <td>-</td> }
 
                 <td>
                   <input

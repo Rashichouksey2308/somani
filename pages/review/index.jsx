@@ -295,10 +295,10 @@ function Index() {
         orderList?.productSummary?.contributionCommoditySenstivity,
       dailyConsumptionOfCommodity:
         orderList?.productSummary?.dailyConsumptionOfCommodity,
-      existingCHA: [],
+      existingCHA: orderList?.productSummary?.existingCHA,
       existingProcurementOfCommodity:
         orderList?.productSummary?.existingProcurementOfCommodity,
-      existingSuppliers: [],
+      existingSuppliers: orderList?.productSummary?.existingSuppliers,
       monthlyProductionCapacity:
         orderList?.productSummary?.monthlyProductionCapacity,
       paymentStatusForElectricityBills:
@@ -527,6 +527,20 @@ function Index() {
     setSuggestedCredit(newInput)
   }
 
+  const [approvedCredit, setApprovedCredit] = useState({
+    approvedOrderValue: orderList?.cam?.approvedOrderValue,
+    approvedCreditValue: orderList?.cam?.approvedCreditValue
+  })
+
+  console.log(approvedCredit, 'THIS IS APPROVED CREDIT')
+
+  const saveApprovedCreditData = (name, value) => {
+    const newInput = { ...approvedCredit }
+    newInput[name] = value
+    // console.log(newInput)
+    setApprovedCredit(newInput)
+  }
+
 
   //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
 
@@ -551,7 +565,17 @@ function Index() {
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
     // newArr.push(keyPersonData)
-    setPersonData(keyPersonData)
+    console.log(keyPersonData, 'This IS KEY PETDHDH')
+    setPersonData([...keyPersonData, {
+      contact: {
+        callingCode: '',
+        number: '',
+      },
+      department: '',
+      designation: '',
+      email: '',
+      name: '',
+    }])
   }
 
   const onCreditSave = () => {
@@ -580,6 +604,8 @@ function Index() {
   const handleCamApprove = () => {
     const obj = {
       approvalRemarks: [...approveComment],
+      approvedOrderValue: approvedCredit.approvedOrderValue,
+      approvedCreditValue: approvedCredit.approvedCreditValue,
       order: orderList._id,
       status: 'Approved',
     }
@@ -1408,6 +1434,8 @@ function Index() {
                     companyData={companyData}
                     addApproveRemarkArr={addApproveRemarkArr}
                     approveComment={approveComment}
+                    saveApprovedCreditData={saveApprovedCreditData}
+                    approvedCredit={approvedCredit}
                   />
                 </div>
                 <div

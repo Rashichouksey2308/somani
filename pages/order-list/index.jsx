@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
 import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
 import _get from "lodash/get"
+import { GetCreditLimit } from '../../src/redux/companyDetail/action'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0)
@@ -34,6 +35,7 @@ function Index() {
 
   const handleRoute = () => {
     dispatch(GetOrders(`?company=${singleOrder?.data[0]?.company?._id}`))
+    dispatch(GetCreditLimit({companyId: singleOrder?.data[0]?.company?._id }))
     setTimeout(() => {
       Router.push('/new-order')
     }, 1000);

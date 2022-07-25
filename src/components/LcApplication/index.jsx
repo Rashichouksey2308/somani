@@ -103,7 +103,6 @@ function Index() {
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       (51D) LC Issuing Bank
-                      <strong className="text-danger">*</strong>
                     </label>
                     <img
                         className={`${styles.arrow} img-fluid`}
@@ -226,7 +225,7 @@ function Index() {
                       type="number"
                     />
                     <label className={`${styles.label_heading} label_heading`}
-                    style={{left:'20px'}}>
+                    style={{left:'18px'}}>
                       No. of Days
                       <strong className="text-danger">*</strong>
                     </label>
@@ -239,7 +238,6 @@ function Index() {
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       (42A) Drawee
-                      <strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -250,7 +248,6 @@ function Index() {
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       (42P) Deferred Payment
-                      <strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -366,7 +363,6 @@ function Index() {
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       (45A) Description Of The Goods
-                      <strong className="text-danger">*</strong>
                     </label>
                   </Col>
 
@@ -383,7 +379,6 @@ function Index() {
                     <input
                     as="textarea"
                     rows={3}
-                    placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                     className={`${styles.comment_field} input form-control`}
                     />
                     <img
@@ -411,7 +406,6 @@ function Index() {
                       </div>
                 
                       </div>
-                      <hr></hr>
                       </div>
                       <hr className={styles.line}></hr>
 
@@ -423,7 +417,6 @@ function Index() {
                 <input
                 as="textarea"
                 rows={3}
-                placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
                 className={`${styles.comment_field} input form-control`}
                 />
                 <img
@@ -553,7 +546,7 @@ function Index() {
                       <strong className="text-danger">*</strong>
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                  <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                     <div className="d-flex">
                   <select
                       className={`${styles.input_field}  ${styles.customSelect} input form-control`}
@@ -572,7 +565,7 @@ function Index() {
                     />
                     </div>
                   </Col>
-                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                  <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                      <div className="d-flex">
                   <select
                       className={`${styles.input_field}  ${styles.customSelect} input form-control`} >
@@ -591,7 +584,7 @@ function Index() {
                     </div>
                   </Col>
                  
-                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                  <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -599,10 +592,10 @@ function Index() {
                     />
                     <label className={`${styles.label_heading} label_heading`} style={{top:'22px'}}>
                       (57A) Second Advising Bank, if Applicable
-                      <strong className="text-danger">*</strong>
+                     
                     </label>
                   </Col>
-                  <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                  <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -647,7 +640,6 @@ function Index() {
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       (72) Sender To Receiver Information
-                      <strong className="text-danger">*</strong>
                     </label>
                   </Col>
                   </Row>
