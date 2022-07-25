@@ -2363,12 +2363,26 @@ const sectionTerms = (
                 {filteredCreditRating &&
                   filteredCreditRating.length > 0 &&
                   filteredCreditRating.map((val, index) => (
-                    <td key={index}>{val.derived.value}</td>
+                    <>
+                      {' '}
+                      {filteredCreditRating ? (
+                        <td key={index}>{val.derived.value}</td>
+                      ) : (
+                        <td>-</td>
+                      )}{' '}
+                    </>
                   ))}
                 {filteredCreditRating &&
                   filteredCreditRating.length > 0 &&
                   filteredCreditRating.map((val, index) => (
-                    <td key={index}>{val.suggested.value}</td>
+                    <>
+                      {' '}
+                      {filteredCreditRating ? (
+                        <td key={index}>{val.suggested.value}</td>
+                      ) : (
+                        <td>-</td>
+                      )}{' '}
+                    </>
                   ))}
                 <td>
                   <input type="checkbox"></input>
