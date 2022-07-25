@@ -60,66 +60,66 @@ function Index({
       return camData?._id === rating.order
     })
 
-  let suggestedValue =
-    filteredCreditRating && filteredCreditRating.length > 0
-      ? filteredCreditRating[0]?.suggested?.value
-      : ''
-  let derivedValue =
-    filteredCreditRating && filteredCreditRating.length > 0
-      ? filteredCreditRating[0]?.derived?.value
-      : ''
-  let approvedCreditValue = approvedCredit.approvedCreditValue
+  // let suggestedValue =
+  //   filteredCreditRating && filteredCreditRating.length > 0
+  //     ? filteredCreditRating[0]?.suggested?.value
+  //     : ''
+  // let derivedValue =
+  //   filteredCreditRating && filteredCreditRating.length > 0
+  //     ? filteredCreditRating[0]?.derived?.value
+  //     : ''
+  // let approvedCreditValue = approvedCredit.approvedCreditValue
 
-  let suggestedOrder = camData?.suggestedOrderValue
-  let appliedOrder = camData?.orderValue
-  let approvedOrderValue = approvedCredit.approvedOrderValue
+  // let suggestedOrder = camData?.suggestedOrderValue
+  // let appliedOrder = camData?.orderValue
+  // let approvedOrderValue = approvedCredit.approvedOrderValue
 
-  function getPercentageIncrease(numA, numB) {
-    if (!numA) {
-      return 0
-    }
-    return (Math.abs(numA - numB) / numB) * 100
-  }
+  // function getPercentageIncrease(numA, numB) {
+  //   if (!numA) {
+  //     return 0
+  //   }
+  //   return (Math.abs(numA - numB) / numB) * 100
+  // }
 
-  const gettingPercentageCredit = () => {
-    if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
-      // if diff is < 30% than error if approve vlaue not given
-      if (!approvedCreditValue) {
-        let toastMessage =
-          'More than 30% diff in derived and suggested value,Approved credit value required'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-          return false
-        }
-      }
-      return true
-    }
-  }
+  // const gettingPercentageCredit = () => {
+  //   if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
+  //     // if diff is < 30% than error if approve vlaue not given
+  //     if (!approvedCreditValue) {
+  //       let toastMessage =
+  //         'More than 30% diff in derived and suggested value,Approved credit value required'
+  //       if (!toast.isActive(toastMessage)) {
+  //         toast.error(toastMessage, { toastId: toastMessage })
+  //         return false
+  //       }
+  //     }
+  //     return true
+  //   }
+  // }
 
-  const gettingPercentageOrder = () => {
-    if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
-      // if diff is < 30% than error if approve vlaue not given
-      if (!approvedOrderValue) {
-        let toastMessage =
-          'More than 30% diff in applied and suggested order value,Approved order value required'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-          return false
-        }
-      }
-      return true
-    }
-  }
+  // const gettingPercentageOrder = () => {
+  //   if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
+  //     // if diff is < 30% than error if approve vlaue not given
+  //     if (!approvedOrderValue) {
+  //       let toastMessage =
+  //         'More than 30% diff in applied and suggested order value,Approved order value required'
+  //       if (!toast.isActive(toastMessage)) {
+  //         toast.error(toastMessage, { toastId: toastMessage })
+  //         return false
+  //       }
+  //     }
+  //     return true
+  //   }
+  // }
 
   const onApprove = (name, value) => {
-    if (gettingPercentageCredit()) {
+    // if (gettingPercentageCredit()) {
       saveApprovedCreditData(name, value)
-    }
+    // }
   }
   const onApproveOrder = (name, value) => {
-    if (gettingPercentageOrder()) {
+    // if (gettingPercentageOrder()) {
       saveApprovedCreditData(name, value)
-    }
+    // }
   }
 
   // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING IN CAM')
