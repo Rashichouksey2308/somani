@@ -54,13 +54,18 @@ export default function Index() {
                   className={`${styles.form_group} col-lg-12 col-md-12 col-sm-12`}
                 >
                   <label className={`${styles.comment_heading}`}>Address</label>
-                  <div className="d-flex">
-                    <input
-                      as="textarea"
-                      rows={3}
-                      className={`${styles.comment_field} mt-2 form-control`}
-                      onChange={(e) => setCompanyComments(e.target.value)}
-                    />
+
+                  <div
+                    className={`${styles.comment_field} d-flex justify-content-between mt-2 form-control`}
+                  >
+                    <div className="m-3">
+                      <div className={`${styles.address_type}`}>
+                        Registered Address
+                      </div>
+                      <div className={`${styles.address_detail} mt-3`}>
+                        10 Boulevard De Grenelle Cs 63205 - 75015
+                      </div>
+                    </div>
                     <img
                       className={`${styles.edit_image} img-fluid mr-3`}
                       src="/static/mode_edit.svg"

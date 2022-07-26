@@ -149,7 +149,7 @@ const Index = () => {
                     <th>
                       <img
                         src="/static/search-blue.svg"
-                        className={`${styles.searchImg} img-fluid`}
+                        className={`${styles.searchImg} `}
                         alt="Search"
                       />
                     </th>

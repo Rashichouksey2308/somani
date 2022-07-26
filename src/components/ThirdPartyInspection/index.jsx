@@ -149,7 +149,7 @@ export default function Index() {
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
-                    <DateCalender labelName="Start Date" />
+                    <DateCalender labelName="Inspection Date" />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -162,18 +162,23 @@ export default function Index() {
             <hr></hr>
             <div className={`${styles.dashboard_form} mb-3 card-body`}>
               <h5 className={styles.sub_heading}>Special Mention</h5>
-              <div className="mt-4">
-                <input
-                  as="textarea"
-                  rows={3}
-                  placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
-                  className={`${styles.comment_field} form-control`}
-                  style={{ backgroundColor: 'none' }}
-                />
-                <label className={`${styles.comment_heading} label_heading`}>
-                  Special Mention
-                </label>
-              </div>
+              <Row>
+                <Col lg={12}>
+                  <div className="mt-4">
+                    <input
+                      as="textarea"
+                      rows={3}
+                      className={`${styles.comment_field} form-control`}
+                      // style={{ backgroundColor: 'none' }}
+                    />
+                    <label
+                      className={`${styles.comment_heading} label_heading`}
+                    >
+                      Special Mention
+                    </label>
+                  </div>
+                </Col>
+              </Row>
             </div>
           </div>
 
@@ -378,8 +383,9 @@ export default function Index() {
                       </table>
                     </div>
                   </div>
+
                   <div
-                    className={`${styles.doc_name} ${styles.dashboard_form} mb-3`}
+                    className={`${styles.any_document} ${styles.dashboard_form} mb-3`}
                   >
                     <strong className="text-danger">*</strong>
                     Any one document is mandatory

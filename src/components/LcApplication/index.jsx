@@ -87,7 +87,6 @@ function Index() {
                           />
                         </div>
                       </Col>
-
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <input
                           className={`${styles.input_field} input form-control`}
@@ -142,7 +141,6 @@ function Index() {
                           />
                         </div>
                       </Col>
-
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <input
                           className={`${styles.input_field} input form-control`}
@@ -226,41 +224,45 @@ function Index() {
                           />
                         </div>
                       </Col>
-                      <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
-                        <div className="d-flex">
-                          <select
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                          >
-                            <option>Documentary Credit</option>
-                            <option>Balaji Traders</option>
-                          </select>
+                      {/* className={`${styles.document_label} `} */}
+                      <Col className="mb-4 mt-4" lg={4}>
+                        <Row>
+                          <Col className={`${styles.document_label} `} lg={8}>
+                            <div className="d-flex">
+                              <select
+                                className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                              >
+                                <option>Documentary Credit</option>
+                                <option>Balaji Traders</option>
+                              </select>
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (42C) At Sight
-                            <strong className="text-danger">*</strong>
-                          </label>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </Col>
-                      <Col className="mb-4 mt-4" lg={1} md={6} sm={6}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="number"
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                          style={{ left: '18px' }}
-                        >
-                          No. of Days
-                          <strong className="text-danger">*</strong>
-                        </label>
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                              >
+                                (42C) At Sight
+                                <strong className="text-danger">*</strong>
+                              </label>
+                              <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col className={`${styles.date_label} `} lg={4}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="number"
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              No. of Days
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
+                        </Row>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <input

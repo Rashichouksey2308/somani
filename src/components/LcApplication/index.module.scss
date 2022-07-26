@@ -101,6 +101,31 @@
             .body{
             padding: 25px 35px !important;
 
+            .document_label {
+                @include respond(lg-desktop) {
+                        flex: 0 0 60%;
+                        max-width: 60%;
+                    }
+                @include respond(md-desktop) {
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                }
+                
+
+            }
+
+            .date_label {
+                @include respond(lg-desktop) {
+                    flex: 0 0 40%;
+                    max-width: 40%;
+                    }
+                @include respond(md-desktop) {
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                }
+                
+                    
+            }
             .label_heading {
                 top: 27px;
                 left: 30px;
@@ -113,6 +138,7 @@
                 transform: translateY(-31px);
                 transition: 0.3s all ease-in-out;
                 white-space: nowrap;
+                
                 @include respond(md-desktop) {
                     font-size: 16px;
                 }
