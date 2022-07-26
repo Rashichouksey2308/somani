@@ -58,14 +58,15 @@ const Index = () => {
                   <div className="d-flex">
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
-                      id="docType"
-                      onChange={(e) => handleDropdown(e)}
-                    >
-                      <option>Lead Onboarding &amp; Order Approval</option>
-                      <option>Agreements, Insurance &amp; LC Opening</option>
-                      <option>Loading-Transit-Unloading</option>
-                      <option>Custom Clearance And Warehousing</option>
-                      <option value="Others">Others</option>
+                      id="docType" onChange={(e) => handleDropdown(e)}>
+
+                      <option value="CertificateofIncorporation">Certificate of Incorporation</option>
+                      <option value="IECCertificate">IEC Certificate</option>
+                      <option value="BusinessRegistrationCertificate ">Business Registration Certificate </option>
+                      <option value="PANCard">PAN Card</option>
+                      <option value="GSTCertificate">GST Certificate</option>
+                      <option value="BankReferenceLetter">Bank Reference Letter</option>
+                      <option value="FinancialYear ">Financial Year </option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
                       Document Type

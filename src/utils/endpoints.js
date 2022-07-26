@@ -65,4 +65,9 @@ export default {
 
  // karza Gst 
   getGstKarza : '/api/core/lead/refetch-gst-karza',
+
+  //Module 2
+
+  //VESSEL
+  getVessel:  '/api/core/vessel'
 }

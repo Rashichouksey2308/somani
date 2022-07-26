@@ -47,14 +47,20 @@ export default function Home() {
             <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className={`${styles.form_group} col-md-3 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Shipment Type<strong className="text-danger">*</strong>
-                  </label>
+                  <div className="d-flex">
+                    <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
+                      <option value="Bulk">Bulk</option>
+                      <option value="Liner" selected>Liner</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Shipment Type<strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`${styles.arrow} img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
                 </div>
                 <div className={`${styles.form_group} col-md-3 col-sm-6`}>
                   <input
