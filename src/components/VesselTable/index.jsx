@@ -17,7 +17,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>Letter of Credit </h1>
+            <h1 className={styles.heading}>Vessel Nomination</h1>
           </div>
           <div className={styles.search}>
             <div className="input-group">
@@ -88,7 +88,7 @@ function Index() {
                     <td
                       className={styles.buyerName}
                       onClick={(e) => {
-                        Router.push('/letter-credit/lc-create')
+                        Router.push('/vessel')
                       }}
                     >
                       Iron
