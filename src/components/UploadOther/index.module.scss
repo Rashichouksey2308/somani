@@ -228,6 +228,19 @@ height: 40px;
                         width: 14px;
                         height: 14px;
                      }
+                     &.searchImg {
+                        width: 48px;
+                        height: 48px;
+                        @include respond(sm-desktop) {
+                                width: 38px;
+                                height:38px ;
+                            }
+                        
+                            @include respond(phone) {
+                                width: 30px;
+                                height: 30px;
+                            }
+                     }
                  }
 
                 @include respond(md-desktop) {
@@ -419,6 +432,20 @@ height: 40px;
     @include respond(phone) {
         height: 25px;
     }
+}
+.drive_image {
+    @include respond(md-desktop) {
+            height: 30px;
+        }
+    
+        @include respond(sm-desktop) {
+            height: 28px;
+        }
+    
+        @include respond(phone) {
+            height: 25px;
+        }
+
 }
 .arrow {
 

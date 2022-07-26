@@ -8,7 +8,6 @@ import PlotInspection from '../../src/components/PlotInspection'
 import Appointment from '../../src/components/Appointment'
 
 function Index() {
-
   const [darkMode, setDarkMode] = useState(false)
 
   return (
@@ -29,14 +28,13 @@ function Index() {
               <span>Ramakrishna Traders</span>
             </h1>
             <div className="ml-auto">
-             
               <div className={`${styles.lastModified} text `}>
                 <span>Last Modified:</span> 28 Jan,11:34am
               </div>
             </div>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
-             <li className={`${styles.navItem}  nav-item`}>
+            <li className={`${styles.navItem}  nav-item`}>
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
                 data-toggle="tab"
@@ -50,7 +48,7 @@ function Index() {
             </li>
             <li className={`${styles.navItem}  nav-item`}>
               <a
-                className={`${styles.navLink} navLink  nav-link active`}
+                className={`${styles.navLink} navLink  nav-link `}
                 data-toggle="tab"
                 href="#thirdParty"
                 role="tab"
@@ -72,26 +70,23 @@ function Index() {
                 Plot Inspection
               </a>
             </li>
-           
           </ul>
         </div>
-       
+
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-12 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                 <div
+                <div
                   className="tab-pane show active fade"
                   id="appointment"
-                  role="tabpanel">
+                  role="tabpanel"
+                >
                   <div className={`${styles.card}  accordion_body`}>
                     <Appointment />
                   </div>
                 </div>
-                <div
-                  className="tab-pane fade"
-                  id="thirdParty"
-                  role="tabpanel">
+                <div className="tab-pane fade" id="thirdParty" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <ThirdPartyInspection />
                   </div>
@@ -100,20 +95,17 @@ function Index() {
                 <div
                   className="tab-pane fade"
                   id="plotInspection"
-                  role="tabpanel">
+                  role="tabpanel"
+                >
                   <div className={`${styles.card}  accordion_body`}>
                     <PlotInspection />
                   </div>
                 </div>
-
-               
               </div>
             </div>
           </div>
         </div>
-
       </div>
-      
     </>
   )
 }
