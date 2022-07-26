@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 const Index = () => {
   const [editInput, setEditInput] = useState(true)
-  
+
   const handleDropdown = (e) => {
     if (e.target.value == "Others") {
       setEditInput(false)
@@ -56,26 +56,28 @@ const Index = () => {
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">
                 <Form.Group className={styles.form_group}>
-                 <div className="d-flex">
-                  <select
-                    className={`${styles.value} ${styles.customSelect} input form-control`}
-                   id="docType" onChange={(e) => handleDropdown(e)}>
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.value} ${styles.customSelect} input form-control`}
+                      id="docType" onChange={(e) => handleDropdown(e)}>
 
-                    <option>Lead Onboarding &amp; Order Approval</option>
-                    <option>Agreements, Insurance &amp; LC Opening</option>
-                    <option>Loading-Transit-Unloading</option>
-                    <option>Custom Clearance And Warehousing</option>
-                    <option value='Others'>Others</option>
-                  </select>
-                  <Form.Label className={`${styles.label} label_heading`}>
-                    Document Type
-                  </Form.Label>
-                   <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
+                      <option value="CertificateofIncorporation">Certificate of Incorporation</option>
+                      <option value="IECCertificate">IEC Certificate</option>
+                      <option value="BusinessRegistrationCertificate ">Business Registration Certificate </option>
+                      <option value="PANCard">PAN Card</option>
+                      <option value="GSTCertificate">GST Certificate</option>
+                      <option value="BankReferenceLetter">Bank Reference Letter</option>
+                      <option value="FinancialYear ">Financial Year </option>
+                    </select>
+                    <Form.Label className={`${styles.label} label_heading`}>
+                      Document Type
+                    </Form.Label>
+                    <img
+                      className={`${styles.arrow} img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
                     />
-                        </div>  
+                  </div>
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
                   <Form.Label className={`${styles.label} label_heading`}>
@@ -90,7 +92,7 @@ const Index = () => {
                 <div className={styles.uploadBtnWrapper}>
                   <input type="file" name="myfile" />
                   <button className={`${styles.upload_button} btn`}
-                  disabled={editInput}>
+                    disabled={editInput}>
                     Upload
                   </button>
                 </div>
@@ -133,8 +135,8 @@ const Index = () => {
                       <div>
                         <select
                           className={`${styles.dropDown} input form-control`}
-                        >    
-                        <option>Lead Onboarding &amp; Order Approval</option>
+                        >
+                          <option>Lead Onboarding &amp; Order Approval</option>
                           <option>Agreements, Insurance & LC Opening</option>
                           <option>Loading-Transit-Unloading</option>
                           <option>Custom Clearance And Warehousing</option>

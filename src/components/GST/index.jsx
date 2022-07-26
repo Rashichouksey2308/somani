@@ -33,9 +33,9 @@ Chart.register(
   BarElement,
 )
 // Chart.register(linear);
-function Index(companyData) {
+function Index({companyData,orderList,GstDataHandler}) {
   const dispatch = useDispatch()
-  const GstData = companyData?.companyData?.GST
+  const GstData = companyData?.GST
   console.log(companyData, 'companyData')
 
 
@@ -44,8 +44,8 @@ function Index(companyData) {
   const [chartData, setChartData] = useState({
     datasets: [],
   })
-  const [gstFilteredData, SetGstFilteredData] = useState()
-  const [gstNumbers, setGstNumbers] = useState([])
+  const [gstFilteredData, SetGstFilteredData] = useState(orderList?.company?.gstList)
+  const [gstNumber, setGstNumber] = useState()
   const [customerDetailsUnit, setCustomerDetailsUnit] = useState(10000000)
   const [supplierDetailsUnit, setSupplierDetailsUnit] = useState(10000000)
   const [salesUnit, setSalesUnit] = useState(10000000)
@@ -65,13 +65,14 @@ function Index(companyData) {
     GstData?.map((gstData) => {
       const data = { ...gstData }
       SetGstFilteredData(data)
+      GstDataHandler(data)
     })
   }, [GstData])
   console.log(gstFilteredData, 'gstFilteredData')
 
   const gstinVerifyHandler = (e) => {
     const payload = {
-      company: companyData?.companyData?.company,
+      company: companyData?.company,
       gstin: credential.gstin,
       username: credential.username,
       password: credential.password
@@ -89,6 +90,7 @@ function Index(companyData) {
       filteredgstin?.map((gstData) => {
         const data = { ...gstData }
         SetGstFilteredData(data)
+        GstDataHandler(data)
       })
     } else {
       setCredential({ ...credential, gstin: e.target.value })
@@ -464,7 +466,7 @@ function Index(companyData) {
                 >
                   <span className={styles.light}>GST :</span>
                   <select className={`${styles.gst_list}`} onChange={(e) => handleChangeGstin(e)}>
-                    {companyData?.orderList?.company?.gstList?.map((gstin, index) => (
+                    {orderList?.company?.gstList?.map((gstin, index) => (
                       <option key={index} value={gstin}>{gstin}</option>
                     ))}
                   </select>
