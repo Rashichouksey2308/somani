@@ -13,7 +13,7 @@ const Index = ({
 }) => {
   const [list, setList] = useState([
     { typeDocument: 'Certificate', attachDoc: 'false' },
-    { typeDocument: 'Certificate 2', attachDoc: 'true' },
+  
   ])
 
   const [name, setName] = useState(null)
