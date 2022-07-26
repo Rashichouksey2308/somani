@@ -12,6 +12,7 @@ import { setPageName } from '../../redux/userData/action'
 import { GetTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
 import { useRouter } from 'next/router'
 import { data } from 'jquery'
+import _get from "lodash/get";
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -21,6 +22,7 @@ const Index = () => {
   const [termsheetDetails, setTermsheetDetails] = useState({})
   const [otherTermsAndConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState([])
+  const [order, setOrder] = useState('')
 
 
 
@@ -35,31 +37,30 @@ const Index = () => {
     {
       termsheet &&
         termsheet?.data?.map((sheet) =>
+        
           setTermsheetDetails({
             termsheetId: sheet._id,
             commodityDetails: {
               unitOfQuantity: sheet?.order?.unitOfQuantity,
               orderCurrency: sheet?.order?.orderCurrency,
               quantity: sheet?.order?.quantity,
-              perUnitPrice: sheet?.order?.orderValue,
+              perUnitPrice: sheet?.order?.perUnitPrice,
               commodity: sheet?.order?.commodity,
               tolerance: sheet?.order?.tolerance,
             },
             transactionDetails: {
-              lcValue: 0,
-              lcCurrency: sheet?.transactionDetails?.lcValue,
+              lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : sheet?.order?.quantity * sheet?.order?.perUnitPrice,
+              lcCurrency: sheet?.transactionDetails?.lcCurrency,
               marginMoney: sheet?.transactionDetails?.marginMoney,
               lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
               incoTerms: sheet?.order?.incoTerm,
               loadPort: sheet?.transactionDetails?.loadPort,
               countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
               shipmentType: sheet?.transactionDetails?.shipmentType,
-              partShipmentAllowed:
-                sheet?.transactionDetails?.partShipmentAllowed,
+              partShipmentAllowed: sheet?.transactionDetails?.partShipmentAllowed,
               portOfDischarge: sheet?.transactionDetails?.portOfDischarge,
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
-              thirdPartyInspectionReq:
-                sheet?.transactionDetails?.thirdPartyInspectionReq,
+              thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
               storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
             },
             paymentDueDate: {
@@ -73,16 +74,12 @@ const Index = () => {
               lcOpeningValue: sheet?.commercials?.lcOpeningValue,
               lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
               lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
-              lcOpeningChargesPercentage:
-                sheet?.commercials?.lcOpeningChargesPercentage,
-              usanceInterestPercetage:
-                sheet?.commercials?.usanceInterestPercetage,
-              overDueInterestPerMonth:
-                sheet?.commercials?.overDueInterestPerMonth,
+              lcOpeningChargesPercentage: sheet?.commercials?.lcOpeningChargesPercentage,
+              usanceInterestPercetage: sheet?.commercials?.usanceInterestPercetage,
+              overDueInterestPerMonth: sheet?.commercials?.overDueInterestPerMonth,
               exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
               forexHedging: sheet?.commercials?.forexHedging,
-              otherTermsAndConditions:
-                sheet?.commercials?.otherTermsAndConditions,
+              otherTermsAndConditions: sheet?.commercials?.otherTermsAndConditions,
               version: sheet?.commercials?.version,
             },
           }),
@@ -221,6 +218,7 @@ const Index = () => {
 
   useEffect(() => {
     termsheet?.data?.map((sheets) => {
+      setOrder(sheets.order._id)
       setAdditionalComments(sheets.additionalComments)
     })
   }, [termsheet])
@@ -432,7 +430,7 @@ const Index = () => {
             onChangeCha={onChangeCha}
             termsheet={termsheet}
           />
-          <UploadOther />
+          <UploadOther orderid={order} />
         </div>
       </div>
       <ApproveBar

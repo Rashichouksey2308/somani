@@ -1,10 +1,29 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { GetDocuments, AddingDocument, DeleteDocument } from '../../../src/redux/creditQueueUpdate/action'
+import { useDispatch,useSelector } from 'react-redux'
 
-const Index = () => {
+
+const Index = ({orderid}) => {
+ const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(GetDocuments(`?order=${orderid}`))
+  },[orderid])
+  console.log(orderid,'orderid')
+  const { documentsFetched } = useSelector((state) => state.review)
+
+
+ 
   const [editInput, setEditInput] = useState(true)
+  const [manualDocModule, setManualDocModule] = useState(true)
+  const [newDoc, setNewDoc] = useState({
+    document: [],
+    order: orderid,
+    name: '',
+    module: 'LeadOnboarding,OrderApproval',
+  })
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -12,6 +31,35 @@ const Index = () => {
     } else {
       setEditInput(true)
     }
+  }
+
+  const handleNewDocModule = (e) => {
+    if (e.target.value === 'others') {
+      setManualDocModule(false)
+    } else {
+      setManualDocModule(true)
+      setNewDoc({ ...newDoc, name: e.target.value })
+    }
+  }
+  const uploadDocument2 = (e) => {
+    const newUploadDoc1 = { ...newDoc }
+    newUploadDoc1.document = e.target.files[0]
+    setNewDoc(newUploadDoc1)
+  }
+
+  const uploadDocumentHandler = (e) => {
+    e.preventDefault()
+
+    
+    const fd = new FormData()
+    console.log(newDoc, newDoc.document, "pdfFile", newDoc.module)
+    fd.append('document', newDoc.document)
+    fd.append('module', newDoc.module)
+    fd.append('order', orderid)
+    // fd.append('type', newDoc.type))
+    fd.append('name', newDoc.name)
+
+    dispatch(AddingDocument(fd))
   }
   return (
     <div className={`${styles.upload_main} card border_color`}>
@@ -47,7 +95,12 @@ const Index = () => {
                     Drop Files here or
                     <br />
                     <div className={styles.uploadBtnWrapper}>
-                      <input type="file" name="myfile" />
+                      <input
+                        onChange={(e) => uploadDocument2(e)}
+                        type="file"
+                        name="myfile"
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                      />
                       <a href="#">Browse</a>
                     </div>
                   </p>
@@ -82,17 +135,17 @@ const Index = () => {
                   <Form.Label className={`${styles.label} label_heading`}>
                     Please Specify Document Name
                   </Form.Label>
-                  <Form.Control
+                  <input
+                    onChange={(e) => setNewDoc({ ...newDoc, name: e.target.value })}
                     className={`${styles.value} input form-control`}
                     type="text"
-                    disabled={editInput}
+                    placeholder="Insurance Quotation"
+                    disabled={manualDocModule}
                   />
                 </Form.Group>
-                <div className={styles.uploadBtnWrapper}>
-                  <input type="file" name="myfile" />
+                <div onClick={(e) => uploadDocumentHandler(e)} className={styles.uploadBtnWrapper}>
                   <button
                     className={`${styles.upload_button} btn`}
-                    disabled={editInput}
                   >
                     Upload
                   </button>
@@ -210,6 +263,54 @@ const Index = () => {
                       />
                     </td>
                   </tr>
+                  {documentsFetched && documentsFetched?.documents?.map((document, index) => {
+                                if (document.deleted) {
+                                  return null
+                                } else {
+                                  return (
+                                    <tr key={index} className="table_row">
+                                      <td className={`${styles.doc_name}`}>
+                                        {document.name}
+                                      </td>
+                                      <td>
+                                        <img
+                                          src="/static/pdf.svg"
+                                          className="img-fluid"
+                                          alt="Pdf"
+                                        />
+                                      </td>
+                                      <td className={styles.doc_row}>
+                                        {document.date}
+                                      </td>
+                                      <td className={styles.doc_row}>{document.uploadedBy?.fName} {document.uploadedBy?.lName}</td>
+                                      <td>
+                                        <span
+                                          className={`${styles.status} ${styles.approved}`}
+                                        ></span>
+                                        {document?.verification?.status}
+                                      </td>
+                                      <td colSpan="2">
+                                        <img
+                                          onClick={() => dispatch(DeleteDocument({ orderDocumentId: documentsFetched._id, name: document.name }))}
+                                          src="/static/delete.svg"
+                                          className={`${styles.delete_image} img-fluid mr-3`}
+                                          alt="Bin"
+                                        />
+                                        <img
+                                          src="/static/upload.svg"
+                                          className="img-fluid mr-3"
+                                          alt="Share"
+                                        />
+                                        <img
+                                          src="/static/drive_file.svg"
+                                          className={`${styles.edit_image} img-fluid mr-3`}
+                                          alt="Share"
+                                        />
+                                      </td>
+                                    </tr>
+                                  )
+                                }
+                              })}
                 </tbody>
               </table>
             </div>
