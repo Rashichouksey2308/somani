@@ -137,18 +137,52 @@
                 line-height: 25px;
                 font-weight: 500;
             }
-            .comment_field {
-                height: 106px;
-                background-color: #C3C3C31F;
-                border: 1px solid #0000001F;
-                border-radius: 4px;
-                font-size: 20px;
-                font-weight: 500;
-                outline: none;
-                box-shadow: none;
-                position: relative;
-                box-sizing: border-box;
+            .comment_heading {
+
+                    font-size: 16px;
+                    letter-spacing: 0.53px;
+                    line-height: 0.5;
+                    top: 100px;
+                    left: 30px;
+                    margin-bottom: 0;
+                    position: absolute;
+                    pointer-events: none;
+                    box-sizing: border-box;
+                    transform: translateY(-29px);
+                    transition: 0.3s all ease-in-out;
+            
+                @include respond(sm-desktop) {
+                    font-size: 16px;
+                }
+            
+                @include respond(phone) {
+                    font-size: 14px;
+                    //top: 20px;
+            
+                }
             }
+                        .comment_field {
+                            height: 106px;
+                            background-color: #C3C3C31F;
+                            border: 1px solid #0000001F;
+                            border-radius: 4px;
+                            font-size: 20px;
+                            font-weight: 500;
+                            outline: none;
+                            box-shadow: none;
+                            position: relative;
+                            box-sizing: border-box;
+                            &:invalid+label {
+                                    transform: translateY(0);
+                                }
+                            
+                                &:focus {
+                                    &+label {
+                                        transform: translateY(-80px);
+                                           }       }
+            
+                        }
+                        
             .sub_heading {
                 font-size: 20px;
                 font-weight: bold;
@@ -279,7 +313,7 @@
                         }
                         tr {
                             &:last-child {
-                                border-bottom: none;
+                                //border-bottom: ;
                             }
                             td {
                                 font-size: 19px;
@@ -360,6 +394,12 @@
                         }
                         .close_image {
                             margin-left: -30px;
+                        }
+                        .any_document{
+                            font-size: 14px;
+                            font-weight: 500;
+                            line-height: 17px;
+                            
                         }
                         .doc_name {
                             font-weight: bold;
@@ -611,25 +651,4 @@
      }
  }
 
- .comment_heading {
-     font-size: 16px;
-     font-weight: 500;
-     letter-spacing: 0.53px;
-     position: absolute;
-     pointer-events: none;
-     line-height: 17px;
-     box-sizing: border-box;
-     transform: translateY(-10px);
-     margin-left: 20px;
-     transition: 0.3s all ease-in-out;
-
-     @include respond(sm-desktop) {
-         font-size: 16px;
-     }
-
-     @include respond(phone) {
-         font-size: 14px;
-         //top: 20px;
-
-     }
- }
+ 
