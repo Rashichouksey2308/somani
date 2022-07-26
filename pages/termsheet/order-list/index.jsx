@@ -207,33 +207,31 @@ function Index() {
                     </tr>
                   </thead>
                   {termsheet && termsheet?.data?.map((term, index) => (<tbody Key={index}>
+                    <tr>
+                      <td className={`${styles.first}`} onClick={() => handleRoute(term)}>
+                        {term?.order?.orderId}
+                      </td>
+                      <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.order?.commodity}</td>
 
-                    <td className={`${styles.first}`} onClick={() => handleRoute(term)}>
-                      {term?.order?.orderId}
-                    </td>
-                    <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.order?.commodity}</td>
+                      <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
+                      <td>{term?.order?.createdAt?.slice(0, 10)}</td>
+                      <td>
+                        <span
+                          className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
+                            ? styles.review
+                            : term?.order?.queue === 'CreditQueue'
+                              ? styles.approved
+                              : styles.rejected
+                            }`}
+                        ></span>
 
-                    <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
-                    <td>{term?.order?.createdAt?.slice(0, 10)}</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
-                          ? styles.review
+                        {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
+                          ? 'Review'
                           : term?.order?.queue === 'CreditQueue'
-                            ? styles.approved
-                            : styles.rejected
-                          }`}
-                      ></span>
-
-                      {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
-                        ? 'Review'
-                        : term?.order?.queue === 'CreditQueue'
-                          ? 'Approved'
-                          : 'Rejected'}
-                    </td>
-
-
-
+                            ? 'Approved'
+                            : 'Rejected'}
+                      </td>
+                    </tr>
                   </tbody>))}
                 </table>
               </div>
