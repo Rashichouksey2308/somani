@@ -5,12 +5,11 @@ import { useState } from 'react'
 
 const Index = () => {
   const [editInput, setEditInput] = useState(true)
-  
+
   const handleDropdown = (e) => {
-    if (e.target.value == "Others") {
+    if (e.target.value == 'Others') {
       setEditInput(false)
-    }
-    else {
+    } else {
       setEditInput(true)
     }
   }
@@ -45,8 +44,8 @@ const Index = () => {
                     alt="Browse"
                   />
                   <p className={styles.drop_para}>
-                    Drop Files here or<br />
-
+                    Drop Files here or
+                    <br />
                     <div className={styles.uploadBtnWrapper}>
                       <input type="file" name="myfile" />
                       <a href="#">Browse</a>
@@ -56,26 +55,27 @@ const Index = () => {
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">
                 <Form.Group className={styles.form_group}>
-                 <div className="d-flex">
-                  <select
-                    className={`${styles.value} ${styles.customSelect} input form-control`}
-                   id="docType" onChange={(e) => handleDropdown(e)}>
-
-                    <option>Lead Onboarding &amp; Order Approval</option>
-                    <option>Agreements, Insurance &amp; LC Opening</option>
-                    <option>Loading-Transit-Unloading</option>
-                    <option>Custom Clearance And Warehousing</option>
-                    <option value='Others'>Others</option>
-                  </select>
-                  <Form.Label className={`${styles.label} label_heading`}>
-                    Document Type
-                  </Form.Label>
-                   <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.value} ${styles.customSelect} input form-control`}
+                      id="docType"
+                      onChange={(e) => handleDropdown(e)}
+                    >
+                      <option>Lead Onboarding &amp; Order Approval</option>
+                      <option>Agreements, Insurance &amp; LC Opening</option>
+                      <option>Loading-Transit-Unloading</option>
+                      <option>Custom Clearance And Warehousing</option>
+                      <option value="Others">Others</option>
+                    </select>
+                    <Form.Label className={`${styles.label} label_heading`}>
+                      Document Type
+                    </Form.Label>
+                    <img
+                      className={`${styles.arrow} img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
                     />
-                        </div>  
+                  </div>
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
                   <Form.Label className={`${styles.label} label_heading`}>
@@ -89,8 +89,10 @@ const Index = () => {
                 </Form.Group>
                 <div className={styles.uploadBtnWrapper}>
                   <input type="file" name="myfile" />
-                  <button className={`${styles.upload_button} btn`}
-                  disabled={editInput}>
+                  <button
+                    className={`${styles.upload_button} btn`}
+                    disabled={editInput}
+                  >
                     Upload
                   </button>
                 </div>
@@ -110,35 +112,63 @@ const Index = () => {
               >
                 <thead>
                   <tr>
-                    <th>DOCUMENT NAME <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /></th>
-                    <th>FORMAT <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /></th>
-                    <th>DOCUMENT DATE <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /></th>
-                    <th>UPLOADED BY <img className={`${styles.sort_image} mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /></th>
+                    <th>
+                      DOCUMENT NAME{' '}
+                      <img
+                        className={`${styles.sort_image} mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                    <th>
+                      FORMAT{' '}
+                      <img
+                        className={`${styles.sort_image} mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                    <th>
+                      DOCUMENT DATE{' '}
+                      <img
+                        className={`${styles.sort_image} mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                    <th>
+                      UPLOADED BY{' '}
+                      <img
+                        className={`${styles.sort_image} mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
                     <th>STATUS </th>
                     <th>ACTION</th>
                     <th>
                       <img
                         src="/static/search-blue.svg"
-                        className="img-fluid"
+                        className={`${styles.searchImg} img-fluid`}
                         alt="Search"
                       />
                     </th>
-
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <div
-                      className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
+                      className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`}
+                    >
                       <div>
                         <select
                           className={`${styles.dropDown} input form-control`}
-                        >    
-                        <option>Lead Onboarding &amp; Order Approval</option>
+                        >
+                          <option>Lead Onboarding &amp; Order Approval</option>
                           <option>Agreements, Insurance & LC Opening</option>
                           <option>Loading-Transit-Unloading</option>
                           <option>Custom Clearance And Warehousing</option>
-                          <option value='Others'>Others</option>
+                          <option value="Others">Others</option>
                         </select>
                       </div>
                     </div>
@@ -147,7 +177,11 @@ const Index = () => {
                   <tr className="table_row">
                     <td className={styles.doc_name}>Container No. List</td>
                     <td>
-                      <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
+                      <img
+                        src="/static/pdf.svg"
+                        className={`${styles.pdfImage} img-fluid`}
+                        alt="Pdf"
+                      />
                     </td>
                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                     <td className={styles.doc_row}>Buyer</td>
@@ -165,7 +199,7 @@ const Index = () => {
                       />
                       <img
                         src="/static/upload.svg"
-                        className="img-fluid mr-3"
+                        className={`${styles.drive_image} img-fluid mr-3`}
                         alt="Share"
                       />
                       <img
@@ -175,7 +209,6 @@ const Index = () => {
                       />
                     </td>
                   </tr>
-
                 </tbody>
               </table>
             </div>
