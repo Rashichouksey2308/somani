@@ -1,9 +1,64 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React ,{useState,useEffect}from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-function Index() {
+  let shipping={
+    "name": "",
+    "vesselName": "",
+    "gstin": "",
+
+        
+ }
+function Index(props) {
+  const[shippingData,setShippingData]=useState(shipping)
+    useEffect(() => {
+   if(window){
+    if(sessionStorage.getItem("Shipping")){
+      let savedData=JSON.parse(sessionStorage.getItem("Shipping"))
+      let shipping={
+       "name": savedData.name,
+      "vesselName": savedData.vesselName,
+      "gstin": savedData.gstin,
+        
+        
+       }
+      
+       
+       setShippingData(shipping)
+    }
+   }
+  },[])
+  useEffect(() => {
+    if(props.saveData==true && props.active=="Shipping"){
+       let data={
+        shippingData:shippingData,
+      
+        
+        
+       }
+       props.sendData("Shipping",data)
+    }
+    if(props.submitData==true && props.active=="Shipping"){
+      let data={
+      shippingData:shippingData,
+      
+       
+       }
+
+      props.updateData("Shipping",data)
+
+    }
+  },[props])
+  const handleInput=(name,value,key)=>{
+  
+
+  const newInput = { ...shippingData }
+
+      newInput[name] = value
+      setShippingData(newInput)
+
+  }
   return (
     <>
       <div className={styles.container}>
@@ -15,7 +70,11 @@ function Index() {
                 className={`${styles.input_field} input form-control`}
                 required
                 type="text"
-                name="commodity"
+                 name="name"
+                value={shippingData.name}
+                 onChange={(e) => {
+                  handleInput(e.target.name,e.target.value)
+                }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                Supplier Name<strong className="text-danger">*</strong>
@@ -32,7 +91,11 @@ function Index() {
                 className={`${styles.input_field} input form-control`}
                 required
                 type="text"
-                name="commodity"
+               name="vesselName"
+                value={shippingData.vesselName}
+                 onChange={(e) => {
+                  handleInput(e.target.name,e.target.value)
+                }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
               Vessel Name
@@ -43,7 +106,11 @@ function Index() {
                 className={`${styles.input_field} input form-control`}
                 required
                 type="text"
-                name="commodity"
+                name="gstin"
+                value={shippingData.gstin}
+                 onChange={(e) => {
+                  handleInput(e.target.name,e.target.value)
+                }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                GSTIN

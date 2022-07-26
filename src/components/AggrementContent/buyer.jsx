@@ -1,16 +1,65 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React ,{useState}from 'react'
+import React ,{useState,useEffect}from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-function Index() {
-  const [list,setList]=useState([
-    
-      {name:"Dr. Amin",designation:"Director",email:"skapoor@email.com",phone:"9876543210",
-     actions:"false"}
-  
-  ])
+let buyer={
+       "name": "",
+ 
+        "branchName":"",
+        "addresses": [
 
+        ],
+        "authorisedSignatoryDetails": [
+
+        ],
+
+        
+}
+function Index(props) {
+  const[buyerData,setBuyerData]=useState(buyer)
+  const [list,setList]=useState([])
+useEffect(() => {
+   if(window){
+    if(sessionStorage.getItem("Buyer")){
+      let savedData=JSON.parse(sessionStorage.getItem("Buyer"))
+      let buyer={
+        "name": savedData.name,
+        "shortName": savedData.shortName,
+        
+        "addresses": savedData.addresses,
+        "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+        
+        
+       }
+       setList(savedData.authorisedSignatoryDetails)
+       
+       setBuyerData(buyer)
+    }
+   }
+  },[])
+  useEffect(() => {
+    if(props.saveData==true && props.active=="Buyer"){
+       let data={
+        buyerData:buyerData,
+        list:list,
+        addresses:buyerData
+        
+       }
+       props.sendData("Buyer",data)
+    }
+    if(props.submitData==true && props.active=="Buyer"){
+      let data={
+        buyerData:buyerData,
+        list:list,
+         addresses:buyerData
+       
+       }
+
+      props.updateData("Buyer",data)
+
+    }
+  },[props])
   const onEdit=(index)=>{
     let tempArr=list;
     // tempArr[index].actions.edit="false"
@@ -50,17 +99,34 @@ function Index() {
 
   }
   const addMoreRows=()=>{
-
-   
-  setList([...list,{
-      name:"",designation:"",email:"",phone:"",
+      setList([...list,{
+      name:"",designation:"",email:"",phoneNo:"",
       actions:"false"
     }])
-
-  }
+ }
   const handleRemove=(index)=>{
      setList([...list.slice(0,index), ...list.slice(index+1)])
 }
+  const handleInput=(name,value,key)=>{
+   
+  const newInput = { ...buyerData }
+
+      newInput[name] = value
+      setBuyerData(newInput)
+
+  }
+  const handleChangeInput=(name,value,index)=>{
+
+  let tempArr=list;
+    tempArr.forEach((val,i)=>{
+    if(i==index){
+        val[name] = value
+    }
+    })
+    setList(tempArr)
+
+  }
+    
   return (
     <>
       <div className={styles.container}>
@@ -72,18 +138,22 @@ function Index() {
                 className={`${styles.input_field} input form-control`}
                 required
                 type="text"
-                name="commodity"
+               name="name"
+                value={buyerData.shortName}
+                 onChange={(e) => {
+                  handleInput(e.target.name,e.target.value)
+                }}
               >
-                Indo German International
+                 <option value="Indo German International">Indo German International</option>
               </select>
               <Form.Label className={`${styles.label_heading} label_heading`}>
               Name<strong className="text-danger">*</strong>
               </Form.Label>
-                <img
+                {/* <img
                     className={`${styles.search_image} img-fluid`}
                     src="/static/search-grey.svg"
                     alt="Search"
-                  />
+                  /> */}
             </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -91,7 +161,11 @@ function Index() {
                 className={`${styles.input_field} input form-control`}
                 required
                 type="text"
-                name="commodity"
+               name="branchName"
+                value={buyerData.branchName}
+                onChange={(e) => {
+                  handleInput(e.target.name,e.target.value)
+                }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Short Name<strong className="text-danger">*</strong>
@@ -188,13 +262,33 @@ function Index() {
 
                 </tr>
                 :<tr key={index}>
-                  <td><select>
+                  <td><select
+                   value="name"
+                  onChange={(e)=>{
+                    handleChangeInput(e.target.name,e.target.value,index)
+                  }}
+                  >
                     <option>{val.name}</option>
                     </select>
                  </td>
-                  <td><input type="text" placeholder={val.designation}></input></td>
-                  <td><input type="text" placeholder={val.email}></input></td>
-                  <td><input type="text" placeholder={val.phone}></input></td>
+                  <td><input type="text" 
+                  placeholder={val.designation}
+                   name= "designation"
+                  onChange={(e)=>{
+                    handleChangeInput(e.target.name,e.target.value,index)
+                  }}></input></td>
+                  <td><input type="text" placeholder={val.email}
+                  name= "email"
+                  onChange={(e)=>{
+                    handleChangeInput(e.target.name,e.target.value,index)
+                  }}
+                  ></input></td>
+                  <td><input type="text" placeholder={val.phone}
+                  name= "phoneNo"
+                  onChange={(e)=>{
+                    handleChangeInput(e.target.name,e.target.value,index)
+                  }}
+                  ></input></td>
                   <td className={`d-flex  justify-content-between`}>
                      <img  onClick={()=>(onEditRemove(index))}src="/static/add-btn.svg"  />
                      
@@ -206,6 +300,12 @@ function Index() {
             })}
           </tbody>
         </table>
+        <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+          addMoreRows()
+        }}>
+        <span>+</span>  Add more rows
+        </div>
+
 
       </div>
         </div>
