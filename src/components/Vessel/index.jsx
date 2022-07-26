@@ -33,14 +33,20 @@ function Index({ vesselName, isPartShipment }) {
       <div className={`${styles.dashboard_form} card-body`}>
         <div className="row ">
           <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
-            <input
-              className={`${styles.input_field} input form-control`}
-              required
-              type="text"
-            />
-            <label className={`${styles.label_heading} label_heading`}>
-              Shipment Type<strong className="text-danger">*</strong>
-            </label>
+            <div className="d-flex">
+              <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
+                <option value="Bulk" selected>Bulk</option>
+                <option value="Liner">Liner</option>
+              </select>
+              <label className={`${styles.label_heading} label_heading`}>
+                Shipment Type<strong className="text-danger">*</strong>
+              </label>
+              <img
+                className={`${styles.arrow} img-fluid`}
+                src="/static/inputDropDown.svg"
+                alt="Search"
+              />
+            </div>
           </div>
           <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
             <input
@@ -196,79 +202,83 @@ function Index({ vesselName, isPartShipment }) {
                 }}
                 minDate={lastDate}
               />
+              <img
+                className={`${styles.calanderIcon} img-fluid`}
+                src="/static/caldericon.svg"
+                alt="Search"
+              />
               <label className={`${styles.label_heading} label_heading`}>
                 ETA at Discharge Port
               </label>
             </div>
           </div>
+        </div>
+      </div>
+      <hr></hr>
+      <div className={`${styles.dashboard_form} card-body`}>
+          <h3 className={styles.sub_heading}>Vessel Information</h3>
 
-          <hr></hr>
-          <div className={`${styles.dashboard_form} card-body`}>
-            <h3 className={styles.sub_heading}>Vessel Information</h3>
-
-            <div className="row">
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
-              >
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Vessel Name<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
-              >
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  IMO Number<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
-              >
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Flag<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
-              >
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  type="number"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Year of Built<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
-              >
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Shipping Line/Charter
-                </label>
-              </div>
+          <div className="row">
+            <div
+              className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+            >
+              <input
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+              />
+              <label className={`${styles.label_heading} label_heading`}>
+                Vessel Name<strong className="text-danger">*</strong>
+              </label>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+            >
+              <input
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+              />
+              <label className={`${styles.label_heading} label_heading`}>
+                IMO Number<strong className="text-danger">*</strong>
+              </label>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+            >
+              <input
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+              />
+              <label className={`${styles.label_heading} label_heading`}>
+                Flag<strong className="text-danger">*</strong>
+              </label>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+            >
+              <input
+                className={`${styles.input_field} input form-control`}
+                type="number"
+              />
+              <label className={`${styles.label_heading} label_heading`}>
+                Year of Built<strong className="text-danger">*</strong>
+              </label>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+            >
+              <input
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+              />
+              <label className={`${styles.label_heading} label_heading`}>
+                Shipping Line/Charter
+              </label>
             </div>
           </div>
-        </div>
       </div>
     </div>
   )
