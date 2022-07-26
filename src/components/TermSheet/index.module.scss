@@ -1,10 +1,10 @@
 @import "../styles/Core/config";
 .card {
-    padding: 25px;
-    background-color: #F3F4F7;
-      @include respond(phone) {
-          padding: 25px 20px 20px;
-        }
+    margin: 28px;
+    background-color: transparent !important;
+    @include respond(phone) {
+        margin: 25px 20px 20px;
+    }
     .head_header {
         display: flex;
         padding-left: 10px;
@@ -12,7 +12,7 @@
         @include respond(phone) {
             align-items: center;
             padding: 0.75rem 0rem;
-          }
+        }
         .arrow {
             width: 13px;
             height: 21px;
@@ -21,34 +21,31 @@
             @include respond(phone) {
                 margin-top: 0px;
                 height: 18px;
-              }
+            }
         }
         .heading {
             padding-left: 18px;
             font-weight: bold;
             font-size: 34px;
             line-height: 41px;
-            
             text-transform: capitalize;
-            margin-top: 0;
+            margin: 0;
             @include respond(phone) {
                 font-size: $font_size_mobile_head;
                 margin: 0px;
                 padding-left: 10px;
-              }
+            }
         }
     }
     .card_body {
-       
-        padding:20px 0 0 25px;
-        border-top: 2px solid #EFF2F7;
-        box-shadow: 0px 3px 12px #E5E7ED;
-        border: 1px solid #D2D7E5;
-        border-radius: 8px;
-        margin-bottom: 40px;
-        .form_group{
+      padding: 20px 0 0 25px;
+      border-top: 2px solid #EFF2F7;
+      box-shadow: 0px 3px 12px #E5E7ED;
+      border: 1px solid #D2D7E5;
+      border-radius: 8px;
+      margin-bottom: 40px;
+      .form_group {
           padding-left: 25px;
-
             .label {
                 font-size: 16px;
                 line-height: 17px;
@@ -60,7 +57,6 @@
                 // color: #111111;
                 line-height: 25px;
                 font-weight: 500;
-
             }
             .status {
                 width: 15px;
@@ -69,13 +65,12 @@
                 border-radius: 50%;
                 display: inline-block;
                 vertical-align: middle;
-                background: #26DD73;                
-            }        
+                background: #26DD73;
+            }
         }
     }
-  }
-
-  .card_body {
+}
+.card_body {
     background-color: #ffffff;
     padding: 20px 0 0 25px;
     border-top: 2px solid #eff2f7;
@@ -83,30 +78,27 @@
     border: 1px solid #d2d7e5;
     border-radius: 8px;
     margin-bottom: 40px;
-
     .form_group {
-      .label {
-        font-size: 16px;
-       
-        line-height: 17px;
-        margin-bottom: 10px;
-        letter-spacing: 0.53px;
-        line-height: 17px;
-      }
-      .value {
-        font-size: 20px;
-        color: #111111;
-        line-height: 25px;
-      }
-      .status {
-        width: 15px;
-        height: 15px;
-        margin-right: 10px;
-        border-radius: 50%;
-        display: inline-block;
-        vertical-align: middle;
-        background: #26dd73;
-      }
+        .label {
+            font-size: 16px;
+            line-height: 17px;
+            margin-bottom: 10px;
+            letter-spacing: 0.53px;
+            line-height: 17px;
+        }
+        .value {
+            font-size: 20px;
+            color: #111111;
+            line-height: 25px;
+        }
+        .status {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+            background: #26dd73;
+        }
     }
-  }
-
+}

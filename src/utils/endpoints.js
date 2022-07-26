@@ -50,17 +50,19 @@ export default {
   // Credit Limit
   creditLimit: '/api/core/credit-limit',
 
+  //LC Module
+  getLcModule: '/api/core/lc-module',
+  updateLcModule: '/api/core/lc-module',
+
   //DocumentsCam :
   getDocuments: '/api/core/order/order-document',
   addDocuments: '/api/core/order/order-document',
   deleteDocument: '/api/core/order/order-document',
 
   //Update Cam Sheet
-
-
- updateCam : '/api/core/order/cam',
+  updateCam : '/api/core/order/cam',
 
 
  // karza Gst 
- getGstKarza : '/api/core/lead/refetch-gst-karza',
+  getGstKarza : '/api/core/lead/refetch-gst-karza',
 }
