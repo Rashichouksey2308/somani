@@ -34,6 +34,7 @@ Chart.register(
 )
 
 function Index({
+  gstData,
   camData,
   companyData,
   addApproveRemarkArr,
@@ -42,6 +43,7 @@ function Index({
   approvedCredit,
 }) {
   const dispatch = useDispatch()
+  console.log(gstData,'gstData')
 
   useEffect(() => {
     if (window) { 
@@ -198,6 +200,14 @@ function Index({
       },
     },
   }
+  const covertMonths = (months) => {
+    const CovertedMonts = []
+    months?.map((month) => {
+      let convertedMonths = []
+      CovertedMonts.push(...convertedMonths, moment(month, 'MMYYYY').format('MMMM'))
+    })
+    return CovertedMonts
+  }
 
   const lineOption = {
     tension: 0.1,
@@ -208,18 +218,35 @@ function Index({
       },
     },
   }
-  let dataline = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  let TotalRevenueDataLine = {
+    labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
     datasets: [
       {
         label: 'First dataset',
-        data: [33, 53, 85, 41, 44, 65],
+        data: gstData?.detail?.summaryCharts?.grossRevenue?.month,
         fill: true,
         backgroundColor: 'rgba(75,192,192,1)',
         borderColor: 'rgba(75,192,192,1)',
       },
     ],
   }
+
+
+  let TotalPurchasesDataLine = {
+    labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
+    datasets: [
+      {
+        label: 'First dataset',
+        data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: 'rgba(75,192,192,1)',
+      },
+    ],
+  }
+
+
+ 
   return (
     <>
       {basicInfo(camData)}
@@ -239,9 +266,9 @@ function Index({
       {chargeDetails(data, options, tempArr, camData)}
       {debtProfile(data, options, tempArr, camData)}
       {operationalDetails(camData)}
-      {revenuDetails()}
-      {trends(dataline, lineOption)}
-      {skewness(data, options, tempArr)}
+      {revenuDetails(gstData)}
+      {trends(TotalRevenueDataLine, TotalPurchasesDataLine, lineOption ,gstData)}
+      {skewness(data, options, tempArr, gstData)}
       {financeDetails(
         data,
         options,
@@ -1560,7 +1587,15 @@ const operationalDetails = (camData) => {
     </>
   )
 }
-const revenuDetails = () => {
+const revenuDetails = (gstData) => {
+  const RevenueDetails = gstData?.detail?.salesDetailAnnual?.saleSummary
+
+  
+  function calcPc(n1,n2){
+    return (((n2 - n1) / n1 * 100).toLocaleString('fullwide', {maximumFractionDigits:3}) + "%");
+  }
+
+  
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1599,13 +1634,13 @@ const revenuDetails = () => {
                 <td>
                   <img
                     src="/static/arrow-up-green.svg"
-                    alt="Arrow Red"
+                    alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>11,900.00 </td>
-                <td>1,900.00</td>
-                <td>40%</td>
+                <td>{RevenueDetails?.grossTurnover?.current?.value}</td>
+                <td>{RevenueDetails?.grossTurnover?.previous?.value}</td>
+                <td>{calcPc(RevenueDetails?.grossTurnover?.current?.value,RevenueDetails?.grossTurnover?.previous?.value)}</td>
               </tr>
               <tr>
                 <td>Related Party Sales</td>
@@ -1618,7 +1653,7 @@ const revenuDetails = () => {
                 </td>
                 <td>11,900.00 </td>
                 <td>1,900.00</td>
-                <td>40%</td>
+                <td>{calcPc(100,90)}</td>
               </tr>
               <tr>
                 <td>Intra Organization Sales</td>
@@ -2651,7 +2686,7 @@ const Documents = () => {
     </>
   )
 }
-const trends = (dataline, lineOption) => {
+const trends = (TotalRevenueDataLine,TotalPurchasesDataLine, lineOption,gstData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2691,10 +2726,10 @@ const trends = (dataline, lineOption) => {
               <Col className={`${styles.leftCol} p-0 border_color`} md={6}>
                 <div className={`${styles.head_wrapper} card_sub_header`}>
                   <span className={`${styles.head}`}>Gross Revenue</span>
-                  <span className={`${styles.child} ml-2`}>: 1,900.00</span>
+                  <span className={`${styles.child} ml-2`}>: {gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value}</span>
                 </div>
                 <div className={`${styles.chart}`}>
-                  <Line data={dataline} options={lineOption} />
+                  <Line data={TotalRevenueDataLine} options={lineOption} />
                 </div>
                 <div
                   className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}
@@ -2709,10 +2744,10 @@ const trends = (dataline, lineOption) => {
               <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
                 <div className={`${styles.head_wrapper}  card_sub_header`}>
                   <span className={`${styles.head}`}>Gross Purchases</span>
-                  <span className={`${styles.child} ml-2`}>: 1,900.00</span>
+                  <span className={`${styles.child} ml-2`}>: {gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value}</span>
                 </div>
                 <div className={`${styles.chart}`}>
-                  <Line data={dataline} options={lineOption} />
+                  <Line data={TotalPurchasesDataLine} options={lineOption} />
                 </div>
               </Col>
             </Row>
@@ -2722,7 +2757,7 @@ const trends = (dataline, lineOption) => {
     </>
   )
 }
-const skewness = (data, options, tempArr) => {
+const skewness = (data, options, tempArr,gstData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2762,7 +2797,7 @@ const skewness = (data, options, tempArr) => {
               <Col className={`${styles.leftCol} p-0 border_color`} md={6}>
                 <div className={`${styles.head_wrapper} card_sub_header`}>
                   <span className={`${styles.head}`}>Gross Revenue</span>
-                  <span className={`${styles.child} ml-2`}>: 1,900.00</span>
+                  <span className={`${styles.child} ml-2`}>: {gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value}</span>
                 </div>
                 <Row
                   className={`d-flex  d-flex align-items-center justify-content-evenly`}
@@ -2806,7 +2841,7 @@ const skewness = (data, options, tempArr) => {
               <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
                 <div className={`${styles.head_wrapper}`}>
                   <span className={`${styles.head}`}>Gross Purchases</span>
-                  <span className={`${styles.child} ml-2`}>: 1,900.00</span>
+                  <span className={`${styles.child} ml-2`}>: {gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value}</span>
                 </div>
                 <div className={`${styles.chart}`}>
                   {/* <Line data={dataline} options={lineOption} /> */}
