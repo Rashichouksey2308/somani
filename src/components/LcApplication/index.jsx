@@ -1,11 +1,22 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 
-function Index() {
+function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr}) {
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
+
+  const saveDate = (value, name) => {
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveLcData(name, text)
+  }
+
+  const [lcComment, setLcComment] = useState('')
+  const [docComment, setDocComment] = useState('')
+
 
   return (
     <>
@@ -45,10 +56,11 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                          >
-                            <option>Irrevocable</option>
-                            <option>Balaji Traders</option>
+                           name='formOfDocumentaryCredit' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          > 
+                            <option selected></option>
+                            <option value='Irrevocable'>Irrevocable</option>
+                            <option value='Revocable'>Revocable</option>
                           </select>
 
                           <label
@@ -68,7 +80,9 @@ function Index() {
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
+                          name='applicableRules'
                           type="text"
+                          onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -79,7 +93,7 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
-                          <DateCalender labelName="(31D) Date Of Expiry" />
+                          <DateCalender name='dateOfExpiry' saveDate={saveDate} labelName="(31D) Date Of Expiry" />
                           <img
                             className={`${styles.calanderIcon} img-fluid`}
                             src="/static/caldericon.svg"
@@ -92,6 +106,8 @@ function Index() {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          name='placeOfExpiry'
+                          onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -103,10 +119,11 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                           name='lcIssuingBank' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}} className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option>First Class European Bank</option>
-                            <option>Balaji Traders</option>
+                            <option selected></option>
+                            <option value='First Class European Bank'>First Class European Bank</option>
+                            <option value='Swiss Bank'>Swiss Bank</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -123,10 +140,11 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          name='applicant' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}} className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option>Indo International Trading Fzco</option>
-                            <option>Balaji Traders</option>
+                            <option selected></option>
+                            <option value='Inod International Trading Fzco'>Indo International Trading Fzco</option>
+                            <option value='Balaji Traders'>Balaji Traders</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -146,6 +164,8 @@ function Index() {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          name='beneficiary'
+                          onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -159,6 +179,8 @@ function Index() {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          name='currecyCodeAndAmountValue'
+                          onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -171,7 +193,9 @@ function Index() {
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
-                          type="text"
+                          type="number"
+                          name='tolerancePercentage'
+                          onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -183,10 +207,11 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          name='creditAvailablewith' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option>BNP PARIBAS PARIBAS _ BNPAFRPPS</option>
-                            <option>Balaji Traders</option>
+                            <option selected></option>
+                            <option value='BNP PARIBAS PARIBAS _ BNPAFRPPS'>BNP PARIBAS PARIBAS _ BNPAFRPPS</option>
+                            <option value='BNP_BNPAFRPPS'>BNP_BNPAFRPPS</option>
                           </select>
 
                           <label
@@ -205,10 +230,11 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          name='creditAvailableBy' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option>By Negotiation</option>
-                            <option>Balaji Traders</option>
+                            <option selected></option>
+                            <option value='By Negotiation'>By Negotiation</option>
+                            <option value='Not by Negotiation'>Not by Negotiation</option>
                           </select>
 
                           <label
@@ -224,51 +250,52 @@ function Index() {
                           />
                         </div>
                       </Col>
-                      {/* className={`${styles.document_label} `} */}
-                      <Col className="mb-4 mt-4" lg={4}>
-                        <Row>
-                          <Col className={`${styles.document_label} `} lg={8}>
-                            <div className="d-flex">
-                              <select
-                                className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                              >
-                                <option>Documentary Credit</option>
-                                <option>Balaji Traders</option>
-                              </select>
+                      <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
+                        <div className="d-flex">
+                          <select
+                          name='atSight' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          >
+                            <option selected></option>
+                            <option value='Documetarty Credit'>Documentary Credit</option>
+                            <option value='Not Documentary Credit'>Not Documentary Credit</option>
+                          </select>
 
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
-                                (42C) At Sight
-                                <strong className="text-danger">*</strong>
-                              </label>
-                              <img
-                                className={`${styles.arrow} img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
-                            </div>
-                          </Col>
-                          <Col className={`${styles.date_label} `} lg={4}>
-                            <input
-                              className={`${styles.input_field} input form-control`}
-                              required
-                              type="number"
-                            />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              No. of Days
-                              <strong className="text-danger">*</strong>
-                            </label>
-                          </Col>
-                        </Row>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            (42C) At Sight
+                            <strong className="text-danger">*</strong>
+                          </label>
+                          <img
+                            className={`${styles.arrow} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </Col>
+                      <Col className="mb-4 mt-4" lg={1} md={6} sm={6}>
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          type="number"
+                          name='numberOfDays'
+                          onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                          style={{ left: '18px' }}
+                        >
+                          No. of Days
+                          <strong className="text-danger">*</strong>
+                        </label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          name='drawee'
+                          onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -281,6 +308,8 @@ function Index() {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          name='deferredPayment'
+                          onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -291,10 +320,11 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          name='partialShipment' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option>Prohibited</option>
-                            <option>Balaji Traders</option>
+                            <option selected></option>
+                            <option value='Prohibited'>Prohibited</option>
+                            <option value='Allowed'>Allowed</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -312,10 +342,11 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          name='transhipments' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option>Prohibited</option>
-                            <option>Balaji Traders</option>
+                            <option selected></option>
+                            <option value='Prohibited'>Prohibited</option>
+                            <option value='Not Prohibited'>Not Prohibited</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -336,6 +367,8 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='shipmentForm'
+                            onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -356,6 +389,8 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='portOfLoading'
+                            onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -373,10 +408,11 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          name='portOfDischarge' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option>Visakhapatnam Port, India</option>
-                            <option>Balaji Traders</option>
+                            <option selected></option>
+                            <option value='Visakhapatnam, India'>Visakhapatnam Port, India</option>
+                            <option value='Mumbai, India'>Mumbai, India</option>
                           </select>
 
                           <label
@@ -394,7 +430,7 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
-                          <DateCalender labelName="(44C) Latest Date Of Shipment" />
+                          <DateCalender name='latestDateOfShipment' saveDate={saveDate} labelName="(44C) Latest Date Of Shipment" />
                           <img
                             className={`${styles.calanderIcon} img-fluid`}
                             src="/static/caldericon.svg"
@@ -407,6 +443,8 @@ function Index() {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          name='DescriptionOfGoods'
+                          onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                           style={{ height: '103px' }}
                         />
                         <label
@@ -429,18 +467,21 @@ function Index() {
                       as="textarea"
                       rows={3}
                       className={`${styles.comment_field} input form-control`}
+                      onChange={(e)=> setDocComment(e.target.value)}
                     />
                     <img
                       className="img-fluid ml-4"
                       src="/static/add-btn.svg"
                       alt="add button"
+                      onClick={()=> docComment.length > 0 && addDocArr(docComment)}
                     />
                   </div>
-                  <div className="d-flex justify-content-between pt-4 pb-3">
+                 {lcDocuments?.map((comment, index) => ( <div key={index} className="d-flex justify-content-between pt-4 pb-3">
                     <div className={`${styles.number} mr-n3`}>1.</div>
                     <Form.Control
                       className={`${styles.paragraph} input`}
                       as="textarea"
+                      defaultValue={comment}
                       rows={3}
                       readOnly={editStren}
                     />
@@ -459,7 +500,7 @@ function Index() {
                         alt="delete"
                       />
                     </div>
-                  </div>
+                  </div>))}
                 </div>
                 <hr className={styles.line}></hr>
 
@@ -472,18 +513,21 @@ function Index() {
                       as="textarea"
                       rows={3}
                       className={`${styles.comment_field} input form-control`}
+                      onChange={(e)=> setLcComment(e.target.value)}
                     />
                     <img
                       className="img-fluid ml-4"
                       src="/static/add-btn.svg"
                       alt="add button"
+                      onClick={()=> lcComment.length > 0 && addCommentArr(lcComment) }
                     />
                   </div>
-                  <div className="d-flex justify-content-between pt-4 pb-3">
+               { lcComments?.map((comment, index) => ( <div key={index} className="d-flex justify-content-between pt-4 pb-3">
                     <div className={`${styles.number} mr-n3`}>1.</div>
                     <Form.Control
                       className={`${styles.paragraph} input`}
                       as="textarea"
+                      defaultValue={comment}
                       rows={3}
                       readOnly={edit}
                     />
@@ -503,7 +547,7 @@ function Index() {
                         alt="delete"
                       />
                     </div>
-                  </div>
+                  </div>)) }
                 </div>
 
                 <hr></hr>
@@ -583,6 +627,8 @@ function Index() {
                             style={{ height: '103px' }}
                             required
                             type="text"
+                            name='presentaionPeriod'
+                            onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -597,6 +643,8 @@ function Index() {
                             style={{ height: '103px' }}
                             required
                             type="text"
+                            name='confirmationInstructions'
+                            onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -608,10 +656,11 @@ function Index() {
                         <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
+                            name='reimbursingBank' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
                             >
-                              <option>Bnp Paribas Paribas - Bnpafrppxx</option>
-                              <option>Balaji Traders</option>
+                              <option selected></option>
+                              <option value='Bnp Paribas Paribas - Bnpafrppxx'>Bnp Paribas Paribas - Bnpafrppxx</option>
+                              <option value='Balaji Traders'>Balaji Traders</option>
                             </select>
                             <label className={`${styles.labels} label_heading`}>
                               (53A) Reimbursing Bank
@@ -627,10 +676,11 @@ function Index() {
                         <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
+                            name='adviceThroughBank' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
                             >
-                              <option>Bnp Paribas Paribas - Bnpafrppxx</option>
-                              <option>Balaji Traders</option>
+                              <option selected></option>
+                              <option value='Bnp Paribas Paribas - Bnpafrppxx'>Bnp Paribas Paribas - Bnpafrppxx</option>
+                              <option value='Balaji Traders'>Balaji Traders</option>
                             </select>
                             <label className={`${styles.labels} label_heading`}>
                               (57) Advise Through Bank
@@ -649,6 +699,8 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='secondAdvisingBank'
+                            onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -662,6 +714,8 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='requestedConfirmationParty'
+                            onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -677,6 +731,8 @@ function Index() {
                             style={{ height: '103px' }}
                             required
                             type="text"
+                            name='charges'
+                            onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -691,6 +747,8 @@ function Index() {
                             style={{ height: '139px' }}
                             required
                             type="text"
+                            name='instructionToBank'
+                            onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -707,6 +765,8 @@ function Index() {
                             style={{ height: '103px' }}
                             required
                             type="text"
+                            name='senderToReceiverInformation'
+                            onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
