@@ -101,7 +101,6 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr}) 
                           />
                         </div>
                       </Col>
-
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <input
                           className={`${styles.input_field} input form-control`}
@@ -160,7 +159,6 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr}) 
                           />
                         </div>
                       </Col>
-
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <input
                           className={`${styles.input_field} input form-control`}

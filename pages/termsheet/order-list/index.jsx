@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
+import _get from "lodash/get";
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../../src/redux/registerBuyer/action'
 import { setPageName, setDynamicName } from '../../../src/redux/userData/action'
@@ -19,8 +20,8 @@ function Index() {
 
 
 
-  // console.log(singleOrder, 'all order listtt1')
-  //console.log(termsheet, "TErmshetTermsheet")
+   console.log(singleOrder, 'all order listtt1')
+  console.log(termsheet, "TErmshetTermsheet")
 
 
   useEffect(() => {
@@ -29,7 +30,11 @@ function Index() {
   }, [dispatch])
 
   useEffect(() => {
-    dispatch(setPageName('termsheet'))
+    dispatch(setPageName(_get(
+                  termsheet,
+                  "data[0].company.companyName",
+                  "All Termsheet Order"
+                )))
     dispatch(setDynamicName("Company Name"))
   }, [dispatch, singleOrder])
 
@@ -53,7 +58,11 @@ function Index() {
             <div className={styles.head_header}>
               <img className={`${styles.arrow} img-fluid`}
                 src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-              <h1 className={`${styles.heading} heading`}>{`Termsheet all orders`}</h1>
+              <h1 className={`${styles.heading} heading`}>{_get(
+                  termsheet,
+                  "data[0].company.companyName",
+                  "All Termsheet Order"
+                )}</h1>
             </div>
 
 
@@ -207,33 +216,31 @@ function Index() {
                     </tr>
                   </thead>
                   {termsheet && termsheet?.data?.map((term, index) => (<tbody Key={index}>
+                    <tr>
+                      <td className={`${styles.first}`} onClick={() => handleRoute(term)}>
+                        {term?.order?.orderId}
+                      </td>
+                      <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.order?.commodity}</td>
 
-                    <td className={`${styles.first}`} onClick={() => handleRoute(term)}>
-                      {term?.order?.orderId}
-                    </td>
-                    <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.order?.commodity}</td>
+                      <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
+                      <td>{term?.order?.createdAt?.slice(0, 10)}</td>
+                      <td>
+                        <span
+                          className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
+                            ? styles.review
+                            : term?.order?.queue === 'CreditQueue'
+                              ? styles.approved
+                              : styles.rejected
+                            }`}
+                        ></span>
 
-                    <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
-                    <td>{term?.order?.createdAt?.slice(0, 10)}</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
-                          ? styles.review
+                        {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
+                          ? 'Review'
                           : term?.order?.queue === 'CreditQueue'
-                            ? styles.approved
-                            : styles.rejected
-                          }`}
-                      ></span>
-
-                      {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
-                        ? 'Review'
-                        : term?.order?.queue === 'CreditQueue'
-                          ? 'Approved'
-                          : 'Rejected'}
-                    </td>
-
-
-
+                            ? 'Approved'
+                            : 'Rejected'}
+                      </td>
+                    </tr>
                   </tbody>))}
                 </table>
               </div>
