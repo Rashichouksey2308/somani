@@ -853,3 +853,44 @@ body.dark-mode .cta_bar {
   background: #232936;
   border-color: #232936;
 }
+body.light-mode .directorDetails .card {
+  background: #FAFAFA;
+  border: 2px solid #E6EAF0;
+  border-left: none;
+}
+body.dark-mode .directorDetails .card {
+  background: #171E27;
+  border: 2px solid #171E27;
+  border-left: none;
+}
+body.light-mode .directorDetails .card-header {
+  border-left: 9px solid #3687E8;
+}
+body.dark-mode .directorDetails .card-header {
+  border-left: 9px solid #3687E8;
+}
+body.light-mode .directorDetails .card-body {
+  background: none !important;
+  border-left: 9px solid #C4D7EF !important;
+}
+body.dark-mode .directorDetails .card-body {
+  border-left: 9px solid #C4D7EF !important;
+}
+body.light-mode .directorDetails .collapsed {
+  border-left: 9px solid #3687E8;
+}
+body.dark-mode .directorDetails .collapsed {
+  border-left: 9px solid #3687E8;
+}
+body.light-mode .directorDetails .card-header .image_arrow {
+  transform: rotate(90deg);
+}
+body.dark-mode .directorDetails .card-header .image_arrow {
+  transform: rotate(90deg);
+}
+body.light-mode .directorDetails .collapsed .image_arrow {
+  transform: rotate(-90deg);
+}
+body.dark-mode .directorDetails .collapsed .image_arrow {
+  transform: rotate(-90deg);
+}
