@@ -8,9 +8,10 @@ import { UploadDocument } from 'redux/registerBuyer/action'
 import { phoneValidation } from 'utils/helper'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
-import { Form, Row, Col} from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
+import AddressComponent from './addressComponent'
 
-const index =  ({
+const index = ({
   creditDetail,
   keyAddDataArr,
   saveProductData,
@@ -32,7 +33,7 @@ const index =  ({
 
   const { gstDocument } = useSelector((state) => state.buyer)
 
-  const {updatingCreditCalculate} = useSelector((state)=>state.review)
+  const { updatingCreditCalculate } = useSelector((state) => state.review)
 
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
@@ -54,6 +55,14 @@ const index =  ({
     pinCode: null,
   })
 
+  useEffect(() => {
+    const newInput = {...keyAddressData}
+    newInput.GSTIN_document.name = gstDocument.name
+    newInput.GSTIN_document.path = gstDocument.path
+    newInput.GSTIN_document.date = gstDocument.date
+      setKeyAddressData(newInput)
+  }, [gstDocument])
+  
   //const [deleteRow, setDeleteRow] = useState(true)
 
   const [debt, setDebtData] = useState({
@@ -64,8 +73,10 @@ const index =  ({
     limitType: '',
   })
 
+  console.log(debt, 'THIS IS DEBT')
+
   const handleDebtChange = (name, value) => {
-    const newInput = { ...debtData }
+    const newInput = { ...debt }
     newInput[name] = value
     setDebtData(newInput)
   }
@@ -74,20 +85,16 @@ const index =  ({
     addDebtArr(debt)
   }
 
-
-  const [keyPersonData, setKeyPersonData] = useState(
-    personData,
-    {
-       contact: {
-        callingCode: '',
-         number: '',
-       },
-       department: '',
-       designation: '',
-       email: '',
-       name: '',
-   },
-  )
+  const [keyPersonData, setKeyPersonData] = useState(personData, {
+    contact: {
+      callingCode: '',
+      number: '',
+    },
+    department: '',
+    designation: '',
+    email: '',
+    name: '',
+  })
 
   useEffect(() => {
     setKeyPersonData(personData)
@@ -105,10 +112,10 @@ const index =  ({
     setKeyPersonData(newInput)
   }
 
-  const onKeyPersonSave = (data) => {
-      addPersonArr(keyPersonData)
-      //console.log(keyPersonData, 'This is person data')
-    }
+  const onKeyPersonSave = () => {
+    addPersonArr(keyPersonData)
+    //console.log(keyPersonData, 'This is person data')
+  }
 
   const handleChange = (name, value) => {
     const newInput = { ...keyAddressData }
@@ -130,7 +137,6 @@ const index =  ({
   }
 
   const uploadDocument = (e) => {
-
     const fd = new FormData()
     fd.append('gstDocument', e.target.files[0])
     dispatch(UploadDocument(fd))
@@ -282,19 +288,23 @@ const index =  ({
                 </label>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                 <div className="d-flex">
-                    <DateCalender name='stockCoverageOfCommodity' defaultDate={
-                    creditDetail?.productSummary?.stockCoverageOfCommodity?.split(
-                      'T',
-                    )[0]
-                  } saveDate={saveDate} labelName='Stock Coverage of Commodity'/>
-                     <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                      
-                    </div>  
+                <div className="d-flex">
+                  <DateCalender
+                    name="stockCoverageOfCommodity"
+                    defaultDate={
+                      creditDetail?.productSummary?.stockCoverageOfCommodity?.split(
+                        'T',
+                      )[0]
+                    }
+                    saveDate={saveDate}
+                    labelName="Stock Coverage of Commodity"
+                  />
+                  <img
+                    className={`${styles.calanderIcon} img-fluid`}
+                    src="/static/caldericon.svg"
+                    alt="Search"
+                  />
+                </div>
                 {/* <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
@@ -313,34 +323,38 @@ const index =  ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-               <div className='d-flex'>
-                <select
-                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  name="existingProcurementOfCommodity"
-                  onChange={(e) => {
-                    saveProductData(e.target.name, e.target.value)
-                  }}
-                >
-                  <option value={creditDetail?.productSummary
-                        ?.existingProcurementOfCommodity}>
-                    {
-                      creditDetail?.productSummary
-                        ?.existingProcurementOfCommodity
-                    }
-                  </option>
-                  <option value="Import">Import</option>
-                  <option value="Manufacturers">Manufacturers</option>
-                </select>
-                <label className={`${styles.label_heading} label_heading`}>
-                  Existing Procurement of Commodity
-                  <strong className="text-danger">*</strong>
-                </label>
-                <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                    />
-                        </div>
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    name="existingProcurementOfCommodity"
+                    onChange={(e) => {
+                      saveProductData(e.target.name, e.target.value)
+                    }}
+                  >
+                    <option
+                      value={
+                        creditDetail?.productSummary
+                          ?.existingProcurementOfCommodity
+                      }
+                    >
+                      {
+                        creditDetail?.productSummary
+                          ?.existingProcurementOfCommodity
+                      }
+                    </option>
+                    <option value="Import">Import</option>
+                    <option value="Manufacturers">Manufacturers</option>
+                  </select>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Existing Procurement of Commodity
+                    <strong className="text-danger">*</strong>
+                  </label>
+                  <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
@@ -371,37 +385,41 @@ const index =  ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-             <div className='d-flex'>
-                <select
-                  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                  name="contributionCommoditySenstivity"
-                  onChange={(e) => {
-                    saveProductData(e.target.name, e.target.value)
-                  }}
-                  required
-                >
-                  <option value={creditDetail?.productSummary
-                        ?.contributionCommoditySenstivity}>
-                    {
-                      creditDetail?.productSummary
-                        ?.contributionCommoditySenstivity
-                    }
-                  </option>
-                  <option value="Very High">Very High</option>
-                  <option value="High">High</option>
-                  <option value="Low">Low</option>
-                  <option value="Very Low">Very Low</option>
-                </select>
-                <label className={`${styles.label_heading} label_heading`}>
-                  Commodity Contribution Senstivity
-                  <strong className="text-danger">*</strong>
-                </label>
-                <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                    />
-                        </div>
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                    name="contributionCommoditySenstivity"
+                    onChange={(e) => {
+                      saveProductData(e.target.name, e.target.value)
+                    }}
+                    required
+                  >
+                    <option
+                      value={
+                        creditDetail?.productSummary
+                          ?.contributionCommoditySenstivity
+                      }
+                    >
+                      {
+                        creditDetail?.productSummary
+                          ?.contributionCommoditySenstivity
+                      }
+                    </option>
+                    <option value="Very High">Very High</option>
+                    <option value="High">High</option>
+                    <option value="Low">Low</option>
+                    <option value="Very Low">Very Low</option>
+                  </select>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Commodity Contribution Senstivity
+                    <strong className="text-danger">*</strong>
+                  </label>
+                  <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -448,13 +466,19 @@ const index =  ({
                   />
                 </div>
               </div>
-             
-  
-            
             </div>
-          <div className={`${styles.saveButton} m-0 mt-4`}>
-              <div className={`${styles.button} ml-0`} onClick={()=>{if(!updatingCreditCalculate){handleProductSave()}}} ><span>Save</span></div>
-          </div>
+            <div className={`${styles.saveButton} m-0 mt-4`}>
+              <div
+                className={`${styles.button} ml-0`}
+                onClick={() => {
+                  if (!updatingCreditCalculate) {
+                    handleProductSave()
+                  }
+                }}
+              >
+                <span>Save</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -467,7 +491,10 @@ const index =  ({
           aria-expanded="true"
           aria-controls="supplierCred"
         >
-          <h3 className={`${styles.heading} mb-0`}> {`Supplier's Credentials`}</h3>
+          <h3 className={`${styles.heading} mb-0`}>
+            {' '}
+            {`Supplier's Credentials`}
+          </h3>
           <span>+</span>
         </div>
         <div
@@ -479,29 +506,29 @@ const index =  ({
           <div className={`${styles.dashboard_form} card-body border_color`}>
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className='d-flex'>
-                <select
-                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  name="supplierName"
-                  onChange={(e) => {
-                    saveSupplierData(e.target.name, e.target.value)
-                  }}
-                >
-                  <option>
-                    {creditDetail?.supplierCredential?.supplierName}
-                  </option>
-                  <option>Bhutani Traders</option>
-                  <option>Ramakrishna</option>
-                </select>
-                <label className={`${styles.label_heading} label_heading`}>
-                  Supplier Name<strong className="text-danger">*</strong>
-                </label>
-                <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                    />
-                        </div>
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    name="supplierName"
+                    onChange={(e) => {
+                      saveSupplierData(e.target.name, e.target.value)
+                    }}
+                  >
+                    <option>
+                      {creditDetail?.supplierCredential?.supplierName}
+                    </option>
+                    <option>Bhutani Traders</option>
+                    <option>Ramakrishna</option>
+                  </select>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Supplier Name<strong className="text-danger">*</strong>
+                  </label>
+                  <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <input
@@ -556,70 +583,75 @@ const index =  ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className='d-flex'>
-                <select
-                  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                  defaultValue={
-                    creditDetail?.supplierCredential?.countryOfOrigin
-                  }
-                  name="countryOfOrigin"
-                  onChange={(e) => {
-                    saveSupplierData(e.target.name, e.target.value)
-                  }}
-                >
-                  <option>India</option>
-                  <option>USA</option>
-                </select>
-                <label className={`${styles.label_heading} label_heading`}>
-                  Country of Origin<strong className="text-danger">*</strong>
-                </label>
-                <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                    />
-                        </div>
-              </div>
-              <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className='d-flex'>
-                <select
-                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  defaultValue={
-                    creditDetail?.supplierCredential?.portOfDestination
-                  }
-                  name="portOfDestination"
-                  onChange={(e) => {
-                    saveSupplierData(e.target.name, e.target.value)
-                  }}
-                >
-                   <option>India</option>
-                  <option>USA</option>
-                </select>
-                <label className={`${styles.label_heading} label_heading`}>
-                  Port of Destination<strong className="text-danger">*</strong>
-                </label>
-                 <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                    />
-                        </div>
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                    defaultValue={
+                      creditDetail?.supplierCredential?.countryOfOrigin
+                    }
+                    name="countryOfOrigin"
+                    onChange={(e) => {
+                      saveSupplierData(e.target.name, e.target.value)
+                    }}
+                  >
+                    <option>India</option>
+                    <option>USA</option>
+                  </select>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Country of Origin<strong className="text-danger">*</strong>
+                  </label>
+                  <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                    <DateCalender name='oldestShipmentDate' defaultDate={
-                    creditDetail?.supplierCredential?.oldestShipmentDate?.split(
-                      'T',
-                    )[0]
-                  } saveDate={saveSupplierDate} labelName='Oldest Shipment Date'/>
-                     <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                      
-                    </div>  
-               {/* <div className={`d-flex`}>
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    defaultValue={
+                      creditDetail?.supplierCredential?.portOfDestination
+                    }
+                    name="portOfDestination"
+                    onChange={(e) => {
+                      saveSupplierData(e.target.name, e.target.value)
+                    }}
+                  >
+                    <option>India</option>
+                    <option>USA</option>
+                  </select>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Port of Destination
+                    <strong className="text-danger">*</strong>
+                  </label>
+                  <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+              </div>
+              <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <div className="d-flex">
+                  <DateCalender
+                    name="oldestShipmentDate"
+                    defaultDate={
+                      creditDetail?.supplierCredential?.oldestShipmentDate?.split(
+                        'T',
+                      )[0]
+                    }
+                    saveDate={saveSupplierDate}
+                    labelName="Oldest Shipment Date"
+                  />
+                  <img
+                    className={`${styles.calanderIcon} img-fluid`}
+                    src="/static/caldericon.svg"
+                    alt="Search"
+                  />
+                </div>
+                {/* <div className={`d-flex`}>
                   <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
@@ -642,19 +674,23 @@ const index =  ({
                </div> */}
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                 <div className="d-flex">
-                    <DateCalender name='latestShipmentDate' defaultDate={
-                    creditDetail?.supplierCredential?.latestShipmentDate?.split(
-                      'T',
-                    )[0]
-                  } saveDate={saveSupplierDate} labelName='Latest Shipment Date'/>
-                     <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                      
-                    </div> 
+                <div className="d-flex">
+                  <DateCalender
+                    name="latestShipmentDate"
+                    defaultDate={
+                      creditDetail?.supplierCredential?.latestShipmentDate?.split(
+                        'T',
+                      )[0]
+                    }
+                    saveDate={saveSupplierDate}
+                    labelName="Latest Shipment Date"
+                  />
+                  <img
+                    className={`${styles.calanderIcon} img-fluid`}
+                    src="/static/caldericon.svg"
+                    alt="Search"
+                  />
+                </div>
                 {/* <input
                   className={`${styles.input_field} input form-control`}
                   type="date"
@@ -724,128 +760,128 @@ const index =  ({
           data-parent="#profileAccordion"
         >
           <div className={`${styles.datatable} card-body datatable`}>
-           <div className={`${styles.table_scroll_outer}`}>
-            <div  className={`${styles.table_scroll_inner}`}>
-             <table
-              className={`${styles.table} table`}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
-              <thead>
-                <tr>
-                  <th>NAME</th>
-                  <th>DESIGNATION</th>
-                  <th>DEPARTMENT</th>
-                  <th>CONTACT NO.</th>
-                  <th>EMAIL ID</th>
-                  <th></th>
-                </tr>
-              </thead>
-              {personData?.map((person, index) => (
-                <tbody key={index}>
-                  
-                  <tr className="table_credit">
-                    <td>
-                      <input
-                        className="input font-weight-bold"
-                        defaultValue={person.name}
-                        name="name"
-                        onChange={(e) => handlePersonChange(e, index)}
-                        type="text"
-                        readOnly={!saveContactTable}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        className="input"
-                        defaultValue={person.designation}
-                        name="designation"
-                        onChange={(e) => handlePersonChange(e, index)}
-                        type="text"
-                        readOnly={!saveContactTable}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        className="input"
-                        defaultValue={person.department}
-                        name="department"
-                        onChange={(e) => handlePersonChange(e, index)}
-                        type="text"
-                        readOnly={!saveContactTable}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        className="input"
-                        defaultValue={person.contact.number}
-                        // name='contact.number'
-                        // onChange={(e)=>{handlePersonChange(e,index)}}
-                        onChange={(e) => {
-                          if (phoneValidation(e.target.value)) {
-                            personMobileFunction(e)
-                          } else {
-                            let toastMessage = 'Enter a valid Phone Number'
-                            if (!toast.isActive(toastMessage)) {
-                              toast.error(toastMessage, {
-                                toastId: toastMessage,
-                              })
-                            }
-                          }
-                        }}
-                        type="number"
-                        readOnly={!saveContactTable}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        className="input"
-                        defaultValue={person.email}
-                        name="email"
-                        onChange={(e) => handlePersonChange(e, index)}
-                        type="text"
-                        readOnly={!saveContactTable}
-                      />
-                    </td>
-                    <td>
-                      <div>
-                        {!saveContactTable ? (
-                          <img
-                            src="/static/mode_edit.svg"
-                            className={`${styles.edit_image} mr-3 img-fluid`}
-                            onClick={(e) => {
-                              setContactTable(true)
-                            }}
+            <div className={`${styles.table_scroll_outer}`}>
+              <div className={`${styles.table_scroll_inner}`}>
+                <table
+                  className={`${styles.table} table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="0"
+                >
+                  <thead>
+                    <tr>
+                      <th>NAME</th>
+                      <th>DESIGNATION</th>
+                      <th>DEPARTMENT</th>
+                      <th>CONTACT NO.</th>
+                      <th>EMAIL ID</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  {personData?.map((person, index) => (
+                    <tbody key={index}>
+                      <tr className="table_credit">
+                        <td>
+                          <input
+                            className="input font-weight-bold"
+                            defaultValue={person.name}
+                            name="name"
+                            onChange={(e) => handlePersonChange(e, index)}
+                            type="text"
+                            readOnly={!saveContactTable}
                           />
-                        ) : (
-                          <img
-                            src="/static/save-3.svg"
-                            className={`${styles.edit_image} mr-3 img-fluid`}
-                            alt="save"
-                            onClick={(e) => {
-                              setContactTable(false)
-                              //addPersonArr(keyPersonData)
-                            }}
+                        </td>
+                        <td>
+                          <input
+                            className="input"
+                            defaultValue={person.designation}
+                            name="designation"
+                            onChange={(e) => handlePersonChange(e, index)}
+                            type="text"
+                            readOnly={!saveContactTable}
                           />
-                        )}
-                        <img
-                          src="/static/delete 2.svg"
-                          className="img-fluid"
-                          alt="delete"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              ))}
-            </table>
-            </div></div>
-            <div className={`${styles.add_row} p-3 d-flex justify-content-end`}
-             onClick={(e) => {
-                              onKeyPersonSave(keyPersonData)
-
+                        </td>
+                        <td>
+                          <input
+                            className="input"
+                            defaultValue={person.department}
+                            name="department"
+                            onChange={(e) => handlePersonChange(e, index)}
+                            type="text"
+                            readOnly={!saveContactTable}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            className="input"
+                            defaultValue={person.contact.number}
+                            name="contact.number"
+                            // onChange={(e)=>{handlePersonChange(e,index)}}
+                            onChange={(e) => {
+                              if (phoneValidation(e.target.value)) {
+                                handlePersonChange(e, index)
+                              } else {
+                                let toastMessage = 'Enter a valid Phone Number'
+                                if (!toast.isActive(toastMessage)) {
+                                  toast.error(toastMessage, {
+                                    toastId: toastMessage,
+                                  })
+                                }
+                              }
                             }}
+                            type="number"
+                            readOnly={!saveContactTable}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            className="input"
+                            defaultValue={person.email}
+                            name="email"
+                            onChange={(e) => handlePersonChange(e, index)}
+                            type="text"
+                            readOnly={!saveContactTable}
+                          />
+                        </td>
+                        <td>
+                          <div>
+                            {!saveContactTable ? (
+                              <img
+                                src="/static/mode_edit.svg"
+                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                onClick={(e) => {
+                                  setContactTable(true)
+                                }}
+                              />
+                            ) : (
+                              <img
+                                src="/static/save-3.svg"
+                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                alt="save"
+                                onClick={(e) => {
+                                  setContactTable(false)
+                                  //addPersonArr(keyPersonData)
+                                }}
+                              />
+                            )}
+                            <img
+                              src="/static/delete 2.svg"
+                              className="img-fluid"
+                              alt="delete"
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  ))}
+                </table>
+              </div>
+            </div>
+            <div
+              className={`${styles.add_row} p-3 d-flex justify-content-end`}
+              onClick={(e) => {
+                onKeyPersonSave(keyPersonData)
+              }}
             >
               <span>+</span>
               <div>Add More Rows</div>
@@ -866,8 +902,28 @@ const index =  ({
           <span>+</span>
         </div>
         <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
-          {/* {keyAddData.map((address, index) => (
-            <div key={index} className={`${styles.dashboard_form} card-body`}>
+        <div className={`${styles.dashboard_form} card-body`}>
+          {keyAddData.map((address, index) => (
+            <AddressComponent
+              key={index}
+              Title={address.addressType}
+              address={address.completeAddress}
+              number={address.contact?.number}
+              callingCode={address.contact?.callingCode}
+              branch={address.branch}
+              gstIn={address.GSTIN}
+              email={address.email}
+            />
+          ))}
+           <div
+              className={`${styles.add_row} pr-3 d-flex justify-content-end`}
+            >
+              <span>+</span>
+              <div>Add More Rows</div>
+            </div>
+            {/* ))} */}
+          </div>
+          {/* <div key={index} className={`${styles.dashboard_form} card-body`}>
               <div className="d-flex justify-content-between">
                 <div className={`${styles.address_card} value background1`}>
                   <div className="d-flex justify-content-between">
@@ -934,41 +990,39 @@ const index =  ({
                   </div>
                 </div>
               </div> */}
-           
 
-               <div className={`${styles.dashboard_form} card-body`}>
-              <div className="d-flex justify-content-between">
-                <div className={`${styles.address_card} value background1`}>
-                  <div className="d-flex justify-content-between">
-                    <div>
-                      <input type="checkbox" />
-                      <label className={styles.label}>
-                        Registered Office Address
-                      </label>
-                      <div className={styles.address_values}>
-                        <p>N-11, 29 Tilak Marg, New Delhi</p>
-                        <p className="pt-3">
-                          <span>Email: </span>
-                          skapoor@gmail
-                        </p>
-                        <p>
-                          <span>Phone Number:</span>
-                          +91 987665443332
-                        </p>
-                       
-                      </div>
-                    </div>
-                    <div>
-                      <img
-                        className={`${styles.edit_image} img-fluid`}
-                        src="/static/mode_edit.svg"
-                        alt="Edit"
-                      />
+          {/* <div className={`${styles.dashboard_form} card-body`}> */}
+            {/* <div className="d-flex justify-content-between">
+              <div className={`${styles.address_card} value background1`}>
+                <div className="d-flex justify-content-between">
+                  <div>
+                    <input type="checkbox" />
+                    <label className={styles.label}>
+                      Registered Office Address
+                    </label>
+                    <div className={styles.address_values}>
+                      <p>N-11, 29 Tilak Marg, New Delhi</p>
+                      <p className="pt-3">
+                        <span>Email: </span>
+                        skapoor@gmail
+                      </p>
+                      <p>
+                        <span>Phone Number:</span>
+                        +91 987665443332
+                      </p>
                     </div>
                   </div>
+                  <div>
+                    <img
+                      className={`${styles.edit_image} img-fluid`}
+                      src="/static/mode_edit.svg"
+                      alt="Edit"
+                    />
+                  </div>
                 </div>
+              </div>
 
-                 <div className={`${styles.address_card} value background1`}>
+              <div className={`${styles.address_card} value background1`}>
                 <div className="d-flex justify-content-between">
                   <div>
                     <div className={styles.address_values}>
@@ -990,10 +1044,10 @@ const index =  ({
                     />
                   </div>
                 </div>
-              </div> 
               </div>
-            <div className="d-flex justify-content-between"> 
-             <div className={`${styles.address_card} value background1`}>
+            </div>
+            <div className="d-flex justify-content-between">
+              <div className={`${styles.address_card} value background1`}>
                 <div
                   className={`${styles.address_values} d-flex justify-content-between`}
                 >
@@ -1033,289 +1087,256 @@ const index =  ({
                     <span className={styles.view_btn}>View</span>
                   </div>
                 </div>
-              </div> 
-              <div className={`${styles.address_card} value background1`}>
-                <div className="d-flex justify-content-between">
-                  <div>
-                    <div
-                      className={`${styles.address_values} d-flex justify-content-between`}
-                    >
-                      <h5>Warehouse Address</h5>
-                      <div>
-                        <img
-                          className={`${styles.edit_image} img-fluid mr-3`}
-                          src="/static/mode_edit.svg"
-                          alt="edit"
-                        />
-                        <img
-                          src="/static/delete 2.svg"
-                          className="img-fluid"
-                          alt="delete"
-                        />
-                      </div>
-                    </div>
-                    <div className={`${styles.address_values}`}>
-                      <p className="pt-3">
-                        A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh
-                        11008
-                      </p>
-                      <p className="pt-3">
-                        <span>Email: </span>skapoor@gmail.com
-                      </p>
-                      <p>
-                        <span>Phone Number:</span>+91 9876543210, +91 9876543210
-                      </p>
-                      <p>
-                        <span>Branch: </span>Delhi
-                      </p>
-                      <div className="d-flex">
-                        <p>
-                          {' '}
-                          <span>GSTIN: </span>Gstdt789652Jkv
-                        </p>
-                        <span className={styles.view_btn}>View</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> 
-              </div> 
-           <div className={`${styles.add_row} pr-3 d-flex justify-content-end`}
-           >
+              </div>
+              <AddressComponent
+                Title
+                address
+                number
+                callingCode
+                branch
+                gstIn
+                email
+              />
+            </div> */}
+            {/* <div
+              className={`${styles.add_row} pr-3 d-flex justify-content-end`}
+            >
               <span>+</span>
               <div>Add More Rows</div>
             </div>
-          {/* ))} */}
-        </div>
-            <div className={`${styles.main} card border_color`} style={{margin:'10px 35px 32px 32px'}}>
-           <div className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
-              >
-          <h3 className={`${styles.heading}`}>Add a new address</h3>
-          <img src="/static/accordion_close_black.svg"/>
-        </div>
-           <div className={`${styles.dashboard_form} card-body border_color`}>
-            <div className='d-flex'>
-              <div className={`${styles.sub_heading} heading_card`}>
-          Communication Address
-        </div>
-        <div className={styles.radio_form}>
-          {['checkbox'].map((type) => (
-            <div key={`inline-${type}`} className={styles.radio_group}>
-              <Form.Check
-                className={styles.radio}
-                inline
-                label="Yes"
-                name="group1"
-                type={type}
-                id={`inline-${type}-1`}
-              />
-              <Form.Check
-                className={styles.radio}
-                inline
-                label="No"
-                name="group1"
-                type={type}
-                id={`inline-${type}-2`}
-              />
-            </div>
-          ))}
-        </div>
-        </div>
-            <div className='row'>
           
-              <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                <div className='d-flex'>
-                <select
-                  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                  name="addressType"
-                  onChange={(e) => {
-                    handleChange(e.target.name, e.target.value)
-                  }}
-                >
-                  <option>Factory</option>
-                  <option>Warehouse</option>
-                  <option>Corporate Office</option>
-                </select>
-                <label className={`${styles.label_heading} label_heading`}>
-                  Address Type<strong className="text-danger">*</strong>
-                </label>
-                <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
+          </div> */}
+          <div
+            className={`${styles.main} card border_color`}
+            style={{ margin: '10px 35px 32px 32px' }}
+          >
+            <div
+              className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
+            >
+              <h3 className={`${styles.heading}`}>Add a new address</h3>
+              <img src="/static/accordion_close_black.svg" />
+            </div>
+            <div className={`${styles.dashboard_form} card-body border_color`}>
+              <div className="d-flex">
+                <div className={`${styles.sub_heading} heading_card`}>
+                  Communication Address
+                </div>
+                <div className={styles.radio_form}>
+                  {['checkbox'].map((type) => (
+                    <div key={`inline-${type}`} className={styles.radio_group}>
+                      <Form.Check
+                        className={styles.radio}
+                        inline
+                        label="Yes"
+                        name="group1"
+                        type={type}
+                        id={`inline-${type}-1`}
+                      />
+                      <Form.Check
+                        className={styles.radio}
+                        inline
+                        label="No"
+                        name="group1"
+                        type={type}
+                        id={`inline-${type}-2`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="row">
+                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                      name="addressType"
+                      onChange={(e) => {
+                        handleChange(e.target.name, e.target.value)
+                      }}
+                    >
+                      <option value='Factory'>Factory</option>
+                      <option value='Warehouse'>Warehouse</option>
+                      <option value='Corporate Office'>Corporate Office</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Address Type<strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`${styles.arrow} img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
                     />
-                        </div>
-              </div>
-              <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                <div className="d-flex">
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="pinCode"
-                  onChange={(e) => {
-                    handleChange(e.target.name, e.target.value)
-                  }}
-                />
-                 <label className={`${styles.label_heading} label_heading`}>
-                  Pin Code<strong className="text-danger">*</strong>
-                </label>
-                 <img
+                  </div>
+                </div>
+                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                  <div className="d-flex">
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="text"
+                      name="pinCode"
+                      onChange={(e) => {
+                        handleChange(e.target.name, e.target.value)
+                      }}
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Pin Code<strong className="text-danger">*</strong>
+                    </label>
+                    <img
                       className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
-                      />
-                      </div>
-               
-              </div>
+                      src="/static/search-grey.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
 
-              <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="state"
-                  onChange={(e) => {
-                    handleChange(e.target.name, e.target.value)
-                  }}
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  State<strong className="text-danger">*</strong>
-                </label>
-              </div>
-
-              <div className={`${styles.form_group} col-md-2 col-sm-6`}>
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="city"
-                  onChange={(e) => {
-                    handleChange(e.target.name, e.target.value)
-                  }}
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  City<strong className="text-danger">*</strong>
-                </label>
-              </div>
-
-              <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="email"
-                  onChange={(e) => {
-                    handleChange(e.target.name, e.target.value)
-                  }}
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Email ID<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                 <div className="d-flex">
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="tel"
-                  onChange={(e) => {
-                    if (phoneValidation(e.target.value)) {
-                      mobileFunction(e)
-                    } else {
-                      let toastMessage = 'Enter a valid Phone Number'
-                      if (!toast.isActive(toastMessage)) {
-                        toast.error(toastMessage, { toastId: toastMessage })
-                      }
-                    }
-                  }}
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Phone Number<strong className="text-danger">*</strong>
-                </label>
-                 <img
-                      className={`${styles.search_image} img-fluid`}
-                        src="/static/add.svg"
-                        alt="add"
-                      />
-                      </div>
-              </div>
-              <div className={`${styles.form_group} col-md-8 col-sm-6`}>
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  type="text"
-                  required
-                  name="completeAddress"
-                  onChange={(e) => {
-                    handleChange(e.target.name, e.target.value)
-                  }}
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Address<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  type="text"
-                  name="branch"
-                  required
-                  onChange={(e) => {
-                    handleChange(e.target.name, e.target.value)
-                  }}
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Branch<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="GSTIN"
-                  onChange={(e) => {
-                    handleChange(e.target.name, e.target.value)
-                  }}
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  GSTIN<strong className="text-danger">*</strong>
-                </label>
-              </div>
-
-              <div className={`${styles.btn_container} col-md-4`}>
-                <button className={`${styles.gst_btn}`}>
-                  {' '}
+                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                   <input
-                    type="file"
-                    name={keyAddressData.GSTIN}
-                    // name="myfile"
-                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="state"
                     onChange={(e) => {
-                      uploadDocument(e)
+                      handleChange(e.target.name, e.target.value)
                     }}
                   />
-                   <img
-                    className="img-fluid mr-2 mb-1"
-                    src="/static/file_upload.svg"
-                    alt="file upload"
-                  /> 
-                  GST Doc
-                </button>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    State<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+
+                <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="city"
+                    onChange={(e) => {
+                      handleChange(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    City<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="email"
+                    onChange={(e) => {
+                      handleChange(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Email ID<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <div className="d-flex">
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="tel"
+                      onChange={(e) => {
+                        if (phoneValidation(e.target.value)) {
+                          mobileFunction(e)
+                        } else {
+                          let toastMessage = 'Enter a valid Phone Number'
+                          if (!toast.isActive(toastMessage)) {
+                            toast.error(toastMessage, { toastId: toastMessage })
+                          }
+                        }
+                      }}
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Phone Number<strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`${styles.search_image} img-fluid`}
+                      src="/static/add.svg"
+                      alt="add"
+                    />
+                  </div>
+                </div>
+                <div className={`${styles.form_group} col-md-8 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="text"
+                    required
+                    name="completeAddress"
+                    onChange={(e) => {
+                      handleChange(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Address<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="text"
+                    name="branch"
+                    required
+                    onChange={(e) => {
+                      handleChange(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Branch<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="GSTIN"
+                    onChange={(e) => {
+                      handleChange(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    GSTIN<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+
+                <div className={`${styles.btn_container} col-md-4`}>
+                  <button className={`${styles.gst_btn}`}>
+                    {' '}
+                    <input
+                      type="file"
+                      name={keyAddressData.GSTIN}
+                      // name="myfile"
+                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                      onChange={(e) => {
+                        uploadDocument(e)
+                      }}
+                    />
+                    <img
+                      className="img-fluid mr-2 mb-1"
+                      src="/static/file_upload.svg"
+                      alt="file upload"
+                    />
+                    GST Doc
+                  </button>
+                 
+                </div>
                 <button
-                  className={`${styles.add_btn}`}
-                  onClick={() => handleClick()}
-                >
-                  Add
-                </button>
+                    // className={`${styles.add_btn}`}
+                    onClick={() => handleClick()}
+                  >
+                    Add
+                  </button>
               </div>
             </div>
-            </div>
           </div>
-        
+        </div>
       </div>
-     </div>
-     
+
       <div className={`${styles.main} card border_color`}>
         <div
           className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
@@ -1357,40 +1378,70 @@ const index =  ({
                     {debtData?.map((profile, index) => (
                       <tr key={index}>
                         <td>{(index += 1)}</td>
-                        <td><input className={`${styles.checkBox}`} type="checkbox" /></td>
+                        <td>
+                          <input
+                            name="primaryBank"
+                            onChange={(e) =>
+                              handleDebtChange(e.target.name, e.target.checked)
+                            }
+                            className={`${styles.checkBox}`}
+                            type="checkbox"
+                            checked={profile.primaryBank ? true : false}
+                          />
+                          {profile.primaryBank ? true : false}
+                        </td>
                         <td>
                           <select
-                           name='bankName' className={`${styles.dropDown} font-weight-bold heading`}
+                            name="bankName"
+                            onChange={(e) =>
+                              handleDebtChange(e.target.name, e.target.value)
+                            }
+                            className={`${styles.dropDown} font-weight-bold heading`}
                           >
                             <option>{profile.bankName}</option>
-                            <option value='SBI'>SBI</option>
-                            <option value='HDFC'>HDFC</option>
+                            <option value="SBI">SBI</option>
+                            <option value="HDFC">HDFC</option>
                           </select>
                         </td>
                         <td>
-                          <select name='limitType' className={`${styles.dropDown} heading`}>
+                          <select
+                            onChange={(e) =>
+                              handleDebtChange(e.target.name, e.target.value)
+                            }
+                            name="limitType"
+                            className={`${styles.dropDown} heading`}
+                          >
                             <option>{profile.limitType}</option>
-                            <option value='Cash Deposit'>Cash Deposit</option>
-                            <option value='Net Banking'>Net Banking</option>
+                            <option value="Cash Deposit">Cash Deposit</option>
+                            <option value="Net Banking">Net Banking</option>
                           </select>
                         </td>
 
                         <td>
                           <input
                             className="input"
-                            name='limit'
+                            name="limit"
+                            onChange={(e) =>
+                              handleDebtChange(e.target.name, e.target.value)
+                            }
                             defaultValue={profile.limit}
                             readOnly={!saveTable}
                           />
                         </td>
 
                         <td>
-                          <select name='conduct' className={`${styles.dropDown} heading`}>
+                          <select
+                            onChange={(e) =>
+                              handleDebtChange(e.target.name, e.target.value)
+                            }
+                            name="conduct"
+                            className={`${styles.dropDown} heading`}
+                          >
                             <option>{profile.conduct}</option>
-                            <option value='Good'>Good</option>
-                            <option value='Satisfactory'>Satisfactory</option>
-                            <option value='Average'>Average</option>
-                            <option value='Poor'>Poor</option>
+                            <option value="Good">Good</option>
+                            <option value="Satisfactory">Satisfactory</option>
+                            <option value="Average">Average</option>
+                            <option value="Poor">Poor</option>
                           </select>
                         </td>
                         <td>
@@ -1401,6 +1452,7 @@ const index =  ({
                                 className={`${styles.edit_image} mr-3 img-fluid`}
                                 onClick={() => {
                                   setSaveTable(true)
+                                  // onDebtSave(debt)
                                 }}
                               />
                             ) : (
@@ -1429,19 +1481,19 @@ const index =  ({
                 </table>
               </div>
             </div>
-            <div className={`${styles.add_row} p-3 d-flex justify-content-end`}
-            onClick={(e) => {
-                                onDebtSave(debt)
-                              }}>
+            <div
+              className={`${styles.add_row} p-3 d-flex justify-content-end`}
+              onClick={(e) => {
+                onDebtSave(debt)
+              }}
+            >
               <span>+</span>
               <div>Add More Rows</div>
             </div>
           </div>
         </div>
       </div>
-      
     </>
-    
   )
 }
 
