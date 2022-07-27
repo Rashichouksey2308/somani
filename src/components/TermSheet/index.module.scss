@@ -1,9 +1,14 @@
 @import "../styles/Core/config";
 .card {
     margin: 28px;
+    margin-bottom: 126px;
     background-color: transparent !important;
+    @include respond(sm-desktop) {
+        margin: 20px;
+    }
     @include respond(phone) {
-        margin: 25px 20px 20px;
+        margin: 15px;
+        margin-bottom: 120px;
     }
     .head_header {
         display: flex;

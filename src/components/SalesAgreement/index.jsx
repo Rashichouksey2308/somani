@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import styles from './index.module.scss'
-import {Row, Col} from "react-bootstrap"
+import {Row, Col,Form} from "react-bootstrap"
 import GrowInput from '../GrowInput'
 import Buyer from '../AggrementContent/buyer'
 import AssociateBuyer from '../AggrementContent/associateBuyer'
@@ -14,19 +14,36 @@ import Seller from '../AggrementContent/seller'
 
 import Stevedore from '../AggrementContent/stevedore'
 import Thirdparty from '../AggrementContent/thirdparty'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateGenericData } from '../../redux/generic/actionsType'
+
 import { cssNumber } from 'jquery'
-function Index() {
-  const [active,setActive]=useState("Manufacturer/ Supplier")
+
+
+function Index(props) {
+    const dispatch = useDispatch()
+
+  console.log(props,"sales")
+  const [active,setActive]=useState("Supplier")
+  const [multiPart,setMultiPart]=useState(false)
+  const [saveData,setSaveData]=useState(false)
+  const [submitData,setSubmitData]=useState(false)
   const changeActiveValue=(val,index)=>{
-    console.log(val,"val")
+
   setActive(val)
   showContent()
+  setSaveData(false)
   let tempArr=sideBar;
   for(let i=0;i<tempArr.length;i++) {
     if(i==index){
       tempArr[i].state="current"
-    }else{
-      tempArr[i].state="default"
+       tempArr[i].image="/static/currnet.svg"
+    }
+    else{
+      if(tempArr[i].state!="pending" && tempArr[i].state!="complete"){
+         tempArr[i].state="default"
+         tempArr[i].image="/static/Group 3256.svg"
+      }
     }
 
   }
@@ -34,10 +51,17 @@ function Index() {
   setSidebar(tempArr)
   }
   
-  const showContent =()=>{
+  
+  const showContent =(sellerData)=>{
     if(active=="Buyer"){
       return(
-        <Buyer/>
+        <Buyer
+         saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+        active={active}
+        />
       )
     }
     if(active=="Associate Buyer"){
@@ -47,32 +71,71 @@ function Index() {
     }
     if(active=="Seller"){
       return(
-        <Seller/>
+        <Seller 
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+        active={active}
+        />
       )
     }
         if(active=="CHA"){
       return(
-        <CHA/>
+        <CHA 
+         saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+        active={active}
+        />
+
+
       )
     }
     if(active=="CMA"){
       return(
-        <CMA/>
+        <CMA 
+         saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+        active={active}
+        />
       )
     }
       if(active=="Supplier"){
       return(
-        <Manufecture/>
+        <Manufecture 
+        saveData={saveData} 
+        sendData={sendData} 
+        multiPart={multiPart}
+        submitData={submitData} 
+        updateData={updateData}
+         active={active}
+        />
       )
     }
       if(active=="Shipping Line"){
       return(
-        <Shipping/>
+        <Shipping
+         saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+        active={active}
+        />
       )
     }
       if(active=="Financing Bank"){
       return(
-        <Finance/>
+        <Finance 
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+        active={active}
+        />
       )
     }
         if(active=="Stevedore"){
@@ -88,38 +151,38 @@ function Index() {
   }
   const [sideBar,setSidebar] =useState(
     [
-    {name:"Supplier",state:"current",value:"Manufacturer/ Supplier"},
-    {name:"Seller",state:"default",value:"Seller"},
-    {name:"Buyer",state:"default",value:"Buyer"},
-    {name:"Associate Buyer",state:"default",value:"Associate Buyer"},
-    {name:"Financing Bank",state:"default",value:"Financing Bank"},
-    {name:"Shipping Line",state:"default",value:"Shipping Line"},
-    {name:"CHA",state:"default",value:"CHA"},
-    {name:"Stevedore",state:"default",value:"Stevedore"},
-    {name:"CMA",state:"default",value:"CMA"},
-    {name:"Appointment of Third Party",state:"default",value:"Appointment of Third Party"}
+    {name:"Supplier",state:"current",value:"Supplier",image:"/static/currnet.svg"},
+    {name:"Seller",state:"default",value:"Seller",image:"/static/Group 3256.svg"},
+    {name:"Buyer",state:"default",value:"Buyer",image:"/static/Group 3256.svg"},
+    {name:"Associate Buyer",state:"default",value:"Associate Buyer",image:"/static/Group 3256.svg"},
+    {name:"Financing Bank",state:"default",value:"Financing Bank",image:"/static/Group 3256.svg"},
+    {name:"Shipping Line",state:"default",value:"Shipping Line",image:"/static/Group 3256.svg"},
+    {name:"CHA",state:"default",value:"CHA",image:"/static/Group 3256.svg"},
+    {name:"Stevedore",state:"default",value:"Stevedore",image:"/static/Group 3256.svg"},
+    {name:"CMA",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
+    {name:"Appointment of Third Party",state:"default",value:"Appointment of Third Party",image:"/static/Group 3256.svg"}
     ]
   )
   const onLeftChange=()=>{
-     let tempArr=sideBar;
+  let tempArr=sideBar;
   for(let i=0;i<tempArr.length;i++) {
     if(tempArr[i].state=="current"){
      if(i!=0){
       tempArr[i].state="default"
+     tempArr[i].image="/static/Group 3256.svg"
       let a=i-1
       console.log(a,"tempArr[a]234")
       tempArr[a].state="current"
+      tempArr[a].image="/static/currnet.svg"
       setActive(tempArr[a].name)
      }
-    }else{
-      tempArr[i].state="default"
     }
 
   }
   console.log("aasdaa",tempArr)
   setSidebar(tempArr)
   }
-    const onRightChange=()=>{
+  const onRightChange=()=>{
      let tempArr=sideBar;
      console.log(tempArr,"987789")
   for(let i=0;i<tempArr.length;i++) {
@@ -127,21 +190,328 @@ function Index() {
     if(tempArr[i].state=="current"){
      if(i!=tempArr.length){
         tempArr[i].state="default"
+        tempArr[i].image="/static/Group 3256.svg"
         console.log( tempArr[i].state,"tempArr[a]")
       let a=i+1
         console.log(a,"tempArr[a]234")
-      tempArr[a].state="current"
+       tempArr[a].state="current"
+       tempArr[a].image="/static/currnet.svg"
       setActive(tempArr[a].name)
+      break;
+
      }
-    }else{
-      tempArr[i].state="default"
     }
 
   }
   console.log("aasdaa",tempArr)
   setSidebar(tempArr)
   }
- 
+ console.log(sideBar,"sideBar")
+
+const onSave=()=>{
+  setSaveData(true)
+ }
+ const onSubmit=()=>{
+  setSubmitData(true)
+ }
+ const updateData=async(key,data)=>{
+  let dataToSend={}
+  if(key=="Supplier"){
+   dataToSend={
+      genericId:"62df99e8592ccd0022401c76",
+       supplier:{
+        "name": data.supplierState.name,
+        "shortName": data.supplierState.shortName,
+        "bankDetails": {
+            "bankName": data.supplierState.bankDetails.bankName,
+            "accountNo": data.supplierState.bankDetails.accountNo,
+            "swiftCode": data.supplierState.bankDetails.swiftCode,
+            "city": data.supplierState.bankDetails.city
+        },
+        "addresses": data.addressList,
+        "authorisedSignatoryDetails": data.list,
+        "multiParty":data.supplierState.multiParty,
+    }
+  }
+    console.log(dataToSend,"dataToSend")
+   
+  
+   
+
+  
+
+  }
+   if(key=="Seller"){
+   dataToSend={
+      genericId:"62df99e8592ccd0022401c76",
+       seller:{
+        "name": data.sellerData.name,
+        "shortName": data.sellerData.shortName,
+        
+        "addresses": data.addresses,
+        "authorisedSignatoryDetails": data.list,
+       
+    }
+  }
+    console.log(dataToSend,"dataToSend")
+   
+    sessionStorage.removeItem("Seller")
+   
+
+  
+
+  }
+  if(key=="Buyer"){
+   dataToSend={
+      genericId:"62df99e8592ccd0022401c76",
+       seller:{
+        "name": data.buyerData.name,
+        "branchName": data.buyerData.branchName,
+        
+        "addresses": data.addresses,
+        "authorisedSignatoryDetails": data.list,
+       
+    }
+  }
+    console.log(dataToSend,"dataToSend")
+   
+   
+
+  
+
+  }
+  if(key=="Finance"){
+   dataToSend={
+      genericId:"62df99e8592ccd0022401c76",
+       finance:{
+        "name": data.financeData.name,
+        "branchName": data.financeData.branchName,
+        
+       
+       
+    }
+  }
+    console.log(dataToSend,"dataToSend")
+   
+   
+
+  
+
+  }
+  if(key=="Cma"){
+    dataToSend={
+        genericId:"62df99e8592ccd0022401c76",
+     cma:{
+        "name": data.cmaData.name,
+        "shortName": data.cmaData.shortName,
+        "shortName": data.cmaData.gstin,
+        "addresses": data.addresses,
+        "authorisedSignatoryDetails": data.list,
+     }
+    
+        
+       
+  
+  }
+    
+
+  }
+   if(key=="Cha"){
+       dataToSend={
+      genericId:"62df99e8592ccd0022401c76",
+       cha:{
+        "name": data.chaState.name,
+        "shortName": data.chaState.shortName,
+         "gstin": data.chaState.gstin,
+
+        "addresses": data.addressList,
+        "authorisedSignatoryDetails": data.list,
+        
+    }
+  }
+  }
+  if(key=="Stevedore"){
+       dataToSend={
+      genericId:"62df99e8592ccd0022401c76",
+       cha:{
+        "name": data.chaState.name,
+        "shortName": data.chaState.shortName,
+         "gstin": data.chaState.gstin,
+
+        "addresses": data.addressList,
+        "authorisedSignatoryDetails": data.list,
+        
+    }
+  }
+ }
+
+
+   
+    await dispatch(updateGenericData(dataToSend))
+  let tempArr=sideBar;
+    sideBar.forEach((val,index)=>{
+      if(val.value==key){
+      tempArr[index].state="complete"
+      tempArr[index].image="/static/done.svg"
+    }
+     setSidebar(tempArr)
+    })
+    setSubmitData(false)
+  
+}
+const sendData=(key,data)=>{
+  console.log(data,"sendData")
+  let dataToSend={}
+  if(key=="Supplier"){
+     dataToSend={
+    
+        "name": data.supplierState.name,
+        "shortName": data.supplierState.shortName,
+        "bankDetails": {
+            "bankName": data.supplierState.bankDetails.bankName,
+            "accountNo": data.supplierState.bankDetails.accountNo,
+            "swiftCode": data.supplierState.bankDetails.swiftCode,
+            "city": data.supplierState.bankDetails.city
+        },
+        "addresses": data.addressList,
+        "authorisedSignatoryDetails": data.list,
+        "multiParty":data.supplierState.multiParty,
+    
+  }
+    sessionStorage.setItem("Supplier",JSON.stringify(dataToSend))
+
+
+    
+
+  }
+  if(key=="Seller"){
+    dataToSend={
+     
+    
+        "name": data.sellerData.name,
+        "shortName": data.sellerData.shortName,
+        "addresses": data.addresses,
+        "authorisedSignatoryDetails": data.list,
+       
+  
+  }
+    sessionStorage.setItem("Seller",JSON.stringify(dataToSend))
+
+  }
+   if(key=="Buyer"){
+    dataToSend={
+     
+    
+        "name": data.buyerData.name,
+        "branchName": data.buyerData.branchName,
+        "addresses": data.addresses,
+        "authorisedSignatoryDetails": data.list,
+       
+  
+  }
+    sessionStorage.setItem("Buyer",JSON.stringify(dataToSend))
+
+  }
+   if(key=="Finance"){
+   dataToSend={
+      
+        "name": data.financeData.name,
+        "branchName": data.financeData.branchName,
+        
+       
+       
+    
+  }
+   sessionStorage.setItem("Finance",JSON.stringify(dataToSend))
+   
+
+  
+
+  }
+  if(key=="Cma"){
+    dataToSend={
+     
+    
+        "name": data.cmaData.name,
+        "shortName": data.cmaData.shortName,
+        "shortName": data.cmaData.gstin,
+        "addresses": data.addresses,
+        "authorisedSignatoryDetails": data.list,
+       
+  
+  }
+    sessionStorage.setItem("Cma",JSON.stringify(dataToSend))
+
+  }
+  if(key=="Cha"){
+    dataToSend={
+     
+     
+       "name": data.chaState.name,
+        "shortName": data.chaState.shortName,
+         "gstin": data.chaState.gstin,
+
+        "addresses": data.addressList,
+        "authorisedSignatoryDetails": data.list,
+       
+  
+  }
+    sessionStorage.setItem("Cha",JSON.stringify(dataToSend))
+
+  }
+  if(key=="Stevedore"){
+    dataToSend={
+     
+     
+       "name": data.chaState.name,
+        "shortName": data.chaState.shortName,
+         "gstin": data.chaState.gstin,
+
+        "addresses": data.addressList,
+        "authorisedSignatoryDetails": data.list,
+       
+  
+  }
+    sessionStorage.setItem("Cha",JSON.stringify(dataToSend))
+
+  }
+
+//       setSidebar(prevState => {
+//       const newState = prevState.map((obj ,i)=> {
+        
+//         if (obj.value == key) {
+//           return {...obj, state: 'pending',image:"/static/pending2.svg"};
+//         }
+// // 👇️ otherwise return object as is
+//         return obj;
+//       });
+
+//       return newState;
+//     });
+    let tempArr=sideBar;
+    sideBar.forEach((val,index)=>{
+      if(val.value==key){
+      tempArr[index].state="pending"
+      tempArr[index].image="/static/pending2.svg"
+    }
+     setSidebar(tempArr)
+    })
+   
+    
+
+
+
+  
+
+
+    
+
+  
+
+  
+
+  
+}
 
   return (
     <div className={`${styles.root}`}>
@@ -157,9 +527,7 @@ function Index() {
                   }}
             >
              
-               <img src={`${
-                row.state=="current"?"/static/Group 203255.svg":"/static/Group 3256.svg"
-               }`}></img>
+               <img src={row.image}></img>
                  <span className="ml-3">{row.name}</span>
             </div>
            <img
@@ -177,10 +545,53 @@ function Index() {
       <div className={`${styles.content} card`}>
       <div className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
         <h2 className="mb-0">{active}</h2>
-                  <div
+                <div
                     className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
 
                   >
+                  {active=="Supplier"?
+                    <div className={`${styles.multiPart} d-flex justify-content-center align-items-center`}>
+                      <span className={`mr-4`}>Multiple Parties Involved</span>
+                      <div className={`d-flex mr-4`}>
+                        <div class={`form-check  mr-3`}>
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={()=>{
+                          setMultiPart(true)
+                        }}
+                        checked={multiPart==true?true:false}
+                        />
+                        <label class="form-check-label" for="flexRadioDefault1">
+                        Yes
+                        </label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" 
+                         checked={multiPart==false?true:false}
+                        onChange={()=>{
+                          setMultiPart(false)
+                        }}/>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                        No
+                        </label>
+</div>                   
+                      </div>
+              <Form.Group className={`${styles.form_group} `}>
+              <select
+                className={`${styles.input_field} ${multiPart==true?"":styles.inputDisabled} input form-control`}
+                name="countryOfOrigin"
+                onChange={(e) => {
+                  saveOrderData(e.target.name, e.target.value)
+                }}
+                disabled={multiPart==true?"":"disable"}
+              >
+                <option value="Manufacturer">Manufacturer</option>
+                <option value="Mines">Mines</option>
+                <option value="Shipper">Shipper</option>
+                
+              </select>
+
+            </Form.Group>
+                    </div>
+                   :null}
                    {active=="Stevedore"?
                     <div className={`${styles.switchContainer}`}>
                       <span className={`mr-5`}>Same as CHA</span>
@@ -222,8 +633,14 @@ function Index() {
           </div>
            {showContent()}
            <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
-              <div className={styles.reject}><span>Save</span></div>
-        <div className={styles.approve}><span>Submit</span></div>                                
+              <div className={styles.reject} onClick={(e)=>{
+                onSave()
+              }}><span>Save</span></div>
+              <div className={styles.approve}
+              onClick={(e)=>{
+                onSubmit()
+              }}
+              ><span>Submit</span></div>                                
                                                
                                            
           </div>

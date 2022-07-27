@@ -3,18 +3,14 @@ import React,{useState, useEffect} from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import styles from './index.module.scss'
 import SalesAgreement from '../../src/components/SalesAgreement'
-import SalesContract from '../../src/components/SalesContract'
-import AssociateshipAgreement from '../../src/components/AssociateshipAgreement'
-import TPASeller from '../../src/components/TPASeller'
-import TPAIGI from '../../src/components/TPAIGI'
-import QPA from '../../src/components/QPA'
-import { setPageName } from '../../src/redux/userData/action'
+import Cookies from 'js-cookie'
+import API from '../../src/utils/endpoints'
 
-import { Form } from 'react-bootstrap'
 
-import AssignmentLetter from '../../src/components/AssignmentLetter'
 
-function Index() {
+function Index(props) {
+console.log("🚀 ~ file: index.jsx ~ line 9 ~ Index ~ props", props)
+
    const [darkMode,setDarkMode] = useState(false)
     useEffect(() =>{
     
@@ -58,7 +54,7 @@ function Index() {
                 <div className="row">
                     <div className="col-md-12  accordion_body">
                         <div className={`${styles.tabContent} tab-content`}>
-                              <SalesAgreement/>
+                          <SalesAgreement genericData={props}/>
                              
                             
                        
@@ -70,5 +66,46 @@ function Index() {
     </div>
     )
     
+}
+export async function getServerSideProps(context) {
+  try {
+    console.log("inside123", context.req.cookies['SOMANI']);
+    let cookie = context.req.cookies['SOMANI']
+   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+  console.log("inside fetch2222");
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+
+  var result = await fetch(`${API.corebaseUrl}/api/core/generic`, {
+      method: "GET",
+      headers: headers,
+      // body: urlencoded,
+      redirect: "follow",
+    }).then((response) => response.json());
+
+   
+  
+   console.log(result,"thi sis result123")
+   
+ 
+
+    if (result.code === 200) {
+      return {
+        props: {
+          pageProps: result.data,
+         
+         
+        },
+      };
+    } else {
+
+      return {
+        props: { pageProps: result.data},
+      };
+    }
+  } catch (error) {
+    console.log(error)
+    return {}
+  }
 }
 export default Index

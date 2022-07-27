@@ -62,7 +62,7 @@ const Index = ({orderid}) => {
     dispatch(AddingDocument(fd))
   }
   return (
-    <div className={`${styles.upload_main} card border_color`}>
+    <div className={`${styles.upload_main} main`}>
       <div
         className={`${styles.head_container} border_color d-flex justify-content-between`}
         data-toggle="collapse"
