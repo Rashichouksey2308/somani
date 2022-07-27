@@ -1,31 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import styles from './index.module.scss'
 import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetLcModule } from 'redux/lcModule/action'
-
 
 function Index() {
-
-  const dispatch = useDispatch()
-
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const {lcModule} = useSelector((state)=>state.lc)
-  
-
-  useEffect(() => {
-   dispatch(GetLcModule(`?page=${currentPage}&limit=7`))
-  }, [currentPage, dispatch])
-
-  const handleRoute = (lc) => {
-    dispatch(GetLcModule(`?company=${lc.company._id}`))
-    sessionStorage.setItem('lcId', lc.company.id)
-    Router.push('/lc-module')
-  }
-  
-
   return (
     <div className="container-fluid mb-4 mt-3">
       <div className={`${styles.filter} ml-2 d-flex align-items-center`}>
@@ -35,7 +12,7 @@ function Index() {
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
           />
-          <h1 className={styles.heading}>Letter of Credit </h1>
+          <h1 className={styles.heading}>Vessel Nomination </h1>
         </div>
         <div className={styles.search}>
           <div className="input-group">
@@ -53,24 +30,9 @@ function Index() {
             />
           </div>
         </div>
-        <div className={`${styles.dropdown} dropdown`}>
-          <a className={`${styles.filterIcon}`} id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
-          </a>
-          <div className={`${styles.dropdown_menu} dropdown-menu`} aria-labelledby="dropdownMenu2">
-            <div className={`${styles.dropdown_header} dropdown-header d-flex align-items-center`}>
-              <img src="/static/filter_alt.svg" className={`${styles.filter_icon} img-fluid`} alt="Filter Small" />
-              <h3>Filter</h3>
-              <img src="/static/close-2.svg" className={`${styles.close} img-fluid ml-auto`} alt="Close" />
-            </div>
-            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="orderId" name="orderId" value="Order ID"/> <label htmlFor="orderId">Order ID</label></div>
-            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="commodity" name="commodity" value="Commodity"/> <label htmlFor="commodity">Commodity</label></div>
-            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="status" name="status" value="Status"/> <label htmlFor="status">Status</label></div>
-            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="createdBy" name="createdBy" value="Created by"/> <label htmlFor="createdBy">Created by</label></div>
-            <button className={`${styles.btn} btn`} type='button'>Apply Filter</button>
-          </div>
-        </div>
-        
+        <a className={styles.filterIcon}>
+          <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
+        </a>
         {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -83,9 +45,11 @@ function Index() {
        Create</button> */}
       </div>
 
-      <div className={`${styles.datatable} card datatable border-color`}>
-        <div className={`${styles.tableFilter} d-flex justify-content-between`}>
-          <h3 className="heading_card">Letter of Credit</h3>
+      <div className={`${styles.datatable} datatable border-color`}>
+        <div
+          className={`${styles.tableFilter} card d-flex justify-content-between`}
+        >
+          <h3 className="heading_card">Vessel Nomination</h3>
         </div>
         <div className={styles.table_scroll_outer}>
           <div className={styles.table_scroll_inner}>
@@ -111,13 +75,13 @@ function Index() {
                 </tr>
               </thead>
               <tbody>
-             {lcModule && lcModule?.data?.map((lc, index) => ( <tr key={index} className="table_row">
-                  <td>{lc.order.orderId}</td>
+                <tr className="table_row">
+                  <td>124621</td>
                   <td
                     className={styles.buyerName}
-                    onClick={() => handleRoute(lc)}
+                    onClick={() => Router.push('/vessel-nomination/id')}
                   >
-                    {lc.company.companyName}
+                    Ramakrishna Traders
                   </td>
                   <td>RM-Sales</td>
                   <td>
@@ -126,13 +90,13 @@ function Index() {
                     ></span>
                     Pending
                   </td>
-                </tr>))}
+                </tr>
 
-                {/* <tr className="table_row">
+                <tr className="table_row">
                   <td>124621</td>
                   <td
                     className={styles.buyerName}
-                    onClick={() => Router.push('/lc-module')}
+                    onClick={() => Router.push('/vessel-nomination/id')}
                   >
                     Ramakrishna Traders
                   </td>
@@ -148,7 +112,7 @@ function Index() {
                   <td>124621</td>
                   <td
                     className={styles.buyerName}
-                    onClick={() => Router.push('/lc-module')}
+                    onClick={() => Router.push('/vessel-nomination/id')}
                   >
                     Ramakrishna Traders
                   </td>
@@ -159,7 +123,7 @@ function Index() {
                     ></span>
                     Approved
                   </td>
-                </tr> */}
+                </tr>
               </tbody>
             </table>
           </div>

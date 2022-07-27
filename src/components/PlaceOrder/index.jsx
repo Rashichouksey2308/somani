@@ -7,6 +7,7 @@ import CommonSave from '../CommonSave'
 import { toast } from 'react-toastify'
 import { useSelector, useDispatch } from 'react-redux'
 import { PlaceNewOrder } from 'redux/newOrder/action'
+import { handleCurrencyOrder } from 'utils/helper'
 
 
 const Index = () => {
@@ -24,7 +25,7 @@ const Index = () => {
     unitOfQuantity: '',
     orderValue: null,
     orderCurrency: '',
-    unitOfValue: '',
+    unitOfValue: 'INR',
     supplierName: '',
     countryOfOrigin: '',
     portOfDischarge: '',
@@ -57,6 +58,16 @@ const Index = () => {
     setOrderData(newInput)
   }
 
+  const handleCurr = () => {
+    const newInput = {...orderData}
+   let currVal =  handleCurrencyOrder(orderData.unitOfValue, orderData.orderValue)
+   newInput.orderValue = currVal
+   setOrderData(newInput)
+
+  }
+
+  
+
   const saveShipmentData = (name, value) => {
     const newInput = { ...shipment }
     const namesplit = name.split('.')
@@ -67,6 +78,7 @@ const Index = () => {
   }
 
   const onOrderSave = () => {
+    handleCurr()
     if (orderData?.transactionType?.trim() === '') {
       let toastMessage = 'Invalid Transaction Type'
       if (!toast.isActive(toastMessage)) {

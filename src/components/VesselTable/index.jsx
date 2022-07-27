@@ -1,30 +1,11 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
+import { useRouter } from 'next/router'
 import Router from 'next/router'
-import { useSelector, useDispatch } from 'react-redux'
-import { GetLcModule } from 'redux/lcModule/action'
 
 function Index() {
   const [edit, setEdit] = useState(false)
-
-  const dispatch = useDispatch()
-
-  const { lcModule } = useSelector((state) => state.lc)
-
-  console.log(lcModule?.data, 'THIS IS LC MOD')
-
-  useEffect(() => {
-    let id1 = sessionStorage.getItem('lcId')
-    dispatch(GetLcModule(`?company=${id1}`))
-  }, [dispatch])
-
-  const handleRoute = (lc) => {
-    dispatch(GetLcModule(`?lc=${lc.order.lc}`))
-    sessionStorage.setItem('lcOrder', lc.order.lc)
-    Router.push('/letter-credit/lc-create')
-  }
+  const router = useRouter()
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -36,7 +17,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>Letter of Credit </h1>
+            <h1 className={styles.heading}>Vessel Nomination</h1>
           </div>
           <div className={styles.search}>
             <div className="input-group">
@@ -102,50 +83,47 @@ function Index() {
                   </tr>
                 </thead>
                 <tbody>
-                  {lcModule &&
-                    lcModule?.data?.map((lc, index) => (
-                      <tr key={index} className="table_row">
-                        <td>{lc.order.orderId}</td>
-                        <td
-                          className={styles.buyerName}
-                          onClick={() => {
-                            handleRoute(lc)
-                          }}
-                        >
-                          {lc.order.commodity}
-                        </td>
-                        <td>RM-Sales</td>
+                  <tr className="table_row">
+                    <td>124621</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={(e) => {
+                        Router.push('/vessel')
+                      }}
+                    >
+                      Iron
+                    </td>
+                    <td>RM-Sales</td>
 
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.review}`}
+                      ></span>
+                      Pending
+                    </td>
+                    {!edit ? (
+                      <td colSpan={2}>
+                        {' '}
+                        <button
+                          className={styles.updateBtn}
+                          onClick={() => setEdit(!edit)}
+                        >
+                          Update
+                        </button>
+                      </td>
+                    ) : (
+                      <>
+                        <td>Updated on: 02/06/2022</td>
                         <td>
-                          <span
-                            className={`${styles.status} ${styles.review}`}
-                          ></span>
-                          Pending
+                          <img
+                            src="/static/mode_edit.svg"
+                            className={`${styles.edit_image} mr-3 img-fluid`}
+                            onClick={(e) => setEdit(!edit)}
+                          />{' '}
                         </td>
-                        {!edit ? (
-                          <td colSpan={2}>
-                            {' '}
-                            <button
-                              className={styles.updateBtn}
-                              onClick={() => setEdit(!edit)}
-                            >
-                              Update
-                            </button>
-                          </td>
-                        ) : (
-                          <>
-                            <td>Updated on: 02/06/2022</td>
-                            <td>
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                                onClick={() => setEdit(!edit)}
-                              />
-                            </td>
-                          </>
-                        )}
-                      </tr>
-                    ))}
+                      </>
+                    )}
+                  </tr>
                 </tbody>
               </table>
             </div>
