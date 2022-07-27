@@ -11,6 +11,7 @@ import Router from 'next/router'
 import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { handleCurrencyOrder } from 'utils/helper'
 
 
 function Index() {
@@ -136,6 +137,13 @@ function Index() {
     setCompanyDetails(newInput)
   }
 
+  const handleCurrOrder = () => {
+    const newInput = {...orderDetails}
+    let curr = handleCurrencyOrder(orderDetails.orderCurrency, orderDetails.orderValue)
+    newInput.orderValue = curr
+    setOrderDetails(newInput)
+  }
+
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
     newInput[name] = value
@@ -167,6 +175,7 @@ function Index() {
 
 
   const submitData = () => {
+    handleCurrOrder()
     if (companyDetails.companyName === '') {
       let toastMessage = 'Please Fill The Company Name'
       if (!toast.isActive(toastMessage)) {
@@ -266,8 +275,8 @@ function Index() {
       fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(orderDetails))
       fd.append('documentType', JSON.stringify(documents.typeOfDocument))
-      fd.append('document1', documents.document1)
-      fd.append('document2', documents.document2)
+      fd.append('documents', documents.document1)
+      fd.append('documents', documents.document2)
       fd.append('gstList', JSON.stringify(gstListData))
       //console.log(fd, "this is payload")
 

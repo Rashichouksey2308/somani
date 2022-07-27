@@ -337,7 +337,7 @@ function Index() {
         productSummary: { ...product },
         gstin: 'test'
       }
-      dispatch(UpdateCreditCalculate(obj))
+      // dispatch(UpdateCreditCalculate(obj))
     }
   }
 
@@ -537,7 +537,6 @@ function Index() {
     approvedCreditValue: orderList?.cam?.approvedCreditValue
   })
 
-  console.log(approvedCredit, 'THIS IS APPROVED CREDIT')
 
   const saveApprovedCreditData = (name, value) => {
     const newInput = { ...approvedCredit }
@@ -1011,7 +1010,7 @@ function Index() {
                         >
                           <label className={styles.label}>Status:</label>
                           <div
-                            className={`${styles.status} d-flex align-items-center justify-content-between`}
+                            className={`${styles.status}`}
                           >
                             <span>
                               {companyData?.compliance?.other?.complianceStatus}{' '}
@@ -1204,10 +1203,8 @@ function Index() {
                       <div className={`${styles.categories} mb-0 d-flex align-items-center`}>
                         <label className={styles.label}>Categories:</label>
                         <select onChange={(e) => setComplienceFilter(e.target.value)} className={`${styles.form_control} form-control`}>
-                          <option value="High">High</option>
-                          <option value="Medium">Medium</option>
-                          <option value="low">low</option>
-                          <option value="Severe">Severe</option>
+                          <option value="Statutory Compliance">Statutory Compliance</option>
+                          <option value="Banking Defaults">Banking Defaults</option>
                         </select>
                         <span>+</span>
                       </div>
