@@ -58,6 +58,7 @@ const index =  ({
 
   const [debt, setDebtData] = useState({
     bankName: '',
+    primaryBank: '',
     conduct: '',
     limit: null,
     limitType: '',
@@ -1359,31 +1360,37 @@ const index =  ({
                         <td></td>
                         <td>
                           <select
-                            className={`${styles.dropDown} font-weight-bold heading`}
+                           name='bankName' className={`${styles.dropDown} font-weight-bold heading`}
                           >
                             <option>{profile.bankName}</option>
-                            <option>SBI</option>
+                            <option value='SBI'>SBI</option>
+                            <option value='HDFC'>HDFC</option>
                           </select>
                         </td>
                         <td>
-                          <select className={`${styles.dropDown} heading`}>
+                          <select name='limitType' className={`${styles.dropDown} heading`}>
                             <option>{profile.limitType}</option>
-                            <option>Cash Deposit</option>
+                            <option value='Cash Deposit'>Cash Deposit</option>
+                            <option value='Net Banking'>Net Banking</option>
                           </select>
                         </td>
 
                         <td>
                           <input
                             className="input"
+                            name='limit'
                             defaultValue={profile.limit}
                             readOnly={!saveTable}
                           />
                         </td>
 
                         <td>
-                          <select className={`${styles.dropDown} heading`}>
+                          <select name='conduct' className={`${styles.dropDown} heading`}>
                             <option>{profile.conduct}</option>
-                            <option>Good</option>
+                            <option value='Good'>Good</option>
+                            <option value='Satisfactory'>Satisfactory</option>
+                            <option value='Average'>Average</option>
+                            <option value='Poor'>Poor</option>
                           </select>
                         </td>
                         <td>
