@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 import { Line, Bar } from 'react-chartjs-2'
+import Modal from 'react-bootstrap/Modal'
 import moment from 'moment'
 import {
   Chart,
@@ -16,6 +17,10 @@ import {
   BarElement,
 } from 'chart.js'
 
+// Redux 
+import { useDispatch } from 'react-redux'
+import { VerifyGstKarza } from '../../redux/creditQueueUpdate/action'
+
 Chart.register(
   LineController,
   LineElement,
@@ -28,27 +33,71 @@ Chart.register(
   BarElement,
 )
 // Chart.register(linear);
-function Index(GstData) {
+function Index({companyData,orderList,GstDataHandler}) {
+  const dispatch = useDispatch()
+  const GstData = companyData?.GST
+  console.log(companyData, 'companyData')
+
 
   console.log(GstData, "GSTDATA")
   const chartRef = useRef(null)
   const [chartData, setChartData] = useState({
     datasets: [],
   })
-  const [gstFilteredData, SetGstFilteredData] = useState()
-  const [gstNumbers, setGstNumbers] = useState([])
-  const [customerDetailsUnit,setCustomerDetailsUnit] = useState(10000000)
-  const [supplierDetailsUnit,setSupplierDetailsUnit] = useState(10000000)
-  const [salesUnit,setSalesUnit] = useState(10000000)
-  const [purchasesUnit,setPurchasesUnit] = useState(10000000)
+  const [gstFilteredData, SetGstFilteredData] = useState(orderList?.company?.gstList)
+  const [gstNumber, setGstNumber] = useState()
+  const [customerDetailsUnit, setCustomerDetailsUnit] = useState(10000000)
+  const [supplierDetailsUnit, setSupplierDetailsUnit] = useState(10000000)
+  const [salesUnit, setSalesUnit] = useState(10000000)
+  const [purchasesUnit, setPurchasesUnit] = useState(10000000)
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [credential, setCredential] = useState({
+    username: '',
+    password: '',
+    gstin: ''
+  })
 
   useEffect(() => {
-    const filteredData = GstData?.GstData?.map((gstData) => {
+    //const arrayFiltered = GstData?.filter((GstinData) => GstinData === credential.gstin)
+    GstData?.map((gstData) => {
       const data = { ...gstData }
       SetGstFilteredData(data)
+      GstDataHandler(data)
     })
   }, [GstData])
   console.log(gstFilteredData, 'gstFilteredData')
+
+  const gstinVerifyHandler = (e) => {
+    const payload = {
+      company: companyData?.company,
+      gstin: credential.gstin,
+      username: credential.username,
+      password: credential.password
+    }
+    //console.log(payload, 'payload')
+
+    dispatch(VerifyGstKarza(payload))
+    
+  }
+
+  const handleChangeGstin = (e) => {
+    const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === e.target.value)
+    console.log(filteredgstin.length,'filteredgstin')
+    if (filteredgstin.length === 1) {
+      filteredgstin?.map((gstData) => {
+        const data = { ...gstData }
+        SetGstFilteredData(data)
+        GstDataHandler(data)
+      })
+    } else {
+      setCredential({ ...credential, gstin: e.target.value })
+      handleShow()
+    }
+  }
+
 
 
 
@@ -416,9 +465,10 @@ function Index(GstData) {
                   className={` d-flex align-items-center justify-content-between`}
                 >
                   <span className={styles.light}>GST :</span>
-                  <select className={`${styles.gst_list}`}>
-                    <option value="09AAGCS8808K1ZR" selected>09AAGCS8808K1ZR</option>
-                    <option value="09AAGCS8808K77R">09AAGCS8808K77R</option>
+                  <select className={`${styles.gst_list}`} onChange={(e) => handleChangeGstin(e)}>
+                    {orderList?.company?.gstList?.map((gstin, index) => (
+                      <option key={index} value={gstin}>{gstin}</option>
+                    ))}
                   </select>
                 </span>
               </div>
@@ -675,11 +725,13 @@ function Index(GstData) {
           </div>
         </div>
       </div>
-      <div className={`${styles.verify_gst} card verify_gst`}>
-        <div className={`${styles.card_header} card-header bg-transparent`}>
-          <h3>Verify GST</h3>
-        </div>
-        <div className={`${styles.card_body} card-body`}>
+      <Modal show={show} className={`${styles.verify_gst} card verify_gst`}>
+        <Modal.Header className={`${styles.card_header} card-header bg-transparent`}>
+          <Modal.Title>
+            <h3>Verify GST</h3>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body onHide={() => console.log("modal Closed")} className={`${styles.card_body} card-body`}>
           <p className="card-text">Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator. OTP</p>
           <ul className={`${styles.nav_tabs} nav nav-tabs`} id="verifyGST" role="tablist">
             <li className={`${styles.nav_item} nav-item`}>
@@ -693,19 +745,19 @@ function Index(GstData) {
             <div className={`${styles.tab_content} tab-content`} id="myTabContent">
               <div className="tab-pane fade show active" id="viaEmail" role="tabpanel" aria-labelledby="via-email">
                 <div className={`${styles.labelFloat} form-group`}>
-                  <input type='text' id='email' name="email" className={`${styles.formControl} ${styles.input} input form-control`} required />
+                  <input type='text' id='email' name="email" className={`${styles.formControl} ${styles.input} input form-control`} onChange={(e) => setCredential({ ...credential, username: e.target.value })} required />
                   <label className={`label_heading_login`} htmlFor='email'>Email or Username</label>
                 </div>
                 <div className={`${styles.labelFloat} ${styles.password} form-group`}>
                   <div className='input-group align-items-center' id='password'>
-                    <input type='password' name="password" className={`${styles.formControl} ${styles.input} input form-control`} required />
+                    <input type='password' name="password" className={`${styles.formControl} ${styles.input} input form-control`} onChange={(e) => setCredential({ ...credential, password: e.target.value })} required />
                     <label className={`label_heading_login`} htmlFor='password'>Password</label>
                     <img src='/static/eye.svg' alt='Show Password' className='img-fluid' />
                   </div>
-                </div>                
+                </div>
                 <div className='d-flex justify-content-between'>
-                  <button type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
-                  <button type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Submit</button>
+                  <button onClick={handleClose} type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                  <button onClick={gstinVerifyHandler} type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Submit</button>
                 </div>
               </div>
               <div className="tab-pane fade" id="viaPhone" role="tabpanel" aria-labelledby="via-phone">
@@ -714,14 +766,14 @@ function Index(GstData) {
                   <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
                 </div>
                 <div className='d-flex justify-content-between'>
-                  <button type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
-                  <button type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Get OTP</button>
+                  <button onClick={handleClose} type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                  <button onClick={handleClose} type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Get OTP</button>
                 </div>
               </div>
             </div>
           </form>
-        </div>
-      </div>
+        </Modal.Body>
+      </Modal>
 
       <div className={`${styles.wrapper} card`}>
         <div
@@ -1401,17 +1453,17 @@ function Index(GstData) {
 
       {/* CistomerDetail                                    */}
 
-      {gstCustomerDetail(gstFilteredData,customerDetailsUnit,setCustomerDetailsUnit)}
-      {gstSupplierDetail(gstFilteredData,supplierDetailsUnit,setSupplierDetailsUnit)}
-      {gstSales('Sales', gstFilteredData,salesUnit,setSalesUnit)}
-      {gstPurchase('Purchase', gstFilteredData,purchasesUnit,setPurchasesUnit)}
+      {gstCustomerDetail(gstFilteredData, customerDetailsUnit, setCustomerDetailsUnit)}
+      {gstSupplierDetail(gstFilteredData, supplierDetailsUnit, setSupplierDetailsUnit)}
+      {gstSales('Sales', gstFilteredData, salesUnit, setSalesUnit)}
+      {gstPurchase('Purchase', gstFilteredData, purchasesUnit, setPurchasesUnit)}
     </>
   )
 }
 
 export default Index
 
-const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetailsUnit) => {
+const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDetailsUnit) => {
   return (
     <>
       <div className={`${styles.wrapper} card  `}>
@@ -1464,7 +1516,7 @@ const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetail
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal/supplierDetailsUnit.toFixed(2)}</td>
+                            <td>{customer?.ttlVal / supplierDetailsUnit.toFixed(2)}</td>
                             <td>{customer?.percentageOfTotalSales}%</td>
                             <td>{customer?.invoice}</td>
                             <td>{customer?.salesPerInvoice}</td>
@@ -1597,7 +1649,7 @@ const gstCustomerDetail = (gstFilteredData,supplierDetailsUnit,setSupplierDetail
   )
 }
 
-const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDetailsUnit) => {
+const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDetailsUnit) => {
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -1611,7 +1663,7 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
           <h2 className="mb-0">Suppliers Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
-            <select onChange={(e)=> setCustomerDetailsUnit(e.target.value)} className={`${styles.selectHead} accordion_DropDown form-select`} aria-label="Default select example">
+            <select onChange={(e) => setCustomerDetailsUnit(e.target.value)} className={`${styles.selectHead} accordion_DropDown form-select`} aria-label="Default select example">
               <option selected value="10000000">Crores</option>
             </select>
             <span>+</span>
@@ -1649,7 +1701,7 @@ const gstSupplierDetail = (gstFilteredData ,customerDetailsUnit, setCustomerDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{(customer?.ttlVal/customerDetailsUnit).toFixed(2)}</td>
+                            <td>{(customer?.ttlVal / customerDetailsUnit).toFixed(2)}</td>
                             <td>{customer?.percentageOfTotalPurchase}%</td>
                             <td>{customer?.invoice}</td>
                             <td>{customer?.purchasePerInvoice}</td>
@@ -2008,7 +2060,7 @@ const gstPurchase = (head, gstFilteredData) => {
           <h2 className="mb-0">{head}</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
-            <select className={`${styles.selectHead} accordion_DropDown form-select`}              aria-label="Default select example">
+            <select className={`${styles.selectHead} accordion_DropDown form-select`} aria-label="Default select example">
               <option selected value="1">Crores</option>
             </select>
             <span>+</span>
@@ -2100,7 +2152,7 @@ const gstPurchase = (head, gstFilteredData) => {
                           ))}
                         </tr>
                         <tr>
-                        {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map((sales, index) => (
+                          {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map((sales, index) => (
                             <td key={index}>{sales?.recurringSuppliers}</td>
                           ))}
                         </tr>
@@ -2122,7 +2174,7 @@ const gstPurchase = (head, gstFilteredData) => {
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
-                      {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map((month, index) => (
+                        {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map((month, index) => (
                           <td key={index}>{moment(month.retPeriod, 'MMYYYY').format('MMM"YY')}</td>
                         ))}
                       </tr>

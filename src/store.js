@@ -11,8 +11,11 @@ import OrderReducer from 'redux/buyerProfile/reducer'
 import MarginMoneyReducer from 'redux/marginMoney/reducer'
 import CompanyReducer from 'redux/companyDetail/reducer'
 import CreditReducer from 'redux/creditQueueUpdate/reducer'
-import NewOrderReducer from 'redux/newOrder/reducer'
+
 import GenericReducer from './redux/generic/reducer'
+import NewOrderReducer from 'redux/newOrder/reducer'
+import LcModuleReducer from 'redux/lcModule/reducer'
+import VesselReducer from 'redux/vessel/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -39,6 +42,8 @@ export const createStore = (preloadedState) => {
       review: CreditReducer,
       placeOrder: NewOrderReducer,
       generic: GenericReducer,
+      lc: LcModuleReducer,
+      vessel: VesselReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

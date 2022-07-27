@@ -219,12 +219,24 @@
     }
 }
 .verify_gst {
+    top: 50%;
+    left: 50%;
     width: 100%;
     border: none;
     margin: 0 auto;
     max-width: 562px;
-    box-shadow: none;
+    max-height: 569px;
+    box-shadow: none !important;
     border-radius: 12px;
+    padding-right: 0 !important;
+    transform: translate(-50%, -50%);
+    & > div {
+        margin: 0;
+        max-width: none;
+        & > div {
+            border: none;
+        }
+    }
     .card_header {
         padding: 28px 35px 21px;
         border-bottom: 2px solid #CAD6E65E;
@@ -1085,3 +1097,6 @@
 // .lastComponent {
 //       margin-bottom: 10rem;
 //   }
+.verify_gst .modal-content {
+    border: none;
+}

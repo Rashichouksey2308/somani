@@ -47,6 +47,18 @@ export default {
   // Refetch Karza
   refetchCombineKarza: '/api/core/lead/refetch-combine-karza',
 
+  // Credit Limit
+  creditLimit: '/api/core/credit-limit',
+
+  //LC Module
+  getLcModule: '/api/core/lc-module',
+  updateLcModule: '/api/core/lc-module',
+
+  //DocumentsCam :
+  getDocuments: '/api/core/order/order-document',
+  addDocuments: '/api/core/order/order-document',
+  deleteDocument: '/api/core/order/order-document',
+
   //DocumentsCam :
   getDocuments: '/api/core/order/order-document',
   addDocuments: '/api/core/order/order-document',

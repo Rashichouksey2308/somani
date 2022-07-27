@@ -44,7 +44,7 @@
     
  .dashboard_form { 
     padding: 25px 35px !important;
-    border-top: 2px solid red;
+    border-top: 2px solid #CAD6E6;
    
 .radio_form {
         padding: 8px 0 20px 35px;
@@ -217,7 +217,6 @@ height: 48px;
         padding: 22px;
         margin-bottom:30px;
         width: 49%;
-        margin-right: 20px;
         
 
         .label {
@@ -258,7 +257,7 @@ height: 48px;
                 }
 
             }
-            .button {
+            .view_btn {
                 padding-top: 3px;
                 padding-left: 15px;
                 color: #3687E8;

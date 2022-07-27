@@ -23,6 +23,24 @@ function getComanyDetailsFailed() {
   }
 }
 
+function getCreditDetails() {
+  return {
+    type: types.GET_CREDIT_DETAIL,
+  }
+}
+
+function getCreditDetailsSuccess(payload) {
+  return {
+    type: types.GET_CREDIT_DETAIL_SUCCESS,
+    payload,
+  }
+}
+
+function getCreditDetailsFailed() {
+  return {
+    type: types.GET_CREDIT_DETAIL_FAILED,
+  }
+}
 
 function updateCompanyDetails() {
   return {
@@ -43,7 +61,6 @@ function updateCompanyDetailsFailed() {
   }
 }
 
-
 function refetchCombineKarza() {
   return {
     type: types.REFETCH_COMBINE_KARZA,
@@ -63,12 +80,6 @@ function refetchCombineKarzaFailed() {
   }
 }
 
-
-
-
-
-
-
 export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -77,12 +88,9 @@ export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
-    Axios.post(
-      `${API.corebaseUrl}${API.getCompanyDetails}`, payload,
-      {
-        headers: headers,
-      },
-    ).then((response) => {
+    Axios.post(`${API.corebaseUrl}${API.getCompanyDetails}`, payload, {
+      headers: headers,
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getComanyDetailsSuccess(response.data.data))
       } else {
@@ -103,9 +111,37 @@ export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
   }
 }
 
+export const GetCreditLimit = (payload) => (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
+  try {
+    Axios.get(`${API.corebaseUrl}${API.creditLimit}?company=${payload.companyId}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getCreditDetailsSuccess(response.data.data))
+      } else {
+        dispatch(getCreditDetailsFailed(response.data.data))
 
+        let toastMessage = 'COULD NOT FETCH CREDIT LIMIT'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(getCreditDetailsFailed())
+
+    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}
 
 export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
@@ -115,12 +151,9 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
-    Axios.post(
-      `${API.corebaseUrl}${API.updateCompanyDetails}`, payload,
-      {
-        headers: headers,
-      },
-    ).then((response) => {
+    Axios.post(`${API.corebaseUrl}${API.updateCompanyDetails}`, payload, {
+      headers: headers,
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateCompanyDetailsSuccess(response.data.data))
       } else {
@@ -141,9 +174,6 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
   }
 }
 
-
-
-
 export const RefetchCombineKarza = (payload) => (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -152,12 +182,9 @@ export const RefetchCombineKarza = (payload) => (dispatch, getState, api) => {
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
-    Axios.post(
-      `${API.corebaseUrl}${API.refetchCombineKarza}`, payload,
-      {
-        headers: headers,
-      },
-    ).then((response) => {
+    Axios.post(`${API.corebaseUrl}${API.refetchCombineKarza}`, payload, {
+      headers: headers,
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(refetchCombineKarzaSuccess(response.data.data))
       } else {

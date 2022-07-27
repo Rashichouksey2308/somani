@@ -67,6 +67,7 @@ function Index() {
   })
   const [manualDocModule, setManualDocModule] = useState(true)
   const [filteredDoc, setFilteredDoc] = useState([])
+  const [gstData, setGstData] = useState({})
   console.log(newDoc, "newDoc")
 
   const { documentsFetched } = useSelector((state) => state.review)
@@ -182,7 +183,7 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } 
+    }
     // else if (orderDetails?.orderCurrency?.trim() === '') {
     //   let toastMessage = 'the orderCurrency can not be Empty'
     //   if (!toast.isActive(toastMessage)) {
@@ -295,10 +296,10 @@ function Index() {
         orderList?.productSummary?.contributionCommoditySenstivity,
       dailyConsumptionOfCommodity:
         orderList?.productSummary?.dailyConsumptionOfCommodity,
-      existingCHA: [],
+      existingCHA: orderList?.productSummary?.existingCHA,
       existingProcurementOfCommodity:
         orderList?.productSummary?.existingProcurementOfCommodity,
-      existingSuppliers: [],
+      existingSuppliers: orderList?.productSummary?.existingSuppliers,
       monthlyProductionCapacity:
         orderList?.productSummary?.monthlyProductionCapacity,
       paymentStatusForElectricityBills:
@@ -325,19 +326,19 @@ function Index() {
 
 
   const handleProductSave = () => {
-    if(product.capacityUtilization === '' || product.contributionCommoditySenstivity === ''){
+    if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
       let toastMessage = 'Please fill the required fields'
-      if(!toast.isActive(toastMessage)){
-        toast.error(toastMessage, {toastId: toastMessage})
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
       }
-    }else{
-    let obj = {
-      order: orderList._id,
-      productSummary: {...product},
-      gstin: 'test'
+    } else {
+      let obj = {
+        order: orderList._id,
+        productSummary: { ...product },
+        gstin: 'test'
+      }
+      dispatch(UpdateCreditCalculate(obj))
     }
-    dispatch(UpdateCreditCalculate(obj))
-  }
   }
 
 
@@ -377,9 +378,13 @@ function Index() {
   const [sanctionComment, setSanctionComment] = useState(
     orderList?.company?.recommendations?.sanctionTerms,
   )
-  const [approveComment, setApproveComment] = useState(
-    orderList?.cam?.approvalRemarks,
-  )
+  const [approveComment, setApproveComment] = useState()
+
+
+  useEffect(() => {
+    setApproveComment(orderList?.cam?.approvalRemarks)
+  }, [orderList])
+
 
   const [strengthsComment, setStrengthsComment] = useState(
     orderList?.company?.recommendations?.strengths,
@@ -527,6 +532,20 @@ function Index() {
     setSuggestedCredit(newInput)
   }
 
+  const [approvedCredit, setApprovedCredit] = useState({
+    approvedOrderValue: orderList?.cam?.approvedOrderValue,
+    approvedCreditValue: orderList?.cam?.approvedCreditValue
+  })
+
+  console.log(approvedCredit, 'THIS IS APPROVED CREDIT')
+
+  const saveApprovedCreditData = (name, value) => {
+    const newInput = { ...approvedCredit }
+    newInput[name] = value
+    // console.log(newInput)
+    setApprovedCredit(newInput)
+  }
+
 
   //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
 
@@ -551,7 +570,17 @@ function Index() {
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
     // newArr.push(keyPersonData)
-    setPersonData(keyPersonData)
+    console.log(keyPersonData, 'This IS KEY PETDHDH')
+    setPersonData([...keyPersonData, {
+      contact: {
+        callingCode: '',
+        number: '',
+      },
+      department: '',
+      designation: '',
+      email: '',
+      name: '',
+    }])
   }
 
   const onCreditSave = () => {
@@ -577,13 +606,74 @@ function Index() {
     dispatch(UpdateCredit(obj))
   }
 
-  const handleCamApprove = () => {
-    const obj = {
-      approvalRemarks: [...approveComment],
-      order: orderList._id,
-      status: 'Approved',
+  const filteredCreditRating =
+    orderList?.company?.creditLimit?.creditRating?.filter((rating) => {
+      return orderList?._id === rating.order
+    })
+
+  let suggestedValue =
+    filteredCreditRating && filteredCreditRating.length > 0
+      ? filteredCreditRating[0]?.suggested?.value
+      : ''
+  let derivedValue =
+    filteredCreditRating && filteredCreditRating.length > 0
+      ? filteredCreditRating[0]?.derived?.value
+      : ''
+  let approvedCreditValue = approvedCredit.approvedCreditValue
+
+  let suggestedOrder = orderList?.suggestedOrderValue
+  let appliedOrder = orderList?.orderValue
+  let approvedOrderValue = approvedCredit.approvedOrderValue
+
+  function getPercentageIncrease(numA, numB) {
+    if (!numA) {
+      return 0
     }
-    dispatch(UpdateCam(obj))
+    return (Math.abs(numA - numB) / numB) * 100
+  }
+
+  const gettingPercentageCredit = () => {
+    if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
+      // if diff is < 30% than error if approve vlaue not given
+      if (!approvedCreditValue) {
+        let toastMessage =
+          'More than 30% diff in derived and suggested value,Approved credit value required'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+          return false
+        }
+      }
+      return true
+    }
+  }
+
+  const gettingPercentageOrder = () => {
+    if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
+      // if diff is < 30% than error if approve vlaue not given
+      if (!approvedOrderValue) {
+        let toastMessage =
+          'More than 30% diff in applied and suggested order value,Approved order value required'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+          return false
+        }
+      }
+      return true
+    }
+  }
+
+
+  const handleCamApprove = () => {
+    if (gettingPercentageCredit && gettingPercentageOrder) {
+      const obj = {
+        approvalRemarks: [...approveComment],
+        approvedOrderValue: approvedCredit.approvedOrderValue,
+        approvedCreditValue: approvedCredit.approvedCreditValue,
+        order: orderList._id,
+        status: 'Approved',
+      }
+      dispatch(UpdateCam(obj))
+    }
   }
   const handleCamReject = () => {
     const obj = {
@@ -594,29 +684,29 @@ function Index() {
   }
 
   const currentOpenLink = (e) => {
-    console.log(e.target.attributes[4].nodeValue,"eee")
-    if(e.target.attributes[4].nodeValue=="Compliance"){
-       let list = document.getElementsByClassName('nav-tabs')
+    console.log(e.target.attributes[4].nodeValue, "eee")
+    if (e.target.attributes[4].nodeValue == "Compliance") {
+      let list = document.getElementsByClassName('nav-tabs')
       let tab = document.getElementsByClassName('tab-content')
-          for (let i = 0; i < list[0].children.length; i++) {
-     
-     
-       
-       
-         
-          list[0].children[i].children[0].classList.remove('active')
-        
-          tab[0].children[i].classList.remove('show')
-          tab[0].children[i].classList.remove('active')
-          
-         
-        }
-   
-          list[0].children[3].children[0].classList.add('active')
-          
-          tab[0].children[3].classList.add('show')
-          tab[0].children[3].classList.add('active')
-        
+      for (let i = 0; i < list[0].children.length; i++) {
+
+
+
+
+
+        list[0].children[i].children[0].classList.remove('active')
+
+        tab[0].children[i].classList.remove('show')
+        tab[0].children[i].classList.remove('active')
+
+
+      }
+
+      list[0].children[3].children[0].classList.add('active')
+
+      tab[0].children[3].classList.add('show')
+      tab[0].children[3].classList.add('active')
+
     }
     setSelectedTab(e.target.attributes[4].nodeValue)
   }
@@ -682,13 +772,13 @@ function Index() {
 
   const uploadDocumentHandler = () => {
     const fd = new FormData()
-    console.log(newDoc,newDoc.document,"pdfFile",newDoc.module)
+    console.log(newDoc, newDoc.document, "pdfFile", newDoc.module)
     fd.append('document', newDoc.document)
     fd.append('module', newDoc.module)
     fd.append('order', orderList?.termsheet?.order)
     // fd.append('type', newDoc.type))
     fd.append('name', newDoc.name)
-    
+
     dispatch(AddingDocument(fd))
   }
 
@@ -698,7 +788,11 @@ function Index() {
     newUploadDoc1.document = e.target.files[0]
     setNewDoc(newUploadDoc1)
   }
-  console.log(newDoc,"documents")
+  console.log(newDoc, "documents")
+
+  const GstDataHandler = (data) => {
+    setGstData(data)
+  }
 
 
 
@@ -893,7 +987,10 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <GST GstData={companyData?.GST} />
+                    <GST GstDataHandler={GstDataHandler}
+                      orderList={orderList}
+                      companyData={companyData}
+                    />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Compliance" role="tabpanel">
@@ -1237,18 +1334,18 @@ function Index() {
                                 className={` d-flex align-items-center justify-content-start`}
                               >
                                 <div className="form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-                                <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                Respondent
-                                </label>
-                              </div>
-                              <div className="form-check ml-4">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
-                                <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                  Petitioner
-                                </label>
-                              </div>
-                             
+                                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                                  <label className="form-check-label" htmlFor="flexRadioDefault1">
+                                    Respondent
+                                  </label>
+                                </div>
+                                <div className="form-check ml-4">
+                                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
+                                  <label className="form-check-label" htmlFor="flexRadioDefault2">
+                                    Petitioner
+                                  </label>
+                                </div>
+
                               </div>
                             </Col>
                             <Col md={4}>
@@ -1256,18 +1353,18 @@ function Index() {
                               <div
                                 className={` d-flex align-items-center justify-content-start`}
                               >
-                              <div className="form-check">
-                                <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault3"/>
-                                <label className="form-check-label" htmlFor="flexRadioDefault3">
-                                Civil
-                                </label>
-                              </div>
-                              <div className="form-check ml-3">
-                                <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault4" checked/>
-                                <label className="form-check-label" htmlFor="flexRadioDefault4">
-                                  Criminal
-                                </label>
-                              </div>
+                                <div className="form-check">
+                                  <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault3" />
+                                  <label className="form-check-label" htmlFor="flexRadioDefault3">
+                                    Civil
+                                  </label>
+                                </div>
+                                <div className="form-check ml-3">
+                                  <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault4" checked />
+                                  <label className="form-check-label" htmlFor="flexRadioDefault4">
+                                    Criminal
+                                  </label>
+                                </div>
                               </div>
                             </Col>
                           </Row>
@@ -1404,10 +1501,13 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM
+                  gstData={gstData}
                     camData={orderList}
                     companyData={companyData}
                     addApproveRemarkArr={addApproveRemarkArr}
                     approveComment={approveComment}
+                    saveApprovedCreditData={saveApprovedCreditData}
+                    approvedCredit={approvedCredit}
                   />
                 </div>
                 <div
@@ -1511,7 +1611,7 @@ function Index() {
                                   />
                                   <button
                                     className={`${styles.upload_button} btn`}
-                                    
+
 
                                   >
                                     Upload
