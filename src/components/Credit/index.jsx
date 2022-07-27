@@ -1356,7 +1356,7 @@ const index =  ({
                     {debtData?.map((profile, index) => (
                       <tr key={index}>
                         <td>{(index += 1)}</td>
-                        <td></td>
+                        <td><input className={`${styles.checkBox}`} type="checkbox" /></td>
                         <td>
                           <select
                             className={`${styles.dropDown} font-weight-bold heading`}
