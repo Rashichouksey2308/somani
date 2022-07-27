@@ -1,9 +1,63 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React ,{useState,useEffect}from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-function Index() {
+  let finance={
+    "name": "",
+    "brachName": "",
+
+        
+ }
+function Index(props) {
+
+const[financeData,setFinanceData]=useState(finance)
+  useEffect(() => {
+   if(window){
+    if(sessionStorage.getItem("Finance")){
+      let savedData=JSON.parse(sessionStorage.getItem("Finance"))
+      let finance={
+        "name": savedData.name,
+        "brachName": savedData.branch,
+        
+        
+       }
+      
+       
+       setFinanceData(finance)
+    }
+   }
+  },[])
+  useEffect(() => {
+    if(props.saveData==true && props.active=="Finance"){
+       let data={
+        financeData:financeData,
+      
+        
+        
+       }
+       props.sendData("Finance",data)
+    }
+    if(props.submitData==true && props.active=="Finance"){
+      let data={
+      financeData:financeData,
+      
+       
+       }
+
+      props.updateData("Finance",data)
+
+    }
+  },[props])
+  const handleInput=(name,value,key)=>{
+  
+
+  const newInput = { ...financeData }
+
+      newInput[name] = value
+      setFinanceData(newInput)
+
+  }
   return (
     <>
       <div className={styles.container}>
@@ -13,15 +67,14 @@ function Index() {
             <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
               <select
                 className={`${styles.input_field} input form-control`}
-                name="countryOfOrigin"
-                onChange={(e) => {
-                  saveOrderData(e.target.name, e.target.value)
+                 name="name"
+                value={financeData.name}
+                 onChange={(e) => {
+                  handleInput(e.target.name,e.target.value)
                 }}
               >
-                <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                <option value="India">India</option>
-                <option value="America">America</option>
-                <option value="Russia">Russia</option>
+                <option value="27AAATW4Ing Bank N.V183C2ZG">Ing Bank N.V</option>
+              
               </select>
               <Form.Label
                 className={`${styles.label_heading} ${styles.select}  label_heading`}
@@ -32,15 +85,14 @@ function Index() {
                         <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <select
                 className={`${styles.input_field} input form-control`}
-                name="countryOfOrigin"
-                onChange={(e) => {
-                  saveOrderData(e.target.name, e.target.value)
+                name="brachName"
+                value={financeData.brachName}
+                 onChange={(e) => {
+                  handleInput(e.target.name,e.target.value)
                 }}
               >
-                <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                <option value="India">India</option>
-                <option value="America">America</option>
-                <option value="Russia">Russia</option>
+                <option value="Karol Bagh">Karol Bagh</option>
+               
               </select>
               <Form.Label
                 className={`${styles.label_heading} ${styles.select}  label_heading`}
