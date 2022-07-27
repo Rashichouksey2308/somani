@@ -63,10 +63,10 @@ function Index() {
               <h3>Filter</h3>
               <img src="/static/close-2.svg" className={`${styles.close} img-fluid ml-auto`} alt="Close" />
             </div>
-            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="orderId" name="orderId" value="Order ID"/> <label for="orderId">Order ID</label></div>
-            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="commodity" name="commodity" value="Commodity"/> <label for="commodity">Commodity</label></div>
-            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="status" name="status" value="Status"/> <label for="status">Status</label></div>
-            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="createdBy" name="createdBy" value="Created by"/> <label for="createdBy">Created by</label></div>
+            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="orderId" name="orderId" value="Order ID"/> <label htmlFor="orderId">Order ID</label></div>
+            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="commodity" name="commodity" value="Commodity"/> <label htmlFor="commodity">Commodity</label></div>
+            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="status" name="status" value="Status"/> <label htmlFor="status">Status</label></div>
+            <div className={`${styles.filter_list} dropdown-item`} href="#"><input type="checkbox" id="createdBy" name="createdBy" value="Created by"/> <label htmlFor="createdBy">Created by</label></div>
             <button className={`${styles.btn} btn`} type='button'>Apply Filter</button>
           </div>
         </div>
