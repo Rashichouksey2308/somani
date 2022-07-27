@@ -71,7 +71,7 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                                     </div>
                                
                                <div className={`${styles.form_group}  `}>
-                                <p><GrowInput className={styles.grow_input} type="text"/> from the vessel/container(s) at discharge date at discharge port or <GrowInput className={styles.grow_input} type="text"/>  from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
+                                <p><GrowInput className={styles.grow_input} type="text"/> days from the vessel/container(s) at discharge date at discharge port or <GrowInput className={styles.grow_input} type="text"/> days from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
                                  </p>
                                 </div>      
                             </div>
@@ -83,16 +83,16 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                         <div className={`${styles.dashboard_form} card-body`}>
 
                         <h3 className={`${styles.comment_heading} font-weight-medium`}>Comments</h3>
-                        {additionalComments && additionalComments.map((comment, index) => {
+                        {/* {additionalComments && additionalComments.map((comment, index) => {
                             const commentindex = isCommentEditable[index]
-                            return (
-                                <div key={index} className='row'>
+                            return ( */}
+                                <div className='row'>
                                     <div className={`${styles.form_group} col-md-3`} >
                                         <h4 className={styles.comment_name}>{comment.additionalCommentType}</h4>
                                     </div>
                                     <div className={`${styles.form_group} col-md-9`}>
                                         <div className={`${styles.comment_para} d-flex justify-content-between`}>
-                                            {/* <div className={styles.comment}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                   */}
+                                            <div className={styles.comment}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                  
                                             <Form.Control className={`${styles.comment}`}
                                                 as="textarea"
                                                 rows={2}
@@ -113,8 +113,8 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                                     </div>
 
                                 </div>
-                            )
-                        })}
+                            {/* )
+                        })} */}
                 </div>
                 </div>
            

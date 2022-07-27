@@ -319,6 +319,7 @@ height: 48px;
                 border: none;
                 opacity: 0.7;
                 white-space: nowrap;
+                vertical-align: middle;
                 &:first-child {
                     padding-left: 35px;
                     @include respond(sm-desktop) {
@@ -346,6 +347,9 @@ height: 48px;
                     font-size: 19px;
                     line-height: 24px;
 
+                }
+                .checkBox {
+                    transform: scale(1.5);
                 }
             }
         }
