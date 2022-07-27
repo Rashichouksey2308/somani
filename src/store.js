@@ -1,18 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
-import { createLogger } from 'redux-logger';
-import config from 'config';
-import { repoSearchReducer } from 'features/repoSearch/repoSearchSlice';
-import AuthReducer from 'redux/authentication/reducer';
-import BuyerReducer from 'redux/registerBuyer/reducer';
-import UserReducer from 'redux/userData/reducer';
-import { sidebar } from 'redux/toggleState/Reducer/reducer';
-import OrderReducer from 'redux/buyerProfile/reducer';
-import MarginMoneyReducer from 'redux/marginMoney/reducer';
-import CompanyReducer from 'redux/companyDetail/reducer';
+import { configureStore } from '@reduxjs/toolkit'
+import { useDispatch, useSelector } from 'react-redux'
+import { createLogger } from 'redux-logger'
+import config from 'config'
+import { repoSearchReducer } from 'features/repoSearch/repoSearchSlice'
+import AuthReducer from 'redux/authentication/reducer'
+import BuyerReducer from 'redux/registerBuyer/reducer'
+import UserReducer from 'redux/userData/reducer'
+import { sidebar } from 'redux/toggleState/Reducer/reducer'
+import OrderReducer from 'redux/buyerProfile/reducer'
+import MarginMoneyReducer from 'redux/marginMoney/reducer'
+import CompanyReducer from 'redux/companyDetail/reducer'
 import CreditReducer from 'redux/creditQueueUpdate/reducer'
-import NewOrderReducer from 'redux/newOrder/reducer';
-import LcModuleReducer from 'redux/lcModule/reducer';
+
+import GenericReducer from './redux/generic/reducer'
+import NewOrderReducer from 'redux/newOrder/reducer'
+import LcModuleReducer from 'redux/lcModule/reducer'
 import VesselReducer from 'redux/vessel/reducer'
 
 export const createStore = (preloadedState) => {
@@ -39,8 +41,9 @@ export const createStore = (preloadedState) => {
       companyDetails: CompanyReducer,
       review: CreditReducer,
       placeOrder: NewOrderReducer,
+      generic: GenericReducer,
       lc: LcModuleReducer,
-      vessel : VesselReducer,
+      vessel: VesselReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

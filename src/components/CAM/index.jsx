@@ -43,10 +43,10 @@ function Index({
   approvedCredit,
 }) {
   const dispatch = useDispatch()
-  console.log(gstData,'gstData')
+  console.log(gstData, 'gstData')
 
   useEffect(() => {
-    if (window) { 
+    if (window) {
       let id1 = sessionStorage.getItem('orderID')
       let id2 = sessionStorage.getItem('companyID')
       dispatch(GetAllOrders({ orderId: id1 }))
@@ -115,12 +115,12 @@ function Index({
 
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
-      saveApprovedCreditData(name, value)
+    saveApprovedCreditData(name, value)
     // }
   }
   const onApproveOrder = (name, value) => {
     // if (gettingPercentageOrder()) {
-      saveApprovedCreditData(name, value)
+    saveApprovedCreditData(name, value)
     // }
   }
 
@@ -246,7 +246,7 @@ function Index({
   }
 
 
- 
+
   return (
     <>
       {basicInfo(camData)}
@@ -267,7 +267,7 @@ function Index({
       {debtProfile(data, options, tempArr, camData)}
       {operationalDetails(camData)}
       {revenuDetails(gstData)}
-      {trends(TotalRevenueDataLine, TotalPurchasesDataLine, lineOption ,gstData)}
+      {trends(TotalRevenueDataLine, TotalPurchasesDataLine, lineOption, gstData)}
       {skewness(data, options, tempArr, gstData)}
       {financeDetails(
         data,
@@ -1002,7 +1002,7 @@ const creditProfile = (
                   </span>
                   <span className={`${styles.value} `}>
                     {latestAuditorData?.nameOfAuditor ===
-                    previousAuditorData?.nameOfAuditor
+                      previousAuditorData?.nameOfAuditor
                       ? ' NO'
                       : 'Yes'}
                   </span>
@@ -1590,12 +1590,16 @@ const operationalDetails = (camData) => {
 const revenuDetails = (gstData) => {
   const RevenueDetails = gstData?.detail?.salesDetailAnnual?.saleSummary
 
-  
-  function calcPc(n1,n2){
-    return (((n2 - n1) / n1 * 100).toLocaleString('fullwide', {maximumFractionDigits:3}) + "%");
+
+
+  function calcPc(n1, n2) {
+    if(n1=== 0){
+      return 0
+    }
+    return (((n2 - n1) / n1 * 100));
   }
 
-  
+
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1633,105 +1637,105 @@ const revenuDetails = (gstData) => {
                 <td>Gross Revenue</td>
                 <td>
                   <img
-                    src="/static/arrow-up-green.svg"
+                    src={calcPc(RevenueDetails?.grossTurnover?.previous?.value, RevenueDetails?.grossTurnover?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
                     alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>{RevenueDetails?.grossTurnover?.current?.value}</td>
-                <td>{RevenueDetails?.grossTurnover?.previous?.value}</td>
-                <td>{calcPc(RevenueDetails?.grossTurnover?.current?.value,RevenueDetails?.grossTurnover?.previous?.value)}</td>
+                <td>{RevenueDetails?.grossTurnover?.current?.value.toLocaleString()}</td>
+                <td>{RevenueDetails?.grossTurnover?.previous?.value.toLocaleString()}</td>
+                <td>{calcPc(RevenueDetails?.grossTurnover?.previous?.value, RevenueDetails?.grossTurnover?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
               </tr>
               <tr>
                 <td>Related Party Sales</td>
                 <td>
-                  <img
-                    src="/static/arrow-down-red.svg"
-                    alt="Arrow Red"
+                <img
+                    src={calcPc(RevenueDetails?.relatedPartySales?.previous?.value, RevenueDetails?.relatedPartySales?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                    alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>11,900.00 </td>
-                <td>1,900.00</td>
-                <td>{calcPc(100,90)}</td>
+                <td>{RevenueDetails?.relatedPartySales?.current?.value.toLocaleString()}</td>
+                <td>{RevenueDetails?.relatedPartySales?.previous?.value.toLocaleString()}</td>
+                <td>{calcPc(RevenueDetails?.relatedPartySales?.previous?.value, RevenueDetails?.relatedPartySales?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
               </tr>
               <tr>
                 <td>Intra Organization Sales</td>
                 <td>
-                  <img
-                    src="/static/arrow-down-red.svg"
-                    alt="Arrow Red"
+                <img
+                    src={calcPc(RevenueDetails?.intraOrgSalesPercent?.previous?.value, RevenueDetails?.intraOrgSalesPercent?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                    alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>11,900.00 </td>
-                <td>1,900.00</td>
-                <td>40%</td>
+                <td>{RevenueDetails?.intraOrgSalesPercent?.current?.value.toLocaleString()}</td>
+                <td>{RevenueDetails?.intraOrgSalesPercent?.previous?.value.toLocaleString()}</td>
+                <td>{calcPc(RevenueDetails?.intraOrgSalesPercent?.previous?.value, RevenueDetails?.intraOrgSalesPercent?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
               </tr>
               <tr>
                 <td>B2B Sales</td>
                 <td>
-                  <img
-                    src="/static/arrow-down-red.svg"
-                    alt="Arrow Red"
+                <img
+                    src={calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                    alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>11,900.00 </td>
-                <td>1,900.00</td>
-                <td>40%</td>
+                <td>{RevenueDetails?.B2BSales?.current?.value.toLocaleString()}</td>
+                <td>{RevenueDetails?.B2BSales?.previous?.value.toLocaleString()}</td>
+                <td>{calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
               </tr>
               <tr>
                 <td>B2C Sales</td>
                 <td>
-                  <img
-                    src="/static/arrow-down-red.svg"
-                    alt="Arrow Red"
+                <img
+                    src={calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                    alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>11,900.00 </td>
-                <td>1,900.00</td>
-                <td>40%</td>
+                <td>{RevenueDetails?.B2CSales?.current?.value.toLocaleString()}</td>
+                <td>{RevenueDetails?.B2CSales?.previous?.value.toLocaleString()}</td>
+                <td>{calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
               </tr>
               <tr>
                 <td>Export Sales</td>
                 <td>
-                  <img
-                    src="/static/arrow-down-red.svg"
-                    alt="Arrow Red"
+                <img
+                    src={calcPc(RevenueDetails?.exportSales?.previous?.value, RevenueDetails?.exportSales?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                    alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>11,900.00 </td>
-                <td>1,900.00</td>
-                <td>40%</td>
+                <td>{RevenueDetails?.exportSales?.current?.value.toLocaleString()}</td>
+                <td>{RevenueDetails?.exportSales?.previous?.value.toLocaleString()}</td>
+                <td>{calcPc(RevenueDetails?.exportSales?.previous?.value, RevenueDetails?.exportSales?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
               </tr>
               <tr>
                 <td>Total Customers</td>
                 <td>
-                  <img
-                    src="/static/arrow-down-red.svg"
-                    alt="Arrow Red"
+                <img
+                    src={calcPc(RevenueDetails?.ttlCustomer?.previous?.value, RevenueDetails?.ttlCustomer?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                    alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>11,900.00 </td>
-                <td>1,900.00</td>
-                <td>40%</td>
+                <td>{RevenueDetails?.ttlCustomer?.current?.value.toLocaleString()}</td>
+                <td>{RevenueDetails?.ttlCustomer?.previous?.value.toLocaleString()}</td>
+                <td>{calcPc(RevenueDetails?.ttlCustomer?.previous?.value, RevenueDetails?.ttlCustomer?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
               </tr>
               <tr>
                 <td>Total Invoices</td>
                 <td>
-                  <img
-                    src="/static/arrow-down-red.svg"
-                    alt="Arrow Red"
+                <img
+                    src={calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                    alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>11,900.00 </td>
-                <td>1,900.00</td>
-                <td>40%</td>
+                <td>{RevenueDetails?.ttlInv?.current?.value.toLocaleString()}</td>
+                <td>{RevenueDetails?.ttlInv?.previous?.value.toLocaleString()}</td>
+                <td>{calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
               </tr>
               <tr>
                 <td>Gross Margin</td>
@@ -2686,7 +2690,7 @@ const Documents = () => {
     </>
   )
 }
-const trends = (TotalRevenueDataLine,TotalPurchasesDataLine, lineOption,gstData) => {
+const trends = (TotalRevenueDataLine, TotalPurchasesDataLine, lineOption, gstData) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2757,7 +2761,7 @@ const trends = (TotalRevenueDataLine,TotalPurchasesDataLine, lineOption,gstData)
     </>
   )
 }
-const skewness = (data, options, tempArr,gstData) => {
+const skewness = (data, options, tempArr, gstData) => {
   return (
     <>
       <div className={`${styles.card} card`}>

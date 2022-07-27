@@ -13,7 +13,7 @@ function Index() {
   const [currentPage, setCurrentPage] = useState(0);
 
   const {lcModule} = useSelector((state)=>state.lc)
-  console.log(lcModule?.data, 'THIS IS LC MODULE')
+  
 
   useEffect(() => {
    dispatch(GetLcModule(`?page=${currentPage}&limit=7`))
