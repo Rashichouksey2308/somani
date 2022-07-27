@@ -46,9 +46,9 @@ function Index({ directorData }) {
               data-parent="#profileAccordion"
             >
               <div
-                className={`${styles.directorDetails} ${styles.cardBody} card-body border_color`}
+                className={`${styles.directorDetails} ${styles.cardBody} directorDetails bg-transparent card-body border_color`}
               >
-                <div className="accordion" id="directorDetails3">
+                <div className="accordion shadow-none" id="directorDetails3">                          
                   <div className={`${styles.card} border_color card`}>
                     <div className="d-flex justify-content-between align-items-center">
                       <div
@@ -92,17 +92,17 @@ function Index({ directorData }) {
                           
                           {  moment(director?.dscStatus).format('DD MM YYYY') < moment(new Date).format('DD MM YYYY')    ? "Approved" : "Expired" }
                         </div>
-                      </div>
-                      <div className={`${styles.downArrow} `}>
-                        <img
-                          src={`${
-                            darkMode
-                              ? `/static/white-arrow.svg`
-                              : `/static/arrow-right.svg`
-                          }`}
-                          alt="arrow right"
-                          className="img-fluid image_arrow"
-                        />
+                        <div className={`${styles.downArrow} `}>
+                          <img
+                            src={`${
+                              darkMode
+                                ? `/static/white-arrow.svg`
+                                : `/static/arrow-right.svg`
+                            }`}
+                            alt="arrow right"
+                            className="img-fluid image_arrow"
+                          />
+                        </div>
                       </div>
                     </div>
                     <div
@@ -157,7 +157,7 @@ function Index({ directorData }) {
                               <label className={`accordion_Text`}>
                                 Contact
                               </label>
-                             +91 9876543210
+                            +91 9876543210
                             </div>
 
                             <div
@@ -315,14 +315,14 @@ function Index({ directorData }) {
                                   const toDate =  associates?.toDate
 
                                     return(
-                                       <tr key={index}>
-                                       <td>{associates?.entityId}</td>
-                                       <td>{associates?.entityName}</td>
-                                       <td>{fromDate?.slice(0,10)}</td>
-                                       <td>{toDate?.slice(0,10)}</td>
-                                     </tr>
+                                      <tr key={index}>
+                                      <td>{associates?.entityId}</td>
+                                      <td>{associates?.entityName}</td>
+                                      <td>{fromDate?.slice(0,10)}</td>
+                                      <td>{toDate?.slice(0,10)}</td>
+                                    </tr>
                                   )})}
-                             
+                            
                                 </tbody>
                               </table>
                             </div>

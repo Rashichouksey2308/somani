@@ -342,97 +342,99 @@ const Index = () => {
 
   return (
     <>
-      <div className={`${styles.card} container-fluid tabHeader`}>
-        <div className={styles.head_header}>
-          <img
-            className={`${styles.arrow} img-fluid`}
-            src="/static/keyboard_arrow_right-3.svg"
-            alt="arrow"
-          />
-          <h1 className={`${styles.heading} heading`}>Termsheet</h1>
-        </div>
+      <div className='container-fluid px-0'>
+        <div className={`${styles.card} tabHeader border-bottom-0 shadow-none`}>
+          <div className={styles.head_header}>
+            <img
+              className={`${styles.arrow} img-fluid`}
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="arrow"
+            />
+            <h1 className={`${styles.heading} heading`}>Termsheet</h1>
+          </div>
 
-        <div className="pb-4">
-          {termsheet &&
-            termsheet?.data?.map((sheet, index) => (
-              <div
-                key={index}
-                className={`${styles.card_body} card-body container-fluid`}
-              >
-                <div className="row">
-                  <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                    <h3 className={`${styles.label} label_heading`}>
-                      Customer ID
-                    </h3>
-                    <p className={`${styles.value} accordion_Text`}>
-                      {sheet?.company?.customerId}
-                    </p>
-                  </div>
-                  <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                    <h3 className={`${styles.label} label_heading`}>
-                      Buyer Name
-                    </h3>
-                    <p className={`${styles.value} accordion_Text`}>
-                      {sheet?.company?.companyName}
-                    </p>
-                  </div>
-                  <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                    <h3 className={`${styles.label} label_heading`}>
-                      Created On
-                    </h3>
-                    <p className={`${styles.value} accordion_Text`}>
-                      {(sheet?.company?.createdAt).slice(0, 10)}
-                    </p>
-                  </div>
-                  <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                    <h3 className={`${styles.label} label_heading`}>
-                      Last Modified
-                    </h3>
-                    <p className={`${styles.value} accordion_Text`}>
-                      {(sheet?.company?.updatedAt).slice(0, 10)}
-                    </p>
-                  </div>
-                  <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                    <h3 className={`${styles.label} label_heading`}>
-                      Approved Date
-                    </h3>
-                    <p className={`${styles.value} accordion_Text`}>
-                      {sheet?.order?.cam?.approvedAt?.slice(0, 10)}
-                    </p>
-                  </div>
-                  <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                    <h3 className={`${styles.label} label_heading`}>Status </h3>
-                    <p className={`${styles.value} accordion_Text`}>
-                      <span className={`${styles.status}`}></span>
-                      {sheet?.order?.cam?.status}
-                    </p>
+          <div className="">
+            {termsheet &&
+              termsheet?.data?.map((sheet, index) => (
+                <div
+                  key={index}
+                  className={`${styles.card_body} card-body container-fluid`}
+                >
+                  <div className="row">
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <h3 className={`${styles.label} label_heading`}>
+                        Customer ID
+                      </h3>
+                      <p className={`${styles.value} accordion_Text`}>
+                        {sheet?.company?.customerId}
+                      </p>
+                    </div>
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <h3 className={`${styles.label} label_heading`}>
+                        Buyer Name
+                      </h3>
+                      <p className={`${styles.value} accordion_Text`}>
+                        {sheet?.company?.companyName}
+                      </p>
+                    </div>
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <h3 className={`${styles.label} label_heading`}>
+                        Created On
+                      </h3>
+                      <p className={`${styles.value} accordion_Text`}>
+                        {(sheet?.company?.createdAt).slice(0, 10)}
+                      </p>
+                    </div>
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <h3 className={`${styles.label} label_heading`}>
+                        Last Modified
+                      </h3>
+                      <p className={`${styles.value} accordion_Text`}>
+                        {(sheet?.company?.updatedAt).slice(0, 10)}
+                      </p>
+                    </div>
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <h3 className={`${styles.label} label_heading`}>
+                        Approved Date
+                      </h3>
+                      <p className={`${styles.value} accordion_Text`}>
+                        {sheet?.order?.cam?.approvedAt?.slice(0, 10)}
+                      </p>
+                    </div>
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <h3 className={`${styles.label} label_heading`}>Status </h3>
+                      <p className={`${styles.value} accordion_Text`}>
+                        <span className={`${styles.status}`}></span>
+                        {sheet?.order?.cam?.status}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          <TermDetails
-            onChangeTransactionDetails={onChangeTransactionDetails}
-            onChangeCommodityDetails={onChangeCommodityDetails}
-            onChangeCommercialTerms={onChangeCommercialTerms}
-            onChangePaymentDueDate={onChangePaymentDueDate}
-            termsheetDetails={termsheetDetails}
-            handleSave={handleSave}
-            termsheet={termsheet}
-          />
-          <AdditionalComment
-            addCommentHandler={addCommentHandler}
-            additionalComments={additionalComments}
-          />
-          <OtherTerms
-            otherTermConditions={otherTermsAndConditions}
-            onChangeInsurance={onChangeInsurance}
-            onChangeDutyAndTaxes={onChangeDutyAndTaxes}
-            onChangeOther={onChangeOther}
-            onChangeLcOpening={onChangeLcOpening}
-            onChangeCha={onChangeCha}
-            termsheet={termsheet}
-          />
-          <UploadOther />
+              ))}
+            <TermDetails
+              onChangeTransactionDetails={onChangeTransactionDetails}
+              onChangeCommodityDetails={onChangeCommodityDetails}
+              onChangeCommercialTerms={onChangeCommercialTerms}
+              onChangePaymentDueDate={onChangePaymentDueDate}
+              termsheetDetails={termsheetDetails}
+              handleSave={handleSave}
+              termsheet={termsheet}
+            />
+            <AdditionalComment
+              addCommentHandler={addCommentHandler}
+              additionalComments={additionalComments}
+            />
+            <OtherTerms
+              otherTermConditions={otherTermsAndConditions}
+              onChangeInsurance={onChangeInsurance}
+              onChangeDutyAndTaxes={onChangeDutyAndTaxes}
+              onChangeOther={onChangeOther}
+              onChangeLcOpening={onChangeLcOpening}
+              onChangeCha={onChangeCha}
+              termsheet={termsheet}
+            />
+            <UploadOther />
+          </div>
         </div>
       </div>
       <ApproveBar
