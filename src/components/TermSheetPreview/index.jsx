@@ -426,8 +426,13 @@ function Index() {
                     <div className={`${styles.form_group} mt-5 col-md-6`} >
                         <h3 className={`${styles.other_heading} row_head`}>CHA / Stevedoring Charges</h3>
                         <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
+                         <div className='pt-4 d-flex align-items-center'>
+                                        <input id="pollutionCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.pollutionCharges}  />
+                                        <label className={styles.checkbox_label}>Pollution charges</label>
+                                    </div>
                         <div className='pt-4 d-flex align-items-center'>
                                         <input id='wharfaceCharges' className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.wharfaceCharges}  />
+
                                         <label className={styles.checkbox_label}>Wharfage Charges </label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>

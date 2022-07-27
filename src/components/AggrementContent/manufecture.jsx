@@ -450,6 +450,7 @@ const editNewAddress=(name,value)=>{
            {addressList.map((val,index)=>{
             return(
            <div
+           key={index}
             className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
           >
             <div className={`${styles.registeredAddressHeading}`}>
