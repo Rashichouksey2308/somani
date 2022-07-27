@@ -2,6 +2,11 @@
 .root_container{
     padding:25px;
     width: 100%;
+    margin-bottom: 10rem;
+    background: #ffffff00;
+//      border-bottom: 1px solid #d2d7e5; */
+//   box-shadow: 0 8px 13px -5px #cad0e2;
+    
     .head_container {
             width: 100%;
             .head_header {
@@ -55,6 +60,7 @@
           font-size: 34px;
           line-height: 41px;
           font-weight: bold;
+        
       }
 
       div {
@@ -66,12 +72,19 @@
               font-weight: bold;
               color: #111111;
               margin-right: 0.5rem;
+              @include respond(lg-desktop) {
+                font-size: 15px;
+              }
           }
 
           .termValue {
               font-size: 20px;
               line-height: 41px;
               color: #11111148;
+              white-space: nowrap;
+            @include respond(lg-desktop) {
+                    font-size: 15px;
+                }
           }
       }
   }
@@ -79,7 +92,7 @@
     margin-top: 32px;
     padding-right: 15px;
     padding-left: 15px;
-    margin-bottom: 1rem;
+    margin-bottom: 10rem;
     @include respond(phone) {
             padding-right: 10px;
                 padding-left: 10px;
@@ -347,4 +360,12 @@
              }
          }
      }
+
+}
+
+ .danger{
+    color: #EA3F3F
  }
+
+
+ 
