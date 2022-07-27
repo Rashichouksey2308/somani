@@ -107,7 +107,7 @@ const Index = ({ termsheet, otherTermConditions, handleSave, onChangeInsurance, 
                     <Form>
                         <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.<select className={styles.igpl_para}>
                             <option value={`Indo German International Private Limited (IGPL)`}>Indo German International Private Limited (IGPL)</option> 
-                             <option value={` EMERGENT INDUSTRIAL SOLUTIONS LIMITED (EISL)`}> EMERGENT INDUSTRIAL SOLUTIONS LIMITED (EISL))</option>
+                             <option value={` EMERGENT INDUSTRIAL SOLUTIONS LIMITED (EISL)`}> Emergent Industrial Solutions Limited (EISL)</option>
                             </select>
                             
                             will provide proof of all expenses to the Buyer.</div>

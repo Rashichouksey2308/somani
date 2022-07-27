@@ -238,8 +238,16 @@ function Index() {
              
              <ol>
                  <li>4. LC Value</li>
-                  <li>5. LC opening Bank</li>
-                   <li>6. Margin Money as % of Import Valuee</li>
+                 <li>5. LC opening Bank</li>
+                 <li>6. Margin Money as % of Import Value</li>
+                 <li>7. INCO Terms</li>
+                 <li>8. Load Port</li>
+                 <li>9. Country of Origin</li>
+                 <li>10. Shipment Type</li>
+                 <li>11. Part Shipment Allowed</li>
+                 <li>12. Port of Discharge</li>
+                 <li>13. Bill of Entry</li>
+                 <li>14. 3rd Party Inspection Required</li>
              </ol>
             
             </Col>
@@ -253,7 +261,7 @@ function Index() {
         </Row>
        </div>
        
-        <div>
+        {/* <div>
         <Row className={`${styles.row_head} row_head`}>
             <Col md={4}  sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
@@ -278,7 +286,7 @@ function Index() {
              </ul>
             </Col>
         </Row>
-       </div>
+       </div> */}
         <div>
         <Row className={`${styles.row_head} row_head`}>
             <Col md={4}  sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
@@ -292,7 +300,33 @@ function Index() {
             <Col md={4}  sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
-                 <li>8. Storage of Good</li>
+                 <li>15. Storage of Goods</li>
+                  
+             </ol>
+            
+            </Col>
+            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+                 <ul>
+                 <li>{termsheetDetails?.transactionDetails?.storageOfGoods}</li>
+                 
+             </ul>
+            </Col>
+        </Row>
+       </div>
+       <div>
+        <Row className={`${styles.row_head} row_head`}>
+            <Col md={4}  sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
+             
+            <span>Deliveries/Due Date/Payment</span>
+            
+            </Col>
+            <Col md={8}  sm={6} xs={6}>{""}</Col>
+          </Row>
+          <Row>
+            <Col md={4}  sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+             
+             <ol>
+                 <li>16. Deliveries/Due date/Payment</li>
                   
              </ol>
             
@@ -309,7 +343,7 @@ function Index() {
         <Row className={`${styles.row_head} row_head`}>
             <Col md={4}  sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
-            <span>Commercials Terms</span>
+            <span>Commercial Terms</span>
             
             </Col>
             <Col md={8}  sm={6} xs={6}>{""}</Col>
@@ -318,13 +352,14 @@ function Index() {
             <Col md={4}  sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
-                 <li>10. Trade Margin (%)</li>
-                 <li>11. LC Opening Charges (Minimum)</li>
-                 <li>12. LC Opening Charges (%)</li>
-                 <li>13. Usance Interest (%) For 90 Days</li>
-                 <li>14. Overdue Interest per Month (%)</li>
-                 <li>15. Exchange Fluctuation</li>
-                 <li>16. Other Terms</li>
+                 <li>17. Trade Margin (%)</li>
+                 <li>18. LC Opening Charges (Minimum)</li>
+                 <li>19. LC Opening Charges (%)</li>
+                 <li>20. Usance Interest (%) For 90 Days</li>
+                 <li>21. Overdue Interest per Month (%)</li>
+                 <li>22. Exchange Fluctuation</li>
+                 <li>23. Forex Hedging</li>
+                 <li>{`24. Other Terms & Conditions`}</li>
                   
              </ol>
             
@@ -357,7 +392,7 @@ function Index() {
             <Col md={4}   sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
              
              <ol>
-                 <li>17. Reimbursement of Expenses</li>
+                 <li>25. Reimbursement of Expenses</li>
                   
                   
              </ol>
@@ -372,7 +407,7 @@ function Index() {
             </Col>
         </Row>
        </div>
-        <div>
+        {/* <div>
         <Row className={`${styles.row_head} row_head`}>
             <Col md={4}   sm={6} xs={6} className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
@@ -399,7 +434,7 @@ function Index() {
              </ul>
             </Col>
         </Row>
-       </div>
+       </div> */}
         <div>
         <Row className={`${styles.row_head} row_head`}>
             <Col md={4}  sm={6} xs={6} className={`${styles.content_header_other}  d-flex justify-content-center align-content-center`}>
@@ -423,7 +458,7 @@ function Index() {
             <Form>
                
                 <div className='row'>              
-                    <div className={`${styles.form_group} mt-5 col-md-6`} >
+                    <div className={`${styles.form_group} ${styles.formLeft} mt-5 col-md-6`} >
                         <h3 className={`${styles.other_heading} row_head`}>CHA / Stevedoring Charges</h3>
                         <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                          <div className=' d-flex align-items-center'>
@@ -528,7 +563,7 @@ function Index() {
                             </div>
                         </div>                        
                     </div>
-                    <div className={`${styles.form_group} mt-5 col-md-6`}>
+                    <div className={`${styles.form_group} ${styles.formRight} mt-5 col-md-6`}>
                         <div className=''>
                             <h3 className={`${styles.other_heading} row_head`}>LC Opening Charges</h3>
                             <div className={`${styles.checkbox_container}  label_heading d-flex flex-column`}>
@@ -542,19 +577,19 @@ function Index() {
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="cmaFeesIncludingSupervisionAndSurvey" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.cmaFeesIncludingSupervisionAndSurvey}  />
-                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlForcls="vehicle3">CMA Fees including supervision and survey</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle3">CMA Fees including supervision and survey</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="bankDoIssuanceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.bankDoIssuanceCharges}  />
-                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlForcls="vehicle4">Bank DO Issuance Charges</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle4">Bank DO Issuance Charges</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="remmittanceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.remmittanceCharges}  />
-                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlForcls="vehicle5">Remmittance Charges</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle5">Remmittance Charges</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="usanceInterest" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.usanceInterest}  />
-                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlForcls="vehicle6">Usance Interest</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle6">Usance Interest</label>
                                         </div>
                             </div>
                         </div>
@@ -601,6 +636,10 @@ function Index() {
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="cimsCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.cmaFeesIncludingSupervisionAndSurvey}  />
                                             <label className={`${styles.checkbox_label} termsheet_Text`}>CIMS Charges (incase Commodity is Coal)</label>
+                                        </div>
+                                        <div className='pt-4 d-flex align-items-center'>
+                                            <input id="taxCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.cmaFeesIncludingSupervisionAndSurvey}  />
+                                            <label className={`${styles.checkbox_label} termsheet_Text`}>Tax Collected at Source ( if applicable )</label>
                                         </div>
                             </div>
                         </div>
