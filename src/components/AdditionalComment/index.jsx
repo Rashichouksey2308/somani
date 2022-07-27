@@ -14,6 +14,7 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
     const [text, setText] = useState("")
     const [isCommentEditable, setIsCommentEditable] = useState({})
     const [days,setDays]=useState({day1:"",day2:""})
+    const [inputs,setInputs]=useState({input1:"",input2:"",input3:""})
 
     const allcomment = []
     useEffect(() => {
@@ -50,6 +51,15 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
              setDays({...days,day2:value})
         }
       
+    }else{
+         if(name=="input1"){
+            setInputs({...inputs,input1:value})
+        }else if(name=="input2"){
+             setInputs({...inputs,input2:value})
+        }
+        else{
+             setInputs({...inputs,input3:value})
+        }
     }
  }
  const textGenerator=()=>{
@@ -57,12 +67,15 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
     let text=`${days.day1} days from the vessel/container(s) at discharge date at discharge port or ${days.day2} days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).`
     return text   
 }else{
-     let text=`Cargo to be stored in Custom Bonded Warehouse at port of Discharge (Vizag India) under CMA with Dr. Amin Controllers. “lGM and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.`
+     let text=`Cargo to be stored in Custom Bonded Warehouse at port of Discharge (${inputs.input1}) under CMA with ${inputs.input2}. ${inputs.input3} and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.`
      return text  
 }
  }
  const addComment=()=>{
     setComment([...comment,{type:commentType,text :textGenerator()}])
+    setDays({day1:"",day2:""})
+    setInputs({input1:"",input2:"",input3:""})
+
  }
  const deleteComment=(index)=>{
   setComment([...comment.slice(0,index), ...comment.slice(index+1)])
@@ -115,7 +128,9 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                                 {commentType=="Deliveries/Due Date/Payment" ?
                                  <p><GrowInput name={"day1"} getValue={getInputValue} className={styles.grow_input} type="text"/> days from the vessel/container(s) at discharge date at discharge port or <GrowInput  name={"day2"} getValue={getInputValue} className={styles.grow_input} type="text"/> days  from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).  </p>
                                 :
-                                <p>Cargo to be stored in Custom Bonded Warehouse at port of Discharge (Vizag India) under CMA with Dr. Amin Controllers. “lGM and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.</p>
+                                <p>Cargo to be stored in Custom Bonded Warehouse at port of Discharge (
+                                    <GrowInput  name={"input1"} getValue={getInputValue} className={styles.grow_input} type="text"/>
+                                    ) under CMA with <GrowInput  name={"input2"} getValue={getInputValue} className={styles.grow_input} type="text"/>. “<GrowInput  name={"input3"} getValue={getInputValue} className={styles.grow_input} type="text"/> and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.</p>
                                 }
                                
                                 </div>      
@@ -138,7 +153,7 @@ const Index = ({ additionalComments, addCommentHandler, updateCommenthandler }) 
                                     <div className={`${styles.form_group} col-md-9`}>
                                         <div className={`${styles.comment_para} d-flex justify-content-between`}>
                                             {/* <div className={styles.comment}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                   */}
-                                            <Form.Control className={`${styles.comment} ${!isCommentEditable[index]?styles.nonEditable:null}
+                                            <Form.Control className={`${styles.comment} ${!isCommentEditable[index]? styles.nonEditable :null}
                                             
                                             `}
                                                 as="textarea"

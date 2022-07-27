@@ -506,6 +506,17 @@ body.dark-mode .table_row {
   background: #232936;
   border-bottom: 2px solid #434E61 !important;
 }
+body.light-mode .uploadRowTable {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  color: rgba(17, 17, 17, 0.7);
+  border-bottom: 2px solid #F2F5F9;
+}
+
+body.dark-mode .uploadRowTable {
+  color: #FFFFFF80;
+  background: #232936;
+  border-bottom: 2px solid #434E61 !important;
+}
 body.light-mode .table_row_head {
 background: #FAFAFB 0% 0% no-repeat padding-box;
  

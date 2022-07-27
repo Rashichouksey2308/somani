@@ -54,7 +54,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 <select id='unitOfQuantity' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommodityDetails} required>
                                     <option value={termsheetDetails?.commodityDetails?.unitOfQuantity}>{termsheetDetails?.commodityDetails?.unitOfQuantity == "mt" ? "MT" : null} </option>
 
-                                    <option value="KG">KG</option>
+                                  
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Units of Measurement (UOM)<strong className="text-danger">*</strong></label>
                                 <img
@@ -67,8 +67,13 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
                                 <select selected={termsheetDetails?.commodityDetails?.orderCurrency} id='orderCurrency' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommodityDetails} required>
-                                    {termsheetDetails?.commodityDetails?.orderCurrency === 'Rupee' ? <> <option value="Rupee">₹</option>  <option value="USD">USD</option> </>
-                                        : <> <option value="USD">USD</option>   <option value="Rupee">₹</option></>
+                                    {termsheetDetails?.commodityDetails?.orderCurrency === 'Rupee' ? <> <option value="Rupee">INR</option>  <option value="USD">USD</option> </>
+                                        : <>
+                                             <option value="USD">USD</option>
+                                             <option value="Rupee">INR</option>
+                                             <option value="Rupee">Euro</option>
+                                             <option value="Rupee">British Pound</option>
+                                        </>
                                     }
 
 
