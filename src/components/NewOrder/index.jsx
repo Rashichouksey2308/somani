@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 
-const Index = ({ saveOrderData }) => {
+const Index = ({ saveOrderData, orderData }) => {
   const saveDate = (value, name) => {
     const d = new Date(value)
     let text = d.toISOString()
@@ -47,8 +47,10 @@ const Index = ({ saveOrderData }) => {
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
             >
               <option selected></option>
-              <option>Crores</option>
-              <option>Million</option>
+              <option value='INR'>INR</option>
+              <option value='USD'>USD</option>
+              <option value='EURO'>EURO</option>
+              <option value='BRITISH POUND'>BRITISH POUND</option>
             </select>
           </div>
           <span>+</span>
@@ -137,7 +139,7 @@ const Index = ({ saveOrderData }) => {
                   type="text"
                   name="orderValue"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, Number(e.target.value * 1000000))
+                    saveOrderData(e.target.name, e.target.value)
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>

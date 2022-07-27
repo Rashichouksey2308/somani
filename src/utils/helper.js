@@ -40,3 +40,20 @@ export const isInTheFuture = (date) => {
 
   return date > today
 }
+
+export const handleCurrencyOrder = (unitOfValue, value) => {
+  
+  if(unitOfValue === 'INR'){
+    return (Number(value) * 10000000)
+  }
+  else if(unitOfValue === 'USD'){
+    return (Number(value) * 1000000)
+  }
+  else if(unitOfValue === 'EURO'){
+    return (Number(value) * 1000000)
+  }
+  else if(unitOfValue === 'BRITISH POUND'){
+    return (Number(value) * 1000000)
+  }
+  
+}
