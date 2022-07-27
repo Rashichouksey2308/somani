@@ -7,16 +7,16 @@ function index({data,Heading, val }) {
   //const pendingCases = data.filter((e)=> e.)
   console.log(totalNumberOfCases,'totalNumberOfCases')
   return (
-    <div className={`${styles.card_litigations} card`}>
+    <div className={`${styles.card_litigations} card shadow-none`}>
       <div className={`${styles.card_ligitations_holder}`}>
         <div
-          className={`${styles.cardHeader_litigations} card-header d-flex align-items-center justify-content-between`}
+          className={`${styles.cardHeader_litigations} card-header d-flex border-bottom-0 align-items-center justify-content-between`}
           data-toggle="collapse"
           data-target={`#${val}`}
           aria-expanded="true"
           aria-controls={`${val}`}
         >
-          <Row className={`${styles.row}`}>
+          <Row className={`${styles.row} align-items-center`}>
             <Col md={3} sm={2}>
               <div className="mb-0">{Heading}</div>
             </Col>
@@ -26,7 +26,7 @@ function index({data,Heading, val }) {
                 <span className={`${styles.lower} sub_heading`}>{data?.pendingCase}</span>
               </div>
             </Col>
-            <Col md={3} sm={2}>
+            <Col md={2} sm={2}>
               <div
                 className={`${styles.head}  mb-0 d-flex align-items-center `}
               >
@@ -45,10 +45,10 @@ function index({data,Heading, val }) {
                 </div>
               </div>
             </Col>
+            <Col md={1} sm={1} className="text-center">
+              <img src="/static/arrow-right.svg" alt="arrow right" class={`${styles.image_arrow} img-fluid image_arrow`} />
+            </Col>
           </Row>
-          <h2 className="mb-0" sm={1}>
-            +
-          </h2>
         </div>
         <div
           id={`${val}`}
