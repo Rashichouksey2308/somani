@@ -337,7 +337,7 @@ function Index() {
         productSummary: { ...product },
         gstin: 'test'
       }
-      dispatch(UpdateCreditCalculate(obj))
+      // dispatch(UpdateCreditCalculate(obj))
     }
   }
 
@@ -537,7 +537,6 @@ function Index() {
     approvedCreditValue: orderList?.cam?.approvedCreditValue
   })
 
-  console.log(approvedCredit, 'THIS IS APPROVED CREDIT')
 
   const saveApprovedCreditData = (name, value) => {
     const newInput = { ...approvedCredit }
@@ -1011,7 +1010,7 @@ function Index() {
                         >
                           <label className={styles.label}>Status:</label>
                           <div
-                            className={`${styles.status} d-flex align-items-center justify-content-between`}
+                            className={`${styles.status}`}
                           >
                             <span>
                               {companyData?.compliance?.other?.complianceStatus}{' '}
@@ -1204,10 +1203,8 @@ function Index() {
                       <div className={`${styles.categories} mb-0 d-flex align-items-center`}>
                         <label className={styles.label}>Categories:</label>
                         <select onChange={(e) => setComplienceFilter(e.target.value)} className={`${styles.form_control} form-control`}>
-                          <option value="High">High</option>
-                          <option value="Medium">Medium</option>
-                          <option value="low">low</option>
-                          <option value="Severe">Severe</option>
+                          <option value="Statutory Compliance">Statutory Compliance</option>
+                          <option value="Banking Defaults">Banking Defaults</option>
                         </select>
                         <span>+</span>
                       </div>
@@ -1623,6 +1620,30 @@ function Index() {
                         </div>
 
                         <div className={styles.table_container}>
+                           <div
+                      className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
+                    >
+                      <div>
+                        <select
+                          className={`${styles.dropDown} input form-control`}
+                        >
+                          <option>Lead Onboarding &amp; Order Approval</option>
+                          <option>Agreements, Insurance & LC Opening</option>
+                          <option>Loading-Transit-Unloading</option>
+                          <option>Custom Clearance And Warehousing</option>
+                          <option value="Others">Others</option>
+                        </select>
+                      </div>
+                      <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
+                        <img className={` ${styles.searchImage} img-fluid`} src="/static/search-grey.svg" alt="Search"></img>
+                        <input
+                          className={`${styles.searchBar} input form-control`}
+                          placeholder="Search"
+                        >
+                          
+                        </input>
+                      </div>
+              </div>
                           <table
                             className={`${styles.table} table`}
                             cellPadding="0"
@@ -1637,37 +1658,13 @@ function Index() {
                                 <th>UPLOADED BY</th>
                                 <th>STATUS</th>
                                 <th>ACTION</th>
-                                <th>
-                                  <img
-                                    src="/static/search-blue.svg"
-                                    className="img-fluid"
-                                    alt="Search"
-                                  />
-                                </th>
+
+                              
                               </tr>
                             </thead>
                             <tbody>
-                              <tr className="table_row">
-
-                                <td colSpan="7" className="p-0">
-                                  <div
-                                    className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`} >
-                                    <div>
-                                      <select
-                                        className={`${styles.dropDown} input form-control`}
-                                      >
-                                        <option value="LeadOnboarding,OrderApproval">Lead Onboarding & Order Approval</option>
-                                        <option value="Agreements,Insurance,LCOpening">Agreements, Insurance & LC Opening</option>
-                                        <option value="Loading-Transit-Unloading">Loading-Transit- Unloading</option>
-                                        <option value="Customclearanceandwarehousing">Custom clearance and warehousing</option>
-                                        <option value="others">Others</option>
-                                      </select>
-                                    </div>
-                                  </div>
-
-                                </td>
-                              </tr>
-                              <tr className="table_row">
+                              
+                              <tr className="uploadRowTable">
                                 <td className={`${styles.doc_name}`}>
                                   Insurance Quotation
                                 </td>
@@ -1711,7 +1708,7 @@ function Index() {
                                   return null
                                 } else {
                                   return (
-                                    <tr key={index} className="table_row">
+                                    <tr key={index} className="uploadRowTable">
                                       <td className={`${styles.doc_name}`}>
                                         {document.name}
                                       </td>

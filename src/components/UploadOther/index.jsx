@@ -158,6 +158,30 @@ const Index = ({orderid}) => {
         <div className={styles.table_container}>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
+              <div
+                      className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
+                    >
+                      <div>
+                        <select
+                          className={`${styles.dropDown} input form-control`}
+                        >
+                          <option>Lead Onboarding &amp; Order Approval</option>
+                          <option>Agreements, Insurance & LC Opening</option>
+                          <option>Loading-Transit-Unloading</option>
+                          <option>Custom Clearance And Warehousing</option>
+                          <option value="Others">Others</option>
+                        </select>
+                      </div>
+                      <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
+                        <img className={` ${styles.searchImage} img-fluid`} src="/static/search-grey.svg" alt="Search"></img>
+                        <input
+                          className={`${styles.searchBar} input form-control`}
+                          placeholder="Search"
+                        >
+                          
+                        </input>
+                      </div>
+              </div>
               <table
                 className={`${styles.table} table`}
                 cellPadding="0"
@@ -200,35 +224,15 @@ const Index = ({orderid}) => {
                     </th>
                     <th>STATUS </th>
                     <th>ACTION</th>
-                    <th>
-                      <img
-                        src="/static/search-blue.svg"
-                        className={`${styles.searchImg} `}
-                        alt="Search"
-                      />
-                    </th>
+                   
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <div
-                      className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between`}
-                    >
-                      <div>
-                        <select
-                          className={`${styles.dropDown} input form-control`}
-                        >
-                          <option>Lead Onboarding &amp; Order Approval</option>
-                          <option>Agreements, Insurance & LC Opening</option>
-                          <option>Loading-Transit-Unloading</option>
-                          <option>Custom Clearance And Warehousing</option>
-                          <option value="Others">Others</option>
-                        </select>
-                      </div>
-                    </div>
+                    
                   </tr>
 
-                  <tr className="table_row">
+                  <tr className="uploadRowTable">
                     <td className={styles.doc_name}>Container No. List</td>
                     <td>
                       <img
@@ -268,7 +272,7 @@ const Index = ({orderid}) => {
                                   return null
                                 } else {
                                   return (
-                                    <tr key={index} className="table_row">
+                                    <tr key={index} className="uploadRowTable">
                                       <td className={`${styles.doc_name}`}>
                                         {document.name}
                                       </td>
