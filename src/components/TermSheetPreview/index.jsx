@@ -140,14 +140,14 @@ function Index() {
   return (
       
       <>
-       <div className={`${styles.root_container} tabHeader`}>
-      <div  className={styles.head_container}>
+    <div className={`${styles.root_container} `}>
+      {/* <div  className={styles.head_container}>
         <div className={styles.head_header}>
           <img className={styles.arrow}
             src="/static/keyboard_arrow_right-3.svg" alt="Arrow" />
           <h1 className={`${styles.heading} heading`}>Termsheet Preview</h1>
         </div>
-      </div>
+      </div> */}
     <div  className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
        <Row className={`h-50`}>
          <Col md={4} className={`d-flex justify-content-start align-items-start`}>
@@ -195,7 +195,7 @@ function Index() {
            
        </Row>))}
       </div> */}
-      <Card className={styles.content}>
+      <Card className={`${styles.content} ${styles.customCard}`}>
        <div>
         <Row className={`${styles.row_head} row_head`}>
             <Col md={4} sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
@@ -215,7 +215,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8} sm={6} xs={6}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8} sm={6} xs={6}  className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>{termsheetDetails?.commodityDetails?.commodity}</li>
                 <li>{termsheetDetails?.commodityDetails?.unitOfQuantity} MT (± 10%)</li>
@@ -243,7 +243,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}   sm={6} xs={6} className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}   sm={6} xs={6} className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>USD {termsheetDetails?.transactionDetails?.lcValue}</li>
                   <li>{termsheetDetails?.transactionDetails?.lcOpeningBank}</li>
@@ -271,7 +271,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>{termsheetDetails.paymentDueDate?.computationOfDueDate}</li>
                  
@@ -297,7 +297,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li>{termsheetDetails?.transactionDetails?.storageOfGoods}</li>
                  
@@ -329,7 +329,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  <li> {termsheetDetails.commercials?.tradeMarginPercentage} </li>
                  <li> {termsheetDetails.commercials?.lcOpeningChargesUnit} </li>
@@ -363,7 +363,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}   sm={6} xs={6} className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}   sm={6} xs={6} className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  
                  <li>Post CFR expenses to be reimbursed on actual basis if applicable as attached.</li>
@@ -391,7 +391,7 @@ function Index() {
              </ol>
             
             </Col>
-            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} accordion_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
                  
                  <li>{termsheetDetails?.commercials?.overDueInterestPerMonth}%</li>
@@ -407,10 +407,10 @@ function Index() {
             <span>Other Terms & Conditions</span>
             
             </Col>
-            <Col md={8}  sm={6} xs={6}>{""}</Col>
+            <Col md={8}  sm={6} xs={6}>{``}</Col>
           </Row>
           <Row>
-            <Col md={12} className={`${styles.sub_content_other} accordion_Text label_heading  d-flex justify-content-start align-content-center`}>
+            <Col md={12} className={`${styles.sub_content_other} termsheet_Text label_heading  d-flex justify-content-start align-content-center`}>
             {termsheetDetails.commercials?.otherTermsAndConditions}
             
             
@@ -426,91 +426,106 @@ function Index() {
                     <div className={`${styles.form_group} mt-5 col-md-6`} >
                         <h3 className={`${styles.other_heading} row_head`}>CHA / Stevedoring Charges</h3>
                         <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
-                         <div className='pt-4 d-flex align-items-center'>
-                                        <input id="pollutionCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.pollutionCharges}  />
-                                        <label className={styles.checkbox_label}>Pollution charges</label>
-                                    </div>
+                         <div className=' d-flex align-items-center'>
+                                        <input id=">Customs clearing charges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.pollutionCharges}  />
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Customs clearing charges / handling charges / CHA Fee</label>
+                         </div>
+                         
                         <div className='pt-4 d-flex align-items-center'>
                                         <input id='wharfaceCharges' className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.wharfaceCharges}  />
 
-                                        <label className={styles.checkbox_label}>Wharfage Charges </label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Wharfage Charges </label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="pollutionCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.pollutionCharges}  />
-                                        <label className={styles.checkbox_label}>Pollution charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Pollution Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="royalyAndPenaltyCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.royalyAndPenaltyCharges}  />
-                                        <label className={styles.checkbox_label}>Royalty and Penalty Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Royalty and Penalty Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="tarpaulinCoverageCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.tarpaulinCoverageCharges}  />
-                                        <label className={styles.checkbox_label}>Tarpaulin Coverage Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Tarpaulin Coverage Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="wheighmentAndWeighmentSurveyCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.wheighmentAndWeighmentSurveyCharges}  />
-                                        <label className={styles.checkbox_label}>Wheighment &amp; Weighment Survey Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Wheighment &amp; Weighment Survey Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="draughtSurveyCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.draughtSurveyCharges}  />
-                                        <label className={styles.checkbox_label}>Draught Survey Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Draught Survey Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="boatingWhileDraughtSurveyCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.boatingWhileDraughtSurveyCharges}  />
-                                        <label className={styles.checkbox_label}>Boating while Draught Survey Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Boating while Draught Survey Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="hmcCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.hmcCharges}  />
-                                        <label className={styles.checkbox_label}>HMC Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>HMC Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="securityCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.securityCharges}  />
-                                        <label className={styles.checkbox_label}>Security Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Security Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="piotRentalAndStorageCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.piotRentalAndStorageCharges}  />
-                                        <label className={styles.checkbox_label}>Plot Rental &amp; Storage Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Plot Rental &amp; Storage Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="bondingOfCargoCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.bondingOfCargoCharges}  />
-                                        <label className={styles.checkbox_label}>Bonding of Cargo Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Bonding of Cargo Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="exBondDocumentationCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.exBondDocumentationCharges}  />
-                                        <label className={styles.checkbox_label}>Ex - Bond Documentation Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Ex - Bond Documentation Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="transferOfOwnershipCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.transferOfOwnershipCharges}  />
-                                        <label className={styles.checkbox_label}>Transfer of Ownership Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Transfer of Ownership Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="customsBondOfficerOvertimeCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.customsBondOfficerOvertimeCharges}  />
-                                        <label className={styles.checkbox_label}>Customs Bond Officer Overtime Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Customs Bond Officer Overtime Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="grabHireCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.grabHireCharges}  />
-                                        <label className={styles.checkbox_label}>Grab Hire Charges ( if any )</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Grab Hire Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="craneHireCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.craneHireCharges}  />
-                                        <label className={styles.checkbox_label}>Crane Hire Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Crane Hire Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="handlingLosses" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.handlingLosses}  />
-                                        <label className={styles.checkbox_label}>Handling Losses</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Handling Losses</label>
                                     </div>
-                                    <div className='pt-4 d-flex align-items-center'>
-                                        <input id="insuranceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges}  />
-                                        <label className={styles.checkbox_label}>Insurance Charges ( While transferring the material to customs bonded ware house )</label>
-                                    </div>
+                                   
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="waterSprinklingCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.waterSprinklingCharges}  />
-                                        <label className={styles.checkbox_label}>Water Sprinkling Charges</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Water Sprinkling Charges</label>
                                     </div>
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="others" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.others}  />
-                                        <label className={styles.checkbox_label}>Others, if any</label>
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Others, if any</label>
                                     </div>
+                        </div>  
+                         <div className='mt-4'>
+                            <h3 className={`${styles.other_heading} row_head`}>Insurance</h3>
+                            <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
+                            <div className='d-flex align-items-center'>
+                                            <input id="marineInsurance" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.insurance?.marineInsurance}  />
+                                            <label className={`${styles.checkbox_label} termsheet_Text`}>Marine Insurance ( if Applicable)</label>
+                                        </div>
+                                        <div className='pt-4 d-flex align-items-center'>
+                                            <input id="storageInsurance" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.insurance?.storageInsurance}  />
+                                            <label className={`${styles.checkbox_label} termsheet_Text`}>Storage Insurance(Fire & Burgalary)</label>
+                                        </div>
+                                         <div className='pt-4 d-flex align-items-center'>
+                                        <input id="insuranceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges}  />
+                                        <label className={`${styles.checkbox_label} termsheet_Text`}>Insurance Charges ( While transferring the material to customs bonded ware house )</label>
+                                    </div>
+                            </div>
                         </div>                        
                     </div>
                     <div className={`${styles.form_group} mt-5 col-md-6`}>
@@ -519,27 +534,27 @@ function Index() {
                             <div className={`${styles.checkbox_container}  label_heading d-flex flex-column`}>
                             <div className='d-flex align-items-center'>
                                             <input id="lcOpeningCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.lcOpeningCharges}  />
-                                            <label className={styles.checkbox_label}>LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`}>LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="lcAmendmentCost" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.lcAmendmentCost}  />
-                                            <label className={styles.checkbox_label}>LC Amendment Cost</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`}>LC Amendment Charges</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="cmaFeesIncludingSupervisionAndSurvey" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.cmaFeesIncludingSupervisionAndSurvey}  />
-                                            <label className={styles.checkbox_label} htmlForcls="vehicle3">CMA Fees including supervision and survey</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlForcls="vehicle3">CMA Fees including supervision and survey</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="bankDoIssuanceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.bankDoIssuanceCharges}  />
-                                            <label className={styles.checkbox_label} htmlForcls="vehicle4">Bank DO Issuance charges</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlForcls="vehicle4">Bank DO Issuance Charges</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="remmittanceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.remmittanceCharges}  />
-                                            <label className={styles.checkbox_label} htmlForcls="vehicle5">Remmittance Charges</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlForcls="vehicle5">Remmittance Charges</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="usanceInterest" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.usanceInterest}  />
-                                            <label className={styles.checkbox_label} htmlForcls="vehicle6">Usance Interest</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlForcls="vehicle6">Usance Interest</label>
                                         </div>
                             </div>
                         </div>
@@ -548,27 +563,27 @@ function Index() {
                             <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                             <div className='pt-4 d-flex align-items-center'>
                                             <input id="demurrageOrDetentionChargesOfVessel" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.otherCharges?.demurrageOrDetentionChargesOfVessel}  />
-                                            <label className={styles.checkbox_label} htmlFor="vehicle2">Demurrage / Detention Charges of Vessel</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle2">Demurrage / Detention Charges of Vessel</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="transportationCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.otherCharges?.transportationCharges}  />
-                                            <label className={styles.checkbox_label} htmlFor="vehicle3">Transportation Charges</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle3">Transportation Charges</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="wagonHaulageCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.otherCharges?.wagonHaulageCharges}  />
-                                            <label className={styles.checkbox_label} htmlFor="vehicle1">Wagon Haulage Charges (in case of Delivery through railways)</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle1">Wagon Haulage Charges (in case of Delivery through railways)</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="thirdPartyInspectionCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.otherCharges?.thirdPartyInspectionCharges}  />
-                                            <label className={styles.checkbox_label} htmlFor="vehicle1">3rd Party Inspection Charges</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle1">3rd Party Inspection Charges</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="hedgingCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.otherCharges?.hedgingCharges}  />
-                                            <label className={styles.checkbox_label} htmlFor="vehicle1">Hedging Charges</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle1">Hedging Charges</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="anyOtherCostIncurredOnBehalfOfBuyer" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.otherCharges?.anyOtherCostIncurredOnBehalfOfBuyer}  />
-                                            <label className={styles.checkbox_label} htmlFor="vehicle1">Any other cost incurred on behalf of Buyer</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle1">Any other cost incurred on behalf of Buyer</label>
                                         </div>
                             </div>
                         </div>
@@ -577,31 +592,19 @@ function Index() {
                             <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                             <div className='d-flex align-items-center'>
                                             <input id="customsDutyWithAllGovtCess" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.customsDutyWithAllGovtCess}  />
-                                            <label className={styles.checkbox_label} htmlFor="vehicle1">Customs Duty with all Govt Cess</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle1">Customs Duty with all Govt Cess</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="igstWithCess" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.igstWithCess}  />
-                                            <label className={styles.checkbox_label} htmlFor="vehicle2">IGST with CESS, if Applicable</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle2">IGST with CESS, if Applicable</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="cimsCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.cmaFeesIncludingSupervisionAndSurvey}  />
-                                            <label className={styles.checkbox_label}>CIMS Charges (incase Commodity is Coal)</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`}>CIMS Charges (incase Commodity is Coal)</label>
                                         </div>
                             </div>
                         </div>
-                        <div className='mt-4'>
-                            <h3 className={`${styles.other_heading} row_head`}>Insurance</h3>
-                            <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
-                            <div className='d-flex align-items-center'>
-                                            <input id="marineInsurance" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.insurance?.marineInsurance}  />
-                                            <label className={styles.checkbox_label}>Marine Insurance ( if Applicable)</label>
-                                        </div>
-                                        <div className='pt-4 d-flex align-items-center'>
-                                            <input id="storageInsurance" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.insurance?.storageInsurance}  />
-                                            <label className={styles.checkbox_label}>Storage Insurance(Fire & Burgalary)</label>
-                                        </div>
-                            </div>
-                        </div>                    
+                                         
                     </div>
                    
                 </div>
@@ -609,7 +612,8 @@ function Index() {
         </div>
 
        <div className={`${styles.footer}`}>
-           All necessary documents to be filed with Customs department for discharge of goods & Customs clearance can be filed by IGPL or its nominated person. * GST charges extra wherever applicable
+           All necessary documents to be filed with Customs department for discharge of goods & Customs clearance can be filed by IGPL or its nominated person.
+           <p><span className={styles.danger}>*</span> GST charges extra wherever applicable</p>
        </div>
       </Card>
       

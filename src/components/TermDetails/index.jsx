@@ -307,6 +307,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 <select id='computationOfDueDate' onChange={(e) => payementchangeFunc(e.target.value)} className={`${styles.value} ${styles.customSelect}  input form-control`} required>
                                     <option value="DaysfromBLDate"  >Days from BL Date</option>
                                     <option value="DaysfromVesselDischargeDate" > Days from Vessel Discharge Date </option>
+                                    <option value="Whicheverisearlier"  >Whichever is earlier</option>
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Computation of Due date<strong className="text-danger">*</strong></label>
                                 <img

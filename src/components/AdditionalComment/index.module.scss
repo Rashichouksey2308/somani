@@ -181,3 +181,17 @@
     // position: relative;
 
 }
+.rowGroup {
+   
+    border-top: 2px solid rgba(0, 0, 0, .1);;
+
+    
+}
+.noBorder{
+    border-top: none !important;
+}
+.nonEditable{
+    background-color:rgba(0, 0, 0, 0);
+    border:none !important;
+    
+}
