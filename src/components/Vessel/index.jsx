@@ -44,7 +44,11 @@ function Index() {
             <div
               className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
             >
-              <h3 className={`${styles.heading}`}>Vessel Information 1</h3>
+              {shipmentType === 'Bulk' ? (
+                <h3 className={`${styles.heading}`}>Vessel Information 1</h3>
+              ) : (
+                <h3 className={`${styles.heading}`}>Basic Details</h3>
+              )}
               <div className="d-flex">
                 <div>
                   <label className={`${styles.dropDown_label} text`}>
