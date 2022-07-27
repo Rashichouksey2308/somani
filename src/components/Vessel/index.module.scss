@@ -506,3 +506,200 @@
     // position: relative;
 
 }
+.dashboard_form {
+    padding: 20px 35px 25px 40px;
+   
+    .vessel_card {
+    background: #FFFFFF;
+    border: 1px solid rgba(112, 112, 112, 0.4);
+    border-radius: 6px;
+    padding: 35px;
+   
+    .add_btn {
+    color: #3687E8;
+    text-transform: capitalize;
+    border: 3px solid #3687E8;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 23px;
+    background-color: transparent;
+    margin: 0 15px 0 30px;
+    width: 78px;
+    height: 36px;
+   
+    @include respond(md-desktop) {
+    font-size: 16px;
+    }
+   
+    @include respond(sm-desktop) {
+    font-size: 14px;
+    }
+   
+    @include respond(phone) {
+    font-size: 12px;
+    width: 50px;
+    height: 26px;
+    text-align: center;
+    border-radius: 3px;
+    }
+    }
+   
+    }
+   
+    .sub_heading {
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0px;
+   
+    //color: #111111;
+    @include respond(md-desktop) {
+    font-size: 18px;
+    }
+   
+    @include respond(sm-desktop) {
+    font-size: 16px;
+    line-height: 20px;
+    }
+   
+    @include respond(phone) {
+    font-size: 14px;
+    line-height: 15px;
+   
+   
+    }
+    }
+   
+    .form_group {
+    margin-top: 40px;
+    position: relative;
+    margin-bottom: 10px;
+   
+    @include respond(phone) {
+    margin: 15px;
+    }
+   
+    .search_image {
+    margin-left: -40px;
+    }
+   
+    .upload_btn {
+    text-align: center;
+    color: #3687E8;
+    text-transform: capitalize;
+    border: 3px solid #3687E8;
+    border-radius: 5px;
+    width: 226px;
+    height: 48px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 25px;
+    background-color: transparent;
+    white-space: nowrap;
+   
+    @include respond(md-desktop) {
+    font-size: 18px;
+    }
+   
+    @include respond(sm-desktop) {
+    font-size: 16px;
+    width: 200px;
+    height: 40px;
+   
+    }
+   
+    @include respond(phone) {
+    font-size: 14px;
+    width: 180px;
+    height: 32px;
+    }
+   
+    }
+   
+    .upload_text {
+    color: #8492A6;
+    text-transform: uppercase;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: bold;
+    margin-left: 30px;
+   
+    @include respond(sm-desktop) {
+    font-size: 14px;
+   
+   
+    }
+   
+    @include respond(phone) {
+    font-size: 12px;
+   
+    }
+    }
+   
+    .label_heading {
+    font-size: 16px;
+    letter-spacing: 0.53px;
+    line-height: 0.5;
+    top: 26px;
+    left: 30px;
+    margin-bottom: 0;
+    position: absolute;
+    pointer-events: none;
+    box-sizing: border-box;
+    transform: translateY(-29px);
+    transition: 0.3s all ease-in-out;
+   
+    @include respond(sm-desktop) {
+    font-size: 16px;
+    }
+   
+    @include respond(phone) {
+    font-size: 14px;
+    //top: 20px;
+   
+    }
+    }
+   
+    .input_field {
+    font-size: 20px;
+    height: 60px;
+    outline: none;
+    box-shadow: none;
+    border-radius: 4px;
+    position: relative;
+    box-sizing: border-box;
+    letter-spacing: 0.19px;
+    padding: 13px 30px 13px 17px;
+    border: 1px solid #0000001F;
+   
+    &:invalid+label {
+    transform: translateY(0);
+    }
+   
+    &:focus {
+    &+label {
+    transform: translateY(-29px);
+    }
+    }
+   
+    @include respond(md-desktop) {
+    font-size: 18px;
+    }
+   
+    @include respond(sm-desktop) {
+    font-size: 16px;
+    height: 55px;
+   
+    }
+   
+    @include respond(phone) {
+    font-size: 14px;
+    height: 45px;
+    padding: 0px 12px 0px 12px;
+    }
+    }
+    }
+   
+   }
+   
