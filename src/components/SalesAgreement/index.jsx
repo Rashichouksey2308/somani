@@ -553,23 +553,23 @@ const sendData=(key,data)=>{
                     <div className={`${styles.multiPart} d-flex justify-content-center align-items-center`}>
                       <span className={`mr-4`}>Multiple Parties Involved</span>
                       <div className={`d-flex mr-4`}>
-                        <div class={`form-check  mr-3`}>
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={()=>{
+                        <div className={`form-check  mr-3`}>
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={()=>{
                           setMultiPart(true)
                         }}
                         checked={multiPart==true?true:false}
                         />
-                        <label class="form-check-label" for="flexRadioDefault1">
+                        <label className="form-check-label" htmlFor="flexRadioDefault1">
                         Yes
                         </label>
                         </div>
-                        <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" 
+                        <div className="form-check">
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" 
                          checked={multiPart==false?true:false}
                         onChange={()=>{
                           setMultiPart(false)
                         }}/>
-                        <label class="form-check-label" for="flexRadioDefault2">
+                        <label className="form-check-label" htmlFor="flexRadioDefault2">
                         No
                         </label>
 </div>                   

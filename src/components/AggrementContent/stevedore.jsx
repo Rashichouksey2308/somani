@@ -267,7 +267,7 @@ const handleEditAddressInput=(index)=>{
           <div className={`d-flex justify-content-between align-items-center ${styles.multiAddContainer}`}>
                       {addressList.map((val,index)=>{
             return(
-           <div
+           <div key={index}
             className={`${styles.registeredAddress} w-100 d-flex justify-content-between border-color`}
           >
             <div className={`${styles.registeredAddressHeading}`}>

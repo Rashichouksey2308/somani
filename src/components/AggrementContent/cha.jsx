@@ -268,6 +268,7 @@ const handleEditAddressInput=(index)=>{
                       {addressList.map((val,index)=>{
             return(
            <div
+           key={index}
             className={`${styles.registeredAddress} w-100 d-flex justify-content-between border-color`}
           >
             <div className={`${styles.registeredAddressHeading}`}>
