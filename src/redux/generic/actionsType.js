@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import Router from 'next/router'
 import API from '../../utils/endpoints'
-import * as types from './actionsType'
+import * as types from './actions'
 import { toast } from 'react-toastify'
 // import history from '../../history'
 import Cookies from 'js-cookie'
@@ -40,6 +40,10 @@ export const updateGenericData =
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(submitGenericSuccess(response.data))
+          let toastMessage = 'Submmitted'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
         } else {
           dispatch(submitGenericFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'

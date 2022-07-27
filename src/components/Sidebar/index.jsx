@@ -30,7 +30,7 @@ function Index() {
                   {
             main:"Agreement & Lc Module",
             Other:[
-               {name: "Generic",image:"/static/Credit Queue.svg",route:"/generic"},
+               {name: "Generic",image:"/static/Credit Queue.svg",route:"/generic/generic-list"},
                {name: "Agreement",image:"/static/Credit Queue.svg",route:"/agreement"},
                {name: "LC Module",image:"/static/Review Queue.svg",route:"/letter-table"},
                {name: "Vessel Nomination",image:"/static/Review Queue.svg",route:"/vessel"},

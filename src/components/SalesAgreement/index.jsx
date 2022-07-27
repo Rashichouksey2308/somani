@@ -22,10 +22,7 @@ import { cssNumber } from 'jquery'
 
 function Index(props) {
     const dispatch = useDispatch()
-    
-  // ${
-  //               row.state=="current"?"/static/currnet.svg":row.state=="pending"?"/static/pending.svg":row.state=="done"?"/static/done.svg":"/static/Group 3256.svg"
-  //              }`
+
   console.log(props,"sales")
   const [active,setActive]=useState("Supplier")
   const [multiPart,setMultiPart]=useState(false)
@@ -43,7 +40,7 @@ function Index(props) {
        tempArr[i].image="/static/currnet.svg"
     }
     else{
-      if(tempArr[i].state!="pending"){
+      if(tempArr[i].state!="pending" && tempArr[i].state!="complete"){
          tempArr[i].state="default"
          tempArr[i].image="/static/Group 3256.svg"
       }
@@ -167,7 +164,7 @@ function Index(props) {
     ]
   )
   const onLeftChange=()=>{
-     let tempArr=sideBar;
+  let tempArr=sideBar;
   for(let i=0;i<tempArr.length;i++) {
     if(tempArr[i].state=="current"){
      if(i!=0){
@@ -179,8 +176,6 @@ function Index(props) {
       tempArr[a].image="/static/currnet.svg"
       setActive(tempArr[a].name)
      }
-    }else{
-      tempArr[i].state="default"
     }
 
   }
@@ -199,12 +194,12 @@ function Index(props) {
         console.log( tempArr[i].state,"tempArr[a]")
       let a=i+1
         console.log(a,"tempArr[a]234")
-      tempArr[a].state="current"
+       tempArr[a].state="current"
        tempArr[a].image="/static/currnet.svg"
       setActive(tempArr[a].name)
+      break;
+
      }
-    }else{
-      tempArr[i].state="default"
     }
 
   }
@@ -555,10 +550,10 @@ const sendData=(key,data)=>{
 
                   >
                   {active=="Supplier"?
-                    <div className={`${styles.switchContainer} d-flex justify-content-center align-items-center`}>
-                      <span className={`mr-5`}>Multiple Parties Involved</span>
-                      <div className={`d-flex`}>
-                        <div class="form-check">
+                    <div className={`${styles.multiPart} d-flex justify-content-center align-items-center`}>
+                      <span className={`mr-4`}>Multiple Parties Involved</span>
+                      <div className={`d-flex mr-4`}>
+                        <div class={`form-check  mr-3`}>
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={()=>{
                           setMultiPart(true)
                         }}
@@ -581,7 +576,7 @@ const sendData=(key,data)=>{
                       </div>
               <Form.Group className={`${styles.form_group} `}>
               <select
-                className={`${styles.input_field} input form-control`}
+                className={`${styles.input_field} ${multiPart==true?"":styles.inputDisabled} input form-control`}
                 name="countryOfOrigin"
                 onChange={(e) => {
                   saveOrderData(e.target.name, e.target.value)
