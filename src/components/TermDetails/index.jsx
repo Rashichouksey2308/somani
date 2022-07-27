@@ -127,7 +127,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>LC Value<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='marginMoney' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" defaultValue={termsheetDetails?.transactionDetails?.marginMoney} onChange={onChangeTransactionDetails} required
+                            <input id='marginMoney' className={`${styles.value} ${styles.marginPercent} input form-control`} type="number"  defaultValue={termsheetDetails?.transactionDetails?.marginMoney} onChange={onChangeTransactionDetails} required
                             />
                             <span className={styles.percent}><strong>%</strong></span>
 
@@ -317,11 +317,11 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='daysFromBlDate' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromBlDate} onChange={onChangePaymentDueDate} disabled={IsBlSelected} required />
+                            <input id='daysFromBlDate' className={`${styles.value} input form-control`} type="number"  defaultValue={termsheetDetails?.paymentDueDate?.daysFromBlDate} onChange={onChangePaymentDueDate} disabled={IsBlSelected} required />
                             <label className={`${styles.label} label_heading`}>Days From BL Date<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='daysFromVesselDischargeDate' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate} onChange={onChangePaymentDueDate} disabled={!IsBlSelected} required />
+                            <input id='daysFromVesselDischargeDate' className={`${styles.value} input form-control`} type="number"  defaultValue={termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate} onChange={onChangePaymentDueDate} disabled={!IsBlSelected} required />
                             <label className={`${styles.label} label_heading`}>Days From Vessel Discharge Date<strong className="text-danger">*</strong></label>
                         </div>
                     </div>
@@ -330,26 +330,26 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                     <h3 className={styles.sub_heading}>Commercial Terms</h3>
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='tradeMarginPercentage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" defaultValue={termsheetDetails.commercials?.tradeMarginPercentage} onChange={onChangeCommercialTerms} required />
+                            <input id='tradeMarginPercentage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="number" min="0" max="100" defaultValue={termsheetDetails.commercials?.tradeMarginPercentage} onChange={onChangeCommercialTerms} required />
                             <span className={styles.percent}><strong>%</strong></span>
                             <label className={`${styles.label} label_heading`}>Trade Margin(%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='lcOpeningChargesUnit' className={`${styles.value} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.lcOpeningChargesUnit} onChange={onChangeCommercialTerms} required />
+                            <input id='lcOpeningChargesUnit' className={`${styles.value} input form-control`} type="number"  defaultValue={termsheetDetails?.commercials?.lcOpeningChargesUnit} onChange={onChangeCommercialTerms} required />
                             <label className={`${styles.label} label_heading`}>LC Opening Charges (Minimum)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='usanceInterestPercetage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.usanceInterestPercetage} onChange={onChangeCommercialTerms} required />
+                            <input id='lcOpeningChargesPercentage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="number" min="0" max="100" defaultValue={termsheetDetails?.commercials?.lcOpeningChargesPercentage} onChange={onChangeCommercialTerms} required />
                             <span className={styles.percent}><strong>%</strong></span>
                             <label className={`${styles.label} label_heading`}>LC Opening Charges (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='overDueInterestPerMonth' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
+                            <input id='usanceInterestPercetage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="number" min="0" max="100" defaultValue={termsheetDetails?.commercials?.usanceInterestPercetage} onChange={onChangeCommercialTerms} required />
                             <span className={styles.percent}><strong>%</strong></span>
                             <label className={`${styles.label} label_heading`}>Usance Interest (%) For 90 Days<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='overDueInterestPerMonth' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
+                            <input id='overDueInterestPerMonth' className={`${styles.value} ${styles.marginPercent} input form-control`} type="number" min="0" max="100" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
                             <span className={styles.percent}><strong>%</strong></span>
                             <label className={`${styles.label} label_heading`}>Overdue Interest per Month (%)<strong className="text-danger">*</strong></label>
                         </div>
