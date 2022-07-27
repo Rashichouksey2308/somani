@@ -27,36 +27,11 @@ function Index() {
           route: '/credit-queue',
         },
         {
-          main: 'Agreement & Lc Module',
-          Other: [
-            {
-              name: 'Generic',
-              image: '/static/Credit Queue.svg',
-              route: '/generic/generic-list',
-            },
-            {
-              name: 'Agreement',
-              image: '/static/Credit Queue.svg',
-              route: '/agreement',
-            },
-            {
-              name: 'LC Module',
-              image: '/static/Review Queue.svg',
-              route: '/letter-table',
-            },
-            {
-              name: 'Vessel Nomination',
-              image: '/static/Review Queue.svg',
-              route: '/vessel',
-            },
-            {
-              name: 'Insurance',
-              image: '/static/Review Queue.svg',
-              route: '/insurance',
-            },
-          ],
-          image: '/static/Agreement&LCModule.svg',
+          name: 'Termsheet',
+          image: '/static/Termsheets.svg',
+          route: '/termsheet',
         },
+
         {
           name: 'Margin Money',
           image: '/static/Termsheets.svg',
