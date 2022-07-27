@@ -97,7 +97,10 @@ function Index() {
         <div className={`${styles.vessel_card}`}>
           {list &&
             list.map((val, index) => (
-              <div className={`${styles.main} mb-4 card border-color`}>
+              <div
+                key={index}
+                className={`${styles.main} mb-4 card border-color`}
+              >
                 <div
                   className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
                 >
