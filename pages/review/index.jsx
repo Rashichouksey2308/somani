@@ -337,7 +337,7 @@ function Index() {
         productSummary: { ...product },
         gstin: 'test'
       }
-      dispatch(UpdateCreditCalculate(obj))
+      // dispatch(UpdateCreditCalculate(obj))
     }
   }
 
@@ -537,7 +537,6 @@ function Index() {
     approvedCreditValue: orderList?.cam?.approvedCreditValue
   })
 
-  console.log(approvedCredit, 'THIS IS APPROVED CREDIT')
 
   const saveApprovedCreditData = (name, value) => {
     const newInput = { ...approvedCredit }
