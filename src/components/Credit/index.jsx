@@ -1344,6 +1344,7 @@ const index =  ({
                   <thead>
                     <tr>
                       <th>S.NO.</th>
+                      <th>Primary Account</th>
                       <th>BANK NAME</th>
                       <th>LIMIT TYPE</th>
                       <th>LIMIT</th>
@@ -1355,6 +1356,7 @@ const index =  ({
                     {debtData?.map((profile, index) => (
                       <tr key={index}>
                         <td>{(index += 1)}</td>
+                        <td></td>
                         <td>
                           <select
                             className={`${styles.dropDown} font-weight-bold heading`}
