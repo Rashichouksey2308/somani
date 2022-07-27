@@ -19,8 +19,15 @@ export default function Index() {
               aria-controls="lcApplication"
             >
               <h3 className={`${styles.heading}`}>Delivery Order</h3>
-
-              <span>+</span>
+              <div className="d-flex">
+                <div className="d-flex mr-5">
+                  <div className={`${styles.label_heading} mr-3 label_heading`}>
+                    Shipment Type
+                  </div>
+                  <div className={`${styles.shipment_type} mr-4`}>Bulk</div>
+                </div>
+                <span>+</span>
+              </div>
             </div>
             <div
               id="lcApplication"
@@ -59,135 +66,185 @@ export default function Index() {
                 className={`${styles.dashboard_form} card-body`}
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
-                <div className={`${styles.form_heading} mt-2`}>
-                  Release Order Details
-                </div>
-                <div className="row ml-auto">
+                <div className="row">
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                    style={{ top: '5px' }}
+                  >
+                    <select
+                      className={`${styles.input_field} input form-control`}
+                    >
+                      <option>01</option>
+                      <option>02</option>
+                      <option>03</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Released Order Number
+                    </label>
+                  </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                   >
                     <div className={`${styles.label} text`}>
-                      Release Order No.{' '}
-                      <strong className="text-danger ml-n1">*</strong>
+                      Quantity Released
                     </div>
-                    <span className={`${styles.value}`}>1</span>
+                    <span className={styles.value}>5,000 MT</span>
                   </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                   >
-                    <div className="d-flex">
-                      <DateCalender labelName="Release Order Date" />
-                      <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                      />
+                    <div className={`${styles.label} text`}>
+                      Delivery Order No.
                     </div>
+                    <span className={styles.value}>Ramal001-00002/01</span>
                   </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                   >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="number"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Net Quantity Released
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div
-                    className="col-lg-3 col-md-4 col-sm-6 text-center"
-                    style={{ top: '50px' }}
-                  >
-                    <div className="d-flex">
-                      <input
-                        className={styles.input_field}
-                        type="text"
-                        placeholder="Nomination.pdf"
-                      />
-                      <img
-                        className={`${styles.close_image} img-fluid `}
-                        src="/static/close.svg"
-                        alt="close"
-                      />
-
-                      <img
-                        src="/static/delete 2.svg"
-                        className={`${styles.delete_image} ml-4 img-fluid `}
-                        alt="delete"
-                      />
+                    <div className="row" style={{ marginTop: '-42px' }}>
+                      <div className={`${styles.form_group} col-lg-8`}>
+                        <div className={`${styles.label} text`}>
+                          Delivery Order Date
+                        </div>
+                        <span className={styles.value}>22-02-2022</span>
+                      </div>
+                      <div className={`${styles.form_group} col-lg-4`}>
+                        <img src="/static/close-b.svg" className="img-fluid" />
+                        <img
+                          src="/static/mode_edit.svg"
+                          className="img-fluid ml-3"
+                        />
+                      </div>
                     </div>
                   </div>
 
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                    style={{ top: '5px' }}
                   >
-                    <div className={`${styles.label} text`}>
-                      Release Order No.{' '}
-                      <strong className="text-danger ml-n1">*</strong>
-                    </div>
-                    <span className={`${styles.value}`}>2</span>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className="d-flex">
-                      <DateCalender labelName="Release Order Date" />
-                      <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <input
+                    <select
                       className={`${styles.input_field} input form-control`}
-                      type="number"
-                    />
+                    >
+                      <option>01</option>
+                      <option>02</option>
+                      <option>03</option>
+                    </select>
                     <label className={`${styles.label_heading} label_heading`}>
-                      Net Quantity Released
-                      <strong className="text-danger">*</strong>
+                      Released Order Number
                     </label>
                   </div>
                   <div
-                    className="col-lg-3 col-md-4 col-sm-6 text-center"
-                    style={{ top: '50px' }}
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                   >
-                    <div className={styles.uploadBtnWrapper}>
-                      <input type="file" name="myfile" />
-                      <button className={`${styles.upload_btn} mr-2 btn`}>
-                        Upload
-                      </button>
+                    <div className={`${styles.label} text`}>
+                      Quantity Released
                     </div>
-                    <img
-                      src="/static/delete 2.svg"
-                      className={`${styles.delete_image} mt-n4 img-fluid mr-2`}
-                      alt="Preview"
-                    />
-                    <img
-                      src="/static/add-btn.svg"
-                      className={`${styles.delete_image} mt-n4 img-fluid`}
-                      alt="Preview"
-                    />
+                    <span className={styles.value}>5,000 MT</span>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                  >
+                    <div className={`${styles.label} text`}>
+                      Delivery Order No.
+                    </div>
+                    <span className={styles.value}>Ramal001-00002/01</span>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                  >
+                    <div className="row" style={{ marginTop: '-42px' }}>
+                      <div className={`${styles.form_group} col-lg-8`}>
+                        <div className={`${styles.label} text`}>
+                          Delivery Order Date
+                        </div>
+                        <span>-</span>
+                      </div>
+                      <div className={`${styles.form_group} col-lg-4`}>
+                        <img src="/static/close-b.svg" className="img-fluid" />
+                        <img
+                          src="/static/mode_edit.svg"
+                          className="img-fluid ml-3"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                    style={{ top: '5px' }}
+                  >
+                    <select
+                      className={`${styles.input_field} input form-control`}
+                    >
+                      <option>01</option>
+                      <option>02</option>
+                      <option>03</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Released Order Number
+                    </label>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                  >
+                    <div className={`${styles.label} text`}>
+                      Quantity Released
+                    </div>
+                    <span className={styles.value}>5,000 MT</span>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                  >
+                    <div className={`${styles.label} text`}>
+                      Delivery Order No.
+                    </div>
+                    <span className={styles.value}>Ramal001-00002/01</span>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                  >
+                    <div className="row" style={{ marginTop: '-42px' }}>
+                      <div className={`${styles.form_group} col-lg-8`}>
+                        <div className={`${styles.label} text`}>
+                          Delivery Order Date
+                        </div>
+                        <span>-</span>
+                      </div>
+                      <div className={`${styles.form_group} col-lg-4`}>
+                        <img src="/static/close-b.svg" className="img-fluid" />
+                        <img
+                          src="/static/mode_edit.svg"
+                          className="img-fluid ml-3"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <hr></hr>
-                <div className="text-right">
-                  <div className={`${styles.total_quantity} text `}>
-                    Net Balance Quantity:{' '}
-                    <span className="form-check-label ml-2">20,000 MT</span>
+              </div>
+
+              <div
+                className={`${styles.dashboard_form} card-body`}
+                style={{ borderTop: '2px solid #CAD6E6' }}
+              >
+                <div className="row">
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                    style={{ top: '5px' }}
+                  >
+                    <select
+                      className={`${styles.input_field} input form-control`}
+                    >
+                      <option>01</option>
+                      <option>02</option>
+                      <option>03</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Last Mile Delivery
+                    </label>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="mt-4 mb-5">
-            <InspectionDocument />
           </div>
         </div>
 

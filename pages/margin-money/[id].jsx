@@ -316,9 +316,51 @@ function Index() {
                         <div className={`${styles.content} border_color`}>
                           <div className={`${styles.input_container} row`}>
                             <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                              >
+                                <span>A</span>
+                              </div>
+                              <div className={`${styles.val_wrapper} ml-3`}>
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                  id="textInput"
+                                >
+                                   Quantity
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                                <div className={`${styles.val} heading`}>
+                                  {marginData?.order?.quantity?.toLocaleString()}
+                                </div>
+                              </div>
+                            </div>
+                            {/* <div
                               className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                             >
                               <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                              >
+                                <span>A</span>
+                              </div>
+                              <div className={`${styles.val_wrapper} ml-3`}>
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                  id="textInput"
+                                >
+                                     Quantity
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                                <div className={`${styles.val} heading`}>
+                                  {marginData?.order?.quantity?.toLocaleString()}
+                                </div>
+                              </div>
+                            </div>
+                              {/* <div
                                 className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
                               >
                                 <span>A</span>
@@ -344,10 +386,10 @@ function Index() {
                               >
                                 Quantity
                                 <strong className="text-danger">*</strong>
-                              </label>
-                            </div>
+                              </label> */}
+                            {/* </div> */}
 
-                            <div
+                            {/* <div
                               className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                             >
                               <div
@@ -377,6 +419,27 @@ function Index() {
                                 Unit Price
                                 <strong className="text-danger">*</strong>
                               </label>
+                            </div> */}
+                           <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                              >
+                                <span>B</span>
+                              </div>
+                              <div className={`${styles.val_wrapper} ml-3`}>
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                  id="textInput"
+                                >
+                                   Unit Price
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                                <div className={`${styles.val} heading`}>
+                                  {marginData?.order?.perUnitPrice}
+                                </div>
+                              </div>
                             </div>
                             <div
                               className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
@@ -1145,157 +1208,8 @@ function Index() {
                                 <strong className="text-danger">*</strong>
                               </label>
                             </div>
-                            <div className={`${styles.radio_form} col-md-12`}>
-                              <div
-                                className={`${styles.label_heading} label_heading`}
-                              >
-                                Is Consignee same as Buyer{' '}
-                              </div>
-                              <Form className={`d-flex`}>
-                                {['radio'].map((type) => (
-                                  <div
-                                    key={`inline-${type}`}
-                                    className={styles.radio_group}
-                                  >
-                                    <Form.Check
-                                      className={`${styles.radio} radio`}
-                                      inline
-                                      label="Yes"
-                                      defaultChecked={
-                                        marginData?.invoiceDetail
-                                          ?.isConsigneeSameAsBuyer === true
-                                      }
-                                      onChange={() =>
-                                        saveInvoiceData(
-                                          'isConsigneeSameAsBuyer',
-                                          true,
-                                        )
-                                      }
-                                      name="group1"
-                                      type={type}
-                                      id={`inline-${type}-1`}
-                                    />
-                                    <Form.Check
-                                      className={`${styles.radio} radio`}
-                                      inline
-                                      label="No"
-                                      defaultChecked={
-                                        marginData?.invoiceDetail
-                                          ?.isConsigneeSameAsBuyer === false
-                                      }
-                                      onChange={() =>
-                                        saveInvoiceData(
-                                          'isConsigneeSameAsBuyer',
-                                          false,
-                                        )
-                                      }
-                                      name="group1"
-                                      type={type}
-                                      id={`inline-${type}-2`}
-                                    />
-                                  </div>
-                                ))}
-                                <span
-                                  className={`ml-4 ${styles.comments} label_heading`}
-                                >{`Comments: In Case User Selects "No"`}</span>
-                              </Form>
-                            </div>
-                            <div
-                              className={`${styles.each_input} col-md-4 col-sm-6`}
-                            >
-                              <div className="d-flex">
-                                <input
-                                  type="text"
-                                  id="textInput"
-                                  name="consigneeName"
-                                  onChange={(e) =>
-                                    saveInvoiceData(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
-                                  }
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.consigneeName
-                                  }
-                                  className={`${styles.input_field} input form-control`}
-                                  required
-                                />
-                                <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                >
-                                  Consignee Name
-                                </label>
-                                <img
-                                  className={`${styles.search_image} img-fluid`}
-                                  src="/static/search-grey.svg"
-                                  alt="Search"
-                                />
-                              </div>
-                            </div>
-                            <div
-                              className={`${styles.each_input} col-md-4 col-sm-6`}
-                            >
-                              <div className={`d-flex`}>
-                                <select
-                                  id="Code"
-                                  name="consigneeGSTIN"
-                                  onChange={(e) =>
-                                    saveInvoiceData(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
-                                  }
-                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
-                                >
-                                  <option value="GTSDT789652JKH">
-                                    {marginData?.invoiceDetail?.consigneeGSTIN}
-                                  </option>
-                                  <option value="GTSDT789652JKH">
-                                    GTSDT789652JKH
-                                  </option>
-                                  <option value="GTSDT789652JKH">
-                                    GTSDT789652JKH
-                                  </option>
-                                </select>
-                                <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                >
-                                  Consignee GSTIN
-                                  <strong className="text-danger">*</strong>
-                                </label>
-                                <img
-                                  className={`img-fluid ${styles.arrow}`}
-                                  src="/static/inputDropDown.svg"
-                                ></img>
-                              </div>
-                            </div>
-                            <div
-                              className={`${styles.each_input} col-md-4 col-sm-6`}
-                            >
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="consigneeAddress"
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.consigneeAddress
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                              >
-                                Consignee Address
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>
+                            
+                          
                           </div>
                         </div>
                         <div className={`${styles.content} border_color`}>
@@ -1303,39 +1217,80 @@ function Index() {
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="importerName"
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.importerName
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                              >
-                                Importer Name
-                                <strong className="text-danger">*</strong>
-                              </label>
+                            <div className="d-flex">
+                                <select
+                                  id="Code"
+                                  name="importerName"
+                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                  required
+                                  onChange={(e) =>
+                                     saveInvoiceData(e.target.name, e.target.value)
+                                  }
+                                >
+                                  <option value={marginData?.invoiceDetail?.importerName}>
+                                    {marginData?.invoiceDetail?.importerName}
+                                  </option>
+
+                                </select>
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                  id="textInput"
+                                >
+                                   Importer Name
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                                <img
+                                  className={`img-fluid ${styles.arrow}`}
+                                  src="/static/inputDropDown.svg"
+                                ></img>
+                              </div>
+                            
                             </div>
+                             <div
+                              className={`${styles.each_input} col-md-3 col-sm-6`}
+                            >
+                            <div className="d-flex">
+                                <select
+                                  id="Code"
+                                  name="branchOffice"
+                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                  required
+                                  onChange={(e) =>
+                                     saveInvoiceData(e.target.name, e.target.value)
+                                  }
+                                >
+                                  <option value={marginData?.invoiceDetail?.importerName}>
+                                    {"visakhapatnam"}
+                                  </option>
+
+                                </select>
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                  id="textInput"
+                                >
+                                  Branch Office
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                                <img
+                                  className={`img-fluid ${styles.arrow}`}
+                                  src="/static/inputDropDown.svg"
+                                ></img>
+                              </div>
+                            
+                            </div>
+                            
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
                               <input
                                 type="text"
                                 id="textInput"
-                                name="branchOffice"
+                                name="companyAddres"
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
                                 defaultValue={
-                                  marginData?.invoiceDetail?.branchOffice
+                                 "Address"
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -1344,31 +1299,7 @@ function Index() {
                                 className={`${styles.label_heading} label_heading`}
                                 id="textInput"
                               >
-                                Branch Office
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>
-                            <div
-                              className={`${styles.each_input} col-md-3 col-sm-6`}
-                            >
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="companyAddress"
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.companyAddress
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                              >
-                                Company Address
+                                Company Address*
                                 <strong className="text-danger">*</strong>
                               </label>
                             </div>
@@ -1396,51 +1327,75 @@ function Index() {
                                 <strong className="text-danger">*</strong>
                               </label>
                             </div>
-                            <div
+
+                          <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="bankName"
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.bankName
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                              >
-                                Bank Name
-                                <strong className="text-danger">*</strong>
-                              </label>
+                            <div className="d-flex">
+                                <select
+                                  id="Code"
+                                  name="bankName"
+                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                  required
+                                  onChange={(e) =>
+                                     saveInvoiceData(e.target.name, e.target.value)
+                                  }
+                                >
+                                  <option value={marginData?.invoiceDetail?.importerName}>
+                                    { marginData?.invoiceDetail?.bankName}
+                                  </option>
+
+                                </select>
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                  id="textInput"
+                                >
+                                   Bank Name
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                                <img
+                                  className={`img-fluid ${styles.arrow}`}
+                                  src="/static/inputDropDown.svg"
+                                ></img>
+                              </div>
+                            
                             </div>
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="branch"
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
-                                defaultValue={marginData?.invoiceDetail?.branch}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                              >
-                                Branch<strong className="text-danger">*</strong>
-                              </label>
+                            <div className="d-flex">
+                                <select
+                                  id="Code"
+                                  name="branch"
+                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                  required
+                                  onChange={(e) =>
+                                     saveInvoiceData(e.target.name, e.target.value)
+                                  }
+                                >
+                                  <option value={marginData?.invoiceDetail?.importerName}>
+                                    {marginData?.invoiceDetail?.branch}
+                                  </option>
+
+                                </select>
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                  id="textInput"
+                                >
+                                   Branch
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                                <img
+                                  className={`img-fluid ${styles.arrow}`}
+                                  src="/static/inputDropDown.svg"
+                                ></img>
+                              </div>
+                            
                             </div>
+
+                            
+                          
+                            
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
@@ -1544,7 +1499,7 @@ function Index() {
         downLoadButtonName={`Download`}
         isPrevious={true}
         handleUpdate={handleUpdate}
-        leftButtonName={`Save & Calculate`}
+        leftButtonName={`Save`}
         rightButtonName={`Preview`}
         handleApprove={routeChange}
       />
