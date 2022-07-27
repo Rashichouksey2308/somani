@@ -60,6 +60,7 @@
                 font-size: 19px;
                 line-height: 24px;
                 font-weight: 500;
+                margin-top: 1rem;
                 @include respond(md-desktop) {
                     font-size: 17px;
                 }
@@ -96,7 +97,6 @@
             text-transform: capitalize;
             width: 220px;
             height: 46px;
-            background-color: #ffffff;
             @include respond(md-desktop) {
                 font-size: 18px;
             }
@@ -176,6 +176,9 @@
     .search_container {
         //background: #F0F0F0;
         height: 62px;
+            padding-right: 1.5rem !important;
+       
+            background: #F0F0F0 0% 0% no-repeat padding-box;
 
         .dropDown{
             background: #FFFFFF;
@@ -186,10 +189,27 @@
             font-size: 16px;
             line-height: 19px;
             font-weight: bold;
-            width: 279px;
+            width: fit-content;
             padding-left: 20px;
-height: 40px;
+           height: 40px;
         }
+        .searchBarContainer{
+            position: relative;
+        .searchBar {
+                width: 337px;
+                height: 40px;
+                padding-left: 3.5rem;
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                border: 2px solid #D2D7E5;
+                border-radius: 1.1rem;
+            }
+        
+            .searchImage {
+                position: absolute;
+                margin-left: 30px;
+            }
+        }
+
         
 
     }

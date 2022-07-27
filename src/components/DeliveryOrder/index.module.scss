@@ -462,36 +462,6 @@
 
 
 
-.generateBtn {
-    text-align: center;
-    color: #3687E8;
-    border: 3px solid #3687E8;
-    font-size: 18px;
-    line-height: 23px;
-    font-weight: bold;
-    border-radius: 5px;
-    background: transparent;
-    text-transform: capitalize;
-    width: 200px;
-    height: 36px;
-
-    @include respond(md-desktop) {
-        font-size: 16px;
-    }
-
-    @include respond(sm-desktop) {
-        font-size: 14px;
-        //padding: 4px 25px;
-
-    }
-
-    @include respond(phone) {
-        font-size: 12px;
-        //padding: 0px 15px;
-
-    }
-}
-
 
 .calanderIcon {
     margin-left: -40px;
@@ -526,4 +496,10 @@
         height: 25px;
         padding: 5px;
     }
+}
+.shipment_type{
+    letter-spacing: 0.19px;
+    color: #111111;
+    font-size: 20px;
+    line-height: 25px;
 }

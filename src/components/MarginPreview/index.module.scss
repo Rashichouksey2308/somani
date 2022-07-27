@@ -1,149 +1,167 @@
+@import "../../components/styles/Core/config";
 .root_container {
-    padding: 25px;
+    padding: 28px;
     width: 100%;
-
+    margin-bottom: 42px;
+    @include respond(sm-desktop) {
+        padding: 20px;
+    }
+    @include respond(phone) {
+        padding: 15px;
+        margin-bottom: 56px;
+    }
     .head_container {
         width: 100%;
-
+        margin-bottom: 32px;
         .head_header {
             display: flex;
             justify-content: flex-start;
             align-items: center;
-
             .arrow {
                 width: 13px;
                 height: 21px;
                 background: transparent;
-
             }
-
             .heading {
-
-                padding: 12px 0 18px 18px;
+                font-size: 34px;
                 font-weight: bold;
-                font-size: 30px;
-
-                text-transform: capitalize;
+                line-height: 41px;
+                padding-left: 18px;
                 margin: 0;
-
             }
         }
-
-
     }
-
     .term_container {
-        padding: 5px 36px 18px 36px;
         height: 126px;
-        background: #D8EAFF 0% 0% no-repeat padding-box;
-        border: 1px solid #D2D7E5;
         border-radius: 6px;
-
-        span {
-            color: #3687E8;
-            font-size: 34px;
-            line-height: 41px;
-            font-weight: bold;
+        margin-bottom: 26px;
+        background: #D8EAFF;
+        border: 1px solid #D2D7E5;
+        padding: 18px 36px 13px 36px;
+        @include respond(phone) {
+            height: auto;
+            padding: 15px;
         }
-
-        div {
-            flex-direction: column;
-            .termSub_head {
-                font-size: 20px;
-                line-height: 41px;
-                font-weight: bold;
-                color: #111111;
-                margin-right: 0.5rem;
+        .left {
+            margin-top: 42px;
+            @include respond(phone) {
+                margin: 0 0 15px;
             }
-
-            .termValue {
-                font-size: 20px;
-                line-height: 41px;
-                color: #11111148;
+            div {
+                .termSub_head {
+                    font-size: 20px;
+                    color: #111111;
+                    font-weight: 500;
+                    line-height: 25px;
+                    margin-right: 7px;
+                }
+                .termValue {
+                    font-size: 20px;
+                    color: rgba(17, 17, 17, 0.7);
+                    font-weight: normal;
+                    line-height: 24px;
+                }
+            }
+        }
+        span {
+            font-size: 34px;
+            color: #3687E8;
+            font-weight: bold;
+            line-height: 41px;
+            @include respond(phone) {
+                text-align: center;
+            }
+        }
+        .right {
+            text-align: right;
+            margin-top: 30px;
+            @include respond(phone) {
+                margin: 0;
             }
         }
     }
-
-table td {
-    border-left: 2px solid red;
-}
-table th {
-    border-left: 2px solid red;
-}
-.table {
-   
-    box-sizing: border-box;
-    margin: 0px;
-    tr {
-        
-
-
-        th {
-            color: #3687E8;
-            font-weight: normal;
-            font-size: 18px;
-            line-height: 18px;
-            border-top: none;
-            width: 25%; 
-            &:first-child {
-               width:50% ;
-            }
-            
-        }
-
-        td {
-            font-size: 20px;
-            line-height: 24px;
-            border-bottom: none;
-            border-top: none;
-            width: 25%;
-            opacity: 0.7;
-            &:first-child {
-                width: 50%;
-            }
-            .sno{
-                font-weight: bold;
-                font-size: 20px;
-                line-height:25px;
-                   
-                    color: #111111;
-                    opacity: 0.7;
-            }
-                        .formula{
+    table td {
+        border-left: 2px solid red;
+    }
+    table th {
+        border-left: 2px solid red;
+    }
+    
+    .table_scroll_outer {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        .table_scroll_inner {
+            display: table-cell;
+            overflow-x: auto;
+            .table {
+                box-sizing: border-box;
+                margin: 0px;
+                tr {
+                    th {
+                        font-size: 22px;
+                        color: #3687E8;
+                        line-height: 27px;
+                        font-weight: bold;
+                        border-top: none;
+                        width: 25%;
+                        height: 67px;
+                        padding: 9px 28px;
+                        white-space: nowrap;
+                        vertical-align: middle;
+                        &:first-child {
+                            width: 50%;
+                            padding-left: 35px;
+                        }
+                    }
+                    td {
+                        font-size: 20px;
+                        line-height: 25px;
+                        border-bottom: none;
+                        border-top: none;
+                        width: 25%;
+                        vertical-align: middle;
+                        padding: 9px 28px;
+                        &:first-child {
+                            width: 50%;
+                            padding-left: 35px;
+                        }
+                        .sno {
                             font-weight: bold;
                             font-size: 20px;
-                                line-height: 25px;
-
-                                color: #111111;
-                                opacity: 0.7;
+                            line-height: 25px;
+                            color: #111111;
+                            opacity: 0.7;
                         }
-           
-                       
-        }
-                 .highlight {
-                     background: #ff9d004f 0% 0% no-repeat padding-box;
-        
-                 }
-                                   .highlight2 {
-                                    width: 100%;
-                                    height: 100%;
-                                       background: #ff9d004f 0% 0% no-repeat padding-box;
-                
-                                   }
-                 }
-    }
-        .bordertop {
-            border-top: 2px solid red;
-            td{
-              padding-top: 30px;
-              
+                        .formula {
+                            font-weight: bold;
+                            font-size: 20px;
+                            line-height: 25px;
+                            color: #111111;
+                            opacity: 0.7;
+                        }
+                        &.good {
+                            font-weight: bold;
+                        }
+                    }
+                    .highlight {
+                        height: 40px;
+                        font-weight: bold;
+                        background: rgba(255, 157, 0, 0.1)
+                    }
+                    .highlight2 {
+                        height: 40px;
+                        font-weight: bold;
+                        background: rgba(255, 157, 0, 0.1)
+                    }
+                }
             }
-            
         }
-
-   
+    }
+    .bordertop {
+        border-top: 2px solid red;
+        td {
+            padding-top: 30px;
+        }
+    }
 }
-
-
-
-
