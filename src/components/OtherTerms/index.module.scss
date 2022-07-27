@@ -45,9 +45,15 @@
             background-color: #C3C3C31F;
             border: 1px solid #0000001F;
             border-radius: 4px;
-            padding: 5px 15px 5px 8px;
-            margin: 0 10px 0 0;
+            padding: 5px 8px 5px 8px;
+            margin: 0 10px 0 10px;
             line-height: 30px;
+            font-weight: bold;
+            font-size: 20px;
+            line-height:25px;
+            text-align: center;
+            display:inline-flex;
+            justify-content:center;align-items:center;
         }
         .form_group {
             position: relative;
@@ -79,10 +85,30 @@
                     
                 }
                 .checkbox {
-                    margin-top: -5px;
+                    margin-top: -11px;
                     margin-right: 25px;
+                    width: 20px;
+                    height: 20px;
+                        
                 }
             }    
         }
+        .row {
+            border-top: 2px solid rgb(255, 33, 33);
+            &:first-child{
+                border-top:none
+            }
+        }
     }
 }
+
+ .danger {
+     color: #EA3F3F
+ }
+ .input{
+    width: 104px;
+    height: 36px;
+    font-weight: normal !important;
+    font-size: 20px;
+ }
+ 

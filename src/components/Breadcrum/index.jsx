@@ -9,7 +9,10 @@ export default function Index({isQuery}) {
   })
   useEffect(() => {
  
-    if(isQuery?.match("/leads")||isQuery?.match("/order-list") ||isQuery?.match("/new-order")) {
+    if(isQuery?.match("/leads")||isQuery?.match("/order-list") 
+    ||isQuery?.match("/new-order")
+    ||isQuery?.match("/termsheet-preview")
+    ) {
       show.units=false
       show.currency=false
       setShow({...show})
@@ -84,8 +87,15 @@ export default function Index({isQuery}) {
      
     }
    
+    
     if ("termsheet" == pageName) {
-      router.route = "/Leads" + "/Termsheets";
+      if(id!==null) {
+        router.route = "/Leads"  + "/Termsheet" +`/${id}`;
+        console.log("router123",router.route)
+      }else{
+         router.route = "/Leads" + "/Termsheet";
+      }
+     
     }
 console.log( router.route," router.route")
 

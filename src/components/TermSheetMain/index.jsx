@@ -5,6 +5,8 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllTermsheet, GetTermsheet } from 'redux/buyerProfile/action'
+import { setPageName, setDynamicName } from '../../redux/userData/action'
+import { getDisplayName } from 'next/dist/shared/lib/utils'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -139,6 +141,7 @@ function Index() {
                             alt="Preview"
                             onClick={() => {
                               dispatch(GetTermsheet(`?company=${sheet.company._id}`))
+                              dispatch(setDynamicName(sheet.order.orderId))
                               Router.push("/termsheet-preview")
                             }}
 

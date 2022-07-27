@@ -28,7 +28,9 @@ function Index(props) {
        textType == "text"? <textarea  className={`${styles.input}`}  size={state?.length > 3 ? state?.length : 3} type="text"  onChange={changeHandler2} value={state} placeholder={props.placeholder} />
     
     :  <input ref={inputEl}  className={`${styles.input}`}    size={state?.length > 3 ? state?.length : 3}
-      type="text"  onChange={changeHandler} value={state} placeholder={props.placeholder}/>
+      type="text"  onChange={(e)=>{changeHandler(e)
+      props.getValue(e.target.name,e.target.value)
+      }} value={state} name={props.name} placeholder={props.placeholder}/>
 
   }
   </>
