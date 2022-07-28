@@ -36,9 +36,9 @@ function Index({
   return (
     <>
       {' '}
-      <div className="container-fluid mb-5 mt-2 border-0">
-        <div className="p-3">
-          <div className={`${styles.head_header} ml-5`}>
+      <div className="container-fluid p-0 border-0">
+        <div className={styles.container_inner}>
+          <div className={`${styles.head_header}`}>
             <img
               className={`${styles.arrow} mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -47,9 +47,9 @@ function Index({
             <h1 className={`${styles.heading}`}>Letter of Credit </h1>
           </div>
 
-          <div className={`${styles.wrapper} mt-3 card`}>
+          <div className={`${styles.wrapper} card`}>
             <div
-              className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
+              className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#lcApplication"
               aria-expanded="true"
