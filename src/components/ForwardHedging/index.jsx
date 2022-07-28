@@ -18,7 +18,7 @@ export default function Index() {
   return (
     <>
       <div className={`${styles.backgroundMain} mb-4 mt-3 container-fluid`}>
-        <div className="pl-3 pr-3">
+        <div className="pl-3 pr-3 mb-5">
           <div className={`${styles.head_header} ml-4`}>
             <img
               className={`${styles.arrow}  img-fluid`}

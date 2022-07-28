@@ -1,7 +1,13 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-function Index({ tableName, isVesselHeader, isStatus, dateHeading }) {
+function Index({
+  tableName,
+  isVesselHeader,
+  isStatus,
+  dateHeading,
+  handleRoute,
+}) {
   return (
     <div className={`${styles.datatable} datatable card`}>
       <div className={`${styles.tableFilter} d-flex justify-content-between`}>
@@ -37,29 +43,49 @@ function Index({ tableName, isVesselHeader, isStatus, dateHeading }) {
           >
             <thead>
               <tr className="table_row">
-                <th>ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /> </th>
+                <th>
+                  ORDER ID{' '}
+                  <img
+                    className={`mb-1`}
+                    src="/static/icons8-sort-24.svg"
+                    alt="Sort icon"
+                  />{' '}
+                </th>
                 <th>BUYER NAME</th>
                 <th>COMMODITY</th>
-                {isVesselHeader ?
+                {isVesselHeader ? (
                   <th>VESSEL NAME</th>
-                  :
+                ) : (
                   <th>INSURANCE TYPE</th>
-                }
+                )}
                 <th>{dateHeading}</th>
 
-                {isStatus ?
-                  <th>STATUS  <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" /> </th>
-                  :
+                {isStatus ? (
+                  <th>
+                    STATUS{' '}
+                    <img
+                      className={`mb-1`}
+                      src="/static/icons8-sort-24.svg"
+                      alt="Sort icon"
+                    />{' '}
+                  </th>
+                ) : (
                   <th>PAYMENT STATUS</th>
-
-                }
+                )}
                 <th>ACTION</th>
               </tr>
             </thead>
             <tbody>
               <tr className="table_row">
                 <td>124621</td>
-                <td className={styles.buyerName}>Ramakrishna Traders</td>
+                <td
+                  className={styles.buyerName}
+                  onClick={() => {
+                    handleRoute()
+                  }}
+                >
+                  Ramakrishna Traders
+                </td>
                 <td>Iron</td>
                 <td>Abcz</td>
                 <td>22-02-2022</td>
@@ -71,13 +97,20 @@ function Index({ tableName, isVesselHeader, isStatus, dateHeading }) {
                   <img
                     className={`${styles.edit_image} img-fluid mr-3`}
                     src="/static/mode_edit.svg"
-                    alt="edit" />
-
+                    alt="edit"
+                  />
                 </td>
               </tr>
               <tr className="table_row">
                 <td>124621</td>
-                <td className={styles.buyerName}>Ramakrishna Traders</td>
+                <td
+                  className={styles.buyerName}
+                  onClick={() => {
+                    handleRoute()
+                  }}
+                >
+                  Ramakrishna Traders
+                </td>
                 <td>Iron</td>
                 <td>Abcz</td>
                 <td>22-02-2022</td>
@@ -89,13 +122,20 @@ function Index({ tableName, isVesselHeader, isStatus, dateHeading }) {
                   <img
                     className={`${styles.edit_image} img-fluid mr-3`}
                     src="/static/mode_edit.svg"
-                    alt="edit" />
-
+                    alt="edit"
+                  />
                 </td>
               </tr>
               <tr className="table_row">
                 <td>124621</td>
-                <td className={styles.buyerName}>Ramakrishna Traders</td>
+                <td
+                  className={styles.buyerName}
+                  onClick={() => {
+                    handleRoute()
+                  }}
+                >
+                  Ramakrishna Traders
+                </td>
                 <td>Iron</td>
                 <td>Abcz</td>
                 <td>22-02-2022</td>
@@ -107,13 +147,20 @@ function Index({ tableName, isVesselHeader, isStatus, dateHeading }) {
                   <img
                     className={`${styles.edit_image} img-fluid mr-3`}
                     src="/static/mode_edit.svg"
-                    alt="edit" />
-
+                    alt="edit"
+                  />
                 </td>
               </tr>
               <tr className="table_row">
                 <td>124621</td>
-                <td className={styles.buyerName}>Ramakrishna Traders</td>
+                <td
+                  className={styles.buyerName}
+                  onClick={() => {
+                    handleRoute()
+                  }}
+                >
+                  Ramakrishna Traders
+                </td>
                 <td>Iron</td>
                 <td>Abcz</td>
                 <td>22-02-2022</td>
@@ -125,62 +172,89 @@ function Index({ tableName, isVesselHeader, isStatus, dateHeading }) {
                   <img
                     className={`${styles.edit_image} img-fluid mr-3`}
                     src="/static/mode_edit.svg"
-                    alt="edit" />
-
+                    alt="edit"
+                  />
                 </td>
               </tr>
               <tr className="table_row">
                 <td>124621</td>
-                <td className={styles.buyerName}>Ramakrishna Traders</td>
+                <td
+                  className={styles.buyerName}
+                  onClick={() => {
+                    handleRoute()
+                  }}
+                >
+                  Ramakrishna Traders
+                </td>
                 <td>Iron</td>
                 <td>Abcz</td>
                 <td>22-02-2022</td>
                 <td>
-                  <span className={`${styles.status} ${styles.approved}`}></span>
+                  <span
+                    className={`${styles.status} ${styles.approved}`}
+                  ></span>
                   Approved
                 </td>
                 <td>
                   <img
                     className={`${styles.edit_image} img-fluid mr-3`}
                     src="/static/mode_edit.svg"
-                    alt="edit" />
-
+                    alt="edit"
+                  />
                 </td>
               </tr>
               <tr className="table_row">
                 <td>124621</td>
-                <td className={styles.buyerName}>Ramakrishna Traders</td>
+                <td
+                  className={styles.buyerName}
+                  onClick={() => {
+                    handleRoute()
+                  }}
+                >
+                  Ramakrishna Traders
+                </td>
                 <td>Iron</td>
                 <td>Abcz</td>
                 <td>22-02-2022</td>
                 <td>
-                  <span className={`${styles.status} ${styles.approved}`}></span>
+                  <span
+                    className={`${styles.status} ${styles.approved}`}
+                  ></span>
                   Approved
                 </td>
                 <td>
                   <img
                     className={`${styles.edit_image} img-fluid mr-3`}
                     src="/static/mode_edit.svg"
-                    alt="edit" />
-
+                    alt="edit"
+                  />
                 </td>
               </tr>
               <tr className="table_row">
                 <td>124621</td>
-                <td className={styles.buyerName}>Ramakrishna Traders</td>
+                <td
+                  className={styles.buyerName}
+                  onClick={() => {
+                    handleRoute()
+                  }}
+                >
+                  Ramakrishna Traders
+                </td>
                 <td>Iron</td>
                 <td>Abcz</td>
                 <td>22-02-2022</td>
                 <td>
-                  <span className={`${styles.status} ${styles.rejected}`}></span>
+                  <span
+                    className={`${styles.status} ${styles.rejected}`}
+                  ></span>
                   Rejected
                 </td>
                 <td>
                   <img
                     className={`${styles.edit_image} img-fluid mr-3`}
                     src="/static/mode_edit.svg"
-                    alt="edit" />
-
+                    alt="edit"
+                  />
                 </td>
               </tr>
             </tbody>
