@@ -179,7 +179,7 @@ useEffect(() => {
               <span>GSTIN.</span>
               <p>27AAATW4183C2ZG</p>
             </div>
-              <div className={` ${styles.info}col-md-4 col-sm-6`}>
+              <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>Short Name</span>
               <p>IGI</p>
             </div>

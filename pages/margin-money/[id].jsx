@@ -129,6 +129,8 @@ function Index() {
   })
   console.log(invoiceData,"invoiceData")
 
+  console.log(invoiceData, 'INVOICE DATA')
+
   const saveInvoiceData = (name, value) => {
     const newInput = { ...invoiceData }
     newInput[name] = value

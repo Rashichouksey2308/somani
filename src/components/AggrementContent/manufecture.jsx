@@ -594,9 +594,6 @@ const editNewAddress=(name,value)=>{
         </div>
         <div className={styles.manufacture}>
          
-          <div className={`${styles.row} row`}>
-           
-          </div>
            <span className={``}>Manufacturer Details</span>
            
           <div className={`row`}>

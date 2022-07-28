@@ -20,18 +20,18 @@ function Index() {
   return (
     <>
       {' '}
-      <div className="container-fluid mb-4 mt-2 border-0">
-        <div className="p-4">
-          <div className={`${styles.head_header} `}>
+      <div className="container-fluid p-0 border-0">
+        <div className={styles.container_inner}>
+          <div className={`${styles.head_header} ml-5`}>
             <img
-              className={`${styles.arrow} mr-3 img-fluid`}
+              className={`${styles.arrow} mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
             <h1 className={`${styles.heading}`}>Letter of Credit </h1>
           </div>
 
-          <div className={`${styles.wrapper} mt-4  upload_main`}>
+          <div className={`${styles.wrapper} card upload_main`}>
             <div
               className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
               data-toggle="collapse"

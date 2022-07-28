@@ -542,7 +542,7 @@ const sendData=(key,data)=>{
        })}
 
       </div>
-      <div className={`${styles.content} card`}>
+      <div className={`${styles.content} card p-0 card-body`}>
       <div className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
         <h2 className="mb-0">{active}</h2>
                 <div
