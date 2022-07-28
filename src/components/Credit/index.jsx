@@ -61,7 +61,7 @@ const index = ({
     newInput.GSTIN_document.path = gstDocument.path
     newInput.GSTIN_document.date = gstDocument.date
       setKeyAddressData(newInput)
-  }, [gstDocument])
+  }, [gstDocument, keyAddressData])
   
   //const [deleteRow, setDeleteRow] = useState(true)
 
