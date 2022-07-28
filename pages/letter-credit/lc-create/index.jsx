@@ -12,49 +12,55 @@ function Index() {
 
   const lcModuleData = lcModule?.data[0]
 
-  console.log(lcModuleData, 'THIS IS LC')
 
   useEffect(() => {
     let id = sessionStorage.getItem('lcOrder')
-    dispatch(GetLcModule(`?lc=${id}`))
+    dispatch(GetLcModule(`?lcModuleId=${id}`))
   }, [dispatch])
 
-  const [lcData, setLcData] = useState({
-    formOfDocumentaryCredit: '',
-    applicableRules: '',
-    dateOfExpiry: '',
-    placeOfExpiry: '',
-    lcIssuingBank: '',
-    applicant: '',
-    beneficiary: '',
-    currecyCodeAndAmountValue: '',
-    currecyCodeAndAmountUnit: '',
-    tolerancePercentage: '',
-    creditAvailablewith: '',
-    creditAvailableBy: '',
-    atSight: '',
-    numberOfDays: '',
-    drawee: '',
-    deferredPayment: '',
-    partialShipment: '',
-    transhipments: '',
-    shipmentForm: '',
-    portOfLoading: '',
-    portOfDischarge: '',
-    latestDateOfShipment: '',
-    DescriptionOfGoods: '',
-    presentaionPeriod: '',
-    confirmationInstructions: '',
-    reimbursingBank: '',
-    adviceThroughBank: '',
-    secondAdvisingBank: '',
-    requestedConfirmationParty: '',
-    charges: '',
-    instructionToBank: '',
-    senderToReceiverInformation: '',
-  })
+  const [lcData, setLcData] = useState()
 
   // console.log(lcData, "THIS IS LC USE STATE")
+
+  useEffect(() => {
+    setLcData({
+    formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+    applicableRules: lcModuleData?.lcApplication?.applicableRules,
+    dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+    placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+    lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank,
+    applicant: lcModuleData?.lcApplication?.applicant,
+    beneficiary: lcModuleData?.lcApplication?.beneficiary,
+    currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+    currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+    tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+    creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+    creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+    atSight: lcModuleData?.lcApplication?.atSight,
+    numberOfDays: lcModuleData?.lcApplication?.numberOfDays,
+    drawee: lcModuleData?.lcApplication?.drawee,
+    deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+    partialShipment: lcModuleData?.lcApplication?.partialShipment,
+    transhipments: lcModuleData?.lcApplication?.transhipments,
+    shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+    portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+    portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+    latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+    DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+    presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
+    confirmationInstructions: lcModuleData?.lcApplication?.confirmationInstructions,
+    reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
+    adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
+    secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
+    requestedConfirmationParty: lcModuleData?.lcApplication?.requestedConfirmationParty,
+    charges: lcModuleData?.lcApplication?.charges,
+    instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
+    senderToReceiverInformation: lcModuleData?.lcApplication?.senderToReceiverInformation,
+    })
+  }, [lcModuleData])
+
+  console.log(lcData, "THIS IS LC DATA")
+  
 
   const saveLcData = (name, value) => {
     const newInput = { ...lcData }
@@ -107,7 +113,9 @@ function Index() {
   }
 
   const changeRoute = () => {
-    Router.push('/letter-amend/id')
+    dispatch(GetLcModule(`?lcModuleId=${lcModuleData?.order?.lc}`))
+    sessionStorage.setItem('lcPreviewId', lcModuleData?.order?.lc)
+    Router.push('/letter-table/letter-amend/id')
   }
   return (
     <>
@@ -117,6 +125,7 @@ function Index() {
         saveLcData={saveLcData}
         lcComments={lcComments}
         lcDocuments={lcDocuments}
+        lcData={lcData}
       />
       <PreviewBar onSave={handleLcSave} leftButtonClick={changeRoute} />
     </>
