@@ -558,9 +558,25 @@ const editNewAddress=(name,value)=>{
                     handleChangeInput(e.target.name,e.target.value,index)
                   }}
                   ></input></td>
-                  <td className={`d-flex  justify-content-between`}>
-                     <img  onClick={()=>(onEditRemove(index))}src="./static/save-3.svg"  />
-                     <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
+                  <td className={`d-flex  justify-content-between align-items-start`}>
+                     <div
+                      className={`${styles.addressEdit} mt-3 d-flex justify-content-center  align-items-start`}
+                      onClick={()=>{
+                       onEditRemove(index)
+                      }}
+                    >
+                      <img src="./static/save-3.svg" />
+                    </div>
+                     <div
+                      className={`${styles.addressEdit} mt-3 d-flex justify-content-center align-items align-items-center`}
+                      onClick={()=>{
+                       handleRemove(index)
+                      }}
+                    >
+                      <img src="./static/delete 2.svg" />
+                    </div>
+                     {/* <img  onClick={()=>(onEditRemove(index))}src="./static/save-3.svg"  />
+                     <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
                   </td>
 
                 </tr>}
@@ -572,7 +588,7 @@ const editNewAddress=(name,value)=>{
         <div className={`${styles.addMoreRows}`} onClick={(e)=>{
           addMoreRows()
         }}>
-        <span>+</span>  Add more rows
+        <span style={{fontSize:"2rem"}} className={`mr-2`}>+</span>  Add more rows
         </div>
       </div>
         </div>
