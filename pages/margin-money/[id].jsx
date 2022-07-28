@@ -128,6 +128,8 @@ function Index() {
     accountNo: marginData?.invoiceDetail?.accountNo || '',
   })
 
+  console.log(invoiceData, 'INVOICE DATA')
+
   const saveInvoiceData = (name, value) => {
     const newInput = { ...invoiceData }
     newInput[name] = value
