@@ -5,6 +5,10 @@ const initialState = {
   lcModule: null,
   updatingLc: false,
   updatingLcResponse: null,
+  updatingLcAmendment: false,
+  updatingLcAmendmentResponse: null,
+  updatingAmendment: false,
+  updatingAmendmentResponse: null,
 }
 
 function LcModuleReducer(state = initialState, action) {
@@ -45,6 +49,44 @@ function LcModuleReducer(state = initialState, action) {
         ...state,
         updatingLc: false,
         updatingLcResponse: null,
+      }
+
+    case types.UPDATE_LC_AMENDMENT:
+      return {
+        ...state,
+        updatingLcAmendment: true,
+        updatingLcAmendmentResponse: null,
+      }
+    case types.UPDATE_LC_AMENDMENT_SUCCESS:
+      return {
+        ...state,
+        updatingLcAmendment: false,
+        updatingLcAmendmentResponse: action.payload,
+      }
+    case types.UPDATE_LC_AMENDMENT_FAILED:
+      return {
+        ...state,
+        updatingLcAmendment: false,
+        updatingLcAmendmentResponse: null,
+      }
+
+    case types.UPDATE_LC_AMENDMENT_POST:
+      return {
+        ...state,
+        updatingAmendment: true,
+        updatingAmendmentResponse: null,
+      }
+    case types.UPDATE_LC_AMENDMENT_POST_SUCCESS:
+      return {
+        ...state,
+        updatingAmendment: false,
+        updatingAmendmentResponse: action.payload,
+      }
+    case types.UPDATE_LC_AMENDMENT_POST_FAILED:
+      return {
+        ...state,
+        updatingAmendment: false,
+        updatingAmendmentResponse: null,
       }
 
     default:
