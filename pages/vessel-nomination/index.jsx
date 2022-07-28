@@ -15,6 +15,7 @@ function Index() {
   }, [])
 
   const handleRoute = (vessel) => {
+    sessionStorage.setItem('VesselCompany', vessel.order._id)
     sessionStorage.setItem('VesselId', vessel._id)
     dispatch(GetVessel(`?vesselId=${vessel._id}`))
     setTimeout(() => {
