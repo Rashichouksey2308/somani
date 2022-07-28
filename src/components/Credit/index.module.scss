@@ -45,7 +45,10 @@
  .dashboard_form { 
     padding: 25px 35px !important;
     border-top: 2px solid #CAD6E6;
-   
+   div{
+    flex-wrap: wrap;
+   }
+
 .radio_form {
         padding: 8px 0 20px 35px;
 
@@ -216,7 +219,7 @@ height: 48px;
         border-radius: 9px;
         padding: 22px;
         margin-bottom:30px;
-        width: 49%;
+        min-width: 49%;
         
 
         .label {

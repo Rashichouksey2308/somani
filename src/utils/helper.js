@@ -54,15 +54,66 @@ export const handleCurrencyOrder = (unitOfValue, value) => {
 }
 
 export const addPrefixOrSuffix = (unitOfValue, type, where) => {
+  console.log(unitOfValue, type, 'type')
   if (where == 'front') {
-    let newValue = type.concat(unitOfValue)
-    return newValue
+    if (type != undefined) {
+      if (unitOfValue == '') {
+        return ''
+      }
+      let allSymbols = ['₹', '$', '€', '£']
+      let symbol = type
+      if (type == 'INR' || 'RUPEE') {
+        symbol = '₹'
+        console.log(symbol, 'symbol')
+      }
+      if (type == 'USD') {
+        symbol = '$'
+        console.log(symbol, 'symbol')
+      }
+      if (type == 'EURO') {
+        symbol = '€'
+      }
+      if (type == 'BRITISHPOUND') {
+        symbol = '£'
+      }
+      let removedValue
+
+      removedValue = unitOfValue
+        ?.toString()
+        ?.replaceAll('₹', '')
+        .replaceAll('$', '')
+        .replaceAll('€', '')
+        .replaceAll('£', '')
+
+      let newValue = symbol + removedValue.toString()
+      console.log(newValue, 'newValue')
+      return newValue
+    } else {
+      return ''
+    }
   } else {
-    let newValue = unitOfValue.concat(type)
-    return newValue
+    console.log(unitOfValue, 'type', type)
+    if (unitOfValue !== undefined) {
+      if (unitOfValue == '') {
+        return ''
+      }
+      let removedValue = unitOfValue
+        .toString()
+        .replaceAll('M', '')
+        .replaceAll('T', '')
+        .replaceAll('%', '')
+        .replaceAll('K', '')
+        .replaceAll('G', '')
+
+      let newValue = `${removedValue}${type}`
+      console.log('999', type, removedValue)
+      return newValue
+    } else {
+      return ''
+    }
   }
 }
 export const removePrefixOrSuffix = (unitOfValue, type) => {
   let newValue = unitOfValue.replaceAll(type, '')
-  return newValue
+  return Number(newValue)
 }
