@@ -67,7 +67,7 @@ function Index() {
     <>
       <div className={styles.container}>
         <Form>
-          <div className="row border-bottom border-color ">
+          <div className="row">
             <div className={`${styles.info} col-md-4 col-sm-6`}>
               <span>Name*</span>
               <p>Jaiswal Nico</p>
@@ -194,7 +194,7 @@ function Index() {
                   <td>{val.email}</td>
                   <td>{val.phone}</td>
                   <td className={`d-flex justify-content-between`}>
-                  <img onClick={()=>(onEdit(index))} src="./static/mode_edit.svg"  />
+                  <img onClick={()=>(onEdit(index))} src="/static/mode_edit.svg"  />
                    <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
                   </td>
 
@@ -208,7 +208,7 @@ function Index() {
                   <td><input type="text" placeholder={val.email}></input></td>
                   <td><input type="text" placeholder={val.phone}></input></td>
                   <td className={`d-flex  justify-content-between`}>
-                     <img  onClick={()=>(onEditRemove(index))}src="./static/mode_edit.sv"  />
+                     <img  onClick={()=>(onEditRemove(index))}src="/static/mode_edit.svg"  />
                      <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
                   </td>
 
@@ -245,7 +245,7 @@ function Index() {
                   <td>{val.email}</td>
                   <td>{val.phone}</td>
                   <td className={`d-flex justify-content-between`}>
-                  <img onClick={()=>(onEdit(index))} src="./static/mode_edit.svg"  />
+                  <img onClick={()=>(onEdit(index))} src="/static/mode_edit.svg"  />
                    <img onClick={()=>(handleRemove(index))} src="/static/upload.svg"></img>
                   </td>
 
@@ -259,7 +259,7 @@ function Index() {
                   <td><input type="text" placeholder={val.email}></input></td>
                   <td><input type="text" placeholder={val.phone}></input></td>
                   <td className={`d-flex  justify-content-between`}>
-                     <img  onClick={()=>(onEditRemove(index))}src="./static/mode_edit.sv"  />
+                     <img  onClick={()=>(onEditRemove(index))}src="/static/mode_edit.svg"  />
                      <img  onClick={()=>(handleRemove(index))} src="/static/upload.svg"></img>
                   </td>
 
