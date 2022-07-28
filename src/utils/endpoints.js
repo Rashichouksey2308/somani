@@ -53,6 +53,8 @@ export default {
   //LC Module
   getLcModule: '/api/core/lc-module',
   updateLcModule: '/api/core/lc-module',
+  updateLcModuleAmendment: '/api/core/lc-module/amendment',
+  updateLcAmendmentPost: '/api/core/lc-module/post-update-amendment',
 
   //DocumentsCam :
   getDocuments: '/api/core/order/order-document',

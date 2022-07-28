@@ -4,9 +4,6 @@ import TableMain from '../../src/components/TableMain'
 import Router from 'next/router'
 
 function Index() {
-  const routeChange = () => {
-    Router.push('transit/id')
-  }
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -118,7 +115,6 @@ function Index() {
           isVesselHeader={true}
           dateHeading="DATE"
           isStatus={true}
-          handleRoute={routeChange}
         />
       </div>
     </div>

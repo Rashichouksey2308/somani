@@ -1,13 +1,66 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetLcModule } from 'redux/lcModule/action'
 
 function Index() {
-  const [editStren, setEditStren] = useState(true)
-  const [edit, setEdit] = useState(true)
+  const dispatch = useDispatch()
+  
   const [editInput, setEditInput] = useState(true)
+
+  const {lcModule} = useSelector((state)=>state.lc)
+
+  let lcModuleData = lcModule?.data[0]
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('lcAmmend')
+    dispatch(GetLcModule(`?lcModuleId=${id}`))
+  }, [dispatch])
+
+  const [lcData, setLcData] = useState()
+
+  // console.log(lcData, "THIS IS LC USE STATE")
+
+  useEffect(() => {
+    setLcData({
+    formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+    applicableRules: lcModuleData?.lcApplication?.applicableRules,
+    dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+    placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+    lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank,
+    applicant: lcModuleData?.lcApplication?.applicant,
+    beneficiary: lcModuleData?.lcApplication?.beneficiary,
+    currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+    currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+    tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+    creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+    creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+    atSight: lcModuleData?.lcApplication?.atSight,
+    numberOfDays: lcModuleData?.lcApplication?.numberOfDays,
+    drawee: lcModuleData?.lcApplication?.drawee,
+    deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+    partialShipment: lcModuleData?.lcApplication?.partialShipment,
+    transhipments: lcModuleData?.lcApplication?.transhipments,
+    shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+    portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+    portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+    latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+    DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+    presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
+    confirmationInstructions: lcModuleData?.lcApplication?.confirmationInstructions,
+    reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
+    adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
+    secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
+    requestedConfirmationParty: lcModuleData?.lcApplication?.requestedConfirmationParty,
+    charges: lcModuleData?.lcApplication?.charges,
+    instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
+    senderToReceiverInformation: lcModuleData?.lcApplication?.senderToReceiverInformation,
+    })
+  }, [lcModuleData])
+
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -22,7 +75,7 @@ function Index() {
       {' '}
       <div className="container-fluid p-0 border-0">
         <div className={styles.container_inner}>
-          <div className={`${styles.head_header} `}>
+          <div className={`${styles.head_header} ml-5`}>
             <img
               className={`${styles.arrow} mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -55,10 +108,11 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name='lcIssuingBank'  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                            <option>BNP PARIBAS PARIBAS - BNPAFPPX</option>
-                            <option>Balaji Traders</option>
+                            <option>{lcData?.lcIssuingBank}</option>
+                            <option value='BNP PARIBAS PARIBAS - BNPAFPPX'>BNP PARIBAS PARIBAS - BNPAFPPX</option>
+                            <option value='Swiss Bank'>Swiss Bank</option>
                           </select>
 
                           <label

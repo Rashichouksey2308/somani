@@ -299,7 +299,7 @@ export default function Index() {
                       >
                         <img
                           className={` ${styles.searchImage} img-fluid`}
-                          src="/static/search-grey.svg"
+                          src="/static/search.svg"
                           alt="Search"
                         ></img>
                         <input
