@@ -36,7 +36,7 @@ export default function Index() {
                     <div className="d-flex">
                       <DateCalender
                         name="dateOfExpiry"
-                        labelName="(31D) Date Of Expiry"
+                        labelName="Date of Issue"
                       />
                       <img
                         className={`${styles.calanderIcon} img-fluid`}
@@ -53,7 +53,7 @@ export default function Index() {
                       type="text"
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Net Quantity Released
+                      Documentary Credit Number
                       <strong className="text-danger">*</strong>
                     </label>
                   </div>
@@ -65,7 +65,7 @@ export default function Index() {
                       type="text"
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Net Quantity Released
+                      LC Value
                       <strong className="text-danger">*</strong>
                     </label>
                   </div>
@@ -75,7 +75,7 @@ export default function Index() {
                     <div className="d-flex">
                       <DateCalender
                         name="dateOfExpiry"
-                        labelName="(31D) Date Of Expiry"
+                        labelName="LC Credit Date"
                       />
                       <img
                         className={`${styles.calanderIcon} img-fluid`}
@@ -91,7 +91,7 @@ export default function Index() {
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
                 <div className={`${styles.form_heading} mt-2`}>
-                  Release Order Details
+                  Bank Details
                 </div>
                 <div className="row ml-auto">
                   <div
@@ -103,14 +103,14 @@ export default function Index() {
                         className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                       >
                         <option selected></option>
-                        <option value="Irrevocable">Irrevocable</option>
-                        <option value="Revocable">Revocable</option>
+                        <option value="Irrevocable">Abc Bank</option>
+                        <option value="Revocable">SBI</option>
                       </select>
 
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        (40A) Form of Documentary Credit
+                        LC Issuing Bank
                         <strong className="text-danger">*</strong>
                       </label>
                       <img
@@ -120,12 +120,110 @@ export default function Index() {
                       />
                     </div>
                   </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <select
+                        name="formOfDocumentaryCredit"
+                        className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                      >
+                        <option selected></option>
+                        <option value="Irrevocable">New Delhi</option>
+                        <option value="Revocable">Mumbai</option>
+                      </select>
+
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Branch Name
+                        <strong className="text-danger">*</strong>
+                      </label>
+                      <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      IFSC Code
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
                 </div>
-                <hr></hr>
-                <div className="text-right">
-                  <div className={`${styles.total_quantity} text `}>
-                    Net Balance Quantity:{' '}
-                    <span className="form-check-label ml-2">20,000 MT</span>
+              </div>
+
+              <div className={`${styles.table_container} mt-4`}>
+                <div className={styles.table_scroll_outer}>
+                  <div className={styles.table_scroll_inner}>
+                    <table
+                      className={`${styles.table} table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                      border="0"
+                    >
+                      <thead>
+                        <tr>
+                          <th>
+                            DOCUMENT NAME{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            FORMAT{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            DOCUMENT DATE{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />{' '}
+                          </th>
+                          <th width="30%">ACTION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>
+                            LC AMENDMENT DRAFT{' '}
+                            <strong className="text-danger ml-0">*</strong>{' '}
+                          </td>
+                          <td>
+                            <img
+                              src="/static/pdf.svg"
+                              className="img-fluid"
+                              alt="Pdf"
+                            />
+                          </td>
+                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                          <td colSpan={2}>
+                            <div className={styles.uploadBtnWrapper}>
+                              <input type="file" name="myfile" />
+                              <button className={`${styles.upload_button} btn`}>
+                                Upload
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
