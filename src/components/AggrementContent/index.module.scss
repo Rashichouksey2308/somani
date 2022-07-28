@@ -366,7 +366,8 @@
     }
         .tableContainer{
             border: 2px solid #CAD6E6;
-          
+            border-radius: 0.5rem;
+            box-shadow: none !important;
             .sub_card {
                     padding: 1rem !important;
                         border: none;
@@ -724,11 +725,12 @@ img {
 
 .addMoreRows{
 color: #3687E8 ;
-
+padding: 1rem;
+padding-left: 35px;
 font-size: 18px;
 line-height: 23px;
 font-weight: bold;
-padding:1rem;
+
 
 
 }
@@ -754,6 +756,7 @@ margin:0rem !important;
 .newAddressContainer {
 background: #FFFFFF 0% 0% no-repeat padding-box;
 border: 2px solid #CAD6E6;
+border-radius: 0.5rem;
 
 margin: 1rem;
 .newAddressHead{
