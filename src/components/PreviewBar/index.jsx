@@ -2,12 +2,12 @@ import Router from 'next/router'
 import React from 'react'
 import styles from './index.module.scss'
 
-function index({leftButtonClick, onSave}) {
+function index({ leftButtonClick, onSave }) {
   return (
     <div className={`${styles.root} card`}>
       <div
         id="nextbutton"
-        onClick={()=>onSave()}
+        onClick={() => onSave()}
         className={`${styles.reject} ml-3`}
       >
         <span>Save</span>
@@ -15,7 +15,7 @@ function index({leftButtonClick, onSave}) {
 
       <div
         id="previousbutton"
-        onClick={()=>leftButtonClick()}
+        onClick={() => leftButtonClick()}
         className={`${styles.approve} ml-3`}
       >
         <span>Preview</span>

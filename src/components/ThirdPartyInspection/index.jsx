@@ -657,7 +657,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-        <SaveBar />
+        <SaveBar rightBtn="Submit" />
       </div>
     </>
   )
