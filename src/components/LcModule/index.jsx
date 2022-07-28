@@ -16,12 +16,12 @@ function Index() {
   console.log(lcModule?.data, 'THIS IS LC MOD')
 
   useEffect(() => {
-    let id1 = sessionStorage.getItem('lcId')
-    dispatch(GetLcModule(`?company=${id1}`))
+    let id = sessionStorage.getItem('lcCompanyId')
+    dispatch(GetLcModule(`?company=${id}`))
   }, [dispatch])
 
   const handleRoute = (lc) => {
-    dispatch(GetLcModule(`?lc=${lc.order.lc}`))
+    dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`))
     sessionStorage.setItem('lcOrder', lc.order.lc)
     Router.push('/letter-credit/lc-create')
   }
@@ -74,7 +74,7 @@ function Index() {
           <div
             className={`${styles.tableFilter}  d-flex justify-content-between`}
           >
-            <h3 className="heading_card">Ramakrishna Traders</h3>
+            <h3 className="heading_card">{lcModule?.data[0]?.company?.companyName}</h3>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>

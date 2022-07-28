@@ -20,8 +20,9 @@ function Index() {
   }, [currentPage, dispatch])
 
   const handleRoute = (lc) => {
+    sessionStorage.setItem('lcCompanyId', lc.company._id)
     dispatch(GetLcModule(`?company=${lc.company._id}`))
-    sessionStorage.setItem('lcId', lc.company.id)
+    
     Router.push('/lc-module')
   }
   
