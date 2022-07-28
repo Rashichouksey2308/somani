@@ -30,7 +30,6 @@ function Index({
   const [lcComment, setLcComment] = useState('')
   const [docComment, setDocComment] = useState('')
 
-  console.log(lcData, 'this is lc data')
 
 
   return (
