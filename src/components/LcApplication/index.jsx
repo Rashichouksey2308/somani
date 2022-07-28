@@ -66,7 +66,7 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                           <select
                            name='formOfDocumentaryCredit' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           > 
-                            <option selected>{lcData.formOfDocumentaryCredit}</option>
+                            <option selected>{lcData?.formOfDocumentaryCredit}</option>
                             <option value='Irrevocable'>Irrevocable</option>
                             <option value='Revocable'>Revocable</option>
                           </select>
