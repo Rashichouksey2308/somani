@@ -22,9 +22,10 @@ const index = ({
   addDebtArr,
   personData,
   addPersonArr,
+  deleteComponent
 }) => {
   // console.log(creditDetail, 'this is credit detail')
-
+  console.log(debtData,"debtData")
   const dispatch = useDispatch()
 
   const [saveTable, setSaveTable] = useState(false)
@@ -65,24 +66,52 @@ const index = ({
   
   //const [deleteRow, setDeleteRow] = useState(true)
 
-  const [debt, setDebtData] = useState({
+  const [debt, setDebtData] = useState([])
+  
+  const addMoreDebtRows=()=>{
+    setDebtData([...debt,
+      {
     bankName: '',
     primaryBank: '',
     conduct: '',
-    limit: null,
-    limitType: '',
-  })
+    limit: "",
+    action:false
+  }
+    ])
+  }
 
   console.log(debt, 'THIS IS DEBT')
 
-  const handleDebtChange = (name, value) => {
-    const newInput = { ...debt }
-    newInput[name] = value
-    setDebtData(newInput)
+  const handleDebtChange = (name,value,index) => {
+    console.log(name,value,index,"name,value")
+    let tempArr=debt;
+    tempArr.forEach((val,i)=>{
+    if(i==index){
+        val[name] = value
+    }
+    })
+    console.log(tempArr,"tempArr")
+    setDebtData(tempArr)
   }
+  console.log()
 
   const onDebtSave = () => {
     addDebtArr(debt)
+  }
+  const setActions=(index,val)=>{
+    setDebtData(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return {...obj, actions: val};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
   }
 
   const [keyPersonData, setKeyPersonData] = useState(personData, {
@@ -157,6 +186,11 @@ const index = ({
     let text = d.toISOString()
     saveSupplierData(name, text)
   }
+  const handleRemoveRow=(index)=>{
+   
+   setDebtData([...debt.slice(0,index), ...debt.slice(index+1)])
+  }
+  
 
   return (
     <>
@@ -903,9 +937,13 @@ const index = ({
         </div>
         <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
         <div className={`${styles.dashboard_form} card-body`}>
-          {keyAddData.map((address, index) => (
-            <AddressComponent
-              key={index}
+         <div className={`w-100 d-flex justify-content-between align-items-center`}>
+
+          {keyAddData.map((address,index)=>{
+            return(
+              <>
+              <AddressComponent
+              index={index}
               Title={address.addressType}
               address={address.completeAddress}
               number={address.contact?.number}
@@ -913,8 +951,12 @@ const index = ({
               branch={address.branch}
               gstIn={address.GSTIN}
               email={address.email}
+              deleteComponent={deleteComponent}
             />
-          ))}
+              </>
+            )
+          })}
+         </div>
            <div
               className={`${styles.add_row} pr-3 d-flex justify-content-end`}
             >
@@ -1375,41 +1417,46 @@ const index = ({
                     </tr>
                   </thead>
                   <tbody>
-                    {debtData?.map((profile, index) => (
+                    {debt?.map((profile, index) => (
                       <tr key={index}>
-                        <td>{(index += 1)}</td>
+                        <td>{
+                          index
+                          }</td>
                         <td>
                           <input
                             name="primaryBank"
                             onChange={(e) =>
-                              handleDebtChange(e.target.name, e.target.checked)
+                              handleDebtChange(e.target.name, e.target.checked ,index)
                             }
                             className={`${styles.checkBox}`}
                             type="checkbox"
-                            checked={profile.primaryBank ? true : false}
+                            disabled={!profile.actions}
+                            
                           />
-                          {profile.primaryBank ? true : false}
+
                         </td>
                         <td>
                           <select
                             name="bankName"
+                            disabled={profile.actions}
                             onChange={(e) =>
-                              handleDebtChange(e.target.name, e.target.value)
+                              handleDebtChange(e.target.name, e.target.value ,index)
                             }
                             className={`${styles.dropDown} font-weight-bold heading`}
                           >
-                            <option>{profile.bankName}</option>
+                            <option>{!profile.actions}</option>
                             <option value="SBI">SBI</option>
                             <option value="HDFC">HDFC</option>
                           </select>
                         </td>
                         <td>
                           <select
-                            onChange={(e) =>
-                              handleDebtChange(e.target.name, e.target.value)
+                           onChange={(e) =>
+                              handleDebtChange(e.target.name, e.target.value ,index)
                             }
                             name="limitType"
                             className={`${styles.dropDown} heading`}
+                            disabled={!profile.actions}
                           >
                             <option>{profile.limitType}</option>
                             <option value="Cash Deposit">Cash Deposit</option>
@@ -1421,21 +1468,23 @@ const index = ({
                           <input
                             className="input"
                             name="limit"
-                            onChange={(e) =>
-                              handleDebtChange(e.target.name, e.target.value)
+                            disabled={!profile.actions}
+                           onChange={(e) =>
+                              handleDebtChange(e.target.name,e.target.value,index)
                             }
                             defaultValue={profile.limit}
-                            readOnly={!saveTable}
+                            // readOnly={!saveTable}
                           />
                         </td>
 
                         <td>
                           <select
                             onChange={(e) =>
-                              handleDebtChange(e.target.name, e.target.value)
+                              handleDebtChange(e.target.name, e.target.value ,index)
                             }
                             name="conduct"
                             className={`${styles.dropDown} heading`}
+                            disabled={!profile.actions}
                           >
                             <option>{profile.conduct}</option>
                             <option value="Good">Good</option>
@@ -1446,13 +1495,12 @@ const index = ({
                         </td>
                         <td>
                           <div>
-                            {!saveTable ? (
+                            {!profile.actions ? (
                               <img
                                 src="/static/mode_edit.svg"
                                 className={`${styles.edit_image} mr-3 img-fluid`}
                                 onClick={() => {
-                                  setSaveTable(true)
-                                  // onDebtSave(debt)
+                                  setActions(index,true)
                                 }}
                               />
                             ) : (
@@ -1461,16 +1509,16 @@ const index = ({
                                 className={`${styles.edit_image} mr-3 img-fluid`}
                                 alt="save"
                                 onClick={(e) => {
-                                  setSaveTable(false)
+                                  setActions(index,false)
                                 }}
                               />
                             )}
                             <img
                               src="/static/delete 2.svg"
                               className={`${styles.delete_image} img-fluid`}
-                              // onClick={() => {
-                              //   setDeleteRow(deleteRow)
-                              // }}
+                              onClick={() => {
+                                handleRemoveRow(index)
+                              }}
                               alt="delete"
                             />
                           </div>
@@ -1484,7 +1532,7 @@ const index = ({
             <div
               className={`${styles.add_row} p-3 d-flex justify-content-end`}
               onClick={(e) => {
-                onDebtSave(debt)
+                addMoreDebtRows()
               }}
             >
               <span>+</span>

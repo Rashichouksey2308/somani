@@ -54,15 +54,58 @@ export const handleCurrencyOrder = (unitOfValue, value) => {
 }
 
 export const addPrefixOrSuffix = (unitOfValue, type, where) => {
+  console.log(unitOfValue, type, 'type')
   if (where == 'front') {
-    let newValue = type.concat(unitOfValue)
-    return newValue
+    if (type != undefined) {
+      if (unitOfValue == '') {
+        return ''
+      }
+      let allSymbols = ['₹', '$', '€', '£']
+      let symbol = type
+      if (type == 'INR' || 'RUPEE') {
+        symbol = '₹'
+        console.log(symbol, 'symbol')
+      }
+      if (type == 'USD') {
+        symbol = '$'
+        console.log(symbol, 'symbol')
+      }
+      if (type == 'EURO') {
+        symbol = '€'
+      }
+      if (type == 'BRITISH POUND') {
+        symbol = '£'
+      }
+      let removedValue
+
+      allSymbols.forEach((val, index) => {
+        console.log(val, 'val')
+        removedValue = unitOfValue?.toString()?.replaceAll(symbol, '')
+      })
+      console.log(removedValue, 'removedValue12')
+      console.log(symbol, 'symbol')
+
+      let newValue = symbol.toString()?.concat(`${removedValue}`)
+      console.log(newValue, 'newValue')
+      return newValue
+    } else {
+      return ''
+    }
   } else {
-    let newValue = unitOfValue.concat(type)
-    return newValue
+    console.log(unitOfValue, 'type')
+    if (unitOfValue !== undefined) {
+      if (unitOfValue == '') {
+        return ''
+      }
+      let removedValue = unitOfValue.toString().replaceAll(type, '')
+      let newValue = removedValue?.concat(`${type}`)
+      return newValue
+    } else {
+      return ''
+    }
   }
 }
 export const removePrefixOrSuffix = (unitOfValue, type) => {
   let newValue = unitOfValue.replaceAll(type, '')
-  return newValue
+  return Number(newValue)
 }

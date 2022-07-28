@@ -88,14 +88,18 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             </div>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='quantity' className={`${styles.value} input form-control`} value={`${termsheetDetails?.commodityDetails?.quantity} `} onChange={onChangeCommodityDetails} type="text" required />
-                            <span className={styles.percent}><strong>{termsheetDetails?.commodityDetails?.unitOfQuantity == "mt" ? "MT" : null}</strong></span>
+                            <input id='quantity' className={`${styles.value} input form-control`} 
+                            value={addPrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity,termsheetDetails?.commodityDetails?.unitOfQuantity.toUpperCase(),"")}
+                             onChange={onChangeCommodityDetails} type="text" required />
+                            <span className={styles.percent}></span>
 
                             <label className={`${styles.label} label_heading`}>Quantity<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <span className={styles.inr}><strong>{termsheetDetails?.commodityDetails?.orderCurrency}</strong></span>
-                            <input id='perUnitPrice' className={`${styles.value} ${styles.inrValue} input form-control`} value={`${termsheetDetails?.commodityDetails?.perUnitPrice} `} onChange={onChangeCommodityDetails} type="text" required />
+                            {/* <span className={styles.inr}><strong>{termsheetDetails?.commodityDetails?.orderCurrency}</strong></span> */}
+                            <input id='perUnitPrice' className={`${styles.value} ${styles.inrValue} input form-control`} 
+                            value={addPrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice,termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),"front")}
+                            onChange={onChangeCommodityDetails} type="text" required />
 
 
                             <label className={`${styles.label} label_heading`}>Unit Price<strong className="text-danger">*</strong></label>

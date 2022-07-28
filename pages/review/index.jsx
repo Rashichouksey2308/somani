@@ -367,6 +367,7 @@ function Index() {
     },
   ])
 
+
   const [financialsComment, setFinancialsComment] = useState(
     orderList?.company?.recommendations?.commentsOnFinancials,
   )
@@ -393,7 +394,10 @@ function Index() {
   const [weaknessComment, setWeaknessComment] = useState(
     orderList?.company?.recommendations?.weakness,
   )
-
+const deleteComponent=(index)=>{
+   
+    setKeyAddData([...keyAddData.slice(0,index), ...keyAddData.slice(index+1)])
+  }
   const addCompanyCommentArr = (companyComments) => {
     let newArr = [...companyComment]
     newArr.push(companyComments)
@@ -1477,6 +1481,7 @@ function Index() {
                     personData={personData}
                     saveSupplierData={saveSupplierData}
                     keyAddData={keyAddData}
+                    deleteComponent={deleteComponent}
                   />
                   <Recommendations
                     creditDetail={orderList}
