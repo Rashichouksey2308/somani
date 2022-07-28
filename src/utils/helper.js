@@ -42,18 +42,27 @@ export const isInTheFuture = (date) => {
 }
 
 export const handleCurrencyOrder = (unitOfValue, value) => {
-  
-  if(unitOfValue === 'INR'){
-    return (Number(value) * 10000000)
+  if (unitOfValue === 'INR') {
+    return Number(value) * 10000000
+  } else if (unitOfValue === 'USD') {
+    return Number(value) * 1000000
+  } else if (unitOfValue === 'EURO') {
+    return Number(value) * 1000000
+  } else if (unitOfValue === 'BRITISH POUND') {
+    return Number(value) * 1000000
   }
-  else if(unitOfValue === 'USD'){
-    return (Number(value) * 1000000)
+}
+
+export const addPrefixOrSuffix = (unitOfValue, type, where) => {
+  if (where == 'front') {
+    let newValue = type.concat(unitOfValue)
+    return newValue
+  } else {
+    let newValue = unitOfValue.concat(type)
+    return newValue
   }
-  else if(unitOfValue === 'EURO'){
-    return (Number(value) * 1000000)
-  }
-  else if(unitOfValue === 'BRITISH POUND'){
-    return (Number(value) * 1000000)
-  }
-  
+}
+export const removePrefixOrSuffix = (unitOfValue, type) => {
+  let newValue = unitOfValue.replaceAll(type, '')
+  return newValue
 }

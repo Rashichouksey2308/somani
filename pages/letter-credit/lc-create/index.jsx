@@ -15,7 +15,7 @@ function Index() {
 
   useEffect(() => {
     let id = sessionStorage.getItem('lcOrder')
-    dispatch(GetLcModule(`?lc=${id}`))
+    dispatch(GetLcModule(`?lcModuleId=${id}`))
   }, [dispatch])
 
   const [lcData, setLcData] = useState()
@@ -58,6 +58,8 @@ function Index() {
     senderToReceiverInformation: lcModuleData?.lcApplication?.senderToReceiverInformation,
     })
   }, [lcModuleData])
+
+  console.log(lcData, "THIS IS LC DATA")
   
 
   const saveLcData = (name, value) => {
@@ -111,7 +113,9 @@ function Index() {
   }
 
   const changeRoute = () => {
-    Router.push('/letter-amend/id')
+    dispatch(GetLcModule(`?lcModuleId=${lcModuleData?.order?.lc}`))
+    sessionStorage.setItem('lcPreviewId', lcModuleData?.order?.lc)
+    Router.push('/letter-table/letter-amend/id')
   }
   return (
     <>

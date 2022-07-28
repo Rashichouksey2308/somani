@@ -493,24 +493,46 @@ margin-bottom: 1rem;
         }
     }
 }
-.search_container {
-    //background: #F0F0F0;
-    height: 62px;
+ .search_container {
+        //background: #F0F0F0;
+        height: 62px;
+            padding-right: 1.5rem !important;
+       
+            background: #F0F0F0 0% 0% no-repeat padding-box;
 
-    .dropDown{
-        border: 1px solid #0000001F;
-        border-radius: 4px;
-        color: #3687E8;
-        text-transform: capitalize;
-        font-size: 16px;
-        line-height: 19px;
-        font-weight: bold;
-        width: 279px;
-        padding-left: 20px;
-height: 40px;
+        .dropDown{
+            background: #FFFFFF;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            color: #3687E8;
+            text-transform: capitalize;
+            font-size: 16px;
+            line-height: 19px;
+            font-weight: bold;
+            width: fit-content;
+            padding-left: 20px;
+           height: 40px;
+        }
+        .searchBarContainer{
+            position: relative;
+        .searchBar {
+                width: 337px;
+                height: 40px;
+                padding-left: 3.5rem;
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                border: 2px solid #D2D7E5;
+                border-radius: 1.1rem;
+            }
+        
+            .searchImage {
+                position: absolute;
+                margin-left: 30px;
+            }
+        }
+
+        
+
     }
-    
-}
 .table_container {
     background-color: #FAFAFB;
     
@@ -543,10 +565,28 @@ height: 40px;
                     padding-left: 15px;
                 }
             }
-            .sort_image {
-                width: 14px;
-                height: 14px;
-            }
+                        img {
+            
+                            &.sort_image {
+                                width: 14px;
+                                height: 14px;
+                            }
+            
+                            &.searchImg {
+                                width: 48px;
+                                height: 48px;
+            
+                                @include respond(sm-desktop) {
+                                    width: 38px;
+                                    height: 38px;
+                                }
+            
+                                @include respond(phone) {
+                                    width: 30px;
+                                    height: 30px;
+                                }
+                            }
+                        }
             @include respond(md-desktop) {
                 font-size: 14px;
                 line-height: 1.2;

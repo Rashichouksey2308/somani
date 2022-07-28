@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import styles from './index.module.scss'
+import {addPrefixOrSuffix,removePrefixOrSuffix } from '../../utils/helper'
 
 const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetails, onChangeCommercialTerms, onChangePaymentDueDate, onChangeTransactionDetails }) => {
     const [IsBlSelected, setIsBlSelected] = useState(false)
@@ -71,8 +72,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                         : <>
                                              <option value="USD">USD</option>
                                              <option value="Rupee">INR</option>
-                                             <option value="Rupee">Euro</option>
-                                             <option value="Rupee">British Pound</option>
+                                             <option value="Euro">Euro</option>
+                                             <option value="BritishPound">British Pound</option>
                                         </>
                                     }
 

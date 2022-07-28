@@ -3,13 +3,17 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-import { GetLcModule } from 'redux/lcModule/action'
+import PreviewBar from '../PreviewBar'
+import Router from 'next/router'
 
-function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, lcData}) {
-
-  const dispatch = useDispatch()
+function Index({
+  saveLcData,
+  lcComments,
+  lcDocuments,
+  addDocArr,
+  addCommentArr,
+  lcData
+}) {
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
 
@@ -20,6 +24,9 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
     saveLcData(name, text)
   }
 
+  const routeChange = () => {
+    Router.push('letter-amend/id')
+  }
   const [lcComment, setLcComment] = useState('')
   const [docComment, setDocComment] = useState('')
 
@@ -91,7 +98,9 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                           name='applicableRules'
                           defaultValue={lcData?.applicableRules}
                           type="text"
-                          onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}
+                          onChange={(e) => {
+                            saveLcData(e.target.name, e.target.value)
+                          }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -129,7 +138,11 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                           name='lcIssuingBank' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}} className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                            name="lcIssuingBank"
+                            onChange={(e) => {
+                              saveLcData(e.target.name, e.target.value)
+                            }}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected>{lcData?.lcIssuingBank}</option>
                             <option value='First Class European Bank'>First Class European Bank</option>
@@ -150,7 +163,11 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                          name='applicant' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}} className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                            name="applicant"
+                            onChange={(e) => {
+                              saveLcData(e.target.name, e.target.value)
+                            }}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected>{lcData?.applicant}</option>
                             <option value='Inod International Trading Fzco'>Indo International Trading Fzco</option>
@@ -220,7 +237,11 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                          name='creditAvailablewith' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                            name="creditAvailablewith"
+                            onChange={(e) => {
+                              saveLcData(e.target.name, e.target.value)
+                            }}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected>{lcData?.creditAvailablewith}</option>
                             <option value='BNP PARIBAS PARIBAS _ BNPAFRPPS'>BNP PARIBAS PARIBAS _ BNPAFRPPS</option>
@@ -243,7 +264,11 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                          name='creditAvailableBy' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                            name="creditAvailableBy"
+                            onChange={(e) => {
+                              saveLcData(e.target.name, e.target.value)
+                            }}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected>{lcData?.creditAvailableBy}</option>
                             <option value='By Negotiation'>By Negotiation</option>
@@ -266,7 +291,11 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                       <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                          name='atSight' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                            name="atSight"
+                            onChange={(e) => {
+                              saveLcData(e.target.name, e.target.value)
+                            }}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected>{lcData?.atSight}</option>
                             <option value='Documetarty Credit'>Documentary Credit</option>
@@ -336,7 +365,11 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                          name='partialShipment' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                            name="partialShipment"
+                            onChange={(e) => {
+                              saveLcData(e.target.name, e.target.value)
+                            }}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected>{lcData?.partialShipment}</option>
                             <option value='Prohibited'>Prohibited</option>
@@ -358,7 +391,11 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                          name='transhipments' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                            name="transhipments"
+                            onChange={(e) => {
+                              saveLcData(e.target.name, e.target.value)
+                            }}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected>{lcData?.transhipments}</option>
                             <option value='Prohibited'>Prohibited</option>
@@ -426,7 +463,11 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
-                          name='portOfDischarge' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                            name="portOfDischarge"
+                            onChange={(e) => {
+                              saveLcData(e.target.name, e.target.value)
+                            }}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected>{lcData?.portOfDischarge}</option>
                             <option value='Visakhapatnam, India'>Visakhapatnam Port, India</option>
@@ -486,40 +527,47 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                       as="textarea"
                       rows={3}
                       className={`${styles.comment_field} input form-control`}
-                      onChange={(e)=> setDocComment(e.target.value)}
+                      onChange={(e) => setDocComment(e.target.value)}
                     />
                     <img
                       className="img-fluid ml-4"
                       src="/static/add-btn.svg"
                       alt="add button"
-                      onClick={()=> docComment.length > 0 && addDocArr(docComment)}
+                      onClick={() =>
+                        docComment.length > 0 && addDocArr(docComment)
+                      }
                     />
                   </div>
-                 {lcDocuments?.map((comment, index) => ( <div key={index} className="d-flex justify-content-between pt-4 pb-3">
-                    <div className={`${styles.number} mr-n3`}>1.</div>
-                    <Form.Control
-                      className={`${styles.paragraph} input`}
-                      as="textarea"
-                      defaultValue={comment}
-                      rows={3}
-                      readOnly={editStren}
-                    />
-                    <div>
-                      <img
-                        src="/static/mode_edit.svg"
-                        className="img-fluid"
-                        alt="edit"
-                        onClick={(e) => {
-                          setEditStren(!editStren)
-                        }}
+                  {lcDocuments?.map((comment, index) => (
+                    <div
+                      key={index}
+                      className="d-flex justify-content-between pt-4 pb-3"
+                    >
+                      <div className={`${styles.number} mr-n3`}>1.</div>
+                      <Form.Control
+                        className={`${styles.paragraph} input`}
+                        as="textarea"
+                        defaultValue={comment}
+                        rows={3}
+                        readOnly={editStren}
                       />
-                      <img
-                        src="/static/delete 2.svg"
-                        className="img-fluid ml-3"
-                        alt="delete"
-                      />
+                      <div>
+                        <img
+                          src="/static/mode_edit.svg"
+                          className="img-fluid"
+                          alt="edit"
+                          onClick={(e) => {
+                            setEditStren(!editStren)
+                          }}
+                        />
+                        <img
+                          src="/static/delete 2.svg"
+                          className="img-fluid ml-3"
+                          alt="delete"
+                        />
+                      </div>
                     </div>
-                  </div>))}
+                  ))}
                 </div>
                 <hr className={styles.line}></hr>
 
@@ -532,41 +580,48 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                       as="textarea"
                       rows={3}
                       className={`${styles.comment_field} input form-control`}
-                      onChange={(e)=> setLcComment(e.target.value)}
+                      onChange={(e) => setLcComment(e.target.value)}
                     />
                     <img
                       className="img-fluid ml-4"
                       src="/static/add-btn.svg"
                       alt="add button"
-                      onClick={()=> lcComment.length > 0 && addCommentArr(lcComment) }
+                      onClick={() =>
+                        lcComment.length > 0 && addCommentArr(lcComment)
+                      }
                     />
                   </div>
-               { lcComments?.map((comment, index) => ( <div key={index} className="d-flex justify-content-between pt-4 pb-3">
-                    <div className={`${styles.number} mr-n3`}>1.</div>
-                    <Form.Control
-                      className={`${styles.paragraph} input`}
-                      as="textarea"
-                      defaultValue={comment}
-                      rows={3}
-                      readOnly={edit}
-                    />
-                    <div>
-                      <img
-                        src="/static/mode_edit.svg"
-                        className="img-fluid"
-                        alt="edit"
-                        onClick={(e) => {
-                          setEdit(!edit)
-                        }}
+                  {lcComments?.map((comment, index) => (
+                    <div
+                      key={index}
+                      className="d-flex justify-content-between pt-4 pb-3"
+                    >
+                      <div className={`${styles.number} mr-n3`}>1.</div>
+                      <Form.Control
+                        className={`${styles.paragraph} input`}
+                        as="textarea"
+                        defaultValue={comment}
+                        rows={3}
+                        readOnly={edit}
                       />
+                      <div>
+                        <img
+                          src="/static/mode_edit.svg"
+                          className="img-fluid"
+                          alt="edit"
+                          onClick={(e) => {
+                            setEdit(!edit)
+                          }}
+                        />
 
-                      <img
-                        src="/static/delete 2.svg"
-                        className="img-fluid ml-3"
-                        alt="delete"
-                      />
+                        <img
+                          src="/static/delete 2.svg"
+                          className="img-fluid ml-3"
+                          alt="delete"
+                        />
+                      </div>
                     </div>
-                  </div>)) }
+                  ))}
                 </div>
 
                 <hr></hr>
@@ -677,7 +732,11 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                         <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                            name='reimbursingBank' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
+                              name="reimbursingBank"
+                              onChange={(e) => {
+                                saveLcData(e.target.name, e.target.value)
+                              }}
+                              className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
                             >
                               <option selected>{lcData?.reimbursingBank}</option>
                               <option value='Bnp Paribas Paribas - Bnpafrppxx'>Bnp Paribas Paribas - Bnpafrppxx</option>
@@ -697,7 +756,11 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
                         <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                            name='adviceThroughBank' onChange={(e)=>{saveLcData(e.target.name, e.target.value)}}  className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
+                              name="adviceThroughBank"
+                              onChange={(e) => {
+                                saveLcData(e.target.name, e.target.value)
+                              }}
+                              className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
                             >
                               <option selected>{lcData?.adviceThroughBank}</option>
                               <option value='Bnp Paribas Paribas - Bnpafrppxx'>Bnp Paribas Paribas - Bnpafrppxx</option>
@@ -809,6 +872,7 @@ function Index({saveLcData, lcComments, lcDocuments, addDocArr, addCommentArr, l
           </div>
         </div>
       </div>
+      {/* <PreviewBar leftButtonClick={routeChange} /> */}
     </>
   )
 }

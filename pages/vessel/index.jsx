@@ -11,7 +11,7 @@ export default function Home() {
       <Vessel />
 
       <div className="mt-5">
-        <SaveBar />
+        <SaveBar rightBtn="Submit" />
       </div>
     </>
   )
