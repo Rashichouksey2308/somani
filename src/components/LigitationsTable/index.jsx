@@ -46,7 +46,7 @@ function index({data,Heading, val }) {
               </div>
             </Col>
             <Col md={1} sm={1} className="text-center">
-              <img src="/static/arrow-right.svg" alt="arrow right" class={`${styles.image_arrow} img-fluid image_arrow`} />
+              <img src="/static/arrow-right.svg" alt="arrow right" className={`${styles.image_arrow} img-fluid image_arrow`} />
             </Col>
           </Row>
         </div>
