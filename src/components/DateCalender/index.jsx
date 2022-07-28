@@ -4,13 +4,13 @@ import 'react-datepicker/dist/react-datepicker.css'
 import styles from './index.module.scss'
 import moment from 'moment'
 
-const Index = ({ labelName, saveDate, name, defaultDate }) => {
+const Index = ({ labelName, saveDate, name, defaultDate ,index}) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
 
   return (
     <>
-      <DatePicker
+      <DatePicker 
         selected={
           defaultDate !== undefined
             ? moment(defaultDate).toDate() : startDate
@@ -20,7 +20,8 @@ const Index = ({ labelName, saveDate, name, defaultDate }) => {
         className={`${styles.input_field} input form-control`}
         onChange={(startDate) => {
           setStartDate(startDate)
-          saveDate(startDate, name)
+          saveDate(startDate, name, index)
+          console.log(startDate, name,'Event')
         }}
         minDate={lastDate}
       />
