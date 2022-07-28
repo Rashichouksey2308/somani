@@ -87,12 +87,12 @@ function Index() {
     orderValueInINR * Number(forCalculation.tradeMarginPercentage / 100),
   ).toFixed(2) //M
   let grossOrderValue = parseFloat(
-    orderValueInINR + usanceInterest + tradeMargin,
+    Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
   ).toFixed(2) //N
   let toleranceValue = parseFloat(
     grossOrderValue * Number(forCalculation.tolerance / 100),
   ).toFixed(2) //O
-  let totalOrderValue = parseFloat(grossOrderValue + toleranceValue).toFixed(2) //P
+  let totalOrderValue = parseFloat((Number(grossOrderValue)) + Number(toleranceValue)).toFixed(2) //P
   let provisionalUnitPricePerTon = parseFloat(
     grossOrderValue / forCalculation.quantity,
   ).toFixed(2) //Q
@@ -101,7 +101,7 @@ function Index() {
   ).toFixed(2) //R
   let totalSPDC = parseFloat(totalOrderValue - marginMoney).toFixed(2) //S
   let amountPerSPDC = parseFloat(
-    totalSPDC / forCalculation.numberOfPDC,
+    Number(totalSPDC )/ Number(forCalculation.numberOfPDC),
   ).toFixed(2) //T
 
   const routeChange = () => {
@@ -127,6 +127,7 @@ function Index() {
     IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
     accountNo: marginData?.invoiceDetail?.accountNo || '',
   })
+  console.log(invoiceData,"invoiceData")
 
   console.log(invoiceData, 'INVOICE DATA')
 
@@ -134,8 +135,32 @@ function Index() {
     const newInput = { ...invoiceData }
     newInput[name] = value
     // console.log(newInput)
+   
     setInvoiceData(newInput)
+
+   
+    
   }
+
+  const setSame = (val) => {
+    if(val==true){
+      setInvoiceData({...invoiceData,
+      consigneeName:invoiceData.buyerName,
+      consigneeGSTIN:invoiceData.buyerGSTIN,
+      consigneeAddress:invoiceData.buyerAddress
+      
+      })
+    }else{
+      setInvoiceData({...invoiceData,
+      consigneeName:"",
+      consigneeGSTIN:"",
+      consigneeAddress:""
+      
+      })
+    }
+  }
+  
+ 
 
   const handleUpdate = () => {
     let obj = {
@@ -657,6 +682,27 @@ function Index() {
                               </label>
                             </div>
                             <div
+                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                            >
+                              <div
+                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                              >
+                                <span>I</span>
+                              </div>
+                              <div className={`${styles.val_wrapper} ml-3`}>
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                  id="textInput"
+                                >
+                                 Additional PDC's
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                                <div className={`${styles.val} heading`}>
+                                  {marginData?.additionalPDC}
+                                </div>
+                              </div>
+                            </div>
+                            {/* <div
                               className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                             >
                               <div
@@ -686,7 +732,7 @@ function Index() {
                                 Additional PDC's
                                 <strong className="text-danger">*</strong>
                               </label>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                         <div className={`${styles.content} border_color`}>
@@ -948,7 +994,7 @@ function Index() {
                                   Amount per SPDC (INR)
                                   <strong className="text-danger">*</strong>
                                   <span className={`${styles.blue}`}>
-                                    {`(P-R)`}
+                                    {`(S/H)`}
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
@@ -1023,10 +1069,11 @@ function Index() {
                                       e.target.value,
                                     )
                                   }
+                                  value={marginData?.invoiceDetail?.buyerGSTIN}
                                 >
-                                  <option value="GTSDT789652JKH">
+                                  {/* <option value="GTSDT789652JKH">
                                     {marginData?.invoiceDetail?.buyerGSTIN}
-                                  </option>
+                                  </option> */}
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1089,14 +1136,17 @@ function Index() {
                                       inline
                                       label="Yes"
                                       defaultChecked={
-                                        marginData?.invoiceDetail
+                                        invoiceData
                                           ?.isConsigneeSameAsBuyer === true
                                       }
                                       onChange={() =>
-                                        saveInvoiceData(
+                                       {
+                                         saveInvoiceData(
                                           'isConsigneeSameAsBuyer',
                                           true,
                                         )
+                                        setSame(true)
+                                       }
                                       }
                                       name="group1"
                                       type={type}
@@ -1107,14 +1157,17 @@ function Index() {
                                       inline
                                       label="No"
                                       defaultChecked={
-                                        marginData?.invoiceDetail
+                                        invoiceData
                                           ?.isConsigneeSameAsBuyer === false
                                       }
                                       onChange={() =>
-                                        saveInvoiceData(
+                                        {
+                                           saveInvoiceData(
                                           'isConsigneeSameAsBuyer',
                                           false,
                                         )
+                                        setSame(false)
+                                        }
                                       }
                                       name="group1"
                                       type={type}
@@ -1131,8 +1184,8 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="consigneeName"
-                                defaultValue={
-                                  marginData?.invoiceDetail?.consigneeName
+                                value={
+                                  invoiceData?.consigneeName
                                 }
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
@@ -1162,9 +1215,10 @@ function Index() {
                                       e.target.value,
                                     )
                                   }
+                                  value={ invoiceData?.consigneeGSTIN}
                                 >
-                                  <option value="GTSDT789652JKH">
-                                    {marginData?.invoiceDetail?.consigneeGSTIN}
+                                  <option value="">
+                                    
                                   </option>
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
@@ -1196,8 +1250,8 @@ function Index() {
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.consigneeAddress
+                                value={
+                                  invoiceData?.consigneeAddress
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
