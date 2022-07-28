@@ -28,7 +28,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
         }
     }
 
-    console.log(termsheetDetails?.commodityDetails?.unitOfQuantity, "termsheetDetails?.commodityDetails?.unitOfQuantity")
+    console.log(termsheetDetails?.commodityDetails?.orderCurrency, "789",termsheetDetails?.commodityDetails?.unitOfQuantity)
     return (
         <div className={`${styles.main} main`}>
             <div className={`${styles.head_container} border_color d-flex justify-content-between`} data-toggle="collapse" data-target="#termDetails" aria-expanded="true" aria-controls="termDetails">
@@ -67,15 +67,14 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select selected={termsheetDetails?.commodityDetails?.orderCurrency} id='orderCurrency' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommodityDetails} required>
-                                    {termsheetDetails?.commodityDetails?.orderCurrency === 'Rupee' ? <> <option value="Rupee">INR</option>  <option value="USD">USD</option> </>
-                                        : <>
+                                <select 
+                                value={termsheetDetails?.commodityDetails?.orderCurrency=="INR"?"Rupee":termsheetDetails?.commodityDetails?.orderCurrency} id='orderCurrency' className={`${styles.value} ${styles.customSelect}  input form-control`} 
+                                onChange={onChangeCommodityDetails} required>
                                              <option value="USD">USD</option>
                                              <option value="Rupee">INR</option>
                                              <option value="Euro">Euro</option>
                                              <option value="BritishPound">British Pound</option>
-                                        </>
-                                    }
+                                    
 
 
                                 </select>
@@ -89,8 +88,16 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                             <input id='quantity' className={`${styles.value} input form-control`} 
-                            value={addPrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity,termsheetDetails?.commodityDetails?.unitOfQuantity.toUpperCase(),"")}
-                             onChange={onChangeCommodityDetails} type="text" required />
+                            //  value={termsheetDetails?.commodityDetails?.quantity}
+                              value={addPrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity,
+                                termsheetDetails?.commodityDetails?.unitOfQuantity.toUpperCase()
+                                ,"")}
+                           
+                             onChange={(e)=>{
+                               
+                                onChangeCommodityDetails(e)
+                            
+                            } }type="text" required />
                             <span className={styles.percent}></span>
 
                             <label className={`${styles.label} label_heading`}>Quantity<strong className="text-danger">*</strong></label>
@@ -107,8 +114,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
 
-                                <select id='tolerance' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeCommodityDetails} required>
-                                    <option value={termsheetDetails?.commodityDetails?.tolerance}>±{termsheetDetails?.commodityDetails?.tolerance}% </option>
+                                <select id='tolerance' value={termsheetDetails?.commodityDetails?.tolerance} className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeCommodityDetails} required>
+                                    
                                     <option value="10">±10%</option>
                                     <option value="20">±20%</option>
                                 </select>
@@ -137,16 +144,28 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>LC Value<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='marginMoney' className={`${styles.value} ${styles.marginPercent} input form-control`} type="number"  defaultValue={termsheetDetails?.transactionDetails?.marginMoney} onChange={onChangeTransactionDetails} required
+                            <input id='marginMoney' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text"  
+                            // defaultValue={termsheetDetails?.transactionDetails?.marginMoney}
+                             value={addPrefixOrSuffix(
+                                termsheetDetails?.transactionDetails?.marginMoney.toString(),
+                                "%"
+                                ,"")} 
+                            onChange={onChangeTransactionDetails} 
+                            required
                             />
-                            <span className={styles.percent}><strong>%</strong></span>
+                            {/* <span className={styles.percent}><strong>%</strong></span> */}
 
                             <label className={`${styles.label} label_heading`}>Margin Money (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                             <div className='d-flex'>
-                                <select id='lcOpeningBank' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
-                                    <option value={termsheetDetails?.transactionDetails?.lcOpeningBank}>{termsheetDetails?.transactionDetails?.lcOpeningBank} </option>
+                                <select id='lcOpeningBank'
+                                 className={`${styles.value} ${styles.customSelect} 
+                                 input form-control`} 
+                                 onChange={onChangeTransactionDetails} 
+                                 defaultValue={termsheetDetails?.transactionDetails?.lcOpeningBank}
+                                 required>
+                                    
                                     <option value="First Class European Bank">First Class European Bank</option>
                                     <option value="US Bank">US Bank</option>
                                 </select>
@@ -246,10 +265,15 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='billOfEntity' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
+                                <select id='billOfEntity'
+                                 className={`${styles.value} 
+                                 ${styles.customSelect} input form-control`} 
+                                 onChange={onChangeTransactionDetails}
+                                 defaultValue={termsheetDetails?.transactionDetails?.billOfEntity}
+                                  required>
                                     <option value={termsheetDetails?.transactionDetails?.billOfEntity}>{termsheetDetails?.transactionDetails?.billOfEntity} </option>
-                                    <option value="Home Consumption">Home Consumption</option>
-                                    <option value="Abroad">Abroad</option>
+                                    <option value="Home Consumption/Intobond">Home Consumption/Intobond</option>
+                                    <option value="Warehousing/Exbond">Warehousing/Exbond</option>
                                 </select>
 
                                 <label className={`${styles.label} label_heading`}>Bill of Entry<strong className="text-danger">*</strong></label>
@@ -279,9 +303,10 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <div className='d-flex'>
                                 <select className={`${styles.value} ${styles.customSelect} input form-control`} required>
                                     <option value="Load Port">Load Port</option>
-                                    <option value="India">India</option>
+                                    <option value="Discharge Port">Discharge Port</option>
+                                    <option value="Both">Both</option>
                                 </select>
-                                <label className={`${styles.label} label_heading`}><strong className="text-danger">*</strong></label>
+                               
                                 <img
                                     className={`${styles.arrow} img-fluid`}
                                     src="/static/inputDropDown.svg"
@@ -293,7 +318,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <div className='d-flex'>
                                 <select id='storageOfGoods' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
                                     <option value={termsheetDetails?.transactionDetails?.storageOfGoods}>{termsheetDetails?.transactionDetails?.storageOfGoods} </option>
-                                    <option value="Gangavaram Port, Andhra Pradesh">Gangavaram Port, Andhra Pradesh</option>
+                                  
                                     <option value="Mumbai Port, Mumbai">Mumbai Port, Mumbai</option>
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Storage of Goods<strong className="text-danger">*</strong></label>
@@ -341,8 +366,14 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                     <h3 className={styles.sub_heading}>Commercial Terms</h3>
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='tradeMarginPercentage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="number" min="0" max="100" defaultValue={termsheetDetails.commercials?.tradeMarginPercentage} onChange={onChangeCommercialTerms} required />
-                            <span className={styles.percent}><strong>%</strong></span>
+                            <input id='tradeMarginPercentage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" min="0" max="100" 
+                            value={addPrefixOrSuffix(
+                               termsheetDetails.commercials?.tradeMarginPercentage.toString(),
+                                "%"
+                                ,"")} 
+                            // defaultValue={termsheetDetails.commercials?.tradeMarginPercentage} 
+                            onChange={onChangeCommercialTerms} required />
+                            {/* <span className={styles.percent}><strong>%</strong></span> */}
                             <label className={`${styles.label} label_heading`}>Trade Margin(%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -350,18 +381,36 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <label className={`${styles.label} label_heading`}>LC Opening Charges (Minimum)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='lcOpeningChargesPercentage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="number" min="0" max="100" defaultValue={termsheetDetails?.commercials?.lcOpeningChargesPercentage} onChange={onChangeCommercialTerms} required />
-                            <span className={styles.percent}><strong>%</strong></span>
+                            <input id='lcOpeningChargesPercentage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" min="0" max="100" 
+                            value={addPrefixOrSuffix(
+                              termsheetDetails?.commercials?.lcOpeningChargesPercentage.toString(),
+                                "%"
+                                ,"")} 
+                            // defaultValue={termsheetDetails?.commercials?.lcOpeningChargesPercentage} 
+                            onChange={onChangeCommercialTerms} required />
+                            {/* <span className={styles.percent}><strong>%</strong></span> */}
                             <label className={`${styles.label} label_heading`}>LC Opening Charges (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='usanceInterestPercetage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="number" min="0" max="100" defaultValue={termsheetDetails?.commercials?.usanceInterestPercetage} onChange={onChangeCommercialTerms} required />
-                            <span className={styles.percent}><strong>%</strong></span>
+                            <input id='usanceInterestPercetage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" min="0" max="100" 
+                             value={addPrefixOrSuffix(
+                              termsheetDetails?.commercials?.usanceInterestPercetage.toString(),
+                                "%"
+                                ,"")}
+                           
+                            onChange={onChangeCommercialTerms} required />
+                            {/* <span className={styles.percent}><strong>%</strong></span> */}
                             <label className={`${styles.label} label_heading`}>Usance Interest (%) For 90 Days<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <input id='overDueInterestPerMonth' className={`${styles.value} ${styles.marginPercent} input form-control`} type="number" min="0" max="100" defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} onChange={onChangeCommercialTerms} required />
-                            <span className={styles.percent}><strong>%</strong></span>
+                            <input id='overDueInterestPerMonth' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" min="0" max="100" 
+                            value={addPrefixOrSuffix(
+                              termsheetDetails?.commercials?.overDueInterestPerMonth.toString(),
+                                "%"
+                                ,"")}
+                            // defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} 
+                            onChange={onChangeCommercialTerms} required />
+                            {/* <span className={styles.percent}><strong>%</strong></span> */}
                             <label className={`${styles.label} label_heading`}>Overdue Interest per Month (%)<strong className="text-danger">*</strong></label>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -403,8 +452,10 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
 
-                                <select id='version' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeCommercialTerms} required>
-                                    <option value={termsheetDetails?.commercials?.version}>{termsheetDetails?.commercials?.version} </option>
+                                <select id='version'
+                                value={termsheetDetails?.commercials?.version}
+                                className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeCommercialTerms} required>
+                                    
                                     <option value="1.1">1.1</option>
                                     <option value="2.1">2.1</option>
                                 </select>

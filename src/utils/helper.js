@@ -73,32 +73,40 @@ export const addPrefixOrSuffix = (unitOfValue, type, where) => {
       if (type == 'EURO') {
         symbol = '€'
       }
-      if (type == 'BRITISH POUND') {
+      if (type == 'BRITISHPOUND') {
         symbol = '£'
       }
       let removedValue
 
-      allSymbols.forEach((val, index) => {
-        console.log(val, 'val')
-        removedValue = unitOfValue?.toString()?.replaceAll(symbol, '')
-      })
-      console.log(removedValue, 'removedValue12')
-      console.log(symbol, 'symbol')
+      removedValue = unitOfValue
+        ?.toString()
+        ?.replaceAll('₹', '')
+        .replaceAll('$', '')
+        .replaceAll('€', '')
+        .replaceAll('£', '')
 
-      let newValue = symbol.toString()?.concat(`${removedValue}`)
+      let newValue = symbol + removedValue.toString()
       console.log(newValue, 'newValue')
       return newValue
     } else {
       return ''
     }
   } else {
-    console.log(unitOfValue, 'type')
+    console.log(unitOfValue, 'type', type)
     if (unitOfValue !== undefined) {
       if (unitOfValue == '') {
         return ''
       }
-      let removedValue = unitOfValue.toString().replaceAll(type, '')
-      let newValue = removedValue?.concat(`${type}`)
+      let removedValue = unitOfValue
+        .toString()
+        .replaceAll('M', '')
+        .replaceAll('T', '')
+        .replaceAll('%', '')
+        .replaceAll('K', '')
+        .replaceAll('G', '')
+
+      let newValue = `${removedValue}${type}`
+      console.log('999', type, removedValue)
       return newValue
     } else {
       return ''

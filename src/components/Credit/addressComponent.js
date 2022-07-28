@@ -12,6 +12,7 @@ function AddressComponent({
   email,
   deleteComponent,
   index,
+  editAddress,
 }) {
   return (
     <div className={`${styles.address_card} value background1`}>
@@ -26,6 +27,10 @@ function AddressComponent({
                 className={`${styles.edit_image} img-fluid mr-3`}
                 src="/static/mode_edit.svg"
                 alt="edit"
+                onClick={() => {
+                  console.log('index', index)
+                  editAddress(index)
+                }}
               />
               <img
                 onClick={() => {

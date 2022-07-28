@@ -563,6 +563,22 @@ const deleteComponent=(index)=>{
     newArr.push(keyAddressData)
     setKeyAddData(newArr)
   }
+  const updateKeyAddDataArr = (newData,index) => {
+    
+        setKeyAddData(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+        
+        if (i == index) {
+         
+          return newData;
+        }
+// 👇️ otherwise return object as is
+        return obj;
+      });
+
+      return newState;
+    });
+  }
 
   const addDebtArr = (debt) => {
     let newArr = [...debtData]
@@ -1482,6 +1498,9 @@ const deleteComponent=(index)=>{
                     saveSupplierData={saveSupplierData}
                     keyAddData={keyAddData}
                     deleteComponent={deleteComponent}
+                    updateKeyAddDataArr={updateKeyAddDataArr}
+  
+
                   />
                   <Recommendations
                     creditDetail={orderList}

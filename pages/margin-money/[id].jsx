@@ -1069,10 +1069,11 @@ function Index() {
                                       e.target.value,
                                     )
                                   }
+                                  value={marginData?.invoiceDetail?.buyerGSTIN}
                                 >
-                                  <option value="GTSDT789652JKH">
+                                  {/* <option value="GTSDT789652JKH">
                                     {marginData?.invoiceDetail?.buyerGSTIN}
-                                  </option>
+                                  </option> */}
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1214,9 +1215,10 @@ function Index() {
                                       e.target.value,
                                     )
                                   }
+                                  value={ invoiceData?.consigneeGSTIN}
                                 >
-                                  <option value="GTSDT789652JKH">
-                                    {marginData?.invoiceDetail?.consigneeGSTIN}
+                                  <option value="">
+                                    
                                   </option>
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
