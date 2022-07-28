@@ -14,19 +14,21 @@
         display: block !important;
     }
     .head_header {
+        height: 48px;
         display: flex;
-        margin: 0 20px 0px 10px;
+        align-items: center;
+        margin: 0 0 22px 10px;
         .arrow {
             width: 13px;
             height: 21px;
             background: transparent;
-            margin-top: 10px;
+            margin-top: 0;
         }
         .heading {
-            padding-left: 18px;
+            font-size: 34px;
             font-weight: bold;
-            font-size: 30px;     
-            text-transform: capitalize;
+            line-height: 41px;
+            padding-left: 18px;
             margin: 0;
             @include respond(md-desktop) {
                 font-size: 28px;
