@@ -643,9 +643,25 @@
                             }
                         }
                         img {
+
                             &.sort_image {
                                 width: 14px;
                                 height: 14px;
+                            }
+
+                            &.searchImg {
+                                width: 48px;
+                                height: 48px;
+
+                                @include respond(sm-desktop) {
+                                    width: 38px;
+                                    height: 38px;
+                                }
+
+                                @include respond(phone) {
+                                    width: 30px;
+                                    height: 30px;
+                                }
                             }
                         }
                         @include respond(md-desktop) {

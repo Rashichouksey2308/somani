@@ -2,20 +2,21 @@ import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import { useState, useEffect } from 'react'
-import { GetDocuments, AddingDocument, DeleteDocument } from '../../../src/redux/creditQueueUpdate/action'
-import { useDispatch,useSelector } from 'react-redux'
+import {
+  GetDocuments,
+  AddingDocument,
+  DeleteDocument,
+} from '../../../src/redux/creditQueueUpdate/action'
+import { useDispatch, useSelector } from 'react-redux'
 
-
-const Index = ({orderid}) => {
- const dispatch = useDispatch()
-  useEffect(()=>{
+const Index = ({ orderid }) => {
+  const dispatch = useDispatch()
+  useEffect(() => {
     dispatch(GetDocuments(`?order=${orderid}`))
-  },[orderid])
-  console.log(orderid,'orderid')
+  }, [orderid])
+  console.log(orderid, 'orderid')
   const { documentsFetched } = useSelector((state) => state.review)
 
-
- 
   const [editInput, setEditInput] = useState(true)
   const [manualDocModule, setManualDocModule] = useState(true)
   const [newDoc, setNewDoc] = useState({
@@ -50,9 +51,8 @@ const Index = ({orderid}) => {
   const uploadDocumentHandler = (e) => {
     e.preventDefault()
 
-    
     const fd = new FormData()
-    console.log(newDoc, newDoc.document, "pdfFile", newDoc.module)
+    console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module)
     fd.append('document', newDoc.document)
     fd.append('module', newDoc.module)
     fd.append('order', orderid)
@@ -111,14 +111,21 @@ const Index = ({orderid}) => {
                   <div className="d-flex">
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
-                      id="docType" onChange={(e) => handleDropdown(e)}>
-
-                      <option value="CertificateofIncorporation">Certificate of Incorporation</option>
+                      id="docType"
+                      onChange={(e) => handleDropdown(e)}
+                    >
+                      <option value="CertificateofIncorporation">
+                        Certificate of Incorporation
+                      </option>
                       <option value="IECCertificate">IEC Certificate</option>
-                      <option value="BusinessRegistrationCertificate ">Business Registration Certificate </option>
+                      <option value="BusinessRegistrationCertificate ">
+                        Business Registration Certificate{' '}
+                      </option>
                       <option value="PANCard">PAN Card</option>
                       <option value="GSTCertificate">GST Certificate</option>
-                      <option value="BankReferenceLetter">Bank Reference Letter</option>
+                      <option value="BankReferenceLetter">
+                        Bank Reference Letter
+                      </option>
                       <option value="FinancialYear ">Financial Year </option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
@@ -136,17 +143,20 @@ const Index = ({orderid}) => {
                     Please Specify Document Name
                   </Form.Label>
                   <input
-                    onChange={(e) => setNewDoc({ ...newDoc, name: e.target.value })}
+                    onChange={(e) =>
+                      setNewDoc({ ...newDoc, name: e.target.value })
+                    }
                     className={`${styles.value} input form-control`}
                     type="text"
                     placeholder="Insurance Quotation"
                     disabled={manualDocModule}
                   />
                 </Form.Group>
-                <div onClick={(e) => uploadDocumentHandler(e)} className={styles.uploadBtnWrapper}>
-                  <button
-                    className={`${styles.upload_button} btn`}
-                  >
+                <div
+                  onClick={(e) => uploadDocumentHandler(e)}
+                  className={styles.uploadBtnWrapper}
+                >
+                  <button className={`${styles.upload_button} btn`}>
                     Upload
                   </button>
                 </div>
@@ -159,28 +169,30 @@ const Index = ({orderid}) => {
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <div
-                      className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
-                    >
-                      <div>
-                        <select
-                          className={`${styles.dropDown} input form-control`}
-                        >
-                          <option>Lead Onboarding &amp; Order Approval</option>
-                          <option>Agreements, Insurance & LC Opening</option>
-                          <option>Loading-Transit-Unloading</option>
-                          <option>Custom Clearance And Warehousing</option>
-                          <option value="Others">Others</option>
-                        </select>
-                      </div>
-                      <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
-                        <img className={` ${styles.searchImage} img-fluid`} src="/static/search-grey.svg" alt="Search"></img>
-                        <input
-                          className={`${styles.searchBar} input form-control`}
-                          placeholder="Search"
-                        >
-                          
-                        </input>
-                      </div>
+                className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
+              >
+                <div>
+                  <select className={`${styles.dropDown} input form-control`}>
+                    <option>Lead Onboarding &amp; Order Approval</option>
+                    <option>Agreements, Insurance & LC Opening</option>
+                    <option>Loading-Transit-Unloading</option>
+                    <option>Custom Clearance And Warehousing</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </div>
+                <div
+                  className={`d-flex align-items-center ${styles.searchBarContainer} `}
+                >
+                  <img
+                    className={` ${styles.searchImage} img-fluid`}
+                    src="/static/search.svg"
+                    alt="Search"
+                  ></img>
+                  <input
+                    className={`${styles.searchBar} input form-control`}
+                    placeholder="Search"
+                  ></input>
+                </div>
               </div>
               <table
                 className={`${styles.table} table`}
@@ -224,13 +236,10 @@ const Index = ({orderid}) => {
                     </th>
                     <th>STATUS </th>
                     <th>ACTION</th>
-                   
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    
-                  </tr>
+                  <tr></tr>
 
                   <tr className="uploadRowTable">
                     <td className={styles.doc_name}>Container No. List</td>
@@ -267,54 +276,63 @@ const Index = ({orderid}) => {
                       />
                     </td>
                   </tr>
-                  {documentsFetched && documentsFetched?.documents?.map((document, index) => {
-                                if (document.deleted) {
-                                  return null
-                                } else {
-                                  return (
-                                    <tr key={index} className="uploadRowTable">
-                                      <td className={`${styles.doc_name}`}>
-                                        {document.name}
-                                      </td>
-                                      <td>
-                                        <img
-                                          src="/static/pdf.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
-                                      </td>
-                                      <td className={styles.doc_row}>
-                                        {document.date}
-                                      </td>
-                                      <td className={styles.doc_row}>{document.uploadedBy?.fName} {document.uploadedBy?.lName}</td>
-                                      <td>
-                                        <span
-                                          className={`${styles.status} ${styles.approved}`}
-                                        ></span>
-                                        {document?.verification?.status}
-                                      </td>
-                                      <td colSpan="2">
-                                        <img
-                                          onClick={() => dispatch(DeleteDocument({ orderDocumentId: documentsFetched._id, name: document.name }))}
-                                          src="/static/delete.svg"
-                                          className={`${styles.delete_image} img-fluid mr-3`}
-                                          alt="Bin"
-                                        />
-                                        <img
-                                          src="/static/upload.svg"
-                                          className="img-fluid mr-3"
-                                          alt="Share"
-                                        />
-                                        <img
-                                          src="/static/drive_file.svg"
-                                          className={`${styles.edit_image} img-fluid mr-3`}
-                                          alt="Share"
-                                        />
-                                      </td>
-                                    </tr>
+                  {documentsFetched &&
+                    documentsFetched?.documents?.map((document, index) => {
+                      if (document.deleted) {
+                        return null
+                      } else {
+                        return (
+                          <tr key={index} className="uploadRowTable">
+                            <td className={`${styles.doc_name}`}>
+                              {document.name}
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>{document.date}</td>
+                            <td className={styles.doc_row}>
+                              {document.uploadedBy?.fName}{' '}
+                              {document.uploadedBy?.lName}
+                            </td>
+                            <td>
+                              <span
+                                className={`${styles.status} ${styles.approved}`}
+                              ></span>
+                              {document?.verification?.status}
+                            </td>
+                            <td colSpan="2">
+                              <img
+                                onClick={() =>
+                                  dispatch(
+                                    DeleteDocument({
+                                      orderDocumentId: documentsFetched._id,
+                                      name: document.name,
+                                    }),
                                   )
                                 }
-                              })}
+                                src="/static/delete.svg"
+                                className={`${styles.delete_image} img-fluid mr-3`}
+                                alt="Bin"
+                              />
+                              <img
+                                src="/static/upload.svg"
+                                className="img-fluid mr-3"
+                                alt="Share"
+                              />
+                              <img
+                                src="/static/drive_file.svg"
+                                className={`${styles.edit_image} img-fluid mr-3`}
+                                alt="Share"
+                              />
+                            </td>
+                          </tr>
+                        )
+                      }
+                    })}
                 </tbody>
               </table>
             </div>

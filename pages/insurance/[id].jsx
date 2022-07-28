@@ -5,8 +5,6 @@ import styles from './indextable.module.scss'
 import Router from 'next/router'
 
 function Index() {
-  const [edit, setEdit] = useState(false)
-
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -98,31 +96,19 @@ function Index() {
                     <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
+                        style={{ cursor: 'pointer' }}
                       ></span>
                       Pending
                     </td>
-                    {!edit ? (
-                      <td colSpan={2}>
-                        {' '}
-                        <button
-                          className={styles.updateBtn}
-                          onClick={() => setEdit(!edit)}
-                        >
-                          Update
-                        </button>
-                      </td>
-                    ) : (
-                      <>
-                        <td>Updated on: 02/06/2022</td>
-                        <td>
-                          <img
-                            src="/static/mode_edit.svg"
-                            className={`${styles.edit_image} mr-3 img-fluid`}
-                            onClick={() => setEdit(!edit)}
-                          />
-                        </td>
-                      </>
-                    )}
+
+                    <td>Updated on: 02/06/2022</td>
+                    <td>
+                      <img
+                        src="/static/mode_edit.svg"
+                        className={`${styles.edit_image} mr-3 img-fluid`}
+                        // onClick={() => setEdit(!edit)}
+                      />
+                    </td>
                   </tr>
                 </tbody>
               </table>

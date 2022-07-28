@@ -14,7 +14,7 @@ function Index() {
       {' '}
       <div className="container-fluid mb-4 mt-2 border-0">
         <div className="p-4">
-          <div className={styles.head_header}>
+          <div className={`${styles.head_header} ml-5`}>
             <img
               className={`${styles.arrow} mr-3 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
