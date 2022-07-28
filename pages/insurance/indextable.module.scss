@@ -1,0 +1,260 @@
+@import "../../src/components/styles/Core/config";
+.container_inner {
+    margin: 28px;
+    @include respond(sm-desktop) {
+        margin: 20px;
+    }
+    @include respond(phone) {
+        margin: 15px;
+    }
+}
+.filter {
+    margin: 15px 0 22px;
+    @include respond(sm-desktop) {
+        display: block !important;
+    }
+    .head_header {
+        display: flex;
+        margin: 0 20px 0px 10px;
+        .arrow {
+            width: 13px;
+            height: 21px;
+            background: transparent;
+            margin-top: 10px;
+        }
+        .heading {
+            padding-left: 18px;
+            font-weight: bold;
+            font-size: 30px;     
+            text-transform: capitalize;
+            margin: 0;
+            @include respond(md-desktop) {
+                font-size: 28px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 26px;
+            }
+            @include respond(phone) {
+                font-size: 24px;
+            }
+        }
+    }
+    .search {
+        width: 492px;
+        position: relative;
+        margin-left: 20px;
+        @include respond(sm-desktop) {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .inputGroupPrepend {
+            top: 50%;
+            left: 31px;
+            z-index: 1;
+            position: absolute;
+            transform: translateY(-50%);
+        }
+        .formControl {
+            font-size: 18px !important;
+            font-weight: 500 !important;
+            line-height: 23px !important;
+            height: 48px !important;
+            z-index: 0 !important;
+            position: relative !important;
+            box-shadow: none !important;
+            padding-left: 65px !important;
+            border-radius: 24px !important;
+            border: 2px solid #D2D7E5 !important;
+        }
+    }
+    .filterIcon {
+        width: 48px;
+        height: 48px;
+        margin: 0 20px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 5px;
+        display: inline-block;
+        border: 3px solid #3687E8;
+        @include respond(sm-desktop) {
+            margin-left: 0;
+        }
+    }
+    .filterList {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 25px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        margin: 0 10px 0 5px;
+        letter-spacing: 0.17px;
+        display: inline-block;
+        text-transform: capitalize;
+        img {
+            width: 10px;
+            margin-left: 12px;
+            display: inline-block;
+        }
+    }
+    .createBtn {
+        font-size: 20px;
+        color: #FFFFFF;
+        font-weight: bold;
+        line-height: 25px;
+        width: 188px;
+        height: 48px;
+        padding: 12px 0;
+        box-shadow: none;
+        text-align: center;
+        border: none;
+        border-radius: 5px;
+        background: #3687E8;
+        //display: inline-block;
+        text-transform: capitalize;
+    }
+}
+.datatable {
+    border: 1px solid #d2d7e5;
+    border-radius: 6px;
+    // margin: 0 12px 0 12px;
+    .tableFilter {
+        padding: 0 15px 0 35px;
+        @include respond(sm-desktop) {
+            padding: 0 15px 0 15px;
+        }
+        h3 {
+            font-size: 22px !important; 
+            font-weight: bold;
+            line-height: 27px;
+            margin: 24px 0;
+            color: #3687E8;
+            text-transform: capitalize;
+        }      
+    }
+    .table_scroll_outer {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        .table_scroll_inner {
+            display: table-cell;
+            overflow-x: auto;
+            .table {
+                margin-bottom: 0px !important;
+                th {
+                    font-size: 15px;
+                    font-weight: bold;
+                    line-height: 18px;
+                    padding: 24px 15px;
+                    text-transform: uppercase;
+                    border-top: 2px solid #F2F5F9;
+                    border-bottom: 2px solid #F2F5F9;
+                    &:first-child {
+                        padding-left: 35px;
+                        @include respond(sm-desktop) {
+                            padding-left: 15px;
+                        }              
+                    }
+                    img {
+                        width: 14px;
+                        height: 14px;
+                    }
+                    @include respond(md-desktop) {
+                        font-size: 14px;
+                        line-height: 1.2;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 13px;
+                    }
+                    @include respond(phone) {
+                        font-size: 12px;
+                    }
+                }
+                tr {
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                    td {
+                        font-size: 19px;
+                        font-weight: 500;
+                        line-height: 24px;
+                        padding: 24px 15px;
+                        border-top: none;
+                        white-space: nowrap;
+                        vertical-align: middle;
+                        &:first-child {
+                            padding-left: 35px;
+                            @include respond(sm-desktop) {
+                                padding-left: 15px;
+                            }
+                        }                      
+                        @include respond(md-desktop) {
+                            font-size: 17px;
+                            padding: 18px 10px;
+                        }
+                        @include respond(sm-desktop) {
+                            font-size: 15px;
+                            padding: 15px 10px;
+                        }
+                        @include respond(phone) {
+                            font-size: 14px;
+                            padding: 10px;
+                        }
+                    }
+                }
+                .updateBtn {
+                    text-align: center;
+                    color: #3687E8;
+                    text-transform: capitalize;
+                    border: 3px solid #3687E8;
+                    border-radius: 5px;
+                    font-size: 18px;
+                    line-height: 23px;
+                    font-weight: bold;
+                    background: transparent;
+                    padding: 8px 30px 8px 30px ;
+                }
+                .edit_image {
+                    cursor: pointer;
+                    background: #C3C3C31F;
+                    border: 1px solid #0000001F;
+                    border-radius: 4px;
+                    padding: 10px 9px 10px 9px;
+                    @include respond(md-desktop) {
+                        height: 30px;
+                        padding: 7px;
+                    }
+                    @include respond(sm-desktop) {
+                        height: 28px;
+                        padding: 6px;
+                    }
+                    @include respond(phone) {
+                        height: 25px;
+                        padding: 5px;
+                    }
+                }
+                .buyerName {
+                    color: #3687E8;
+                    font-weight: bold;
+                    text-transform: capitalize;
+                }
+                .status {
+                    width: 15px;
+                    height: 15px;
+                    margin-right: 10px;
+                    border-radius: 50%;
+                    display: inline-block;
+                    vertical-align: middle;
+                }        
+                .approved {
+                    background: #26DD73;
+                }
+                .rejected {
+                    background: #ED714C;
+                }
+                .review {
+                    background: #FFCE00;
+                }
+            }
+        }
+    }
+}
