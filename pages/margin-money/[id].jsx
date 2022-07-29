@@ -24,7 +24,7 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney)
 
   const marginData = margin?.data?.data[0]
-
+  let id =sessionStorage.getItem('marginId')
   useEffect(() => {
     let id =sessionStorage.getItem('marginId')
     dispatch(GetMarginMoney({ orderId: id }))
@@ -1543,7 +1543,7 @@ function Index() {
 
                 <div className="tab-pane fade" id="Documents" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <UploadOther />
+                    <UploadOther orderid={id}  module='LeadOnboardingOrderApproval' />
                   </div>
                 </div>
               </div>

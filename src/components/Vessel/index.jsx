@@ -73,8 +73,6 @@ function Index() {
             yearOfBuilt: '',
             shippingLineOrCharter: '',
           }]
-
-
         },
       ])
     } else setList(_get(
@@ -85,15 +83,6 @@ function Index() {
   }, [dispatch, Vessel])
 
   const [list, setList] = useState()
-  const [vesselInfo, setVesselInfo] = useState([{
-    name: '',
-    IMONumber: '',
-    flag: '',
-    yearOfBuilt: '',
-    shippingLineOrCharter: '',
-  }])
-
-
 
   const onAddVessel = () => {
     setList([
