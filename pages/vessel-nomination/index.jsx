@@ -98,12 +98,12 @@ function Index() {
               <tbody>
                 {allVessel && allVessel?.data?.map((vessel, index) => (
                   <tr key={index} className="table_row">
-                    <td>{vessel.order?._id}</td>
+                    <td>{vessel?.order?._id}</td>
                     <td
                       className={styles.buyerName}
                       onClick={() => handleRoute(vessel)}
                     >
-                      {vessel.company.companyName}
+                      {vessel?.company?.companyName}
                     </td>
                     <td>RM-Sales</td>
                     <td>
