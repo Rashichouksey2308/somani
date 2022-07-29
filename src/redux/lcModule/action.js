@@ -3,7 +3,7 @@ import Axios from 'axios'
 import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
-import router from 'next/router'
+import Router from 'next/router'
 
 function getLcModule() {
   return {
@@ -153,7 +153,7 @@ export const UpdateLcAmendment = (payload) => async (dispatch, getState, api) =>
         if (!toast.isActive(toastMessage)) {
           toast.success(toastMessage, { toastId: toastMessage })
         }
-        // router.push('/margin-money')
+        Router.push('/letter-credit/id')
       } else {
         dispatch(updatingLcAmendmentFailed(response.data.data))
         let toastMessage = 'UPDATE REQUEST FAILED'
