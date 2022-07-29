@@ -147,7 +147,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <input id='marginMoney' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text"  
                             // defaultValue={termsheetDetails?.transactionDetails?.marginMoney}
                              value={addPrefixOrSuffix(
-                                termsheetDetails?.transactionDetails?.marginMoney.toString(),
+                                termsheetDetails?.transactionDetails?.marginMoney?.toString(),
                                 "%"
                                 ,"")} 
                             onChange={onChangeTransactionDetails} 
@@ -269,11 +269,12 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                  className={`${styles.value} 
                                  ${styles.customSelect} input form-control`} 
                                  onChange={onChangeTransactionDetails}
-                                 defaultValue={termsheetDetails?.transactionDetails?.billOfEntity}
+                                 value={termsheetDetails?.transactionDetails?.billOfEntity}
                                   required>
-                                    <option value={termsheetDetails?.transactionDetails?.billOfEntity}>{termsheetDetails?.transactionDetails?.billOfEntity} </option>
-                                    <option value="Home Consumption/Intobond">Home Consumption/Intobond</option>
-                                    <option value="Warehousing/Exbond">Warehousing/Exbond</option>
+                                    
+                                    <option value="Home Consumption">Home Consumption</option>
+                                    <option value="Intobond Warehousing">Intobond Warehousing</option>
+                                    <option value="Exbond">Exbond  </option>
                                 </select>
 
                                 <label className={`${styles.label} label_heading`}>Bill of Entry<strong className="text-danger">*</strong></label>
@@ -368,7 +369,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                             <input id='tradeMarginPercentage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" min="0" max="100" 
                             value={addPrefixOrSuffix(
-                               termsheetDetails.commercials?.tradeMarginPercentage.toString(),
+                               termsheetDetails.commercials?.tradeMarginPercentage?.toString(),
                                 "%"
                                 ,"")} 
                             // defaultValue={termsheetDetails.commercials?.tradeMarginPercentage} 
@@ -383,7 +384,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                             <input id='lcOpeningChargesPercentage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" min="0" max="100" 
                             value={addPrefixOrSuffix(
-                              termsheetDetails?.commercials?.lcOpeningChargesPercentage.toString(),
+                              termsheetDetails?.commercials?.lcOpeningChargesPercentage?.toString(),
                                 "%"
                                 ,"")} 
                             // defaultValue={termsheetDetails?.commercials?.lcOpeningChargesPercentage} 
@@ -394,7 +395,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
                             <input id='usanceInterestPercetage' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" min="0" max="100" 
                              value={addPrefixOrSuffix(
-                              termsheetDetails?.commercials?.usanceInterestPercetage.toString(),
+                              termsheetDetails?.commercials?.usanceInterestPercetage?.toString(),
                                 "%"
                                 ,"")}
                            
@@ -405,7 +406,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <input id='overDueInterestPerMonth' className={`${styles.value} ${styles.marginPercent} input form-control`} type="text" min="0" max="100" 
                             value={addPrefixOrSuffix(
-                              termsheetDetails?.commercials?.overDueInterestPerMonth.toString(),
+                              termsheetDetails?.commercials?.overDueInterestPerMonth?.toString(),
                                 "%"
                                 ,"")}
                             // defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth} 

@@ -4,8 +4,9 @@ import styles from './index.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetLcModule } from 'redux/lcModule/action'
-import InspectionDocument from '../InspectionDocument'
+import { GetLcModule, UpdateLcAmendment } from 'redux/lcModule/action'
+import SubmitBar from '../../components/PreviousBar/SubmitBar'
+import Router from 'next/router'
 
 function Index() {
   const dispatch = useDispatch()
@@ -119,23 +120,21 @@ function Index() {
     newValue: '',
   })
 
-  console.log(clauseObj, 'this is ccccc')
+  // console.log(clauseObj, 'this is ccccc')
 
   const [clauseArr, setClauseArr] = useState([])
-  console.log(clauseArr, 'new arr')
+  // console.log(clauseArr, 'new arr')
+
+  const [drop, setDrop] = useState('')
 
   const dropDownChange = (e) => {
     let newInput = { ...clauseObj }
+    let val1 = e.target.options[e.target.selectedIndex].text
+    let val2 = e.target.value
+    setDrop(val2)
 
-    let value = e.target.options[e.target.selectedIndex].text
-    // console.log(typeof(lcData[e.target.value]), 'typeof')
-
-    // setTimeout(() => {
-    //   arrChange('existingValue', lcData[e.target.value])
-    // }, 300)
-    // arrChange('dropDownValue', value)
     newInput['existingValue'] = lcData[e.target.value]
-    newInput['dropDownValue'] = value
+    newInput['dropDownValue'] = val1
 
     setClauseObj(newInput)
   }
@@ -144,6 +143,11 @@ function Index() {
     const newInput = { ...clauseObj }
     newInput[name] = value
     setClauseObj(newInput)
+
+    const newInput1 = { ...lcData }
+    newInput1[drop] = value
+    // console.log(newInput1, "NEW INPUT 1")
+    setLcData(newInput1)
   }
 
   const addToArr = () => {
@@ -167,6 +171,14 @@ function Index() {
     } else {
       setEditInput(true)
     }
+  }
+
+  const handleSubmit = () => {
+    let obj = {
+      lcApplication: { ...lcData },
+    }
+    dispatch(UpdateLcAmendment(obj))
+    Router.push('/letter-credit/id')
   }
 
   return (
@@ -471,6 +483,7 @@ function Index() {
           </div>
         </div>
       </div>
+      <SubmitBar handleSubmit={handleSubmit} />
     </>
   )
 }

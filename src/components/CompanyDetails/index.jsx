@@ -25,7 +25,7 @@ const Index = ({
       background: `${(slider * 100) / 100}`,
     }
   }
-  // console.log(sliderBackground())
+  console.log(slider,"slider")
 
   return (
     <>
@@ -295,32 +295,32 @@ const Index = ({
                 <input
                   type="range"
                   min="0"
-                  max="100"
-                  step="20"
+                  max="500"
+                  step="100"
                   name="turnOver"
                   list="tickmarks"
                   onChange={(e) => {
                     saveCompanyData(
                       e.target.name,
-                      Number(e.target.value * 10000000),
+                      Number(e.target.value * 100),
                     )
                     setSlider(e.target.value)
                   }}
                   className={`${styles.slider} px-0 input form-control`}
                   id="myRange"
                   style={{
-                    background: `linear-gradient(90deg, #3687E8 ${slider}%, #C3C3C31F ${
-                      slider - 100
+                    background: `linear-gradient(90deg, #3687E8 ${(slider*2/10)}%, #C3C3C31F ${
+                      (slider*2/10) - 100
                     }%)`,
                   }}
                 />
                 <datalist id="tickmarks">
                   <option value="0" label="0"></option>
-                  <option value="20" label="20"></option>
-                  <option value="40" label="40"></option>
-                  <option value="60" label="60"></option>
-                  <option value="80" label="80"></option>
                   <option value="100" label="100"></option>
+                  <option value="200" label="200"></option>
+                  <option value="300" label="300"></option>
+                  <option value="400" label="400"></option>
+                  <option value="500" label="500"></option>
                 </datalist>
                 <div
                   className={`${styles.more_label} d-flex justify-content-end mr-n2`}

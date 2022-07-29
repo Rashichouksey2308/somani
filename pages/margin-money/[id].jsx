@@ -84,7 +84,7 @@ function Index() {
       365,
   ).toFixed(2) //L
   let tradeMargin = parseFloat(
-    orderValueInINR * Number(forCalculation.tradeMarginPercentage / 100),
+    orderValueInINR * Number(Number(forCalculation.tradeMarginPercentage) / 100),
   ).toFixed(2) //M
   let grossOrderValue = parseFloat(
     Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -94,12 +94,12 @@ function Index() {
   ).toFixed(2) //O
   let totalOrderValue = parseFloat((Number(grossOrderValue)) + Number(toleranceValue)).toFixed(2) //P
   let provisionalUnitPricePerTon = parseFloat(
-    grossOrderValue / forCalculation.quantity,
+    Number(grossOrderValue) / Number(forCalculation.quantity),
   ).toFixed(2) //Q
   let marginMoney = parseFloat(
-    totalOrderValue * Number(forCalculation.marginMoney / 100),
+    Number(totalOrderValue )* Number(Number(forCalculation.marginMoney) / 100),
   ).toFixed(2) //R
-  let totalSPDC = parseFloat(totalOrderValue - marginMoney).toFixed(2) //S
+  let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(2) //S
   let amountPerSPDC = parseFloat(
     Number(totalSPDC )/ Number(forCalculation.numberOfPDC),
   ).toFixed(2) //T

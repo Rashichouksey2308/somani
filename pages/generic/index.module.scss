@@ -94,11 +94,13 @@
     }
     .tabContent {
         margin: 26px;
+        margin-bottom: 66px;
         @include respond(sm-desktop) {
             margin: 20px;
         }
         @include respond(phone) {
             margin: 15px;
+            margin-bottom: 71px;
         }
         .card {
             margin-bottom: 1rem;

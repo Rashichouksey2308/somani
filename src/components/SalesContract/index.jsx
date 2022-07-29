@@ -52,7 +52,7 @@ function Index() {
             >
              
                <img src={`${
-                row.state=="current"?"/static/Group 203255.svg":"/static/Group 3256.svg"
+                row.state=="current"?"/static/Group 3255.svg":"/static/Group 3256.svg"
                }`}></img>
                  <span className="ml-3">{row.name}</span>
             </div>
