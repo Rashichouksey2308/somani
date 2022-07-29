@@ -6,7 +6,7 @@ import InspectionDocument from '../../src/components/InspectionDocument'
 import DateCalender from '../../src/components/DateCalender'
 import SaveBar from '../../src/components/SaveBar'
 import { useDispatch, useSelector } from 'react-redux'
-import {GetLcModule} from '../../src/redux/lcModule/action'
+import {GetLcModule, UpdateAmendment} from '../../src/redux/lcModule/action'
 
 function Index() {
 
@@ -165,6 +165,14 @@ function Index() {
     const newClause = clauseArr.filter((item) => {return  item.dropDownValue !== arr}
     )
     setClauseArr(newClause)
+  }
+
+  const handleSubmit = () => {
+    let obj = {
+      lcApplication: {...lcData}
+    }
+    dispatch(UpdateAmendment(obj))
+    // Router.push('/letter-credit/id')
   }
 
   return (
@@ -455,7 +463,7 @@ function Index() {
           <InspectionDocument />
         </div>
       </div>
-      <SaveBar rightBtn="Share" />
+      <SaveBar handleSave={handleSubmit} rightBtn="Share" />
     </>
   )
 }

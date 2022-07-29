@@ -1,11 +1,13 @@
 import Router from 'next/router'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import styles from './index.module.scss'
 
-function index({ rightBtn, rightBtnClick }) {
+function Index({handleSave, rightBtn, rightBtnClick }) {
+  const {updatingAmendment} = useSelector((state)=>state.lc)
   return (
     <div className={`${styles.root} card`}>
-      <div className={`${styles.reject} ml-3`}>
+      <div onClick={()=>{ if(!updatingAmendment) {handleSave()}}} className={`${styles.reject} ml-3`}>
         <span>Save</span>
       </div>
       <div
@@ -20,4 +22,4 @@ function index({ rightBtn, rightBtnClick }) {
   )
 }
 
-export default index
+export default Index

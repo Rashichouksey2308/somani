@@ -4,7 +4,9 @@ import styles from './index.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetLcModule } from 'redux/lcModule/action'
+import { GetLcModule, UpdateLcAmendment } from 'redux/lcModule/action'
+import SubmitBar from "../../components/PreviousBar/SubmitBar"
+import Router from 'next/router'
 
 function Index() {
   const dispatch = useDispatch()
@@ -169,6 +171,14 @@ function Index() {
     } else {
       setEditInput(true)
     }
+  }
+
+  const handleSubmit = () => {
+    let obj = {
+      lcApplication: {...lcData}
+    }
+    dispatch(UpdateLcAmendment(obj))
+    Router.push('/letter-credit/id')
   }
 
   return (
@@ -625,6 +635,7 @@ function Index() {
           </div>
         </div>
       </div>
+      <SubmitBar handleSubmit={handleSubmit} />
     </>
   )
 }
