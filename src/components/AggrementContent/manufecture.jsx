@@ -485,112 +485,116 @@ const editNewAddress=(name,value)=>{
         </div>
         {isEdit && editData(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)}
         <div className={`${styles.tableContainer} border-color card p-0`}>
-      <div
-        className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-        data-toggle="collapse"
-        data-target="#customerDetail"
-        aria-expanded="true"
-        aria-controls="customerDetail"
-      >
-        <div className={styles.header}>
-          <h2 className={`mb-0`}>Authorised Signatory Details</h2>
-          <span className=" d-flex align-items-center justify-content-between">
+          <div
+            className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
+            data-toggle="collapse"
+            data-target="#customerDetail"
+            aria-expanded="true"
+            aria-controls="customerDetail"
+          >
+            <div className={styles.header}>
+              <h2 className={`mb-0`}>Authorised Signatory Details</h2>
+              <span className=" d-flex align-items-center justify-content-between">
 
-            +
-          </span>
-        </div>
-      </div>
-      <div
-        id="customerDetail"
-        className={`collapse ${styles.body}  value_card card-body row`}
-        aria-labelledby="customerDetail"
-     
-      >
-        <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-          <tr>
-            <th>NAME</th>
-            <th>DESIGNATION</th>
-            <th>EMAIL</th>
-            <th>PHONE NO.</th>
-            <th>ACTION</th>
-          </tr>
-          <tbody>
-            {list.length>0 && list.map((val,index)=>{
-              return(
-                <>
-                {val.actions=="true"?
-                <tr key={index}>
-                  <td>{val.name}</td>
-                  <td>{val.designation}</td>
-                  <td>{val.email}</td>
-                  <td>{val.phoneNo}</td>
-                  <td className={`d-flex justify-content-start`}>
-                  <img className="mr-2" onClick={()=>(onEdit(index))} src="./static/mode_edit.svg"  />
-                   <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
-                  </td>
+                +
+              </span>
+            </div>
+          </div>
+          <div
+            id="customerDetail"
+            className={`collapse ${styles.body}  value_card card-body row`}
+            aria-labelledby="customerDetail"
+        
+          >
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+                  <tr>
+                    <th>NAME</th>
+                    <th>DESIGNATION</th>
+                    <th>EMAIL</th>
+                    <th>PHONE NO.</th>
+                    <th>ACTION</th>
+                  </tr>
+                  <tbody>
+                    {list.length>0 && list.map((val,index)=>{
+                      return(
+                        <>
+                        {val.actions=="true"?
+                        <tr key={index}>
+                          <td>{val.name}</td>
+                          <td>{val.designation}</td>
+                          <td>{val.email}</td>
+                          <td>{val.phoneNo}</td>
+                          <td className={`d-flex justify-content-start`}>
+                          <img className="mr-2" onClick={()=>(onEdit(index))} src="./static/mode_edit.svg"  />
+                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
+                          </td>
 
-                </tr>
-                :<tr key={index}>
-                  <td><select 
-                  value="name"
-                  onChange={(e)=>{
-                    handleChangeInput(e.target.name,e.target.value,index)
+                        </tr>
+                        :<tr key={index}>
+                          <td><select 
+                          value="name"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}>
+                            <option value={"Dr.amin"}>{"Dr.amin"}</option>
+                            </select>
+                        </td>
+                          <td><input type="text" 
+                          placeholder={val.designation}
+                          name= "designation"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td><input type="text" placeholder={val.email}
+                          name= "email"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td><input type="text" placeholder={val.phoneNo}
+                          name= "phoneNo"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td className={`d-flex`}>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                              onClick={()=>{
+                              onEditRemove(index)
+                              }}
+                            >
+                              <img className={`${styles.image} img-fluid mr-3`} src="/static/save-3.svg" alt="save"/>
+                            </div>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                              onClick={()=>{
+                              handleRemove(index)
+                              }}
+                            >
+                              <img src="./static/delete 2.svg" />
+                            </div>
+                            {/* <img  onClick={()=>(onEditRemove(index))}src="./static/save-3.svg"  />
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
+                          </td>
+
+                        </tr>}
+                        </>
+                      )
+                    })}
+                  </tbody>
+                </table>
+                <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+                  addMoreRows()
                   }}>
-                    <option value={"Dr.amin"}>{"Dr.amin"}</option>
-                    </select>
-                 </td>
-                  <td><input type="text" 
-                  placeholder={val.designation}
-                  name= "designation"
-                  onChange={(e)=>{
-                    handleChangeInput(e.target.name,e.target.value,index)
-                  }}
-                  ></input></td>
-                  <td><input type="text" placeholder={val.email}
-                  name= "email"
-                  onChange={(e)=>{
-                    handleChangeInput(e.target.name,e.target.value,index)
-                  }}
-                  ></input></td>
-                  <td><input type="text" placeholder={val.phoneNo}
-                  name= "phoneNo"
-                  onChange={(e)=>{
-                    handleChangeInput(e.target.name,e.target.value,index)
-                  }}
-                  ></input></td>
-                  <td className={`d-flex  justify-content-between align-items-start`}>
-                     <div
-                      className={`${styles.addressEdit} mt-3 d-flex justify-content-center  align-items-start`}
-                      onClick={()=>{
-                       onEditRemove(index)
-                      }}
-                    >
-                      <img src="./static/save-3.svg" />
-                    </div>
-                     <div
-                      className={`${styles.addressEdit} mt-3 d-flex justify-content-center align-items align-items-center`}
-                      onClick={()=>{
-                       handleRemove(index)
-                      }}
-                    >
-                      <img src="./static/delete 2.svg" />
-                    </div>
-                     {/* <img  onClick={()=>(onEditRemove(index))}src="./static/save-3.svg"  />
-                     <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
-                  </td>
-
-                </tr>}
-                </>
-              )
-            })}
-          </tbody>
-        </table>
-        <div className={`${styles.addMoreRows}`} onClick={(e)=>{
-          addMoreRows()
-        }}>
-        <span style={{fontSize:"2rem"}} className={`mr-2`}>+</span>  Add more rows
-        </div>
-      </div>
+                  <span style={{fontSize:"2rem"}} className={`mr-2`}>+</span>  Add more rows
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className={styles.manufacture}>
          
@@ -618,8 +622,8 @@ const editNewAddress=(name,value)=>{
                     alt="Search"
                   />
             </Form.Group>
-
-              <div className={`${styles.newAddressContainer}`}>
+            <div className={`col-sm-12`}>
+              <div className={`${styles.newAddressContainer} m-0`}>
                   <div className={styles.newAddressHead}><span className={`mb-3`}>Add new address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -707,7 +711,7 @@ const editNewAddress=(name,value)=>{
                       <select
                         className={`${styles.input_field} input form-control`}
                         name="gstin"
-                         value={newAddress.gstin}
+                        value={newAddress.gstin}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -727,7 +731,7 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="pinCode"
-                         value={newAddress.pinCode}
+                        value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -747,7 +751,7 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="country"
-                         value={newAddress.country}
+                        value={newAddress.country}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -777,7 +781,7 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="city"
-                         value={newAddress.city}
+                        value={newAddress.city}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -792,7 +796,7 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="fullAddress"
-                         value={newAddress.fullAddress}
+                        value={newAddress.fullAddress}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -818,6 +822,7 @@ const editNewAddress=(name,value)=>{
                     </div>
                   </div>
               </div>
+            </div>
 
           </div>
         </div>
