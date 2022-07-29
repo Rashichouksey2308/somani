@@ -168,10 +168,11 @@ function Index() {
   }
 
   const handleSubmit = () => {
-    let obj = {
-      lcApplication: {...lcData}
-    }
-    dispatch(UpdateAmendment(obj))
+    let fd = new FormData()
+    fd.append( 'lcApplication', JSON.stringify(lcData))
+    fd.append( 'lcModuleId', JSON.stringify(lcModuleData._id))
+    
+    dispatch(UpdateAmendment(fd))
     // Router.push('/letter-credit/id')
   }
 
@@ -235,7 +236,7 @@ function Index() {
                           (31C) Date Of Issue{' '}
                           <strong className="text-danger ml-n1">*</strong>{' '}
                         </div>
-                        <span className={styles.value}>{lcData?.dateOfIssue}</span>
+                        <span className={styles.value}>{lcData?.dateOfIssue?.split('T')[0]}</span>
                       </div>
                       <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
                         <div className="d-flex">
