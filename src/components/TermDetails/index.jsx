@@ -269,11 +269,12 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                  className={`${styles.value} 
                                  ${styles.customSelect} input form-control`} 
                                  onChange={onChangeTransactionDetails}
-                                 defaultValue={termsheetDetails?.transactionDetails?.billOfEntity}
+                                 value={termsheetDetails?.transactionDetails?.billOfEntity}
                                   required>
-                                    <option value={termsheetDetails?.transactionDetails?.billOfEntity}>{termsheetDetails?.transactionDetails?.billOfEntity} </option>
-                                    <option value="Home Consumption/Intobond">Home Consumption/Intobond</option>
-                                    <option value="Warehousing/Exbond">Warehousing/Exbond</option>
+                                    
+                                    <option value="Home Consumption">Home Consumption</option>
+                                    <option value="Intobond Warehousing">Intobond Warehousing</option>
+                                    <option value="Exbond">Exbond  </option>
                                 </select>
 
                                 <label className={`${styles.label} label_heading`}>Bill of Entry<strong className="text-danger">*</strong></label>
