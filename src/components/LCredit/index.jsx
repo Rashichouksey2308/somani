@@ -129,6 +129,7 @@ function Index() {
 
   const dropDownChange = (e) => {
     let newInput = { ...clauseObj }
+
     let val1 = e.target.options[e.target.selectedIndex].text
     let val2 = e.target.value
     setDrop(val2)
@@ -177,8 +178,8 @@ function Index() {
     let obj = {
       lcApplication: { ...lcData },
     }
+    console.log(obj, 'IBJJJ')
     dispatch(UpdateLcAmendment(obj))
-    Router.push('/letter-credit/id')
   }
 
   return (

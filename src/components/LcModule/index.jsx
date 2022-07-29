@@ -111,14 +111,14 @@ function Index() {
                   {lcModule &&
                     lcModule?.data?.map((lc, index) => (
                       <tr key={index} className="table_row">
-                        <td>{lc.order.orderId}</td>
+                        <td>{lc?.order?.orderId}</td>
                         <td
                           className={styles.buyerName}
                           onClick={() => {
                             handleRoute(lc)
                           }}
                         >
-                          {lc.order.commodity}
+                          {lc?.order?.commodity}
                         </td>
                         <td>RM-Sales</td>
 
@@ -140,7 +140,7 @@ function Index() {
                           </td>
                         ) : (
                           <>
-                            <td>Updated on: {lc.updatedAt.split('T')[0]}</td>
+                            <td>Updated on: {lc?.updatedAt?.split('T')[0]}</td>
                             <td>
                               <img
                                 src="/static/mode_edit.svg"
