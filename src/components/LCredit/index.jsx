@@ -25,6 +25,11 @@ function Index() {
 
   const [lcData, setLcData] = useState()
 
+  // useEffect(() => {
+  //   sessionStorage.setItem('lcData', lcData)
+  // }, [lcData, lcModuleData])
+  
+
   // console.log(lcData, "THIS IS LC USE STATE")
 
   useEffect(() => {
@@ -75,6 +80,8 @@ function Index() {
 
   console.log(lcData, 'LC DATA')
 
+ 
+
   const saveAmendmentData = (name, value) => {
     const newInput = { ...lcData }
     newInput[name] = value
@@ -87,7 +94,7 @@ function Index() {
     saveAmendmentData(name, text)
   }
 
-  // const [clauseData, setClauseData] = useState([
+  // const [clauseData, setClauseData] = useState(
   //   {
   //     formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
   //     applicableRules: lcModuleData?.lcApplication?.applicableRules,
@@ -111,7 +118,7 @@ function Index() {
   //     latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
   //     DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
   //   },
-  // ])
+  // )
 
   // console.log(clauseData, 'CLAUSE DATA')
 
@@ -165,14 +172,6 @@ function Index() {
       return item.dropDownValue !== arr
     })
     setClauseArr(newClause)
-  }
-
-  const handleDropdown = (e) => {
-    if (e.target.value == 'Others') {
-      setEditInput(false)
-    } else {
-      setEditInput(true)
-    }
   }
 
   const handleSubmit = () => {
@@ -483,7 +482,7 @@ function Index() {
 
           {/* Document*/}
           <div className="mt-4 mb-5">
-            <InspectionDocument />
+            <InspectionDocument orderId={lcModuleData?.order?._id} />
           </div>
         </div>
       </div>

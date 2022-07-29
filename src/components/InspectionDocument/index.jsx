@@ -1,16 +1,57 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { GetDocuments, AddingDocument, DeleteDocument } from 'redux/creditQueueUpdate/action'
+import { useDispatch, useSelector } from 'react-redux'
 
-const Index = () => {
+const Index = ({orderId}) => {
+  const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
+  console.log(orderId, 'iejfies')
+
+  const { documentsFetched } = useSelector((state) => state.review)
+
+  useEffect(() => {
+    sessionStorage.setItem('docId', orderId)
+    dispatch(GetDocuments(`?order=${orderId}`))
+  }, [dispatch, orderId])
+
+  const [manualDocModule, setManualDocModule] = useState(true)
+  const [newDoc, setNewDoc] = useState({
+    document: [],
+    order: orderId,
+    name: '',
+    module: 'Agreements, Insurance & LC Opening',
+  })
+
+  const uploadDocument2 = (e) => {
+    const newUploadDoc1 = { ...newDoc }
+    newUploadDoc1.document = e.target.files[0]
+    setNewDoc(newUploadDoc1)
+  }
+
+  const uploadDocumentHandler = (e) => {
+    e.preventDefault()
+
+    const fd = new FormData()
+    console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module)
+    fd.append('document', newDoc.document)
+    fd.append('module', newDoc.module)
+    fd.append('order', orderId)
+    // fd.append('type', newDoc.type))
+    fd.append('name', newDoc.name)
+
+    dispatch(AddingDocument(fd))
+  }
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
       setEditInput(false)
     } else {
       setEditInput(true)
+      setNewDoc({...newDoc, [e.target.id]: e.target.value })
     }
   }
   return (
@@ -103,12 +144,17 @@ const Index = () => {
                     className={`${styles.upload_image} img-fluid`}
                     src="/static/browse.svg"
                     alt="Browse"
+                    onChange={(e) => uploadDocument2(e)}
                   />
                   <p className={styles.drop_para}>
                     Drop Files here or
                     <br />
                     <div className={styles.uploadBtnWrapper}>
-                      <input type="file" name="myfile" />
+                      <input type="file"
+                       accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                      onChange={(e) => uploadDocument2(e)} 
+                      name="myfile"
+                       />
                       <a href="#">Browse</a>
                     </div>
                   </p>
@@ -119,13 +165,17 @@ const Index = () => {
                   <div className="d-flex">
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
-                      id="docType"
+                      id="name"
                       onChange={(e) => handleDropdown(e)}
                     >
-                      <option>Lead Onboarding &amp; Order Approval</option>
-                      <option>Agreements, Insurance &amp; LC Opening</option>
-                      <option>Loading-Transit-Unloading</option>
-                      <option>Custom Clearance And Warehousing</option>
+                    <option value='LcDraft'>LC Draft </option>
+                    <option value='lCAmmendmentDraft'> LC Ammendment Draft</option>
+                    <option value='vesselCertificate'> Vessel certificate</option>
+                    <option value='vesselCertificateContainerList'> Vessel Certificate, Container List</option>
+                    <option value='policyDocumentMarine'> Policy Document - Marine</option>
+                    <option value='policyDocumentStorage'> Policy Document - Storage</option>
+                    <option value='policyDocumentMarine'> Policy Document - Marine</option>
+                    <option value='policyDocumentStorage'> Policy Document - Storage</option>
                       <option value="Others">Others</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
@@ -139,20 +189,23 @@ const Index = () => {
                   </div>
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
-                  <Form.Label className={`${styles.label} label_heading`}>
+                <Form.Label className={`${styles.label} label_heading`}>
                     Please Specify Document Name
                   </Form.Label>
-                  <Form.Control
+                  <input
+                    onChange={(e) =>
+                      setNewDoc({ ...newDoc, name: e.target.value })
+                    }
                     className={`${styles.value} input form-control`}
                     type="text"
-                    disabled={editInput}
+                    // disabled={manualDocModule}
                   />
                 </Form.Group>
                 <div className={styles.uploadBtnWrapper}>
-                  <input type="file" name="myfile" />
                   <button
+                    onClick={(e) => uploadDocumentHandler(e)}
                     className={`${styles.upload_button} btn`}
-                    disabled={editInput}
+                    // disabled={editInput}
                   >
                     Upload
                   </button>
@@ -170,6 +223,7 @@ const Index = () => {
               >
                 <div>
                   <select className={`${styles.dropDown} input form-control`}>
+                
                     <option>Lead Onboarding &amp; Order Approval</option>
                     <option>Agreements, Insurance & LC Opening</option>
                     <option>Loading-Transit-Unloading</option>
@@ -236,41 +290,63 @@ const Index = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="table_row">
-                    <td className={styles.doc_name}>LC Draft</td>
-                    <td>
-                      <img
-                        src="/static/pdf.svg"
-                        className={`${styles.pdfImage} img-fluid`}
-                        alt="Pdf"
-                      />
-                    </td>
-                    <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                    <td className={styles.doc_row}>John Doe</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>
-                      Verified
-                    </td>
-                    <td colSpan="2">
-                      <img
-                        src="/static/delete.svg"
-                        className={`${styles.delete_image} img-fluid mr-3`}
-                        alt="Bin"
-                      />
-                      <img
-                        src="/static/upload.svg"
-                        className="img-fluid mr-3"
-                        alt="Share"
-                      />
-                      <img
-                        src="/static/drive_file.svg"
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        alt="Share"
-                      />
-                    </td>
-                  </tr>
+                {documentsFetched &&
+                    documentsFetched?.documents?.map((document, index) => {
+                      if (document.deleted) {
+                        return null
+                      } else {
+                        return (
+                          <tr key={index} className="uploadRowTable">
+                            <td className={`${styles.doc_name}`}>
+                              {document.name}
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>{document.date}</td>
+                            <td className={styles.doc_row}>
+                              {document.uploadedBy?.fName}{' '}
+                              {document.uploadedBy?.lName}
+                            </td>
+                            <td>
+                              <span
+                                className={`${styles.status} ${styles.approved}`}
+                              ></span>
+                              {document?.verification?.status}
+                            </td>
+                            <td colSpan="2">
+                              <img
+                                onClick={() =>
+                                  dispatch(
+                                    DeleteDocument({
+                                      orderDocumentId: documentsFetched._id,
+                                      name: document.name,
+                                    }),
+                                  )
+                                }
+                                src="/static/delete.svg"
+                                className={`${styles.delete_image} img-fluid mr-3`}
+                                alt="Bin"
+                              />
+                              <img
+                                src="/static/upload.svg"
+                                className="img-fluid mr-3"
+                                alt="Share"
+                              />
+                              <img
+                                src="/static/drive_file.svg"
+                                className={`${styles.edit_image} img-fluid mr-3`}
+                                alt="Share"
+                              />
+                            </td>
+                          </tr>
+                        )
+                      }
+                    })}
                   <tr className="table_row">
                     <td className={styles.doc_name}>Container No. List</td>
                     <td>
@@ -317,3 +393,5 @@ const Index = () => {
 }
 
 export default Index
+
+
