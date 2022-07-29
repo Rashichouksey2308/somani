@@ -176,11 +176,13 @@ function Index() {
   }
 
   const handleSubmit = () => {
-    let obj = {
-      lcApplication: { ...lcData },
-    }
-    console.log(obj, 'IBJJJ')
-    dispatch(UpdateLcAmendment(obj))
+    let fd  = new FormData()
+      fd.append('lcApplication', JSON.stringify(lcData))
+      fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+    
+    // console.log(fd, 'IBJJJ')
+    dispatch(UpdateLcAmendment(fd))
+   
   }
 
   return (
