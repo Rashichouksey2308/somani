@@ -189,97 +189,100 @@ useEffect(() => {
           </div>
         </div>
         <div className={`${styles.tableContainer} border-color card p-0`}>
-      <div
-        className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-        data-toggle="collapse"
-        data-target="#customerDetail"
-        aria-expanded="true"
-        aria-controls="customerDetail"
-      >
-        <div className={styles.header}>
-          <h2 className={`mb-0`}>Authorised Signatory Details</h2>
-          <span className=" d-flex align-items-center justify-content-between">
+          <div
+            className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
+            data-toggle="collapse"
+            data-target="#customerDetail"
+            aria-expanded="true"
+            aria-controls="customerDetail"
+          >
+            <div className={styles.header}>
+              <h2 className={`mb-0`}>Authorised Signatory Details</h2>
+              <span className=" d-flex align-items-center justify-content-between">
 
-            +
-          </span>
-        </div>
-      </div>
-      <div
-        id="customerDetail"
-        className={`collapse ${styles.body}  value_card card-body row`}
-        aria-labelledby="customerDetail"
-     
-      >
-        <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-          <tr>
-            <th>NAME</th>
-            <th>DESIGNATION</th>
-            <th>EMAIL</th>
-            <th>PHONE NO.</th>
-            <th>ACTION</th>
-          </tr>
-          <tbody>
-            {list?.length>0 && list.map((val,index)=>{
-              return(
-                <>
-                {val.actions=="true"?
-                <tr key={index}>
-                  <td>{val.name}</td>
-                  <td>{val.designation}</td>
-                  <td>{val.email}</td>
-                  <td>{val.phone}</td>
-                  <td className={`d-flex justify-content-between`}>
-                  <img onClick={()=>(onEdit(index))} src="/static/add-btn.svg"  />
-                  
-                  </td>
+                +
+              </span>
+            </div>
+          </div>
+          <div
+            id="customerDetail"
+            className={`collapse ${styles.body}  value_card card-body row`}
+            aria-labelledby="customerDetail"
+        
+          >
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+                  <tr>
+                    <th>NAME</th>
+                    <th>DESIGNATION</th>
+                    <th>EMAIL</th>
+                    <th>PHONE NO.</th>
+                    <th>ACTION</th>
+                  </tr>
+                  <tbody>
+                    {list?.length>0 && list.map((val,index)=>{
+                      return(
+                        <>
+                        {val.actions=="true"?
+                        <tr key={index}>
+                          <td>{val.name}</td>
+                          <td>{val.designation}</td>
+                          <td>{val.email}</td>
+                          <td>{val.phone}</td>
+                          <td className={`d-flex justify-content-between`}>
+                          <img onClick={()=>(onEdit(index))} src="/static/add-btn.svg"  />
+                          
+                          </td>
 
-                </tr>
-                :<tr key={index}>
-                  <td><select
-                   value="name"
-                  onChange={(e)=>{
-                    handleChangeInput(e.target.name,e.target.value,index)
-                  }}
-                  >
-                    <option>{val.name}</option>
-                    </select>
-                 </td>
-                  <td><input type="text" 
-                  placeholder={val.designation}
-                   name= "designation"
-                  onChange={(e)=>{
-                    handleChangeInput(e.target.name,e.target.value,index)
-                  }}></input></td>
-                  <td><input type="text" placeholder={val.email}
-                  name= "email"
-                  onChange={(e)=>{
-                    handleChangeInput(e.target.name,e.target.value,index)
-                  }}
-                  ></input></td>
-                  <td><input type="text" placeholder={val.phone}
-                  name= "phoneNo"
-                  onChange={(e)=>{
-                    handleChangeInput(e.target.name,e.target.value,index)
-                  }}
-                  ></input></td>
-                  <td className={`d-flex  justify-content-between`}>
-                     <img  onClick={()=>(onEditRemove(index))}src="/static/add-btn.svg"  />
-                     
-                  </td>
+                        </tr>
+                        :<tr key={index}>
+                          <td><select
+                          value="name"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          >
+                            <option>{val.name}</option>
+                            </select>
+                        </td>
+                          <td><input type="text" 
+                          placeholder={val.designation}
+                          name= "designation"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}></input></td>
+                          <td><input type="text" placeholder={val.email}
+                          name= "email"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td><input type="text" placeholder={val.phone}
+                          name= "phoneNo"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td className={`d-flex  justify-content-between`}>
+                            <img  onClick={()=>(onEditRemove(index))}src="/static/add-btn.svg"  />
+                            
+                          </td>
 
-                </tr>}
-                </>
-              )
-            })}
-          </tbody>
-        </table>
-        <div className={`${styles.addMoreRows}`} onClick={(e)=>{
-          addMoreRows()
-        }}>
-        <span>+</span>  Add more rows
-        </div>
-
-      </div>
+                        </tr>}
+                        </>
+                      )
+                    })}
+                  </tbody>
+                </table>
+                <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+                  addMoreRows()
+                  }}>
+                  <span>+</span>  Add more rows
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
