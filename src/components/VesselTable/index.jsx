@@ -1,11 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 import Router from 'next/router'
+import { useSelector, useDispatch } from 'react-redux'
+import {GetOrders } from '../../redux/registerBuyer/action'
 
 function Index() {
   const [edit, setEdit] = useState(false)
   const router = useRouter()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    let id1 = sessionStorage.getItem('VesselCompany')
+    dispatch(GetOrders(`?company=${id1}`))
+  }, [dispatch])
+
 
   return (
     <div className="container-fluid p-0 border-0">

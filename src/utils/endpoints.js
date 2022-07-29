@@ -72,4 +72,7 @@ export default {
 
   //generic
   updateGeneric: '/api/core/generic',
+
+  //Vessel Nomination
+  getVessel:'/api/core/vessel'
 }

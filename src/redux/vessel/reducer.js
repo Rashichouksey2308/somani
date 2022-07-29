@@ -2,8 +2,10 @@ import * as types from './actionType'
 
 const initialState = {
     gettingVessel: false,
+    allVessel: null,
     Vessel: null,
     updatingVessel: false,
+    
 
 }
 
@@ -25,18 +27,35 @@ function VesselReducer(state = initialState, action) {
                 ...state,
                 gettingVessel: false,
             }
+        case types.GET_ALL_VESSEL:
+            return {
+                ...state,
+                gettingVessel: true,
+            }
+        case types.GET_ALL_VESSEL_SUCCESS:
+            return {
+                ...state,
+                gettingVessel: false,
+                allVessel: action.payload,
+            }
+        case types.GET_ALL_VESSEL_FAILED:
+            return {
+                ...state,
+                gettingVessel: false,
+            }
 
-        case types.UPDATE_LC_MODULE:
+
+        case types.UPDATE_VESSEL:
             return {
                 ...state,
                 updatingVessel: true,
             }
-        case types.UPDATE_LC_MODULE_SUCCESS:
+        case types.UPDATE_VESSEL_SUCCESS:
             return {
                 ...state,
                 updatingVessel: false,
             }
-        case types.UPDATE_LC_MODULE_FAILED:
+        case types.UPDATE_VESSEL_FAILED:
             return {
                 ...state,
                 updatingVessel: false,

@@ -1,8 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
+import { GetOrders } from '../../src/redux/registerBuyer/action'
 
 function Index() {
+  const dispatch = useDispatch()
+  const { allVessel, Vessel} = useSelector(state => state.vessel)
+  console.log(allVessel,Vessel, 'allVessel')
+
+  useEffect(() => {
+    dispatch(GetAllVessel())
+  }, [])
+
+  const handleRoute = (vessel) => {
+    sessionStorage.setItem('VesselCompany', vessel.order._id)
+    sessionStorage.setItem('VesselId', vessel._id)
+    dispatch(GetVessel(`?vesselId=${vessel._id}`))
+    setTimeout(() => {
+      Router.push('/vessel-nomination/id')
+    }, 500);
+
+
+  }
+
   return (
     <div className="container-fluid mb-4 mt-3">
       <div className={`${styles.filter} ml-2 d-flex align-items-center`}>
@@ -75,55 +97,25 @@ function Index() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="table_row">
-                  <td>124621</td>
-                  <td
-                    className={styles.buyerName}
-                    onClick={() => Router.push('/vessel-nomination/id')}
-                  >
-                    Ramakrishna Traders
-                  </td>
-                  <td>RM-Sales</td>
-                  <td>
-                    <span
-                      className={`${styles.status} ${styles.review}`}
-                    ></span>
-                    Pending
-                  </td>
-                </tr>
+                {allVessel && allVessel?.data?.map((vessel, index) => (
+                  <tr key={index} className="table_row">
+                    <td>{vessel.order?._id}</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => handleRoute(vessel)}
+                    >
+                      {vessel.company.companyName}
+                    </td>
+                    <td>RM-Sales</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.review}`}
+                      ></span>
+                      Pending
+                    </td>
+                  </tr>))}
 
-                <tr className="table_row">
-                  <td>124621</td>
-                  <td
-                    className={styles.buyerName}
-                    onClick={() => Router.push('/vessel-nomination/id')}
-                  >
-                    Ramakrishna Traders
-                  </td>
-                  <td>RM-Sales</td>
-                  <td>
-                    <span
-                      className={`${styles.status} ${styles.approved}`}
-                    ></span>
-                    Approved
-                  </td>
-                </tr>
-                <tr className="table_row">
-                  <td>124621</td>
-                  <td
-                    className={styles.buyerName}
-                    onClick={() => Router.push('/vessel-nomination/id')}
-                  >
-                    Ramakrishna Traders
-                  </td>
-                  <td>RM-Sales</td>
-                  <td>
-                    <span
-                      className={`${styles.status} ${styles.approved}`}
-                    ></span>
-                    Approved
-                  </td>
-                </tr>
+
               </tbody>
             </table>
           </div>
