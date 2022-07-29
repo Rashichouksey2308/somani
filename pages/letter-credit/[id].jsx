@@ -1,13 +1,170 @@
-import React, { useState } from 'react'
+/* eslint-disable @next/next/no-img-element */
+import React, { useState, useEffect } from 'react'
 import styles from './letter.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
 import InspectionDocument from '../../src/components/InspectionDocument'
 import DateCalender from '../../src/components/DateCalender'
 import SaveBar from '../../src/components/SaveBar'
+import { useDispatch, useSelector } from 'react-redux'
+import {GetLcModule} from '../../src/redux/lcModule/action'
 
 function Index() {
   const [editStren, setEditStren] = useState(true)
   const [edit, setEdit] = useState(true)
+
+  const dispatch = useDispatch()
+
+  const [editInput, setEditInput] = useState(true)
+
+  const { lcModule } = useSelector((state) => state.lc)
+
+  let lcModuleData = lcModule?.data[0]
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('lcAmmend')
+    dispatch(GetLcModule(`?lcModuleId=${id}`))
+  }, [dispatch])
+
+  const [lcData, setLcData] = useState()
+
+  // console.log(lcData, "THIS IS LC USE STATE")
+
+  useEffect(() => {
+    setLcData({
+      formOfDocumentaryCredit:
+        lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+      applicableRules: lcModuleData?.lcApplication?.applicableRules,
+      dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+      placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank,
+      applicant: lcModuleData?.lcApplication?.applicant,
+      beneficiary: lcModuleData?.lcApplication?.beneficiary,
+      currecyCodeAndAmountValue:
+        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      currecyCodeAndAmountUnit:
+        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+      tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+      creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+      creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+      atSight: lcModuleData?.lcApplication?.atSight,
+      numberOfDays: lcModuleData?.lcApplication?.numberOfDays,
+      drawee: lcModuleData?.lcApplication?.drawee,
+      deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+      partialShipment: lcModuleData?.lcApplication?.partialShipment,
+      transhipments: lcModuleData?.lcApplication?.transhipments,
+      shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+      portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+      portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+      latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+      DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+      presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
+      confirmationInstructions:
+        lcModuleData?.lcApplication?.confirmationInstructions,
+      reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
+      adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
+      secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
+      requestedConfirmationParty:
+        lcModuleData?.lcApplication?.requestedConfirmationParty,
+      charges: lcModuleData?.lcApplication?.charges,
+      instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
+      senderToReceiverInformation:
+        lcModuleData?.lcApplication?.senderToReceiverInformation,
+      documentaryCreditNumber:
+        lcModuleData?.lcApplication?.documentaryCreditNumber,
+      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
+    })
+  }, [lcModuleData])
+
+  console.log(lcData, 'LC DATA')
+
+  const saveAmendmentData = (name, value) => {
+    const newInput = { ...lcData }
+    newInput[name] = value
+    setLcData(newInput)
+  }
+
+  const saveDate = (value, name) => {
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveAmendmentData(name, text)
+  }
+
+  // const [clauseData, setClauseData] = useState([
+  //   {
+  //     formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+  //     applicableRules: lcModuleData?.lcApplication?.applicableRules,
+  //     dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+  //     placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+  //     applicant: lcModuleData?.lcApplication?.applicant,
+  //     beneficiary: lcModuleData?.lcApplication?.beneficiary,
+  //     currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+  //     currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+  //     tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+  //     creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+  //     creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+  //     atSight: lcModuleData?.lcApplication?.atSight,
+  //     drawee: lcModuleData?.lcApplication?.drawee,
+  //     deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+  //     partialShipment: lcModuleData?.lcApplication?.partialShipment,
+  //     transhipments: lcModuleData?.lcApplication?.transhipments,
+  //     shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+  //     portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+  //     portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+  //     latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+  //     DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+  //   },
+  // ])
+
+  // console.log(clauseData, 'CLAUSE DATA')
+
+  const [clauseObj, setClauseObj] = useState({
+    existingValue: '',
+    dropDownValue: '',
+    newValue: '',
+  })
+
+  console.log(clauseObj, 'this is ccccc')
+
+  const [clauseArr, setClauseArr] = useState([])
+  console.log(clauseArr, 'new arr')
+
+  const dropDownChange = (e) => {
+
+    let newInput = { ...clauseObj }
+
+    
+    let value = e.target.options[e.target.selectedIndex].text
+    // console.log(typeof(lcData[e.target.value]), 'typeof')
+
+    // setTimeout(() => {
+    //   arrChange('existingValue', lcData[e.target.value])
+    // }, 300)
+    // arrChange('dropDownValue', value)
+    newInput['existingValue'] = lcData[e.target.value]
+    newInput['dropDownValue'] = value
+
+    setClauseObj(newInput)
+  }
+
+  const arrChange = (name, value) => {
+    const newInput = {...clauseObj}
+    newInput[name] = value
+    setClauseObj(newInput)
+  }
+
+  const addToArr = () => {
+    const newArr = [...clauseArr]
+
+    newArr.push(clauseObj)
+
+    setClauseArr(newArr)
+  }
+
+  const removeFromArr = (arr) => {
+    const newClause = clauseArr.filter((item) => {return  item.dropDownValue !== arr}
+    )
+    setClauseArr(newClause)
+  }
 
   return (
     <>

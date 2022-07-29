@@ -39,6 +39,40 @@ function updateLcModuleFailed() {
   }
 }
 
+function updatingLcAmendment() {
+  return {
+    type: types.UPDATE_LC_AMENDMENT,
+  }
+}
+function updatingLcAmendmentSuccess(payload) {
+  return {
+    type: types.UPDATE_LC_AMENDMENT_SUCCESS,
+    payload,
+  }
+}
+function updatingLcAmendmentFailed() {
+  return {
+    type: types.UPDATE_LC_AMENDMENT_FAILED,
+  }
+}
+
+function updatingAmendment() {
+  return {
+    type: types.UPDATE_LC_AMENDMENT_POST,
+  }
+}
+function updatingAmendmentSuccess(payload) {
+  return {
+    type: types.UPDATE_LC_AMENDMENT_POST_SUCCESS,
+    payload,
+  }
+}
+function updatingAmendmentFailed() {
+  return {
+    type: types.UPDATE_LC_AMENDMENT_POST_FAILED,
+  }
+}
+
 export const GetLcModule = (payload) => async (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -96,6 +130,73 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
     })
   } catch (error) {
     dispatch(updateLcModuleFailed())
+    let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}
+
+export const UpdateLcAmendment = (payload) => async (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.put(`${API.corebaseUrl}${API.updateLcModuleAmendment}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(updatingLcAmendmentSuccess(response.data.data))
+        let toastMessage = 'SAVED SUCCESSFULLY'
+        if (!toast.isActive(toastMessage)) {
+          toast.success(toastMessage, { toastId: toastMessage })
+        }
+        // router.push('/margin-money')
+      } else {
+        dispatch(updatingLcAmendmentFailed(response.data.data))
+        let toastMessage = 'UPDATE REQUEST FAILED'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(updatingLcAmendmentFailed())
+    let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}
+export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.put(`${API.corebaseUrl}${API.updateLcAmendmentPost}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(updatingAmendmentSuccess(response.data.data))
+        let toastMessage = 'SAVED SUCCESSFULLY'
+        if (!toast.isActive(toastMessage)) {
+          toast.success(toastMessage, { toastId: toastMessage })
+        }
+        // router.push('/margin-money')
+      } else {
+        dispatch(updatingAmendmentFailed(response.data.data))
+        let toastMessage = 'UPDATE REQUEST FAILED'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(updatingAmendmentFailed())
     let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
     if (!toast.isActive(toastMessage)) {
       toast.error(toastMessage, { toastId: toastMessage })
