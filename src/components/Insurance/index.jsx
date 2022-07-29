@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
 
 const index = () => {
   return (
@@ -116,14 +117,14 @@ const index = () => {
                     <div className={styles.col_body}>HDFC Bank</div>
                   </Col>
                   <Col className="mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Expected time of Dispatch
-                      <strong className="text-danger">*</strong>
-                    </label>
+                    <div className="d-flex">
+                      <DateCalender labelName="Expected time of Dispatch" />
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </Col>
                 </Row>
               </div>
@@ -190,23 +191,25 @@ const index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={2}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Insurance from<strong className="text-danger">*</strong>
-                    </label>
+                    <div className="d-flex">
+                      <DateCalender labelName="Insurance from" />
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </Col>
 
                   <Col className="mb-4 mt-4" md={2}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Insurance to<strong className="text-danger">*</strong>
-                    </label>
+                    <div className="d-flex">
+                      <DateCalender labelName="Insurance to" />
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
                     <input
@@ -389,14 +392,14 @@ const index = () => {
                     <div className={styles.col_body}>HDFC Bank</div>
                   </Col>
                   <Col className="mt-4" md={4}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Expected time of Dispatch
-                      <strong className="text-danger">*</strong>
-                    </label>
+                    <div className="d-flex">
+                      <DateCalender labelName="Expected time of Dispatch" />
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </Col>
                 </Row>
               </div>
@@ -463,23 +466,25 @@ const index = () => {
                     </label>
                   </Col>
                   <Col className="mb-4 mt-4" md={2}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Insurance from<strong className="text-danger">*</strong>
-                    </label>
+                    <div className="d-flex">
+                      <DateCalender labelName=" Insurance from" />
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </Col>
 
                   <Col className="mb-4 mt-4" md={2}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="date"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Insurance to<strong className="text-danger">*</strong>
-                    </label>
+                    <div className="d-flex">
+                      <DateCalender labelName="Insurance to" />
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </Col>
                   <Col className="mb-4 mt-4" md={4}>
                     <input
