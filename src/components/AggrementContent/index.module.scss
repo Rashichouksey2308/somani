@@ -1,6 +1,5 @@
 @import "../styles/Core/config";
 .container {
-    margin: 18px 26px 41px 37px;
     .form_group {
         position: relative;
         margin-bottom: 20px;
@@ -70,7 +69,7 @@
         height: 36px;
     }
     .addressContainer {
-        // margin: 1rem !important;
+        margin: 20px 35px 20px 31px;
         span {
             font-size: 20px;
             line-height: 25px;
@@ -126,6 +125,7 @@
     .bankContainer {
         background: #FFFFFF;
         border-radius: 9px;
+        margin: 0 35px 20px 31px;
         .newAddressHead {
             color: #3687E8;
             font-size: 22px;
@@ -322,6 +322,7 @@
         border: 2px solid #CAD6E6;
         border-radius: 0.5rem;
         box-shadow: none !important;
+        margin: 19px 35px 41px 31px;
         .sub_card {
             padding: 1rem !important;
             border: none;
@@ -574,56 +575,94 @@
 .search_image {
     margin-left: -40px;
 }
-.table {
-    margin: 35px -26px 20px -37px;
-    tr {
-        th {
-            &:first-child {
-                padding-left: 35px;
+.table_scroll_outer {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    .table_scroll_inner {
+        display: table-cell;
+        overflow-x: auto;
+        .table {
+            // margin: 35px -26px 20px -37px;
+            tr {
+                th {
+                    white-space: nowrap;
+                    vertical-align: middle;
+                    &:first-child {
+                        padding-left: 35px;
+                    }
+                    &:last-child {
+                        padding-right: 35px;
+                    }
+                }
             }
-            &:last-child {
-                padding-right: 35px;
-            }
-        }
-    }
-    tbody {
-        tr {
-            border: none !important;
-            td {
-                &:first-child {
-                    padding-left: 35px;
-                }
-                &:last-child {
-                    padding-right: 35px;
-                }
-                border: none !important;
-                select {
-                    background: #C3C3C31F;
-                    border: 1px solid #0000001F;
-                    border-radius: 4px;
-                    height: 40px;
-                }
-                input {
-                    height: 40px;
-                    /* UI Properties */
-                    border: 1px solid var(--unnamed-color-0000001f);
-                    background: #C3C3C31F;
-                    border: 1px solid #0000001F;
-                    border-radius: 4px;
-                }
-                img {
-                    width: 40px;
-                    height: 40px;
-                    /* UI Properties */
-                    // border: 1px solid var(--unnamed-color-0000001f);
-                    // background: #C3C3C31F;
-                    // border: 1px solid #0000001F;
-                    // border-radius: 4px;
-                    opacity: 1;
-                    display: flex;
-                    justify-content: center;
-                    align-self: start;
-
+            tbody {
+                tr {
+                    border: none !important;
+                    td {
+                        vertical-align: middle;
+                        &:first-child {
+                            padding-left: 35px;
+                        }
+                        &:last-child {
+                            padding-right: 35px;
+                        }
+                        border: none !important;
+                        select {
+                            background: #C3C3C31F;
+                            border: 1px solid #0000001F;
+                            border-radius: 4px;
+                            height: 40px;
+                        }
+                        input {
+                            height: 40px;
+                            /* UI Properties */
+                            border: 1px solid var(--unnamed-color-0000001f);
+                            background: #C3C3C31F;
+                            border: 1px solid #0000001F;
+                            border-radius: 4px;
+                        }
+                        img {
+                            width: 40px;
+                            height: 40px;
+                            /* UI Properties */
+                            // border: 1px solid var(--unnamed-color-0000001f);
+                            // background: #C3C3C31F;
+                            // border: 1px solid #0000001F;
+                            // border-radius: 4px;
+                            opacity: 1;
+                            display: flex;
+                            justify-content: center;
+                            align-self: start;
+                            @include respond(md-desktop) {
+                                height: 30px;
+                            }
+                            @include respond(sm-desktop) {
+                                height: 28px;
+                            }
+                            @include respond(phone) {
+                                height: 25px;
+                            } 
+                        }
+                        .image {
+                            padding: 10px 9px;
+                            border-radius: 4px;
+                            background: #C3C3C31F;
+                            border: 1px solid #0000001F;
+                            @include respond(md-desktop) {
+                                height: 30px;
+                                padding: 7px;
+                            }
+                            @include respond(sm-desktop) {
+                                height: 28px;
+                                padding: 6px;
+                            }
+                            @include respond(phone) {
+                                height: 25px;
+                                padding: 5px;
+                            }        
+                        }
+                    }
                 }
             }
         }
@@ -638,20 +677,22 @@
     font-weight: bold;
 }
 .form {
-    // border-bottom: 2px solid #CAD6E6;
+    border-bottom: 2px solid #CAD6E6;
+    padding: 19px 35px 20px 31px;
 }
 .info {
     span {
-        letter-spacing: 0.53px;
-        color: #00000080;
         font-size: 16px;
+        color: #00000080;
+        font-weight: 500;
         line-height: 17px;
+        letter-spacing: 0.53px;
     }
     p {
         font-size: 20px;
+        color: #111111;
         line-height: 25px;
         letter-spacing: 0.19px;
-        color: #111111;
         margin: 0rem !important;
     }
 }
@@ -659,7 +700,7 @@
     background: #FFFFFF;
     border: 2px solid #CAD6E6;
     border-radius: 0.5rem;
-    margin: 1rem;
+    margin: 19px 35px 39px 31px;
     .newAddressHead {
         padding: 1rem !important;
         span {
@@ -706,7 +747,8 @@
 }
 .manufacture {
     border-radius: 0.5rem;
-    margin-top: 1rem;
+    padding: 19px 35px 20px 31px;
+    border-top: 2px solid #CAD6E6;
     .row {
         margin-bottom: 2rem;
         border-top: 2px solid #CAD6E6;
