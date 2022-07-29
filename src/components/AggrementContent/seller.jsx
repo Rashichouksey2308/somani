@@ -130,7 +130,7 @@ useEffect(() => {
   return (
     <>
       <div className={styles.container}>
-        <Form>
+        <Form className={`${styles.form}`}>
           <div className="row  ">
 
             <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
