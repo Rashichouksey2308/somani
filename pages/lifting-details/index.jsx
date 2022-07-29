@@ -149,7 +149,7 @@ export default function Index() {
                             <strong className="text-danger">*</strong>
                           </div>
                           {['radio'].map((type, index) => (
-                            <div className={styles.radio_group}>
+                            <div key={index} className={styles.radio_group}>
                               <Form.Check
                                 className={styles.radio}
                                 inline
@@ -343,7 +343,7 @@ export default function Index() {
                             <strong className="text-danger">*</strong>
                           </div>
                           {['radio'].map((type, index) => (
-                            <div className={styles.radio_group}>
+                            <div key={index} className={styles.radio_group}>
                               <Form.Check
                                 className={styles.radio}
                                 inline
