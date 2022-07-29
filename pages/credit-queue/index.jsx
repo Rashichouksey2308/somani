@@ -15,6 +15,7 @@ import {GetCompanyDetails} from '../../src/redux/companyDetail/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 import { GetDocuments } from '../../src/redux/creditQueueUpdate/action'
+import Filter from '../../src/components/Filter'
 
 
 function Index() {
@@ -97,9 +98,7 @@ function Index() {
               </ul>
             </div>}
           </div>
-          <a className={styles.filterIcon}>
-            <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
-          </a>
+          <Filter/>
           {/* <a href="#" className={`${styles.filterList} filterList `}>
             Ramesh Shetty
             <img src="/static/close.svg" className="img-fluid" alt="Close" />

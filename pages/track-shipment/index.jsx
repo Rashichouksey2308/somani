@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import Image from 'next/image'
 import DownloadBar from '../../src/components/DownloadBar'
+import Filter from '../../src/components/Filter'
 
 function Index() {
   return (
@@ -34,9 +35,7 @@ function Index() {
               />
             </div>
           </div>
-          <a className={styles.filterIcon}>
-            <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
-          </a>
+          <Filter/>
           {/* <a href="#" className={`${styles.filterList} filterList `}>
             Bhutani Traders
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />

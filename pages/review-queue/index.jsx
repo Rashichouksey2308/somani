@@ -11,6 +11,8 @@ import {
 } from '../../src/redux/registerBuyer/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 import { setPageName } from '../../src/redux/userData/action'
+import Filter from '../../src/components/Filter'
+
 function Index() {
   const [serachterm, setSearchTerm] = useState('')
 
@@ -94,13 +96,7 @@ function Index() {
                 </div>
               )}
             </div>
-            <a className={styles.filterIcon}>
-              <img
-                src="/static/filter.svg"
-                className="img-fluid"
-                alt="Filter"
-              />
-            </a>
+            <Filter/>
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />

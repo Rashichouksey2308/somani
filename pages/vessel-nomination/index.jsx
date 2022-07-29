@@ -4,6 +4,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
+import Filter from '../../src/components/Filter'
 
 function Index() {
   const dispatch = useDispatch()
@@ -52,9 +53,7 @@ function Index() {
             />
           </div>
         </div>
-        <a className={styles.filterIcon}>
-          <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
-        </a>
+        <Filter/>
         {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
