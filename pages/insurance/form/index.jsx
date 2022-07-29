@@ -3,6 +3,7 @@ import styles from './insurance.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../../src/components/SaveBar'
 import Router from 'next/router'
+import DateCalender from '../../../src/components/DateCalender'
 
 const Index = () => {
   const changeRoute = () => {
@@ -170,52 +171,44 @@ const Index = () => {
                       </label>
                     </Col>
                     <Col className="mt-4" lg={2} md={4}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="date"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Laycan from
-                        <strong className="text-danger">*</strong>
-                      </label>
+                      <div className="d-flex">
+                        <DateCalender labelName="Laycan from" />
+                        <img
+                          className={`${styles.calanderIcon} img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                      </div>
                     </Col>
                     <Col className="mt-4" lg={2} md={4}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="date"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Laycan to
-                        <strong className="text-danger">*</strong>
-                      </label>
+                      <div className="d-flex">
+                        <DateCalender labelName="Laycan to" />
+                        <img
+                          className={`${styles.calanderIcon} img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                      </div>
                     </Col>
                     <Col className="mt-4" lg={4} md={6} sm={6}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="date"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Expected time of Dispatch
-                        <strong className="text-danger">*</strong>
-                      </label>
+                      <div className="d-flex">
+                        <DateCalender labelName="Expected time of Dispatch" />
+                        <img
+                          className={`${styles.calanderIcon} img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                      </div>
                     </Col>
                     <Col className="mt-4" lg={4} md={6} sm={6}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="date"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Expected time of Arrival
-                        <strong className="text-danger">*</strong>
-                      </label>
+                      <div className="d-flex">
+                        <DateCalender labelName="Expected time of Arrival" />
+                        <img
+                          className={`${styles.calanderIcon} img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                      </div>
                     </Col>
                     <Col className="mt-5" lg={4} md={6} sm={6}>
                       <input

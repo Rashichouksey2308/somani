@@ -6,15 +6,11 @@ import InspectionDocument from '../../src/components/InspectionDocument'
 import DateCalender from '../../src/components/DateCalender'
 import SaveBar from '../../src/components/SaveBar'
 import { useDispatch, useSelector } from 'react-redux'
-import {GetLcModule} from '../../src/redux/lcModule/action'
+import {GetLcModule, UpdateAmendment} from '../../src/redux/lcModule/action'
 
 function Index() {
-  const [editStren, setEditStren] = useState(true)
-  const [edit, setEdit] = useState(true)
 
   const dispatch = useDispatch()
-
-  const [editInput, setEditInput] = useState(true)
 
   const { lcModule } = useSelector((state) => state.lc)
 
@@ -72,6 +68,8 @@ function Index() {
       documentaryCreditNumber:
         lcModuleData?.lcApplication?.documentaryCreditNumber,
       dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
+      dateOfAmendment: lcModuleData?.lcApplication?.dateOfAmendment,
+      numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment
     })
   }, [lcModuleData])
 
@@ -126,22 +124,20 @@ function Index() {
   console.log(clauseObj, 'this is ccccc')
 
   const [clauseArr, setClauseArr] = useState([])
-  console.log(clauseArr, 'new arr')
+  // console.log(clauseArr, 'new arr')
+
+  const [drop, setDrop] = useState('')
 
   const dropDownChange = (e) => {
 
     let newInput = { ...clauseObj }
-
-    
-    let value = e.target.options[e.target.selectedIndex].text
-    // console.log(typeof(lcData[e.target.value]), 'typeof')
-
-    // setTimeout(() => {
-    //   arrChange('existingValue', lcData[e.target.value])
-    // }, 300)
-    // arrChange('dropDownValue', value)
+  
+    let val1 = e.target.options[e.target.selectedIndex].text
+    let val2 = e.target.value
+    setDrop(val2)
+ 
     newInput['existingValue'] = lcData[e.target.value]
-    newInput['dropDownValue'] = value
+    newInput['dropDownValue'] = val1
 
     setClauseObj(newInput)
   }
@@ -150,6 +146,11 @@ function Index() {
     const newInput = {...clauseObj}
     newInput[name] = value
     setClauseObj(newInput)
+
+    const newInput1 = {...lcData}
+    newInput1[drop] = value
+    // console.log(newInput1, "NEW INPUT 1")
+    setLcData(newInput1)
   }
 
   const addToArr = () => {
@@ -164,6 +165,15 @@ function Index() {
     const newClause = clauseArr.filter((item) => {return  item.dropDownValue !== arr}
     )
     setClauseArr(newClause)
+  }
+
+  const handleSubmit = () => {
+    let fd = new FormData()
+    fd.append( 'lcApplication', JSON.stringify(lcData))
+    fd.append( 'lcModuleId', JSON.stringify(lcModuleData._id))
+    
+    dispatch(UpdateAmendment(fd))
+    // Router.push('/letter-credit/id')
   }
 
   return (
@@ -208,7 +218,7 @@ function Index() {
                           (51D) LC Issuing Bank{' '}
                           <strong className="text-danger ml-n1">*</strong>
                         </div>
-                        <span className={`${styles.value}`}>Iron</span>
+                        <span className={`${styles.value}`}>{lcData?.lcIssuingBank}</span>
                       </div>
                       <div
                         className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `}
@@ -217,7 +227,7 @@ function Index() {
                           (20) Documentary Credit Number{' '}
                           <strong className="text-danger ml-n1">*</strong>
                         </div>
-                        <span className={styles.value}>500 Mt</span>
+                        <span className={styles.value}>{lcData?.documentaryCreditNumber}</span>
                       </div>
                       <div
                         className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `}
@@ -226,11 +236,11 @@ function Index() {
                           (31C) Date Of Issue{' '}
                           <strong className="text-danger ml-n1">*</strong>{' '}
                         </div>
-                        <span className={styles.value}>Iron</span>
+                        <span className={styles.value}>{lcData?.dateOfIssue?.split('T')[0]}</span>
                       </div>
                       <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
                         <div className="d-flex">
-                          <DateCalender labelName="(30) Date Of Ammendment" />
+                          <DateCalender name='dateOfAmendment' saveDate={saveDate} labelName="(30) Date Of Ammendment" />
                           <img
                             className={`${styles.calanderIcon} img-fluid`}
                             src="/static/caldericon.svg"
@@ -242,6 +252,8 @@ function Index() {
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="number"
+                          name='numberOfAmendment'
+                          onChange={(e)=>saveAmendmentData(e.target.name ,e.target.value)}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -260,12 +272,69 @@ function Index() {
                     <Row>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
-                          <select
+                        <select
+                            onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                            <option>(44A) Shipment From</option>
-                            <option>Balaji Traders</option>
+                            <option value="shipmentForm">
+                              (44A) Shipment From
+                            </option>
+                            <option value="applicableRules">
+                              (40E) Application Rules
+                            </option>
+                            <option value="placeOfExpiry">
+                              (32D) Place Of Expiry
+                            </option>
+                            <option value="dateOfExpiry">
+                              (32D) Date Of Expiry
+                            </option>
+                            <option value="formOfDocumentaryCredit">
+                              (40A) Form of Documentary Credit
+                            </option>
+                            <option value="applicant">(50) Applicant</option>
+                            <option value="beneficiary">
+                              (59) Beneficiary
+                            </option>
+                            <option value="currecyCodeAndAmountValue">
+                              (32B) Currency Code &amp; Amount
+                            </option>
+                            <option value="tolerancePercentage">
+                              (39A) Tolerance (+/-) Percentage
+                            </option>
+                            <option value="creditAvailablewith">
+                              {' '}
+                              (41A) Credit Available With
+                            </option>
+                            <option value="creditAvailableBy">
+                              (41A) Credit Available By
+                            </option>
+                            <option value="atSight">(42C) At Sight</option>
+                            <option value="drawee">(42A) Drawee</option>
+                            <option value="deferredPayment">
+                              (42P) Deferred Payment
+                            </option>
+                            <option value="partialShipment">
+                              (43P) Partial Shipment
+                            </option>
+                            <option value="transhipments">
+                              (43T) Transhipments
+                            </option>
+                            <option value="portOfLoading">
+                              (44E) Port of Loading
+                            </option>
+                            <option value="portOfDischarge">
+                              {' '}
+                              (44F) Port of Discharge
+                            </option>
+                            <option value="latestDateOfShipment">
+                              (44C) Latest Date Of Shipment
+                            </option>
+                            <option value="DescriptionOfGoods">
+                              {' '}
+                              (45A) Description Of The Goods
+                            </option>
                           </select>
+
 
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -285,6 +354,7 @@ function Index() {
                           style={{ opacity: '0.5' }}
                           required
                           type="text"
+                          value={clauseObj?.existingValue}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -296,7 +366,10 @@ function Index() {
                         <div className="d-flex">
                           <input
                             className={`${styles.input_field} input form-control`}
-                            type="date"
+                            type="text"
+                            onChange={(e) =>
+                              arrChange('newValue', e.target.value)
+                            }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -307,6 +380,7 @@ function Index() {
                             className="img-fluid ml-4"
                             src="/static/add-btn.svg"
                             alt="add button"
+                            onClick={()=>addToArr()}
                           />
                         </div>
                       </Col>
@@ -339,10 +413,10 @@ function Index() {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr className="table_row">
-                                <td>(44A) SHIPMENT FROM</td>
-                                <td>Owendo </td>
-                                <td>Russia</td>
+                           { clauseArr && clauseArr?.map((clause, index) => ( <tr key={index} className="table_row">
+                                <td>{clause.dropDownValue}</td>
+                                <td>{clause.existingValue} </td>
+                                <td>{clause.newValue}</td>
                                 <td>
                                   <img
                                     src="/static/mode_edit.svg"
@@ -353,10 +427,11 @@ function Index() {
                                     src="/static/delete 2.svg"
                                     className="img-fluid ml-3 mr-n5"
                                     alt="delete"
+                                    onClick={()=>removeFromArr(clause.dropDownValue)}
                                   />
                                 </td>
-                              </tr>
-                              <tr className="table_row">
+                              </tr>))}
+                              {/* <tr className="table_row">
                                 <td>(44A) SHIPMENT FROM </td>
                                 <td>Owendo </td>
                                 <td>Russia</td>
@@ -370,9 +445,10 @@ function Index() {
                                     src="/static/delete 2.svg"
                                     className="img-fluid ml-3 mr-n5"
                                     alt="delete"
+                                   
                                   />
                                 </td>
-                              </tr>
+                              </tr> */}
                             </tbody>
                           </table>
                         </div>
@@ -388,7 +464,7 @@ function Index() {
           <InspectionDocument />
         </div>
       </div>
-      <SaveBar rightBtn="Share" />
+      <SaveBar handleSave={handleSubmit} rightBtn="Share" />
     </>
   )
 }

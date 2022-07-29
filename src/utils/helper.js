@@ -85,7 +85,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where) => {
         .replaceAll('€', '')
         .replaceAll('£', '')
 
-      let newValue = symbol + removedValue.toString()
+      let newValue = symbol + removedValue?.toString()
       console.log(newValue, 'newValue')
       return newValue
     } else {
@@ -98,7 +98,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where) => {
         return ''
       }
       let removedValue = unitOfValue
-        .toString()
+        ?.toString()
         .replaceAll('M', '')
         .replaceAll('T', '')
         .replaceAll('%', '')

@@ -4,7 +4,10 @@ import styles from './index.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetLcModule } from 'redux/lcModule/action'
+import { GetLcModule, UpdateLcAmendment } from 'redux/lcModule/action'
+import SubmitBar from '../../components/PreviousBar/SubmitBar'
+import Router from 'next/router'
+import InspectionDocument from '../InspectionDocument'
 
 function Index() {
   const dispatch = useDispatch()
@@ -118,33 +121,35 @@ function Index() {
     newValue: '',
   })
 
-  console.log(clauseObj, 'this is ccccc')
+  // console.log(clauseObj, 'this is ccccc')
 
   const [clauseArr, setClauseArr] = useState([])
-  console.log(clauseArr, 'new arr')
+  // console.log(clauseArr, 'new arr')
+
+  const [drop, setDrop] = useState('')
 
   const dropDownChange = (e) => {
-
     let newInput = { ...clauseObj }
 
-    
-    let value = e.target.options[e.target.selectedIndex].text
-    // console.log(typeof(lcData[e.target.value]), 'typeof')
+    let val1 = e.target.options[e.target.selectedIndex].text
+    let val2 = e.target.value
+    setDrop(val2)
 
-    // setTimeout(() => {
-    //   arrChange('existingValue', lcData[e.target.value])
-    // }, 300)
-    // arrChange('dropDownValue', value)
     newInput['existingValue'] = lcData[e.target.value]
-    newInput['dropDownValue'] = value
+    newInput['dropDownValue'] = val1
 
     setClauseObj(newInput)
   }
 
   const arrChange = (name, value) => {
-    const newInput = {...clauseObj}
+    const newInput = { ...clauseObj }
     newInput[name] = value
     setClauseObj(newInput)
+
+    const newInput1 = { ...lcData }
+    newInput1[drop] = value
+    // console.log(newInput1, "NEW INPUT 1")
+    setLcData(newInput1)
   }
 
   const addToArr = () => {
@@ -156,8 +161,9 @@ function Index() {
   }
 
   const removeFromArr = (arr) => {
-    const newClause = clauseArr.filter((item) => {return  item.dropDownValue !== arr}
-    )
+    const newClause = clauseArr.filter((item) => {
+      return item.dropDownValue !== arr
+    })
     setClauseArr(newClause)
   }
 
@@ -167,6 +173,16 @@ function Index() {
     } else {
       setEditInput(true)
     }
+  }
+
+  const handleSubmit = () => {
+    let fd  = new FormData()
+      fd.append('lcApplication', JSON.stringify(lcData))
+      fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+    
+    // console.log(fd, 'IBJJJ')
+    dispatch(UpdateLcAmendment(fd))
+   
   }
 
   return (
@@ -430,7 +446,9 @@ function Index() {
                                         src="/static/delete 2.svg"
                                         className="img-fluid ml-3 mr-n5"
                                         alt="delete"
-                                        onClick={() => removeFromArr(arr.dropDownValue)}
+                                        onClick={() =>
+                                          removeFromArr(arr.dropDownValue)
+                                        }
                                       />
                                     </td>
                                   </tr>
@@ -464,165 +482,12 @@ function Index() {
           </div>
 
           {/* Document*/}
-          <div className={`${styles.upload_main} upload_main`}>
-            <div
-              className={`${styles.head_container} border_color d-flex justify-content-between`}
-              data-toggle="collapse"
-              data-target="#uploadOther"
-              aria-expanded="true"
-              aria-controls="uploadOther"
-            >
-              <h2 className={styles.heading}>Document</h2>
-              <span>+</span>
-            </div>
-            <div
-              id="uploadOther"
-              className="collapse"
-              aria-labelledby="uploadOther"
-              data-parent="#uploadOther"
-            >
-              <div className={styles.table_container}>
-                <div className={styles.table_scroll_outer}>
-                  <div className={styles.table_scroll_inner}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
-                      <thead>
-                        <tr>
-                          <th>
-                            DOCUMENT NAME{' '}
-                            <img
-                              className={`mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            FORMAT{' '}
-                            <img
-                              className={`mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            DOCUMENT DATE{' '}
-                            <img
-                              className={`mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />{' '}
-                          </th>
-                          <th width="30%">ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>
-                            LC DRAFT{' '}
-                            <strong className="text-danger ml-n1">*</strong>{' '}
-                          </td>
-                          <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className="img-fluid"
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td colSpan={2}>
-                            <button className={`${styles.updateBtn} `}>
-                              Update
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div className={`${styles.dashboard_form} card-body`}>
-                <Form>
-                  <div className="row align-items-center pb-4">
-                    <div
-                      className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
-                    >
-                      <div className="text-center">
-                        <img
-                          className={`${styles.upload_image} img-fluid`}
-                          src="/static/browse.svg"
-                          alt="Browse"
-                        />
-                        <p className={styles.drop_para}>
-                          Drop Files here or
-                          <br />
-                          <div className={styles.uploadBtnWrapper}>
-                            <input type="file" name="myfile" />
-                            <a href="#">Browse</a>
-                          </div>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 offset-md-1 col-sm-6">
-                      <Form.Group className={styles.form_group}>
-                        <div className="d-flex">
-                          <select
-                            className={`${styles.value} ${styles.customSelect} input form-control`}
-                            id="docType"
-                            onChange={(e) => handleDropdown(e)}
-                          >
-                            <option>
-                              Lead Onboarding &amp; Order Approval
-                            </option>
-                            <option>
-                              Agreements, Insurance &amp; LC Opening
-                            </option>
-                            <option>Loading-Transit-Unloading</option>
-                            <option>Custom Clearance And Warehousing</option>
-                            <option value="Others">Others</option>
-                          </select>
-                          <Form.Label
-                            className={`${styles.label} label_heading`}
-                          >
-                            Document Type
-                          </Form.Label>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </Form.Group>
-                      <Form.Group className={styles.form_group}>
-                        <Form.Label className={`${styles.label} label_heading`}>
-                          Please Specify Document Name
-                        </Form.Label>
-                        <Form.Control
-                          className={`${styles.value} input form-control`}
-                          type="text"
-                          disabled={editInput}
-                        />
-                      </Form.Group>
-                      <div className={styles.uploadBtnWrapper}>
-                        <input type="file" name="myfile" />
-                        <button
-                          className={`${styles.upload_button} btn`}
-                          disabled={editInput}
-                        >
-                          Upload
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Form>
-              </div>
-            </div>
+          <div className="mt-4 mb-5">
+            <InspectionDocument />
           </div>
         </div>
       </div>
+      <SubmitBar handleSubmit={handleSubmit} />
     </>
   )
 }
