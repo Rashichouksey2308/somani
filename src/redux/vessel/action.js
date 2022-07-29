@@ -6,6 +6,8 @@ import Cookies from 'js-cookie'
 import router from 'next/router'
 
 
+
+
 function getVessel() {
     return {
         type: types.GET_VESSEL,
@@ -20,6 +22,22 @@ function getVesselSuccess(payload) {
 function getVesselFailed() {
     return {
         type: types.GET_VESSEL_FAILED,
+    }
+}
+function getAllVessel() {
+    return {
+        type: types.GET_ALL_VESSEL,
+    }
+}
+function getAllVesselSuccess(payload) {
+    return {
+        type: types.GET_ALL_VESSEL_SUCCESS,
+        payload,
+    }
+}
+function getAllVesselFailed() {
+    return {
+        type: types.GET_ALL_VESSEL_FAILED,
     }
 }
 
@@ -44,17 +62,19 @@ function updateVesselFailed() {
 export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    console.log(`${API.corebaseUrl}${API.getVessel}`,`API.corebaseUrl{API.getVessel}`)
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    console.log(`${API.corebaseUrl}${API.getVessel}`, jwtAccessToken,`API.corebaseUrl{API.getVessel}`)
     try {
-        Axios.get(`${API.corebaseUrl}${API.getVessel}`, payload, {
+        Axios.get(`${API.corebaseUrl}${API.getVessel}`,{
             headers: headers,
-        }).then((response) => {
+        }, payload).then((response) => {
             if (response.data.code === 200) {
-                dispatch(getVesselSuccess(response.data.data))
+                dispatch(getAllVesselSuccess(response.data.data))
             } else {
-                dispatch(getVesselFailed(response.data.data))
+                dispatch(getAllVesselFailed(response.data.data))
                 let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
                 if (!toast.isActive(toastMessage)) {
                     toast.error(toastMessage, { toastId: toastMessage })
@@ -62,7 +82,7 @@ export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
             }
         })
     } catch (error) {
-        dispatch(getVesselFailed())
+        dispatch(getAllVesselFailed())
 
         let toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME'
         if (!toast.isActive(toastMessage)) {
@@ -80,7 +100,7 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-        Axios.get(`${API.corebaseUrl}${API.getVessel}`, payload, {
+        Axios.get(`${API.corebaseUrl}${API.getVessel}${payload}` , {
             headers: headers,
         }).then((response) => {
             if (response.data.code === 200) {
@@ -110,7 +130,7 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-        Axios.get(`${API.corebaseUrl}${API.getVessel}`, payload, {
+        Axios.post(`${API.corebaseUrl}${API.getVessel}`, payload, {
             headers: headers,
         }).then((response) => {
             if (response.data.code === 200) {

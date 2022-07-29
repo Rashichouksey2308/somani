@@ -107,7 +107,7 @@ function Index(props) {
         if (i == index) {
           return {...obj, actions: 'false'};
         }
-// 👇️ otherwise return object as is
+
         return obj;
       });
 
@@ -594,9 +594,6 @@ const editNewAddress=(name,value)=>{
         </div>
         <div className={styles.manufacture}>
          
-          <div className={`${styles.row} row`}>
-           
-          </div>
            <span className={``}>Manufacturer Details</span>
            
           <div className={`row`}>

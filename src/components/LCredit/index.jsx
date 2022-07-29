@@ -1,13 +1,165 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetLcModule } from 'redux/lcModule/action'
 
 function Index() {
-  const [editStren, setEditStren] = useState(true)
-  const [edit, setEdit] = useState(true)
+  const dispatch = useDispatch()
+
   const [editInput, setEditInput] = useState(true)
+
+  const { lcModule } = useSelector((state) => state.lc)
+
+  let lcModuleData = lcModule?.data[0]
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('lcAmmend')
+    dispatch(GetLcModule(`?lcModuleId=${id}`))
+  }, [dispatch])
+
+  const [lcData, setLcData] = useState()
+
+  // console.log(lcData, "THIS IS LC USE STATE")
+
+  useEffect(() => {
+    setLcData({
+      formOfDocumentaryCredit:
+        lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+      applicableRules: lcModuleData?.lcApplication?.applicableRules,
+      dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+      placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank,
+      applicant: lcModuleData?.lcApplication?.applicant,
+      beneficiary: lcModuleData?.lcApplication?.beneficiary,
+      currecyCodeAndAmountValue:
+        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      currecyCodeAndAmountUnit:
+        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+      tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+      creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+      creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+      atSight: lcModuleData?.lcApplication?.atSight,
+      numberOfDays: lcModuleData?.lcApplication?.numberOfDays,
+      drawee: lcModuleData?.lcApplication?.drawee,
+      deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+      partialShipment: lcModuleData?.lcApplication?.partialShipment,
+      transhipments: lcModuleData?.lcApplication?.transhipments,
+      shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+      portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+      portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+      latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+      DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+      presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
+      confirmationInstructions:
+        lcModuleData?.lcApplication?.confirmationInstructions,
+      reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
+      adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
+      secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
+      requestedConfirmationParty:
+        lcModuleData?.lcApplication?.requestedConfirmationParty,
+      charges: lcModuleData?.lcApplication?.charges,
+      instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
+      senderToReceiverInformation:
+        lcModuleData?.lcApplication?.senderToReceiverInformation,
+      documentaryCreditNumber:
+        lcModuleData?.lcApplication?.documentaryCreditNumber,
+      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
+    })
+  }, [lcModuleData])
+
+  console.log(lcData, 'LC DATA')
+
+  const saveAmendmentData = (name, value) => {
+    const newInput = { ...lcData }
+    newInput[name] = value
+    setLcData(newInput)
+  }
+
+  const saveDate = (value, name) => {
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveAmendmentData(name, text)
+  }
+
+  // const [clauseData, setClauseData] = useState([
+  //   {
+  //     formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+  //     applicableRules: lcModuleData?.lcApplication?.applicableRules,
+  //     dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+  //     placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+  //     applicant: lcModuleData?.lcApplication?.applicant,
+  //     beneficiary: lcModuleData?.lcApplication?.beneficiary,
+  //     currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+  //     currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+  //     tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+  //     creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+  //     creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+  //     atSight: lcModuleData?.lcApplication?.atSight,
+  //     drawee: lcModuleData?.lcApplication?.drawee,
+  //     deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+  //     partialShipment: lcModuleData?.lcApplication?.partialShipment,
+  //     transhipments: lcModuleData?.lcApplication?.transhipments,
+  //     shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+  //     portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+  //     portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+  //     latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+  //     DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+  //   },
+  // ])
+
+  // console.log(clauseData, 'CLAUSE DATA')
+
+  const [clauseObj, setClauseObj] = useState({
+    existingValue: '',
+    dropDownValue: '',
+    newValue: '',
+  })
+
+  console.log(clauseObj, 'this is ccccc')
+
+  const [clauseArr, setClauseArr] = useState([])
+  console.log(clauseArr, 'new arr')
+
+  const dropDownChange = (e) => {
+
+    let newInput = { ...clauseObj }
+
+    
+    let value = e.target.options[e.target.selectedIndex].text
+    // console.log(typeof(lcData[e.target.value]), 'typeof')
+
+    // setTimeout(() => {
+    //   arrChange('existingValue', lcData[e.target.value])
+    // }, 300)
+    // arrChange('dropDownValue', value)
+    newInput['existingValue'] = lcData[e.target.value]
+    newInput['dropDownValue'] = value
+
+    setClauseObj(newInput)
+  }
+
+  const arrChange = (name, value) => {
+    const newInput = {...clauseObj}
+    newInput[name] = value
+    setClauseObj(newInput)
+  }
+
+  const addToArr = () => {
+    const newArr = [...clauseArr]
+
+    newArr.push(clauseObj)
+
+    setClauseArr(newArr)
+  }
+
+  const removeFromArr = (arr) => {
+    const newClause = clauseArr.filter((item) => {return  item.dropDownValue !== arr}
+    )
+    setClauseArr(newClause)
+  }
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -55,10 +207,17 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
+                            name="lcIssuingBank"
+                            onChange={(e) =>
+                              saveAmendmentData(e.target.name, e.target.value)
+                            }
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                            <option>BNP PARIBAS PARIBAS - BNPAFPPX</option>
-                            <option>Balaji Traders</option>
+                            <option>{lcData?.lcIssuingBank}</option>
+                            <option value="BNP PARIBAS PARIBAS - BNPAFPPX">
+                              BNP PARIBAS PARIBAS - BNPAFPPX
+                            </option>
+                            <option value="Swiss Bank">Swiss Bank</option>
                           </select>
 
                           <label
@@ -79,6 +238,10 @@ function Index() {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          name="documentaryCreditNumber"
+                          onChange={(e) =>
+                            saveAmendmentData(e.target.name, e.target.value)
+                          }
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -89,7 +252,11 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
-                          <DateCalender labelName="(31C) Date Of Issue" />
+                          <DateCalender
+                            name="dateOfIssue"
+                            saveDate={saveDate}
+                            labelName="(31C) Date Of Issue"
+                          />
                           <img
                             className={`${styles.calanderIcon} img-fluid`}
                             src="/static/caldericon.svg"
@@ -108,10 +275,66 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
+                            onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                            <option>(44A) Shipment From</option>
-                            <option>Balaji Traders</option>
+                            <option value="shipmentForm">
+                              (44A) Shipment From
+                            </option>
+                            <option value="applicableRules">
+                              (40E) Application Rules
+                            </option>
+                            <option value="placeOfExpiry">
+                              (32D) Place Of Expiry
+                            </option>
+                            <option value="dateOfExpiry">
+                              (32D) Date Of Expiry
+                            </option>
+                            <option value="formOfDocumentaryCredit">
+                              (40A) Form of Documentary Credit
+                            </option>
+                            <option value="applicant">(50) Applicant</option>
+                            <option value="beneficiary">
+                              (59) Beneficiary
+                            </option>
+                            <option value="currecyCodeAndAmountValue">
+                              (32B) Currency Code &amp; Amount
+                            </option>
+                            <option value="tolerancePercentage">
+                              (39A) Tolerance (+/-) Percentage
+                            </option>
+                            <option value="creditAvailablewith">
+                              {' '}
+                              (41A) Credit Available With
+                            </option>
+                            <option value="creditAvailableBy">
+                              (41A) Credit Available By
+                            </option>
+                            <option value="atSight">(42C) At Sight</option>
+                            <option value="drawee">(42A) Drawee</option>
+                            <option value="deferredPayment">
+                              (42P) Deferred Payment
+                            </option>
+                            <option value="partialShipment">
+                              (43P) Partial Shipment
+                            </option>
+                            <option value="transhipments">
+                              (43T) Transhipments
+                            </option>
+                            <option value="portOfLoading">
+                              (44E) Port of Loading
+                            </option>
+                            <option value="portOfDischarge">
+                              {' '}
+                              (44F) Port of Discharge
+                            </option>
+                            <option value="latestDateOfShipment">
+                              (44C) Latest Date Of Shipment
+                            </option>
+                            <option value="DescriptionOfGoods">
+                              {' '}
+                              (45A) Description Of The Goods
+                            </option>
                           </select>
 
                           <label
@@ -131,6 +354,7 @@ function Index() {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          value={clauseObj?.existingValue}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -144,6 +368,9 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            onChange={(e) =>
+                              arrChange('newValue', e.target.value)
+                            }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -154,6 +381,7 @@ function Index() {
                             className="img-fluid ml-4"
                             src="/static/add-btn.svg"
                             alt="add button"
+                            onClick={() => addToArr()}
                           />
                         </div>
                       </Col>
@@ -186,7 +414,28 @@ function Index() {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr className="table_row">
+                              {clauseArr &&
+                                clauseArr?.map((arr, index) => (
+                                  <tr key={index} className="table_row">
+                                    <td>{arr.dropDownValue}</td>
+                                    <td>{arr.existingValue}</td>
+                                    <td>{arr.newValue}</td>
+                                    <td>
+                                      <img
+                                        src="/static/mode_edit.svg"
+                                        className="img-fluid ml-n5"
+                                        alt="edit"
+                                      />
+                                      <img
+                                        src="/static/delete 2.svg"
+                                        className="img-fluid ml-3 mr-n5"
+                                        alt="delete"
+                                        onClick={() => removeFromArr(arr.dropDownValue)}
+                                      />
+                                    </td>
+                                  </tr>
+                                ))}
+                              {/* <tr className="table_row">
                                 <td>(44A) SHIPMENT FROM</td>
                                 <td>Owendo </td>
                                 <td>Russia</td>
@@ -202,24 +451,7 @@ function Index() {
                                     alt="delete"
                                   />
                                 </td>
-                              </tr>
-                              <tr className="table_row">
-                                <td>(44A) SHIPMENT FROM</td>
-                                <td>Owendo </td>
-                                <td>Russia</td>
-                                <td>
-                                  <img
-                                    src="/static/mode_edit.svg"
-                                    className="img-fluid ml-n5"
-                                    alt="edit"
-                                  />
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid ml-3 mr-n5"
-                                    alt="delete"
-                                  />
-                                </td>
-                              </tr>
+                              </tr> */}
                             </tbody>
                           </table>
                         </div>

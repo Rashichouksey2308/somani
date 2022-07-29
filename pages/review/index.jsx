@@ -68,7 +68,7 @@ function Index() {
   const [manualDocModule, setManualDocModule] = useState(true)
   const [filteredDoc, setFilteredDoc] = useState([])
   const [gstData, setGstData] = useState({})
-  console.log(newDoc, "newDoc")
+ // console.log(newDoc, "newDoc")
 
   const { documentsFetched } = useSelector((state) => state.review)
   //console.log(documentsFetched, 'documentsFetched')
@@ -367,6 +367,7 @@ function Index() {
     },
   ])
 
+
   const [financialsComment, setFinancialsComment] = useState(
     orderList?.company?.recommendations?.commentsOnFinancials,
   )
@@ -393,7 +394,10 @@ function Index() {
   const [weaknessComment, setWeaknessComment] = useState(
     orderList?.company?.recommendations?.weakness,
   )
-
+const deleteComponent=(index)=>{
+   
+    setKeyAddData([...keyAddData.slice(0,index), ...keyAddData.slice(index+1)])
+  }
   const addCompanyCommentArr = (companyComments) => {
     let newArr = [...companyComment]
     newArr.push(companyComments)
@@ -558,6 +562,22 @@ function Index() {
     let newArr = [...keyAddData]
     newArr.push(keyAddressData)
     setKeyAddData(newArr)
+  }
+  const updateKeyAddDataArr = (newData,index) => {
+    
+        setKeyAddData(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+        
+        if (i == index) {
+         
+          return newData;
+        }
+// 👇️ otherwise return object as is
+        return obj;
+      });
+
+      return newState;
+    });
   }
 
   const addDebtArr = (debt) => {
@@ -1477,6 +1497,10 @@ function Index() {
                     personData={personData}
                     saveSupplierData={saveSupplierData}
                     keyAddData={keyAddData}
+                    deleteComponent={deleteComponent}
+                    updateKeyAddDataArr={updateKeyAddDataArr}
+  
+
                   />
                   <Recommendations
                     creditDetail={orderList}

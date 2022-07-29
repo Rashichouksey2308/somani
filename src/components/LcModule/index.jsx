@@ -26,6 +26,12 @@ function Index() {
     Router.push('/letter-credit/lc-create')
   }
 
+  const handleAmmendRoute = (lc) => {
+    dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`))
+    sessionStorage.setItem('lcAmmend', lc.order.lc)
+    Router.push('/letter-credit')
+  }
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -122,24 +128,24 @@ function Index() {
                           ></span>
                           Pending
                         </td>
-                        {!edit ? (
+                     {!lc.firstTimeUpdate ? (
                           <td colSpan={2}>
                             {' '}
                             <button
                               className={styles.updateBtn}
-                              onClick={() => setEdit(!edit)}
+                              onClick={() => handleRoute(lc)}
                             >
                               Update
                             </button>
                           </td>
                         ) : (
                           <>
-                            <td>Updated on: 02/06/2022</td>
+                            <td>Updated on: {lc.updatedAt.split('T')[0]}</td>
                             <td>
                               <img
                                 src="/static/mode_edit.svg"
                                 className={`${styles.edit_image} mr-3 img-fluid`}
-                                onClick={() => setEdit(!edit)}
+                                onClick={() => handleAmmendRoute(lc)}
                               />
                             </td>
                           </>
