@@ -214,6 +214,33 @@ const index = ({ orderDetail, saveShipmentData }) => {
                    />
                     </div> */}
               </Form.Group>
+                <Form.Group className={`${styles.form_group} col-lg-4 col-md-6`}>
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    name="portOfLoading"
+                    onChange={(e) => {
+                      saveShipmentData(e.target.name, e.target.value)
+                    }}
+                  >
+                    {/* <option value="volvo">
+                      {orderDetail?.shipmentDetail?.shipmentType}
+                    </option> */}
+                    <option value="Visakhapatnam">Visakhapatnam</option>
+                    {/* <option value="Bulk">Bulk</option> */}
+                  </select>
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Port of Loading<strong className="text-danger">*</strong>
+                  </Form.Label>
+                  <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+              </Form.Group>
             </div>
             {/* <div className={styles.button}><span>Submit</span></div> */}
           </Form>

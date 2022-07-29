@@ -585,7 +585,41 @@ const deleteComponent=(index)=>{
     newArr.push(debt)
     setDebtData(newArr)
   }
+console.log(companyData?.compliance?.alerts,"ompanyData?.compliance?.alerts")
+const [level,setLevel]=useState({
+  high:[],
+  low:[],
+  medium:[],
+  sever:[]
 
+})
+useEffect(() => {
+  let a={
+  high:[],
+  low:[],
+  medium:[],
+  sever:[]
+
+}
+  if(companyData?.compliance?.alerts){
+    companyData?.compliance?.alerts.forEach((val,index)=>{
+       if(val.severity=="low"){
+         a.low.push(val)
+       }
+       if(val.severity=="high"){
+         a.high.push(val)
+       }
+       if(val.severity=="medium"){
+         a.medium.push(val)
+       }
+       if(val.severity=="severe"){
+         a.sever.push(val)
+       }
+    })
+    setLevel(a)
+  }
+},[companyData?.compliance?.alerts])
+console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
     // newArr.push(keyPersonData)
@@ -1054,7 +1088,7 @@ const deleteComponent=(index)=>{
                             <span
                               className={`${styles.head} d-flex align-items-center justify-content-flex-start`}
                             >
-                              Severe Risk (1)
+                              Severe Risk ({level.sever.length})
                             </span>
                           </Col>
                           <Col className={`${styles.col}`}>
@@ -1094,7 +1128,7 @@ const deleteComponent=(index)=>{
                         </Row>
                         <Row className={` ${styles.row} mt-1 mb-1`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>High Risk (4)</span>
+                            <span className={styles.head}>High Risk ({level.high.length})</span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
@@ -1131,7 +1165,7 @@ const deleteComponent=(index)=>{
                         </Row>
                         <Row className={` ${styles.row} mt-1 mb-1`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>Medium Risk (2)</span>
+                            <span className={styles.head}>Medium Risk ({level.medium.length})</span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
@@ -1170,7 +1204,7 @@ const deleteComponent=(index)=>{
                         </Row>
                         <Row className={` ${styles.row} mt-1 mb-1`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>High Risk (4)</span>
+                            <span className={styles.head}>Low Risk ({level.low.length})</span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
@@ -1183,7 +1217,7 @@ const deleteComponent=(index)=>{
                                   (alert, index) => {
                                     if (
                                       alert.severity.trim().toLowerCase() ===
-                                      'Low'
+                                      'low'
                                     ) {
                                       return (
                                         <div
@@ -1432,7 +1466,7 @@ const deleteComponent=(index)=>{
                                 id={'Relevance'}
                               />
                               <span className={styles.control__content}>
-                                <span>{`High Relevance (${companyData?.compliance?.litigations[0]?.highPriority})`}</span>
+                                <span>{`High Relevance (${companyData?.compliance?.litigations[0]?.highPriority.length})`}</span>
                               </span>
                             </label>
                           </div>
@@ -1816,6 +1850,7 @@ const deleteComponent=(index)=>{
         <DownloadBar
           downLoadButtonName={`CAM`}
           isPrevious={true}
+          isApprove={true}
           handleApprove={handleCamApprove}
           handleReject={handleCamReject}
           leftButtonName={`Decline`}

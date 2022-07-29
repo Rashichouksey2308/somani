@@ -68,7 +68,61 @@ function Index({ shareHolding }) {
             <h3 className="label_heading">Equity Capital</h3>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table className={`${styles.table} table mb-4`} cellPadding="0" cellSpacing="0" border="0">
+                 <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+                  <tbody>
+                    <tr>
+                      <th rowSpan="7">
+
+                        <div className={styles.chart}>
+                          <Doughnut data={data} options={options} />
+                          <div className={`${styles.total_value} `}>
+                            <span className={styles.headSpan}>₹ 24.00 Cr</span>
+                            <span className={styles.subSpan}>50%</span>
+                          </div>
+                        </div>
+                      </th>
+                      <th></th>
+                      <th>FULL NAME</th>
+                      <th>NO. OF SHARES</th>
+                      <th>% SHAREHOLDING</th>
+                      <th>PAN</th>
+                      <th>DIRECTOR</th>
+                    </tr>
+                    <tr>
+                      <td className={`${styles.legends} ${styles.green} border-bottom-0`}><span></span></td>
+                      <td className={`${styles.name} border-bottom-0`}>Arv Jay</td>
+                      <td className="border-bottom-0">20</td>
+                      <td className="border-bottom-0">40%</td>
+                      <td className="border-bottom-0">AAVPW27766Q</td>
+                      <td className="border-bottom-0">Yes</td>
+                    </tr>
+                    <tr>
+                      <td className={`${styles.legends} ${styles.blue} border-top-0 border-bottom-0`}><span></span></td>
+                      <td className={`${styles.name} border-top-0 border-bottom-0`}>Radhe Singh</td>
+                      <td className="border-top-0 border-bottom-0">10</td>
+                      <td className="border-top-0 border-bottom-0">30%</td>
+                      <td className="border-top-0 border-bottom-0">AAVPW27766Q</td>
+                      <td className="border-top-0 border-bottom-0">No</td>
+                    </tr>
+                    <tr>
+                      <td className={`${styles.legends} ${styles.yellow} border-top-0 border-bottom-0`}><span></span></td>
+                      <td className={`${styles.name} border-top-0 border-bottom-0`}>Sagar Sinha</td>
+                      <td className="border-top-0 border-bottom-0">10</td>
+                      <td className="border-top-0 border-bottom-0">30%</td>
+                      <td className="border-top-0 border-bottom-0">AAVPW27766Q</td>
+                      <td className="border-top-0 border-bottom-0">No</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td className="border-top-0"></td>
+                      <td>40</td>
+                      <td>100%</td>
+                      <td className="border-top-0"></td>
+                      <td className="border-top-0"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                {/* <table className={`${styles.table} table mb-4`} cellPadding="0" cellSpacing="0" border="0">
                   <tbody>
                     <tr>
                       <th rowSpan={shareHolding ? shareHolding?.length : '7' }>
@@ -110,7 +164,7 @@ function Index({ shareHolding }) {
                       <td className="border-top-0"></td>
                     </tr>
                   </tbody>
-                </table>
+                </table> */}
               </div>
             </div>
             <h3 className="label_heading">Preference Capital</h3>
