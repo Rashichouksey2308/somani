@@ -85,6 +85,16 @@ function Index() {
   }, [dispatch, Vessel])
 
   const [list, setList] = useState()
+  const [vesselInfo, setVesselInfo] = useState([{
+    name: '',
+    IMONumber: '',
+    flag: '',
+    yearOfBuilt: '',
+    shippingLineOrCharter: '',
+  }])
+
+
+
   const onAddVessel = () => {
     setList([
       ...list,
@@ -140,10 +150,10 @@ function Index() {
   const OnAddvesselInformation = () => {
     const newArr = [...list]
     newArr[0].vesselInformation.push({
-      vesselName: '',
-      imoNumber: '',
+      name: '',
+      IMONumber: '',
       flag: '',
-      yearBuilt: '',
+      yearOfBuilt: '',
     })
     console.log(newArr.vesselInformation, 'vesselsnew')
     setList(newArr)
@@ -161,7 +171,6 @@ function Index() {
       setList(prevState => prevState.slice(0, 1)
       )
     }
-
     setList(prevState => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -221,13 +230,63 @@ function Index() {
               [name]: startDate
             }
           }
-
         }
         return obj;
       });
       return newState;
     })
 
+  }
+
+  const onVesselInfoChangeHandlerForBulk = (e, index) => {
+    const name = e.target.id
+    const value = e.target.value
+    console.log(name, value, 'arrayvessel')
+    let array = { ...list[index].vesselInformation[0], [name]: value }
+    console.log(array, 'arrayvessel')
+    setList(prevState => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return {
+            ...obj,
+            vesselInformation: [array]
+          }
+        }
+        return obj;
+      });
+      return newState;
+    })
+  }
+
+  const onVesselInfoChangeHandlerForLiner = (e, index) => {
+    const name = e.target.id
+    const value = e.target.value
+    let tempArr = list[0].vesselInformation
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val[name] = value
+      }
+    })
+    console.log(tempArr, 'tempArr')
+  }
+  console.log(list, 'arrayvessel')
+
+  const uploadDocHandler = () => {
+
+  }
+
+  const shippingInfoChangeHandler = (e, index) => {
+    const name = e.target.id
+    const value = e.target.value
+    setList(prevState => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return { ...obj, [name]: value };
+        }
+        return obj;
+      });
+      return newState;
+    })
   }
 
 
@@ -474,7 +533,7 @@ function Index() {
                         className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                       >
                         <div className="d-flex">
-                          <DateCalender name='laycanFrom' index={index} saveDate={saveDate} labelName="Laycan from" />
+                          <DateCalender defaultDate={val?.transitDetails?.laycanFrom} name='laycanFrom' index={index} saveDate={saveDate} labelName="Laycan from" />
                           <img
                             className={`${styles.calanderIcon} img-fluid`}
                             src="/static/caldericon.svg"
@@ -486,7 +545,7 @@ function Index() {
                         className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                       >
                         <div className="d-flex">
-                          <DateCalender name='laycanTo' index={index} saveDate={saveDate} labelName="Laycan to" />
+                          <DateCalender defaultDate={val?.transitDetails?.laycanTo} name='laycanTo' index={index} saveDate={saveDate} labelName="Laycan to" />
                           <img
                             className={`${styles.calanderIcon} img-fluid`}
                             src="/static/caldericon.svg"
@@ -498,7 +557,7 @@ function Index() {
                         className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
                       >
                         <div className="d-flex">
-                          <DateCalender name='EDTatLoadPort' index={index} saveDate={saveDate} labelName="ETA at Load Port" />
+                          <DateCalender defaultDate={val?.transitDetails?.EDTatLoadPort} name='EDTatLoadPort' index={index} saveDate={saveDate} labelName="ETA at Load Port" />
                           <img
                             className={`${styles.calanderIcon} img-fluid`}
                             src="/static/caldericon.svg"
@@ -517,6 +576,7 @@ function Index() {
                         alt="Search"
                     /> */}
                           <DatePicker
+                            defaultDate={val?.transitDetails?.ETAatDischargePort}
                             name='ETAatDischargePort'
                             selected={startDate}
                             dateFormat="dd/MM/yyyy"
@@ -545,7 +605,7 @@ function Index() {
                   <hr></hr>
 
                   {list[index].shipmentType === 'Bulk' ? <>{
-                    list && list[0].vesselInformation.map((vesselInfo, index) => (
+                    list && list[0].vesselInformation.map((vesselInfo, index1) => (
                       <div key={index} className={`${styles.dashboard_form} card-body`}>
                         <h3 className={styles.sub_heading}>Vessel Information</h3>
 
@@ -559,6 +619,7 @@ function Index() {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
+                              onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -575,6 +636,7 @@ function Index() {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
+                              onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -591,6 +653,7 @@ function Index() {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
+                              onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -606,6 +669,7 @@ function Index() {
                               defaultValue={vesselInfo.yearOfBuilt}
                               className={`${styles.input_field} input form-control`}
                               type="number"
+                              onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -623,6 +687,7 @@ function Index() {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
+                              onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -634,7 +699,7 @@ function Index() {
                       </div>))
                   }</> : (
                     <>
-                      
+
                       <div className={`${styles.dashboard_form} card-body`}>
                         <h3 className={styles.sub_heading}>
                           Shipping Information
@@ -645,8 +710,11 @@ function Index() {
                             className={`${styles.form_group} col-md-4 col-sm-6`}
                           >
                             <input
+                              id='shippingLineOrCharter'
+                              defaultChecked={val?.shippingInformation?.shippingLineOrCharter}
                               className={`${styles.input_field} input form-control`}
                               type="text"
+                              onChange={(e) => shippingInfoChangeHandler(e, index)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -659,8 +727,11 @@ function Index() {
                             className={`${styles.form_group} col-md-4 col-sm-6`}
                           >
                             <input
+                              id='numberOfContainers'
+                              defaultChecked={val?.shippingInformation?.numberOfContainers}
                               className={`${styles.input_field} input form-control`}
                               type="number"
+                              onChange={(e) => shippingInfoChangeHandler(e, index)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -673,8 +744,11 @@ function Index() {
                             className={`${styles.form_group} col-md-4 col-sm-6`}
                           >
                             <input
+                              id='freeDetentionPeriod'
+                              defaultChecked={val?.shippingInformation?.freeDetentionPeriod}
                               className={`${styles.input_field} input form-control`}
                               type="number"
+                              onChange={(e) => shippingInfoChangeHandler(e, index)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -699,9 +773,12 @@ function Index() {
                                 className={`${styles.form_group} col-md-4 col-sm-6`}
                               >
                                 <input
+                                  id='name'
+                                  defaultValue={newVessel.name}
                                   className={`${styles.input_field} input form-control`}
                                   required
                                   type="text"
+                                  onChange={(e) => onVesselInfoChangeHandlerForLiner(e, index)}
                                 />
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -714,9 +791,12 @@ function Index() {
                                 className={`${styles.form_group} col-md-4 col-sm-6`}
                               >
                                 <input
+                                  id='IMONumber'
+                                  defaultValue={newVessel.IMONumber}
                                   className={`${styles.input_field} input form-control`}
                                   required
                                   type="text"
+                                  onChange={(e) => onVesselInfoChangeHandlerForLiner(e, index)}
                                 />
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -729,9 +809,12 @@ function Index() {
                                 className={`${styles.form_group} col-md-4 col-sm-6`}
                               >
                                 <input
+                                  id='flag'
+                                  defaultValue={newVessel.flag}
                                   className={`${styles.input_field} input form-control`}
                                   required
                                   type="text"
+                                  onChange={(e) => onVesselInfoChangeHandlerForLiner(e, index)}
                                 />
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -743,8 +826,11 @@ function Index() {
                                 className={`${styles.form_group} col-md-4 col-sm-6`}
                               >
                                 <input
+                                  id='yearOfBuilt'
+                                  defaultValue={newVessel.yearOfBuilt}
                                   className={`${styles.input_field} input form-control`}
                                   type="number"
+                                  onChange={(e) => onVesselInfoChangeHandlerForLiner(e, index)}
                                 />
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -765,7 +851,7 @@ function Index() {
                         <div
                           className={`${styles.form_group} d-flex justify-content-start`}
                         >
-                          <button className={`${styles.upload_btn}`}>
+                          <button onClick={uploadDocHandler} className={`${styles.upload_btn}`}>
                             Upload Excel
                           </button>
                           <div className={`${styles.upload_text}`}>
@@ -783,7 +869,7 @@ function Index() {
 
           <UploadDocument />
           <div className="mb-5">
-            <UploadOther orderid={id1} />
+            <UploadOther module='Agreements,Insurance,LcOpening' orderid={id1} />
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ import {
 } from '../../../src/redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Index = ({ orderid }) => {
+const Index = ({ orderid,module }) => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(GetDocuments(`?order=${orderid}`))
@@ -23,7 +23,7 @@ const Index = ({ orderid }) => {
     document: [],
     order: orderid,
     name: '',
-    module: 'LeadOnboarding,OrderApproval',
+    module: module,
   })
 
   const handleDropdown = (e) => {

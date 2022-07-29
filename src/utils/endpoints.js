@@ -74,5 +74,9 @@ export default {
   updateGeneric: '/api/core/generic',
 
   //Vessel Nomination
-  getVessel:'/api/core/vessel'
+  getVessel:'/api/core/vessel',
+  uploadDocVessel: '/api/core/vessel/upload-doc',
+  
+  //getGstKarza
+  getGstKarza:'/api/core/lead/refetch-gst-karza'
 }
