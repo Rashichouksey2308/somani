@@ -118,25 +118,22 @@ function Index() {
     newValue: '',
   })
 
-  console.log(clauseObj, 'this is ccccc')
+  // console.log(clauseObj, 'this is ccccc')
 
   const [clauseArr, setClauseArr] = useState([])
-  console.log(clauseArr, 'new arr')
+  // console.log(clauseArr, 'new arr')
+
+  const [drop, setDrop] = useState('')
 
   const dropDownChange = (e) => {
 
     let newInput = { ...clauseObj }
-
-    
-    let value = e.target.options[e.target.selectedIndex].text
-    // console.log(typeof(lcData[e.target.value]), 'typeof')
-
-    // setTimeout(() => {
-    //   arrChange('existingValue', lcData[e.target.value])
-    // }, 300)
-    // arrChange('dropDownValue', value)
+    let val1 = e.target.options[e.target.selectedIndex].text
+    let val2 = e.target.value
+    setDrop(val2)
+   
     newInput['existingValue'] = lcData[e.target.value]
-    newInput['dropDownValue'] = value
+    newInput['dropDownValue'] = val1
 
     setClauseObj(newInput)
   }
@@ -145,6 +142,11 @@ function Index() {
     const newInput = {...clauseObj}
     newInput[name] = value
     setClauseObj(newInput)
+
+    const newInput1 = {...lcData}
+    newInput1[drop] = value
+    // console.log(newInput1, "NEW INPUT 1")
+    setLcData(newInput1)
   }
 
   const addToArr = () => {
