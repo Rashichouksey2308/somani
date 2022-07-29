@@ -61,8 +61,8 @@ const[financeData,setFinanceData]=useState(finance)
   return (
     <>
       <div className={styles.container}>
-        <Form>
-          <div className="row border-bottom border-color ">
+        <Form className={`${styles.form} border-bottom-0`}>
+          <div className="row border-color ">
 
             <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
               <select
@@ -105,7 +105,7 @@ const[financeData,setFinanceData]=useState(finance)
               <span>Country</span>
               <p>Amsterdam</p>
             </div>
-              <div className={` ${styles.info}col-md-4 col-sm-6`}>
+              <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>Swift Code</span>
               <p>FWE56D3R4</p>
             </div>

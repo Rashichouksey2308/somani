@@ -66,17 +66,17 @@ function Index() {
   return (
     <>
       <div className={styles.container}>
-        <Form>
+        <Form className={`${styles.form}`}>
           <div className="row">
             <div className={`${styles.info} col-md-4 col-sm-6`}>
               <span>Name*</span>
               <p>Jaiswal Nico</p>
             </div>
-              <div className={`col-md-4 col-sm-6`}>
+            <div className={`col-md-4 col-sm-6`}>
               <span>PAN No.</span>
               <p>27AAATW4183C2ZG</p>
             </div>
-              <div className={`col-md-4 col-sm-6`}>
+            <div className={`col-md-4 col-sm-6`}>
               <span></span>
               <p></p>
             </div>
@@ -154,121 +154,125 @@ function Index() {
           </div>
         </div>
         <div className={`${styles.tableContainer} border-color card p-0`}>
-      <div
-        className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-        data-toggle="collapse"
-        data-target="#customerDetail"
-        aria-expanded="true"
-        aria-controls="customerDetail"
-      >
-        <div className={styles.header}>
-          <h2 className={`mb-0`}>Authorised Signatory Details</h2>
-          <span className=" d-flex align-items-center justify-content-between">
+          <div
+            className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
+            data-toggle="collapse"
+            data-target="#customerDetail"
+            aria-expanded="true"
+            aria-controls="customerDetail"
+          >
+            <div className={styles.header}>
+              <h2 className={`mb-0`}>Authorised Signatory Details</h2>
+              <span className=" d-flex align-items-center justify-content-between">
 
-            +
-          </span>
-        </div>
-      </div>
-      <div
-        id="customerDetail"
-        className={`collapse ${styles.body}  value_card card-body row`}
-        aria-labelledby="customerDetail"
-     
-      >
-        <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-          <tr>
-            <th>NAME</th>
-            <th>DESIGNATION</th>
-            <th>EMAIL</th>
-            <th>PHONE NO.</th>
-            <th>ACTION</th>
-          </tr>
-          <tbody>
-            {list.length>0 && list.map((val,index)=>{
-              return(
-                <>
-                {val.actions=="true"?
-                <tr key={index}>
-                  <td>{val.name}</td>
-                  <td>{val.designation}</td>
-                  <td>{val.email}</td>
-                  <td>{val.phone}</td>
-                  <td className={`d-flex justify-content-between`}>
-                  <img onClick={()=>(onEdit(index))} src="/static/mode_edit.svg"  />
-                   <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
-                  </td>
+                +
+              </span>
+            </div>
+          </div>
+          <div
+            id="customerDetail"
+            className={`collapse ${styles.body}  value_card card-body row`}
+            aria-labelledby="customerDetail"
+        
+          >
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+                  <tr>
+                    <th>NAME</th>
+                    <th>DESIGNATION</th>
+                    <th>EMAIL</th>
+                    <th>PHONE NO.</th>
+                    <th>ACTION</th>
+                  </tr>
+                  <tbody>
+                    {list.length>0 && list.map((val,index)=>{
+                      return(
+                        <>
+                        {val.actions=="true"?
+                        <tr key={index}>
+                          <td>{val.name}</td>
+                          <td>{val.designation}</td>
+                          <td>{val.email}</td>
+                          <td>{val.phone}</td>
+                          <td className={`d-flex`}>
+                            <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                            <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"/>
+                          </td>
 
-                </tr>
-                :<tr key={index}>
-                  <td><select>
-                    <option>{val.name}</option>
-                    </select>
-                 </td>
-                  <td><input type="text" placeholder={val.designation}></input></td>
-                  <td><input type="text" placeholder={val.email}></input></td>
-                  <td><input type="text" placeholder={val.phone}></input></td>
-                  <td className={`d-flex  justify-content-between`}>
-                     <img  onClick={()=>(onEditRemove(index))}src="/static/mode_edit.svg"  />
-                     <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
-                  </td>
+                        </tr>
+                        :<tr key={index}>
+                          <td><select>
+                            <option>{val.name}</option>
+                            </select>
+                        </td>
+                          <td><input type="text" placeholder={val.designation}></input></td>
+                          <td><input type="text" placeholder={val.email}></input></td>
+                          <td><input type="text" placeholder={val.phone}></input></td>
+                          <td className={`d-flex`}>
+                            <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(onEditRemove(index))}src="/static/mode_edit.svg" alt="edit"/>
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"/>
+                          </td>
 
-                </tr>}
-                </>
-              )
-            })}
-          </tbody>
-        </table>
-        <div className={`${styles.addMoreRows}`} onClick={(e)=>{
-          addMoreRows()
-        }}>
-        <span>+</span>  Add more rows
-        </div>
-      </div>
+                        </tr>}
+                        </>
+                      )
+                    })}
+                  </tbody>
+                </table>
+                <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+                    addMoreRows()
+                  }}>
+                  <span>+</span> Add more rows
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className={styles.displaytable}>
-           <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-          <tr>
-            <th>DOCUMENT NAME</th>
-            <th>FORMAT</th>
-            <th>DOCUMENT DATE</th>
-           
-            <th>ACTION</th>
-          </tr>
-          <tbody>
-            {list.length>0 && list.map((val,index)=>{
-              return(
-                <>
-                {val.actions=="true"?
-                <tr key={index}>
-                  <td>{val.name}</td>
-                  <td>{val.designation}</td>
-                  <td>{val.email}</td>
-                  <td>{val.phone}</td>
-                  <td className={`d-flex justify-content-between`}>
-                  <img onClick={()=>(onEdit(index))} src="/static/mode_edit.svg"  />
-                   <img onClick={()=>(handleRemove(index))} src="/static/upload.svg"></img>
-                  </td>
-
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+                <tr height={67}>
+                  <th>DOCUMENT NAME <img className="mb-1" src="/static/icons8-sort-24.svg" /></th>
+                  <th>FORMAT <img className="mb-1" src="/static/icons8-sort-24.svg" /></th>
+                  <th>DOCUMENT DATE <img className="mb-1" src="/static/icons8-sort-24.svg" /></th>
+                  <th>ACTION</th>
                 </tr>
-                :<tr key={index}>
-                  <td><select>
-                    <option>{val.name}</option>
-                    </select>
-                 </td>
-                  <td><input type="text" placeholder={val.designation}></input></td>
-                  <td><input type="text" placeholder={val.email}></input></td>
-                  <td><input type="text" placeholder={val.phone}></input></td>
-                  <td className={`d-flex  justify-content-between`}>
-                     <img  onClick={()=>(onEditRemove(index))}src="/static/mode_edit.svg"  />
-                     <img  onClick={()=>(handleRemove(index))} src="/static/upload.svg"></img>
-                  </td>
+                <tbody>
+                {list.length>0 && list.map((val,index)=>{
+                  return(
+                    <>
+                    {val.actions=="true"?
+                    <tr key={index}>
+                      <td><strong>{val.name}</strong></td>
+                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
+                      <td>{val.email}</td>
+                      {/* <td>{val.phone}</td> */}
+                      <td className={`d-flex`}>
+                        <img onClick={()=>(onEdit(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
+                        <img onClick={()=>(handleRemove(index))} src="/static/upload.svg"/>
+                      </td>
 
-                </tr>}
-                </>
-              )
-            })}
-          </tbody>
-        </table>
+                    </tr>
+                    :<tr key={index}>
+                      <td><strong>{val.name}</strong></td>
+                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* <input type="text" placeholder={val.designation}></input> */}</td>
+                      <td><input type="text" placeholder={val.email}></input></td>
+                      {/* <td><input type="text" placeholder={val.phone}></input></td> */}
+                      <td className={`d-flex `}>
+                        <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
+                        <img  onClick={()=>(handleRemove(index))} src="/static/upload.svg"/>
+                      </td>
+
+                    </tr>}
+                    </>
+                  )
+                })}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </>
