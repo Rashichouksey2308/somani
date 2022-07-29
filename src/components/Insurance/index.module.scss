@@ -1,476 +1,461 @@
-@import "../../../src/components/styles/Core/config";
-
+@import '../../../src/components/styles/Core/config';
 
 .card {
-    padding: 20px;
-  
-    .head_container {
-      display: flex;
-      background: none;
-      flex-direction: row;
-      justify-content: space-between;
-      @include respond(sm-desktop) {
-        margin-top: 15px;
-        margin-bottom: -20px;
+  padding: 20px;
+
+  .head_container {
+    display: flex;
+    background: none;
+    flex-direction: row;
+    justify-content: space-between;
+    @include respond(sm-desktop) {
+      margin-top: 15px;
+      margin-bottom: -20px;
     }
     @include respond(phone) {
-        margin-top: 15px;
-        margin-bottom: -20px;
-
+      margin-top: 15px;
+      margin-bottom: -20px;
     }
-  
-      .head_header {
-        display: flex;
-        justify-content: space-around;
-        flex-direction: row;
-  
-        .arrow {
-          width: 13px;
-          height: 21px;
-          background: transparent;
-          margin-top: 10px;
+
+    .head_header {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: row;
+
+      .arrow {
+        width: 13px;
+        height: 21px;
+        background: transparent;
+        margin-top: 10px;
         @include respond(md-desktop) {
-            width: 12px;
-            height: 19px;
+          width: 12px;
+          height: 19px;
         }
-         
+
         @include respond(sm-desktop) {
-            width: 10px;
+          width: 10px;
           height: 17px;
           margin-top: 12px;
         }
         @include respond(phone) {
-            margin-top: 12px;
-            width: 9px;
-            height: 14px;
-        }
-        }
-        .heading {
-          padding-left: 18px;
-          font-weight: bold;
-          font-size: 34px;
-          text-align: left;
-          line-height: 41px;         
-          text-transform: capitalize;
-          margin-top: 0;
-          @include respond(md-desktop) {
-            font-size: 30px;
-            line-height: 41px;         
-        }
-        @include respond(sm-desktop) {
-
-            font-size: 26px;     
-             line-height: 38px;         
-        }
-        @include respond(phone) {
-            font-size: 22px;
-            line-height: 30px;
-            padding-top: 5px;         
-
-        }
+          margin-top: 12px;
+          width: 9px;
+          height: 14px;
         }
       }
-      .clear_btn {
-        width: 116px;
-        height: 38px; 
-        text-align: center;
+      .heading {
+        padding-left: 18px;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 34px;
+        text-align: left;
+        line-height: 41px;
+        text-transform: capitalize;
+        margin-top: 0;
         @include respond(md-desktop) {
-            font-size: 16px;
+          font-size: 30px;
+          line-height: 41px;
         }
         @include respond(sm-desktop) {
-            font-size: 14px;
-            width: 100px;
-            height: 32px;
+          font-size: 26px;
+          line-height: 38px;
         }
         @include respond(phone) {
-            font-size: 12px;
-            width: 80px;
-            height: 30px;
+          font-size: 22px;
+          line-height: 30px;
+          padding-top: 5px;
         }
       }
     }
-  
-    
-    .vessel_card {
-       
-        border-radius: 6px;
-
-        .heading {
-            color: #3687e8;
-            font-weight:bold;
-            font-size: 22px;
-            text-transform: capitalize;
-            line-height: 27px;
-            padding: 26px 0px 20px 35px;
-            border-bottom: 3px solid #D9DDE8;
-            @include respond(md-desktop) {
-                font-size: 20px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 18px;
-            }
-            @include respond(phone) {
-                font-size: 15px;
-            }
-
-        }
-        .radio_form {
-            padding: 26px 0px 20px 35px;
-            .radio_group {
-                display: flex;
-               
-                .radio {
-                    font-size: 20px;
-                    color: #111111;
-                    letter-spacing: 0.19px;
-                    padding-right: 50px;
-                    @include respond(md-desktop) {
-                        font-size: 18px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 16px;
-                    }
-                    @include respond(phone) {
-                        font-size: 14px;
-                    }
-
-                    label {
-                        padding-left: 15px;
-                    }
-                }
-            }
-            .sub_heading {
-                font-size: 16px;
-                line-height: 17px;
-                font-weight: 500;
-                padding: 10px 0 15px;
-                letter-spacing: 0.53px;
-                @include respond(md-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 14px;
-                }
-                @include respond(phone) {
-                    font-size: 12px;
-                }
-            }
-        } 
+    .clear_btn {
+      width: 116px;
+      height: 38px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+      @include respond(md-desktop) {
+        font-size: 16px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 14px;
+        width: 100px;
+        height: 32px;
+      }
+      @include respond(phone) {
+        font-size: 12px;
+        width: 80px;
+        height: 30px;
+      }
     }
-
-    .wrapper{
-        margin-bottom: 1rem;
-            border-radius: 6px !important;
-    }
-    .cardHeader {
-         cursor: pointer;
-         border-bottom: none;
-         padding: 25px 35px !important;
-    
-         h2 {
-             font-size: 22px;
-             color: #3687E8;
-             font-weight: bold;
-             line-height: 27px;
-             @include respond(md-desktop) {
-                font-size: 22px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 18px;
-            }
-            @include respond(phone) {
-                font-size: 15px;
-            }
-         }
-    
-         span {
-             font-size: 45px;
-             color: #3687E8;
-             font-weight: normal;
-             line-height: 20px;
-             @include respond(md-desktop) {
-                font-size: 42px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 35px;
-            }
-            @include respond(phone) {
-                font-size: 30px;
-            }
-         }
-             
-        
-    }
-     .cardBody {
-         padding:0px;
-        border-top: 2px solid red !important;
-         .content{
-             
-             .header{
-                 
-              padding: 25px 35px !important;
-              font-weight: bold;
-              line-height:27px;
-              h5{
-                font-size: 22px ;
-                font-weight: bold;
-                @include respond(md-desktop) {
-                    font-size: 20px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 18px;
-                }
-                @include respond(phone) {
-                    font-size: 15px;
-                }
-              }
-              
-             }
-         }
-         .body{
-            padding: 25px 35px !important;
-            
-            .col_header{
-                font-weight: medium;
-                font-size: 16px;
-                line-height: 17px;
-                margin-top: 1.5rem;
-                letter-spacing: 0.53px;
-                @include respond(md-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 14px;
-                }
-                @include respond(phone) {
-                    font-size: 12px;
-                }
-                  
-            }
-            .col_body{
-                   font-weight: bold;
-                    font-size: 20px;
-                    line-height: 25px;
-                    margin-top:0.5rem;
-                    margin-bottom: 1rem;
-                    @include respond(md-desktop) {
-                        font-size: 18px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 16px;
-                    }
-                    @include respond(phone) {
-                        font-size: 14px;
-                    }
-             
-            }
-
-            .label_heading {
-                top: 27px;
-                left: 30px;
-                font-size: 16px;
-                line-height: 0.5;
-               // margin-bottom: 0;
-                letter-spacing: 0.53px;
-                position: absolute;
-                pointer-events: none;
-                box-sizing: border-box;
-                transform: translateY(-31px);
-                transition: 0.3s all ease-in-out;
-                @include respond(md-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 14px;
-                }
-                @include respond(phone) {
-                    font-size: 12px;
-                }
-              }
-              .input_field {
-                
-                height: 60px;
-                background-color: #C3C3C31F;
-                border: 1px solid #0000001F;
-                border-radius: 4px;
-                font-size: 20px;
-                font-weight: 500;
-                outline: none;
-                box-shadow: none;
-                position: relative;
-                box-sizing: border-box;
-                &:invalid + label {
-                    transform:translateY(0);
-                }
-                &:focus {
-                    & + label {
-                        transform:translateY(-31px);
-                    }
-                }
-                @include respond(md-desktop) {
-                    font-size: 18px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                }
-            }
-            .search_image {
-                margin-left: -40px;
-        
-            }
-         }
-
-         .remark_field{
-            margin: 25px 35px 35px 35px;
-            padding: 20px;
-            letter-spacing: 0.19px;
-            color: #111111;
-            background: #C3C3C31F;
-            border: 1px solid #0000001F;
-            border-radius: 4px;
-            font-size: 20px;
-            line-height: 25px;
-            @include respond(md-desktop) {
-                font-size: 18px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 16px;
-            }
-            @include respond(phone) {
-                font-size: 14px;
-            }
-         }
-        
-     }
   }
 
-  .table_container {
-    background-color: #FAFAFB;
-    .table {
-        th {
-            font-size: 15px;
-            color: #8492A6;
-            font-weight: bold;
-            line-height: 18px;
-            padding: 20px 15px;
-            vertical-align: middle;
-            background: #FAFAFB;
-            text-transform: uppercase;
-            border-top: 2px solid #F2F5F9;
-            border-bottom: 2px solid #F2F5F9;
-            &:first-child {
-                padding-left: 35px;
-            }
-            @include respond(md-desktop) {
-                font-size: 15px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 13px;
-            }
-            @include respond(phone) {
-                font-size: 11px;
-            }
-        }
-        td {
-            font-size: 19px;
-            font-weight: 500;
-            line-height: 24px;
-            padding: 24px 15px;
-            border-top: none;
-            vertical-align: middle;
-            @include respond(md-desktop) {
-                font-size: 17px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 15px;
-            }
-            @include respond(phone) {
-                font-size: 12px;
-            }
-        }
-        
-        .doc_name {
-            font-weight: bold;
-            line-height: 25px;
-            font-size: 20px;
-            text-transform: capitalize;
-            padding-left: 35px;
-            @include respond(md-desktop) {
-                font-size: 18px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 16px;
-            }
-            @include respond(phone) {
-                font-size: 14px;
-            }
-        }
-        .doc_row {
-            font-size: 19px;
-            line-height: 24px;
-            opacity: 0.7;
-            font-weight: 500;   
-            @include respond(md-desktop) {
-                font-size: 17px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 15px;
-            }
-            @include respond(phone) {
-                font-size: 12px;
-            }             
-        }
-        .button_upload {
-            width: 106px;
-            height: 38px;
-            border: 3px solid #3687E8;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-            line-height: 23px;
-            color: #3687E8;
-            text-transform: capitalize;
-            @include respond(md-desktop) {
-                font-size: 18px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 16px;
-                width: 100px;
-                height: 34px;
-                line-height: 18px;
+  .vessel_card {
+    border-radius: 6px;
 
-            }
-            @include respond(phone) {
-                font-size: 14px;
-                width: 80px;
-                height: 28px;
-                line-height: 12px;
-
-            }
-        } 
-        
-        .file_field{
-                background: #C3C3C31F;
-                border-radius: 4px;
-                overflow: hidden;
-                position: relative;
-                //display: block;
-                line-height: 60px;
-                input {
-                   
-                    cursor: pointer;
-                    //position: absolute;
-                }
-                .close_image {
-                    
-                }
-            
-        }
+    .heading {
+      color: #3687e8;
+      font-weight: bold;
+      font-size: 22px;
+      text-transform: capitalize;
+      line-height: 27px;
+      padding: 26px 0px 20px 35px;
+      border-bottom: 3px solid #d9dde8;
+      @include respond(md-desktop) {
+        font-size: 20px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 18px;
+      }
+      @include respond(phone) {
+        font-size: 15px;
+      }
     }
+    .radio_form {
+      padding: 26px 0px 20px 35px;
+      .radio_group {
+        display: flex;
+
+        .radio {
+          font-size: 20px;
+          color: #111111;
+          letter-spacing: 0.19px;
+          padding-right: 50px;
+          @include respond(md-desktop) {
+            font-size: 18px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 16px;
+          }
+          @include respond(phone) {
+            font-size: 14px;
+          }
+
+          label {
+            padding-left: 15px;
+          }
+        }
+      }
+      .sub_heading {
+        font-size: 16px;
+        line-height: 17px;
+        font-weight: 500;
+        padding: 10px 0 15px;
+        letter-spacing: 0.53px;
+        @include respond(md-desktop) {
+          font-size: 16px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 14px;
+        }
+        @include respond(phone) {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  .wrapper {
+    margin-bottom: 1rem;
+    border-radius: 6px !important;
+  }
+  .cardHeader {
+    cursor: pointer;
+    border-bottom: none;
+    padding: 25px 35px !important;
+
+    h2 {
+      font-size: 22px;
+      color: #3687e8;
+      font-weight: bold;
+      line-height: 27px;
+      @include respond(md-desktop) {
+        font-size: 22px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 18px;
+      }
+      @include respond(phone) {
+        font-size: 15px;
+      }
+    }
+
+    span {
+      font-size: 45px;
+      color: #3687e8;
+      font-weight: normal;
+      line-height: 20px;
+      @include respond(md-desktop) {
+        font-size: 42px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 35px;
+      }
+      @include respond(phone) {
+        font-size: 30px;
+      }
+    }
+  }
+  .cardBody {
+    padding: 0px;
+    border-top: 2px solid red !important;
+    .content {
+      .header {
+        padding: 25px 35px !important;
+        font-weight: bold;
+        line-height: 27px;
+        h5 {
+          font-size: 22px;
+          font-weight: bold;
+          @include respond(md-desktop) {
+            font-size: 20px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+    .body {
+      padding: 25px 35px !important;
+
+      .col_header {
+        font-weight: medium;
+        font-size: 16px;
+        line-height: 17px;
+        margin-top: 1.5rem;
+        letter-spacing: 0.53px;
+        @include respond(md-desktop) {
+          font-size: 16px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 14px;
+        }
+        @include respond(phone) {
+          font-size: 12px;
+        }
+      }
+      .col_body {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 25px;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        @include respond(md-desktop) {
+          font-size: 18px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+        }
+        @include respond(phone) {
+          font-size: 14px;
+        }
+      }
+
+      .label_heading {
+        top: 27px;
+        left: 30px;
+        font-size: 16px;
+        line-height: 0.5;
+        // margin-bottom: 0;
+        letter-spacing: 0.53px;
+        position: absolute;
+        pointer-events: none;
+        box-sizing: border-box;
+        transform: translateY(-31px);
+        transition: 0.3s all ease-in-out;
+        @include respond(md-desktop) {
+          font-size: 16px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 14px;
+        }
+        @include respond(phone) {
+          font-size: 12px;
+        }
+      }
+      .input_field {
+        height: 60px;
+        background-color: #c3c3c31f;
+        border: 1px solid #0000001f;
+        border-radius: 4px;
+        font-size: 20px;
+        font-weight: 500;
+        outline: none;
+        box-shadow: none;
+        position: relative;
+        box-sizing: border-box;
+        &:invalid + label {
+          transform: translateY(0);
+        }
+        &:focus {
+          & + label {
+            transform: translateY(-31px);
+          }
+        }
+        @include respond(md-desktop) {
+          font-size: 18px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+        }
+        @include respond(phone) {
+          font-size: 14px;
+        }
+      }
+      .search_image {
+        margin-left: -40px;
+      }
+    }
+
+    .remark_field {
+      margin: 25px 35px 35px 35px;
+      padding: 20px;
+      letter-spacing: 0.19px;
+      color: #111111;
+      background: #c3c3c31f;
+      border: 1px solid #0000001f;
+      border-radius: 4px;
+      font-size: 20px;
+      line-height: 25px;
+      @include respond(md-desktop) {
+        font-size: 18px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 16px;
+      }
+      @include respond(phone) {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.table_container {
+  background-color: #fafafb;
+  .table {
+    th {
+      font-size: 15px;
+      color: #8492a6;
+      font-weight: bold;
+      line-height: 18px;
+      padding: 20px 15px;
+      vertical-align: middle;
+      background: #fafafb;
+      text-transform: uppercase;
+      border-top: 2px solid #f2f5f9;
+      border-bottom: 2px solid #f2f5f9;
+      &:first-child {
+        padding-left: 35px;
+      }
+      @include respond(md-desktop) {
+        font-size: 15px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 13px;
+      }
+      @include respond(phone) {
+        font-size: 11px;
+      }
+    }
+    td {
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 24px;
+      padding: 24px 15px;
+      border-top: none;
+      vertical-align: middle;
+      @include respond(md-desktop) {
+        font-size: 17px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 15px;
+      }
+      @include respond(phone) {
+        font-size: 12px;
+      }
+    }
+
+    .doc_name {
+      font-weight: bold;
+      line-height: 25px;
+      font-size: 20px;
+      text-transform: capitalize;
+      padding-left: 35px;
+      @include respond(md-desktop) {
+        font-size: 18px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 16px;
+      }
+      @include respond(phone) {
+        font-size: 14px;
+      }
+    }
+    .doc_row {
+      font-size: 19px;
+      line-height: 24px;
+      opacity: 0.7;
+      font-weight: 500;
+      @include respond(md-desktop) {
+        font-size: 17px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 15px;
+      }
+      @include respond(phone) {
+        font-size: 12px;
+      }
+    }
+    .button_upload {
+      width: 106px;
+      height: 38px;
+      border: 3px solid #3687e8;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 23px;
+      color: #3687e8;
+      text-transform: capitalize;
+      @include respond(md-desktop) {
+        font-size: 18px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 16px;
+        width: 100px;
+        height: 34px;
+        line-height: 18px;
+      }
+      @include respond(phone) {
+        font-size: 14px;
+        width: 80px;
+        height: 28px;
+        line-height: 12px;
+      }
+    }
+
+    .file_field {
+      background: #c3c3c31f;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      //display: block;
+      line-height: 60px;
+      input {
+        cursor: pointer;
+        //position: absolute;
+      }
+      .close_image {
+      }
+    }
+  }
+}
+.calanderIcon {
+  margin-left: -40px;
+  margin-top: 15px;
+  width: 23px;
+  height: 26px;
+  pointer-events: none;
 }

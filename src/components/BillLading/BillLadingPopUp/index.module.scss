@@ -1,0 +1,67 @@
+@import "../../styles/Core/config";
+
+.updated_successfully {
+    max-width: 562px;
+    box-shadow: none !important;
+    border-radius: 12px;
+    background: #FFFFFF;
+    .card_header {
+        border-bottom: 2px solid #CAD6E65E;
+        padding: 22px 34px;
+        h3 {
+            font-size: 22px;
+            color: #3687E8;
+            font-weight: bold;
+            line-height: 27px;
+            margin: 0;
+        }
+    }
+    .card_body {
+        padding: 28px 34px 46px;
+        img {
+            margin-bottom: 38px;
+        }
+        h4 {
+            font-size: 20px;
+            color: #111111;
+            font-weight: bold;
+            line-height: 25px;
+            margin-bottom: 16px;
+        }
+        p {
+            font-size: 20px;
+            color: #344054;
+            font-weight: normal;
+            line-height: 25px;
+            letter-spacing: 0.19px;
+            margin-bottom: 76px;
+        }
+        .card_button {
+            width: 242px;
+            height: 48px;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 25px;
+            border-radius: 5px;
+            &.close {
+                color: #3687E8;
+                margin-right: 14px;
+                background: #ffffff;
+                border: 3px solid #3687E8;
+                &:hover {
+                    color: #ffffff;
+                    background: #3687E8;
+                }
+            }
+            &.track_view {
+                color: #ffffff;
+                background: #3687E8;
+                border: 3px solid #3687E8;
+            }
+            &:hover {
+                color: #3687E8;
+                background: #ffffff;
+            }
+        }
+    }
+}

@@ -44,7 +44,8 @@ function Index() {
     }
   }, [])
 
-  const [forCalculation, setForCalculation] = useState({
+  const [forCalculation, setForCalculation] = useState(
+    {
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || '',
     status: marginData?.status || '',
     quantity: marginData?.order?.quantity || '',
@@ -59,24 +60,61 @@ function Index() {
     tolerance: marginData?.order?.tolerance || '',
     marginMoney:
       marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
-  })
+  }
+  )
 
+  console.log( marginData?.order?.quantity," marginData?.order?.quantity")
   const saveForCalculation = (name, value) => {
     const newInput = { ...forCalculation }
     newInput[name] = value
     // console.log(newInput)
     setForCalculation(newInput)
+    getData2()
   }
-
+  
+  const [finalCal,setFinalCal]=useState({
+    orderValue:"",
+    orderValueCurrency:"USD",
+    orderValueInINR:"",
+    usanceInterest:"",
+    tradeMargin:"",
+    grossOrderValue:"",
+    toleranceValue:"",
+    totalOrderValue:"",
+    provisionalUnitPricePerTon:"",
+    marginMoney:"",
+    totalSPDC:"",
+    amountPerSPDC:"",
+  })
+  useEffect(() => {
+    getData()
+  },[marginData])
+ const getData=()=>{
+    setForCalculation({
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded ,
+    status: marginData?.status ,
+    quantity: marginData?.order?.quantity ,
+    additionalPDC: marginData?.additionalPDC ,
+    conversionRate: marginData?.conversionRate ,
+    perUnitPrice: marginData?.order?.perUnitPrice ,
+    usanceInterestPercentage:
+      marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ,
+    numberOfPDC: marginData?.numberOfPDC ,
+    tradeMarginPercentage:
+      marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ,
+    tolerance: marginData?.order?.tolerance ,
+    marginMoney:
+      marginData?.order?.termsheet?.transactionDetails?.marginMoney ,
+  })
   let orderValue = parseFloat(
-    forCalculation.quantity * forCalculation.perUnitPrice,
+   Number( forCalculation.quantity) * Number(forCalculation.perUnitPrice),
   ).toFixed(2) //J
   let orderValueCurrency = 'USD'
   let orderValueInINR = parseFloat(
-    orderValue * forCalculation.conversionRate,
+    Number(orderValue) * forCalculation.conversionRate,
   ).toFixed(2) //K
   let usanceInterest = parseFloat(
-    (orderValueInINR *
+    (Number(orderValueInINR) *
       (forCalculation.isUsanceInterestIncluded
         ? Number(forCalculation.usanceInterestPercentage / 100)
         : 1) *
@@ -84,25 +122,99 @@ function Index() {
       365,
   ).toFixed(2) //L
   let tradeMargin = parseFloat(
-    orderValueInINR * Number(forCalculation.tradeMarginPercentage / 100),
+    Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
   ).toFixed(2) //M
   let grossOrderValue = parseFloat(
     Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
   ).toFixed(2) //N
   let toleranceValue = parseFloat(
-    grossOrderValue * Number(forCalculation.tolerance / 100),
+    Number(grossOrderValue) * Number(forCalculation.tolerance / 100),
   ).toFixed(2) //O
   let totalOrderValue = parseFloat((Number(grossOrderValue)) + Number(toleranceValue)).toFixed(2) //P
   let provisionalUnitPricePerTon = parseFloat(
-    grossOrderValue / forCalculation.quantity,
+    Number(grossOrderValue) / Number(forCalculation.quantity),
   ).toFixed(2) //Q
   let marginMoney = parseFloat(
-    totalOrderValue * Number(forCalculation.marginMoney / 100),
+    Number(totalOrderValue )* Number(Number(forCalculation.marginMoney) / 100),
   ).toFixed(2) //R
-  let totalSPDC = parseFloat(totalOrderValue - marginMoney).toFixed(2) //S
+  let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(2) //S
   let amountPerSPDC = parseFloat(
     Number(totalSPDC )/ Number(forCalculation.numberOfPDC),
   ).toFixed(2) //T
+
+  console.log(orderValue,"orderValue",)
+  setFinalCal({
+    orderValue:orderValue,
+    orderValueCurrency:orderValueCurrency,
+    orderValueInINR:orderValueInINR,
+    usanceInterest:usanceInterest,
+    tradeMargin:tradeMargin,
+    grossOrderValue:grossOrderValue,
+    toleranceValue:toleranceValue,
+    totalOrderValue:totalOrderValue,
+    provisionalUnitPricePerTon:provisionalUnitPricePerTon,
+    marginMoney:marginMoney,
+    totalSPDC:totalSPDC,
+    amountPerSPDC:amountPerSPDC,
+  })
+ }
+ useEffect(() => {
+  getData2()
+ },[forCalculation])
+ const getData2=()=>{
+  
+  let orderValue = parseFloat(
+   Number( forCalculation.quantity) * Number(forCalculation.perUnitPrice),
+  ).toFixed(2) //J
+  let orderValueCurrency = 'USD'
+  let orderValueInINR = parseFloat(
+    Number(orderValue) * forCalculation.conversionRate,
+  ).toFixed(2) //K
+  let usanceInterest = parseFloat(
+    (Number(orderValueInINR) *
+      (forCalculation.isUsanceInterestIncluded
+        ? Number(forCalculation.usanceInterestPercentage / 100)
+        : 1) *
+      90) /
+      365,
+  ).toFixed(2) //L
+  let tradeMargin = parseFloat(
+    Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
+  ).toFixed(2) //M
+  let grossOrderValue = parseFloat(
+    Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
+  ).toFixed(2) //N
+  let toleranceValue = parseFloat(
+    Number(grossOrderValue) * Number(forCalculation.tolerance / 100),
+  ).toFixed(2) //O
+  let totalOrderValue = parseFloat((Number(grossOrderValue)) + Number(toleranceValue)).toFixed(2) //P
+  let provisionalUnitPricePerTon = parseFloat(
+    Number(grossOrderValue) / Number(forCalculation.quantity),
+  ).toFixed(2) //Q
+  let marginMoney = parseFloat(
+    Number(totalOrderValue )* Number(Number(forCalculation.marginMoney) / 100),
+  ).toFixed(2) //R
+  let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(2) //S
+  let amountPerSPDC = parseFloat(
+    Number(totalSPDC )/ Number(forCalculation.numberOfPDC),
+  ).toFixed(2) //T
+
+  console.log(orderValue,"orderValue",)
+  setFinalCal({
+    orderValue:orderValue,
+    orderValueCurrency:orderValueCurrency,
+    orderValueInINR:orderValueInINR,
+    usanceInterest:usanceInterest,
+    tradeMargin:tradeMargin,
+    grossOrderValue:grossOrderValue,
+    toleranceValue:toleranceValue,
+    totalOrderValue:totalOrderValue,
+    provisionalUnitPricePerTon:provisionalUnitPricePerTon,
+    marginMoney:marginMoney,
+    totalSPDC:totalSPDC,
+    amountPerSPDC:amountPerSPDC,
+  })
+ }
 
   const routeChange = () => {
     Router.push('/margin-preview')
@@ -758,7 +870,7 @@ function Index() {
                                   >{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {orderValue}
+                                  {finalCal.orderValue}
                                 </div>
                               </div>
                             </div>
@@ -782,7 +894,7 @@ function Index() {
                                   >{`(J*C)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {orderValueInINR}
+                                  {finalCal.orderValueInINR}
                                 </div>
                               </div>
                             </div>
@@ -806,7 +918,7 @@ function Index() {
                                   >{`(K*D*90/365)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {usanceInterest}
+                                  {finalCal.usanceInterest}
                                 </div>
                               </div>
                             </div>
@@ -830,7 +942,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {tradeMargin}
+                                  {finalCal.tradeMargin}
                                 </div>
                               </div>
                             </div>
@@ -854,7 +966,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {grossOrderValue}
+                                  {finalCal.grossOrderValue}
                                 </div>
                               </div>
                             </div>
@@ -878,7 +990,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {toleranceValue}
+                                  {finalCal.toleranceValue}
                                 </div>
                               </div>
                             </div>
@@ -902,7 +1014,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {totalOrderValue}
+                                  {finalCal.totalOrderValue}
                                 </div>
                               </div>
                             </div>
@@ -926,7 +1038,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {provisionalUnitPricePerTon}
+                                  {finalCal.provisionalUnitPricePerTon}
                                 </div>
                               </div>
                             </div>
@@ -950,7 +1062,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginMoney}
+                                  {finalCal.marginMoney}
                                 </div>
                               </div>
                             </div>
@@ -974,7 +1086,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {totalSPDC}
+                                  {finalCal.totalSPDC}
                                 </div>
                               </div>
                             </div>
@@ -998,7 +1110,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {amountPerSPDC}
+                                  {finalCal.amountPerSPDC}
                                 </div>
                               </div>
                             </div>

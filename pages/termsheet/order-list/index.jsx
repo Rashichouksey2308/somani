@@ -20,8 +20,8 @@ function Index() {
 
 
 
-   console.log(singleOrder, 'all order listtt1')
-  console.log(termsheet, "TErmshetTermsheet")
+  // console.log(singleOrder, 'all order listtt1')
+  //console.log(termsheet, "TErmshetTermsheet")
 
 
   useEffect(() => {
@@ -35,14 +35,21 @@ function Index() {
                   "data[0].company.companyName",
                   "All Termsheet Order"
                 )))
-    dispatch(setDynamicName("Company Name"))
+    
   }, [dispatch, singleOrder])
 
+   useEffect(() => {
+    if(termsheet){
+      dispatch(setDynamicName(termsheet?.data[0]?.order?.orderId))
+    }
+
+   },[termsheet,singleOrder])
   const handleRoute = (term) => {
-    console.log(term._id, "termtrem")
+   // console.log(term?.order._id, "termtrem")
     //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
     dispatch(GetTermsheet(`?termsheetId=${term._id}`))
     sessionStorage.setItem('termID', term._id)
+    sessionStorage.setItem('termOrdID', term?.order._id)
     Router.push("/termsheet/12")
     // Router.push('/lc-module')
   }

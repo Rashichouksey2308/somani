@@ -27,11 +27,12 @@ const Index = () => {
 
 
   useEffect(() => {
+    
     let Id = sessionStorage.getItem('termID')
     dispatch(GetTermsheet(`?termsheetId=${Id}`))
     dispatch(setPageName('termsheet'))
   }, [dispatch])
-
+  let OrdID = sessionStorage.getItem('termOrdID')
 
   useEffect(() => {
     {
@@ -431,7 +432,7 @@ const Index = () => {
               onChangeCha={onChangeCha}
               termsheet={termsheet}
             />
-            <UploadOther orderid={order} />
+            <UploadOther orderid={OrdID} />
           </div>
         </div>
       </div>
