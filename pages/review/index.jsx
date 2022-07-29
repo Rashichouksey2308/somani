@@ -94,9 +94,10 @@ function Index() {
     dispatch(setDynamicName(orderList?.company?.companyName))
   }, [orderList, dispatch])
 
-
+console.log(orderList?.termsheet?.order,'termsheetOrder')
   useEffect(() => {
-    dispatch(GetDocuments(`?order=${orderList?.termsheet?.order}`))
+    const id = sessionStorage.getItem('orderID')
+    dispatch(GetDocuments(`?order=${id}`))
   }, [dispatch, companyData, orderList?.termsheet?.order])
 
 
