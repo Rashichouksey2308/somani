@@ -41,16 +41,6 @@ function Index() {
               Raj Traders
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
             </a>  */}
-
-          <button
-            type="button"
-            className={`${styles.btnPrimary} btn ml-auto btn-primary`}
-            // onClick={() => {
-            //   Router.push('/insurance/form/both')
-            // }}
-          >
-            Add
-          </button>
         </div>
 
         <div
