@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule, UpdateLcAmendment } from 'redux/lcModule/action'
 import SubmitBar from '../../components/PreviousBar/SubmitBar'
 import Router from 'next/router'
+import InspectionDocument from '../InspectionDocument'
 
 function Index() {
   const dispatch = useDispatch()
