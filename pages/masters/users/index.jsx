@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
+import Filter from '../../src/components/Filter'
 
 const index = () => {
   return (
@@ -25,9 +26,7 @@ const index = () => {
               />
             </div>
           </div>
-          <a className={styles.filterIcon}>
-            <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
-          </a>
+          <Filter/>
           <a href="#" className={`${styles.filterList} filterList`}>
             From: 22-02-2022 To: 22-04-2022{' '}
             <img src="/static/close-b.svg" className="img-fluid" alt="Close" />

@@ -2,11 +2,13 @@
 
 .container_inner {
     margin: 28px;
+    margin-bottom: 68px;
     @include respond(sm-desktop) {
         margin: 20px;
     }
     @include respond(phone) {
         margin: 15px;
+        margin-bottom: 72px;
     }
 }
 
