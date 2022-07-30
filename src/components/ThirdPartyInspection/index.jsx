@@ -1,9 +1,11 @@
 import React from 'react'
 import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col} from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
+import Modal from 'react-bootstrap/Modal'
+// import ThirdPartyPopUp from './ThirdPartyPopUp'
 
 export default function Index() {
   const [editInput, setEditInput] = useState(true)
@@ -15,6 +17,10 @@ export default function Index() {
       setEditInput(true)
     }
   }
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <>
@@ -104,7 +110,7 @@ export default function Index() {
               className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Inspection Details</h3>
-              <button className={styles.product_btn} type="button">
+              <button onClick={handleShow} className={styles.product_btn} type="button">
                 {' '}
                 Product Specification
                 <img
@@ -608,6 +614,71 @@ export default function Index() {
         </div>
         <SaveBar rightBtn="Submit" />
       </div>
+      <Modal show={show} onHide={handleClose} className={`${styles.tpi_popup} tpi_popup`} aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Header className="modal-header p-0 bg-transparent border-0 d-flex justify-content-between">
+          <h3>Product Specification</h3>
+          <img src="/static/close.svg" alt="close" onClick={handleClose} className="img-fluid" />
+        </Modal.Header>
+        <Modal.Body className="p-0">
+          <div className={styles.table_container}>
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table
+                  className={`${styles.table} table-bordered table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="0"
+                >
+                  <thead>
+                    <tr>
+                      <th width={44}></th>
+                      <th>S.NO.</th>
+                      <th>ELEMENTS</th>
+                      <th>TYPICAL (IN PCT)</th>
+                      <th>GUARANTEED (IN PCT)</th>
+                      <th width={44}></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="table_row">
+                      <th></th>
+                      <td>01</td>
+                      <td>SiO2</td>
+                      <td>44.50</td>
+                      <td>44.50</td>
+                      <td></td>
+                    </tr>
+                    <tr className="table_row">
+                      <th></th>
+                      <td>02</td>
+                      <td>Al2O3</td>
+                      <td>44.50</td>
+                      <td>44.50</td>
+                      <td></td>
+                    </tr>
+                    <tr className="table_row">
+                      <th></th>
+                      <td>03</td>
+                      <td>SiO2</td>
+                      <td>44.50</td>
+                      <td>44.50</td>
+                      <td></td>
+                    </tr>
+                    <tr className="table_row">
+                      <th></th>
+                      <td>04</td>
+                      <td>Al2O3</td>
+                      <td>44.50</td>
+                      <td>44.50</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }
