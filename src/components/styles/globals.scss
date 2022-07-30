@@ -796,12 +796,10 @@ body.light-mode .row_head {
 }
 body.dark-mode .image_arrow {
 //  transform:rotate(90deg);
- width:20px !important;
  filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(352deg) brightness(103%) contrast(101%);
 }
 
 body.light-mode .image_arrow {
-  width: 20px !important;
 }
 
 body.light-mode .accordion_DropDown {
