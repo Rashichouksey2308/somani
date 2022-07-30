@@ -8,11 +8,11 @@ import DateCalender from '../DateCalender'
 export default function Index() {
   return (
     <>
-      <div className={`${styles.backgroundMain} container-fluid background2`}>
+      <div className={`${styles.backgroundMain} container-fluid p-0 background2`}>
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} mt-4 card border-color`}>
+          <div className={`${styles.main} card border-color`}>
             <div
-              className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
+              className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Plot Inspection</h3>
             </div>
@@ -20,7 +20,7 @@ export default function Index() {
             <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
               <div className="row">
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <div className="d-flex">
+                  <div className="d-flex align-items-center">
                     <DateCalender labelName="Plot Inspection Date" />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
@@ -32,9 +32,7 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <div className="mt-4">
-            <InspectionDocument />
-          </div>
+          <InspectionDocument />
         </div>
         <SaveBar rightBtn="Submit" />
       </div>

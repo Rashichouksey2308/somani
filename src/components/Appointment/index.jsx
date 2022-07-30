@@ -18,9 +18,9 @@ export default function Index() {
 
   return (
     <>
-      <div className={`${styles.backgroundMain} container-fluid background2`}>
+      <div className={`${styles.backgroundMain} container-fluid p-0 background2`}>
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} mt-4 card border-color`}>
+          <div className={`${styles.main} card border-color`}>
             <div
               className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
             >
@@ -39,6 +39,7 @@ export default function Index() {
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="text"
+                      required
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Name<strong className="text-danger">*</strong>

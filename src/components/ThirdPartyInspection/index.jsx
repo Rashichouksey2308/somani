@@ -18,14 +18,14 @@ export default function Index() {
 
   return (
     <>
-      <div className={`${styles.backgroundMain} container-fluid background2`}>
+      <div className={`${styles.backgroundMain} container-fluid p-0 background2`}>
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} mt-4 card border-color`}>
+          <div className={`${styles.main} card border-color`}>
             <div
-              className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
+              className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Inspection Type</h3>
-              <div className="d-flex">
+              <div className="d-flex align-items-center">
                 <div className="mr-5">
                   <label className={`${styles.dropDown_label} text`}>
                     Shipment Type:
@@ -99,7 +99,7 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} card border-color mt-4 mb-4`}>
+          <div className={`${styles.main} card border-color`}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
             >
@@ -128,14 +128,21 @@ export default function Index() {
                   </label>
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Inspection Port<strong className="text-danger">*</strong>
-                  </label>
+                  <div className='d-flex'>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="text"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Inspection Port<strong className="text-danger">*</strong>
+                    </label>                  
+                    <img
+                        className={`${styles.search_image} img-fluid`}
+                        src="/static/search-grey.svg"
+                        alt="Search"
+                    />
+                  </div>
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <input
@@ -182,7 +189,7 @@ export default function Index() {
             </div>
           </div>
 
-          <div className={`${styles.main} card mb-4 border-color mt-4`}>
+          <div className={`${styles.main} card border-color`}>
             <div
               className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
               data-toggle="collapse"
