@@ -99,12 +99,12 @@ function Index() {
                 </thead>
                 <tbody>
               {lcModule && lcModule?.data?.map((lc, index) => ( <tr key={index} className="table_row">
-                    <td>{lc.order.orderId}</td>
+                    <td>{lc?.order?.orderId}</td>
                     <td
                       className={styles.buyerName}
                       onClick={() => handleRoute(lc)}
                     >
-                      {lc.company.companyName}
+                      {lc?.company?.companyName}
                     </td>
                     <td>RM-Sales</td>
                     <td>
