@@ -2,18 +2,19 @@
 @import "../../src/components/styles/Core/config";
 .dashboardTab {
     .tabHeader {
-        padding: 25px 30px 0;
+        margin-bottom: 10px;
+        padding: 26px 40px 0;
         .title {
             font-size: 34px;
             font-weight: bold;
             line-height: 41px;
             margin: 0;
-            text-transform: capitalize;
-            img {
-                width: 13px;
-                height: 21px;
-                margin: -5px 25px 0 0;
-            }
+            padding-left: 16px;
+        }
+        img {
+            width: 13px;
+            height: 21px;
+            margin: -5px 0 0 0;
         }
         .btnPrimary {
             font-size: 18px;
@@ -60,17 +61,27 @@
                     border-radius: 0;
                     border-bottom: 6px solid transparent;
                 }
+                &:first-child {
+                    .navLink {
+                        margin-left: 0;
+                    }
+                }
+                &:last-child {
+                    .navLink {
+                        margin-right: 0;
+                    }
+                }
             }
         }
     }
     .tabContent {
-        margin: 26px;
+        margin: 18px 28px 28px;
         margin-bottom: 66px;
         @include respond(sm-desktop) {
-            margin: 20px;
+            margin: 10px 20px 20px;
         }
         @include respond(phone) {
-            margin: 15px;
+            margin: 5px 15px 15px;
             margin-bottom: 71px;
         }
         .card {
