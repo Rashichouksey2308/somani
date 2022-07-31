@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 const Index = ({orderId}) => {
   const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
-  console.log(orderId, 'iejfies')
 
   const { documentsFetched } = useSelector((state) => state.review)
 
