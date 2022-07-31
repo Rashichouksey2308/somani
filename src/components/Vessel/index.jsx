@@ -117,10 +117,10 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                         >
                           <input
                             className={`${styles.input_field} input form-control`}
-                            required
                             type="text"
                             value={val.commodity}
                             disabled
+                            required
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -149,8 +149,9 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                           className={`${styles.form_group} d-flex col-lg-3 col-md-6 col-sm-6`}
                         >
                           <select
-                            className={`${styles.input_field}} pl-3 input w-35 border-right-0`}
+                            className={`${styles.input_field} pl-2 pr-3 input w-35 border-right-0`}
                             style={{ color: '#3687E8' }}
+                            required
                           >
                             <option>USD</option>
                             <option>INR</option>
@@ -259,7 +260,8 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender defaultDate={val?.transitDetails?.laycanFrom} name='laycanFrom' index={index} saveDate={saveDate} labelName="Laycan from" />
+                            <DateCalender defaultDate={val?.transitDetails?.laycanFrom} name='laycanFrom' index={index} saveDate={saveDate} labelName="Laycan from"
+                            required />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -350,8 +352,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                Vessel Name<strong className="text-danger">*</strong>
-                              </label>
+                                Vessel Name</label>
                             </div>
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
@@ -367,8 +368,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                IMO Number<strong className="text-danger">*</strong>
-                              </label>
+                                IMO Number</label>
                             </div>
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
@@ -384,8 +384,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                Flag<strong className="text-danger">*</strong>
-                              </label>
+                                Flag</label>
                             </div>
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
@@ -395,14 +394,13 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                                 defaultValue={vesselInfo.yearOfBuilt}
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
+                                required
                                 onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                Year of Built
-                                <strong className="text-danger">*</strong>
-                              </label>
+                                Year of Built</label>
                             </div>
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
@@ -418,8 +416,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                Shipping Line/Charter
-                              </label>
+                                Shipping Line/Charter</label>
                             </div>
                           </div>
                         </div>))
@@ -441,6 +438,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                                 className={`${styles.input_field} input form-control`}
                                 type="text"
                                 onChange={(e) => shippingInfoChangeHandler(e, index)}
+                                required
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -458,6 +456,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
                                 onChange={(e) => shippingInfoChangeHandler(e, index)}
+                                required
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -475,6 +474,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
                                 onChange={(e) => shippingInfoChangeHandler(e, index)}
+                                required
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -509,9 +509,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                                   <label
                                     className={`${styles.label_heading} label_heading`}
                                   >
-                                    Vessel Name
-                                    <strong className="text-danger">*</strong>
-                                  </label>
+                                    Vessel Name</label>
                                 </div>
                                 <div
                                   className={`${styles.form_group} col-md-4 col-sm-6`}
@@ -527,9 +525,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                                   <label
                                     className={`${styles.label_heading} label_heading`}
                                   >
-                                    IMO Number
-                                    <strong className="text-danger">*</strong>
-                                  </label>
+                                    IMO Number</label>
                                 </div>
                                 <div
                                   className={`${styles.form_group} col-md-4 col-sm-6`}
@@ -545,8 +541,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                                   <label
                                     className={`${styles.label_heading} label_heading`}
                                   >
-                                    Flag<strong className="text-danger">*</strong>
-                                  </label>
+                                    Flag</label>
                                 </div>
                                 <div
                                   className={`${styles.form_group} col-md-4 col-sm-6`}
@@ -557,13 +552,12 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
                                     onChange={(e) => onVesselInfoChangeHandlerForLiner(e, index)}
+                                    required
                                   />
                                   <label
                                     className={`${styles.label_heading} label_heading`}
                                   >
-                                    Year of Built
-                                    <strong className="text-danger">*</strong>
-                                  </label>
+                                    Year of Built</label>
                                 </div>
                               </div>
                             </div>
