@@ -10,7 +10,7 @@
         margin-bottom: 71px;
     }
     .filter {
-        margin: 0 0 22px;
+        margin: 0 0 27px;
         @include respond(sm-desktop) {
             display: block !important;
         }
@@ -121,6 +121,7 @@
         border-radius: 6px;
         // margin: 0 12px 0 12px;
         .tableFilter {
+            height: 80px;
             padding: 0 15px 0 35px;
             @include respond(sm-desktop) {
                 padding: 0 15px 0 15px;
@@ -129,7 +130,7 @@
                 font-size: 22px !important; 
                 font-weight: bold;
                 line-height: 27px;
-                margin: 24px 0;
+                margin: 0;
                 color: #3687E8;
                 text-transform: capitalize;
             }      

@@ -24,21 +24,22 @@ function Index() {
 
   const lcModuleData = lcModule?.data[0]
 
-  return (
+  return (  
     <>
-      <div className={`${styles.root_container} card`}>
+    <div className="container-fluid p-0 border-0">
+      <div className={`${styles.root_container} card shadow-none border-0 bg-transparent`}>
         <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
-              className={`${styles.arrow} img-fluid mr-3`}
+              className={`${styles.arrow} img-fluid mr-2 image_arrow`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
             />
             <h1 className={`${styles.heading} heading`}>Application for LC</h1>
           </div>
         </div>
-        <div className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
-          <Row className={`h-50`}>
+        <div className={`${styles.term_container} container-fluid`}>
+          <Row>
             <Col
               sm={12}
               className={`d-flex justify-content-center align-items-center`}
@@ -64,7 +65,7 @@ function Index() {
           </div>
         </div>
 
-        <Card className={`${styles.content} mb-5 mt-4`}>
+        <Card className={`${styles.content}`}>
           <div className={`${styles.datatable} datatable`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
@@ -144,12 +145,12 @@ function Index() {
                     </tr>
                     <tr className="table_row">
                       <td width="40%">
-                        42 &nbsp; &nbsp; <span>AT SIGHT</span>
-                        <br></br>
-                        <span>NO. OF DAYS</span>
+                        42C &nbsp; &nbsp; <span>AT SIGHT</span>
+                        <br/>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span>NO. OF DAYS</span>
                       </td>
                       <td>
-                        {lcModuleData?.lcApplication?.atSight} <br></br> {lcModuleData?.lcApplication?.numberOfDays}
+                        {lcModuleData?.lcApplication?.atSight} <br/> {lcModuleData?.lcApplication?.numberOfDays}
                       </td>
                     </tr>
                     <tr className="table_row">
@@ -369,6 +370,7 @@ function Index() {
           </div>
         </Card>
       </div>
+    </div>
 
       <LCAmendBar barName="Application for LC" />
     </>
