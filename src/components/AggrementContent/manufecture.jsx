@@ -345,7 +345,7 @@ const editNewAddress=(name,value)=>{
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-                Short Name<strong className="text-danger">*</strong>
+                Short Name
               </Form.Label>
             </Form.Group>
 
@@ -354,134 +354,120 @@ const editNewAddress=(name,value)=>{
         <div className={`${styles.bankContainer}`}>
           <span className={`mb-3`}>Bank Details</span>
           <div className={`${styles.bankInputContainer} row`}>
-              <Col md={4} sm={12}>
-                <div className={`${styles.form_group} d-flex`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="bankName"
-                    value={supplierState.bankDetails.bankName}
-                  onChange={(e) => {
-                  handleInput(e.target.name,e.target.value,"bankName")
-                }}
-
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Bank Name
-                    <strong className="text-danger">*</strong>
-                  </label>
-                  <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  />
-                </div>
-              </Col>
-              <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="accountNo"
-                      value={supplierState.bankDetails.accountNo}
-                  onChange={(e) => {
-                  handleInput(e.target.name,e.target.value,"bankName")
-                }}
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Account No.<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
-              </Col>
-              <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="swiftCode"
-                    value={supplierState.bankDetails.swiftCode}
+              <Col md={4} sm={12} className={`${styles.form_group} d-flex`}>
+                <input
+                  className={`${styles.input_field} input form-control`}
+                  required
+                  type="text"
+                  name="bankName"
+                  value={supplierState.bankDetails.bankName}
                 onChange={(e) => {
-                  handleInput(e.target.name,e.target.value,"bankName")
-                }}
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    Swift Code<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
+                handleInput(e.target.name,e.target.value,"bankName")
+              }}
+
+                />
+                <label className={`${styles.label_heading} label_heading`}>
+                  Bank Name
+                  <strong className="text-danger">*</strong>
+                </label>
+                <img
+                  className={`${styles.search_image} img-fluid`}
+                  src="/static/search-grey.svg"
+                  alt="Search"
+                />
               </Col>
-              <Col md={4} sm={12}>
-                <Form.Group
-                  className={`${styles.form_group} col-md-4 col-sm-6`}
-                >
-                  <Form.Control
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="city"
-                     value={supplierState.bankDetails.city}
+              <Col md={4} sm={12} className={`${styles.form_group}`}>
+                <Form.Control
+                  className={`${styles.input_field} input form-control`}
+                  required
+                  type="text"
+                  name="accountNo"
+                    value={supplierState.bankDetails.accountNo}
                   onChange={(e) => {
                   handleInput(e.target.name,e.target.value,"bankName")
                 }}
-                  />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
-                    City<strong className="text-danger">*</strong>
-                  </Form.Label>
-                </Form.Group>
+                />
+                <Form.Label
+                  className={`${styles.label_heading} label_heading`}
+                >
+                  Account No.<strong className="text-danger">*</strong>
+                </Form.Label>
+              </Col>
+              <Col md={4} sm={12} className={`${styles.form_group}`}>
+                <Form.Control
+                  className={`${styles.input_field} input form-control`}
+                  required
+                  type="text"
+                  name="swiftCode"
+                  value={supplierState.bankDetails.swiftCode}
+                  onChange={(e) => {
+                    handleInput(e.target.name,e.target.value,"bankName")
+                  }}
+                />
+                <Form.Label
+                  className={`${styles.label_heading} label_heading`}
+                >
+                  Swift Code<strong className="text-danger">*</strong>
+                </Form.Label>
+              </Col>
+              <Col md={4} sm={12} className={`${styles.form_group}`}>
+                <Form.Control
+                  className={`${styles.input_field} input form-control`}
+                  required
+                  type="text"
+                  name="city"
+                    value={supplierState.bankDetails.city}
+                    onChange={(e) => {
+                    handleInput(e.target.name,e.target.value,"bankName")
+                  }}
+                />
+                <Form.Label
+                  className={`${styles.label_heading} label_heading`}
+                >
+                  City
+                </Form.Label>
               </Col>
           </div>
        
         </div>
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
-           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
+          <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
            {addressList.map((val,index)=>{
             return(
-           <div
-           key={index}
-            className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
-          >
-            <div className={`${styles.registeredAddressHeading}`}>
-              <span>{val.addressType} Address</span>
-              <div>
-               {val.fullAddress} {" "} {val.pinCode} {" "} {val.country}
+            <div
+            key={index}
+              className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
+            >
+              <div className={`${styles.registeredAddressHeading}`}>
+                <span>{val.addressType} Address</span>
+                <div>
+                  {val.fullAddress} {" "} {val.pinCode} {" "} {val.country}
+                </div>
+              </div>
+              <div className={`d-flex ${styles.actions} `}>
+                <div
+                  className={`${styles.addressEdit} d-flex justify-content-center align-items-center`}
+                  onClick={()=>{
+                    handleEditAddressInput(index)
+                  }}
+                >
+                  <img src="/static/mode_edit.svg" alt="edit" />
+                </div>
+                <div
+                  className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center`}
+                  onClick={()=>{
+                    onAddressRemove(index)
+                  }}
+                  >
+                    <img src="/static/delete 2.svg" alt="delete" />
+                </div>
               </div>
             </div>
-            <div className={`d-flex justify-content-between align-items-start ${styles.actions} `}>
-            <div
-              className={`${styles.addressEdit} mt-3 d-flex justify-content-center align-items align-items-center`}
-              onClick={()=>{
-                handleEditAddressInput(index)
-              }}
-            >
-              <img src="./static/mode_edit.svg" />
-            </div>
-            <div
-              className={`${styles.addressEdit} mt-3 ml-2 d-flex justify-content-center align-items align-items-center`}
-            onClick={()=>{
-              onAddressRemove(index)
-            }}
-            >
-              <img src="./static/delete 2.svg" />
-            </div>
-            </div>
-             </div>
             )
            }) }
 
-           </div>
+          </div>
         </div>
         {isEdit && editData(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)}
         <div className={`${styles.tableContainer} border-color card p-0`}>
@@ -527,8 +513,8 @@ const editNewAddress=(name,value)=>{
                           <td>{val.email}</td>
                           <td>{val.phoneNo}</td>
                           <td className={`d-flex justify-content-start`}>
-                          <img className="mr-2" onClick={()=>(onEdit(index))} src="./static/mode_edit.svg"  />
-                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
+                          <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>
@@ -624,7 +610,7 @@ const editNewAddress=(name,value)=>{
             </Form.Group>
             <div className={`col-sm-12`}>
               <div className={`${styles.newAddressContainer} m-0`}>
-                  <div className={styles.newAddressHead}><span className={`mb-3`}>Add new address</span></div>
+                  <div className={styles.newAddressHead}><span>Add new address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <select

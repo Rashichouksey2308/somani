@@ -4,6 +4,7 @@
     border-radius: 6px;
     border: 1px solid #d2d7e5;
     .tableFilter {
+        height: 80px;
         padding: 0 15px 0 35px;
         @include respond(md-desktop) {
             padding: 0 15px 0 15px;
@@ -12,8 +13,7 @@
             font-size: 22px !important; 
             font-weight: bold;
             line-height: 27px;
-            margin: 24px 0;
-            text-transform: capitalize;
+            margin: 0;
             @include respond(sm-desktop) {
                 font-size: 18px !important; 
                 line-height: 1.3;

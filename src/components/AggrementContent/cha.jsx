@@ -277,23 +277,23 @@ const handleEditAddressInput=(index)=>{
                {val.fullAddress} {" "} {val.pinCode} {" "} {val.country}
               </div>
             </div>
-            <div className={`d-flex justify-content-between align-items-start ${styles.actions} `}>
-            <div
-              className={`${styles.addressEdit} mt-3 d-flex justify-content-center align-items align-items-center`}
-              onClick={()=>{
-                handleEditAddressInput(index)
-              }}
-            >
-              <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
-            </div>
-            <div
-              className={`${styles.addressEdit} mt-3 ml-2 d-flex justify-content-center align-items align-items-center`}
-            onClick={()=>{
-              onAddressRemove(index)
-            }}
-            >
-              <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
-            </div>
+            <div className={`d-flex ${styles.actions}`}>
+              <div
+                className={`${styles.addressEdit} d-flex justify-content-center align-items-center mr-n3 mt-n2`}
+                onClick={()=>{
+                  handleEditAddressInput(index)
+                }}
+                >
+                <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit"/>
+              </div>
+              <div
+                className={`${styles.addressEdit} ml-2 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
+                onClick={()=>{
+                  onAddressRemove(index)
+                }}
+                >
+                <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit"/>
+              </div>
             </div>
              </div>
             )

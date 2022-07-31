@@ -10,7 +10,7 @@
         margin-bottom: 71px;
     }
     .filter {
-        margin-bottom: 22px;
+        margin: 0 0 27px 10px;
         @include respond(sm-desktop) {
             display: block !important;
         }
@@ -18,7 +18,6 @@
             height: 48px;
             display: flex;
             align-items: center;
-            margin: 0 0 0 10px;
             .arrow {
                 width: 13px;
                 height: 21px;
@@ -107,6 +106,7 @@
         border-radius: 6px;
         .tableFilter {
             padding: 0 15px 0 35px;
+            height: 80px;
             @include respond(sm-desktop) {
                 padding: 0 15px 0 15px;
             }
@@ -114,9 +114,8 @@
                 font-size: 22px !important; 
                 font-weight: bold;
                 line-height: 27px;
-                margin: 24px 0;
+                margin: 0;
                 color: #3687E8;
-                text-transform: capitalize;
             }        
         }
         .table_scroll_outer {
