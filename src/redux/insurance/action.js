@@ -136,7 +136,7 @@ export const UpdateInsurance =
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.put(`${API.corebaseUrl}${API.updateInsurance}`, payload, {
+      Axios.put(`${API.corebaseUrl}${API.getInsurance}`, payload, {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {

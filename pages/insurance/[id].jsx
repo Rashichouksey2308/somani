@@ -4,8 +4,46 @@ import React, { useState, useEffect } from 'react'
 import styles from './indextable.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
+import { useDispatch } from 'react-redux'
+import { GettingAllInsurance } from '../../src/redux/insurance/action'
+import { useSelector } from 'react-redux'
+import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
 function Index() {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    let id =  sessionStorage.getItem('companyInsuredId')
+    dispatch(GettingAllInsurance(`?company=${id}`))
+  }, [dispatch])
+
+  const {insuranceResponse} = useSelector((state)=>state.insurance)
+
+  const [searchTerm, setSearchTerm] = useState('')
+  
+  const { searchedLeads } = useSelector((state) => state.order)
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GettingAllInsurance(`?company=${id}`))
+  }
+
+  const handleRoute = () => {
+
+    Router.push('/insurance/form')
+  }
+  
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -30,11 +68,28 @@ function Index() {
                 />
               </div>
               <input
+                 value={searchTerm}
+                 onChange={handleSearch}
                 type="text"
                 className={`${styles.formControl} form-control formControl `}
                 placeholder="Search"
               />
             </div>
+            {searchedLeads && searchTerm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads?.data?.data?.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
           </div>
           <Filter/>
           {/* <a href="#" className={`${styles.filterList} filterList `}>
@@ -52,7 +107,7 @@ function Index() {
           <div
             className={`${styles.tableFilter}  d-flex justify-content-between`}
           >
-            <h3 className="heading_card">Ramakrishna Traders</h3>
+            <h3 className="heading_card">{insuranceResponse?.data[0]?.company?.companyName}</h3>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
@@ -80,15 +135,15 @@ function Index() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="table_row">
-                    <td>2321</td>
+               {insuranceResponse && insuranceResponse?.data?.map((insured, index) => ( <tr key={index} className="table_row">
+                    <td>{insured?.order?.orderId}</td>
                     <td
                       className={styles.buyerName}
                       onClick={() => {
-                        Router.push('/insurance/form')
+                        handleRoute(insured)
                       }}
                     >
-                      Iron
+                      {insured?.order?.commodity}
                     </td>
                     <td>RM-Sales</td>
 
@@ -100,7 +155,7 @@ function Index() {
                       Pending
                     </td>
 
-                    <td>Updated on: 02/06/2022</td>
+                    <td>Updated on: {insured?.updatedAt?.split('T')[0]}</td>
                     <td>
                       <img
                         src="/static/mode_edit.svg"
@@ -108,7 +163,7 @@ function Index() {
                         // onClick={() => setEdit(!edit)}
                       />
                     </td>
-                  </tr>
+                  </tr>))}
                 </tbody>
               </table>
             </div>

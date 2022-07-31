@@ -4,7 +4,7 @@ const initialState = {
   gettingInsurance: false,
   insuranceResponse: [],
   creatingInsurance: false,
-  insurance: [],
+  createdInsuranceResponse: [],
   updatingInsurance: false,
   updatingInsuranceResponse: [],
 }
@@ -35,20 +35,20 @@ function InsuranceReducer(state = initialState, action) {
       return {
         ...state,
         creatingInsurance: true,
-        insurance: [],
+        createdInsuranceResponse: [],
       }
 
     case types.CREATE_INSURANCE_SUCCESSFULL:
       return {
         ...state,
         creatingInsurance: false,
-        insurance: action.payload,
+        createdInsuranceResponse: action.payload,
       }
     case types.CREATE_INSURANCE_FAILED:
       return {
         ...state,
         creatingInsurance: false,
-        insurance: [],
+        createdInsuranceResponse: [],
       }
 
     case types.UPDATE_INSURANCE:

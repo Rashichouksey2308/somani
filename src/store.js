@@ -16,6 +16,7 @@ import GenericReducer from './redux/generic/reducer'
 import NewOrderReducer from 'redux/newOrder/reducer'
 import LcModuleReducer from 'redux/lcModule/reducer'
 import VesselReducer from 'redux/vessel/reducer'
+import InsuranceReducer from 'redux/insurance/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -44,6 +45,7 @@ export const createStore = (preloadedState) => {
       generic: GenericReducer,
       lc: LcModuleReducer,
       vessel: VesselReducer,
+      insurance: InsuranceReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>
