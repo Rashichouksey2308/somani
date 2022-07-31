@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
+import Filter from '../Filter'
 
 function Index() {
   const [edit, setEdit] = useState(false)
@@ -62,9 +63,7 @@ function Index() {
               />
             </div>
           </div>
-          <a className={styles.filterIcon}>
-            <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
-          </a>
+          <Filter/>
           {/* <a href="#" className={`${styles.filterList} filterList `}>
             Bhutani Traders
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />

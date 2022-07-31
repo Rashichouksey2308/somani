@@ -7,8 +7,8 @@ function Index() {
   return (
     <>
       <div className={styles.container}>
-        <Form>
-          <div className="row border-bottom border-color ">
+        <Form className={`${styles.form}`}>
+          <div className="row border-color ">
        <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
@@ -87,76 +87,80 @@ function Index() {
           </div>
         </div>
         <div className={`${styles.tableContainer} border-color card p-0`}>
-      <div
-        className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-        data-toggle="collapse"
-        data-target="#customerDetail"
-        aria-expanded="true"
-        aria-controls="customerDetail"
-      >
-        <div className={styles.header}>
-          <h2 className={`mb-0`}>Authorised Signatory Details</h2>
-          <span className=" d-flex align-items-center justify-content-between">
+          <div
+            className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
+            data-toggle="collapse"
+            data-target="#customerDetail"
+            aria-expanded="true"
+            aria-controls="customerDetail"
+          >
+            <div className={styles.header}>
+              <h2 className={`mb-0`}>Authorised Signatory Details</h2>
+              <span className=" d-flex align-items-center justify-content-between">
 
-            +
-          </span>
-        </div>
-      </div>
-      <div
-        id="customerDetail"
-        className={`collapse ${styles.body}  value_card card-body row`}
-        aria-labelledby="customerDetail"
-     
-      >
-        <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-          <tr>
-            <th>NAME</th>
-            <th>DESIGNATION</th>
-            <th>EMAIL</th>
-            <th>PHONE NO.</th>
-            <th>ACTION</th>
-          </tr>
-          <tbody>
-            {list.length>0 && list.map((val,index)=>{
-              return(
-                <>
-                {val.actions=="true"?
-                <tr key={index}>
-                  <td>{val.name}</td>
-                  <td>{val.designation}</td>
-                  <td>{val.email}</td>
-                  <td>{val.phone}</td>
-                  <td className={`d-flex justify-content-between`}>
-                  <img onClick={()=>(onEdit(index))} src="./static/mode_edit.svg"  />
-                   <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
-                  </td>
+                +
+              </span>
+            </div>
+          </div>
+          <div
+            id="customerDetail"
+            className={`collapse ${styles.body}  value_card card-body row`}
+            aria-labelledby="customerDetail"
+        
+          >
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+                  <tr>
+                    <th>NAME</th>
+                    <th>DESIGNATION</th>
+                    <th>EMAIL</th>
+                    <th>PHONE NO.</th>
+                    <th>ACTION</th>
+                  </tr>
+                  <tbody>
+                    {list.length>0 && list.map((val,index)=>{
+                      return(
+                        <>
+                        {val.actions=="true"?
+                        <tr key={index}>
+                          <td>{val.name}</td>
+                          <td>{val.designation}</td>
+                          <td>{val.email}</td>
+                          <td>{val.phone}</td>
+                          <td className={`d-flex`}>
+                            <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                            <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"/>
+                          </td>
 
-                </tr>
-                :<tr key={index}>
-                  <td><select>
-                    <option>{val.name}</option>
-                    </select>
-                 </td>
-                  <td><input type="text" placeholder={val.designation}></input></td>
-                  <td><input type="text" placeholder={val.email}></input></td>
-                  <td><input type="text" placeholder={val.phone}></input></td>
-                  <td className={`d-flex  justify-content-between`}>
-                     <img  onClick={()=>(onEditRemove(index))}src="./static/mode_edit.sv"  />
-                     <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
-                  </td>
+                        </tr>
+                        :<tr key={index}>
+                          <td><select>
+                            <option>{val.name}</option>
+                            </select>
+                        </td>
+                          <td><input type="text" placeholder={val.designation}></input></td>
+                          <td><input type="text" placeholder={val.email}></input></td>
+                          <td><input type="text" placeholder={val.phone}></input></td>
+                          <td className={`d-flex  justify-content-between`}>
+                            <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(handleRemove(index))} src="/static/mode_edit.svg" alt="edit"/>
+                            <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"/>
+                          </td>
 
-                </tr>}
-                </>
-              )
-            })}
-          </tbody>
-        </table>
-        <div className={`${styles.addMoreRows}`} onClick={(e)=>{
-          addMoreRows()
-        }}>
-        <span>+</span>  Add more rows
-        </div>
-      </div>
+                        </tr>}
+                        </>
+                      )
+                    })}
+                  </tbody>
+                </table>
+                <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+                  addMoreRows()
+                  }}>
+                  <span>+</span>  Add more rows
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

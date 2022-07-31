@@ -112,9 +112,9 @@ const Index = ({ orderid,module }) => {
                   <div className="d-flex">
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
-                      id="docType"
-                      onChange={(e) => handleDropdown(e)}
-                    >
+                      id="name"
+                      onChange={(e) => handleNewDocModule(e)}
+                    > 
                       <option value="CertificateofIncorporation">
                         Certificate of Incorporation
                       </option>

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllTermsheet, GetTermsheet } from 'redux/buyerProfile/action'
 import { setPageName, setDynamicName } from '../../redux/userData/action'
 import { getDisplayName } from 'next/dist/shared/lib/utils'
+import Filter from '../Filter'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -48,13 +49,7 @@ function Index() {
                 />
               </div>
             </div>
-            <a className={styles.filterIcon}>
-              <img
-                src="/static/filter.svg"
-                className="img-fluid"
-                alt="Filter"
-              />
-            </a>
+            <Filter/>
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />

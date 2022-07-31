@@ -432,7 +432,7 @@ const Index = () => {
               onChangeCha={onChangeCha}
               termsheet={termsheet}
             />
-            <UploadOther orderid={OrdID} />
+            <UploadOther  module='Agreements,Insurance,LcOpening' orderid={OrdID} />
           </div>
         </div>
       </div>

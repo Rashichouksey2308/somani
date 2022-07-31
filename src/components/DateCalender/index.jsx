@@ -7,12 +7,13 @@ import moment from 'moment'
 const Index = ({ labelName, saveDate, name, defaultDate ,index}) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
+  console.log(moment(defaultDate).toDate(),'momentDate')
 
   return (
     <>
       <DatePicker 
         selected={
-          defaultDate !== undefined
+          defaultDate
             ? moment(defaultDate).toDate() : startDate
         }
         dateFormat="dd/MM/yyyy"
@@ -23,7 +24,7 @@ const Index = ({ labelName, saveDate, name, defaultDate ,index}) => {
           saveDate(startDate, name, index)
           console.log(startDate, name,'Event')
         }}
-        minDate={lastDate}
+       // minDate={lastDate}
       />
       <label className={`${styles.label_heading} label_heading`}>
         {labelName}

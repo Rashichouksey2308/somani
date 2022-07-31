@@ -4,6 +4,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
+import Filter from '../../src/components/Filter'
 
 function Index() {
   const dispatch = useDispatch()
@@ -52,9 +53,7 @@ function Index() {
             />
           </div>
         </div>
-        <a className={styles.filterIcon}>
-          <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
-        </a>
+        <Filter/>
         {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
        <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -99,12 +98,12 @@ function Index() {
               <tbody>
                 {allVessel && allVessel?.data?.map((vessel, index) => (
                   <tr key={index} className="table_row">
-                    <td>{vessel.order?._id}</td>
+                    <td>{vessel?.order?._id}</td>
                     <td
                       className={styles.buyerName}
                       onClick={() => handleRoute(vessel)}
                     >
-                      {vessel.company.companyName}
+                      {vessel?.company?.companyName}
                     </td>
                     <td>RM-Sales</td>
                     <td>

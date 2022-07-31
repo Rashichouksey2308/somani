@@ -6,6 +6,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllMarginMoney, GetMarginMoney } from 'redux/marginMoney/action'
 import { SearchLeads } from 'redux/buyerProfile/action'
+import Filter from '../Filter'
 
 function Index() {
 
@@ -87,13 +88,7 @@ function Index() {
                 </div>
               )}
             </div>
-            <a className={styles.filterIcon}>
-              <img
-                src="/static/filter.svg"
-                className="img-fluid"
-                alt="Filter"
-              />
-            </a>
+            <Filter/>
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
