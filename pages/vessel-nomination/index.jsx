@@ -67,9 +67,9 @@ function Index() {
         Create</button> */}
         </div>
 
-        <div className={`${styles.datatable} datatable border-color`}>
+        <div className={`${styles.datatable} card datatable border-color`}>
           <div
-            className={`${styles.tableFilter} card shadow-none border-0 d-flex justify-content-between`}
+            className={`${styles.tableFilter} shadow-none align-items-center border-0 d-flex`}
           >
             <h3 className="heading_card">Vessel Nomination</h3>
           </div>
@@ -87,7 +87,7 @@ function Index() {
                       ORDER ID{' '}
                       <img
                         className={`mb-1`}
-                        src="./static/icons8-sort-24.png "
+                        src="/static/icons8-sort-24.svg"
                         alt="Sort icon"
                       />
                     </th>
