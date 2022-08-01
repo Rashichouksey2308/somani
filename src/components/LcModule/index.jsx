@@ -77,7 +77,7 @@ function Index() {
 
         <div className={`${styles.datatable} card datatable border-color`}>
           <div
-            className={`${styles.tableFilter}  d-flex justify-content-between`}
+            className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}
           >
             <h3 className="heading_card">{lcModule?.data[0]?.company?.companyName}</h3>
           </div>

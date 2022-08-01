@@ -553,7 +553,7 @@ const sendData=(key,data)=>{
                     <div className={`${styles.multiPart} d-flex justify-content-center align-items-center`}>
                       <span className={`mr-4`}>Multiple Parties Involved</span>
                       <div className={`d-flex mr-4`}>
-                        <div className={`form-check  mr-3`}>
+                        <div className={`form-check  mr-4`}>
                         <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={()=>{
                           setMultiPart(true)
                         }}
@@ -593,14 +593,14 @@ const sendData=(key,data)=>{
                     </div>
                    :null}
                    {active=="Stevedore"?
-                    <div className={`${styles.switchContainer}`}>
-                      <span className={`mr-5`}>Same as CHA</span>
+                    <div className={`${styles.switchContainer} d-flex align-items-center`}>
+                      <span>Same as CHA</span>
                       <span className={` ${styles.yes}`}>Yes</span>
                       <label className={styles.switch}>
                         <input type="checkbox"></input>
                         <span className={`${styles.slider} ${styles.round}` }></span>
                       </label>
-                      <span  className={`ml-3`}>No</span>
+                      <span  className={`${styles.no}`}>No</span>
                     </div>
                    :null}
                     <a href="#" className={`${styles.arrow} ${`leftArrow`}`} 
@@ -632,7 +632,7 @@ const sendData=(key,data)=>{
                                            
           </div>
            {showContent()}
-           <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
+           <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
               <div className={styles.reject} onClick={(e)=>{
                 onSave()
               }}><span>Save</span></div>

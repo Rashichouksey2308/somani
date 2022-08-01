@@ -1,5 +1,4 @@
 @import "../../src/components/styles/Core/config";
-
 .container_inner {
     margin: 28px;
     margin-bottom: 68px;
@@ -11,41 +10,37 @@
         margin-bottom: 72px;
     }
 }
-
 .filter {
-    margin-bottom: 15px;
+    margin-bottom: 27px;
     @include respond(sm-desktop) {
         display: block !important;
     }
-
     .head_header {
         display: flex;
-        margin: 15px 20px 0px 10px;
-        
+        margin: 15px 20px 0px 10px;        
         .arrow {
-          width: 13px;
-          height: 21px;
-          background: transparent;
-          margin-top: 10px;
+            width: 13px;
+            height: 21px;
+            background: transparent;
+            margin-top: 10px;
         }
         .heading {
-          padding-left: 18px;
-          font-weight: bold;
-          font-size: 30px;     
-          text-transform: capitalize;
-          margin-top: 0;
-           @include respond(md-desktop) {
-            font-size: 28px;
+            font-size: 34px;
+            font-weight: bold;
+            margin-top: 0;
+            line-height: 41px;
+            padding-left: 18px;
+            @include respond(md-desktop) {
+                font-size: 28px;
             }
             @include respond(sm-desktop) {
                 font-size: 26px;
             }
             @include respond(phone) {
-                font-size: 24px;
-                    
+                font-size: 24px;                    
+            }
         }
-        }
-      }
+    }
     .search {
         width: 492px;
         position: relative;
@@ -109,8 +104,6 @@
             border: 2px solid #d2d7e5;
             @include respond(md-desktop) {
                 padding: 8px 20px;
-            }
-            @include respond(sm-desktop) {
             }
             &::after {
                 top: -15px;
@@ -234,7 +227,7 @@
     }
 }
 .statusBox {
-    margin: 20px 0;
+    margin: 0 0 20px;
     border-radius: 8px;
     border: 1px solid #d2d7e5;
     box-shadow: 0 3px 12px #e5e7ed;

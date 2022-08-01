@@ -11,13 +11,12 @@
     }
 }
 .filter {
-    margin: 15px 0 22px;
+    margin: 0 0 27px 10px;
     @include respond(sm-desktop) {
         display: block !important;
     }
     .head_header {
         display: flex;
-        margin: 0 20px 0px 10px;
         .arrow {
             width: 13px;
             height: 21px;
@@ -25,11 +24,11 @@
             margin-top: 10px;
         }
         .heading {
-            padding-left: 18px;
+            font-size: 34px;
             font-weight: bold;
-            font-size: 30px;     
-            text-transform: capitalize;
+            line-height: 41px;
             margin: 0;
+            padding-left: 18px;
             @include respond(md-desktop) {
                 font-size: 28px;
             }
@@ -120,6 +119,7 @@
     border-radius: 6px;
     // margin: 0 12px 0 12px;
     .tableFilter {
+        height: 80px;
         padding: 0 15px 0 35px;
         @include respond(sm-desktop) {
             padding: 0 15px 0 15px;
@@ -128,9 +128,8 @@
             font-size: 22px !important; 
             font-weight: bold;
             line-height: 27px;
-            margin: 24px 0;
+            margin: 0;
             color: #3687E8;
-            text-transform: capitalize;
         }      
     }
     .table_scroll_outer {

@@ -190,7 +190,7 @@ function Index() {
       {' '}
       <div className="container-fluid p-0 border-0">
         <div className={styles.container_inner}>
-          <div className={`${styles.head_header} ml-5`}>
+          <div className={`${styles.head_header}`}>
             <img
               className={`${styles.arrow} mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -482,9 +482,7 @@ function Index() {
           </div>
 
           {/* Document*/}
-          <div className="mt-4 mb-5">
-            <InspectionDocument />
-          </div>
+          <InspectionDocument />
         </div>
       </div>
       <SubmitBar handleSubmit={handleSubmit} />
