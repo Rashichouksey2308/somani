@@ -8,7 +8,6 @@ import DischargeCargo from '../../src/components/BillOfEntry/DischargeCargo'
 import Warehouse from '../../src/components/BillOfEntry/Warehouse'
 
 function Index() {
-
   const [darkMode, setDarkMode] = useState(false)
 
   return (
@@ -66,48 +65,43 @@ function Index() {
                 Warehouse Details
               </a>
             </li>
-           
           </ul>
         </div>
-       
-        <div className="container-fluid">
+
+        <div className={`${styles.mainCard} container-fluid`}>
           <div className="row">
             <div className="col-md-12 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane show active fade"
                   id="billEntry"
-                  role="tabpanel">
+                  role="tabpanel"
+                >
                   <div className={`${styles.card}  accordion_body`}>
                     <BillOfEntry />
                   </div>
                 </div>
 
-                 <div
+                <div
                   className="tab-pane fade"
                   id="dischargeCargo"
-                  role="tabpanel">
+                  role="tabpanel"
+                >
                   <div className={`${styles.card}  accordion_body`}>
                     <DischargeCargo />
                   </div>
                 </div>
 
-                 <div
-                  className="tab-pane fade"
-                  id="warehouse"
-                  role="tabpanel">
+                <div className="tab-pane fade" id="warehouse" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <Warehouse />
                   </div>
                 </div>
-               
               </div>
             </div>
           </div>
         </div>
-
       </div>
-      
     </>
   )
 }
