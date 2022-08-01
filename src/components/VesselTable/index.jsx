@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
-import {GetOrders } from '../../redux/registerBuyer/action'
+import { GetOrders } from '../../redux/registerBuyer/action'
 import Filter from '../Filter'
 
 function Index() {
@@ -15,7 +15,6 @@ function Index() {
     let id1 = sessionStorage.getItem('VesselCompany')
     dispatch(GetOrders(`?company=${id1}`))
   }, [dispatch])
-
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -47,7 +46,7 @@ function Index() {
               />
             </div>
           </div>
-          <Filter/>
+          <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
             Bhutani Traders
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -64,6 +63,32 @@ function Index() {
             className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}
           >
             <h3 className="heading_card">Ramakrishna Traders</h3>
+            <div
+              className={`${styles.pageList} d-flex justify-content-end align-items-center`}
+            >
+              <span>Showing Page 1 out of 10</span>
+              <a
+                href="#"
+                className={`${styles.arrow} ${styles.leftArrow} arrow`}
+              >
+                {' '}
+                <img
+                  src="/static/keyboard_arrow_right-3.svg"
+                  alt="arrow right"
+                  className="img-fluid"
+                />
+              </a>
+              <a
+                href="#"
+                className={`${styles.arrow} ${styles.rightArrow} arrow`}
+              >
+                <img
+                  src="/static/keyboard_arrow_right-3.svg"
+                  alt="arrow right"
+                  className="img-fluid"
+                />
+              </a>
+            </div>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
@@ -86,7 +111,7 @@ function Index() {
                     <th>COMMODITY</th>
                     <th>CREATED BY</th>
                     <th>STATUS</th>
-                    <th>LC UPDATE</th>
+                    <th>UPDATE</th>
                     <th>AMEND</th>
                   </tr>
                 </thead>

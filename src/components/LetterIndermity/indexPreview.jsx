@@ -50,13 +50,9 @@ function Index() {
         <span>Bill(s) of Lading:</span>
         {"  "}
         <div className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}>
-            <select>
-                <option value="">BL-1</option>
-            </select>
+            BL-1
             Dated 18TH MARCH 2021,  
-            <div className={`${styles.button}`}>
-                <span>+ <span>Add</span></span>
-            </div>
+            
             </div>
         </div>
 
@@ -98,13 +94,10 @@ function Index() {
         <p>The Requestor</p>
         <div className={`${styles.athorised}`}>
             <p>Authorised Signatory</p>
-            <p>Name: <select>
-                <option>Vikash Rawal</option>
-                </select>
-            </p>
-            <p>Designation: <input>
-            
-            </input>
+            <p>Name:{" "}<span className={styles.bold}>Vikash Rawal</span> </p>
+            <p>Designation: 
+                {" "}<span className={styles.bold}>Chief Financial Officer</span>
+               
             </p>
         </div>
         </div>

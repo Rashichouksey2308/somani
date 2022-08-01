@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import styles from './payment.module.scss'
 import ReleaseOrder from '../../src/components/ReleaseOrder'
 import DeliveryOrder from '../../src/components/DeliveryOrder'
+import DeliveryPreview from '../../src/components/DeliveryPreview'
 
 function Index() {
 
@@ -85,7 +86,7 @@ function Index() {
             </div>
           </div>
         </div>
-
+       {/* <DeliveryPreview/> */}
       </div>
       
     </>
