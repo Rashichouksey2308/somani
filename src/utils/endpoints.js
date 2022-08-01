@@ -74,13 +74,27 @@ export default {
   updateGeneric: '/api/core/generic',
 
   //Vessel Nomination
-  getVessel:'/api/core/vessel',
+  getVessel: '/api/core/vessel',
   uploadDocVessel: '/api/core/vessel/upload-doc',
-  
+
   //getGstKarza
-  getGstKarza:'/api/core/lead/refetch-gst-karza',
+  getGstKarza: '/api/core/lead/refetch-gst-karza',
 
   // Insurance
 
   getInsurance: '/api/core/insurance',
+
+  // Inspection
+
+  getInspection: '/api/core/inspection',
+  updateInspection: '/api/core/inspection',
+
+  //Transit
+  getTransitDetails: '/api/core/transit',
+  updateTransitDetails: '/api/core/transit',
+
+  //ForwardHedging
+  getForwardHedging: '/api/core/forward-hedging',
+  updateForwardHedging: '/api/core/forward-hedging',
+
 }
