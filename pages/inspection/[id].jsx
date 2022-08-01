@@ -104,7 +104,7 @@ function Index() {
                         alt="Sort icon"
                       />
                     </th>
-                    <th>BUYER NAME</th>
+                    <th>COMMODITY NAME</th>
                     <th>CREATED BY</th>
                     <th>STATUS</th>
                   </tr>
@@ -116,7 +116,7 @@ function Index() {
                       className={styles.buyerName}
                       onClick={() => handleRoute()}
                     >
-                      Ramakrishna
+                      Iron
                     </td>
                     <td>RM-Sales</td>
                     <td>

@@ -149,15 +149,15 @@ function Index() {
                 <thead>
                   <tr className="table_row">
                     <th>
-                      ORDER ID{' '}
+                      BUYER ID{' '}
                       <img
                         className={`mb-1`}
                         src="/static/icons8-sort-24.svg"
                         alt="Sort icon"
                       />{' '}
                     </th>
-                    <th>COMMODITY</th>
                     <th>BUYER NAME</th>
+                    <th>COMMODITY</th>
                     <th>VESSEL NAME</th>
                     <th>
                       SURRENDERED{' '}
