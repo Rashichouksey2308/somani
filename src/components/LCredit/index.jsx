@@ -231,6 +231,7 @@ function Index() {
   }
 
   const handleSubmit = () => {
+    setLcData(clauseData)
     let fd  = new FormData()
       fd.append('lcApplication', JSON.stringify(lcData))
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id))

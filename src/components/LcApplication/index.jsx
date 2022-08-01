@@ -866,7 +866,7 @@ function Index({
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
-                            style={{ top: '22px' }}
+                            
                           >
                             (57A) Second Advising Bank, if Applicable
                           </label>
@@ -884,7 +884,7 @@ function Index({
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
-                            style={{ top: '22px' }}
+                           
                           >
                             (58A) Requested Confirmation Party
                             <strong className="text-danger">*</strong>

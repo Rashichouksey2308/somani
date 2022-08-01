@@ -65,40 +65,54 @@ const[financeData,setFinanceData]=useState(finance)
           <div className="row border-color ">
 
             <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
-              <select
-                className={`${styles.input_field} input form-control`}
-                 name="name"
-                value={financeData.name}
-                 onChange={(e) => {
-                  handleInput(e.target.name,e.target.value)
-                }}
-              >
-                <option value="27AAATW4Ing Bank N.V183C2ZG">Ing Bank N.V</option>
-              
-              </select>
-              <Form.Label
-                className={`${styles.label_heading} ${styles.select}  label_heading`}
-              >
-                Name<strong className="text-danger">*</strong>
-              </Form.Label>
+              <div className='d-flex'>
+                <select
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                  name="name"
+                  value={financeData.name}
+                  onChange={(e) => {
+                    handleInput(e.target.name,e.target.value)
+                  }}
+                >
+                  <option value="27AAATW4Ing Bank N.V183C2ZG">Ing Bank N.V</option>
+                
+                </select>
+                <Form.Label
+                  className={`${styles.label_heading} ${styles.select}  label_heading`}
+                >
+                  Name<strong className="text-danger">*</strong>
+                </Form.Label>
+                <img
+                  className={`${styles.arrow} img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
             </Form.Group>
-                        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <select
-                className={`${styles.input_field} input form-control`}
-                name="brachName"
-                value={financeData.brachName}
-                 onChange={(e) => {
-                  handleInput(e.target.name,e.target.value)
-                }}
-              >
-                <option value="Karol Bagh">Karol Bagh</option>
-               
-              </select>
-              <Form.Label
-                className={`${styles.label_heading} ${styles.select}  label_heading`}
-              >
-                Branch<strong className="text-danger">*</strong>
-              </Form.Label>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div className='d-flex'>
+                <select
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                  name="brachName"
+                  value={financeData.brachName}
+                  onChange={(e) => {
+                    handleInput(e.target.name,e.target.value)
+                  }}
+                >
+                  <option value="Karol Bagh">Karol Bagh</option>
+                
+                </select>
+                <Form.Label
+                  className={`${styles.label_heading} ${styles.select}  label_heading`}
+                >
+                  Branch<strong className="text-danger">*</strong>
+                </Form.Label>
+                <img
+                  className={`${styles.arrow} img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
             </Form.Group>
 
               <div className={` ${styles.info} col-md-4 col-sm-6`}>
