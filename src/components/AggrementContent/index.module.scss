@@ -2,13 +2,13 @@
 .container {
     .form_group {
         position: relative;
+        margin-top: 13px;
         margin-bottom: 20px;
-        margin-top: 20px;
         @include respond(phone) {
             margin-top: 10px;
         }
         .label_heading {
-            top: 25px;
+            top: 26px;
             left: 30px;
             font-size: 16px;
             line-height: 0.5;
@@ -17,7 +17,7 @@
             position: absolute;
             pointer-events: none;
             box-sizing: border-box;
-            transform: translateY(-31px);
+            transform: translateY(-28px);
             transition: 0.3s all ease-in-out;
             @include respond(sm-desktop) {
                 font-size: 16px;
@@ -69,39 +69,43 @@
         height: 36px;
     }
     .addressContainer {
-        margin: 20px 35px 20px 31px;
+        margin: 20px 35px 20px;
         span {
             font-size: 20px;
             line-height: 25px;
             font-weight: bold;
-            margin-bottom: 3rem;
+            display: inline-block;
+            margin: 0 0 19px;
         }
         .multiAddContainer {
-            div {
+            .registeredAddress {
                 width: 49%;
             }
+            // div {
+            // }
         }
         .containerChild {
             margin-top: 1rem;
             // margin-bottom: 1rem;
         }
         .registeredAddress {
-            padding: 1rem !important;
+            padding: 25px 25px 20px 35px !important;
             margin-top: 1rem;
             margin-bottom: 1rem;
-            background: #FFFFFF;
+            // background: #FFFFFF;
             border: 2px solid #CAD6E6;
             border-radius: 9px;
             max-width: 100%;
             min-width: 49%;
+            min-height: 156px;
             span {
                 color: #3687E8;
             }
             div {
                 font-size: 20px;
                 line-height: 25px;
-                margin-top: 1rem !important;
-                margin-bottom: 1rem !important;
+                // margin-top: 1rem !important;
+                // margin-bottom: 1rem !important;
                 padding: 0px !important;
                 letter-spacing: 0.19px;
                 margin: 0px;
@@ -125,7 +129,7 @@
     .bankContainer {
         background: #FFFFFF;
         border-radius: 9px;
-        margin: 0 35px 20px 31px;
+        margin: 0 35px 20px;
         .newAddressHead {
             color: #3687E8;
             font-size: 22px;
@@ -134,7 +138,7 @@
             border-bottom: 2px solid#CAD6E6;
         }
         .bankInputContainer {
-            margin: 0px;
+            // margin: 0px;
             .image {
                 margin-top: 2.1rem;
             }
@@ -142,7 +146,7 @@
                 margin-top: 3rem;
             }
             div {
-                padding-left: 0px !important;
+                // padding-left: 0px !important;
                 max-width: 100%;
             }
             .each_input {
@@ -322,9 +326,9 @@
         border: 2px solid #CAD6E6;
         border-radius: 0.5rem;
         box-shadow: none !important;
-        margin: 19px 35px 41px 31px;
+        margin: 19px 35px 41px;
         .sub_card {
-            padding: 1rem !important;
+            padding: 9px 28px 9px 35px !important;
             border: none;
             .header {
                 width: 100%;
@@ -548,7 +552,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 1rem;
+    margin-left: 25px;
     span {
         font-size: 20px;
         line-height: 25px;
@@ -604,15 +608,17 @@
                         &:first-child {
                             padding-left: 35px;
                         }
-                        &:last-child {
-                            padding-right: 35px;
-                        }
+                        // &:last-child {
+                        //     padding-right: 35px;
+                        // }
                         border: none !important;
                         select {
                             background: #C3C3C31F;
                             border: 1px solid #0000001F;
                             border-radius: 4px;
                             height: 40px;
+                            padding: 0 10px;
+                            outline: none;
                         }
                         input {
                             height: 40px;
@@ -621,6 +627,8 @@
                             background: #C3C3C31F;
                             border: 1px solid #0000001F;
                             border-radius: 4px;
+                            outline: none;
+                            padding: 0 10px;
                         }
                         img {
                             width: 40px;
@@ -678,7 +686,7 @@
 }
 .form {
     border-bottom: 2px solid #CAD6E6;
-    padding: 19px 35px 20px 31px;
+    padding: 19px 35px 20px;
 }
 .info {
     span {
@@ -697,23 +705,23 @@
     }
 }
 .newAddressContainer {
-    background: #FFFFFF;
+    // background: #FFFFFF;
     border: 2px solid #CAD6E6;
     border-radius: 0.5rem;
-    margin: 19px 35px 39px 31px;
+    margin: 19px 35px 39px;
     .newAddressHead {
-        padding: 1rem !important;
+        padding: 18px 25px 24px 35px !important;
         span {
             font-size: 22px;
-            line-height: 27px;
-            font-weight: bold;
-            // margin-bottom: 3rem;
             color: #3687E8;
+            font-weight: bold;
+            line-height: 27px;
+            // margin-bottom: 3rem;
         }
         border-bottom: 2px solid #CAD6E6;
     }
     .newAddressContent {
-        padding: 1rem !important;
+        padding: 15px 25px !important;
     }
     .add {
         background: #3687E8;
@@ -733,7 +741,7 @@
         border: 2.5px solid #3687E8;
         border: 3px solid #3687E8;
         border-radius: 5px;
-        margin-left: 3rem;
+        margin-left: 13px;
         margin-bottom: 2rem;
         span {
             letter-spacing: 0px;
@@ -747,7 +755,7 @@
 }
 .manufacture {
     border-radius: 0.5rem;
-    padding: 19px 35px 20px 31px;
+    padding: 19px 35px 20px;
     border-top: 2px solid #CAD6E6;
     .row {
         margin-bottom: 2rem;

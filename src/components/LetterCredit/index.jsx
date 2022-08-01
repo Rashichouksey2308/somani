@@ -34,7 +34,7 @@ function Index() {
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.head_header}>
             <img
-              className={`${styles.arrow} img-fluid mr-2`}
+              className={`${styles.arrow} img-fluid mr-2 image_arrow`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
@@ -71,7 +71,7 @@ function Index() {
         </div>
 
         <div className={`${styles.datatable} card datatable border-color`}>
-          <div className={`${styles.tableFilter} d-flex justify-content-between`}>
+          <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
             <h3 className="heading_card">Letter of Credit</h3>
           </div>
           <div className={styles.table_scroll_outer}>

@@ -185,6 +185,24 @@ useEffect(() => {
                 511/1, 512/2, Urla Industrial Complex, Raipur, Chhattisgarh,
               </div>
             </div>
+            <div className={`d-flex ${styles.actions} `}>
+              <div
+                className={`${styles.addressEdit} d-flex justify-content-center align-items-center`}
+                onClick={()=>{
+                  handleEditAddressInput(index)
+                }}
+              >
+                <img src="/static/mode_edit.svg" alt="edit" />
+              </div>
+              <div
+                className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center`}
+                onClick={()=>{
+                  onAddressRemove(index)
+                }}
+                >
+                  <img src="/static/delete 2.svg" alt="delete" />
+              </div>
+            </div>
 
           </div>
         </div>

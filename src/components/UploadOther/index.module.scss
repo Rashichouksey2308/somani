@@ -1,19 +1,19 @@
 @import "../styles/Core/config";
-
 .upload_main {
     border-radius: 6px;
     margin-bottom: 26px;
     border: 1px solid #D2D7E5;
     .head_container {
-        border-bottom: 2px solid #CAD6E6;
+        height: 80px;
         cursor: pointer;
         padding: 25px 35px !important;
+        border-bottom: 2px solid #CAD6E6;
        .heading {
             font-size: 22px;
             font-weight: bold;
             color: #3687E8;
             line-height: 27px;
-            margin-bottom: 0;
+            margin: 0;
             @include respond(md-desktop) {
                 font-size: 20px;
             }
@@ -113,23 +113,21 @@
             margin-bottom: 40px;
             margin-top: 20px;
             .label {
-                font-size:16px ;
+                font-size:16px;
+                line-height: 0.5;
                 letter-spacing: 0.53px;
-                text-transform: capitalize;
                 position: absolute;
                 left: 15px;
-                top: -10px;
-                line-height: 1;
-                left: 30px;
-                top: -8px;
+                top: -4px;
+                margin-bottom: 0;
                 @include respond(phone) {
-                        font-size: $font_size_mobile_text;
-                        margin-top: 5px !important;
-                    }
-                                         @include respond(sm-desktop) {
-                                            margin-top: 5px !important;
-                                            font-size: $font_size_mobile_input_label;
-                                         }
+                    font-size: $font_size_mobile_text;
+                    margin-top: 5px !important;
+                }
+                @include respond(sm-desktop) {
+                    margin-top: 5px !important;
+                    font-size: $font_size_mobile_input_label;
+                }
             }
             .value {
                 font-size:20px;
@@ -144,13 +142,11 @@
                 @include respond(sm-desktop) {
                     font-size: 16px;
                     height: 55px;
-
                 }
                 @include respond(phone) {
                     font-size: 14px;
                     height: 45px;
                     border-radius: 2px;
-
                 }
             }
         }
@@ -172,48 +168,41 @@
             }
         }
     }
-
     .search_container {
         //background: #F0F0F0;
         height: 62px;
-            padding-right: 1.5rem !important;
-       
-            background: #F0F0F0 0% 0% no-repeat padding-box;
-
+        padding-right: 1.5rem !important;    
+        background: #F0F0F0;
         .dropDown{
             background: #FFFFFF;
             border: 1px solid #0000001F;
             border-radius: 4px;
             color: #3687E8;
-            text-transform: capitalize;
             font-size: 16px;
             line-height: 19px;
             font-weight: bold;
             width: fit-content;
             padding-left: 20px;
-           height: 40px;
+            height: 40px;
+            box-shadow: none;
         }
         .searchBarContainer{
             position: relative;
-        .searchBar {
+            .searchBar {
                 width: 337px;
                 height: 40px;
                 padding-left: 3.5rem;
-                background: #FFFFFF 0% 0% no-repeat padding-box;
+                background: #FFFFFF;
                 border: 2px solid #D2D7E5;
                 border-radius: 1.1rem;
-            }
-        
+                box-shadow: none;
+            }            
             .searchImage {
                 position: absolute;
                 margin-left: 30px;
             }
         }
-
-        
-
     }
-
     .table_container {
         background-color: #FAFAFB;
         .table_scroll_outer {
@@ -222,187 +211,178 @@
             table-layout: fixed;
             .table_scroll_inner {
                 display: table-cell;
-                overflow-x: auto;
-       
-        .table {
-            th {
-                font-size: 15px;
-                color: #8492A6;
-                font-weight: bold;
-                line-height: 18px;
-                padding: 20px 15px;
-                vertical-align: middle;
-                background: #FAFAFB;
-                text-transform: uppercase;
-                border-top: 2px solid #F2F5F9;
-                border-bottom: 2px solid #F2F5F9;
-                white-space: nowrap;
-                &:first-child {
-                    padding-left: 35px;
-                    @include respond(md-desktop) {
-                        padding-left: 15px;
+                overflow-x: auto;       
+                .table {
+                    th {
+                        font-size: 15px;
+                        color: #8492A6;
+                        font-weight: bold;
+                        line-height: 18px;
+                        padding: 20px 15px;
+                        vertical-align: middle;
+                        background: #FAFAFB;
+                        text-transform: uppercase;
+                        border-top: 2px solid #F2F5F9;
+                        border-bottom: 2px solid #F2F5F9;
+                        white-space: nowrap;
+                        &:first-child {
+                            padding-left: 35px;
+                            @include respond(md-desktop) {
+                                padding-left: 15px;
+                            }
+                        }
+                        img {                            
+                            &.sort_image {
+                                width: 14px;
+                                height: 14px;
+                            }
+                            &.searchImg {
+                                width: 48px;
+                                height: 48px;
+                                @include respond(sm-desktop) {
+                                    width: 38px;
+                                    height:38px ;
+                                }                                
+                                @include respond(phone) {
+                                    width: 30px;
+                                    height: 30px;
+                                }
+                            }
+                        }
+                        @include respond(md-desktop) {
+                            font-size: 14px;
+                            line-height: 1.2;
+                        }
+                        @include respond(sm-desktop) {
+                            font-size: 13px;
+                        }
+                        @include respond(phone) {
+                            font-size: 12px;
+                        }
+                    }
+                    tr {
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                        td {
+                            font-size: 19px;
+                            font-weight: 500;
+                            line-height: 24px;
+                            padding: 24px 15px;
+                            border-top: none;
+                            vertical-align: middle;
+                            border-bottom: 2px solid #F2F5F9; 
+                            white-space: nowrap;
+                            white-space: nowrap;
+                            &:first-child {
+                                padding-left: 35px;
+                                @include respond(md-desktop) {
+                                    padding-left: 15px;
+                                }
+                            }
+                            @include respond(md-desktop) {
+                                font-size: 17px;
+                                padding: 18px 10px;
+                            }
+                            @include respond(sm-desktop) {
+                                font-size: 15px;
+                                padding: 15px 10px;
+                            }
+                            @include respond(phone) {
+                                font-size: 14px;
+                                padding: 10px;
+                            }
+                            .actionContainer {
+                                @include respond(phone) {
+                                    display: flex;
+                                }        
+                                @include respond(sm-desktop) {
+                                    display: flex;
+                                }
+                            }
+                        }
+                    }           
+                    .module {
+                        background: #8492A6;
+                        font-size: 15px;
+                        line-height: 18px;
+                        font-weight: bold;
+                        color: #FFFFFF;
+                        text-transform: uppercase;
+                        padding: 0 35px;
+                        height: 38px;
+                        border-radius: 0;
+                        @include respond(md-desktop) {
+                            font-size: 15px;
+                        }
+                        @include respond(sm-desktop) {
+                            font-size: 13px;
+                        }
+                        @include respond(phone) {
+                            font-size: 11px;
+                        }
+                    }
+                    .doc_name {
+                        font-weight: bold;
+                        line-height: 25px;
+                        font-size: 20px;
+                        text-transform: capitalize;
+                        padding-left: 35px;
+                        @include respond(md-desktop) {
+                            font-size: 18px;
+                        }
+                        @include respond(sm-desktop) {
+                            font-size: 16px;
+                        }
+                        @include respond(phone) {
+                            font-size: 14px;
+                        }
+                    }
+                    .doc_row {
+                        font-size: 19px;
+                        line-height: 24px;
+                        opacity: 0.7;
+                        font-weight: 500;  
+                        @include respond(md-desktop) {
+                            font-size: 17px;
+                        }
+                        @include respond(sm-desktop) {
+                            font-size: 15px;
+                        }
+                        @include respond(phone) {
+                            font-size: 12px;
+                        }              
+                    }
+                    .status {
+                        width: 15px;
+                        height: 15px;
+                        margin-right: 10px;
+                        border-radius: 50%;
+                        display: inline-block;
+                        vertical-align: middle;                    
+                        @include respond(sm-desktop) {
+                            width: 12px;
+                            height: 12px;
+                        }
+                        @include respond(phone) {
+                            width: 10px;
+                            height: 10px;
+                        }    
+                    }
+                    .approved {
+                        background: #26DD73;
+                    }
+                    .rejected {
+                        background: #FF9D00;
                     }
                 }
-                 img {
-                     
-                     &.sort_image {
-                        width: 14px;
-                        height: 14px;
-                     }
-                     &.searchImg {
-                        width: 48px;
-                        height: 48px;
-                        @include respond(sm-desktop) {
-                                width: 38px;
-                                height:38px ;
-                            }
-                        
-                            @include respond(phone) {
-                                width: 30px;
-                                height: 30px;
-                            }
-                     }
-                 }
-
-                @include respond(md-desktop) {
-                    font-size: 14px;
-                    line-height: 1.2;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 13px;
-                }
-                @include respond(phone) {
-                    font-size: 12px;
-                }
-                }
-            tr {
-                &:last-child {
-                    border-bottom: none;
-                }
-            td {
-                font-size: 19px;
-                font-weight: 500;
-                line-height: 24px;
-                padding: 24px 15px;
-                border-top: none;
-                vertical-align: middle;
-                border-bottom: 2px solid #F2F5F9; 
-                white-space: nowrap;
-                white-space: nowrap;
-            &:first-child {
-                padding-left: 35px;
-                @include respond(md-desktop) {
-                    padding-left: 15px;
-                }
-            }
-            @include respond(md-desktop) {
-                font-size: 17px;
-                padding: 18px 10px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 15px;
-                padding: 15px 10px;
-            }
-            @include respond(phone) {
-                font-size: 14px;
-                padding: 10px;
-            }
-                                .actionContainer {
-                                    @include respond(phone) {
-                                        display: flex;
-                                    }
-                
-                                    @include respond(sm-desktop) {
-                                        display: flex;
-                                    }
-                                }
-            }
-        }           
-            .module {
-                background: #8492A6;
-                font-size: 15px;
-                line-height: 18px;
-                font-weight: bold;
-                color: #FFFFFF;
-                text-transform: uppercase;
-                padding: 0 35px;
-                height: 38px;
-                border-radius: 0;
-                @include respond(md-desktop) {
-                    font-size: 15px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 13px;
-                }
-                @include respond(phone) {
-                    font-size: 11px;
-                }
-            }
-            .doc_name {
-                font-weight: bold;
-                line-height: 25px;
-                font-size: 20px;
-                text-transform: capitalize;
-                padding-left: 35px;
-                @include respond(md-desktop) {
-                    font-size: 18px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                }
-            }
-            .doc_row {
-                font-size: 19px;
-                line-height: 24px;
-                opacity: 0.7;
-                font-weight: 500;  
-                @include respond(md-desktop) {
-                    font-size: 17px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 15px;
-                }
-                @include respond(phone) {
-                    font-size: 12px;
-                }              
-            }
-            .status {
-                width: 15px;
-                height: 15px;
-                margin-right: 10px;
-                border-radius: 50%;
-                display: inline-block;
-                vertical-align: middle;
-                
-                @include respond(sm-desktop) {
-                    width: 12px;
-                    height: 12px;
-                }
-                @include respond(phone) {
-                    width: 10px;
-                    height: 10px;
-                }    
-            }
-            .approved {
-                background: #26DD73;
-            }
-            .rejected {
-                background: #FF9D00;
             }
         }
     }
 }
-    }
-
-}
-
 .pdfImage{
     width: 57px;
     height: 25px;
-
     @include respond(sm-desktop) {
         width: 50px;
         height: 22px;
@@ -411,80 +391,62 @@
         width: 35px;
         height: 15px;
     }
-
-  }
+}
 .edit_image {
     background: #C3C3C31F;
     border: 1px solid #0000001F;
     border-radius: 4px;
     padding: 10px 9px 10px 9px;
-
     @include respond(md-desktop) {
         height: 30px;
         padding: 7px;
     }
-
     @include respond(sm-desktop) {
         height: 28px;
         padding: 6px;
     }
-
     @include respond(phone) {
         height: 25px;
         padding: 5px;
     }
 }
-
 .delete_image {
     background: #C3C3C31F;
     border: 1px solid #0000001F;
     border-radius: 4px;
     padding: 6px 8px;
-    
-
     @include respond(md-desktop) {
         height: 30px;
     }
-
     @include respond(sm-desktop) {
         height: 28px;
     }
-
     @include respond(phone) {
         height: 25px;
     }
 }
 .drive_image {
     @include respond(md-desktop) {
-            height: 30px;
-        }
-    
-        @include respond(sm-desktop) {
-            height: 28px;
-        }
-    
-        @include respond(phone) {
-            height: 25px;
-        }
-
+        height: 30px;
+    }    
+    @include respond(sm-desktop) {
+        height: 28px;
+    }
+    @include respond(phone) {
+        height: 25px;
+    }
 }
 .arrow {
-
     margin-left: -40px;
     width: 13px;
     pointer-events: none;
-
     input[type="date"]::-webkit-inner-spin-button,
     input[type="date"]::-webkit-calendar-picker-indicator {
         display: none;
         -webkit-appearance: none;
     }
-
-
 }
-
 .customSelect {
     appearance: none;
     // position: relative;
-
 }

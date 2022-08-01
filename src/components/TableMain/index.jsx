@@ -27,7 +27,7 @@ function Index({
 
   return (
     <div className={`${styles.datatable} datatable card`}>
-      <div className={`${styles.tableFilter} d-flex justify-content-between`}>
+      <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
         <h3 className="heading_card">{tableName}</h3>
         <div
           className={`${styles.pageList} d-flex justify-content-end align-items-center`}

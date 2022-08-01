@@ -10,7 +10,6 @@
             font-weight: bold;
             line-height: 41px;
             margin: 0;
-            text-transform: capitalize;
             img {
                 width: 13px;
                 height: 21px;
@@ -34,10 +33,12 @@
 .backgroundMain {
     //background: #F3F4F7 !important;
     .vessel_card {
-        margin: 20px 5px 20px 5px;
+        // margin: 20px 5px 20px 5px;
         .main {
+            margin-bottom: 26px;
             border-radius: 6px;
             .head_container {
+                height: 80px;
                 padding: 25px 35px !important;
                 border-bottom: 2px solid #CAD6E6;
                 .heading {
@@ -46,19 +47,18 @@
                     font-size: 22px;
                     text-transform: capitalize;
                     line-height: 27px;
+                    margin: 0;
                 }
                 span {
                     font-size: 45px;
                     color: #3687e8;
                     font-weight: normal;
                     line-height: 20px;
-                }
-                
-            }
-            
+                }                
+            }            
         }
         .dashboard_form {
-            padding: 20px 35px 25px 40px;
+            padding: 20px 35px 25px;
             .label {
                 font-size: 16px;
                 letter-spacing: 0.53px;
@@ -88,30 +88,25 @@
                 box-sizing: border-box;
             }
             .comment_heading{
-                    color: #111111;
-                    text-transform: capitalize;
-                    font-size: 20px;
-                    line-height: 25px;
-                    font-weight: bold;
-                    
+                color: #111111;
+                text-transform: capitalize;
+                font-size: 20px;
+                line-height: 25px;
+                font-weight: bold;                    
             }
-
             .address_type{
                 color: #3687E8;
                 font-size: 20px;
                 line-height: 25px;
                 font-weight: bold;
-
             }
 
             .address_detail{
-                    letter-spacing: 0.19px;
-                    color: #111111;
-                    font-size: 20px;
-                    line-height: 25px;
-
+                letter-spacing: 0.19px;
+                color: #111111;
+                font-size: 20px;
+                line-height: 25px;
             }
-
             .sub_heading {
                 font-size: 20px;
                 font-weight: bold;
@@ -153,7 +148,6 @@
                 }
                 .line {
                     border: 3px solid #D9DDE8;
-
                 }
                 .input_field {
                     font-size: 20px;
@@ -178,27 +172,23 @@
                 }
             }
         }
-                .search_container {
-                    //background: #F0F0F0;
-                    height: 62px;
-       
-                    .dropDown {
-                        //background: #FFFFFF;
-                        border: 1px solid #0000001F;
-                        border-radius: 4px;
-                        color: #3687E8;
-                        text-transform: capitalize;
-                        font-size: 16px;
-                        line-height: 19px;
-                        font-weight: bold;
-                        width: 279px;
-                        padding-left: 20px;
-                        height: 40px;
-                    }
-        
-                    
-                }
-       
+        .search_container {
+            //background: #F0F0F0;
+            height: 62px;       
+            .dropDown {
+                //background: #FFFFFF;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                color: #3687E8;
+                text-transform: capitalize;
+                font-size: 16px;
+                line-height: 19px;
+                font-weight: bold;
+                width: 279px;
+                padding-left: 20px;
+                height: 40px;
+            }                    
+        }       
     }
 }
 .edit_image {
@@ -208,18 +198,15 @@
     padding: 9px;
     width: 40px;
     height: 40px;
-    margin-top: 20px;
-   
+    margin-top: 20px;   
     @include respond(md-desktop) {
         height: 30px;
         padding: 7px;
     }
-
     @include respond(sm-desktop) {
         height: 28px;
         padding: 6px;
     }
-
     @include respond(phone) {
         height: 25px;
         padding: 5px;

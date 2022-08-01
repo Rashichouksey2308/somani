@@ -137,6 +137,13 @@ function Index() {
                 Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 India
               </div>
             </div>
+            
+            <div className={`d-flex ${styles.actions}`}>
+              <div
+                className={`${styles.addressEdit} d-flex justify-content-center align-items-center mr-n3 mt-n2`}>
+                <img src="/static/mode_edit.svg" alt="edit" />
+              </div>
+            </div>
 
           </div>
           <div
@@ -147,6 +154,12 @@ function Index() {
               <div >
                 Plot No-49-48-6/1, Lalitha Nagar, Ground Floor, Sakshi Office
                 Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 India
+              </div>
+            </div>
+            <div className={`d-flex ${styles.actions}`}>
+              <div
+                className={`${styles.addressEdit} d-flex justify-content-center align-items-center mr-n3 mt-n2`}>
+                <img src="/static/mode_edit.svg" alt="edit" />
               </div>
             </div>
 
@@ -197,7 +210,7 @@ function Index() {
                           <td>{val.phone}</td>
                           <td className={`d-flex`}>
                             <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
-                            <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"/>
+                            <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>
@@ -211,7 +224,7 @@ function Index() {
                           <td><input type="text" placeholder={val.phone}></input></td>
                           <td className={`d-flex`}>
                             <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(onEditRemove(index))}src="/static/mode_edit.svg" alt="edit"/>
-                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"/>
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>}
@@ -234,9 +247,9 @@ function Index() {
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
                 <tr height={67}>
-                  <th>DOCUMENT NAME <img className="mb-1" src="/static/icons8-sort-24.svg" /></th>
-                  <th>FORMAT <img className="mb-1" src="/static/icons8-sort-24.svg" /></th>
-                  <th>DOCUMENT DATE <img className="mb-1" src="/static/icons8-sort-24.svg" /></th>
+                  <th>DOCUMENT NAME <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
+                  <th>FORMAT <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
+                  <th>DOCUMENT DATE <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
                   <th>ACTION</th>
                 </tr>
                 <tbody>
@@ -251,7 +264,7 @@ function Index() {
                       {/* <td>{val.phone}</td> */}
                       <td className={`d-flex`}>
                         <img onClick={()=>(onEdit(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
-                        <img onClick={()=>(handleRemove(index))} src="/static/upload.svg"/>
+                        <img onClick={()=>(handleRemove(index))} src="/static/upload.svg" alt="upload"/>
                       </td>
 
                     </tr>
@@ -262,7 +275,7 @@ function Index() {
                       {/* <td><input type="text" placeholder={val.phone}></input></td> */}
                       <td className={`d-flex `}>
                         <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
-                        <img  onClick={()=>(handleRemove(index))} src="/static/upload.svg"/>
+                        <img  onClick={()=>(handleRemove(index))} src="/static/upload.svg" alt="upload"/>
                       </td>
 
                     </tr>}
