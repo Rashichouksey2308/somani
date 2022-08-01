@@ -80,7 +80,7 @@ function Index() {
         {
           name: 'Inspection',
           image: '/static/Credit Queue.svg',
-          route: '/third-party',
+          route: '/inspection',
         },
         {
           name: 'Transit Details',
