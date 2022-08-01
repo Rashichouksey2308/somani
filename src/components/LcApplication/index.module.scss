@@ -258,10 +258,8 @@
           letter-spacing: 0.53px;
           position: absolute;
           pointer-events: none;
-          line-height: 17px;
-          box-sizing: border-box;
-          transform: translateY(-10px);
-          margin-left: 20px;
+          box-sizing: border-box;          
+          margin-bottom: 0;
           transition: 0.3s all ease-in-out;
           @include respond(sm-desktop) {
             font-size: 16px;
