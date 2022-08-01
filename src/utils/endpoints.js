@@ -97,4 +97,5 @@ export default {
   getForwardHedging: '/api/core/forward-hedging',
   updateForwardHedging: '/api/core/forward-hedging',
 
+  updateQuotation: '/api/core/insurance/quotation',
 }

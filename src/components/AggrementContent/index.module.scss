@@ -11,6 +11,7 @@
             top: 26px;
             left: 30px;
             font-size: 16px;
+            font-weight: 500;
             line-height: 0.5;
             margin-bottom: 0;
             letter-spacing: 0.53px;
@@ -127,7 +128,7 @@
         }
     }
     .bankContainer {
-        background: #FFFFFF;
+        // background: #FFFFFF;
         border-radius: 9px;
         margin: 0 35px 20px;
         .newAddressHead {
@@ -604,6 +605,7 @@
                 tr {
                     border: none !important;
                     td {
+                        position: relative;
                         vertical-align: middle;
                         &:first-child {
                             padding-left: 35px;
@@ -617,8 +619,9 @@
                             border: 1px solid #0000001F;
                             border-radius: 4px;
                             height: 40px;
-                            padding: 0 10px;
+                            padding: 0 23px 0 10px;
                             outline: none;
+                            min-width: 130px;
                         }
                         input {
                             height: 40px;
@@ -639,9 +642,9 @@
                             // border: 1px solid #0000001F;
                             // border-radius: 4px;
                             opacity: 1;
-                            display: flex;
-                            justify-content: center;
-                            align-self: start;
+                            // display: flex;
+                            // justify-content: center;
+                            // align-self: start;
                             @include respond(md-desktop) {
                                 height: 30px;
                             }
@@ -694,14 +697,16 @@
         color: #00000080;
         font-weight: 500;
         line-height: 17px;
+        margin: 10px 0 12px;
+        display: inline-block;
         letter-spacing: 0.53px;
     }
     p {
         font-size: 20px;
         color: #111111;
-        line-height: 25px;
+        line-height: 25px !important;
         letter-spacing: 0.19px;
-        margin: 0rem !important;
+        margin: 0 0 25px !important;
     }
 }
 .newAddressContainer {
@@ -770,4 +775,33 @@
         margin-top: 1rem;
 
     }
+}
+img {
+    &.arrow {
+        margin-left: -40px;
+        width: 13px !important;
+        pointer-events: none;  
+        input[type='date']::-webkit-inner-spin-button,
+        input[type='date']::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+    }
+}
+img {
+    &.arrow2 {
+        width: 13px !important;
+        right: 25px;
+        position: absolute;
+        pointer-events: none;  
+        input[type='date']::-webkit-inner-spin-button,
+        input[type='date']::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+    }
+} 
+.customSelect {
+    appearance: none;
+    // position: relative;
 }

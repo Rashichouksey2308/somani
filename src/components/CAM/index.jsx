@@ -204,7 +204,10 @@ function Index({
     const CovertedMonts = []
     months?.map((month) => {
       let convertedMonths = []
-      CovertedMonts.push(...convertedMonths, moment(month, 'MMYYYY').format('MMMM'))
+      CovertedMonts.push(
+        ...convertedMonths,
+        moment(month, 'MMYYYY').format('MMMM'),
+      )
     })
     return CovertedMonts
   }
@@ -231,7 +234,6 @@ function Index({
     ],
   }
 
-
   let TotalPurchasesDataLine = {
     labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
     datasets: [
@@ -245,13 +247,11 @@ function Index({
     ],
   }
 
-
-
   return (
     <>
       {basicInfo(camData)}
-      {customerRating()}
       {supplierInfo(camData)}
+      {customerRating()}
       {groupExposure(camData)}
       {orderSummary(camData)}
       {creditProfile(
@@ -267,7 +267,12 @@ function Index({
       {debtProfile(data, options, tempArr, camData)}
       {operationalDetails(camData)}
       {revenuDetails(gstData)}
-      {trends(TotalRevenueDataLine, TotalPurchasesDataLine, lineOption, gstData)}
+      {trends(
+        TotalRevenueDataLine,
+        TotalPurchasesDataLine,
+        lineOption,
+        gstData,
+      )}
       {skewness(data, options, tempArr, gstData)}
       {financeDetails(
         data,
@@ -290,7 +295,7 @@ function Index({
         filteredCreditRating,
         saveApprovedCreditData,
         onApprove,
-        onApproveOrder
+        onApproveOrder,
       )}
       {Documents()}
     </>
@@ -320,10 +325,27 @@ const basicInfo = (camData) => {
           data-parent="#profileAccordion"
         >
           <div className={`${styles.info_wrapper}  card-body border_color`}>
+            <div
+              className={`${styles.content} ${styles.highlight} card_sub_header  mb-4`}
+            >
+              <Row className={`mb-3`}>
+                <Col className={`d-flex justify-content-between`} md={5}>
+                  <span
+                    className={`${styles.key} label_heading`}
+                    style={{ background: 'transparent' }}
+                  >
+                    Transaction Type
+                  </span>
+                  <span className={`${styles.value} pr-5`}>Domestic</span>
+                </Col>
+              </Row>
+            </div>
             <div className={`${styles.content} mb-4`}>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label_heading`}>Channel</span>
+                  <span className={`${styles.key} label_heading`}>
+                    Sourcing Channel
+                  </span>
                   <span className={`${styles.value} pr-5`}>
                     {camData?.company?.sourceChanel}
                   </span>
@@ -332,7 +354,7 @@ const basicInfo = (camData) => {
                   className={` col-md-offset-2 d-flex justify-content-between`}
                   md={5}
                 >
-                  <span className={`${styles.key} label_heading pl-5`}>
+                  <span className={`${styles.key} label_heading ml-5 pl-5`}>
                     City
                   </span>
                   <span className={`${styles.value} `}>
@@ -342,15 +364,13 @@ const basicInfo = (camData) => {
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label_heading`}>
-                    Customer
-                  </span>
+                  <span className={`${styles.key} label_heading`}>Buyer</span>
                   <span className={`${styles.value} pr-5`}>
                     {camData?.company?.companyName}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label_heading pl-5`}>
+                  <span className={`${styles.key} label_heading ml-5 pl-5`}>
                     State
                   </span>
                   <span className={`${styles.value}`}>
@@ -368,7 +388,7 @@ const basicInfo = (camData) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label_heading pl-5`}>
+                  <span className={`${styles.key} label_heading ml-5 pl-5`}>
                     Industry
                   </span>
                   <span className={`${styles.value}`}>
@@ -391,7 +411,7 @@ const basicInfo = (camData) => {
                   className={` col-md-offset-2 d-flex justify-content-between`}
                   md={5}
                 >
-                  <span className={`${styles.key}  pl-5`}>Commodity</span>
+                  <span className={`${styles.key} ml-5  pl-5`}>Commodity</span>
                   <span className={`${styles.value} `}>
                     {camData?.commodity}
                   </span>
@@ -405,7 +425,7 @@ const basicInfo = (camData) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key}  pl-5`}>Supplier</span>
+                  <span className={`${styles.key} ml-5 pl-5`}>Supplier</span>
                   <span className={`${styles.value}`}>
                     {camData?.supplierName}
                   </span>
@@ -419,7 +439,7 @@ const basicInfo = (camData) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key}  pl-5`}>
+                  <span className={`${styles.key} ml-5 pl-5`}>
                     Transaction Period
                   </span>
                   <span className={`${styles.value}`}>
@@ -442,7 +462,7 @@ const basicInfo = (camData) => {
                   className={` col-md-offset-2 d-flex justify-content-between`}
                   md={5}
                 >
-                  <span className={`${styles.key} label_heading pl-5`}>
+                  <span className={`${styles.key} label_heading ml-5 pl-5`}>
                     Port of Discharge
                   </span>
                   <span className={`${styles.value} `}>
@@ -460,7 +480,7 @@ const basicInfo = (camData) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label_heading pl-5`}>
+                  <span className={`${styles.key} label_heading ml-5 pl-5`}>
                     ETA at Discharge port
                   </span>
                   <span className={`${styles.value}`}>
@@ -482,7 +502,7 @@ const basicInfo = (camData) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label_heading pl-5`}>
+                  <span className={`${styles.key} label_heading ml-5 pl-5`}>
                     Laycan to
                   </span>
                   <span className={`${styles.value}`}>
@@ -1002,7 +1022,7 @@ const creditProfile = (
                   </span>
                   <span className={`${styles.value} `}>
                     {latestAuditorData?.nameOfAuditor ===
-                      previousAuditorData?.nameOfAuditor
+                    previousAuditorData?.nameOfAuditor
                       ? ' NO'
                       : 'Yes'}
                   </span>
@@ -1590,15 +1610,12 @@ const operationalDetails = (camData) => {
 const revenuDetails = (gstData) => {
   const RevenueDetails = gstData?.detail?.salesDetailAnnual?.saleSummary
 
-
-
   function calcPc(n1, n2) {
-    if(n1=== 0){
+    if (n1 === 0) {
       return 0
     }
-    return (((n2 - n1) / n1 * 100));
+    return ((n2 - n1) / n1) * 100
   }
-
 
   return (
     <>
@@ -1637,105 +1654,241 @@ const revenuDetails = (gstData) => {
                 <td>Gross Revenue</td>
                 <td>
                   <img
-                    src={calcPc(RevenueDetails?.grossTurnover?.previous?.value, RevenueDetails?.grossTurnover?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                    src={
+                      calcPc(
+                        RevenueDetails?.grossTurnover?.previous?.value,
+                        RevenueDetails?.grossTurnover?.current?.value,
+                      ) > 0
+                        ? '/static/arrow-up-green.svg'
+                        : '/static/arrow-down-red.svg'
+                    }
                     alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>{RevenueDetails?.grossTurnover?.current?.value.toLocaleString()}</td>
-                <td>{RevenueDetails?.grossTurnover?.previous?.value.toLocaleString()}</td>
-                <td>{calcPc(RevenueDetails?.grossTurnover?.previous?.value, RevenueDetails?.grossTurnover?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
+                <td>
+                  {RevenueDetails?.grossTurnover?.current?.value.toLocaleString()}
+                </td>
+                <td>
+                  {RevenueDetails?.grossTurnover?.previous?.value.toLocaleString()}
+                </td>
+                <td>
+                  {calcPc(
+                    RevenueDetails?.grossTurnover?.previous?.value,
+                    RevenueDetails?.grossTurnover?.current?.value,
+                  ).toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                    '%'}
+                </td>
               </tr>
               <tr>
                 <td>Related Party Sales</td>
                 <td>
-                <img
-                    src={calcPc(RevenueDetails?.relatedPartySales?.previous?.value, RevenueDetails?.relatedPartySales?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                  <img
+                    src={
+                      calcPc(
+                        RevenueDetails?.relatedPartySales?.previous?.value,
+                        RevenueDetails?.relatedPartySales?.current?.value,
+                      ) > 0
+                        ? '/static/arrow-up-green.svg'
+                        : '/static/arrow-down-red.svg'
+                    }
                     alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>{RevenueDetails?.relatedPartySales?.current?.value.toLocaleString()}</td>
-                <td>{RevenueDetails?.relatedPartySales?.previous?.value.toLocaleString()}</td>
-                <td>{calcPc(RevenueDetails?.relatedPartySales?.previous?.value, RevenueDetails?.relatedPartySales?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
+                <td>
+                  {RevenueDetails?.relatedPartySales?.current?.value.toLocaleString()}
+                </td>
+                <td>
+                  {RevenueDetails?.relatedPartySales?.previous?.value.toLocaleString()}
+                </td>
+                <td>
+                  {calcPc(
+                    RevenueDetails?.relatedPartySales?.previous?.value,
+                    RevenueDetails?.relatedPartySales?.current?.value,
+                  ).toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                    '%'}
+                </td>
               </tr>
               <tr>
                 <td>Intra Organization Sales</td>
                 <td>
-                <img
-                    src={calcPc(RevenueDetails?.intraOrgSalesPercent?.previous?.value, RevenueDetails?.intraOrgSalesPercent?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                  <img
+                    src={
+                      calcPc(
+                        RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                        RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                      ) > 0
+                        ? '/static/arrow-up-green.svg'
+                        : '/static/arrow-down-red.svg'
+                    }
                     alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>{RevenueDetails?.intraOrgSalesPercent?.current?.value.toLocaleString()}</td>
-                <td>{RevenueDetails?.intraOrgSalesPercent?.previous?.value.toLocaleString()}</td>
-                <td>{calcPc(RevenueDetails?.intraOrgSalesPercent?.previous?.value, RevenueDetails?.intraOrgSalesPercent?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
+                <td>
+                  {RevenueDetails?.intraOrgSalesPercent?.current?.value.toLocaleString()}
+                </td>
+                <td>
+                  {RevenueDetails?.intraOrgSalesPercent?.previous?.value.toLocaleString()}
+                </td>
+                <td>
+                  {calcPc(
+                    RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                  ).toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                    '%'}
+                </td>
               </tr>
               <tr>
                 <td>B2B Sales</td>
                 <td>
-                <img
-                    src={calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                  <img
+                    src={
+                      calcPc(
+                        RevenueDetails?.B2BSales?.previous?.value,
+                        RevenueDetails?.B2BSales?.current?.value,
+                      ) > 0
+                        ? '/static/arrow-up-green.svg'
+                        : '/static/arrow-down-red.svg'
+                    }
                     alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>{RevenueDetails?.B2BSales?.current?.value.toLocaleString()}</td>
-                <td>{RevenueDetails?.B2BSales?.previous?.value.toLocaleString()}</td>
-                <td>{calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
+                <td>
+                  {RevenueDetails?.B2BSales?.current?.value.toLocaleString()}
+                </td>
+                <td>
+                  {RevenueDetails?.B2BSales?.previous?.value.toLocaleString()}
+                </td>
+                <td>
+                  {calcPc(
+                    RevenueDetails?.B2BSales?.previous?.value,
+                    RevenueDetails?.B2BSales?.current?.value,
+                  ).toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                    '%'}
+                </td>
               </tr>
               <tr>
                 <td>B2C Sales</td>
                 <td>
-                <img
-                    src={calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                  <img
+                    src={
+                      calcPc(
+                        RevenueDetails?.B2CSales?.previous?.value,
+                        RevenueDetails?.B2CSales?.current?.value,
+                      ) > 0
+                        ? '/static/arrow-up-green.svg'
+                        : '/static/arrow-down-red.svg'
+                    }
                     alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>{RevenueDetails?.B2CSales?.current?.value.toLocaleString()}</td>
-                <td>{RevenueDetails?.B2CSales?.previous?.value.toLocaleString()}</td>
-                <td>{calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
+                <td>
+                  {RevenueDetails?.B2CSales?.current?.value.toLocaleString()}
+                </td>
+                <td>
+                  {RevenueDetails?.B2CSales?.previous?.value.toLocaleString()}
+                </td>
+                <td>
+                  {calcPc(
+                    RevenueDetails?.B2CSales?.previous?.value,
+                    RevenueDetails?.B2CSales?.current?.value,
+                  ).toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                    '%'}
+                </td>
               </tr>
               <tr>
                 <td>Export Sales</td>
                 <td>
-                <img
-                    src={calcPc(RevenueDetails?.exportSales?.previous?.value, RevenueDetails?.exportSales?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                  <img
+                    src={
+                      calcPc(
+                        RevenueDetails?.exportSales?.previous?.value,
+                        RevenueDetails?.exportSales?.current?.value,
+                      ) > 0
+                        ? '/static/arrow-up-green.svg'
+                        : '/static/arrow-down-red.svg'
+                    }
                     alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>{RevenueDetails?.exportSales?.current?.value.toLocaleString()}</td>
-                <td>{RevenueDetails?.exportSales?.previous?.value.toLocaleString()}</td>
-                <td>{calcPc(RevenueDetails?.exportSales?.previous?.value, RevenueDetails?.exportSales?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
+                <td>
+                  {RevenueDetails?.exportSales?.current?.value.toLocaleString()}
+                </td>
+                <td>
+                  {RevenueDetails?.exportSales?.previous?.value.toLocaleString()}
+                </td>
+                <td>
+                  {calcPc(
+                    RevenueDetails?.exportSales?.previous?.value,
+                    RevenueDetails?.exportSales?.current?.value,
+                  ).toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                    '%'}
+                </td>
               </tr>
               <tr>
                 <td>Total Customers</td>
                 <td>
-                <img
-                    src={calcPc(RevenueDetails?.ttlCustomer?.previous?.value, RevenueDetails?.ttlCustomer?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                  <img
+                    src={
+                      calcPc(
+                        RevenueDetails?.ttlCustomer?.previous?.value,
+                        RevenueDetails?.ttlCustomer?.current?.value,
+                      ) > 0
+                        ? '/static/arrow-up-green.svg'
+                        : '/static/arrow-down-red.svg'
+                    }
                     alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>{RevenueDetails?.ttlCustomer?.current?.value.toLocaleString()}</td>
-                <td>{RevenueDetails?.ttlCustomer?.previous?.value.toLocaleString()}</td>
-                <td>{calcPc(RevenueDetails?.ttlCustomer?.previous?.value, RevenueDetails?.ttlCustomer?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
+                <td>
+                  {RevenueDetails?.ttlCustomer?.current?.value.toLocaleString()}
+                </td>
+                <td>
+                  {RevenueDetails?.ttlCustomer?.previous?.value.toLocaleString()}
+                </td>
+                <td>
+                  {calcPc(
+                    RevenueDetails?.ttlCustomer?.previous?.value,
+                    RevenueDetails?.ttlCustomer?.current?.value,
+                  ).toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                    '%'}
+                </td>
               </tr>
               <tr>
                 <td>Total Invoices</td>
                 <td>
-                <img
-                    src={calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value) > 0 ? "/static/arrow-up-green.svg" : "/static/arrow-down-red.svg"}
+                  <img
+                    src={
+                      calcPc(
+                        RevenueDetails?.ttlInv?.previous?.value,
+                        RevenueDetails?.ttlInv?.current?.value,
+                      ) > 0
+                        ? '/static/arrow-up-green.svg'
+                        : '/static/arrow-down-red.svg'
+                    }
                     alt="Arrow Green"
                     className="img-fluid"
                   />
                 </td>
-                <td>{RevenueDetails?.ttlInv?.current?.value.toLocaleString()}</td>
-                <td>{RevenueDetails?.ttlInv?.previous?.value.toLocaleString()}</td>
-                <td>{calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value).toLocaleString('fullwide', { maximumFractionDigits: 2 }) + "%"}</td>
+                <td>
+                  {RevenueDetails?.ttlInv?.current?.value.toLocaleString()}
+                </td>
+                <td>
+                  {RevenueDetails?.ttlInv?.previous?.value.toLocaleString()}
+                </td>
+                <td>
+                  {calcPc(
+                    RevenueDetails?.ttlInv?.previous?.value,
+                    RevenueDetails?.ttlInv?.current?.value,
+                  ).toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                    '%'}
+                </td>
               </tr>
               <tr>
                 <td>Gross Margin</td>
@@ -2193,7 +2346,12 @@ const compilanceStatus = (companyData, camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}`}>GST Return Filing</span>
-                  <span className={`${styles.value} pr-5`}>Text</span>
+                  <span
+                    className={`${styles.value} pr-5`}
+                    style={{ color: '#EA3F3F' }}
+                  >
+                    Text
+                  </span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
@@ -2208,7 +2366,10 @@ const compilanceStatus = (companyData, camData) => {
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key}`}>EPF Status</span>
-                  <span className={`${styles.value} pr-5`}>
+                  <span
+                    className={`${styles.value} pr-5`}
+                    style={{ color: '#EA3F3F' }}
+                  >
                     {companyData?.compliance.other?.epfStatus ? 'YES' : 'NO'}
                   </span>
                 </Col>
@@ -2380,7 +2541,7 @@ const sectionTerms = (
   filteredCreditRating,
   saveApprovedCreditData,
   onApprove,
-  onApproveOrder
+  onApproveOrder,
 ) => {
   return (
     <>
@@ -2482,7 +2643,10 @@ const sectionTerms = (
                     defaultValue={camData?.cam?.approvedCreditValue}
                     name="approvedCreditValue"
                     onChange={(e) => {
-                      onApprove(e.target.name, Number(e.target.value * 10000000))
+                      onApprove(
+                        e.target.name,
+                        Number(e.target.value * 10000000),
+                      )
                     }}
                   ></input>
                 </td>
@@ -2503,7 +2667,10 @@ const sectionTerms = (
                     name="approvedOrderValue"
                     defaultValue={camData?.cam?.approvedOrderValue}
                     onChange={(e) => {
-                      onApproveOrder(e.target.name, Number(e.target.value * 10000000))
+                      onApproveOrder(
+                        e.target.name,
+                        Number(e.target.value * 10000000),
+                      )
                     }}
                   ></input>
                 </td>
@@ -2690,7 +2857,12 @@ const Documents = () => {
     </>
   )
 }
-const trends = (TotalRevenueDataLine, TotalPurchasesDataLine, lineOption, gstData) => {
+const trends = (
+  TotalRevenueDataLine,
+  TotalPurchasesDataLine,
+  lineOption,
+  gstData,
+) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2730,7 +2902,13 @@ const trends = (TotalRevenueDataLine, TotalPurchasesDataLine, lineOption, gstDat
               <Col className={`${styles.leftCol} p-0 border_color`} md={6}>
                 <div className={`${styles.head_wrapper} card_sub_header`}>
                   <span className={`${styles.head}`}>Gross Revenue</span>
-                  <span className={`${styles.child} ml-2`}>: {gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value}</span>
+                  <span className={`${styles.child} ml-2`}>
+                    :{' '}
+                    {
+                      gstData?.detail?.salesDetailAnnual?.saleSummary
+                        ?.grossTurnover?.current?.value
+                    }
+                  </span>
                 </div>
                 <div className={`${styles.chart}`}>
                   <Line data={TotalRevenueDataLine} options={lineOption} />
@@ -2748,7 +2926,13 @@ const trends = (TotalRevenueDataLine, TotalPurchasesDataLine, lineOption, gstDat
               <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
                 <div className={`${styles.head_wrapper}  card_sub_header`}>
                   <span className={`${styles.head}`}>Gross Purchases</span>
-                  <span className={`${styles.child} ml-2`}>: {gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value}</span>
+                  <span className={`${styles.child} ml-2`}>
+                    :{' '}
+                    {
+                      gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                        ?.grossPurchases?.current?.value
+                    }
+                  </span>
                 </div>
                 <div className={`${styles.chart}`}>
                   <Line data={TotalPurchasesDataLine} options={lineOption} />
@@ -2801,7 +2985,13 @@ const skewness = (data, options, tempArr, gstData) => {
               <Col className={`${styles.leftCol} p-0 border_color`} md={6}>
                 <div className={`${styles.head_wrapper} card_sub_header`}>
                   <span className={`${styles.head}`}>Gross Revenue</span>
-                  <span className={`${styles.child} ml-2`}>: {gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value}</span>
+                  <span className={`${styles.child} ml-2`}>
+                    :{' '}
+                    {
+                      gstData?.detail?.salesDetailAnnual?.saleSummary
+                        ?.grossTurnover?.current?.value
+                    }
+                  </span>
                 </div>
                 <Row
                   className={`d-flex  d-flex align-items-center justify-content-evenly`}
@@ -2845,7 +3035,13 @@ const skewness = (data, options, tempArr, gstData) => {
               <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
                 <div className={`${styles.head_wrapper}`}>
                   <span className={`${styles.head}`}>Gross Purchases</span>
-                  <span className={`${styles.child} ml-2`}>: {gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value}</span>
+                  <span className={`${styles.child} ml-2`}>
+                    :{' '}
+                    {
+                      gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                        ?.grossPurchases?.current?.value
+                    }
+                  </span>
                 </div>
                 <div className={`${styles.chart}`}>
                   {/* <Line data={dataline} options={lineOption} /> */}

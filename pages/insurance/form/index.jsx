@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './insurance.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../../src/components/SaveBar'
@@ -10,6 +10,8 @@ const Index = () => {
   const changeRoute = () => {
     Router.push('/agreement/OrderID/id')
   }
+
+  const [insuranceType, setInsuranceType] = useState('Marine')
   //   const handleRadioBtn = (e) => {
   //     if (e.target.value == "Both") {
   //       Router.push('/insurance/form/both')
@@ -22,7 +24,9 @@ const Index = () => {
   // }
   return (
     <>
-      <div className={`${styles.card} p-0 datatable bg-transparent card border-0 container-fluid`}>
+      <div
+        className={`${styles.card} p-0 datatable bg-transparent card border-0 container-fluid`}
+      >
         <div className={`${styles.accordion_body} bg-transparent`}>
           <div className={`${styles.head_container} align-items-center`}>
             <div className={`${styles.head_header}`}>
@@ -44,7 +48,9 @@ const Index = () => {
 
           <div className={`${styles.vessel_card}`}>
             <div className={`${styles.wrapper} border_color card datatable`}>
-              <div className={`${styles.insurance_type} d-lg-flex align-items-center d-inline-block`}>
+              <div
+                className={`${styles.insurance_type} d-lg-flex align-items-center d-inline-block`}
+              >
                 <h2 className="mb-0">Insurance Type</h2>
                 <div className={`${styles.radio_form}`}>
                   {['radio'].map((type) => (
@@ -55,8 +61,10 @@ const Index = () => {
                         label="Marine Insurance"
                         name="group1"
                         type={type}
-                        value="Marine Insurance"
-                        //onChange={(e) => { handleRadioBtn(e)}}
+                        value="Marine"
+                        onChange={(e) => {
+                          setInsuranceType('Marine')
+                        }}
                         id={`inline-${type}-1`}
                       />
                       <Form.Check
@@ -65,8 +73,10 @@ const Index = () => {
                         label="Storage Insurance"
                         name="group1"
                         type={type}
-                        value="Storage Insurance"
-                        // onChange={(e) => { handleRadioBtn(e)}}
+                        value="Storage"
+                        onChange={(e) => {
+                          setInsuranceType('')
+                        }}
                         id={`inline-${type}-2`}
                       />
                       <Form.Check
@@ -76,7 +86,9 @@ const Index = () => {
                         name="group1"
                         type={type}
                         value="Both"
-                        // onChange={(e) => { handleRadioBtn(e)}}
+                        onChange={(e) => {
+                          setInsuranceType('')
+                        }}
                         id={`inline-${type}-2`}
                       />
                     </div>
@@ -104,190 +116,353 @@ const Index = () => {
               data-parent="#marineInsurance"
             >
               <div className={` ${styles.cardBody} card-body  border_color`}>
-                <div className={` ${styles.content}`}>
-                  <div className={` ${styles.body}`}>
-                    <Row>
-                      <Col lg={4} md={6} sm={6}>
-                        <div className={`${styles.col_header} label_heading`}>
-                          Commodity
-                        </div>
-                        <div className={styles.col_body}>Iron</div>
-                      </Col>
-                      <Col lg={4} md={6} sm={6}>
-                        <div className={`${styles.col_header} label_heading`}>
-                          Quantity
-                        </div>
-                        <div className={styles.col_body}>5,000.00 MT</div>
-                      </Col>
-                      <Col lg={4} md={6} sm={6}>
-                        <div className={`${styles.col_header} label_heading`}>
-                          Country of Origin
-                        </div>
-                        <div className={styles.col_body}>India</div>
-                      </Col>
-                      <Col lg={4} md={6} sm={6}>
-                        <div className={`${styles.col_header} label_heading`}>
-                          Vessel Name
-                        </div>
-                        <div className={styles.col_body}>Abcz</div>
-                      </Col>
+                {insuranceType === 'Marine' ? (
+                  <>
+                    <div className={` ${styles.content}`}>
+                      <div className={` ${styles.body}`}>
+                        <Row>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Commodity
+                            </div>
+                            <div className={styles.col_body}>Iron</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Quantity
+                            </div>
+                            <div className={styles.col_body}>5,000.00 MT</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Country of Origin
+                            </div>
+                            <div className={styles.col_body}>India</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Vessel Name
+                            </div>
+                            <div className={styles.col_body}>Abcz</div>
+                          </Col>
 
-                      <Col lg={4} md={6} sm={6}>
-                        <div className={`${styles.col_header} label_heading`}>
-                          IMO Number
-                        </div>
-                        <div className={styles.col_body}>5261334</div>
-                      </Col>
-                      <Col lg={4} md={6} sm={6}>
-                        <div className={`${styles.col_header} label_heading`}>
-                          Year of Built
-                        </div>
-                        <div className={styles.col_body}>2019</div>
-                      </Col>
-                      <Col lg={4} md={6} sm={6}>
-                        <div className={`${styles.col_header} label_heading`}>
-                          Port of Loading
-                        </div>
-                        <div className={styles.col_body}>Navasheva</div>
-                      </Col>
-                      <Col lg={4} md={6} sm={6}>
-                        <div className={`${styles.col_header} label_heading`}>
-                          Port of Discharge
-                        </div>
-                        <div className={styles.col_body}>
-                          Gangavaram Port, Andhra Pradesh
-                        </div>
-                      </Col>
-                      <Col className="mb-4 mt-4" md={4}>
-                        <select
-                          className={`${styles.input_field} input form-control`}
-                        >
-                          <option>HDFC Bank</option>
-                          <option>SBI</option>
-                        </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Loss Payee
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </Col>
-                      <Col className="mt-4" lg={2} md={4}>
-                        <div className="d-flex">
-                          <DateCalender labelName="Laycan from" />
-                          <img
-                            className={`${styles.calanderIcon} img-fluid`}
-                            src="/static/caldericon.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </Col>
-                      <Col className="mt-4" lg={2} md={4}>
-                        <div className="d-flex">
-                          <DateCalender labelName="Laycan to" />
-                          <img
-                            className={`${styles.calanderIcon} img-fluid`}
-                            src="/static/caldericon.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </Col>
-                      <Col className="mt-4" lg={4} md={6} sm={6}>
-                        <div className="d-flex">
-                          <DateCalender labelName="Expected time of Dispatch" />
-                          <img
-                            className={`${styles.calanderIcon} img-fluid`}
-                            src="/static/caldericon.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </Col>
-                      <Col className="mt-4" lg={4} md={6} sm={6}>
-                        <div className="d-flex">
-                          <DateCalender labelName="Expected time of Arrival" />
-                          <img
-                            className={`${styles.calanderIcon} img-fluid`}
-                            src="/static/caldericon.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </Col>
-                      <Col className="mt-5" lg={4} md={6} sm={6}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="number"
-                          required
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Sum Insured
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </Col>
-                    </Row>
-                  </div>
-                </div>
-                <hr></hr>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              IMO Number
+                            </div>
+                            <div className={styles.col_body}>5261334</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Year of Built
+                            </div>
+                            <div className={styles.col_body}>2019</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Port of Loading
+                            </div>
+                            <div className={styles.col_body}>Navasheva</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Port of Discharge
+                            </div>
+                            <div className={styles.col_body}>
+                              Gangavaram Port, Andhra Pradesh
+                            </div>
+                          </Col>
+                          <Col className="mb-4 mt-4" md={4}>
+                            <select
+                              className={`${styles.input_field} input form-control`}
+                            >
+                              <option>HDFC Bank</option>
+                              <option>SBI</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Loss Payee
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
+                          <Col className="mt-4" lg={2} md={4}>
+                            <div className="d-flex">
+                              <DateCalender labelName="Laycan from" />
+                              <img
+                                className={`${styles.calanderIcon} img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col className="mt-4" lg={2} md={4}>
+                            <div className="d-flex">
+                              <DateCalender labelName="Laycan to" />
+                              <img
+                                className={`${styles.calanderIcon} img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col className="mt-4" lg={4} md={6} sm={6}>
+                            <div className="d-flex">
+                              <DateCalender labelName="Expected time of Dispatch" />
+                              <img
+                                className={`${styles.calanderIcon} img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col className="mt-4" lg={4} md={6} sm={6}>
+                            <div className="d-flex">
+                              <DateCalender labelName="Expected time of Arrival" />
+                              <img
+                                className={`${styles.calanderIcon} img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col className="mt-5" lg={4} md={6} sm={6}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              type="number"
+                              required
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Sum Insured
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
+                        </Row>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={` ${styles.content}`}>
+                      <div className={` ${styles.body}`}>
+                        <Row>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Commodity
+                            </div>
+                            <div className={styles.col_body}>Iron</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Quantity
+                            </div>
+                            <div className={styles.col_body}>5,000.00 MT</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Country of Origin
+                            </div>
+                            <div className={styles.col_body}>India</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Vessel Name
+                            </div>
+                            <div className={styles.col_body}>Abcz</div>
+                          </Col>
 
-                <div className={` ${styles.content}`}>
-                  <div className={` ${styles.body}`}>
-                    <h5>Storage Details</h5>
-                    <Row>
-                      <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                        <select
-                          className={`${styles.input_field} input form-control`}
-                        >
-                          <option>Visakhapatnam, AP, India</option>
-                          <option>Mumbai</option>
-                        </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Place of Storage
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </Col>
-                      <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="number"
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              IMO Number
+                            </div>
+                            <div className={styles.col_body}>5261334</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Year of Built
+                            </div>
+                            <div className={styles.col_body}>2019</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Port of Loading
+                            </div>
+                            <div className={styles.col_body}>Navasheva</div>
+                          </Col>
+                          <Col lg={4} md={6} sm={6}>
+                            <div
+                              className={`${styles.col_header} label_heading`}
+                            >
+                              Port of Discharge
+                            </div>
+                            <div className={styles.col_body}>
+                              Gangavaram Port, Andhra Pradesh
+                            </div>
+                          </Col>
+                          <Col className="mb-4 mt-4" md={4}>
+                            <select
+                              className={`${styles.input_field} input form-control`}
+                            >
+                              <option>HDFC Bank</option>
+                              <option>SBI</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Loss Payee
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
+                          <Col className="mt-4" lg={2} md={4}>
+                            <div className="d-flex">
+                              <DateCalender labelName="Laycan from" />
+                              <img
+                                className={`${styles.calanderIcon} img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col className="mt-4" lg={2} md={4}>
+                            <div className="d-flex">
+                              <DateCalender labelName="Laycan to" />
+                              <img
+                                className={`${styles.calanderIcon} img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col className="mt-4" lg={4} md={6} sm={6}>
+                            <div className="d-flex">
+                              <DateCalender labelName="Expected time of Dispatch" />
+                              <img
+                                className={`${styles.calanderIcon} img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col className="mt-4" lg={4} md={6} sm={6}>
+                            <div className="d-flex">
+                              <DateCalender labelName="Expected time of Arrival" />
+                              <img
+                                className={`${styles.calanderIcon} img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col className="mt-5" lg={4} md={6} sm={6}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              type="number"
+                              required
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Sum Insured
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
+                        </Row>
+                      </div>
+                    </div>
+                    <hr></hr>
+
+                    <div className={` ${styles.content}`}>
+                      <div className={` ${styles.body}`}>
+                        <h5>Storage Details</h5>
+                        <Row>
+                          <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                            <select
+                              className={`${styles.input_field} input form-control`}
+                            >
+                              <option>Visakhapatnam, AP, India</option>
+                              <option>Mumbai</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Place of Storage
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
+                          <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="number"
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Period of Insurance (days)
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
+                          <Col className="mb-4 mt-4" lg={8} md={6} sm={6}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Storage Plot Address
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
+                        </Row>
+                      </div>
+                    </div>
+                    <hr></hr>
+                    <div className={` ${styles.content}`}>
+                      <div className={` ${styles.body}`}>
+                        <h5>Additional Information (if Any)</h5>
+                        <textarea
+                          className={`${styles.remark_field} form-control`}
+                          as
+                          rows={3}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Period of Insurance (days)
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </Col>
-                      <Col className="mb-4 mt-4" lg={8} md={6} sm={6}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="text"
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Storage Plot Address
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </Col>
-                    </Row>
-                  </div>
-                </div>
-                <hr></hr>
-                <div className={` ${styles.content}`}>
-                  <div className={` ${styles.body}`}>
-                    <h5>Additional Information (if Any)</h5>
-                    <textarea
-                      className={`${styles.remark_field} form-control`}
-                      as
-                      rows={3}
-                    />
-                  </div>
-                </div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
