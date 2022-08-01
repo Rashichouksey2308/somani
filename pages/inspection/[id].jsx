@@ -7,21 +7,8 @@ import { GetOrders } from '../../src/redux/registerBuyer/action'
 import Filter from '../../src/components/Filter'
 
 function Index() {
-  const dispatch = useDispatch()
-  const { allVessel, Vessel } = useSelector((state) => state.vessel)
-  console.log(allVessel, Vessel, 'allVessel')
-
-  useEffect(() => {
-    dispatch(GetAllVessel())
-  }, [])
-
-  const handleRoute = (vessel) => {
-    sessionStorage.setItem('VesselCompany', vessel.order._id)
-    sessionStorage.setItem('VesselId', vessel._id)
-    dispatch(GetVessel(`?vesselId=${vessel._id}`))
-    setTimeout(() => {
-      Router.push('/vessel-nomination/id')
-    }, 500)
+  const handleRoute = () => {
+    Router.push('/third-party')
   }
 
   return (
@@ -34,7 +21,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>Vessel Nomination </h1>
+            <h1 className={styles.heading}>Inspection </h1>
           </div>
           <div className={styles.search}>
             <div className="input-group">
@@ -71,7 +58,7 @@ function Index() {
           <div
             className={`${styles.tableFilter} shadow-none align-items-center d-flex justify-content-between border-0 d-flex`}
           >
-            <h3 className="heading_card">Vessel Nomination</h3>
+            <h3 className="heading_card">Inspection</h3>
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
@@ -117,31 +104,28 @@ function Index() {
                         alt="Sort icon"
                       />
                     </th>
-                    <th>BUYER NAME</th>
+                    <th>COMMODITY NAME</th>
                     <th>CREATED BY</th>
                     <th>STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {allVessel &&
-                    allVessel?.data?.map((vessel, index) => (
-                      <tr key={index} className="table_row">
-                        <td>{vessel?.order?._id}</td>
-                        <td
-                          className={styles.buyerName}
-                          onClick={() => handleRoute(vessel)}
-                        >
-                          {vessel?.company?.companyName}
-                        </td>
-                        <td>RM-Sales</td>
-                        <td>
-                          <span
-                            className={`${styles.status} ${styles.review}`}
-                          ></span>
-                          Pending
-                        </td>
-                      </tr>
-                    ))}
+                  <tr className="table_row">
+                    <td>12</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => handleRoute()}
+                    >
+                      Iron
+                    </td>
+                    <td>RM-Sales</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.review}`}
+                      ></span>
+                      Pending
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
