@@ -57,13 +57,14 @@ const index = ({
     pinCode: null,
   })
 
+  console.log(keyAddressData,"keyAddressData")
   useEffect(() => {
     const newInput = {...keyAddressData}
     newInput.GSTIN_document.name = gstDocument.name
     newInput.GSTIN_document.path = gstDocument.path
     newInput.GSTIN_document.date = gstDocument.date
       setKeyAddressData(newInput)
-  }, [gstDocument, keyAddressData])
+  }, [gstDocument])
   
   //const [deleteRow, setDeleteRow] = useState(true)
 
@@ -148,8 +149,11 @@ const index = ({
   }
 
   const handleChange = (name, value) => {
+   
     const newInput = { ...keyAddressData }
     newInput[name] = value
+    
+    
     // console.log(newInput)
     setKeyAddressData(newInput)
   }
@@ -555,7 +559,7 @@ const index = ({
             </div>
             <div className={`${styles.saveButton} m-0 mt-4`}>
               <div
-                className={`${styles.button} ml-0`}
+                className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
                 onClick={() => {
                   if (!updatingCreditCalculate) {
                     handleProductSave()
