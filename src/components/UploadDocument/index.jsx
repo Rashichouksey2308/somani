@@ -35,7 +35,7 @@ const Index = () => {
             <tbody>
            
             <tr className='table_row'>
-                <td className={styles.doc_name}>Nomination Document<strong className="text-danger">*</strong></td>
+                <td className={styles.doc_name}>Vessel Certificate<strong className="text-danger">*</strong></td>
                 <td>
                 <img src="/static/pdf.svg" className={`${styles.pdfImage} img-fluid`} alt="Pdf" />
                   </td>

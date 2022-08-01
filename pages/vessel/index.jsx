@@ -6,7 +6,10 @@ import _get from "lodash/get";
 import VesselSaveBar from '../../src/components/VesselSaveBar'
 import DateCalender from '../../src/components/DateCalender'
 import { useDispatch, useSelector } from 'react-redux'
-import {GetVessel , UpdateVessel} from '../../src/redux/vessel/action'
+import { GetVessel, UpdateVessel, UploadDocVessel } from '../../src/redux/vessel/action'
+//Api
+import * as types from './actionType'
+import API from '../../utils/endpoints'
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -22,6 +25,11 @@ export default function Home() {
   }, [dispatch])
 
   const [list, setList] = useState()
+  const [containerExcel, setContainerExcel] = useState({})
+  const [vesselCertificate, setVesselCertificate] = useState({})
+  const [containerListDocument, setContainerListDocument] = useState({})
+
+
 
 
   useEffect(() => {
@@ -252,8 +260,39 @@ export default function Home() {
   }
   console.log(list, 'arrayvessel')
 
-  const uploadDocHandler = () => {
-
+  const uploadDocHandler = (e) => {
+    let uploadDocType = e.target.id
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      Axios.post(`${API.corebaseUrl}${API.getVessel}`, e.target.files[0], {
+        headers: headers,
+      }).then((response) => {
+        if (response.data.code === 200) {
+          if (uploadDocType === 'containerExcel') {
+            setContainerExcel(response.data.data)
+          }
+          if (uploadDocType === 'vesselCertificate') {
+            setVesselCertificate(response.data.data)
+          }
+          if (uploadDocType === 'containerListDocument') {
+            setContainerListDocument(response.data.data)
+          }
+        } else {
+          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        }
+      })
+    } catch (error) {
+      let toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
   }
 
   const shippingInfoChangeHandler = (e, index) => {
@@ -276,16 +315,24 @@ export default function Home() {
     })
   }
 
-
   const onSaveHandler = () => {
     const payload = {
       vesselId: id,
-      vessels : [...list]
+      vessels: [...list]
     }
-    console.log(payload,'vessels123456')
+    if (containerListDocument) {
+      payload.containerListDocument = containerListDocument
+    }
+    if (vesselCertificate) {
+      payload.vesselCertificate = vesselCertificate
+    }
+    if (containerExcel) {
+      payload.containerExcel = containerExcel
+    }
+
+    console.log(payload, 'vessels123456')
     dispatch(UpdateVessel(payload))
   }
-
 
   return (
     <>
@@ -307,9 +354,7 @@ export default function Home() {
         onVesselInfoChangeHandlerForLiner={onVesselInfoChangeHandlerForLiner}
         uploadDocHandler={uploadDocHandler}
         shippingInfoChangeHandler={shippingInfoChangeHandler}
-
       />
-
       <div className="mt-5">
         <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" />
       </div>

@@ -43,7 +43,6 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
         <div className={`${styles.vessel_card}`}>
           {list &&
             list.map((val, index) => {
-
               return (
                 <div
                   key={index}
@@ -54,7 +53,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                   >
                     {list[index].shipmentType === 'Bulk' ? (
                       <h3 className={`${styles.heading}`}>
-                        Vessel Information 1
+                        Vessel Information {index + 1}
                       </h3>
                     ) : (
                       <h3 className={`${styles.heading}`}>Basic Details</h3>
@@ -576,7 +575,11 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                         <div
                           className={`${styles.form_group} d-flex justify-content-start`}
                         >
-                          <button onClick={uploadDocHandler} className={`${styles.upload_btn}`}>
+                          <button  className={`${styles.upload_btn}`}
+                            // onChange={(e) => uploadDocument2(e)}
+                            type="file"
+                            name="myfile"
+                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,">
                             Upload Excel
                           </button>
                           <div className={`${styles.upload_text}`}>
@@ -591,7 +594,6 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                 </div>
               )
             })}
-
           <UploadDocument />
           <div className="mb-5">
             <UploadOther module='Agreements,Insurance,LcOpening' orderid={id1} />
