@@ -7,9 +7,7 @@ import BillLanding from '../../src/components/BillLading'
 import CIMS from '../../src/components/CIMS'
 import IGM from '../../src/components/IGM'
 
-
 function Index() {
-
   const [darkMode, setDarkMode] = useState(false)
 
   return (
@@ -79,49 +77,37 @@ function Index() {
                 IGM
               </a>
             </li>
-           
           </ul>
         </div>
-       
-        <div className="container-fluid">
+
+        <div className={`${styles.mainCard} container-fluid`}>
           <div className="row">
             <div className="col-md-12 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane show active fade"
                   id="billLanding"
-                  role="tabpanel">
+                  role="tabpanel"
+                >
                   <div className={`${styles.card}  accordion_body`}>
                     <BillLanding />
                   </div>
                 </div>
-                <div
-                  className="tab-pane fade"
-                  id="cims"
-                  role="tabpanel">
+                <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <CIMS />
                   </div>
                 </div>
-                <div
-                  className="tab-pane fade"
-                  id="igm"
-                  role="tabpanel">
+                <div className="tab-pane fade" id="igm" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <IGM />
                   </div>
                 </div>
-
-               
-
-               
               </div>
             </div>
           </div>
         </div>
-
       </div>
-      
     </>
   )
 }
