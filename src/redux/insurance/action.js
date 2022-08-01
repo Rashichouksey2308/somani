@@ -57,6 +57,25 @@ function updateInsuranceFailed() {
   }
 }
 
+function updateQuotation() {
+  return {
+    type: types.UPDATE_QUOTATION,
+  }
+}
+
+function updateQuotationSuccess(payload) {
+  return {
+    type: types.UPDATE_QUOTATION_SUCCESSFULL,
+    payload,
+  }
+}
+
+function updateQuotationFailed() {
+  return {
+    type: types.UPDATE_QUOTATION_FAILED,
+  }
+}
+
 export const GettingAllInsurance =
   (payload) => async (dispatch, getState, api) => {
     try {
@@ -157,6 +176,40 @@ export const UpdateInsurance =
     } catch (error) {
       dispatch(updateInsuranceFailed())
       let toastMessage = 'UPDATE INSURANCE REQUEST FAILED'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
+  }
+export const UpdateQuotation =
+  (payload) => async (dispatch, getState, api) => {
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      Axios.put(`${API.corebaseUrl}${API.updateQuotation}`, payload, {
+        headers: headers,
+      }).then((response) => {
+        if (response.data.code === 200) {
+          dispatch(updateQuotationSuccess(response.data))
+          let toastMessage = 'SAVED SUCCESSFULLY'
+          if (!toast.isActive(toastMessage)) {
+            toast.success(toastMessage, { toastId: toastMessage })
+          }
+        //   router.push('/margin-money')
+        } else {
+          dispatch(updateQuotationFailed(response.data))
+          let toastMessage = 'UPDATE REQUEST FAILED'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        }
+      })
+    } catch (error) {
+      dispatch(updateQuotationFailed())
+      let toastMessage = 'UPDATE QUOTATION REQUEST FAILED'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
