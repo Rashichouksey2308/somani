@@ -1,0 +1,34 @@
+.wrapper{
+    width: 873px;
+    height: 545px;
+    border-radius: 6px;
+   
+        .title{
+            position: relative;
+            .blue {
+                    color: #3687E8;
+                    font-size: 22px;
+                    font-weight: 27px;
+                    font-weight: bold;
+                }
+            
+                div {
+                    font-size: 20px;
+                    font-weight: 25px;
+                    font-weight: 500;
+            
+                    span {
+                        color: #00000080;
+                        font-size: 16px;
+                        font-weight: 17px;
+                        font-weight: 500;
+                        letter-spacing: 0.53px;
+                    }
+                }
+                img {
+                    position: absolute;
+                }
+        }
+    
+   
+}
