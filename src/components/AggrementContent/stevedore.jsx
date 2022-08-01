@@ -388,7 +388,7 @@ const handleEditAddressInput=(index)=>{
                             handleChangeInput(e.target.name,e.target.value,index)
                           }}
                           ></input></td>
-                          <td className={`d-flex  justify-content-between`}>
+                          <td className={`d-flex`}>
                             <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(onEditRemove(index))} src="/static/mode_edit.svg" alt="edit"/>
                             <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
                           </td>

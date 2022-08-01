@@ -155,7 +155,7 @@ function Index() {
                           <td><input type="text" placeholder={val.designation}></input></td>
                           <td><input type="text" placeholder={val.email}></input></td>
                           <td><input type="text" placeholder={val.phone}></input></td>
-                          <td className={`d-flex  justify-content-between`}>
+                          <td className={`d-flex`}>
                             <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(handleRemove(index))} src="/static/mode_edit.svg" alt="edit"/>
                             <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"/>
                           </td>

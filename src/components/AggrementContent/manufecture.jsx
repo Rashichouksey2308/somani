@@ -512,7 +512,7 @@ const editNewAddress=(name,value)=>{
                           <td>{val.designation}</td>
                           <td>{val.email}</td>
                           <td>{val.phoneNo}</td>
-                          <td className={`d-flex justify-content-start`}>
+                          <td className={`d-flex`}>
                           <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
                           <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
