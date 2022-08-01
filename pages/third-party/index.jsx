@@ -6,6 +6,7 @@ import styles from './index.module.scss'
 import ThirdPartyInspection from '../../src/components/ThirdPartyInspection'
 import PlotInspection from '../../src/components/PlotInspection'
 import Appointment from '../../src/components/Appointment'
+// import Letter from '../../src/components/LetterIndermity'
 
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
@@ -70,6 +71,18 @@ function Index() {
                 Plot Inspection
               </a>
             </li>
+                {/* <li className={`${styles.navItem} nav-item`}>
+              <a
+                className={`${styles.navLink} navLink nav-link `}
+                data-toggle="tab"
+                href="#demo"
+                role="tab"
+                aria-controls="demo"
+                aria-selected="false"
+              >
+               demo
+              </a>
+            </li> */}
           </ul>
         </div>
 
@@ -101,6 +114,15 @@ function Index() {
                     <PlotInspection />
                   </div>
                 </div>
+                  {/* <div
+                  className="tab-pane fade"
+                  id="demo"
+                  role="tabpanel"
+                >
+                  <div className={`${styles.card}  accordion_body`}>
+                    <Letter />
+                  </div>
+                </div> */}
               </div>
             </div>
           </div>

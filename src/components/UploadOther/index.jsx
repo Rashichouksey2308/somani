@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
@@ -13,7 +14,7 @@ const Index = ({ orderid,module }) => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(GetDocuments(`?order=${orderid}`))
-  }, [orderid])
+  }, [dispatch, orderid])
   console.log(orderid, 'orderid')
   const { documentsFetched } = useSelector((state) => state.review)
 

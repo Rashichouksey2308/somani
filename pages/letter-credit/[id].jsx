@@ -461,7 +461,7 @@ function Index() {
           </div>
 
           {/* Document*/}
-          <InspectionDocument />
+          <InspectionDocument orderId={lcModuleData?.order?._id} />
         </div>
       </div>
       <SaveBar handleSave={handleSubmit} rightBtn="Share" />
