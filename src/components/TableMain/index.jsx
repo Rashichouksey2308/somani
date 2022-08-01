@@ -1,5 +1,8 @@
-import React from 'react'
+/* eslint-disable @next/next/no-img-element */
+import React, {useState, useEffect} from 'react'
 import styles from './index.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import { GettingAllInsurance } from 'redux/insurance/action'
 
 function Index({
   tableName,
@@ -8,6 +11,20 @@ function Index({
   dateHeading,
   handleRoute,
 }) {
+
+  const dispatch = useDispatch()
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const {insuranceResponse} = useSelector((state)=>state.insurance)
+
+  console.log(insuranceResponse, "INSURANCE RESPONSE")
+
+  useEffect(() => {
+   dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
+  }, [dispatch, currentPage])
+
+
   return (
     <div className={`${styles.datatable} datatable card`}>
       <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
@@ -15,16 +32,35 @@ function Index({
         <div
           className={`${styles.pageList} d-flex justify-content-end align-items-center`}
         >
-          <span>Showing Page 1 out of 10</span>
-          <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
-            {' '}
-            <img
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="arrow right"
-              className="img-fluid"
-            />
-          </a>
-          <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
+        <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(insuranceResponse?.totalCount / 7)}
+                </span>
+                <a
+                  onClick={() => {
+                    if (currentPage === 0) {
+                      return
+                    } else {
+                      setCurrentPage((prevState) => prevState - 1)
+                    }
+                  }}
+                  href="#"
+                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
+                >
+                  {' '}
+                  <img
+                    src="/static/keyboard_arrow_right-3.svg"
+                    alt="arrow right"
+                    className="img-fluid"
+                  />
+                </a>
+                <a
+                  onClick={() => {
+                    if (currentPage + 1 < Math.ceil(insuranceResponse?.totalCount / 7)) {
+                      setCurrentPage((prevState) => prevState + 1)
+                    }
+
+                  }} href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
             <img
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
@@ -76,19 +112,19 @@ function Index({
               </tr>
             </thead>
             <tbody>
-              <tr className="table_row">
-                <td>124621</td>
+            { insuranceResponse && insuranceResponse?.data?.map((insured, index) => ( <tr key={index} className="table_row">
+                <td>{insured?.order?.orderId}</td>
                 <td
                   className={styles.buyerName}
                   onClick={() => {
-                    handleRoute()
+                    handleRoute(insured)
                   }}
                 >
-                  Ramakrishna Traders
+                  {insured?.company?.companyName}
                 </td>
-                <td>Iron</td>
-                <td>Abcz</td>
-                <td>22-02-2022</td>
+                <td>{insured?.order?.commodity}</td>
+                <td>{insured?.insuranceType}</td>
+                <td>{insured?.createdAt?.split('T')[0]}</td>
                 <td>
                   <span className={`${styles.status} ${styles.review}`}></span>
                   On-Hold
@@ -100,8 +136,8 @@ function Index({
                     alt="edit"
                   />
                 </td>
-              </tr>
-              <tr className="table_row">
+              </tr>))}
+              {/* <tr className="table_row">
                 <td>124621</td>
                 <td
                   className={styles.buyerName}
@@ -256,7 +292,7 @@ function Index({
                     alt="edit"
                   />
                 </td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>

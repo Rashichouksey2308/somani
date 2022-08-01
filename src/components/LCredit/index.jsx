@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
@@ -12,7 +12,13 @@ import InspectionDocument from '../InspectionDocument'
 function Index() {
   const dispatch = useDispatch()
 
-  const [editInput, setEditInput] = useState(true)
+  const [editInput, setEditInput] = useState(false)
+  const [editCurrent , setEditCurrent] = useState()
+
+  const handleEdit = (val) => {
+    setEditCurrent(val)
+    setEditInput(true)
+  }
 
   const { lcModule } = useSelector((state) => state.lc)
 
@@ -24,6 +30,11 @@ function Index() {
   }, [dispatch])
 
   const [lcData, setLcData] = useState()
+
+  // useEffect(() => {
+  //   sessionStorage.setItem('lcData', lcData)
+  // }, [lcData, lcModuleData])
+  
 
   // console.log(lcData, "THIS IS LC USE STATE")
 
@@ -71,9 +82,55 @@ function Index() {
         lcModuleData?.lcApplication?.documentaryCreditNumber,
       dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
     })
+
+    setClauseData({
+      formOfDocumentaryCredit:
+      lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+    applicableRules: lcModuleData?.lcApplication?.applicableRules,
+    dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+    placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+    lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank,
+    applicant: lcModuleData?.lcApplication?.applicant,
+    beneficiary: lcModuleData?.lcApplication?.beneficiary,
+    currecyCodeAndAmountValue:
+      lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+    currecyCodeAndAmountUnit:
+      lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+    tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+    creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+    creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+    atSight: lcModuleData?.lcApplication?.atSight,
+    numberOfDays: lcModuleData?.lcApplication?.numberOfDays,
+    drawee: lcModuleData?.lcApplication?.drawee,
+    deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+    partialShipment: lcModuleData?.lcApplication?.partialShipment,
+    transhipments: lcModuleData?.lcApplication?.transhipments,
+    shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+    portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+    portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+    latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+    DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+    presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
+    confirmationInstructions:
+      lcModuleData?.lcApplication?.confirmationInstructions,
+    reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
+    adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
+    secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
+    requestedConfirmationParty:
+      lcModuleData?.lcApplication?.requestedConfirmationParty,
+    charges: lcModuleData?.lcApplication?.charges,
+    instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
+    senderToReceiverInformation:
+      lcModuleData?.lcApplication?.senderToReceiverInformation,
+    documentaryCreditNumber:
+      lcModuleData?.lcApplication?.documentaryCreditNumber,
+    dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
+    })
   }, [lcModuleData])
 
   console.log(lcData, 'LC DATA')
+
+ 
 
   const saveAmendmentData = (name, value) => {
     const newInput = { ...lcData }
@@ -87,39 +144,41 @@ function Index() {
     saveAmendmentData(name, text)
   }
 
-  // const [clauseData, setClauseData] = useState([
-  //   {
-  //     formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
-  //     applicableRules: lcModuleData?.lcApplication?.applicableRules,
-  //     dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
-  //     placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-  //     applicant: lcModuleData?.lcApplication?.applicant,
-  //     beneficiary: lcModuleData?.lcApplication?.beneficiary,
-  //     currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-  //     currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
-  //     tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
-  //     creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
-  //     creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
-  //     atSight: lcModuleData?.lcApplication?.atSight,
-  //     drawee: lcModuleData?.lcApplication?.drawee,
-  //     deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
-  //     partialShipment: lcModuleData?.lcApplication?.partialShipment,
-  //     transhipments: lcModuleData?.lcApplication?.transhipments,
-  //     shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
-  //     portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
-  //     portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
-  //     latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
-  //     DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
-  //   },
-  // ])
+  const [clauseData, setClauseData] = useState(
+    // {
+    //   formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+    //   applicableRules: lcModuleData?.lcApplication?.applicableRules,
+    //   dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+    //   placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+    //   applicant: lcModuleData?.lcApplication?.applicant,
+    //   beneficiary: lcModuleData?.lcApplication?.beneficiary,
+    //   currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+    //   currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+    //   tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+    //   creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+    //   creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+    //   atSight: lcModuleData?.lcApplication?.atSight,
+    //   drawee: lcModuleData?.lcApplication?.drawee,
+    //   deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+    //   partialShipment: lcModuleData?.lcApplication?.partialShipment,
+    //   transhipments: lcModuleData?.lcApplication?.transhipments,
+    //   shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+    //   portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+    //   portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+    //   latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+    //   DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+    // },
+  )
 
-  // console.log(clauseData, 'CLAUSE DATA')
+  console.log(clauseData, 'CLAUSE DATA')
 
   const [clauseObj, setClauseObj] = useState({
     existingValue: '',
     dropDownValue: '',
     newValue: '',
   })
+
+  const inputRef = useRef(null);
 
   // console.log(clauseObj, 'this is ccccc')
 
@@ -129,13 +188,16 @@ function Index() {
   const [drop, setDrop] = useState('')
 
   const dropDownChange = (e) => {
+
+    inputRef.current.value = "";
+
     let newInput = { ...clauseObj }
 
     let val1 = e.target.options[e.target.selectedIndex].text
     let val2 = e.target.value
     setDrop(val2)
 
-    newInput['existingValue'] = lcData[e.target.value]
+    newInput['existingValue'] = clauseData[e.target.value]
     newInput['dropDownValue'] = val1
 
     setClauseObj(newInput)
@@ -146,13 +208,14 @@ function Index() {
     newInput[name] = value
     setClauseObj(newInput)
 
-    const newInput1 = { ...lcData }
+    const newInput1 = { ...clauseData }
     newInput1[drop] = value
     // console.log(newInput1, "NEW INPUT 1")
-    setLcData(newInput1)
+    setClauseData(newInput1)
   }
 
   const addToArr = () => {
+    
     const newArr = [...clauseArr]
 
     newArr.push(clauseObj)
@@ -165,14 +228,6 @@ function Index() {
       return item.dropDownValue !== arr
     })
     setClauseArr(newClause)
-  }
-
-  const handleDropdown = (e) => {
-    if (e.target.value == 'Others') {
-      setEditInput(false)
-    } else {
-      setEditInput(true)
-    }
   }
 
   const handleSubmit = () => {
@@ -255,6 +310,7 @@ function Index() {
                           required
                           type="text"
                           name="documentaryCreditNumber"
+                          defaultValue={lcData?.documentaryCreditNumber}
                           onChange={(e) =>
                             saveAmendmentData(e.target.name, e.target.value)
                           }
@@ -270,6 +326,7 @@ function Index() {
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfIssue"
+                            defaultDate={lcData?.dateOfIssue?.split('T')[0]}
                             saveDate={saveDate}
                             labelName="(31C) Date Of Issue"
                           />
@@ -291,6 +348,7 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
+                            defaultValue={editInput ? editCurrent?.dropDownValue : ''}
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
@@ -370,7 +428,7 @@ function Index() {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
-                          value={clauseObj?.existingValue}
+                          value={ editInput ? editCurrent.existingValue : clauseObj?.existingValue}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -384,6 +442,8 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            ref={inputRef}
+                            defaultValue={editInput ? editCurrent?.newValue : ''}
                             onChange={(e) =>
                               arrChange('newValue', e.target.value)
                             }
@@ -441,6 +501,7 @@ function Index() {
                                         src="/static/mode_edit.svg"
                                         className="img-fluid ml-n5"
                                         alt="edit"
+                                        onClick={()=>handleEdit(arr)}
                                       />
                                       <img
                                         src="/static/delete 2.svg"
@@ -482,7 +543,9 @@ function Index() {
           </div>
 
           {/* Document*/}
-          <InspectionDocument />
+          <div className="mt-4 mb-5">
+            <InspectionDocument orderId={lcModuleData?.order?._id} />
+          </div>
         </div>
       </div>
       <SubmitBar handleSubmit={handleSubmit} />
