@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
-import Filter from '../../src/components/Filter'
+import Filter from '../../../src/components/Filter'
 
 const index = () => {
   return (

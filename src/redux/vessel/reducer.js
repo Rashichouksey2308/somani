@@ -5,7 +5,9 @@ const initialState = {
     allVessel: null,
     Vessel: null,
     updatingVessel: false,
-    
+    uploadingDoc: false,
+    uploadedDoc : {}
+
 
 }
 
@@ -43,8 +45,6 @@ function VesselReducer(state = initialState, action) {
                 ...state,
                 gettingVessel: false,
             }
-
-
         case types.UPDATE_VESSEL:
             return {
                 ...state,
@@ -61,6 +61,22 @@ function VesselReducer(state = initialState, action) {
                 updatingVessel: false,
             }
 
+        case types.UPLOAD_DOC_VESSEL:
+            return {
+                ...state,
+                uploadingDoc: true,
+            }
+        case types.UPLOAD_DOC_VESSEL_SUCCESS:
+            return {
+                ...state,
+                uploadingDoc: false,
+                uploadedDoc: action.payload
+            }
+        case types.UPLOAD_DOC_VESSEL_FAILED:
+            return {
+                ...state,
+                uploadingDoc: false,
+            }
         default:
             return state
     }
