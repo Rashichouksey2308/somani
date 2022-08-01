@@ -223,7 +223,7 @@ function Index() {
                         </tr>
                         :<tr key={index} className='table_row'>
                           <td>
-                            <select class={`${styles.customSelect}`}>
+                            <select className={`${styles.customSelect}`}>
                               <option>{val.name}</option>
                             </select>
                             <img

@@ -283,7 +283,7 @@ function Index(props) {
                             : <tr key={index} className='table_row'>
                               <td>
                                 <select
-                                  value="name" class={`${styles.customSelect}`}
+                                  value="name" className={`${styles.customSelect}`}
                                   onChange={(e) => {
                                     handleChangeInput(e.target.name, e.target.value, index)
                                   }}
