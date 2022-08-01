@@ -13,7 +13,7 @@ function Index() {
 
   return (
     <>
-      <div className={`${styles.dashboardTab} tabHeader w-100`}>
+      <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
@@ -86,7 +86,7 @@ function Index() {
           </ul>
         </div>
 
-        <div className="container-fluid">
+        <div className="container-fluid p-0">
           <div className="row">
             <div className="col-md-12 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>

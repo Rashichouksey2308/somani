@@ -139,9 +139,6 @@ const Index = ({ orderid,module }) => {
                   </div>
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
-                  <Form.Label className={`${styles.label} label_heading`}>
-                    Please Specify Document Name
-                  </Form.Label>
                   <input
                     onChange={(e) =>
                       setNewDoc({ ...newDoc, name: e.target.value })
@@ -151,6 +148,9 @@ const Index = ({ orderid,module }) => {
                     placeholder="Insurance Quotation"
                     disabled={manualDocModule}
                   />
+                  <Form.Label className={`${styles.label} label_heading`}>
+                    Please Specify Document Name
+                  </Form.Label>
                 </Form.Group>
                 <div
                   onClick={(e) => uploadDocumentHandler(e)}
