@@ -74,13 +74,14 @@ export default {
   updateGeneric: '/api/core/generic',
 
   //Vessel Nomination
-  getVessel:'/api/core/vessel',
+  getVessel: '/api/core/vessel',
   uploadDocVessel: '/api/core/vessel/upload-doc',
-  
+
   //getGstKarza
-  getGstKarza:'/api/core/lead/refetch-gst-karza',
+  getGstKarza: '/api/core/lead/refetch-gst-karza',
 
   // Insurance
 
   getInsurance: '/api/core/insurance',
+  updateQuotation: '/api/core/insurance/quotation',
 }
