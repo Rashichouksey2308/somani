@@ -16,6 +16,7 @@ import TermsheetPopUp from '../src/components/TermsheetPopUp'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName } from '../src/redux/userData/action'
+import Popup from '../src/components/Popups/BillPopup/index'
 
 const IndexPage = () => {
   const router = useRouter()
@@ -26,6 +27,7 @@ const IndexPage = () => {
   })
   return (
     <>
+      <Popup />
       <div className={`${styles.root_Container} background container-fluid`}>
         <div className={`${styles.head_Container} row`}>
           <div className={`${styles.dashboardPadding} col-lg-6`}>
