@@ -8,8 +8,8 @@ import DateCalender from '../../src/components/DateCalender'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetVessel, UpdateVessel, UploadDocVessel } from '../../src/redux/vessel/action'
 //Api
-import * as types from './actionType'
-import API from '../../utils/endpoints'
+import * as types from '../../src/redux/vessel/actionType'
+import API from '../../src/utils/endpoints'
 
 export default function Home() {
   const dispatch = useDispatch()
