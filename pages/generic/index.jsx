@@ -5,12 +5,14 @@ import styles from './index.module.scss'
 import SalesAgreement from '../../src/components/SalesAgreement'
 import Cookies from 'js-cookie'
 import API from '../../src/utils/endpoints'
+import { useDispatch, useSelector } from 'react-redux'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 
 
 
 function Index(props) {
   console.log("🚀 ~ file: index.jsx ~ line 9 ~ Index ~ props", props)
-
+  const dispatch = useDispatch()
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
 
@@ -25,6 +27,11 @@ function Index(props) {
     }
 
   }, [])
+  useEffect(() => {
+    dispatch(setPageName('generic'))
+    dispatch(setDynamicName(sessionStorage.getItem('genericID')))
+    
+  })
 
 
   return (

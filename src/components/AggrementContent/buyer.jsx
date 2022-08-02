@@ -232,7 +232,7 @@ function Index(props) {
             </div>
           </div>
         </div>
-        <div className={`${styles.tableContainer} border-color card p-0`}>
+         <div className={`${styles.tableContainer} border-color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
             data-toggle="collapse"
@@ -252,7 +252,7 @@ function Index(props) {
             id="customerDetail"
             className={`collapse ${styles.body}  value_card card-body row`}
             aria-labelledby="customerDetail"
-
+        
           >
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
@@ -265,70 +265,86 @@ function Index(props) {
                     <th>ACTION</th>
                   </tr>
                   <tbody>
-                    {list.length > 0 && list.map((val, index) => {
-                      return (
+                    {list.length>0 && list.map((val,index)=>{
+                      return(
                         <>
-                          {val.actions == "true" ?
-                            <tr key={index} className='table_row'>
-                              <td>{val.name}</td>
-                              <td>{val.designation}</td>
-                              <td>{val.email}</td>
-                              <td>{val.phone}</td>
-                              <td className={`d-flex justify-content-between`}>
-                                <img onClick={() => (onEdit(index))} src="/static/add-btn.svg" />
+                        {val.actions=="true"?
+                        <tr key={index} className='table_row'>
+                          <td>{val.name}</td>
+                          <td>{val.designation}</td>
+                          <td>{val.email}</td>
+                          <td>{val.phoneNo}</td>
+                          <td className={`d-flex`}>
+                          <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
+                          </td>
 
-                              </td>
+                        </tr>
+                        :<tr key={index} className='table_row'>
+                          <td>
+                            <select 
+                            value="name" className={`${styles.customSelect}`}
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                            }}>
+                              <option value={"Dr.amin"}>{"Dr.amin"}</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow2} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </td>
+                          <td><input type="text" 
+                          placeholder={val.designation}
+                          name= "designation"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td><input type="text" placeholder={val.email}
+                          name= "email"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td><input type="text" placeholder={val.phoneNo}
+                          name= "phoneNo"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td className={`d-flex`}>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                              onClick={()=>{
+                              onEditRemove(index)
+                              }}
+                            >
+                              <img className={`${styles.image} img-fluid mr-3`} src="/static/save-3.svg" alt="save"/>
+                            </div>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                              onClick={()=>{
+                              handleRemove(index)
+                              }}
+                            >
+                              <img src="/static/delete 2.svg" />
+                            </div>
+                            {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
+                          </td>
 
-                            </tr>
-                            : <tr key={index} className='table_row'>
-                              <td>
-                                <select
-                                  value="name" className={`${styles.customSelect}`}
-                                  onChange={(e) => {
-                                    handleChangeInput(e.target.name, e.target.value, index)
-                                  }}
-                                >
-                                  <option>{val.name}</option>
-                                </select>
-                                <img
-                                  className={`${styles.arrow2} img-fluid`}
-                                  src="/static/inputDropDown.svg"
-                                  alt="Search"
-                                />
-                              </td>
-                              <td><input type="text"
-                                placeholder={val.designation}
-                                name="designation"
-                                onChange={(e) => {
-                                  handleChangeInput(e.target.name, e.target.value, index)
-                                }}></input></td>
-                              <td><input type="text" placeholder={val.email}
-                                name="email"
-                                onChange={(e) => {
-                                  handleChangeInput(e.target.name, e.target.value, index)
-                                }}
-                              ></input></td>
-                              <td><input type="text" placeholder={val.phone}
-                                name="phoneNo"
-                                onChange={(e) => {
-                                  handleChangeInput(e.target.name, e.target.value, index)
-                                }}
-                              ></input></td>
-                              <td className={`d-flex  justify-content-between`}>
-                                <img onClick={() => (onEditRemove(index))} src="/static/add-btn.svg" />
-
-                              </td>
-
-                            </tr>}
+                        </tr>}
                         </>
                       )
                     })}
                   </tbody>
                 </table>
-                <div className={`${styles.addMoreRows}`} onClick={(e) => {
+                <div className={`${styles.addMoreRows}`} onClick={(e)=>{
                   addMoreRows()
                   }}>
-                  <span>+</span>  Add more rows
+                  <span style={{fontSize:"2rem"}} className={`mr-2`}>+</span>  Add more rows
                 </div>
               </div>
             </div>

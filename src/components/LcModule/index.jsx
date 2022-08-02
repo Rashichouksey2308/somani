@@ -32,7 +32,7 @@ function Index() {
     sessionStorage.setItem('lcAmmend', lc.order.lc)
     Router.push('/letter-credit')
   }
-
+console.log(lcModule,"lcModule")
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>

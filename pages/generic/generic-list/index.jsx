@@ -6,10 +6,10 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../../src/redux/registerBuyer/action'
-import { setPageName, setDynamicName } from '../../../src/redux/userData/action'
-import { GetTermsheet } from '../../../src/redux/buyerProfile/action'
+
 import Cookies from 'js-cookie'
 import API from '../../../src/utils/endpoints'
+import { setPageName,setDynamicName } from '../../../src/redux/userData/action'
 
 function Index(props) {
   console.log("🚀 ~ file: index.jsx ~ line 14 ~ Index ~ props", props)
@@ -19,7 +19,10 @@ function Index(props) {
   const { singleOrder } = useSelector((state) => state.buyer)
   const { termsheet } = useSelector((state) => state.order)
 
-
+ useEffect(() => {
+    dispatch(setPageName('generic'))
+    dispatch(setDynamicName(null))
+  })
 
 
 
@@ -37,6 +40,7 @@ function Index(props) {
    
     sessionStorage.setItem('genericID', term)
     Router.push("/generic")
+     dispatch(setDynamicName(term))
     // Router.push('/lc-module')
   }
 
@@ -197,10 +201,10 @@ function Index(props) {
                   <thead>
                     <tr className="table_row">
                       <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
-                      <th>COMMODITY</th>
+                    
                       <th>CREATED BY</th>
                       <th>CREATED ON</th>
-                      <th>STATUS</th>
+                    
 
                     </tr>
                   </thead>
@@ -212,8 +216,8 @@ function Index(props) {
                     <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.order?.commodity}</td>
 
                     <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
-                    <td>{term?.order?.createdAt?.slice(0, 10)}</td>
-                    <td>
+                    {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
+                    {/* <td>
                       <span
                         className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
                           ? styles.review
@@ -228,7 +232,7 @@ function Index(props) {
                         : term?.order?.queue === 'CreditQueue'
                           ? 'Approved'
                           : 'Rejected'}
-                    </td>
+                    </td> */}
 
 
 
