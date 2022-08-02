@@ -17,7 +17,9 @@ export default function Index({isQuery}) {
       show.units=false
       show.currency=false
       setShow({...show})
-    }else if(isQuery?.match("/credit-queue")||isQuery?.match("/termsheet")||isQuery?.match("/margin-money")|| isQuery?.match("/review")){
+    }else if(isQuery?.match("/credit-queue")||isQuery?.match("/termsheet")||isQuery?.match("/margin-money")|| isQuery?.match("/review")
+    ||isQuery?.match("/vessel")
+    ){
       show.units=false
       show.currency=true
       setShow({...show})
@@ -107,6 +109,15 @@ export default function Index({isQuery}) {
       }
      
     }
+       if ("vessel" == pageName) {
+      if(id!==null) {
+        router.route = "/Vessel Nomination"   +`/${id}` + "/Order ID";
+        console.log("router123",router.route)
+      }else{
+         router.route = "/Vessel Nomination";
+      }
+     
+    }
 console.log( router.route," router.route")
 
     router.route.split("/").map((subRoute, index) => {
@@ -137,7 +148,7 @@ console.log( router.route," router.route")
     <div className={`${styles.main_container} d-sm-flex d-block justify-content-between background1`}>
       <div>
         <img src="/static/home.svg"></img>
-        {pageName=="generic"?
+        {pageName=="generic" || pageName=="vessel"?
         <div className={`${styles.breadcrumItem}`}>
           {myUrl.map((val,index)=>{
             {console.log(myUrl.length-1==index,"val")}
