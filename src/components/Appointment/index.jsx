@@ -4,9 +4,12 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 export default function Index() {
   const [editInput, setEditInput] = useState(true)
+  const [startDate, setStartDate] = useState(new Date())
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -18,7 +21,9 @@ export default function Index() {
 
   return (
     <>
-      <div className={`${styles.backgroundMain} container-fluid p-0 background2`}>
+      <div
+        className={`${styles.backgroundMain} container-fluid p-0 background2`}
+      >
         <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} card border-color`}>
             <div
@@ -52,7 +57,37 @@ export default function Index() {
                   </div>
                 </div>
                 <div
-                  className={`${styles.form_group} col-lg-12 col-md-12 col-sm-12`}
+                  className={`${styles.form_group} col-lg-6 col-md-6 col-md-6`}
+                >
+                  <div className="d-flex">
+                    {/* <DateCalender labelName='ETA at Discharge Port'/>
+                      <img
+                          className={`${styles.calanderIcon} img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                      /> */}
+                    <DatePicker
+                      name="ETAatDischargePort"
+                      selected={startDate}
+                      dateFormat="dd/MM/yyyy"
+                      className={`${styles.input_field} input form-control`}
+                      onChange={(startDate) => {
+                        setStartDate(startDate)
+                        saveDate(startDate, 'ETAatDischargePort', index)
+                      }}
+                    />
+                    <img
+                      className={`${styles.calanderIcon} img-fluid`}
+                      src="/static/caldericon.svg"
+                      alt="Search"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Date of Appointment
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-6 col-md-6 col-sm-6`}
                 >
                   <label className={`${styles.comment_heading}`}>Address</label>
 

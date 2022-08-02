@@ -594,7 +594,7 @@ const sendData=(key,data)=>{
                 
               </select>
                <img
-                className={`${styles.arrow2} img-fluid`}
+                className={`${styles.arrow3} img-fluid`}
                 src="/static/inputDropDown.svg"
                 alt="Search"
                 />

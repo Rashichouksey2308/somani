@@ -1,8 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
 import Image from 'next/image'
-import DownloadBar from '../../src/components/DownloadBar'
-import Filter from '../../src/components/Filter'
 
 function Index() {
   return (
@@ -14,16 +12,11 @@ function Index() {
           >
             <h5 className="heading_card">Order Summary - Last 6 Orders</h5>
             <div className={`${styles.pageList} d-flex align-items-center`}>
-              <a
-                href="#"
-                className={`${styles.arrow} ${styles.rightArrow} arrow`}
-              >
-                <img
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow right"
-                  className="img-fluid"
-                />
-              </a>
+              <img
+                src="/static/accordion_close_black.svg"
+                alt="close"
+                className="img-fluid"
+              />
             </div>
           </div>
           <div className={styles.table_scroll_outer}>
@@ -47,41 +40,60 @@ function Index() {
                 </thead>
                 <tbody>
                   <tr className="table_row">
-                    <td>
-                      <strong>Emerging Traders</strong>
+                    <td
+                      className={`d-flex justify-content-start align-items-center`}
+                    >
+                      <div className={`${styles.icon} `}>
+                        <span
+                          className={`d-flex justify-content-center align-items-center`}
+                        >
+                          ET
+                        </span>
+                      </div>
+
+                      <span className={` ${styles.name} ml-4`}>
+                        Emerging Traders
+                      </span>
                     </td>
                     <td>2765470888</td>
                     <td>22-02-2022</td>
                     <td>1,900.00</td>
                     <td>Iron</td>
-                    <td>In Progress</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.rejected}`}
+                      ></span>
+                      In Process
+                    </td>
                     <td> 12 </td>
                   </tr>
                   <tr className="table_row">
-                    <td>
-                      <strong>01</strong>
+                    <td
+                      className={`d-flex justify-content-start align-items-center`}
+                    >
+                      <div className={`${styles.icon} `}>
+                        <span
+                          className={`d-flex justify-content-center align-items-center`}
+                        >
+                          ET
+                        </span>
+                      </div>
+
+                      <span className={` ${styles.name} ml-4 `}>
+                        Emerging Traders
+                      </span>
                     </td>
-                    <td>12323</td>
-                    <td>Ramakrishnan Traders</td>
-                    <td>465SD465D</td>
-                    <td>ABCZ</td>
-                    <td>465SD465D</td>
+                    <td>2765470888</td>
+                    <td>22-02-2022</td>
+                    <td>1,900.00</td>
+                    <td>Iron</td>
                     <td>
-                      <button className={`${styles.trackBtn}`}>Track</button>
+                      <span
+                        className={`${styles.status} ${styles.rejected}`}
+                      ></span>
+                      In Process
                     </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>
-                      <strong>01</strong>
-                    </td>
-                    <td>12323</td>
-                    <td>Ramakrishnan Traders</td>
-                    <td>465SD465D</td>
-                    <td>ABCZ</td>
-                    <td>465SD465D</td>
-                    <td>
-                      <button className={`${styles.trackBtn}`}>Track</button>
-                    </td>
+                    <td> 12 </td>
                   </tr>
                 </tbody>
               </table>
@@ -89,7 +101,6 @@ function Index() {
           </div>
         </div>
       </div>
-      <DownloadBar downLoadButtonName="Download List" />
     </div>
   )
 }

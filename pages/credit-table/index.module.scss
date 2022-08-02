@@ -266,6 +266,7 @@
             padding: 21px 15px;
             border-top: none;
             white-space: nowrap;
+            vertical-align: middle;
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
@@ -284,30 +285,72 @@
               font-size: 14px;
               padding: 10px;
             }
+            .icon {
+              background: #ffeccf;
+              border-radius: 8px;
+              width: 60px;
+              height: 60px;
+              padding: 0px;
+
+              span {
+                font-size: 28px;
+                line-height: 34px;
+                font-weight: bold;
+                color: #ff9d00;
+                height: 100%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 0px;
+              }
+
+              .span_approved {
+                color: #43c34d !important;
+                opacity: 1 !important;
+              }
+
+              .name {
+                height: 60px;
+                font-size: 22px;
+                line-height: 27px;
+                font-weight: 500;
+                //color: #111111;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+              }
+            }
+
+            .span_icon {
+              background: rgba(181, 215, 221, 1);
+            }
           }
-        }
-        .trackBtn {
-          border: 3px solid #3687e8;
-          border-radius: 5px;
-          text-align: center;
-          letter-spacing: 0px;
-          color: #3687e8;
-          text-transform: capitalize;
-          font-size: 18px;
-          line-height: 23px;
-          font-weight: bold;
-          background: transparent;
-          padding: 8px 22px 8px 22px;
-          @include respond(md-desktop) {
-            font-size: 16px;
+
+          .status {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
           }
-          @include respond(sm-desktop) {
-            font-size: 14px;
-            padding: 4px 25px 4px 25px;
+          .approved {
+            background: #26dd73;
           }
-          @include respond(phone) {
-            font-size: 12px;
-            padding: 0px 15px 0 15px;
+          .rejected {
+            background: #ff9d00;
+          }
+          .review {
+            background: #ffce00;
+          }
+          .closed {
+            background: #a1a1a1;
+          }
+          .open {
+            background: #3687e8;
+          }
+          .expired {
+            background: #ea3f3f;
           }
         }
       }

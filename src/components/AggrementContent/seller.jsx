@@ -133,27 +133,34 @@ useEffect(() => {
         <Form className={`${styles.form}`}>
           <div className="row  ">
 
-            <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
-              <select
-                className={`${styles.input_field} input form-control`}
-                required
-                type="text"
-                name="name"
-                value={sellerData.shortName}
-                 onChange={(e) => {
-                  handleInput(e.target.name,e.target.value)
-                }}
-              >
-                <option value="Indo German International">Indo German International</option>
-              </select>
-              <Form.Label className={`${styles.label_heading} label_heading`}>
-              Name<strong className="text-danger">*</strong>
-              </Form.Label>
+            <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
+              <div className='d-flex'>
+                <select
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                  required
+                  type="text"
+                  name="name"
+                  value={sellerData.shortName}
+                  onChange={(e) => {
+                    handleInput(e.target.name,e.target.value)
+                  }}
+                >
+                  <option value="Indo German International">Indo German International</option>
+                </select>
+                <Form.Label className={`${styles.label_heading} label_heading`}>
+                Name<strong className="text-danger">*</strong>
+                </Form.Label>
+                <img
+                  className={`${styles.arrow} img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
                 {/* <img
                     className={`${styles.search_image} img-fluid`}
                     src="/static/arrow.svg"
                     alt="Search"
                   /> */}
+              </div>
             </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -231,7 +238,7 @@ useEffect(() => {
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-                  <tr>
+                  <tr className='table_row'>
                     <th>NAME</th>
                     <th>DESIGNATION</th>
                     <th>EMAIL</th>
@@ -243,7 +250,7 @@ useEffect(() => {
                       return(
                         <>
                         {val.actions=="true"?
-                        <tr key={index}>
+                        <tr key={index} className='table_row'>
                           <td>{val.name}</td>
                           <td>{val.designation}</td>
                           <td>{val.email}</td>
@@ -263,7 +270,12 @@ useEffect(() => {
                           >
                             <option>{"Dr.amin"}</option>
                             </select>
-                        </td>
+                            <img
+                              className={`${styles.arrow2} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </td>
                           <td><input type="text" 
                           placeholder={val.designation}
                           name= "designation"

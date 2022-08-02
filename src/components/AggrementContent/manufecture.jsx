@@ -495,7 +495,7 @@ const editNewAddress=(name,value)=>{
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-                  <tr>
+                  <tr className='table_row'>
                     <th>NAME</th>
                     <th>DESIGNATION</th>
                     <th>EMAIL</th>
@@ -507,26 +507,32 @@ const editNewAddress=(name,value)=>{
                       return(
                         <>
                         {val.actions=="true"?
-                        <tr key={index}>
+                        <tr key={index} className='table_row'>
                           <td>{val.name}</td>
                           <td>{val.designation}</td>
                           <td>{val.email}</td>
                           <td>{val.phoneNo}</td>
-                          <td className={`d-flex justify-content-start`}>
+                          <td className={`d-flex`}>
                           <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
                           <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>
-                        :<tr key={index}>
-                          <td><select 
-                          value="name"
-                          onChange={(e)=>{
-                            handleChangeInput(e.target.name,e.target.value,index)
-                          }}>
-                            <option value={"Dr.amin"}>{"Dr.amin"}</option>
+                        :<tr key={index} className='table_row'>
+                          <td>
+                            <select 
+                            value="name" className={`${styles.customSelect}`}
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                            }}>
+                              <option value={"Dr.amin"}>{"Dr.amin"}</option>
                             </select>
-                        </td>
+                            <img
+                              className={`${styles.arrow2} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </td>
                           <td><input type="text" 
                           placeholder={val.designation}
                           name= "designation"
@@ -561,9 +567,9 @@ const editNewAddress=(name,value)=>{
                               handleRemove(index)
                               }}
                             >
-                              <img src="./static/delete 2.svg" />
+                              <img src="/static/delete 2.svg" />
                             </div>
-                            {/* <img  onClick={()=>(onEditRemove(index))}src="./static/save-3.svg"  />
+                            {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
                             <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
                           </td>
 
@@ -610,28 +616,35 @@ const editNewAddress=(name,value)=>{
             </Form.Group>
             <div className={`col-sm-12`}>
               <div className={`${styles.newAddressContainer} m-0`}>
-                  <div className={styles.newAddressHead}><span>Add new address</span></div>
+                  <div className={styles.newAddressHead}><span>Add a new address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        name="addressType"
-                        
-                        onChange={(e) => {
-                          setAddressType(e.target.value)
-                          setAddress(e.target.name,e.target.value)
-                        }}
-                      >
-                        <option value="Registered">Registered Office</option>
-                        <option value="Branch">Branch </option>
-                          <option value="Supplier">Supplier Address </option>
-                        
-                      </select>
-                      <Form.Label
-                        className={`${styles.label_heading} ${styles.select}  label_heading`}
-                      >
-                        Address Type<strong className="text-danger">*</strong>
-                      </Form.Label>
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="addressType"
+                          
+                          onChange={(e) => {
+                            setAddressType(e.target.value)
+                            setAddress(e.target.name,e.target.value)
+                          }}
+                        >
+                          <option value="Registered">Registered Office</option>
+                          <option value="Branch">Branch </option>
+                            <option value="Supplier">Supplier Address </option>
+                          
+                        </select>
+                        <Form.Label
+                          className={`${styles.label_heading} ${styles.select}  label_heading`}
+                        >
+                          Address Type<strong className="text-danger">*</strong>
+                        </Form.Label>
+                        <img
+                          className={`${styles.arrow} img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
                     </Form.Group>
                 {addressType=="Registered" || addressType=="Supplier"?
                     <>
@@ -694,22 +707,29 @@ const editNewAddress=(name,value)=>{
                     </>
                     :<>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <select
-                        className={`${styles.input_field} input form-control`}
-                        name="gstin"
-                        value={newAddress.gstin}
-                        onChange={(e) => {
-                          setAddress(e.target.name,e.target.value)
-                        }}
-                      >
-                        <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                        
-                      </select>
-                      <Form.Label
-                        className={`${styles.label_heading} ${styles.select}  label_heading`}
-                      >
-                        GSTIN<strong className="text-danger">*</strong>
-                      </Form.Label>
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="gstin"
+                          value={newAddress.gstin}
+                          onChange={(e) => {
+                            setAddress(e.target.name,e.target.value)
+                          }}
+                        >
+                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          
+                        </select>
+                        <Form.Label
+                          className={`${styles.label_heading} ${styles.select}  label_heading`}
+                        >
+                          GSTIN<strong className="text-danger">*</strong>
+                        </Form.Label>
+                        <img
+                          className={`${styles.arrow} img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
                     </Form.Group>
                     <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
@@ -826,25 +846,32 @@ const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEdit
                   <div className={styles.newAddressHead}><span className={`mb-3`}>Add Edit address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        name="addressType"
-                        
-                        onChange={(e) => {
-                          setAddressType(e.target.value)
-                          editNewAddress(e.target.name,e.target.value)
-                        }}
-                      >
-                        <option value="Registered">Registered Office</option>
-                        <option value="Branch">Branch </option>
-                          <option value="Supplier">Supplier Address </option>
-                        
-                      </select>
-                      <Form.Label
-                        className={`${styles.label_heading} ${styles.select}  label_heading`}
-                      >
-                        Address Type<strong className="text-danger">*</strong>
-                      </Form.Label>
+                      <div className='d-flex'>
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="addressType"
+                          
+                          onChange={(e) => {
+                            setAddressType(e.target.value)
+                            editNewAddress(e.target.name,e.target.value)
+                          }}
+                        >
+                          <option value="Registered">Registered Office</option>
+                          <option value="Branch">Branch </option>
+                            <option value="Supplier">Supplier Address </option>
+                          
+                        </select>
+                        <Form.Label
+                          className={`${styles.label_heading} ${styles.select}  label_heading`}
+                        >
+                          Address Type<strong className="text-danger">*</strong>
+                        </Form.Label>
+                        <img
+                          className={`${styles.arrow} img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
                     </Form.Group>
                 {addressType=="Registered" || addressType=="Supplier"?
                     <>
@@ -907,22 +934,29 @@ const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEdit
                     </>
                     :<>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <select
-                        className={`${styles.input_field} input form-control`}
-                        name="gstin"
-                         value={EditAddress.gstin}
-                        onChange={(e) => {
-                          editNewAddress(e.target.name,e.target.value)
-                        }}
-                      >
-                        <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                        
-                      </select>
-                      <Form.Label
-                        className={`${styles.label_heading} ${styles.select}  label_heading`}
-                      >
-                        GSTIN<strong className="text-danger">*</strong>
-                      </Form.Label>
+                      <div className='d-flex'>
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="gstin"
+                          value={EditAddress.gstin}
+                          onChange={(e) => {
+                            editNewAddress(e.target.name,e.target.value)
+                          }}
+                        >
+                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          
+                        </select>
+                        <Form.Label
+                          className={`${styles.label_heading} ${styles.select}  label_heading`}
+                        >
+                          GSTIN<strong className="text-danger">*</strong>
+                        </Form.Label>
+                        <img
+                          className={`${styles.arrow} img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
                     </Form.Group>
                     <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control

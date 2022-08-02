@@ -54,7 +54,7 @@ function Index() {
         {
           name: 'Agreement',
           image: '/static/Credit Queue.svg',
-          route: '/agreement',
+          route: '/agreement-table',
         },
         {
           name: 'LC Module',

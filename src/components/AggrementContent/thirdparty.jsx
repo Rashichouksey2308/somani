@@ -37,23 +37,30 @@ function Index() {
               </Form.Label>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <select
-                className={`${styles.input_field} input form-control`}
-                name="countryOfOrigin"
-                onChange={(e) => {
-                  saveOrderData(e.target.name, e.target.value)
-                }}
-              >
-                <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                <option value="India">India</option>
-                <option value="America">America</option>
-                <option value="Russia">Russia</option>
-              </select>
-              <Form.Label
-                className={`${styles.label_heading} ${styles.select}  label_heading`}
-              >
-                GSTIN<strong className="text-danger">*</strong>
-              </Form.Label>
+              <div className='d-flex'>
+                <select
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                  name="countryOfOrigin"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
+                >
+                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  <option value="India">India</option>
+                  <option value="America">America</option>
+                  <option value="Russia">Russia</option>
+                </select>
+                <Form.Label
+                  className={`${styles.label_heading} ${styles.select}  label_heading`}
+                >
+                  GSTIN<strong className="text-danger">*</strong>
+                </Form.Label>
+                <img
+                  className={`${styles.arrow} img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
             </Form.Group>
           </div>
         </Form>
@@ -135,14 +142,20 @@ function Index() {
 
                         </tr>
                         :<tr key={index}>
-                          <td><select>
-                            <option>{val.name}</option>
+                          <td>
+                            <select>
+                              <option className={`${styles.customSelect}`}>{val.name}</option>
                             </select>
-                        </td>
+                            <img
+                              className={`${styles.arrow2} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </td>
                           <td><input type="text" placeholder={val.designation}></input></td>
                           <td><input type="text" placeholder={val.email}></input></td>
                           <td><input type="text" placeholder={val.phone}></input></td>
-                          <td className={`d-flex  justify-content-between`}>
+                          <td className={`d-flex`}>
                             <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(handleRemove(index))} src="/static/mode_edit.svg" alt="edit"/>
                             <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"/>
                           </td>

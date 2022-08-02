@@ -72,7 +72,7 @@ function Index() {
               <span>Name*</span>
               <p>Jaiswal Nico</p>
             </div>
-            <div className={`col-md-4 col-sm-6`}>
+            <div className={`${styles.info} col-md-4 col-sm-6`}>
               <span>PAN No.</span>
               <p>27AAATW4183C2ZG</p>
             </div>
@@ -92,23 +92,30 @@ function Index() {
               </Form.Label>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <select
-                className={`${styles.input_field} input form-control`}
-                name="countryOfOrigin"
-                onChange={(e) => {
-                  saveOrderData(e.target.name, e.target.value)
-                }}
-              >
-                <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                <option value="India">India</option>
-                <option value="America">America</option>
-                <option value="Russia">Russia</option>
-              </select>
-              <Form.Label
-                className={`${styles.label_heading} ${styles.select}  label_heading`}
-              >
-                GSTIN<strong className="text-danger">*</strong>
-              </Form.Label>
+              <div className='d-flex'>
+                <select
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                  name="countryOfOrigin"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
+                >
+                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  <option value="India">India</option>
+                  <option value="America">America</option>
+                  <option value="Russia">Russia</option>
+                </select>
+                <Form.Label
+                  className={`${styles.label_heading} ${styles.select}  label_heading`}
+                >
+                  GSTIN<strong className="text-danger">*</strong>
+                </Form.Label>
+                <img
+                  className={`${styles.arrow} img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
@@ -191,7 +198,7 @@ function Index() {
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-                  <tr>
+                  <tr className='table_row'>
                     <th>NAME</th>
                     <th>DESIGNATION</th>
                     <th>EMAIL</th>
@@ -203,7 +210,7 @@ function Index() {
                       return(
                         <>
                         {val.actions=="true"?
-                        <tr key={index}>
+                        <tr key={index} className='table_row'>
                           <td>{val.name}</td>
                           <td>{val.designation}</td>
                           <td>{val.email}</td>
@@ -214,11 +221,17 @@ function Index() {
                           </td>
 
                         </tr>
-                        :<tr key={index}>
-                          <td><select>
-                            <option>{val.name}</option>
+                        :<tr key={index} className='table_row'>
+                          <td>
+                            <select className={`${styles.customSelect}`}>
+                              <option>{val.name}</option>
                             </select>
-                        </td>
+                            <img
+                              className={`${styles.arrow2} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </td>
                           <td><input type="text" placeholder={val.designation}></input></td>
                           <td><input type="text" placeholder={val.email}></input></td>
                           <td><input type="text" placeholder={val.phone}></input></td>
@@ -246,7 +259,7 @@ function Index() {
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-                <tr height={67}>
+                <tr height={67} className='table_row'>
                   <th>DOCUMENT NAME <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
                   <th>FORMAT <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
                   <th>DOCUMENT DATE <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
@@ -257,7 +270,7 @@ function Index() {
                   return(
                     <>
                     {val.actions=="true"?
-                    <tr key={index}>
+                    <tr key={index} className='table_row'>
                       <td><strong>{val.name}</strong></td>
                       <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
                       <td>{val.email}</td>
@@ -268,14 +281,14 @@ function Index() {
                       </td>
 
                     </tr>
-                    :<tr key={index}>
+                    :<tr key={index} className='table_row'>
                       <td><strong>{val.name}</strong></td>
                       <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* <input type="text" placeholder={val.designation}></input> */}</td>
-                      <td><input type="text" placeholder={val.email}></input></td>
+                      <td><input type="text" className='input' placeholder={val.email}></input></td>
                       {/* <td><input type="text" placeholder={val.phone}></input></td> */}
                       <td className={`d-flex `}>
                         <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
-                        <img  onClick={()=>(handleRemove(index))} src="/static/upload.svg" alt="upload"/>
+                        <img onClick={()=>(handleRemove(index))} src="/static/upload.svg" alt="upload"/>
                       </td>
 
                     </tr>}
