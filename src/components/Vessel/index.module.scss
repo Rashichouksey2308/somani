@@ -116,8 +116,9 @@
                 font-size: 20px;
                 line-height: 25px;
                 font-weight: 500;
-                padding: 5px;
+                padding: 5px 20px 5px 10px;
                 outline: none;
+                min-width: 80px;
                 @include respond(md-desktop) {
                     font-size: 18px;
                 }
@@ -135,6 +136,7 @@
                 font-size: 16px;
                 line-height: 17px; 
                 padding-right:10px;
+                margin-bottom: 0;
                 @include respond(md-desktop) {
                     font-size: 14px;
                 }
@@ -436,8 +438,21 @@
         -webkit-appearance: none;
     }
 }
+img {
+    &.arrow2 {
+        width: 13px !important;
+        right: 12px;
+        height: 38px;
+        position: absolute;
+        pointer-events: none;  
+        input[type='date']::-webkit-inner-spin-button,
+        input[type='date']::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+    }
+} 
 .customSelect {
     appearance: none;
     // position: relative;
 }
-   

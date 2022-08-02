@@ -71,16 +71,21 @@ const getSn=(index)=>{
                       ) : (
                         <h3 className={`${styles.heading}`}>Basic Details</h3>
                       )}
-                      <div className="d-flex">
-                        <div>
+                      <div className="d-flex align-items-center">
                           <label className={`${styles.dropDown_label} text`}>
                             Part Shipment Allowed
                           </label>
-                          <select className={`${styles.dropDown} input`}>
-                            {val.isPart ? <> <option>Yes</option>
-                              <option>No</option></> : <> <option>No</option>
-                              <option>Yes</option></>}
-                          </select>
+                        <div className='position-relative'>
+                            <select className={`${styles.dropDown} ${styles.customSelect} input`}>
+                              {val.isPart ? <> <option>Yes</option>
+                                <option>No</option></> : <> <option>No</option>
+                                <option>Yes</option></>}
+                            </select>
+                            <img
+                              className={`${styles.arrow2} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
                         </div>
 
                         {list[index].shipmentType === 'Bulk' ? (
@@ -178,7 +183,7 @@ const getSn=(index)=>{
                             className={`${styles.label_heading} label_heading`}
                             id="textInput"
                           >
-                            Order values<strong className="text-danger">*</strong>
+                            Order Value<strong className="text-danger">*</strong>
                           </label>
                         </div>
                       </div>
@@ -363,7 +368,7 @@ const getSn=(index)=>{
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                Vessel Name</label>
+                                Vessel Name<strong className="text-danger">*</strong></label>
                             </div>
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
@@ -379,7 +384,7 @@ const getSn=(index)=>{
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                IMO Number</label>
+                                IMO Number<strong className="text-danger">*</strong></label>
                             </div>
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
@@ -395,7 +400,7 @@ const getSn=(index)=>{
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                Flag</label>
+                                Flag<strong className="text-danger">*</strong></label>
                             </div>
                                 <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
