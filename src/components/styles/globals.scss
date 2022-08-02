@@ -234,15 +234,15 @@ body.light-mode .clear_btn {
   color: #3687e8;
 }
 
-body.dark-mode .label_heading {
-  color: #FFFFFF80;
-  background: #ffffff00;
-}
+// body.dark-mode .label_heading {
+//   color: #FFFFFF80;
+//   background: #ffffff00;
+// }
 
-body.light-mode .label_heading {
-  color: #00000080;
-  background: #ffffff;
-}
+// body.light-mode .label_heading {
+//   color: #00000080;
+//   background: #ffffff;
+// }
 body.dark-mode .text {
   color: #FFFFFF80 !important;
 
@@ -303,6 +303,7 @@ body.light-mode .input:invalid + label {
 body.light-mode .input:focus + label {
   background: #ffffff;
 }
+
 body.dark-mode .sub_heading {
   color: #FFFFFF;
 

@@ -2,13 +2,20 @@
 @import "../../src/components/styles/Core/config";
 .dashboardTab {
     .tabHeader {
-        padding: 25px 30px 0;
+        padding: 31px 28px 33px 38px;
+        margin-bottom: 10px;
+        .arrow {
+            width: 13px;
+            height: 21px;
+            background: transparent;
+            margin-top: 0;
+        }
         .title {
             font-size: 34px;
             font-weight: bold;
             line-height: 41px;
             margin: 0;
-            text-transform: capitalize;
+            padding-left: 18px;
             img {
                 width: 13px;
                 height: 21px;
@@ -93,13 +100,13 @@
         }
     }
     .tabContent {
-        margin: 26px;
+        margin: 18px 28px 28px;
         margin-bottom: 66px;
         @include respond(sm-desktop) {
-            margin: 20px;
+            margin: 10px 20px 20px;
         }
         @include respond(phone) {
-            margin: 15px;
+            margin: 5px 15px 15px;
             margin-bottom: 71px;
         }
         .card {

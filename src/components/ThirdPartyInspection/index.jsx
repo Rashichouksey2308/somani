@@ -182,7 +182,7 @@ export default function Index() {
                       as="textarea"
                       rows={3}
                       required
-                      className={`${styles.comment_field} ${styles.input_field} form-control`}
+                      className={`${styles.comment_field} ${styles.input_field} input form-control`}
                       // style={{ backgroundColor: 'none' }}
                     />
                     <label
