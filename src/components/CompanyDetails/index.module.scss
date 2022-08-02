@@ -301,7 +301,14 @@
                 color: #666666;
                 font-size: 13px;
                 line-height: 13px;
-              }             
+              }   
+                .less_label {
+                    text-align: center;
+                    letter-spacing: 0.12px;
+                    color: #666666;
+                    font-size: 13px;
+                    line-height: 13px;
+                }
               .slider::-webkit-slider-thumb {
                   -webkit-appearance: none;
                   appearance: none;

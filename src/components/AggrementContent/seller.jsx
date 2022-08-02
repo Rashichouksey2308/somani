@@ -256,20 +256,19 @@ useEffect(() => {
                           <td>{val.email}</td>
                           <td>{val.phone}</td>
                           <td className={`d-flex justify-content-between`}>
-                          <img onClick={()=>(onEdit(index))} src="/static/add-btn.svg"  />
+                          <img onClick={()=>(addMoreRows())} src="/static/add-btn.svg"  />
                           
                           </td>
 
                         </tr>
-                        :<tr key={index} className='table_row'>
-                          <td>
-                            <select
-                            value="name" className={`${styles.customSelect}`}
-                            onChange={(e)=>{
-                              handleChangeInput(e.target.name,e.target.value,index)
-                            }}
-                            >
-                              <option>{val.name}</option>
+                        :<tr key={index}>
+                          <td><select
+                          value="name"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          >
+                            <option>{"Dr.amin"}</option>
                             </select>
                             <img
                               className={`${styles.arrow2} img-fluid`}
@@ -296,7 +295,7 @@ useEffect(() => {
                           }}
                           ></input></td>
                           <td className={`d-flex  justify-content-between`}>
-                            <img  onClick={()=>(onEditRemove(index))}src="/static/add-btn.svg"  />
+                            <img  onClick={()=>(addMoreRows())}src="/static/add-btn.svg"  />
                             
                           </td>
 
@@ -306,11 +305,11 @@ useEffect(() => {
                     })}
                   </tbody>
                 </table>
-                <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+                {/* <div className={`${styles.addMoreRows}`} onClick={(e)=>{
                   addMoreRows()
                   }}>
                   <span>+</span>  Add more rows
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
