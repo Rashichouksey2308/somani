@@ -141,7 +141,7 @@ function Index() {
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table
-                className={`${styles.table} table`}
+                className={`${styles.table} mt-5 table`}
                 cellPadding="0"
                 cellSpacing="0"
                 border="0"
@@ -156,8 +156,9 @@ function Index() {
                         alt="Sort icon"
                       />{' '}
                     </th>
-                    <th>COMMODITY</th>
+
                     <th>BUYER NAME</th>
+                    <th>COMMODITY</th>
                     <th>VESSEL NAME</th>
                     <th>
                       SURRENDERED{' '}
@@ -180,9 +181,9 @@ function Index() {
                         Router.push('/transit/id')
                       }}
                     >
-                      Iron
+                      Bhutani Traders
                     </td>
-                    <td>Bhutani Traders</td>
+                    <td>Iron</td>
                     <td>Abcz</td>
                     <td>
                       <span
@@ -207,9 +208,9 @@ function Index() {
                         Router.push('/transit/id')
                       }}
                     >
-                      Steel
+                      Bhutani Traders
                     </td>
-                    <td>Bhutani Traders</td>
+                    <td>Steel</td>
                     <td>Abcz</td>
                     <td>
                       <span
@@ -234,9 +235,9 @@ function Index() {
                         Router.push('/transit/id')
                       }}
                     >
-                      Iron
+                      Bhutani Traders
                     </td>
-                    <td>Bhutani Traders</td>
+                    <td>Iron</td>
                     <td>Abcz</td>
                     <td>
                       <span
