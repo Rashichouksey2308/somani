@@ -378,7 +378,7 @@ export default function Index() {
                       <tbody>
                         <tr className="table_row">
                           <td className={styles.doc_name}>
-                            BL Acknowledgement Copy
+                            Document abc
                             <strong className="text-danger ml-0">*</strong>
                           </td>
                           <td>

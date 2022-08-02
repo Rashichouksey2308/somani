@@ -460,7 +460,7 @@ export default function Index() {
 
               <div className="row ml-auto">
                 <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <Form.Check aria-label="option 1" />
                   <div className={`${styles.label} text ml-4`}>
@@ -469,24 +469,16 @@ export default function Index() {
                   <span className={`${styles.value} ml-4`}>2345678</span>
                 </div>
                 <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
                     BL Date <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>22-02-2022</span>
                 </div>
+
                 <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
-                  <div className={`${styles.label} text`}>
-                    No.of Containers{' '}
-                    <strong className="text-danger ml-n1">*</strong>{' '}
-                  </div>
-                  <span className={styles.value}>18</span>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
                     BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
@@ -494,7 +486,7 @@ export default function Index() {
                   <span className={styles.value}>4,000 MT</span>
                 </div>
                 <div
-                  className="col-lg-2 col-md-4 col-sm-6 text-center"
+                  className="col-lg-3 col-md-4 col-sm-6 text-center"
                   style={{ top: '40px' }}
                 >
                   <img
@@ -504,7 +496,7 @@ export default function Index() {
                   />
                 </div>
                 <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <Form.Check aria-label="option 1" />
                   <div className={`${styles.label} text ml-4`}>
@@ -513,24 +505,16 @@ export default function Index() {
                   <span className={`${styles.value} ml-4`}>2345678</span>
                 </div>
                 <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
                     BL Date <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>22-02-2022</span>
                 </div>
+
                 <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
-                  <div className={`${styles.label} text`}>
-                    No.of Containers{' '}
-                    <strong className="text-danger ml-n1">*</strong>{' '}
-                  </div>
-                  <span className={styles.value}>18</span>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
                     BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
@@ -538,7 +522,7 @@ export default function Index() {
                   <span className={styles.value}>4,000 MT</span>
                 </div>
                 <div
-                  className="col-lg-2 col-md-4 col-sm-6 text-center"
+                  className="col-lg-3 col-md-4 col-sm-6 text-center"
                   style={{ top: '40px' }}
                 >
                   <img
