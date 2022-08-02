@@ -13,6 +13,7 @@ import { GetTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
 import { useRouter } from 'next/router'
 import { data } from 'jquery'
 import _get from "lodash/get";
+import {addPrefixOrSuffix,removePrefixOrSuffix } from '../../utils/helper'
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -309,13 +310,20 @@ const Index = () => {
   }
 
   const handleSave = () => {
+    let tempSheet=termsheetDetails
+  console.log(tempSheet,"tempSheet")
+     tempSheet.commodityDetails.perUnitPrice=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
+     tempSheet.transactionDetails.marginMoney=removePrefixOrSuffix(tempSheet.transactionDetails.marginMoney)
+      console.log(tempSheet,"tempSheet1")
+      
     const UpdatedTermsheet = {
       ...termsheetDetails,
       status: 'Approved',
       otherTermsAndConditions,
       additionalComments,
     }
-    console.log(UpdatedTermsheet, 'updatedtermsheet')
+  
+    console.log(termsheetDetails, 'updatedtermsheet')
     dispatch(updateTermsheet(UpdatedTermsheet))
     //router.push('/termsheet')
   }

@@ -69,24 +69,64 @@ function Index() {
     setLcData(newInput)
   }
 
+  
+
+  const [currentComment,setCurrentComment]=useState("")
+  const [lcDocuments, setLcDocuments] = useState(lcModuleData?.documentRequired)
   const [lcComments, setLcComments] = useState(
     lcModuleData?.additionalConditions,
   )
-
-  const [lcDocuments, setLcDocuments] = useState(lcModuleData?.documentRequired)
+  const [lcCondition, setLcCondition] = useState(
+    [lcModuleData?.additionalConditions]
+  )
+  console.log(lcCondition,"lcCondition1223")
+  const [currentComment2,setCurrentComment2]=useState("")
+  
 
   const addCommentArr = (lcComment) => {
     let newArr = [...lcComments]
     newArr.push(lcComment)
     setLcComments(newArr)
   }
-
-  const addDocArr = (docComment) => {
-    let newArr = [...lcDocuments]
-    newArr.push(docComment)
-    setLcDocuments(newArr)
+ 
+  const addComment=(val)=>{
+    setCurrentComment(val)
   }
+  const addDocArr = () => {
+   
+   setLcDocuments([...lcDocuments,currentComment])
+   setCurrentComment("")
+  }
+  const deleteLcDoc=(index)=>{
+    setLcDocuments([...lcDocuments.slice(0,index), ...lcDocuments.slice(index+1)])
+  }
+  const lcDocEdit=(e,index)=>{
+    let tempArr=[...lcDocuments]
+  
+    tempArr[index]=e.target.value
+    setLcDocuments(tempArr)
+  }
+  
+  
 
+ 
+  const addConditionComment=(val)=>{
+    setCurrentComment2(val)
+  }
+  const addConditionArr = () => {
+  console.log("thsbhjsbdjh",lcCondition,currentComment2)
+   setLcCondition([...lcCondition,currentComment2])
+   setCurrentComment2("")
+  }
+  const deleteLcCondition=(index)=>{
+    setLcCondition([...lcCondition.slice(0,index), ...lcCondition.slice(index+1)])
+  }
+  const lcConditionEdit=(e,index)=>{
+    let tempArr=[...lcCondition]
+  
+    tempArr[index]=e.target.value
+    setLcCondition(tempArr)
+  }
   useEffect(() => {
     let commentLcArr = []
     lcModuleData?.additionalConditions?.forEach((element) => {
@@ -121,11 +161,22 @@ function Index() {
     <>
       <LcApplication
         addDocArr={addDocArr}
-        addCommentArr={addCommentArr}
+       
         saveLcData={saveLcData}
         lcComments={lcComments}
         lcDocuments={lcDocuments}
         lcData={lcData}
+        addComment={addComment}
+        deleteLcDoc={deleteLcDoc}
+        lcDocEdit={lcDocEdit}
+        currentComment={currentComment}
+        addConditionArr={addConditionArr}
+        deleteLcCondition={deleteLcCondition}
+        lcConditionEdit={lcConditionEdit}
+        addConditionComment={addConditionComment}
+        lcCondition={lcCondition}
+        
+        currentComment2={currentComment2}
       />
       <PreviewBar onSave={handleLcSave} leftButtonClick={changeRoute} />
     </>
