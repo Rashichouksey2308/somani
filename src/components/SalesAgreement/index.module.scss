@@ -1,6 +1,7 @@
  @import "../styles/Core/config";
 .root {
     position: relative;
+    min-height: 736px;
     .sidebar {
         width: 376px;
         height: 736px;
@@ -282,27 +283,21 @@
     color: rgba(0, 0, 0, 0.5) !important;
 }
  .customSelect {
-     appearance: none;
-     // position: relative;
+    appearance: none;
+    // position: relative;
     width: 188px;
-     height: 42px;
-
+    height: 42px;
  }
-   .arrow3 {
-
-       margin-left: -40px;
-       width: 13px;
-       pointer-events: none;
-
-       input[type="date"]::-webkit-inner-spin-button,
-       input[type="date"]::-webkit-calendar-picker-indicator {
-           display: none;
-           -webkit-appearance: none;
-       }
-
-
-   }
-
+.arrow3 {
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+}
 img {
     &.arrow {
         margin-left: -40px;

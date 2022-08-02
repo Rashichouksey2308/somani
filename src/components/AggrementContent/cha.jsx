@@ -271,12 +271,12 @@ const handleEditAddressInput=(index)=>{
         </Form>
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
-          <div className={`d-flex justify-content-between align-items-center ${styles.multiAddContainer}`}>
+          <div className={`${styles.multiAddContainer} d-flex justify-content-between align-items-center flex-wrap`}>
                       {addressList.map((val,index)=>{
             return(
            <div
            key={index}
-            className={`${styles.registeredAddress} w-100 d-flex justify-content-between border-color`}
+            className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
           >
             <div className={`${styles.registeredAddressHeading}`}>
               <span>{val.addressType} Address</span>
@@ -286,7 +286,7 @@ const handleEditAddressInput=(index)=>{
             </div>
             <div className={`d-flex ${styles.actions}`}>
               <div
-                className={`${styles.addressEdit} d-flex justify-content-center align-items-center mr-n3 mt-n2`}
+                className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                 onClick={()=>{
                   handleEditAddressInput(index)
                 }}
@@ -294,12 +294,12 @@ const handleEditAddressInput=(index)=>{
                 <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit"/>
               </div>
               <div
-                className={`${styles.addressEdit} ml-2 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
+                className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
                 onClick={()=>{
                   onAddressRemove(index)
                 }}
                 >
-                <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit"/>
+                <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="edit"/>
               </div>
             </div>
              </div>
@@ -455,7 +455,7 @@ const handleEditAddressInput=(index)=>{
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Short Name<strong className="text-danger">*</strong>
+                        Country<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

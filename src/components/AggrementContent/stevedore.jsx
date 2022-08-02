@@ -271,11 +271,11 @@ const handleEditAddressInput=(index)=>{
         </Form>
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
-          <div className={`d-flex justify-content-between align-items-center ${styles.multiAddContainer}`}>
+          <div className={`${styles.multiAddContainer} d-flex justify-content-between align-items-center flex-wrap`}>
                       {addressList.map((val,index)=>{
             return(
            <div key={index}
-            className={`${styles.registeredAddress} w-100 d-flex justify-content-between border-color`}
+            className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
           >
             <div className={`${styles.registeredAddressHeading}`}>
               <span>{val.addressType} Address</span>
@@ -285,20 +285,20 @@ const handleEditAddressInput=(index)=>{
             </div>
             <div className={`d-flex justify-content-between align-items-start ${styles.actions} `}>
             <div
-              className={`${styles.addressEdit} mt-3 d-flex justify-content-center align-items align-items-center`}
+              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center mt-n2`}
               onClick={()=>{
                 handleEditAddressInput(index)
               }}
             >
-              <img src="./static/mode_edit.svg" />
+              <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit"/>
             </div>
             <div
-              className={`${styles.addressEdit} mt-3 ml-2 d-flex justify-content-center align-items align-items-center`}
+              className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items align-items-center mr-n3 mt-n2`}
             onClick={()=>{
               onAddressRemove(index)
             }}
             >
-              <img src="./static/mode_edit.svg" />
+              <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete"/>
             </div>
             </div>
              </div>

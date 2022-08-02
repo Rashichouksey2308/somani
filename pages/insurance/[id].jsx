@@ -8,21 +8,24 @@ import { useDispatch } from 'react-redux'
 import { GettingAllInsurance } from '../../src/redux/insurance/action'
 import { useSelector } from 'react-redux'
 import { SearchLeads } from '../../src/redux/buyerProfile/action'
+import _get from "lodash/get";
 
 function Index() {
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    let id =  sessionStorage.getItem('companyInsuredId')
-    dispatch(GettingAllInsurance(`?company=${id}`))
-  }, [dispatch])
 
   const {insuranceResponse} = useSelector((state)=>state.insurance)
 
   const [searchTerm, setSearchTerm] = useState('')
   
   const { searchedLeads } = useSelector((state) => state.order)
+
+  
+  useEffect(() => {
+    console.log(' inside effect')
+    let id =  sessionStorage.getItem('companyInsuredId')
+    dispatch(GettingAllInsurance(`?company=${id}`))
+  }, [dispatch])
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`
@@ -38,8 +41,8 @@ function Index() {
     dispatch(GettingAllInsurance(`?company=${id}`))
   }
 
-  const handleRoute = () => {
-
+  const handleRoute = (insured) => {
+    sessionStorage.setItem('quotationId', insured._id)
     Router.push('/insurance/form')
   }
   
@@ -107,7 +110,7 @@ function Index() {
           <div
             className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}
           >
-            <h3 className="heading_card">{insuranceResponse?.data[0]?.company?.companyName}</h3>
+            <h3 className="heading_card"> { _get(insuranceResponse, 'data[0].company.companyName', '') }</h3>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>

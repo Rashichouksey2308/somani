@@ -179,7 +179,7 @@ function Index(props) {
                     <option value="Delhi">Delhi</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Short Name<strong className="text-danger">*</strong>
+                  Branch Name<strong className="text-danger">*</strong>
                 </Form.Label>
                 <img
                   className={`${styles.arrow} img-fluid`}

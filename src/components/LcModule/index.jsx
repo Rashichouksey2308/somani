@@ -39,7 +39,7 @@ console.log(lcModule,"lcModule")
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.head_header}>
             <img
-              className={`${styles.arrow} img-fluid mr-2`}
+              className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
@@ -63,7 +63,7 @@ console.log(lcModule,"lcModule")
               />
             </div>
           </div>
-          <Filter/>
+          <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
             Bhutani Traders
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -79,7 +79,9 @@ console.log(lcModule,"lcModule")
           <div
             className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}
           >
-            <h3 className="heading_card">{lcModule?.data[0]?.company?.companyName}</h3>
+            <h3 className="heading_card">
+              {lcModule?.data[0]?.company?.companyName}
+            </h3>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
@@ -127,7 +129,7 @@ console.log(lcModule,"lcModule")
                           ></span>
                           Pending
                         </td>
-                     {!lc.firstTimeUpdate ? (
+                        {!lc.firstTimeUpdate ? (
                           <td colSpan={2}>
                             {' '}
                             <button

@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import Image from 'next/image'
+import { Modal } from 'react-bootstrap'
 
 function Index() {
   return (

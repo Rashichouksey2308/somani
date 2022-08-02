@@ -392,6 +392,9 @@
                 letter-spacing: 0.19px;
                 padding: 13px 30px 13px 17px;
                 border: 1px solid #0000001F;
+                &.cursor {
+                    cursor: pointer;
+                }
                 &:invalid+label {
                     transform: translateY(0);
                 }
