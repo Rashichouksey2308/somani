@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux'
 import styles from './index.module.scss'
 
 function Index({handleSave, rightBtn, rightBtnClick }) {
-  const {updatingAmendment} = useSelector((state)=>state.lc)
+  // const {updatingAmendment} = useSelector((state)=>state.lc)
   return (
     <div className={`${styles.root} card`}>
-      <div onClick={()=>{ if(!updatingAmendment) {handleSave()}}} className={`${styles.reject} ml-3`}>
+      <div onClick={()=>{ handleSave()}} className={`${styles.reject} ml-3`}>
         <span>Save</span>
       </div>
       <div
