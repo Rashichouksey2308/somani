@@ -441,7 +441,7 @@ const editNewAddress=(name,value)=>{
             >
               <div className={`${styles.registeredAddressHeading}`}>
                 <span>{val.addressType} Address</span>
-                <div>
+                <div className={`${styles.address_text}`}>
                   {val.fullAddress} {" "} {val.pinCode} {" "} {val.country}
                 </div>
               </div>
@@ -619,7 +619,7 @@ const editNewAddress=(name,value)=>{
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Short Name<strong className="text-danger">*</strong>
+                        Country<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -994,7 +994,7 @@ const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEdit
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Short Name<strong className="text-danger">*</strong>
+                        Short Name
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

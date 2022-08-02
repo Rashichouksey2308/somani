@@ -33,7 +33,7 @@ function Index() {
                 name="commodity"
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-                Short Name<strong className="text-danger">*</strong>
+                Short Name
               </Form.Label>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

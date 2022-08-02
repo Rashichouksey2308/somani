@@ -77,7 +77,7 @@ function Index(props) {
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-               Supplier Name<strong className="text-danger">*</strong>
+               Name<strong className="text-danger">*</strong>
               </Form.Label>
                 <img
                     className={`${styles.search_image} img-fluid`}

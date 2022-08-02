@@ -69,7 +69,7 @@ function Index() {
         <Form className={`${styles.form}`}>
           <div className="row">
             <div className={`${styles.info} col-md-4 col-sm-6`}>
-              <span>Name*</span>
+              <span>Name<strong className="text-danger">*</strong></span>
               <p>Jaiswal Nico</p>
             </div>
             <div className={`${styles.info} col-md-4 col-sm-6`}>
@@ -139,7 +139,7 @@ function Index() {
           >
             <div className={`${styles.registeredAddressHeading} w-100`}>
               <span>Registered Address</span>
-              <div>
+              <div className={`${styles.address_text}`}>
                 Plot No-49-48-6/1, Lalitha Nagar, Ground Floor, Sakshi Office
                 Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 India
               </div>
@@ -158,7 +158,7 @@ function Index() {
           >
             <div className={`${styles.registeredAddressHeading} w-100`}>
               <span>Branch Address</span>
-              <div >
+              <div className={`${styles.address_text}`}>
                 Plot No-49-48-6/1, Lalitha Nagar, Ground Floor, Sakshi Office
                 Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 India
               </div>
