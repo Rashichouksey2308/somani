@@ -29,7 +29,6 @@ function Index({
   const [lcComment, setLcComment] = useState('')
   const [docComment, setDocComment] = useState('')
 
-
   return (
     <>
       {' '}
@@ -37,7 +36,7 @@ function Index({
         <div className={styles.container_inner}>
           <div className={`${styles.head_header}`}>
             <img
-              className={`${styles.arrow} mr-2 img-fluid`}
+              className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
@@ -866,7 +865,6 @@ function Index({
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
-                            
                           >
                             (57A) Second Advising Bank, if Applicable
                           </label>
@@ -884,7 +882,6 @@ function Index({
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
-                           
                           >
                             (58A) Requested Confirmation Party
                             <strong className="text-danger">*</strong>
