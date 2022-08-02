@@ -53,7 +53,7 @@ export const handleCurrencyOrder = (unitOfValue, value) => {
   }
 }
 
-export const addPrefixOrSuffix = (unitOfValue, type, where = "null") => {
+export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
   console.log(unitOfValue, type, 'type')
   if (where == 'front') {
     if (type != undefined) {
@@ -114,6 +114,19 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = "null") => {
   }
 }
 export const removePrefixOrSuffix = (unitOfValue, type) => {
-  let newValue = unitOfValue.replaceAll(type, '')
-  return Number(newValue)
+  console.log(unitOfValue, 'unitOfValue')
+  if (unitOfValue !== undefined || unitOfValue !== 'undefined') {
+    let newValue = unitOfValue
+      .toString()
+      .replaceAll('M', '')
+      .replaceAll('T', '')
+      .replaceAll('%', '')
+      .replaceAll('K', '')
+      .replaceAll('G', '')
+      .replaceAll('₹', '')
+      .replaceAll('$', '')
+      .replaceAll('€', '')
+      .replaceAll('£', '')
+    return Number(newValue)
+  }
 }
