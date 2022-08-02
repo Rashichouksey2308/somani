@@ -1,0 +1,149 @@
+@import "../../../src/components/styles/Core/config";
+.card {
+    margin: 28px;
+    margin-bottom: 154px;
+    @include respond(sm-desktop) {
+        margin: 20px;
+        margin-bottom: 146px;
+    }
+    @include respond(phone) {
+        margin: 15px;
+        margin-bottom: 121px;
+    }
+    .head_header {
+        height: 48px;
+        display: flex;
+        margin: 0 0 27px 10px;
+        @include respond(phone) {
+            align-items: center;
+            padding: 0.75rem 0rem;
+        }
+        .arrow {
+            width: 13px;
+            height: 21px;
+            background: transparent;
+        }
+        .heading {
+            font-size: 34px;
+            font-weight: bold;
+            line-height: 41px;
+            margin: 0;
+            padding-left: 18px;
+            @include respond(phone) {
+                font-size: $font_size_mobile_head;
+                margin: 0px;
+                padding-left: 10px;
+            }
+        }
+    }
+    .card_body {
+        padding: 0px;
+        border-top: 2px solid #EFF2F7;
+        box-shadow: 0px 3px 12px #E5E7ED;
+        border: 1px solid #D2D7E5;
+        border-radius: 8px !important;
+        margin-bottom: 26px;
+        .centerHeading {
+            padding: 20px 0 0 25px;
+            text-decoration: underline;
+            font-size:30px;
+            line-height:37px;
+            font-weight: bold;
+            text-align: center;
+            @include respond(md-desktop) {
+                padding: 15px;
+                font-size: 25px;
+            }
+            @include respond(sm-desktop) {
+                padding: 15px;
+                font-size: 20px;
+            }
+        }
+        .details {
+            .details_content {
+                padding: 20px 0 0 25px;
+                @include respond(md-desktop) {
+                    padding: 15px;
+                }
+                .details_head {
+                    font-size: 20px;
+                    line-height: 25px;
+                    font-weight: 500;
+                    @include respond(md-desktop) {
+                        font-size: 17px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 15px;
+                    }                
+                }
+                .details_val{
+                    font-size: 20px;
+                    line-height: 24px;
+                    font-weight: normal;
+                    opacity: 0.7;
+                    @include respond(md-desktop) {
+                        font-size: 17px;
+                    }            
+                    @include respond(sm-desktop) {
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+        .salutations {
+            padding: 20px 0 0 25px;
+            font-size: 20px;
+            line-height: 25px;
+            font-weight: 500;
+            color: #111111;
+            @include respond(md-desktop) {
+                padding: 17px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 15px;
+            }
+        }
+        .content {
+            margin:0px;
+            .row {
+                margin:0px !important;
+                .content_head {
+                    font-size: 20px;
+                    line-height: 24px;
+                    font-weight: normal;
+                    opacity: 0.7;
+                    border: 2px solid #d2d7e5;
+                    padding: 25px;
+                    border-left: none;
+                    border-bottom: none;
+                    @include respond(md-desktop) {
+                        font-size: 17px;
+                        padding: 15px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 15px;
+                        padding: 15px;
+                    }                    
+                }                        
+                .content_val {
+                    font-size: 20px;
+                    line-height: 25px;
+                    font-weight: 500;
+                    border: 2px solid #d2d7e5;
+                    border-left: none;
+                    border-right: none;
+                    padding: 25px;
+                    border-bottom: none;
+                    @include respond(md-desktop) {
+                        font-size: 17px;
+                        padding: 15px;
+                    }
+                    @include respond(sm-desktop) {
+                        font-size: 15px;
+                        padding: 15px;
+                    }
+                }
+            }
+        }
+    }
+}

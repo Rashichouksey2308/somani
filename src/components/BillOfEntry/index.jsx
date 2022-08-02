@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
@@ -6,6 +6,8 @@ import InspectionDocument from '../InspectionDocument'
 import DateCalender from '../DateCalender'
 
 export default function Index() {
+  const [saveContactTable, setContactTable] = useState(false)
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -345,7 +347,66 @@ export default function Index() {
                 </div>
               </div>
 
-              <hr></hr>
+              <div className={`${styles.bill_landing}  border_color mt-4`}>
+                <div className={`${styles.vessel_card} mt-3`}>
+                  <div className={`${styles.card_sub_heading}`}>Duty</div>
+                </div>
+                <div className={styles.table_scroll_outer}>
+                  <div className={styles.table_scroll_inner}>
+                    <table
+                      className={`${styles.table} table mt-5`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                      border="0"
+                    >
+                      <thead>
+                        <tr>
+                          <th>S.NO.</th>
+                          <th>DUTY</th>
+                          <th>AMOUNT</th>
+                          <th className="text-right" width="50%">
+                            ACTION
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>1</td>
+                          <td>BCD</td>
+                          <td className={styles.doc_row}>24,000</td>
+                          <td className="text-right">
+                            <div>
+                              {!saveContactTable ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  onClick={(e) => {
+                                    setContactTable(true)
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    setContactTable(false)
+                                  }}
+                                />
+                              )}
+                              <img
+                                src="/static/delete 2.svg"
+                                className="img-fluid"
+                                alt="delete"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
 
               <div className="row ml-auto">
                 <div
