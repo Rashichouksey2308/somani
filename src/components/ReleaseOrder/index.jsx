@@ -171,12 +171,12 @@ export default function Index() {
                     <img
                       src="/static/delete 2.svg"
                       className={`${styles.delete_image} mt-n4 img-fluid mr-2`}
-                      alt="Preview"
+                      alt="Delete"
                     />
                     <img
                       src="/static/add-btn.svg"
                       className={`${styles.delete_image} mt-n4 img-fluid`}
-                      alt="Preview"
+                      alt="Add button"
                     />
                   </div>
                 </div>

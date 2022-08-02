@@ -71,16 +71,25 @@ export default function Index() {
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     style={{ top: '5px' }}
                   >
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Released Order Number
-                    </label>
+                    <div className="d-flex">
+                      <select
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      >
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Released Order Number
+                      </label>
+                      <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
@@ -109,10 +118,15 @@ export default function Index() {
                         <span className={styles.value}>22-02-2022</span>
                       </div>
                       <div className={`${styles.form_group} col-lg-4`}>
-                        <img src="/static/close-b.svg" className="img-fluid" />
                         <img
-                          src="/static/mode_edit.svg"
-                          className="img-fluid ml-3"
+                          src="/static/share.svg"
+                          className={`${styles.shareImg} img-fluid`}
+                          alt="Share"
+                        />
+                        <img
+                          src="/static/cancel-3.svg"
+                          className={`${styles.shareImg} img-fluid ml-3`}
+                          alt="Cancel"
                         />
                       </div>
                     </div>
@@ -122,16 +136,25 @@ export default function Index() {
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     style={{ top: '5px' }}
                   >
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Released Order Number
-                    </label>
+                    <div className="d-flex">
+                      <select
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      >
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Released Order Number
+                      </label>
+                      <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
@@ -160,10 +183,10 @@ export default function Index() {
                         <span>-</span>
                       </div>
                       <div className={`${styles.form_group} col-lg-4`}>
-                        <img src="/static/close-b.svg" className="img-fluid" />
                         <img
-                          src="/static/mode_edit.svg"
-                          className="img-fluid ml-3"
+                          src="/static/share.svg"
+                          className={`${styles.shareImg} img-fluid`}
+                          alt="Share"
                         />
                       </div>
                     </div>
@@ -173,16 +196,25 @@ export default function Index() {
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     style={{ top: '5px' }}
                   >
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Released Order Number
-                    </label>
+                    <div className="d-flex">
+                      <select
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      >
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Released Order Number
+                      </label>
+                      <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
@@ -211,10 +243,10 @@ export default function Index() {
                         <span>-</span>
                       </div>
                       <div className={`${styles.form_group} col-lg-4`}>
-                        <img src="/static/close-b.svg" className="img-fluid" />
                         <img
                           src="/static/mode_edit.svg"
-                          className="img-fluid ml-3"
+                          className={`${styles.shareImg} img-fluid`}
+                          alt="Edit"
                         />
                       </div>
                     </div>
