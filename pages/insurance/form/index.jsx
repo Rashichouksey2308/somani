@@ -5,23 +5,69 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../../src/components/SaveBar'
 import Router from 'next/router'
 import DateCalender from '../../../src/components/DateCalender'
+import { useDispatch } from 'react-redux'
+import { GettingAllInsurance, UpdateQuotation } from '../../../src/redux/insurance/action'
+import { useSelector } from 'react-redux'
 
 const Index = () => {
+  const dispatch = useDispatch()
+
+  const { insuranceResponse } = useSelector((state) => state.insurance)
+
+  let insuranceData = insuranceResponse?.data[0]
+
+  console.log(insuranceData, 'THIS IS INSURANCE RESPONSE')
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('companyInsuredId')
+    dispatch(GettingAllInsurance(`?company=${id}`))
+  }, [dispatch])
+
+  const [quotationData, setQuotationData] = useState({
+    additionalInfo: '',
+    expectedTimeOfArrival: '',
+    expectedTimeOfDispatch: '',
+    insuranceType: insuranceType,
+    laycanFrom: '',
+    laycanTo: '',
+    lossPayee: '',
+    storageDetails: {
+      placeOfStorage: '',
+      periodOfInsurance: null,
+      storagePlotAddress: '',
+    },
+    sumInsured: '',
+  })
+
+  const saveQuotationData = (name ,value) => {
+    const newInput = { ...quotationData }
+    const namesplit = name.split('.')
+    namesplit.length > 1
+      ? (newInput[namesplit[0]][namesplit[1]] = value)
+      : (newInput[name] = value)
+    setQuotationData(newInput)
+  }
+
+  const saveDate = (value, name) => {
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveQuotationData(name, text)
+  }
+
+  const handleSave = () => {
+    let obj = {
+      quotationRequest: {...quotationData},
+      insuranceId: insuranceData?._id
+    }
+    dispatch(UpdateQuotation(obj))
+  }
+
   const changeRoute = () => {
     Router.push('/agreement/OrderID/id')
   }
 
-  const [insuranceType, setInsuranceType] = useState('Marine')
-  //   const handleRadioBtn = (e) => {
-  //     if (e.target.value == "Both") {
-  //       Router.push('/insurance/form/both')
-  //     }
-  // else {
-  //   Router.push('/insurance/form')
-  // }
-  //console.log(e.target.value, 'This is radio');
+  const [insuranceType, setInsuranceType] = useState('Marine Insurance')
 
-  // }
   return (
     <>
       <div
@@ -63,7 +109,8 @@ const Index = () => {
                         type={type}
                         value="Marine"
                         onChange={(e) => {
-                          setInsuranceType('Marine')
+                          saveQuotationData('insuranceType', 'Marine Insurance')
+                          setInsuranceType('Marine Insurance')
                         }}
                         id={`inline-${type}-1`}
                       />
@@ -75,7 +122,8 @@ const Index = () => {
                         type={type}
                         value="Storage"
                         onChange={(e) => {
-                          setInsuranceType('')
+                          saveQuotationData('insuranceType', 'Storage Insurance')
+                          setInsuranceType('Storage Insurance')
                         }}
                         id={`inline-${type}-2`}
                       />
@@ -87,7 +135,8 @@ const Index = () => {
                         type={type}
                         value="Both"
                         onChange={(e) => {
-                          setInsuranceType('')
+                          saveQuotationData('insuranceType', 'Both')
+                          setInsuranceType('Both')
                         }}
                         id={`inline-${type}-2`}
                       />
@@ -116,7 +165,7 @@ const Index = () => {
               data-parent="#marineInsurance"
             >
               <div className={` ${styles.cardBody} card-body  border_color`}>
-                {insuranceType === 'Marine' ? (
+                {insuranceType === 'Marine Insurance' ? (
                   <>
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body}`}>
@@ -127,7 +176,9 @@ const Index = () => {
                             >
                               Commodity
                             </div>
-                            <div className={styles.col_body}>Iron</div>
+                            <div className={styles.col_body}>
+                              {insuranceData?.order?.commodity}
+                            </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -135,7 +186,9 @@ const Index = () => {
                             >
                               Quantity
                             </div>
-                            <div className={styles.col_body}>5,000.00 MT</div>
+                            <div className={styles.col_body}>
+                              {insuranceData?.order?.quantity} MT
+                            </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -143,7 +196,9 @@ const Index = () => {
                             >
                               Country of Origin
                             </div>
-                            <div className={styles.col_body}>India</div>
+                            <div className={styles.col_body}>
+                              {insuranceData?.order?.countryOfOrigin}
+                            </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -190,8 +245,9 @@ const Index = () => {
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
                             <select
-                              className={`${styles.input_field} input form-control`}
+                            name='lossPayee' onChange={(e)=>{saveQuotationData(e.target.name, e.target.value)}}  className={`${styles.input_field} input form-control`}
                             >
+                              <option selected></option>
                               <option>HDFC Bank</option>
                               <option>SBI</option>
                             </select>
@@ -204,7 +260,7 @@ const Index = () => {
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
                             <div className="d-flex">
-                              <DateCalender labelName="Laycan from" />
+                              <DateCalender name='laycanFrom' saveDate={saveDate} labelName="Laycan from" />
                               <img
                                 className={`${styles.calanderIcon} img-fluid`}
                                 src="/static/caldericon.svg"
@@ -214,7 +270,7 @@ const Index = () => {
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
                             <div className="d-flex">
-                              <DateCalender labelName="Laycan to" />
+                              <DateCalender name='laycanTo' saveDate={saveDate} labelName="Laycan to" />
                               <img
                                 className={`${styles.calanderIcon} img-fluid`}
                                 src="/static/caldericon.svg"
@@ -224,7 +280,7 @@ const Index = () => {
                           </Col>
                           <Col className="mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
-                              <DateCalender labelName="Expected time of Dispatch" />
+                              <DateCalender name='expectedTimeOfDispatch' saveDate={saveDate} labelName="Expected time of Dispatch" />
                               <img
                                 className={`${styles.calanderIcon} img-fluid`}
                                 src="/static/caldericon.svg"
@@ -234,7 +290,7 @@ const Index = () => {
                           </Col>
                           <Col className="mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
-                              <DateCalender labelName="Expected time of Arrival" />
+                              <DateCalender name='expectedTimeOfArrival' saveDate={saveDate} labelName="Expected time of Arrival" />
                               <img
                                 className={`${styles.calanderIcon} img-fluid`}
                                 src="/static/caldericon.svg"
@@ -246,6 +302,8 @@ const Index = () => {
                             <input
                               className={`${styles.input_field} input form-control`}
                               type="number"
+                              name='sumInsured'
+                              onChange={(e)=>{saveQuotationData(e.target.name, e.target.value)}}
                               required
                             />
                             <label
@@ -263,6 +321,8 @@ const Index = () => {
                       <div className={` ${styles.body}`}>
                         <h5>Additional Information (if Any)</h5>
                         <textarea
+                          name='additionalInfo'
+                          onChange={(e)=>{saveQuotationData(e.target.name, e.target.value)}}
                           className={`${styles.remark_field} form-control`}
                           as
                           rows={3}
@@ -281,7 +341,7 @@ const Index = () => {
                             >
                               Commodity
                             </div>
-                            <div className={styles.col_body}>Iron</div>
+                            <div className={styles.col_body}>{insuranceData?.order?.commodity}</div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -289,7 +349,7 @@ const Index = () => {
                             >
                               Quantity
                             </div>
-                            <div className={styles.col_body}>5,000.00 MT</div>
+                            <div className={styles.col_body}>{insuranceData?.order?.quantity} MT</div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -297,7 +357,7 @@ const Index = () => {
                             >
                               Country of Origin
                             </div>
-                            <div className={styles.col_body}>India</div>
+                            <div className={styles.col_body}>{insuranceData?.order?.countryOfOrigin}</div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -344,10 +404,11 @@ const Index = () => {
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
                             <select
-                              className={`${styles.input_field} input form-control`}
+                            name='lossPayee' onChange={(e)=>saveQuotationData(e.target.name, e.target.value)}  className={`${styles.input_field} input form-control`}
                             >
-                              <option>HDFC Bank</option>
-                              <option>SBI</option>
+                              <option selected></option>
+                              <option value='HDFC Bank'>HDFC Bank</option>
+                              <option value='SBI'>SBI</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -358,7 +419,7 @@ const Index = () => {
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
                             <div className="d-flex">
-                              <DateCalender labelName="Laycan from" />
+                              <DateCalender name='laycanFrom' saveDate={saveDate} labelName="Laycan from" />
                               <img
                                 className={`${styles.calanderIcon} img-fluid`}
                                 src="/static/caldericon.svg"
@@ -368,7 +429,7 @@ const Index = () => {
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
                             <div className="d-flex">
-                              <DateCalender labelName="Laycan to" />
+                              <DateCalender name='laycanTo' saveDate={saveDate} labelName="Laycan to" />
                               <img
                                 className={`${styles.calanderIcon} img-fluid`}
                                 src="/static/caldericon.svg"
@@ -378,7 +439,7 @@ const Index = () => {
                           </Col>
                           <Col className="mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
-                              <DateCalender labelName="Expected time of Dispatch" />
+                              <DateCalender name='expectedTimeOfDispatch' saveDate={saveDate} labelName="Expected time of Dispatch" />
                               <img
                                 className={`${styles.calanderIcon} img-fluid`}
                                 src="/static/caldericon.svg"
@@ -388,7 +449,7 @@ const Index = () => {
                           </Col>
                           <Col className="mt-4" lg={4} md={6} sm={6}>
                             <div className="d-flex">
-                              <DateCalender labelName="Expected time of Arrival" />
+                              <DateCalender name='expectedTimeOfArrival' saveDate={saveDate} labelName="Expected time of Arrival" />
                               <img
                                 className={`${styles.calanderIcon} img-fluid`}
                                 src="/static/caldericon.svg"
@@ -400,6 +461,8 @@ const Index = () => {
                             <input
                               className={`${styles.input_field} input form-control`}
                               type="number"
+                              name='sumInsured'
+                              onChange={(e)=>saveQuotationData(e.target.name, e.target.value)}
                               required
                             />
                             <label
@@ -420,10 +483,11 @@ const Index = () => {
                         <Row>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <select
-                              className={`${styles.input_field} input form-control`}
+                            name='storageDetails.placeOfStorage' onChange={(e)=>saveQuotationData(e.target.name, e.target.value)}  className={`${styles.input_field} input form-control`}
                             >
-                              <option>Visakhapatnam, AP, India</option>
-                              <option>Mumbai</option>
+                              <option selected></option>
+                              <option value='Visakhapatnam, AP, India'>Visakhapatnam, AP, India</option>
+                              <option value='Mumbai, India'>Mumbai, India</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -437,6 +501,8 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
+                              name='storageDetails.periodOfInsurance'
+                              onChange={(e)=>saveQuotationData(e.target.name, e.target.value) }
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -450,6 +516,8 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
+                              name='storageDetails.storagePlotAddress'
+                              onChange={(e)=> saveQuotationData(e.target.name, e.target.value)} 
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -466,6 +534,8 @@ const Index = () => {
                       <div className={` ${styles.body}`}>
                         <h5>Additional Information (if Any)</h5>
                         <textarea
+                              name='additionalInfo'
+                              onChange={(e)=>{saveQuotationData(e.target.name, e.target.value)}}
                           className={`${styles.remark_field} form-control`}
                           as
                           rows={3}
@@ -479,7 +549,7 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <SaveBar rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
+      <SaveBar handleSave={handleSave} rightBtn="Generate Request Letter" rightBtnClick={changeRoute} />
     </>
   )
 }
