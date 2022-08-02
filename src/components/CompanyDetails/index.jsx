@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
@@ -19,14 +19,180 @@ const Index = ({
   const { gstList } = useSelector((state) => state.buyer)
 
   // console.log(gstList?.data, "THIS IS GST LIST")
-  const [slider, setSlider] = useState('60')
+  const [slider, setSlider] = useState(0)
   const sliderBackground = () => {
     return {
       background: `${(slider * 100) / 100}`,
     }
   }
-  console.log(slider,"slider")
-
+  console.log(slider,"slider",(slider*2)/10)
+  const setSlide=(val)=>{
+    setSlider(val)
+    getSlider(val)
+  }
+ 
+  useEffect(() => {getSlider()},)
+  const getSlider =(val)=>{
+    if(slider < 100){
+      return(
+       
+            <div className={styles.slidecontainer}>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="20"
+                  name="turnOver"
+                  list="tickmarks"
+                  onChange={(e) => {
+                    saveCompanyData(
+                      e.target.name,
+                      Number(e.target.value * 100),
+                    )
+                    if(Number(e.target.value==100)){
+                      setSlide(200)
+                    }else{
+                       setSlider(Number(e.target.value))
+                    }
+                   
+                    getSlider()
+                  }}
+                  className={`${styles.slider} px-0 input form-control`}
+                  id="myRange"
+                  style={{
+                    background: `linear-gradient(90deg, #3687E8 ${(slider)}%, #C3C3C31F ${
+                      slider
+                    }%)`,
+                  }}
+                />
+                <datalist id="tickmarks">
+                  <option value="0" label="0"></option>
+                  <option value="20" label="20"></option>
+                  <option value="40" label="40"></option>
+                  <option value="60" label="60"></option>
+                  <option value="80" label="80"></option>
+                  <option value="100" label="100"></option>
+                 
+                </datalist>
+                <div
+                  className={`${styles.more_label} d-flex justify-content-end mr-n2`}
+                >
+                  or more
+                </div>
+              </div>
+               
+      )
+    } 
+     if(slider > 100 || slider < 500  ){
+      return(
+       
+            <div className={styles.slidecontainer}>
+                <input
+                  type="range"
+                  min="100"
+                  max="500"
+                  step="100"
+                  name="turnOver"
+                  list="tickmarks"
+                  onChange={(e) => {
+                    saveCompanyData(
+                      e.target.name,
+                      Number(e.target.value * 100),
+                    )
+                    if(Number(e.target.value) == 100){
+                       setSlide(80)
+                    }else if(Number(e.target.value) == 500){
+                      setSlide(500)
+                    }else{
+                      setSlider(Number(e.target.value))
+                    }
+                    
+                   
+                    getSlider()
+                  }}
+                  className={`${styles.slider} px-0 input form-control`}
+                  id="myRange"
+                  style={{
+                    background: `linear-gradient(90deg, #3687E8 ${(slider*2)/10}%, #C3C3C31F ${
+                      (slider*2)/10
+                    }%)`,
+                  }}
+                />
+                <datalist id="tickmarks">
+                   
+                  <option value="100" label="100"></option>
+                  <option value="200" label="200"></option>
+                  <option value="300" label="300"></option>
+                  <option value="400" label="400"></option>
+                  <option value="500" label="500"></option>
+                
+                  
+                 
+                </datalist>
+              
+                <div
+                  className={`${styles.less_label} d-flex justify-content-end mr-n2`}
+                >
+                 or more
+                </div>
+              </div>
+               
+      )
+    }
+     if(slider == 500 || val == 500 ){
+      console.log("okok")
+      return(
+       
+            <div className={styles.slidecontainer}>
+                <input
+                  type="range"
+                  min="500"
+                  max="1000"
+                  step="100"
+                  name="turnOver"
+                  list="tickmarks"
+                  onChange={(e) => {
+                    saveCompanyData(
+                      e.target.name,
+                      Number(e.target.value * 100),
+                    )
+                    if(Number(e.target.value)==500){
+                      setSlide(400)
+                    }else{
+                       setSlider(Number(e.target.value))
+                    }
+                    
+                    getSlider()
+                  }}
+                  className={`${styles.slider} px-0 input form-control`}
+                  id="myRange"
+                  style={{
+                    background: `linear-gradient(90deg, #3687E8 ${(slider)}%, #C3C3C31F ${
+                      slider
+                    }%)`,
+                  }}
+                />
+                <datalist id="tickmarks">
+                   
+                 <option value="500" label="500"></option>
+                  <option value="600" label="600"></option>
+                  <option value="700" label="700"></option>
+                  <option value="800" label="800"></option>
+                  <option value="900" label="900"></option>
+                  <option value="1000" label="1000"></option>
+                 
+                </datalist>
+                {/* <div
+                  className={`${styles.more_label} d-flex justify-content-end mr-n2`}
+                >
+                  or less
+                </div> */}
+              </div>
+               
+      )
+    }
+    
+  }
   return (
     <>
       <div className={`${styles.main} border_color`}>
@@ -287,47 +453,23 @@ const Index = ({
                 className={`${styles.label_heading} sub_heading d-flex label-heading ml-n3`}
               >
                 Turn Over (in Crores)<strong className="text-danger">*</strong>
-                <div className={styles.slider_value}>
-                  <span>{slider}</span> Cr
-                </div>
+               
+                  
+               
               </div>
-              <div className={styles.slidecontainer}>
-                <input
-                  type="range"
-                  min="0"
-                  max="500"
-                  step="100"
-                  name="turnOver"
-                  list="tickmarks"
-                  onChange={(e) => {
-                    saveCompanyData(
-                      e.target.name,
-                      Number(e.target.value * 100),
-                    )
-                    setSlider(e.target.value)
-                  }}
-                  className={`${styles.slider} px-0 input form-control`}
-                  id="myRange"
-                  style={{
-                    background: `linear-gradient(90deg, #3687E8 ${(slider*2/10)}%, #C3C3C31F ${
-                      (slider*2/10) - 100
-                    }%)`,
-                  }}
+               <input className={styles.input_container} 
+                type="number"
+                value={slider}
+                onChange={(e)=>{
+                  setSlider(Number(e.target.value))
+                   getSlider()
+                }}
                 />
-                <datalist id="tickmarks">
-                  <option value="0" label="0"></option>
-                  <option value="100" label="100"></option>
-                  <option value="200" label="200"></option>
-                  <option value="300" label="300"></option>
-                  <option value="400" label="400"></option>
-                  <option value="500" label="500"></option>
-                </datalist>
-                <div
-                  className={`${styles.more_label} d-flex justify-content-end mr-n2`}
-                >
-                  or more
-                </div>
-              </div>
+                {
+                  getSlider()
+                
+              }
+   
             </div>
             <div
               className={`${styles.each_input} col-md-6 col-lg-4  col-sm-6`}

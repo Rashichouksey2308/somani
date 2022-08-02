@@ -72,6 +72,7 @@ function Index() {
           route: '/insurance',
         },
       ],
+      route: '',
       image: '/static/Agreement&LCModule.svg',
     },
     {
@@ -90,7 +91,7 @@ function Index() {
         {
           name: 'Forward Hedging',
           image: '/static/Credit Queue.svg',
-          route: '/forward-hedging',
+          route: '/forward-table',
         },
         {
           name: 'Track Shipments',

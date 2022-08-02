@@ -19,7 +19,7 @@ export default function Index() {
     <>
       <div className={`${styles.backgroundMain} mt-3 container-fluid`}>
         <div className="pl-3 pr-3 mb-5">
-          <div className={`${styles.head_header} ml-4`}>
+          <div className={`${styles.head_header} ml-5`}>
             <img
               className={`${styles.arrow}  img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -28,7 +28,7 @@ export default function Index() {
             <h1 className={`${styles.heading}`}>Ramkrishanan Traders </h1>
           </div>
           <div className={`${styles.vessel_card} mt-3 border_color`}>
-            <div className={`${styles.main} border_color mt-4 card `}>
+            <div className={`${styles.main} border_color card `}>
               <div
                 className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
               >
@@ -132,10 +132,60 @@ export default function Index() {
                       />
                     </div>
                   </div>
+                  <div
+                    className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  >
+                    <button className={`${styles.cancel_btn}`}>Cancel</button>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  >
+                    <div className={`${styles.label} text mt-n1`}>
+                      Balance Amount
+                    </div>
+                    <span className={`${styles.value}`}>24,000</span>
+                  </div>
+                </div>
+                <Row>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                  >
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      type="text"
+                      required
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Closing Rate<strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                  >
+                    <div className="d-flex">
+                      <DateCalender labelName="Closing Date" />
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
+                  </div>
+                </Row>
+
+                <div className="d-flex mt-5 mb-">
+                  <input
+                    as="textarea"
+                    rows={3}
+                    className={`${styles.comment_field} form-control`}
+                  />
+                  <label className={`${styles.label_comment} text`}>
+                    Remarks
+                  </label>
                 </div>
               </div>
               <hr></hr>
-              <div className={`${styles.upload_main} mt-4 upload_main`}>
+              <div className={`${styles.upload_main} mt-3 upload_main`}>
                 <div className={styles.doc_heading}>Document</div>
 
                 <div>

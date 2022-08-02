@@ -109,10 +109,18 @@ export default function Index() {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Bill of Entry for" />
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    >
+                      <option>Into Bond(Warehousing)</option>
+                      <option>Bond</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Bill of Entry for
+                    </label>
                     <img
-                      className={`${styles.calanderIcon} img-fluid`}
-                      src="/static/caldericon.svg"
+                      className={`${styles.arrow} img-fluid`}
+                      src="/static/inputDropDown.svg"
                       alt="Search"
                     />
                   </div>
@@ -182,21 +190,11 @@ export default function Index() {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
-                    Port Of Discharge<strong className="text-danger">*</strong>{' '}
+                    Port Of Discharge
                   </div>
                   <span className={styles.value}>Visakhapatnam</span>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="number"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Invoice Quantity<strong className="text-danger">*</strong>
-                  </label>
-                </div>
+
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
@@ -221,6 +219,7 @@ export default function Index() {
                   </div>
                   <span className={styles.value}>COA20210003344</span>
                 </div>
+
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
@@ -229,7 +228,123 @@ export default function Index() {
                   </div>
                   <span className={styles.value}>22-02-2022</span>
                 </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    >
+                      <option>USD</option>
+                      <option>INR</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Currency
+                    </label>
+                    <img
+                      className={`${styles.arrow} img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="number"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Conversion Rate<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="number"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Invoice Quantity<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="number"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Invoice No.<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="number"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Invoice Value<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <DateCalender labelName="Invoice Date" />
+                    <img
+                      className={`${styles.calanderIcon} img-fluid`}
+                      src="/static/caldericon.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="number"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    BOE Rate<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    >
+                      <option>Abc Bank</option>
+                      <option>Bank</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Bank Name
+                    </label>
+                    <img
+                      className={`${styles.arrow} img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <div className={`${styles.label} text`}>
+                    AD Code<strong className="text-danger">*</strong>{' '}
+                  </div>
+                  <span className={styles.value}>22324</span>
+                </div>
               </div>
+
               <hr></hr>
 
               <div className="row ml-auto">
