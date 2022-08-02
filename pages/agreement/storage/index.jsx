@@ -1,9 +1,29 @@
-import React from 'react'
+/* eslint-disable @next/next/no-img-element */
+import React, {useEffect} from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 import PaginateBar from '../../../src/components/Paginatebar'
+import _get from 'lodash/get'
+import { useDispatch, useSelector } from 'react-redux'
+import { GettingAllInsurance } from '../../../src/redux/insurance/action'
+import moment from 'moment'
 
 function Index() {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('letterId')
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
+  }, [dispatch])
+
+  const {insuranceResponse} = useSelector((state)=>state.insurance)
+
+  let insuranceData = _get(insuranceResponse, 'data[0]', {})
+
+  console.log(insuranceData, 'INSURANCE DATA LETTER')
+  
+
   return (
     <>
       <div className="container-fluid p-0">
@@ -17,7 +37,7 @@ function Index() {
               alt="arrow"
             />
             <h1 className={`${styles.heading} heading`}>
-              Ramakrishna Traders — RamaI001-000001
+              {insuranceData?.company?.companyName}
             </h1>
           </div>
           <div className={`${styles.card_body} card-body`}>
@@ -28,13 +48,13 @@ function Index() {
               <div className={`${styles.details_content} mb-1`}>
                 <span className={`${styles.details_head}`}>Order ID:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                  2FCH6589
+                  {insuranceData?.order?.orderId}
                 </span>
               </div>
               <div className={`${styles.details_content} mb-1`}>
                 <span className={`${styles.details_head}`}>Date:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                  16.02.2022
+                  {moment(insuranceData?.createdAt?.split('T')[0]).format('DD.MM.yyyy')}
                 </span>
               </div>
               <div className={`${styles.details_content} mb-1`}>
@@ -42,7 +62,7 @@ function Index() {
                   Type of Insurance:
                 </span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                  Storage Insurance
+                  {insuranceData?.quotationRequest?.insuranceType}
                 </span>
               </div>
               <br></br>
@@ -102,7 +122,7 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR 40.10 Crores (Including 110%)
+                    INR {insuranceData?.quotationRequest?.sumInsured} Crores (Including 110%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -115,7 +135,7 @@ function Index() {
                     Material
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    Chromite Ore
+                    {insuranceData?.order?.commodity}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -128,7 +148,7 @@ function Index() {
                     Origin
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    South Africa
+                    {insuranceData?.order?.countryOfOrigin}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -141,7 +161,7 @@ function Index() {
                     Quantity
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    BL Weight 20,000.00 MTs. (+/-00%)
+                    BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -167,7 +187,7 @@ function Index() {
                     Port of Discharges
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    Visakhapatnam, AP, India
+                    {insuranceData?.order?.portOfDischarge}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -180,7 +200,7 @@ function Index() {
                     Place of Storage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    Visakhapatnam, AP, India
+                    {insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -193,8 +213,7 @@ function Index() {
                     Storage Plot Address
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    Integral Trading &amp; Logistics Old As Shipping
-                    Yard,35/2017 Code : Vtz1U040
+                  {insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -207,7 +226,7 @@ function Index() {
                     Period of Insurance
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    90 Days
+                    {insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance} Days
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -220,7 +239,7 @@ function Index() {
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    14-25 November, 2021
+                    {moment(insuranceData?.quotationRequest.laycanFrom?.split('T')[0]).format('DD MMM')} - {moment(insuranceData?.quotationRequest.laycanTo?.split('T')[0]).format('DD MMMM,  YYYY')} 
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -246,7 +265,7 @@ function Index() {
                     ETA
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    15 December, 2021
+                    {moment(insuranceData?.quotationRequest?.estimatedTimeOfArrival?.split('T')[0]).format('DD MMMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -273,10 +292,7 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    Indo German International Private Limited, Ground Floor,
-                    Plot No-49-18-6/1, Lalitha Nagar, Sakshi Office Road,
-                    Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 GSTIN
-                    No- 37AAACI3028D2Z0
+                   {insuranceData?.company?.companyName}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -289,7 +305,7 @@ function Index() {
                     Loss Payee
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    Zurcher Kantonal Bank, Zurich
+                    {insuranceData?.quotationRequest?.lossPayee}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -307,12 +323,7 @@ function Index() {
                     xs={8}
                     className={`${styles.content_val} border-bottom`}
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillu.
+                    {insuranceData?.quotationRequest?.additionalInfo}
                   </Col>
                 </Row>
               </div>

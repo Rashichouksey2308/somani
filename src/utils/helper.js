@@ -53,7 +53,7 @@ export const handleCurrencyOrder = (unitOfValue, value) => {
   }
 }
 
-export const addPrefixOrSuffix = (unitOfValue, type, where) => {
+export const addPrefixOrSuffix = (unitOfValue, type, where = "null") => {
   console.log(unitOfValue, type, 'type')
   if (where == 'front') {
     if (type != undefined) {
