@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react'
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { GettingAllInsurance } from 'redux/insurance/action'
+import { Router } from 'next/router'
 
 function Index({
   tableName,
@@ -23,6 +24,12 @@ function Index({
   useEffect(() => {
    dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
+
+  const handleEditRoute = (insured) => {
+    if(insured?.quotationRequest?.quotationRequestSubmitted === 'true') {
+      Router.push('')
+    }
+  }
 
 
   return (
@@ -123,8 +130,8 @@ function Index({
                   {insured?.company?.companyName}
                 </td>
                 <td>{insured?.order?.commodity}</td>
-                <td>{insured?.insuranceType}</td>
-                <td>{insured?.createdAt?.split('T')[0]}</td>
+                <td>{insured?.quotationRequest?.insuranceType}</td>
+                <td>{insured?.quotationRequest?.expectedTimeOfDispatch?.split('T')[0]}</td>
                 <td>
                   <span className={`${styles.status} ${styles.review}`}></span>
                   On-Hold
@@ -134,6 +141,7 @@ function Index({
                     className={`${styles.edit_image} img-fluid mr-3`}
                     src="/static/mode_edit.svg"
                     alt="edit"
+                    onClick={()=>handleEditRoute(insured)}
                   />
                 </td>
               </tr>))}

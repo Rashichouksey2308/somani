@@ -36,14 +36,14 @@ function Index() {
                   "All Termsheet Order"
                 )))
     
-  }, [dispatch, singleOrder])
+  }, [dispatch, singleOrder, termsheet])
 
    useEffect(() => {
     if(termsheet){
-      dispatch(setDynamicName(termsheet?.data[0]?.order?.orderId))
+      dispatch(setDynamicName( _get(termsheet, 'data[0].order.orderId', '' )))
     }
 
-   },[termsheet,singleOrder])
+   },[termsheet, singleOrder, dispatch])
   const handleRoute = (term) => {
    // console.log(term?.order._id, "termtrem")
     //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
