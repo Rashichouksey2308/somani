@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import styles from './index.module.scss'
 import moment from 'moment'
 
-const Index = ({ labelName, saveDate, name, defaultDate ,index}) => {
+const Index = ({ labelName, saveDate, name, defaultDate ,index,dateFormat}) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
   console.log(moment(defaultDate).toDate(),'momentDate')
@@ -16,7 +16,7 @@ const Index = ({ labelName, saveDate, name, defaultDate ,index}) => {
           defaultDate
             ? moment(defaultDate).toDate() : startDate
         }
-        dateFormat="dd/MM/yyyy"
+        dateFormat={dateFormat?dateFormat:"dd/MM/yyyy"}
         name={name}
         className={`${styles.input_field} input form-control`}
         onChange={(startDate) => {

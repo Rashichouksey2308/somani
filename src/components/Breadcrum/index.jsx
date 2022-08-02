@@ -17,7 +17,9 @@ export default function Index({isQuery}) {
       show.units=false
       show.currency=false
       setShow({...show})
-    }else if(isQuery?.match("/credit-queue")||isQuery?.match("/termsheet")||isQuery?.match("/margin-money")|| isQuery?.match("/review")){
+    }else if(isQuery?.match("/credit-queue")||isQuery?.match("/termsheet")||isQuery?.match("/margin-money")|| isQuery?.match("/review")
+    ||isQuery?.match("/vessel")
+    ){
       show.units=false
       show.currency=true
       setShow({...show})
@@ -78,7 +80,7 @@ export default function Index({isQuery}) {
       }else{
         router.route = "/Leads" + "/Credit Queue";
       }}
-         if ("margin-money" == pageName) {
+       if ("margin-money" == pageName) {
         if(id!==null) {
         router.route = "/Leads"  + "/Margin Money" +`/${id}`+ "/Order ID";
         console.log("router123",router.route)
@@ -95,6 +97,24 @@ export default function Index({isQuery}) {
         console.log("router123",router.route)
       }else{
          router.route = "/Leads" + "/Termsheet";
+      }
+     
+    }
+      if ("generic" == pageName) {
+      if(id!==null) {
+        router.route = "/Agreements & LC Module"  + "/Generic" +`/${id}` + "/Order ID";
+        console.log("router123",router.route)
+      }else{
+         router.route = "/Agreements & LC Module" + "/Generic";
+      }
+     
+    }
+       if ("vessel" == pageName) {
+      if(id!==null) {
+        router.route = "/Vessel Nomination"   +`/${id}` + "/Order ID";
+        console.log("router123",router.route)
+      }else{
+         router.route = "/Vessel Nomination";
       }
      
     }
@@ -128,6 +148,19 @@ console.log( router.route," router.route")
     <div className={`${styles.main_container} d-sm-flex d-block justify-content-between background1`}>
       <div>
         <img src="/static/home.svg"></img>
+        {pageName=="generic" || pageName=="vessel"?
+        <div className={`${styles.breadcrumItem}`}>
+          {myUrl.map((val,index)=>{
+            {console.log(myUrl.length-1==index,"val")}
+            return(
+               <div key={index} className={`${styles.breadcrumcontainer} ${myUrlLength==index+1?`${styles.highlight} highlight`:null}`}>
+              <span className='breadcrum_mode'>/</span>
+              <span className={`${styles.value} breadcrum_mode`}>{val}</span>
+            </div>
+            )
+          })}
+        </div>
+        :
         <div className={`${styles.breadcrumItem}`}>
           {myUrl.map((val,index)=>{
             {console.log(myUrl.length-1==index,"val")}
@@ -138,7 +171,7 @@ console.log( router.route," router.route")
             </div>
             )
           })}
-        </div>
+        </div>}
      </div>
       <div className={`${styles.unit_container} d-flex`}>
            {show.units?<div className="mr-0 mr-sm-2">

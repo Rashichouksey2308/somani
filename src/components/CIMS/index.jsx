@@ -158,9 +158,28 @@ export default function Index() {
                   <tbody>
                     <tr className="table_row">
                       <td className={styles.doc_name}>
-                        BL Acknowledgement Copy
+                        Coal Import Registration Certificate
                         <strong className="text-danger ml-0">*</strong>
                       </td>
+                      <td>
+                        <img
+                          src="/static/pdf.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        />
+                      </td>
+                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                      <td>
+                        <div className={styles.uploadBtnWrapper}>
+                          <input type="file" name="myfile" />
+                          <button className={`${styles.upload_btn} btn`}>
+                            Upload
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr className="table_row">
+                      <td className={styles.doc_name}>CIMS Payment Receipt</td>
                       <td>
                         <img
                           src="/static/pdf.svg"

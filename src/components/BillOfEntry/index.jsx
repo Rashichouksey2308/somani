@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
@@ -6,6 +6,8 @@ import InspectionDocument from '../InspectionDocument'
 import DateCalender from '../DateCalender'
 
 export default function Index() {
+  const [saveContactTable, setContactTable] = useState(false)
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -345,11 +347,120 @@ export default function Index() {
                 </div>
               </div>
 
-              <hr></hr>
+              <div className={`${styles.bill_landing}  border_color mt-4`}>
+                <div className={`${styles.vessel_card} mt-3`}>
+                  <div className={`${styles.card_sub_heading}`}>Duty</div>
+                </div>
+                <div className={styles.table_scroll_outer}>
+                  <div className={styles.table_scroll_inner}>
+                    <table
+                      className={`${styles.table} table mt-5`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                      border="0"
+                    >
+                      <thead>
+                        <tr>
+                          <th>S.NO.</th>
+                          <th>DUTY</th>
+                          <th>AMOUNT</th>
+                          <th className="text-right" width="50%">
+                            ACTION
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>1</td>
+                          <td>BCD</td>
+                          <td className={styles.doc_row}>24,000</td>
+                          <td className="text-right">
+                            <div>
+                              {!saveContactTable ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  onClick={(e) => {
+                                    setContactTable(true)
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    setContactTable(false)
+                                  }}
+                                />
+                              )}
+                              <img
+                                src="/static/delete 2.svg"
+                                className="img-fluid"
+                                alt="delete"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>1</td>
+                          <td>BCD</td>
+                          <td className={styles.doc_row}>24,000</td>
+                          <td className="text-right">
+                            <div>
+                              {!saveContactTable ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  onClick={(e) => {
+                                    setContactTable(true)
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    setContactTable(false)
+                                  }}
+                                />
+                              )}
+                              <img
+                                src="/static/delete 2.svg"
+                                className="img-fluid"
+                                alt="delete"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <hr></hr>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="d-flex mt-2">
+                        <div
+                          className={`${styles.label}`}
+                          style={{ marginLeft: '30px' }}
+                        >
+                          Total Custom Duty:
+                        </div>
+                        <div className={`${styles.value} ml-2 mt-n1`}>
+                          4,000
+                        </div>
+                      </div>
+                      <div className={`${styles.add_row} mr-3 mt-n2 d-flex `}>
+                        <span>+</span>
+                        <div>Add More Rows</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div className="row ml-auto">
                 <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <Form.Check aria-label="option 1" />
                   <div className={`${styles.label} text ml-4`}>
@@ -358,24 +469,16 @@ export default function Index() {
                   <span className={`${styles.value} ml-4`}>2345678</span>
                 </div>
                 <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
                     BL Date <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>22-02-2022</span>
                 </div>
+
                 <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
-                  <div className={`${styles.label} text`}>
-                    No.of Containers{' '}
-                    <strong className="text-danger ml-n1">*</strong>{' '}
-                  </div>
-                  <span className={styles.value}>18</span>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
                     BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
@@ -383,7 +486,7 @@ export default function Index() {
                   <span className={styles.value}>4,000 MT</span>
                 </div>
                 <div
-                  className="col-lg-2 col-md-4 col-sm-6 text-center"
+                  className="col-lg-3 col-md-4 col-sm-6 text-center"
                   style={{ top: '40px' }}
                 >
                   <img
@@ -393,7 +496,7 @@ export default function Index() {
                   />
                 </div>
                 <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <Form.Check aria-label="option 1" />
                   <div className={`${styles.label} text ml-4`}>
@@ -402,24 +505,16 @@ export default function Index() {
                   <span className={`${styles.value} ml-4`}>2345678</span>
                 </div>
                 <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
                     BL Date <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>22-02-2022</span>
                 </div>
+
                 <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
-                  <div className={`${styles.label} text`}>
-                    No.of Containers{' '}
-                    <strong className="text-danger ml-n1">*</strong>{' '}
-                  </div>
-                  <span className={styles.value}>18</span>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
                     BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
@@ -427,7 +522,7 @@ export default function Index() {
                   <span className={styles.value}>4,000 MT</span>
                 </div>
                 <div
-                  className="col-lg-2 col-md-4 col-sm-6 text-center"
+                  className="col-lg-3 col-md-4 col-sm-6 text-center"
                   style={{ top: '40px' }}
                 >
                   <img

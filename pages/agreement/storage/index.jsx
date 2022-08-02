@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable @next/next/no-img-element */
 import React, {useEffect} from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
@@ -22,6 +21,9 @@ function Index() {
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
 
+  console.log(insuranceData, 'INSURANCE DATA LETTER')
+  
+
   return (
     <>
       <div className="container-fluid p-0">
@@ -35,7 +37,7 @@ function Index() {
               alt="arrow"
             />
             <h1 className={`${styles.heading} heading`}>
-            {insuranceData?.company?.companyName}
+              {insuranceData?.company?.companyName}
             </h1>
           </div>
           <div className={`${styles.card_body} card-body`}>
@@ -46,13 +48,13 @@ function Index() {
               <div className={`${styles.details_content} mb-1`}>
                 <span className={`${styles.details_head}`}>Order ID:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                {insuranceData?.order?.orderId}
+                  {insuranceData?.order?.orderId}
                 </span>
               </div>
               <div className={`${styles.details_content} mb-1`}>
                 <span className={`${styles.details_head}`}>Date:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                {moment(insuranceData?.createdAt?.split('T')[0]).format('DD.MM.yyyy')}
+                  {moment(insuranceData?.createdAt?.split('T')[0]).format('DD.MM.yyyy')}
                 </span>
               </div>
               <div className={`${styles.details_content} mb-1`}>
@@ -60,7 +62,7 @@ function Index() {
                   Type of Insurance:
                 </span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                {insuranceData?.quotationRequest?.insuranceType}
+                  {insuranceData?.quotationRequest?.insuranceType}
                 </span>
               </div>
               <br></br>
@@ -133,7 +135,7 @@ function Index() {
                     Material
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {insuranceData?.order?.commodity}
+                    {insuranceData?.order?.commodity}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -146,7 +148,7 @@ function Index() {
                     Origin
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {insuranceData?.order?.countryOfOrigin}
+                    {insuranceData?.order?.countryOfOrigin}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -185,7 +187,46 @@ function Index() {
                     Port of Discharges
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {insuranceData?.order?.portOfDischarge}
+                    {insuranceData?.order?.portOfDischarge}
+                  </Col>
+                </Row>
+                <Row className={`${styles.row}`}>
+                  <Col
+                    md={3}
+                    sm={3}
+                    xs={4}
+                    className={`${styles.content_head} label_heading"`}
+                  >
+                    Place of Storage
+                  </Col>
+                  <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
+                    {insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}
+                  </Col>
+                </Row>
+                <Row className={`${styles.row}`}>
+                  <Col
+                    md={3}
+                    sm={3}
+                    xs={4}
+                    className={`${styles.content_head} label_heading"`}
+                  >
+                    Storage Plot Address
+                  </Col>
+                  <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
+                  {insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress}
+                  </Col>
+                </Row>
+                <Row className={`${styles.row}`}>
+                  <Col
+                    md={3}
+                    sm={3}
+                    xs={4}
+                    className={`${styles.content_head} label_heading"`}
+                  >
+                    Period of Insurance
+                  </Col>
+                  <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
+                    {insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance} Days
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -198,7 +239,7 @@ function Index() {
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {moment(insuranceData?.quotationRequest.laycanFrom?.split('T')[0]).format('DD MMM')} - {moment(insuranceData?.quotationRequest.laycanTo?.split('T')[0]).format('DD MMM, YYYY')} 
+                    {moment(insuranceData?.quotationRequest.laycanFrom?.split('T')[0]).format('DD MMM')} - {moment(insuranceData?.quotationRequest.laycanTo?.split('T')[0]).format('DD MMMM,  YYYY')} 
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -224,7 +265,7 @@ function Index() {
                     ETA
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {moment(insuranceData?.quotationRequest?.estimatedTimeOfArrival?.split('T')[0]).format('DD MMMM , YYYY')}
+                    {moment(insuranceData?.quotationRequest?.estimatedTimeOfArrival?.split('T')[0]).format('DD MMMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -234,10 +275,11 @@ function Index() {
                     xs={4}
                     className={`${styles.content_head} label_heading"`}
                   >
-                    Marine Insurance
+                    Storage Insurance
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including ICC-A, War, SRCC, Theft, Act of God etc.
+                    All Risks Including Burglary, Act of God, Fire, SRCC,
+                    Pilferage etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -250,7 +292,7 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {insuranceData?.company?.companyName}
+                   {insuranceData?.company?.companyName}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -263,7 +305,7 @@ function Index() {
                     Loss Payee
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {insuranceData?.quotationRequest?.lossPayee}
+                    {insuranceData?.quotationRequest?.lossPayee}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

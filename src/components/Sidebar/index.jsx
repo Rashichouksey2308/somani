@@ -49,7 +49,7 @@ function Index() {
         {
           name: 'Generic',
           image: '/static/Credit Queue.svg',
-          route: '/generic',
+          route: '/generic/generic-list/',
         },
         {
           name: 'Agreement',

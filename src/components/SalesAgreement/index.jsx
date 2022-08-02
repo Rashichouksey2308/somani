@@ -163,7 +163,7 @@ function Index(props) {
     {name:"CHA",state:"default",value:"CHA",image:"/static/Group 3256.svg"},
     {name:"Stevedore",state:"default",value:"Stevedore",image:"/static/Group 3256.svg"},
     {name:"CMA",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
-    {name:"Appointment of Third Party",state:"default",value:"Appointment of Third Party",image:"/static/Group 3256.svg"}
+    
     ]
   )
   const onLeftChange=()=>{

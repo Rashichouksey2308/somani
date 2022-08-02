@@ -5,15 +5,26 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import UploadDocument from '../UploadDocument'
 import UploadOther from '../UploadOther'
+import moment from 'moment'
+import { useSelector, useDispatch } from 'react-redux'
 import { UPDATE_CREDIT_CALCULATE_SUCCESSFULL } from 'redux/buyerProfile/actionType'
 import { add } from 'lodash'
-
+import { setPageName,setDynamicName } from '../../redux/userData/action'
 //import { set } from 'immer/dist/internal'
 
 
-function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChangeHandlerForLiner, onVesselInfoChangeHandlerForBulk, saveDate, OnVesselTransitFieldsChangeHandler, OnVesselBasicFieldsChangeHandler, shipmentTypeChangeHandler, setlastDate, lastDate, setStartDate, startDate, OnAddvesselInformation, onAddVessel, list, orderID, id1 }) {
+function Index({ shippingInfoChangeHandler,companyName ,uploadDocHandler, onVesselInfoChangeHandlerForLiner, onVesselInfoChangeHandlerForBulk, saveDate, OnVesselTransitFieldsChangeHandler, OnVesselBasicFieldsChangeHandler, shipmentTypeChangeHandler, setlastDate, lastDate, setStartDate, startDate, OnAddvesselInformation, onAddVessel, list, orderID, id1 }) {
+ const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setPageName('vessel'))
+    dispatch(setDynamicName(companyName))
+  })
+const getSn=(index)=>{
+    let a=Number(index);
+   return (a+1)
+}
 
-  console.log(partShipmentAllowed, 'partShipmentAllowed')
+  
  
 
   return (
@@ -27,7 +38,7 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
               className="img-fluid mr-2 image_arrow"
             />
             <h1 className={`${styles.title} heading`}>
-              Vessel Details
+              {companyName}
             </h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
@@ -45,7 +56,7 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
           <div className={`${styles.vessel_card}`}>
             {list &&
               list.map((val, index) => {
-                const addingVessel = (list[index].shipmentType === 'Bulk' && partShipmentAllowed == 'true')
+                
                 
 
                 return (
@@ -58,24 +69,30 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
                     >
                       {list[index].shipmentType === 'Bulk' ? (
                         <h3 className={`${styles.heading}`}>
-                          Vessel Information 1
+                          {` Vessel Information (${getSn(index)})`}
+                          
                         </h3>
                       ) : (
                         <h3 className={`${styles.heading}`}>Basic Details</h3>
                       )}
-                      <div className="d-flex">
-                        <div>
+                      <div className="d-flex align-items-center">
                           <label className={`${styles.dropDown_label} text`}>
                             Part Shipment Allowed
                           </label>
-                          <select onChange={(e) => setPartShipmentAllowed(e.target.value)} className={`${styles.dropDown} input`}>
-                            {partShipmentAllowed ? <> <option value={true}>Yes</option>
-                              <option value={false}>No</option></> : <> <option value={false}>NO</option>
-                              <option value={true}>Yes</option></>}
-                          </select>
+                        <div className='position-relative'>
+                            <select className={`${styles.dropDown} ${styles.customSelect} input`}>
+                              {val.isPart ? <> <option>Yes</option>
+                                <option>No</option></> : <> <option>No</option>
+                                <option>Yes</option></>}
+                            </select>
+                            <img
+                              className={`${styles.arrow2} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
                         </div>
 
-                        { addingVessel ? (
+                        { list[index].shipmentType === 'Bulk'  ? (
                           <button
                             className={styles.add_btn}
                             onClick={(e) => {
@@ -170,7 +187,7 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
                             className={`${styles.label_heading} label_heading`}
                             id="textInput"
                           >
-                            Order values<strong className="text-danger">*</strong>
+                            Order Value<strong className="text-danger">*</strong>
                           </label>
                         </div>
                       </div>
@@ -263,8 +280,8 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender defaultDate={val?.transitDetails?.laycanFrom} name='laycanFrom' index={index} saveDate={saveDate} labelName="Laycan from"
-                              required />
+                            <DateCalender dateFormat={`dd-MM-yyyy`} defaultDate={val?.transitDetails?.laycanFrom} name='laycanFrom' index={index} saveDate={saveDate} labelName="Laycan from"
+                            required />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -276,7 +293,7 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender defaultDate={val?.transitDetails?.laycanTo} name='laycanTo' index={index} saveDate={saveDate} labelName="Laycan to" />
+                            <DateCalender dateFormat={`dd-MM-yyyy`} defaultDate={val?.transitDetails?.laycanTo} name='laycanTo' index={index} saveDate={saveDate} labelName="Laycan to" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -288,7 +305,7 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
                           className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender defaultDate={val?.transitDetails?.EDTatLoadPort} name='EDTatLoadPort' index={index} saveDate={saveDate} labelName="ETA at Load Port" />
+                            <DateCalender  dateFormat={`dd-MM-yyyy`} defaultDate={val?.transitDetails?.EDTatLoadPort} name='EDTatLoadPort' index={index} saveDate={saveDate} labelName="ETA at Load Port" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -310,9 +327,9 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
                               defaultDate={val?.transitDetails?.ETAatDischargePort}
                               name='ETAatDischargePort'
                               selected={startDate}
-                              dateFormat="dd/MM/yyyy"
+                              dateFormat="dd-MM-yyyy"
 
-                              className={`${styles.input_field} input form-control`}
+                              className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startDate) => {
                                 setStartDate(startDate)
                                 saveDate(startDate, 'ETAatDischargePort', index)
@@ -355,7 +372,7 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                Vessel Name</label>
+                                Vessel Name<strong className="text-danger">*</strong></label>
                             </div>
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
@@ -371,7 +388,7 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                IMO Number</label>
+                                IMO Number<strong className="text-danger">*</strong></label>
                             </div>
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
@@ -387,24 +404,37 @@ function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChange
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
-                                Flag</label>
+                                Flag<strong className="text-danger">*</strong></label>
                             </div>
-                            <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+                                <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+                        >
+                          <div className="d-flex">
+                            <select
+                              id='yearOfBuilt'
+
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                              required
+                              value={moment(vesselInfo.yearOfBuilt).format("YYYY")}
+                              onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
                             >
-                              <input
-                                id='yearOfBuilt'
-                                defaultValue={vesselInfo.yearOfBuilt}
-                                className={`${styles.input_field} input form-control`}
-                                type="number"
-                                required
-                                onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
-                                Year of Built</label>
-                            </div>
+                              <option value={moment(vesselInfo.yearOfBuilt).format("YYYY")}>{moment(vesselInfo.yearOfBuilt).format("YYYY")}</option>
+                              
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Year of Built
+                              <strong className="text-danger">*</strong>
+                            </label>
+                            <img
+                              className={`${styles.arrow} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                           
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
                             >

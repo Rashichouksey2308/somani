@@ -38,6 +38,7 @@
             outline: none;
             box-shadow: none;
             position: relative;
+            padding-right: 45px;
             box-sizing: border-box;
             &:invalid+label {
                 transform: translateY(0);
@@ -98,7 +99,8 @@
             border-radius: 9px;
             max-width: 100%;
             min-width: 49%;
-            min-height: 156px;
+            min-height: 170px;
+            max-height: 170px;
             span {
                 color: #3687E8;
             }
@@ -113,6 +115,10 @@
                 div {
                     width: 100%;
                 }
+            }
+            .address_text {
+                overflow-y: auto;
+                max-height: 80px;
             }
         }
         .actions {
@@ -622,6 +628,7 @@
                             padding: 0 23px 0 10px;
                             outline: none;
                             min-width: 130px;
+                            width: 100%;
                         }
                         input {
                             height: 40px;
@@ -681,11 +688,13 @@
 }
 .addMoreRows {
     color: #3687E8;
-    padding: 1rem;
-    padding-left: 35px;
+    margin: 1rem;
+    margin-left: 35px;
     font-size: 18px;
     line-height: 23px;
     font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
 }
 .form {
     border-bottom: 2px solid #CAD6E6;
@@ -710,10 +719,11 @@
     }
 }
 .newAddressContainer {
+    margin: 19px 35px 41px !important;
     // background: #FFFFFF;
     border: 2px solid #CAD6E6;
     border-radius: 0.5rem;
-    margin: 19px 35px 39px;
+   
     .newAddressHead {
         padding: 18px 25px 24px 35px !important;
         span {
@@ -804,4 +814,7 @@ img {
 .customSelect {
     appearance: none;
     // position: relative;
+}
+.newAddressContainer2{
+    margin: 19px 17px 41px !important;
 }

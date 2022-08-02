@@ -10,6 +10,7 @@ import _get from "lodash/get";
 import { UpdateTransitDetails, GetTransitDetails } from '../../src/redux/TransitDetails/action'
 import { useDispatch, useSelector } from 'react-redux'
 
+import LetterIndermity from '../../src/components/LetterIndermity'
 
 function Index() {
   const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(true)
@@ -64,9 +65,9 @@ function Index() {
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
-                href="#plotInspection"
+                href="#loi"
                 role="tab"
-                aria-controls="plotInspection"
+                aria-controls="loi"
                 aria-selected="false"
               >
                 LOI
@@ -110,6 +111,11 @@ function Index() {
                 >
                   <div className={`${styles.card}  accordion_body`}>
                     <BillLanding TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
+                  </div>
+                </div>
+                <div className="tab-pane fade" id="loi" role="tabpanel">
+                  <div className={`${styles.card}  accordion_body`}>
+                    <LetterIndermity />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="cims" role="tabpanel">

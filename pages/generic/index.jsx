@@ -5,12 +5,14 @@ import styles from './index.module.scss'
 import SalesAgreement from '../../src/components/SalesAgreement'
 import Cookies from 'js-cookie'
 import API from '../../src/utils/endpoints'
+import { useDispatch, useSelector } from 'react-redux'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 
 
 
 function Index(props) {
   console.log("🚀 ~ file: index.jsx ~ line 9 ~ Index ~ props", props)
-
+  const dispatch = useDispatch()
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
 
@@ -25,26 +27,29 @@ function Index(props) {
     }
 
   }, [])
+  useEffect(() => {
+    dispatch(setPageName('generic'))
+    dispatch(setDynamicName(sessionStorage.getItem('genericID')))
+    
+  })
 
 
   return (
     <div className={`${styles.dashboardTab} w-100`}>
-      <div className={`${styles.tabHeader} tabHeader `}>
-        <div className="d-flex align-items-center">
-          <h1 className={`${styles.title} heading`}><img src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`}`} alt="arrow right" className="img-fluid image_arrow" />Name</h1>
-          <div className={"ml-auto d-flex"}>
-            <div className="ml-auto  mr-2">
-              <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-
-            </div>
-            {/* <div className="ml-auto">
-                  <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-                  <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-                </div> */}
+      <div className={`${styles.tabHeader} tabHeader d-flex align-items-center`}>
+        <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className={`${styles.arrow} img-fluid mr-2 image_arrow`}/>
+        <h1 className={`${styles.title} heading`}>Name</h1>
+        <div className={"ml-auto d-flex"}>
+          <div className="ml-auto  mr-2">
+            <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
 
           </div>
+          {/* <div className="ml-auto">
+                <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
+                <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
+              </div> */}
         </div>
-        <ul className={`${styles.navTabs} nav nav-tabs`}>
+        <ul className={`${styles.navTabs} border-0 nav nav-tabs`}>
 
 
 

@@ -32,7 +32,7 @@ console.log(allForwardHedging,'allForwardHedging')
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.head_header}>
             <img
-              className={`${styles.arrow} img-fluid`}
+              className={`${styles.arrow} image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
@@ -194,7 +194,9 @@ console.log(allForwardHedging,'allForwardHedging')
                 </thead>
                 <tbody>
                   <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
+                    <td className={`${styles.buyerName} heading`}>
+                      BHUTD001-0002
+                    </td>
                     <td
                       onClick={() => {
                         Router.push('/forward-table/id')
@@ -219,7 +221,9 @@ console.log(allForwardHedging,'allForwardHedging')
                     </td>
                   </tr>
                   <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
+                    <td className={`${styles.buyerName} heading`}>
+                      BHUTD001-0002
+                    </td>
                     <td
                       onClick={() => {
                         Router.push('/forward-table/id')
@@ -244,7 +248,9 @@ console.log(allForwardHedging,'allForwardHedging')
                     </td>
                   </tr>
                   <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
+                    <td className={`${styles.buyerName} heading`}>
+                      BHUTD001-0002
+                    </td>
                     <td
                       onClick={() => {
                         Router.push('/forward-table/id')

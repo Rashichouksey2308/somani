@@ -30,7 +30,7 @@ function Index() {
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.head_header}>
             <img
-              className={`${styles.arrow} img-fluid`}
+              className={`${styles.arrow} image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
@@ -126,7 +126,7 @@ function Index() {
             </div>
           </div>
         </div>
-        <div className={`${styles.datatable} datatable card `}>
+        <div className={`${styles.datatable} datatable border_color card `}>
           <div
             className={`${styles.tableFilter} d-flex justify-content-between`}
           >
@@ -161,7 +161,7 @@ function Index() {
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table
-                className={`${styles.table} table`}
+                className={`${styles.table} mt-5 table`}
                 cellPadding="0"
                 cellSpacing="0"
                 border="0"
@@ -176,8 +176,9 @@ function Index() {
                         alt="Sort icon"
                       />{' '}
                     </th>
-                    <th>COMMODITY</th>
+
                     <th>BUYER NAME</th>
+                    <th>COMMODITY</th>
                     <th>VESSEL NAME</th>
                     <th>
                       SURRENDERED{' '}
@@ -191,7 +192,6 @@ function Index() {
                   </tr>
                 </thead>
                 <tbody>
-
                   {_get(allTransitDetails, "data", []
                   ).map((transaction, index) => {
                     return (
@@ -219,6 +219,87 @@ function Index() {
                         </td>
                       </tr>)
                   })}
+                  <tr className="table_row">
+                    <td className={`${styles.buyerName} heading`}>
+                      BHUTD001-0002
+                    </td>
+                    <td
+                      onClick={() => {
+                        Router.push('/transit/id')
+                      }}
+                    >
+                      Bhutani Traders
+                    </td>
+                    <td>Iron</td>
+                    <td>Abcz</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.review}`}
+                      ></span>
+                      Yes
+                    </td>
+                    <td>
+                      <img
+                        className={`${styles.edit_image} img-fluid mr-3`}
+                        src="/static/mode_edit.svg"
+                        alt="edit"
+                      />
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td className={`${styles.buyerName} heading`}>
+                      BHUTD001-0002
+                    </td>
+                    <td
+                      onClick={() => {
+                        Router.push('/transit/id')
+                      }}
+                    >
+                      Bhutani Traders
+                    </td>
+                    <td>Steel</td>
+                    <td>Abcz</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.review}`}
+                      ></span>
+                      Yes
+                    </td>
+                    <td>
+                      <img
+                        className={`${styles.edit_image} img-fluid mr-3`}
+                        src="/static/mode_edit.svg"
+                        alt="edit"
+                      />
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td className={`${styles.buyerName} heading`}>
+                      BHUTD001-0002
+                    </td>
+                    <td
+                      onClick={() => {
+                        Router.push('/transit/id')
+                      }}
+                    >
+                      Bhutani Traders
+                    </td>
+                    <td>Iron</td>
+                    <td>Abcz</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.expired}`}
+                      ></span>
+                      No
+                    </td>
+                    <td>
+                      <img
+                        className={`${styles.edit_image} img-fluid mr-3`}
+                        src="/static/mode_edit.svg"
+                        alt="edit"
+                      />
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
