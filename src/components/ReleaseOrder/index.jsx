@@ -164,13 +164,13 @@ export default function Index() {
                   >
                     <div className={styles.uploadBtnWrapper}>
                       <input type="file" name="myfile" />
-                      <button className={`${styles.upload_btn} mr-2 btn`}>
+                      <button className={`${styles.upload_btn} btn`}>
                         Upload
                       </button>
                     </div>
                     <img
                       src="/static/delete 2.svg"
-                      className={`${styles.delete_image} mt-n4 img-fluid mr-2`}
+                      className={`${styles.delete_image} ml-1 mt-n4 img-fluid mr-2`}
                       alt="Delete"
                     />
                     <img
