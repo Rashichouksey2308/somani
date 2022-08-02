@@ -213,7 +213,7 @@ const Index = ({
                   name="unitOfQuantity"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
-                  <option>L</option>
+                 
                   <option>MT</option>
                 </select>
               </div>

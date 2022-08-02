@@ -215,7 +215,7 @@ function Index(props) {
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-                Short Name<strong className="text-danger">*</strong>
+                Short Name
               </Form.Label>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -255,7 +255,7 @@ function Index(props) {
                 >
                   <div className={`${styles.registeredAddressHeading}`}>
                     <span>{val.addressType} Address</span>
-                    <div>
+                    <div className={`${styles.address_text}`}>
                       {val.fullAddress} {" "} {val.pinCode} {" "} {val.country}
                     </div>
                   </div>
@@ -285,7 +285,7 @@ function Index(props) {
             >
               <div className={`${styles.registeredAddressHeading} w-100`}>
                 <span>Branch Address</span>
-                <div >
+                <div className={`${styles.address_text}`}>
                   Plot No-49-48-6/1, Lalitha Nagar, Ground Floor, Sakshi Office
                   Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 India
                 </div>
@@ -454,7 +454,7 @@ function Index(props) {
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Short Name<strong className="text-danger">*</strong>
+                        Country<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

@@ -211,7 +211,7 @@ function Index(props) {
             >
               <div className={`${styles.registeredAddressHeading} w-100`}>
                 <span>Registered Address</span>
-                <div>
+                <div className={`${styles.address_text}`}>
                   Plot No-49-48-6/1, Lalitha Nagar, Ground Floor, Sakshi Office
                   Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 India
                 </div>
@@ -223,7 +223,7 @@ function Index(props) {
             >
               <div className={`${styles.registeredAddressHeading} w-100`}>
                 <span>Branch Address</span>
-                <div >
+                <div className={`${styles.address_text}`}>
                   Plot No-49-48-6/1, Lalitha Nagar, Ground Floor, Sakshi Office
                   Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 India
                 </div>
