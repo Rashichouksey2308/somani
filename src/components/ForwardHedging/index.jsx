@@ -21,7 +21,7 @@ export default function Index() {
         <div className="pl-3 pr-3 mb-5">
           <div className={`${styles.head_header} ml-5`}>
             <img
-              className={`${styles.arrow}  img-fluid`}
+              className={`${styles.arrow} image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
@@ -179,7 +179,7 @@ export default function Index() {
                     rows={3}
                     className={`${styles.comment_field} form-control`}
                   />
-                  <label className={`${styles.label_comment} text`}>
+                  <label className={`${styles.label_comment} label_heading`}>
                     Remarks
                   </label>
                 </div>

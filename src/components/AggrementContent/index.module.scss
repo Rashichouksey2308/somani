@@ -38,6 +38,7 @@
             outline: none;
             box-shadow: none;
             position: relative;
+            padding-right: 45px;
             box-sizing: border-box;
             &:invalid+label {
                 transform: translateY(0);
@@ -622,6 +623,7 @@
                             padding: 0 23px 0 10px;
                             outline: none;
                             min-width: 130px;
+                            width: 100%;
                         }
                         input {
                             height: 40px;
@@ -710,10 +712,11 @@
     }
 }
 .newAddressContainer {
+    margin: 19px 35px 41px !important;
     // background: #FFFFFF;
     border: 2px solid #CAD6E6;
     border-radius: 0.5rem;
-    margin: 19px 35px 39px;
+   
     .newAddressHead {
         padding: 18px 25px 24px 35px !important;
         span {

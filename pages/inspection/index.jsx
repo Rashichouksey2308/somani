@@ -10,7 +10,7 @@ function Index() {
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.head_header}>
             <img
-              className={`${styles.arrow} img-fluid`}
+              className={`${styles.arrow} image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
@@ -106,7 +106,7 @@ function Index() {
             </div>
           </div>
         </div>
-        <div className={`${styles.datatable} datatable card `}>
+        <div className={`${styles.datatable} datatable card border_color `}>
           <div
             className={`${styles.tableFilter} d-flex justify-content-between`}
           >

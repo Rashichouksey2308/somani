@@ -181,11 +181,12 @@ export default function Index() {
                     <input
                       as="textarea"
                       rows={3}
-                      className={`${styles.comment_field} form-control`}
+                      required
+                      className={`${styles.comment_field} ${styles.input_field} form-control`}
                       // style={{ backgroundColor: 'none' }}
                     />
                     <label
-                      className={`${styles.comment_heading} label_heading`}
+                      className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
                     >
                       Special Mention
                     </label>

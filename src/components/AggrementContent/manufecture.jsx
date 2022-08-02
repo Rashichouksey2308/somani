@@ -447,20 +447,20 @@ const editNewAddress=(name,value)=>{
               </div>
               <div className={`d-flex ${styles.actions} `}>
                 <div
-                  className={`${styles.addressEdit} d-flex justify-content-center align-items-center`}
+                  className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                   onClick={()=>{
                     handleEditAddressInput(index)
                   }}
                 >
-                  <img src="/static/mode_edit.svg" alt="edit" />
+                  <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
                 </div>
                 <div
-                  className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center`}
+                  className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
                   onClick={()=>{
                     onAddressRemove(index)
                   }}
                   >
-                    <img src="/static/delete 2.svg" alt="delete" />
+                    <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
                 </div>
               </div>
             </div>
@@ -470,151 +470,7 @@ const editNewAddress=(name,value)=>{
           </div>
         </div>
         {isEdit && editData(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)}
-        <div className={`${styles.tableContainer} border-color card p-0`}>
-          <div
-            className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-            data-toggle="collapse"
-            data-target="#customerDetail"
-            aria-expanded="true"
-            aria-controls="customerDetail"
-          >
-            <div className={styles.header}>
-              <h2 className={`mb-0`}>Authorised Signatory Details</h2>
-              <span className=" d-flex align-items-center justify-content-between">
-
-                +
-              </span>
-            </div>
-          </div>
-          <div
-            id="customerDetail"
-            className={`collapse ${styles.body}  value_card card-body row`}
-            aria-labelledby="customerDetail"
         
-          >
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-                  <tr className='table_row'>
-                    <th>NAME</th>
-                    <th>DESIGNATION</th>
-                    <th>EMAIL</th>
-                    <th>PHONE NO.</th>
-                    <th>ACTION</th>
-                  </tr>
-                  <tbody>
-                    {list.length>0 && list.map((val,index)=>{
-                      return(
-                        <>
-                        {val.actions=="true"?
-                        <tr key={index} className='table_row'>
-                          <td>{val.name}</td>
-                          <td>{val.designation}</td>
-                          <td>{val.email}</td>
-                          <td>{val.phoneNo}</td>
-                          <td className={`d-flex`}>
-                          <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
-                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
-                          </td>
-
-                        </tr>
-                        :<tr key={index} className='table_row'>
-                          <td>
-                            <select 
-                            value="name" className={`${styles.customSelect}`}
-                            onChange={(e)=>{
-                              handleChangeInput(e.target.name,e.target.value,index)
-                            }}>
-                              <option value={"Dr.amin"}>{"Dr.amin"}</option>
-                            </select>
-                            <img
-                              className={`${styles.arrow2} img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </td>
-                          <td><input type="text" 
-                          placeholder={val.designation}
-                          name= "designation"
-                          onChange={(e)=>{
-                            handleChangeInput(e.target.name,e.target.value,index)
-                          }}
-                          ></input></td>
-                          <td><input type="text" placeholder={val.email}
-                          name= "email"
-                          onChange={(e)=>{
-                            handleChangeInput(e.target.name,e.target.value,index)
-                          }}
-                          ></input></td>
-                          <td><input type="text" placeholder={val.phoneNo}
-                          name= "phoneNo"
-                          onChange={(e)=>{
-                            handleChangeInput(e.target.name,e.target.value,index)
-                          }}
-                          ></input></td>
-                          <td className={`d-flex`}>
-                            <div
-                              className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
-                              onClick={()=>{
-                              onEditRemove(index)
-                              }}
-                            >
-                              <img className={`${styles.image} img-fluid mr-3`} src="/static/save-3.svg" alt="save"/>
-                            </div>
-                            <div
-                              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
-                              onClick={()=>{
-                              handleRemove(index)
-                              }}
-                            >
-                              <img src="/static/delete 2.svg" />
-                            </div>
-                            {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
-                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
-                          </td>
-
-                        </tr>}
-                        </>
-                      )
-                    })}
-                  </tbody>
-                </table>
-                <div className={`${styles.addMoreRows}`} onClick={(e)=>{
-                  addMoreRows()
-                  }}>
-                  <span style={{fontSize:"2rem"}} className={`mr-2`}>+</span>  Add more rows
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={styles.manufacture}>
-         
-           <span className={``}>{props.multiPartValue} Details</span>
-           
-          <div className={`row`}>
-
-            
-            <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
-              <Form.Control
-                className={`${styles.input_field} input form-control`}
-                required
-                type="text"
-                name="name"
-                onChange={(e) => {
-                  handleInput(e.target.name,e.target.value)
-                }}
-              />
-              <Form.Label className={`${styles.label_heading} label_heading`}>
-               {props.multiPartValue} Name<strong className="text-danger">*</strong>
-              </Form.Label>
-                <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  />
-            </Form.Group>
-            <div className={`col-sm-12`}>
               <div className={`${styles.newAddressContainer} m-0`}>
                   <div className={styles.newAddressHead}><span>Add a new address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
@@ -828,10 +684,158 @@ const editNewAddress=(name,value)=>{
                     </div>
                   </div>
               </div>
+           
+        <div className={`${styles.tableContainer} border-color card p-0`}>
+          <div
+            className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
+            data-toggle="collapse"
+            data-target="#customerDetail"
+            aria-expanded="true"
+            aria-controls="customerDetail"
+          >
+            <div className={styles.header}>
+              <h2 className={`mb-0`}>Authorised Signatory Details</h2>
+              <span className=" d-flex align-items-center justify-content-between">
+
+                +
+              </span>
             </div>
+          </div>
+          <div
+            id="customerDetail"
+            className={`collapse ${styles.body}  value_card card-body row`}
+            aria-labelledby="customerDetail"
+        
+          >
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+                  <tr className='table_row'>
+                    <th>NAME</th>
+                    <th>DESIGNATION</th>
+                    <th>EMAIL</th>
+                    <th>PHONE NO.</th>
+                    <th>ACTION</th>
+                  </tr>
+                  <tbody>
+                    {list.length>0 && list.map((val,index)=>{
+                      return(
+                        <>
+                        {val.actions=="true"?
+                        <tr key={index} className='table_row'>
+                          <td>{val.name}</td>
+                          <td>{val.designation}</td>
+                          <td>{val.email}</td>
+                          <td>{val.phoneNo}</td>
+                          <td className={`d-flex`}>
+                          <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
+                          </td>
+
+                        </tr>
+                        :<tr key={index} className='table_row'>
+                          <td>
+                            <select 
+                            value="name" className={`${styles.customSelect}`}
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                            }}>
+                              <option value={"Dr.amin"}>{"Dr.amin"}</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow2} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </td>
+                          <td><input type="text" 
+                          placeholder={val.designation}
+                          name= "designation"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td><input type="text" placeholder={val.email}
+                          name= "email"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td><input type="text" placeholder={val.phoneNo}
+                          name= "phoneNo"
+                          onChange={(e)=>{
+                            handleChangeInput(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
+                          <td className={`d-flex`}>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                              onClick={()=>{
+                              onEditRemove(index)
+                              }}
+                            >
+                              <img className={`${styles.image} img-fluid mr-3`} src="/static/save-3.svg" alt="save"/>
+                            </div>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                              onClick={()=>{
+                              handleRemove(index)
+                              }}
+                            >
+                              <img src="/static/delete 2.svg" />
+                            </div>
+                            {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
+                          </td>
+
+                        </tr>}
+                        </>
+                      )
+                    })}
+                  </tbody>
+                </table>
+                <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+                  addMoreRows()
+                  }}>
+                  <span style={{fontSize:"2rem"}} className={`mr-2`}>+</span>  Add more rows
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {props.multiPart==true?
+        <div className={styles.manufacture}>
+         
+           <span className={``}>{props.multiPartValue} Details</span>
+           
+          <div className={`row`}>
+
+            
+            <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="name"
+                onChange={(e) => {
+                  handleInput(e.target.name,e.target.value)
+                }}
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+               {props.multiPartValue} Name<strong className="text-danger">*</strong>
+              </Form.Label>
+                <img
+                    className={`${styles.search_image} img-fluid`}
+                    src="/static/search-grey.svg"
+                    alt="Search"
+                  />
+            </Form.Group>
+            
 
           </div>
         </div>
+        :null}
+        
 
       </div>
     </>

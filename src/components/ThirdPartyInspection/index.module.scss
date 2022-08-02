@@ -173,15 +173,15 @@
                 box-shadow: none;
                 position: relative;
                 box-sizing: border-box;
-                // &:invalid + label {
-                //     //background: none;
-                //     transform: translateY(0);
-                // }
-                // &:focus {
-                //     & + label {
-                //         transform: translateY(-80px);
-                //     }
-                // }
+                &:invalid + label {
+                    //background: none;
+                    transform: translateY(0);
+                }
+                &:focus {
+                    & + label {
+                        transform: translateY(-29px);
+                    }
+                }
             }
             .sub_heading {
                 font-size: 20px;
