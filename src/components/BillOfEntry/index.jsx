@@ -402,8 +402,58 @@ export default function Index() {
                             </div>
                           </td>
                         </tr>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>1</td>
+                          <td>BCD</td>
+                          <td className={styles.doc_row}>24,000</td>
+                          <td className="text-right">
+                            <div>
+                              {!saveContactTable ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  onClick={(e) => {
+                                    setContactTable(true)
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    setContactTable(false)
+                                  }}
+                                />
+                              )}
+                              <img
+                                src="/static/delete 2.svg"
+                                className="img-fluid"
+                                alt="delete"
+                              />
+                            </div>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
+                    <hr></hr>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="d-flex mt-2">
+                        <div
+                          className={`${styles.label}`}
+                          style={{ marginLeft: '30px' }}
+                        >
+                          Total Custom Duty:
+                        </div>
+                        <div className={`${styles.value} ml-2 mt-n1`}>
+                          4,000
+                        </div>
+                      </div>
+                      <div className={`${styles.add_row} mr-3 mt-n2 d-flex `}>
+                        <span>+</span>
+                        <div>Add More Rows</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
