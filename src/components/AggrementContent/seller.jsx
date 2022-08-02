@@ -194,20 +194,20 @@ useEffect(() => {
             </div>
             <div className={`d-flex ${styles.actions} `}>
               <div
-                className={`${styles.addressEdit} d-flex justify-content-center align-items-center`}
+                className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                 onClick={()=>{
                   handleEditAddressInput(index)
                 }}
               >
-                <img src="/static/mode_edit.svg" alt="edit" />
+                <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
               </div>
               <div
-                className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center`}
+                className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
                 onClick={()=>{
                   onAddressRemove(index)
                 }}
                 >
-                  <img src="/static/delete 2.svg" alt="delete" />
+                  <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
               </div>
             </div>
 

@@ -38,6 +38,7 @@
             outline: none;
             box-shadow: none;
             position: relative;
+            padding-right: 45px;
             box-sizing: border-box;
             &:invalid+label {
                 transform: translateY(0);

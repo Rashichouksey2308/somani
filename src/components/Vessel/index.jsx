@@ -309,7 +309,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                               selected={startDate}
                               dateFormat="dd/MM/yyyy"
 
-                              className={`${styles.input_field} input form-control`}
+                              className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startDate) => {
                                 setStartDate(startDate)
                                 saveDate(startDate, 'ETAatDischargePort', index)
