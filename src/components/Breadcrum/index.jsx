@@ -12,6 +12,7 @@ export default function Index({isQuery}) {
     if(isQuery?.match("/leads")||isQuery?.match("/order-list") 
     ||isQuery?.match("/new-order")
     ||isQuery?.match("/termsheet-preview")
+    ||isQuery?.match("/generic")
     ) {
       show.units=false
       show.currency=false
