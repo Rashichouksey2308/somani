@@ -14,7 +14,7 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab} tabHeader w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center ml-4">
             <h1 className={`${styles.title} heading`}>
               <img
                 src={`${
