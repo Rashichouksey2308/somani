@@ -2,8 +2,28 @@ import React from 'react'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
+import { GetAllTransitDetails, GetTransitDetails } from '../../src/redux/TransitDetails/action'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import _get from "lodash/get";
 
 function Index() {
+  const dispatch = useDispatch()
+  const { allTransitDetails, TransitDetails } = useSelector((state) => state.TransitDetails)
+  //console.log(allTransitDetails,'allTransitDetails')
+
+  useEffect(() => {
+    dispatch(GetAllTransitDetails())
+  }, [dispatch])
+
+  const handleRoute = (transaction) => {
+    let id = transaction._id
+    sessionStorage.setItem('ObjId', transaction.order._id)
+    sessionStorage.setItem('transId', id)
+    dispatch(GetTransitDetails(`?transitId=${id}`))
+    Router.push('/transit/id')
+  }
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -34,7 +54,7 @@ function Index() {
               />
             </div>
           </div>
-          <Filter/>
+          <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
         <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -171,81 +191,34 @@ function Index() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
-                    <td
-                      onClick={() => {
-                        Router.push('/transit/id')
-                      }}
-                    >
-                      Iron
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
-                    <td
-                      onClick={() => {
-                        Router.push('/transit/id')
-                      }}
-                    >
-                      Steel
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
-                    <td
-                      onClick={() => {
-                        Router.push('/transit/id')
-                      }}
-                    >
-                      Iron
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.expired}`}
-                      ></span>
-                      No
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
+
+                  {_get(allTransitDetails, "data", []
+                  ).map((transaction, index) => {
+                    return (
+                      <tr key={index} className="table_row">
+                        <td className={styles.buyerName}>{_get(transaction, "order.orderId", '')}</td>
+                        <td
+                          onClick={() => handleRoute(transaction)}
+                        >
+                          {_get(transaction, "order.commodity", '')}
+                        </td>
+                        <td>{_get(transaction, "company.companyName", '')}</td>
+                        <td>Abcz</td>
+                        <td>
+                          <span
+                            className={`${styles.status} ${styles.review}`}
+                          ></span>
+                          Yes
+                        </td>
+                        <td>
+                          <img
+                            className={`${styles.edit_image} img-fluid mr-3`}
+                            src="/static/mode_edit.svg"
+                            alt="edit"
+                          />
+                        </td>
+                      </tr>)
+                  })}
                 </tbody>
               </table>
             </div>

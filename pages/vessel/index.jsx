@@ -23,11 +23,17 @@ export default function Home() {
     let id = sessionStorage.getItem('VesselId')
     dispatch(GetVessel(`?vesselId=${id}`))
   }, [dispatch])
+  const partShipment = _get(
+    Vessel,
+    "data[0].partShipmentAllowed",
+    false
+  )
 
   const [list, setList] = useState()
   const [containerExcel, setContainerExcel] = useState({})
   const [vesselCertificate, setVesselCertificate] = useState({})
   const [containerListDocument, setContainerListDocument] = useState({})
+  const [partShipmentAllowed, setPartShipmentAllowed] = useState(partShipment)
 
 
 
@@ -256,9 +262,9 @@ export default function Home() {
         val[name] = value
       }
     })
-    console.log(tempArr, 'tempArr')
+    //console.log(tempArr, 'tempArr')
   }
-  console.log(list, 'arrayvessel')
+  //console.log(list, 'arrayvessel')
 
   const uploadDocHandler = (e) => {
     let uploadDocType = e.target.id
@@ -318,6 +324,7 @@ export default function Home() {
   const onSaveHandler = () => {
     const payload = {
       vesselId: id,
+      partShipmentAllowed: partShipmentAllowed,
       vessels: [...list]
     }
     if (containerListDocument) {
@@ -329,14 +336,18 @@ export default function Home() {
     if (containerExcel) {
       payload.containerExcel = containerExcel
     }
-
     console.log(payload, 'vessels123456')
     dispatch(UpdateVessel(payload))
   }
 
+
+
+
   return (
     <>
       <Vessels
+      partShipmentAllowed={partShipmentAllowed}
+        setPartShipmentAllowed={setPartShipmentAllowed}
         id1={id1}
         orderID={orderID}
         list={list}

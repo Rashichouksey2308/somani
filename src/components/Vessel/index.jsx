@@ -11,9 +11,10 @@ import { add } from 'lodash'
 //import { set } from 'immer/dist/internal'
 
 
-function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChangeHandlerForLiner, onVesselInfoChangeHandlerForBulk, saveDate, OnVesselTransitFieldsChangeHandler, OnVesselBasicFieldsChangeHandler, shipmentTypeChangeHandler, setlastDate, lastDate, setStartDate, startDate, OnAddvesselInformation, onAddVessel, list, orderID, id1 }) {
+function Index({ partShipmentAllowed, setPartShipmentAllowed, shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChangeHandlerForLiner, onVesselInfoChangeHandlerForBulk, saveDate, OnVesselTransitFieldsChangeHandler, OnVesselBasicFieldsChangeHandler, shipmentTypeChangeHandler, setlastDate, lastDate, setStartDate, startDate, OnAddvesselInformation, onAddVessel, list, orderID, id1 }) {
 
-
+  console.log(partShipmentAllowed, 'partShipmentAllowed')
+ 
 
   return (
     <>
@@ -44,6 +45,8 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
           <div className={`${styles.vessel_card}`}>
             {list &&
               list.map((val, index) => {
+                const addingVessel = (list[index].shipmentType === 'Bulk' && partShipmentAllowed == 'true')
+                
 
                 return (
                   <div
@@ -65,14 +68,14 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                           <label className={`${styles.dropDown_label} text`}>
                             Part Shipment Allowed
                           </label>
-                          <select className={`${styles.dropDown} input`}>
-                            {val.isPart ? <> <option>Yes</option>
-                              <option>No</option></> : <> <option>NO</option>
-                              <option>Yes</option></>}
+                          <select onChange={(e) => setPartShipmentAllowed(e.target.value)} className={`${styles.dropDown} input`}>
+                            {partShipmentAllowed ? <> <option value={true}>Yes</option>
+                              <option value={false}>No</option></> : <> <option value={false}>NO</option>
+                              <option value={true}>Yes</option></>}
                           </select>
                         </div>
 
-                        {list[index].shipmentType === 'Bulk' ? (
+                        { addingVessel ? (
                           <button
                             className={styles.add_btn}
                             onClick={(e) => {
@@ -261,7 +264,7 @@ function Index({ shippingInfoChangeHandler, uploadDocHandler, onVesselInfoChange
                         >
                           <div className="d-flex">
                             <DateCalender defaultDate={val?.transitDetails?.laycanFrom} name='laycanFrom' index={index} saveDate={saveDate} labelName="Laycan from"
-                            required />
+                              required />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"

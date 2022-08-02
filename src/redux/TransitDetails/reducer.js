@@ -10,18 +10,18 @@ const initialState = {
 
 function TransitDetailsReducer(state = initialState, action) {
     switch (action.type) {
-        case types.GET_ALL_TRANSITDETAILS:
+        case types.GET_TRANSITDETAILS:
             return {
                 ...state,
                 gettingTransitDetails: true,
             }
-        case types.GET_ALL_TRANSITDETAILS_SUCCESS:
+        case types.GET_TRANSITDETAILS_SUCCESS:
             return {
                 ...state,
                 gettingTransitDetails: false,
                 TransitDetails: action.payload,
             }
-        case types.GET_ALL_TRANSITDETAILS_FAILED:
+        case types.GET_TRANSITDETAILS_FAILED:
             return {
                 ...state,
                 gettingTransitDetails: false,

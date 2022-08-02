@@ -1,9 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './inspection.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
+import { useDispatch, useSelector } from 'react-redux'
+import _get from "lodash/get";
+import {GetAllForwardHedging,GetForwardHedging} from '../../src/redux/ForwardHedging/action'
+
+
+
 
 function Index() {
+  const dispatch = useDispatch()
+
+  const { ForwardHedging, allForwardHedging } = useSelector((state) => state.ForwardHedging)
+
+console.log(allForwardHedging,'allForwardHedging')
+  useEffect(() => {
+    dispatch(GetAllForwardHedging())
+  }, [dispatch])
+
+  const handleRoute = (item) => {
+    let id = item._id
+    sessionStorage.setItem('ObjId', item.order._id)
+    sessionStorage.setItem('transId', id)
+    dispatch(GetForwardHedging(`?transitId=${id}`))
+    Router.push('/transit/id')
+  }
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
