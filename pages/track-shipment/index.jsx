@@ -46,7 +46,7 @@ function Index() {
           style={{ position: "absolute", right: 25 }}>
           Create</button> */}
         </div>
-        <div className={`${styles.datatable} datatable card `}>
+        <div className={`${styles.datatable} datatable  border_color  card `}>
           <div
             className={`${styles.tableFilter} d-flex justify-content-between`}
           >
