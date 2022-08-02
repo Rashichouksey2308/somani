@@ -13,6 +13,14 @@ function Index() {
       <div className={styles.container_inner}>
         <div className="d-md-flex justify-content-between align-items-center d-inline-block">
           <div className={`${styles.filter} d-flex align-items-center`}>
+            <div className={styles.head_header}>
+              <img
+                className={`${styles.arrow} image_arrow img-fluid`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="ArrowRight"
+              />
+              <h1 className={styles.heading}>Bill of Entry</h1>
+            </div>
             <div className={styles.search}>
               <div className="input-group">
                 <div
@@ -31,7 +39,7 @@ function Index() {
                 />
               </div>
             </div>
-            <Filter/>
+            <Filter />
             {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
         <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
