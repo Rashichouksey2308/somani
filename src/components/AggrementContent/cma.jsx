@@ -246,12 +246,12 @@ function Index(props) {
         </Form>
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
-          <div className={`d-flex justify-content-between align-items-center ${styles.multiAddContainer}`}>
+          <div className={`${styles.multiAddContainer} d-flex justify-content-between align-items-center flex-wrap`}>
             {addressList.map((val, index) => {
               return (
                 <div
                   key={index}
-                  className={`${styles.registeredAddress} w-100 d-flex justify-content-between border-color`}
+                  className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
                 >
                   <div className={`${styles.registeredAddressHeading}`}>
                     <span>{val.addressType} Address</span>
@@ -261,7 +261,7 @@ function Index(props) {
                   </div>
                   <div className={`d-flex ${styles.actions}`}>
                     <div
-                      className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2 mr-n3`}
+                      className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                       onClick={() => {
                         handleEditAddressInput(index)
                       }}
