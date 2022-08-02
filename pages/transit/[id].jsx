@@ -6,6 +6,7 @@ import styles from './transit.module.scss'
 import BillLanding from '../../src/components/BillLading'
 import CIMS from '../../src/components/CIMS'
 import IGM from '../../src/components/IGM'
+import LetterIndermity from '../../src/components/LetterIndermity'
 
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
@@ -45,9 +46,9 @@ function Index() {
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
-                href="#plotInspection"
+                href="#loi"
                 role="tab"
-                aria-controls="plotInspection"
+                aria-controls="loi"
                 aria-selected="false"
               >
                 LOI
@@ -91,6 +92,11 @@ function Index() {
                 >
                   <div className={`${styles.card}  accordion_body`}>
                     <BillLanding />
+                  </div>
+                </div>
+                <div className="tab-pane fade" id="loi" role="tabpanel">
+                  <div className={`${styles.card}  accordion_body`}>
+                    <LetterIndermity />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="cims" role="tabpanel">
