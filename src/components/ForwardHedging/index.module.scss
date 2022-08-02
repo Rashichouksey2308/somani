@@ -15,7 +15,8 @@
     .heading {
       padding-left: 18px;
       font-weight: bold;
-      font-size: 30px;
+      font-size: 34px;
+      line-height: 41px;
       text-transform: capitalize;
       margin-top: 0;
       @include respond(md-desktop) {
@@ -286,7 +287,16 @@
           transform: translateY(-29px);
           transition: 0.3s all ease-in-out;
         }
-
+        .cancel_btn {
+          padding: 5px 22px;
+          color: #3687e8;
+          border: 3px solid #3687e8;
+          border-radius: 5px;
+          font-size: 18px;
+          line-height: 23px;
+          font-weight: bold;
+          background-color: transparent;
+        }
         .line {
           border: 3px solid #d9dde8;
         }
@@ -421,6 +431,7 @@
           font-size: $font_size_mobile_input_label;
         }
       }
+
       .value {
         font-size: 20px;
         letter-spacing: 0.19px;
@@ -786,4 +797,36 @@
 .customSelect {
   appearance: none;
   // position: relative;
+}
+.comment_field {
+  height: 106px;
+  background-color: #c3c3c31f;
+  border: 1px solid #0000001f;
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 500;
+  outline: none;
+  box-shadow: none;
+  position: relative;
+  box-sizing: border-box;
+}
+.label_comment {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.53px;
+  background-color: #ffffff;
+  position: absolute;
+  pointer-events: none;
+  line-height: 17px;
+  box-sizing: border-box;
+  transform: translateY(-10px);
+  margin-left: 20px;
+  transition: 0.3s all ease-in-out;
+  @include respond(sm-desktop) {
+    font-size: 16px;
+  }
+  @include respond(phone) {
+    font-size: 14px;
+    //top: 20px;
+  }
 }

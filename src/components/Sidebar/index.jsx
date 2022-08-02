@@ -90,7 +90,7 @@ function Index() {
         {
           name: 'Forward Hedging',
           image: '/static/Credit Queue.svg',
-          route: '/forward-hedging',
+          route: '/forward-table',
         },
         {
           name: 'Track Shipments',
