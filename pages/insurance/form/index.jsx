@@ -258,6 +258,17 @@ const Index = () => {
                         </Row>
                       </div>
                     </div>
+                    <hr></hr>
+                    <div className={` ${styles.content}`}>
+                      <div className={` ${styles.body}`}>
+                        <h5>Additional Information (if Any)</h5>
+                        <textarea
+                          className={`${styles.remark_field} form-control`}
+                          as
+                          rows={3}
+                        />
+                      </div>
+                    </div>
                   </>
                 ) : (
                   <>
