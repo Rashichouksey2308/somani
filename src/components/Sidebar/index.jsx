@@ -72,6 +72,7 @@ function Index() {
           route: '/insurance',
         },
       ],
+      route: '',
       image: '/static/Agreement&LCModule.svg',
     },
     {

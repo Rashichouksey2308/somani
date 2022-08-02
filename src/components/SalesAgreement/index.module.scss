@@ -276,4 +276,26 @@
     background: #C3C3C31F !important;
     border: 1px solid #0000001F !important;
     border-radius: 4px !important;
+    color: rgba(0, 0, 0, 0.5) !important;
 }
+ .customSelect {
+     appearance: none;
+     // position: relative;
+    width: 188px;
+     height: 42px;
+
+ }
+   .arrow2 {
+
+       margin-left: -40px;
+       width: 13px;
+       pointer-events: none;
+
+       input[type="date"]::-webkit-inner-spin-button,
+       input[type="date"]::-webkit-calendar-picker-indicator {
+           display: none;
+           -webkit-appearance: none;
+       }
+
+
+   }

@@ -584,7 +584,7 @@ const editNewAddress=(name,value)=>{
         </div>
         <div className={styles.manufacture}>
          
-           <span className={``}>Manufacturer Details</span>
+           <span className={``}>{props.multiPartValue} Details</span>
            
           <div className={`row`}>
 
@@ -600,7 +600,7 @@ const editNewAddress=(name,value)=>{
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-               Manufacturer Name<strong className="text-danger">*</strong>
+               {props.multiPartValue} Name<strong className="text-danger">*</strong>
               </Form.Label>
                 <img
                     className={`${styles.search_image} img-fluid`}

@@ -249,7 +249,7 @@ useEffect(() => {
                           <td>{val.email}</td>
                           <td>{val.phone}</td>
                           <td className={`d-flex justify-content-between`}>
-                          <img onClick={()=>(onEdit(index))} src="/static/add-btn.svg"  />
+                          <img onClick={()=>(addMoreRows())} src="/static/add-btn.svg"  />
                           
                           </td>
 
@@ -261,7 +261,7 @@ useEffect(() => {
                             handleChangeInput(e.target.name,e.target.value,index)
                           }}
                           >
-                            <option>{val.name}</option>
+                            <option>{"Dr.amin"}</option>
                             </select>
                         </td>
                           <td><input type="text" 
@@ -283,7 +283,7 @@ useEffect(() => {
                           }}
                           ></input></td>
                           <td className={`d-flex  justify-content-between`}>
-                            <img  onClick={()=>(onEditRemove(index))}src="/static/add-btn.svg"  />
+                            <img  onClick={()=>(addMoreRows())}src="/static/add-btn.svg"  />
                             
                           </td>
 
@@ -293,11 +293,11 @@ useEffect(() => {
                     })}
                   </tbody>
                 </table>
-                <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+                {/* <div className={`${styles.addMoreRows}`} onClick={(e)=>{
                   addMoreRows()
                   }}>
                   <span>+</span>  Add more rows
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

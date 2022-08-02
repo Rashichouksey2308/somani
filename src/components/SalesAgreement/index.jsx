@@ -26,6 +26,7 @@ function Index(props) {
   console.log(props,"sales")
   const [active,setActive]=useState("Supplier")
   const [multiPart,setMultiPart]=useState(false)
+  const [multiPartValue,setMultiPartValue]=useState("Manufacturer")
   const [saveData,setSaveData]=useState(false)
   const [submitData,setSubmitData]=useState(false)
   const changeActiveValue=(val,index)=>{
@@ -77,6 +78,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+
         />
       )
     }
@@ -113,6 +115,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
          active={active}
+         multiPartValue={multiPartValue}
         />
       )
     }
@@ -575,20 +578,28 @@ const sendData=(key,data)=>{
 </div>                   
                       </div>
               <Form.Group className={`${styles.form_group} `}>
-              <select
-                className={`${styles.input_field} ${multiPart==true?"":styles.inputDisabled} input form-control`}
+               <div className="d-flex">
+                    <select
+                className={` ${multiPart==true?styles.input_field:styles.inputDisabled}  ${styles.customSelect} input  form-control`}
                 name="countryOfOrigin"
                 onChange={(e) => {
-                  saveOrderData(e.target.name, e.target.value)
+                  setMultiPartValue(e.target.value)
                 }}
                 disabled={multiPart==true?"":"disable"}
+                value={multiPartValue}
               >
                 <option value="Manufacturer">Manufacturer</option>
                 <option value="Mines">Mines</option>
                 <option value="Shipper">Shipper</option>
                 
               </select>
+               <img
+                className={`${styles.arrow2} img-fluid`}
+                src="/static/inputDropDown.svg"
+                alt="Search"
+                />
 
+               </div>
             </Form.Group>
                     </div>
                    :null}
