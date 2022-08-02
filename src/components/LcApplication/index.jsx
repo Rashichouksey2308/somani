@@ -14,7 +14,19 @@ function Index({
   addDocArr,
   addCommentArr,
   lcData,
+  addComment,
+  deleteLcDoc,
+  lcDocEdit,
+  currentComment,
+  lcCondition,
+  deleteLcCondition,
+  addConditionComment,
+  lcConditionEdit,
+  currentComment2,
+ 
+  addConditionArr
 }) {
+  console.log(lcCondition,"lcCondition12234")
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
 
@@ -29,7 +41,10 @@ function Index({
   }
   const [lcComment, setLcComment] = useState('')
   const [docComment, setDocComment] = useState('')
-
+const getSn=(index)=>{
+  let a=index;
+  return (`${a + 1}.`)
+}
 
   return (
     <>
@@ -589,14 +604,15 @@ function Index({
                       as="textarea"
                       rows={3}
                       className={`${styles.comment_field} input form-control`}
-                      onChange={(e) => setDocComment(e.target.value)}
+                      onChange={(e) => addComment(e.target.value)}
+                      value={currentComment}
                     />
                     <img
                       className="img-fluid ml-4"
                       src="/static/add-btn.svg"
                       alt="add button"
                       onClick={() =>
-                        docComment.length > 0 && addDocArr(docComment)
+                         addDocArr()
                       }
                     />
                   </div>
@@ -605,13 +621,16 @@ function Index({
                       key={index}
                       className="d-flex justify-content-between pt-4 pb-3"
                     >
-                      <div className={`${styles.number} mr-n3`}>1.</div>
+                      <div className={`${styles.number} mr-n3`}>{getSn(index)}</div>
                       <Form.Control
                         className={`${styles.paragraph} input`}
                         as="textarea"
                         defaultValue={comment}
                         rows={3}
                         readOnly={editStren}
+                        onChange={(e)=>{
+                            lcDocEdit(e,index)
+                        }}
                       />
                       <div>
                         <img
@@ -626,6 +645,9 @@ function Index({
                           src="/static/delete 2.svg"
                           className="img-fluid ml-3"
                           alt="delete"
+                          onClick={()=>{
+                            deleteLcDoc(index)
+                          }}
                         />
                       </div>
                     </div>
@@ -642,29 +664,33 @@ function Index({
                       as="textarea"
                       rows={3}
                       className={`${styles.comment_field} input form-control`}
-                      onChange={(e) => setLcComment(e.target.value)}
+                      onChange={(e) => addConditionComment(e.target.value)}
+                      value={currentComment2}
                     />
                     <img
                       className="img-fluid ml-4"
                       src="/static/add-btn.svg"
                       alt="add button"
                       onClick={() =>
-                        lcComment.length > 0 && addCommentArr(lcComment)
+                        addConditionArr()
                       }
                     />
                   </div>
-                  {lcComments?.map((comment, index) => (
+                  {lcCondition?.map((comment, index) => (
                     <div
                       key={index}
                       className="d-flex justify-content-between pt-4 pb-3"
                     >
-                      <div className={`${styles.number} mr-n3`}>1.</div>
+                      <div className={`${styles.number} mr-n3`}>{getSn(index)}</div>
                       <Form.Control
                         className={`${styles.paragraph} input`}
                         as="textarea"
                         defaultValue={comment}
                         rows={3}
                         readOnly={edit}
+                         onChange={(e)=>{
+                          lcConditionEdit(e,index)
+                        }}
                       />
                       <div>
                         <img
@@ -680,6 +706,9 @@ function Index({
                           src="/static/delete 2.svg"
                           className="img-fluid ml-3"
                           alt="delete"
+                          onClick={()=>{
+                            deleteLcCondition(index)
+                          }}
                         />
                       </div>
                     </div>
