@@ -269,29 +269,17 @@ function Index() {
                 {list.length>0 && list.map((val,index)=>{
                   return(
                     <>
-                    {val.actions=="true"?
-                    <tr key={index} className='table_row'>
-                      <td><strong>{val.name}</strong></td>
+                   <tr key={index} className='table_row'>
+                      <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
                       <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
-                      <td>{val.email}</td>
+                      <td>{`28-02-2022,5:30 PM`}</td>
                       {/* <td>{val.phone}</td> */}
                       <td className={`d-flex`}>
-                        <img onClick={()=>(onEdit(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
+                        <img  className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/>
                         <img onClick={()=>(handleRemove(index))} src="/static/upload.svg" alt="upload"/>
                       </td>
 
                     </tr>
-                    :<tr key={index} className='table_row'>
-                      <td><strong>{val.name}</strong></td>
-                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* <input type="text" placeholder={val.designation}></input> */}</td>
-                      <td><input type="text" className='input' placeholder={val.email}></input></td>
-                      {/* <td><input type="text" placeholder={val.phone}></input></td> */}
-                      <td className={`d-flex `}>
-                        <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
-                        <img onClick={()=>(handleRemove(index))} src="/static/upload.svg" alt="upload"/>
-                      </td>
-
-                    </tr>}
                     </>
                   )
                 })}
