@@ -129,7 +129,7 @@ const Index = ({ orderId }) => {
                     </td>
                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                     <td colSpan={2}>
-                      <button className={styles.updateBtn}>Update</button>
+                      <button className={styles.updateBtn}>Upload</button>
                     </td>
                   </tr>
                 </tbody>
