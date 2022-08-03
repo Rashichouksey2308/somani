@@ -177,6 +177,7 @@
           box-shadow: none;
           position: relative;
           box-sizing: border-box;
+          padding-right: 40px;
           &:invalid + label {
             //background: none;
             transform: translateY(0);
