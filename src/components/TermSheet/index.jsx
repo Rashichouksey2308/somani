@@ -256,6 +256,7 @@ const Index = () => {
   const onChangeCommercialTerms = (e) => {
     const Key = e.target.id
     const value = e.target.value
+    console.log(value,"bal")
     setTermsheetDetails((prev) => ({
       ...prev,
       commercials: { ...prev.commercials, [Key]: value },
@@ -308,16 +309,23 @@ const Index = () => {
       insurance: { ...prev.insurance, [Key]: value },
     }))
   }
-
+ console.log(termsheetDetails,"tempSheet")
   const handleSave = () => {
+     console.log(termsheetDetails.commercials.overDueInterestPerMont,"tempSheet2")
     let tempSheet=termsheetDetails
-  console.log(tempSheet,"tempSheet")
-     tempSheet.commodityDetails.perUnitPrice=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
-     tempSheet.transactionDetails.marginMoney=removePrefixOrSuffix(tempSheet.transactionDetails.marginMoney)
-      console.log(tempSheet,"tempSheet1")
+
+    tempSheet.commodityDetails.perUnitPrice=removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
+    tempSheet.commodityDetails.quantity=removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity)
+    tempSheet.transactionDetails.marginMoney=removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney)
+    tempSheet.commercials.tradeMarginPercentage=removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
+    tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(termsheetDetails.commercials.overDueInterestPerMonth)
+    tempSheet.commercials.lcOpeningChargesPercentage=removePrefixOrSuffix(termsheetDetails.commercials.lcOpeningChargesPercentage)
+    tempSheet.commercials.usanceInterestPercetage=removePrefixOrSuffix(termsheetDetails.commercials.usanceInterestPercetage)
+    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
+      console.log(termsheetDetails,"tempSheet1")
       
     const UpdatedTermsheet = {
-      ...termsheetDetails,
+      ...tempSheet,
       status: 'Approved',
       otherTermsAndConditions,
       additionalComments,
