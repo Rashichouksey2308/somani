@@ -19,20 +19,24 @@ export default function Home() {
   let id1 = sessionStorage.getItem('VesselCompany')
   const orderID = sessionStorage.getItem('orderID')
   let id = sessionStorage.getItem('VesselId')
-  useEffect(() => {
+  useEffect( async () => {
     let id = sessionStorage.getItem('VesselId')
-    dispatch(GetVessel(`?vesselId=${id}`))
+  let data = await  dispatch(GetVessel(`?vesselId=${id}`))
+  console.log(data,"data")
+    
   }, [dispatch])
 
   const [list, setList] = useState()
   const [containerExcel, setContainerExcel] = useState({})
   const [vesselCertificate, setVesselCertificate] = useState({})
   const [containerListDocument, setContainerListDocument] = useState({})
+  const [companyName,setCompanyName]=useState("")
 
 
 
 
   useEffect(() => {
+    setCompanyName(Vessel?.data[0]?.company?.companyName)
     if (_get(
       Vessel,
       "data[0].vessels",
@@ -333,6 +337,8 @@ export default function Home() {
     console.log(payload, 'vessels123456')
     dispatch(UpdateVessel(payload))
   }
+  console.log(Vessel,"Vessel")
+
 
   return (
     <>
@@ -340,6 +346,7 @@ export default function Home() {
         id1={id1}
         orderID={orderID}
         list={list}
+        companyName={companyName}
         onAddVessel={onAddVessel}
         OnAddvesselInformation={OnAddvesselInformation}
         startDate={startDate}
