@@ -3,10 +3,14 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
-import { GetDocuments, AddingDocument, DeleteDocument } from 'redux/creditQueueUpdate/action'
+import {
+  GetDocuments,
+  AddingDocument,
+  DeleteDocument,
+} from 'redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Index = ({orderId}) => {
+const Index = ({ orderId }) => {
   const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
 
@@ -50,7 +54,7 @@ const Index = ({orderId}) => {
       setEditInput(false)
     } else {
       setEditInput(true)
-      setNewDoc({...newDoc, [e.target.id]: e.target.value })
+      setNewDoc({ ...newDoc, [e.target.id]: e.target.value })
     }
   }
   return (
@@ -115,6 +119,7 @@ const Index = ({orderId}) => {
                       LC AMENDMENT DRAFT{' '}
                       <strong className="text-danger ml-0">*</strong>{' '}
                     </td>
+
                     <td>
                       <img
                         src="/static/pdf.svg"
@@ -124,7 +129,7 @@ const Index = ({orderId}) => {
                     </td>
                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                     <td colSpan={2}>
-                      <button className={styles.updateBtn}>Update</button>
+                      <button className={styles.updateBtn}>Upload</button>
                     </td>
                   </tr>
                 </tbody>
@@ -149,11 +154,12 @@ const Index = ({orderId}) => {
                     Drop Files here or
                     <br />
                     <div className={styles.uploadBtnWrapper}>
-                      <input type="file"
-                       accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                      onChange={(e) => uploadDocument2(e)} 
-                      name="myfile"
-                       />
+                      <input
+                        type="file"
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                        onChange={(e) => uploadDocument2(e)}
+                        name="myfile"
+                      />
                       <a href="#">Browse</a>
                     </div>
                   </p>
@@ -167,14 +173,35 @@ const Index = ({orderId}) => {
                       id="name"
                       onChange={(e) => handleDropdown(e)}
                     >
-                    <option value='LcDraft'>LC Draft </option>
-                    <option value='lCAmmendmentDraft'> LC Ammendment Draft</option>
-                    <option value='vesselCertificate'> Vessel certificate</option>
-                    <option value='vesselCertificateContainerList'> Vessel Certificate, Container List</option>
-                    <option value='policyDocumentMarine'> Policy Document - Marine</option>
-                    <option value='policyDocumentStorage'> Policy Document - Storage</option>
-                    <option value='policyDocumentMarine'> Policy Document - Marine</option>
-                    <option value='policyDocumentStorage'> Policy Document - Storage</option>
+                      <option value="LcDraft">LC Draft </option>
+                      <option value="lCAmmendmentDraft">
+                        {' '}
+                        LC Ammendment Draft
+                      </option>
+                      <option value="vesselCertificate">
+                        {' '}
+                        Vessel certificate
+                      </option>
+                      <option value="vesselCertificateContainerList">
+                        {' '}
+                        Vessel Certificate, Container List
+                      </option>
+                      <option value="policyDocumentMarine">
+                        {' '}
+                        Policy Document - Marine
+                      </option>
+                      <option value="policyDocumentStorage">
+                        {' '}
+                        Policy Document - Storage
+                      </option>
+                      <option value="policyDocumentMarine">
+                        {' '}
+                        Policy Document - Marine
+                      </option>
+                      <option value="policyDocumentStorage">
+                        {' '}
+                        Policy Document - Storage
+                      </option>
                       <option value="Others">Others</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
@@ -188,7 +215,7 @@ const Index = ({orderId}) => {
                   </div>
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
-                <Form.Label className={`${styles.label} label_heading`}>
+                  <Form.Label className={`${styles.label} label_heading`}>
                     Please Specify Document Name
                   </Form.Label>
                   <input
@@ -222,7 +249,6 @@ const Index = ({orderId}) => {
               >
                 <div>
                   <select className={`${styles.dropDown} input form-control`}>
-                
                     <option>Lead Onboarding &amp; Order Approval</option>
                     <option>Agreements, Insurance & LC Opening</option>
                     <option>Loading-Transit-Unloading</option>
@@ -289,7 +315,7 @@ const Index = ({orderId}) => {
                   </tr>
                 </thead>
                 <tbody>
-                {documentsFetched &&
+                  {documentsFetched &&
                     documentsFetched?.documents?.map((document, index) => {
                       if (document.deleted) {
                         return null
@@ -392,5 +418,3 @@ const Index = ({orderId}) => {
 }
 
 export default Index
-
-

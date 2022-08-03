@@ -5,7 +5,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import Filter from '../Filter'
-
+import { setPageName,setDynamicName } from '../../redux/userData/action'
 function Index() {
   const dispatch = useDispatch()
 
@@ -20,10 +20,13 @@ function Index() {
   const handleRoute = (lc) => {
     sessionStorage.setItem('lcCompanyId', lc.company._id)
     dispatch(GetLcModule(`?company=${lc.company._id}`))
-
+    dispatch(setDynamicName(lc?.company?.companyName))
     Router.push('/lc-module')
   }
-
+ useEffect(() => {
+    dispatch(setPageName('letter-table'))
+    dispatch(setDynamicName(null))
+  })
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -80,7 +83,7 @@ function Index() {
                       ORDER ID{' '}
                       <img
                         className={`mb-1`}
-                        src="./static/icons8-sort-24.png "
+                        src="./static/icons8-sort-24.svg "
                         alt="Sort icon"
                       />
                     </th>
