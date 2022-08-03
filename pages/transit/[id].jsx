@@ -18,7 +18,8 @@ function Index() {
 
   const dispatch = useDispatch()
   const { TransitDetails } = useSelector((state) => state.TransitDetails)
-  // console.log(TransitDetails,'TransitDetails')
+  const vesselData = _get(TransitDetails, "data[0].order.vessel", {})
+  console.log(TransitDetails, 'TransitDetails')
 
   let objID = sessionStorage.getItem('ObjId')
   let transID = sessionStorage.getItem('transId')
@@ -110,7 +111,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <BillLanding TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
+                    <BillLanding vesselData TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="loi" role="tabpanel">
@@ -120,7 +121,7 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <CIMS />
+                    <CIMS vesselData TransitDetails={TransitDetails} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="igm" role="tabpanel">

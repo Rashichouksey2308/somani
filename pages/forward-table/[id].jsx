@@ -5,10 +5,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
 import Filter from '../../src/components/Filter'
+import {GetAllForwardHedging,GetForwardHedging} from '../../src/redux/ForwardHedging/action'
 
 function Index() {
+
+
+let id =  sessionStorage.getItem('ObjId')
+let ForwardHeading = sessionStorage.getItem('ForwHeadId')
+  dispatch(GetForwardHedging(`?forwardHedgingId=${ForwardHeading}`))
+
   const handleRoute = () => {
     Router.push('/forward-hedging')
+
   }
 
   return (

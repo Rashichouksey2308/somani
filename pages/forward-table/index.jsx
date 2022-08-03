@@ -4,7 +4,7 @@ import Router from 'next/router'
 import Filter from '../../src/components/Filter'
 import { useDispatch, useSelector } from 'react-redux'
 import _get from "lodash/get";
-import {GetAllForwardHedging,GetForwardHedging} from '../../src/redux/ForwardHedging/action'
+import { GetAllForwardHedging, GetForwardHedging } from '../../src/redux/ForwardHedging/action'
 
 
 
@@ -14,17 +14,18 @@ function Index() {
 
   const { ForwardHedging, allForwardHedging } = useSelector((state) => state.ForwardHedging)
 
-console.log(allForwardHedging,'allForwardHedging')
+  console.log(allForwardHedging, 'allForwardHedging')
   useEffect(() => {
     dispatch(GetAllForwardHedging())
   }, [dispatch])
 
-  const handleRoute = (item) => {
-    let id = item._id
-    sessionStorage.setItem('ObjId', item.order._id)
-    sessionStorage.setItem('transId', id)
-    dispatch(GetForwardHedging(`?transitId=${id}`))
-    Router.push('/transit/id')
+  const handleRoute = (List) => {
+
+    let companyid = _get(List, "order", "")
+    sessionStorage.setItem('comapnyId', companyid)
+    sessionStorage.setItem('ForwHeadId', _get(List, "_id", ""))
+    dispatch(GetForwardHedging(`?order=${companyid}`))
+    Router.push('/transit')
   }
   return (
     <div className="container-fluid p-0 border-0">
@@ -193,87 +194,34 @@ console.log(allForwardHedging,'allForwardHedging')
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="table_row">
-                    <td className={`${styles.buyerName} heading`}>
-                      BHUTD001-0002
-                    </td>
-                    <td
-                      onClick={() => {
-                        Router.push('/forward-table/id')
-                      }}
-                    >
-                      Iron
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td className={`${styles.buyerName} heading`}>
-                      BHUTD001-0002
-                    </td>
-                    <td
-                      onClick={() => {
-                        Router.push('/forward-table/id')
-                      }}
-                    >
-                      Steel
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td className={`${styles.buyerName} heading`}>
-                      BHUTD001-0002
-                    </td>
-                    <td
-                      onClick={() => {
-                        Router.push('/forward-table/id')
-                      }}
-                    >
-                      Iron
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.expired}`}
-                      ></span>
-                      No
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
+
+                  {allForwardHedging && allForwardHedging?.data?.map((List, index) => (
+                    <tr key={index} className="table_row">
+                      <td className={`${styles.buyerName} heading`}>
+                        BHUTD001-0002
+                      </td>
+                      <td
+                        onClick={() => handleRoute(List)}
+                      >
+                        {_get(List, "company.companyName", "")}
+                      </td>
+                      <td>{_get(List, "order.commodity", "")} </td>
+                      <td></td>
+                      <td>
+                        <span
+                          className={`${styles.status} ${styles.review}`}
+                        ></span>
+                        Yes
+                      </td>
+                      <td>
+                        <img
+                          className={`${styles.edit_image} img-fluid mr-3`}
+                          src="/static/mode_edit.svg"
+                          alt="edit"
+                        />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

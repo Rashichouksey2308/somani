@@ -21,25 +21,25 @@ function ForwardHedgingReducer(state = initialState, action) {
             return {
                 ...state,
                 gettingForwardHedging: false,
-                Inspection: action.payload,
+                allForwardHedging: action.payload,
             }
         case types.GET_ALL_FORWARDHEDGING_FAILED:
             return {
                 ...state,
                 gettingForwardHedging: false,
             }
-        case types.GET_ALL_FORWARDHEDGING:
+        case types.GET_FORWARDHEDGING:
             return {
                 ...state,
                 gettingForwardHedging: true,
             }
-        case types.GET_ALL_FORWARDHEDGING_SUCCESS:
+        case types.GET_FORWARDHEDGING_SUCCESS:
             return {
                 ...state,
                 gettingForwardHedging: false,
-                allInspection: action.payload,
+                ForwardHedging: action.payload,
             }
-        case types.GET_ALL_FORWARDHEDGING_FAILED:
+        case types.GET_FORWARDHEDGING_FAILED:
             return {
                 ...state,
                 gettingForwardHedging: false,

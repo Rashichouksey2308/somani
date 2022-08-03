@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import Vessels from '../../src/components/Vessel'
@@ -19,11 +20,10 @@ export default function Home() {
   let id1 = sessionStorage.getItem('VesselCompany')
   const orderID = sessionStorage.getItem('orderID')
   let id = sessionStorage.getItem('VesselId')
-  useEffect( async () => {
+  useEffect(async () => {
     let id = sessionStorage.getItem('VesselId')
-  let data = await  dispatch(GetVessel(`?vesselId=${id}`))
-  console.log(data,"data")
-    
+    dispatch(GetVessel(`?vesselId=${id}`))
+   
   }, [dispatch])
   const partShipment = _get(
     Vessel,
@@ -36,7 +36,7 @@ export default function Home() {
   const [vesselCertificate, setVesselCertificate] = useState({})
   const [containerListDocument, setContainerListDocument] = useState({})
   const [partShipmentAllowed, setPartShipmentAllowed] = useState(partShipment)
-  const [companyName,setCompanyName]=useState("")
+  const [companyName, setCompanyName] = useState("")
 
 
 
@@ -343,7 +343,7 @@ export default function Home() {
     console.log(payload, 'vessels123456')
     dispatch(UpdateVessel(payload))
   }
-  console.log(Vessel,"Vessel")
+  console.log(Vessel, "Vessel")
 
 
 
@@ -352,7 +352,7 @@ export default function Home() {
   return (
     <>
       <Vessels
-      partShipmentAllowed={partShipmentAllowed}
+        partShipmentAllowed={partShipmentAllowed}
         setPartShipmentAllowed={setPartShipmentAllowed}
         id1={id1}
         orderID={orderID}

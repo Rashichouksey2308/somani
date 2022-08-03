@@ -13,7 +13,7 @@ import { setPageName,setDynamicName } from '../../redux/userData/action'
 //import { set } from 'immer/dist/internal'
 
 
-function Index({ shippingInfoChangeHandler,companyName ,uploadDocHandler, onVesselInfoChangeHandlerForLiner, onVesselInfoChangeHandlerForBulk, saveDate, OnVesselTransitFieldsChangeHandler, OnVesselBasicFieldsChangeHandler, shipmentTypeChangeHandler, setlastDate, lastDate, setStartDate, startDate, OnAddvesselInformation, onAddVessel, list, orderID, id1 }) {
+function Index({partShipmentAllowed, setPartShipmentAllowed, shippingInfoChangeHandler,companyName ,uploadDocHandler, onVesselInfoChangeHandlerForLiner, onVesselInfoChangeHandlerForBulk, saveDate, OnVesselTransitFieldsChangeHandler, OnVesselBasicFieldsChangeHandler, shipmentTypeChangeHandler, setlastDate, lastDate, setStartDate, startDate, OnAddvesselInformation, onAddVessel, list, orderID, id1 }) {
  const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setPageName('vessel'))
@@ -24,7 +24,7 @@ const getSn=(index)=>{
    return (a+1)
 }
 
-  
+  console.log(partShipmentAllowed, 'partShipmentAllowed')
  
 
   return (
@@ -56,7 +56,7 @@ const getSn=(index)=>{
           <div className={`${styles.vessel_card}`}>
             {list &&
               list.map((val, index) => {
-                
+                const addingVessel = (list[index].shipmentType === 'Bulk' && partShipmentAllowed == 'true')
                 
 
                 return (
@@ -80,11 +80,11 @@ const getSn=(index)=>{
                             Part Shipment Allowed
                           </label>
                         <div className='position-relative'>
-                            <select className={`${styles.dropDown} ${styles.customSelect} input`}>
-                              {val.isPart ? <> <option>Yes</option>
-                                <option>No</option></> : <> <option>No</option>
-                                <option>Yes</option></>}
-                            </select>
+                        <select onChange={(e) => setPartShipmentAllowed(e.target.value)} className={`${styles.dropDown} input`}>
+                            {partShipmentAllowed ? <> <option value={true}>Yes</option>
+                              <option value={false}>No</option></> : <> <option value={false}>NO</option>
+                              <option value={true}>Yes</option></>}
+                          </select>
                             <img
                               className={`${styles.arrow2} img-fluid`}
                               src="/static/inputDropDown.svg"
@@ -92,7 +92,7 @@ const getSn=(index)=>{
                             />
                         </div>
 
-                        { list[index].shipmentType === 'Bulk'  ? (
+                        { addingVessel ? (
                           <button
                             className={styles.add_btn}
                             onClick={(e) => {

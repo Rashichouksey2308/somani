@@ -4,8 +4,9 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
+import _get from "lodash/get";
 
-export default function Index({TransitDetails,isShipmentTypeBULK}) {
+export default function Index({vesselData,TransitDetails,isShipmentTypeBULK}) {
   const [editInput, setEditInput] = useState(true)
   
 
@@ -16,7 +17,6 @@ export default function Index({TransitDetails,isShipmentTypeBULK}) {
       setEditInput(true)
     }
   }
-
 
   return (
     <>
@@ -59,7 +59,7 @@ export default function Index({TransitDetails,isShipmentTypeBULK}) {
                 <div className={`${styles.dropDown_label} text`}>
                   Part Shipment Allowed:
                 </div>
-                <div className={`${styles.dropDown} input`}>Yes</div>
+                <div className={`${styles.dropDown} input`}>{_get(vesselData,"partShipmentAllowed","NO")}</div>
               </div>
             </div>
             <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
@@ -68,19 +68,19 @@ export default function Index({TransitDetails,isShipmentTypeBULK}) {
                   <div className={`${styles.label} text`}>
                     Commodity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>Iron</span>
+                  <span className={styles.value}>{_get(TransitDetails,"data[0].order.commodity","")}</span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>500 Mt</span>
+                  <span className={styles.value}>{_get(TransitDetails,"data[0].order.quantity","")} {_get(TransitDetails,"data[0].order.unitOfQuantity","")}</span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>500 CR</span>
+                  <span className={styles.value}>{_get(TransitDetails,"data[0].order.orderValue","")} {_get(TransitDetails,"data[0].order.unitOfValue","")}</span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>

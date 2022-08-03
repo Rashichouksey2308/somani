@@ -6,6 +6,10 @@ import { useState } from 'react'
 import DateCalender from '../DateCalender'
 
 export default function Index() {
+
+  let id =  sessionStorage.getItem('ObjId')
+let ForwardHeading = sessionStorage.getItem('ForwHeadId')
+  dispatch(GetForwardHedging(`?forwardHedgingId=${ForwardHeading}`))
   const [list, setList] = useState([
     {
       headingCard: '',
