@@ -6,16 +6,8 @@ import Filter from '../../src/components/Filter'
 function Index() {
   return (
     <div className="container-fluid p-0 border-0">
-      <div className={styles.container_inner}>
+      <div className={`${styles.container_inner}`}>
         <div className={`${styles.filter} d-flex align-items-center`}>
-          <div className={styles.head_header}>
-            <img
-              className={`${styles.arrow} image_arrow img-fluid`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="ArrowRight"
-            />
-            <h1 className={styles.heading}>Forward Hedging</h1>
-          </div>
           <div className={styles.search}>
             <div className="input-group">
               <div
@@ -42,70 +34,6 @@ function Index() {
        */}
         </div>
 
-        <div
-          className={`${styles.statusBox} statusBox  d-flex align-items-center justify-content-between`}
-        >
-          <div className={`${styles.all} ${styles.boxInner}`}>
-            <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
-                <img
-                  src="/static/Leads.svg"
-                  className="img-fluid"
-                  alt="All Leads"
-                />
-              </div>
-              <h3>
-                <span>ALL</span>
-                3,200
-              </h3>
-            </div>
-          </div>
-          <div className={`${styles.approved} ${styles.boxInner}`}>
-            <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
-                <img
-                  src="/static/check.svg"
-                  className="img-fluid"
-                  alt="Check"
-                />
-              </div>
-              <h3>
-                <span>TOTAL INSPECTION</span>
-                780
-              </h3>
-            </div>
-          </div>
-          <div className={`${styles.review} ${styles.boxInner}`}>
-            <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
-                <img
-                  src="/static/access-time.svg"
-                  className="img-fluid"
-                  alt="Access Time"
-                />
-              </div>
-              <h3>
-                <span>BL GENERATION</span>
-                800
-              </h3>
-            </div>
-          </div>
-          <div className={`${styles.saved} ${styles.boxInner}`}>
-            <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
-                <img
-                  src="/static/bookmark.svg"
-                  className="img-fluid"
-                  alt="Close"
-                />
-              </div>
-              <h3>
-                <span>SAVED</span>
-                14
-              </h3>
-            </div>
-          </div>
-        </div>
         <div className={`${styles.datatable} datatable card `}>
           <div
             className={`${styles.tableFilter} d-flex justify-content-between`}
@@ -149,7 +77,7 @@ function Index() {
                 <thead>
                   <tr className="table_row">
                     <th>
-                      BUYER ID{' '}
+                      ORDER ID{' '}
                       <img
                         className={`mb-1`}
                         src="/static/icons8-sort-24.svg"
@@ -158,9 +86,9 @@ function Index() {
                     </th>
                     <th>BUYER NAME</th>
                     <th>COMMODITY</th>
-                    <th>VESSEL NAME</th>
+                    <th>CLOSING DATE</th>
                     <th>
-                      SURRENDERED{' '}
+                      STATUS{' '}
                       <img
                         className={`mb-1`}
                         src="/static/icons8-sort-24.svg"
@@ -172,77 +100,74 @@ function Index() {
                 </thead>
                 <tbody>
                   <tr className="table_row">
-                    <td className={`${styles.buyerName} heading`}>
-                      BHUTD001-0002
-                    </td>
+                    <td>124621</td>
                     <td
+                      className={`${styles.buyerName}`}
                       onClick={() => {
-                        Router.push('/forward-table/id')
+                        Router.push('/forward-hedging')
                       }}
                     >
-                      Iron
+                      Bhutani Traders
                     </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td className={`${styles.buyerName} heading`}>
-                      BHUTD001-0002
-                    </td>
-                    <td
-                      onClick={() => {
-                        Router.push('/forward-table/id')
-                      }}
-                    >
-                      Steel
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td className={`${styles.buyerName} heading`}>
-                      BHUTD001-0002
-                    </td>
-                    <td
-                      onClick={() => {
-                        Router.push('/forward-table/id')
-                      }}
-                    >
-                      Iron
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
+                    <td>Iron</td>
+                    <td>22-02-2022</td>
                     <td>
                       <span
                         className={`${styles.status} ${styles.expired}`}
                       ></span>
-                      No
+                      Expired
+                    </td>
+                    <td>
+                      <img
+                        className={`${styles.edit_image} img-fluid mr-3`}
+                        src="/static/mode_edit.svg"
+                        alt="edit"
+                      />
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td>124621</td>
+                    <td
+                      className={`${styles.buyerName} `}
+                      onClick={() => {
+                        Router.push('/forward-hedging')
+                      }}
+                    >
+                      Bhutani Traders
+                    </td>
+                    <td>Iron</td>
+                    <td>22-02-2022</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.expired}`}
+                      ></span>
+                      Expired
+                    </td>
+                    <td>
+                      <img
+                        className={`${styles.edit_image} img-fluid mr-3`}
+                        src="/static/mode_edit.svg"
+                        alt="edit"
+                      />
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td>124621</td>
+                    <td
+                      className={`${styles.buyerName}`}
+                      onClick={() => {
+                        Router.push('/forward-hedging')
+                      }}
+                    >
+                      Somani Traders
+                    </td>
+                    <td>Crude Oil</td>
+                    <td>22-02-2022</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.expired}`}
+                      ></span>
+                      Expired
                     </td>
                     <td>
                       <img

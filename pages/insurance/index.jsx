@@ -1,20 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import TableMain from '../../src/components/TableMain'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
 import { useSelector, useDispatch } from 'react-redux'
-import {GettingAllInsurance} from '../../src/redux/insurance/action'
-import {SearchLeads} from '../../src/redux/buyerProfile/action'
-
+import { GettingAllInsurance } from '../../src/redux/insurance/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
 function Index() {
-
   const dispatch = useDispatch()
 
   const [searchTerm, setSearchTerm] = useState('')
-  
+
   const { searchedLeads } = useSelector((state) => state.order)
 
   const handleSearch = (e) => {
@@ -52,30 +50,30 @@ function Index() {
                 />
               </div>
               <input
-                 value={searchTerm}
-                 onChange={handleSearch}
+                value={searchTerm}
+                onChange={handleSearch}
                 type="text"
                 className={`${styles.formControl} form-control formControl `}
                 placeholder="Search"
               />
             </div>
             {searchedLeads && searchTerm && (
-                <div className={styles.searchResults}>
-                  <ul>
-                    {searchedLeads?.data?.data?.map((results, index) => (
-                      <li
-                        onClick={handleFilteredData}
-                        id={results._id}
-                        key={index}
-                      >
-                        {results.companyName} <span>{results.customerId}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <div className={styles.searchResults}>
+                <ul>
+                  {searchedLeads?.data?.data?.map((results, index) => (
+                    <li
+                      onClick={handleFilteredData}
+                      id={results._id}
+                      key={index}
+                    >
+                      {results.companyName} <span>{results.customerId}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
-          <Filter/>
+          <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -87,74 +85,10 @@ function Index() {
             </a>  */}
         </div>
 
-        <div
-          className={`${styles.statusBox} statusBox  d-flex align-items-center justify-content-between`}
-        >
-          <div className={`${styles.all} ${styles.boxInner}`}>
-            <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
-                <img
-                  src="/static/Leads.svg"
-                  className="img-fluid"
-                  alt="All Leads"
-                />
-              </div>
-              <h3>
-                <span>ALL</span>
-                3,200
-              </h3>
-            </div>
-          </div>
-          <div className={`${styles.approved} ${styles.boxInner}`}>
-            <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
-                <img
-                  src="/static/check.svg"
-                  className="img-fluid"
-                  alt="Check"
-                />
-              </div>
-              <h3>
-                <span>ACTIVE</span>
-                780
-              </h3>
-            </div>
-          </div>
-          <div className={`${styles.rejected} ${styles.boxInner}`}>
-            <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
-                <img
-                  src="/static/access-time.svg"
-                  className="img-fluid"
-                  alt="Access Time"
-                />
-              </div>
-              <h3>
-                <span>EXPIRED</span>
-                800
-              </h3>
-            </div>
-          </div>
-          <div className={`${styles.saved} ${styles.boxInner}`}>
-            <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
-                <img
-                  src="/static/bookmark.svg"
-                  className="img-fluid"
-                  alt="Close"
-                />
-              </div>
-              <h3>
-                <span>SAVED</span>
-                14
-              </h3>
-            </div>
-          </div>
-        </div>
-
         <TableMain
           tableName="List of Insurance"
           isVesselHeader={false}
+          pageType="INSURANCE TYPE"
           dateHeading="ETD"
           isStatus={true}
           handleRoute={changeRoute}
