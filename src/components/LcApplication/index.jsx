@@ -338,56 +338,58 @@ const getSn=(index)=>{
                           />
                         </div>
                       </Col>
-                      <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
-                        <div className="d-flex">
-                          <select
-                            name="atSight"
-                            onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value)
-                            }}
-                            value={lcData?.atSight}
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                          >
-                           
-                            <option value="Documetarty Credit">
-                              Documentary Credit
-                            </option>
-                            <option value="Not Documentary Credit">
-                              Not Documentary Credit
-                            </option>
-                          </select>
+                      <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                        <Row>
+                            <Col xl={8} lg={6} md={12}>
+                              <div className="d-flex">
+                                <select
+                                  name="atSight"
+                                  onChange={(e) => {
+                                    saveLcData(e.target.name, e.target.value)
+                                  }}
+                                  value={lcData?.atSight}
+                                  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                                >
+                                
+                                  <option value="Documetarty Credit">
+                                    Documentary Credit
+                                  </option>
+                                  <option value="Not Documentary Credit">
+                                    Not Documentary Credit
+                                  </option>
+                                </select>
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (42C) At Sight
-                            <strong className="text-danger">*</strong>
-                          </label>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </Col>
-                      <Col className="mb-4 mt-4" lg={1} md={6} sm={6}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="number"
-                          name="numberOfDays"
-                          defaultValue={lcData?.numberOfDays}
-                          onChange={(e) => {
-                            saveLcData(e.target.name, e.target.value)
-                          }}
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                          style={{ left: '18px' }}
-                        >
-                          No. of Days
-                          <strong className="text-danger">*</strong>
-                        </label>
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                >
+                                  (42C) At Sight
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                                <img
+                                  className={`${styles.arrow} img-fluid`}
+                                  src="/static/inputDropDown.svg"
+                                  alt="Search"
+                                />
+                              </div>
+                            </Col>
+                            <Col xl={4} lg={6} md={12}>
+                              <input
+                                className={`${styles.input_field} input form-control`}
+                                required
+                                type="number"
+                                name="numberOfDays"
+                                defaultValue={lcData?.numberOfDays}
+                                onChange={(e) => {
+                                  saveLcData(e.target.name, e.target.value)
+                                }}
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}>
+                                No. of Days
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </Col>
+                        </Row>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <input
