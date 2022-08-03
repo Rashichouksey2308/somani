@@ -290,16 +290,18 @@ export default function Index() {
                           <span className={styles.value}>4,000 MT</span>
                         </div>
                         <div className="col-md-6">
-                          <img
-                            src="/static/preview.svg"
-                            className={`${styles.previewImg} img-fluid ml-n4`}
-                            alt="Preview"
-                          />
-                          <img
-                            src="/static/add-btn.svg"
-                            className="img-fluid ml-5"
-                            alt="Add"
-                          />
+                          <div className='d-flex align-items-center'>
+                            <img
+                              src="/static/preview.svg"
+                              className={`${styles.previewImg} img-fluid ml-n4`}
+                              alt="Preview"
+                            />
+                            <img
+                              src="/static/add-btn.svg"
+                              className="img-fluid ml-5"
+                              alt="Add"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -342,21 +344,23 @@ export default function Index() {
                       className="col-lg-2 col-md-4 col-sm-6"
                       style={{ top: '35px' }}
                     >
-                      <img
-                        src="/static/preview.svg"
-                        className={`${styles.previewImg} img-fluid ml-n4`}
-                        alt="Preview"
-                      />
-                      <img
-                        src="/static/add-btn.svg"
-                        className="img-fluid ml-5"
-                        alt="Add"
-                      />
-                      <img
-                        src="/static/delete 2.svg"
-                        className="img-fluid ml-5"
-                        alt="delete"
-                      />
+                      <div className='d-flex align-items-center'>
+                        <img
+                          src="/static/preview.svg"
+                          className={`${styles.previewImg} img-fluid ml-n4`}
+                          alt="Preview"
+                        />
+                        <img
+                          src="/static/add-btn.svg"
+                          className="img-fluid ml-5"
+                          alt="Add"
+                        />
+                        <img
+                          src="/static/delete 2.svg"
+                          className="img-fluid ml-5"
+                          alt="delete"
+                        />
+                      </div>
                     </div>
                   </>
                 ) : (

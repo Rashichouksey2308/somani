@@ -12,14 +12,14 @@ function Index() {
     <>
       <div className={`${styles.root_container} bg-transparent shadow-none tabHeader`}>
         <div className={styles.head_container}>
-          {/* <div className={styles.head_header}>
+          <div className={styles.head_header}>
             <img
               className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
             />
-            <h1 className={`${styles.heading} heading`}>LC Amendment</h1>
-          </div> */}
+            <h1 className={`${styles.heading} heading`}>Application for LC</h1>
+          </div>
         </div>
         <div className={`${styles.term_container} container-fluid`}>
           <Row className={`h-50`}>
@@ -31,13 +31,13 @@ function Index() {
             </Col>
           </Row>
 
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between mt-n2">
             <div>
               <div className={styles.sub_heading}>
-                Buyer: <span>M/s Vishnu Chemicals Limited</span>
+                Order ID: <span>2FCH6589</span>
               </div>
               <div className={styles.sub_heading}>
-                Order ID: <span>2FCH6589</span>
+                Buyer: <span>M/s Vishnu Chemicals Limited</span>
               </div>
             </div>
             <div className='text-right'>

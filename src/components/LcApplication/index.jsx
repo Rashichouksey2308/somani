@@ -768,13 +768,27 @@ const getSn=(index)=>{
                             <tr className="table_row">
                               <td>AL2O3</td>
                               <td>7.6 PCT</td>
-                              <td>8.0 PCT</td>
+                              <td>7.6 PCT</td>
                             </tr>
-
                             <tr className="table_row">
                               <td>FE</td>
-                              <td>44.5 PCT</td>
-                              <td>43.0</td>
+                              <td>5.0 PCT</td>
+                              <td>5.0 PCT</td>
+                            </tr>
+                            <tr className="table_row">
+                              <td>P</td>
+                              <td>0.11 PCT</td>
+                              <td>0.11 PCT</td>
+                            </tr>
+                            <tr className="table_row">
+                              <td>K20</td>
+                              <td>0.99 PCT</td>
+                              <td>0.99 PCT</td>
+                            </tr>
+                            <tr className="table_row">
+                              <td>SIZE 5-75MM (AT LOADING)</td>
+                              <td>90 PCT</td>
+                              <td>90 PCT</td>
                             </tr>
                           </tbody>
                         </table>
@@ -786,7 +800,7 @@ const getSn=(index)=>{
                 <hr className={styles.line}></hr>
                 <div className={`${styles.dashboard_form}`}>
                   <div className={` ${styles.content}`}>
-                    <div className={` ${styles.body}`}>
+                    <div className={` ${styles.body} p-0`}>
                       <Row>
                         <Col className="mb-4 mt-4" md={12}>
                           <textarea
