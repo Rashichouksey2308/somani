@@ -33,7 +33,7 @@ const getSn=(index)=>{
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className="d-flex align-items-center justify-content-between">
             <img
-              src="/static/arrow-right.svg"
+              src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
             />

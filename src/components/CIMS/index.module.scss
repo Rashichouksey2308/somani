@@ -99,7 +99,8 @@
       .head_container {
         padding: 25px 35px !important;
         border-bottom: 2px solid #cad6e6;
-
+        height: 80px;
+        cursor: pointer;
         .heading {
           color: #3687e8;
           font-weight: bold;
@@ -494,6 +495,7 @@
   .head_container {
     border-bottom: 2px solid #cad6e6;
     cursor: pointer;
+    height: 80px;
     padding: 25px 35px !important;
     .heading {
       font-size: 22px;

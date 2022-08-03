@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
-import { Form, Row, Col} from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
@@ -17,14 +17,16 @@ export default function Index() {
       setEditInput(true)
     }
   }
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   return (
     <>
-      <div className={`${styles.backgroundMain} container-fluid p-0 background2`}>
+      <div
+        className={`${styles.backgroundMain} container-fluid p-0 background2`}
+      >
         <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} card border-color`}>
             <div
@@ -32,23 +34,18 @@ export default function Index() {
             >
               <h3 className={`${styles.heading}`}>Inspection Type</h3>
               <div className="d-flex align-items-center">
-                <div className="mr-5">
+                <div className="d-flex align-items-center mr-5">
                   <label className={`${styles.dropDown_label} text`}>
                     Shipment Type:
                   </label>
-                  <select className={`${styles.dropDown} input`}>
-                    <option>Bulk</option>
-                    <option>Liner</option>
-                  </select>
+                  <div className={`${styles.dropDown} input`}>Bulk</div>
                 </div>
-                <div>
+                <div className="d-flex align-items-center">
                   <label className={`${styles.dropDown_label} text`}>
                     Part Shipment Allowed:
                   </label>
-                  <select className={`${styles.dropDown} input`}>
-                    <option>Yes</option>
-                    <option>No</option>
-                  </select>
+                  <div className={`${styles.dropDown} input`}>Yes</div>
+
                   <button className={styles.add_btn}>Add</button>
                 </div>
               </div>
@@ -110,7 +107,11 @@ export default function Index() {
               className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Inspection Details</h3>
-              <button onClick={handleShow} className={styles.product_btn} type="button">
+              <button
+                onClick={handleShow}
+                className={styles.product_btn}
+                type="button"
+              >
                 {' '}
                 Product Specification
                 <img
@@ -134,7 +135,7 @@ export default function Index() {
                   </label>
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <div className='d-flex'>
+                  <div className="d-flex">
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
@@ -142,11 +143,11 @@ export default function Index() {
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Inspection Port<strong className="text-danger">*</strong>
-                    </label>                  
+                    </label>
                     <img
-                        className={`${styles.search_image} img-fluid`}
-                        src="/static/search-grey.svg"
-                        alt="Search"
+                      className={`${styles.search_image} img-fluid`}
+                      src="/static/search-grey.svg"
+                      alt="Search"
                     />
                   </div>
                 </div>
@@ -162,7 +163,7 @@ export default function Index() {
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
-                    <DateCalender labelName="Inspection Date" />
+                    <DateCalender labelName="Inspection Date" dateFormat={`dd-MM-yyyy`} />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -615,10 +616,21 @@ export default function Index() {
         </div>
         <SaveBar rightBtn="Submit" />
       </div>
-      <Modal show={show} onHide={handleClose} className={`${styles.tpi_popup} tpi_popup`} aria-labelledby="contained-modal-title-vcenter" centered>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        className={`${styles.tpi_popup} tpi_popup`}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
         <Modal.Header className="modal-header p-0 bg-transparent border-0 d-flex justify-content-between">
           <h3>Product Specification</h3>
-          <img src="/static/close.svg" alt="close" onClick={handleClose} className="img-fluid" />
+          <img
+            src="/static/close.svg"
+            alt="close"
+            onClick={handleClose}
+            className="img-fluid"
+          />
         </Modal.Header>
         <Modal.Body className="p-0">
           <div className={styles.table_container}>

@@ -1,48 +1,38 @@
 /* eslint-disable @next/next/no-img-element */
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import Filter from '../Filter'
 
-
 function Index() {
-
   const dispatch = useDispatch()
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0)
 
-  const {lcModule} = useSelector((state)=>state.lc)
-  
+  const { lcModule } = useSelector((state) => state.lc)
 
   useEffect(() => {
-   dispatch(GetLcModule(`?page=${currentPage}&limit=7`))
+    dispatch(GetLcModule(`?page=${currentPage}&limit=7`))
   }, [currentPage, dispatch])
 
   const handleRoute = (lc) => {
     sessionStorage.setItem('lcCompanyId', lc.company._id)
     dispatch(GetLcModule(`?company=${lc.company._id}`))
-    
+
     Router.push('/lc-module')
   }
-  
 
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
-          <div className={styles.head_header}>
-            <img
-              className={`${styles.arrow} img-fluid mr-2 image_arrow`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="ArrowRight"
-            />
-            <h1 className={styles.heading}>Letter of Credit </h1>
-          </div>
           <div className={styles.search}>
             <div className="input-group">
-              <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+              <div
+                className={`${styles.inputGroupPrepend} input-group-prepend`}
+              >
                 <img
                   src="/static/search.svg"
                   className="img-fluid"
@@ -56,8 +46,8 @@ function Index() {
               />
             </div>
           </div>
-          <Filter/>
-          
+          <Filter />
+
           {/* <a href="#" className={`${styles.filterList} filterList `}>
           Bhutani Traders
         <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -71,7 +61,9 @@ function Index() {
         </div>
 
         <div className={`${styles.datatable} card datatable border-color`}>
-          <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
+          <div
+            className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
+          >
             <h3 className="heading_card">Letter of Credit</h3>
           </div>
           <div className={styles.table_scroll_outer}>
@@ -88,7 +80,7 @@ function Index() {
                       ORDER ID{' '}
                       <img
                         className={`mb-1`}
-                        src="./static/icons8-sort-24.png "
+                        src="./static/icons8-sort-24.svg "
                         alt="Sort icon"
                       />
                     </th>
@@ -98,22 +90,25 @@ function Index() {
                   </tr>
                 </thead>
                 <tbody>
-              {lcModule && lcModule?.data?.map((lc, index) => ( <tr key={index} className="table_row">
-                    <td>{lc?.order?.orderId}</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => handleRoute(lc)}
-                    >
-                      {lc?.company?.companyName}
-                    </td>
-                    <td>RM-Sales</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      Pending
-                    </td>
-                  </tr>))}
+                  {lcModule &&
+                    lcModule?.data?.map((lc, index) => (
+                      <tr key={index} className="table_row">
+                        <td>{lc?.order?.orderId}</td>
+                        <td
+                          className={styles.buyerName}
+                          onClick={() => handleRoute(lc)}
+                        >
+                          {lc?.company?.companyName}
+                        </td>
+                        <td>RM-Sales</td>
+                        <td>
+                          <span
+                            className={`${styles.status} ${styles.review}`}
+                          ></span>
+                          Pending
+                        </td>
+                      </tr>
+                    ))}
 
                   {/* <tr className="table_row">
                     <td>124621</td>

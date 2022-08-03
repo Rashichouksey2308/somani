@@ -315,18 +315,19 @@ const Index = () => {
   }
   console.log(termsheetDetails, "tempSheet")
   const handleSave = () => {
-    let tempSheet = termsheetDetails
-    console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
-    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
-    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(tempSheet.commodityDetails.quantity)
-    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(tempSheet.transactionDetails.marginMoney)
-    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
-    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(tempSheet.commercials.lcOpeningChargesPercentage)
-    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(tempSheet.commercials.usanceInterestPercetage)
-    //tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    console.log(termsheetDetails, "tempSheet1")
+     console.log(termsheetDetails.commercials.overDueInterestPerMont,"tempSheet2")
+    let tempSheet=termsheetDetails
 
+    tempSheet.commodityDetails.perUnitPrice=removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
+    tempSheet.commodityDetails.quantity=removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity)
+    tempSheet.transactionDetails.marginMoney=removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney)
+    tempSheet.commercials.tradeMarginPercentage=removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
+    tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(termsheetDetails.commercials.overDueInterestPerMonth)
+    tempSheet.commercials.lcOpeningChargesPercentage=removePrefixOrSuffix(termsheetDetails.commercials.lcOpeningChargesPercentage)
+    tempSheet.commercials.usanceInterestPercetage=removePrefixOrSuffix(termsheetDetails.commercials.usanceInterestPercetage)
+    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
+      console.log(termsheetDetails,"tempSheet1")
+      
     const UpdatedTermsheet = {
       ...tempSheet,
       status: 'Approved',
