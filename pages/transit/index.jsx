@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 function Index() {
+  const dispatch = useDispatch()
+   useEffect(() => {
+    dispatch(setPageName('transit'))
+    dispatch(setDynamicName(null))
+  })
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -177,6 +183,7 @@ function Index() {
                       className={styles.buyerName}
                       onClick={() => {
                         Router.push('/transit/id')
+                        dispatch(setDynamicName("BHUTD001-0002"))
                       }}
                     >
                       Iron
