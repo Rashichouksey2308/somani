@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
-import InspectionDocument from '../InspectionDocument'
 import DateCalender from '../DateCalender'
 
 export default function Index() {

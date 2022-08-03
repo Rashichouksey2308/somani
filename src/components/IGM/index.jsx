@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
@@ -6,6 +6,8 @@ import InspectionDocument from '../InspectionDocument'
 import DateCalender from '../DateCalender'
 
 export default function Index() {
+  const [shipmentType, setShipmentType] = useState(true)
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -22,6 +24,7 @@ export default function Index() {
                       label="Bulk"
                       name="group1"
                       type={type}
+                      onChange={(e) => setShipmentType(true)}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -30,6 +33,7 @@ export default function Index() {
                       label="Liner"
                       name="group1"
                       type={type}
+                      onChange={(e) => setShipmentType(false)}
                       id={`inline-${type}-2`}
                     />
                   </div>
@@ -213,39 +217,92 @@ export default function Index() {
                     BL Number<strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div
-                  className="col-lg-4 col-md-6 col-sm-6"
-                  style={{ top: '35px' }}
-                >
-                  <div className={`${styles.label} text`}>
-                    BL Date <strong className="text-danger ml-n1">*</strong>
-                  </div>
-                  <span className={styles.value}>22-02-2022</span>
-                </div>
-                <div
-                  className="col-lg-2 col-md-4 col-sm-6"
-                  style={{ top: '35px' }}
-                >
-                  <div className={`${styles.label} text`}>
-                    BL Quantity <strong className="text-danger ml-n1">*</strong>
-                  </div>
-                  <span className={styles.value}>4,000 MT</span>
-                </div>
-                <div
-                  className="col-lg-2 col-md-4 col-sm-6"
-                  style={{ top: '35px' }}
-                >
-                  <img
-                    src="/static/preview.svg"
-                    className={`${styles.previewImg} img-fluid ml-n4`}
-                    alt="Preview"
-                  />
-                  <img
-                    src="/static/add-btn.svg"
-                    className="img-fluid ml-5"
-                    alt="Add"
-                  />
-                </div>
+
+                {shipmentType ? (
+                  <>
+                    <div
+                      className="col-lg-4 col-md-6 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <div className={`${styles.label} text`}>
+                        BL Date <strong className="text-danger ml-n1">*</strong>
+                      </div>
+                      <span className={styles.value}>22-02-2022</span>
+                    </div>
+                    <div
+                      className="col-lg-2 col-md-4 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <div className={`${styles.label} text`}>
+                        BL Quantity{' '}
+                        <strong className="text-danger ml-n1">*</strong>
+                      </div>
+                      <span className={styles.value}>4,000 MT</span>
+                    </div>
+                    <div
+                      className="col-lg-2 col-md-4 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <img
+                        src="/static/preview.svg"
+                        className={`${styles.previewImg} img-fluid ml-n4`}
+                        alt="Preview"
+                      />
+                      <img
+                        src="/static/add-btn.svg"
+                        className="img-fluid ml-5"
+                        alt="Add"
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div
+                      className="col-lg-2 col-md-6 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <div className={`${styles.label} text`}>
+                        BL Date <strong className="text-danger ml-n1">*</strong>
+                      </div>
+                      <span className={styles.value}>22-02-2022</span>
+                    </div>
+                    <div
+                      className="col-lg-2 col-md-4 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <div className={`${styles.label} text`}>
+                        No. of Containers{' '}
+                        <strong className="text-danger ml-n1">*</strong>
+                      </div>
+                      <span className={styles.value}>4,000 MT</span>
+                    </div>
+                    <div
+                      className="col-lg-2 col-md-4 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <div className={`${styles.label} text`}>
+                        BL Quantity{' '}
+                        <strong className="text-danger ml-n1">*</strong>
+                      </div>
+                      <span className={styles.value}>4,000 MT</span>
+                    </div>
+                    <div
+                      className="col-lg-2 col-md-4 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <img
+                        src="/static/preview.svg"
+                        className={`${styles.previewImg} img-fluid ml-n4`}
+                        alt="Preview"
+                      />
+                      <img
+                        src="/static/add-btn.svg"
+                        className="img-fluid ml-5"
+                        alt="Add"
+                      />
+                    </div>
+                  </>
+                )}
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
@@ -257,44 +314,102 @@ export default function Index() {
                     BL Number<strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div
-                  className="col-lg-4 col-md-6 col-sm-6"
-                  style={{ top: '35px' }}
-                >
-                  <div className={`${styles.label} text`}>
-                    BL Date <strong className="text-danger ml-n1">*</strong>
-                  </div>
-                  <span className={styles.value}>22-02-2022</span>
-                </div>
-                <div
-                  className="col-lg-2 col-md-4 col-sm-6"
-                  style={{ top: '35px' }}
-                >
-                  <div className={`${styles.label} text`}>
-                    BL Quantity <strong className="text-danger ml-n1">*</strong>
-                  </div>
-                  <span className={styles.value}>4,000 MT</span>
-                </div>
-                <div
-                  className="col-lg-2 col-md-4 col-sm-6"
-                  style={{ top: '35px' }}
-                >
-                  <img
-                    src="/static/preview.svg"
-                    className={`${styles.previewImg} img-fluid ml-n4`}
-                    alt="Preview"
-                  />
-                  <img
-                    src="/static/add-btn.svg"
-                    className="img-fluid ml-5"
-                    alt="Add"
-                  />
-                  <img
-                    src="/static/delete 2.svg"
-                    className="img-fluid ml-5"
-                    alt="delete"
-                  />
-                </div>
+
+                {shipmentType ? (
+                  <>
+                    <div
+                      className="col-lg-4 col-md-6 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <div className={`${styles.label} text`}>
+                        BL Date <strong className="text-danger ml-n1">*</strong>
+                      </div>
+                      <span className={styles.value}>22-02-2022</span>
+                    </div>
+                    <div
+                      className="col-lg-2 col-md-4 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <div className={`${styles.label} text`}>
+                        BL Quantity{' '}
+                        <strong className="text-danger ml-n1">*</strong>
+                      </div>
+                      <span className={styles.value}>4,000 MT</span>
+                    </div>
+                    <div
+                      className="col-lg-2 col-md-4 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <img
+                        src="/static/preview.svg"
+                        className={`${styles.previewImg} img-fluid ml-n4`}
+                        alt="Preview"
+                      />
+                      <img
+                        src="/static/add-btn.svg"
+                        className="img-fluid ml-5"
+                        alt="Add"
+                      />
+                      <img
+                        src="/static/delete 2.svg"
+                        className="img-fluid ml-5"
+                        alt="delete"
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div
+                      className="col-lg-4 col-md-6 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <div className={`${styles.label} text`}>
+                        BL Date <strong className="text-danger ml-n1">*</strong>
+                      </div>
+                      <span className={styles.value}>22-02-2022</span>
+                    </div>
+                    <div
+                      className="col-lg-2 col-md-4 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <div className={`${styles.label} text`}>
+                        No. of Containers{' '}
+                        <strong className="text-danger ml-n1">*</strong>
+                      </div>
+                      <span className={styles.value}>4,000 MT</span>
+                    </div>
+                    <div
+                      className="col-lg-2 col-md-4 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <div className={`${styles.label} text`}>
+                        BL Quantity{' '}
+                        <strong className="text-danger ml-n1">*</strong>
+                      </div>
+                      <span className={styles.value}>4,000 MT</span>
+                    </div>
+                    <div
+                      className="col-lg-2 col-md-4 col-sm-6"
+                      style={{ top: '35px' }}
+                    >
+                      <img
+                        src="/static/preview.svg"
+                        className={`${styles.previewImg} img-fluid ml-n4`}
+                        alt="Preview"
+                      />
+                      <img
+                        src="/static/add-btn.svg"
+                        className="img-fluid ml-5"
+                        alt="Add"
+                      />
+                      <img
+                        src="/static/delete 2.svg"
+                        className="img-fluid ml-5"
+                        alt="delete"
+                      />
+                    </div>
+                  </>
+                )}
               </div>
             </div>
             <div className={styles.table_scroll_outer}>
