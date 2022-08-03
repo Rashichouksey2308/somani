@@ -439,7 +439,7 @@ export default function Index() {
                         />
                       </th>
                       <th>
-                        DOCUMENT DATE{' '}
+                        DOCUMENT DATE
                         <img
                           className={`${styles.sort_img} mb-1`}
                           src="/static/icons8-sort-24.svg"
