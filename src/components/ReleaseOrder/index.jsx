@@ -200,7 +200,7 @@ export default function Index() {
             </div>
           </div>
 
-          <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
+          <div className={`${styles.upload_main} card mt-4 mb-5 upload_main`}>
             <div
               className={`${styles.head_container} border_color d-flex justify-content-between`}
               data-toggle="collapse"
