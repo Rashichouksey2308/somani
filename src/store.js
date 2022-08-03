@@ -17,6 +17,9 @@ import NewOrderReducer from 'redux/newOrder/reducer'
 import LcModuleReducer from 'redux/lcModule/reducer'
 import VesselReducer from 'redux/vessel/reducer'
 import InsuranceReducer from 'redux/insurance/reducer'
+import ForwardHedgingReducer from 'redux/ForwardHedging/reducer'
+import TransitDetailsReducer from 'redux/TransitDetails/reducer'
+import InspectionReducer from 'redux/Inspections/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -46,6 +49,9 @@ export const createStore = (preloadedState) => {
       lc: LcModuleReducer,
       vessel: VesselReducer,
       insurance: InsuranceReducer,
+      ForwardHedging: ForwardHedgingReducer,
+      TransitDetails: TransitDetailsReducer,
+      Inspection: InspectionReducer
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

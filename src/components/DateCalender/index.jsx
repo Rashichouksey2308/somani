@@ -13,7 +13,7 @@ const Index = ({ labelName, saveDate, name, defaultDate ,index,dateFormat}) => {
     <>
       <DatePicker 
         selected={
-          defaultDate
+          defaultDate !== undefined
             ? moment(defaultDate).toDate() : startDate
         }
         dateFormat={dateFormat?dateFormat:"dd/MM/yyyy"}

@@ -36,7 +36,7 @@ function Index() {
                   "All Termsheet Order"
                 )))
     
-  }, [dispatch, singleOrder])
+  }, [dispatch, singleOrder, termsheet])
 
   console.log(termsheet,"termsheet")
    useEffect(() => {

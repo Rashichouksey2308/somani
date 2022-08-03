@@ -494,7 +494,6 @@
   border-radius: 6px;
   margin-bottom: 1rem;
   .head_container {
-    border-bottom: 2px solid #cad6e6;
     cursor: pointer;
     height: 80px;
     padding: 25px 35px !important;
@@ -517,6 +516,7 @@
   }
   .dashboard_form {
     padding: 40px 35px 40px 35px;
+    border-top: 2px solid #cad6e6;
     @include respond(phone) {
       padding: 25px 20px 20px;
     }

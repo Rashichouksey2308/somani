@@ -1,15 +1,40 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './transit.module.scss'
 import BillLanding from '../../src/components/BillLading'
 import CIMS from '../../src/components/CIMS'
 import IGM from '../../src/components/IGM'
+import _get from "lodash/get";
+import { UpdateTransitDetails, GetTransitDetails } from '../../src/redux/TransitDetails/action'
+import { useDispatch, useSelector } from 'react-redux'
 import LetterIndermity from '../../src/components/LetterIndermity'
 
 function Index() {
+  const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
+
+  const dispatch = useDispatch()
+  const { TransitDetails } = useSelector((state) => state.TransitDetails)
+  const vesselData = _get(TransitDetails, "data[0].order.vessel", {})
+  console.log(TransitDetails, 'TransitDetails')
+  const commodity = _get(TransitDetails, "data[0].order.commodity", '').trim().toLowerCase()
+
+  let objID = sessionStorage.getItem('ObjId')
+  let transID = sessionStorage.getItem('transId')
+  useEffect(() => {
+    let Value = vesselData.partShipmentAllowed
+    setIsShipmentTypeBulk(Value)
+  }, [vesselData])
+
+  useEffect(() => {
+    dispatch(GetTransitDetails(`?transitId=${transID}`))
+  }, [dispatch])
+
+  const updateTransitHandler = () => {
+    dispatch(UpdateTransitDetails())
+  }
 
   return (
     <>
@@ -18,15 +43,14 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
-              <span>Ramakrishna Traders - Ramal001-00002</span>
+              <span>{_get(TransitDetails, "data[0].company.companyName", 'Company Name')}</span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
@@ -54,7 +78,7 @@ function Index() {
                 LOI
               </a>
             </li>
-            <li className={`${styles.navItem} nav-item`}>
+            {commodity==='coal' &&  <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -65,7 +89,7 @@ function Index() {
               >
                 CIMS
               </a>
-            </li>
+            </li>}
             <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
@@ -91,7 +115,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <BillLanding />
+                    <BillLanding vesselData={vesselData} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="loi" role="tabpanel">
@@ -99,14 +123,14 @@ function Index() {
                     <LetterIndermity />
                   </div>
                 </div>
-                <div className="tab-pane fade" id="cims" role="tabpanel">
+                {commodity==='coal' && <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <CIMS />
+                    <CIMS vesselData TransitDetails={TransitDetails} />
                   </div>
-                </div>
+                </div>}
                 <div className="tab-pane fade" id="igm" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <IGM />
+                    <IGM TransitDetails={TransitDetails} orderId={objID} />
                   </div>
                 </div>
               </div>

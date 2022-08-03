@@ -56,8 +56,8 @@ export default function Index() {
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       style={{ height: '46px', width: '277px' }}
                     >
-                      <option>Indo German</option>
-                      <option>Balaji Traders</option>
+                      <option>Ramal001-00001/05</option>
+                      <option>Ramal001-00001/02</option>
                     </select>
 
                     <img
