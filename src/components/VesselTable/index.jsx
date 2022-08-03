@@ -26,9 +26,9 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>Vessel Nomination</h1>
+            <h1 className={styles.heading}>Ramakrishna Traders</h1>
           </div>
-          <div className={styles.search}>
+          {/* <div className={styles.search}>
             <div className="input-group">
               <div
                 className={`${styles.inputGroupPrepend} input-group-prepend`}
@@ -46,7 +46,7 @@ function Index() {
               />
             </div>
           </div>
-          <Filter />
+          <Filter /> */}
           {/* <a href="#" className={`${styles.filterList} filterList `}>
             Bhutani Traders
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -62,7 +62,7 @@ function Index() {
           <div
             className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}
           >
-            <h3 className="heading_card">Ramakrishna Traders</h3>
+            <h3 className="heading_card">All Orders</h3>
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
@@ -109,10 +109,9 @@ function Index() {
                       />{' '}
                     </th>
                     <th>COMMODITY</th>
-                    <th>CREATED BY</th>
+                    <th>SHIPMENT TYPE</th>
+                    <th>CREATED ON</th>
                     <th>STATUS</th>
-                    <th>UPDATE</th>
-                    <th>AMEND</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -126,15 +125,16 @@ function Index() {
                     >
                       Iron
                     </td>
-                    <td>RM-Sales</td>
-
+                    <td>Bulk</td>
+                    <td>22-02-2022</td>
                     <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
                       ></span>
                       Pending
                     </td>
-                    {!edit ? (
+
+                    {/* {!edit ? (
                       <td colSpan={2}>
                         {' '}
                         <button
@@ -155,7 +155,45 @@ function Index() {
                           />{' '}
                         </td>
                       </>
-                    )}
+                    )} */}
+                  </tr>
+                  <tr className="table_row">
+                    <td>124621</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={(e) => {
+                        Router.push('/vessel')
+                      }}
+                    >
+                      Iron
+                    </td>
+                    <td>Bulk</td>
+                    <td>22-02-2022</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.review}`}
+                      ></span>
+                      Pending
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td>124621</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={(e) => {
+                        Router.push('/vessel')
+                      }}
+                    >
+                      Copper
+                    </td>
+                    <td>Liner</td>
+                    <td>22-02-2022</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.approved}`}
+                      ></span>
+                      Approved
+                    </td>
                   </tr>
                 </tbody>
               </table>

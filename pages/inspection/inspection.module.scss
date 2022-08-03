@@ -475,7 +475,7 @@
             border-top: none;
             white-space: nowrap;
             opacity: 0.7;
-
+            color: #111111;
             &:first-child {
               padding-left: 35px;
               @include respond(md-desktop) {
@@ -516,7 +516,7 @@
           }
         }
         .buyerName {
-          color: #111111;
+          color: #3687e8;
           opacity: 1 !important;
           font-weight: bold;
           text-transform: capitalize;

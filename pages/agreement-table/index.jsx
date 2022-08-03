@@ -8,14 +8,6 @@ function Index() {
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
-          <div className={styles.head_header}>
-            <img
-              className={`${styles.arrow} img-fluid`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="ArrowRight"
-            />
-            <h1 className={styles.heading}>Agreement</h1>
-          </div>
           <div className={styles.search}>
             <div className="input-group">
               <div
@@ -110,7 +102,7 @@ function Index() {
           <div
             className={`${styles.tableFilter} d-flex justify-content-between`}
           >
-            <h3 className="heading_card">Agreement Details</h3>
+            <h3 className="heading_card">Agreement</h3>
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
@@ -149,7 +141,7 @@ function Index() {
                 <thead>
                   <tr className="table_row">
                     <th>
-                      BUYER ID{' '}
+                      ORDER ID
                       <img
                         className={`mb-1`}
                         src="/static/icons8-sort-24.svg"
@@ -157,31 +149,25 @@ function Index() {
                       />{' '}
                     </th>
                     <th>BUYER NAME</th>
-                    <th>COMMODITY</th>
-                    <th>NAME</th>
-                    <th>
-                      SURRENDERED{' '}
-                      <img
-                        className={`mb-1`}
-                        src="/static/icons8-sort-24.svg"
-                        alt="Sort icon"
-                      />{' '}
-                    </th>
-                    <th>ACTION</th>
+                    <th>CREATED BY</th>
+                    <th>CREATED ON</th>
+                    <th>STATUS</th>
+                    <th>PREVIEW</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
+                    <td>12234</td>
                     <td
+                      className={styles.buyerName}
                       onClick={() => {
                         Router.push('/agreement-table/id')
                       }}
                     >
-                      Iron
+                      Bhutani Traders
                     </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
+                    <td>RM-Sales</td>
+                    <td>22-02-2022</td>
                     <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
@@ -190,23 +176,50 @@ function Index() {
                     </td>
                     <td>
                       <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
+                        className={` img-fluid mr-3`}
+                        src="/static/preview.svg"
                         alt="edit"
                       />
                     </td>
                   </tr>
                   <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
+                    <td>12234</td>
                     <td
+                      className={styles.buyerName}
                       onClick={() => {
                         Router.push('/agreement-table/id')
                       }}
                     >
-                      Steel
+                      Ramakrishna Traders
                     </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
+                    <td>Customer</td>
+                    <td>22-02-2022</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.approved}`}
+                      ></span>
+                      Approved
+                    </td>
+                    <td>
+                      <img
+                        className={` img-fluid mr-3`}
+                        src="/static/preview.svg"
+                        alt="edit"
+                      />
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td>12234</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => {
+                        Router.push('/agreement-table/id')
+                      }}
+                    >
+                      Bhutani Traders
+                    </td>
+                    <td>RM-Sales</td>
+                    <td>22-02-2022</td>
                     <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
@@ -215,33 +228,34 @@ function Index() {
                     </td>
                     <td>
                       <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
+                        className={` img-fluid mr-3`}
+                        src="/static/preview.svg"
                         alt="edit"
                       />
                     </td>
                   </tr>
                   <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
+                    <td>12234</td>
                     <td
+                      className={styles.buyerName}
                       onClick={() => {
                         Router.push('/agreement-table/id')
                       }}
                     >
-                      Iron
+                      Emerging Traders
                     </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
+                    <td>Customer</td>
+                    <td>22-02-2022</td>
                     <td>
                       <span
-                        className={`${styles.status} ${styles.expired}`}
+                        className={`${styles.status} ${styles.approved}`}
                       ></span>
-                      No
+                      Approved
                     </td>
                     <td>
                       <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
+                        className={` img-fluid mr-3`}
+                        src="/static/preview.svg"
                         alt="edit"
                       />
                     </td>
