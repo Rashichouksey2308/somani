@@ -87,12 +87,12 @@ export default function Index() {
                   </div>
                 </div>
                 <div
-                  className={`${styles.form_group} col-lg-6 col-md-6 col-sm-6`}
+                  className={`${styles.form_group} col-lg-12 col-md-12 col-sm-12`}
                 >
                   <label className={`${styles.comment_heading}`}>Address</label>
 
                   <div
-                    className={`${styles.comment_field} d-flex justify-content-between mt-2 form-control`}
+                    className={`${styles.comment_field} w-100 d-flex justify-content-between mt-2 form-control`}
                   >
                     <div className="m-3">
                       <div className={`${styles.address_type}`}>

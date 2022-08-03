@@ -36,19 +36,15 @@ export default function Index() {
                   <label className={`${styles.dropDown_label} text`}>
                     Shipment Type:
                   </label>
-                  <select className={`${styles.dropDown} input`}>
-                    <option>Bulk</option>
-                    <option>Liner</option>
-                  </select>
+                  <span  className={`${styles.type}`} > Bulk</span >
+                  
                 </div>
                 <div>
                   <label className={`${styles.dropDown_label} text`}>
                     Part Shipment Allowed:
                   </label>
-                  <select className={`${styles.dropDown} input`}>
-                    <option>Yes</option>
-                    <option>No</option>
-                  </select>
+                  <span  className={`${styles.type}`}> Yes</span >
+                 
                   <button className={styles.add_btn}>Add</button>
                 </div>
               </div>
@@ -162,7 +158,7 @@ export default function Index() {
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
-                    <DateCalender labelName="Inspection Date" />
+                    <DateCalender labelName="Inspection Date" dateFormat={`dd-MM-yyyy`} />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"

@@ -6,9 +6,13 @@ import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
 import Filter from '../../src/components/Filter'
 
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+
 function Index() {
+  const dispatch = useDispatch()
   const handleRoute = () => {
     Router.push('/third-party')
+    dispatch(setPageName('inception2'))
   }
 
   return (
