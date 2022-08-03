@@ -6,6 +6,7 @@ import TermsheetPopUp from '../TermsheetPopUp'
 import { Form } from 'react-bootstrap'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
+import { GetTermsheet } from 'redux/buyerProfile/action'
 
 
 
@@ -18,7 +19,7 @@ function Index() {
 
     useEffect(() => {
         dispatch(GetTermsheet(`?termsheetId=${Id}`))
-    }, [dispatch])
+    }, [dispatch, Id])
 
 
     const [termsheetDetails, setTermsheetDetails] = useState({})
@@ -80,6 +81,7 @@ function Index() {
         {
             termsheet && termsheet?.data?.map((sheet, index) => {
                 setOtherTermConditions({
+                    buyer: { bank: sheet?.otherTermsAndConditions?.buyer?.bank },
                     chaOrstevedoringCharges: {
                         customClearingCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.customClearingCharges,
                         wharfaceCharges: sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.wharfaceCharges,
@@ -260,7 +262,16 @@ function Index() {
                                 <ul>
                                     <li>USD {termsheetDetails?.transactionDetails?.lcValue}</li>
                                     <li>{termsheetDetails?.transactionDetails?.lcOpeningBank}</li>
-                                    <li>{termsheetDetails?.transactionDetails?.marginMoney}%T</li>
+                                    <li>{termsheetDetails?.transactionDetails?.marginMoney}%</li>
+                                    <li>{termsheetDetails?.transactionDetails?.incoTerms}</li>
+                                    <li>{termsheetDetails?.transactionDetails?.loadPort}</li>
+                                    <li>{termsheetDetails?.transactionDetails?.countryOfOrigin}</li>
+                                    <li>{termsheetDetails?.transactionDetails?.shipmentType}</li>
+                                    <li>{termsheetDetails?.transactionDetails?.partShipmentAllowed}</li>
+                                    <li>{termsheetDetails?.transactionDetails?.portOfDischarge}</li>
+                                    <li>{termsheetDetails?.transactionDetails?.billOfEntity}</li>
+                                    <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq}</li>
+
                                 </ul>
                             </Col>
                         </Row>
@@ -656,7 +667,7 @@ function Index() {
                     </div>
 
                     <div className={`${styles.footer}`}>
-                        All necessary documents to be filed with Customs department for discharge of goods & Customs clearance can be filed by IGPL or its nominated person.
+                        All necessary documents to be filed with Customs department for discharge of goods & Customs clearance can be filed by {otherTermConditions?.buyer?.bank} or its nominated person.
                         <p><span className={styles.danger}>*</span> GST charges extra wherever applicable</p>
                     </div>
                 </Card>

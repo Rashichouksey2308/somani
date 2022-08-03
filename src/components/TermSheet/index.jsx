@@ -24,7 +24,8 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState([])
   const [order, setOrder] = useState('')
-  console.log(termsheetDetails,'termsheetDetails')
+  console.log(termsheetDetails, 'termsheetDetails')
+  console.log(additionalComments,'additionalCommentType')
 
 
 
@@ -36,61 +37,61 @@ const Index = () => {
     dispatch(setPageName('termsheet'))
   }, [dispatch])
   let OrdID = sessionStorage.getItem('termOrdID')
-  let newLcVal = 
+  let newLcVal =
 
-  useEffect(() => {
-    {
-      termsheet &&
-        termsheet?.data?.map((sheet) =>
+    useEffect(() => {
+      {
+        termsheet &&
+          termsheet?.data?.map((sheet) =>
 
-          setTermsheetDetails({
-            termsheetId: sheet._id,
-            commodityDetails: {
-              unitOfQuantity: sheet?.order?.unitOfQuantity,
-              orderCurrency: sheet?.order?.orderCurrency,
-              quantity: sheet?.order?.quantity,
-              perUnitPrice: sheet?.order?.perUnitPrice,
-              commodity: sheet?.order?.commodity,
-              tolerance: sheet?.order?.tolerance,
-            },
-            transactionDetails: {
-              lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
-              lcCurrency: sheet?.transactionDetails?.lcCurrency,
-              marginMoney: sheet?.transactionDetails?.marginMoney,
-              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
-              incoTerms: sheet?.order?.incoTerm,
-              loadPort: sheet?.transactionDetails?.loadPort,
-              countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
-              shipmentType: sheet?.transactionDetails?.shipmentType,
-              partShipmentAllowed: sheet?.transactionDetails?.partShipmentAllowed,
-              portOfDischarge: sheet?.transactionDetails?.portOfDischarge,
-              billOfEntity: sheet?.transactionDetails?.billOfEntity,
-              thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
-              storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
-            },
-            paymentDueDate: {
-              computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
-              daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
-              daysFromVesselDischargeDate:
-                sheet?.paymentDueDate?.daysFromVesselDischargeDate,
-            },
-            commercials: {
-              tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
-              lcOpeningValue: sheet?.commercials?.lcOpeningValue,
-              lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
-              lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
-              lcOpeningChargesPercentage: sheet?.commercials?.lcOpeningChargesPercentage,
-              usanceInterestPercetage: sheet?.commercials?.usanceInterestPercetage,
-              overDueInterestPerMonth: sheet?.commercials?.overDueInterestPerMonth,
-              exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
-              forexHedging: sheet?.commercials?.forexHedging,
-              otherTermsAndConditions: sheet?.commercials?.otherTermsAndConditions,
-              version: sheet?.commercials?.version,
-            },
-          }),
-        )
-    }
-  }, [termsheet])
+            setTermsheetDetails({
+              termsheetId: sheet._id,
+              commodityDetails: {
+                unitOfQuantity: sheet?.order?.unitOfQuantity,
+                orderCurrency: sheet?.order?.orderCurrency,
+                quantity: sheet?.order?.quantity,
+                perUnitPrice: sheet?.order?.perUnitPrice,
+                commodity: sheet?.order?.commodity,
+                tolerance: sheet?.order?.tolerance,
+              },
+              transactionDetails: {
+                lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
+                lcCurrency: sheet?.transactionDetails?.lcCurrency,
+                marginMoney: sheet?.transactionDetails?.marginMoney,
+                lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
+                incoTerms: sheet?.order?.incoTerm,
+                loadPort: sheet?.transactionDetails?.loadPort,
+                countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
+                shipmentType: sheet?.transactionDetails?.shipmentType,
+                partShipmentAllowed: sheet?.transactionDetails?.partShipmentAllowed,
+                portOfDischarge: sheet?.transactionDetails?.portOfDischarge,
+                billOfEntity: sheet?.transactionDetails?.billOfEntity,
+                thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
+                storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+              },
+              paymentDueDate: {
+                computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
+                daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
+                daysFromVesselDischargeDate:
+                  sheet?.paymentDueDate?.daysFromVesselDischargeDate,
+              },
+              commercials: {
+                tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
+                lcOpeningValue: sheet?.commercials?.lcOpeningValue,
+                lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
+                lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
+                lcOpeningChargesPercentage: sheet?.commercials?.lcOpeningChargesPercentage,
+                usanceInterestPercetage: sheet?.commercials?.usanceInterestPercetage,
+                overDueInterestPerMonth: sheet?.commercials?.overDueInterestPerMonth,
+                exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
+                forexHedging: sheet?.commercials?.forexHedging,
+                otherTermsAndConditions: sheet?.commercials?.otherTermsAndConditions,
+                version: sheet?.commercials?.version,
+              },
+            }),
+          )
+      }
+    }, [termsheet])
 
   useEffect(() => {
     {
@@ -260,7 +261,7 @@ const Index = () => {
   const onChangeCommercialTerms = (e) => {
     const Key = e.target.id
     const value = e.target.value
-   // console.log(value, "bal")
+    // console.log(value, "bal")
     setTermsheetDetails((prev) => ({
       ...prev,
       commercials: { ...prev.commercials, [Key]: value },
@@ -315,19 +316,19 @@ const Index = () => {
   }
   console.log(termsheetDetails, "tempSheet")
   const handleSave = () => {
-     console.log(termsheetDetails.commercials.overDueInterestPerMont,"tempSheet2")
-    let tempSheet=termsheetDetails
+    console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
+    let tempSheet = termsheetDetails
 
-    tempSheet.commodityDetails.perUnitPrice=removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
-    tempSheet.commodityDetails.quantity=removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity)
-    tempSheet.transactionDetails.marginMoney=removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney)
-    tempSheet.commercials.tradeMarginPercentage=removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
-    tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(termsheetDetails.commercials.overDueInterestPerMonth)
-    tempSheet.commercials.lcOpeningChargesPercentage=removePrefixOrSuffix(termsheetDetails.commercials.lcOpeningChargesPercentage)
-    tempSheet.commercials.usanceInterestPercetage=removePrefixOrSuffix(termsheetDetails.commercials.usanceInterestPercetage)
+    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
+    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity)
+    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney)
+    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
+    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(termsheetDetails.commercials.overDueInterestPerMonth)
+    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(termsheetDetails.commercials.lcOpeningChargesPercentage)
+    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(termsheetDetails.commercials.usanceInterestPercetage)
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-      console.log(termsheetDetails,"tempSheet1")
-      
+    console.log(termsheetDetails, "tempSheet1")
+
     const UpdatedTermsheet = {
       ...tempSheet,
       status: 'Approved',
@@ -438,7 +439,7 @@ const Index = () => {
                 </div>
               ))}
             <TermDetails
-             
+
               onChangeTransactionDetails={onChangeTransactionDetails}
               onChangeCommodityDetails={onChangeCommodityDetails}
               onChangeCommercialTerms={onChangeCommercialTerms}
@@ -448,7 +449,7 @@ const Index = () => {
               termsheet={termsheet}
             />
             <AdditionalComment
-              addCommentHandler={addCommentHandler}
+              setAdditionalComments={setAdditionalComments}
               additionalComments={additionalComments}
             />
             <OtherTerms
