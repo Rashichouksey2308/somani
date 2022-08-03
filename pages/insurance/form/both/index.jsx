@@ -1,14 +1,110 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import UploadDocument from '../../../../src/components/UploadDocument'
 import DateCalender from '../../../../src/components/DateCalender'
-import { useState } from 'react'
-//import { set } from 'immer/dist/internal'
+import { useDispatch, useSelector } from 'react-redux'
+import { GettingAllInsurance, UpdateInsurance } from '../../../../src/redux/insurance/action'
+import _get from 'lodash/get'
 
 const Index = () => {
   const [insuranceType, setInsuranceType] = useState('Marine')
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('quotationId')
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
+  }, [dispatch])
+
+  const { insuranceResponse } = useSelector((state) => state.insurance)
+
+  let insuranceData = _get(insuranceResponse, 'data[0]', {})
+
+  const [marineData, setMarineData] = useState({
+    policyNumber: '',
+    nameOfInsurer: '',
+    gstOfInsurer: '',
+    nameOfInsured: '',
+    gstOfInsured: '',
+    insuranceFrom: '',
+    insuranceTo: '',
+    periodOfInsurance: null,
+    lossPayee: '',
+    premiumAccount: null,
+  })
+
+  const saveMarineData = (name, value) => {
+    let newInput = {...marineData}
+    newInput[name] = value
+    setMarineData(newInput)
+  }
+
+  const saveDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveMarineData(name, text)
+  }
+
+  const [storageData, setStorageData] = useState({
+    policyNumber: '',
+    nameOfInsurer: '',
+    gstOfInsurer: '',
+    nameOfInsured: '',
+    gstOfInsured: '',
+    insuranceFrom: '',
+    insuranceTo: '',
+    periodOfInsurance: null,
+    lossPayee: '',
+    premiumAccount: null,
+  })
+
+  const saveStorageDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    setStorageData(name, text)
+  }
+
+  const saveStorageData = (name, value) => {
+    let newInput = {...marineData}
+    newInput[name] = value
+    setMarineData(newInput)
+  }
+
+  const [insuranceDocument, setInsuranceDocument] = useState({
+    storagePolicyDocument : '',
+    marinePolicyDocument: ''
+  })
+
+  const uploadDocument1 = (e) => {
+    const newUploadDoc = { ...insuranceDocument }
+    newUploadDoc.storagePolicyDocument = e.target.files[0]
+
+    setInsuranceDocument(newUploadDoc)
+  }
+  const uploadDocument2 = (e) => {
+    const newUploadDoc1 = { ...insuranceDocument }
+    newUploadDoc1.marinePolicyDocument = e.target.files[0]
+
+    setInsuranceDocument(newUploadDoc1)
+  }
+
+  const [isInsurerSameData, setIsInsurerSameData] = useState(false)
+
+  const handleInsuranceUpdate = () => {
+    let fd = new FormData()
+    fd.append('marineInsurance', JSON.stringify(marineData))
+    fd.append('storageInsurance', JSON.stringify(storageData))
+    fd.append('insuranceId', JSON.stringify(insuranceData?._id))
+    fd.append('insuranceType', JSON.stringify(insuranceData?.quotationRequest?.insuranceType))
+    fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
+    fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument)
+
+    dispatch(UpdateInsurance(fd))
+  }
 
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
@@ -20,7 +116,7 @@ const Index = () => {
             alt="ArrowRight"
           />
           <h1 className={styles.heading}>
-            Ramakrishna Traders - Ramal001-000001
+            {insuranceData?.company?.companyName}
           </h1>
         </div>
         <div>
@@ -39,7 +135,8 @@ const Index = () => {
                     className={styles.radio}
                     inline
                     label="Marine Insurance"
-                    onChange={(e) => setInsuranceType('Marine')}
+                    defaultChecked={insuranceData?.quotationRequest?.insuranceType === 'Marine Insurance'}
+                    onChange={(e) => setInsuranceType('Marine Insurance')}
                     name="group1"
                     value="Marine"
                     type={type}
@@ -49,10 +146,11 @@ const Index = () => {
                     className={styles.radio}
                     inline
                     label="Storage Insurance"
+                    defaultChecked={insuranceData?.quotationRequest?.insuranceType === 'Storage Insurance'}
                     name="group1"
                     value="Storage"
                     onChange={(e) => {
-                      setInsuranceType('Storage')
+                      setInsuranceType('Storage Insurance')
                     }}
                     type={type}
                     id={`inline-${type}-2`}
@@ -62,6 +160,7 @@ const Index = () => {
                     inline
                     label="Both"
                     value="Both"
+                    defaultChecked={insuranceData?.quotationRequest?.insuranceType === 'Both' }
                     name="group1"
                     type={type}
                     onChange={(e) => {
@@ -74,7 +173,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-        {insuranceType === 'Marine' ? (
+        { insuranceData?.quotationRequest?.insuranceType === 'Marine Insurance' ? (
           <>
             <div className={`${styles.wrapper} border_color mt-4 card`}>
               <div
@@ -283,7 +382,7 @@ const Index = () => {
             </div>
             <UploadDocument />
           </>
-        ) : insuranceType === 'Storage' ? (
+        ) : insuranceData?.quotationRequest?.insuranceType === 'Storage Insurance' ? (
           <>
             <div className={`${styles.wrapper} border_color mt-4 card`}>
               <div
@@ -500,7 +599,7 @@ const Index = () => {
             </div>
             <UploadDocument />
           </>
-        ) : insuranceType === 'Both' ? (
+        ) : insuranceData?.quotationRequest?.insuranceType === 'Both' ? (
           <>
             <div className={`${styles.wrapper} border_color mt-4 card`}>
               <div
@@ -1050,7 +1149,7 @@ const Index = () => {
         <div className={`${styles.reject} ml-3`}>
           <span>Cancel</span>
         </div>
-        <div className={`${styles.approve} ml-3`}>
+        <div onClick={()=>handleInsuranceUpdate()} className={`${styles.approve} ml-3`}>
           <span>Submit</span>
         </div>
       </div>
