@@ -317,7 +317,7 @@ const Index = () => {
     tempSheet.commodityDetails.quantity=removePrefixOrSuffix(tempSheet.commodityDetails.quantity)
      tempSheet.transactionDetails.marginMoney=removePrefixOrSuffix(tempSheet.transactionDetails.marginMoney)
      tempSheet.commercials.tradeMarginPercentage=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
-    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
+     tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
       tempSheet.commercials.lcOpeningChargesPercentage=removePrefixOrSuffix(tempSheet.commercials.lcOpeningChargesPercentage)
          tempSheet.commercials.usanceInterestPercetage=removePrefixOrSuffix(tempSheet.commercials.usanceInterestPercetage)
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
