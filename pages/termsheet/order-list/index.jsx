@@ -38,17 +38,21 @@ function Index() {
     
   }, [dispatch, singleOrder, termsheet])
 
+  console.log(termsheet,"termsheet")
    useEffect(() => {
     if(termsheet){
-      dispatch(setDynamicName( _get(termsheet, 'data[0].order.orderId', '' )))
+      dispatch(setDynamicName(termsheet?.data?.order?.orderId))
     }
 
-   },[termsheet, singleOrder, dispatch])
-  const handleRoute = (term) => {
+   },[termsheet,singleOrder])
+  const handleRoute = (term,index) => {
+    console.log("here",term)
    // console.log(term?.order._id, "termtrem")
     //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
     dispatch(GetTermsheet(`?termsheetId=${term._id}`))
     sessionStorage.setItem('termID', term._id)
+    console.log(term,"term.buyerName")
+    dispatch(setDynamicName(term.company.companyName))
     sessionStorage.setItem('termOrdID', term?.order._id)
     Router.push("/termsheet/12")
     // Router.push('/lc-module')
@@ -224,10 +228,10 @@ function Index() {
                   </thead>
                   {termsheet && termsheet?.data?.map((term, index) => (<tbody Key={index}>
                     <tr>
-                      <td className={`${styles.first}`} onClick={() => handleRoute(term)}>
+                      <td className={`${styles.first}`} onClick={() => handleRoute(term,index)}>
                         {term?.order?.orderId}
                       </td>
-                      <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.order?.commodity}</td>
+                      <td className={`${styles.buyerName}`} onClick={() => handleRoute(term,index)} >{term?.order?.commodity}</td>
 
                       <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
                       <td>{term?.order?.createdAt?.slice(0, 10)}</td>

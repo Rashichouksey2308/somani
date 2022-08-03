@@ -19,10 +19,10 @@ export default function Home() {
   let id1 = sessionStorage.getItem('VesselCompany')
   const orderID = sessionStorage.getItem('orderID')
   let id = sessionStorage.getItem('VesselId')
-  useEffect( async () => {
-    let id = sessionStorage.getItem('VesselId')
-  let data = await  dispatch(GetVessel(`?vesselId=${id}`))
-  console.log(data,"data")
+  useEffect(() => {
+     let id = sessionStorage.getItem('VesselId')
+     dispatch(GetVessel(`?vesselId=${id}`))
+ 
     
   }, [dispatch])
 

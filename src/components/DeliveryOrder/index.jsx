@@ -78,6 +78,7 @@ export default function Index() {
                         <option>01</option>
                         <option>02</option>
                         <option>03</option>
+                        <option>N/A</option>
                       </select>
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -143,6 +144,7 @@ export default function Index() {
                         <option>01</option>
                         <option>02</option>
                         <option>03</option>
+                        <option>N/A</option>
                       </select>
                       <label
                         className={`${styles.label_heading} label_heading`}

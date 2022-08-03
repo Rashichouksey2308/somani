@@ -1,28 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { GettingAllInsurance } from 'redux/insurance/action'
 import { Router } from 'next/router'
 
-function Index({
-  tableName,
-  isVesselHeader,
-  isStatus,
-  dateHeading,
-  handleRoute,
-}) {
-
+function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
   const dispatch = useDispatch()
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0)
 
-  const {insuranceResponse} = useSelector((state)=>state.insurance)
+  const { insuranceResponse } = useSelector((state) => state.insurance)
 
-  console.log(insuranceResponse, "INSURANCE RESPONSE")
+  console.log(insuranceResponse, 'INSURANCE RESPONSE')
 
   useEffect(() => {
-   dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
+    dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
 
   const handleEditRoute = (insured) => {
@@ -34,40 +27,47 @@ function Index({
 
   return (
     <div className={`${styles.datatable} datatable card`}>
-      <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
+      <div
+        className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
+      >
         <h3 className="heading_card">{tableName}</h3>
         <div
           className={`${styles.pageList} d-flex justify-content-end align-items-center`}
         >
-        <span>
-                  Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(insuranceResponse?.totalCount / 7)}
-                </span>
-                <a
-                  onClick={() => {
-                    if (currentPage === 0) {
-                      return
-                    } else {
-                      setCurrentPage((prevState) => prevState - 1)
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                >
-                  {' '}
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
-                </a>
-                <a
-                  onClick={() => {
-                    if (currentPage + 1 < Math.ceil(insuranceResponse?.totalCount / 7)) {
-                      setCurrentPage((prevState) => prevState + 1)
-                    }
-
-                  }} href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
+          <span>
+            Showing Page {currentPage + 1} out of{' '}
+            {Math.ceil(insuranceResponse?.totalCount / 7)}
+          </span>
+          <a
+            onClick={() => {
+              if (currentPage === 0) {
+                return
+              } else {
+                setCurrentPage((prevState) => prevState - 1)
+              }
+            }}
+            href="#"
+            className={`${styles.arrow} ${styles.leftArrow} arrow`}
+          >
+            {' '}
+            <img
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="arrow right"
+              className="img-fluid"
+            />
+          </a>
+          <a
+            onClick={() => {
+              if (
+                currentPage + 1 <
+                Math.ceil(insuranceResponse?.totalCount / 7)
+              ) {
+                setCurrentPage((prevState) => prevState + 1)
+              }
+            }}
+            href="#"
+            className={`${styles.arrow} ${styles.rightArrow} arrow`}
+          >
             <img
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
@@ -96,11 +96,12 @@ function Index({
                 </th>
                 <th>BUYER NAME</th>
                 <th>COMMODITY</th>
-                {isVesselHeader ? (
+                <th>{pageType}</th>
+                {/* {isVesselHeader ? (
                   <th>VESSEL NAME</th>
                 ) : (
                   <th>INSURANCE TYPE</th>
-                )}
+                )} */}
                 <th>{dateHeading}</th>
 
                 {isStatus ? (
@@ -110,7 +111,7 @@ function Index({
                       className={`mb-1`}
                       src="/static/icons8-sort-24.svg"
                       alt="Sort icon"
-                    />{' '}
+                    />
                   </th>
                 ) : (
                   <th>PAYMENT STATUS</th>

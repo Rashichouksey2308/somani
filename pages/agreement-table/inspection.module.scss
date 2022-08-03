@@ -468,6 +468,7 @@
             border-bottom: none;
           }
           td {
+            color: #111111;
             font-size: 19px;
             font-weight: 500;
             line-height: 24px;
@@ -516,8 +517,9 @@
           }
         }
         .buyerName {
-          color: #111111;
+          color: #3687e8;
           opacity: 1 !important;
+
           font-weight: bold;
           text-transform: capitalize;
           cursor: pointer;

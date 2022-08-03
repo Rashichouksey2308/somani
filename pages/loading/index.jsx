@@ -1,10 +1,17 @@
-import React from 'react'
+import React ,{ useEffect, useState }  from 'react'
 import styles from './index.module.scss'
 import TableMain from '../../src/components/TableMain'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
-
+import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
+import { useDispatch, useSelector } from 'react-redux'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 function Index() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setPageName('loading'))
+    dispatch(setDynamicName(null))
+  })
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>

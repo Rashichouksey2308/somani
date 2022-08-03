@@ -109,7 +109,7 @@ export default function Index() {
                       <input
                         className={styles.doc_field}
                         type="text"
-                        placeholder="Nomination.pdf"
+                        placeholder="release_order_1.pdf"
                       />
                       <img
                         className={`${styles.close_image} img-fluid `}
@@ -184,7 +184,7 @@ export default function Index() {
                 <div className="text-right">
                   <div className={`${styles.total_quantity} text `}>
                     Net Balance Quantity:{' '}
-                    <span className="form-check-label ml-2">20,000 MT</span>
+                    <span className="form-check-label ml-2">15,000 MT</span>
                   </div>
                 </div>
               </div>

@@ -44,7 +44,6 @@
     .search {
       width: 492px;
       position: relative;
-      margin-left: 20px;
       @include respond(sm-desktop) {
         width: 100%;
         margin-bottom: 15px;
@@ -131,7 +130,7 @@
         font-weight: bold;
         line-height: 27px;
         margin: 24px 0;
-        color: #3687e8;
+        //color: #3687e8;
         text-transform: capitalize;
         @include respond(sm-desktop) {
           font-size: 18px !important;
@@ -277,6 +276,7 @@
             color: #3687e8;
             font-weight: bold;
             text-transform: capitalize;
+            cursor: pointer;
           }
           .status {
             width: 15px;
