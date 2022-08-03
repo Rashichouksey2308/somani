@@ -80,7 +80,7 @@ function Index() {
                       ORDER ID{' '}
                       <img
                         className={`mb-1`}
-                        src="./static/icons8-sort-24.png "
+                        src="./static/icons8-sort-24.svg "
                         alt="Sort icon"
                       />
                     </th>

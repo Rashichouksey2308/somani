@@ -52,7 +52,7 @@ function Index(props) {
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
 
-            <div className={styles.head_header}>
+            <div className={`${styles.head_header} align-items-center`}>
               <img className={`${styles.arrow} img-fluid`}
                 src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
               <h1 className={`${styles.heading} heading`}>{`generic`}</h1>
