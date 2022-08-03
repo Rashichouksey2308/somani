@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GettingAllInsurance } from 'redux/insurance/action'
 import { Router } from 'next/router'
 
-function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
+function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handleEditRoute }) {
   const dispatch = useDispatch()
 
   const [currentPage, setCurrentPage] = useState(0)
@@ -18,11 +18,7 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
     dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
 
-  const handleEditRoute = (insured) => {
-    if(insured?.quotationRequest?.quotationRequestSubmitted === 'true') {
-      Router.push('')
-    }
-  }
+  
 
 
   return (
@@ -137,12 +133,12 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
                   <span className={`${styles.status} ${styles.review}`}></span>
                   On-Hold
                 </td>
-                <td>
+                <td onClick={()=>handleEditRoute(insured)}>
                   <img
                     className={`${styles.edit_image} img-fluid mr-3`}
                     src="/static/mode_edit.svg"
                     alt="edit"
-                    onClick={()=>handleEditRoute(insured)}
+                    
                   />
                 </td>
               </tr>))}
