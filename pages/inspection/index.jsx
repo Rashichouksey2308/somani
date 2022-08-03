@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './inspection.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
+import { useDispatch, useSelector } from 'react-redux'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 
 function Index() {
+    const dispatch = useDispatch()
+     useEffect(() => {
+    dispatch(setPageName('inception'))
+   
+  })
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -177,6 +184,8 @@ function Index() {
                     <td
                       className={styles.buyerName}
                       onClick={() => {
+                        dispatch(setDynamicName("Bhutani Traders"))
+                        // Router.push('/inspection/id')
                         Router.push('/third-party')
                       }}
                     >

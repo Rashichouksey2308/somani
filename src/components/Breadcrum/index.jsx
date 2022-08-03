@@ -18,7 +18,7 @@ export default function Index({isQuery}) {
       show.currency=false
       setShow({...show})
     }else if(isQuery?.match("/credit-queue")||isQuery?.match("/termsheet")||isQuery?.match("/margin-money")|| isQuery?.match("/review")
-    ||isQuery?.match("/vessel")
+    ||isQuery?.match("/vessel") ||isQuery?.match("/third-party")
     ){
       show.units=false
       show.currency=true
@@ -117,6 +117,32 @@ export default function Index({isQuery}) {
          router.route = "/Vessel Nomination";
       }
      
+    }
+      if ("loading" == pageName) {
+      if(id!==null) {
+        router.route = "/Loading, Transit & Unloading"   +`/${id}` + "/Order ID";
+        console.log("router123",router.route)
+      }else{
+         router.route = "/Loading, Transit & Unloading";
+      }
+   
+     
+    }
+    if ("inception" == pageName) {
+      if(id!==null) {
+        router.route = "/Loading, Transit & Unloading"   +`/${id}` ;
+        console.log("router123",router.route)
+      }else{
+         router.route = "/Loading, Transit & Unloading";
+      }
+    }
+     if ("inception2" == pageName) {
+      if(id!==null) {
+        router.route = "/Loading, Transit & Unloading"   +`/${id}` + "/Third Party Inception" + "/110E67FGD566" + "/Order Id";
+        console.log("router123",router.route)
+      }else{
+         router.route = "/Loading, Transit & Unloading";
+      }
     }
 console.log( router.route," router.route")
 

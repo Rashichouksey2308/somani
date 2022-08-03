@@ -163,7 +163,7 @@ export default function Index() {
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
-                    <DateCalender labelName="Inspection Date" />
+                    <DateCalender labelName="Inspection Date" dateFormat={`dd-MM-yyyy`} />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
