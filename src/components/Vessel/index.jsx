@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
@@ -7,10 +8,8 @@ import UploadDocument from '../UploadDocument'
 import UploadOther from '../UploadOther'
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux'
-import { UPDATE_CREDIT_CALCULATE_SUCCESSFULL } from 'redux/buyerProfile/actionType'
-import { add } from 'lodash'
 import { setPageName,setDynamicName } from '../../redux/userData/action'
-//import { set } from 'immer/dist/internal'
+
 
 
 function Index({ shippingInfoChangeHandler,companyName ,uploadDocHandler, onVesselInfoChangeHandlerForLiner, onVesselInfoChangeHandlerForBulk, saveDate, OnVesselTransitFieldsChangeHandler, OnVesselBasicFieldsChangeHandler, shipmentTypeChangeHandler, setlastDate, lastDate, setStartDate, startDate, OnAddvesselInformation, onAddVessel, list, orderID, id1 }) {
@@ -18,7 +17,7 @@ function Index({ shippingInfoChangeHandler,companyName ,uploadDocHandler, onVess
   useEffect(() => {
     dispatch(setPageName('vessel'))
     dispatch(setDynamicName(companyName))
-  })
+  },[])
 const getSn=(index)=>{
     let a=Number(index);
    return (a+1)
