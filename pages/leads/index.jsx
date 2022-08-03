@@ -28,7 +28,6 @@ function Index() {
   })
 
   const handleRoute = (buyer) => {
-    
     dispatch(GetOrders( `?company=${buyer.company._id}` ))
     setTimeout(() => {
       Router.push('/order-list')

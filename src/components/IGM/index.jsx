@@ -5,7 +5,7 @@ import SaveBar from '../SaveBar'
 import InspectionDocument from '../InspectionDocument'
 import DateCalender from '../DateCalender'
 
-export default function Index() {
+export default function Index({orderId}) {
   const [shipmentType, setShipmentType] = useState(true)
 
   return (
@@ -482,7 +482,7 @@ export default function Index() {
             </div>
           </div>
           <div className="mt-4 mb-5">
-            <InspectionDocument />
+            <InspectionDocument orderId={orderId} />
           </div>
         </div>
         <SaveBar rightBtn="Submit" />
