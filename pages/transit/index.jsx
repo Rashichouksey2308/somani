@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 import { GetAllTransitDetails, GetTransitDetails } from '../../src/redux/TransitDetails/action'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
 import _get from "lodash/get";
 
 function Index() {
@@ -15,6 +15,10 @@ function Index() {
   useEffect(() => {
     dispatch(GetAllTransitDetails())
   }, [dispatch])
+  useEffect(() => {
+    dispatch(setPageName('transit'))
+    dispatch(setDynamicName(null))
+  })
 
   const handleRoute = (transaction) => {
     let id = transaction._id
@@ -224,6 +228,7 @@ function Index() {
                       className={styles.buyerName}
                       onClick={() => {
                         Router.push('/transit/id')
+                        dispatch(setDynamicName("BHUTD001-0002"))
                       }}
                     >
                       Iron

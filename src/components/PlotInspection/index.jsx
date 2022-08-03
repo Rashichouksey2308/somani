@@ -21,7 +21,7 @@ export default function Index() {
               <div className="row">
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <DateCalender labelName="Plot Inspection Date" />
+                    <DateCalender labelName="Plot Inspection Date" dateFormat={`dd-MM-yyyy`} />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
