@@ -283,10 +283,12 @@ body.light-mode .input {
   background: #C3C3C31F;
   border: 1px solid #0000001F;
 }
+body.dark-mode .vessel_card .label_heading::before,
 body.dark-mode .label_heading {
   color: #FFFFFF80;
   background: #293141;
 }
+body.light-mode .vessel_card .label_heading::before,
 body.light-mode .label_heading {
   color: #00000080;
   background: #ffffff;
@@ -301,6 +303,27 @@ body.light-mode .input:invalid + label {
   background: none;
 }
 body.light-mode .input:focus + label {
+  background: #ffffff;
+}
+
+body.dark-mode .label_heading,
+body.light-mode .label_heading,
+body.dark-mode .vessel_card .input:invalid + label,
+body.light-mode .vessel_card .input:invalid + label,
+body.dark-mode .vessel_card .input:focus + label,
+body.light-mode .vessel_card .input:focus + label {
+  background: none;
+}
+body.dark-mode .vessel_card .input:invalid + label::before {
+  background: none;
+}
+body.dark-mode .vessel_card .input:focus + label::before {
+  background: #293141;
+}
+body.light-mode .vessel_card .input:invalid + label::before {
+  background: none;
+}
+body.light-mode .vessel_card .input:focus + label::before {
   background: #ffffff;
 }
 

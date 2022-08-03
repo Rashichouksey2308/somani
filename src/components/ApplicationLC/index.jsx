@@ -250,7 +250,7 @@ function Index() {
                       <td width="40%">2</td>
                       <td>
                         <div
-                          className={`${styles.element_datatable} m-5 datatable `}
+                          className={`${styles.element_datatable} m-2 datatable `}
                         >
                           <div className={styles.table_scroll_outer}>
                             <div className={styles.table_scroll_inner}>

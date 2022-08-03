@@ -49,7 +49,7 @@ function Index({
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className="d-flex align-items-center justify-content-between">
+          <div className={`${styles.tab_header} d-flex align-items-center justify-content-between`}>
             <img
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
@@ -67,7 +67,7 @@ function Index({
 
       <div className="p-0 container-fluid background2">
         <div className={`${styles.backgroundMain}`}>
-          <div className={`${styles.vessel_card}`}>
+          <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
                 const addingVessel = (list[index].shipmentType === 'Bulk' && partShipmentAllowed == 'true')
@@ -639,11 +639,8 @@ function Index({
                           </div>
                         </div>
                         {list[0].vesselInformation.map((newVessel, index) => (
-                          <div
-                            key={index}
-                            className={`${styles.dashboard_form} card-body`}
-                          >
-                            <div className={`${styles.vessel_card}`}>
+                          <div key={index} className={`${styles.dashboard_form} card-body`}>
+                            <div className={`${styles.vessel_card} vessel_card`}>
                               <div className="d-flex justify-content-between align-items-center">
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information

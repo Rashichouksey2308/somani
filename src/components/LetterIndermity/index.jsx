@@ -53,7 +53,7 @@ function Index() {
             <select>
                 <option value="">BL-1</option>
             </select>
-            Dated 18TH MARCH 2021,  
+            Dated 18TH MARCH 2021, ISSUE AT ABBOT POINT
             <div className={`${styles.button}`}>
                 <span>+ <span>Add</span></span>
             </div>
