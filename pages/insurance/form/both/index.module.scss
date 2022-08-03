@@ -1,7 +1,7 @@
 @import '../../../../src/components/styles/Core/config';
 
 .wrapper {
-  margin-bottom: 1rem;
+  margin-bottom: 26px;
   border-radius: 6px !important;
 }
 .cardHeader {
@@ -221,7 +221,7 @@
 }
 .card {
   padding: 25px;
-
+  margin-bottom: 100px;
   .head_container {
     margin: 15px 0px 0px 15px;
     display: flex;
@@ -422,7 +422,70 @@
     }
   }
 }
-
+.root {
+  left: 0;
+  right: 0;
+  bottom: 42px;
+  position: fixed;
+  z-index: 4;
+  height: 84px;
+  box-shadow: 0px 3px 12px #cad0e2;
+  border: 1px solid #d2d7e5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
+  padding: 0rem 2rem 0rem 2rem;
+  flex-direction: row;
+  background-color: rgb(255, 255, 255);
+  margin-left: 345px;
+  @include respond(lg-desktop) {
+    margin-left: 20%;
+  }
+  @include respond(md-desktop) {
+    justify-content: space-between;
+    padding: 0rem 1rem 0rem 1rem;
+    margin-left: 0;
+  }
+  @include respond(phone) {
+    bottom: 55px;
+    height: auto;
+  }
+  .reject {
+    cursor: pointer;
+    width: 260px;
+    height: 48px;
+    border: 3px solid #3687e8;
+    border-radius: 5px;
+    color: #3687e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include respond(md-desktop) {
+      width: 160px;
+      height: 48px;
+      font-size: 12px;
+    }
+  }
+  .approve {
+    cursor: pointer;
+    width: 260px;
+    height: 48px;
+    background: #3687e8 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include respond(md-desktop) {
+      width: 160px;
+      height: 48px;
+      font-size: 12px;
+    }
+  }
+}
 .switch {
   position: relative;
   display: inline-block;
@@ -576,6 +639,7 @@ input:checked + .slider:before {
   .upload_btn {
     text-align: center;
     color: #3687e8;
+    cursor: pointer;
     border: 3px solid #3687e8;
     font-size: 18px;
     line-height: 23px;
@@ -623,4 +687,252 @@ input:checked + .slider:before {
 .customSelect {
   appearance: none;
   // position: relative;
+}
+.main {
+  border-radius: 6px;
+  margin-bottom: 26px;
+  .head_container {
+    cursor: pointer;
+    height: 80px;
+    padding: 25px 35px !important;
+    border-bottom: none !important;
+    margin: 0px;
+    .heading {
+      font-size: 22px;
+      color: #3687e8;
+      font-weight: bold;
+      line-height: 27px;
+      margin: 0;
+      @include respond(md-desktop) {
+        font-size: 20px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 18px;
+      }
+      @include respond(phone) {
+        font-size: 15px;
+      }
+    }
+    span {
+      font-size: 45px;
+      color: #3687e8;
+      font-weight: normal;
+      line-height: 20px;
+      @include respond(md-desktop) {
+        font-size: 42px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 35px;
+      }
+      @include respond(phone) {
+        font-size: 30px;
+      }
+    }
+    .dropDown {
+      border: 1px solid #0000001f;
+      border-radius: 4px;
+      font-size: 20px;
+      line-height: 25px;
+      font-weight: 500;
+      padding: 5px;
+      @include respond(md-desktop) {
+        font-size: 18px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 16px;
+      }
+      @include respond(phone) {
+        font-size: 10px;
+        line-height: 18px;
+      }
+    }
+    .dropDown_label {
+      letter-spacing: 0.53px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 17px;
+      padding-right: 10px;
+      @include respond(md-desktop) {
+        font-size: 14px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 12px;
+      }
+      @include respond(phone) {
+        font-size: 10px;
+      }
+    }
+    .add_btn {
+      color: #3687e8;
+      text-transform: capitalize;
+      border: 3px solid #3687e8;
+      border-radius: 5px;
+      font-size: 18px;
+      line-height: 23px;
+      background-color: transparent;
+      margin: 0 15px 0 30px;
+      width: 78px;
+      height: 38px;
+      @include respond(md-desktop) {
+        font-size: 16px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 14px;
+      }
+      @include respond(phone) {
+        font-size: 12px;
+        width: 50px;
+        height: 26px;
+        text-align: center;
+        border-radius: 3px;
+      }
+    }
+  }
+}
+.table_container {
+  .table_scroll_outer {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    .table_scroll_inner {
+      display: table-cell;
+      overflow-x: auto;
+      .table {
+        th {
+          font-size: 15px;
+          color: #8492a6;
+          font-weight: bold;
+          line-height: 18px;
+          padding: 20px 15px;
+          vertical-align: middle;
+          text-transform: uppercase;
+          border-top: 2px solid #f2f5f9;
+          border-bottom: 2px solid #f2f5f9;
+          white-space: nowrap;
+          &:first-child {
+            padding-left: 35px;
+            @include respond(md-desktop) {
+              padding-left: 15px;
+            }
+          }
+          img {
+            width: 14px;
+            height: 14px;
+          }
+          @include respond(md-desktop) {
+            font-size: 14px;
+            line-height: 1.2;
+          }
+          @include respond(sm-desktop) {
+            font-size: 13px;
+          }
+          @include respond(phone) {
+            font-size: 12px;
+          }
+        }
+        tr {
+          &:last-child {
+            border-bottom: none;
+          }
+          td {
+            font-size: 19px;
+            //color: rgba(17, 17, 17, 0.7);
+            font-weight: 500;
+            line-height: 24px;
+            padding: 24px 15px;
+            border-top: none;
+            vertical-align: middle;
+            white-space: nowrap;
+            &:first-child {
+              padding-left: 35px;
+              @include respond(md-desktop) {
+                padding-left: 15px;
+              }
+            }
+            @include respond(md-desktop) {
+              font-size: 17px;
+              padding: 18px 10px;
+            }
+            @include respond(sm-desktop) {
+              font-size: 15px;
+              padding: 15px 10px;
+            }
+            @include respond(phone) {
+              font-size: 14px;
+              padding: 10px;
+            }
+          }
+        }
+        .input_field {
+          background: #c3c3c31f;
+          border-radius: 4px;
+          font-size: 20px;
+          line-height: 25px;
+          letter-spacing: 0.19px;
+          color: #111111;
+          border: none;
+          padding: 5px 0px 5px 15px;
+          width: 299px;
+          @include respond(md-desktop) {
+            font-size: 18px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 16px;
+          }
+          @include respond(phone) {
+            font-size: 14px;
+            width: 100%;
+          }
+        }
+        .close_image {
+          margin-left: -30px;
+          @include respond(phone) {
+          }
+        }
+        .doc_name {
+          font-weight: bold;
+          line-height: 25px;
+          font-size: 20px;
+          text-transform: capitalize;
+          padding-left: 35px;
+          @include respond(md-desktop) {
+            font-size: 18px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 16px;
+          }
+          @include respond(phone) {
+            font-size: 14px;
+          }
+        }
+        .doc_row {
+          font-size: 19px;
+          line-height: 24px;
+          opacity: 0.7;
+          font-weight: 500;
+          @include respond(md-desktop) {
+            font-size: 17px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 15px;
+          }
+          @include respond(phone) {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+.pdfImage {
+  width: 57px;
+  height: 25px;
+  @include respond(sm-desktop) {
+    width: 50px;
+    height: 22px;
+  }
+  @include respond(phone) {
+    width: 35px;
+    height: 15px;
+  }
 }
