@@ -309,19 +309,19 @@ const Index = () => {
       insurance: { ...prev.insurance, [Key]: value },
     }))
   }
-
+ console.log(termsheetDetails,"tempSheet")
   const handleSave = () => {
     let tempSheet=termsheetDetails
-  console.log(tempSheet,"tempSheet")
-     tempSheet.commodityDetails.perUnitPrice=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
+ console.log(termsheetDetails.commercials.overDueInterestPerMont,"tempSheet2")
+    tempSheet.commodityDetails.perUnitPrice=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
     tempSheet.commodityDetails.quantity=removePrefixOrSuffix(tempSheet.commodityDetails.quantity)
-     tempSheet.transactionDetails.marginMoney=removePrefixOrSuffix(tempSheet.transactionDetails.marginMoney)
-     tempSheet.commercials.tradeMarginPercentage=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
-     tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-      tempSheet.commercials.lcOpeningChargesPercentage=removePrefixOrSuffix(tempSheet.commercials.lcOpeningChargesPercentage)
-         tempSheet.commercials.usanceInterestPercetage=removePrefixOrSuffix(tempSheet.commercials.usanceInterestPercetage)
+    tempSheet.transactionDetails.marginMoney=removePrefixOrSuffix(tempSheet.transactionDetails.marginMoney)
+    tempSheet.commercials.tradeMarginPercentage=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
+    tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
+    tempSheet.commercials.lcOpeningChargesPercentage=removePrefixOrSuffix(tempSheet.commercials.lcOpeningChargesPercentage)
+    tempSheet.commercials.usanceInterestPercetage=removePrefixOrSuffix(tempSheet.commercials.usanceInterestPercetage)
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-      console.log(tempSheet,"tempSheet1")
+      console.log(termsheetDetails,"tempSheet1")
       
     const UpdatedTermsheet = {
       ...tempSheet,
