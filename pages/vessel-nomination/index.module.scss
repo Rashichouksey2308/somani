@@ -1,12 +1,14 @@
 @import '../../src/components/styles/Core/config';
 .container_inner {
   margin: 28px;
+  min-height: 74vh;
   margin-bottom: 70px;
   @include respond(sm-desktop) {
     margin: 20px;
   }
   @include respond(phone) {
     margin: 15px;
+    min-height: auto;
     margin-bottom: 70px;
   }
   .filter {
@@ -122,6 +124,7 @@
     // margin: 0 12px 0 12px;
 
     .tableFilter {
+      height: 80px;
       padding: 0 15px 0 35px;
       @include respond(md-desktop) {
         padding: 0 15px 0 15px;
@@ -130,7 +133,7 @@
         font-size: 22px !important;
         font-weight: bold;
         line-height: 27px;
-        margin: 24px 0;
+        margin: 0;
         color: #3687e8;
         text-transform: capitalize;
         @include respond(sm-desktop) {
