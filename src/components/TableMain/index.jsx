@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { GettingAllInsurance } from 'redux/insurance/action'
+import { Router } from 'next/router'
 
-function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
+function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handleEditRoute }) {
   const dispatch = useDispatch()
 
   const [currentPage, setCurrentPage] = useState(0)
@@ -16,6 +17,9 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
   useEffect(() => {
     dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
+
+  
+
 
   return (
     <div className={`${styles.datatable} datatable card`}>
@@ -112,36 +116,32 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute }) {
               </tr>
             </thead>
             <tbody>
-              {insuranceResponse &&
-                insuranceResponse?.data?.map((insured, index) => (
-                  <tr key={index} className="table_row">
-                    <td>{insured?.order?.orderId}</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => {
-                        handleRoute(insured)
-                      }}
-                    >
-                      {insured?.company?.companyName}
-                    </td>
-                    <td>{insured?.order?.commodity}</td>
-                    <td>{insured?.insuranceType}</td>
-                    <td>{insured?.createdAt?.split('T')[0]}</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      On-Hold
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                ))}
+            { insuranceResponse && insuranceResponse?.data?.map((insured, index) => ( <tr key={index} className="table_row">
+                <td>{insured?.order?.orderId}</td>
+                <td
+                  className={styles.buyerName}
+                  onClick={() => {
+                    handleRoute(insured)
+                  }}
+                >
+                  {insured?.company?.companyName}
+                </td>
+                <td>{insured?.order?.commodity}</td>
+                <td>{insured?.quotationRequest?.insuranceType}</td>
+                <td>{insured?.quotationRequest?.expectedTimeOfDispatch?.split('T')[0]}</td>
+                <td>
+                  <span className={`${styles.status} ${styles.review}`}></span>
+                  On-Hold
+                </td>
+                <td onClick={()=>handleEditRoute(insured)}>
+                  <img
+                    className={`${styles.edit_image} img-fluid mr-3`}
+                    src="/static/mode_edit.svg"
+                    alt="edit"
+                    
+                  />
+                </td>
+              </tr>))}
               {/* <tr className="table_row">
                 <td>124621</td>
                 <td

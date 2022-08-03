@@ -34,6 +34,14 @@ function Index() {
     dispatch(GettingAllInsurance(`?company=${insured?.company?._id}`))
     Router.push('/insurance/id')
   }
+
+  const handleEditRoute = (insured) => {
+    if(insured?.quotationRequest?.quotationRequestSubmitted === true) {
+      Router.push('/insurance/form/both')
+    }
+  }
+
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -92,6 +100,7 @@ function Index() {
           dateHeading="ETD"
           isStatus={true}
           handleRoute={changeRoute}
+          handleEditRoute={handleEditRoute}
         />
       </div>
     </div>
