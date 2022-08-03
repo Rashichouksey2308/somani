@@ -1,15 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import ThirdPartyInspection from '../../src/components/ThirdPartyInspection'
 import PlotInspection from '../../src/components/PlotInspection'
 import Appointment from '../../src/components/Appointment'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
-
+ const dispatch = useDispatch()
+     useEffect(() => {
+    dispatch(setPageName('inception2'))
+   
+  })
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
