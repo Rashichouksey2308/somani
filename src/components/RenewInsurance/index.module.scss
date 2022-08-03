@@ -191,11 +191,12 @@
 }
 .card {
   padding: 25px;
-
+  margin-bottom: 100px;
   .head_container {
     margin: 15px 0px 0px 15px;
     display: flex;
     background: none;
+    height: 80px;
     flex-direction: row;
     justify-content: space-between;
     @include respond(sm-desktop) {
