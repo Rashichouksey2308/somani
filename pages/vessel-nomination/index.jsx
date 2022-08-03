@@ -28,14 +28,6 @@ function Index() {
     <div className="container-fluid p-0">
       <div className={`${styles.container_inner}`}>
         <div className={`${styles.filter} d-flex align-items-center`}>
-          <div className={styles.head_header}>
-            <img
-              className={`${styles.arrow} image_arrow img-fluid mr-2`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="ArrowRight"
-            />
-            <h1 className={styles.heading}>Vessel Nomination </h1>
-          </div>
           <div className={styles.search}>
             <div className="input-group">
               <div
@@ -119,7 +111,9 @@ function Index() {
                     </th>
                     <th>BUYER NAME</th>
                     <th>CREATED BY</th>
+                    <th>CREATED ON</th>
                     <th>STATUS</th>
+                    <th>PREVIEW</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -134,11 +128,20 @@ function Index() {
                           {vessel?.company?.companyName}
                         </td>
                         <td>RM-Sales</td>
+                        <td>22-02-2022</td>
                         <td>
                           <span
-                            className={`${styles.status} ${styles.review}`}
+                            className={`${styles.status} ${styles.approved}`}
                           ></span>
-                          Pending
+                          Apporoved
+                        </td>
+                        <td>
+                          {' '}
+                          <img
+                            className="img-fluid"
+                            src="/static/preview.svg"
+                            alt="P"
+                          />{' '}
                         </td>
                       </tr>
                     ))}

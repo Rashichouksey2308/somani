@@ -173,69 +173,16 @@ function Index() {
                 </thead>
                 <tbody>
                   <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
-                    <td>Bhutani Traders</td>
+                    <td>BHUTD001-0002</td>
                     <td
+                      className={styles.buyerName}
                       onClick={() => {
-                        Router.push('/inspection/id')
+                        Router.push('/third-party')
                       }}
                     >
-                      Iron
+                      Bhutani Traders
                     </td>
-
-                    <td>Abcz</td>
-                    <td>22-02-2022</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
-                    <td>Bhutani Traders</td>
-                    <td
-                      onClick={() => {
-                        Router.push('/inspection/id')
-                      }}
-                    >
-                      Iron
-                    </td>
-
-                    <td>Abcz</td>
-                    <td>22-02-2022</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td className={styles.buyerName}>BHUTD001-0002</td>
-                    <td>Ramakrishna Traders</td>
-                    <td
-                      onClick={() => {
-                        Router.push('/inspection/id')
-                      }}
-                    >
-                      Steel
-                    </td>
+                    <td>Iron</td>
 
                     <td>Abcz</td>
                     <td>22-02-2022</td>

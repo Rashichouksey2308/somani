@@ -106,7 +106,7 @@ function Index() {
             </div>
           </div>
         </div>
-        <div className={`${styles.datatable} datatable border_color card `}>
+        <div className={`${styles.datatable} datatable card border_color `}>
           <div
             className={`${styles.tableFilter} d-flex justify-content-between`}
           >
@@ -141,7 +141,7 @@ function Index() {
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table
-                className={`${styles.table} mt-5 table`}
+                className={`${styles.table} table`}
                 cellPadding="0"
                 cellSpacing="0"
                 border="0"
@@ -156,12 +156,11 @@ function Index() {
                         alt="Sort icon"
                       />{' '}
                     </th>
-
-                    <th>BUYER NAME</th>
                     <th>COMMODITY</th>
+                    <th>BUYER NAME</th>
                     <th>VESSEL NAME</th>
                     <th>
-                      SURRENDERED{' '}
+                      SURRENDERED
                       <img
                         className={`mb-1`}
                         src="/static/icons8-sort-24.svg"
@@ -173,21 +172,20 @@ function Index() {
                 </thead>
                 <tbody>
                   <tr className="table_row">
-                    <td className={`${styles.buyerName} heading`}>
-                      BHUTD001-0002
-                    </td>
+                    <td>BHUTD001-0002</td>
                     <td
+                      className={styles.buyerName}
                       onClick={() => {
-                        Router.push('/transit/id')
+                        Router.push('/third-party')
                       }}
                     >
-                      Bhutani Traders
+                      Iron
                     </td>
-                    <td>Iron</td>
+                    <td>Bhutani Traders</td>
                     <td>Abcz</td>
                     <td>
                       <span
-                        className={`${styles.status} ${styles.review}`}
+                        className={`${styles.status} ${styles.approved}`}
                       ></span>
                       Yes
                     </td>
@@ -200,21 +198,20 @@ function Index() {
                     </td>
                   </tr>
                   <tr className="table_row">
-                    <td className={`${styles.buyerName} heading`}>
-                      BHUTD001-0002
-                    </td>
+                    <td>BHUTD001-0002</td>
                     <td
+                      className={styles.buyerName}
                       onClick={() => {
-                        Router.push('/transit/id')
+                        Router.push('/third-party')
                       }}
                     >
-                      Bhutani Traders
+                      Iron
                     </td>
-                    <td>Steel</td>
+                    <td>Bhutani Traders</td>
                     <td>Abcz</td>
                     <td>
                       <span
-                        className={`${styles.status} ${styles.review}`}
+                        className={`${styles.status} ${styles.approved}`}
                       ></span>
                       Yes
                     </td>
@@ -227,17 +224,16 @@ function Index() {
                     </td>
                   </tr>
                   <tr className="table_row">
-                    <td className={`${styles.buyerName} heading`}>
-                      BHUTD001-0002
-                    </td>
+                    <td>BHUTD001-0002</td>
                     <td
+                      className={styles.buyerName}
                       onClick={() => {
-                        Router.push('/transit/id')
+                        Router.push('/third-party')
                       }}
                     >
-                      Bhutani Traders
+                      Iron
                     </td>
-                    <td>Iron</td>
+                    <td>Bhutani Traders</td>
                     <td>Abcz</td>
                     <td>
                       <span

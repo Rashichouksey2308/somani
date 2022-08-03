@@ -21,27 +21,10 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>Agreement </h1>
+            <h1 className={styles.heading}>Ramakrishna Traders </h1>
           </div>
-          <div className={styles.search}>
-            <div className="input-group">
-              <div
-                className={`${styles.inputGroupPrepend} input-group-prepend`}
-              >
-                <img
-                  src="/static/search.svg"
-                  className="img-fluid"
-                  alt="Search"
-                />
-              </div>
-              <input
-                type="text"
-                className={`${styles.formControl} form-control formControl `}
-                placeholder="Search"
-              />
-            </div>
-          </div>
-          <Filter />
+
+          {/* <Filter /> */}
           {/* <a href="#" className={`${styles.filterList} filterList `}>
           Bhutani Traders
         <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -58,7 +41,7 @@ function Index() {
           <div
             className={`${styles.tableFilter} shadow-none align-items-center d-flex justify-content-between border-0 d-flex`}
           >
-            <h3 className="heading_card">Agreement details</h3>
+            <h3 className="heading_card">All Orders</h3>
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
@@ -104,21 +87,69 @@ function Index() {
                         alt="Sort icon"
                       />
                     </th>
-                    <th>COMMODITY NAME</th>
+                    <th>COMMODITY</th>
                     <th>CREATED BY</th>
                     <th>STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="table_row">
-                    <td>12</td>
+                    <td>12432</td>
                     <td
                       className={styles.buyerName}
                       onClick={() => handleRoute()}
                     >
                       Iron
                     </td>
-                    <td>RM-Sales</td>
+                    <td>22-02-2022</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.review}`}
+                      ></span>
+                      Pending
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td>12432</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => handleRoute()}
+                    >
+                      Crude Oil
+                    </td>
+                    <td>22-02-2022</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.review}`}
+                      ></span>
+                      Pending
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td>12432</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => handleRoute()}
+                    >
+                      Brass
+                    </td>
+                    <td>22-02-2022</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.approved}`}
+                      ></span>
+                      Approved
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td>12432</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => handleRoute()}
+                    >
+                      Steel
+                    </td>
+                    <td>22-02-2022</td>
                     <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
