@@ -176,7 +176,7 @@ function Index() {
                     <td
                       className={styles.buyerName}
                       onClick={() => {
-                        Router.push('/third-party')
+                        Router.push('/transit/id')
                       }}
                     >
                       Iron
@@ -202,7 +202,7 @@ function Index() {
                     <td
                       className={styles.buyerName}
                       onClick={() => {
-                        Router.push('/third-party')
+                        Router.push('/transit/id')
                       }}
                     >
                       Iron
@@ -228,7 +228,7 @@ function Index() {
                     <td
                       className={styles.buyerName}
                       onClick={() => {
-                        Router.push('/third-party')
+                        Router.push('/transit/id')
                       }}
                     >
                       Iron
