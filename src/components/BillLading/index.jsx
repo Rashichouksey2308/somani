@@ -7,6 +7,7 @@ import DateCalender from '../DateCalender'
 
 export default function Index() {
   const [editInput, setEditInput] = useState(true)
+  const [shipmentType, setShipmentType] = useState(true)
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -31,6 +32,7 @@ export default function Index() {
                       label="Bulk"
                       name="group1"
                       type={type}
+                      onChange={(e) => setShipmentType(true)}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -38,6 +40,7 @@ export default function Index() {
                       inline
                       label="Liner"
                       name="group1"
+                      onChange={(e) => setShipmentType(false)}
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -200,61 +203,68 @@ export default function Index() {
                     </div>
                   </div>
                 </div>
-                <hr></hr>
-                <div className={`${styles.vessel_card} mt-5`}>
-                  <h5 className={`${styles.eta_heading} `}>
-                    Container Details<strong className="text-danger">*</strong>
-                  </h5>
-                  <div className="row mt-n4">
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="number"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Number of Containers
+
+                {!shipmentType ? (
+                  <>
+                    <hr></hr>
+                    <div className={`${styles.vessel_card} mt-5`}>
+                      <h5 className={`${styles.eta_heading} `}>
+                        Container Details
                         <strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="number"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Free Detention Period at Discharge Port (Days)
-                        <strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
-                      <div className="d-flex justify-content-start">
-                        <div className={styles.uploadBtnWrapper}>
-                          <input type="file" name="myfile" />
-                          <button className={`${styles.upload_btn} btn`}>
-                            Upload Excel
-                          </button>
+                      </h5>
+                      <div className="row mt-n4">
+                        <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                        >
+                          <input
+                            className={`${styles.input_field} input form-control`}
+                            required
+                            type="number"
+                          />
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Number of Containers
+                            <strong className="text-danger">*</strong>
+                          </label>
                         </div>
-                        <div className={`${styles.upload_text}`}>
-                          ONLY .XLS FILES ARE ALLOWED
-                          <br /> &amp; MAX FILE SIZE UP TO 50MB
+                        <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                        >
+                          <input
+                            className={`${styles.input_field} input form-control`}
+                            required
+                            type="number"
+                          />
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Free Detention Period at Discharge Port (Days)
+                            <strong className="text-danger">*</strong>
+                          </label>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                        >
+                          <div className="d-flex justify-content-start">
+                            <div className={styles.uploadBtnWrapper}>
+                              <input type="file" name="myfile" />
+                              <button className={`${styles.upload_btn} btn`}>
+                                Upload Excel
+                              </button>
+                            </div>
+                            <div className={`${styles.upload_text}`}>
+                              ONLY .XLS FILES ARE ALLOWED
+                              <br /> &amp; MAX FILE SIZE UP TO 50MB
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-
+                  </>
+                ) : (
+                  ''
+                )}
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
                     <table
@@ -295,7 +305,7 @@ export default function Index() {
                       <tbody>
                         <tr className="table_row">
                           <td className={styles.doc_name}>
-                            BL Acknowledgement Copy
+                            BL
                             <strong className="text-danger ml-0">*</strong>
                           </td>
                           <td>
@@ -315,6 +325,64 @@ export default function Index() {
                             </div>
                           </td>
                         </tr>
+                        {!shipmentType ? (
+                          <>
+                            <tr className="table_row">
+                              <td className={styles.doc_name}>
+                                Container No. List
+                                <strong className="text-danger ml-0">*</strong>
+                              </td>
+                              <td>
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              </td>
+                              <td className={styles.doc_row}>
+                                28-02-2022,5:30 PM
+                              </td>
+                              <td>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" name="myfile" />
+                                  <button
+                                    className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr className="table_row">
+                              <td className={styles.doc_name}>
+                                Packing List
+                                <strong className="text-danger ml-0">*</strong>
+                              </td>
+                              <td>
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              </td>
+                              <td className={styles.doc_row}>
+                                28-02-2022,5:30 PM
+                              </td>
+                              <td>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" name="myfile" />
+                                  <button
+                                    className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          </>
+                        ) : (
+                          ''
+                        )}
                       </tbody>
                     </table>
                   </div>
@@ -378,7 +446,7 @@ export default function Index() {
                       <tbody>
                         <tr className="table_row">
                           <td className={styles.doc_name}>
-                            Document abc
+                            BL Acknowledgment Copy
                             <strong className="text-danger ml-0">*</strong>
                           </td>
                           <td>
