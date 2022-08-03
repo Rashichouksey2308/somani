@@ -29,11 +29,13 @@ function Index(props) {
   const [multiPartValue,setMultiPartValue]=useState("Manufacturer")
   const [saveData,setSaveData]=useState(false)
   const [submitData,setSubmitData]=useState(false)
+  const [isSideBarOpen,setIsSideBarOpen]=useState(true)
   const changeActiveValue=(val,index)=>{
 
   setActive(val)
   showContent()
   setSaveData(false)
+  
   let tempArr=sideBar;
   for(let i=0;i<tempArr.length;i++) {
     if(i==index){
@@ -50,6 +52,7 @@ function Index(props) {
   }
   console.log(tempArr,"name")
   setSidebar(tempArr)
+  setIsSideBarOpen(false)
   }
   
   
@@ -515,10 +518,13 @@ const sendData=(key,data)=>{
 
   
 }
-
+const onShowSideBar=()=>{
+  setIsSideBarOpen(true)
+}
   return (
     <div className={`${styles.root}`}>
-      <div className={`${styles.sidebar} card card-body`}>
+    
+      <div className={`${styles.sidebar}  ${isSideBarOpen?null:styles.collapseWidth} card card-body`}>
        {sideBar.map((row,index)=>{
         return(
           <>
@@ -545,9 +551,24 @@ const sendData=(key,data)=>{
        })}
 
       </div>
-      <div className={`${styles.content} card p-0 card-body`}>
+     
+      
+      <div className={`${styles.content} ${isSideBarOpen?null:styles.fullScreen} card p-0 card-body`}>
       <div className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
-        <h2 className="mb-0">{active}</h2>
+         
+        <h2 className="mb-0d-flex">
+          {!isSideBarOpen? <a href="#" className={`${styles.arrow} ${`rightArrow`}`}
+          onClick={()=>{
+            onShowSideBar()
+          }}
+          >
+            <img
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="arrow right"
+              className={`${styles.image_reverse} img-fluid mr-2  mb-1`}
+            />
+          </a>:null}
+          {active}</h2>
                 <div
                     className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
 
@@ -642,7 +663,9 @@ const sendData=(key,data)=>{
                                               
                                            
           </div>
-           {showContent()}
+         
+              {showContent()}
+          
            <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
               <div className={styles.reject} onClick={(e)=>{
                 onSave()
