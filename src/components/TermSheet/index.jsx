@@ -256,6 +256,7 @@ const Index = () => {
   const onChangeCommercialTerms = (e) => {
     const Key = e.target.id
     const value = e.target.value
+    console.log(value,"bal")
     setTermsheetDetails((prev) => ({
       ...prev,
       commercials: { ...prev.commercials, [Key]: value },
@@ -313,11 +314,17 @@ const Index = () => {
     let tempSheet=termsheetDetails
   console.log(tempSheet,"tempSheet")
      tempSheet.commodityDetails.perUnitPrice=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
+    tempSheet.commodityDetails.quantity=removePrefixOrSuffix(tempSheet.commodityDetails.quantity)
      tempSheet.transactionDetails.marginMoney=removePrefixOrSuffix(tempSheet.transactionDetails.marginMoney)
+     tempSheet.commercials.tradeMarginPercentage=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
+    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
+      tempSheet.commercials.lcOpeningChargesPercentage=removePrefixOrSuffix(tempSheet.commercials.lcOpeningChargesPercentage)
+         tempSheet.commercials.usanceInterestPercetage=removePrefixOrSuffix(tempSheet.commercials.usanceInterestPercetage)
+    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
       console.log(tempSheet,"tempSheet1")
       
     const UpdatedTermsheet = {
-      ...termsheetDetails,
+      ...tempSheet,
       status: 'Approved',
       otherTermsAndConditions,
       additionalComments,

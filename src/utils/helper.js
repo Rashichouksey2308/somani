@@ -117,7 +117,7 @@ export const removePrefixOrSuffix = (unitOfValue, type) => {
   console.log(unitOfValue, 'unitOfValue')
   if (unitOfValue !== undefined || unitOfValue !== 'undefined') {
     let newValue = unitOfValue
-      .toString()
+      ?.toString()
       .replaceAll('M', '')
       .replaceAll('T', '')
       .replaceAll('%', '')
