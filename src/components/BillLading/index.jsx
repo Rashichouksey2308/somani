@@ -14,6 +14,10 @@ export default function Index() {
     } else {
       setEditInput(true)
     }
+    
+  }
+  const saveData=()=>{
+
   }
   return (
     <>
@@ -105,30 +109,32 @@ export default function Index() {
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Vessel Name<strong className="text-danger">*</strong>
-                      </label>
+                      <div className="d-flex">
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect}   input form-control`}
+                          >
+                            <option></option>
+                            <option>Balaji Traders</option>
+                          </select>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Vessel Name<strong className="text-danger">*</strong>
+                          </label>
+                          <img
+                            className={`${styles.arrow} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      
                     </div>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        IMO Number<strong className="text-danger">*</strong>
-                      </label>
+                      
+                       <p className={` label_heading`}>IMO Number<strong className="text-danger">*</strong></p>
+                       <span>834774689</span>
                     </div>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -148,7 +154,7 @@ export default function Index() {
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
                       <div className="d-flex">
-                        <DateCalender labelName="BL Date" />
+                        <DateCalender labelName="BL Date"  dateFormat={"dd-MM-yyyy"} saveDate={saveData}/>
                         <img
                           className={`${styles.calanderIcon} img-fluid`}
                           src="/static/caldericon.svg"
@@ -178,11 +184,12 @@ export default function Index() {
                       className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
                     >
                       <div className="d-flex">
-                        <DateCalender labelName="From" />
+                        <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
                         <img
                           className={`${styles.calanderIcon} img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
+                          
                         />
                       </div>
                     </div>
@@ -190,11 +197,12 @@ export default function Index() {
                       className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
                     >
                       <div className="d-flex">
-                        <DateCalender labelName="To" />
+                        <DateCalender labelName="To" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
                         <img
                           className={`${styles.calanderIcon} img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
+                         
                         />
                       </div>
                     </div>
@@ -328,7 +336,7 @@ export default function Index() {
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
                       <div className="d-flex">
-                        <DateCalender labelName="BL Surrender Date" />
+                        <DateCalender labelName="BL Surrender Date" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
                         <img
                           className={`${styles.calanderIcon} img-fluid`}
                           src="/static/caldericon.svg"

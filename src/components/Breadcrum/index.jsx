@@ -3,22 +3,29 @@ import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 export default function Index({isQuery}) {
+  console.log(isQuery,"isQuery")
   const[show,setShow]=useState({
     units:true,
     currency:true
   })
   useEffect(() => {
  
-    if(isQuery?.match("/leads")||isQuery?.match("/order-list") 
+    if(
+      isQuery?.match("/leads")||isQuery?.match("/order-list") 
     ||isQuery?.match("/new-order")
     ||isQuery?.match("/termsheet-preview")
     ||isQuery?.match("/generic")
+    ||isQuery?.match("/letter-table/letter-amend/id")
+     ||isQuery == "/transit"
     ) {
       show.units=false
       show.currency=false
       setShow({...show})
-    }else if(isQuery?.match("/credit-queue")||isQuery?.match("/termsheet")||isQuery?.match("/margin-money")|| isQuery?.match("/review")
+    }else if(
+      isQuery?.match("/credit-queue")||isQuery?.match("/termsheet")||isQuery?.match("/margin-money")|| isQuery?.match("/review")
     ||isQuery?.match("/vessel") ||isQuery?.match("/third-party")
+
+    ||isQuery?.match("/transit/id")
     ){
       show.units=false
       show.currency=true
@@ -144,6 +151,15 @@ export default function Index({isQuery}) {
          router.route = "/Loading, Transit & Unloading";
       }
     }
+     if ("transit" == pageName) {
+      if(id!==null) {
+        router.route = "/Loading, Transit & Unloading" + "/Bill of Loading"  +`/${id}`;
+        console.log("router123",router.route)
+      }else{
+        router.route = "/Loading, Transit & Unloading" + "/Transit Details";
+      }
+    }
+  
 console.log( router.route," router.route")
 
     router.route.split("/").map((subRoute, index) => {
@@ -170,6 +186,7 @@ console.log( router.route," router.route")
     });
   }, [pageName,id]);
   console.log(myUrl,"url")
+  console.log(pageName,"pageName")
   return (
     <div className={`${styles.main_container} d-sm-flex d-block justify-content-between background1`}>
       <div>
