@@ -13,7 +13,7 @@ import { GetTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
 import { useRouter } from 'next/router'
 import { data } from 'jquery'
 import _get from "lodash/get";
-import {addPrefixOrSuffix,removePrefixOrSuffix } from '../../utils/helper'
+import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -24,22 +24,25 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState([])
   const [order, setOrder] = useState('')
+  console.log(termsheetDetails,'termsheetDetails')
+
 
 
 
   useEffect(() => {
-    
+
     let Id = sessionStorage.getItem('termID')
     dispatch(GetTermsheet(`?termsheetId=${Id}`))
     dispatch(setPageName('termsheet'))
   }, [dispatch])
   let OrdID = sessionStorage.getItem('termOrdID')
+  let newLcVal = 
 
   useEffect(() => {
     {
       termsheet &&
         termsheet?.data?.map((sheet) =>
-        
+
           setTermsheetDetails({
             termsheetId: sheet._id,
             commodityDetails: {
@@ -51,7 +54,7 @@ const Index = () => {
               tolerance: sheet?.order?.tolerance,
             },
             transactionDetails: {
-              lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : sheet?.order?.quantity * sheet?.order?.perUnitPrice,
+              lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
               marginMoney: sheet?.transactionDetails?.marginMoney,
               lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
@@ -94,6 +97,7 @@ const Index = () => {
       termsheet &&
         termsheet?.data?.map((sheet, index) => {
           setOtherTermConditions({
+            buyer: { bank: sheet?.otherTermsAndConditions?.buyer?.bank },
             chaOrstevedoringCharges: {
               customClearingCharges:
                 sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
@@ -256,7 +260,7 @@ const Index = () => {
   const onChangeCommercialTerms = (e) => {
     const Key = e.target.id
     const value = e.target.value
-    console.log(value,"bal")
+   // console.log(value, "bal")
     setTermsheetDetails((prev) => ({
       ...prev,
       commercials: { ...prev.commercials, [Key]: value },
@@ -309,27 +313,27 @@ const Index = () => {
       insurance: { ...prev.insurance, [Key]: value },
     }))
   }
- console.log(termsheetDetails,"tempSheet")
+  console.log(termsheetDetails, "tempSheet")
   const handleSave = () => {
-    let tempSheet=termsheetDetails
- console.log(termsheetDetails.commercials.overDueInterestPerMont,"tempSheet2")
-    tempSheet.commodityDetails.perUnitPrice=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
-    tempSheet.commodityDetails.quantity=removePrefixOrSuffix(tempSheet.commodityDetails.quantity)
-    tempSheet.transactionDetails.marginMoney=removePrefixOrSuffix(tempSheet.transactionDetails.marginMoney)
-    tempSheet.commercials.tradeMarginPercentage=removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
-    tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    tempSheet.commercials.lcOpeningChargesPercentage=removePrefixOrSuffix(tempSheet.commercials.lcOpeningChargesPercentage)
-    tempSheet.commercials.usanceInterestPercetage=removePrefixOrSuffix(tempSheet.commercials.usanceInterestPercetage)
-    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-      console.log(termsheetDetails,"tempSheet1")
-      
+    let tempSheet = termsheetDetails
+    console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
+    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
+    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(tempSheet.commodityDetails.quantity)
+    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(tempSheet.transactionDetails.marginMoney)
+    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(tempSheet.commodityDetails.perUnitPrice)
+    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
+    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(tempSheet.commercials.lcOpeningChargesPercentage)
+    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(tempSheet.commercials.usanceInterestPercetage)
+    //tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
+    console.log(termsheetDetails, "tempSheet1")
+
     const UpdatedTermsheet = {
       ...tempSheet,
       status: 'Approved',
       otherTermsAndConditions,
       additionalComments,
     }
-  
+
     console.log(termsheetDetails, 'updatedtermsheet')
     dispatch(updateTermsheet(UpdatedTermsheet))
     //router.push('/termsheet')
@@ -353,6 +357,14 @@ const Index = () => {
     }
     setAdditionalComments((prev) => [...prev, newComment])
   }
+  const onChangeDropDown = (e) => {
+    const value = e.target.value
+    setOtherTermConditions((prev) => ({
+      ...prev,
+      buyer: { ...prev.buyer, bank: value },
+    }))
+  }
+  //console.log(otherTermsAndConditions, 'otherTermsAndConditions')
 
   return (
     <>
@@ -366,7 +378,6 @@ const Index = () => {
             />
             <h1 className={`${styles.heading} heading`}>Termsheet</h1>
           </div>
-
           <div className="">
             {termsheet &&
               termsheet?.data?.map((sheet, index) => (
@@ -426,6 +437,7 @@ const Index = () => {
                 </div>
               ))}
             <TermDetails
+             
               onChangeTransactionDetails={onChangeTransactionDetails}
               onChangeCommodityDetails={onChangeCommodityDetails}
               onChangeCommercialTerms={onChangeCommercialTerms}
@@ -439,6 +451,7 @@ const Index = () => {
               additionalComments={additionalComments}
             />
             <OtherTerms
+              onChangeDropDown={onChangeDropDown}
               otherTermConditions={otherTermsAndConditions}
               onChangeInsurance={onChangeInsurance}
               onChangeDutyAndTaxes={onChangeDutyAndTaxes}
@@ -447,7 +460,7 @@ const Index = () => {
               onChangeCha={onChangeCha}
               termsheet={termsheet}
             />
-            <UploadOther  module='Agreements,Insurance,LcOpening' orderid={OrdID} />
+            <UploadOther module='Agreements,Insurance,LcOpening' orderid={OrdID} />
           </div>
         </div>
       </div>
