@@ -129,7 +129,6 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
         console.log('this')
 
         dispatch(getVesselSuccess(response.data.data))
-        return response.data.data
       } else {
         dispatch(getVesselFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
