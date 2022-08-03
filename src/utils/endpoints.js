@@ -83,5 +83,19 @@ export default {
   // Insurance
 
   getInsurance: '/api/core/insurance',
+
+  // Inspection
+
+  getInspection: '/api/core/inspection',
+  updateInspection: '/api/core/inspection',
+
+  //Transit
+  getTransitDetails: '/api/core/transit',
+  updateTransitDetails: '/api/core/transit',
+
+  //ForwardHedging
+  getForwardHedging: '/api/core/forward-hedging',
+  updateForwardHedging: '/api/core/forward-hedging',
+
   updateQuotation: '/api/core/insurance/quotation',
 }

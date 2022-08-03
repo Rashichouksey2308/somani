@@ -1,9 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './inspection.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
+import { useDispatch, useSelector } from 'react-redux'
+import _get from "lodash/get";
+import { GetAllForwardHedging, GetForwardHedging } from '../../src/redux/ForwardHedging/action'
+
+
+
 
 function Index() {
+  const dispatch = useDispatch()
+
+  const { ForwardHedging, allForwardHedging } = useSelector((state) => state.ForwardHedging)
+
+  console.log(allForwardHedging, 'allForwardHedging')
+  useEffect(() => {
+    dispatch(GetAllForwardHedging())
+  }, [dispatch])
+
+  const handleRoute = (List) => {
+
+    let companyid = _get(List, "order", "")
+    sessionStorage.setItem('comapnyId', companyid)
+    sessionStorage.setItem('ForwHeadId', _get(List, "_id", ""))
+    dispatch(GetForwardHedging(`?order=${companyid}`))
+    Router.push('/transit')
+  }
   return (
     <div className="container-fluid p-0 border-0">
       <div className={`${styles.container_inner}`}>
@@ -99,84 +122,34 @@ function Index() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="table_row">
-                    <td>124621</td>
-                    <td
-                      className={`${styles.buyerName}`}
-                      onClick={() => {
-                        Router.push('/forward-hedging')
-                      }}
-                    >
-                      Bhutani Traders
-                    </td>
-                    <td>Iron</td>
-                    <td>22-02-2022</td>
-                    <td>
+
+                  {allForwardHedging && allForwardHedging?.data?.map((List, index) => (
+                    <tr key={index} className="table_row">
+                      <td className={`${styles.buyerName} heading`}>
+                        BHUTD001-0002
+                      </td>
+                      <td
+                        onClick={() => handleRoute(List)}
+                      >
+                        {_get(List, "company.companyName", "")}
+                      </td>
+                      <td>{_get(List, "order.commodity", "")} </td>
+                      <td></td>
+                      <td>
                       <span
                         className={`${styles.status} ${styles.expired}`}
                       ></span>
                       Expired
                     </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>124621</td>
-                    <td
-                      className={`${styles.buyerName} `}
-                      onClick={() => {
-                        Router.push('/forward-hedging')
-                      }}
-                    >
-                      Bhutani Traders
-                    </td>
-                    <td>Iron</td>
-                    <td>22-02-2022</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.expired}`}
-                      ></span>
-                      Expired
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>124621</td>
-                    <td
-                      className={`${styles.buyerName}`}
-                      onClick={() => {
-                        Router.push('/forward-hedging')
-                      }}
-                    >
-                      Somani Traders
-                    </td>
-                    <td>Crude Oil</td>
-                    <td>22-02-2022</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.expired}`}
-                      ></span>
-                      Expired
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
+                      <td>
+                        <img
+                          className={`${styles.edit_image} img-fluid mr-3`}
+                          src="/static/mode_edit.svg"
+                          alt="edit"
+                        />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

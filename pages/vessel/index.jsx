@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import Vessels from '../../src/components/Vessel'
@@ -25,12 +26,18 @@ export default function Home() {
  
     
   }, [dispatch])
+  const partShipment = _get(
+    Vessel,
+    "data[0].partShipmentAllowed",
+    false
+  )
 
   const [list, setList] = useState()
   const [containerExcel, setContainerExcel] = useState({})
   const [vesselCertificate, setVesselCertificate] = useState({})
   const [containerListDocument, setContainerListDocument] = useState({})
-  const [companyName,setCompanyName]=useState("")
+  const [partShipmentAllowed, setPartShipmentAllowed] = useState(partShipment)
+  const [companyName, setCompanyName] = useState("")
 
 
 
@@ -260,9 +267,9 @@ export default function Home() {
         val[name] = value
       }
     })
-    console.log(tempArr, 'tempArr')
+    //console.log(tempArr, 'tempArr')
   }
-  console.log(list, 'arrayvessel')
+  //console.log(list, 'arrayvessel')
 
   const uploadDocHandler = (e) => {
     let uploadDocType = e.target.id
@@ -322,6 +329,7 @@ export default function Home() {
   const onSaveHandler = () => {
     const payload = {
       vesselId: id,
+      partShipmentAllowed: partShipmentAllowed,
       vessels: [...list]
     }
     if (containerListDocument) {
@@ -333,16 +341,20 @@ export default function Home() {
     if (containerExcel) {
       payload.containerExcel = containerExcel
     }
-
     console.log(payload, 'vessels123456')
     dispatch(UpdateVessel(payload))
   }
-  console.log(Vessel,"Vessel")
+  console.log(Vessel, "Vessel")
+
+
+
 
 
   return (
     <>
       <Vessels
+        partShipmentAllowed={partShipmentAllowed}
+        setPartShipmentAllowed={setPartShipmentAllowed}
         id1={id1}
         orderID={orderID}
         list={list}

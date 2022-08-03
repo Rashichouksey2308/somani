@@ -128,15 +128,13 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                     <h3 className={styles.sub_heading}>Transaction Details</h3>
 
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='lcValue' value={termsheetDetails?.transactionDetails?.lcValue} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required />
+                            <input id='lcValue' value={termsheetDetails?.transactionDetails?.lcValue ? termsheetDetails?.transactionDetails?.lcValue : null} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required />
                             {/* <option value={termsheetDetails?.transactionDetails?.lcValue}>{termsheetDetails?.transactionDetails?.lcValue} </option>
                                 <option value="USD 2000">USD 2000</option>
                                 <option value="RS 1000">RS 1000</option> 
