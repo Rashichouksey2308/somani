@@ -7,6 +7,7 @@ import DateCalender from '../../../../src/components/DateCalender'
 import { useDispatch, useSelector } from 'react-redux'
 import { GettingAllInsurance, UpdateInsurance } from '../../../../src/redux/insurance/action'
 import _get from 'lodash/get'
+import Router from 'next/router'
 
 const Index = () => {
   const [insuranceType, setInsuranceType] = useState('Marine')
@@ -32,7 +33,7 @@ const Index = () => {
     insuranceTo: '',
     periodOfInsurance: null,
     lossPayee: '',
-    premiumAccount: null,
+    premiumAmount: null,
   })
 
   const saveMarineData = (name, value) => {
@@ -58,7 +59,7 @@ const Index = () => {
     insuranceTo: '',
     periodOfInsurance: null,
     lossPayee: '',
-    premiumAccount: null,
+    premiumAmount: null,
   })
 
   const saveStorageDate = (value, name) => {
@@ -75,17 +76,17 @@ const Index = () => {
   }
 
   const [insuranceDocument, setInsuranceDocument] = useState({
-    storagePolicyDocument : '',
-    marinePolicyDocument: ''
+    storagePolicyDocument : null,
+    marinePolicyDocument: null
   })
 
-  const uploadDocument1 = (e) => {
+  const uploadDocument2 = (e) => {
     const newUploadDoc = { ...insuranceDocument }
     newUploadDoc.storagePolicyDocument = e.target.files[0]
-
+    console.log(newUploadDoc, 'new upload doc')
     setInsuranceDocument(newUploadDoc)
   }
-  const uploadDocument2 = (e) => {
+  const uploadDocument1 = (e) => {
     const newUploadDoc1 = { ...insuranceDocument }
     newUploadDoc1.marinePolicyDocument = e.target.files[0]
 
@@ -94,16 +95,26 @@ const Index = () => {
 
   const [isInsurerSameData, setIsInsurerSameData] = useState(false)
 
+  const handleIsInsuranceSame = () => {
+    setIsInsurerSameData(true)
+    setStorageData(marineData)
+    
+  }
+
   const handleInsuranceUpdate = () => {
     let fd = new FormData()
     fd.append('marineInsurance', JSON.stringify(marineData))
     fd.append('storageInsurance', JSON.stringify(storageData))
-    fd.append('insuranceId', JSON.stringify(insuranceData?._id))
+    fd.append('insuranceId', insuranceData?._id)
     fd.append('insuranceType', JSON.stringify(insuranceData?.quotationRequest?.insuranceType))
     fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
     fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument)
 
     dispatch(UpdateInsurance(fd))
+  }
+
+  const handleRoute = () => {
+    Router.push('/insurance')
   }
 
   return (
@@ -232,6 +243,8 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='policyNumber'
+                            onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -243,10 +256,10 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect}   input form-control`}
+                            name='nameOfInsurer' onChange={(e)=>saveMarineData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option>Ramakrishna Traders</option>
-                              <option>Balaji Traders</option>
+                              <option value='Policy Bazaar'>Policy Bazaar</option>
+                              <option value='TATA AIG'>TATA AIG</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -268,6 +281,8 @@ const Index = () => {
                               required
                               style={{ borderColor: '#43C34D' }}
                               type="text"
+                              name='gstOfInsured'
+                              onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -287,6 +302,8 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='nameOfInsured'
+                            onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -300,17 +317,19 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='gstOfInsurer'
+                            onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GST of Insurer
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
-                            <DateCalender labelName="Insurance from" />
+                            <DateCalender name='insuranceFrom' saveDate={saveDate} labelName="Insurance from" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -320,7 +339,7 @@ const Index = () => {
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
-                            <DateCalender labelName="Insurance to" />
+                            <DateCalender name='insuranceTo' onChange={(e)=>saveMarineData(e.target.name, e.target.value)} labelName="Insurance to" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -333,6 +352,8 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
+                            name='periodOfInsurance'
+                            onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -343,10 +364,10 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                            name='lossPayee' onChange={(e)=>saveMarineData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option>HDFC Bank</option>
-                              <option>SBI</option>
+                              <option value={insuranceData?.quotationRequest?.lossPayee}>{insuranceData?.quotationRequest?.lossPayee}</option>
+                              <option value='SBI'>SBI</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -366,6 +387,8 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='premiumAmount'
+                            onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -380,7 +403,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <UploadDocument />
+            <UploadDocument uploadDocument1={uploadDocument1} />
           </>
         ) : insuranceData?.quotationRequest?.insuranceType === 'Storage Insurance' ? (
           <>
@@ -443,6 +466,8 @@ const Index = () => {
                               style={{ color: '#EA3F3F' }}
                               required
                               type="text"
+                              name='policyNumber'
+                              onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -460,10 +485,10 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                            name='nameOfInsurer' onChange={(e)=>saveStorageData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option>Ramakrishna Traders</option>
-                              <option>Balaji Traders</option>
+                              <option value='Policy Bazaar'>Policy Bazaar</option>
+                              <option value='TATA AIG'>TATA AIG</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -484,6 +509,8 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               style={{ borderColor: '#43C34D' }}
                               required
+                              name='gstOfInsured'
+                              onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                               type="text"
                             />
                             <label
@@ -503,6 +530,8 @@ const Index = () => {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
+                            name='nameOfInsured'
+                            onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                             type="text"
                           />
                           <label
@@ -517,17 +546,19 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='gstOfInsurer'
+                            onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GST of Insurer
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
-                            <DateCalender labelName="Insurance from" />
+                            <DateCalender name='insuranceFrom' saveDate={saveStorageDate} labelName="Insurance from" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -537,7 +568,7 @@ const Index = () => {
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
-                            <DateCalender labelName="Insurance to" />
+                            <DateCalender name='insuranceTo' saveDate={saveStorageDate} labelName="Insurance to" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -550,6 +581,8 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
+                            name='periodOfInsurance'
+                            onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -560,10 +593,10 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            name='lossPayee' onChange={(e)=>saveStorageData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option>HDFC Bank</option>
-                              <option>SBI</option>
+                              <option value={insuranceData?.quotationRequest?.lossPayee}>{insuranceData?.quotationRequest?.lossPayee}</option>
+                              <option value='SBI'>SBI</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -582,6 +615,8 @@ const Index = () => {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
+                            name='premiumAmount'
+                            onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                             type="text"
                           />
                           <label
@@ -597,7 +632,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <UploadDocument />
+            <UploadDocument uploadDocument2={uploadDocument2} />
           </>
         ) : insuranceData?.quotationRequest?.insuranceType === 'Both' ? (
           <>
@@ -652,12 +687,14 @@ const Index = () => {
                 <div className={` ${styles.cardBody} card-body  border_color`}>
                   <div className={` ${styles.content}`}>
                     <div className={` ${styles.body}`}>
-                      <Row>
+                    <Row>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='policyNumber'
+                            onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -669,10 +706,10 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect}   input form-control`}
+                            name='nameOfInsurer' onChange={(e)=>saveMarineData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option>Ramakrishna Traders</option>
-                              <option>Balaji Traders</option>
+                              <option value='Policy Bazaar'>Policy Bazaar</option>
+                              <option value='TATA AIG'>TATA AIG</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -694,6 +731,8 @@ const Index = () => {
                               required
                               style={{ borderColor: '#43C34D' }}
                               type="text"
+                              name='gstOfInsured'
+                              onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -713,6 +752,8 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='nameOfInsured'
+                            onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -726,17 +767,19 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='gstOfInsurer'
+                            onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GST of Insurer
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
-                            <DateCalender labelName="Insurance from" />
+                            <DateCalender name='insuranceFrom' saveDate={saveDate} labelName="Insurance from" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -746,7 +789,7 @@ const Index = () => {
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
-                            <DateCalender labelName="Insurance to" />
+                            <DateCalender name='insuranceTo' saveDate={saveDate} labelName="Insurance to" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -759,6 +802,8 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
+                            name='periodOfInsurance'
+                            onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -769,10 +814,10 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                            name='lossPayee' onChange={(e)=>saveMarineData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option>HDFC Bank</option>
-                              <option>SBI</option>
+                              <option value={insuranceData?.quotationRequest?.lossPayee}>{insuranceData?.quotationRequest?.lossPayee}</option>
+                              <option value='SBI'>SBI</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -792,6 +837,8 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            name='premiumAmount'
+                            onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -835,7 +882,7 @@ const Index = () => {
                       Yes
                     </div>
                     <label className={styles.switch}>
-                      <input type="checkbox" />
+                      <input defaultChecked={!isInsurerSameData} onClick={()=>handleIsInsuranceSame()} type="checkbox" />
                       <span
                         className={`${styles.slider} ${styles.round}`}
                       ></span>
@@ -858,7 +905,7 @@ const Index = () => {
                 <div className={` ${styles.cardBody} card-body  border_color`}>
                   <div className={` ${styles.content}`}>
                     <div className={` ${styles.body}`}>
-                      <Row>
+                    <Row>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <input
@@ -866,6 +913,9 @@ const Index = () => {
                               style={{ color: '#EA3F3F' }}
                               required
                               type="text"
+                              defaultValue={storageData.policyNumber}
+                              name='policyNumber'
+                              onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -883,10 +933,11 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                            name='nameOfInsurer' onChange={(e)=>saveStorageData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option>Ramakrishna Traders</option>
-                              <option>Balaji Traders</option>
+                              <option value={storageData?.nameOfInsurer}>{storageData.nameOfInsurer}</option>
+                              <option value='Policy Bazaar'>Policy Bazaar</option>
+                              <option value='TATA AIG'>TATA AIG</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -907,6 +958,9 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               style={{ borderColor: '#43C34D' }}
                               required
+                              name='gstOfInsured'
+                              defaultValue={storageData.gstOfInsured}
+                              onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                               type="text"
                             />
                             <label
@@ -926,6 +980,9 @@ const Index = () => {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
+                            name='nameOfInsured'
+                            defaultValue={storageData.nameOfInsured}
+                            onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                             type="text"
                           />
                           <label
@@ -940,17 +997,21 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            defaultValue={storageData.gstOfInsurer}
+                            name='gstOfInsurer'
+                            onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GST of Insurer
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
-                            <DateCalender labelName="Insurance from" />
+                            {/* <DateCalender name='insuranceFrom' defaultDate={storageData?.insuranceFrom ? storageData?.insuranceFrom?.split('T')[0] : ''} saveDate={saveStorageDate} labelName="Insurance from" /> */}
+                            <DateCalender name='insuranceFrom'  saveDate={saveStorageDate} labelName="Insurance from" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -960,7 +1021,8 @@ const Index = () => {
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
-                            <DateCalender labelName="Insurance to" />
+                            {/* <DateCalender name='insuranceTo' defaultDate={storageData?.insuranceTo ? storageData?.insuranceTo?.split('T')[0] : ''}saveDate={saveStorageDate} labelName="Insurance to" /> */}
+                            <DateCalender name='insuranceTo' saveDate={saveStorageDate} labelName="Insurance to" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -973,6 +1035,9 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
+                            name='periodOfInsurance'
+                            defaultValue={storageData.periodOfInsurance}
+                            onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -983,10 +1048,11 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            name='lossPayee' onChange={(e)=>saveStorageData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option>HDFC Bank</option>
-                              <option>SBI</option>
+                              <option value={storageData?.lossPayee}>{storageData?.lossPayee}</option>
+                              <option value={insuranceData?.quotationRequest?.lossPayee}>{insuranceData?.quotationRequest?.lossPayee}</option>
+                              <option value='SBI'>SBI</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1005,6 +1071,9 @@ const Index = () => {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
+                            name='premiumAmount'
+                            defaultValue={storageData.premiumAmount}
+                            onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
                             type="text"
                           />
                           <label
@@ -1092,7 +1161,7 @@ const Index = () => {
                               <td className={styles.doc_row}>
                                 28-02-2022,5:30 PM
                               </td>
-                              <td>
+                              {/* <td>
                                 {' '}
                                 <input
                                   className={styles.input_field}
@@ -1104,6 +1173,16 @@ const Index = () => {
                                   src="/static/close.svg"
                                   alt="close"
                                 />
+                              </td> */}
+                               <td>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" onChange={(e)=>uploadDocument1(e)} name="myfile" />
+                                  <button
+                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
                               </td>
                             </tr>
                             <tr className="table_row">
@@ -1123,9 +1202,9 @@ const Index = () => {
                               </td>
                               <td>
                                 <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
+                                  <input type="file" onChange={(e)=> uploadDocument2(e)}    name="myfile" />
                                   <button
-                                    className={`${styles.upload_btn} btn`}
+                                  name='storagePolicyDocument' className={`${styles.upload_btn} btn`}
                                   >
                                     Upload
                                   </button>
@@ -1146,7 +1225,7 @@ const Index = () => {
         )}
       </div>
       <div className={`${styles.root} card`}>
-        <div className={`${styles.reject} ml-3`}>
+        <div onClick={()=> handleRoute()} className={`${styles.reject} ml-3`}>
           <span>Cancel</span>
         </div>
         <div onClick={()=>handleInsuranceUpdate()} className={`${styles.approve} ml-3`}>
