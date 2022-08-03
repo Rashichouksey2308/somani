@@ -8,21 +8,40 @@ import UploadDocument from '../UploadDocument'
 import UploadOther from '../UploadOther'
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux'
-import { setPageName,setDynamicName } from '../../redux/userData/action'
+import { UPDATE_CREDIT_CALCULATE_SUCCESSFULL } from 'redux/buyerProfile/actionType'
+import { add } from 'lodash'
+import { setPageName, setDynamicName } from '../../redux/userData/action'
+//import { set } from 'immer/dist/internal'
 
-
-
-function Index({ shippingInfoChangeHandler,companyName ,uploadDocHandler, onVesselInfoChangeHandlerForLiner, onVesselInfoChangeHandlerForBulk, saveDate, OnVesselTransitFieldsChangeHandler, OnVesselBasicFieldsChangeHandler, shipmentTypeChangeHandler, setlastDate, lastDate, setStartDate, startDate, OnAddvesselInformation, onAddVessel, list, orderID, id1 }) {
- const dispatch = useDispatch()
+function Index({
+  shippingInfoChangeHandler,
+  companyName,
+  uploadDocHandler,
+  onVesselInfoChangeHandlerForLiner,
+  onVesselInfoChangeHandlerForBulk,
+  saveDate,
+  OnVesselTransitFieldsChangeHandler,
+  OnVesselBasicFieldsChangeHandler,
+  shipmentTypeChangeHandler,
+  setlastDate,
+  lastDate,
+  setStartDate,
+  startDate,
+  OnAddvesselInformation,
+  onAddVessel,
+  list,
+  orderID,
+  id1,
+}) {
+  const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setPageName('vessel'))
     dispatch(setDynamicName(companyName))
-  },[])
-const getSn=(index)=>{
-    let a=Number(index);
-   return (a+1)
-}
-
+  })
+  const getSn = (index) => {
+    let a = Number(index)
+    return a + 1
+  }
 
   return (
     <>
@@ -34,9 +53,7 @@ const getSn=(index)=>{
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
             />
-            <h1 className={`${styles.title} heading`}>
-              {companyName}
-            </h1>
+            <h1 className={`${styles.title} heading`}>{companyName}</h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
                 <span>Last Modified:</span> 28 Jan,11:34am
@@ -46,14 +63,11 @@ const getSn=(index)=>{
         </div>
       </div>
 
-      <div
-        className="p-0 container-fluid background2"
-      >
+      <div className="p-0 container-fluid background2">
         <div className={`${styles.backgroundMain}`}>
           <div className={`${styles.vessel_card}`}>
             {list &&
               list.map((val, index) => {
-
                 return (
                   <div
                     key={index}
@@ -65,26 +79,37 @@ const getSn=(index)=>{
                       {list[index].shipmentType === 'Bulk' ? (
                         <h3 className={`${styles.heading}`}>
                           {` Vessel Information (${getSn(index)})`}
-                          
                         </h3>
                       ) : (
                         <h3 className={`${styles.heading}`}>Basic Details</h3>
                       )}
                       <div className="d-flex align-items-center">
-                          <label className={`${styles.dropDown_label} text`}>
-                            Part Shipment Allowed
-                          </label>
-                        <div className='position-relative'>
-                            <select className={`${styles.dropDown} ${styles.customSelect} input`}>
-                              {val.isPart ? <> <option>Yes</option>
-                                <option>No</option></> : <> <option>No</option>
-                                <option>Yes</option></>}
-                            </select>
-                            <img
-                              className={`${styles.arrow2} img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                        <label className={`${styles.dropDown_label} text`}>
+                          Part Shipment Allowed
+                        </label>
+                        <div className="position-relative">
+                          <select
+                            className={`${styles.dropDown} ${styles.customSelect} input`}
+                          >
+                            {val.isPart ? (
+                              <>
+                                {' '}
+                                <option>Yes</option>
+                                <option>No</option>
+                              </>
+                            ) : (
+                              <>
+                                {' '}
+                                <option>No</option>
+                                <option>Yes</option>
+                              </>
+                            )}
+                          </select>
+                          <img
+                            className={`${styles.arrow2} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
                         </div>
 
                         {list[index].shipmentType === 'Bulk' ? (
@@ -107,7 +132,9 @@ const getSn=(index)=>{
                           <div className="d-flex">
                             <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              onChange={(e) => shipmentTypeChangeHandler(e, index)}
+                              onChange={(e) =>
+                                shipmentTypeChangeHandler(e, index)
+                              }
                             >
                               <option value="Bulk" selected>
                                 Bulk
@@ -147,12 +174,14 @@ const getSn=(index)=>{
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                         >
                           <input
-                            id='quantity'
+                            id="quantity"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
                             value={val.quantity}
-                            onChange={(e) => OnVesselBasicFieldsChangeHandler(e, index)}
+                            onChange={(e) =>
+                              OnVesselBasicFieldsChangeHandler(e, index)
+                            }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -172,17 +201,20 @@ const getSn=(index)=>{
                             <option>INR</option>
                           </select>
                           <input
-                            id='orderValue'
+                            id="orderValue"
                             type="number"
                             className={`${styles.input_field} border-left-0 input form-control`}
                             value={val.orderValue}
-                            onChange={(e) => OnVesselBasicFieldsChangeHandler(e, index)}
+                            onChange={(e) =>
+                              OnVesselBasicFieldsChangeHandler(e, index)
+                            }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
                             id="textInput"
                           >
-                            Order Value<strong className="text-danger">*</strong>
+                            Order Value
+                            <strong className="text-danger">*</strong>
                           </label>
                         </div>
                       </div>
@@ -197,13 +229,17 @@ const getSn=(index)=>{
                         >
                           <div className="d-flex">
                             <select
-                              id='countryOfOrigin'
+                              id="countryOfOrigin"
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               required
-                              onChange={(e) => OnVesselTransitFieldsChangeHandler(e, index)}
+                              onChange={(e) =>
+                                OnVesselTransitFieldsChangeHandler(e, index)
+                              }
                             >
-                              <option value={val.countryOfOrigin}>{val.countryOfOrigin}</option>
-                              <option value='india'>India</option>
+                              <option value={val.countryOfOrigin}>
+                                {val.countryOfOrigin}
+                              </option>
+                              <option value="india">India</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -223,14 +259,17 @@ const getSn=(index)=>{
                         >
                           <div className="d-flex">
                             <select
-                              id='portOfLoading'
-
+                              id="portOfLoading"
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               required
-                              onChange={(e) => OnVesselTransitFieldsChangeHandler(e, index)}
+                              onChange={(e) =>
+                                OnVesselTransitFieldsChangeHandler(e, index)
+                              }
                             >
-                              <option value={val.portOfLoading}>{val.portOfLoading}</option>
-                              <option value='perth'>Perth</option>
+                              <option value={val.portOfLoading}>
+                                {val.portOfLoading}
+                              </option>
+                              <option value="perth">Perth</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -250,13 +289,17 @@ const getSn=(index)=>{
                         >
                           <div className="d-flex">
                             <select
-                              id='portOfDischarge'
+                              id="portOfDischarge"
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               required
-                              onChange={(e) => OnVesselTransitFieldsChangeHandler(e, index)}
+                              onChange={(e) =>
+                                OnVesselTransitFieldsChangeHandler(e, index)
+                              }
                             >
-                              <option value={val.portOfDischarge}>{val.portOfDischarge}</option>
-                              <option value='navasheva'>Navasheva</option>
+                              <option value={val.portOfDischarge}>
+                                {val.portOfDischarge}
+                              </option>
+                              <option value="navasheva">Navasheva</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -275,8 +318,15 @@ const getSn=(index)=>{
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender dateFormat={`dd-MM-yyyy`} defaultDate={val?.transitDetails?.laycanFrom} name='laycanFrom' index={index} saveDate={saveDate} labelName="Laycan from"
-                            required />
+                            <DateCalender
+                              dateFormat={`dd-MM-yyyy`}
+                              defaultDate={val?.transitDetails?.laycanFrom}
+                              name="laycanFrom"
+                              index={index}
+                              saveDate={saveDate}
+                              labelName="Laycan from"
+                              required
+                            />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -288,7 +338,14 @@ const getSn=(index)=>{
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender dateFormat={`dd-MM-yyyy`} defaultDate={val?.transitDetails?.laycanTo} name='laycanTo' index={index} saveDate={saveDate} labelName="Laycan to" />
+                            <DateCalender
+                              dateFormat={`dd-MM-yyyy`}
+                              defaultDate={val?.transitDetails?.laycanTo}
+                              name="laycanTo"
+                              index={index}
+                              saveDate={saveDate}
+                              labelName="Laycan to"
+                            />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -300,7 +357,14 @@ const getSn=(index)=>{
                           className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender  dateFormat={`dd-MM-yyyy`} defaultDate={val?.transitDetails?.EDTatLoadPort} name='EDTatLoadPort' index={index} saveDate={saveDate} labelName="ETA at Load Port" />
+                            <DateCalender
+                              dateFormat={`dd-MM-yyyy`}
+                              defaultDate={val?.transitDetails?.EDTatLoadPort}
+                              name="EDTatLoadPort"
+                              index={index}
+                              saveDate={saveDate}
+                              labelName="ETA at Load Port"
+                            />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -319,11 +383,12 @@ const getSn=(index)=>{
                           alt="Search"
                       /> */}
                             <DatePicker
-                              defaultDate={val?.transitDetails?.ETAatDischargePort}
-                              name='ETAatDischargePort'
+                              defaultDate={
+                                val?.transitDetails?.ETAatDischargePort
+                              }
+                              name="ETAatDischargePort"
                               selected={startDate}
                               dateFormat="dd-MM-yyyy"
-
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startDate) => {
                                 setStartDate(startDate)
@@ -347,110 +412,164 @@ const getSn=(index)=>{
                     </div>
                     <hr></hr>
 
-                    {list[index].shipmentType === 'Bulk' ? <>{
-                      list && list[0].vesselInformation.map((vesselInfo, index1) => (
-                        <div key={index} className={`${styles.dashboard_form} card-body`}>
-                          <h3 className={styles.sub_heading}>Vessel Information</h3>
-
-                          <div className="row">
-                            <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
-                            >
-                              <input
-                                id='name'
-                                defaultValue={vesselInfo.name}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                                type="text"
-                                onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
-                                Vessel Name<strong className="text-danger">*</strong></label>
-                            </div>
-                            <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
-                            >
-                              <input
-                                id='IMONumber'
-                                defaultValue={vesselInfo.IMONumber}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                                type="text"
-                                onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
-                                IMO Number<strong className="text-danger">*</strong></label>
-                            </div>
-                            <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
-                            >
-                              <input
-                                id='flag'
-                                defaultValue={vesselInfo.flag}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                                type="text"
-                                onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
-                                Flag<strong className="text-danger">*</strong></label>
-                            </div>
-                                <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
-                        >
-                          <div className="d-flex">
-                            <select
-                              id='yearOfBuilt'
-
-                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              required
-                              value={moment(vesselInfo.yearOfBuilt).format("YYYY")}
-                              onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
-                            >
-                              <option value={moment(vesselInfo.yearOfBuilt).format("YYYY")}>{moment(vesselInfo.yearOfBuilt).format("YYYY")}</option>
-                              
-                            </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Year of Built
-                              <strong className="text-danger">*</strong>
-                            </label>
-                            <img
-                              className={`${styles.arrow} img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
-                        </div>
-                           
-                            <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
-                            >
-                              <input
-                                id='shippingLineOrCharter'
-                                defaultValue={vesselInfo.shippingLineOrCharter}
-                                className={`${styles.input_field} input form-control`}
-                                required
-                                type="text"
-                                onChange={(e) => onVesselInfoChangeHandlerForBulk(e, index)}
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
-                                Shipping Line/Charter</label>
-                            </div>
-                          </div>
-                        </div>))
-                    }</> : (
+                    {list[index].shipmentType === 'Bulk' ? (
                       <>
+                        {list &&
+                          list[0].vesselInformation.map(
+                            (vesselInfo, index1) => (
+                              <div
+                                key={index}
+                                className={`${styles.dashboard_form} card-body`}
+                              >
+                                <h3 className={styles.sub_heading}>
+                                  Vessel Information
+                                </h3>
 
+                                <div className="row">
+                                  <div
+                                    className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+                                  >
+                                    <input
+                                      id="name"
+                                      defaultValue={vesselInfo.name}
+                                      className={`${styles.input_field} input form-control`}
+                                      required
+                                      type="text"
+                                      onChange={(e) =>
+                                        onVesselInfoChangeHandlerForBulk(
+                                          e,
+                                          index,
+                                        )
+                                      }
+                                    />
+                                    <label
+                                      className={`${styles.label_heading} label_heading`}
+                                    >
+                                      Vessel Name
+                                      <strong className="text-danger">*</strong>
+                                    </label>
+                                  </div>
+                                  <div
+                                    className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+                                  >
+                                    <input
+                                      id="IMONumber"
+                                      defaultValue={vesselInfo.IMONumber}
+                                      className={`${styles.input_field} input form-control`}
+                                      required
+                                      type="text"
+                                      onChange={(e) =>
+                                        onVesselInfoChangeHandlerForBulk(
+                                          e,
+                                          index,
+                                        )
+                                      }
+                                    />
+                                    <label
+                                      className={`${styles.label_heading} label_heading`}
+                                    >
+                                      IMO Number
+                                      <strong className="text-danger">*</strong>
+                                    </label>
+                                  </div>
+                                  <div
+                                    className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+                                  >
+                                    <input
+                                      id="flag"
+                                      defaultValue={vesselInfo.flag}
+                                      className={`${styles.input_field} input form-control`}
+                                      required
+                                      type="text"
+                                      onChange={(e) =>
+                                        onVesselInfoChangeHandlerForBulk(
+                                          e,
+                                          index,
+                                        )
+                                      }
+                                    />
+                                    <label
+                                      className={`${styles.label_heading} label_heading`}
+                                    >
+                                      Flag
+                                      <strong className="text-danger">*</strong>
+                                    </label>
+                                  </div>
+                                  <div
+                                    className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+                                  >
+                                    <div className="d-flex">
+                                      <select
+                                        id="yearOfBuilt"
+                                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                        required
+                                        value={moment(
+                                          vesselInfo.yearOfBuilt,
+                                        ).format('YYYY')}
+                                        onChange={(e) =>
+                                          onVesselInfoChangeHandlerForBulk(
+                                            e,
+                                            index,
+                                          )
+                                        }
+                                      >
+                                        <option
+                                          value={moment(
+                                            vesselInfo.yearOfBuilt,
+                                          ).format('YYYY')}
+                                        >
+                                          {moment(
+                                            vesselInfo.yearOfBuilt,
+                                          ).format('YYYY')}
+                                        </option>
+                                      </select>
+                                      <label
+                                        className={`${styles.label_heading} label_heading`}
+                                      >
+                                        Year of Built
+                                        <strong className="text-danger">
+                                          *
+                                        </strong>
+                                      </label>
+                                      <img
+                                        className={`${styles.arrow} img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div
+                                    className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
+                                  >
+                                    <input
+                                      id="shippingLineOrCharter"
+                                      defaultValue={
+                                        vesselInfo.shippingLineOrCharter
+                                      }
+                                      className={`${styles.input_field} input form-control`}
+                                      required
+                                      type="text"
+                                      onChange={(e) =>
+                                        onVesselInfoChangeHandlerForBulk(
+                                          e,
+                                          index,
+                                        )
+                                      }
+                                    />
+                                    <label
+                                      className={`${styles.label_heading} label_heading`}
+                                    >
+                                      Shipping Line/Charter
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            ),
+                          )}
+                      </>
+                    ) : (
+                      <>
                         <div className={`${styles.dashboard_form} card-body`}>
                           <h3 className={styles.sub_heading}>
                             Shipping Information
@@ -461,11 +580,16 @@ const getSn=(index)=>{
                               className={`${styles.form_group} col-md-4 col-sm-6`}
                             >
                               <input
-                                id='shippingLineOrCharter'
-                                defaultChecked={val?.shippingInformation?.shippingLineOrCharter}
+                                id="shippingLineOrCharter"
+                                defaultChecked={
+                                  val?.shippingInformation
+                                    ?.shippingLineOrCharter
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 type="text"
-                                onChange={(e) => shippingInfoChangeHandler(e, index)}
+                                onChange={(e) =>
+                                  shippingInfoChangeHandler(e, index)
+                                }
                                 required
                               />
                               <label
@@ -479,11 +603,15 @@ const getSn=(index)=>{
                               className={`${styles.form_group} col-md-4 col-sm-6`}
                             >
                               <input
-                                id='numberOfContainers'
-                                defaultChecked={val?.shippingInformation?.numberOfContainers}
+                                id="numberOfContainers"
+                                defaultChecked={
+                                  val?.shippingInformation?.numberOfContainers
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
-                                onChange={(e) => shippingInfoChangeHandler(e, index)}
+                                onChange={(e) =>
+                                  shippingInfoChangeHandler(e, index)
+                                }
                                 required
                               />
                               <label
@@ -497,11 +625,15 @@ const getSn=(index)=>{
                               className={`${styles.form_group} col-md-4 col-sm-6`}
                             >
                               <input
-                                id='freeDetentionPeriod'
-                                defaultChecked={val?.shippingInformation?.freeDetentionPeriod}
+                                id="freeDetentionPeriod"
+                                defaultChecked={
+                                  val?.shippingInformation?.freeDetentionPeriod
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
-                                onChange={(e) => shippingInfoChangeHandler(e, index)}
+                                onChange={(e) =>
+                                  shippingInfoChangeHandler(e, index)
+                                }
                                 required
                               />
                               <label
@@ -514,82 +646,115 @@ const getSn=(index)=>{
                           </div>
                         </div>
                         {list[0].vesselInformation.map((newVessel, index) => (
-                          <div key={index} className={`${styles.dashboard_form} card-body`}>
+                          <div
+                            key={index}
+                            className={`${styles.dashboard_form} card-body`}
+                          >
                             <div className={`${styles.vessel_card}`}>
                               <div className="d-flex justify-content-between align-items-center">
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
                                 </h3>
-                                <button onClick={() => OnAddvesselInformation()} className={styles.add_btn}>Add</button>
+                                <button
+                                  onClick={() => OnAddvesselInformation()}
+                                  className={styles.add_btn}
+                                >
+                                  Add
+                                </button>
                               </div>
                               <div className="row">
                                 <div
                                   className={`${styles.form_group} col-md-4 col-sm-6`}
                                 >
                                   <input
-                                    id='name'
+                                    id="name"
                                     defaultValue={newVessel.name}
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="text"
-                                    onChange={(e) => onVesselInfoChangeHandlerForLiner(e, index)}
+                                    onChange={(e) =>
+                                      onVesselInfoChangeHandlerForLiner(
+                                        e,
+                                        index,
+                                      )
+                                    }
                                   />
                                   <label
                                     className={`${styles.label_heading} label_heading`}
                                   >
-                                    Vessel Name</label>
+                                    Vessel Name
+                                  </label>
                                 </div>
                                 <div
                                   className={`${styles.form_group} col-md-4 col-sm-6`}
                                 >
                                   <input
-                                    id='IMONumber'
+                                    id="IMONumber"
                                     defaultValue={newVessel.IMONumber}
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="text"
-                                    onChange={(e) => onVesselInfoChangeHandlerForLiner(e, index)}
+                                    onChange={(e) =>
+                                      onVesselInfoChangeHandlerForLiner(
+                                        e,
+                                        index,
+                                      )
+                                    }
                                   />
                                   <label
                                     className={`${styles.label_heading} label_heading`}
                                   >
-                                    IMO Number</label>
+                                    IMO Number
+                                  </label>
                                 </div>
                                 <div
                                   className={`${styles.form_group} col-md-4 col-sm-6`}
                                 >
                                   <input
-                                    id='flag'
+                                    id="flag"
                                     defaultValue={newVessel.flag}
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="text"
-                                    onChange={(e) => onVesselInfoChangeHandlerForLiner(e, index)}
+                                    onChange={(e) =>
+                                      onVesselInfoChangeHandlerForLiner(
+                                        e,
+                                        index,
+                                      )
+                                    }
                                   />
                                   <label
                                     className={`${styles.label_heading} label_heading`}
                                   >
-                                    Flag</label>
+                                    Flag
+                                  </label>
                                 </div>
                                 <div
                                   className={`${styles.form_group} col-md-4 col-sm-6`}
                                 >
                                   <input
-                                    id='yearOfBuilt'
+                                    id="yearOfBuilt"
                                     defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
-                                    onChange={(e) => onVesselInfoChangeHandlerForLiner(e, index)}
+                                    onChange={(e) =>
+                                      onVesselInfoChangeHandlerForLiner(
+                                        e,
+                                        index,
+                                      )
+                                    }
                                     required
                                   />
                                   <label
                                     className={`${styles.label_heading} label_heading`}
                                   >
-                                    Year of Built</label>
+                                    Year of Built
+                                  </label>
                                 </div>
                               </div>
                             </div>
-                          </div>))}
+                          </div>
+                        ))}
                         <hr></hr>
                         <div className={`${styles.dashboard_form} card-body`}>
                           <h3 className={styles.sub_heading}>
@@ -599,9 +764,16 @@ const getSn=(index)=>{
                           <div
                             className={`${styles.form_group} d-flex justify-content-start`}
                           >
-                            <button onClick={uploadDocHandler} className={`${styles.upload_btn}`}>
-                              Upload Excel
-                            </button>
+                            {' '}
+                            <div className={styles.uploadBtnWrapper}>
+                              <input type="file" name="myfile" />
+                              <button
+                                onClick={uploadDocHandler}
+                                className={`${styles.upload_btn}`}
+                              >
+                                Upload Excel
+                              </button>
+                            </div>
                             <div className={`${styles.upload_text}`}>
                               <strong className="text-danger mr-1">*</strong>
                               ONLY .XLS FILES ARE ALLOWED
@@ -616,7 +788,10 @@ const getSn=(index)=>{
               })}
 
             <UploadDocument />
-            <UploadOther module='Agreements,Insurance,LcOpening' orderid={id1} />
+            <UploadOther
+              module="Agreements,Insurance,LcOpening"
+              orderid={id1}
+            />
           </div>
         </div>
       </div>
