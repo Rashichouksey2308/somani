@@ -12,7 +12,9 @@ import AddressComponent from '../../src/components/Credit/addressComponent'
 import { Form, Row, Col } from 'react-bootstrap'
 
 function Index() {
+  const [saveShareTable, setSaveTable] = useState(false)
   const [saveContactTable, setContactTable] = useState(false)
+  const [saveDirectorTable, setDirectorTable] = useState(false)
 
   const [darkMode, setDarkMode] = useState(false)
   const dispatch = useDispatch()
@@ -81,7 +83,7 @@ function Index() {
                 aria-labelledby="supplierProfile"
                 data-parent="#supplierProfile"
               >
-                <div className={`${styles.dashboard_form} mt-3 card-body`}>
+                <div className={`${styles.dashboard_form} mt-1 card-body`}>
                   <div className="row">
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -450,7 +452,7 @@ function Index() {
             </div>
           </div>
 
-          <div className={`${styles.main} mt-4 card border_color`}>
+          <div className={`${styles.main} mr-2 ml-2 mt-4 card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -502,6 +504,7 @@ function Index() {
                               className="input font-weight-bold"
                               name="name"
                               type="text"
+                              readOnly={!saveContactTable}
                             />
                           </td>
                           <td>
@@ -509,6 +512,7 @@ function Index() {
                               className="input"
                               name="designation"
                               type="text"
+                              readOnly={!saveContactTable}
                             />
                           </td>
 
@@ -517,29 +521,53 @@ function Index() {
                               className="input"
                               name="contact.number"
                               type="number"
+                              readOnly={!saveContactTable}
                             />
                           </td>
                           <td>
-                            <input className="input" name="email" type="text" />
+                            <input
+                              className="input"
+                              name="email"
+                              type="text"
+                              readOnly={!saveContactTable}
+                            />
                           </td>
                           <td className="text-right">
                             <div>
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                              />
+                              {!saveContactTable ? (
+                                <>
+                                  <img
+                                    src="/static/mode_edit.svg"
+                                    className={`${styles.edit_image} mr-3 img-fluid`}
+                                    alt="edit"
+                                    onClick={(e) => {
+                                      setContactTable(true)
+                                    }}
+                                  />
+                                  <img
+                                    src="/static/delete 2.svg"
+                                    className="img-fluid"
+                                    alt="delete"
+                                  />
+                                </>
+                              ) : (
+                                <>
+                                  <img
+                                    src="/static/save-3.svg"
+                                    className={`${styles.edit_image} mr-3 img-fluid`}
+                                    alt="save"
+                                    onClick={(e) => {
+                                      setContactTable(false)
+                                    }}
+                                  />
 
-                              <img
-                                src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                                alt="save"
-                              />
-
-                              <img
-                                src="/static/delete 2.svg"
-                                className="img-fluid"
-                                alt="delete"
-                              />
+                                  <img
+                                    src="/static/delete 2.svg"
+                                    className="img-fluid"
+                                    alt="delete"
+                                  />
+                                </>
+                              )}
                             </div>
                           </td>
                         </tr>
@@ -560,7 +588,7 @@ function Index() {
             </div>
           </div>
 
-          <div className={`${styles.main} mt-4 card border_color`}>
+          <div className={`${styles.main} mt-4 mr-2 ml-2 card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -602,6 +630,7 @@ function Index() {
                               className="input font-weight-bold"
                               name="name"
                               type="text"
+                              readOnly={!saveShareTable}
                             />
                           </td>
                           <td>
@@ -609,6 +638,7 @@ function Index() {
                               className="input"
                               name="designation"
                               type="text"
+                              readOnly={!saveShareTable}
                             />
                           </td>
 
@@ -617,27 +647,46 @@ function Index() {
                               className="input"
                               name="contact.number"
                               type="number"
+                              readOnly={!saveShareTable}
                             />
                           </td>
 
                           <td className="text-right">
                             <div>
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                              />
+                              {!saveShareTable ? (
+                                <>
+                                  <img
+                                    src="/static/mode_edit.svg"
+                                    className={`${styles.edit_image} mr-3 img-fluid`}
+                                    alt="edit"
+                                    onClick={(e) => {
+                                      setShareTable(true)
+                                    }}
+                                  />
+                                  <img
+                                    src="/static/delete 2.svg"
+                                    className="img-fluid"
+                                    alt="delete"
+                                  />
+                                </>
+                              ) : (
+                                <>
+                                  <img
+                                    src="/static/save-3.svg"
+                                    className={`${styles.edit_image} mr-3 img-fluid`}
+                                    alt="save"
+                                    onClick={(e) => {
+                                      setShareTable(false)
+                                    }}
+                                  />
 
-                              <img
-                                src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                                alt="save"
-                              />
-
-                              <img
-                                src="/static/delete 2.svg"
-                                className="img-fluid"
-                                alt="delete"
-                              />
+                                  <img
+                                    src="/static/delete 2.svg"
+                                    className="img-fluid"
+                                    alt="delete"
+                                  />
+                                </>
+                              )}
                             </div>
                           </td>
                         </tr>
@@ -658,7 +707,7 @@ function Index() {
             </div>
           </div>
 
-          <div className={`${styles.main} mt-4 card border_color`}>
+          <div className={`${styles.main} mt-4 mr-2 ml-2 card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -710,6 +759,7 @@ function Index() {
                               className="input font-weight-bold"
                               name="name"
                               type="text"
+                              readOnly={!saveDirectorTable}
                             />
                           </td>
                           <td>
@@ -717,6 +767,7 @@ function Index() {
                               className="input"
                               name="designation"
                               type="text"
+                              readOnly={!saveDirectorTable}
                             />
                           </td>
                           <td>
@@ -724,27 +775,46 @@ function Index() {
                               name="primaryBank"
                               className={`${styles.checkBox}`}
                               type="checkbox"
+                              readOnly={!saveDirectorTable}
                             />
                           </td>
 
                           <td className="text-right">
                             <div>
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                              />
+                              {!saveDirectorTable ? (
+                                <>
+                                  <img
+                                    src="/static/mode_edit.svg"
+                                    className={`${styles.edit_image} mr-3 img-fluid`}
+                                    alt="edit"
+                                    onClick={(e) => {
+                                      setDirectorTable(true)
+                                    }}
+                                  />
+                                  <img
+                                    src="/static/delete 2.svg"
+                                    className="img-fluid"
+                                    alt="delete"
+                                  />
+                                </>
+                              ) : (
+                                <>
+                                  <img
+                                    src="/static/save-3.svg"
+                                    className={`${styles.edit_image} mr-3 img-fluid`}
+                                    alt="save"
+                                    onClick={(e) => {
+                                      setDirectorTable(false)
+                                    }}
+                                  />
 
-                              <img
-                                src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                                alt="save"
-                              />
-
-                              <img
-                                src="/static/delete 2.svg"
-                                className="img-fluid"
-                                alt="delete"
-                              />
+                                  <img
+                                    src="/static/delete 2.svg"
+                                    className="img-fluid"
+                                    alt="delete"
+                                  />
+                                </>
+                              )}
                             </div>
                           </td>
                         </tr>
@@ -764,7 +834,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 card border_color `}>
+          <div className={`${styles.main} mt-4 mr-2 ml-2 card border_color `}>
             <div
               className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -826,7 +896,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 card border_color`}>
+          <div className={`${styles.main} mt-4 mr-2 ml-2 card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -920,7 +990,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 card border_color `}>
+          <div className={`${styles.main} mt-4 mr-2 ml-2 card border_color `}>
             <div
               className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -985,7 +1055,7 @@ function Index() {
             </div>
           </div>
 
-          <div className="mt-4 mb-5">
+          <div className="mt-4 ml-2 mr-2 mb-5">
             <InspectionDocument />
           </div>
         </div>
