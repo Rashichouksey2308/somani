@@ -36,10 +36,10 @@ function Index({
   id1,
 }) {
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(setPageName('vessel'))
-    dispatch(setDynamicName(companyName))
-  })
+  // useEffect(() => {
+  //   dispatch(setPageName('vessel'))
+  //   dispatch(setDynamicName(companyName))
+  // })
   const getSn = (index) => {
     let a = Number(index)
     return a + 1

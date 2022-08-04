@@ -7,15 +7,23 @@ import ThirdPartyInspection from '../../src/components/ThirdPartyInspection'
 import PlotInspection from '../../src/components/PlotInspection'
 import Appointment from '../../src/components/Appointment'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import _get from 'lodash/get'
+
 function Index() {
+
+  const dispatch = useDispatch()
+
   const [darkMode, setDarkMode] = useState(false)
- const dispatch = useDispatch()
-     useEffect(() => {
+
+ 
+  useEffect(() => {
     dispatch(setPageName('inception2'))
-   
   })
+
   const [addTPI, setAddTPI] = useState([{}])
+
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -92,14 +100,21 @@ function Index() {
                     <Appointment />
                   </div>
                 </div>
-                {addTPI.map((e, index)=>
-                <div key={index}  className="tab-pane fade" id="thirdParty" role="tabpanel">
-                  <div className={`${styles.card}  accordion_body`}>
-                    <ThirdPartyInspection addButton={()=>setAddTPI(addTPI+1)} />
-                    {/* <ThirdPartyInspection  /> */}
+                {addTPI.map((e, index) => (
+                  <div
+                    key={index}
+                    className="tab-pane fade"
+                    id="thirdParty"
+                    role="tabpanel"
+                  >
+                    <div className={`${styles.card}  accordion_body`}>
+                      <ThirdPartyInspection
+                        addButton={() => setAddTPI(addTPI + 1)}
+                      />
+                      {/* <ThirdPartyInspection  /> */}
+                    </div>
                   </div>
-                </div>
-                 )} 
+                ))}
                 <div
                   className="tab-pane fade"
                   id="plotInspection"
