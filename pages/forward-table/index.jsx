@@ -25,7 +25,7 @@ function Index() {
     sessionStorage.setItem('comapnyId', companyid)
     sessionStorage.setItem('ForwHeadId', _get(List, "_id", ""))
     dispatch(GetForwardHedging(`?order=${companyid}`))
-    Router.push('/transit')
+    Router.push('/forward-hedging')
   }
   return (
     <div className="container-fluid p-0 border-0">

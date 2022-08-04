@@ -58,6 +58,23 @@ function updateTransitDetailsFailed() {
     }
 }
 
+function getAdditionalData() {
+    return {
+        type: types.GET_ADDITTIONAL_DATA,
+    }
+}
+function getAdditionalDataSuccess(payload) {
+    return {
+        type: types.GET_ADDITTIONAL_DATA_SUCCESS,
+        payload,
+    }
+}
+function getAdditionalDataFailed() {
+    return {
+        type: types.GET_ADDITTIONAL_DATA_FAILED,
+    }
+}
+
 
 
 
@@ -146,6 +163,35 @@ export const UpdateTransitDetails = (payload) => async (dispatch, getState, api)
         dispatch(updateTransitDetailsFailed())
 
         let toastMessage = 'COULD NOT UPDATE TRANSIT DATA AT THIS TIME'
+        if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+        }
+    }
+}
+
+export const GetAdditionalData = (payload) => async (dispatch, getState, api) => {
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+        Axios.get(`${API.corebaseUrl}${API.fetchAdditionalData}${payload}`, {
+            headers: headers,
+        }, payload).then((response) => {
+            if (response.data.code === 200) {
+                dispatch(getAdditionalDataSuccess(response.data.data))
+            } else {
+                dispatch(getAdditionalDataFailed(response.data.data))
+                let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+                if (!toast.isActive(toastMessage)) {
+                    toast.error(toastMessage, { toastId: toastMessage })
+                }
+            }
+        })
+    } catch (error) {
+        dispatch(getAdditionalDataFailed())
+
+        let toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME'
         if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
         }

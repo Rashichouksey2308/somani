@@ -4,10 +4,13 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
+import _get from "lodash/get";
 
-export default function Index() {
+export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }) {
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
+  console.log(isShipmentTypeBULK, 'isShipmentTypeBULK')
+
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -15,9 +18,21 @@ export default function Index() {
     } else {
       setEditInput(true)
     }
-    
   }
-  const saveData=()=>{
+
+  const onChangeVessel = (e) => {
+    let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`,{})
+
+    let Value = e.target.value
+    let [VesselName, index] = decodedString.split('#')
+    const vesselObject = _get(TransitDetails, `.vesselInformation[${index}]`, {})
+
+    let shippingLineOrCharter = ''
+    if (_get(TransitDetails, `.shipmentType`, '') === 'Bulk') {
+      let shippingLineOrCharter = ''
+    }
+  }
+  const saveData = () => {
 
   }
   return (
@@ -36,7 +51,7 @@ export default function Index() {
                       label="Bulk"
                       name="group1"
                       type={type}
-                      onChange={(e) => setShipmentType(true)}
+                      checked={isShipmentTypeBULK}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -44,7 +59,7 @@ export default function Index() {
                       inline
                       label="Liner"
                       name="group1"
-                      onChange={(e) => setShipmentType(false)}
+                      checked={!isShipmentTypeBULK}
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -113,31 +128,34 @@ export default function Index() {
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
                       <div className="d-flex">
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect}   input form-control`}
-                          >
-                            <option></option>
-                            <option>Balaji Traders</option>
-                          </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Vessel Name<strong className="text-danger">*</strong>
-                          </label>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      
+                        <select onChange={(e) => onChangeVessel(e)}
+                          className={`${styles.input_field} ${styles.customSelect}   input form-control`}
+                        >
+                          {_get(TransitDetails, "data[0].order.vessel.vessels[0].vesselInformation", []).map((vessel, index) => (
+                            <option value={`${vessel?.name}#${index}`} key={index}>{vessel?.name}</option>
+                          ))
+                          }
+                          <option value='option'>option</option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Vessel Name<strong className="text-danger">*</strong>
+                        </label>
+                        <img
+                          className={`${styles.arrow} img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+
                     </div>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
-                      
-                       <p className={` label_heading`}>IMO Number<strong className="text-danger">*</strong></p>
-                       <span>834774689</span>
+
+                      <p className={` label_heading`}>IMO Number<strong className="text-danger">*</strong></p>
+                      <span>834774689</span>
                     </div>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -157,7 +175,7 @@ export default function Index() {
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
                       <div className="d-flex">
-                        <DateCalender labelName="BL Date"  dateFormat={"dd-MM-yyyy"} saveDate={saveData}/>
+                        <DateCalender labelName="BL Date" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
                         <img
                           className={`${styles.calanderIcon} img-fluid`}
                           src="/static/caldericon.svg"
@@ -192,7 +210,7 @@ export default function Index() {
                           className={`${styles.calanderIcon} img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
-                          
+
                         />
                       </div>
                     </div>
@@ -205,7 +223,7 @@ export default function Index() {
                           className={`${styles.calanderIcon} img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
-                         
+
                         />
                       </div>
                     </div>

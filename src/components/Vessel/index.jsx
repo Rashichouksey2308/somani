@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
-import DateCalender from '../DateCalender'
+import DateCalender from '../../components/DateCalenderVessel'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import UploadDocument from '../UploadDocument'
