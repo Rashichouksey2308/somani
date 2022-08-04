@@ -10,6 +10,7 @@ import Modal from 'react-bootstrap/Modal'
 
 export default function Index({addButton}) {
   const [editInput, setEditInput] = useState(true)
+  const [linerField, setLinerField] = useState('Liner')
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -39,8 +40,23 @@ export default function Index({addButton}) {
                   <label className={`${styles.dropDown_label} text`}>
                     Shipment Type:
                   </label>
-                  <div className={`${styles.dropDown} input`}>Bulk</div>
+                  <div className={`${styles.dropDown} input`} value="Bulk">
+                    Bulk
+                  </div>
                 </div>
+
+                {/* <div className="d-flex align-items-center mr-5">
+                  <label className={`${styles.dropDown_label} text`}>
+                    Shipment Type:
+                  </label>
+                  <div
+                    className={`${styles.dropDown} input`}
+                    value="Liner"
+                  >
+                    Liner
+                  </div>
+                </div> */}
+
                 <div className="d-flex align-items-center">
                   <label className={`${styles.dropDown_label} text`}>
                     Part Shipment Allowed:
@@ -125,16 +141,20 @@ export default function Index({addButton}) {
             <div className={`${styles.dashboard_form} card-body`}>
               <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
               <div className="row">
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="number"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    No of Containers<strong className="text-danger">*</strong>
-                  </label>
-                </div>
+                {linerField === 'Liner' ? (
+                  <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="number"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      No of Containers<strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                ) : (
+                  ''
+                )}
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
                     <input
@@ -164,7 +184,10 @@ export default function Index({addButton}) {
                 </div>
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
-                    <DateCalender labelName="Inspection Date" dateFormat={`dd-MM-yyyy`} />
+                    <DateCalender
+                      labelName="Inspection Date"
+                      dateFormat={`dd-MM-yyyy`}
+                    />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"

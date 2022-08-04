@@ -92,6 +92,7 @@ export default {
   //Transit
   getTransitDetails: '/api/core/transit',
   updateTransitDetails: '/api/core/transit',
+  fetchAdditionalData: 'api/core/transit/additional-info',
 
   //ForwardHedging
   getForwardHedging: '/api/core/forward-hedging',

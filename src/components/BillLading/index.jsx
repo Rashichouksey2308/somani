@@ -4,10 +4,62 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
+import _get from "lodash/get";
+import { initial } from 'lodash'
 
-export default function Index() {
+const initialStateForLiner = {
+  vesselName: '',
+  imoNumber: '',
+  blDate: '',
+  blQuantity: '',
+  blQuantityUnit: '',
+  etaAtDischargePortFrom: '',
+  etaAtDischargePortTo: '',
+  blSurrenderDate: '',
+  documentName: '',
+  blSurrenderDoc: '',
+  document1: null,
+  document2: null,
+  containerDetails: {
+    numberOfContainers: '',
+    freeDetentionPeriod: '',
+    inspectedBy: '',
+    inspectionDate: '',
+    blSurrenderDate: ''
+  }
+}
+const initialStateForBulk = {
+  vesselName: '',
+  imoNumber: '',
+  blDate: '',
+  blQuantity: '',
+  blQuantityUnit: '',
+  etaAtDischargePortFrom: '',
+  etaAtDischargePortTo: '',
+  blSurrenderDate: '',
+  documentName: '',
+  blSurrenderDoc: '',
+  document1: null,
+  document2: null,
+
+}
+
+export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }) {
+  let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk'
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
+  const [bolList, setBolList] = useState([shipmentTypeBulk ? initialStateForBulk : initialStateForLiner])
+
+
+  const onBolAdd = () => {
+    if (shipmentTypeBulk) {
+      setBolList([...bolList, initialStateForBulk])
+    } else {
+      setBolList([...bolList, initialStateForLiner])
+    }
+
+  }
+
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -15,11 +67,36 @@ export default function Index() {
     } else {
       setEditInput(true)
     }
-    
   }
-  const saveData=()=>{
+
+  const onChangeVessel = (e) => {
+    let Value = e.target.value
+    let [VesselName, index] = Value.split('#')
+    let filteredVessel = {}
+
+    let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+    if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
+      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
+        if (vessel.vesselInformation[0].name === VesselName) {
+          filteredVessel = vessel
+        }
+      })
+    } else {
+      let VesselTemp = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+      let tempArray = _get(TransitDetails, `data[0].order.vessel.vessels[0].vesselInformation`, [])
+      tempArray.forEach((vessel, index) => {
+        if (vessel.name === VesselName) {
+          VesselTemp.vesselInformation = [vessel]
+
+        }
+      })
+      //  console.log(VesselTemp)
+    }
+  }
+  const saveData = () => {
 
   }
+  console.log(shipmentTypeBulk, bolList, TransitDetails, 'bollist')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -35,8 +112,9 @@ export default function Index() {
                       inline
                       label="Bulk"
                       name="group1"
+                      disabled={!isShipmentTypeBULK}
                       type={type}
-                      onChange={(e) => setShipmentType(true)}
+                      checked={isShipmentTypeBULK}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -44,7 +122,8 @@ export default function Index() {
                       inline
                       label="Liner"
                       name="group1"
-                      onChange={(e) => setShipmentType(false)}
+                      disabled={isShipmentTypeBULK}
+                      checked={!isShipmentTypeBULK}
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -96,145 +175,56 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 card border_color`}>
-            <div
-              className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
-            >
-              <h3 className={`${styles.heading}`}>Bill of Lading</h3>
-              <button className={styles.add_btn}>
-                <span className={styles.add_sign}>+</span>Add
-              </button>
-            </div>
-            <div className={`${styles.dashboard_form} mt-3 card-body`}>
-              <div className={`${styles.bill_landing} border_color`}>
-                <div className={`${styles.vessel_card}`}>
-                  <div className="row">
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
-                      <div className="d-flex">
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect}   input form-control`}
-                          >
-                            <option></option>
-                            <option>Balaji Traders</option>
-                          </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Vessel Name<strong className="text-danger">*</strong>
-                          </label>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
-                      
-                       <p className={` label_heading`}>IMO Number<strong className="text-danger">*</strong></p>
-                       <span>834774689</span>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="number"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        BL Number<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
-                      <div className="d-flex">
-                        <DateCalender labelName="BL Date"  dateFormat={"dd-MM-yyyy"} saveDate={saveData}/>
-                        <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        BL Quantity<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div className={`${styles.eta_heading} mt-4 col-12`}>
-                      ETA at Discharge Port
-                      <strong className="text-danger">*</strong>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
-                    >
-                      <div className="d-flex">
-                        <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
-                        <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                          
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
-                    >
-                      <div className="d-flex">
-                        <DateCalender labelName="To" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
-                        <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                         
-                        />
-                      </div>
-                    </div>
-                  </div>
+          {bolList.map((bol, index) => {
+            return (
+              <div key={index} className={`${styles.main} mt-4 card border_color`}>
+                <div
+                  className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
+                >
+                  <h3 className={`${styles.heading}`}>Bill of Lading {index + 1}</h3>
+                  <button onClick={() => onBolAdd()} className={styles.add_btn}>
+                    <span className={styles.add_sign}>+</span>Add
+                  </button>
                 </div>
+                <div className={`${styles.dashboard_form} mt-3 card-body`}>
+                  <div className={`${styles.bill_landing} border_color`}>
+                    <div className={`${styles.vessel_card}`}>
+                      <div className="row">
+                        <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                        >
+                          <div className="d-flex">
+                            <select onChange={(e) => onChangeVessel(e, index)}
+                              className={`${styles.input_field} ${styles.customSelect}   input form-control`}
+                            >
+                              {shipmentTypeBulk ? _get(TransitDetails, "data[0].order.vessel.vessels", []).map((vessel, index) => (
+                                <option value={`${vessel?.vesselInformation?.name}#${index}`} key={index}>{vessel?.vesselInformation?.name}</option>
+                              )) :
+                                _get(TransitDetails, "data[0].order.vessel.vessels[0].vesselInformation", []).map((vessel, index) => (
+                                  <option value={`${vessel?.name}#${index}`} key={index}>{vessel?.name}</option>
+                                ))
+                              }
+                              
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Vessel Name<strong className="text-danger">*</strong>
+                            </label>
+                            <img
+                              className={`${styles.arrow} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
 
-                {!shipmentType ? (
-                  <>
-                    <hr></hr>
-                    <div className={`${styles.vessel_card} mt-5`}>
-                      <h5 className={`${styles.eta_heading} `}>
-                        Container Details
-                        <strong className="text-danger">*</strong>
-                      </h5>
-                      <div className="row mt-n4">
+                        </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
-                          <input
-                            className={`${styles.input_field} input form-control`}
-                            required
-                            type="number"
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Number of Containers
-                            <strong className="text-danger">*</strong>
-                          </label>
+
+                          <p className={` label_heading`}>IMO Number<strong className="text-danger">*</strong></p>
+                          <span>834774689</span>
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -247,240 +237,338 @@ export default function Index() {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            Free Detention Period at Discharge Port (Days)
-                            <strong className="text-danger">*</strong>
+                            BL Number<strong className="text-danger">*</strong>
                           </label>
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
-                          <div className="d-flex justify-content-start">
-                            <div className={styles.uploadBtnWrapper}>
-                              <input type="file" name="myfile" />
-                              <button className={`${styles.upload_btn} btn`}>
-                                Upload Excel
-                              </button>
-                            </div>
-                            <div className={`${styles.upload_text}`}>
-                              ONLY .XLS FILES ARE ALLOWED
-                              <br /> &amp; MAX FILE SIZE UP TO 50MB
-                            </div>
+                          <div className="d-flex">
+                            <DateCalender labelName="BL Date" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <img
+                              className={`${styles.calanderIcon} img-fluid`}
+                              src="/static/caldericon.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                        >
+                          <input
+                            className={`${styles.input_field} input form-control`}
+                            required
+                            type="text"
+                          />
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            BL Quantity<strong className="text-danger">*</strong>
+                          </label>
+                        </div>
+                        <div className={`${styles.eta_heading} mt-4 col-12`}>
+                          ETA at Discharge Port
+                          <strong className="text-danger">*</strong>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
+                        >
+                          <div className="d-flex">
+                            <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <img
+                              className={`${styles.calanderIcon} img-fluid`}
+                              src="/static/caldericon.svg"
+                              alt="Search"
+
+                            />
+                          </div>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
+                        >
+                          <div className="d-flex">
+                            <DateCalender labelName="To" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <img
+                              className={`${styles.calanderIcon} img-fluid`}
+                              src="/static/caldericon.svg"
+                              alt="Search"
+
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
-                  </>
-                ) : (
-                  ''
-                )}
-                <div className={styles.table_scroll_outer}>
-                  <div className={styles.table_scroll_inner}>
-                    <table
-                      className={`${styles.table} table mt-5`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
-                      <thead>
-                        <tr>
-                          <th>
-                            DOCUMENT NAME{' '}
-                            <img
-                              className={`${styles.sort_img} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            FORMAT{' '}
-                            <img
-                              className={`${styles.sort_img} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            DOCUMENT DATE{' '}
-                            <img
-                              className={`${styles.sort_img} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>
-                            BL
-                            <strong className="text-danger ml-0">*</strong>
-                          </td>
-                          <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className="img-fluid"
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td>
-                            <div className={styles.uploadBtnWrapper}>
-                              <input type="file" name="myfile" />
-                              <button className={`${styles.upload_btn} btn`}>
-                                Upload
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        {!shipmentType ? (
-                          <>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Container No. List
-                                <strong className="text-danger ml-0">*</strong>
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
-                              <td>
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
-                                  <button
-                                    className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Packing List
-                                <strong className="text-danger ml-0">*</strong>
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
-                              <td>
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
-                                  <button
-                                    className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          </>
-                        ) : (
-                          ''
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
 
-              <div className={`${styles.bill_landing}  border_color mt-4`}>
-                <div className={`${styles.vessel_card} mt-3`}>
-                  <div className="row">
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    >
-                      <div className="d-flex">
-                        <DateCalender labelName="BL Surrender Date" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
-                        <img
-                          className={`${styles.calanderIcon} img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                        />
+                    {!isShipmentTypeBULK ? (
+                      <>
+                        <hr></hr>
+                        <div className={`${styles.vessel_card} mt-5`}>
+                          <h5 className={`${styles.eta_heading} `}>
+                            Container Details
+                            <strong className="text-danger">*</strong>
+                          </h5>
+                          <div className="row mt-n4">
+                            <div
+                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                            >
+                              <input
+                                className={`${styles.input_field} input form-control`}
+                                required
+                                type="number"
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                              >
+                                Number of Containers
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                            >
+                              <input
+                                className={`${styles.input_field} input form-control`}
+                                required
+                                type="number"
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                              >
+                                Free Detention Period at Discharge Port (Days)
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            <div
+                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                            >
+                              <div className="d-flex justify-content-start">
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" name="myfile" />
+                                  <button className={`${styles.upload_btn} btn`}>
+                                    Upload Excel
+                                  </button>
+                                </div>
+                                <div className={`${styles.upload_text}`}>
+                                  ONLY .XLS FILES ARE ALLOWED
+                                  <br /> &amp; MAX FILE SIZE UP TO 50MB
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    <div className={styles.table_scroll_outer}>
+                      <div className={styles.table_scroll_inner}>
+                        <table
+                          className={`${styles.table} table mt-5`}
+                          cellPadding="0"
+                          cellSpacing="0"
+                          border="0"
+                        >
+                          <thead>
+                            <tr>
+                              <th>
+                                DOCUMENT NAME{' '}
+                                <img
+                                  className={`${styles.sort_img} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                FORMAT{' '}
+                                <img
+                                  className={`${styles.sort_img} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                DOCUMENT DATE{' '}
+                                <img
+                                  className={`${styles.sort_img} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>ACTION</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="table_row">
+                              <td className={styles.doc_name}>
+                                BL
+                                <strong className="text-danger ml-0">*</strong>
+                              </td>
+                              <td>
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              </td>
+                              <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                              <td>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" name="myfile" />
+                                  <button className={`${styles.upload_btn} btn`}>
+                                    Upload
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            {!isShipmentTypeBULK ? (
+                              <>
+                                <tr className="table_row">
+                                  <td className={styles.doc_name}>
+                                    Container No. List
+                                    <strong className="text-danger ml-0">*</strong>
+                                  </td>
+                                  <td>
+                                    <img
+                                      src="/static/pdf.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  </td>
+                                  <td className={styles.doc_row}>
+                                    28-02-2022,5:30 PM
+                                  </td>
+                                  <td>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input type="file" name="myfile" />
+                                      <button
+                                        className={`${styles.upload_btn} btn`}
+                                      >
+                                        Upload
+                                      </button>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr className="table_row">
+                                  <td className={styles.doc_name}>
+                                    Packing List
+                                    <strong className="text-danger ml-0">*</strong>
+                                  </td>
+                                  <td>
+                                    <img
+                                      src="/static/pdf.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  </td>
+                                  <td className={styles.doc_row}>
+                                    28-02-2022,5:30 PM
+                                  </td>
+                                  <td>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input type="file" name="myfile" />
+                                      <button
+                                        className={`${styles.upload_btn} btn`}
+                                      >
+                                        Upload
+                                      </button>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </>
+                            ) : (
+                              ''
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`${styles.bill_landing}  border_color mt-4`}>
+                    <div className={`${styles.vessel_card} mt-3`}>
+                      <div className="row">
+                        <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                        >
+                          <div className="d-flex">
+                            <DateCalender labelName="BL Surrender Date" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <img
+                              className={`${styles.calanderIcon} img-fluid`}
+                              src="/static/caldericon.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.table_scroll_outer}>
+                      <div className={styles.table_scroll_inner}>
+                        <table
+                          className={`${styles.table} table mt-5`}
+                          cellPadding="0"
+                          cellSpacing="0"
+                          border="0"
+                        >
+                          <thead>
+                            <tr>
+                              <th>
+                                DOCUMENT NAME{' '}
+                                <img
+                                  className={`${styles.sort_img} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                FORMAT{' '}
+                                <img
+                                  className={`${styles.sort_img} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                DOCUMENT DATE{' '}
+                                <img
+                                  className={`${styles.sort_img} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>ACTION</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="table_row">
+                              <td className={styles.doc_name}>
+                                BL Acknowledgment Copy
+                                <strong className="text-danger ml-0">*</strong>
+                              </td>
+                              <td>
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              </td>
+                              <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                              <td>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" name="myfile" />
+                                  <button className={`${styles.upload_btn} btn`}>
+                                    Upload
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className={styles.table_scroll_outer}>
-                  <div className={styles.table_scroll_inner}>
-                    <table
-                      className={`${styles.table} table mt-5`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
-                      <thead>
-                        <tr>
-                          <th>
-                            DOCUMENT NAME{' '}
-                            <img
-                              className={`${styles.sort_img} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            FORMAT{' '}
-                            <img
-                              className={`${styles.sort_img} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            DOCUMENT DATE{' '}
-                            <img
-                              className={`${styles.sort_img} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>
-                            BL Acknowledgment Copy
-                            <strong className="text-danger ml-0">*</strong>
-                          </td>
-                          <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className="img-fluid"
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td>
-                            <div className={styles.uploadBtnWrapper}>
-                              <input type="file" name="myfile" />
-                              <button className={`${styles.upload_btn} btn`}>
-                                Upload
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+              </div>)
+          })}
           <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
             <div
               className={`${styles.head_container} border_color d-flex justify-content-between`}

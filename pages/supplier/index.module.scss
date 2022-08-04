@@ -2,6 +2,7 @@
 @import '../../src/components/styles/Core/config';
 .dashboardTab {
   margin-bottom: 105px;
+
   @include respond(phone) {
     margin-bottom: 105px;
   }
@@ -41,6 +42,7 @@
   .backgroundMain {
     .vessel_card {
       border-radius: 6px;
+      margin: 0px 10px;
       h2 {
         font-size: 22px;
         color: #3687e8;
@@ -778,7 +780,7 @@ img {
   }
 }
 .plus_field {
-  margin-left: 25px;
+  margin-left: 15px;
 }
 
 .labelSelect {
