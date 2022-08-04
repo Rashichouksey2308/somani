@@ -22,7 +22,7 @@ function Index() {
 
   
   useEffect(() => {
-    console.log(' inside effect')
+    // console.log(' inside effect')
     let id =  sessionStorage.getItem('companyInsuredId')
     dispatch(GettingAllInsurance(`?company=${id}`))
   }, [dispatch])

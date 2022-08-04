@@ -339,7 +339,7 @@ const Index = () => {
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
-                            <DateCalender name='insuranceTo' onChange={(e)=>saveMarineData(e.target.name, e.target.value)} labelName="Insurance to" />
+                            <DateCalender name='insuranceTo' saveDate={saveDate} labelName="Insurance to" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
