@@ -27,6 +27,18 @@ export default function Index() {
       setEditInput(true)
     }
   }
+  const onAddHandler = () => {
+    setCimsDetails([...cimsDetails, {
+      vesselName: '',
+      quantity: '',
+      circNumber: '',
+      circDate: '',
+      cimsCharges: '',
+      paymentBy: '',
+      document1: null,
+      document2: null
+    }])
+  }
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -37,7 +49,7 @@ export default function Index() {
                 className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
               >
                 <h3 className={`${styles.heading}`}>CIMS Details</h3>
-                <button className={styles.add_btn}>
+                <button onClick={()=> onAddHandler()} className={styles.add_btn}>
                   <span className={styles.add_sign}>+</span>Add
                 </button>
               </div>
@@ -94,7 +106,7 @@ export default function Index() {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                   >
                     <div className="d-flex">
-                      <DateCalender defaultDate={list.circDate} labelName="CIRC Date" />
+                      <DateCalender labelName="CIRC Date" />
                       <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"

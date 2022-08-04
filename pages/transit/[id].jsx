@@ -124,14 +124,14 @@ function Index() {
                     <LetterIndermity />
                   </div>
                 </div>
-                {!commodity==='iron' && <div className="tab-pane fade" id="cims" role="tabpanel">
+                {commodity==='iron' && <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <CIMS vesselData TransitDetails={TransitDetails} />
                   </div>
                 </div>}
                 <div className="tab-pane fade" id="igm" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <IGM TransitDetails={TransitDetails} orderId={objID} />
+                    <IGM TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} orderId={objID} />
                   </div>
                 </div>
               </div>

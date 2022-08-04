@@ -23,8 +23,6 @@ const initialStateForLiner = {
   containerDetails: {
     numberOfContainers: '',
     freeDetentionPeriod: '',
-    inspectedBy: '',
-    inspectionDate: '',
     blSurrenderDate: ''
   }
 }
@@ -41,7 +39,7 @@ const initialStateForBulk = {
   blSurrenderDoc: '',
   document1: null,
   document2: null,
-
+ 
 }
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }) {
@@ -51,13 +49,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
   const [bolList, setBolList] = useState([shipmentTypeBulk ? initialStateForBulk : initialStateForLiner])
 
 
+  const partShipmentAllowed = _get(TransitDetails, "data[0].order.vessel.partShipmentAllowed", false)
+
+
   const onBolAdd = () => {
     if (shipmentTypeBulk) {
       setBolList([...bolList, initialStateForBulk])
     } else {
       setBolList([...bolList, initialStateForLiner])
     }
-
   }
 
 
@@ -69,34 +69,43 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
     }
   }
 
-  const onChangeVessel = (e) => {
-    let Value = e.target.value
-    let [VesselName, index] = Value.split('#')
+  const onChangeVessel = (e, index) => {
+    let VesselName = e.target.value
     let filteredVessel = {}
 
-    let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+    // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
     if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
       _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
         if (vessel.vesselInformation[0].name === VesselName) {
           filteredVessel = vessel
+
         }
       })
     } else {
-      let VesselTemp = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+      filteredVessel = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
       let tempArray = _get(TransitDetails, `data[0].order.vessel.vessels[0].vesselInformation`, [])
       tempArray.forEach((vessel, index) => {
         if (vessel.name === VesselName) {
-          VesselTemp.vesselInformation = [vessel]
+          filteredVessel.vesselInformation = [vessel]
 
         }
       })
-      //  console.log(VesselTemp)
-    }
-  }
-  const saveData = () => {
 
+    }
+    console.log(filteredVessel, 'filteredVessel')
+    const newArray = [...bolList]
+    newArray[index].vesselName = filteredVessel.vesselInformation[0].name
+    newArray[index].imoNumber = filteredVessel.vesselInformation[0].IMONumber
+    newArray[index].etaAtDischargePortFrom = filteredVessel.transitDetails.EDTatLoadPort
+    newArray[index].etaAtDischargePortTo = filteredVessel.transitDetails.ETAatDischargePort
+
+    setBolList(newArray)
   }
-  console.log(shipmentTypeBulk, bolList, TransitDetails, 'bollist')
+
+  const saveData = () => {
+    console.log(bolList, 'filteredVessel')
+  }
+  console.log(TransitDetails, 'TransitDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -142,7 +151,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                 <div className={`${styles.dropDown_label} text`}>
                   Part Shipment Allowed:
                 </div>
-                <div className={`${styles.dropDown} input`}>Yes</div>
+                <div className={`${styles.dropDown} input`}>{partShipmentAllowed ? "Yes" : 'No'}</div>
               </div>
             </div>
             <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
@@ -151,26 +160,27 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                   <div className={`${styles.label} text`}>
                     Commodity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>Iron</span>
+                  <span className={styles.value}>{_get(TransitDetails, "data[0].order.commodity", '')}</span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>500 Mt</span>
+                  <span className={styles.value}>{_get(TransitDetails, "data[0].order.quantity", '')} {_get(TransitDetails, "data[0].order.unitOfQuantity", '')} </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>500 CR</span>
+                  <span className={styles.value}>{_get(TransitDetails, "data[0].order.orderValue", '')} {_get(TransitDetails, "data[0].order.unitOfValue", '')}</span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Shipping Line/Charter
                     <strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>Bothra</span>
+                  {shipmentTypeBulk ? <span className={styles.value}>{_get(TransitDetails, "data[0].order.vessel.vessels[0].shippingInformation.shippingLineOrCharter", '')}</span> :
+                    <span className={styles.value}>{_get(TransitDetails, "data[0].order.vessel.vessels[0].vesselInformation[0].shippingLineOrCharter", '')}</span>}
                 </div>
               </div>
             </div>
@@ -182,9 +192,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                   className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>Bill of Lading {index + 1}</h3>
-                  <button onClick={() => onBolAdd()} className={styles.add_btn}>
+                  {!partShipmentAllowed && <button onClick={() => onBolAdd()} className={styles.add_btn}>
                     <span className={styles.add_sign}>+</span>Add
-                  </button>
+                  </button>}
                 </div>
                 <div className={`${styles.dashboard_form} mt-3 card-body`}>
                   <div className={`${styles.bill_landing} border_color`}>
@@ -198,13 +208,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
                               {shipmentTypeBulk ? _get(TransitDetails, "data[0].order.vessel.vessels", []).map((vessel, index) => (
-                                <option value={`${vessel?.vesselInformation?.name}#${index}`} key={index}>{vessel?.vesselInformation?.name}</option>
+                                <option value={vessel?.vesselInformation?.name} key={index}>{vessel?.vesselInformation?.name}</option>
                               )) :
                                 _get(TransitDetails, "data[0].order.vessel.vessels[0].vesselInformation", []).map((vessel, index) => (
-                                  <option value={`${vessel?.name}#${index}`} key={index}>{vessel?.name}</option>
+                                  <option value={vessel?.name} key={index}>{vessel?.name}</option>
                                 ))
                               }
-                              
+                              <option value='option'>option</option>
+
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -224,7 +235,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                         >
 
                           <p className={` label_heading`}>IMO Number<strong className="text-danger">*</strong></p>
-                          <span>834774689</span>
+                          <span>{bol.imoNumber}</span>
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -244,7 +255,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="BL Date" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <DateCalender defaultDate={bol.blDate ? bol.blDate : new Date()} labelName="BL Date" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -274,7 +285,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <DateCalender  labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -287,7 +298,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="To" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <DateCalender  labelName="To" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -783,7 +794,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
             </div>
           </div>
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar handleSave={saveData} rightBtn="Submit" />
       </div>
     </>
   )

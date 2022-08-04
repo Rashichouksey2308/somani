@@ -5,8 +5,61 @@ import SaveBar from '../SaveBar'
 import InspectionDocument from '../InspectionDocument'
 import DateCalender from '../DateCalender'
 
-export default function Index({orderId}) {
+export default function Index({isShipmentTypeBULK, TransitDetails,orderId}) {
+  let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk'
+  const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
+  const [bolList, setBolList] = useState([shipmentTypeBulk ? initialStateForBulk : initialStateForLiner])
+
+
+  const partShipmentAllowed = _get(TransitDetails, "data[0].order.vessel.partShipmentAllowed", false)
+
+
+  const onBolAdd = () => {
+    if (shipmentTypeBulk) {
+      setBolList([...bolList, initialStateForBulk])
+    } else {
+      setBolList([...bolList, initialStateForLiner])
+    }
+  }
+
+  
+  const onChangeVessel = (e, index) => {
+    let VesselName = e.target.value
+    let filteredVessel = {}
+
+    // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+    if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
+      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
+        if (vessel.vesselInformation[0].name === VesselName) {
+          filteredVessel = vessel
+
+        }
+      })
+    } else {
+      filteredVessel = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+      let tempArray = _get(TransitDetails, `data[0].order.vessel.vessels[0].vesselInformation`, [])
+      tempArray.forEach((vessel, index) => {
+        if (vessel.name === VesselName) {
+          filteredVessel.vesselInformation = [vessel]
+
+        }
+      })
+
+    }
+    console.log(filteredVessel, 'filteredVessel')
+    const newArray = [...bolList]
+    newArray[index].vesselName = filteredVessel.vesselInformation[0].name
+    newArray[index].imoNumber = filteredVessel.vesselInformation[0].IMONumber
+    newArray[index].etaAtDischargePortFrom = filteredVessel.transitDetails.EDTatLoadPort
+    newArray[index].etaAtDischargePortTo = filteredVessel.transitDetails.ETAatDischargePort
+
+    setBolList(newArray)
+  }
+
+  const saveData = () => {
+    console.log(bolList, 'filteredVessel')
+  }
 
   return (
     <>
