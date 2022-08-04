@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
@@ -7,7 +8,7 @@ import DateCalender from '../DateCalender'
 import Modal from 'react-bootstrap/Modal'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
-export default function Index() {
+export default function Index({addButton}) {
   const [editInput, setEditInput] = useState(true)
   const [linerField, setLinerField] = useState('Liner')
 
@@ -62,7 +63,7 @@ export default function Index() {
                   </label>
                   <div className={`${styles.dropDown} input`}>Yes</div>
 
-                  <button className={styles.add_btn}>Add</button>
+                  <button  className={styles.add_btn}>Add</button>
                 </div>
               </div>
             </div>
