@@ -1,16 +1,52 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
 import styles from './inspection.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import {GetAllInspection} from '../../src/redux/Inspections/action'
+import {SearchLeads} from '../../src/redux/buyerProfile/action'
 
 function Index() {
-    const dispatch = useDispatch()
-     useEffect(() => {
+  const dispatch = useDispatch()
+
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const [searchTerm, setSearchTerm] = useState('')
+
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetAllInspection(`?company=${id}`))
+  }
+
+
+  useEffect(() => {
     dispatch(setPageName('inception'))
-   
   })
+
+  useEffect(() => {
+    dispatch(GetAllInspection(`?page=${currentPage}&limit=7`))
+  }, [dispatch, currentPage])
+
+  const {allInspection} = useSelector((state)=>state.Inspection)
+
+  const { searchedLeads } = useSelector((state) => state.order)
+
+
+  console.log(allInspection, 'THIS IS ALL INSPECTION')
+  
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -35,12 +71,29 @@ function Index() {
                 />
               </div>
               <input
-                type="text"
-                className={`${styles.formControl} form-control formControl `}
-                placeholder="Search"
-              />
+                  value={searchTerm}
+                  onChange={handleSearch}
+                  type="text"
+                  className={`${styles.formControl} form-control formControl `}
+                  placeholder="Search"
+                />
+              </div>
+              {searchedLeads && searchTerm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
-          </div>
           <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
@@ -121,22 +174,38 @@ function Index() {
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
-              <span>Showing Page 1 out of 10</span>
-              <a
-                href="#"
-                className={`${styles.arrow} ${styles.leftArrow} arrow`}
-              >
-                {' '}
-                <img
-                  src="/static/keyboard_arrow_right-3.svg"
-                  alt="arrow right"
-                  className="img-fluid"
-                />
-              </a>
-              <a
-                href="#"
-                className={`${styles.arrow} ${styles.rightArrow} arrow`}
-              >
+             <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(allInspection?.totalCount / 7)}
+                </span>
+                <a
+                  onClick={() => {
+                    if (currentPage === 0) {
+                      return
+                    } else {
+                      setCurrentPage((prevState) => prevState - 1)
+                    }
+                  }}
+                  href="#"
+                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
+                >
+                  {' '}
+                  <img
+                    src="/static/keyboard_arrow_right-3.svg"
+                    alt="arrow right"
+                    className="img-fluid"
+                  />
+                </a>
+                <a
+                  onClick={() => {
+                    if (currentPage + 1 < Math.ceil(allInspection?.totalCount / 7)) {
+                      setCurrentPage((prevState) => prevState + 1)
+                    }
+
+                  }}
+                  href="#"
+                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
+                >
                 <img
                   src="/static/keyboard_arrow_right-3.svg"
                   alt="arrow right"
@@ -184,7 +253,7 @@ function Index() {
                     <td
                       className={styles.buyerName}
                       onClick={() => {
-                        dispatch(setDynamicName("Bhutani Traders"))
+                        dispatch(setDynamicName('Bhutani Traders'))
                         // Router.push('/inspection/id')
                         Router.push('/third-party')
                       }}
