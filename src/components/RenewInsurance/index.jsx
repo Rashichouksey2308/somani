@@ -1,13 +1,97 @@
-import React from 'react'
+/* eslint-disable @next/next/no-img-element */
+import React, {useState, useEffect} from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import InspectionDocument from '../InspectionDocument'
 import DateCalender from '../DateCalender'
-import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import _get from 'lodash/get'
 import SubmitBar from '../PreviousBar/SubmitBar'
+import { GettingAllInsurance } from 'redux/insurance/action'
 
 const Index = () => {
   const [insuranceType, setInsuranceType] = useState(false)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('quotationId')
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
+  }, [dispatch])
+
+  const { insuranceResponse } = useSelector((state) => state.insurance)
+
+  let insuranceData = _get(insuranceResponse, 'data[0]', {})
+
+  const [marineData, setMarineData] = useState({
+    policyNumber: '',
+    // nameOfInsurer: '',
+    // gstOfInsurer: '',
+    // nameOfInsured: '',
+    // gstOfInsured: '',
+    insuranceFrom: '',
+    insuranceTo: '',
+    periodOfInsurance: null,
+    lossPayee: '',
+    premiumAmount: null,
+  })
+
+  const saveMarineData = (name, value) => {
+    let newInput = {...marineData}
+    newInput[name] = value
+    setMarineData(newInput)
+  }
+
+  const saveDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveMarineData(name, text)
+  }
+
+  const [storageData, setStorageData] = useState({
+    policyNumber: '',
+    // nameOfInsurer: '',
+    // gstOfInsurer: '',
+    // nameOfInsured: '',
+    // gstOfInsured: '',
+    insuranceFrom: '',
+    insuranceTo: '',
+    periodOfInsurance: null,
+    lossPayee: '',
+    premiumAmount: null,
+  })
+
+  const saveStorageDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    setStorageData(name, text)
+  }
+
+  const saveStorageData = (name, value) => {
+    let newInput = {...marineData}
+    newInput[name] = value
+    setMarineData(newInput)
+  }
+
+  const [insuranceDocument, setInsuranceDocument] = useState({
+    storagePolicyDocument : null,
+    marinePolicyDocument: null
+  })
+
+  const uploadDocument2 = (e) => {
+    const newUploadDoc = { ...insuranceDocument }
+    newUploadDoc.storagePolicyDocument = e.target.files[0]
+    console.log(newUploadDoc, 'new upload doc')
+    setInsuranceDocument(newUploadDoc)
+  }
+  const uploadDocument1 = (e) => {
+    const newUploadDoc1 = { ...insuranceDocument }
+    newUploadDoc1.marinePolicyDocument = e.target.files[0]
+
+    setInsuranceDocument(newUploadDoc1)
+  }
 
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
@@ -75,10 +159,12 @@ const Index = () => {
                     <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                       <div className="d-flex">
                         <select
-                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        name='policyNumber' onChange={(e)=>saveMarineData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
-                          <option>IRDAN1277P09098</option>
-                          <option>Balaji Traders</option>
+                          <option selected></option>
+                          <option value={insuranceData?.marineInsurance?.policyNumber}>{insuranceData?.marineInsurance?.policyNumber}</option>
+                          <option value='IRDAN1277P09098'>IRDAN1277P09098</option>
+                      
                         </select>
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -110,6 +196,8 @@ const Index = () => {
                       <input
                         className={`${styles.input_field} input form-control`}
                         required
+                        name='premiumAmount'
+                        onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
                         type="text"
                       />
                       <label

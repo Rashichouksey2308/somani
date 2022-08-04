@@ -268,7 +268,7 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                             >
                               <option selected>{insuranceData?.quotationRequest?.lossPayee}</option>
-                              <option value={insuranceData?.order?.lc.lcApplication.lcIssuingBank}>{insuranceData?.order?.lc.lcApplication.lcIssuingBank}</option>
+                              <option value={insuranceData?.order?.lc?.lcApplication?.lcIssuingBank}>{insuranceData?.order?.lc?.lcApplication?.lcIssuingBank}</option>
                               <option value='SBI BANK'>SBI BANK</option>
                             </select>
                             <label
@@ -463,7 +463,7 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                             >
                               <option selected>{insuranceData?.quotationRequest?.lossPayee}</option>
-                              <option value={insuranceData?.order?.lc.lcApplication.lcIssuingBank}>{insuranceData?.order?.lc.lcApplication.lcIssuingBank}</option>
+                              <option value={insuranceData?.order?.lc?.lcApplication?.lcIssuingBank}>{insuranceData?.order?.lc?.lcApplication?.lcIssuingBank}</option>
                               <option value='SBI BANK'>SBI BANK</option>
                             </select>
                             <label
