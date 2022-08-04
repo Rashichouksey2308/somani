@@ -660,7 +660,7 @@ function Index() {
                                     className={`${styles.edit_image} mr-3 img-fluid`}
                                     alt="edit"
                                     onClick={(e) => {
-                                      setShareTable(true)
+                                      setSaveTable(true)
                                     }}
                                   />
                                   <img
@@ -676,7 +676,7 @@ function Index() {
                                     className={`${styles.edit_image} mr-3 img-fluid`}
                                     alt="save"
                                     onClick={(e) => {
-                                      setShareTable(false)
+                                      setSaveTable(false)
                                     }}
                                   />
 

@@ -110,6 +110,59 @@ export default function Index() {
                   </div>
                 </div>
               </div>
+
+              <div className={`${styles.newAddressContainer} mt-3`}>
+                <div className={`${styles.newAddressHead}`}>
+                  <span>Add a new address</span>
+                </div>
+                <div className={`${styles.newAddressContent} row`}>
+                  <Form.Group
+                    className={`${styles.form_group} col-md-4 col-sm-6`}
+                  >
+                    <input
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      name="addressType"
+                      disabled
+                    />
+
+                    <Form.Label
+                      className={`${styles.label_heading} ${styles.select} label_heading`}
+                    >
+                      Address Type<strong className="text-danger">*</strong>
+                    </Form.Label>
+                  </Form.Group>
+                  <Form.Group
+                    className={`${styles.form_group}  col-md-12 col-sm-6`}
+                  >
+                    <Form.Control
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="text"
+                      name="fullAddress"
+                      onChange={(e) => {
+                        setAddress(e.target.name, e.target.value)
+                      }}
+                    />
+                    <Form.Label
+                      className={`${styles.label_heading} label_heading`}
+                    >
+                      Address<strong className="text-danger">*</strong>
+                    </Form.Label>
+                  </Form.Group>
+                </div>
+                <div className="d-flex">
+                  <div
+                    className={`${styles.add} d-flex justify-content-center align-items-center`}
+                  >
+                    <span>Add</span>
+                  </div>
+                  <div
+                    className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                  >
+                    <span>Cancel</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

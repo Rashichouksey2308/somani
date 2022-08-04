@@ -220,3 +220,103 @@
   height: 26px;
   pointer-events: none;
 }
+.newAddressContainer {
+  //margin: 19px 35px 41px !important;
+  // background: #FFFFFF;
+  border: 2px solid #cad6e6;
+  border-radius: 0.5rem;
+
+  .newAddressHead {
+    height: 80px;
+    padding: 18px 25px 24px 35px !important;
+    span {
+      font-size: 22px;
+      color: #3687e8;
+      font-weight: bold;
+      line-height: 27px;
+      // margin-bottom: 3rem;
+    }
+    border-bottom: 2px solid #cad6e6;
+  }
+  .newAddressContent {
+    padding: 15px 25px !important;
+  }
+  .add {
+    background: #3687e8;
+    border-radius: 5px;
+    width: 220px;
+    height: 48px;
+    span {
+      letter-spacing: 0px;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 25px;
+      margin-top: 0rem !important;
+    }
+  }
+  .cancel {
+    border: 2.5px solid #3687e8;
+    border: 3px solid #3687e8;
+    border-radius: 5px;
+    margin-left: 13px;
+    margin-bottom: 2rem;
+    span {
+      letter-spacing: 0px;
+      color: #3687e8;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 25px;
+      margin-top: 0rem !important;
+    }
+  }
+}
+.arrow {
+  margin-left: -40px;
+  width: 13px;
+  pointer-events: none;
+
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
+
+.customSelect {
+  appearance: none;
+  // position: relative;
+}
+.add {
+  width: 220px;
+  height: 48px;
+  background: var(--unnamed-color-3687e8);
+  background: #3687e8;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 25px;
+  span {
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+}
+.cancel {
+  width: 220px;
+  height: 48px;
+  border: 2.5px solid var(--unnamed-color-3687e8);
+  border: 3px solid #3687e8;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: bold;
+    color: #3687e8;
+  }
+}
