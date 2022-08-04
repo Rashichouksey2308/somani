@@ -5,7 +5,7 @@ import Vessels from '../../src/components/Vessel'
 
 import _get from "lodash/get";
 import VesselSaveBar from '../../src/components/VesselSaveBar'
-import DateCalender from '../../src/components/DateCalender'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { GetVessel, UpdateVessel, UploadDocVessel } from '../../src/redux/vessel/action'
 //Api
@@ -21,10 +21,10 @@ export default function Home() {
   const orderID = sessionStorage.getItem('orderID')
   let id = sessionStorage.getItem('VesselId')
   useEffect(() => {
-     let id = sessionStorage.getItem('VesselId')
-     dispatch(GetVessel(`?vesselId=${id}`))
- 
-    
+    let id = sessionStorage.getItem('VesselId')
+    dispatch(GetVessel(`?vesselId=${id}`))
+
+
   }, [dispatch])
   const partShipment = _get(
     Vessel,
@@ -43,7 +43,7 @@ export default function Home() {
 
 
   useEffect(() => {
-    setCompanyName(Vessel?.data[0]?.company?.companyName)
+    setCompanyName(_get(Vessel, "data[0].company.companyName", ''))
     if (_get(
       Vessel,
       "data[0].vessels",

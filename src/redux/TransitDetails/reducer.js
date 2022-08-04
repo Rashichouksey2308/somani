@@ -5,6 +5,8 @@ const initialState = {
     allTransitDetails: null,
     TransitDetails: null,
     updatingTransitDetails: false,
+    gettingAdditionalData: false,
+    additionalData: null,
 
 }
 
@@ -57,7 +59,22 @@ function TransitDetailsReducer(state = initialState, action) {
                 ...state,
                 updatingTransitDetails: false,
             }
-
+            case types.GET_ADDITTIONAL_DATA:
+                return {
+                    ...state,
+                    gettingAdditionalData: true,
+                }
+            case types.GET_ADDITTIONAL_DATA_SUCCESS:
+                return {
+                    ...state,
+                    gettingAdditionalData: false,
+                    additionalData: action.payload,
+                }
+            case types.GET_ADDITTIONAL_DATA_FAILED:
+                return {
+                    ...state,
+                    gettingAdditionalData: false,
+                }
         default:
             return state
     }

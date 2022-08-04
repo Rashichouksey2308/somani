@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
-import DateCalender from '../DateCalender'
+import DateCalender from '../../components/DateCalenderVessel'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import UploadDocument from '../UploadDocument'
@@ -36,10 +36,10 @@ function Index({
   id1,
 }) {
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(setPageName('vessel'))
-    dispatch(setDynamicName(companyName))
-  })
+  // useEffect(() => {
+  //   dispatch(setPageName('vessel'))
+  //   dispatch(setDynamicName(companyName))
+  // })
   const getSn = (index) => {
     let a = Number(index)
     return a + 1
@@ -70,7 +70,7 @@ function Index({
           <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
-                const addingVessel = (list[index].shipmentType === 'Bulk' && partShipmentAllowed == 'true')
+                const addingVessel = (list[index].shipmentType === 'Liner' && partShipmentAllowed == 'true')
                 
 
                 return (
@@ -81,7 +81,7 @@ function Index({
                     <div
                       className={`${styles.head_container} align-items-center border_color card-header head_container justify-content-between d-flex bg-transparent`}
                     >
-                      {list[index].shipmentType === 'Bulk' ? (
+                      {list[index].shipmentType === 'Liner' ? (
                         <h3 className={`${styles.heading}`}>
                           {` Vessel Information (${getSn(index)})`}
                         </h3>
@@ -405,7 +405,7 @@ function Index({
                     </div>
                     <hr></hr>
 
-                    {list[index].shipmentType === 'Bulk' ? (
+                    {list[index].shipmentType === 'Liner' ? (
                       <>
                         {list &&
                           list[0].vesselInformation.map(
