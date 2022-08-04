@@ -4,11 +4,14 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetForwardHedging } from 'redux/ForwardHedging/action'
 
 export default function Index() {
+  const dispatch = useDispatch()
 
-  let id =  sessionStorage.getItem('ObjId')
-let ForwardHeading = sessionStorage.getItem('ForwHeadId')
+  let id = sessionStorage.getItem('ObjId')
+  let ForwardHeading = sessionStorage.getItem('ForwHeadId')
   dispatch(GetForwardHedging(`?forwardHedgingId=${ForwardHeading}`))
   const [list, setList] = useState([
     {
