@@ -818,3 +818,79 @@ img {
 .newAddressContainer2{
     margin: 19px 17px 41px !important;
 }
+ .paymet {
+     div {
+         input {
+             width: 993px;
+             height: 103px;
+             border: 1px solid var(--unnamed-color-0000001f);
+             background: #C3C3C31F 0% 0% no-repeat padding-box;
+             border: 1px solid #0000001F;
+             border-radius: 4px;
+
+             margin-bottom: 0px !important;
+         }
+
+         // margin-bottom: 2rem !important;
+     }
+
+     span {
+         font-size: 20px;
+         font-weight: bold;
+         line-height: 25px;
+         letter-spacing: 0px;
+     }
+
+     .comment {
+         margin-top: 1rem !important;
+
+         input {
+             width: 85%;
+             margin-bottom: 0px !important;
+         }
+
+         div {
+             width: 15%;
+
+             img {
+                 margin-right: 1rem !important;
+                 margin-bottom: 0rem !important;
+             }
+         }
+     }
+
+     .button_container {
+         margin-top: 4rem !important;
+         margin-bottom: 4rem !important;
+
+         .button {
+             width: 310px;
+             height: 48px;
+             font-size: 20px;
+             font-weight: bold;
+             line-height: 25px;
+             letter-spacing: 0px;
+             letter-spacing: 0px;
+             color: #3687E8;
+             border: 3px solid #3687E8;
+             border-radius: 5px;
+
+         }
+
+         .file_text {
+             margin-left: 5rem;
+             width: 25%;
+
+             span {
+                 font-size: 15px;
+                 font-weight: bold;
+                 line-height: 24px;
+                 color: #8492A6;
+
+                 .danger {
+                     color: #EA3F3F;
+                 }
+             }
+         }
+     }
+ }

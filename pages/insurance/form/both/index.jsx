@@ -83,7 +83,7 @@ const Index = () => {
   const uploadDocument2 = (e) => {
     const newUploadDoc = { ...insuranceDocument }
     newUploadDoc.storagePolicyDocument = e.target.files[0]
-    console.log(newUploadDoc, 'new upload doc')
+    // console.log(newUploadDoc, 'new upload doc')
     setInsuranceDocument(newUploadDoc)
   }
   const uploadDocument1 = (e) => {
