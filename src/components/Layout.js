@@ -50,7 +50,7 @@ function Layout({ children }) {
   console.log(isQuery, 'isQuery')
   return (
     <>
-      {true ? (
+      {isLogin ? (
         <div className={styles.root_Container}>
           <div className={styles.navContainer}>
             <Navbar />
