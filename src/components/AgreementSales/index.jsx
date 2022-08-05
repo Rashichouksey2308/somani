@@ -681,7 +681,7 @@ const payment=()=>{
            <span>Upload Specifications</span>
         </div>
         <div className={`${styles.file_text}`}>
-            <span><span className={`${styles.danger} mr-2`}>* </span>ONLY .XLS FILES ARE ALLOWED & MAX FILE SIZE UP TO 50 MB</span>
+            <span><span className={`${styles.danger} ml-n2 mr-1`}>* </span>ONLY .XLS FILES ARE ALLOWED &amp; MAX FILE SIZE UP TO 50 MB</span>
         </div>
      </div>
      <span>Comments</span>

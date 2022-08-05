@@ -1265,7 +1265,7 @@ const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEdit
                     saveNewAddress()
                     }}
                     >
-                    <span>Edit</span>
+                    <span>Update</span>
                     </div>
                     <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
                     onClick={()=>{
