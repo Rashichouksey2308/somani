@@ -29,13 +29,13 @@ const tripartiteAgreement=()=>{
      <div className="card-body">
        <p className="text-center text_sales"> <strong><u>TRIPARTITE AGREEMENT</u></strong></p>
        <p className="text_sales">This Tripartite Agreement (“<strong>Agreement</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between:</p>
-       <p className="text_sales"><GrowInput placeholder="INDO INTERTRADE AG"></GrowInput>, a company organized and existing in accordance with Law of Switzerland and having address at <GrowInput placeholder="Industriestrasse 16, Zug 6300"></GrowInput> through its Authorized Signatory (hereinafter referred to as the "<strong>Buyer</strong>", which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.</p>
+       <p className="text_sales"><GrowInput placeholder="INDO INTERTRADE AG"></GrowInput>, a company organized and existing in accordance with Law of Switzerland and having address at <GrowInput placeholder="Industriestrasse 16, Zug 6300"></GrowInput> through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.</p>
        <p className="text_sales">And</p>
        <p className="text_sales"><strong>Supplier</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>Supplier</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Second Part.</p>
        <p className=" text_sales">And</p>
        <p className="text_sales"><strong>End Buyer</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>End Buyer</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Third Part.
 </p>
-       <p className="text_sales">The Buyer, Supplier and the End Buyer shall hereinafter, for the sake of brevity and convenience, be referred to individually as "Party" and collectively as the "Parties".</p>
+       <p className="text_sales">The Buyer, Supplier and the End Buyer shall hereinafter, for the sake of brevity and convenience, be referred to individually as &quot;Party&quot; and collectively as the &quot;Parties&quot;.</p>
        <p className="text_sales" >WHEREAS,</p>
        <ol type="A">
         <li>
