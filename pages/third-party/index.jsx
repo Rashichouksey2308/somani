@@ -15,6 +15,7 @@ function Index() {
     dispatch(setPageName('inception2'))
    
   })
+  const [addTPI, setAddTPI] = useState([{}])
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -91,12 +92,14 @@ function Index() {
                     <Appointment />
                   </div>
                 </div>
-                <div className="tab-pane fade" id="thirdParty" role="tabpanel">
+                {addTPI.map((e, index)=>
+                <div key={index}  className="tab-pane fade" id="thirdParty" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <ThirdPartyInspection />
+                    <ThirdPartyInspection addButton={()=>setAddTPI(addTPI+1)} />
+                    {/* <ThirdPartyInspection  /> */}
                   </div>
                 </div>
-
+                 )} 
                 <div
                   className="tab-pane fade"
                   id="plotInspection"

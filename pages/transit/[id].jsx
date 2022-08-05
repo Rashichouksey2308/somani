@@ -12,8 +12,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import LetterIndermity from '../../src/components/LetterIndermity'
 
 function Index() {
-  const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(true)
+  const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
+   
 
   const dispatch = useDispatch()
   const { TransitDetails } = useSelector((state) => state.TransitDetails)
@@ -78,7 +79,7 @@ function Index() {
                 LOI
               </a>
             </li>
-            {commodity==='coal' &&  <li className={`${styles.navItem} nav-item`}>
+            {commodity==='iron' &&  <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -123,7 +124,7 @@ function Index() {
                     <LetterIndermity />
                   </div>
                 </div>
-                {commodity==='coal' && <div className="tab-pane fade" id="cims" role="tabpanel">
+                {!commodity==='iron' && <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <CIMS vesselData TransitDetails={TransitDetails} />
                   </div>
