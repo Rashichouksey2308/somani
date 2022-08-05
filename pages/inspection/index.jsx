@@ -41,7 +41,7 @@ function Index() {
 
   const { searchedLeads } = useSelector((state) => state.order)
 
-  console.log(allInspection, 'THIS IS ALL INSPECTION')
+  // console.log(allInspection, 'THIS IS ALL INSPECTION')
 
   const handleRoute = (inspection) => {
     sessionStorage.setItem('inspectionId', inspection?._id )

@@ -1,23 +1,71 @@
-import React from 'react'
+/* eslint-disable @next/next/no-img-element */
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
-import { useState } from 'react'
 import DateCalender from '../DateCalender'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-export default function Index() {
-  const [editInput, setEditInput] = useState(true)
+export default function Index({inspectionData}) {
+
   const [startDate, setStartDate] = useState(new Date())
 
-  const handleDropdown = (e) => {
-    if (e.target.value == 'Others') {
-      setEditInput(false)
-    } else {
-      setEditInput(true)
-    }
+  const [isEdit, setIsEdit] = useState(false)
+
+  const [appointmentData, setAppointmentData] = useState()
+
+  useEffect(() => {
+    setAppointmentData({
+      name: inspectionData?.thirdPartyAppointment?.name,
+      dateOfAppointment : inspectionData?.thirdPartyAppointment?.dateOfAppointment,
+      address: inspectionData?.thirdPartyAppointment?.address
+    })
+    setAddressData({name: inspectionData?.thirdPartyAppointment?.name,
+      dateOfAppointment : inspectionData?.thirdPartyAppointment?.dateOfAppointment,
+      address: inspectionData?.thirdPartyAppointment?.address})
+  }, [inspectionData])
+
+  const [addressData, setAddressData] = useState({
+    name: '',
+    dateOfAppointment: '',
+    address: ''
+  })
+
+  const saveAppointmentData = (name, value) => {
+    let newInput = {...appointmentData}
+    newInput[name] = value
+    setAppointmentData(newInput)
   }
+
+  const saveDate = (value, name) => {
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveAppointmentData(name, text)
+  }
+
+  const handleEdit = () => {
+    setIsEdit(true)
+  }
+
+  const handleEditInput = (name, value) => {
+    let newInput = {...addressData}
+    newInput[name] = value
+    setAddressData(newInput)
+
+  }
+
+  const handleEditCancel = () => {
+    setIsEdit(false)
+    setAddressData({address : ''})
+  }
+
+  const handleOnAdd = () => {
+    setAppointmentData(addressData)
+  }
+  
+
+  
 
   return (
     <>
@@ -44,6 +92,8 @@ export default function Index() {
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="text"
+                      name='name'
+                      onChange={(e)=>saveAppointmentData(e.target.name,e.target.value)}
                       required
                     />
                     <label className={`${styles.label_heading} label_heading`}>
@@ -67,13 +117,13 @@ export default function Index() {
                           alt="Search"
                       /> */}
                     <DatePicker
-                      name="ETAatDischargePort"
+                      name="dateOfAppointment"
                       selected={startDate}
                       dateFormat="dd/MM/yyyy"
                       className={`${styles.input_field} input form-control`}
                       onChange={(startDate) => {
                         setStartDate(startDate)
-                        saveDate(startDate, 'ETAatDischargePort', index)
+                        saveDate(startDate, 'dateOfAppointment')
                       }}
                     />
                     <img
@@ -99,75 +149,83 @@ export default function Index() {
                         Registered Address
                       </div>
                       <div className={`${styles.address_detail} mt-3`}>
-                        10 Boulevard De Grenelle Cs 63205 - 75015
+                        {appointmentData?.address}
                       </div>
                     </div>
                     <img
                       className={`${styles.edit_image} img-fluid mr-3`}
                       src="/static/mode_edit.svg"
                       alt="edit"
+                      onClick={()=> {handleEdit()}}
                     />
                   </div>
                 </div>
               </div>
 
-              <div className={`${styles.newAddressContainer} mt-3`}>
-                <div className={`${styles.newAddressHead}`}>
-                  <span>Add a new address</span>
-                </div>
-                <div className={`${styles.newAddressContent} row`}>
-                  <Form.Group
-                    className={`${styles.form_group} col-md-4 col-sm-6`}
-                  >
-                    <input
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      name="addressType"
-                      disabled
-                    />
-
-                    <Form.Label
-                      className={`${styles.label_heading} ${styles.select} label_heading`}
-                    >
-                      Address Type<strong className="text-danger">*</strong>
-                    </Form.Label>
-                  </Form.Group>
-                  <Form.Group
-                    className={`${styles.form_group}  col-md-12 col-sm-6`}
-                  >
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      name="fullAddress"
-                      onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
-                      }}
-                    />
-                    <Form.Label
-                      className={`${styles.label_heading} label_heading`}
-                    >
-                      Address<strong className="text-danger">*</strong>
-                    </Form.Label>
-                  </Form.Group>
-                </div>
-                <div className="d-flex">
-                  <div
-                    className={`${styles.add} d-flex justify-content-center align-items-center`}
-                  >
-                    <span>Add</span>
-                  </div>
-                  <div
-                    className={`${styles.cancel} d-flex justify-content-center align-items-center`}
-                  >
-                    <span>Cancel</span>
-                  </div>
-                </div>
-              </div>
+             {isEdit && editData(handleEditCancel, handleEditInput, handleOnAdd)}
             </div>
           </div>
         </div>
         <SaveBar rightBtn="Submit" />
       </div>
     </>
+  )
+}
+
+const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
+  return (
+    <div className={`${styles.newAddressContainer} mt-3`}>
+    <div className={`${styles.newAddressHead}`}>
+      <span>Add a new address</span>
+    </div>
+    <div className={`${styles.newAddressContent} row`}>
+      <Form.Group
+        className={`${styles.form_group} col-md-4 col-sm-6`}
+      >
+        <input
+          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+          name="addressType"
+          disabled
+          value='Registered Address'
+        />
+
+        <Form.Label
+          className={`${styles.label_heading} ${styles.select} label_heading`}
+        >
+          Address Type<strong className="text-danger">*</strong>
+        </Form.Label>
+      </Form.Group>
+      <Form.Group
+        className={`${styles.form_group}  col-md-12 col-sm-6`}
+      >
+        <Form.Control
+          className={`${styles.input_field} input form-control`}
+          required
+          type="text"
+          name="address"
+          onChange={(e) => {
+            handleEditInput(e.target.name, e.target.value)
+          }}
+        />
+        <Form.Label
+          className={`${styles.label_heading} label_heading`}
+        >
+          Address<strong className="text-danger">*</strong>
+        </Form.Label>
+      </Form.Group>
+    </div>
+    <div className="d-flex">
+      <div
+      onClick={()=> handleOnAdd()} className={`${styles.add} d-flex justify-content-center align-items-center`}
+      >
+        <span>Add</span>
+      </div>
+      <div
+      onClick={()=>handleEditCancel()}  className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+      >
+        <span>Cancel</span>
+      </div>
+    </div>
+  </div>
   )
 }

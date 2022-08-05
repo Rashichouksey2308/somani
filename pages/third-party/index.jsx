@@ -9,6 +9,7 @@ import Appointment from '../../src/components/Appointment'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import _get from 'lodash/get'
+import { GetAllInspection } from '../../src/redux/Inspections/action'
 
 function Index() {
 
@@ -20,6 +21,17 @@ function Index() {
   useEffect(() => {
     dispatch(setPageName('inception2'))
   })
+
+  useEffect(()=> {
+    let id = sessionStorage.getItem('inspectionId')
+    dispatch(GetAllInspection(`?inspectionId=${id}`))
+  },[dispatch])
+
+  const {allInspection} = useSelector((state)=>state.Inspection)
+
+  let inspectionData = _get(allInspection, 'data[0]', {})
+
+  console.log(inspectionData, 'THIS IS INSPECTION DATA')
 
   const [addTPI, setAddTPI] = useState([{}])
 
@@ -97,7 +109,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <Appointment />
+                    <Appointment inspectionData={inspectionData} />
                   </div>
                 </div>
                 {addTPI.map((e, index) => (
@@ -109,7 +121,7 @@ function Index() {
                   >
                     <div className={`${styles.card}  accordion_body`}>
                       <ThirdPartyInspection
-                        addButton={() => setAddTPI(addTPI + 1)}
+                       inspectionData={inspectionData} addButton={() => setAddTPI(addTPI + 1)}
                       />
                       {/* <ThirdPartyInspection  /> */}
                     </div>
@@ -121,7 +133,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <PlotInspection />
+                    <PlotInspection inspectionData={inspectionData} />
                   </div>
                 </div>
               </div>
