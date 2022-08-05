@@ -6,108 +6,10 @@ import GrowInput from '../GrowInput'
 function index() {
   return (
     <div className={`${styles.root}`}>
-      <div className={`${styles.sidebar} card card-body`}>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Seller</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Buyer</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Manufacturer / Supplier / Shipper</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">End User / Buyer</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Execution Date</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2} ${styles.selected}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Payment Terms</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Total Order Value</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Discharge Port</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-
-      </div>
+     
       <div className={`${styles.content} card`}>
           
-           {tpaSeller()}
+           {tripartiteAgreement()}
            <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
               <div className={styles.reject}><span>Save</span></div>
         <div className={styles.approve}><span>Submit</span></div>                                
@@ -121,6 +23,140 @@ function index() {
 }
 
 export default index
+const tripartiteAgreement=()=>{
+  return(
+    <>
+     <div className="card-body">
+       <p className="text-center text_sales"> <strong><u>TRIPARTITE AGREEMENT</u></strong></p>
+       <p className="text_sales">This Tripartite Agreement (“<strong>Agreement</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between:</p>
+       <p className="text_sales"><GrowInput placeholder="INDO INTERTRADE AG"></GrowInput>, a company organized and existing in accordance with Law of Switzerland and having address at <GrowInput placeholder="Industriestrasse 16, Zug 6300"></GrowInput> through its Authorized Signatory (hereinafter referred to as the "<strong>Buyer</strong>", which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.</p>
+       <p className="text_sales">And</p>
+       <p className="text_sales"><strong>Supplier</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>Supplier</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Second Part.</p>
+       <p className=" text_sales">And</p>
+       <p className="text_sales"><strong>End Buyer</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>End Buyer</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Third Part.
+</p>
+       <p className="text_sales">The Buyer, Supplier and the End Buyer shall hereinafter, for the sake of brevity and convenience, be referred to individually as "Party" and collectively as the "Parties".</p>
+       <p className="text_sales" >WHEREAS,</p>
+       <ol type="A">
+        <li>
+          <p className="text_sales">Supplier has entered into a Sales Contract with Buyer for Sale & Purchase of Goods as details in Schedule -1</p>
+        </li>
+        <li>
+          <p className="text_sales">Buyer has entered into the Sales Contract with Supplier solely at the request of End Buyer and to facilitate the End Buyer.</p>
+        </li>
+        <li>
+          <p className="text_sales">In view of the aforesaid, parties have entered into this binding Agreement.
+
+      </p>
+        </li>
+       
+       </ol>
+       <p className="text_sales"> <strong>NOW THEREFORE THE PARTIES HERETO AGREED TO AS UNDER</strong></p>
+        <ol type="1">
+        <li>
+          <p className="text_sales">That it is expressly clarify and agreed to amongst the parties that the Buyer has entered into the Sales Contract solely at the request and to facilitate the End Buyer.
+</p>
+        </li>
+        <li>
+          <p className="text_sales">All terms of the Sales Contract have already been discussed and agreed between the Supplier and End Buyer. </p>
+        </li>
+        <li>
+          <p className="text_sales">The role of Buyer is limited to establishment of Letter of Credit (“LC”) in favor of Supplier subject to the End Buyer fulfilling its contractual obligations towards the Buyer. </p>
+        </li>
+        <li>
+          <p className="text_sales">The End Buyer and Supplier therefore, are fully liable and responsible at all times for performance of the Sales Contract including but not limited to making financial arrangements, timely nomination/acceptance of vessel, settlement of any and all quality/quantity claims, delayed/no shipment issues, demurrage / dispatch amounts, and/or any other claims or liability arising due to execution of the sales contract. All such claims, liabilities etc., shall be addressed, discussed and settled directly between the Supplier and End Buyer with no reference and liability on the part of Buyer whatsoever.</p>
+        </li>
+        <li>
+          <p className="text_sales">Supplier will not hold discharge and/or delivery of cargo to the Buyer/Buyer’s nominees for any reason whatsoever once LC is issued by the Buyer.  </p>
+        </li>
+          <li>
+          <p className="text_sales">In case of any conflict between the Sales Contract and this Agreement, the terms of this Agreement will prevail. </p>
+        </li>
+        <li>
+          <p className="text_sales">In case of any conflict between the Sales Contract and this Agreement, the terms of this Agreement will prevail. </p>
+        </li>
+         <li>
+          <p className="text_sales">In any case, End Buyer shall remain responsible for the performance of the Sales Contract, including any failure or delay in the issuance of the LC in accordance with the terms of the Sales Contract.
+ </p>
+        </li>
+         <li>
+          <p className="text_sales">This Agreement is subject to English laws, and any disputes arising out of this Agreement shall be referred to arbitration as per rules of Singapore International Arbitration Center (SIAC) by a sole arbitrator. The seat and venue of arbitration shall be Singapore and the language of Arbitration Proceedings shall be in English.
+
+
+</p>
+        </li>
+       
+       
+       </ol>
+   
+     <p className="text-center text_sales"> <strong>Schedule I</strong></p>
+     <div className={`${styles.inputsContainer}`}>
+      <Row className={`${styles.row}`}>
+        <Col md={5} className={styles.left}>Date of execution</Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+      </Row>
+      <Row className={`${styles.row}`}>
+        <Col md={5} className={styles.left}>Place of execution</Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+      </Row>
+      <Row className={`${styles.row}`}>
+        <Col md={5} className={styles.left}>Name of Supplier</Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+      </Row>
+      <Row className={`${styles.row}`}>
+        <Col md={5} className={styles.left}>Address of Supplier</Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+      </Row>
+      <Row className={`${styles.row}`}>
+        <Col md={5} className={styles.left}>Authorized signatory of Supplier</Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+      </Row>
+      <Row className={`${styles.row}`}>
+        <Col md={5} className={styles.left}>Email ID of Supplier</Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+      </Row>
+      <Row className={`${styles.row}`}>
+        <Col md={5} className={styles.left}>Name of End buyer</Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+      </Row>
+      <Row className={`${styles.row}`}>
+        <Col md={5} className={styles.left}>Authorized signatory of End Buyer</Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+      </Row>
+      <Row className={`${styles.row}`}>
+        <Col md={5} className={styles.left}>Email ID of End Buyer</Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+      </Row>
+      <Row className={`${styles.row}`}>
+        <Col md={5} className={styles.left}>Details of Goods as per Sales Contract</Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+      </Row>
+   
+      
+     </div>
+     
+
+      <div className={`row`}>
+        <Col md={12} className={`d-flex justify-content-around`}>
+          <p className="text_sales  m-0"><strong>Buyer</strong></p>
+          <p className="text_sales">Authorised Signatory</p>
+        </Col>
+         <Col md={12} className={`d-flex justify-content-around`}>
+          <p className="text_sales m-0"><strong>Supplier	</strong></p>
+          <p className="text_sales">Authorised Signatory</p>
+
+        </Col>
+         <Col md={12} className={`d-flex justify-content-around`}>
+          <p className="text_sales  m-0"><strong>End Buyer	</strong></p>
+          <p className="text_sales">Authorised Signator</p>
+        </Col>
+      </div>
+     </div>
+
+    
+    </>
+  )
+}
 const tpaSeller=()=>{
   return(
     <div className={`${styles.cardBody} card-body pt-3`}>

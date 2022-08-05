@@ -72,45 +72,45 @@ function Index(props) {
   )
 
 }
-export async function getServerSideProps(context) {
-  try {
-    console.log("inside123", context.req.cookies['SOMANI']);
-    let cookie = context.req.cookies['SOMANI']
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-    console.log("inside fetch2222");
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+// export async function getServerSideProps(context) {
+//   try {
+//     console.log("inside123", context.req.cookies['SOMANI']);
+//     let cookie = context.req.cookies['SOMANI']
+//     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+//     console.log("inside fetch2222");
+//     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+//     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
-    var result = await fetch(`${API.corebaseUrl}/api/core/generic`, {
-      method: "GET",
-      headers: headers,
-      // body: urlencoded,
-      redirect: "follow",
-    }).then((response) => response.json());
-
-
-
-    console.log(result, "thi sis result123")
+//     var result = await fetch(`${API.corebaseUrl}/api/core/generic`, {
+//       method: "GET",
+//       headers: headers,
+//       // body: urlencoded,
+//       redirect: "follow",
+//     }).then((response) => response.json());
 
 
 
-    if (result.code === 200) {
-      return {
-        props: {
-          pageProps: result.data,
+//     console.log(result, "thi sis result123")
 
 
-        },
-      };
-    } else {
 
-      return {
-        props: { pageProps: result.data },
-      };
-    }
-  } catch (error) {
-    console.log(error)
-    return {}
-  }
-}
+//     if (result.code === 200) {
+//       return {
+//         props: {
+//           pageProps: result.data,
+
+
+//         },
+//       };
+//     } else {
+
+//       return {
+//         props: { pageProps: result.data },
+//       };
+//     }
+//   } catch (error) {
+//     console.log(error)
+//     return {}
+//   }
+// }
 export default Index
