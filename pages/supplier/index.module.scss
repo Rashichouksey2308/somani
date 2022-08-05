@@ -175,8 +175,8 @@
           .label_heading {
             font-size: 16px;
             letter-spacing: 0.53px;
-            line-height: 0.5;
-            top: 26px;
+            line-height: 17px;
+            top: 21px;
             left: 30px;
             margin-bottom: 0;
             position: absolute;
@@ -184,9 +184,25 @@
             box-sizing: border-box;
             transform: translateY(-29px);
             transition: 0.3s all ease-in-out;
+            z-index: 1;
+            max-width: 86%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &::before {
+              top: 51%;
+              left: 0;
+              width: 100%;
+              height: 2px;
+              content: '';
+              z-index: -1;
+              position: absolute;
+              transform: translateY(-50%);
+            }
           }
           .phone_card {
             display: flex;
+            flex-wrap: nowrap;
             .code_phone {
               border-top-right-radius: 0px;
               border-bottom-right-radius: 0px;
@@ -638,7 +654,7 @@ img {
       top: 27px;
       left: 30px;
       font-size: 16px;
-      line-height: 0.5;
+      line-height: 17px;
       margin-bottom: 0;
       letter-spacing: 0.53px;
       position: absolute;
@@ -646,6 +662,21 @@ img {
       box-sizing: border-box;
       transform: translateY(-31px);
       transition: 0.3s all ease-in-out;
+      z-index: 1;
+      max-width: 86%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &::before {
+        top: 51%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        content: '';
+        z-index: -1;
+        position: absolute;
+        transform: translateY(-50%);
+      }
 
       @include respond(sm-desktop) {
         font-size: 16px;
@@ -769,7 +800,7 @@ img {
   }
   .comment_field {
     height: 135px;
-    max-width: 1349px;
+    width: 1300px;
     background-color: #c3c3c31f;
     border: 1px solid #0000001f;
     border-radius: 4px;

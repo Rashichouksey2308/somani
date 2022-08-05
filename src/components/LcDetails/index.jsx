@@ -79,6 +79,7 @@ export default function Index() {
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
+                        required
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -93,6 +94,7 @@ export default function Index() {
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
+                        required
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -184,6 +186,7 @@ export default function Index() {
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
+                        required
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -328,7 +331,7 @@ export default function Index() {
                               <option value="Others">Others</option>
                             </select>
                             <Form.Label
-                              className={`${styles.label} label_heading`}
+                              className={`${styles.label_heading} label_heading`}
                             >
                               Document Type
                             </Form.Label>
@@ -341,12 +344,12 @@ export default function Index() {
                         </Form.Group>
                         <Form.Group className={styles.form_group}>
                           <Form.Label
-                            className={`${styles.label} label_heading`}
+                            className={`${styles.label_heading} label_heading`}
                           >
                             Please Specify Document Name
                           </Form.Label>
                           <Form.Control
-                            className={`${styles.value} input form-control`}
+                            className={`${styles.input_field} input form-control`}
                             type="text"
                             disabled={editInput}
                           />
