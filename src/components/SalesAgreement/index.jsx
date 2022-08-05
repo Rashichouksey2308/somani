@@ -8,6 +8,7 @@ import CHA from '../AggrementContent/cha'
 import CMA from '../AggrementContent/cma'
 import Finance from '../AggrementContent/finance'
 import Manufecture from '../AggrementContent/manufecture'
+import ProductSpecification from '../AggrementContent/productSpecification'
 
 import Shipping from '../AggrementContent/shipping'
 import Seller from '../AggrementContent/seller'
@@ -149,9 +150,14 @@ function Index(props) {
         <Stevedore/>
       )
     }
-            if(active=="Appointment of Third Party"){
+      if(active=="Delivery Terms"){
       return(
         <Thirdparty/>
+      )
+    }
+     if(active=="Product Specifications"){
+      return(
+        <ProductSpecification/>
       )
     }
   }
@@ -166,6 +172,8 @@ function Index(props) {
     {name:"CHA",state:"default",value:"CHA",image:"/static/Group 3256.svg"},
     {name:"Stevedore",state:"default",value:"Stevedore",image:"/static/Group 3256.svg"},
     {name:"CMA",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
+    {name:"Delivery Terms",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
+    {name:"Product Specifications",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
     
     ]
   )

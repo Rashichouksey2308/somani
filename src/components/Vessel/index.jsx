@@ -49,7 +49,9 @@ function Index({
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className={`${styles.tab_header} d-flex align-items-center justify-content-between`}>
+          <div
+            className={`${styles.tab_header} d-flex align-items-center justify-content-between`}
+          >
             <img
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
@@ -70,8 +72,9 @@ function Index({
           <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
-                const addingVessel = (list[index].shipmentType === 'Liner' && partShipmentAllowed == 'true')
-                
+                const addingVessel =
+                  list[index].shipmentType === 'Liner' &&
+                  partShipmentAllowed == 'true'
 
                 return (
                   <div
@@ -89,23 +92,38 @@ function Index({
                         <h3 className={`${styles.heading}`}>Basic Details</h3>
                       )}
                       <div className="d-flex align-items-center">
-                          <label className={`${styles.dropDown_label} text`}>
-                            Part Shipment Allowed
-                          </label>
-                        <div className='position-relative'>
-                        <select onChange={(e) => setPartShipmentAllowed(e.target.value)} className={`${styles.dropDown} ${styles.customSelect} input`}>
-                            {partShipmentAllowed ? <> <option value={true}>Yes</option>
-                              <option value={false}>No</option></> : <> <option value={false}>NO</option>
-                              <option value={true}>Yes</option></>}
+                        <label className={`${styles.dropDown_label} text`}>
+                          Part Shipment Allowed
+                        </label>
+                        <div className="position-relative">
+                          <select
+                            onChange={(e) =>
+                              setPartShipmentAllowed(e.target.value)
+                            }
+                            className={`${styles.dropDown} ${styles.customSelect} input`}
+                          >
+                            {partShipmentAllowed ? (
+                              <>
+                                {' '}
+                                <option value={true}>Yes</option>
+                                <option value={false}>No</option>
+                              </>
+                            ) : (
+                              <>
+                                {' '}
+                                <option value={false}>NO</option>
+                                <option value={true}>Yes</option>
+                              </>
+                            )}
                           </select>
-                            <img
-                              className={`${styles.arrow2} img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                          <img
+                            className={`${styles.arrow2} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
                         </div>
 
-                        { addingVessel ? (
+                        {addingVessel ? (
                           <button
                             className={styles.add_btn}
                             onClick={(e) => {
@@ -224,7 +242,6 @@ function Index({
                             <select
                               id="countryOfOrigin"
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                              required
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
@@ -254,7 +271,6 @@ function Index({
                             <select
                               id="portOfLoading"
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              required
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
@@ -284,7 +300,6 @@ function Index({
                             <select
                               id="portOfDischarge"
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                              required
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
@@ -639,8 +654,13 @@ function Index({
                           </div>
                         </div>
                         {list[0].vesselInformation.map((newVessel, index) => (
-                          <div key={index} className={`${styles.dashboard_form} card-body`}>
-                            <div className={`${styles.vessel_card} vessel_card`}>
+                          <div
+                            key={index}
+                            className={`${styles.dashboard_form} card-body`}
+                          >
+                            <div
+                              className={`${styles.vessel_card} vessel_card`}
+                            >
                               <div className="d-flex justify-content-between align-items-center">
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
