@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 import AgreementSales from '../../src/components/AgreementSales'
 import SalesAgreement from '../../src/components/SalesAgreement'
 import SalesContract from '../../src/components/SalesContract'
+import Contract from '../../src/components/A2S_Sales_Contract'
 import AssociateshipAgreement from '../../src/components/AssociateshipAgreement'
 import TPASeller from '../../src/components/TPASeller'
 import TPAIGI from '../../src/components/TPAIGI'
@@ -159,7 +160,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion shadow-none" id="profileAccordion">
-                    <AgreementSales />
+                    <Contract />
                   </div>
                 </div>
                 <div

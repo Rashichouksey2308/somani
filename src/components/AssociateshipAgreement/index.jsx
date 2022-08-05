@@ -1,116 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React ,{useState} from 'react'
 import styles from './index.module.scss'
 import {Row, Col} from "react-bootstrap"
 import GrowInput from '../GrowInput'
 
-function index() {
+function Index() {
+  const [active,setActive]=useState("none")
   return (
     <div className={`${styles.root}`}>
-      {/* <div className={`${styles.sidebar} card card-body`}>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Seller</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Buyer</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Manufacturer / Supplier / Shipper</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">End User / Buyer</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Execution Date</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2} ${styles.selected}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Payment Terms</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Total Order Value</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-        <div className={`${styles.sidebar_content} d-flex justify-content-between align-items-center`}>
-            <div className={`${styles.content2}  d-flex justify-content-between align-items-center`}>
-               <img src="./static/Component 147 – 2.svg"></img>
-                 <span className="ml-3">Discharge Port</span>
-            </div>
-           <img
-                        src="/static/keyboard_arrow_right-3.svg"
-                        alt="arrow right"
-                        className={`${styles.image_reverse} img-fluid`}
-                      />
-
-        </div>
-
-      </div> */}
+     
       <div className={`${styles.content} card`}>
           <div className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
-         {/* <h2 className="mb-0"> Terms</h2> */}
+          <div className={`d-flex `}>
+            <h2 className="mb-0 mr-4" onClick={()=>setActive("none")}> Agreement</h2>
+         <h2 className="mb-0 mr-4" onClick={()=>setActive("one")} > Undertaking 1</h2>
+         <h2 className="mb-0" onClick={()=>setActive("tow")}>  Undertaking 2</h2>
+          </div>
                                           
      <div
                     className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
@@ -135,7 +42,8 @@ function index() {
                                               
                                            
           </div>
-           {underTaking1()}
+          {active=="none"?associateShip():active=="one"?underTaking1():underTaking2()}
+           {/* {underTaking1()} */}
            {/* <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
               <div className={styles.reject}><span>Save</span></div>
         <div className={styles.approve}><span>Submit</span></div>                                
@@ -148,7 +56,7 @@ function index() {
   )
 }
 
-export default index
+export default Index
 
 const assignmentSupplier=()=>{
   return(
