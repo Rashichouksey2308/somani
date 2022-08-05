@@ -5,8 +5,8 @@ import Router from 'next/router'
 import Filter from '../../src/components/Filter'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
-import {GetAllInspection} from '../../src/redux/Inspections/action'
-import {SearchLeads} from '../../src/redux/buyerProfile/action'
+import { GetAllInspection } from '../../src/redux/Inspections/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
 function Index() {
   const dispatch = useDispatch()
@@ -14,7 +14,6 @@ function Index() {
   const [currentPage, setCurrentPage] = useState(0)
 
   const [searchTerm, setSearchTerm] = useState('')
-
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`
@@ -30,7 +29,6 @@ function Index() {
     dispatch(GetAllInspection(`?company=${id}`))
   }
 
-
   useEffect(() => {
     dispatch(setPageName('inception'))
   })
@@ -39,13 +37,18 @@ function Index() {
     dispatch(GetAllInspection(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
 
-  const {allInspection} = useSelector((state)=>state.Inspection)
+  const { allInspection } = useSelector((state) => state.Inspection)
 
   const { searchedLeads } = useSelector((state) => state.order)
 
+  // console.log(allInspection, 'THIS IS ALL INSPECTION')
 
-  console.log(allInspection, 'THIS IS ALL INSPECTION')
-  
+  const handleRoute = (inspection) => {
+    sessionStorage.setItem('inspectionId', inspection?._id )
+    dispatch(GetAllInspection(`?inspectionId=${inspection?._id}`))
+    dispatch(setDynamicName(inspection?.company?.companyName))
+    Router.push('/third-party')
+  }
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -71,29 +74,29 @@ function Index() {
                 />
               </div>
               <input
-                  value={searchTerm}
-                  onChange={handleSearch}
-                  type="text"
-                  className={`${styles.formControl} form-control formControl `}
-                  placeholder="Search"
-                />
-              </div>
-              {searchedLeads && searchTerm && (
-                <div className={styles.searchResults}>
-                  <ul>
-                    {searchedLeads.data.data.map((results, index) => (
-                      <li
-                        onClick={handleFilteredData}
-                        id={results._id}
-                        key={index}
-                      >
-                        {results.companyName} <span>{results.customerId}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+                value={searchTerm}
+                onChange={handleSearch}
+                type="text"
+                className={`${styles.formControl} form-control formControl `}
+                placeholder="Search"
+              />
             </div>
+            {searchedLeads && searchTerm && (
+              <div className={styles.searchResults}>
+                <ul>
+                  {searchedLeads.data.data.map((results, index) => (
+                    <li
+                      onClick={handleFilteredData}
+                      id={results._id}
+                      key={index}
+                    >
+                      {results.companyName} <span>{results.customerId}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
           <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
@@ -174,38 +177,40 @@ function Index() {
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
-             <span>
-                  Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(allInspection?.totalCount / 7)}
-                </span>
-                <a
-                  onClick={() => {
-                    if (currentPage === 0) {
-                      return
-                    } else {
-                      setCurrentPage((prevState) => prevState - 1)
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                >
-                  {' '}
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
-                </a>
-                <a
-                  onClick={() => {
-                    if (currentPage + 1 < Math.ceil(allInspection?.totalCount / 7)) {
-                      setCurrentPage((prevState) => prevState + 1)
-                    }
-
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                >
+              <span>
+                Showing Page {currentPage + 1} out of{' '}
+                {Math.ceil(allInspection?.totalCount / 7)}
+              </span>
+              <a
+                onClick={() => {
+                  if (currentPage === 0) {
+                    return
+                  } else {
+                    setCurrentPage((prevState) => prevState - 1)
+                  }
+                }}
+                href="#"
+                className={`${styles.arrow} ${styles.leftArrow} arrow`}
+              >
+                {' '}
+                <img
+                  src="/static/keyboard_arrow_right-3.svg"
+                  alt="arrow right"
+                  className="img-fluid"
+                />
+              </a>
+              <a
+                onClick={() => {
+                  if (
+                    currentPage + 1 <
+                    Math.ceil(allInspection?.totalCount / 7)
+                  ) {
+                    setCurrentPage((prevState) => prevState + 1)
+                  }
+                }}
+                href="#"
+                className={`${styles.arrow} ${styles.rightArrow} arrow`}
+              >
                 <img
                   src="/static/keyboard_arrow_right-3.svg"
                   alt="arrow right"
@@ -248,36 +253,37 @@ function Index() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="table_row">
-                    <td>BHUTD001-0002</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => {
-                        dispatch(setDynamicName('Bhutani Traders'))
-                        // Router.push('/inspection/id')
-                        Router.push('/third-party')
-                      }}
-                    >
-                      Bhutani Traders
-                    </td>
-                    <td>Iron</td>
+                  {allInspection &&
+                    allInspection?.data?.map((inspection, index) => (
+                      <tr key={index} className="table_row">
+                        <td>{inspection?.company?.customerId}</td>
+                        <td
+                          className={styles.buyerName}
+                          onClick={() => {
+                            handleRoute(inspection)
+                          }}
+                        >
+                          {inspection?.company?.companyName}
+                        </td>
+                        <td>{inspection?.order?.commodity}</td>
 
-                    <td>Abcz</td>
-                    <td>22-02-2022</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
+                        <td>Abcz</td>
+                        <td>22-02-2022</td>
+                        <td>
+                          <span
+                            className={`${styles.status} ${styles.review}`}
+                          ></span>
+                          Yes
+                        </td>
+                        <td>
+                          <img
+                            className={`${styles.edit_image} img-fluid mr-3`}
+                            src="/static/mode_edit.svg"
+                            alt="edit"
+                          />
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
