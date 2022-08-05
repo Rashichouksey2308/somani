@@ -1,58 +1,92 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import DateCalender from '../DateCalender'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetForwardHedging } from 'redux/ForwardHedging/action'
-import { UploadDocument } from 'redux/registerBuyer/action'
+import { GetAllForwardHedging, UpdateForwardHedging } from 'redux/ForwardHedging/action'
+// import { UploadDocument } from 'redux/registerBuyer/action'
 import UploadOther from '../UploadOther'
+import _get from 'lodash/get'
 
 export default function Index() {
   const dispatch = useDispatch()
 
-  let id = sessionStorage.getItem('ObjId')
-  let ForwardHeading = sessionStorage.getItem('ForwHeadId')
-  dispatch(GetForwardHedging(`?forwardHedgingId=${ForwardHeading}`))
-  const [list, setList] = useState([
-    {
-      headingCard: '',
-      isAddBtn: '',
-      bankName: '',
-      currency: '',
-      booked: '',
-      bookAmount: '',
-      validityTo: '',
-      validityFrom: '',
-      isCancel: '',
-      balanceAmount: '',
-      closingRate: '',
-      closingDate: '',
-      remarks: '',
-    },
-  ])
 
-  const onAddClick = () => {
-    setList([
-      ...list,
-      {
-        headingCard: '',
-        isAddBtn: '',
-        bankName: '',
-        currency: '',
-        booked: '',
-        bookAmount: '',
-        validityTo: '',
-        validityFrom: '',
-        isCancel: '',
-        balanceAmount: '',
-        closingRate: '',
-        closingDate: '',
-        remarks: '',
-      },
-    ])
+  useEffect(() => {
+    let ForwardHeading = sessionStorage.getItem('headgingId')
+    dispatch(GetAllForwardHedging(`?forwardHedgingId=${ForwardHeading}`))
+  }, [dispatch])
+  
+  const { allForwardHedging } = useSelector((state) => state.ForwardHedging)
+
+  let hedgingData = _get(allForwardHedging, 'data[0]', '')
+
+  const [list, setList] = useState(
+    {
+      bankName: ' ',
+      currency: ' ',
+      bookedRate: ' ',
+      bookedRateCurrency: ' ',
+      bookedAmount: ' ',
+      validityFrom: ' ',
+      validityTo: ' ',
+      closingDate: ' ',
+      closingRate: ' ',
+      remarks: ' ',
+      balanceAmount: ' ',
+      forwardSalesContract: null,    
+    },
+  )
+
+  const saveHedgingData = (name, value) => {
+    let newInput = {...list}
+    newInput[name] = value
+    setList(newInput)
+  } 
+
+  const saveDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveHedgingData(name, text)
   }
+
+  const uploadDocument1 = (e) => {
+    const newUploadDoc1 = { ...list }
+    newUploadDoc1.forwardSalesContract = e.target.files[0]
+
+    setList(newUploadDoc1)
+  }
+
+  const [cancel, setCancel] = useState(false)
+
+  const handleCancel = () => {
+    setCancel(true)
+  }
+
+  // const onAddClick = () => {
+  //   setList([
+  //     ...list,
+  //     {
+  //       headingCard: '',
+  //       isAddBtn: '',
+  //       bankName: '',
+  //       currency: '',
+  //       booked: '',
+  //       bookAmount: '',
+  //       validityTo: '',
+  //       validityFrom: '',
+  //       isCancel: '',
+  //       balanceAmount: '',
+  //       closingRate: '',
+  //       closingDate: '',
+  //       remarks: '',
+  //     },
+  //   ])
+  // }
 
   const [editInput, setEditInput] = useState(true)
 
@@ -63,6 +97,17 @@ export default function Index() {
       setEditInput(true)
     }
   }
+
+  const handleSave = () => {
+    let fd = new FormData()
+    fd.append('forwardHedgingId', hedgingData?._id)
+    fd.append('detail', JSON.stringify(list))
+    fd.append('forwardSalesContract', list?.forwardSalesContract)
+
+    dispatch(UpdateForwardHedging(fd))
+  }
+
+
   return (
     <>
       <div className={`${styles.backgroundMain} mt-3 container-fluid`}>
@@ -77,8 +122,6 @@ export default function Index() {
           </div>
           <div className={`${styles.vessel_card} mt-3 border_color`}>
             <div className={`${styles.main} border_color card `}>
-              {list &&
-                list.map((val, index) => (
                   <>
                     <div
                       className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
@@ -86,8 +129,8 @@ export default function Index() {
                       <h3 className={`${styles.heading}`}>Forward Hedging</h3>
                       <button
                         className={styles.add_btn}
-                        onClick={(e) => {
-                          onAddClick()
+                        onClick={() => {
+                          // onAddClick()
                         }}
                       >
                         <span className={styles.add_sign}>+</span>Add
@@ -100,8 +143,9 @@ export default function Index() {
                         >
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            name='bankName' onChange={(e)=>saveHedgingData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
+                              <option selected></option>
                               <option>Indo German</option>
                               <option>N/A</option>
                             </select>
@@ -123,10 +167,11 @@ export default function Index() {
                         >
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            name='currency' onChange={(e)=>saveHedgingData(e.target.name, e.target.value)} className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option>USD</option>
-                              <option>N/A</option>
+                              <option selected></option>
+                              <option value='USD'>USD</option>
+                              <option value='POUND'>POUND</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -146,7 +191,9 @@ export default function Index() {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
-                            type="text"
+                            type="number"
+                            name='bookedRateCurrency'
+                            onChange={(e)=>saveHedgingData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -159,8 +206,10 @@ export default function Index() {
                         >
                           <input
                             className={`${styles.input_field} input form-control`}
-                            type="text"
+                            type="number"
                             required
+                            name='bookedAmount'
+                            onChange={(e)=>saveHedgingData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -174,7 +223,7 @@ export default function Index() {
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="Validity from" />
+                            <DateCalender name='validityFrom' saveDate={saveDate} labelName="Validity from" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -186,7 +235,7 @@ export default function Index() {
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="Validity to" />
+                            <DateCalender name='validityTo' saveDate={saveDate} labelName="Validity to" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -197,7 +246,7 @@ export default function Index() {
                         <div
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                         >
-                          <button className={`${styles.cancel_btn}`}>
+                          <button onClick={()=>handleCancel()} className={`${styles.cancel_btn}`}>
                             Cancel
                           </button>
                         </div>
@@ -207,17 +256,19 @@ export default function Index() {
                           <div className={`${styles.label} text mt-n1`}>
                             Balance Amount
                           </div>
-                          <span className={`${styles.value}`}>24,000</span>
+                          <span className={`${styles.value}`}>{list?.bookedAmount}</span>
                         </div>
                       </div>
-                      <Row>
+                {  cancel ?  <Row>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
                             className={`${styles.input_field} input form-control`}
-                            type="text"
+                            type="number"
                             required
+                            name='closingRate'
+                            onChange={(e)=>saveHedgingData(e.target.name, e.target.value)}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -230,7 +281,7 @@ export default function Index() {
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="Closing Date" />
+                            <DateCalender name='closingDate' saveDate={saveDate} labelName="Closing Date" />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -238,12 +289,14 @@ export default function Index() {
                             />
                           </div>
                         </div>
-                      </Row>
+                      </Row> : ''}
 
                       <div className="d-flex mt-5 mb-">
                         <input
                           as="textarea"
                           rows={3}
+                          name='remarks'
+                          onChange={(e)=>saveHedgingData(e.target.name, e.target.value)}
                           className={`${styles.comment_field} form-control`}
                         />
                         <label
@@ -311,16 +364,14 @@ export default function Index() {
                                 </td>
                                 <td>
                                   {' '}
-                                  <input
-                                    className={styles.input_field}
-                                    type="text"
-                                    placeholder="Nomination_Document.pdf"
-                                  />
-                                  <img
-                                    className={`${styles.close_image} img-fluid `}
-                                    src="/static/close.svg"
-                                    alt="close"
-                                  />
+                                  <div className={styles.uploadBtnWrapper}>
+                                  <input type="file" onChange={(e)=>uploadDocument1(e)} name="myfile" />
+                                  <button
+                                     className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
                                 </td>
                               </tr>
                             </tbody>
@@ -329,7 +380,7 @@ export default function Index() {
                       </div>
                     </div>
                   </>
-                ))}
+          
             </div>
 
             <div className="mt-4">
@@ -338,7 +389,7 @@ export default function Index() {
           </div>
         </div>
 
-        <SaveBar rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" />
       </div>
     </>
   )
