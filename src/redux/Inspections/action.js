@@ -137,6 +137,10 @@ export const UpdateInspection =
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateInspectionSuccess(response.data.data))
+          let toastMessage = 'UPDATED SUCCESSFULLY'
+          if (!toast.isActive(toastMessage)) {
+              toast.error(toastMessage, { toastId: toastMessage })
+          }
         } else {
           dispatch(updateInspectionFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'

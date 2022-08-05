@@ -5,13 +5,15 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import Filter from '../Filter'
+import _get from "lodash/get";
 
 
-function Index() {
+function Index({ TransitDetails }) {
     const [billsofLanding, setBillsofLanding] = useState([{
         blnumber: '',
         loadingPort: ''
     }])
+    const bolArray = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
 
     const [designation, setDesignation] = useState('')
     const SetDesignationHanlder = (e) => {
@@ -27,6 +29,10 @@ function Index() {
         if (e.target.value === 'Fatima Yannoulis') {
             setDesignation('Chief Financial Officer')
         }
+    }
+
+    const BolDropDown = ({ e, element }) => {
+        let selectedObj = bolArray
     }
 
 
@@ -69,8 +75,10 @@ function Index() {
                     <span>Bill(s) of Lading:</span>
                     {"  "}
                     <div className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}>
-                        <select>
-                            <option value="">BL-1</option>
+                        <select onChange={(e) => BolDropDown(e)}>
+                            {bolArray.map((element, index) => (
+                                <option key={index} value={index}>BL-{index + 1}</option>
+                            ))}
                         </select>
                         Dated 18TH MARCH 2021, ISSUE AT ABBOT POINT
                         <div className={`${styles.button}`}>

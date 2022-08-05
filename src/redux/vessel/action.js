@@ -189,6 +189,10 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(uploadDocVesselSuccess(response.data.data))
+        let toastMessage = 'DOCUMENT UPLOADED SUCCESSFULL'
+        if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+        }
       } else {
         dispatch(uploadDocVesselFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'

@@ -174,7 +174,8 @@ const Index = ({ orderId, module }) => {
                       id="module"
                       onChange={(e) => handleDropdown(e)}
                     >
-                      {module === 'Loading-Transit-Unloading' ? <>
+                      {module === 'Loading-Transit-Unloading' ? 
+                      <>
                         <option value="CertificateOfOrigin">Certificate of Origin </option>
                         <option value="CertificateOfQuality">
                           {' '}

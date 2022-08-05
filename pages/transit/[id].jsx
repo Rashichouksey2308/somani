@@ -11,10 +11,15 @@ import { UpdateTransitDetails, GetTransitDetails } from '../../src/redux/Transit
 import { useDispatch, useSelector } from 'react-redux'
 import LetterIndermity from '../../src/components/LetterIndermity'
 
+//api
+import Axios from 'axios'
+import API from '../../src/utils/endpoints'
+import { toast } from 'react-toastify'
+
 function Index() {
   const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
-   
+
 
   const dispatch = useDispatch()
   const { TransitDetails } = useSelector((state) => state.TransitDetails)
@@ -35,6 +40,32 @@ function Index() {
 
   const updateTransitHandler = () => {
     dispatch(UpdateTransitDetails())
+  }
+
+  const docUploadFunction = (e) => {
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      Axios.post(`${API.corebaseUrl}${API.getVessel}`, payload, {
+        headers: headers,
+      }).then((response) => {
+        if (response.data.code === 200) {
+          return response.data.data
+        } else {
+          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        }
+      })
+    } catch (error) {
+      let toastMessage = 'COULD NOT UPLOAD DOCUMENT DATA AT THIS TIME'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
   }
 
   return (
@@ -79,7 +110,7 @@ function Index() {
                 LOI
               </a>
             </li>
-            {commodity==='iron' &&  <li className={`${styles.navItem} nav-item`}>
+            {commodity === 'iron' && <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -116,22 +147,22 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <BillLanding  TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
+                    <BillLanding orderid={objID} docUploadFunction={docUploadFunction} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="loi" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <LetterIndermity />
+                    <LetterIndermity TransitDetails={TransitDetails} />
                   </div>
                 </div>
-                {commodity==='iron' && <div className="tab-pane fade" id="cims" role="tabpanel">
+                {commodity === 'iron' && <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <CIMS  TransitDetails={TransitDetails} />
+                    <CIMS docUploadFunction={docUploadFunction} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
                   </div>
                 </div>}
                 <div className="tab-pane fade" id="igm" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <IGM TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} orderId={objID} />
+                    <IGM docUploadFunction={docUploadFunction} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} orderId={objID} />
                   </div>
                 </div>
               </div>

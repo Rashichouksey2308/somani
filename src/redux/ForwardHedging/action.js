@@ -134,6 +134,10 @@ export const UpdateForwardHedging = (payload) => async (dispatch, getState, api)
         }).then((response) => {
             if (response.data.code === 200) {
                 dispatch(updateForwardHedgingSuccess(response.data.data))
+                let toastMessage = 'SUCCESSFULLY UPDATED'
+                if (!toast.isActive(toastMessage)) {
+                    toast.error(toastMessage, { toastId: toastMessage })
+                }
             } else {
                 dispatch(updateForwardHedgingFailed(response.data.data))
                 let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
