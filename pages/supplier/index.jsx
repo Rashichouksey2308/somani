@@ -210,6 +210,7 @@ function Index() {
                       <div className="d-flex">
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          required
                         >
                           <option value="India">Private Limited</option>
                           <option value="America">ABC</option>
@@ -467,7 +468,7 @@ function Index() {
                               type="tel"
                               id="textNumber"
                               name="primary"
-                              className={`${styles.input_field} mt-n3 input form-control border-left-0`}
+                              className={`${styles.input_field}  input form-control border-left-0`}
                               required
                             />
                             <label
@@ -498,7 +499,7 @@ function Index() {
                               type="tel"
                               id="textNumber"
                               name="primary"
-                              className={`${styles.input_field} mt-n3 input form-control border-left-0`}
+                              className={`${styles.input_field} input form-control border-left-0`}
                               required
                             />
                             <label
@@ -975,7 +976,7 @@ function Index() {
                     as="textarea"
                     rows={3}
                     placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
-                    className={`${styles.comment_field} form-control`}
+                    className={`${styles.comment_field} mr-n5 form-control`}
                   />
                   <label className={`${styles.label_textarea} text`}>
                     Business Summary

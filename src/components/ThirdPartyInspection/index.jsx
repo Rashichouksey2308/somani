@@ -610,6 +610,7 @@ export default function Index({ addButton, inspectionData }) {
                               className={`${styles.value} input form-control`}
                               type="text"
                               disabled={editInput}
+                              required
                             />
                           </Form.Group>
 
