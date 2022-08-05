@@ -1034,7 +1034,7 @@ function Index() {
                       <tbody>
                         {listCommodity.length > 0 &&
                           listCommodity.map((val, index) => (
-                            <tr className="table_credit">
+                            <tr key={index} className="table_credit">
                               <td>
                                 <input
                                   className="input font-weight-bold"

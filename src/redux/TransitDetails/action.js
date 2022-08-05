@@ -151,6 +151,10 @@ export const UpdateTransitDetails = (payload) => async (dispatch, getState, api)
         }).then((response) => {
             if (response.data.code === 200) {
                 dispatch(updateTransitDetailsSuccess(response.data.data))
+                let toastMessage = 'UPDATE SUCCESSFULL'
+                if (!toast.isActive(toastMessage)) {
+                    toast.error(toastMessage, { toastId: toastMessage })
+                }
             } else {
                 dispatch(updateTransitDetailsFailed(response.data.data))
                 let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
