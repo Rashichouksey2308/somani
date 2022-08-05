@@ -71,10 +71,6 @@ export const GetAllForwardHedging =
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllForwardHedgingSuccess(response.data.data))
-          let toastMessage = 'SAVED SUCCESSFULLY'
-          if (!toast.isActive(toastMessage)) {
-            toast.success(toastMessage, { toastId: toastMessage })
-          }
         } else {
           dispatch(getAllForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
@@ -137,6 +133,11 @@ export const UpdateForwardHedging =
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateForwardHedgingSuccess(response.data.data))
+          
+          let toastMessage = 'SAVED SUCCESSFULLY'
+          if (!toast.isActive(toastMessage)) {
+            toast.success(toastMessage, { toastId: toastMessage })
+          }
         } else {
           dispatch(updateForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
