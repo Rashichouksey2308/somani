@@ -116,7 +116,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <BillLanding vesselData={vesselData} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
+                    <BillLanding  TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="loi" role="tabpanel">
@@ -126,7 +126,7 @@ function Index() {
                 </div>
                 {commodity==='iron' && <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <CIMS vesselData TransitDetails={TransitDetails} />
+                    <CIMS  TransitDetails={TransitDetails} />
                   </div>
                 </div>}
                 <div className="tab-pane fade" id="igm" role="tabpanel">

@@ -4,26 +4,32 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import InspectionDocument from '../InspectionDocument'
 import DateCalender from '../DateCalender'
+import _get from "lodash/get";
+import { useDispatch, useSelector } from 'react-redux'
+import { UpdateTransitDetails, GetTransitDetails } from '../../redux/TransitDetails/action'
 
-export default function Index({isShipmentTypeBULK, TransitDetails,orderId}) {
+
+export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
+  const Dispatch = useDispatch()
   let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk'
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
-  const [bolList, setBolList] = useState([shipmentTypeBulk ? initialStateForBulk : initialStateForLiner])
+  const [igmList, setIgmList] = useState([])
+
 
 
   const partShipmentAllowed = _get(TransitDetails, "data[0].order.vessel.partShipmentAllowed", false)
 
 
-  const onBolAdd = () => {
-    if (shipmentTypeBulk) {
-      setBolList([...bolList, initialStateForBulk])
-    } else {
-      setBolList([...bolList, initialStateForLiner])
-    }
-  }
+  // const onigmAdd = () => {
+  //   if (shipmentTypeBulk) {
+  //     setIgmList([...igmList, initialStateForBulk])
+  //   } else {
+  //     setIgmList([...igmList, initialStateForLiner])
+  //   }
+  // }
 
-  
+
   const onChangeVessel = (e, index) => {
     let VesselName = e.target.value
     let filteredVessel = {}
@@ -48,17 +54,17 @@ export default function Index({isShipmentTypeBULK, TransitDetails,orderId}) {
 
     }
     console.log(filteredVessel, 'filteredVessel')
-    const newArray = [...bolList]
+    const newArray = [...igmList]
     newArray[index].vesselName = filteredVessel.vesselInformation[0].name
     newArray[index].imoNumber = filteredVessel.vesselInformation[0].IMONumber
     newArray[index].etaAtDischargePortFrom = filteredVessel.transitDetails.EDTatLoadPort
     newArray[index].etaAtDischargePortTo = filteredVessel.transitDetails.ETAatDischargePort
 
-    setBolList(newArray)
+    setIgmList(newArray)
   }
 
   const saveData = () => {
-    console.log(bolList, 'filteredVessel')
+    console.log(igmList, 'filteredVessel')
   }
 
   return (
@@ -76,8 +82,9 @@ export default function Index({isShipmentTypeBULK, TransitDetails,orderId}) {
                       inline
                       label="Bulk"
                       name="group1"
+                      disabled={!isShipmentTypeBULK}
                       type={type}
-                      onChange={(e) => setShipmentType(true)}
+                      checked={isShipmentTypeBULK}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -85,8 +92,9 @@ export default function Index({isShipmentTypeBULK, TransitDetails,orderId}) {
                       inline
                       label="Liner"
                       name="group1"
+                      disabled={isShipmentTypeBULK}
                       type={type}
-                      onChange={(e) => setShipmentType(false)}
+                      checked={!isShipmentTypeBULK}
                       id={`inline-${type}-2`}
                     />
                   </div>
@@ -539,7 +547,7 @@ export default function Index({isShipmentTypeBULK, TransitDetails,orderId}) {
             </div>
           </div>
           <div className="mt-4 mb-5">
-            <InspectionDocument orderId={orderId} />
+            <InspectionDocument module='Loading-Transit-Unloading' orderId={orderId} />
           </div>
         </div>
         <SaveBar rightBtn="Submit" />

@@ -6,51 +6,61 @@ import { useState } from 'react'
 import DateCalender from '../DateCalender'
 import _get from "lodash/get";
 import { initial } from 'lodash'
+import { useDispatch, useSelector } from 'react-redux'
+import { UpdateTransitDetails, GetTransitDetails } from '../../redux/TransitDetails/action'
+import { useEffect } from 'react'
 
-const initialStateForLiner = {
-  vesselName: '',
-  imoNumber: '',
-  blDate: '',
-  blQuantity: '',
-  blQuantityUnit: '',
-  etaAtDischargePortFrom: '',
-  etaAtDischargePortTo: '',
-  blSurrenderDate: '',
-  documentName: '',
-  blSurrenderDoc: '',
-  document1: null,
-  document2: null,
-  containerDetails: {
-    numberOfContainers: '',
-    freeDetentionPeriod: '',
-    blSurrenderDate: ''
-  }
-}
-const initialStateForBulk = {
-  vesselName: '',
-  imoNumber: '',
-  blDate: '',
-  blQuantity: '',
-  blQuantityUnit: '',
-  etaAtDischargePortFrom: '',
-  etaAtDischargePortTo: '',
-  blSurrenderDate: '',
-  documentName: '',
-  blSurrenderDoc: '',
-  document1: null,
-  document2: null,
- 
-}
+
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }) {
+  let transId = _get(TransitDetails, `data[0]`, '')
+  const initialStateForLiner = {
+    vesselName: '',
+    imoNumber: '',
+    blDate: '',
+    blQuantity: '',
+    blQuantityUnit: '',
+    etaAtDischargePortFrom: '',
+    etaAtDischargePortTo: '',
+    blSurrenderDate: '',
+    documentName: '',
+    blSurrenderDoc: '',
+    document1: null,
+    document2: null,
+    containerDetails: {
+      numberOfContainers: '',
+      freeDetentionPeriod: '',
+      blSurrenderDate: ''
+    }
+  }
+  const initialStateForBulk = {
+    vesselName: '',
+    imoNumber: '',
+    blDate: '',
+    blQuantity: '',
+    blQuantityUnit: '',
+    etaAtDischargePortFrom: '',
+    etaAtDischargePortTo: '',
+    blSurrenderDate: '',
+    documentName: '',
+    blSurrenderDoc: '',
+    document1: null,
+    document2: null,
+  }
+  const Dispatch = useDispatch()
   let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk'
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
   const [bolList, setBolList] = useState([shipmentTypeBulk ? initialStateForBulk : initialStateForLiner])
 
 
-  const partShipmentAllowed = _get(TransitDetails, "data[0].order.vessel.partShipmentAllowed", false)
+  useEffect(() => {
+    setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+  }, [TransitDetails])
 
+
+  const partShipmentAllowed = _get(TransitDetails, "data[0].order.vessel.partShipmentAllowed", false)
+  console.log(TransitDetails, 'bolList')
 
   const onBolAdd = () => {
     if (shipmentTypeBulk) {
@@ -78,7 +88,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
       _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
         if (vessel.vesselInformation[0].name === VesselName) {
           filteredVessel = vessel
-
         }
       })
     } else {
@@ -102,7 +111,45 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
     setBolList(newArray)
   }
 
+  const onChangeBol = (e, index) => {
+    const name = e.target.id
+    const value = e.target.value
+    setBolList(prevState => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return {
+            ...obj,
+            [name]: value
+          }
+        }
+        return obj;
+      });
+      return newState;
+    })
+  }
+
+  const saveDate = (startDate, name, index) => {
+    console.log(startDate, name, 'Event1')
+    setList(prevState => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return {
+            ...obj,
+            [name]: startDate
+          }
+        }
+        return obj;
+      });
+      return newState;
+    })
+  }
+
   const saveData = () => {
+    // const billOfLanding = [...bolList]
+    let fd = new FormData()
+    fd.append('billOfLanding', JSON.stringify(bolList))
+    fd.append('transitId', transId._id)
+    Dispatch(UpdateTransitDetails(fd))
     console.log(bolList, 'filteredVessel')
   }
   console.log(TransitDetails, 'TransitDetails')
@@ -241,6 +288,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
+                            onChange={(e) => onChangeBol(e, index)}
+                            id='blNumber'
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
@@ -255,7 +304,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender defaultDate={bol.blDate ? bol.blDate : new Date()} labelName="BL Date" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <DateCalender name='' defaultDate={bol.blDate ? bol.blDate : new Date()} index={index} labelName="BL Date" dateFormat={"dd-MM-yyyy"} saveDate={saveDate} />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -267,6 +316,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
+                            onChange={(e) => onChangeBol(e, index)}
+                            id='blQuantity'
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
@@ -285,7 +336,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender  labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
@@ -298,7 +349,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender  labelName="To" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <DateCalender labelName="To" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
