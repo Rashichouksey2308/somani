@@ -10,7 +10,7 @@ import {
 } from 'redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Index = ({ orderId, module }) => {
+const Index = ({ orderId, uploadDocument1, module }) => {
   const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
   const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState('LeadOnboarding&OrderApproval')
@@ -130,7 +130,12 @@ const Index = ({ orderId, module }) => {
                     </td>
                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                     <td colSpan={2}>
-                      <button className={styles.updateBtn}>Upload</button>
+                    <input type="file" onChange={(e)=>uploadDocument1(e)} name="myfile" />
+                                  <button
+                                     className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button>
                     </td>
                   </tr>
                 </tbody>

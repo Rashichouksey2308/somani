@@ -384,7 +384,7 @@ export default function Index() {
             </div>
 
             <div className="mt-4">
-              <UploadOther />
+              <UploadOther orderid={hedgingData?.order} />
             </div>
           </div>
         </div>

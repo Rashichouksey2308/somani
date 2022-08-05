@@ -7,9 +7,14 @@ import { useState } from 'react'
 import DateCalender from '../DateCalender'
 import Modal from 'react-bootstrap/Modal'
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { UpdateInspection } from 'redux/Inspections/action'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
 export default function Index({ addButton, inspectionData }) {
+
+  const dispatch = useDispatch()
+
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
   const [portType, setPortType] = useState({
@@ -23,7 +28,7 @@ export default function Index({ addButton, inspectionData }) {
     setPortType(newInput)
   }
 
-  console.log(portType, 'This is Load')
+  // console.log(portType, 'This is Load')
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
       setEditInput(false)
@@ -33,17 +38,26 @@ export default function Index({ addButton, inspectionData }) {
   }
   const [show, setShow] = useState(false)
 
-  useEffect(() => {}, [])
+  // useEffect(() => {}, [])
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
   const [inspectionDetails, setInspectionDetails] = useState({
-    noOfContainers: '',
-    inspectionPort: '',
-    inspectedBy: '',
-    inspectionDate: '',
-    specialMention: '',
+    loadPortInspectionDetails: {
+      noOfContainers: '',
+      inspectionPort: '',
+      inspectedBy: '',
+      inspectionDate: '',
+      specialMention: '',
+    },
+    dischargePortInspectionDetails: {
+      noOfContainers: '',
+      inspectionPort: '',
+      inspectedBy: '',
+      inspectionDate: '',
+      specialMention: '',
+    },
   })
 
   const [documents, setDocuments] = useState({
@@ -73,16 +87,34 @@ export default function Index({ addButton, inspectionData }) {
   }
 
   const saveInspectionDetails = (name, value) => {
-    let newInput = { ...inspectionDetails }
-    newInput[name] = value
-    setInspectionDetails(newInput)
+    const newInput = { ...inspectionDetails }
+    const namesplit = name.split('.')
+    namesplit.length > 1
+      ? (newInput[namesplit[0]][namesplit[1]] = value)
+      : (newInput[name] = value)
+      setInspectionDetails(newInput)
   }
 
   const saveDate = (value, name) => {
-    console.log(value, name, 'save date')
-    const d = new Date(value)
+    // console.log(value, name, 'save date')
+    const namesplit = name.split('.')
+    // namesplit.length > 1
+    //   ? (newInput[namesplit[0]][namesplit[1]] = value)
+    //   : (newInput[name] = value)
+    // const d = new Date(value)
     let text = d.toISOString()
-    saveInspectionDetails(name, text)
+    saveInspectionDetails(namesplit, text)
+  }
+
+  const handleSave = () => {
+    let fd = new FormData()
+    fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+    fd.append('inspectionId', inspectionData?._id)
+    fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+    fd.append('certificateOfQuality', documents.certificateOfQuality)
+    fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+    dispatch(UpdateInspection(fd))
   }
 
   return (
@@ -239,7 +271,7 @@ export default function Index({ addButton, inspectionData }) {
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
-                      name="noOfContainers"
+                      name="loadPortInspectionDetails.noOfContainers"
                       onChange={(e) =>
                         saveInspectionDetails(e.target.name, e.target.value)
                       }
@@ -258,7 +290,7 @@ export default function Index({ addButton, inspectionData }) {
                       className={`${styles.input_field} input form-control`}
                       required
                       type="text"
-                      name="inspectionPort"
+                      name="loadPortInspectionDetails.inspectionPort"
                       onChange={(e) =>
                         saveInspectionDetails(e.target.name, e.target.value)
                       }
@@ -278,7 +310,7 @@ export default function Index({ addButton, inspectionData }) {
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
-                    name="inspectedBy"
+                    name="loadPortInspectionDetails.inspectedBy"
                     onChange={(e) =>
                       saveInspectionDetails(e.target.name, e.target.value)
                     }
@@ -292,7 +324,7 @@ export default function Index({ addButton, inspectionData }) {
                   <div className="d-flex">
                     <DateCalender
                       saveDate={saveDate}
-                      name="saveDate"
+                      name="loadPortInspectionDetails.inspectionDate"
                       labelName="Inspection Date"
                       dateFormat={`dd-MM-yyyy`}
                     />
@@ -313,7 +345,7 @@ export default function Index({ addButton, inspectionData }) {
                   <div className="mt-4">
                     <input
                       as="textarea"
-                      name="specialMention"
+                      name="loadPortInspectionDetails.specialMention"
                       onChange={(e) =>
                         saveInspectionDetails(e.target.name, e.target.value)
                       }
@@ -333,7 +365,7 @@ export default function Index({ addButton, inspectionData }) {
             </div>
           </div>
           {portType.load == 'Load' && portType.discharge == 'Discharge'
-            ? Discharge()
+            ? Discharge(inspectionData, saveInspectionDetails, saveDate)
             : ''}
 
           <div className={`${styles.main} card border-color`}>
@@ -435,6 +467,20 @@ export default function Index({ addButton, inspectionData }) {
                                 </div>
                               </div>
                             </td>
+                            <td>
+                              <div className={styles.uploadBtnWrapper}>
+                                <input
+                                  type="file"
+                                  onChange={(e) => uploadDocument1(e)}
+                                  name="myfile"
+                                />
+                                {/* <button
+                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button> */}
+                              </div>
+                            </td>
                           </tr>
                           <tr className="table_row">
                             <td className={styles.doc_name}>
@@ -481,6 +527,20 @@ export default function Index({ addButton, inspectionData }) {
                                     Another action
                                   </a>
                                 </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div className={styles.uploadBtnWrapper}>
+                                <input
+                                  type="file"
+                                  onChange={(e) => uploadDocument2(e)}
+                                  name="myfile"
+                                />
+                                {/* <button
+                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button> */}
                               </div>
                             </td>
                           </tr>
@@ -530,6 +590,20 @@ export default function Index({ addButton, inspectionData }) {
                                     Another action
                                   </a>
                                 </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div className={styles.uploadBtnWrapper}>
+                                <input
+                                  type="file"
+                                  onChange={(e) => uploadDocument3(e)}
+                                  name="myfile"
+                                />
+                                {/* <button
+                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button> */}
                               </div>
                             </td>
                           </tr>
@@ -754,7 +828,7 @@ export default function Index({ addButton, inspectionData }) {
             </div>
           </div>
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" />
       </div>
       <Modal
         show={show}
@@ -836,7 +910,7 @@ export default function Index({ addButton, inspectionData }) {
   )
 }
 
-const Discharge = () => {
+const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
   return (
     <div className={`${styles.main} card border-color`}>
       <div
@@ -861,17 +935,24 @@ const Discharge = () => {
         <h5 className={styles.sub_heading}>Inspection at Discharge Port</h5>
 
         <div className="row">
-          <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-            <input
-              className={`${styles.input_field} input form-control`}
-              required
-              type="number"
-            />
-            <label className={`${styles.label_heading} label_heading`}>
-              No of Containers
-              <strong className="text-danger">*</strong>
-            </label>
-          </div>
+          {inspectionData?.order?.shipmentDetail?.shipmentType === 'Liner' ? (
+            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <input
+                className={`${styles.input_field} input form-control`}
+                required
+                name="dischargePortInspectionDetails.noOfContainers"
+                onChange={(e) =>
+                  saveInspectionDetails(e.target.name, e.target.value)
+                }
+                type="number"
+              />
+              <label className={`${styles.label_heading} label_heading`}>
+                No of Containers<strong className="text-danger">*</strong>
+              </label>
+            </div>
+          ) : (
+            ''
+          )}
 
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>
             <div className="d-flex">
@@ -879,6 +960,10 @@ const Discharge = () => {
                 className={`${styles.input_field} input form-control`}
                 required
                 type="text"
+                name="dischargePortInspectionDetails.inspectionPort"
+                onChange={(e) =>
+                  saveInspectionDetails(e.target.name, e.target.value)
+                }
               />
               <label className={`${styles.label_heading} label_heading`}>
                 Inspection Port
@@ -896,6 +981,10 @@ const Discharge = () => {
               className={`${styles.input_field} input form-control`}
               required
               type="text"
+              name="dischargePortInspectionDetails.inspectedBy"
+              onChange={(e) =>
+                saveInspectionDetails(e.target.name, e.target.value)
+              }
             />
             <label className={`${styles.label_heading} label_heading`}>
               Inspected By<strong className="text-danger">*</strong>
@@ -904,6 +993,8 @@ const Discharge = () => {
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>
             <div className="d-flex">
               <DateCalender
+                name="dischargePortInspectionDetails.inspectionDate"
+                saveDate={saveDate}
                 labelName="Inspection Date"
                 dateFormat={`dd-MM-yyyy`}
               />
@@ -925,6 +1016,10 @@ const Discharge = () => {
               <input
                 as="textarea"
                 rows={3}
+                name="dischargePortInspectionDetails.specialMention"
+                onChange={(e) =>
+                  saveInspectionDetails(e.target.name, e.target.value)
+                }
                 required
                 className={`${styles.comment_field} ${styles.input_field} input form-control`}
                 // style={{ backgroundColor: 'none' }}
