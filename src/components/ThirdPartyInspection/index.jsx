@@ -8,7 +8,7 @@ import DateCalender from '../DateCalender'
 import Modal from 'react-bootstrap/Modal'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
-export default function Index({addButton}) {
+export default function Index({addButton, inspectionData}) {
   const [editInput, setEditInput] = useState(true)
   const [linerField, setLinerField] = useState('Liner')
 
@@ -23,6 +23,54 @@ export default function Index({addButton}) {
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  const [inspectionDetails, setInspectionDetails] = useState({
+    noOfContainers: '',
+    inspectionPort: '',
+    inspectedBy: '',
+    inspectionDate: '',
+    specialMention: ''
+  })
+
+  const [documents, setDocuments] = useState({
+    certificateOfQuality: null,
+    certificateOfWeight: null,
+    certificateOfOrigin: null
+  })
+
+  const uploadDocument1 = (e) => {
+    const newUploadDoc = { ...documents }
+    newUploadDoc.certificateOfQuality = e.target.files[0]
+
+    setDocuments(newUploadDoc)
+  }
+  const uploadDocument2 = (e) => {
+    const newUploadDoc1 = { ...documents }
+    newUploadDoc1.certificateOfWeight = e.target.files[0]
+
+    setDocuments(newUploadDoc1)
+  }
+
+  const uploadDocument3 = (e) => {
+    const newUploadDoc1 = { ...documents }
+    newUploadDoc1.certificateOfOrigin = e.target.files[0]
+
+    setDocuments(newUploadDoc1)
+  }
+
+  const saveInspectionDetails = (name, value) => {
+    let newInput = {...inspectionDetails}
+    newInput[name] = value
+    setInspectionDetails(newInput)
+  }
+
+  const saveDate = (value, name) => {
+    console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveInspectionDetails(name, text)
+  }
+
 
   return (
     <>
@@ -41,7 +89,7 @@ export default function Index({addButton}) {
                     Shipment Type:
                   </label>
                   <div className={`${styles.dropDown} input`} value="Bulk">
-                    Bulk
+                    {inspectionData?.order?.shipmentDetail?.shipmentType}
                   </div>
                 </div>
 
@@ -74,6 +122,7 @@ export default function Index({addButton}) {
                     className={styles.radio}
                     inline
                     label="Load Port"
+                    
                     name="group1"
                     type={type}
                     id={`inline-${type}-1`}
@@ -97,24 +146,24 @@ export default function Index({addButton}) {
                   <div className={`${styles.label} text`}>
                     Commodity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>Iron</span>
+                  <span className={styles.value}>{inspectionData?.order?.commodity}</span>
                 </div>
                 <div className="col-md-3 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>500 Mt</span>
+                  <span className={styles.value}>{inspectionData?.order?.quantity} Mt</span>
                 </div>
                 <div className="col-md-3 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Country of Origin{' '}
                     <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>India</span>
+                  <span className={styles.value}>{inspectionData?.order?.countryOfOrigin}</span>
                 </div>
                 <div className="col-md-3 col-sm-6">
                   <div className={`${styles.label} text`}>Vessel Name</div>
-                  <span className={styles.value}>Text</span>
+                  <span className={styles.value}>{inspectionData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.name}</span>
                 </div>
               </div>
             </div>
@@ -141,11 +190,13 @@ export default function Index({addButton}) {
             <div className={`${styles.dashboard_form} card-body`}>
               <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
               <div className="row">
-                {linerField === 'Liner' ? (
+                {inspectionData?.order?.shipmentDetail?.shipmentType === 'Liner' ? (
                   <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
+                      name='noOfContainers'
+                      onChange={(e)=>saveInspectionDetails(e.target.name, e.target.value)}
                       type="number"
                     />
                     <label className={`${styles.label_heading} label_heading`}>
@@ -161,6 +212,8 @@ export default function Index({addButton}) {
                       className={`${styles.input_field} input form-control`}
                       required
                       type="text"
+                      name='inspectionPort'
+                      onChange={(e)=> saveInspectionDetails(e.target.name, e.target.value)}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Inspection Port<strong className="text-danger">*</strong>
@@ -176,6 +229,8 @@ export default function Index({addButton}) {
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
+                    name='inspectedBy'
+                    onChange={(e)=>saveInspectionDetails(e.target.name, e.target.value)}
                     type="text"
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -185,6 +240,8 @@ export default function Index({addButton}) {
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
                     <DateCalender
+                    saveDate={saveDate}
+                    name='saveDate'
                       labelName="Inspection Date"
                       dateFormat={`dd-MM-yyyy`}
                     />
@@ -205,6 +262,8 @@ export default function Index({addButton}) {
                   <div className="mt-4">
                     <input
                       as="textarea"
+                      name='specialMention'
+                      onChange={(e)=>saveInspectionDetails(e.target.name, e.target.value)}
                       rows={3}
                       required
                       className={`${styles.comment_field} ${styles.input_field} input form-control`}
