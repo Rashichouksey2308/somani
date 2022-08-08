@@ -1,8 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 
-const index = () => {
+const Index = ({ finalCal, marginData }) => {
+  const [revisedMarginmoney, setRevisedMarginMoney] = useState({
+    isActive: true,
+
+    calculation: {
+      additionalAmountPerPDC: '',
+      revisedNetOrderValue: '',
+      marginMoney: '',
+      revisedMarginMoney: '',
+      marginMoneyReceived: '',
+      marginMoneyPayable: '',
+    },
+
+    invoiceDetail: {
+      buyerName: '',
+      buyerGSTIN: '',
+      buyerAddress: '',
+      isConsigneeSameAsBuyer: false,
+      consigneeName: '',
+      consigneeGSTIN: '',
+      consigneeAddress: '',
+
+      importerName: '',
+      branchOffice: '',
+      companyAddress: '',
+      importerGSTIN: '',
+      bankName: '',
+      branch: '',
+      branchAddress: '',
+      IFSCcode: '',
+      accountNo: '',
+    },
+  })
   return (
     <>
       <div className={`${styles.card}  accordionMargin card`}>
@@ -998,4 +1030,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index
