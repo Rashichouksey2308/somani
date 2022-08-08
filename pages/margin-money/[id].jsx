@@ -968,7 +968,7 @@ function Index() {
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
                                 >
-                                  TGross Order Value (INR){' '}
+                                  Gross Order Value (INR){' '}
                                   <strong className="text-danger">*</strong>
                                   <span className={`${styles.blue}`}>
                                     {`(K+L+M)`}
