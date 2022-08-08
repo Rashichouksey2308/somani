@@ -6,11 +6,12 @@ import Router from 'next/router'
 import Filter from '../../src/components/Filter'
 import { useDispatch } from 'react-redux'
 import {GetAllCustomClearance} from  '../../src/redux/CustomClearance&Warehousing/action'
-import { useSelector } from 'react-redux'
-import {_get} from 'lodash/get'
+import _get from 'lodash/get'
+
 
 function Index() {
-  const  dispatch = useDispatch()
+
+  const dispatch = useDispatch()
 
   const routeChange = (insured) => {
     sessionStorage.setItem('customId', insured._id)

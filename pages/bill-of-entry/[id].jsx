@@ -41,7 +41,7 @@ function Index() {
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
-              <span>Ramakrishna Traders - Ramal001-00002</span>
+              <span>{customData?.company?.companyName} - Ramal001-00002</span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>

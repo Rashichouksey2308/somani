@@ -13,7 +13,8 @@ function Index({handleSave, rightBtn, rightBtnClick }) {
       <div
         className={`${styles.approve} ml-3`}
         onClick={() => {
-          rightBtnClick()
+          // rightBtnClick()
+          handleSave()
         }}
       >
         <span>{rightBtn}</span>
