@@ -2,11 +2,34 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
-import InspectionDocument from '../InspectionDocument'
+import UploadOther from '../UploadOther'
 import DateCalender from '../DateCalender'
 
 export default function Index() {
   const [saveContactTable, setContactTable] = useState(false)
+
+  const handleDeleteRow = (index) => {
+    setList([...list.slice(0, index), ...list.slice(index + 1)])
+  }
+  const [list, setList] = useState([
+    {
+      sNo: '',
+      duty: '',
+      amount: '',
+      action: '',
+    },
+  ])
+  const onAddClick = () => {
+    setList([
+      ...list,
+      {
+        sNo: '',
+        duty: '',
+        amount: '',
+        action: '',
+      },
+    ])
+  }
 
   return (
     <>
@@ -133,6 +156,7 @@ export default function Index() {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     BOE Number<strong className="text-danger">*</strong>
@@ -256,6 +280,7 @@ export default function Index() {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Conversion Rate<strong className="text-danger">*</strong>
@@ -267,6 +292,7 @@ export default function Index() {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -278,6 +304,7 @@ export default function Index() {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice No.<strong className="text-danger">*</strong>
@@ -289,6 +316,7 @@ export default function Index() {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Value<strong className="text-danger">*</strong>
@@ -312,6 +340,7 @@ export default function Index() {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     BOE Rate<strong className="text-danger">*</strong>
@@ -373,7 +402,7 @@ export default function Index() {
                         <tr className="table_row">
                           <td className={styles.doc_name}>1</td>
                           <td>BCD</td>
-                          <td className={styles.doc_row}>24,000</td>
+                          <td>24,000</td>
                           <td className="text-right">
                             <div>
                               {!saveContactTable ? (
@@ -397,43 +426,61 @@ export default function Index() {
                               <img
                                 src="/static/delete 2.svg"
                                 className="img-fluid"
+                                style={{ cursor: 'pointer' }}
                                 alt="delete"
+                                onClick={() => handleDeleteRow(index)}
                               />
                             </div>
                           </td>
                         </tr>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>1</td>
-                          <td>BCD</td>
-                          <td className={styles.doc_row}>24,000</td>
-                          <td className="text-right">
-                            <div>
-                              {!saveContactTable ? (
-                                <img
-                                  src="/static/mode_edit.svg"
-                                  className={`${styles.edit_image} mr-3 img-fluid`}
-                                  onClick={(e) => {
-                                    setContactTable(true)
-                                  }}
+
+                        {list.length > 0 &&
+                          list.map((val, index) => (
+                            <tr key={index} className="table_row">
+                              <td className={styles.doc_name}>2</td>
+                              <td>
+                                <select className={`${styles.dutyDropdown}`}>
+                                  <option>BCD</option>
+                                  <option>IGST</option>
+                                </select>
+                              </td>
+                              <td>
+                                <input
+                                  className={`${styles.dutyDropdown}`}
+                                  placeholder="2000"
                                 />
-                              ) : (
-                                <img
-                                  src="/static/save-3.svg"
-                                  className={`${styles.edit_image} mr-3 img-fluid`}
-                                  alt="save"
-                                  onClick={(e) => {
-                                    setContactTable(false)
-                                  }}
-                                />
-                              )}
-                              <img
-                                src="/static/delete 2.svg"
-                                className="img-fluid"
-                                alt="delete"
-                              />
-                            </div>
-                          </td>
-                        </tr>
+                              </td>
+                              <td className="text-right">
+                                <div>
+                                  {!saveContactTable ? (
+                                    <img
+                                      src="/static/mode_edit.svg"
+                                      className={`${styles.edit_image} mr-3 img-fluid`}
+                                      onClick={(e) => {
+                                        setContactTable(true)
+                                      }}
+                                    />
+                                  ) : (
+                                    <img
+                                      src="/static/save-3.svg"
+                                      className={`${styles.edit_image} mr-3 img-fluid`}
+                                      alt="save"
+                                      onClick={(e) => {
+                                        setContactTable(false)
+                                      }}
+                                    />
+                                  )}
+                                  <img
+                                    src="/static/delete 2.svg"
+                                    className="img-fluid"
+                                    style={{ cursor: 'pointer' }}
+                                    alt="delete"
+                                    onClick={() => handleDeleteRow(index)}
+                                  />
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                     <hr></hr>
@@ -449,7 +496,12 @@ export default function Index() {
                           4,000
                         </div>
                       </div>
-                      <div className={`${styles.add_row} mr-3 mt-n2 d-flex `}>
+                      <div
+                        className={`${styles.add_row} mr-3 mt-n2 d-flex `}
+                        onClick={(e) => {
+                          onAddClick()
+                        }}
+                      >
                         <span>+</span>
                         <div>Add More Rows</div>
                       </div>
@@ -580,7 +632,51 @@ export default function Index() {
                   <tbody>
                     <tr className="table_row">
                       <td className={styles.doc_name}>
-                        BL Acknowledgement Copy
+                        BOE Provisional
+                        <strong className="text-danger ml-0">*</strong>
+                      </td>
+                      <td>
+                        <img
+                          src="/static/pdf.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        />
+                      </td>
+                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                      <td>
+                        <div className={styles.uploadBtnWrapper}>
+                          <input type="file" name="myfile" />
+                          <button className={`${styles.upload_btn} btn`}>
+                            Upload
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr className="table_row">
+                      <td className={styles.doc_name}>
+                        Duty Paid Challan
+                        <strong className="text-danger ml-0">*</strong>
+                      </td>
+                      <td>
+                        <img
+                          src="/static/pdf.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        />
+                      </td>
+                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                      <td>
+                        <div className={styles.uploadBtnWrapper}>
+                          <input type="file" name="myfile" />
+                          <button className={`${styles.upload_btn} btn`}>
+                            Upload
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr className="table_row">
+                      <td className={styles.doc_name}>
+                        PD Bond
                         <strong className="text-danger ml-0">*</strong>
                       </td>
                       <td>
@@ -606,7 +702,7 @@ export default function Index() {
             </div>
           </div>
           <div className="mt-4 mb-5">
-            <InspectionDocument />
+            <UploadOther />
           </div>
         </div>
         <SaveBar rightBtn="Submit" />
