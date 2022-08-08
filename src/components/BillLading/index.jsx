@@ -19,8 +19,8 @@ import UploadOther from '../UploadOther'
 export default function Index({
   isShipmentTypeBULK,
   TransitDetails,
-  vesselData,
   orderid,
+  docUploadFunction,
 }) {
   let transId = _get(TransitDetails, `data[0]`, '')
   const initialStateForLiner = {
@@ -32,8 +32,8 @@ export default function Index({
     etaAtDischargePortFrom: null,
     etaAtDischargePortTo: null,
     blSurrenderDate: null,
-    documentName: '',
-    blSurrenderDoc: '',
+    documentName: null,
+    blSurrenderDoc: null,
     document1: null,
     document2: null,
     containerDetails: {
@@ -51,8 +51,8 @@ export default function Index({
     etaAtDischargePortFrom: '',
     etaAtDischargePortTo: '',
     blSurrenderDate: '',
-    documentName: '',
-    blSurrenderDoc: '',
+    documentName: null,
+    blSurrenderDoc: null,
     document1: null,
     document2: null,
   }
@@ -60,11 +60,17 @@ export default function Index({
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
     'Bulk'
+  const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
+  const initalState =
+    !existingBlData.length === 0
+      ? [...existingBlData]
+      : shipmentTypeBulk
+      ? initialStateForBulk
+      : initialStateForLiner
+
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
-  const [bolList, setBolList] = useState([
-    shipmentTypeBulk ? initialStateForBulk : initialStateForLiner,
-  ])
+  const [bolList, setBolList] = useState([initalState])
   const [startBlDate, setBlDate] = useState(null)
   const [startetaAtDischargePortTo, setetaAtDischargePortTo] = useState(null)
   const [startblSurrenderDate, setblSurrenderDate] = useState(null)
@@ -72,6 +78,7 @@ export default function Index({
     useState(null)
 
   const [lastDate, setlastDate] = useState(new Date())
+  console.log(bolList, existingBlData, 'existingBlData')
 
   useEffect(() => {
     setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
@@ -396,7 +403,7 @@ export default function Index({
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
-                              defaultDate=""
+                              defaultDate={bol.blDate}
                               selected={startBlDate}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -446,7 +453,7 @@ export default function Index({
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
-                              defaultDate=""
+                              defaultDate={bol.etaAtDischargePortFrom}
                               name="ETAatDischargePort"
                               selected={startetaAtDischargePortFrom}
                               dateFormat="dd-MM-yyyy"

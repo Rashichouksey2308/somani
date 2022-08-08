@@ -17,7 +17,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 
 export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
-  const Dispatch = useDispatch()
+  let transId = _get(TransitDetails, `data[0]`, '')
+  const dispatch = useDispatch()
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
     'Bulk'
@@ -160,7 +161,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
     }
   }
 
-  const handleSave = () => {}
+  const handleSave = () => {
+    const igmDetails = igmList
+    let fd = new FormData()
+    fd.append('igm', JSON.stringify(igmDetails))
+    fd.append('transitId', transId._id)
+    dispatch(UpdateTransitDetails(fd))
+  }
 
   return (
     <>
