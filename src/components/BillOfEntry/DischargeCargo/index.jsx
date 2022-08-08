@@ -1,11 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
 import UploadOther from '../../UploadOther'
 import DateCalender from '../../DateCalender'
 
-export default function Index() {
+export default function Index({ OrderId, customData }) {
+  console.log(customData, 'customData')
+  const [dischargeOfCargo, setDischargeOfCargo] = useState({
+    dischargeOfCargo: {
+      vesselName: '',
+      portOfDischarge: '',
+      dischargeQuantity: '',
+      dischargeQuantityUnit: '',
+      vesselArrivaldate: null,
+      dischargeStartDate: null,
+      dischargeEndDate: null
+    },
+    document1: null,
+    document2: null
+  })
+
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -30,8 +46,8 @@ export default function Index() {
                     <select
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option value="India">India</option>
-                      <option value="America">America</option>
+
+                      <option value="America">jkh</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -203,7 +219,7 @@ export default function Index() {
             </div>
           </div>
           <div className="mt-4 mb-5">
-            <UploadOther />
+            <UploadOther orderid={OrderId} module='customClearanceAndWarehousing' />
           </div>
         </div>
         <SaveBar rightBtn="Submit" />

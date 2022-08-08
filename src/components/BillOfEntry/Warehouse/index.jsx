@@ -6,7 +6,7 @@ import { useState } from 'react'
 import DateCalender from '../../DateCalender'
 import UploadOther from '../../UploadOther'
 
-export default function Index() {
+export default function Index({ OrderId, customData }) {
   const [editInput, setEditInput] = useState(true)
 
   const handleDropdown = (e) => {
@@ -108,7 +108,7 @@ export default function Index() {
           </div>
 
           <div className="mt-4 mb-5">
-            <UploadOther />
+            <UploadOther orderid={OrderId} module='customClearanceAndWarehousing' />
           </div>
 
         </div>

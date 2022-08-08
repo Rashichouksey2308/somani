@@ -9,7 +9,7 @@ import Warehouse from '../../src/components/BillOfEntry/Warehouse'
 import { useDispatch } from 'react-redux'
 import { GetAllCustomClearance } from '../../src/redux/CustomClearance&Warehousing/action'
 import { useSelector } from 'react-redux'
-import  _get  from 'lodash/get'
+import _get from 'lodash/get'
 
 function Index() {
 
@@ -25,6 +25,7 @@ function Index() {
   const { allCustomClearance } = useSelector((state) => state.Custom)
 
   let customData = _get(allCustomClearance, 'data[0]', {})
+  let OrderId = _get(customData, 'order._id', {})
 
   return (
     <>
@@ -34,8 +35,8 @@ function Index() {
             <h1 className={`${styles.title} heading`}>
               <img
                 src={`${darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
                   }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
@@ -93,7 +94,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <BillOfEntry customData={customData} />
+                    <BillOfEntry OrderId={OrderId} customData={customData} />
                   </div>
                 </div>
 
@@ -103,13 +104,13 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <DischargeCargo customData={customData} />
+                    <DischargeCargo OrderId={OrderId} customData={customData} />
                   </div>
                 </div>
 
                 <div className="tab-pane fade" id="warehouse" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <Warehouse customData={customData} />
+                    <Warehouse OrderId={OrderId} customData={customData} />
                   </div>
                 </div>
               </div>
