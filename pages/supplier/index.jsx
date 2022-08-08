@@ -15,6 +15,103 @@ function Index() {
   const [saveShareTable, setSaveTable] = useState(false)
   const [saveContactTable, setContactTable] = useState(false)
   const [saveDirectorTable, setDirectorTable] = useState(false)
+  const [saveCommodityTable, setCommodityTable] = useState(false)
+
+  const handleDelete = (index) => {
+    setListShare([...listShare.slice(0, index), ...listShare.slice(index + 1)])
+  }
+  const handleDeleteContact = (index) => {
+    setListContact([
+      ...listContact.slice(0, index),
+      ...listContact.slice(index + 1),
+    ])
+  }
+  const handleDeleteDirector = (index) => {
+    setListDirector([
+      ...listDirector.slice(0, index),
+      ...listDirector.slice(index + 1),
+    ])
+  }
+  const handleCommodity = (index) => {
+    setListCommodity([
+      ...listCommodity.slice(0, index),
+      ...listCommodity.slice(index + 1),
+    ])
+  }
+  const [listCommodity, setListCommodity] = useState([
+    {
+      name: '',
+      designation: '',
+      contactNo: '',
+      emailID: '',
+    },
+  ])
+  const onAddCommodity = () => {
+    setListCommodity([
+      ...listCommodity,
+      {
+        hsnCode: '',
+        commodity: '',
+      },
+    ])
+  }
+  const [listContact, setListContact] = useState([
+    {
+      name: '',
+      designation: '',
+      contactNo: '',
+      emailID: '',
+    },
+  ])
+  const onAddContact = () => {
+    setListContact([
+      ...listContact,
+      {
+        name: '',
+        designation: '',
+        contactNo: '',
+        emailID: '',
+      },
+    ])
+  }
+  const [listShare, setListShare] = useState([
+    {
+      name: '',
+      designation: '',
+      contactNo: '',
+      emailID: '',
+    },
+  ])
+  const onAddShare = () => {
+    setListShare([
+      ...listShare,
+      {
+        name: '',
+        designation: '',
+        contactNo: '',
+        emailID: '',
+      },
+    ])
+  }
+  const [listDirector, setListDirector] = useState([
+    {
+      name: '',
+      designation: '',
+      contactNo: '',
+      emailID: '',
+    },
+  ])
+  const onAddDirector = () => {
+    setListDirector([
+      ...listDirector,
+      {
+        name: '',
+        designation: '',
+        contactNo: '',
+        emailID: '',
+      },
+    ])
+  }
 
   const [darkMode, setDarkMode] = useState(false)
   const dispatch = useDispatch()
@@ -113,6 +210,7 @@ function Index() {
                       <div className="d-flex">
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          required
                         >
                           <option value="India">Private Limited</option>
                           <option value="America">ABC</option>
@@ -370,7 +468,7 @@ function Index() {
                               type="tel"
                               id="textNumber"
                               name="primary"
-                              className={`${styles.input_field} mt-n3 input form-control border-left-0`}
+                              className={`${styles.input_field}  input form-control border-left-0`}
                               required
                             />
                             <label
@@ -401,7 +499,7 @@ function Index() {
                               type="tel"
                               id="textNumber"
                               name="primary"
-                              className={`${styles.input_field} mt-n3 input form-control border-left-0`}
+                              className={`${styles.input_field} input form-control border-left-0`}
                               required
                             />
                             <label
@@ -498,88 +596,87 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        <tr className="table_credit">
-                          <td>
-                            <input
-                              className="input font-weight-bold"
-                              name="name"
-                              type="text"
-                              readOnly={!saveContactTable}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="input"
-                              name="designation"
-                              type="text"
-                              readOnly={!saveContactTable}
-                            />
-                          </td>
+                        {listContact.length > 0 &&
+                          listContact.map((val, index) => (
+                            <tr key={index} className="table_credit">
+                              <td>
+                                <input
+                                  className="input font-weight-bold"
+                                  name="name"
+                                  type="text"
+                                  readOnly={!saveContactTable}
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  className="input"
+                                  name="designation"
+                                  type="text"
+                                  readOnly={!saveContactTable}
+                                />
+                              </td>
 
-                          <td>
-                            <input
-                              className="input"
-                              name="contact.number"
-                              type="number"
-                              readOnly={!saveContactTable}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="input"
-                              name="email"
-                              type="text"
-                              readOnly={!saveContactTable}
-                            />
-                          </td>
-                          <td className="text-right">
-                            <div>
-                              {!saveContactTable ? (
-                                <>
-                                  <img
-                                    src="/static/mode_edit.svg"
-                                    className={`${styles.edit_image} mr-3 img-fluid`}
-                                    alt="edit"
-                                    onClick={(e) => {
-                                      setContactTable(true)
-                                    }}
-                                  />
+                              <td>
+                                <input
+                                  className="input"
+                                  name="contact.number"
+                                  type="number"
+                                  readOnly={!saveContactTable}
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  className="input"
+                                  name="email"
+                                  type="text"
+                                  readOnly={!saveContactTable}
+                                />
+                              </td>
+                              <td className="text-right">
+                                <div>
+                                  {!saveContactTable ? (
+                                    <>
+                                      <img
+                                        src="/static/mode_edit.svg"
+                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        alt="edit"
+                                        onClick={(e) => {
+                                          setContactTable(true)
+                                        }}
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                      <img
+                                        src="/static/save-3.svg"
+                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        alt="save"
+                                        onClick={(e) => {
+                                          setContactTable(false)
+                                        }}
+                                      />
+                                    </>
+                                  )}
+
                                   <img
                                     src="/static/delete 2.svg"
                                     className="img-fluid"
                                     alt="delete"
+                                    onClick={() => handleDeleteContact(index)}
                                   />
-                                </>
-                              ) : (
-                                <>
-                                  <img
-                                    src="/static/save-3.svg"
-                                    className={`${styles.edit_image} mr-3 img-fluid`}
-                                    alt="save"
-                                    onClick={(e) => {
-                                      setContactTable(false)
-                                    }}
-                                  />
-
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid"
-                                    alt="delete"
-                                  />
-                                </>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
-                  // onClick={(e) => {
-                  //   onKeyPersonSave(keyPersonData)
-                  // }}
+                  onClick={(e) => {
+                    onAddContact()
+                  }}
                 >
                   <span>+</span>
                   <div>Add More Rows</div>
@@ -624,81 +721,81 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        <tr className="table_credit">
-                          <td>
-                            <input
-                              className="input font-weight-bold"
-                              name="name"
-                              type="text"
-                              readOnly={!saveShareTable}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="input"
-                              name="designation"
-                              type="text"
-                              readOnly={!saveShareTable}
-                            />
-                          </td>
+                        {listShare.length > 0 &&
+                          listShare.map((val, index) => {
+                            return (
+                              <tr key={index} className="table_credit">
+                                <td>
+                                  <input
+                                    className="input font-weight-bold"
+                                    name="name"
+                                    type="text"
+                                    readOnly={!saveShareTable}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    className="input"
+                                    name="designation"
+                                    type="text"
+                                    readOnly={!saveShareTable}
+                                  />
+                                </td>
 
-                          <td>
-                            <input
-                              className="input"
-                              name="contact.number"
-                              type="number"
-                              readOnly={!saveShareTable}
-                            />
-                          </td>
+                                <td>
+                                  <input
+                                    className="input"
+                                    name="contact.number"
+                                    type="number"
+                                    readOnly={!saveShareTable}
+                                  />
+                                </td>
 
-                          <td className="text-right">
-                            <div>
-                              {!saveShareTable ? (
-                                <>
-                                  <img
-                                    src="/static/mode_edit.svg"
-                                    className={`${styles.edit_image} mr-3 img-fluid`}
-                                    alt="edit"
-                                    onClick={(e) => {
-                                      setSaveTable(true)
-                                    }}
-                                  />
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid"
-                                    alt="delete"
-                                  />
-                                </>
-                              ) : (
-                                <>
-                                  <img
-                                    src="/static/save-3.svg"
-                                    className={`${styles.edit_image} mr-3 img-fluid`}
-                                    alt="save"
-                                    onClick={(e) => {
-                                      setSaveTable(false)
-                                    }}
-                                  />
-
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid"
-                                    alt="delete"
-                                  />
-                                </>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
+                                <td className="text-right">
+                                  <div>
+                                    {!saveShareTable ? (
+                                      <>
+                                        <img
+                                          src="/static/mode_edit.svg"
+                                          className={`${styles.edit_image} mr-3 img-fluid`}
+                                          alt="edit"
+                                          onClick={(e) => {
+                                            setSaveTable(true)
+                                          }}
+                                        />
+                                      </>
+                                    ) : (
+                                      <>
+                                        <img
+                                          src="/static/save-3.svg"
+                                          className={`${styles.edit_image} mr-3 img-fluid`}
+                                          alt="save"
+                                          onClick={(e) => {
+                                            setSaveTable(false)
+                                          }}
+                                        />
+                                      </>
+                                    )}
+                                    <img
+                                      src="/static/delete 2.svg"
+                                      className="img-fluid"
+                                      alt="delete"
+                                      onClick={() => handleDelete(index)}
+                                    />
+                                  </div>
+                                </td>
+                              </tr>
+                            )
+                          })}
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
-                  // onClick={(e) => {
-                  //   onKeyPersonSave(keyPersonData)
-                  // }}
+                  onClick={(e) => {
+                    onAddShare()
+                  }}
                 >
                   <span>+</span>
                   <div>Add More Rows</div>
@@ -753,80 +850,78 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        <tr className="table_credit">
-                          <td>
-                            <input
-                              className="input font-weight-bold"
-                              name="name"
-                              type="text"
-                              readOnly={!saveDirectorTable}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="input"
-                              name="designation"
-                              type="text"
-                              readOnly={!saveDirectorTable}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              name="primaryBank"
-                              className={`${styles.checkBox}`}
-                              type="checkbox"
-                              readOnly={!saveDirectorTable}
-                            />
-                          </td>
+                        {listDirector.length > 0 &&
+                          listDirector.map((val, index) => (
+                            <tr key={index} className="table_credit">
+                              <td>
+                                <input
+                                  className="input font-weight-bold"
+                                  name="name"
+                                  type="text"
+                                  readOnly={!saveDirectorTable}
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  className="input"
+                                  name="designation"
+                                  type="text"
+                                  readOnly={!saveDirectorTable}
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  name="primaryBank"
+                                  className={`${styles.checkBox}`}
+                                  type="checkbox"
+                                  readOnly={!saveDirectorTable}
+                                />
+                              </td>
 
-                          <td className="text-right">
-                            <div>
-                              {!saveDirectorTable ? (
-                                <>
-                                  <img
-                                    src="/static/mode_edit.svg"
-                                    className={`${styles.edit_image} mr-3 img-fluid`}
-                                    alt="edit"
-                                    onClick={(e) => {
-                                      setDirectorTable(true)
-                                    }}
-                                  />
+                              <td className="text-right">
+                                <div>
+                                  {!saveDirectorTable ? (
+                                    <>
+                                      <img
+                                        src="/static/mode_edit.svg"
+                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        alt="edit"
+                                        onClick={(e) => {
+                                          setDirectorTable(true)
+                                        }}
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                      <img
+                                        src="/static/save-3.svg"
+                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        alt="save"
+                                        onClick={(e) => {
+                                          setDirectorTable(false)
+                                        }}
+                                      />
+                                    </>
+                                  )}
                                   <img
                                     src="/static/delete 2.svg"
                                     className="img-fluid"
                                     alt="delete"
+                                    onClick={() => handleDeleteDirector(index)}
                                   />
-                                </>
-                              ) : (
-                                <>
-                                  <img
-                                    src="/static/save-3.svg"
-                                    className={`${styles.edit_image} mr-3 img-fluid`}
-                                    alt="save"
-                                    onClick={(e) => {
-                                      setDirectorTable(false)
-                                    }}
-                                  />
-
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid"
-                                    alt="delete"
-                                  />
-                                </>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
-                  // onClick={(e) => {
-                  //   onKeyPersonSave(keyPersonData)
-                  // }}
+                  onClick={(e) => {
+                    onAddDirector()
+                  }}
                 >
                   <span>+</span>
                   <div>Add More Rows</div>
@@ -881,7 +976,7 @@ function Index() {
                     as="textarea"
                     rows={3}
                     placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
-                    className={`${styles.comment_field} form-control`}
+                    className={`${styles.comment_field} mr-n5 form-control`}
                   />
                   <label className={`${styles.label_textarea} text`}>
                     Business Summary
@@ -937,52 +1032,71 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        <tr className="table_credit">
-                          <td>
-                            <input
-                              className="input font-weight-bold"
-                              name="name"
-                              type="text"
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="input"
-                              name="designation"
-                              type="text"
-                            />
-                          </td>
+                        {listCommodity.length > 0 &&
+                          listCommodity.map((val, index) => (
+                            <tr key={index} className="table_credit">
+                              <td>
+                                <input
+                                  className="input font-weight-bold"
+                                  name="name"
+                                  type="text"
+                                  readOnly={!saveCommodityTable}
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  className="input"
+                                  name="designation"
+                                  type="text"
+                                  readOnly={!saveCommodityTable}
+                                />
+                              </td>
 
-                          <td className="text-right">
-                            <div>
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                              />
+                              <td className="text-right">
+                                <div>
+                                  {!saveCommodityTable ? (
+                                    <>
+                                      <img
+                                        src="/static/mode_edit.svg"
+                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        alt="edit"
+                                        onClick={(e) => {
+                                          setCommodityTable(true)
+                                        }}
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                      <img
+                                        src="/static/save-3.svg"
+                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        alt="save"
+                                        onClick={(e) => {
+                                          setCommodityTable(false)
+                                        }}
+                                      />
+                                    </>
+                                  )}
 
-                              <img
-                                src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                                alt="save"
-                              />
-
-                              <img
-                                src="/static/delete 2.svg"
-                                className="img-fluid"
-                                alt="delete"
-                              />
-                            </div>
-                          </td>
-                        </tr>
+                                  <img
+                                    src="/static/delete 2.svg"
+                                    className="img-fluid"
+                                    alt="delete"
+                                    onClick={() => handleCommodity(index)}
+                                  />
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
-                  // onClick={(e) => {
-                  //   onKeyPersonSave(keyPersonData)
-                  // }}
+                  onClick={(e) => {
+                    onAddCommodity()
+                  }}
                 >
                   <span>+</span>
                   <div>Add More Rows</div>

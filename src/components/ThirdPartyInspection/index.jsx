@@ -6,12 +6,29 @@ import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
 import Modal from 'react-bootstrap/Modal'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { UpdateInspection } from 'redux/Inspections/action'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
-export default function Index({addButton}) {
-  const [editInput, setEditInput] = useState(true)
-  const [linerField, setLinerField] = useState('Liner')
+export default function Index({ addButton, inspectionData }) {
 
+  const dispatch = useDispatch()
+
+  const [editInput, setEditInput] = useState(true)
+  const [bothField, setBothField] = useState(false)
+  const [portType, setPortType] = useState({
+    load: '',
+    discharge: '',
+  })
+
+  const handlePortType = (name, value) => {
+    let newInput = { ...portType }
+    newInput[name] = value
+    setPortType(newInput)
+  }
+
+  // console.log(portType, 'This is Load')
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
       setEditInput(false)
@@ -21,8 +38,84 @@ export default function Index({addButton}) {
   }
   const [show, setShow] = useState(false)
 
+  // useEffect(() => {}, [])
+
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  const [inspectionDetails, setInspectionDetails] = useState({
+    loadPortInspectionDetails: {
+      noOfContainers: '',
+      inspectionPort: '',
+      inspectedBy: '',
+      inspectionDate: '',
+      specialMention: '',
+    },
+    dischargePortInspectionDetails: {
+      noOfContainers: '',
+      inspectionPort: '',
+      inspectedBy: '',
+      inspectionDate: '',
+      specialMention: '',
+    },
+  })
+
+  const [documents, setDocuments] = useState({
+    certificateOfQuality: null,
+    certificateOfWeight: null,
+    certificateOfOrigin: null,
+  })
+
+  const uploadDocument1 = (e) => {
+    const newUploadDoc = { ...documents }
+    newUploadDoc.certificateOfQuality = e.target.files[0]
+
+    setDocuments(newUploadDoc)
+  }
+  const uploadDocument2 = (e) => {
+    const newUploadDoc1 = { ...documents }
+    newUploadDoc1.certificateOfWeight = e.target.files[0]
+
+    setDocuments(newUploadDoc1)
+  }
+
+  const uploadDocument3 = (e) => {
+    const newUploadDoc1 = { ...documents }
+    newUploadDoc1.certificateOfOrigin = e.target.files[0]
+
+    setDocuments(newUploadDoc1)
+  }
+
+  const saveInspectionDetails = (name, value) => {
+    const newInput = { ...inspectionDetails }
+    const namesplit = name.split('.')
+    namesplit.length > 1
+      ? (newInput[namesplit[0]][namesplit[1]] = value)
+      : (newInput[name] = value)
+      setInspectionDetails(newInput)
+  }
+
+  const saveDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const namesplit = name.split('.')
+    // namesplit.length > 1
+    //   ? (newInput[namesplit[0]][namesplit[1]] = value)
+    //   : (newInput[name] = value)
+    // const d = new Date(value)
+    let text = d.toISOString()
+    saveInspectionDetails(namesplit, text)
+  }
+
+  const handleSave = () => {
+    let fd = new FormData()
+    fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+    fd.append('inspectionId', inspectionData?._id)
+    fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+    fd.append('certificateOfQuality', documents.certificateOfQuality)
+    fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+    dispatch(UpdateInspection(fd))
+  }
 
   return (
     <>
@@ -41,7 +134,7 @@ export default function Index({addButton}) {
                     Shipment Type:
                   </label>
                   <div className={`${styles.dropDown} input`} value="Bulk">
-                    Bulk
+                    {inspectionData?.order?.shipmentDetail?.shipmentType}
                   </div>
                 </div>
 
@@ -63,7 +156,7 @@ export default function Index({addButton}) {
                   </label>
                   <div className={`${styles.dropDown} input`}>Yes</div>
 
-                  <button  className={styles.add_btn}>Add</button>
+                  <button className={styles.add_btn}>Add</button>
                 </div>
               </div>
             </div>
@@ -74,15 +167,26 @@ export default function Index({addButton}) {
                     className={styles.radio}
                     inline
                     label="Load Port"
-                    name="group1"
+                    value="Load"
+                    name="load"
                     type={type}
+                    onChange={(e) => {
+                      handlePortType(e.target.name, e.target.value)
+
+                      // setBothField(!bothField)
+                    }}
                     id={`inline-${type}-1`}
                   />
                   <Form.Check
                     className={styles.radio}
                     inline
                     label="Discharge Port"
-                    name="group1"
+                    name="discharge"
+                    value="Discharge"
+                    onChange={(e) => {
+                      handlePortType(e.target.name, e.target.value)
+                      // setBothField(!bothField)
+                    }}
                     type={type}
                     id={`inline-${type}-2`}
                   />
@@ -97,24 +201,35 @@ export default function Index({addButton}) {
                   <div className={`${styles.label} text`}>
                     Commodity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>Iron</span>
+                  <span className={styles.value}>
+                    {inspectionData?.order?.commodity}
+                  </span>
                 </div>
                 <div className="col-md-3 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>500 Mt</span>
+                  <span className={styles.value}>
+                    {inspectionData?.order?.quantity} Mt
+                  </span>
                 </div>
                 <div className="col-md-3 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Country of Origin{' '}
                     <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>India</span>
+                  <span className={styles.value}>
+                    {inspectionData?.order?.countryOfOrigin}
+                  </span>
                 </div>
                 <div className="col-md-3 col-sm-6">
                   <div className={`${styles.label} text`}>Vessel Name</div>
-                  <span className={styles.value}>Text</span>
+                  <span className={styles.value}>
+                    {
+                      inspectionData?.order?.vessel?.vessels[0]
+                        ?.vesselInformation[0]?.name
+                    }
+                  </span>
                 </div>
               </div>
             </div>
@@ -139,13 +254,27 @@ export default function Index({addButton}) {
               </button>
             </div>
             <div className={`${styles.dashboard_form} card-body`}>
-              <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
+              {portType.load == 'Load' ? (
+                <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
+              ) : portType.load == 'Discharge' ? (
+                <h5 className={styles.sub_heading}>
+                  Inspection at Discharge Port
+                </h5>
+              ) : (
+                <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
+              )}
+
               <div className="row">
-                {linerField === 'Liner' ? (
+                {inspectionData?.order?.shipmentDetail?.shipmentType ===
+                'Liner' ? (
                   <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                     <input
                       className={`${styles.input_field} input form-control`}
                       required
+                      name="loadPortInspectionDetails.noOfContainers"
+                      onChange={(e) =>
+                        saveInspectionDetails(e.target.name, e.target.value)
+                      }
                       type="number"
                     />
                     <label className={`${styles.label_heading} label_heading`}>
@@ -161,9 +290,14 @@ export default function Index({addButton}) {
                       className={`${styles.input_field} input form-control`}
                       required
                       type="text"
+                      name="loadPortInspectionDetails.inspectionPort"
+                      onChange={(e) =>
+                        saveInspectionDetails(e.target.name, e.target.value)
+                      }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Inspection Port<strong className="text-danger">*</strong>
+                      Inspection Port
+                      <strong className="text-danger">*</strong>
                     </label>
                     <img
                       className={`${styles.search_image} img-fluid`}
@@ -176,6 +310,10 @@ export default function Index({addButton}) {
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
+                    name="loadPortInspectionDetails.inspectedBy"
+                    onChange={(e) =>
+                      saveInspectionDetails(e.target.name, e.target.value)
+                    }
                     type="text"
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -185,6 +323,8 @@ export default function Index({addButton}) {
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
                     <DateCalender
+                      saveDate={saveDate}
+                      name="loadPortInspectionDetails.inspectionDate"
                       labelName="Inspection Date"
                       dateFormat={`dd-MM-yyyy`}
                     />
@@ -205,6 +345,10 @@ export default function Index({addButton}) {
                   <div className="mt-4">
                     <input
                       as="textarea"
+                      name="loadPortInspectionDetails.specialMention"
+                      onChange={(e) =>
+                        saveInspectionDetails(e.target.name, e.target.value)
+                      }
                       rows={3}
                       required
                       className={`${styles.comment_field} ${styles.input_field} input form-control`}
@@ -220,6 +364,9 @@ export default function Index({addButton}) {
               </Row>
             </div>
           </div>
+          {portType.load == 'Load' && portType.discharge == 'Discharge'
+            ? Discharge(inspectionData, saveInspectionDetails, saveDate)
+            : ''}
 
           <div className={`${styles.main} card border-color`}>
             <div
@@ -320,6 +467,20 @@ export default function Index({addButton}) {
                                 </div>
                               </div>
                             </td>
+                            <td>
+                              <div className={styles.uploadBtnWrapper}>
+                                <input
+                                  type="file"
+                                  onChange={(e) => uploadDocument1(e)}
+                                  name="myfile"
+                                />
+                                {/* <button
+                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button> */}
+                              </div>
+                            </td>
                           </tr>
                           <tr className="table_row">
                             <td className={styles.doc_name}>
@@ -366,6 +527,20 @@ export default function Index({addButton}) {
                                     Another action
                                   </a>
                                 </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div className={styles.uploadBtnWrapper}>
+                                <input
+                                  type="file"
+                                  onChange={(e) => uploadDocument2(e)}
+                                  name="myfile"
+                                />
+                                {/* <button
+                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button> */}
                               </div>
                             </td>
                           </tr>
@@ -415,6 +590,20 @@ export default function Index({addButton}) {
                                     Another action
                                   </a>
                                 </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div className={styles.uploadBtnWrapper}>
+                                <input
+                                  type="file"
+                                  onChange={(e) => uploadDocument3(e)}
+                                  name="myfile"
+                                />
+                                {/* <button
+                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button> */}
                               </div>
                             </td>
                           </tr>
@@ -495,6 +684,7 @@ export default function Index({addButton}) {
                               className={`${styles.value} input form-control`}
                               type="text"
                               disabled={editInput}
+                              required
                             />
                           </Form.Group>
 
@@ -638,7 +828,7 @@ export default function Index({addButton}) {
             </div>
           </div>
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" />
       </div>
       <Modal
         show={show}
@@ -717,5 +907,132 @@ export default function Index({addButton}) {
         </Modal.Body>
       </Modal>
     </>
+  )
+}
+
+const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
+  return (
+    <div className={`${styles.main} card border-color`}>
+      <div
+        className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
+      >
+        <h3 className={`${styles.heading}`}>Inspection Details</h3>
+        <button
+          // onClick={handleShow}
+          className={styles.product_btn}
+          type="button"
+        >
+          {' '}
+          Product Specification
+          <img
+            className="img-fluid ml-2"
+            src="/static/blue-eye.svg"
+            alt="blue-eye"
+          />
+        </button>
+      </div>
+      <div className={`${styles.dashboard_form} card-body`}>
+        <h5 className={styles.sub_heading}>Inspection at Discharge Port</h5>
+
+        <div className="row">
+          {inspectionData?.order?.shipmentDetail?.shipmentType === 'Liner' ? (
+            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <input
+                className={`${styles.input_field} input form-control`}
+                required
+                name="dischargePortInspectionDetails.noOfContainers"
+                onChange={(e) =>
+                  saveInspectionDetails(e.target.name, e.target.value)
+                }
+                type="number"
+              />
+              <label className={`${styles.label_heading} label_heading`}>
+                No of Containers<strong className="text-danger">*</strong>
+              </label>
+            </div>
+          ) : (
+            ''
+          )}
+
+          <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+            <div className="d-flex">
+              <input
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="dischargePortInspectionDetails.inspectionPort"
+                onChange={(e) =>
+                  saveInspectionDetails(e.target.name, e.target.value)
+                }
+              />
+              <label className={`${styles.label_heading} label_heading`}>
+                Inspection Port
+                <strong className="text-danger">*</strong>
+              </label>
+              <img
+                className={`${styles.search_image} img-fluid`}
+                src="/static/search-grey.svg"
+                alt="Search"
+              />
+            </div>
+          </div>
+          <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+            <input
+              className={`${styles.input_field} input form-control`}
+              required
+              type="text"
+              name="dischargePortInspectionDetails.inspectedBy"
+              onChange={(e) =>
+                saveInspectionDetails(e.target.name, e.target.value)
+              }
+            />
+            <label className={`${styles.label_heading} label_heading`}>
+              Inspected By<strong className="text-danger">*</strong>
+            </label>
+          </div>
+          <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+            <div className="d-flex">
+              <DateCalender
+                name="dischargePortInspectionDetails.inspectionDate"
+                saveDate={saveDate}
+                labelName="Inspection Date"
+                dateFormat={`dd-MM-yyyy`}
+              />
+              <img
+                className={`${styles.calanderIcon} img-fluid`}
+                src="/static/caldericon.svg"
+                alt="Search"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr></hr>
+      <div className={`${styles.dashboard_form} mb-3 card-body`}>
+        <h5 className={styles.sub_heading}>Special Mention</h5>
+        <Row>
+          <Col lg={12}>
+            <div className="mt-4">
+              <input
+                as="textarea"
+                rows={3}
+                name="dischargePortInspectionDetails.specialMention"
+                onChange={(e) =>
+                  saveInspectionDetails(e.target.name, e.target.value)
+                }
+                required
+                className={`${styles.comment_field} ${styles.input_field} input form-control`}
+                // style={{ backgroundColor: 'none' }}
+              />
+              <label
+                className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
+              >
+                Special Mention
+              </label>
+            </div>
+          </Col>
+        </Row>
+      </div>
+    </div>
   )
 }

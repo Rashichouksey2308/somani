@@ -204,7 +204,7 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(deleteDocumentsSuccess(response.data.data))
-        let toastMessage = 'Document Successfully Added'
+        let toastMessage = 'Document Successfully DELETED'
         if (!toast.isActive(toastMessage)) {
           toast.error(toastMessage, { toastId: toastMessage })
         }

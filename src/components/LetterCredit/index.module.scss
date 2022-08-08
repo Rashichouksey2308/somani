@@ -163,7 +163,14 @@
                 line-height: 27px;
                 margin: 0;
                 color: #3687E8;
-            }        
+            }
+            &.buyerName {
+              color: #3687e8;
+              opacity: 1 !important;
+              font-weight: bold;
+              text-transform: capitalize;
+              cursor: pointer;
+            }    
         }
         .table_scroll_outer {
             width: 100%;
