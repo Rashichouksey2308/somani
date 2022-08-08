@@ -67,7 +67,6 @@ export default {
   deleteDocument: '/api/core/order/order-document',
 
   //Update Cam Sheet
-
   updateCam: '/api/core/order/cam',
 
   //generic
@@ -83,9 +82,9 @@ export default {
   // Insurance
 
   getInsurance: '/api/core/insurance',
+  updateQuotation: '/api/core/insurance/quotation',
 
   // Inspection
-
   getInspection: '/api/core/inspection',
   updateInspection: '/api/core/inspection',
 
@@ -98,5 +97,8 @@ export default {
   getForwardHedging: '/api/core/forward-hedging',
   updateForwardHedging: '/api/core/forward-hedging',
 
-  updateQuotation: '/api/core/insurance/quotation',
+  //Custom Clearance
+  customClearance : '/api/core/custom-clearance'
+
+  
 }
