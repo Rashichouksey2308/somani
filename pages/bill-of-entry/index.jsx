@@ -4,11 +4,20 @@ import styles from './index.module.scss'
 import BillOfEntryTableMain from '../../src/components/BillOfEntryTableMain'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
+import { useDispatch } from 'react-redux'
+import {GetAllCustomClearance} from  '../../src/redux/CustomClearance&Warehousing/action'
+import { useSelector } from 'react-redux'
+import {_get} from 'lodash/get'
 
 function Index() {
-  const routeChange = () => {
+
+  const routeChange = (insured) => {
+    sessionStorage.setItem('customId', insured._id)
+    dispatch(GetAllCustomClearance(`?customClearanceId=${insured._id}`))
     Router.push('/bill-of-entry/id')
   }
+  
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
