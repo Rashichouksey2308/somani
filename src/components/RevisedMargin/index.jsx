@@ -618,7 +618,10 @@ const index = () => {
         </div>
       </div>
 
-      <div className={`${styles.card}  accordionMargin card`}>
+      <div
+        className={`${styles.card} accordionMargin card`}
+        style={{ marginBottom: '150px' }}
+      >
         <div
           className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
           data-toggle="collapse"
