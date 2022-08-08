@@ -25,9 +25,19 @@ const[financeData,setFinanceData]=useState(finance)
       
        
        setFinanceData(finance)
+    }else{
+       let finance={
+        "name": props.data?.name,
+        "brachName": props.data?.branch,
+        
+        
+       }
+      
+       
+       setFinanceData(finance)
     }
    }
-  },[])
+  },[props])
   useEffect(() => {
     if(props.saveData==true && props.active=="Finance"){
        let data={

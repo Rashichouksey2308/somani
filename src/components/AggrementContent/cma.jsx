@@ -42,7 +42,12 @@ function Index(props) {
     let tempArr2 = cmaState.addresses
     setAddressList(tempArr2)
   }, [])
-
+ let masterList=[
+  {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
+   {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
+    {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
+     {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+ ]
   useEffect(() => {
     if (window) {
       console.log(sessionStorage.getItem("Cma"), ".getItem")
@@ -60,6 +65,20 @@ function Index(props) {
         }
         setList(savedData.authorisedSignatoryDetails)
         setAddressList(savedData.addresses)
+        setCmaState(cma)
+      }else{
+         let cma = {
+          "name": props.data?.name,
+          "shortName": props.data?.shortName,
+          "gstin": props.data?.gstin,
+
+          "addresses": props.data?.addresses,
+          "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails,
+
+
+        }
+        setList(props.data?.authorisedSignatoryDetails)
+        setAddressList(props.data?.addresses)
         setCmaState(cma)
       }
     }
@@ -145,15 +164,36 @@ function Index(props) {
 
   }
 
-  const handleChangeInput = (name, value, index) => {
+ const handleChangeInput=(name,value,index)=>{
+   let arrayToSave={
+     name:"",designation:"",email:"",phoneNo:"",
+      actions:"false"
+   }
+   masterList.forEach((val,index)=>{
+    if(val.name==value){
+      arrayToSave.name=val.name
+      arrayToSave.designation=val.designation
+      arrayToSave.email=val.email
+      arrayToSave.phoneNo=val.phoneNo
+    }
+   })
+ 
 
-    let tempArr = list;
-    tempArr.forEach((val, i) => {
-      if (i == index) {
-        val[name] = value
-      }
-    })
-    setList(tempArr)
+    setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return arrayToSave;
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
+    console.log(tempArr,"987")
+    // setList(tempArr)
 
   }
   const handleAddressInput = () => {
@@ -568,11 +608,15 @@ function Index(props) {
                             <tr key={index}>
                               <td>
                                 <select
-                                  value="name" className={`${styles.customSelect}`}
+                                  value={val.name}
+                                  className={`${styles.customSelect}`}
                                   onChange={(e) => {
                                     handleChangeInput(e.target.name, e.target.value, index)
                                   }}>
-                                  <option value={"Dr.amin"}>{"Dr.amin"}</option>
+  <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
+                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
+                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
+                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
                                 </select>
                                 <img
                                   className={`${styles.arrow2} img-fluid`}
@@ -583,21 +627,21 @@ function Index(props) {
                               <td><input type="text"
                                 placeholder={val.designation}
                                 name="designation"
-                                onChange={(e) => {
-                                  handleChangeInput(e.target.name, e.target.value, index)
-                                }}
+                                // onChange={(e) => {
+                                //   handleChangeInput(e.target.name, e.target.value, index)
+                                // }}
                               ></input></td>
                               <td><input type="text" placeholder={val.email}
                                 name="email"
-                                onChange={(e) => {
-                                  handleChangeInput(e.target.name, e.target.value, index)
-                                }}
+                                // onChange={(e) => {
+                                //   handleChangeInput(e.target.name, e.target.value, index)
+                                // }}
                               ></input></td>
                               <td><input type="text" placeholder={val.phoneNo}
                                 name="phoneNo"
-                                onChange={(e) => {
-                                  handleChangeInput(e.target.name, e.target.value, index)
-                                }}
+                                // onChange={(e) => {
+                                //   handleChangeInput(e.target.name, e.target.value, index)
+                                // }}
                               ></input></td>
                               <td className={`d-flex`}>
                                 <img className={`${styles.image} img-fluid mr-3`} onClick={() => (onEditRemove(index))} src="/static/mode_edit.svg" alt="edit" />

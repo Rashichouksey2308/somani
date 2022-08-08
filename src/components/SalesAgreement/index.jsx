@@ -66,12 +66,21 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+         data={props.genericData.supplier}
         />
       )
     }
     if(active=="Associate Buyer"){
       return(
-        <AssociateBuyer/>
+        <AssociateBuyer
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+        active={active}
+         data={props.genericData.supplier}
+        
+        />
       )
     }
     if(active=="Seller"){
@@ -169,6 +178,7 @@ function Index(props) {
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
+         active={active}
          data={props.genericData.supplier}
         />
       )
@@ -180,6 +190,7 @@ function Index(props) {
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
+         active={active}
          data={props.genericData.supplier}
         
         />
@@ -254,6 +265,7 @@ const onSave=()=>{
   setSubmitData(true)
  }
  const updateData=async(key,data)=>{
+  console.log("this13")
   let dataToSend={}
   if(key=="Supplier"){
    dataToSend={
@@ -282,7 +294,7 @@ const onSave=()=>{
   }
    if(key=="Seller"){
    dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+      genericId:props.genericData?._id,
        seller:{
         "name": data.sellerData.name,
         "shortName": data.sellerData.shortName,
@@ -302,7 +314,7 @@ const onSave=()=>{
   }
   if(key=="Buyer"){
    dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+      genericId:props.genericData?._id,
        seller:{
         "name": data.buyerData.name,
         "branchName": data.buyerData.branchName,
@@ -321,7 +333,7 @@ const onSave=()=>{
   }
   if(key=="Finance"){
    dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+      genericId:props.genericData?._id,
        finance:{
         "name": data.financeData.name,
         "branchName": data.financeData.branchName,
@@ -339,7 +351,7 @@ const onSave=()=>{
   }
   if(key=="Cma"){
     dataToSend={
-        genericId:"62df99e8592ccd0022401c76",
+       genericId:props.genericData?._id,
      cma:{
         "name": data.cmaData.name,
         "shortName": data.cmaData.shortName,
@@ -357,7 +369,7 @@ const onSave=()=>{
   }
    if(key=="Cha"){
        dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+      genericId:props.genericData?._id,
        cha:{
         "name": data.chaState.name,
         "shortName": data.chaState.shortName,
@@ -371,7 +383,7 @@ const onSave=()=>{
   }
   if(key=="Stevedore"){
        dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+       genericId:props.genericData?._id,
        cha:{
         "name": data.chaState.name,
         "shortName": data.chaState.shortName,
@@ -383,9 +395,43 @@ const onSave=()=>{
     }
   }
  }
+  if(key=="Shipping"){
+     console.log("this14")
+       dataToSend={
+       genericId:props.genericData?._id,
+       shipping:{
+        "name":data.shippingData.name,
+       "vesselName":data.shippingData.vesselName,
+       "gstin":data.shippingData.gstin,
+        
+    }
+  }
+ }
+  if(key=="Delivery"){
+     console.log("this14")
+       dataToSend={
+       genericId:props.genericData?._id,
+       delivery:{
+        "deliveryTerms":data.deliveryData.delivery,
+      
+        
+    }
+  }
+ }
+   if(key=="Product"){
+     console.log("this14")
+       dataToSend={
+       genericId:props.genericData?._id,
+       product:{
+        "product":data.product,
+      
+        
+    }
+  }
+ }
 
 
-   
+     console.log("this15")
     await dispatch(updateGenericData(dataToSend))
   let tempArr=sideBar;
     sideBar.forEach((val,index)=>{
