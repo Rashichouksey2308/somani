@@ -785,7 +785,7 @@ function Index({
                               </button>
                             </div>
                             <div className={`${styles.upload_text}`}>
-                              <strong className="text-danger mr-1">*</strong>
+                              <strong className="text-danger ml-n2 mr-1">*</strong>
                               ONLY .XLS FILES ARE ALLOWED
                               <br /> &amp; MAX FILE SIZE UP TO 50MB
                             </div>
