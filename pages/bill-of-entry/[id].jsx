@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './billofentry.module.scss'
 import BillOfEntry from '../../src/components/BillOfEntry'
 import DischargeCargo from '../../src/components/BillOfEntry/DischargeCargo'
@@ -9,7 +9,7 @@ import Warehouse from '../../src/components/BillOfEntry/Warehouse'
 import { useDispatch } from 'react-redux'
 import {GetAllCustomClearance} from  '../../src/redux/CustomClearance&Warehousing/action'
 import { useSelector } from 'react-redux'
-import {_get} from 'lodash/get'
+import _get from 'lodash/get'
 
 function Index() {
 
