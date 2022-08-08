@@ -1,34 +1,165 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import UploadOther from '../UploadOther'
 import DateCalender from '../DateCalender'
+import moment from 'moment'
+import { useDispatch } from 'react-redux'
+import { UpdateCustomClearance } from 'redux/CustomClearance&Warehousing/action'
 
 export default function Index({ customData, OrderId }) {
+
+  const dispatch = useDispatch()
+
   const [saveContactTable, setContactTable] = useState(false)
 
-  const handleDeleteRow = (index) => {
-    setList([...list.slice(0, index), ...list.slice(index + 1)])
-  }
-  const [list, setList] = useState([
-    {
-      sNo: '',
-      duty: '',
-      amount: '',
-      action: '',
+  const [billOfEntryData, setBillOfEntryData] = useState({
+    boeAssessment: '',
+    pdBond: true,
+    billOfEntryFor: '',
+    boeNumber: '',
+    boeDate: '',
+
+    boeDetails: {
+      invoiceQuantity: '',
+      invoiceQuantityUnit: '',
+      currency: '',
+      conversionRate: '',
+      invoiceNumber: '',
+      invoiceValue: '',
+      invoiceValueCurrency: '',
+      invoiceDate: '',
+      boeRate: '',
+      bankName: '',
     },
-  ])
-  const onAddClick = () => {
-    setList([
-      ...list,
+    duty: [{
+      duty: dutyData?.duty,
+      amount: dutyData?.amount
+    }],
+
+    document1: null,
+    document2: null,
+    document3: null,
+  })
+
+  console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
+
+  const saveDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveBillOfEntryData(name, text)
+  }
+  const saveBoeDetaiDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const namesplit = name?.split('.')
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveBillOfEntryData(namesplit, text)
+  }
+
+  const saveBillOfEntryData = (name, value) => {
+    const newInput = { ...billOfEntryData }
+    const namesplit = name.split('.')
+    namesplit.length > 1
+      ? (newInput[namesplit[0]][namesplit[1]] = value)
+      : (newInput[name] = value)
+    setBillOfEntryData(newInput)
+  }
+
+  const [pfCheckBox, setPfCheckBox] = useState(false)
+
+  const handlePfCheckBox = (e) => {
+    setPfCheckBox(e.target.checked)
+    saveBillOfEntryData('pdBond', pfCheckBox)
+  }
+
+  const [dutyData, setDutyData] = useState([])
+
+  // useEffect(() => {
+  //   let dutyDataArr = []
+  //   customData?.duty?.forEach((element) => {
+  //     dutyDataArr.push(element)
+  //   })
+  //   setDutyData(dutyDataArr)
+  // }, [customData])
+
+  const handleDutyChange = (name, value, index) => {
+    // console.log(name,value,index,"name,value")
+    let tempArr = dutyData
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val[name] = value
+      }
+    })
+    // console.log(tempArr,"tempArr")
+    setDutyData(tempArr)
+  }
+
+  const setActions = (index, val) => {
+    setDutyData((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return { ...obj, actions: val }
+        }
+
+        return obj
+      })
+
+      return newState
+    })
+    let newInput = {...billOfEntryData}
+    newInput.duty = dutyData
+    setBillOfEntryData(newInput)
+  }
+
+  const handleDeleteRow = (index) => {
+    setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
+  }
+
+  const addMoredutyDataRows = () => {
+    setDutyData([
+      ...dutyData,
+
       {
         sNo: '',
         duty: '',
         amount: '',
-        action: '',
+        action: false,
       },
     ])
+  }
+
+  // const [list, setList] = useState([
+  //   {
+  //     sNo: '',
+  //     duty: '',
+  //     amount: '',
+  //     action: '',
+  //   },
+  // ])
+
+  // const onAddClick = () => {
+  //   setDutyData([
+  //     ...dutyData,
+  //     {
+  //       sNo: '',
+  //       duty: '',
+  //       amount: '',
+  //       action: '',
+  //     },
+  //   ])
+  // }
+
+  const handleSave = () => {
+    const fd = new FormData()
+    fd.append('customClearanceId', customData?._id)
+    fd.append('billOfEntry', JSON.stringify(billOfEntryData))
+
+    dispatch(UpdateCustomClearance(fd))
   }
 
   return (
@@ -45,6 +176,10 @@ export default function Index({ customData, OrderId }) {
                       className={styles.radio}
                       inline
                       label="Bulk"
+                      checked={
+                        customData?.order?.vessel?.vessels[0]?.shipmentType ==
+                        'Bulk'
+                      }
                       name="group1"
                       type={type}
                       id={`inline-${type}-1`}
@@ -53,6 +188,10 @@ export default function Index({ customData, OrderId }) {
                       className={styles.radio}
                       inline
                       label="Liner"
+                      checked={
+                        customData?.order?.vessel?.vessels[0]?.shipmentType ==
+                        'Liner'
+                      }
                       name="group1"
                       type={type}
                       id={`inline-${type}-2`}
@@ -88,7 +227,13 @@ export default function Index({ customData, OrderId }) {
                           className={styles.radio}
                           inline
                           label="Provisional"
-                          name="group1"
+                          checked={
+                            billOfEntryData.boeAssessment === 'Provisional'
+                          }
+                          onChange={() => {
+                            saveBillOfEntryData('boeAssessment', 'Provisional')
+                          }}
+                          // name="group1"
                           type={type}
                           id={`inline-${type}-1`}
                         />
@@ -96,7 +241,11 @@ export default function Index({ customData, OrderId }) {
                           className={styles.radio}
                           inline
                           label="Final"
-                          name="group1"
+                          checked={billOfEntryData.boeAssessment === 'Final'}
+                          onChange={() => {
+                            saveBillOfEntryData('boeAssessment', 'Final')
+                          }}
+                          // name="group1"
                           type={type}
                           id={`inline-${type}-2`}
                         />
@@ -117,7 +266,11 @@ export default function Index({ customData, OrderId }) {
                       Yes
                     </div>
                     <label className={styles.switch}>
-                      <input type="checkbox" />
+                      <input
+                        defaultChecked={pfCheckBox}
+                        onChange={(e) => handlePfCheckBox(e)}
+                        type="checkbox"
+                      />
                       <span
                         className={`${styles.slider} ${styles.round}`}
                       ></span>
@@ -135,10 +288,17 @@ export default function Index({ customData, OrderId }) {
                 >
                   <div className="d-flex">
                     <select
+                      name="billOfEntryFor"
+                      onChange={(e) =>
+                        saveBillOfEntryData(e.target.name, e.target.value)
+                      }
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option>Into Bond(Warehousing)</option>
-                      <option>Bond</option>
+                      <option selected>Select Bill Of Entry For</option>
+                      <option value="Into Bond(Warehousing)">
+                        Into Bond(Warehousing)
+                      </option>
+                      <option value="Bond">Bond</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Bill of Entry for
@@ -156,7 +316,11 @@ export default function Index({ customData, OrderId }) {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    name="boeNumber"
                     required
+                    onChange={(e) =>
+                      saveBillOfEntryData(e.target.name, e.target.value)
+                    }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     BOE Number<strong className="text-danger">*</strong>
@@ -166,7 +330,11 @@ export default function Index({ customData, OrderId }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="BOE Date" />
+                    <DateCalender
+                      name="boeDate"
+                      saveDate={saveDate}
+                      labelName="BOE Date"
+                    />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -186,7 +354,9 @@ export default function Index({ customData, OrderId }) {
                   <div className={`${styles.label} text`}>
                     Commodity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>Iron</span>
+                  <span className={styles.value}>
+                    {customData?.order?.commodity}
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -194,7 +364,9 @@ export default function Index({ customData, OrderId }) {
                   <div className={`${styles.label} text`}>
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>500 Mt</span>
+                  <span className={styles.value}>
+                    {customData?.order?.quantity} Mt
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -202,7 +374,12 @@ export default function Index({ customData, OrderId }) {
                   <div className={`${styles.label} text`}>
                     Vessel Name <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>Iron</span>
+                  <span className={styles.value}>
+                    {
+                      customData?.order?.vessel?.vessels[0]
+                        ?.vesselInformation[0]?.name
+                    }
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -210,7 +387,12 @@ export default function Index({ customData, OrderId }) {
                   <div className={`${styles.label} text`}>
                     Country of origin<strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>India</span>
+                  <span className={styles.value}>
+                    {
+                      customData?.order?.vessel?.vessels[0]?.transitDetails
+                        ?.countryOfOrigin
+                    }
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -218,7 +400,12 @@ export default function Index({ customData, OrderId }) {
                   <div className={`${styles.label} text`}>
                     Port Of Discharge
                   </div>
-                  <span className={styles.value}>Visakhapatnam</span>
+                  <span className={styles.value}>
+                    {
+                      customData?.order?.vessel?.vessels[0]?.transitDetails
+                        ?.countryOfOrigin
+                    }
+                  </span>
                 </div>
 
                 <div
@@ -243,7 +430,12 @@ export default function Index({ customData, OrderId }) {
                   <div className={`${styles.label} text`}>
                     CIRC Number<strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>COA20210003344</span>
+                  <span className={styles.value}>
+                    {
+                      customData?.order?.transit?.CIMS?.cimsDetails[0]
+                        ?.circNumber
+                    }
+                  </span>
                 </div>
 
                 <div
@@ -252,17 +444,27 @@ export default function Index({ customData, OrderId }) {
                   <div className={`${styles.label} text`}>
                     CIRC Date<strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>22-02-2022</span>
+                  <span className={styles.value}>
+                    {moment(
+                      customData?.order?.transit?.CIMS?.cimsDetails[0]
+                        ?.circNumber,
+                    ).format('dd-mm-yyyy')}
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
                     <select
+                      name="boeDetails.currency"
+                      onChange={(e) =>
+                        saveBillOfEntryData(e.target.name, e.target.value)
+                      }
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option>USD</option>
-                      <option>INR</option>
+                      <option selected>Choose Currency</option>
+                      <option value="USD">USD</option>
+                      <option value="INR">INR</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Currency
@@ -280,7 +482,11 @@ export default function Index({ customData, OrderId }) {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    name="boeDetails.conversionRate"
                     required
+                    onChange={(e) =>
+                      saveBillOfEntryData(e.target.name, e.target.value)
+                    }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Conversion Rate<strong className="text-danger">*</strong>
@@ -292,6 +498,10 @@ export default function Index({ customData, OrderId }) {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    name="boeDetails.invoiceQuantity"
+                    onChange={(e) =>
+                      saveBillOfEntryData(e.target.name, e.target.value)
+                    }
                     required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -304,7 +514,9 @@ export default function Index({ customData, OrderId }) {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    name="boeDetails.invoiceNumber"
                     required
+                    onChange={(e)=>saveBillOfEntryData(e.target.name, e.target.value)}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice No.<strong className="text-danger">*</strong>
@@ -317,6 +529,8 @@ export default function Index({ customData, OrderId }) {
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     required
+                    name='boeDetails.invoiceValue'
+                    onChange={(e)=>saveBillOfEntryData(e.target.name, e.target.value)}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Value<strong className="text-danger">*</strong>
@@ -326,7 +540,7 @@ export default function Index({ customData, OrderId }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Invoice Date" />
+                    <DateCalender name='boeDetails.invoiceDate' saveDate={saveBoeDetaiDate} labelName="Invoice Date" />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -341,6 +555,8 @@ export default function Index({ customData, OrderId }) {
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     required
+                    name='boeDetails.boeRate'
+                    onChange={(e)=>saveBillOfEntryData(e.target.name, e.target.value)}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     BOE Rate<strong className="text-danger">*</strong>
@@ -351,10 +567,11 @@ export default function Index({ customData, OrderId }) {
                 >
                   <div className="d-flex">
                     <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    name='boeDetails.bankName' onChange={(e)=>saveBillOfEntryData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option>Abc Bank</option>
-                      <option>Bank</option>
+                      <option selected>Selcect Bank</option>
+                      <option value='HDFC'>HDFC</option>
+                      <option value='SBI'>SBI</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Bank Name
@@ -399,7 +616,7 @@ export default function Index({ customData, OrderId }) {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr className="table_row">
+                        {/* <tr className="table_row">
                           <td className={styles.doc_name}>1</td>
                           <td>BCD</td>
                           <td>24,000</td>
@@ -409,7 +626,7 @@ export default function Index({ customData, OrderId }) {
                                 <img
                                   src="/static/mode_edit.svg"
                                   className={`${styles.edit_image} mr-3 img-fluid`}
-                                  onClick={(e) => {
+                                  onClick={() => {
                                     setContactTable(true)
                                   }}
                                 />
@@ -432,32 +649,52 @@ export default function Index({ customData, OrderId }) {
                               />
                             </div>
                           </td>
-                        </tr>
+                        </tr> */}
 
-                        {list.length > 0 &&
-                          list.map((val, index) => (
+                        {dutyData.length > 0 &&
+                          dutyData.map((val, index) => (
                             <tr key={index} className="table_row">
                               <td className={styles.doc_name}>2</td>
                               <td>
-                                <select className={`${styles.dutyDropdown}`}>
-                                  <option>BCD</option>
-                                  <option>IGST</option>
+                                <select
+                                  name="duty"
+                                  onChange={(e) =>
+                                    handleDutyChange(
+                                      e.target.name,
+                                      e.target.value,
+                                      index,
+                                    )
+                                  }
+                                  disabled={!val.actions}
+                                  className={`${styles.dutyDropdown}`}
+                                >
+                                  <option>{val.duty}</option>
+                                  <option value="BCD">BCD</option>
+                                  <option value="IGST">IGST</option>
                                 </select>
                               </td>
                               <td>
                                 <input
                                   className={`${styles.dutyDropdown}`}
-                                  placeholder="2000"
+                                  name="amount"
+                                  disabled={!val.actions}
+                                  onChange={(e) =>
+                                    handleDutyChange(
+                                      e.target.name,
+                                      e.target.value,
+                                      index,
+                                    )
+                                  }
                                 />
                               </td>
                               <td className="text-right">
                                 <div>
-                                  {!saveContactTable ? (
+                                  {!val.actions ? (
                                     <img
                                       src="/static/mode_edit.svg"
                                       className={`${styles.edit_image} mr-3 img-fluid`}
-                                      onClick={(e) => {
-                                        setContactTable(true)
+                                      onClick={() => {
+                                        setActions(index, true)
                                       }}
                                     />
                                   ) : (
@@ -466,7 +703,7 @@ export default function Index({ customData, OrderId }) {
                                       className={`${styles.edit_image} mr-3 img-fluid`}
                                       alt="save"
                                       onClick={(e) => {
-                                        setContactTable(false)
+                                        setActions(index, false)
                                       }}
                                     />
                                   )}
@@ -499,7 +736,7 @@ export default function Index({ customData, OrderId }) {
                       <div
                         className={`${styles.add_row} mr-3 mt-n2 d-flex `}
                         onClick={(e) => {
-                          onAddClick()
+                          addMoredutyDataRows()
                         }}
                       >
                         <span>+</span>
@@ -702,10 +939,13 @@ export default function Index({ customData, OrderId }) {
             </div>
           </div>
           <div className="mt-4 mb-5">
-            <UploadOther orderid={OrderId} module='customClearanceAndWarehousing' />
+            <UploadOther
+              orderid={OrderId}
+              module="customClearanceAndWarehousing"
+            />
           </div>
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" />
       </div>
     </>
   )
