@@ -9,6 +9,7 @@
     }
 }
 .filter {
+    min-height: 48px;
     margin-bottom: 15px;
     @include respond(sm-desktop) {
         display: block !important;

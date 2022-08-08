@@ -209,7 +209,7 @@ const Index = ({
                   Quantity :
                 </h5>
                 <select
-                  className={`${styles.options} accordion_DropDown`}
+                  className={`${styles.options} accordion_DropDown input`}
                   name="unitOfQuantity"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
@@ -222,10 +222,10 @@ const Index = ({
                 className={`${styles.unit_container} d-flex align-items-center`}
               >
                 <h5 className={`${styles.unit_label} accordion_Text`}>
-                  Units :
+                  Unit :
                 </h5>
                 <select
-                  className={`${styles.options} accordion_DropDown`}
+                  className={`${styles.options} accordion_DropDown input`}
                   name="unitOfValue"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
@@ -449,22 +449,24 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.each_input} col-md-6 col-lg-4 col-sm-6`}>
-              <div
-                className={`${styles.label_heading} sub_heading d-flex label-heading ml-n3`}
-              >
-                Turn Over (in Crores)<strong className="text-danger">*</strong>
-               
-                  
-               
-              </div>
-               <input className={styles.input_container} 
+              <div className={`${styles.turnover_input} d-flex align-items-center justify-content-start`}>
+                <div
+                  className={`${styles.sub_heading} sub_heading label-heading`}
+                >
+                  Turn Over (in Crores)<strong className="text-danger">*</strong>
+                
+                    
+                
+                </div>
+                <input className={`${styles.input_container} form-control input`} 
                 type="number"
                 value={slider}
                 onChange={(e)=>{
                   setSlider(Number(e.target.value))
-                   getSlider()
+                    getSlider()
                 }}
                 />
+              </div>
                 {
                   getSlider()
                 

@@ -1,18 +1,22 @@
 @import "../styles/Core/config";
 .card {
-    padding: 25px;    
-    min-height: 85.2vh;
-    margin-bottom: 120px;
+    margin: 28px;
+    margin-bottom: 70px;
+    @include respond(sm-desktop) {
+        margin: 20px;
+        margin-bottom: 70px;
+    }
     @include respond(phone) {
-        min-height: auto;
-        margin-bottom: 140px;
-        // height: calc(100vh - 165px);
+        margin: 15px;
+        margin-bottom: 68px;
     }
     .head_container {
+        min-height: 48px;
         display: flex;
         background: none;
         flex-direction: row;
         justify-content: space-between;
+        margin: 0 0 27px;
         @include respond(sm-desktop) {
             margin-top: 15px;
             margin-bottom: -20px;
@@ -25,12 +29,11 @@
             display: flex;
             justify-content: space-around;
             flex-direction: row;
+            margin-left: 10px;
             .arrow {
                 width: 13px;
                 height: 21px;
                 background: transparent;
-                margin-top: 10px;
-                margin-left: 10px;
                 @include respond(md-desktop) {
                     width: 12px;
                     height: 19px;
@@ -38,21 +41,17 @@
                 @include respond(sm-desktop) {
                     width: 10px;
                     height: 17px;
-                    margin-top: 12px;
                 }
                 @include respond(phone) {
-                    margin-top: 12px;
                     width: 9px;
                     height: 14px;
                 }
             }
             .heading {
-                padding-left: 30px;
-                font-weight: bold;
                 font-size: 34px;
-                text-align: left;
-                line-height: 41px;         
-                //   text-transform: capitalize;
+                font-weight: bold;
+                line-height: 41px;
+                padding-left: 18px;
                 margin: 0;
                 @include respond(md-desktop) {
                     font-size: 30px;
@@ -91,9 +90,10 @@
         }
     }  
     .main {
-        margin: 29px 0 26px;
+        margin-bottom: 26px;
         border-radius: 6px;  
         .head_container {
+            min-height: 80px;
             padding: 25px 35px !important;
             border-bottom: 2px solid #CAD6E6;
             .heading {

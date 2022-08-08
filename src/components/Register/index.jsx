@@ -303,10 +303,10 @@ function Index() {
 
   return (
     <Card className={`${styles.card}`}>
-      <Card.Header className={`${styles.head_container} border-0`}>
-        <div className={styles.head_header}>
+      <Card.Header className={`${styles.head_container} border-0 p-0`}>
+        <div className={`${styles.head_header} align-items-center`}>
           <img
-            className={`${styles.arrow} img-fluid`}
+            className={`${styles.arrow} img-fluid image_arrow mr-2`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
           />
