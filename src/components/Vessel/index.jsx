@@ -72,9 +72,7 @@ function Index({
           <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
-                const addingVessel =
-                  list[index].shipmentType === 'Liner' &&
-                  partShipmentAllowed == 'true'
+
 
                 return (
                   <div
@@ -123,7 +121,7 @@ function Index({
                           />
                         </div>
 
-                        {addingVessel ? (
+                        {list[index].shipmentType ==='Bulk' ? (
                           <button
                             className={styles.add_btn}
                             onClick={(e) => {

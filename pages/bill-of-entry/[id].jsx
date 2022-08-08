@@ -1,15 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './billofentry.module.scss'
 import BillOfEntry from '../../src/components/BillOfEntry'
 import DischargeCargo from '../../src/components/BillOfEntry/DischargeCargo'
 import Warehouse from '../../src/components/BillOfEntry/Warehouse'
 import { useDispatch } from 'react-redux'
-import {GetAllCustomClearance} from  '../../src/redux/CustomClearance&Warehousing/action'
+import { GetAllCustomClearance } from '../../src/redux/CustomClearance&Warehousing/action'
 import { useSelector } from 'react-redux'
-import {_get} from 'lodash/get'
+import _get from 'lodash/get'
 
 function Index() {
 
@@ -22,9 +22,10 @@ function Index() {
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
   }, [dispatch])
 
-  const {allCustomClearance} = useSelector((state)=>state.Custom)
+  const { allCustomClearance } = useSelector((state) => state.Custom)
 
-  let customData = _get(allCustomClearance, 'data[0]', '')
+  let customData = _get(allCustomClearance, 'data[0]', {})
+  let OrderId = _get(customData, 'order._id', {})
 
   return (
     <>
@@ -33,11 +34,10 @@ function Index() {
           <div className="d-flex align-items-center ml-4">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -94,7 +94,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <BillOfEntry customData={customData} />
+                    <BillOfEntry OrderId={OrderId} customData={customData} />
                   </div>
                 </div>
 
@@ -104,13 +104,13 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <DischargeCargo customData={customData} />
+                    <DischargeCargo OrderId={OrderId} customData={customData} />
                   </div>
                 </div>
 
                 <div className="tab-pane fade" id="warehouse" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <Warehouse customData={customData} />
+                    <Warehouse OrderId={OrderId} customData={customData} />
                   </div>
                 </div>
               </div>

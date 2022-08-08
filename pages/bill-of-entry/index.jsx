@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import {_get} from 'lodash/get'
 
 function Index() {
+  const  dispatch = useDispatch()
 
   const routeChange = (insured) => {
     sessionStorage.setItem('customId', insured._id)

@@ -5,7 +5,7 @@ import SaveBar from '../SaveBar'
 import UploadOther from '../UploadOther'
 import DateCalender from '../DateCalender'
 
-export default function Index() {
+export default function Index({ customData, OrderId }) {
   const [saveContactTable, setContactTable] = useState(false)
 
   const handleDeleteRow = (index) => {
@@ -702,7 +702,7 @@ export default function Index() {
             </div>
           </div>
           <div className="mt-4 mb-5">
-            <UploadOther />
+            <UploadOther orderid={OrderId} module='customClearanceAndWarehousing' />
           </div>
         </div>
         <SaveBar rightBtn="Submit" />
