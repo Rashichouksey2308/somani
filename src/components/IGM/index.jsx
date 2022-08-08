@@ -309,7 +309,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                   </span>
                 </div>
                 <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                 >
                   <div className="d-flex">
                     <select
@@ -335,13 +335,19 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                   </div>
                 </div>
 
-                <div className="col-lg-4 col-md-6 col-sm-6 mt-4">
+                <div
+                  className="col-lg-4 col-md-6 col-sm-6 "
+                  style={{ marginTop: '35px', marginLeft: '118px' }}
+                >
                   <div className={`${styles.label} text`}>
                     Consignee Branch<strong className="text-danger">*</strong>{' '}
                   </div>
                   <span className={styles.value}>{consigneeInfo.branch}</span>
                 </div>
-                <div className="col-lg-4 col-md-6 col-sm-6 mt-4">
+                <div
+                  className="col-lg-4 col-md-6 col-sm-6"
+                  style={{ marginTop: '35px' }}
+                >
                   <div className={`${styles.label} text`}>
                     Consignee Address<strong className="text-danger">*</strong>{' '}
                   </div>
@@ -421,27 +427,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
-                    <DatePicker
-                      defaultDate=""
-                      selected={startBlDate}
-                      dateFormat="dd-MM-yyyy"
-                      className={`${styles.input_field} ${styles.cursor} input form-control`}
-                      onChange={(startBlDate) => {
-                        setBlDate(startBlDate)
-                        saveDate(startBlDate, 'blDate')
-                      }}
-                      minDate={lastDate}
+                    <DateCalender
+                      name="laycanFrom"
+                      saveDate={saveDate}
+                      labelName="IGM Filing Date"
                     />
-
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
                       alt="Search"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Circ Date
-                    </label>
                   </div>
                 </div>
                 <hr></hr>
@@ -451,6 +446,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     BL Number<strong className="text-danger">*</strong>
@@ -553,6 +549,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     BL Number<strong className="text-danger">*</strong>
@@ -690,7 +687,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                       <th>
                         DOCUMENT DATE
                         <img
-                          className={`${styles.sort_img} mb-1`}
+                          className={`${styles.sort_img} mb-1 ml-2`}
                           src="/static/icons8-sort-24.svg"
                           alt="Sort icon"
                         />
