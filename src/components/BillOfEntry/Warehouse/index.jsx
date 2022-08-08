@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
-import { useState } from 'react'
 import DateCalender from '../../DateCalender'
 import UploadOther from '../../UploadOther'
 
 export default function Index({ OrderId, customData }) {
   const [editInput, setEditInput] = useState(true)
+  const [warehouseDetails, setWarehouseDetails] = useState({
+    wareHouseDetails: {
+      quantity: '',
+      quantityUnit: '',
+      dateOfStorage: null,
+
+    },
+    document: null
+  })
 
   const handleDropdown = (e) => {
     if ((e.target.value = 'Others')) {
