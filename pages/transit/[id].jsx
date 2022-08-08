@@ -38,9 +38,7 @@ function Index() {
     dispatch(GetTransitDetails(`?transitId=${transID}`))
   }, [dispatch])
 
-  const updateTransitHandler = () => {
-    dispatch(UpdateTransitDetails())
-  }
+
 
   const docUploadFunction = (e) => {
     let cookie = Cookies.get('SOMANI')
@@ -157,7 +155,7 @@ function Index() {
                 </div>
                 {commodity === 'iron' && <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <CIMS docUploadFunction={docUploadFunction} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
+                    <CIMS orderid={objID} docUploadFunction={docUploadFunction} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
                   </div>
                 </div>}
                 <div className="tab-pane fade" id="igm" role="tabpanel">
