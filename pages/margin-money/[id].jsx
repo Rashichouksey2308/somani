@@ -12,7 +12,10 @@ import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
-import { UpdateMarginMoney, GetMarginMoney } from '../../src/redux/marginMoney/action'
+import {
+  UpdateMarginMoney,
+  GetMarginMoney,
+} from '../../src/redux/marginMoney/action'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 // import { Row, Col } from 'react-bootstrap'
 
@@ -24,11 +27,11 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney)
 
   const marginData = margin?.data?.data[0]
-  let id =sessionStorage.getItem('marginId')
+  let id = sessionStorage.getItem('marginId')
   useEffect(() => {
-    let id =sessionStorage.getItem('marginId')
+    let id = sessionStorage.getItem('marginId')
     dispatch(GetMarginMoney({ orderId: id }))
-    
+
     dispatch(setPageName('margin-money'))
     dispatch(setDynamicName(marginData?.company.companyName))
   }, [dispatch, marginData?.company.companyName])
@@ -44,8 +47,7 @@ function Index() {
     }
   }, [])
 
-  const [forCalculation, setForCalculation] = useState(
-    {
+  const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || '',
     status: marginData?.status || '',
     quantity: marginData?.order?.quantity || '',
@@ -60,10 +62,9 @@ function Index() {
     tolerance: marginData?.order?.tolerance || '',
     marginMoney:
       marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
-  }
-  )
+  })
 
-  console.log( marginData?.order?.quantity," marginData?.order?.quantity")
+  console.log(marginData?.order?.quantity, ' marginData?.order?.quantity')
   const saveForCalculation = (name, value) => {
     const newInput = { ...forCalculation }
     newInput[name] = value
@@ -71,150 +72,161 @@ function Index() {
     setForCalculation(newInput)
     getData2()
   }
-  
-  const [finalCal,setFinalCal]=useState({
-    orderValue:"",
-    orderValueCurrency:"USD",
-    orderValueInINR:"",
-    usanceInterest:"",
-    tradeMargin:"",
-    grossOrderValue:"",
-    toleranceValue:"",
-    totalOrderValue:"",
-    provisionalUnitPricePerTon:"",
-    marginMoney:"",
-    totalSPDC:"",
-    amountPerSPDC:"",
+
+  const [finalCal, setFinalCal] = useState({
+    orderValue: '',
+    orderValueCurrency: 'USD',
+    orderValueInINR: '',
+    usanceInterest: '',
+    tradeMargin: '',
+    grossOrderValue: '',
+    toleranceValue: '',
+    totalOrderValue: '',
+    provisionalUnitPricePerTon: '',
+    marginMoney: '',
+    totalSPDC: '',
+    amountPerSPDC: '',
   })
   useEffect(() => {
     getData()
-  },[marginData])
- const getData=()=>{
+  }, [marginData])
+  const getData = () => {
     setForCalculation({
-    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded ,
-    status: marginData?.status ,
-    quantity: marginData?.order?.quantity ,
-    additionalPDC: marginData?.additionalPDC ,
-    conversionRate: marginData?.conversionRate ,
-    perUnitPrice: marginData?.order?.perUnitPrice ,
-    usanceInterestPercentage:
-      marginData?.order?.termsheet?.commercials?.usanceInterestPercetage ,
-    numberOfPDC: marginData?.numberOfPDC ,
-    tradeMarginPercentage:
-      marginData?.order?.termsheet?.commercials?.tradeMarginPercentage ,
-    tolerance: marginData?.order?.tolerance ,
-    marginMoney:
-      marginData?.order?.termsheet?.transactionDetails?.marginMoney ,
-  })
-  let orderValue = parseFloat(
-   Number( forCalculation.quantity) * Number(forCalculation.perUnitPrice),
-  ).toFixed(2) //J
-  let orderValueCurrency = 'USD'
-  let orderValueInINR = parseFloat(
-    Number(orderValue) * forCalculation.conversionRate,
-  ).toFixed(2) //K
-  let usanceInterest = parseFloat(
-    (Number(orderValueInINR) *
-      (forCalculation.isUsanceInterestIncluded
-        ? Number(forCalculation.usanceInterestPercentage / 100)
-        : 1) *
-      90) /
-      365,
-  ).toFixed(2) //L
-  let tradeMargin = parseFloat(
-    Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
-  ).toFixed(2) //M
-  let grossOrderValue = parseFloat(
-    Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
-  ).toFixed(2) //N
-  let toleranceValue = parseFloat(
-    Number(grossOrderValue) * Number(forCalculation.tolerance / 100),
-  ).toFixed(2) //O
-  let totalOrderValue = parseFloat((Number(grossOrderValue)) + Number(toleranceValue)).toFixed(2) //P
-  let provisionalUnitPricePerTon = parseFloat(
-    Number(grossOrderValue) / Number(forCalculation.quantity),
-  ).toFixed(2) //Q
-  let marginMoney = parseFloat(
-    Number(totalOrderValue )* Number(Number(forCalculation.marginMoney) / 100),
-  ).toFixed(2) //R
-  let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(2) //S
-  let amountPerSPDC = parseFloat(
-    Number(totalSPDC )/ Number(forCalculation.numberOfPDC),
-  ).toFixed(2) //T
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded,
+      status: marginData?.status,
+      quantity: marginData?.order?.quantity,
+      additionalPDC: marginData?.additionalPDC,
+      conversionRate: marginData?.conversionRate,
+      perUnitPrice: marginData?.order?.perUnitPrice,
+      usanceInterestPercentage:
+        marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
+      numberOfPDC: marginData?.numberOfPDC,
+      tradeMarginPercentage:
+        marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
+      tolerance: marginData?.order?.tolerance,
+      marginMoney:
+        marginData?.order?.termsheet?.transactionDetails?.marginMoney,
+    })
+    let orderValue = parseFloat(
+      Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice),
+    ).toFixed(2) //J
+    let orderValueCurrency = 'USD'
+    let orderValueInINR = parseFloat(
+      Number(orderValue) * forCalculation.conversionRate,
+    ).toFixed(2) //K
+    let usanceInterest = parseFloat(
+      (Number(orderValueInINR) *
+        (forCalculation.isUsanceInterestIncluded
+          ? Number(forCalculation.usanceInterestPercentage / 100)
+          : 1) *
+        90) /
+        365,
+    ).toFixed(2) //L
+    let tradeMargin = parseFloat(
+      Number(orderValueInINR) *
+        Number(Number(forCalculation.tradeMarginPercentage) / 100),
+    ).toFixed(2) //M
+    let grossOrderValue = parseFloat(
+      Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
+    ).toFixed(2) //N
+    let toleranceValue = parseFloat(
+      Number(grossOrderValue) * Number(forCalculation.tolerance / 100),
+    ).toFixed(2) //O
+    let totalOrderValue = parseFloat(
+      Number(grossOrderValue) + Number(toleranceValue),
+    ).toFixed(2) //P
+    let provisionalUnitPricePerTon = parseFloat(
+      Number(grossOrderValue) / Number(forCalculation.quantity),
+    ).toFixed(2) //Q
+    let marginMoney = parseFloat(
+      Number(totalOrderValue) *
+        Number(Number(forCalculation.marginMoney) / 100),
+    ).toFixed(2) //R
+    let totalSPDC = parseFloat(
+      Number(totalOrderValue) - Number(marginMoney),
+    ).toFixed(2) //S
+    let amountPerSPDC = parseFloat(
+      Number(totalSPDC) / Number(forCalculation.numberOfPDC),
+    ).toFixed(2) //T
 
-  console.log(orderValue,"orderValue",)
-  setFinalCal({
-    orderValue:orderValue,
-    orderValueCurrency:orderValueCurrency,
-    orderValueInINR:orderValueInINR,
-    usanceInterest:usanceInterest,
-    tradeMargin:tradeMargin,
-    grossOrderValue:grossOrderValue,
-    toleranceValue:toleranceValue,
-    totalOrderValue:totalOrderValue,
-    provisionalUnitPricePerTon:provisionalUnitPricePerTon,
-    marginMoney:marginMoney,
-    totalSPDC:totalSPDC,
-    amountPerSPDC:amountPerSPDC,
-  })
- }
- useEffect(() => {
-  getData2()
- },[forCalculation])
- const getData2=()=>{
-  
-  let orderValue = parseFloat(
-   Number( forCalculation.quantity) * Number(forCalculation.perUnitPrice),
-  ).toFixed(2) //J
-  let orderValueCurrency = 'USD'
-  let orderValueInINR = parseFloat(
-    Number(orderValue) * forCalculation.conversionRate,
-  ).toFixed(2) //K
-  let usanceInterest = parseFloat(
-    (Number(orderValueInINR) *
-      (forCalculation.isUsanceInterestIncluded
-        ? Number(forCalculation.usanceInterestPercentage / 100)
-        : 1) *
-      90) /
-      365,
-  ).toFixed(2) //L
-  let tradeMargin = parseFloat(
-    Number(orderValueInINR) * Number(Number(forCalculation.tradeMarginPercentage) / 100),
-  ).toFixed(2) //M
-  let grossOrderValue = parseFloat(
-    Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
-  ).toFixed(2) //N
-  let toleranceValue = parseFloat(
-    Number(grossOrderValue) * Number(forCalculation.tolerance / 100),
-  ).toFixed(2) //O
-  let totalOrderValue = parseFloat((Number(grossOrderValue)) + Number(toleranceValue)).toFixed(2) //P
-  let provisionalUnitPricePerTon = parseFloat(
-    Number(grossOrderValue) / Number(forCalculation.quantity),
-  ).toFixed(2) //Q
-  let marginMoney = parseFloat(
-    Number(totalOrderValue )* Number(Number(forCalculation.marginMoney) / 100),
-  ).toFixed(2) //R
-  let totalSPDC = parseFloat(Number(totalOrderValue) - Number(marginMoney)).toFixed(2) //S
-  let amountPerSPDC = parseFloat(
-    Number(totalSPDC )/ Number(forCalculation.numberOfPDC),
-  ).toFixed(2) //T
+    console.log(orderValue, 'orderValue')
+    setFinalCal({
+      orderValue: orderValue,
+      orderValueCurrency: orderValueCurrency,
+      orderValueInINR: orderValueInINR,
+      usanceInterest: usanceInterest,
+      tradeMargin: tradeMargin,
+      grossOrderValue: grossOrderValue,
+      toleranceValue: toleranceValue,
+      totalOrderValue: totalOrderValue,
+      provisionalUnitPricePerTon: provisionalUnitPricePerTon,
+      marginMoney: marginMoney,
+      totalSPDC: totalSPDC,
+      amountPerSPDC: amountPerSPDC,
+    })
+  }
+  useEffect(() => {
+    getData2()
+  }, [forCalculation])
+  const getData2 = () => {
+    let orderValue = parseFloat(
+      Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice),
+    ).toFixed(2) //J
+    let orderValueCurrency = 'USD'
+    let orderValueInINR = parseFloat(
+      Number(orderValue) * forCalculation.conversionRate,
+    ).toFixed(2) //K
+    let usanceInterest = parseFloat(
+      (Number(orderValueInINR) *
+        (forCalculation.isUsanceInterestIncluded
+          ? Number(forCalculation.usanceInterestPercentage / 100)
+          : 1) *
+        90) /
+        365,
+    ).toFixed(2) //L
+    let tradeMargin = parseFloat(
+      Number(orderValueInINR) *
+        Number(Number(forCalculation.tradeMarginPercentage) / 100),
+    ).toFixed(2) //M
+    let grossOrderValue = parseFloat(
+      Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
+    ).toFixed(2) //N
+    let toleranceValue = parseFloat(
+      Number(grossOrderValue) * Number(forCalculation.tolerance / 100),
+    ).toFixed(2) //O
+    let totalOrderValue = parseFloat(
+      Number(grossOrderValue) + Number(toleranceValue),
+    ).toFixed(2) //P
+    let provisionalUnitPricePerTon = parseFloat(
+      Number(grossOrderValue) / Number(forCalculation.quantity),
+    ).toFixed(2) //Q
+    let marginMoney = parseFloat(
+      Number(totalOrderValue) *
+        Number(Number(forCalculation.marginMoney) / 100),
+    ).toFixed(2) //R
+    let totalSPDC = parseFloat(
+      Number(totalOrderValue) - Number(marginMoney),
+    ).toFixed(2) //S
+    let amountPerSPDC = parseFloat(
+      Number(totalSPDC) / Number(forCalculation.numberOfPDC),
+    ).toFixed(2) //T
 
-  console.log(orderValue,"orderValue",)
-  setFinalCal({
-    orderValue:orderValue,
-    orderValueCurrency:orderValueCurrency,
-    orderValueInINR:orderValueInINR,
-    usanceInterest:usanceInterest,
-    tradeMargin:tradeMargin,
-    grossOrderValue:grossOrderValue,
-    toleranceValue:toleranceValue,
-    totalOrderValue:totalOrderValue,
-    provisionalUnitPricePerTon:provisionalUnitPricePerTon,
-    marginMoney:marginMoney,
-    totalSPDC:totalSPDC,
-    amountPerSPDC:amountPerSPDC,
-  })
- }
+    console.log(orderValue, 'orderValue')
+    setFinalCal({
+      orderValue: orderValue,
+      orderValueCurrency: orderValueCurrency,
+      orderValueInINR: orderValueInINR,
+      usanceInterest: usanceInterest,
+      tradeMargin: tradeMargin,
+      grossOrderValue: grossOrderValue,
+      toleranceValue: toleranceValue,
+      totalOrderValue: totalOrderValue,
+      provisionalUnitPricePerTon: provisionalUnitPricePerTon,
+      marginMoney: marginMoney,
+      totalSPDC: totalSPDC,
+      amountPerSPDC: amountPerSPDC,
+    })
+  }
 
   const routeChange = () => {
     Router.push('/margin-preview')
@@ -239,7 +251,7 @@ function Index() {
     IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
     accountNo: marginData?.invoiceDetail?.accountNo || '',
   })
-  console.log(invoiceData,"invoiceData")
+  console.log(invoiceData, 'invoiceData')
 
   console.log(invoiceData, 'INVOICE DATA')
 
@@ -247,32 +259,27 @@ function Index() {
     const newInput = { ...invoiceData }
     newInput[name] = value
     // console.log(newInput)
-   
-    setInvoiceData(newInput)
 
-   
-    
+    setInvoiceData(newInput)
   }
 
   const setSame = (val) => {
-    if(val==true){
-      setInvoiceData({...invoiceData,
-      consigneeName:invoiceData.buyerName,
-      consigneeGSTIN:invoiceData.buyerGSTIN,
-      consigneeAddress:invoiceData.buyerAddress
-      
+    if (val == true) {
+      setInvoiceData({
+        ...invoiceData,
+        consigneeName: invoiceData.buyerName,
+        consigneeGSTIN: invoiceData.buyerGSTIN,
+        consigneeAddress: invoiceData.buyerAddress,
       })
-    }else{
-      setInvoiceData({...invoiceData,
-      consigneeName:"",
-      consigneeGSTIN:"",
-      consigneeAddress:""
-      
+    } else {
+      setInvoiceData({
+        ...invoiceData,
+        consigneeName: '',
+        consigneeGSTIN: '',
+        consigneeAddress: '',
       })
     }
   }
-  
- 
 
   const handleUpdate = () => {
     let obj = {
@@ -360,7 +367,7 @@ function Index() {
                 Margin Money
               </a>
             </li>
-            {/* <li className={`${styles.navItem} nav-item`}>
+            <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link`}
                 data-toggle="tab"
@@ -371,7 +378,7 @@ function Index() {
               >
                 Revised Margin Money
               </a>
-            </li> */}
+            </li>
             {/* <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
                   </li> */}
@@ -467,7 +474,7 @@ function Index() {
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
                                 >
-                                   Quantity
+                                  Quantity
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
@@ -559,7 +566,7 @@ function Index() {
                                 <strong className="text-danger">*</strong>
                               </label>
                             </div> */}
-                           <div
+                            <div
                               className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                             >
                               <div
@@ -572,7 +579,7 @@ function Index() {
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
                                 >
-                                   Unit Price
+                                  Unit Price
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
@@ -806,7 +813,7 @@ function Index() {
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
                                 >
-                                 Additional PDC's
+                                  Additional PDC's
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
@@ -1248,18 +1255,16 @@ function Index() {
                                       inline
                                       label="Yes"
                                       defaultChecked={
-                                        invoiceData
-                                          ?.isConsigneeSameAsBuyer === true
+                                        invoiceData?.isConsigneeSameAsBuyer ===
+                                        true
                                       }
-                                      onChange={() =>
-                                       {
-                                         saveInvoiceData(
+                                      onChange={() => {
+                                        saveInvoiceData(
                                           'isConsigneeSameAsBuyer',
                                           true,
                                         )
                                         setSame(true)
-                                       }
-                                      }
+                                      }}
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-1`}
@@ -1269,18 +1274,16 @@ function Index() {
                                       inline
                                       label="No"
                                       defaultChecked={
-                                        invoiceData
-                                          ?.isConsigneeSameAsBuyer === false
+                                        invoiceData?.isConsigneeSameAsBuyer ===
+                                        false
                                       }
-                                      onChange={() =>
-                                        {
-                                           saveInvoiceData(
+                                      onChange={() => {
+                                        saveInvoiceData(
                                           'isConsigneeSameAsBuyer',
                                           false,
                                         )
                                         setSame(false)
-                                        }
-                                      }
+                                      }}
                                       name="group1"
                                       type={type}
                                       id={`inline-${type}-2`}
@@ -1296,9 +1299,7 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="consigneeName"
-                                value={
-                                  invoiceData?.consigneeName
-                                }
+                                value={invoiceData?.consigneeName}
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
@@ -1327,11 +1328,9 @@ function Index() {
                                       e.target.value,
                                     )
                                   }
-                                  value={ invoiceData?.consigneeGSTIN}
+                                  value={invoiceData?.consigneeGSTIN}
                                 >
-                                  <option value="">
-                                    
-                                  </option>
+                                  <option value=""></option>
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1362,9 +1361,7 @@ function Index() {
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
-                                value={
-                                  invoiceData?.consigneeAddress
-                                }
+                                value={invoiceData?.consigneeAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1376,8 +1373,6 @@ function Index() {
                                 <strong className="text-danger">*</strong>
                               </label>
                             </div>
-                            
-                          
                           </div>
                         </div>
                         <div className={`${styles.content} border_color`}>
@@ -1385,26 +1380,32 @@ function Index() {
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
-                            <div className="d-flex">
+                              <div className="d-flex">
                                 <select
                                   id="Code"
                                   name="importerName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   onChange={(e) =>
-                                     saveInvoiceData(e.target.name, e.target.value)
+                                    saveInvoiceData(
+                                      e.target.name,
+                                      e.target.value,
+                                    )
                                   }
                                 >
-                                  <option value={marginData?.invoiceDetail?.importerName}>
+                                  <option
+                                    value={
+                                      marginData?.invoiceDetail?.importerName
+                                    }
+                                  >
                                     {marginData?.invoiceDetail?.importerName}
                                   </option>
-
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
                                 >
-                                   Importer Name
+                                  Importer Name
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <img
@@ -1412,25 +1413,30 @@ function Index() {
                                   src="/static/inputDropDown.svg"
                                 ></img>
                               </div>
-                            
                             </div>
-                             <div
+                            <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
-                            <div className="d-flex">
+                              <div className="d-flex">
                                 <select
                                   id="Code"
                                   name="branchOffice"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   onChange={(e) =>
-                                     saveInvoiceData(e.target.name, e.target.value)
+                                    saveInvoiceData(
+                                      e.target.name,
+                                      e.target.value,
+                                    )
                                   }
                                 >
-                                  <option value={marginData?.invoiceDetail?.importerName}>
-                                    {"visakhapatnam"}
+                                  <option
+                                    value={
+                                      marginData?.invoiceDetail?.importerName
+                                    }
+                                  >
+                                    {'visakhapatnam'}
                                   </option>
-
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -1444,9 +1450,8 @@ function Index() {
                                   src="/static/inputDropDown.svg"
                                 ></img>
                               </div>
-                            
                             </div>
-                            
+
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
@@ -1457,9 +1462,7 @@ function Index() {
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
-                                defaultValue={
-                                 "Address"
-                                }
+                                defaultValue={'Address'}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1496,29 +1499,35 @@ function Index() {
                               </label>
                             </div>
 
-                          <div
+                            <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
-                            <div className="d-flex">
+                              <div className="d-flex">
                                 <select
                                   id="Code"
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   onChange={(e) =>
-                                     saveInvoiceData(e.target.name, e.target.value)
+                                    saveInvoiceData(
+                                      e.target.name,
+                                      e.target.value,
+                                    )
                                   }
                                 >
-                                  <option value={marginData?.invoiceDetail?.importerName}>
-                                    { marginData?.invoiceDetail?.bankName}
+                                  <option
+                                    value={
+                                      marginData?.invoiceDetail?.importerName
+                                    }
+                                  >
+                                    {marginData?.invoiceDetail?.bankName}
                                   </option>
-
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
                                 >
-                                   Bank Name
+                                  Bank Name
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <img
@@ -1526,31 +1535,36 @@ function Index() {
                                   src="/static/inputDropDown.svg"
                                 ></img>
                               </div>
-                            
                             </div>
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
-                            <div className="d-flex">
+                              <div className="d-flex">
                                 <select
                                   id="Code"
                                   name="branch"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   onChange={(e) =>
-                                     saveInvoiceData(e.target.name, e.target.value)
+                                    saveInvoiceData(
+                                      e.target.name,
+                                      e.target.value,
+                                    )
                                   }
                                 >
-                                  <option value={marginData?.invoiceDetail?.importerName}>
+                                  <option
+                                    value={
+                                      marginData?.invoiceDetail?.importerName
+                                    }
+                                  >
                                     {marginData?.invoiceDetail?.branch}
                                   </option>
-
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
                                 >
-                                   Branch
+                                  Branch
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <img
@@ -1558,12 +1572,8 @@ function Index() {
                                   src="/static/inputDropDown.svg"
                                 ></img>
                               </div>
-                            
                             </div>
 
-                            
-                          
-                            
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
@@ -1655,7 +1665,10 @@ function Index() {
 
                 <div className="tab-pane fade" id="Documents" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <UploadOther orderid={id}  module='LeadOnboardingOrderApproval' />
+                    <UploadOther
+                      orderid={id}
+                      module="LeadOnboardingOrderApproval"
+                    />
                   </div>
                 </div>
               </div>
