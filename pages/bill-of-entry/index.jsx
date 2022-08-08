@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
-import TableMain from '../../src/components/TableMain'
+import BillOfEntryTableMain from '../../src/components/BillOfEntryTableMain'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
 
@@ -113,7 +114,7 @@ function Index() {
             </div>
           </div>
         </div>
-        <TableMain
+        <BillOfEntryTableMain
           tableName="Bill of Entries"
           isVesselHeader={true}
           dateHeading="BOE DATE"
