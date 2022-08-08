@@ -8,8 +8,6 @@ import DateCalender from '../../src/components/DateCalender'
 import InspectionDocument from '../../src/components/InspectionDocument'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import SaveBar from '../../src/components/SaveBar'
-import AddressComponent from '../../src/components/Credit/addressComponent'
-import { Form, Row, Col } from 'react-bootstrap'
 
 function Index() {
   const [saveShareTable, setSaveTable] = useState(false)
