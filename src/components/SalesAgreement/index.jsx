@@ -9,6 +9,8 @@ import CMA from '../AggrementContent/cma'
 import Finance from '../AggrementContent/finance'
 import Manufecture from '../AggrementContent/manufecture'
 import ProductSpecification from '../AggrementContent/productSpecification'
+import AddtionalComments from '../AggrementContent/addtionalComments'
+import PlaceOfExecutition from '../AggrementContent/placeOfExecutition'
 
 import Shipping from '../AggrementContent/shipping'
 import Seller from '../AggrementContent/seller'
@@ -196,6 +198,32 @@ function Index(props) {
         />
       )
     }
+    if(active=="Additional Comments"){
+      return(
+        <AddtionalComments
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+         active={active}
+         data={props.genericData.supplier}
+        
+        />
+      )
+    }
+     if(active=="Place of Execution"){
+      return(
+        <PlaceOfExecutition
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+         active={active}
+         data={props.genericData.supplier}
+        
+        />
+      )
+    }
   }
   const [sideBar,setSidebar] =useState(
     [
@@ -208,8 +236,10 @@ function Index(props) {
     {name:"CHA",state:"default",value:"CHA",image:"/static/Group 3256.svg"},
     {name:"Stevedore",state:"default",value:"Stevedore",image:"/static/Group 3256.svg"},
     {name:"CMA",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
-    {name:"Delivery Terms",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
-    {name:"Product Specifications",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
+    {name:"Delivery Terms",state:"default",value:"Delivery Term",image:"/static/Group 3256.svg"},
+    {name:"Place of Execution",state:"default",value:"Place of Execution",image:"/static/Group 3256.svg"},
+    {name:"Additional Comments",state:"default",value:"Additional Comments",image:"/static/Group 3256.svg"},
+    {name:"Product Specifications",state:"default",value:"Product Specifications",image:"/static/Group 3256.svg"},
     
     ]
   )
