@@ -195,56 +195,58 @@ const Index = () => {
   }
 
   return (
-    <div className={`${styles.card} accordion_body container-fluid`}>
-      <div className={styles.head_container}>
-        <div className={styles.head_header}>
-          <img
-            className={`${styles.arrow} img-fluid`}
-            src="/static/keyboard_arrow_right-3.svg"
-            alt="ArrowRight"
-          />
-          <h1 className={styles.heading}>Place a New Order</h1>
-        </div>
-        <div>
-          <button onClick={()=>clearData()} className={`${styles.clear_btn} clear_btn`}>Clear All</button>
-        </div>
-      </div>
-
-      <div className={`${styles.main} card border-color`}>
-        <div
-          className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
-        >
-          <h3 className={`${styles.heading} mb-0`}>Limit Details</h3>
+    <div className='container-fluid p-0'>
+      <div className={`${styles.card} accordion_body bg-transparent`}>
+        <div className={`${styles.head_container}`}>
+          <div className={`${styles.head_header} align-items-center`}>
+            <img
+              className={`${styles.arrow} img-fluid mr-2 image_arrow`}
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="ArrowRight"
+            />
+            <h1 className={styles.heading}>Place a New Order</h1>
+          </div>
+          <div>
+            <button onClick={()=>clearData()} className={`${styles.clear_btn} clear_btn`}>Clear All</button>
+          </div>
         </div>
 
-        <div className={`${styles.dashboard_form} mt-2 mb-4`}>
-          <div className="row">
-            <div className="col-md-2 col-sm-4">
-              <div className={`${styles.label} text`}>Total Limit</div>
-              <span className={styles.value}>{creditData?.data?.totalLimit}</span>
-            </div>
-            <div className="col-md-2 col-sm-4">
-              <div className={`${styles.label} text`}>Utilised Limit</div>
-              <span className={styles.value}>{creditData?.data?.utilizedLimit}</span>
-            </div>
-            <div className="col-md-2 col-sm-4">
-              <div className={`${styles.label} text`}>Available Limit </div>
-              <span className={styles.value}>{creditData?.data?.availableLimit}</span>
-            </div>
-            <div className="col-md-2 col-sm-4">
-              <div className={`${styles.label} text`}>Limit Expiry Date</div>
-              <span className={styles.value}>{creditData?.data?.limitExpiry?.split('T')[0]}</span>
-            </div>
-            <div className="col-md-2 col-sm-4">
-              <div className={`${styles.label} text`}>Last Order Value</div>
-              <span className={styles.value}>{creditData?.lastOrder?.orderValue}</span>
+        <div className={`${styles.main} card border-color`}>
+          <div
+            className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
+          >
+            <h3 className={`${styles.heading} mb-0`}>Limit Details</h3>
+          </div>
+
+          <div className={`${styles.dashboard_form} mt-2 mb-4`}>
+            <div className="row">
+              <div className="col-md-2 col-sm-4">
+                <div className={`${styles.label} text`}>Total Limit</div>
+                <span className={styles.value}>{creditData?.data?.totalLimit}</span>
+              </div>
+              <div className="col-md-2 col-sm-4">
+                <div className={`${styles.label} text`}>Utilised Limit</div>
+                <span className={styles.value}>{creditData?.data?.utilizedLimit}</span>
+              </div>
+              <div className="col-md-2 col-sm-4">
+                <div className={`${styles.label} text`}>Available Limit </div>
+                <span className={styles.value}>{creditData?.data?.availableLimit}</span>
+              </div>
+              <div className="col-md-2 col-sm-4">
+                <div className={`${styles.label} text`}>Limit Expiry Date</div>
+                <span className={styles.value}>{creditData?.data?.limitExpiry?.split('T')[0]}</span>
+              </div>
+              <div className="col-md-2 col-sm-4">
+                <div className={`${styles.label} text`}>Last Order Value</div>
+                <span className={styles.value}>{creditData?.lastOrder?.orderValue}</span>
+              </div>
             </div>
           </div>
         </div>
+        <NewOrder orderData={orderData} saveOrderData={saveOrderData} />
+        <NewShipmentDetails shipment={shipment} saveShipmentData={saveShipmentData} />
+        <CommonSave onSave={onOrderSave} />
       </div>
-      <NewOrder orderData={orderData} saveOrderData={saveOrderData} />
-      <NewShipmentDetails shipment={shipment} saveShipmentData={saveShipmentData} />
-      <CommonSave onSave={onOrderSave} />
     </div>
   )
 }
