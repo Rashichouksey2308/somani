@@ -6,6 +6,7 @@
         padding: 0 15px 0 15px !important;
     }
     .head_container {
+        min-height: 80px;
         cursor: pointer;
         padding: 25px 35px !important;
         @include respond(md-desktop) {
@@ -96,11 +97,6 @@
                 margin-right: 5px;
                 //line-height: 15px;
             }
-            option {
-                font-size: 14px;
-                line-height: 20px;
-                font-weight: bold;
-            }
         }
         span {
             font-size: 45px;
@@ -147,6 +143,10 @@
                     }
                     @include respond(phone) {
                         font-size: 14px;
+                    }
+                    input {
+                        margin-right: 15px;
+                        transform: scale(1.5);
                     }
                 }
             }

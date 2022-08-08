@@ -219,7 +219,7 @@ console.log( router.route," router.route")
       <div className={`${styles.unit_container} d-flex`}>
            {show.units?<div className="mr-0 mr-sm-2">
              <h5 className={`${styles.unit_label} accordion_Text`}>
-              Units :
+              Unit :
             </h5>
             <select className={`${styles.options} accordion_DropDown`}>
               <option>Crores</option>
@@ -230,7 +230,10 @@ console.log( router.route," router.route")
               Currency :
             </h5>
             <select className={`${styles.options} bg-transparent px-0 accordion_DropDown`}>
+              <option>Euro</option>
+              <option>USD</option>
               <option>INR</option>
+              <option>British Pound</option>
             </select>
            </div>:null}
           </div>
