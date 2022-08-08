@@ -51,7 +51,7 @@ const Index = () => {
   }
 
   const saveDate = (value, name) => {
-    console.log(value, name, 'save date')
+    // console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
     saveQuotationData(name, text)

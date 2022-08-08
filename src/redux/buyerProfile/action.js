@@ -205,7 +205,7 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
 }
 
 export const UpdateCreditCalculate = (payload) => async (dispatch, getState, api) => {
-  
+
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -362,6 +362,10 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updatetermsheetsuccess(response.data))
+        let toastMessage = 'TERMSHEET UPDATED SUCCESSFULL'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
       } else {
         dispatch(updatetermsheetfailed(response.data))
         let toastMessage = response.data.message

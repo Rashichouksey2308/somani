@@ -1,30 +1,30 @@
-import React, { useEffect } from 'react'
+/* eslint-disable @next/next/no-img-element */
+import React, { useEffect, useState } from 'react'
 import styles from './inspection.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
 import { useDispatch, useSelector } from 'react-redux'
-import _get from "lodash/get";
-import { GetAllForwardHedging, GetForwardHedging } from '../../src/redux/ForwardHedging/action'
-
-
-
+import _get from 'lodash/get'
+import {
+  GetAllForwardHedging,
+  GetForwardHedging,
+} from '../../src/redux/ForwardHedging/action'
 
 function Index() {
   const dispatch = useDispatch()
 
-  const { ForwardHedging, allForwardHedging } = useSelector((state) => state.ForwardHedging)
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const { allForwardHedging } = useSelector((state) => state.ForwardHedging)
 
   console.log(allForwardHedging, 'allForwardHedging')
   useEffect(() => {
-    dispatch(GetAllForwardHedging())
-  }, [dispatch])
+    dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7`))
+  }, [dispatch, currentPage])
 
-  const handleRoute = (List) => {
-
-    let companyid = _get(List, "order", "")
-    sessionStorage.setItem('comapnyId', companyid)
-    sessionStorage.setItem('ForwHeadId', _get(List, "_id", ""))
-    dispatch(GetForwardHedging(`?order=${companyid}`))
+  const handleRoute = (list) => {
+    sessionStorage.setItem('headgingId', list._id)
+    dispatch(GetAllForwardHedging(`?forwardHedgingId=${list._id}`))
     Router.push('/forward-hedging')
   }
   return (
@@ -65,8 +65,18 @@ function Index() {
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
-              <span>Showing Page 1 out of 10</span>
+              <span>
+                Showing Page {currentPage + 1} out of{' '}
+                {Math.ceil(allForwardHedging?.totalCount / 7)}
+              </span>
               <a
+                onClick={() => {
+                  if (currentPage === 0) {
+                    return
+                  } else {
+                    setCurrentPage((prevState) => prevState - 1)
+                  }
+                }}
                 href="#"
                 className={`${styles.arrow} ${styles.leftArrow} arrow`}
               >
@@ -78,6 +88,14 @@ function Index() {
                 />
               </a>
               <a
+                onClick={() => {
+                  if (
+                    currentPage + 1 <
+                    Math.ceil(allForwardHedging?.totalCount / 7)
+                  ) {
+                    setCurrentPage((prevState) => prevState + 1)
+                  }
+                }}
                 href="#"
                 className={`${styles.arrow} ${styles.rightArrow} arrow`}
               >
@@ -122,34 +140,32 @@ function Index() {
                   </tr>
                 </thead>
                 <tbody>
-
-                  {allForwardHedging && allForwardHedging?.data?.map((List, index) => (
-                    <tr key={index} className="table_row">
-                      <td className={`${styles.buyerName} heading`}>
-                        BHUTD001-0002
-                      </td>
-                      <td
-                        onClick={() => handleRoute(List)}
-                      >
-                        {_get(List, "company.companyName", "")}
-                      </td>
-                      <td>{_get(List, "order.commodity", "")} </td>
-                      <td></td>
-                      <td>
-                      <span
-                        className={`${styles.status} ${styles.expired}`}
-                      ></span>
-                      Expired
-                    </td>
-                      <td>
-                        <img
-                          className={`${styles.edit_image} img-fluid mr-3`}
-                          src="/static/mode_edit.svg"
-                          alt="edit"
-                        />
-                      </td>
-                    </tr>
-                  ))}
+                  {allForwardHedging &&
+                    allForwardHedging?.data?.map((list, index) => (
+                      <tr key={index} className="table_row">
+                        <td className={`${styles.buyerName} heading`}>
+                          {list?.order?.orderId}
+                        </td>
+                        <td onClick={() => handleRoute(list)}>
+                          {list?.company?.companyName}
+                        </td>
+                        <td>{list?.order?.commodity} </td>
+                        <td></td>
+                        <td>
+                          <span
+                            className={`${styles.status} ${styles.expired}`}
+                          ></span>
+                          Expired
+                        </td>
+                        <td>
+                          <img
+                            className={`${styles.edit_image} img-fluid mr-3`}
+                            src="/static/mode_edit.svg"
+                            alt="edit"
+                          />
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>

@@ -6,8 +6,12 @@ import SaveBar from '../SaveBar'
 import DateCalender from '../DateCalender'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { useDispatch } from 'react-redux'
+import { UpdateInspection } from 'redux/Inspections/action'
 
 export default function Index({inspectionData}) {
+
+  const dispatch = useDispatch()
 
   const [startDate, setStartDate] = useState(new Date())
 
@@ -64,7 +68,13 @@ export default function Index({inspectionData}) {
     setAppointmentData(addressData)
   }
   
+  const handleSave = () => {
+    const fd = new FormData()
+    fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))
+    fd.append('inspectionId', inspectionData?._id)
 
+    dispatch(UpdateInspection(fd))
+  }
   
 
   return (
@@ -166,7 +176,7 @@ export default function Index({inspectionData}) {
             </div>
           </div>
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" />
       </div>
     </>
   )

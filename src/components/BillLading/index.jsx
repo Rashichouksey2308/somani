@@ -6,50 +6,70 @@ import { useState } from 'react'
 import DateCalender from '../DateCalender'
 import _get from "lodash/get";
 import { initial } from 'lodash'
+import { useDispatch, useSelector } from 'react-redux'
+import { UpdateTransitDetails, GetTransitDetails } from '../../redux/TransitDetails/action'
+import { useEffect } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import UploadOther from '../UploadOther'
 
-const initialStateForLiner = {
-  vesselName: '',
-  imoNumber: '',
-  blDate: '',
-  blQuantity: '',
-  blQuantityUnit: '',
-  etaAtDischargePortFrom: '',
-  etaAtDischargePortTo: '',
-  blSurrenderDate: '',
-  documentName: '',
-  blSurrenderDoc: '',
-  document1: null,
-  document2: null,
-  containerDetails: {
-    numberOfContainers: '',
-    freeDetentionPeriod: '',
-    inspectedBy: '',
-    inspectionDate: '',
-    blSurrenderDate: ''
+
+
+export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid }) {
+  let transId = _get(TransitDetails, `data[0]`, '')
+  const initialStateForLiner = {
+    vesselName: '',
+    imoNumber: '',
+    blDate: '',
+    blQuantity: '',
+    blQuantityUnit: '',
+    etaAtDischargePortFrom: null,
+    etaAtDischargePortTo: null,
+    blSurrenderDate: null,
+    documentName: '',
+    blSurrenderDoc: '',
+    document1: null,
+    document2: null,
+    containerDetails: {
+      numberOfContainers: '',
+      freeDetentionPeriod: '',
+      blSurrenderDate: ''
+    }
   }
-}
-const initialStateForBulk = {
-  vesselName: '',
-  imoNumber: '',
-  blDate: '',
-  blQuantity: '',
-  blQuantityUnit: '',
-  etaAtDischargePortFrom: '',
-  etaAtDischargePortTo: '',
-  blSurrenderDate: '',
-  documentName: '',
-  blSurrenderDoc: '',
-  document1: null,
-  document2: null,
-
-}
-
-export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }) {
+  const initialStateForBulk = {
+    vesselName: '',
+    imoNumber: '',
+    blDate: '',
+    blQuantity: '',
+    blQuantityUnit: '',
+    etaAtDischargePortFrom: '',
+    etaAtDischargePortTo: '',
+    blSurrenderDate: '',
+    documentName: '',
+    blSurrenderDoc: '',
+    document1: null,
+    document2: null,
+  }
+  const dispatch = useDispatch()
   let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk'
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
   const [bolList, setBolList] = useState([shipmentTypeBulk ? initialStateForBulk : initialStateForLiner])
+  const [startBlDate, setBlDate] = useState(null)
+  const [startetaAtDischargePortTo, setetaAtDischargePortTo] = useState(null)
+  const [startblSurrenderDate, setblSurrenderDate] = useState(null)
+  const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] = useState(null)
 
+  const [lastDate, setlastDate] = useState(new Date())
+
+
+  useEffect(() => {
+    setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+  }, [TransitDetails])
+
+
+  const partShipmentAllowed = _get(TransitDetails, "data[0].order.vessel.partShipmentAllowed", false)
+  console.log(TransitDetails, 'bolList')
 
   const onBolAdd = () => {
     if (shipmentTypeBulk) {
@@ -57,7 +77,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
     } else {
       setBolList([...bolList, initialStateForLiner])
     }
-
   }
 
 
@@ -69,12 +88,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
     }
   }
 
-  const onChangeVessel = (e) => {
-    let Value = e.target.value
-    let [VesselName, index] = Value.split('#')
+  const onChangeVessel = (e, index) => {
+    let VesselName = e.target.value
     let filteredVessel = {}
 
-    let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+    // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
     if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
       _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
         if (vessel.vesselInformation[0].name === VesselName) {
@@ -82,21 +100,70 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
         }
       })
     } else {
-      let VesselTemp = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+      filteredVessel = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
       let tempArray = _get(TransitDetails, `data[0].order.vessel.vessels[0].vesselInformation`, [])
       tempArray.forEach((vessel, index) => {
         if (vessel.name === VesselName) {
-          VesselTemp.vesselInformation = [vessel]
+          filteredVessel.vesselInformation = [vessel]
 
         }
       })
-      //  console.log(VesselTemp)
-    }
-  }
-  const saveData = () => {
 
+    }
+    console.log(filteredVessel, 'filteredVessel')
+    const newArray = [...bolList]
+    newArray[index].vesselName = filteredVessel.vesselInformation[0].name
+    newArray[index].imoNumber = filteredVessel.vesselInformation[0].IMONumber
+    newArray[index].etaAtDischargePortFrom = filteredVessel.transitDetails.EDTatLoadPort
+    newArray[index].etaAtDischargePortTo = filteredVessel.transitDetails.ETAatDischargePort
+
+    setBolList(newArray)
   }
-  console.log(shipmentTypeBulk, bolList, TransitDetails, 'bollist')
+
+  const onChangeBol = (e, index) => {
+    const name = e.target.id
+    const value = e.target.value
+    setBolList(prevState => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return {
+            ...obj,
+            [name]: value
+          }
+        }
+        return obj;
+      });
+      return newState;
+    })
+  }
+
+  const saveDate = (startDate, name, index) => {
+    console.log(startDate, name, 'Event1')
+    setBolList(prevState => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return {
+            ...obj,
+            [name]: startDate
+          }
+        }
+        return obj;
+      });
+      return newState;
+    })
+  }
+
+  const saveData = () => {
+    // const billOfLanding = [...bolList]
+    const bol = { billOfLanding: bolList }
+
+    let fd = new FormData()
+    fd.append('bl', JSON.stringify(bol))
+    fd.append('transitId', transId._id)
+    dispatch(UpdateTransitDetails(fd))
+    console.log(fd, bol, 'filteredVessel')
+  }
+  console.log(TransitDetails, 'TransitDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -142,7 +209,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                 <div className={`${styles.dropDown_label} text`}>
                   Part Shipment Allowed:
                 </div>
-                <div className={`${styles.dropDown} input`}>Yes</div>
+                <div className={`${styles.dropDown} input`}>{partShipmentAllowed ? "Yes" : 'No'}</div>
               </div>
             </div>
             <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
@@ -151,26 +218,27 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                   <div className={`${styles.label} text`}>
                     Commodity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>Iron</span>
+                  <span className={styles.value}>{_get(TransitDetails, "data[0].order.commodity", '')}</span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>500 Mt</span>
+                  <span className={styles.value}>{_get(TransitDetails, "data[0].order.quantity", '')} {_get(TransitDetails, "data[0].order.unitOfQuantity", '')} </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>500 CR</span>
+                  <span className={styles.value}>{_get(TransitDetails, "data[0].order.orderValue", '')} {_get(TransitDetails, "data[0].order.unitOfValue", '')}</span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Shipping Line/Charter
                     <strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>Bothra</span>
+                  {shipmentTypeBulk ? <span className={styles.value}>{_get(TransitDetails, "data[0].order.vessel.vessels[0].shippingInformation.shippingLineOrCharter", '')}</span> :
+                    <span className={styles.value}>{_get(TransitDetails, "data[0].order.vessel.vessels[0].vesselInformation[0].shippingLineOrCharter", '')}</span>}
                 </div>
               </div>
             </div>
@@ -182,9 +250,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                   className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>Bill of Lading {index + 1}</h3>
-                  <button onClick={() => onBolAdd()} className={styles.add_btn}>
+                  {!partShipmentAllowed && <button onClick={() => console.log('addClicked')} className={styles.add_btn}>
                     <span className={styles.add_sign}>+</span>Add
-                  </button>
+                  </button>}
                 </div>
                 <div className={`${styles.dashboard_form} mt-3 card-body`}>
                   <div className={`${styles.bill_landing} border_color`}>
@@ -198,13 +266,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
                               {shipmentTypeBulk ? _get(TransitDetails, "data[0].order.vessel.vessels", []).map((vessel, index) => (
-                                <option value={`${vessel?.vesselInformation?.name}#${index}`} key={index}>{vessel?.vesselInformation?.name}</option>
+                                <option value={vessel?.vesselInformation?.name} key={index}>{vessel?.vesselInformation?.name}</option>
                               )) :
                                 _get(TransitDetails, "data[0].order.vessel.vessels[0].vesselInformation", []).map((vessel, index) => (
-                                  <option value={`${vessel?.name}#${index}`} key={index}>{vessel?.name}</option>
+                                  <option value={vessel?.name} key={index}>{vessel?.name}</option>
                                 ))
                               }
-                              
+                              <option value='option'>option</option>
+
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -224,12 +293,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                         >
 
                           <p className={` label_heading`}>IMO Number<strong className="text-danger">*</strong></p>
-                          <span>834774689</span>
+                          <span>{bol.imoNumber}</span>
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
+                            onChange={(e) => onChangeBol(e, index)}
+                            id='blNumber'
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
@@ -244,18 +315,39 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="BL Date" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
+                            <DatePicker
+                              defaultDate=''
+
+                              selected={startBlDate}
+                              dateFormat="dd-MM-yyyy"
+                              className={`${styles.input_field} ${styles.cursor} input form-control`}
+                              onChange={(startBlDate) => {
+                                setBlDate(startBlDate)
+                                saveDate(startBlDate, 'blDate', index)
+                              }}
+                              minDate={lastDate}
+                            />
+
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
+
                             />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Bl Date
+                            </label>
                           </div>
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
+                            onChange={(e) => onChangeBol(e, index)}
+                            id='blQuantity'
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
@@ -274,26 +366,61 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
+                            <DatePicker
+                              defaultDate=''
+                              name="ETAatDischargePort"
+                              selected={startetaAtDischargePortFrom}
+                              dateFormat="dd-MM-yyyy"
+                              className={`${styles.input_field} ${styles.cursor} input form-control`}
+                              onChange={(startetaAtDischargePortFrom) => {
+                                setetaAtDischargePortFrom(startetaAtDischargePortFrom)
+                                saveDate(startetaAtDischargePortFrom, 'etaAtDischargePortFrom', index)
+                              }}
+                              minDate={lastDate}
+                            />
+
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
 
                             />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              From
+                            </label>
                           </div>
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="To" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <DatePicker
+                              defaultDate=''
+
+                              selected={startetaAtDischargePortTo}
+                              dateFormat="dd-MM-yyyy"
+                              className={`${styles.input_field} ${styles.cursor} input form-control`}
+                              onChange={(startetaAtDischargePortTo) => {
+                                setetaAtDischargePortTo(startetaAtDischargePortTo)
+                                saveDate(startetaAtDischargePortTo, 'etaAtDischargePortTo', index)
+                              }}
+                              minDate={lastDate}
+                            />
+
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
 
                             />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              To
+                            </label>
                           </div>
                         </div>
                       </div>
@@ -491,12 +618,29 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="BL Surrender Date" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            <DatePicker
+                              defaultDate=''
+                              selected={startblSurrenderDate}
+                              dateFormat="dd-MM-yyyy"
+                              className={`${styles.input_field} ${styles.cursor} input form-control`}
+                              onChange={(startblSurrenderDate) => {
+                                setblSurrenderDate(startblSurrenderDate)
+                                saveDate(startblSurrenderDate, 'blSurrenderDate', index)
+                              }}
+                              minDate={lastDate}
+                            />
+
                             <img
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
+
                             />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              BL Surrendor Date
+                            </label>
                           </div>
                         </div>
                       </div>
@@ -569,221 +713,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData }
                 </div>
               </div>)
           })}
-          <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
-            <div
-              className={`${styles.head_container} border_color d-flex justify-content-between`}
-              data-toggle="collapse"
-              data-target="#uploadOther"
-              aria-expanded="true"
-              aria-controls="uploadOther"
-            >
-              <h3 className={styles.heading}>Document</h3>
-              <span>+</span>
-            </div>
-            <div
-              id="uploadOther"
-              className="collapse"
-              aria-labelledby="uploadOther"
-              data-parent="#uploadOther"
-            >
-              <div className={`${styles.dashboard_form} card-body`}>
-                <Form>
-                  <div className="row align-items-center pb-4">
-                    <div
-                      className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
-                    >
-                      <div className="text-center">
-                        <img
-                          className={`${styles.upload_image} img-fluid`}
-                          src="/static/browse.svg"
-                          alt="Browse"
-                        />
-                        <p className={styles.drop_para}>
-                          Drop Files here or
-                          <br />
-                          <div className={styles.uploadBtnWrapper}>
-                            <input type="file" name="myfile" />
-                            <a href="#">Browse</a>
-                          </div>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 offset-md-1 col-sm-6">
-                      <Form.Group className={styles.form_group}>
-                        <div className="d-flex">
-                          <select
-                            className={`${styles.value} input ${styles.customSelect}  form-control`}
-                            id="docType"
-                            onChange={(e) => handleDropdown(e)}
-                          >
-                            <option>
-                              Lead Onboarding &amp; Order Approval
-                            </option>
-                            <option>
-                              Agreements, Insurance &amp; LC Opening
-                            </option>
-                            <option>Loading-Transit-Unloading</option>
-                            <option>Custom Clearance And Warehousing</option>
-                            <option value="Others">Others</option>
-                          </select>
-                          <Form.Label
-                            className={`${styles.label} label_heading`}
-                          >
-                            Document Type
-                          </Form.Label>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </Form.Group>
-                      <Form.Group className={styles.form_group}>
-                        <Form.Label className={`${styles.label} label_heading`}>
-                          Please Specify Document Name
-                        </Form.Label>
-                        <Form.Control
-                          className={`${styles.value} input form-control`}
-                          type="text"
-                          disabled={editInput}
-                        />
-                      </Form.Group>
-                      <div className={styles.uploadBtnWrapper}>
-                        <input type="file" name="myfile" />
-                        <button
-                          className={`${styles.upload_button} btn`}
-                          disabled={editInput}
-                        >
-                          Upload
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Form>
-              </div>
 
-              <div className={styles.table_container}>
-                <div className={styles.table_scroll_outer}>
-                  <div className={styles.table_scroll_inner}>
-                    <div
-                      className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
-                    >
-                      <div>
-                        <select
-                          className={`${styles.dropDown} input form-control`}
-                        >
-                          <option>Lead Onboarding &amp; Order Approval</option>
-                          <option>Agreements, Insurance & LC Opening</option>
-                          <option>Loading-Transit-Unloading</option>
-                          <option>Custom Clearance And Warehousing</option>
-                          <option value="Others">Others</option>
-                        </select>
-                      </div>
-                      <div
-                        className={`d-flex align-items-center ${styles.searchBarContainer} `}
-                      >
-                        <img
-                          className={` ${styles.searchImage} img-fluid`}
-                          src="/static/search.svg"
-                          alt="Search"
-                        ></img>
-                        <input
-                          className={`${styles.searchBar} input form-control`}
-                          placeholder="Search"
-                        ></input>
-                      </div>
-                    </div>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
-                      <thead>
-                        <tr>
-                          <th>
-                            DOCUMENT NAME{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            FORMAT{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            DOCUMENT DATE{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            UPLOADED BY{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>STATUS </th>
-                          <th>ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>
-                            Insurance Quotation
-                          </td>
-                          <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td className={styles.doc_row}>John Doe</td>
-                          <td>
-                            <span
-                              className={`${styles.status} ${styles.approved}`}
-                            ></span>
-                            Verified
-                          </td>
-                          <td colSpan="2">
-                            <img
-                              src="/static/delete.svg"
-                              className={`${styles.delete_image} img-fluid mr-3`}
-                              alt="Bin"
-                            />
-                            <img
-                              src="/static/upload.svg"
-                              className="img-fluid mr-3"
-                              alt="Share"
-                            />
-                            <img
-                              src="/static/drive_file.svg"
-                              className={`${styles.edit_image} img-fluid mr-3`}
-                              alt="Share"
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
+          <UploadOther orderid={orderid} module='Loading-Transit-Unloading' />
+
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar handleSave={saveData} rightBtn="Submit" />
       </div>
     </>
   )
