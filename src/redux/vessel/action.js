@@ -191,7 +191,7 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
         dispatch(uploadDocVesselSuccess(response.data.data))
         let toastMessage = 'DOCUMENT UPLOADED SUCCESSFULL'
         if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
+          toast.error(toastMessage, { toastId: toastMessage })
         }
       } else {
         dispatch(uploadDocVesselFailed(response.data.data))

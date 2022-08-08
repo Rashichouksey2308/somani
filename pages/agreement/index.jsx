@@ -43,9 +43,7 @@ function Index() {
             alt="arrow right"
             className="img-fluid mr-2 image_arrow"
           />
-          <h1 className={`${styles.title} heading`}>
-            Name
-          </h1>
+          <h1 className={`${styles.title} heading`}>Name</h1>
           <div className={'ml-auto d-flex'}>
             <div className="ml-auto  mr-2">
               <button
@@ -197,11 +195,9 @@ function Index() {
                     className="accordion shadow-none"
                     id="inspectionDocument"
                   >
-                    <InspectionDocument />
+                    <InspectionDocument documentName="Sales Agreement" />
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>

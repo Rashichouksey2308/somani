@@ -11,6 +11,7 @@ import {_get} from 'lodash/get'
 
 
 function Index() {
+  const  dispatch = useDispatch()
 
   const dispatch = useDispatch()
 
