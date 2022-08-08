@@ -10,10 +10,12 @@ import {
 } from 'redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Index = ({ orderId, uploadDocument1, module }) => {
+const Index = ({ orderId, uploadDocument1, module, documentName }) => {
   const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
-  const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState('LeadOnboarding&OrderApproval')
+  const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState(
+    'LeadOnboarding&OrderApproval',
+  )
 
   const { documentsFetched } = useSelector((state) => state.review)
 
@@ -117,7 +119,7 @@ const Index = ({ orderId, uploadDocument1, module }) => {
                 <tbody>
                   <tr className="table_row">
                     <td className={styles.doc_name}>
-                      LC AMENDMENT DRAFT{' '}
+                      {documentName}
                       <strong className="text-danger ml-0">*</strong>{' '}
                     </td>
 
@@ -130,12 +132,14 @@ const Index = ({ orderId, uploadDocument1, module }) => {
                     </td>
                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                     <td colSpan={2}>
-                    <input type="file" onChange={(e)=>uploadDocument1(e)} name="myfile" />
-                                  <button
-                                     className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button>
+                      <button className={`${styles.uploadDoc} btn`}>
+                        Upload
+                      </button>
+                      <input
+                        type="file"
+                        onChange={(e) => uploadDocument1(e)}
+                        name="myfile"
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -179,52 +183,50 @@ const Index = ({ orderId, uploadDocument1, module }) => {
                       id="module"
                       onChange={(e) => handleDropdown(e)}
                     >
-                      {module === 'Loading-Transit-Unloading' ? 
-                      <>
-                        <option value="CertificateOfOrigin">Certificate of Origin </option>
-                        <option value="CertificateOfQuality">
-                          {' '}
-                          Certificate of Quality
-                        </option>
-                        <option value="CertificateOfWeight ">
-                          {' '}
-                          Certificate of Weight
-                        </option>
-                        <option value="PlotInspectionReport">
-                          {' '}
-                          Plot Inspection Report
-                        </option>
-                        <option value="BL ">
-                          {' '}
-                          BL
-                        </option>
-                        <option value="ContainerNoList ">
-                          {' '}
-                          Container No. List
-                        </option>
-                        <option value="PackingList ">
-                          {' '}
-                          Packing list
-                        </option>
-                        <option value="BLAcknowledgmentCopy">
-                          {' '}
-                          BL Acknowledgment Copy
-                        </option>
-                        <option value="ForwardSalesContract ">
-                          {' '}
-                          Forward Sales Contract
-                        </option>
-                        <option value="CoalImportRegistrationCertificate">
-                          {' '}
-                          Coal Import Registration Certificate
-                        </option>  <option value="CIMSPaymentReceipt ">
-                          {' '}
-                          CIMS Payment Receipt
-                        </option>  <option value="IGMCopy ">
-                          {' '}
-                          IGM Copy
-                        </option>   </>
-                        : <><option value="LcDraft">LC Draft </option>
+                      {module === 'Loading-Transit-Unloading' ? (
+                        <>
+                          <option value="CertificateOfOrigin">
+                            Certificate of Origin{' '}
+                          </option>
+                          <option value="CertificateOfQuality">
+                            {' '}
+                            Certificate of Quality
+                          </option>
+                          <option value="CertificateOfWeight ">
+                            {' '}
+                            Certificate of Weight
+                          </option>
+                          <option value="PlotInspectionReport">
+                            {' '}
+                            Plot Inspection Report
+                          </option>
+                          <option value="BL "> BL</option>
+                          <option value="ContainerNoList ">
+                            {' '}
+                            Container No. List
+                          </option>
+                          <option value="PackingList "> Packing list</option>
+                          <option value="BLAcknowledgmentCopy">
+                            {' '}
+                            BL Acknowledgment Copy
+                          </option>
+                          <option value="ForwardSalesContract ">
+                            {' '}
+                            Forward Sales Contract
+                          </option>
+                          <option value="CoalImportRegistrationCertificate">
+                            {' '}
+                            Coal Import Registration Certificate
+                          </option>{' '}
+                          <option value="CIMSPaymentReceipt ">
+                            {' '}
+                            CIMS Payment Receipt
+                          </option>{' '}
+                          <option value="IGMCopy "> IGM Copy</option>{' '}
+                        </>
+                      ) : (
+                        <>
+                          <option value="LcDraft">LC Draft </option>
 
                           <option value="lCAmmendmentDraft">
                             {' '}
@@ -253,7 +255,9 @@ const Index = ({ orderId, uploadDocument1, module }) => {
                           <option value="policyDocumentStorage">
                             {' '}
                             Policy Document - Storage
-                          </option></>}
+                          </option>
+                        </>
+                      )}
                       <option value="Others">Others</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
@@ -267,23 +271,24 @@ const Index = ({ orderId, uploadDocument1, module }) => {
                   </div>
                 </Form.Group>
                 <Form.Group className={styles.form_group}>
-                  <Form.Label className={`${styles.label} label_heading`}>
-                    Please Specify Document Name
-                  </Form.Label>
                   <input
                     onChange={(e) =>
                       setNewDoc({ ...newDoc, name: e.target.value })
                     }
                     className={`${styles.value} input form-control`}
                     type="text"
-                  // disabled={manualDocModule}
+                    required
+                    disabled={manualDocModule}
                   />
+                  <Form.Label className={`${styles.label} label_heading`}>
+                    Please Specify Document Name
+                  </Form.Label>
                 </Form.Group>
                 <div className={styles.uploadBtnWrapper}>
                   <button
                     onClick={(e) => uploadDocumentHandler(e)}
                     className={`${styles.upload_button} btn`}
-                  // disabled={editInput}
+                    disabled={editInput}
                   >
                     Upload
                   </button>
@@ -300,11 +305,22 @@ const Index = ({ orderId, uploadDocument1, module }) => {
                 className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
               >
                 <div>
-                  <select onChange={(e) => setDocumentsDropDownFilter(e.target.value)} className={`${styles.dropDown} input form-control`}>
-                    <option value='LeadOnboarding&OrderApproval'>Lead Onboarding &amp; Order Approval</option>
-                    <option value='Agreements,Insurance&LCOpening'>Agreements, Insurance & LC Opening</option>
-                    <option value='Loading-Transit-Unloading'>Loading-Transit-Unloading</option>
-                    <option value='CustomClearanceAndWarehousing'>Custom Clearance And Warehousing</option>
+                  <select
+                    onChange={(e) => setDocumentsDropDownFilter(e.target.value)}
+                    className={`${styles.dropDown} input form-control`}
+                  >
+                    <option value="LeadOnboarding&OrderApproval">
+                      Lead Onboarding &amp; Order Approval
+                    </option>
+                    <option value="Agreements,Insurance&LCOpening">
+                      Agreements, Insurance & LC Opening
+                    </option>
+                    <option value="Loading-Transit-Unloading">
+                      Loading-Transit-Unloading
+                    </option>
+                    <option value="CustomClearanceAndWarehousing">
+                      Custom Clearance And Warehousing
+                    </option>
                     <option value="Others">Others</option>
                   </select>
                 </div>
@@ -422,7 +438,9 @@ const Index = ({ orderId, uploadDocument1, module }) => {
                             </td>
                           </tr>
                         )
-                      } else { return null }
+                      } else {
+                        return null
+                      }
                     })}
                   <tr className="table_row">
                     <td className={styles.doc_name}>Container No. List</td>
