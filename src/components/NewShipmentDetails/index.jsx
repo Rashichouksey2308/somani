@@ -128,7 +128,7 @@ const index = ({ saveShipmentData, shipment }) => {
                 </Form.Label> */}
               </Form.Group>
 
-              <Form.Group className={`${styles.form_group} col-md-3 col-sm-6`}>
+              <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender name="loadPort.fromDate" saveDate={saveDate} labelName="ETA at Discharge Port from" />
                   <img
@@ -154,7 +154,7 @@ const index = ({ saveShipmentData, shipment }) => {
                   </Form.Label>
                 </div> */}
               </Form.Group>
-              <Form.Group className={`${styles.form_group}  col-md-3 col-sm-6`}>
+              <Form.Group className={`${styles.form_group}  col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender name="loadPort.toDate" saveDate={saveDate} labelName="ETA at Discharge Port to" />
                   <img
@@ -179,6 +179,30 @@ const index = ({ saveShipmentData, shipment }) => {
                     <strong className="text-danger">*</strong>
                   </Form.Label>
                 </div> */}
+              </Form.Group>
+              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                    name="shipmentType"
+                    onChange={(e) => {
+                      saveShipmentData(e.target.name, e.target.value)
+                    }}
+                  >
+                    {/* <option selected></option> */}
+                    <option value="Calcutta Port" selected>Calcutta Port</option>
+                  </select>
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Port of Loading<strong className="text-danger">*</strong>
+                  </Form.Label>
+                  <img
+                    className={`${styles.arrow} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
               </Form.Group>
             </div>
             {/* <div className={styles.button}><span>Submit</span></div> */}

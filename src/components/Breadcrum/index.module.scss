@@ -108,10 +108,10 @@
             border: none;
             line-height: 23px;
             font-weight: bold;
-            text-align: center;
+            // text-align: center;
             padding: 3px 8px;
             outline: none;
-            background: #F3F4F7;
+            // background: #F3F4F7;
             @include respond(sm-desktop) {
                 font-size: 15px;
                 line-height: 1.3;

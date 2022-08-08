@@ -37,6 +37,7 @@
         }
     }
     .dashboard_form {
+        // border-top: 2px solid #CAD6E6;
         padding: 25px 35px !important;
         @include respond(phone) {}
         .form_group {
