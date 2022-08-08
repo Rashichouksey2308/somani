@@ -34,7 +34,7 @@ let supplier={
         
 }
 function Index(props) {
-  
+   console.log(props.data,"1234")
   const[supplierState,setSupplierState]=useState(supplier)
   const [list,setList]=useState([])
   const [addressList,setAddressList]=useState([])
@@ -61,7 +61,12 @@ function Index(props) {
             }
   )
   const [addressType,setAddressType]=useState("Registered")
- 
+ let masterList=[
+  {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
+   {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
+    {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
+     {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+ ]
 
   useEffect(() => {
     let tempArr=supplierState.authorisedSignatoryDetails
@@ -161,16 +166,38 @@ function Index(props) {
   }
   
   const handleChangeInput=(name,value,index)=>{
-
-  let tempArr=list;
-    tempArr.forEach((val,i)=>{
-    if(i==index){
-        val[name] = value
+   let arrayToSave={
+     name:"",designation:"",email:"",phoneNo:"",
+      actions:"false"
+   }
+   masterList.forEach((val,index)=>{
+    if(val.name==value){
+      arrayToSave.name=val.name
+      arrayToSave.designation=val.designation
+      arrayToSave.email=val.email
+      arrayToSave.phoneNo=val.phoneNo
     }
-    })
-    setList(tempArr)
+   })
+ 
+
+    setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return arrayToSave;
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
+    console.log(tempArr,"987")
+    // setList(tempArr)
 
   }
+  console.log(list,"87")
   const handleAddressInput=()=>{
 
     setAddressList(current => [...current, newAddress])
@@ -302,10 +329,29 @@ const editNewAddress=(name,value)=>{
        setList(savedData.authorisedSignatoryDetails)
        setAddressList(savedData.addresses)
        setSupplierState(supplier)
+    }else{
+       let supplier={
+       "name": props.data?.name,
+        "shortName": props.data?.shortName,
+        "bankDetails": {
+            "bankName": props.data?.bankDetails.bankName,
+            "accountNo": props.data?.bankDetails.accountNo,
+            "swiftCode": props.data?.bankDetails.swiftCode,
+            "city": props.data?.bankDetails.city
+        },
+        "addresses": props.data?.addresses,
+        "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails,
+        "multiParty": props.data?.multiParty,
+        "multiPartyAddresses": props.data?.multiPartyAddresses
+        
+       }
+       setList(props.data?.authorisedSignatoryDetails)
+       setAddressList(props.data?.addresses)
+       setSupplierState(supplier)
     }
    
    }
-  },[])
+  },[props])
   return (
     <>
       <div className={styles.container}>
@@ -433,7 +479,7 @@ const editNewAddress=(name,value)=>{
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
-           {addressList.map((val,index)=>{
+           {addressList?.map((val,index)=>{
             return(
             <div
             key={index}
@@ -718,7 +764,7 @@ const editNewAddress=(name,value)=>{
                     <th>ACTION</th>
                   </tr>
                   <tbody>
-                    {list.length>0 && list.map((val,index)=>{
+                    {list?.length>0 && list?.map((val,index)=>{
                       return(
                         <>
                         {val.actions=="true"?
@@ -736,11 +782,15 @@ const editNewAddress=(name,value)=>{
                         :<tr key={index} className='table_row'>
                           <td>
                             <select 
-                            value="name" className={`${styles.customSelect}`}
+                            value={val.name}
+                            className={`${styles.customSelect}`}
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
-                              <option value={"Dr.amin"}>{"Dr.amin"}</option>
+                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
+                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
+                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
+                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
                             </select>
                             <img
                               className={`${styles.arrow2} img-fluid`}
@@ -751,21 +801,21 @@ const editNewAddress=(name,value)=>{
                           <td><input type="text" 
                           placeholder={val.designation}
                           name= "designation"
-                          onChange={(e)=>{
-                            handleChangeInput(e.target.name,e.target.value,index)
-                          }}
+                          // onChange={(e)=>{
+                          //   handleChangeInput(e.target.name,e.target.value,index)
+                          // }}
                           ></input></td>
                           <td><input type="text" placeholder={val.email}
                           name= "email"
-                          onChange={(e)=>{
-                            handleChangeInput(e.target.name,e.target.value,index)
-                          }}
+                          // onChange={(e)=>{
+                          //   handleChangeInput(e.target.name,e.target.value,index)
+                          // }}
                           ></input></td>
                           <td><input type="text" placeholder={val.phoneNo}
                           name= "phoneNo"
-                          onChange={(e)=>{
-                            handleChangeInput(e.target.name,e.target.value,index)
-                          }}
+                          // onChange={(e)=>{
+                          //   handleChangeInput(e.target.name,e.target.value,index)
+                          // }}
                           ></input></td>
                           <td className={`d-flex`}>
                             <div

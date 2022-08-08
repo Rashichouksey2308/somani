@@ -1,26 +1,20 @@
 import * as types from './actionsType'
 
 const initialState = {
-  user: {},
-  token: null,
-  isuserLoggedin: false,
-  loggingInUser: false,
-  loggingUserOut: false,
-  loggingUserMessage: null,
-  fetchingUserPermissions: false,
-  fetchingUserPermissionsStatus: null,
-  userPermissions: [],
-  userAccessLevel: 0,
-  userId: null,
-  loading: true,
-  permissions: {
-    read: false,
-    write: false,
-  },
+  allGeneric: [],
+  selectedGeneric: [],
 }
 
 function GenericReducer(state = initialState, action) {
+  console.log(action.type, '988')
   switch (action.type) {
+    case types.GET_GENERIC_SUCCESS: {
+      console.log('hereh18')
+      return {
+        ...state,
+        allGeneric: action.payload,
+      }
+    }
     case types.SUBMIT_GENERIC:
       return {
         ...state,
@@ -36,6 +30,17 @@ function GenericReducer(state = initialState, action) {
         ...state,
       }
     }
+    // case types.GET_GENERIC:
+    //   return {
+    //     ...state,
+    //   }
+
+    // case types.GET_GENERIC_FAILED: {
+    //   return {
+    //     ...state,
+    //     allGeneric: [],
+    //   }
+    // }
 
     default:
       return state

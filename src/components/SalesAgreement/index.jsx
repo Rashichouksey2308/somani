@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import styles from './index.module.scss'
 import {Row, Col,Form} from "react-bootstrap"
 import GrowInput from '../GrowInput'
@@ -24,7 +24,7 @@ import { cssNumber } from 'jquery'
 function Index(props) {
     const dispatch = useDispatch()
 
-  console.log(props,"sales")
+  console.log(props.genericData,"sales")
   const [active,setActive]=useState("Supplier")
   const [multiPart,setMultiPart]=useState(false)
   const [multiPartValue,setMultiPartValue]=useState("Manufacturer")
@@ -82,6 +82,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+        data={props.genericData.supplier}
 
         />
       )
@@ -94,6 +95,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+         data={props.genericData.supplier}
         />
 
 
@@ -107,6 +109,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+         data={props.genericData.supplier}
         />
       )
     }
@@ -118,8 +121,9 @@ function Index(props) {
         multiPart={multiPart}
         submitData={submitData} 
         updateData={updateData}
-         active={active}
-         multiPartValue={multiPartValue}
+        active={active}
+        multiPartValue={multiPartValue}
+        data={props?.genericData?.supplier}
         />
       )
     }
@@ -131,6 +135,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+         data={props.genericData.supplier}
         />
       )
     }
@@ -142,22 +147,42 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+         data={props.genericData.supplier}
         />
       )
     }
         if(active=="Stevedore"){
       return(
-        <Stevedore/>
+        <Stevedore
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+         data={props.genericData.supplier}
+        />
       )
     }
       if(active=="Delivery Terms"){
       return(
-        <Thirdparty/>
+        <Thirdparty 
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+         data={props.genericData.supplier}
+        />
       )
     }
      if(active=="Product Specifications"){
       return(
-        <ProductSpecification/>
+        <ProductSpecification
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+         data={props.genericData.supplier}
+        
+        />
       )
     }
   }
@@ -232,7 +257,7 @@ const onSave=()=>{
   let dataToSend={}
   if(key=="Supplier"){
    dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+      genericId:props.genericData?._id,
        supplier:{
         "name": data.supplierState.name,
         "shortName": data.supplierState.shortName,
@@ -529,6 +554,10 @@ const sendData=(key,data)=>{
 const onShowSideBar=()=>{
   setIsSideBarOpen(true)
 }
+
+  useEffect(() => {
+    setMultiPart(props.genericData?.supplier?.multiParty)
+  },[props.genericData])
   return (
     <div className={`${styles.root}`}>
     
