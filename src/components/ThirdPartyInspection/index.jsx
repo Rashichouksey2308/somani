@@ -12,7 +12,6 @@ import { UpdateInspection } from 'redux/Inspections/action'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
 export default function Index({ addButton, inspectionData }) {
-
   const dispatch = useDispatch()
 
   const [editInput, setEditInput] = useState(true)
@@ -92,7 +91,7 @@ export default function Index({ addButton, inspectionData }) {
     namesplit.length > 1
       ? (newInput[namesplit[0]][namesplit[1]] = value)
       : (newInput[name] = value)
-      setInspectionDetails(newInput)
+    setInspectionDetails(newInput)
   }
 
   const saveDate = (value, name) => {
@@ -397,7 +396,7 @@ export default function Index({ addButton, inspectionData }) {
                       >
                         <thead>
                           <tr>
-                            <th>
+                            <th width="40%">
                               DOCUMENT NAME{' '}
                               <img
                                 className={`${styles.sort_img} mb-1`}
@@ -405,7 +404,7 @@ export default function Index({ addButton, inspectionData }) {
                                 alt="Sort icon"
                               />
                             </th>
-                            <th>
+                            <th width="20%">
                               FORMAT{' '}
                               <img
                                 className={`${styles.sort_img} mb-1`}
@@ -413,7 +412,7 @@ export default function Index({ addButton, inspectionData }) {
                                 alt="Sort icon"
                               />
                             </th>
-                            <th>
+                            <th width="25%">
                               DOCUMENT DATE{' '}
                               <img
                                 className={`${styles.sort_img} mb-1`}
@@ -422,6 +421,7 @@ export default function Index({ addButton, inspectionData }) {
                               />
                             </th>
                             <th>ACTION</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -484,7 +484,7 @@ export default function Index({ addButton, inspectionData }) {
                           </tr>
                           <tr className="table_row">
                             <td className={styles.doc_name}>
-                              Certificate of Origin
+                              Certificate of Ouality
                               <strong className="text-danger ml-2">*</strong>
                               <span>View</span>
                             </td>
@@ -530,7 +530,7 @@ export default function Index({ addButton, inspectionData }) {
                               </div>
                             </td>
                             <td>
-                              <div className={styles.uploadBtnWrapper}>
+                              <div className={`${styles.uploadBtnWrapper}`}>
                                 <input
                                   type="file"
                                   onChange={(e) => uploadDocument2(e)}
@@ -546,7 +546,7 @@ export default function Index({ addButton, inspectionData }) {
                           </tr>
                           <tr className="table_row">
                             <td className={styles.doc_name}>
-                              Certificate of Origin
+                              Certificate of Weight
                               <strong className="text-danger ml-2">*</strong>
                               <span>View</span>
                             </td>

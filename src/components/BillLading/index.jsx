@@ -4,18 +4,24 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
-import _get from "lodash/get";
+import _get from 'lodash/get'
 import { initial } from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
-import { UpdateTransitDetails, GetTransitDetails } from '../../redux/TransitDetails/action'
+import {
+  UpdateTransitDetails,
+  GetTransitDetails,
+} from '../../redux/TransitDetails/action'
 import { useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import UploadOther from '../UploadOther'
 
-
-
-export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, docUploadFunction }) {
+export default function Index({
+  isShipmentTypeBULK,
+  TransitDetails,
+  orderid,
+  docUploadFunction,
+}) {
   let transId = _get(TransitDetails, `data[0]`, '')
   const initialStateForLiner = {
     vesselName: '',
@@ -33,8 +39,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     containerDetails: {
       numberOfContainers: '',
       freeDetentionPeriod: '',
-      blSurrenderDate: ''
-    }
+      blSurrenderDate: '',
+    },
   }
   const initialStateForBulk = {
     vesselName: '',
@@ -51,10 +57,16 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     document2: null,
   }
   const dispatch = useDispatch()
-  let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk'
+  let shipmentTypeBulk =
+    _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
+    'Bulk'
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
-  const initalState = !existingBlData.length === 0 ? [...existingBlData] : shipmentTypeBulk ? initialStateForBulk : initialStateForLiner
-
+  const initalState =
+    !existingBlData.length === 0
+      ? [...existingBlData]
+      : shipmentTypeBulk
+      ? initialStateForBulk
+      : initialStateForLiner
 
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
@@ -62,17 +74,21 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   const [startBlDate, setBlDate] = useState(null)
   const [startetaAtDischargePortTo, setetaAtDischargePortTo] = useState(null)
   const [startblSurrenderDate, setblSurrenderDate] = useState(null)
-  const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] = useState(null)
+  const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] =
+    useState(null)
 
   const [lastDate, setlastDate] = useState(new Date())
-  console.log(bolList,existingBlData, 'existingBlData')
+  console.log(bolList, existingBlData, 'existingBlData')
 
   useEffect(() => {
     setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
   }, [TransitDetails])
 
-
-  const partShipmentAllowed = _get(TransitDetails, "data[0].order.vessel.partShipmentAllowed", false)
+  const partShipmentAllowed = _get(
+    TransitDetails,
+    'data[0].order.vessel.partShipmentAllowed',
+    false,
+  )
   console.log(TransitDetails, 'bolList')
 
   const onBolAdd = () => {
@@ -82,7 +98,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
       setBolList([...bolList, initialStateForLiner])
     }
   }
-
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -97,29 +112,45 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
     let filteredVessel = {}
 
     // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
-    if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
-      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
-        if (vessel.vesselInformation[0].name === VesselName) {
-          filteredVessel = vessel
-        }
-      })
+    if (
+      _get(
+        TransitDetails,
+        `data[0].order.vessel.vessels[0].shipmentType`,
+        '',
+      ) === 'Bulk'
+    ) {
+      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach(
+        (vessel, index) => {
+          if (vessel.vesselInformation[0].name === VesselName) {
+            filteredVessel = vessel
+          }
+        },
+      )
     } else {
-      filteredVessel = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
-      let tempArray = _get(TransitDetails, `data[0].order.vessel.vessels[0].vesselInformation`, [])
+      filteredVessel = _get(
+        TransitDetails,
+        `data[0].order.vessel.vessels[0]`,
+        {},
+      )
+      let tempArray = _get(
+        TransitDetails,
+        `data[0].order.vessel.vessels[0].vesselInformation`,
+        [],
+      )
       tempArray.forEach((vessel, index) => {
         if (vessel.name === VesselName) {
           filteredVessel.vesselInformation = [vessel]
-
         }
       })
-
     }
     console.log(filteredVessel, 'filteredVessel')
     const newArray = [...bolList]
     newArray[index].vesselName = filteredVessel.vesselInformation[0].name
     newArray[index].imoNumber = filteredVessel.vesselInformation[0].IMONumber
-    newArray[index].etaAtDischargePortFrom = filteredVessel.transitDetails.EDTatLoadPort
-    newArray[index].etaAtDischargePortTo = filteredVessel.transitDetails.ETAatDischargePort
+    newArray[index].etaAtDischargePortFrom =
+      filteredVessel.transitDetails.EDTatLoadPort
+    newArray[index].etaAtDischargePortTo =
+      filteredVessel.transitDetails.ETAatDischargePort
 
     setBolList(newArray)
   }
@@ -127,33 +158,33 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
   const onChangeBol = (e, index) => {
     const name = e.target.id
     const value = e.target.value
-    setBolList(prevState => {
+    setBolList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
             ...obj,
-            [name]: value
+            [name]: value,
           }
         }
-        return obj;
-      });
-      return newState;
+        return obj
+      })
+      return newState
     })
   }
 
   const saveDate = (startDate, name, index) => {
     console.log(startDate, name, 'Event1')
-    setBolList(prevState => {
+    setBolList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
             ...obj,
-            [name]: startDate
+            [name]: startDate,
           }
         }
-        return obj;
-      });
-      return newState;
+        return obj
+      })
+      return newState
     })
   }
 
@@ -213,7 +244,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                 <div className={`${styles.dropDown_label} text`}>
                   Part Shipment Allowed:
                 </div>
-                <div className={`${styles.dropDown} input`}>{partShipmentAllowed ? "Yes" : 'No'}</div>
+                <div className={`${styles.dropDown} input`}>
+                  {partShipmentAllowed ? 'Yes' : 'No'}
+                </div>
               </div>
             </div>
             <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
@@ -222,41 +255,74 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                   <div className={`${styles.label} text`}>
                     Commodity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>{_get(TransitDetails, "data[0].order.commodity", '')}</span>
+                  <span className={styles.value}>
+                    {_get(TransitDetails, 'data[0].order.commodity', '')}
+                  </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>{_get(TransitDetails, "data[0].order.quantity", '')} {_get(TransitDetails, "data[0].order.unitOfQuantity", '')} </span>
+                  <span className={styles.value}>
+                    {_get(TransitDetails, 'data[0].order.quantity', '')}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
+                  </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>{_get(TransitDetails, "data[0].order.orderValue", '')} {_get(TransitDetails, "data[0].order.unitOfValue", '')}</span>
+                  <span className={styles.value}>
+                    {_get(TransitDetails, 'data[0].order.orderValue', '')}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '')}
+                  </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Shipping Line/Charter
                     <strong className="text-danger">*</strong>{' '}
                   </div>
-                  {shipmentTypeBulk ? <span className={styles.value}>{_get(TransitDetails, "data[0].order.vessel.vessels[0].shippingInformation.shippingLineOrCharter", '')}</span> :
-                    <span className={styles.value}>{_get(TransitDetails, "data[0].order.vessel.vessels[0].vesselInformation[0].shippingLineOrCharter", '')}</span>}
+                  {shipmentTypeBulk ? (
+                    <span className={styles.value}>
+                      {_get(
+                        TransitDetails,
+                        'data[0].order.vessel.vessels[0].shippingInformation.shippingLineOrCharter',
+                        '',
+                      )}
+                    </span>
+                  ) : (
+                    <span className={styles.value}>
+                      {_get(
+                        TransitDetails,
+                        'data[0].order.vessel.vessels[0].vesselInformation[0].shippingLineOrCharter',
+                        '',
+                      )}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
           </div>
           {bolList.map((bol, index) => {
             return (
-              <div key={index} className={`${styles.main} mt-4 card border_color`}>
+              <div
+                key={index}
+                className={`${styles.main} mt-4 card border_color`}
+              >
                 <div
                   className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
                 >
-                  <h3 className={`${styles.heading}`}>Bill of Lading {index + 1}</h3>
-                  {!partShipmentAllowed && <button onClick={() => console.log('addClicked')} className={styles.add_btn}>
-                    <span className={styles.add_sign}>+</span>Add
-                  </button>}
+                  <h3 className={`${styles.heading}`}>
+                    Bill of Lading {index + 1}
+                  </h3>
+                  {!partShipmentAllowed && (
+                    <button
+                      onClick={() => console.log('addClicked')}
+                      className={styles.add_btn}
+                    >
+                      <span className={styles.add_sign}>+</span>Add
+                    </button>
+                  )}
                 </div>
                 <div className={`${styles.dashboard_form} mt-3 card-body`}>
                   <div className={`${styles.bill_landing} border_color`}>
@@ -266,23 +332,39 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <select onChange={(e) => onChangeVessel(e, index)}
+                            <select
+                              onChange={(e) => onChangeVessel(e, index)}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              {shipmentTypeBulk ? _get(TransitDetails, "data[0].order.vessel.vessels", []).map((vessel, index) => (
-                                <option value={vessel?.vesselInformation?.name} key={index}>{vessel?.vesselInformation?.name}</option>
-                              )) :
-                                _get(TransitDetails, "data[0].order.vessel.vessels[0].vesselInformation", []).map((vessel, index) => (
-                                  <option value={vessel?.name} key={index}>{vessel?.name}</option>
-                                ))
-                              }
-                              <option value='option'>option</option>
-
+                              {shipmentTypeBulk
+                                ? _get(
+                                    TransitDetails,
+                                    'data[0].order.vessel.vessels',
+                                    [],
+                                  ).map((vessel, index) => (
+                                    <option
+                                      value={vessel?.vesselInformation?.name}
+                                      key={index}
+                                    >
+                                      {vessel?.vesselInformation?.name}
+                                    </option>
+                                  ))
+                                : _get(
+                                    TransitDetails,
+                                    'data[0].order.vessel.vessels[0].vesselInformation',
+                                    [],
+                                  ).map((vessel, index) => (
+                                    <option value={vessel?.name} key={index}>
+                                      {vessel?.name}
+                                    </option>
+                                  ))}
+                              <option value="option">option</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Vessel Name<strong className="text-danger">*</strong>
+                              Vessel Name
+                              <strong className="text-danger">*</strong>
                             </label>
                             <img
                               className={`${styles.arrow} img-fluid`}
@@ -290,13 +372,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               alt="Search"
                             />
                           </div>
-
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
-
-                          <p className={` label_heading`}>IMO Number<strong className="text-danger">*</strong></p>
+                          <p className={` label_heading`}>
+                            IMO Number<strong className="text-danger">*</strong>
+                          </p>
                           <span>{bol.imoNumber}</span>
                         </div>
                         <div
@@ -304,7 +386,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         >
                           <input
                             onChange={(e) => onChangeBol(e, index)}
-                            id='blNumber'
+                            id="blNumber"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
@@ -322,7 +404,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
                               defaultDate={bol.blDate}
-
                               selected={startBlDate}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -337,7 +418,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
-
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -351,7 +431,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         >
                           <input
                             onChange={(e) => onChangeBol(e, index)}
-                            id='blQuantity'
+                            id="blQuantity"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
@@ -359,7 +439,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            BL Quantity<strong className="text-danger">*</strong>
+                            BL Quantity
+                            <strong className="text-danger">*</strong>
                           </label>
                         </div>
                         <div className={`${styles.eta_heading} mt-4 col-12`}>
@@ -378,8 +459,14 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortFrom) => {
-                                setetaAtDischargePortFrom(startetaAtDischargePortFrom)
-                                saveDate(startetaAtDischargePortFrom, 'etaAtDischargePortFrom', index)
+                                setetaAtDischargePortFrom(
+                                  startetaAtDischargePortFrom,
+                                )
+                                saveDate(
+                                  startetaAtDischargePortFrom,
+                                  'etaAtDischargePortFrom',
+                                  index,
+                                )
                               }}
                               minDate={lastDate}
                             />
@@ -388,7 +475,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
-
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -402,14 +488,19 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         >
                           <div className="d-flex">
                             <DatePicker
-                              defaultDate=''
-
+                              defaultDate=""
                               selected={startetaAtDischargePortTo}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortTo) => {
-                                setetaAtDischargePortTo(startetaAtDischargePortTo)
-                                saveDate(startetaAtDischargePortTo, 'etaAtDischargePortTo', index)
+                                setetaAtDischargePortTo(
+                                  startetaAtDischargePortTo,
+                                )
+                                saveDate(
+                                  startetaAtDischargePortTo,
+                                  'etaAtDischargePortTo',
+                                  index,
+                                )
                               }}
                               minDate={lastDate}
                             />
@@ -418,7 +509,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
-
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -475,7 +565,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               <div className="d-flex justify-content-start">
                                 <div className={styles.uploadBtnWrapper}>
                                   <input type="file" name="myfile" />
-                                  <button className={`${styles.upload_btn} btn`}>
+                                  <button
+                                    className={`${styles.upload_btn} btn`}
+                                  >
                                     Upload Excel
                                   </button>
                                 </div>
@@ -541,11 +633,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                   alt="Pdf"
                                 />
                               </td>
-                              <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                              <td className={styles.doc_row}>
+                                28-02-2022,5:30 PM
+                              </td>
                               <td>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input type="file" name="myfile" />
-                                  <button className={`${styles.upload_btn} btn`}>
+                                  <button
+                                    className={`${styles.upload_btn} btn`}
+                                  >
                                     Upload
                                   </button>
                                 </div>
@@ -556,7 +652,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 <tr className="table_row">
                                   <td className={styles.doc_name}>
                                     Container No. List
-                                    <strong className="text-danger ml-0">*</strong>
+                                    <strong className="text-danger ml-0">
+                                      *
+                                    </strong>
                                   </td>
                                   <td>
                                     <img
@@ -582,7 +680,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                 <tr className="table_row">
                                   <td className={styles.doc_name}>
                                     Packing List
-                                    <strong className="text-danger ml-0">*</strong>
+                                    <strong className="text-danger ml-0">
+                                      *
+                                    </strong>
                                   </td>
                                   <td>
                                     <img
@@ -623,13 +723,17 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                         >
                           <div className="d-flex">
                             <DatePicker
-                              defaultDate=''
+                              defaultDate=""
                               selected={startblSurrenderDate}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startblSurrenderDate) => {
                                 setblSurrenderDate(startblSurrenderDate)
-                                saveDate(startblSurrenderDate, 'blSurrenderDate', index)
+                                saveDate(
+                                  startblSurrenderDate,
+                                  'blSurrenderDate',
+                                  index,
+                                )
                               }}
                               minDate={lastDate}
                             />
@@ -638,7 +742,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                               className={`${styles.calanderIcon} img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
-
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -699,11 +802,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                                   alt="Pdf"
                                 />
                               </td>
-                              <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                              <td className={styles.doc_row}>
+                                28-02-2022,5:30 PM
+                              </td>
                               <td>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input type="file" name="myfile" />
-                                  <button className={`${styles.upload_btn} btn`}>
+                                  <button
+                                    className={`${styles.upload_btn} btn`}
+                                  >
                                     Upload
                                   </button>
                                 </div>
@@ -715,12 +822,13 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, doc
                     </div>
                   </div>
                 </div>
-              </div>)
+              </div>
+            )
           })}
 
-
-          <UploadOther orderid={orderid} module='Loading-Transit-Unloading' />
-
+          <div className="mt-4">
+            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
+          </div>
         </div>
         <SaveBar handleSave={saveData} rightBtn="Submit" />
       </div>

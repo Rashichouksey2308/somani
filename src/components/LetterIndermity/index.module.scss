@@ -1,133 +1,208 @@
-@import "../styles/Core/config";
-.root{
-    margin-bottom: 10rem;
+@import '../styles/Core/config';
+.root {
+  margin-bottom: 10rem;
 }
 .content_container {
-    padding: 1rem;
-    font-size: 22px;
-    line-height: 36px;
+  padding: 1.5rem;
+  font-size: 22px;
+  line-height: 36px;
+  letter-spacing: 0;
+  margin-top: 2rem;
+  .heading {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
     letter-spacing: 0;
-    margin-top:2rem;    
-    .heading{
-        text-align: center;
-        font-weight: bold;
-        font-size: 24px;
-        line-height:29px;
-        letter-spacing: 0;
-    }
-    .aboutLetter{
-        font-weight: bold;
-        font-size: 24px;
-        line-height: 29px;
-        margin-top: 4rem;
-        margin-bottom: 4rem;
-    }
-    .addressAndDAte{
-        div{
-            font-weight: bold;
-            font-size: 22px;
-            line-height: 36px;
-            letter-spacing: 0;
-            span{
-               font-weight: normal;
-                font-size: 22px;
-                line-height: 36px;
-                letter-spacing: 0;
-            }            
-            .add{
-                white-space: nowrap;
-                width: 413px;
-            }
-            .noadd{
-                width: 40%;
-            }
-        }
-        margin-bottom: 4rem;
-    }
-    .salutations{
-        margin-top: 1.8rem;
-        span {
-            font-weight: normal;
-            font-size: 22px;
-            line-height: 36px;
-            letter-spacing: 0;
-        }        
-        div {
-            white-space: nowrap;
-            width: 413px;
-            font-weight: bold;
-            font-size: 22px;
-            line-height: 36px;
-            letter-spacing: 0;
-        }
-        .salutationFeatures {
-            flex-grow: 1;
-            select{
-                margin-right: 1rem;
-                background: #C3C3C31F 0% 0% no-repeat padding-box;
-                border: 1px solid #0000001F;
-                border-radius: 4px;
-                height: 50px;
-            }
-            .button {
-                cursor: pointer;
-                width: 7rem;
-                height: 3rem;
-                border: 3px solid #3687E8;
-                border-radius: 5px;
-                color: #3687E8;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding:0.5rem;
-                margin-left:1rem;
-            }
-        }
-    }     
-    .body{
-        margin-top: 4rem;        
+  }
+  .aboutLetter {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+  .addressAndDAte {
+    div {
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 36px;
+      letter-spacing: 0;
+      span {
         font-weight: normal;
         font-size: 22px;
-        line-height: 46px;
-        letter-spacing: 0;       
-        ol {
-            padding:1rem;
-            li {
-                margin-bottom: 20px;
-            }
-        }
-    }  
-    .footerSalutations {
-        margin-top: 4rem;
-        margin-bottom: 4rem;
-        p {
-            margin: 0rem !important;
-        } 
-        .athorised {        
-            margin-top: 4rem;
-            p {
-                margin: 1rem !important;
-            }
-            select {
-                margin-left: 1rem;
-                background: #C3C3C31F 0% 0% no-repeat padding-box;
-                border: 1px solid #0000001F;
-                border-radius: 4px;
-                height: 50px;
-                font-weight: bold;
-                width: 257px;
-            }
-            input {
-                background: #C3C3C31F 0% 0% no-repeat padding-box;
-                border: 1px solid #0000001F;
-                border-radius: 4px;
-                height: 50px;
-                font-weight: bold;
-                width: 270px;
-            }
-        }
-    }      
-    .bold {
-        font-weight: bold;
+        line-height: 36px;
+        letter-spacing: 0;
+      }
+      .add {
+        white-space: nowrap;
+        width: 413px;
+      }
+      .noadd {
+        width: 40%;
+      }
     }
+    margin-bottom: 4rem;
+  }
+  .salutations {
+    margin-top: 1.8rem;
+    span {
+      font-weight: normal;
+      font-size: 22px;
+      line-height: 36px;
+      letter-spacing: 0;
+    }
+    div {
+      white-space: nowrap;
+      width: 413px;
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 36px;
+      letter-spacing: 0;
+    }
+    .salutationFeatures {
+      flex-grow: 1;
+      select {
+        margin-right: 1rem;
+        background: #c3c3c31f 0% 0% no-repeat padding-box;
+        border: 1px solid #0000001f;
+        border-radius: 4px;
+        height: 50px;
+      }
+      .button {
+        cursor: pointer;
+        width: 7rem;
+        height: 3rem;
+        border: 3px solid #3687e8;
+        border-radius: 5px;
+        color: #3687e8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 23px;
+        background-color: transparent;
+
+        margin-left: 1rem;
+      }
+    }
+  }
+  .body {
+    margin-top: 4rem;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 46px;
+    letter-spacing: 0;
+    ol {
+      padding: 1rem;
+      li {
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .footerSalutations {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    p {
+      margin: 0rem !important;
+    }
+    .athorised {
+      margin-top: 4rem;
+      p {
+        //margin: 1rem !important;
+      }
+      select {
+        margin-left: 1rem;
+        background: #c3c3c31f 0% 0% no-repeat padding-box;
+        border: 1px solid #0000001f;
+        border-radius: 4px;
+        height: 50px;
+        font-weight: bold;
+        width: 257px;
+      }
+      input {
+        background: #c3c3c31f 0% 0% no-repeat padding-box;
+        border: 1px solid #0000001f;
+        border-radius: 4px;
+        height: 50px;
+        font-weight: bold;
+        width: 270px;
+      }
+    }
+  }
+  .bold {
+    font-weight: bold;
+  }
+}
+.button {
+  cursor: pointer;
+  width: 7rem;
+  height: 3rem;
+  border: 3px solid #3687e8;
+  border-radius: 5px;
+  color: #3687e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 23px;
+  background-color: transparent;
+
+  margin-left: 1rem;
+}
+.arrow {
+  width: 13px;
+  margin-left: -40px;
+
+  pointer-events: none;
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
+.customSelect {
+  appearance: none;
+
+  // position: relative;
+}
+
+.add_btn {
+  color: #3687e8;
+  text-transform: capitalize;
+  border: 3px solid #3687e8;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 23px;
+  background-color: transparent;
+  margin: 0 15px 0 30px;
+  width: 7.5rem;
+  height: 2.8rem;
+  @include respond(md-desktop) {
+    font-size: 16px;
+  }
+  @include respond(sm-desktop) {
+    font-size: 14px;
+  }
+  @include respond(phone) {
+    font-size: 12px;
+    width: 50px;
+    height: 26px;
+    text-align: center;
+    border-radius: 3px;
+  }
+
+  span {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 27px;
+    margin-right: 5px;
+  }
 }

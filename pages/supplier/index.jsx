@@ -1168,7 +1168,7 @@ function Index() {
           </div>
 
           <div className="mt-4 ml-2 mr-2 mb-5">
-            <InspectionDocument />
+            <InspectionDocument documentName="Incumbency Certificate" />
           </div>
         </div>
         <SaveBar rightBtn="Send for Approval" />

@@ -141,31 +141,30 @@ function Index() {
     saveAmendmentData(name, text)
   }
 
-  const [clauseData, setClauseData] =
-    useState()
-    // {
-    //   formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
-    //   applicableRules: lcModuleData?.lcApplication?.applicableRules,
-    //   dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
-    //   placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-    //   applicant: lcModuleData?.lcApplication?.applicant,
-    //   beneficiary: lcModuleData?.lcApplication?.beneficiary,
-    //   currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-    //   currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
-    //   tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
-    //   creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
-    //   creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
-    //   atSight: lcModuleData?.lcApplication?.atSight,
-    //   drawee: lcModuleData?.lcApplication?.drawee,
-    //   deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
-    //   partialShipment: lcModuleData?.lcApplication?.partialShipment,
-    //   transhipments: lcModuleData?.lcApplication?.transhipments,
-    //   shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
-    //   portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
-    //   portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
-    //   latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
-    //   DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
-    // },
+  const [clauseData, setClauseData] = useState()
+  // {
+  //   formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+  //   applicableRules: lcModuleData?.lcApplication?.applicableRules,
+  //   dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+  //   placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+  //   applicant: lcModuleData?.lcApplication?.applicant,
+  //   beneficiary: lcModuleData?.lcApplication?.beneficiary,
+  //   currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+  //   currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+  //   tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+  //   creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+  //   creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+  //   atSight: lcModuleData?.lcApplication?.atSight,
+  //   drawee: lcModuleData?.lcApplication?.drawee,
+  //   deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+  //   partialShipment: lcModuleData?.lcApplication?.partialShipment,
+  //   transhipments: lcModuleData?.lcApplication?.transhipments,
+  //   shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+  //   portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+  //   portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+  //   latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+  //   DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+  // },
 
   console.log(clauseData, 'CLAUSE DATA')
 
@@ -547,7 +546,10 @@ function Index() {
 
           {/* Document*/}
           <div className="mt-4 mb-5">
-            <InspectionDocument orderId={lcModuleData?.order?._id} />
+            <InspectionDocument
+              orderId={lcModuleData?.order?._id}
+              documentName="LC DRAFT"
+            />
           </div>
         </div>
       </div>
