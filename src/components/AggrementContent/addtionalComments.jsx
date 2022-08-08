@@ -5,17 +5,17 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 function Index(props) {
    const [addressList,setAddressList]=useState([])
-    const [value,setValue]=useState("")
+  const [value,setValue]=useState("")
 
   useEffect(() => {
-    if(props.saveData==true && props.active=="Product Specifications"){
+    if(props.saveData==true && props.active=="Additional Comments"){
        let data={
         
         addressList:addressList,
        }
        props.sendData("Product",data)
     }
-    if(props.submitData==true && props.active=="Product Specifications"){
+    if(props.submitData==true && props.active=="Additional Comments"){
       let data={
        
         addressList:addressList,
@@ -93,19 +93,13 @@ setAddressList([...addressList,value])
                     }}
        ></img>
      </div>
-     <div className={`${styles.button_container} d-flex justify-content-start  align-items-center `}>
-        <div className={`${styles.button} d-flex justify-content-center align-items-center`}>
-           <span>Upload Specifications</span>
-        </div>
-        <div className={`${styles.file_text}`}>
-            <span><span className={`${styles.danger} mr-2`}>* </span>ONLY .XLS FILES ARE ALLOWED & MAX FILE SIZE UP TO 50 MB</span>
-        </div>
-     </div>
-     <span>Comments</span>
+   
+     <span>Additional Comments</span>
+     <ol >
      {addressList?.length>0 && addressList.map((val,index)=>{
      return(
       <>
-       <div className={`d-flex justify-content-between align-items-center ${styles.comment}`}>
+       <li  className={`d-flex justify-content-between align-items-center ${styles.comment}`}>
         <input
                  
                   required
@@ -129,10 +123,11 @@ setAddressList([...addressList,value])
                   }}
          ></img>
        </div>
-     </div>
+     </li>
       </>
      )
      })}
+     </ol>
      </div>
  
       </div>

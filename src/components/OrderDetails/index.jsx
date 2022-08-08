@@ -199,7 +199,7 @@ const Index = ({ saveOrderData, darkMode ,}) => {
           </div>
 
           <div className={`${styles.radio_form} col-md-12`}>
-            <div className={`${styles.label_heading} label_heading`}>
+            <div className={`${styles.sub_heading} sub_heading`}>
               INCO Terms<strong className="text-danger">*</strong>
             </div>
             <Form>

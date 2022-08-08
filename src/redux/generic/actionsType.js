@@ -20,6 +20,25 @@ export function submitGenericSuccess(payload) {
   }
 }
 
+export function getGenericFailed(payload) {
+  return {
+    type: types.GET_GENERIC_FAILED,
+  }
+}
+export function getGeneric() {
+  return {
+    type: types.GET_GENERIC,
+  }
+}
+
+export function getGenericSuccess(payload) {
+  console.log(payload, 987)
+  return {
+    type: types.GET_GENERIC_SUCCESS,
+    payload: payload,
+  }
+}
+
 export function submitGenericFailed(payload) {
   return {
     type: types.SUBMIT_GENERIC_FAILED,
@@ -61,3 +80,35 @@ export const updateGenericData =
       }
     }
   }
+
+export const getGenericData = (payload) => async (dispatch, getState, api) => {
+  console.log(payload, 'updateGenericData')
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    let response = await Axios.get(`${API.corebaseUrl}/api/core/generic`, {
+      headers: headers,
+    })
+    if (response.data.code === 200) {
+      console.log(response.data.data.data, 'data')
+      dispatch(getGenericSuccess(response.data.data.data))
+      return response.data.data.data
+    } else {
+      dispatch(getGenericFailed(response.data.data))
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
+  } catch (error) {
+    dispatch(getGenericFailed())
+
+    let toastMessage = 'PUT GENERIC API FAILED'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}

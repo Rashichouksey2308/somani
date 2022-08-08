@@ -3,8 +3,8 @@
     padding: 35px 35px 10px;
     border-bottom: 3px solid #D9DDE8;
     @include respond(phone) {
-            padding: 25px 20px 20px;
-        }
+        padding: 25px 20px 20px;
+    }
     .heading {
         font-size: 20px;
         letter-spacing: 0.19px;
@@ -14,32 +14,27 @@
     }
     .radio_form {
         padding-top: 20px;
-.radio_group {
-        display: flex;
-
-        @include respond(phone) {
-            justify-content: space-between;
-        }
-
-        .radio {
-            font-size: 20px;
-            color: #111111;
-            letter-spacing: 0.19px;
-            padding-right: 25px;
-
+        .radio_group {
+            display: flex;
             @include respond(phone) {
-                font-size: 16px;
-                padding-right: 0px;
+                justify-content: space-between;
             }
-
-            label {
+            .radio {
+                font-size: 20px;
+                color: #111111;
+                letter-spacing: 0.19px;
+                padding-right: 25px;
                 @include respond(phone) {
                     font-size: 16px;
-
+                    padding-right: 0px;
+                }
+                label {
+                    @include respond(phone) {
+                        font-size: 16px;
+                    }
                 }
             }
         }
-    }
         .sub_heading {
             font-size: 16px;
             color: #00000080;
@@ -87,6 +82,8 @@
                 text-align: left;
                 font-size: 20px;
                 padding-left: 12px;
+                outline: none;
+                box-shadow: none;
             }
             .uploadBtnWrapper {
                 overflow: hidden;
@@ -101,8 +98,7 @@
                     opacity: 0;
                     cursor: pointer;
                     position: absolute;
-                }
-                
+                }                
             }
             .button_upload {
                 width: 106px;
@@ -135,8 +131,8 @@
                 background-color: #C3C3C31F;
                 border: 1px solid #0000001F;
                 @include respond(phone) {
-                        margin: 0 0 0 auto;
-                    }
+                    margin: 0 0 0 auto;
+                }
             }
             .phone_card{
                 display: flex;
@@ -173,8 +169,8 @@
             font-size: 16px;
             letter-spacing: 0.53px;
             @include respond(phone) {
-                    font-size: $font_size_mobile_input_label !important;
-                }
+                font-size: $font_size_mobile_input_label !important;
+            }
         }
         .input_field {
             height: 60px;
@@ -212,8 +208,7 @@
             width: 40px;
             height: 40px;
             text-align: center;
-            padding: 5px;
-            
+            padding: 5px;            
             .image_delete {
                 background: transparent;
                 width: 21px;
@@ -248,36 +243,25 @@
         }
     }
 }
-
 .customSelect {
     appearance: none;
     // position: relative;
 
 }
-
 .arrow {
-
     margin-left: -40px;
     width: 13px;
     pointer-events: none;
-
     input[type="date"]::-webkit-inner-spin-button,
     input[type="date"]::-webkit-calendar-picker-indicator {
         display: none;
         -webkit-appearance: none;
     }
-
-
 }
-
 .calanderIcon {
-
     margin-left: -40px;
     margin-top: 15px;
     width: 23px;
     height: 26px;
     pointer-events: none;
-
-
-
 }
