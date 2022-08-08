@@ -8,13 +8,12 @@ import DateCalender from '../DateCalender'
 import { useDispatch } from 'react-redux'
 import { UpdateInspection } from 'redux/Inspections/action'
 
-export default function Index({inspectionData}) {
-
+export default function Index({ inspectionData }) {
   let dispatch = useDispatch()
 
   const [plotInspectionData, setPlotInspectionData] = useState({
-    plotInspectionDate : '',
-    plotInspectionReport : null
+    plotInspectionDate: '',
+    plotInspectionReport: null,
   })
 
   // const saveAppointmentData = (name, value) => {
@@ -38,7 +37,10 @@ export default function Index({inspectionData}) {
 
   const handleSave = () => {
     let fd = new FormData()
-    fd.append('plotInspectionDate', JSON.stringify(plotInspectionData.plotInspectionDate))
+    fd.append(
+      'plotInspectionDate',
+      JSON.stringify(plotInspectionData.plotInspectionDate),
+    )
     fd.append('plotInspectionReport', plotInspectionData.plotInspectionReport)
 
     dispatch(UpdateInspection(fd))
@@ -46,7 +48,9 @@ export default function Index({inspectionData}) {
 
   return (
     <>
-      <div className={`${styles.backgroundMain} container-fluid p-0 background2`}>
+      <div
+        className={`${styles.backgroundMain} container-fluid p-0 background2`}
+      >
         <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} card border-color`}>
             <div
@@ -59,7 +63,12 @@ export default function Index({inspectionData}) {
               <div className="row">
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <DateCalender name='plotInspectionDate' saveDate={saveDate} labelName="Plot Inspection Date" dateFormat={`dd-MM-yyyy`} />
+                    <DateCalender
+                      name="plotInspectionDate"
+                      saveDate={saveDate}
+                      labelName="Plot Inspection Date"
+                      dateFormat={`dd-MM-yyyy`}
+                    />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -70,7 +79,10 @@ export default function Index({inspectionData}) {
               </div>
             </div>
           </div>
-          <InspectionDocument uploadDocument1={uploadDocument1}/>
+          <InspectionDocument
+            documentName="Plot Inspection Report"
+            uploadDocument1={uploadDocument1}
+          />
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" />
       </div>

@@ -61,6 +61,7 @@ export default function Index() {
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="number"
+                      required
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Quantity<strong className="text-danger">*</strong>

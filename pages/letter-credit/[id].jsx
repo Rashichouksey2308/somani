@@ -6,10 +6,9 @@ import InspectionDocument from '../../src/components/InspectionDocument'
 import DateCalender from '../../src/components/DateCalender'
 import SaveBar from '../../src/components/SaveBar'
 import { useDispatch, useSelector } from 'react-redux'
-import {GetLcModule, UpdateAmendment} from '../../src/redux/lcModule/action'
+import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action'
 
 function Index() {
-
   const dispatch = useDispatch()
 
   const { lcModule } = useSelector((state) => state.lc)
@@ -69,7 +68,7 @@ function Index() {
         lcModuleData?.lcApplication?.documentaryCreditNumber,
       dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
       dateOfAmendment: lcModuleData?.lcApplication?.dateOfAmendment,
-      numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment
+      numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment,
     })
   }, [lcModuleData])
 
@@ -129,13 +128,12 @@ function Index() {
   const [drop, setDrop] = useState('')
 
   const dropDownChange = (e) => {
-
     let newInput = { ...clauseObj }
-  
+
     let val1 = e.target.options[e.target.selectedIndex].text
     let val2 = e.target.value
     setDrop(val2)
- 
+
     newInput['existingValue'] = lcData[e.target.value]
     newInput['dropDownValue'] = val1
 
@@ -143,11 +141,11 @@ function Index() {
   }
 
   const arrChange = (name, value) => {
-    const newInput = {...clauseObj}
+    const newInput = { ...clauseObj }
     newInput[name] = value
     setClauseObj(newInput)
 
-    const newInput1 = {...lcData}
+    const newInput1 = { ...lcData }
     newInput1[drop] = value
     // console.log(newInput1, "NEW INPUT 1")
     setLcData(newInput1)
@@ -162,16 +160,17 @@ function Index() {
   }
 
   const removeFromArr = (arr) => {
-    const newClause = clauseArr.filter((item) => {return  item.dropDownValue !== arr}
-    )
+    const newClause = clauseArr.filter((item) => {
+      return item.dropDownValue !== arr
+    })
     setClauseArr(newClause)
   }
 
   const handleSubmit = () => {
     let fd = new FormData()
-    fd.append( 'lcApplication', JSON.stringify(lcData))
-    fd.append( 'lcModuleId', JSON.stringify(lcModuleData._id))
-    
+    fd.append('lcApplication', JSON.stringify(lcData))
+    fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+
     dispatch(UpdateAmendment(fd))
     // Router.push('/letter-credit/id')
   }
@@ -218,7 +217,9 @@ function Index() {
                           (51D) LC Issuing Bank{' '}
                           <strong className="text-danger ml-n1">*</strong>
                         </div>
-                        <span className={`${styles.value}`}>{lcData?.lcIssuingBank}</span>
+                        <span className={`${styles.value}`}>
+                          {lcData?.lcIssuingBank}
+                        </span>
                       </div>
                       <div
                         className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `}
@@ -227,7 +228,9 @@ function Index() {
                           (20) Documentary Credit Number{' '}
                           <strong className="text-danger ml-n1">*</strong>
                         </div>
-                        <span className={styles.value}>{lcData?.documentaryCreditNumber}</span>
+                        <span className={styles.value}>
+                          {lcData?.documentaryCreditNumber}
+                        </span>
                       </div>
                       <div
                         className={`${styles.form_group} mt-3 col-lg-3 col-md-6 col-sm-6 `}
@@ -236,11 +239,17 @@ function Index() {
                           (31C) Date Of Issue{' '}
                           <strong className="text-danger ml-n1">*</strong>{' '}
                         </div>
-                        <span className={styles.value}>{lcData?.dateOfIssue?.split('T')[0]}</span>
+                        <span className={styles.value}>
+                          {lcData?.dateOfIssue?.split('T')[0]}
+                        </span>
                       </div>
                       <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
                         <div className="d-flex">
-                          <DateCalender name='dateOfAmendment' saveDate={saveDate} labelName="(30) Date Of Ammendment" />
+                          <DateCalender
+                            name="dateOfAmendment"
+                            saveDate={saveDate}
+                            labelName="(30) Date Of Ammendment"
+                          />
                           <img
                             className={`${styles.calanderIcon} img-fluid`}
                             src="/static/caldericon.svg"
@@ -252,8 +261,10 @@ function Index() {
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="number"
-                          name='numberOfAmendment'
-                          onChange={(e)=>saveAmendmentData(e.target.name ,e.target.value)}
+                          name="numberOfAmendment"
+                          onChange={(e) =>
+                            saveAmendmentData(e.target.name, e.target.value)
+                          }
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -272,7 +283,7 @@ function Index() {
                     <Row>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
-                        <select
+                          <select
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
@@ -335,7 +346,6 @@ function Index() {
                             </option>
                           </select>
 
-
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
@@ -380,7 +390,7 @@ function Index() {
                             className="img-fluid ml-4"
                             src="/static/add-btn.svg"
                             alt="add button"
-                            onClick={()=>addToArr()}
+                            onClick={() => addToArr()}
                           />
                         </div>
                       </Col>
@@ -413,24 +423,29 @@ function Index() {
                               </tr>
                             </thead>
                             <tbody>
-                           { clauseArr && clauseArr?.map((clause, index) => ( <tr key={index} className="table_row">
-                                <td>{clause.dropDownValue}</td>
-                                <td>{clause.existingValue} </td>
-                                <td>{clause.newValue}</td>
-                                <td>
-                                  <img
-                                    src="/static/mode_edit.svg"
-                                    className="img-fluid ml-n5"
-                                    alt="edit"
-                                  />
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid ml-3 mr-n5"
-                                    alt="delete"
-                                    onClick={()=>removeFromArr(clause.dropDownValue)}
-                                  />
-                                </td>
-                              </tr>))}
+                              {clauseArr &&
+                                clauseArr?.map((clause, index) => (
+                                  <tr key={index} className="table_row">
+                                    <td>{clause.dropDownValue}</td>
+                                    <td>{clause.existingValue} </td>
+                                    <td>{clause.newValue}</td>
+                                    <td>
+                                      <img
+                                        src="/static/mode_edit.svg"
+                                        className="img-fluid ml-n5"
+                                        alt="edit"
+                                      />
+                                      <img
+                                        src="/static/delete 2.svg"
+                                        className="img-fluid ml-3 mr-n5"
+                                        alt="delete"
+                                        onClick={() =>
+                                          removeFromArr(clause.dropDownValue)
+                                        }
+                                      />
+                                    </td>
+                                  </tr>
+                                ))}
                               {/* <tr className="table_row">
                                 <td>(44A) SHIPMENT FROM </td>
                                 <td>Owendo </td>
@@ -461,7 +476,10 @@ function Index() {
           </div>
 
           {/* Document*/}
-          <InspectionDocument orderId={lcModuleData?.order?._id} />
+          <InspectionDocument
+            orderId={lcModuleData?.order?._id}
+            documentName="LC DRAFT"
+          />
         </div>
       </div>
       <SaveBar handleSave={handleSubmit} rightBtn="Share" />
