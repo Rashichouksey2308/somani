@@ -1,45 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
-import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetLcModule } from 'redux/lcModule/action'
-import Filter from '../Filter'
-import _get from 'lodash/get'
-import SavePreviewBar from '../LetterIndermity/SavePreviewBar'
+import SavePreviewBar from '../SavePreviewBar'
 
 function Index({ TransitDetails }) {
-  const [billsofLanding, setBillsofLanding] = useState([
-    {
-      blnumber: '',
-      loadingPort: '',
-    },
-  ])
-  const bolArray = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
-
-  const handleRoute = () => {
-    Router.push('/loi-preview')
-  }
-  const [designation, setDesignation] = useState('')
-  const SetDesignationHanlder = (e) => {
-    if (e.target.value === 'Bhawana Jain') {
-      setDesignation('Vice President (Finance & Accounts)')
-    }
-    if (e.target.value === 'Vipin Kumar') {
-      setDesignation('Manager Accounts ')
-    }
-    if (e.target.value === 'Devesh Jain') {
-      setDesignation('Director')
-    }
-    if (e.target.value === 'Fatima Yannoulis') {
-      setDesignation('Chief Financial Officer')
-    }
-  }
-
-  const BolDropDown = ({ e, element }) => {
-    let selectedObj = bolArray
-  }
-
   return (
     <div className={`${styles.root} card container-fluid  border-0`}>
       <div className={`${styles.content_container}`}>
@@ -96,19 +60,7 @@ function Index({ TransitDetails }) {
           <div
             className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
           >
-            <select onChange={(e) => BolDropDown(e)}>
-              {bolArray.map((element, index) => (
-                <option key={index} value={index}>
-                  BL-{index + 1}
-                </option>
-              ))}
-            </select>
-            Dated 18TH MARCH 2021, ISSUE AT ABBOT POINT
-            <div className={`${styles.button}`}>
-              <span>
-                + <span>Add</span>
-              </span>
-            </div>
+            BL,1 Dated 18TH MARCH 2021, ISSUE AT ABBOT POINT
           </div>
         </div>
 
@@ -225,28 +177,21 @@ function Index({ TransitDetails }) {
           <p>The Requestor</p>
           <div className={`${styles.athorised}`}>
             <p>Authorised Signatory</p>
-            <p>
-              Name:{' '}
-              <select onChange={(e) => SetDesignationHanlder(e)}>
-                <option value=""></option>
-                <option value="Bhawana Jain">Bhawana Jain </option>
-                <option value="Vipin Kumar">Vipin Kumar </option>
-                <option value="Devesh Jain">Devesh Jain </option>
-                <option value="Fatima Yannoulis">Fatima Yannoulis </option>
-              </select>
-            </p>
-            <div>
-              Designation: <input value={designation}></input>
+            <div className="d-flex ml-3">
+              <div>Name: </div>
+              <div className={`${styles.valueText}`}>Vikash Rawal</div>
+            </div>
+            <div className="d-flex ml-3 mt=2">
+              <div>Designation: </div>
+              <div className={`${styles.valueText}`}>
+                Chief Financial Officer
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <SavePreviewBar
-        openbar={handleRoute}
-        isDownload={false}
-        rightBtn="Save &amp; Preview"
-      />
+      <SavePreviewBar rightBtn="Edit" isDownload={true} />
     </div>
   )
 }
