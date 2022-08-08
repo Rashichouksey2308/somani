@@ -4,8 +4,13 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
 import DateCalender from '../../DateCalender'
 import UploadOther from '../../UploadOther'
+import _get from 'lodash/get'
+import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
+import { useDispatch } from 'react-redux'
 
 export default function Index({ OrderId, customData }) {
+  console.log(customData, 'customData')
+  const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
   const [warehouseDetails, setWarehouseDetails] = useState({
     wareHouseDetails: {
@@ -16,6 +21,35 @@ export default function Index({ OrderId, customData }) {
     },
     document: null
   })
+
+  const onChangeWarehouseDetails = (name, text) => {
+    let newData = { ...warehouseDetails }
+    newData.wareHouseDetails[name] = text
+    setWarehouseDetails(newData)
+  }
+  const saveDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    onChangeWarehouseDetails(name, text)
+  }
+
+  const onSaveDocument = (e) => {
+    let name = e.target.id
+    let doc = e.target.files[0]
+    let tempData = { ...warehouseDetails }
+    tempData[name] = doc
+    setWarehouseDetails(tempData)
+  }
+
+  const onSaveDischarge = () => {
+    let warehouseDetailpayload = warehouseDetails.wareHouseDetails
+    let fd = new FormData()
+    fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
+    fd.append('customClearanceId', customData._id)
+    fd.append('document', warehouseDetails.document)
+    dispatch(UpdateCustomClearance(fd))
+  }
 
   const handleDropdown = (e) => {
     if ((e.target.value = 'Others')) {
@@ -50,7 +84,7 @@ export default function Index({ OrderId, customData }) {
                 <div className="row">
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div className={`${styles.label} text`}>Commodity</div>
-                    <span className={styles.value}>Iron</span>
+                    <span className={styles.value}>{_get(customData, 'order.commodity', '')}</span>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div className={`${styles.label} text`}>CMA Name</div>
@@ -68,6 +102,8 @@ export default function Index({ OrderId, customData }) {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
                   >
                     <input
+                      id='quantity'
+                      onChange={(e) => onChangeWarehouseDetails(e.target.id, e.target.value)}
                       className={`${styles.input_field} input form-control`}
                       type="number"
                       required
@@ -80,7 +116,7 @@ export default function Index({ OrderId, customData }) {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
                   >
                     <div className="d-flex">
-                      <DateCalender labelName="Date of Storage" />
+                      <DateCalender name='dateOfStorage' saveDate={saveDate} labelName="Date of Storage" />
                       <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -94,7 +130,7 @@ export default function Index({ OrderId, customData }) {
                   >
                     <div className="d-flex justify-content-start mt-2">
                       <div className={styles.uploadBtnWrapper}>
-                        <input type="file" name="myfile" />
+                        <input id='document' onChange={(e) => onSaveDocument(e)} type="file" name="myfile" />
                         <button className={`${styles.upload_btn} btn`}>
                           Upload
                         </button>
@@ -121,7 +157,7 @@ export default function Index({ OrderId, customData }) {
           </div>
 
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" />
       </div>
     </>
   )

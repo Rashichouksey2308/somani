@@ -4,13 +4,19 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
 import UploadOther from '../../UploadOther'
 import DateCalender from '../../DateCalender'
+import _get from 'lodash/get'
+import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
+import { useDispatch } from 'react-redux'
+
 
 export default function Index({ OrderId, customData }) {
   console.log(customData, 'customData')
+  const dispatch = useDispatch()
+
   const [dischargeOfCargo, setDischargeOfCargo] = useState({
     dischargeOfCargo: {
       vesselName: '',
-      portOfDischarge: '',
+      portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
       dischargeQuantity: '',
       dischargeQuantityUnit: '',
       vesselArrivaldate: null,
@@ -21,6 +27,38 @@ export default function Index({ OrderId, customData }) {
     document2: null
   })
 
+  const ShipmentType = _get(customData, 'customData?.order?.vessel?.vessels[0]?.shipmentType', 'Bulk')
+
+  const saveDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    onChangeDischargeOfCargo(name, text)
+  }
+
+  const onChangeDischargeOfCargo = (name, text) => {
+    let newData = { ...dischargeOfCargo }
+    newData.dischargeOfCargo[name] = text
+    setDischargeOfCargo(newData)
+  }
+
+  const onSaveDocument = (e) => {
+    let name = e.target.id
+    let doc = e.target.files[0]
+    let tempData = { ...dischargeOfCargo }
+    tempData[name] = doc
+    setDischargeOfCargo(tempData)
+  }
+
+  const onSaveDischarge = () => {
+    let fd = new FormData()
+    fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo))
+    fd.append('customClearanceId', customData._id)
+    fd.append('document1', dischargeOfCargo.document1)
+    fd.append('document2', dischargeOfCargo.document2)
+    dispatch(UpdateCustomClearance(fd))
+  }
+  console.log(dischargeOfCargo, 'dischargeOfCargo')
 
   return (
     <>
@@ -46,8 +84,8 @@ export default function Index({ OrderId, customData }) {
                     <select
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-
-                      <option value="America">jkh</option>
+                      <option value="">please Select A vessel</option>
+                      <option value=""></option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -66,12 +104,14 @@ export default function Index({ OrderId, customData }) {
                   >
                     Port of Discharge
                   </div>
-                  <span className={styles.value}>Visakhapatnam</span>
+                  <span className={styles.value}>{dischargeOfCargo.dischargeOfCargo.portOfDischarge}</span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
+                    onChange={(e) => onChangeDischargeOfCargo(e.target.id, e.target.value)}
+                    id='dischargeQuantity'
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     required
@@ -84,7 +124,7 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Vessel Arrival Date" />
+                    <DateCalender name='vesselArrivaldate' saveDate={saveDate} labelName="Vessel Arrival Date" />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -96,7 +136,7 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Discharge Start Date" />
+                    <DateCalender name='dischargeStartDate' saveDate={saveDate} labelName="Discharge Start Date" />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -108,7 +148,7 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Discharge End Date" />
+                    <DateCalender name='dischargeEndDate' saveDate={saveDate} labelName="Discharge End Date" />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -174,8 +214,9 @@ export default function Index({ OrderId, customData }) {
                           {' '}
                           <div className={styles.uploadBtnWrapper}>
                             <input
+                              id='document1'
                               type="file"
-                              onChange={(e) => uploadDocument1(e)}
+                              onChange={(e) => onSaveDocument(e)}
                               name="myfile"
                             />
                             <button className={`${styles.upload_btn} btn`}>
@@ -202,8 +243,9 @@ export default function Index({ OrderId, customData }) {
                           {' '}
                           <div className={styles.uploadBtnWrapper}>
                             <input
+                              id='document2'
                               type="file"
-                              onChange={(e) => uploadDocument1(e)}
+                              onChange={(e) => onSaveDocument(e)}
                               name="myfile"
                             />
                             <button className={`${styles.upload_btn} btn`}>
@@ -222,7 +264,7 @@ export default function Index({ OrderId, customData }) {
             <UploadOther orderid={OrderId} module='customClearanceAndWarehousing' />
           </div>
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" />
       </div>
     </>
   )

@@ -82,7 +82,7 @@ function Index({
                     <div
                       className={`${styles.head_container} align-items-center border_color card-header head_container justify-content-between d-flex bg-transparent`}
                     >
-                      {list[index].shipmentType === 'Liner' ? (
+                      {list[index].shipmentType === 'Bulk' ? (
                         <h3 className={`${styles.heading}`}>
                           {` Vessel Information (${getSn(index)})`}
                         </h3>
@@ -418,7 +418,7 @@ function Index({
                     </div>
                     <hr></hr>
 
-                    {list[index].shipmentType === 'Liner' ? (
+                    {list[index].shipmentType === 'Bulk' ? (
                       <>
                         {list &&
                           list[0].vesselInformation.map(
