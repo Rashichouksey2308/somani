@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
-import InspectionDocument from '../../InspectionDocument'
+import UploadOther from '../../UploadOther'
 import DateCalender from '../../DateCalender'
 
 export default function Index() {
@@ -58,6 +58,7 @@ export default function Index() {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Discharge Quantity<strong className="text-danger">*</strong>
@@ -101,9 +102,108 @@ export default function Index() {
                 </div>
               </div>
             </div>
+            <div className={`${styles.table_container} mt-4`}>
+              <div className={styles.table_scroll_outer}>
+                <div className={styles.table_scroll_inner}>
+                  <table
+                    className={`${styles.table} table`}
+                    cellPadding="0"
+                    cellSpacing="0"
+                    border="0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>
+                          DOCUMENT NAME{' '}
+                          <img
+                            className={`${styles.sort_image} mb-1`}
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </th>
+                        <th>
+                          FORMAT{' '}
+                          <img
+                            className={`${styles.sort_image} mb-1`}
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </th>
+                        <th>
+                          DOCUMENT DATE{' '}
+                          <img
+                            className={`${styles.sort_image} mb-1`}
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </th>
+                        <th>ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="table_row">
+                        <td className={styles.doc_name}>
+                          Statement of Facts
+                          <strong className="text-danger ml-1">*</strong>
+                        </td>
+                        <td>
+                          <img
+                            src="/static/pdf.svg"
+                            className={`${styles.pdfImage} img-fluid`}
+                            alt="Pdf"
+                          />
+                        </td>
+                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                        <td>
+                          {' '}
+                          <div className={styles.uploadBtnWrapper}>
+                            <input
+                              type="file"
+                              onChange={(e) => uploadDocument1(e)}
+                              name="myfile"
+                            />
+                            <button className={`${styles.upload_btn} btn`}>
+                              Upload
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr className="table_row">
+                        <td className={styles.doc_name}>
+                          Draft Survey Report
+                          <strong className="text-danger ml-1">*</strong>
+                        </td>
+                        <td>
+                          <img
+                            src="/static/pdf.svg"
+                            className={`${styles.pdfImage} img-fluid`}
+                            alt="Pdf"
+                          />
+                        </td>
+                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                        <td>
+                          {' '}
+                          <div className={styles.uploadBtnWrapper}>
+                            <input
+                              type="file"
+                              onChange={(e) => uploadDocument1(e)}
+                              name="myfile"
+                            />
+                            <button className={`${styles.upload_btn} btn`}>
+                              Upload
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="mt-4 mb-5">
-            <InspectionDocument />
+            <UploadOther />
           </div>
         </div>
         <SaveBar rightBtn="Submit" />

@@ -15,7 +15,7 @@ import UploadOther from '../UploadOther'
 
 
 
-export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid }) {
+export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, docUploadFunction }) {
   let transId = _get(TransitDetails, `data[0]`, '')
   const initialStateForLiner = {
     vesselName: '',
@@ -26,8 +26,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     etaAtDischargePortFrom: null,
     etaAtDischargePortTo: null,
     blSurrenderDate: null,
-    documentName: '',
-    blSurrenderDoc: '',
+    documentName: null,
+    blSurrenderDoc: null,
     document1: null,
     document2: null,
     containerDetails: {
@@ -45,23 +45,27 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     etaAtDischargePortFrom: '',
     etaAtDischargePortTo: '',
     blSurrenderDate: '',
-    documentName: '',
-    blSurrenderDoc: '',
+    documentName: null,
+    blSurrenderDoc: null,
     document1: null,
     document2: null,
   }
   const dispatch = useDispatch()
   let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk'
+  const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
+  const initalState = !existingBlData.length === 0 ? [...existingBlData] : shipmentTypeBulk ? initialStateForBulk : initialStateForLiner
+
+
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
-  const [bolList, setBolList] = useState([shipmentTypeBulk ? initialStateForBulk : initialStateForLiner])
+  const [bolList, setBolList] = useState([initalState])
   const [startBlDate, setBlDate] = useState(null)
   const [startetaAtDischargePortTo, setetaAtDischargePortTo] = useState(null)
   const [startblSurrenderDate, setblSurrenderDate] = useState(null)
   const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] = useState(null)
 
   const [lastDate, setlastDate] = useState(new Date())
-
+  console.log(bolList,existingBlData, 'existingBlData')
 
   useEffect(() => {
     setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
@@ -317,7 +321,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
-                              defaultDate=''
+                              defaultDate={bol.blDate}
 
                               selected={startBlDate}
                               dateFormat="dd-MM-yyyy"
@@ -368,7 +372,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
-                              defaultDate=''
+                              defaultDate={bol.etaAtDischargePortFrom}
                               name="ETAatDischargePort"
                               selected={startetaAtDischargePortFrom}
                               dateFormat="dd-MM-yyyy"

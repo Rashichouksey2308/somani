@@ -20,6 +20,7 @@ import InsuranceReducer from 'redux/insurance/reducer'
 import ForwardHedgingReducer from 'redux/ForwardHedging/reducer'
 import TransitDetailsReducer from 'redux/TransitDetails/reducer'
 import InspectionReducer from 'redux/Inspections/reducer'
+import CustomClearanceReducer from 'redux/CustomClearance&Warehousing/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -51,7 +52,8 @@ export const createStore = (preloadedState) => {
       insurance: InsuranceReducer,
       ForwardHedging: ForwardHedgingReducer,
       TransitDetails: TransitDetailsReducer,
-      Inspection: InspectionReducer
+      Inspection: InspectionReducer,
+      Custom: CustomClearanceReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>
