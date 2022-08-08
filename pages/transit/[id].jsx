@@ -10,6 +10,7 @@ import _get from "lodash/get";
 import { UpdateTransitDetails, GetTransitDetails } from '../../src/redux/TransitDetails/action'
 import { useDispatch, useSelector } from 'react-redux'
 import LetterIndermity from '../../src/components/LetterIndermity'
+import Cookies from 'js-cookie'
 
 //api
 import Axios from 'axios'
@@ -51,6 +52,7 @@ function Index() {
       }).then((response) => {
         if (response.data.code === 200) {
           return response.data.data
+          console.log(response,'docData')
         } else {
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage)) {

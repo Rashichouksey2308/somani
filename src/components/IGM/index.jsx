@@ -16,7 +16,7 @@ import { useEffect } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 
-export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
+export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction }) {
   let transId = _get(TransitDetails, `data[0]`, '')
   const dispatch = useDispatch()
   let shipmentTypeBulk =
@@ -27,36 +27,36 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
   const [startBlDate, setBlDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
   const [consigneeInfo, setConsigneeInfo] = useState({
+    name: '',
     branch: '',
     address: '',
   })
   const [igmList, setIgmList] = useState({
-    shipmentType: {
-      type: _get(
-        TransitDetails,
-        `data[0].order.vessel.vessels[0].shipmentType`,
-        '',
-      ),
-      enum: '',
-    },
+    shipmentType: _get(
+      TransitDetails,
+      `data[0].order.vessel.vessels[0].shipmentType`,
+      '',
+    ),
     shipmentDetails: {
-      countryOfOrigin: '',
-      portOfLoading: '',
-      portOfDischarge: '',
-      consigneeName: '',
-      consigneeBranch: '',
-      consigneeAddress: '',
+      consigneeName: consigneeInfo.name,
+      consigneeBranch: consigneeInfo.branch,
+      consigneeAddress: consigneeInfo.address,
     },
     igmDetails: [
       {
         vesselName: '',
         igmNumber: '',
         igmFiling: null,
-        blNumber: number,
-        document: null,
+        blNumber: []
       },
     ],
     document: null,
+  })
+  const [blNewNumberEntry, setBlNewNumberEntry] = useState({
+    blNumber: number,
+    BlDate: new Date(),
+    quantity: ''
+
   })
   const [orderData, setOrderData] = useState()
   useEffect(() => {
@@ -80,6 +80,23 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
   //     setIgmList([...igmList, initialStateForLiner])
   //   }
   // }
+
+
+  const onChangeIgm = (name, text) => {
+    let newData = { ...igmList }
+    newData.igmDetails[0][name] = text
+    setIgmList(newData)
+  }
+  const saveDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    onChangeIgm(name, text)
+  }
+
+
+
+
 
   const onChangeVessel = (e, index) => {
     let VesselName = e.target.value
@@ -128,30 +145,32 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
 
     setIgmList(newArray)
   }
-  const saveDate = (startDate, name, index) => {
-    console.log(startDate, name, 'Event1')
-    setIgmList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return {
-            ...obj,
-            [name]: startDate,
-          }
-        }
-        return obj
-      })
-      return newState
+  const onAddBlNumber = () => {
+    let newIgmList = { ...igmList }
+    newIgmList.igmDetails[0].blNumber.push({
+      blNumber: number,
+      BlDate: new Date(),
+      quantity: ''
+
     })
+    setIgmList(newIgmList)
   }
+
+
+
+
+
 
   const onChangeConsignee = (e) => {
     if (e.target.value === 'indoGerman') {
       setConsigneeInfo({
+        name: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
         branch: 'DELHI',
         address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
       })
     } else if (e.target.value === 'EMERGENT') {
       setConsigneeInfo({
+        name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
         branch: 'VIZAG',
         address:
           '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
@@ -159,6 +178,15 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
     } else {
       setConsigneeInfo({ branch: '', address: '' })
     }
+  }
+
+  const onChangeBlNumberEntry = (e) => {
+
+  }
+
+  const onDocumentSelect = (e) => {
+    const docData = docUploadFunction(e.target.files[0])
+    console.log(docData,'docData')
   }
 
   const handleSave = () => {
@@ -375,31 +403,32 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                 >
                   <div className="d-flex">
-                    <select
+                    <select id='vesselName'
+                      onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
                       className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     >
                       {shipmentTypeBulk
                         ? _get(
-                            TransitDetails,
-                            'data[0].order.vessel.vessels',
-                            [],
-                          ).map((vessel, index) => (
-                            <option
-                              value={vessel?.vesselInformation?.name}
-                              key={index}
-                            >
-                              {vessel?.vesselInformation?.name}
-                            </option>
-                          ))
+                          TransitDetails,
+                          'data[0].order.vessel.vessels',
+                          [],
+                        ).map((vessel, index) => (
+                          <option
+                            value={vessel?.vesselInformation?.name}
+                            key={index}
+                          >
+                            {vessel?.vesselInformation?.name}
+                          </option>
+                        ))
                         : _get(
-                            TransitDetails,
-                            'data[0].order.vessel.vessels[0].vesselInformation',
-                            [],
-                          ).map((vessel, index) => (
-                            <option value={vessel?.name} key={index}>
-                              {vessel?.name}
-                            </option>
-                          ))}
+                          TransitDetails,
+                          'data[0].order.vessel.vessels[0].vesselInformation',
+                          [],
+                        ).map((vessel, index) => (
+                          <option value={vessel?.name} key={index}>
+                            {vessel?.name}
+                          </option>
+                        ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -414,7 +443,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                  <input
+                  <input id='igmNumber'
+                    onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
                     className={`${styles.input_field} input form-control`}
                     type="number"
                   />
@@ -428,7 +458,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                 >
                   <div className="d-flex">
                     <DateCalender
-                      name="laycanFrom"
+                      name="igmFiling"
                       saveDate={saveDate}
                       labelName="IGM Filing Date"
                     />
@@ -547,6 +577,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
+                    id='blNumber'
+                    onChange={(e) => onChangeBlNumberEntry(e)}
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     required
@@ -711,7 +743,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId }) {
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         <div className={styles.uploadBtnWrapper}>
-                          <input type="file" name="myfile" />
+                          <input onChange={(e) => onDocumentSelect(e)} type="file" name="myfile" />
                           <button className={`${styles.upload_btn} btn`}>
                             Upload
                           </button>
