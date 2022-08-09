@@ -9,17 +9,26 @@ import DeliveryPreview from '../../src/components/DeliveryPreview'
 import LiftingDetails from '../../src/components/LiftingDetails'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllDelivery, GetDelivery } from '../../src/redux/release&DeliveryOrder/action'
+import {GetAllLifting} from '../../src/redux/Lifting/action'
+import _get from 'lodash/get'
 
 function Index() {
-  const dispatch = useDispatch()
-  const { ReleaseOrderData } = useSelector((state) => state.Release)
-  const [darkMode, setDarkMode] = useState(false)
 
+  const dispatch = useDispatch()
+
+  const { ReleaseOrderData } = useSelector((state) => state.Release)
+
+  const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
     let id = sessionStorage.getItem('ROrderID')
     dispatch(GetDelivery(`?deliveryId=${id}`))
+    dispatch(GetAllLifting())
   }, [dispatch])
+
+  const {allLiftingData} = useSelector((state)=>state.Lifting)
+
+  const liftingData = _get( allLiftingData, 'data[0]', '')
 
   return (
     <>
@@ -108,7 +117,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <LiftingDetails />
+                    <LiftingDetails liftingData={liftingData} />
                   </div>
                 </div>
               </div>

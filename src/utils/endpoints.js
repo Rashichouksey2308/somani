@@ -103,4 +103,5 @@ export default {
 
   //Delivery
   delivery: '/api/core/delivery',
+  lifting: '/api/core/lifting'
 }
