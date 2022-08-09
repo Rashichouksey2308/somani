@@ -22,9 +22,9 @@ export default function Index({ OrderId, customData }) {
       portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
       dischargeQuantity: _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
       dischargeQuantityUnit: '',
-      vesselArrivaldate: null,
-      dischargeStartDate: null,
-      dischargeEndDate: null
+      vesselArrivaldate:'',
+      dischargeStartDate:'',
+      dischargeEndDate: '',,
     },
     document1: null,
     document2: null,
@@ -121,8 +121,11 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    onChange={(e) => onChangeDischargeOfCargo(e.target.id, e.target.value)}
-                    id='dischargeQuantity'
+                    defaultValue={dischargeOfCargo.dischargeOfCargo.dischargeQuantity}
+                    onChange={(e) =>
+                      onChangeDischargeOfCargo(e.target.id, e.target.value)
+                    }
+                    id="dischargeQuantity"
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     required
@@ -135,7 +138,11 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender name='vesselArrivaldate' saveDate={saveDate} labelName="Vessel Arrival Date" />
+                    <DateCalender
+                       name="vesselArrivaldate"
+                      saveDate={saveDate}
+                      labelName="Vessel Arrival Date"
+                    />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -147,7 +154,11 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender name='dischargeStartDate' saveDate={saveDate} labelName="Discharge Start Date" />
+                    <DateCalender
+                       name="dischargeStartDate"
+                      saveDate={saveDate}
+                      labelName="Discharge Start Date"
+                    />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -159,7 +170,11 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender name='dischargeEndDate' saveDate={saveDate} labelName="Discharge End Date" />
+                    <DateCalender
+                       name="dischargeEndDate"
+                      saveDate={saveDate}
+                      labelName="Discharge End Date"
+                    />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
