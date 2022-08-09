@@ -48,7 +48,7 @@ function Index() {
       }).then((response) => {
         if (response.data.code === 200) {
           // dispatch(getCustomClearanceSuccess(response.data.data))
-          console.log(response.data, 'response data')
+          console.log(response.data.data, 'response data')
           return  response.data; 
           // let toastMessage = 'DOCUMENT UPDATED'
           // if (!toast.isActive(toastMessage)) {

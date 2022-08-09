@@ -50,8 +50,10 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     document3: null,
   })
 
-  const uploadDoc1 = async (e) => {
-  let docs =  uploadDoc(e) 
+  const uploadDoc1 = (e) => {
+
+  let docs = uploadDoc(e)
+
    console.log(docs, uploadDoc(e), 'this is upload response')
     let newInput = {...billOfEntryData}
     newInput.document1 = docs
