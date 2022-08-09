@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, Modal } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
 import UploadOther from '../../UploadOther'
 import DateCalender from '../../DateCalender'
@@ -8,26 +8,33 @@ import _get from 'lodash/get'
 import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
 
-
 export default function Index({ OrderId, customData }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   const [dischargeOfCargo, setDischargeOfCargo] = useState({
     dischargeOfCargo: {
-      vesselName: '',
+      vesselName: _get(customData, 'dischargeOfCargo.dischargeOfCargo.vesselName', ''),
       portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
-      dischargeQuantity: '',
+      dischargeQuantity: _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
       dischargeQuantityUnit: '',
-      vesselArrivaldate: null,
-      dischargeStartDate: null,
-      dischargeEndDate: null
+      vesselArrivaldate:'',
+      dischargeStartDate:'',
+      dischargeEndDate: '',
     },
     document1: null,
-    document2: null
+    document2: null,
   })
 
-  const ShipmentType = _get(customData, 'customData?.order?.vessel?.vessels[0]?.shipmentType', 'Bulk')
+  const ShipmentType = _get(
+    customData,
+    'customData?.order?.vessel?.vessels[0]?.shipmentType',
+    'Bulk',
+  )
 
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
@@ -71,7 +78,9 @@ export default function Index({ OrderId, customData }) {
               <h3 className={`${styles.heading}`}>Discharge of Cargo</h3>
 
               <div className="d-flex">
-                <button className={styles.add_btn}>Show BL Details</button>
+                <button className={styles.add_btn} onClick={handleShow}>
+                  Show BL Details
+                </button>
                 <span className="ml-3">+</span>
               </div>
             </div>
@@ -104,14 +113,19 @@ export default function Index({ OrderId, customData }) {
                   >
                     Port of Discharge
                   </div>
-                  <span className={styles.value}>{dischargeOfCargo.dischargeOfCargo.portOfDischarge}</span>
+                  <span className={styles.value}>
+                    {dischargeOfCargo.dischargeOfCargo.portOfDischarge}
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    onChange={(e) => onChangeDischargeOfCargo(e.target.id, e.target.value)}
-                    id='dischargeQuantity'
+                    defaultValue={dischargeOfCargo.dischargeOfCargo.dischargeQuantity}
+                    onChange={(e) =>
+                      onChangeDischargeOfCargo(e.target.id, e.target.value)
+                    }
+                    id="dischargeQuantity"
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     required
@@ -124,7 +138,11 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender name='vesselArrivaldate' saveDate={saveDate} labelName="Vessel Arrival Date" />
+                    <DateCalender
+                       name="vesselArrivaldate"
+                      saveDate={saveDate}
+                      labelName="Vessel Arrival Date"
+                    />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -136,7 +154,11 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender name='dischargeStartDate' saveDate={saveDate} labelName="Discharge Start Date" />
+                    <DateCalender
+                       name="dischargeStartDate"
+                      saveDate={saveDate}
+                      labelName="Discharge Start Date"
+                    />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -148,7 +170,11 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender name='dischargeEndDate' saveDate={saveDate} labelName="Discharge End Date" />
+                    <DateCalender
+                       name="dischargeEndDate"
+                      saveDate={saveDate}
+                      labelName="Discharge End Date"
+                    />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -193,7 +219,7 @@ export default function Index({ OrderId, customData }) {
                             alt="Sort icon"
                           />
                         </th>
-                        <th>ACTION</th>
+                        <th width="40%">ACTION</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -213,15 +239,15 @@ export default function Index({ OrderId, customData }) {
                         <td>
                           {' '}
                           <div className={styles.uploadBtnWrapper}>
+                            <button className={`${styles.uploadDoc} btn`}>
+                              Upload
+                            </button>
                             <input
-                              id='document1'
+                              id="document1"
                               type="file"
                               onChange={(e) => onSaveDocument(e)}
                               name="myfile"
                             />
-                            <button className={`${styles.upload_btn} btn`}>
-                              Upload
-                            </button>
                           </div>
                         </td>
                       </tr>
@@ -242,15 +268,15 @@ export default function Index({ OrderId, customData }) {
                         <td>
                           {' '}
                           <div className={styles.uploadBtnWrapper}>
+                            <button className={`${styles.uploadDoc} btn`}>
+                              Upload
+                            </button>
                             <input
-                              id='document2'
+                              id="document2"
                               type="file"
                               onChange={(e) => onSaveDocument(e)}
                               name="myfile"
                             />
-                            <button className={`${styles.upload_btn} btn`}>
-                              Upload
-                            </button>
                           </div>
                         </td>
                       </tr>
@@ -261,11 +287,83 @@ export default function Index({ OrderId, customData }) {
             </div>
           </div>
           <div className="mt-4 mb-5">
-            <UploadOther orderid={OrderId} module='customClearanceAndWarehousing' />
+            <UploadOther
+              orderid={OrderId}
+              module="customClearanceAndWarehousing"
+            />
           </div>
         </div>
         <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" />
       </div>
+      <Modal
+        show={show}
+        size="lg"
+        onHide={handleClose}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className={styles.wrapper}
+        backdropClassName={styles.backdrop}
+      >
+        <Modal.Header className={styles.head}>
+          <Modal.Title
+            id="contained-modal-title-vcenter"
+            className={`${styles.title}  d-flex justify-content-between align-items-center`}
+          >
+            <div className={`${styles.blue}`}>BL Details </div>
+            <div>
+              <span>Commodity: </span>Iron{' '}
+            </div>
+            <img
+              src="/static/close-2.svg"
+              alt="close"
+              onClick={handleClose}
+              className="img-fluid"
+            ></img>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={`${styles.body} container-fluid`}>
+          <table
+            className={`${styles.table} table `}
+            cellPadding="0"
+            cellSpacing="0"
+            border="0"
+          >
+            <tr className={`border_color`}>
+              <th>BL NUMBER</th>
+              <th>BL DATE</th>
+              <th>BL QUANTITY</th>
+            </tr>
+            <tr className={`border_color`}>
+              <td>2345678</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>2345678</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>2345678</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>2345678</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>2345678</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+          </table>
+          <div>
+            <span>Total Quantity: </span>8,000 MT{' '}
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }
