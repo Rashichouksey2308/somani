@@ -123,17 +123,31 @@
           }
         }
         .label_heading {
-          top: 27px;
+          top: 21px;
           left: 30px;
           font-size: 16px;
-          line-height: 0.5;
+          line-height: 17px;
           letter-spacing: 0.53px;
           position: absolute;
           pointer-events: none;
           box-sizing: border-box;
-          transform: translateY(-31px);
+          transform: translateY(-29px);
           transition: 0.3s all ease-in-out;
           white-space: nowrap;
+          z-index: 1;
+          max-width: 86%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          &::before {
+            top: 51%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            content: '';
+            z-index: -1;
+            position: absolute;
+            transform: translateY(-50%);
+          }
           @include respond(md-desktop) {
             font-size: 16px;
           }
@@ -145,17 +159,32 @@
           }
         }
         .labels {
-          top: 28px;
+          top: 21px;
           left: 30px;
           font-size: 16px;
-          line-height: 0.5;
+          line-height: 17px;
           letter-spacing: 0.53px;
           position: absolute;
           pointer-events: none;
           box-sizing: border-box;
-          transform: translateY(-31px);
+          transform: translateY(-29px);
           transition: 0.3s all ease-in-out;
           white-space: nowrap;
+          white-space: nowrap;
+          z-index: 1;
+          max-width: 86%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          &::before {
+            top: 51%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            content: '';
+            z-index: -1;
+            position: absolute;
+            transform: translateY(-50%);
+          }
           @include respond(md-desktop) {
             font-size: 16px;
           }
@@ -184,7 +213,7 @@
           }
           &:focus {
             & + label {
-              transform: translateY(-31px);
+              transform: translateY(-29px);
             }
           }
           @include respond(md-desktop) {
@@ -259,7 +288,7 @@
           letter-spacing: 0.53px;
           position: absolute;
           pointer-events: none;
-          box-sizing: border-box;          
+          box-sizing: border-box;
           margin-bottom: 0;
           transition: 0.3s all ease-in-out;
           @include respond(sm-desktop) {

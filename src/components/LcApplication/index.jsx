@@ -5,7 +5,7 @@ import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 import PreviewBar from '../PreviewBar'
 import Router from 'next/router'
-import {addPrefixOrSuffix} from "../../utils/helper"
+import { addPrefixOrSuffix } from '../../utils/helper'
 
 function Index({
   saveLcData,
@@ -23,10 +23,10 @@ function Index({
   addConditionComment,
   lcConditionEdit,
   currentComment2,
- 
-  addConditionArr
+
+  addConditionArr,
 }) {
-  console.log(lcCondition,"lcCondition12234")
+  console.log(lcCondition, 'lcCondition12234')
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
 
@@ -41,10 +41,10 @@ function Index({
   }
   const [lcComment, setLcComment] = useState('')
   const [docComment, setDocComment] = useState('')
-const getSn=(index)=>{
-  let a=index;
-  return (`${a + 1}.`)
-}
+  const getSn = (index) => {
+    let a = index
+    return `${a + 1}.`
+  }
 
   return (
     <>
@@ -60,7 +60,7 @@ const getSn=(index)=>{
             <h1 className={`${styles.heading}`}>Letter of Credit </h1>
           </div>
 
-          <div className={`${styles.wrapper} card`}>
+          <div className={`${styles.wrapper} vessel_card card`}>
             <div
               className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -79,7 +79,7 @@ const getSn=(index)=>{
             >
               <div className={` ${styles.cardBody} card-body  border_color`}>
                 <div className={` ${styles.content}`}>
-                  <div className={` ${styles.body}`}>
+                  <div className={` ${styles.body} `}>
                     <Row>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
@@ -91,7 +91,6 @@ const getSn=(index)=>{
                             value={lcData?.formOfDocumentaryCredit}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            
                             <option value="Irrevocable">Irrevocable</option>
                             <option value="Revocable">Revocable</option>
                           </select>
@@ -134,7 +133,7 @@ const getSn=(index)=>{
                             defaultDate={lcData?.dateOfExpiry?.split('T')[0]}
                             saveDate={saveDate}
                             labelName="(31D) Date Of Expiry"
-                            dateFormat={"dd-MM-yyyy"}
+                            dateFormat={'dd-MM-yyyy'}
                           />
                           <img
                             className={`${styles.calanderIcon} img-fluid`}
@@ -171,7 +170,6 @@ const getSn=(index)=>{
                             value={lcData?.lcIssuingBank}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                           
                             <option value="First Class European Bank">
                               First Class European Bank
                             </option>
@@ -199,7 +197,6 @@ const getSn=(index)=>{
                             value={lcData?.applicant}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            
                             <option value="Inod International Trading Fzco">
                               Indo International Trading Fzco
                             </option>
@@ -262,8 +259,10 @@ const getSn=(index)=>{
                           required
                           type="text"
                           name="tolerancePercentage"
-                          value={addPrefixOrSuffix(lcData?.tolerancePercentage,"%")}
-                          
+                          value={addPrefixOrSuffix(
+                            lcData?.tolerancePercentage,
+                            '%',
+                          )}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)
                           }}
@@ -283,10 +282,8 @@ const getSn=(index)=>{
                               saveLcData(e.target.name, e.target.value)
                             }}
                             value={lcData?.creditAvailablewith}
-
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            
                             <option value="BNP PARIBAS PARIBAS _ BNPAFRPPS">
                               BNP PARIBAS PARIBAS _ BNPAFRPPS
                             </option>
@@ -316,7 +313,6 @@ const getSn=(index)=>{
                             value={lcData?.creditAvailableBy}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            
                             <option value="By Negotiation">
                               By Negotiation
                             </option>
@@ -340,55 +336,55 @@ const getSn=(index)=>{
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <Row>
-                            <Col xl={8} lg={6} md={12}>
-                              <div className="d-flex">
-                                <select
-                                  name="atSight"
-                                  onChange={(e) => {
-                                    saveLcData(e.target.name, e.target.value)
-                                  }}
-                                  value={lcData?.atSight}
-                                  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                                >
-                                
-                                  <option value="Documetarty Credit">
-                                    Documentary Credit
-                                  </option>
-                                  <option value="Not Documentary Credit">
-                                    Not Documentary Credit
-                                  </option>
-                                </select>
-
-                                <label
-                                  className={`${styles.label_heading} label_heading`}
-                                >
-                                  (42C) At Sight
-                                  <strong className="text-danger">*</strong>
-                                </label>
-                                <img
-                                  className={`${styles.arrow} img-fluid`}
-                                  src="/static/inputDropDown.svg"
-                                  alt="Search"
-                                />
-                              </div>
-                            </Col>
-                            <Col xl={4} lg={6} md={12}>
-                              <input
-                                className={`${styles.input_field} input form-control`}
-                                required
-                                type="number"
-                                name="numberOfDays"
-                                defaultValue={lcData?.numberOfDays}
+                          <Col xl={8} lg={6} md={12}>
+                            <div className="d-flex">
+                              <select
+                                name="atSight"
                                 onChange={(e) => {
                                   saveLcData(e.target.name, e.target.value)
                                 }}
-                              />
+                                value={lcData?.atSight}
+                                className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                              >
+                                <option value="Documetarty Credit">
+                                  Documentary Credit
+                                </option>
+                                <option value="Not Documentary Credit">
+                                  Not Documentary Credit
+                                </option>
+                              </select>
+
                               <label
-                                className={`${styles.label_heading} label_heading`}>
-                                No. of Days
+                                className={`${styles.label_heading} label_heading`}
+                              >
+                                (42C) At Sight
                                 <strong className="text-danger">*</strong>
                               </label>
-                            </Col>
+                              <img
+                                className={`${styles.arrow} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col xl={4} lg={6} md={12}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="number"
+                              name="numberOfDays"
+                              defaultValue={lcData?.numberOfDays}
+                              onChange={(e) => {
+                                saveLcData(e.target.name, e.target.value)
+                              }}
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              No. of Days
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
                         </Row>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -435,7 +431,6 @@ const getSn=(index)=>{
                             value={lcData?.partialShipment}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            
                             <option value="Prohibited">Prohibited</option>
                             <option value="Allowed">Allowed</option>
                           </select>
@@ -462,7 +457,6 @@ const getSn=(index)=>{
                             value={lcData?.transhipments}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            
                             <option value="Prohibited">Prohibited</option>
                             <option value="Not Prohibited">
                               Not Prohibited
@@ -524,7 +518,6 @@ const getSn=(index)=>{
                             (44E) Port of Loading
                             <strong className="text-danger">*</strong>
                           </label>
-                          
                         </div>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -537,7 +530,6 @@ const getSn=(index)=>{
                             value={lcData?.portOfDischarge}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                           
                             <option value="Visakhapatnam, India">
                               Visakhapatnam Port, India
                             </option>
@@ -613,9 +605,7 @@ const getSn=(index)=>{
                       className="img-fluid ml-4"
                       src="/static/add-btn.svg"
                       alt="add button"
-                      onClick={() =>
-                         addDocArr()
-                      }
+                      onClick={() => addDocArr()}
                     />
                   </div>
                   {lcDocuments?.map((comment, index) => (
@@ -623,15 +613,17 @@ const getSn=(index)=>{
                       key={index}
                       className="d-flex justify-content-between pt-4 pb-3"
                     >
-                      <div className={`${styles.number} mr-n3`}>{getSn(index)}</div>
+                      <div className={`${styles.number} mr-n3`}>
+                        {getSn(index)}
+                      </div>
                       <Form.Control
                         className={`${styles.paragraph} input`}
                         as="textarea"
                         defaultValue={comment}
                         rows={3}
                         readOnly={editStren}
-                        onChange={(e)=>{
-                            lcDocEdit(e,index)
+                        onChange={(e) => {
+                          lcDocEdit(e, index)
                         }}
                       />
                       <div>
@@ -647,7 +639,7 @@ const getSn=(index)=>{
                           src="/static/delete 2.svg"
                           className="img-fluid ml-3"
                           alt="delete"
-                          onClick={()=>{
+                          onClick={() => {
                             deleteLcDoc(index)
                           }}
                         />
@@ -673,9 +665,7 @@ const getSn=(index)=>{
                       className="img-fluid ml-4"
                       src="/static/add-btn.svg"
                       alt="add button"
-                      onClick={() =>
-                        addConditionArr()
-                      }
+                      onClick={() => addConditionArr()}
                     />
                   </div>
                   {lcCondition?.map((comment, index) => (
@@ -683,15 +673,17 @@ const getSn=(index)=>{
                       key={index}
                       className="d-flex justify-content-between pt-4 pb-3"
                     >
-                      <div className={`${styles.number} mr-n3`}>{getSn(index)}</div>
+                      <div className={`${styles.number} mr-n3`}>
+                        {getSn(index)}
+                      </div>
                       <Form.Control
                         className={`${styles.paragraph} input`}
                         as="textarea"
                         defaultValue={comment}
                         rows={3}
                         readOnly={edit}
-                         onChange={(e)=>{
-                          lcConditionEdit(e,index)
+                        onChange={(e) => {
+                          lcConditionEdit(e, index)
                         }}
                       />
                       <div>
@@ -708,7 +700,7 @@ const getSn=(index)=>{
                           src="/static/delete 2.svg"
                           className="img-fluid ml-3"
                           alt="delete"
-                          onClick={()=>{
+                          onClick={() => {
                             deleteLcCondition(index)
                           }}
                         />
