@@ -68,7 +68,7 @@ export const GetAllLifting =
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.get(
-        `${API.corebaseUrl}${API.getLifting}${payload ? payload : ''}`,
+        `${API.corebaseUrl}${API.lifting}${payload ? payload : ''}`,
         {
           headers: headers,
         },
@@ -132,7 +132,7 @@ export const UpdateLiftingData =
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.put(`${API.corebaseUrl}${API.updateLiftingData}`, payload, {
+      Axios.put(`${API.corebaseUrl}${API.lifting}`, payload, {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
