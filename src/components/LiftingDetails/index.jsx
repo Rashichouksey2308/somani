@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-// import SaveBar from '../SaveBar'
+import SaveBar from '../SaveBar'
 import DateCalender from '../DateCalender'
 
 export default function Index() {
@@ -769,7 +770,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-        {/* <SaveBar rightBtn="Submit" /> */}
+        <SaveBar rightBtn="Submit" />
 
         {/* </div> */}
       </div>
