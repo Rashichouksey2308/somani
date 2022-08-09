@@ -2,21 +2,25 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { GettingAllInsurance } from 'redux/insurance/action'
+import { GetAllDelivery } from '../../redux/release&DeliveryOrder/action'
 import { Router } from 'next/router'
 
 function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handleEditRoute }) {
   const dispatch = useDispatch()
 
-  const [currentPage, setCurrentPage] = useState(0)
-
-  const { insuranceResponse } = useSelector((state) => state.insurance)
-
-  console.log(insuranceResponse, 'INSURANCE RESPONSE')
+  const [currentPage, setCurrentPage] = useState(0);
+  const { allReleaseOrder } = useSelector((state) => state.Release)
 
   useEffect(() => {
-    dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
+    dispatch(GetAllDelivery(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
+
+
+  // const handleRoute = (sheet) => {
+  //   dispatch(GetDelivery(`?company=${sheet.company._id}`))
+  //   sessionStorage.setItem('deleviryID', sheet.company._id )
+  //   Router.push('/payment/id')
+  // }
 
   
 
