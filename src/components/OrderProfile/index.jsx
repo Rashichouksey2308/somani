@@ -31,7 +31,7 @@ function Index() {
         >
               
                 {fields("Commodity",buyerList?.order?.commodity)}
-                {fields("Quantity",buyerList?.order?.quantity,false,buyerList?.order?.unitOfQuantity)}
+                {fields("Quantity",buyerList?.order?.quantity,false,)}
                 {fields("Order values",(buyerList?.order?.orderValue)?.toLocaleString(),false)}
                 {fields("Supplier Name",buyerList?.order?.supplierName ,false)}
                 {fields("Country Of Origin",buyerList?.order?.countryOfOrigin,false)}
@@ -55,7 +55,7 @@ const fields =(head,value,isButton,value2)=>{
                 <span className={`${styles.top} label`}>{head}</span>
                 <div>
                     <span className={`${styles.value} value `}>
-                  {value}      {value2 ? value2 : ''}            
+                  {value}      {value2=="mt" ? "MT" : value2}            
                     </span>
                     {isButton?<a onClick={()=>window.open(value)} className={styles.button}>View</a>:null}
                 </div>
