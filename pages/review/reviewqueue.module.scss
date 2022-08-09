@@ -3,56 +3,58 @@
 .dashboardTab {
     margin-bottom: 126px;
     .tabHeader {
-        padding: 25px 30px 0;
-        .title {
-            font-size: 34px;
-            font-weight: bold;
-            line-height: 41px;
-            margin: 0;
-            text-transform: capitalize;
-            @include respond(phone) {
-                font-size: $font_size_mobile_head;
-                margin: 0px;
-                padding-left: 10px;
-            }
+        padding: 28px 28px 0;
+        .title_header {
+            min-height: 48px;
+            margin: 0 0 27px 10px;
             img {
                 width: 13px;
                 height: 21px;
-                margin: -5px 25px 0 0;
             }
-        }
-        .btnPrimary {
-            font-size: 18px;
-            color: #ffffff;
-            font-weight: bold;
-            line-height: 23px;
-            width: 211px;
-            height: 48px;
-            padding: 12px 0;
-            box-shadow: none;
-            text-align: center;
-            border-radius: 5px;
-            background: #3687e8;
-            display: inline-block;
-            text-transform: capitalize;
-            img {
-                margin-right: 9px;
-            }
-        }
-        .lastModified {
-            font-size: 14px;
-            color: rgba(40, 55, 86, 0.6);
-            font-weight: normal;
-            line-height: 16px;
-            margin-top: 7px;
-            span {
-                color: #283756;
+            .title {
+                font-size: 34px;
                 font-weight: bold;
-                line-height: 17px;
+                line-height: 41px;
+                margin: 0;
+                padding-left: 18px;
+                @include respond(phone) {
+                    font-size: $font_size_mobile_head;
+                    margin: 0px;
+                    padding-left: 10px;
+                }
+            }
+            .btnPrimary {
+                font-size: 18px;
+                color: #ffffff;
+                font-weight: bold;
+                line-height: 23px;
+                width: 211px;
+                height: 48px;
+                padding: 12px 0;
+                box-shadow: none;
+                text-align: center;
+                border-radius: 5px;
+                background: #3687e8;
+                display: inline-block;
+                text-transform: capitalize;
+                img {
+                    margin-right: 9px;
+                }
+            }
+            .lastModified {
+                font-size: 14px;
+                color: rgba(40, 55, 86, 0.6);
+                font-weight: normal;
+                line-height: 16px;
+                margin-top: 7px;
+                span {
+                    color: #283756;
+                    font-weight: bold;
+                    line-height: 17px;
+                }
             }
         }
         .navTabs {
-            margin-top: 1rem;
             border-bottom: none;
             overflow-x: auto;
             width: 100%;
