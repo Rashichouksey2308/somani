@@ -5,9 +5,6 @@ const initialState = {
     allInspection: null,
     Inspection: null,
     updatingInspection: false,
-   
-
-
 }
 
 function InspectionReducer(state = initialState, action) {
