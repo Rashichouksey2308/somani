@@ -9,12 +9,17 @@ import DateCalender from '../DateCalender'
 import moment from 'moment'
 import { useDispatch } from 'react-redux'
 import { UpdateCustomClearance } from 'redux/CustomClearance&Warehousing/action'
+import { useSelector } from 'react-redux'
 
-export default function Index({ customData, OrderId }) {
+export default function Index({ customData, OrderId, uploadDoc }) {
 
   const dispatch = useDispatch()
 
   const [saveContactTable, setContactTable] = useState(false)
+
+  const {customClearance} = useSelector((state)=>state.Custom)
+
+  console.log(customClearance, 'this is custom doc')
 
   const [billOfEntryData, setBillOfEntryData] = useState({
     boeAssessment: '',
@@ -44,6 +49,15 @@ export default function Index({ customData, OrderId }) {
     document2: null,
     document3: null,
   })
+
+  const uploadDoc1 = async (e) => {
+  let docs =  uploadDoc(e) 
+   console.log(docs, uploadDoc(e), 'this is upload response')
+    let newInput = {...billOfEntryData}
+    newInput.document1 = docs
+    setBillOfEntryData(newInput)
+
+  }
 
   console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
@@ -882,7 +896,7 @@ export default function Index({ customData, OrderId }) {
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         <div className={styles.uploadBtnWrapper}>
-                          <input type="file" name="myfile" />
+                          <input onChange={(e)=>uploadDoc1(e)} type="file" name="myfile" />
                           <button className={`${styles.upload_btn} btn`}>
                             Upload
                           </button>

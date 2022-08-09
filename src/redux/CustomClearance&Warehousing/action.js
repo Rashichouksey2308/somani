@@ -67,7 +67,6 @@ export const GetAllCustomClearance =
         {
           headers: headers,
         },
-      
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllCustomClearanceSuccess(response.data.data))
@@ -133,7 +132,7 @@ export const UpdateCustomClearance =
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateCustomClearanceSuccess(response.data.data))
-          
+
           let toastMessage = 'SAVED SUCCESSFULLY'
           if (!toast.isActive(toastMessage)) {
             toast.success(toastMessage, { toastId: toastMessage })
@@ -155,3 +154,37 @@ export const UpdateCustomClearance =
       }
     }
   }
+
+export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getCustomClearanceSuccess(response.data.data))
+        let toastMessage = 'DOCUMENT UPDATED'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      } else {
+        dispatch(getCustomClearanceFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(getCustomClearanceFailed())
+
+    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
+    }
+  }
+}
