@@ -24,7 +24,7 @@ export default function Index({ OrderId, customData }) {
       dischargeQuantityUnit: '',
       vesselArrivaldate:'',
       dischargeStartDate:'',
-      dischargeEndDate: '',,
+      dischargeEndDate: '',
     },
     document1: null,
     document2: null,
