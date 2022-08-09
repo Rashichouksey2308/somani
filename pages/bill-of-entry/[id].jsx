@@ -1,14 +1,31 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './billofentry.module.scss'
 import BillOfEntry from '../../src/components/BillOfEntry'
 import DischargeCargo from '../../src/components/BillOfEntry/DischargeCargo'
 import Warehouse from '../../src/components/BillOfEntry/Warehouse'
+import { useDispatch } from 'react-redux'
+import { GetAllCustomClearance } from '../../src/redux/CustomClearance&Warehousing/action'
+import { useSelector } from 'react-redux'
+import _get from 'lodash/get'
 
 function Index() {
+
+  const dispatch = useDispatch()
+
   const [darkMode, setDarkMode] = useState(false)
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('customId')
+    dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
+  }, [dispatch])
+
+  const { allCustomClearance } = useSelector((state) => state.Custom)
+
+  let customData = _get(allCustomClearance, 'data[0]', {})
+  let OrderId = _get(customData, 'order._id', {})
 
   return (
     <>
@@ -17,15 +34,14 @@ function Index() {
           <div className="d-flex align-items-center ml-4">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
-              <span>Ramakrishna Traders - Ramal001-00002</span>
+              <span>{customData?.company?.companyName} - Ramal001-00002</span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
@@ -78,7 +94,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <BillOfEntry />
+                    <BillOfEntry OrderId={OrderId} customData={customData} />
                   </div>
                 </div>
 
@@ -88,13 +104,13 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <DischargeCargo />
+                    <DischargeCargo OrderId={OrderId} customData={customData} />
                   </div>
                 </div>
 
                 <div className="tab-pane fade" id="warehouse" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <Warehouse />
+                    <Warehouse OrderId={OrderId} customData={customData} />
                   </div>
                 </div>
               </div>

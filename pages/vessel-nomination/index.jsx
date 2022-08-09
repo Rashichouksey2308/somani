@@ -8,11 +8,12 @@ import Filter from '../../src/components/Filter'
 
 function Index() {
   const dispatch = useDispatch()
+  const [currentPage, setCurrentPage] = useState(0);
   const { allVessel, Vessel } = useSelector((state) => state.vessel)
   console.log(allVessel, Vessel, 'allVessel')
 
   useEffect(() => {
-    dispatch(GetAllVessel())
+    dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
   }, [])
 
   const handleRoute = (vessel) => {
@@ -67,8 +68,15 @@ function Index() {
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
-              <span>Showing Page 1 out of 10</span>
+              <span>Showing Page {currentPage + 1}  out of {Math.ceil(allVessel?.totalCount / 7)}</span>
               <a
+                onClick={() => {
+                  if (currentPage === 0) {
+                    return
+                  } else {
+                    setCurrentPage((prevState) => prevState - 1)
+                  }
+                }}
                 href="#"
                 className={`${styles.arrow} ${styles.leftArrow} arrow`}
               >
@@ -80,6 +88,11 @@ function Index() {
                 />
               </a>
               <a
+                onClick={() => {
+                  if (currentPage + 1 < Math.ceil(allVessel?.totalCount / 7)) {
+                    setCurrentPage((prevState) => prevState + 1)
+                  }
+                }}
                 href="#"
                 className={`${styles.arrow} ${styles.rightArrow} arrow`}
               >

@@ -1,307 +1,308 @@
 @import "../styles/Core/config";
 .main {
-  padding: 35px 35px 10px;
-  border-bottom: 3px solid #D9DDE8;
+    padding: 35px 35px 10px;
+    border-bottom: 3px solid #D9DDE8;
     @include respond(phone) {
-            padding: 25px 20px 20px;
+        padding: 25px 20px 20px;
+    }
+    .heading {
+        font-size: 20px;
+        letter-spacing: 0.19px;
+        font-weight: bold;
+        line-height: 25px;
+    }
+    .unit_container {
+        padding-right: 15px;
+        .unit_label {
+            font-size: 18px;
+            text-transform: capitalize;
+            font-weight: bold;
+            margin-top: 10px;
+            padding-right: 10px;
+            line-height: 23px;
+            @include respond(md-desktop) {
+                font-size: 18px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 16px;
+            }
+            @include respond(phone) {
+                font-size: 12px;
+            }
         }
-  .heading {
-      font-size: 20px;
-      letter-spacing: 0.19px;
-   
-      font-weight: bold;
-      line-height: 25px;
-  }
-  .unit_container {
-
-      padding-right: 15px;
-
-      .unit_label {
-          font-size: 18px;
-          text-transform: capitalize;
-          font-weight: bold;
-          margin-top: 10px;
-          padding-right: 10px;
-          line-height: 23px;
-
-          @include respond(md-desktop) {
-              font-size: 18px;
-          }
-
-          @include respond(sm-desktop) {
-              font-size: 16px;
-          }
-
-          @include respond(phone) {
-              font-size: 12px;
-          }
-      }
-
-      .options {
-          font-size: 18px;
-          text-transform: capitalize;
-          margin-right: 10px;
-          border-radius: 14px;
-          border: none;
-          line-height: 23px;
-          font-weight: bold;
-          text-align: center;
-          padding-left: 8px;
-          padding-right: 6px;
-          padding-top: 4px;
-          padding-bottom: 4px;
-          margin-right: 30px;
-
-          @include respond(md-desktop) {
-              font-size: 18px;
-              margin-right: 5px;
-          }
-
-          @include respond(sm-desktop) {
-              font-size: 16px;
-              margin-right: 5px;
-          }
-
-          @include respond(phone) {
-              font-size: 12px;
-              margin-right: 5px;
-              //line-height: 15px;
-
-          }
-      }
-
-      span {
-          font-size: 45px;
-          color: #3687e8;
-          font-weight: normal;
-          line-height: 20px;
-          margin-left: 25px;
-
-          @include respond(md-desktop) {
-              font-size: 42px;
-          }
-
-          @include respond(sm-desktop) {
-              font-size: 35px;
-          }
-
-          @include respond(phone) {
-              font-size: 30px;
-          }
-      }
-  }
-  .radio_form {
-      padding-top: 20px;
-      .radio_group {
-          display: flex;
-          @include respond(phone) {
+        .options {
+            font-size: 18px;
+            text-transform: capitalize;
+            margin-right: 10px;
+            border-radius: 14px;
+            border: none;
+            line-height: 23px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 8px;
+            padding-right: 6px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            margin-right: 30px;
+            outline: none;
+            @include respond(md-desktop) {
+                font-size: 18px;
+                margin-right: 5px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 16px;
+                margin-right: 5px;
+            }
+            @include respond(phone) {
+                font-size: 12px;
+                margin-right: 5px;
+                //line-height: 15px;
+            }
+        }
+        span {
+            font-size: 45px;
+            color: #3687e8;
+            font-weight: normal;
+            line-height: 20px;
+            margin-left: 25px;
+            @include respond(md-desktop) {
+                font-size: 42px;
+            }
+            @include respond(sm-desktop) {
+                font-size: 35px;
+            }
+            @include respond(phone) {
+                font-size: 30px;
+            }
+        }
+    }
+    .radio_form {
+        padding-top: 30px;
+        .radio_group {
+            display: flex;
+            @include respond(phone) {
                 justify-content: space-between;
             }
-          .radio {
-              font-size: 20px;
-              color: #111111;
-              letter-spacing: 0.19px;
-              line-height: 25px;
-              padding-right: 25px;
-              input{
-                width: 15px;
-                height: 15px;
-                @include respond(lg-desktop) {
+            .radio {
+                font-size: 20px;
+                color: #111111;
+                letter-spacing: 0.19px;
+                line-height: 25px;
+                padding-right: 38px;
+                input {
+                    width: 15px;
+                    height: 15px;
+                    margin-right: 12px;
+                    transform: scale(1.5);
+                    @include respond(lg-desktop) {
                         width: 13px;
                         height: 13px;
                     }
-                
                     // @include respond(sm-desktop) {
                     //     font-size: 14px;
                     //     padding-right: 0px;
                     // }
-                
                     // @include respond(phone) {
                     //     font-size: 12px;
-                
                     // }
-              }
-                                @include respond(xl-desktop) {
-                                    padding-right: 0px;
-                                   
-                                }
+                }
+                // @include respond(xl-desktop) {
+                //     padding-right: 0px;
+
+                // }
                 @include respond(lg-desktop) {
+                    // padding-right: 0px;
+                    font-size: $font_size_mobile_input_label;
+                }
+                @include respond(md-desktop) {
+                    font-size: 19px;
                     padding-right: 0px;
-                        font-size: $font_size_mobile_input_label;
-                    }
-                
-                    @include respond(md-desktop) {
-                        font-size: 19px;
-                        padding-right: 0px;
-                    }
-                
-                    @include respond(sm-desktop) {
-                        font-size: 19px;
-                        padding-right: 0px;
-                    }
-              @include respond(phone) {
-                font-size: 15px;
-                padding-right: 0px;
-              }
-              label {
-                @include respond(lg-desktop) {
+                }
+                @include respond(sm-desktop) {
+                    font-size: 19px;
+                    padding-right: 0px;
+                }
+                @include respond(phone) {
+                    font-size: 15px;
+                    padding-right: 0px;
+                }
+                label {
+                    white-space: nowrap;
+                    @include respond(lg-desktop) {
                         padding-right: 0px;
                         font-size: $font_size_mobile_input_label;
                     }
-                
                     @include respond(md-desktop) {
-                          font-size: 14px;
+                        font-size: 14px;
                         padding-right: 0px;
                     }
-                
                     @include respond(sm-desktop) {
                         font-size: 14px;
                         padding-right: 0px;
                     }
                     @include respond(phone) {
                         font-size: 12px;
-                       
                     }
-              }
-          }
-      }
-      .sub_heading {
-          font-size: 16px;
-          line-height: 17px;
-          font-weight: 500;
-          padding: 10px 0 15px;
-          letter-spacing: 0.53px;
-            @include respond(phone) {
-                    font-size: $font_size_mobile_input_label;
                 }
-      }
-  } 
-  .input_container {
-      margin-top: 20px;
-      margin-bottom: 10px;
-      padding-bottom: 14px;
-      .each_input {
-          position: relative;
-          margin: 30px 0 20px;
-        @include respond(phone) {
-                margin: 20px 0px 20px;
             }
-          .label_heading {
-              top: 27px;
-              left: 30px;
-              font-size: 16px;
-              line-height: 0.5;
-              margin-bottom: 0;
-              letter-spacing: 0.53px;
-              position: absolute;
-              pointer-events: none;
-              box-sizing: border-box;
-              transform: translateY(-31px);
-              transition: 0.3s all ease-in-out;
-            @include respond(lg-desktop) {
-                    font-size: $font_size_mobile_input_label;
-                }
-            @include respond(md-desktop) {
-                    font-size: $font_size_mobile_input_label;
-                }
-                @include respond(sm-desktop) {
-                        font-size: $font_size_sm_input_label;
-                    }
-              @include respond(phone){
-                font-size: $font_size_mobile_input_label;
-              }
-          }
-          .slider_value{
-            background: #C3C3C31F;
-            border: 1px solid #0000001F;
-            border-radius: 4px;
-            letter-spacing: 0.53px;
-            color: #00000080;
+        }
+        .sub_heading {
             font-size: 16px;
             line-height: 17px;
             font-weight: 500;
-            padding: 5px 25px 5px 25px;
-            margin-top: -12px;
-            margin-left: 20px;
-
-            span {
-                letter-spacing: 0.19px;
-                color: #111111;
-                text-transform: capitalize;
-                font-size: 20px;
-                line-height: 25px;
-
+            padding: 10px 0 15px;
+            letter-spacing: 0.53px;
+            @include respond(phone) {
+                font-size: $font_size_mobile_input_label;
             }
-
-          }
-          .input_field {
-              height: 60px;
-              border-radius: 4px;
-              font-size: 20px;
-              font-weight: normal;
-              line-height: 25px;
-              outline: none;
-              box-shadow: none;
-              position: relative;
-              box-sizing: border-box;
-              letter-spacing: 0.19px;
-              &:invalid + label {
-                  transform:translateY(0);
-              }
-              &:focus {
-                  & + label {
-                      transform:translateY(-31px);
-                  }
-              }
-          }
-          .slidecontainer {
-              width: 100%;
-              margin-top: 38px;
-              position: relative;
-              .slider {
-                  -webkit-appearance: none;  /* Override default CSS styles */
-                  width: 100%; /* Full-width */
-                  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-                  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-                  transition: opacity .2s;
-                  outline: none;
-                 // background: linear-gradient(90deg, #3687E8 55%, #C3C3C31F 40%);
-                  border: 1px solid #0000001F;
-                  border-radius: 4px;
-                  height: 13px; 
-              }
-              datalist {
-                  display: flex;
-                  justify-content: space-between;
-                  font-size:16px;
-                  letter-spacing: 0.15px;
-                  color: #666666;
-                  text-transform: capitalize;
-                  width: 100%;
-                  margin-top: 8px;
-                  option {
-                    position: relative;
-                    width: 30px;
-                    text-align: center;
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        background: #707070;
-                        width: 2px;
-                        height: 5px;
-                        top: -4px;
-                        left: 50%;
-                        transform: translateX(-50%);
+        }
+    }
+    .input_container {
+        //   width: 86px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        padding-bottom: 14px;
+        .each_input {
+            position: relative;
+            margin: 30px 0 20px;
+            @include respond(phone) {
+                margin: 20px 0px 20px;
+            }
+            .label_heading {
+                top: 21px;
+                left: 30px;
+                font-size: 16px;
+                line-height: 17px;
+                margin-bottom: 0;
+                letter-spacing: 0.53px;
+                position: absolute;
+                pointer-events: none;
+                box-sizing: border-box;
+                transform: translateY(-30px);
+                transition: 0.3s all ease-in-out;
+                z-index: 1;
+                max-width: 86%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &::before {
+                    top: 51%;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    content: "";
+                    z-index: -1;
+                    position: absolute;
+                    transform: translateY(-50%);
+                }
+                @include respond(lg-desktop) {
+                    font-size: $font_size_mobile_input_label;
+                }
+                @include respond(md-desktop) {
+                    font-size: $font_size_mobile_input_label;
+                }
+                @include respond(sm-desktop) {
+                    font-size: $font_size_sm_input_label;
+                }
+                @include respond(phone) {
+                    font-size: $font_size_mobile_input_label;
+                }
+            }
+            .slider_value {
+                background: #C3C3C31F;
+                border: 1px solid #0000001F;
+                border-radius: 4px;
+                letter-spacing: 0.53px;
+                color: #00000080;
+                font-size: 16px;
+                line-height: 17px;
+                font-weight: 500;
+                padding: 5px 25px 5px 25px;
+                margin-top: -12px;
+                margin-left: 20px;
+                span {
+                    letter-spacing: 0.19px;
+                    color: #111111;
+                    text-transform: capitalize;
+                    font-size: 20px;
+                    line-height: 25px;
+                }
+            }
+            .input_field {
+                height: 60px;
+                border-radius: 4px;
+                font-size: 20px;
+                font-weight: normal;
+                line-height: 25px;
+                outline: none;
+                box-shadow: none;
+                position: relative;
+                box-sizing: border-box;
+                letter-spacing: 0.19px;
+                &:invalid+label {
+                    transform: translateY(0);
+                }
+                &:focus {
+                    &+label {
+                        transform: translateY(-30px);
                     }
-                  }
-              } 
-              .more_label{
-                text-align: center;
-                letter-spacing: 0.12px;
-                color: #666666;
-                font-size: 13px;
-                line-height: 13px;
-              }   
+                }
+            }
+            .slidecontainer {
+                width: 100%;
+                margin-top: 13px;
+                position: relative;
+                .slider {
+                    -webkit-appearance: none;
+                    /* Override default CSS styles */
+                    width: 100%;
+                    /* Full-width */
+                    opacity: 0.7;
+                    /* Set transparency (for mouse-over effects on hover) */
+                    -webkit-transition: .2s;
+                    /* 0.2 seconds transition on hover */
+                    transition: opacity .2s;
+                    outline: none;
+                    // background: linear-gradient(90deg, #3687E8 55%, #C3C3C31F 40%);
+                    border: 1px solid #0000001F;
+                    border-radius: 4px;
+                    height: 13px;
+                }
+                datalist {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 16px;
+                    letter-spacing: 0.15px;
+                    color: #666666;
+                    text-transform: capitalize;
+                    width: 100%;
+                    margin-top: 8px;
+                    option {
+                        position: relative;
+                        width: 30px;
+                        text-align: center;
+                        &:last-child {
+                            width: 40px;
+                        }
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            background: #707070;
+                            width: 2px;
+                            height: 5px;
+                            top: -4px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                        }
+                    }
+                }
+                .more_label {
+                    text-align: center;
+                    letter-spacing: 0.12px;
+                    color: #666666;
+                    font-size: 13px;
+                    line-height: 13px;
+                }
                 .less_label {
                     text-align: center;
                     letter-spacing: 0.12px;
@@ -309,59 +310,75 @@
                     font-size: 13px;
                     line-height: 13px;
                 }
-              .slider::-webkit-slider-thumb {
-                  -webkit-appearance: none;
-                  appearance: none;
-                  width: 29px;
-                  height: 16px;
-                  background: transparent;
-                  box-shadow: 0px 3px 6px #697AB429;
-                  border: 3px solid #3579F6;
-                  border-radius: 4px;
-                  position: relative;
-                  margin-top: -19px;
-                  background-color: white;
-              }
-          }            
-          .phone_card{
-              display: flex;
-              .code_phone {
-                border-top-right-radius: 0px;
+                .slider::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    width: 29px;
+                    height: 16px;
+                    background: transparent;
+                    box-shadow: 0px 3px 6px #697AB429;
+                    border: 3px solid #3579F6;
+                    border-radius: 4px;
+                    position: relative;
+                    margin-top: -19px;
+                    background-color: white;
+                }
+            }
+            .phone_card {
+                display: flex;
+                .code_phone {
+                    border-top-right-radius: 0px;
                     border-bottom-right-radius: 0px;
-                  font-size: 19px;
-                  letter-spacing: 0.18px;
-                  color: #3687E8;
-                  text-transform: capitalize;
-                  outline: none;
-                  border-radius: 4px 0 0 4px;
-              }
-          }
-          .range_field {
-              background-color: #3687E8;
-              border-radius: 4px;
-          }
-      }
-      .phone {
-          .label_heading {
-              left: 90px;
-              transform: translate(-61px, -31px);
-          }
-          .input_field {
-            border-top-left-radius: 0px;
+                    font-size: 19px;
+                    letter-spacing: 0.18px;
+                    color: #3687E8;
+                    text-transform: capitalize;
+                    outline: none;
+                    border-radius: 4px 0 0 4px;
+                }
+            }
+            .range_field {
+                background-color: #3687E8;
+                border-radius: 4px;
+            }
+            .turnover_input {
+                .sub_heading {
+                    font-size: 16px;
+                    line-height: 17px;
+                    font-weight: 500;
+                    letter-spacing: 0.53px;
+                    margin-left: 0;
+                    position: static;
+                    transform: none;
+                }
+                .input_container {
+                    width: 86px;
+                    height: 37px;
+                    padding: 5px 12px;
+                    margin: 0 0 0 20px;
+                    box-shadow: none;
+                }
+            }
+        }
+        .phone {
+            .label_heading {
+                left: 90px;
+                transform: translate(-61px, -30px);
+            }
+            .input_field {
+                border-top-left-radius: 0px;
                 border-bottom-left-radius: 0px;
-              &:focus {
-                  & + label {
-                      transform: translate(-61px, -31px);
-                  }
-              }
-          }
-      }
-  }
+                &:focus {
+                    &+label {
+                        transform: translate(-61px, -30px);
+                    }
+                }
+            }
+        }
+    }
 }
 .unit_container {
-
     padding-right: 15px;
-
     .unit_label {
         font-size: 18px;
         text-transform: capitalize;
@@ -369,20 +386,16 @@
         margin-top: 10px;
         padding-right: 10px;
         line-height: 23px;
-
         @include respond(md-desktop) {
             font-size: 18px;
         }
-
         @include respond(sm-desktop) {
             font-size: 16px;
         }
-
         @include respond(phone) {
             font-size: 12px;
         }
     }
-
     .options {
         font-size: 18px;
         text-transform: capitalize;
@@ -397,40 +410,32 @@
         padding-top: 4px;
         padding-bottom: 4px;
         margin-right: 30px;
-
         @include respond(md-desktop) {
             font-size: 18px;
             margin-right: 5px;
         }
-
         @include respond(sm-desktop) {
             font-size: 16px;
             margin-right: 5px;
         }
-
         @include respond(phone) {
             font-size: 12px;
             margin-right: 5px;
             //line-height: 15px;
-
         }
     }
-
     span {
         font-size: 45px;
         color: #3687e8;
         font-weight: normal;
         line-height: 20px;
         margin-left: 25px;
-
         @include respond(md-desktop) {
             font-size: 42px;
         }
-
         @include respond(sm-desktop) {
             font-size: 35px;
         }
-
         @include respond(phone) {
             font-size: 30px;
         }
@@ -439,32 +444,21 @@
 .customSelect {
     appearance: none;
     // position: relative;
-
 }
-
 .arrow {
-
     margin-left: -40px;
     width: 13px;
     pointer-events: none;
-
     input[type="date"]::-webkit-inner-spin-button,
     input[type="date"]::-webkit-calendar-picker-indicator {
         display: none;
         -webkit-appearance: none;
     }
-
-
 }
-
 .calanderIcon {
-
     margin-left: -40px;
     margin-top: 15px;
     width: 23px;
     height: 26px;
     pointer-events: none;
-
-
-
 }

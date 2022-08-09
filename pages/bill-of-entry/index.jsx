@@ -1,13 +1,25 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
-import TableMain from '../../src/components/TableMain'
+import BillOfEntryTableMain from '../../src/components/BillOfEntryTableMain'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
+import { useDispatch } from 'react-redux'
+import {GetAllCustomClearance} from  '../../src/redux/CustomClearance&Warehousing/action'
+import _get from 'lodash/get'
+
 
 function Index() {
-  const routeChange = () => {
+
+  const dispatch = useDispatch()
+
+  const routeChange = (insured) => {
+    sessionStorage.setItem('customId', insured._id)
+    dispatch(GetAllCustomClearance(`?customClearanceId=${insured._id}`))
     Router.push('/bill-of-entry/id')
   }
+  
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -113,7 +125,7 @@ function Index() {
             </div>
           </div>
         </div>
-        <TableMain
+        <BillOfEntryTableMain
           tableName="Bill of Entries"
           isVesselHeader={true}
           dateHeading="BOE DATE"

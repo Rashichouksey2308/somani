@@ -11,6 +11,7 @@ import { Form, Row, Col } from 'react-bootstrap'
         
  }
 function Index(props) {
+  console.log(props.submitData,"submitData",props.active)
   const[shippingData,setShippingData]=useState(shipping)
     useEffect(() => {
    if(window){
@@ -26,11 +27,22 @@ function Index(props) {
       
        
        setShippingData(shipping)
+    }else{
+       let shipping={
+       "name": props.data?.name,
+      "vesselName": props.data?.vesselName,
+      "gstin": props.data?.gstin,
+        
+        
+       }
+      
+       
+       setShippingData(shipping)
     }
    }
-  },[])
+  },[props])
   useEffect(() => {
-    if(props.saveData==true && props.active=="Shipping"){
+    if(props.saveData==true && props.active=="Shipping Line"){
        let data={
         shippingData:shippingData,
       
@@ -39,7 +51,8 @@ function Index(props) {
        }
        props.sendData("Shipping",data)
     }
-    if(props.submitData==true && props.active=="Shipping"){
+    if(props.submitData==true && props.active=="Shipping Line"){
+      console.log("this12")
       let data={
       shippingData:shippingData,
       

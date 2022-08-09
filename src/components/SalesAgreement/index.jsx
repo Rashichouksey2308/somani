@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import styles from './index.module.scss'
 import {Row, Col,Form} from "react-bootstrap"
 import GrowInput from '../GrowInput'
@@ -9,6 +9,8 @@ import CMA from '../AggrementContent/cma'
 import Finance from '../AggrementContent/finance'
 import Manufecture from '../AggrementContent/manufecture'
 import ProductSpecification from '../AggrementContent/productSpecification'
+import AddtionalComments from '../AggrementContent/addtionalComments'
+import PlaceOfExecutition from '../AggrementContent/placeOfExecutition'
 
 import Shipping from '../AggrementContent/shipping'
 import Seller from '../AggrementContent/seller'
@@ -24,7 +26,7 @@ import { cssNumber } from 'jquery'
 function Index(props) {
     const dispatch = useDispatch()
 
-  console.log(props,"sales")
+  console.log(props.genericData,"sales")
   const [active,setActive]=useState("Supplier")
   const [multiPart,setMultiPart]=useState(false)
   const [multiPartValue,setMultiPartValue]=useState("Manufacturer")
@@ -66,12 +68,21 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+         data={props.genericData.supplier}
         />
       )
     }
     if(active=="Associate Buyer"){
       return(
-        <AssociateBuyer/>
+        <AssociateBuyer
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+        active={active}
+         data={props.genericData.supplier}
+        
+        />
       )
     }
     if(active=="Seller"){
@@ -82,6 +93,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+        data={props.genericData.supplier}
 
         />
       )
@@ -94,6 +106,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+         data={props.genericData.supplier}
         />
 
 
@@ -107,6 +120,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+         data={props.genericData.supplier}
         />
       )
     }
@@ -118,8 +132,9 @@ function Index(props) {
         multiPart={multiPart}
         submitData={submitData} 
         updateData={updateData}
-         active={active}
-         multiPartValue={multiPartValue}
+        active={active}
+        multiPartValue={multiPartValue}
+        data={props?.genericData?.supplier}
         />
       )
     }
@@ -131,6 +146,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+         data={props.genericData.supplier}
         />
       )
     }
@@ -142,22 +158,70 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
+         data={props.genericData.supplier}
         />
       )
     }
         if(active=="Stevedore"){
       return(
-        <Stevedore/>
+        <Stevedore
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+         data={props.genericData.supplier}
+        />
       )
     }
       if(active=="Delivery Terms"){
       return(
-        <Thirdparty/>
+        <Thirdparty 
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+         active={active}
+         data={props.genericData.supplier}
+        />
       )
     }
      if(active=="Product Specifications"){
       return(
-        <ProductSpecification/>
+        <ProductSpecification
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+         active={active}
+         data={props.genericData.productSpecifications}
+        
+        />
+      )
+    }
+    if(active=="Additional Comments"){
+      return(
+        <AddtionalComments
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+         active={active}
+         data={props?.genericData?.additionalComments}
+        
+        />
+      )
+    }
+     if(active=="Place of Execution"){
+      return(
+        <PlaceOfExecutition
+        saveData={saveData} 
+        sendData={sendData} 
+        submitData={submitData} 
+        updateData={updateData}
+         active={active}
+         data={props?.genericData?.deliveryTerms}
+        
+        />
       )
     }
   }
@@ -172,8 +236,10 @@ function Index(props) {
     {name:"CHA",state:"default",value:"CHA",image:"/static/Group 3256.svg"},
     {name:"Stevedore",state:"default",value:"Stevedore",image:"/static/Group 3256.svg"},
     {name:"CMA",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
-    {name:"Delivery Terms",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
-    {name:"Product Specifications",state:"default",value:"CMA",image:"/static/Group 3256.svg"},
+    {name:"Delivery Terms",state:"default",value:"Delivery Term",image:"/static/Group 3256.svg"},
+    {name:"Place of Execution",state:"default",value:"Place of Execution",image:"/static/Group 3256.svg"},
+    {name:"Additional Comments",state:"default",value:"Additional Comments",image:"/static/Group 3256.svg"},
+    {name:"Product Specifications",state:"default",value:"Product Specifications",image:"/static/Group 3256.svg"},
     
     ]
   )
@@ -229,10 +295,11 @@ const onSave=()=>{
   setSubmitData(true)
  }
  const updateData=async(key,data)=>{
+  console.log("this13",data)
   let dataToSend={}
   if(key=="Supplier"){
    dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+      genericId:props.genericData?._id,
        supplier:{
         "name": data.supplierState.name,
         "shortName": data.supplierState.shortName,
@@ -257,7 +324,7 @@ const onSave=()=>{
   }
    if(key=="Seller"){
    dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+      genericId:props.genericData?._id,
        seller:{
         "name": data.sellerData.name,
         "shortName": data.sellerData.shortName,
@@ -277,8 +344,8 @@ const onSave=()=>{
   }
   if(key=="Buyer"){
    dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
-       seller:{
+      genericId:props.genericData?._id,
+       buyer:{
         "name": data.buyerData.name,
         "branchName": data.buyerData.branchName,
         
@@ -296,7 +363,7 @@ const onSave=()=>{
   }
   if(key=="Finance"){
    dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+      genericId:props.genericData?._id,
        finance:{
         "name": data.financeData.name,
         "branchName": data.financeData.branchName,
@@ -314,7 +381,7 @@ const onSave=()=>{
   }
   if(key=="Cma"){
     dataToSend={
-        genericId:"62df99e8592ccd0022401c76",
+       genericId:props.genericData?._id,
      cma:{
         "name": data.cmaData.name,
         "shortName": data.cmaData.shortName,
@@ -332,7 +399,7 @@ const onSave=()=>{
   }
    if(key=="Cha"){
        dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+      genericId:props.genericData?._id,
        cha:{
         "name": data.chaState.name,
         "shortName": data.chaState.shortName,
@@ -346,7 +413,7 @@ const onSave=()=>{
   }
   if(key=="Stevedore"){
        dataToSend={
-      genericId:"62df99e8592ccd0022401c76",
+       genericId:props.genericData?._id,
        cha:{
         "name": data.chaState.name,
         "shortName": data.chaState.shortName,
@@ -358,9 +425,74 @@ const onSave=()=>{
     }
   }
  }
+  if(key=="Shipping"){
+     console.log("this14")
+       dataToSend={
+       genericId:props.genericData?._id,
+       shipping:{
+        "name":data.shippingData.name,
+       "vesselName":data.shippingData.vesselName,
+       "gstin":data.shippingData.gstin,
+        
+    }
+  }
+ }
+  if(key=="Delivery"){
+     console.log("this14")
+       dataToSend={
+       genericId:props.genericData?._id,
+       delivery:{
+        "deliveryTerms":data.deliveryData.delivery,
+      
+        
+    }
+  }
+ }
+   if(key=="Product"){
+     console.log("this14")
+       dataToSend={
+       genericId:props.genericData?._id,
+       productSpecifications:{
+        "comments":data.addressList,
+      
+        
+    }
+  }
+ }
+   if(key=="Comments"){
+    let list=[];
+      data.addressList.forEach((val,index)=>{
+         list.push({type:val})
+      })
+     console.log("this14")
+       dataToSend={
+       genericId:props.genericData?._id,
+       additionalComments:{
+        "comments": data.addressList,
+      
+        
+    }
+  }
+ }
+    if(key=="execution"){
+     console.log("this14")
+     let list=[];
+      data.list.forEach((val,index)=>{
+         list.push({agreementName:val.name,place:val.execution})
+      })
+       dataToSend={
+       genericId:props.genericData?._id,
+      
+       placeOfExecution:{
+        "execution":list,
+      
+        
+    }
+  }
+ }
 
 
-   
+     console.log("this15")
     await dispatch(updateGenericData(dataToSend))
   let tempArr=sideBar;
     sideBar.forEach((val,index)=>{
@@ -529,6 +661,10 @@ const sendData=(key,data)=>{
 const onShowSideBar=()=>{
   setIsSideBarOpen(true)
 }
+
+  useEffect(() => {
+    setMultiPart(props.genericData?.supplier?.multiParty)
+  },[props.genericData])
   return (
     <div className={`${styles.root}`}>
     

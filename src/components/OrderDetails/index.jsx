@@ -18,7 +18,7 @@ const Index = ({ saveOrderData, darkMode ,}) => {
         Order Details
       </div>
       <form id="OrderDetailsForm">
-        <div className={`${styles.input_container} row`}>
+        <div className={`${styles.input_container} vessel_card row`}>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
             <div className="d-flex">
               <input
@@ -199,7 +199,7 @@ const Index = ({ saveOrderData, darkMode ,}) => {
           </div>
 
           <div className={`${styles.radio_form} col-md-12`}>
-            <div className={`${styles.label_heading} label_heading`}>
+            <div className={`${styles.sub_heading} sub_heading`}>
               INCO Terms<strong className="text-danger">*</strong>
             </div>
             <Form>

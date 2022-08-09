@@ -1,119 +1,105 @@
 @import "../styles/Core/config";
 .main {
-  padding-left: 20px;
-  margin-bottom: 5rem;
-  @include respond(phone) {
-      padding: 25px 20px 20px;
-    }
-  .term_container {
-    display: flex;
-
-    .check_box {
-      margin-top: 30px;
-      width: 24px;
-      height: 24px;
-      background-color: transparent;
-      @include respond(phone) {
-          width: 65px;
-        }
-    }
-    .term_para {
-      color: var(--unnamed-color-111111);
-      font-size: 18px;      
-      margin-top: 25px;
-      margin-left: 15px;
-      @include respond(phone) {
-        font-size: $font_size_mobile_text;
-        }
-    }
-  }
-
-  .btn_container {
-    display: flex;
-    justify-content: end;
+    padding: 50px 35px;
     @include respond(phone) {
-        justify-content:space-between;
-      }
-
-    .cancel_btn {
-      width: 218px;
-      height: 48px;
-      font: normal normal bold 20px;
-      color: #3687e8;
-      text-transform: capitalize;
-      margin: 10px;
-      @include respond(phone) {
-          margin-left: 0px;
+        padding: 25px 20px 20px;
+    }
+    .term_container {
+        display: flex;
+        .check_box {
+            margin: 0;
+            transform: scale(1.5);
+            @include respond(phone) {
+                width: 65px;
+            }
+        }
+        .term_para {
+            color: var(--unnamed-color-111111);
+            font-size: 18px;
+            line-height: 31px;
+            margin-left: 15px;
+            @include respond(phone) {
+                font-size: $font_size_mobile_text;
+            }
         }
     }
-
-    .submit_btn {
-      width: 220px;
-      height: 48px;
-     
-      border-style: none;
-      border-radius: 5px;
-      text-align: center;
-      font: normal normal bold 20px/25px;
-      color: #ffffff;
-      text-transform: capitalize;
-      margin: 10px;
-      @include respond(phone) {
-          margin-right: 0px;
+    .btn_container {
+        display: flex;
+        justify-content: end;
+        @include respond(phone) {
+            justify-content: space-between;
+        }
+        .cancel_btn {
+            width: 218px;
+            height: 48px;
+            font-size: 20px;
+            color: #3687e8;
+            line-height: 25px;
+            font-weight: bold;
+            margin: 10px 27px 10px 0;
+            @include respond(phone) {
+                margin-left: 0px;
+            }
+        }
+        .submit_btn {
+            width: 220px;
+            height: 48px;
+            font-size: 20px;
+            color: #ffffff;
+            line-height: 25px;
+            font-weight: bold;
+            border-style: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            @include respond(phone) {
+                margin-right: 0px;
+            }
         }
     }
-  }
 }
-
 .mainDark {
-  padding-left: 20px;
-
-  .term_container {
-    display: flex;
-
-    .check_box {
-      margin-top: 30px;
-      width: 24px;
-      height: 24px;
-      background-color: transparent;
+    padding-left: 20px;
+    .term_container {
+        display: flex;
+        .check_box {
+            margin-top: 30px;
+            width: 24px;
+            height: 24px;
+            background-color: transparent;
+        }
+        .term_para {
+            font-size: 18px;
+            color: #ffffff;
+            margin-top: 25px;
+            margin-left: 15px;
+        }
     }
-
-    .term_para {
-      font-size: 18px;
-      color: #ffffff;
-      margin-top: 25px;
-      margin-left: 15px;
+    .btn_container {
+        display: flex;
+        justify-content: end;
+        .cancel_btn {
+            width: 218px;
+            height: 48px;
+            font-size: 20px;
+            color: #3687e8;
+            line-height: 25px;
+            font-weight: bold;
+            border: 3px solid #3687e8;
+            background-color: #1D2530;
+            margin: 10px 27px 10px 0;
+        }
+        .submit_btn {
+            width: 220px;
+            height: 48px;
+            font-size: 20px;
+            color: #ffffff;
+            line-height: 25px;
+            font-weight: bold;
+            background-color: #3687e8;
+            border-style: none;
+            border-radius: 5px;
+            text-align: center;
+            margin: 10px 0;
+        }
     }
-  }
-
-  .btn_container {
-    display: flex;
-    justify-content: end;
-
-    .cancel_btn {
-      width: 218px;
-      height: 48px;
-      border: 3px solid #3687e8;
-      border-radius: 5px;
-      text-align: center;
-      background-color: #1D2530;
-      font: normal normal bold 20px;
-      color: #3687e8;
-      text-transform: capitalize;
-      margin: 10px;
-    }
-
-    .submit_btn {
-      width: 220px;
-      height: 48px;
-      background-color: #3687e8;
-      border-style: none;
-      border-radius: 5px;
-      text-align: center;
-      font: normal normal bold 20px/25px;
-      color: #ffffff;
-      text-transform: capitalize;
-      margin: 10px;
-    }
-  }
 }
