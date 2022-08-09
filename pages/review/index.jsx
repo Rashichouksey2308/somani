@@ -336,7 +336,7 @@ console.log(orderList?.termsheet?.order,'termsheetOrder')
       let obj = {
         order: orderList._id,
         productSummary: { ...product },
-        gstin: "test"
+        gstin: gstData.gstin
       }
       dispatch(UpdateCreditCalculate(obj))
     }
@@ -845,7 +845,7 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
   console.log(newDoc, "documents")
 
   const GstDataHandler = (data) => {
-    
+    console.log(data,"gst")
     setGstData(data)
   }
   console.log(gstData,"gstDAta")
