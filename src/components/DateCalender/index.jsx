@@ -18,24 +18,26 @@ const Index = ({
 
   return (
     <>
-      <DatePicker
-        selected={
-          defaultDate !== undefined ? moment(defaultDate).toDate() : startDate
-        }
-        dateFormat={dateFormat ? dateFormat : 'dd/MM/yyyy'}
-        name={name}
-        className={`${styles.input_field} input form-control`}
-        onChange={(startDate) => {
-          setStartDate(startDate)
-          saveDate(startDate, name, index)
-          console.log(startDate, name, 'Event')
-        }}
-        // minDate={lastDate}
-      />
-      <label className={`${styles.label_heading} label_heading`}>
-        {labelName}
-        <strong className="text-danger">*</strong>
-      </label>
+      <div className="vessel_card w-100">
+        <DatePicker
+          selected={
+            defaultDate !== undefined ? moment(defaultDate).toDate() : startDate
+          }
+          dateFormat={dateFormat ? dateFormat : 'dd/MM/yyyy'}
+          name={name}
+          className={`${styles.input_field} input form-control`}
+          onChange={(startDate) => {
+            setStartDate(startDate)
+            saveDate(startDate, name, index)
+            console.log(startDate, name, 'Event')
+          }}
+          // minDate={lastDate}
+        />
+        <label className={`${styles.label_heading} label_heading`}>
+          {labelName}
+          <strong className="text-danger">*</strong>
+        </label>
+      </div>
     </>
   )
 }

@@ -11,6 +11,9 @@ import { GetVessel, UpdateVessel, UploadDocVessel } from '../../src/redux/vessel
 //Api
 import * as types from '../../src/redux/vessel/actionType'
 import API from '../../src/utils/endpoints'
+import Cookies from 'js-cookie';
+import Axios from 'axios';
+import { toast } from 'react-toastify'
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -39,6 +42,7 @@ export default function Home() {
   const [partShipmentAllowed, setPartShipmentAllowed] = useState(partShipment)
   const [companyName, setCompanyName] = useState("")
 
+  console.log(containerExcel,'containerExcel')
 
 
 
@@ -273,16 +277,21 @@ export default function Home() {
 
   const uploadDocHandler = (e) => {
     let uploadDocType = e.target.id
+    console.log(uploadDocType,'containerExcel')
+
+    let fd = new FormData()
+    fd.append('document', e.target.files[0])
+
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.post(`${API.corebaseUrl}${API.getVessel}`, e.target.files[0], {
+      Axios.post(`${API.corebaseUrl}${API.uploadDocVessel}`, fd, {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
-          if (uploadDocType === 'containerExcel') {
+          if (uploadDocType === ' containerExcel') {
             setContainerExcel(response.data.data)
           }
           if (uploadDocType === 'vesselCertificate') {
@@ -305,6 +314,7 @@ export default function Home() {
       }
     }
   }
+
 
   const shippingInfoChangeHandler = (e, index) => {
     const name = e.target.id
@@ -345,6 +355,7 @@ export default function Home() {
     dispatch(UpdateVessel(payload))
   }
   console.log(Vessel, "Vessel")
+  console.log( containerExcel,' containerExcel')
 
 
 

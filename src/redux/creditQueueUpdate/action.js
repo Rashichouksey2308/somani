@@ -80,24 +80,6 @@ function deleteDocumentsFailed() {
   }
 }
 
-function VerifyingGst() {
-  return {
-    type: types.GET_GST_KARZA,
-  }
-}
-
-function VerifyingGstSuccess(payload) {
-  return {
-    type: types.GET_GST_KARZA_SUCCESS,
-    payload,
-  }
-}
-function VerifyingGstFailed() {
-  return {
-    type: types.GET_GST_KARZA_FAILED,
-  }
-}
-
 export const UpdateCam = (payload) => async (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -157,35 +139,6 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
     })
   } catch (error) {
     dispatch(gettingDocumentsFailed())
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-    if (!toast.isActive(toastMessage)) {
-      toast.error(toastMessage, { toastId: toastMessage })
-    }
-  }
-}
-
-export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
-  try {
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(VerifyingGstSuccess(response.data.data))
-      } else {
-        dispatch(VerifyingGstFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
-      }
-    })
-  } catch (error) {
-    dispatch(VerifyingGstFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
     if (!toast.isActive(toastMessage)) {
       toast.error(toastMessage, { toastId: toastMessage })

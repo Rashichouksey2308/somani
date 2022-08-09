@@ -16,7 +16,12 @@ import { useEffect } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 
-export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, docUploadFunction }) {
+export default function Index({
+  isShipmentTypeBULK,
+  TransitDetails,
+  orderId,
+  docUploadFunction,
+}) {
   let transId = _get(TransitDetails, `data[0]`, '')
   const dispatch = useDispatch()
   let shipmentTypeBulk =
@@ -47,7 +52,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
         vesselName: '',
         igmNumber: '',
         igmFiling: null,
-        blNumber: []
+        blNumber: [],
       },
     ],
     document: null,
@@ -55,8 +60,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   const [blNewNumberEntry, setBlNewNumberEntry] = useState({
     blNumber: number,
     BlDate: new Date(),
-    quantity: ''
-
+    quantity: '',
   })
   const [orderData, setOrderData] = useState()
   useEffect(() => {
@@ -81,7 +85,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
   //   }
   // }
 
-
   const onChangeIgm = (name, text) => {
     let newData = { ...igmList }
     newData.igmDetails[0][name] = text
@@ -93,10 +96,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     let text = d.toISOString()
     onChangeIgm(name, text)
   }
-
-
-
-
 
   const onChangeVessel = (e, index) => {
     let VesselName = e.target.value
@@ -150,16 +149,10 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     newIgmList.igmDetails[0].blNumber.push({
       blNumber: number,
       BlDate: new Date(),
-      quantity: ''
-
+      quantity: '',
     })
     setIgmList(newIgmList)
   }
-
-
-
-
-
 
   const onChangeConsignee = (e) => {
     if (e.target.value === 'indoGerman') {
@@ -180,13 +173,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     }
   }
 
-  const onChangeBlNumberEntry = (e) => {
-
-  }
+  const onChangeBlNumberEntry = (e) => {}
 
   const onDocumentSelect = (e) => {
     const docData = docUploadFunction(e.target.files[0])
-    console.log(docData,'docData')
+    console.log(docData, 'docData')
   }
 
   const handleSave = () => {
@@ -201,7 +192,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
         <div className={`${styles.vessel_card} mt-3 border_color`}>
-          <div className={`${styles.wrapper} border_color card`}>
+          <div className={`${styles.wrapper}  border_color card`}>
             <div className="d-lg-flex align-items-center d-inline-block  pl-4">
               <h2 className="mb-0">Shipment Type</h2>
               <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
@@ -233,7 +224,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
             </div>
           </div>
 
-          <div className={`${styles.main} border_color mt-4 card `}>
+          <div className={`${styles.main} vessel_card border_color mt-4 card `}>
             <div
               className={`${styles.head_container} border_color card-header head_container d-flex bg-transparent`}
             >
@@ -293,7 +284,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
               </div>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 card border_color`}>
+          <div className={`${styles.main} vessel_card mt-4 card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color head_container d-flex bg-transparent`}
             >
@@ -384,7 +375,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
               </div>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 card border_color`}>
+          <div className={`${styles.main} vessel_card mt-4 card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
             >
@@ -403,32 +394,33 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                 >
                   <div className="d-flex">
-                    <select id='vesselName'
+                    <select
+                      id="vesselName"
                       onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
                       className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     >
                       {shipmentTypeBulk
                         ? _get(
-                          TransitDetails,
-                          'data[0].order.vessel.vessels',
-                          [],
-                        ).map((vessel, index) => (
-                          <option
-                            value={vessel?.vesselInformation?.name}
-                            key={index}
-                          >
-                            {vessel?.vesselInformation?.name}
-                          </option>
-                        ))
+                            TransitDetails,
+                            'data[0].order.vessel.vessels',
+                            [],
+                          ).map((vessel, index) => (
+                            <option
+                              value={vessel?.vesselInformation?.name}
+                              key={index}
+                            >
+                              {vessel?.vesselInformation?.name}
+                            </option>
+                          ))
                         : _get(
-                          TransitDetails,
-                          'data[0].order.vessel.vessels[0].vesselInformation',
-                          [],
-                        ).map((vessel, index) => (
-                          <option value={vessel?.name} key={index}>
-                            {vessel?.name}
-                          </option>
-                        ))}
+                            TransitDetails,
+                            'data[0].order.vessel.vessels[0].vesselInformation',
+                            [],
+                          ).map((vessel, index) => (
+                            <option value={vessel?.name} key={index}>
+                              {vessel?.name}
+                            </option>
+                          ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -443,7 +435,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                  <input id='igmNumber'
+                  <input
+                    id="igmNumber"
                     onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
                     className={`${styles.input_field} input form-control`}
                     type="number"
@@ -577,7 +570,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    id='blNumber'
+                    id="blNumber"
                     onChange={(e) => onChangeBlNumberEntry(e)}
                     className={`${styles.input_field} input form-control`}
                     type="number"
@@ -743,7 +736,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, orderId, doc
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         <div className={styles.uploadBtnWrapper}>
-                          <input onChange={(e) => onDocumentSelect(e)} type="file" name="myfile" />
+                          <input
+                            onChange={(e) => onDocumentSelect(e)}
+                            type="file"
+                            name="myfile"
+                          />
                           <button className={`${styles.upload_btn} btn`}>
                             Upload
                           </button>
