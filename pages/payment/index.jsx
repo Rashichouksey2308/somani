@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+/* eslint-disable @next/next/no-img-element */
+import React from 'react'
 import styles from './index.module.scss'
-import TableMain from '../../src/components/TableMain'
+import PaymentTableMain from '../../src/components/PaymentTableMain'
 import Filter from '../../src/components/Filter'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllDelivery, GetDelivery } from '../../src/redux/release&DeliveryOrder/action'
@@ -115,7 +116,7 @@ function Index() {
             </div>
           </div>
         </div>
-        <TableMain
+        <PaymentTableMain
           tableName="Payment, Invoicing &amp; Delivery"
           pageType="DELIVERY ORDER NO."
           dateHeading="DELIVERY ORDER DATE"
