@@ -119,8 +119,10 @@ export default function Index() {
             />
             <h1 className={`${styles.heading}`}>Ramkrishanan Traders </h1>
           </div>
-          <div className={`${styles.vessel_card} mt-3 border_color`}>
-            <div className={`${styles.main} border_color card `}>
+          <div
+            className={`${styles.vessel_card} vessel_card mt-3 border_color`}
+          >
+            <div className={`${styles.main}  border_color card `}>
               <>
                 <div
                   className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
