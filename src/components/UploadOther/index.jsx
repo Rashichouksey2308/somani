@@ -115,21 +115,34 @@ const Index = ({ orderid, module }) => {
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
                     >
-                      {module === 'LeadOnboarding&OrderApproval' ? <> <option value="CertificateofIncorporation">
-                        Certificate of Incorporation
-                      </option>
-                        <option value="IECCertificate">IEC Certificate</option>
-                        <option value="BusinessRegistrationCertificate ">
-                          Business Registration Certificate{' '}
-                        </option>
-                        <option value="PANCard">PAN Card</option>
-                        <option value="GSTCertificate">GST Certificate</option>
-                        <option value="BankReferenceLetter">
-                          Bank Reference Letter
-                        </option>
-                        <option value="FinancialYear ">Financial Year </option></> : module === 'Loading-Transit-Unloading' ?
+                      {module === 'LeadOnboarding&OrderApproval' ? (
                         <>
-                          <option value="CertificateOfOrigin">Certificate of Origin </option>
+                          {' '}
+                          <option value="CertificateofIncorporation">
+                            Certificate of Incorporation
+                          </option>
+                          <option value="IECCertificate">
+                            IEC Certificate
+                          </option>
+                          <option value="BusinessRegistrationCertificate ">
+                            Business Registration Certificate{' '}
+                          </option>
+                          <option value="PANCard">PAN Card</option>
+                          <option value="GSTCertificate">
+                            GST Certificate
+                          </option>
+                          <option value="BankReferenceLetter">
+                            Bank Reference Letter
+                          </option>
+                          <option value="FinancialYear ">
+                            Financial Year{' '}
+                          </option>
+                        </>
+                      ) : module === 'Loading-Transit-Unloading' ? (
+                        <>
+                          <option value="CertificateOfOrigin">
+                            Certificate of Origin{' '}
+                          </option>
                           <option value="CertificateOfQuality">
                             {' '}
                             Certificate of Quality
@@ -142,18 +155,12 @@ const Index = ({ orderid, module }) => {
                             {' '}
                             Plot Inspection Report
                           </option>
-                          <option value="BL ">
-                            {' '}
-                            BL
-                          </option>
+                          <option value="BL "> BL</option>
                           <option value="ContainerNoList ">
                             {' '}
                             Container No. List
                           </option>
-                          <option value="PackingList ">
-                            {' '}
-                            Packing list
-                          </option>
+                          <option value="PackingList "> Packing list</option>
                           <option value="BLAcknowledgmentCopy">
                             {' '}
                             BL Acknowledgment Copy
@@ -165,13 +172,16 @@ const Index = ({ orderid, module }) => {
                           <option value="CoalImportRegistrationCertificate">
                             {' '}
                             Coal Import Registration Certificate
-                          </option>  <option value="CIMSPaymentReceipt ">
+                          </option>{' '}
+                          <option value="CIMSPaymentReceipt ">
                             {' '}
                             CIMS Payment Receipt
-                          </option>  <option value="IGMCopy ">
-                            {' '}
-                            IGM Copy
-                          </option>   </> : <><option value="LcDraft">LC Draft </option>
+                          </option>{' '}
+                          <option value="IGMCopy "> IGM Copy</option>{' '}
+                        </>
+                      ) : (
+                        <>
+                          <option value="LcDraft">LC Draft </option>
 
                           <option value="lCAmmendmentDraft">
                             {' '}
@@ -200,8 +210,9 @@ const Index = ({ orderid, module }) => {
                           <option value="policyDocumentStorage">
                             {' '}
                             Policy Document - Storage
-                          </option></>}
-
+                          </option>
+                        </>
+                      )}
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
                       Document Type
@@ -243,10 +254,12 @@ const Index = ({ orderid, module }) => {
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <div
-                className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
+                className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
               >
                 <div>
-                  <select className={`${styles.dropDown} input form-control`}>
+                  <select
+                    className={`${styles.dropDown} statusBox input form-control`}
+                  >
                     <option>Lead Onboarding &amp; Order Approval</option>
                     <option>Agreements, Insurance & LC Opening</option>
                     <option>Loading-Transit-Unloading</option>
@@ -263,7 +276,7 @@ const Index = ({ orderid, module }) => {
                     alt="Search"
                   ></img>
                   <input
-                    className={`${styles.searchBar} input form-control`}
+                    className={`${styles.searchBar}  statusBox border_color input form-control`}
                     placeholder="Search"
                   ></input>
                 </div>

@@ -53,9 +53,9 @@ const fields =(head,value,isButton,value2)=>{
         <>
             <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
                 <span className={`${styles.top} label`}>{head}</span>
-                <div>
+                <div className='d-flex align-items-center'>
                     <span className={`${styles.value} value `}>
-                  {value}      {value2 ? value2 : ''}            
+                  {value}      {value2 ? value2 : ''}
                     </span>
                     {isButton?<a onClick={()=>window.open(value)} className={styles.button}>View</a>:null}
                 </div>

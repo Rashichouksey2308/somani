@@ -14,7 +14,7 @@ const index = ({ saveShipmentData, shipment }) => {
   }
 
   return (
-    <div className={`${styles.main} border-color  card`}>
+    <div className={`${styles.main} vessel_card border-color card`}>
       <div
         className={`${styles.head_container} d-flex justify-content-between`}
         data-toggle="collapse"
@@ -38,6 +38,7 @@ const index = ({ saveShipmentData, shipment }) => {
                   <select
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     name="shipmentType"
+                    required
                     onChange={(e) => {
                       saveShipmentData(e.target.name, e.target.value)
                     }}

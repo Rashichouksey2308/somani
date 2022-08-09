@@ -12,7 +12,7 @@ const Index = ({ saveOrderData, orderData }) => {
   }
 
   return (
-    <div className={`${styles.main} card border-color`}>
+    <div className={`${styles.main} vessel_card card border-color`}>
       <div
         className={`${styles.head_container} card-header head_container d-flex justify-content-between bg-transparent`}
         data-toggle="collapse"
@@ -167,6 +167,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="countryOfOrigin"
+                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
@@ -210,6 +211,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="supplierName"
+                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
@@ -237,6 +239,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   <select
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     name="manufacturerName"
+                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
@@ -264,6 +267,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   <select
                     className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                     name="portOfDischarge"
+                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
@@ -288,8 +292,9 @@ const Index = ({ saveOrderData, orderData }) => {
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <select
-                    className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="incoTerm"
+                    required
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
