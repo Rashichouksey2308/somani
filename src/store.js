@@ -21,6 +21,7 @@ import ForwardHedgingReducer from 'redux/ForwardHedging/reducer'
 import TransitDetailsReducer from 'redux/TransitDetails/reducer'
 import InspectionReducer from 'redux/Inspections/reducer'
 import CustomClearanceReducer from 'redux/CustomClearance&Warehousing/reducer'
+import ReleaseOrderReducer from 'redux/release&DeliveryOrder/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -54,6 +55,7 @@ export const createStore = (preloadedState) => {
       TransitDetails: TransitDetailsReducer,
       Inspection: InspectionReducer,
       Custom: CustomClearanceReducer,
+      Release: ReleaseOrderReducer
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>
