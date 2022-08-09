@@ -4,6 +4,7 @@ import TableMain from '../../src/components/TableMain'
 import Filter from '../../src/components/Filter'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllDelivery, GetDelivery } from '../../src/redux/release&DeliveryOrder/action'
+import Router from 'next/router'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -119,6 +120,7 @@ function Index() {
           pageType="DELIVERY ORDER NO."
           dateHeading="DELIVERY ORDER DATE"
           isStatus={true}
+          handleRoute={openRoute}
         />
       </div>
     </div>

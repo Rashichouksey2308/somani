@@ -19,19 +19,26 @@ function Index({ handleChange, reviewedProfile }) {
   const DropDown = (values, name) => {
     return (
       <td>
-        <Form.Select
-          size="sm"
-          name={name}
-          className={`${styles.dropDown} dropDown`}
-          onChange={(e) => {
-            handleChange(e.target.name, e.target.value)
-          }}
-        >
-          {' '}
-          {values.map((options) => {
-            return <option>{options}</option>
-          })}{' '}
-        </Form.Select>
+        <div className="d-flex align-items-center">
+          <Form.Select
+            size="sm"
+            name={name}
+            className={`${styles.dropDown} ${styles.customSelect} dropDown`}
+            onChange={(e) => {
+              handleChange(e.target.name, e.target.value)
+            }}
+          >
+            {' '}
+            {values.map((options) => {
+              return <option>{options}</option>
+            })}{' '}
+          </Form.Select>
+          <img
+            className={`${styles.arrow2} img-fluid`}
+            src="/static/inputDropDown.svg"
+            alt="Search"
+          />
+        </div>
       </td>
     )
   }

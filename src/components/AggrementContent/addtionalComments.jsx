@@ -13,7 +13,7 @@ function Index(props) {
         
         addressList:addressList,
        }
-       props.sendData("Product",data)
+       props.sendData("Comments",data)
     }
     if(props.submitData==true && props.active=="Additional Comments"){
       let data={
@@ -21,7 +21,7 @@ function Index(props) {
         addressList:addressList,
        }
 
-      props.updateData("Product",data)
+      props.updateData("Comments",data)
 
     }
 
@@ -36,13 +36,13 @@ function Index(props) {
   //  if(window){
     
     
-  //     if(sessionStorage.getItem("Product")){
+  //     if(sessionStorage.getItem("Comments")){
   //     console.log("herer23123")
       
-  //     let savedData=JSON.parse(sessionStorage.getItem("Product"))
+  //     let savedData=JSON.parse(sessionStorage.getItem("Comments"))
      
       
-  //      setAddressList(savedData.addresses)
+  //      setAddressList(savedData.comments)
       
   //   }else{
      
@@ -71,7 +71,9 @@ function Index(props) {
   
 }
  const handleAddressInput=()=>{
-setAddressList([...addressList,value])
+
+ 
+   setAddressList([...addressList,value])
    
      
      
@@ -112,12 +114,12 @@ setAddressList([...addressList,value])
 
                 />
        <div className={`d-flex justify-content-evenly align-items-center`}>
-         <img className="img-fluid ml-4" src="/static/add-btn.svg" alt="add button"
+         {/* <img className="img-fluid ml-4" src="/static/add-btn.svg" alt="add button"
           onClick={()=>{
                     handleEditAddressInput(index)
             }}
-         ></img>
-         <img src="/static/delete 2.svg" className="img-fluid" alt="delete"
+         ></img> */}
+         <img src="/static/delete 2.svg" className="img-fluid ml-4" alt="delete"
          onClick={()=>{
                     onAddressRemove(index)
                   }}
