@@ -125,11 +125,7 @@ function Index() {
   })
   // console.log(orderDetails, "orderDetailjdefhk")
 
-  const [documents, setDocuments] = useState({
-    typeOfDocument: [null],
-    document1: null,
-    document2: null,
-  })
+  
 
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails }
@@ -300,7 +296,60 @@ function Index() {
     }, 3000)
     return () => clearTimeout(delayDebounceFn)
   }, [companyDetails.companyName])
-
+const [documents, setDocuments] = useState([
+    {  typeOfDocument: "",
+        attachDoc: "",
+    }
+  ])
+    const onAddDoc = (index) => {
+    setDocuments([
+      ...documents,
+      {
+        typeDocument: '',
+        attachDoc: '',
+       
+      },
+    ])
+  }
+  const addDoc = (val,index) => {
+    setDocuments(prevState => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return { ...obj, attachDoc: val };
+        }
+        return obj;
+      });
+      return newState;
+    })}
+  const removeDoc = (index) => {
+    setDocuments(prevState => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return { ...obj, attachDoc: "" };
+        }
+        return obj;
+      });
+      return newState;
+    })
+   
+  }
+    const addTypeOfDoc = (val,index) => {
+    setDocuments(prevState => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return { ...obj, typeDocument: val};
+        }
+        return obj;
+      });
+      return newState;
+    })
+   
+  }
+   const deleteData=(index)=>{
+  console.log("indexssd",index)
+    setDocuments([...documents.slice(0,index), ...documents.slice(index+1)])
+  }
+  console.log(documents,"documents")
   return (
     <Card className={`${styles.card}`}>
       <Card.Header className={`${styles.head_container} border-0 p-0`}>
@@ -339,6 +388,12 @@ function Index() {
           saveDocument={saveDocument}
           uploadDocument1={uploadDocument1}
           uploadDocument2={uploadDocument2}
+          documents={documents}
+          onAddDoc={onAddDoc}
+          deleteData={deleteData}
+          addDoc={addDoc}
+          removeDoc={removeDoc}
+          addTypeOfDoc={addTypeOfDoc}
         />
         <Terms chanegTermsCheck={chanegTermsCheck} termsCheck={termsCheck} darkMode={darkMode} submitData={submitData} />
       </Card.Body>

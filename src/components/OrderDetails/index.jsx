@@ -165,7 +165,7 @@ const Index = ({ saveOrderData, darkMode ,}) => {
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
              <div className="d-flex">
-                    <DateCalender name='ExpectedDateOfShipment' saveDate={saveDate} labelName='Expected Date Of Shipment'
+                    <DateCalender dateFormat={"dd-MM-yyyy"} name='ExpectedDateOfShipment' saveDate={saveDate} labelName='Expected Date Of Shipment'
                      
                     />
                      <img

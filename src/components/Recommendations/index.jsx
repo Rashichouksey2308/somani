@@ -19,6 +19,7 @@ const Index = ({
   groupExposureData,
   addGroupExpArr,
   saveSuggestedCreditData,
+  deleteData
 }) => {
   const [editProfile, setEditProfile] = useState(false)
   const [editFinance, setEditFinance] = useState(false)
@@ -59,6 +60,7 @@ const Index = ({
   const onExpSave = () => {
     addGroupExpArr(exposureData)
   }
+ 
 
   return (
     <>
@@ -105,6 +107,7 @@ const Index = ({
                       src="/static/delete 2.svg"
                       className="img-fluid"
                       alt="delete"
+                      onClick={(e)=>{deleteData(index)}}
                     />
                   </div>
                 </div>

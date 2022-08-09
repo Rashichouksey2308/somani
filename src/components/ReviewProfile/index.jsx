@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-
+import moment from 'moment'
 function Index({ handleChange, reviewedProfile }) {
   const transactionTypeDropdown = ['Import', 'Domestic']
   const commodityDropdown = ['Iron', 'Crude', 'Steel']
@@ -316,9 +316,10 @@ function Index({ handleChange, reviewedProfile }) {
                   <td>Expected Date Of Shipment</td>
                   <td>
                     {
-                      reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
+                      moment( reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
                         'T',
-                      )[0]
+                      )[0]).format("DD-MM-YYYY")
+                     
                     }
                   </td>
                   <td>

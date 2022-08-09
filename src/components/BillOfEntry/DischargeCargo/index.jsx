@@ -18,12 +18,20 @@ export default function Index({ OrderId, customData }) {
 
   const [dischargeOfCargo, setDischargeOfCargo] = useState({
     dischargeOfCargo: {
-      vesselName: _get(customData, 'dischargeOfCargo.dischargeOfCargo.vesselName', ''),
+      vesselName: _get(
+        customData,
+        'dischargeOfCargo.dischargeOfCargo.vesselName',
+        '',
+      ),
       portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
-      dischargeQuantity: _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
+      dischargeQuantity: _get(
+        customData,
+        'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
+        '',
+      ),
       dischargeQuantityUnit: '',
-      vesselArrivaldate:'',
-      dischargeStartDate:'',
+      vesselArrivaldate: '',
+      dischargeStartDate: '',
       dischargeEndDate: '',
     },
     document1: null,
@@ -71,7 +79,9 @@ export default function Index({ OrderId, customData }) {
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
         <div className={`${styles.vessel_card} border_color`}>
-          <div className={`${styles.main} mt-4 card border_color`}>
+          <div
+            className={`${styles.main}  vessel_card  mt-4 card border_color`}
+          >
             <div
               className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
             >
@@ -121,7 +131,9 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    defaultValue={dischargeOfCargo.dischargeOfCargo.dischargeQuantity}
+                    defaultValue={
+                      dischargeOfCargo.dischargeOfCargo.dischargeQuantity
+                    }
                     onChange={(e) =>
                       onChangeDischargeOfCargo(e.target.id, e.target.value)
                     }
@@ -139,7 +151,7 @@ export default function Index({ OrderId, customData }) {
                 >
                   <div className="d-flex">
                     <DateCalender
-                       name="vesselArrivaldate"
+                      name="vesselArrivaldate"
                       saveDate={saveDate}
                       labelName="Vessel Arrival Date"
                     />
@@ -155,7 +167,7 @@ export default function Index({ OrderId, customData }) {
                 >
                   <div className="d-flex">
                     <DateCalender
-                       name="dischargeStartDate"
+                      name="dischargeStartDate"
                       saveDate={saveDate}
                       labelName="Discharge Start Date"
                     />
@@ -171,7 +183,7 @@ export default function Index({ OrderId, customData }) {
                 >
                   <div className="d-flex">
                     <DateCalender
-                       name="dischargeEndDate"
+                      name="dischargeEndDate"
                       saveDate={saveDate}
                       labelName="Discharge End Date"
                     />
