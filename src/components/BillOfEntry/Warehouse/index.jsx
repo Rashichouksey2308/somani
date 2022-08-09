@@ -1,12 +1,55 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
-import { useState } from 'react'
 import DateCalender from '../../DateCalender'
+import UploadOther from '../../UploadOther'
+import _get from 'lodash/get'
+import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
+import { useDispatch } from 'react-redux'
 
-export default function Index() {
+export default function Index({ OrderId, customData }) {
+  console.log(customData, 'customData')
+  const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
+  const [warehouseDetails, setWarehouseDetails] = useState({
+    wareHouseDetails: {
+      quantity: '',
+      quantityUnit: '',
+      dateOfStorage: null,
+
+    },
+    document: null
+  })
+
+  const onChangeWarehouseDetails = (name, text) => {
+    let newData = { ...warehouseDetails }
+    newData.wareHouseDetails[name] = text
+    setWarehouseDetails(newData)
+  }
+  const saveDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    onChangeWarehouseDetails(name, text)
+  }
+
+  const onSaveDocument = (e) => {
+    let name = e.target.id
+    let doc = e.target.files[0]
+    let tempData = { ...warehouseDetails }
+    tempData[name] = doc
+    setWarehouseDetails(tempData)
+  }
+
+  const onSaveDischarge = () => {
+    let warehouseDetailpayload = warehouseDetails.wareHouseDetails
+    let fd = new FormData()
+    fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
+    fd.append('customClearanceId', customData._id)
+    fd.append('document', warehouseDetails.document)
+    dispatch(UpdateCustomClearance(fd))
+  }
 
   const handleDropdown = (e) => {
     if ((e.target.value = 'Others')) {
@@ -41,7 +84,7 @@ export default function Index() {
                 <div className="row">
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div className={`${styles.label} text`}>Commodity</div>
-                    <span className={styles.value}>Iron</span>
+                    <span className={styles.value}>{_get(customData, 'order.commodity', '')}</span>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div className={`${styles.label} text`}>CMA Name</div>
@@ -59,8 +102,11 @@ export default function Index() {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
                   >
                     <input
+                      id='quantity'
+                      onChange={(e) => onChangeWarehouseDetails(e.target.id, e.target.value)}
                       className={`${styles.input_field} input form-control`}
                       type="number"
+                      required
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Quantity<strong className="text-danger">*</strong>
@@ -70,7 +116,7 @@ export default function Index() {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
                   >
                     <div className="d-flex">
-                      <DateCalender labelName="Date of Storage" />
+                      <DateCalender name='dateOfStorage' saveDate={saveDate} labelName="Date of Storage" />
                       <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -84,7 +130,7 @@ export default function Index() {
                   >
                     <div className="d-flex justify-content-start mt-2">
                       <div className={styles.uploadBtnWrapper}>
-                        <input type="file" name="myfile" />
+                        <input id='document' onChange={(e) => onSaveDocument(e)} type="file" name="myfile" />
                         <button className={`${styles.upload_btn} btn`}>
                           Upload
                         </button>
@@ -105,221 +151,13 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
-            <div
-              className={`${styles.head_container} border_color d-flex justify-content-between`}
-              data-toggle="collapse"
-              data-target="#uploadOther"
-              aria-expanded="true"
-              aria-controls="uploadOther"
-            >
-              <h3 className={styles.heading}>Document</h3>
-              <span>+</span>
-            </div>
-            <div
-              id="uploadOther"
-              className="collapse"
-              aria-labelledby="uploadOther"
-              data-parent="#uploadOther"
-            >
-              <div className={`${styles.dashboard_form} card-body`}>
-                <Form>
-                  <div className="row align-items-center pb-4">
-                    <div
-                      className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
-                    >
-                      <div className="text-center">
-                        <img
-                          className={`${styles.upload_image} img-fluid`}
-                          src="/static/browse.svg"
-                          alt="Browse"
-                        />
-                        <p className={styles.drop_para}>
-                          Drop Files here or
-                          <br />
-                          <div className={styles.uploadBtnWrapper}>
-                            <input type="file" name="myfile" />
-                            <a href="#">Browse</a>
-                          </div>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 offset-md-1 col-sm-6">
-                      <Form.Group className={styles.form_group}>
-                        <div className="d-flex">
-                          <select
-                            className={`${styles.value} ${styles.customSelect} input form-control`}
-                            id="docType"
-                            onChange={(e) => handleDropdown(e)}
-                          >
-                            <option>
-                              Lead Onboarding &amp; Order Approval
-                            </option>
-                            <option>
-                              Agreements, Insurance &amp; LC Opening
-                            </option>
-                            <option>Loading-Transit-Unloading</option>
-                            <option>Custom Clearance And Warehousing</option>
-                            <option value="Others">Others</option>
-                          </select>
-                          <Form.Label
-                            className={`${styles.label} label_heading`}
-                          >
-                            Document Type
-                          </Form.Label>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </Form.Group>
-                      <Form.Group className={styles.form_group}>
-                        <Form.Label className={`${styles.label} label_heading`}>
-                          Please Specify Document Name
-                        </Form.Label>
-                        <Form.Control
-                          className={`${styles.value} input form-control`}
-                          disabled={editInput}
-                          type="text"
-                        />
-                      </Form.Group>
-                      <div className={styles.uploadBtnWrapper}>
-                        <input type="file" name="myfile" />
-                        <button
-                          className={`${styles.upload_button} mt-4  btn`}
-                          disabled={editInput}
-                        >
-                          Upload
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Form>
-              </div>
 
-              <div className={styles.table_container}>
-                <div className={styles.table_scroll_outer}>
-                  <div className={styles.table_scroll_inner}>
-                    <div
-                      className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
-                    >
-                      <div>
-                        <select
-                          className={`${styles.dropDown} input form-control`}
-                        >
-                          <option>Lead Onboarding &amp; Order Approval</option>
-                          <option>Agreements, Insurance & LC Opening</option>
-                          <option>Loading-Transit-Unloading</option>
-                          <option>Custom Clearance And Warehousing</option>
-                          <option value="Others">Others</option>
-                        </select>
-                      </div>
-                      <div
-                        className={`d-flex align-items-center ${styles.searchBarContainer} `}
-                      >
-                        <img
-                          className={` ${styles.searchImage} img-fluid`}
-                          src="/static/search.svg"
-                          alt="Search"
-                        ></img>
-                        <input
-                          className={`${styles.searchBar} input form-control`}
-                          placeholder="Search"
-                        ></input>
-                      </div>
-                    </div>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
-                      <thead>
-                        <tr>
-                          <th>
-                            DOCUMENT NAME{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            FORMAT{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            DOCUMENT DATE{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            UPLOADED BY{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>STATUS </th>
-                          <th>ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>
-                            Insurance Quotation
-                          </td>
-                          <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td className={styles.doc_row}>John Doe</td>
-                          <td>
-                            <span
-                              className={`${styles.status} ${styles.approved}`}
-                            ></span>
-                            Verified
-                          </td>
-                          <td colSpan="2">
-                            <img
-                              src="/static/delete.svg"
-                              className={`${styles.del_image} img-fluid mr-3`}
-                              alt="Bin"
-                            />
-                            <img
-                              src="/static/upload.svg"
-                              className="img-fluid mr-3"
-                              alt="Share"
-                            />
-                            <img
-                              src="/static/drive_file.svg"
-                              className={`${styles.edit_image} img-fluid mr-3`}
-                              alt="Share"
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="mt-4 mb-5">
+            <UploadOther orderid={OrderId} module='customClearanceAndWarehousing' />
           </div>
+
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" />
       </div>
     </>
   )

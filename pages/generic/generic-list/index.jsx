@@ -5,40 +5,38 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetOrders } from '../../../src/redux/registerBuyer/action'
+import { getGenericData } from '../../../src/redux/generic/actionsType'
 
-import Cookies from 'js-cookie'
-import API from '../../../src/utils/endpoints'
 import { setPageName,setDynamicName } from '../../../src/redux/userData/action'
 
 function Index(props) {
   console.log("🚀 ~ file: index.jsx ~ line 14 ~ Index ~ props", props)
   const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
-
-  const { singleOrder } = useSelector((state) => state.buyer)
-  const { termsheet } = useSelector((state) => state.order)
+ const [genData,setData]=useState([])
+  
+  const { generic } = useSelector((state) => state.generic.allGeneric)
+  console.log(genData,"generic22131")
 
  useEffect(() => {
     dispatch(setPageName('generic'))
     dispatch(setDynamicName(null))
   })
+ useEffect(() => {
+   getDate()
+  },[])
 
+const getDate = async () =>{
 
+ let data = await dispatch(getGenericData())
+ console.log(data,"dgeneric22131ata")
+ setData(data)
+}
 
-//   useEffect(() => {
-//     let Id = sessionStorage.getItem('termsheetId')
-//     dispatch(GetTermsheet(`?company=${Id}`))
-//   }, [dispatch])
-
-//   useEffect(() => {
-//     dispatch(setPageName('termsheet'))
-//     dispatch(setDynamicName("Company Name"))
-//   }, [dispatch, singleOrder])
 
   const handleRoute = (term) => {
    
-    sessionStorage.setItem('genericID', term)
+    sessionStorage.setItem('genericSelected', JSON.stringify(term))
     Router.push("/generic")
      dispatch(setDynamicName(term))
     // Router.push('/lc-module')
@@ -52,96 +50,29 @@ function Index(props) {
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
 
-            <div className={`${styles.head_header} align-items-center`}>
-              <img className={`${styles.arrow} image_arrow mr-2 img-fluid`}
-                src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-              <h1 className={`${styles.heading} heading`}>{`generic`}</h1>
+            
+
+               <div className={styles.search}>
+              <div className="input-group">
+                <div
+                  className={`${styles.inputGroupPrepend} input-group-prepend`}
+                >
+                  <img
+                    src="/static/search.svg"
+                    className="img-fluid"
+                    alt="Search"
+                  />
+                </div>
+                <input
+                  type="text"
+                  className={`${styles.formControl} form-control formControl `}
+                  placeholder="Search"
+                />
+              </div>
             </div>
-
-
-
           </div>
 
-          {/*status Box*/}
-          {/* <div
-            className={`${styles.statusBox} statusBox d-flex align-items-center justify-content-between`}
-          >
-            <div className={`${styles.all} ${styles.boxInner}`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
-                  <img
-                    src="/static/Leads.svg"
-                    className="img-fluid"
-                    alt="All Leads"
-                  />
-                </div>
-                <h3>
-                  <span> All </span>
-                  3,200
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.approved} ${styles.boxInner}`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
-                  <img
-                    src="/static/check.svg"
-                    className="img-fluid"
-                    alt="Check"
-                  />
-                </div>
-                <h3>
-                  <span>APPROVED</span>
-                  780
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.review} ${styles.boxInner}`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
-                  <img
-                    src="/static/access-time.svg"
-                    className="img-fluid"
-                    alt="Access Time"
-                  />
-                </div>
-                <h3>
-                  <span>REVIEW</span>
-                  800
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.rejected} ${styles.boxInner}`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
-                  <img
-                    src="/static/close-b.svg"
-                    className="img-fluid"
-                    alt="Close"
-                  />
-                </div>
-                <h3>
-                  <span>REJECTED</span>
-                  89
-                </h3>
-              </div>
-            </div>
-            <div className={`${styles.saved} ${styles.boxInner}`}>
-              <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
-                  <img
-                    src="/static/bookmark.svg"
-                    className="img-fluid"
-                    alt="Bookmark"
-                  />
-                </div>
-                <h3>
-                  <span>SAVED</span>
-                  60
-                </h3>
-              </div>
-            </div>
-          </div> */}
+         
           {/*leads table*/}
           <div className={`${styles.datatable} datatable card`}>
             <div
@@ -153,7 +84,7 @@ function Index(props) {
               >
                 <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(termsheet?.totalCount / 10)}
+                  {Math.ceil(generic?.length / 10)}
                 </span>
                 <a
                   onClick={() => {
@@ -175,7 +106,7 @@ function Index(props) {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(termsheet?.totalCount / 10)) {
+                    if (currentPage + 1 < Math.ceil(genData?.length / 10)) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
@@ -202,20 +133,20 @@ function Index(props) {
                     <tr className="table_row">
                       <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
                     
-                      <th>CREATED BY</th>
-                      <th>CREATED ON</th>
+                      <th>COMPANY NAME </th>
+                      <th>Customer ID</th>
                     
 
                     </tr>
                   </thead>
-                  {props && props.pageProps?.data?.map((term, index) => (<tbody Key={index}>
+                  {genData?.length>0 && genData?.map((term, index) => (<tbody Key={index}>
 
-                    <td className={`${styles.first}`} onClick={() => handleRoute(term?.order)}>
-                      {term?.order}
+                    <td >
+                      {term?.company._id}
                     </td>
-                    <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.order?.commodity}</td>
+                    <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.company.companyName}</td>
 
-                    <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
+                    <td >{term?.company.customerId}</td>
                     {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
                     {/* <td>
                       <span
@@ -246,45 +177,45 @@ function Index(props) {
     </>
   )
 }
-export async function getServerSideProps(context) {
-  try {
-    console.log("inside123", context.req.cookies['SOMANI']);
-    let cookie = context.req.cookies['SOMANI']
-   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-  console.log("inside fetch2222");
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+// export async function getServerSideProps(context) {
+//   try {
+//     console.log("inside123", context.req.cookies['SOMANI']);
+//     let cookie = context.req.cookies['SOMANI']
+//    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+//   console.log("inside fetch2222");
+//   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+//   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
-  var result = await fetch(`${API.corebaseUrl}/api/core/generic`, {
-      method: "GET",
-      headers: headers,
-      // body: urlencoded,
-      redirect: "follow",
-    }).then((response) => response.json());
+//   var result = await fetch(`${API.corebaseUrl}/api/core/generic`, {
+//       method: "GET",
+//       headers: headers,
+//       // body: urlencoded,
+//       redirect: "follow",
+//     }).then((response) => response.json());
 
    
   
-   console.log(result,"thi sis result123")
+//    console.log(result,"thi sis result123")
    
  
 
-    if (result.code === 200) {
-      return {
-        props: {
-          pageProps: result.data,
+//     if (result.code === 200) {
+//       return {
+//         props: {
+//           pageProps: result.data,
          
          
-        },
-      };
-    } else {
+//         },
+//       };
+//     } else {
 
-      return {
-        props: { pageProps: result.data},
-      };
-    }
-  } catch (error) {
-    console.log(error)
-    return {}
-  }
-}
+//       return {
+//         props: { pageProps: result.data},
+//       };
+//     }
+//   } catch (error) {
+//     console.log(error)
+//     return {}
+//   }
+// }
 export default Index
