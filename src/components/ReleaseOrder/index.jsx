@@ -19,7 +19,7 @@ export default function Index() {
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
         <div className={`${styles.vessel_card} mt-3 border_color`}>
-          <div className={`${styles.main} mt-4 card border_color`}>
+          <div className={`${styles.main} vessel_card mt-4 card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
               data-toggle="collapse"
