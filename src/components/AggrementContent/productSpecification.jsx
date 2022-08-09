@@ -32,26 +32,26 @@ function Index(props) {
  setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
 
   }
-  //  useEffect(() => {
-  //  if(window){
+   useEffect(() => {
+   if(window){
     
     
-  //     if(sessionStorage.getItem("Product")){
-  //     console.log("herer23123")
+      if(sessionStorage.getItem("Product")){
+      console.log("herer23123")
       
-  //     let savedData=JSON.parse(sessionStorage.getItem("Product"))
+      let savedData=JSON.parse(sessionStorage.getItem("Product"))
      
       
-  //      setAddressList(savedData.addresses)
+       setAddressList(savedData.comments)
       
-  //   }else{
+    }else{
      
-  //      setAddressList(props.data?.addresses)
+       setAddressList(props.data?.comments)
        
-  //   }
+    }
    
-  //  }
-  // },[props])
+   }
+  },[props])
   const handleEditAddressInput=(value,index)=>{
     
      setAddressList(prevState => {
