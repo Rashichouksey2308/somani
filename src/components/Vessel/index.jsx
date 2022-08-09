@@ -45,6 +45,10 @@ function Index({
     return a + 1
   }
 
+  const uploadDocHandler1 =  (e) => {
+     console.log(uploadDocHandler(e), 'vesselDocUpload')
+  }
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -121,7 +125,7 @@ function Index({
                           />
                         </div>
 
-                        {list[index].shipmentType ==='Bulk' ? (
+                        {list[index].shipmentType === 'Bulk' ? (
                           <button
                             className={styles.add_btn}
                             onClick={(e) => {
@@ -774,9 +778,9 @@ function Index({
                           >
                             {' '}
                             <div className={styles.uploadBtnWrapper}>
-                              <input type="file" name="myfile" />
+                              <input onChange={(e) => uploadDocHandler1(e)} type="file" name="myfile" />
                               <button
-                                onClick={uploadDocHandler}
+
                                 className={`${styles.upload_btn}`}
                               >
                                 Upload Excel
