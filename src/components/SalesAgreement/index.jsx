@@ -193,7 +193,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
          active={active}
-         data={props.genericData.supplier}
+         data={props.genericData.productSpecifications}
         
         />
       )
@@ -206,7 +206,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
          active={active}
-         data={props.genericData.supplier}
+         data={props?.genericData?.additionalComments}
         
         />
       )
@@ -219,7 +219,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
          active={active}
-         data={props.genericData.supplier}
+         data={props?.genericData?.deliveryTerms}
         
         />
       )
@@ -295,7 +295,7 @@ const onSave=()=>{
   setSubmitData(true)
  }
  const updateData=async(key,data)=>{
-  console.log("this13")
+  console.log("this13",data)
   let dataToSend={}
   if(key=="Supplier"){
    dataToSend={
@@ -345,7 +345,7 @@ const onSave=()=>{
   if(key=="Buyer"){
    dataToSend={
       genericId:props.genericData?._id,
-       seller:{
+       buyer:{
         "name": data.buyerData.name,
         "branchName": data.buyerData.branchName,
         
@@ -452,8 +452,39 @@ const onSave=()=>{
      console.log("this14")
        dataToSend={
        genericId:props.genericData?._id,
-       product:{
-        "product":data.product,
+       productSpecifications:{
+        "comments":data.addressList,
+      
+        
+    }
+  }
+ }
+   if(key=="Comments"){
+    let list=[];
+      data.addressList.forEach((val,index)=>{
+         list.push({type:val})
+      })
+     console.log("this14")
+       dataToSend={
+       genericId:props.genericData?._id,
+       additionalComments:{
+        "comments": data.addressList,
+      
+        
+    }
+  }
+ }
+    if(key=="execution"){
+     console.log("this14")
+     let list=[];
+      data.list.forEach((val,index)=>{
+         list.push({agreementName:val.name,place:val.execution})
+      })
+       dataToSend={
+       genericId:props.genericData?._id,
+      
+       placeOfExecution:{
+        "execution":list,
       
         
     }
