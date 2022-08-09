@@ -3,12 +3,15 @@
     border: none !important;
     box-shadow: none !important;
     background: none !important;
-    margin: 28px 28px 80px;
+    margin: 28px;
+    margin-bottom: 68px;
     @include respond(sm-desktop) {
-        margin: 20px 20px 65px;
+        margin: 20px;
+        margin-bottom: 60px;
     }
     @include respond(phone) {
-        margin: 15px 15px 75px;
+        margin: 15px;
+        margin-bottom: 71px;
     }
     .head_container {
         height: 48px;

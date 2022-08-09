@@ -9,7 +9,7 @@ function Index() {
     return ( 
         <div className={`${styles.wrapper} card`} >
         <div
-          className={`${styles.sub_card} sub_card card-header d-flex align-items-center justify-content-between bg-transparent`}
+          className={`${styles.sub_card} sub_card card-header p-0 d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#orderDetail"
           aria-expanded="true"
