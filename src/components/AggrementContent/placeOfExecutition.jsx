@@ -15,28 +15,9 @@ let cma = {
 function Index(props) {
   const [cmaState, setCmaState] = useState(cma)
   const [list, setList] = useState([])
-  const [addressList, setAddressList] = useState([])
-  const [newAddress, setNewAddress] = useState(
-    {
-      "addressType": "Registered",
-      "fullAddress": "",
-      "pinCode": "",
-      "country": "",
-      "gstin": "",
-      "state": "",
-      "city": ""
-    }
-  )
-  const [addressType, setAddressType] = useState("Registered")
-  useEffect(() => {
-    let tempArr = cmaState.authorisedSignatoryDetails
-    tempArr.forEach((val, index) => {
-      val.actions = "true"
-    })
-    setList(tempArr)
-    let tempArr2 = cmaState.addresses
-    setAddressList(tempArr2)
-  }, [])
+
+ 
+
 
   // useEffect(() => {
   //   if (window) {
@@ -44,52 +25,44 @@ function Index(props) {
   //     if (sessionStorage.getItem("exe")) {
   //       let savedData = JSON.parse(sessionStorage.getItem("exe"))
   //       let cma = {
-  //         "name": savedData.name,
-  //         "shortName": savedData.shortName,
-  //         "gstin": savedData.gstin,
-
-  //         "addresses": savedData.addresses,
-  //         "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+        
+  //         "authorisedSignatoryDetails": savedData.execution,
 
 
   //       }
-  //       setList(savedData.authorisedSignatoryDetails)
-  //       setAddressList(savedData.addresses)
-  //       setCmaState(cma)
+  //       setList(savedData.execution)
+      
+       
   //     }else{
   //        let cma = {
-  //         "name": props.data?.name,
-  //         "shortName": props.data?.shortName,
-  //         "gstin": props.data?.gstin,
-
-  //         "addresses": props.data?.addresses,
-  //         "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails,
+         
+  //         "authorisedSignatoryDetails": props.data?.execution,
 
 
   //       }
-  //       setList(props.data?.authorisedSignatoryDetails)
-  //       setAddressList(props.data?.addresses)
-  //       setCmaState(cma)
+  //       setList(props.data?.execution)
+      
+       
   //     }
   //   }
   // }, [])
   useEffect(() => {
-    if (props.saveData == true && props.active == "Cma") {
+    if (props.saveData == true && props.active == "Place of Execution") {
       let data = {
-        cmaData: cmaState,
+      
         list: list,
-        addressList: addressList,
+   
       }
-      props.sendData("Cma", data)
+      props.sendData("execution", data)
     }
-    if (props.submitData == true && props.active == "Cma") {
+    if (props.submitData == true && props.active == "Place of Execution") {
       let data = {
-        cmaData: cmaState,
+      
         list: list,
-        addressList: addressList,
+       
       }
 
-      props.updateData("Cma", data)
+      props.updateData("execution", data)
 
     }
 
@@ -208,7 +181,7 @@ function Index(props) {
             aria-controls="customerDetail"
           >
             <div className={styles.header}>
-              <h2 className={`mb-0`}>Authorised Signatory Details</h2>
+              {/* <h2 className={`mb-0`}>Authorised Signatory Details</h2> */}
               <span className=" d-flex align-items-center justify-content-between">
 
                 +
@@ -231,7 +204,7 @@ function Index(props) {
                     
                   </tr>
                   <tbody>
-                    {list.length > 0 && list.map((val, index) => {
+                    {list?.length > 0 && list?.map((val, index) => {
                       return (
                         <>
                           {val.actions == "true" ?

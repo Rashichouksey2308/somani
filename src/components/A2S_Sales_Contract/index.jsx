@@ -1,9 +1,102 @@
-import React from 'react'
+import React , {useEffect,useState}from 'react'
 import styles from './index.module.scss'
 import {Row, Col} from "react-bootstrap"
 import GrowInput from '../GrowInput'
+import Router from 'next/router'
+import moment from 'moment'
 
-function index() {
+
+function Index(props) {
+  const [data,setData]=useState({
+    seller:"",
+    buyer:"",
+    shortseller:"",
+    shortbuyer:"",
+    sellerSignature:"",
+    buyerSignature:"",
+    dateOfExecution:"",
+    placeOfExecution:"",
+    details:"",
+    detailsOfEndBuyer:"",
+    detailsOfComm:"",
+    quan:"",
+    unitPrice:"",
+    totalOrderValue:"",
+    lordPort:"",
+    dischargePort:"",
+    lastDate:"",
+    terms:"",
+    addComm:"",
+    spec:"",
+
+  })
+
+  useEffect(() => {
+    if(window){
+      if(props.preview){
+        const data=JSON.parse(sessionStorage.getItem("preview"))
+       console.log(data.seller.name,"datapreview")
+        setData({
+        seller:data.seller,
+        buyer:data.buyer,
+        shortseller:data?.shortseller,
+        shortbuyer:data?.shortbuyer,
+        sellerSignature:data.sellerSignature,
+        buyerSignature:data.buyerSignature,
+        dateOfExecution:data.dateOfExecution,
+        placeOfExecution:data?.placeOfExecution,
+        details:data.details,
+        detailsOfEndBuyer:data.detailsOfEndBuyer,
+        detailsOfComm:data?.detailsOfComm,
+        quan:data.quan,
+        unitPrice:data.unitPrice,
+        totalOrderValue:data.totalOrderValue,
+        lordPort:data.lordPort,
+        dischargePort:data.dischargePort,
+        lastDate:data.lastDate,
+        terms:data.terms,
+        addComm:data.addComm,
+        spec:data.spec,
+        })
+      }else{
+          const data=JSON.parse(sessionStorage.getItem("genericSelected"))
+          let exe;
+          data.placeOfExecution.execution.forEach((val,index)=>{
+            if(val.agreementName=="Sales Agreement"){
+            exe=val.place
+            }
+          })
+         
+          
+      setData({
+    seller:data.seller.name,
+    buyer:"Indo German International",
+     shortseller:data.seller.shortName,
+     shortbuyer:"IGI",
+    sellerSignature:"",
+    buyerSignature:"",
+    dateOfExecution:"",
+    placeOfExecution:exe,
+    details:data.supplier.name,
+    detailsOfEndBuyer:"",
+    detailsOfComm:data?.order?.commodity,
+    quan:data.order.quantity,
+    unitPrice:data.order.perUnitPrice,
+    totalOrderValue:data.order.orderValue,
+    lordPort:data.order.termsheet.transactionDetails.loadPort,
+    dischargePort:data.order.portOfDischarge,
+    lastDate:data.order.ExpectedDateOfShipment,
+    terms:data.order.deliveryTerm,
+    addComm:data.additionalComments.comments,
+    spec: data.productSpecifications.comments,
+      })
+      }
+    }
+  },[props])
+console.log(data,"agreementdata")
+  const changeHandler=(name,val)=>{
+    setData({...data,[name]:val})
+  }
   return (
     <div className={`${styles.root}`}>
    
@@ -11,24 +104,53 @@ function index() {
          
           
                                         
-           {salesContract()}
-           <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
+           {salesContract(changeHandler,data,props.preview)}
+            {
+              !props.preview?
+              <>
+              <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
+              <div className={`${styles.approve} mr-3`}><span
+              onClick={(e)=>{
+              sessionStorage.setItem("preview",JSON.stringify(data))
+              Router.push("agreement/preview")
+              }}
+              >Preview</span></div> 
               <div className={styles.reject}><span>Save</span></div>
-        <div className={styles.approve}><span>Submit</span></div>                                
+              <div className={styles.approve}><span
+             
+              >Submit</span></div>                                
                                                
                                            
           </div>
+              </>
+              :null
+            }
 
       </div>
     </div>
   )
 }
 
-export default index
-const salesContract=()=>{
+export default Index
+const salesContract=(changeHandler,data,preview)=>{
+  console.log(data,"data2342")
   return(
     <>
      <div className="card-body">
+        {preview?
+        <div className={`${styles.inputsContainer2}`}>
+              <Row className={`${styles.row} ${styles.last}`}>
+              
+                <Col md={7} className={styles.left}>
+                  Sales Contract No.: {data.shortseller +"/" + data.shortbuyer +"/"+ "2022/001"}</Col>
+                <Col md={5} className={styles.right}>
+                Date: {moment(new Date()).format("DD-MM-YYYY")}
+                
+                </Col>
+              </Row>
+          </div>
+        :
+        null}
        <p className="text-center text_sales"> <strong><u>SALES CONTRACT</u></strong></p>
        <p className="text_sales">This Sales Contract(“<strong>Contract</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the Buyer.
 </p>
@@ -37,17 +159,51 @@ const salesContract=()=>{
       <Row className={`${styles.row}`}>
         <Col md={1} className={styles.left}>1</Col>
         <Col md={4} className={styles.left}>Seller</Col>
-        <Col md={7 } className={styles.right}><input placeholder="Indo Intertrade AgIndustriesstrasse 16,Zug 6300" className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>
+        {preview?
+        <>{data.seller}</>
+        :
+         <>
+        <input 
+        onChange={(e)=>{
+          changeHandler(e.target.name,e.target.value)
+        }} 
+        value={data.seller}
+       name="seller"
+       type="text"
+        placeholder="Indo Intertrade AgIndustriesstrasse 16,Zug 6300" className={`${styles.para}`}>
+          
+        </input>
+         </>
+        }
+        
+        </Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={1} className={styles.left}>2</Col>
         <Col md={4} className={styles.left}>Buyer</Col>
-        <Col md={7 } className={styles.right}><input placeholder="Indo German International Pvt. Ltd.
+        <Col md={7 } className={styles.right}>
+        {preview?
+        <>{data.buyer}</>
+        :
+        
+        <>
+            <input
+        onChange={(e)=>{
+          changeHandler(e.target.name,e.target.value)
+        }} 
+        value={data.buyer}
+       name="buyer"
+        type="text"
+        placeholder="Indo German International Pvt. Ltd.
 Plot No-49-48-6/1, Lalitha Nagar, 
 Ground Floor, Sakshi Office Road, 
 Akkayyapalem, Visakhapatnam, 
 Andhra Pradesh, 530016 India
-" className={`${styles.para}`}></input></Col>
+" className={`${styles.para}`}></input>
+        </>
+        }
+</Col>
       </Row>
       <Row className={`${styles.row}`}>
        <Col md={1} className={styles.left}>3</Col>
@@ -393,59 +549,80 @@ Andhra Pradesh, 530016 India
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{moment(new Date()).format("DD-MM-YYYY")}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.placeOfExecution}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of Manufacturer / Supplier / Shipperr</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.details}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of End Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.details}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of Commodity</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.detailsOfComm}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Quantity</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.quan}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Unit Price</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.unitPrice}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Total Order Value</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.totalOrderValue}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Load Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.lordPort}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Discharge Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.dischargePort}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Last Date of Shipment</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{moment(data.lastDate).format("DD-MM-YYYY")}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Shipment Term</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.terms}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Additional Conditions</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>{
+          <>
+          <ol type= "1">
+           {data?.addComm.length>0 &&
+            data?.addComm?.map((val,index)=>{
+             return( <li  key={index}>{val}</li>)
+            })
+           }
+          </ol>
+          </>
+        }</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Specification</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}>
+
+          <>
+          <ol type= "1">
+           {data?.spec.length>0 &&
+            data?.spec?.map((val,index)=>{
+             return( <li  key={index}>{val}</li>)
+            })
+           }
+          </ol>
+          </>
+        </Col>
       </Row>
    
       
@@ -458,8 +635,37 @@ Andhra Pradesh, 530016 India
         
         </Col>
          <Col md={12} className={`d-flex justify-content-around`}>
-           <GrowInput></GrowInput>
-           <GrowInput></GrowInput>
+          {
+           preview?
+          <>{ data.buyerSignature}</>
+           :
+           <>
+                  <input 
+        onChange={(e)=>{
+          changeHandler(e.target.name,e.target.value)
+        }} 
+        value={data.buyerSignature}
+        name="buyerSignature"
+         type="text"
+        placeholder="" className={`${styles.para}`}></input>
+           </>
+
+          }
+        {
+          preview ?
+         <>{ data.sellerSignature}</>
+          :
+          <>
+                      <input 
+        onChange={(e)=>{
+          changeHandler(e.target.name,e.target.value)
+        }} 
+         type="text"
+        value={data.sellerSignature}
+       name="sellerSignature"
+        placeholder="" className={`${styles.para}`}></input>
+          </>
+        }
         
         </Col>
        

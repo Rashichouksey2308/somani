@@ -18,13 +18,13 @@ export default function Index({ OrderId, customData }) {
 
   const [dischargeOfCargo, setDischargeOfCargo] = useState({
     dischargeOfCargo: {
-      vesselName: '',
+      vesselName: _get(customData, 'dischargeOfCargo.dischargeOfCargo.vesselName', ''),
       portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
-      dischargeQuantity: '',
+      dischargeQuantity: _get(customData, 'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''),
       dischargeQuantityUnit: '',
-      vesselArrivaldate: null,
-      dischargeStartDate: null,
-      dischargeEndDate: null,
+      vesselArrivaldate:'',
+      dischargeStartDate:'',
+      dischargeEndDate: '',
     },
     document1: null,
     document2: null,
@@ -121,6 +121,7 @@ export default function Index({ OrderId, customData }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
+                    defaultValue={dischargeOfCargo.dischargeOfCargo.dischargeQuantity}
                     onChange={(e) =>
                       onChangeDischargeOfCargo(e.target.id, e.target.value)
                     }
@@ -138,7 +139,7 @@ export default function Index({ OrderId, customData }) {
                 >
                   <div className="d-flex">
                     <DateCalender
-                      name="vesselArrivaldate"
+                       name="vesselArrivaldate"
                       saveDate={saveDate}
                       labelName="Vessel Arrival Date"
                     />
@@ -154,7 +155,7 @@ export default function Index({ OrderId, customData }) {
                 >
                   <div className="d-flex">
                     <DateCalender
-                      name="dischargeStartDate"
+                       name="dischargeStartDate"
                       saveDate={saveDate}
                       labelName="Discharge Start Date"
                     />
@@ -170,7 +171,7 @@ export default function Index({ OrderId, customData }) {
                 >
                   <div className="d-flex">
                     <DateCalender
-                      name="dischargeEndDate"
+                       name="dischargeEndDate"
                       saveDate={saveDate}
                       labelName="Discharge End Date"
                     />
