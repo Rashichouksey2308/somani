@@ -117,9 +117,9 @@ function Index({ TransitDetails }) {
               LAKE VERMONT MARKETING PTY LTD, LEVEL 7, 12 CREEK STREET, BRISBANE{' '}
             </span>
             and consigned to <span className={styles.bold}>TO ORDER</span> for
-            delivery at the port of
-            {/* <span style={styles.bold}>ANY PORT (S) IN INDIA</span> */}
-            but the bill of lading has not arrived and we,{' '}
+            delivery at the port of{' '}
+            <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
+            bill of lading has not arrived and we,{' '}
             <span className={styles.bold}>
               {' '}
               EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,

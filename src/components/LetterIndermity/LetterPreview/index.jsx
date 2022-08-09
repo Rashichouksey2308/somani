@@ -71,9 +71,9 @@ function Index({ TransitDetails }) {
               LAKE VERMONT MARKETING PTY LTD, LEVEL 7, 12 CREEK STREET, BRISBANE{' '}
             </span>
             and consigned to <span className={styles.bold}>TO ORDER</span> for
-            delivery at the port of
-            {/* <span style={styles.bold}>ANY PORT (S) IN INDIA</span> */}
-            but the bill of lading has not arrived and we,{' '}
+            delivery at the port of{' '}
+            <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
+            bill of lading has not arrived and we,{' '}
             <span className={styles.bold}>
               {' '}
               EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
@@ -175,18 +175,15 @@ function Index({ TransitDetails }) {
           <p>For and on behalf of </p>
           <p className={styles.bold}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</p>
           <p>The Requestor</p>
-          <div className={`${styles.athorised}`}>
+          <div className={`${styles.athorised} ml-n3`}>
             <p>Authorised Signatory</p>
-            <div className="d-flex ml-3">
-              <div>Name: </div>
-              <div className={`${styles.valueText}`}>Vikash Rawal</div>
-            </div>
-            <div className="d-flex ml-3 mt=2">
-              <div>Designation: </div>
-              <div className={`${styles.valueText}`}>
-                Chief Financial Officer
-              </div>
-            </div>
+            <p>
+              Name: <span className={styles.bold}>Vikash Rawal</span>{' '}
+            </p>
+            <p>
+              Designation:{' '}
+              <span className={styles.bold}>Chief Financial Officer</span>
+            </p>
           </div>
         </div>
       </div>

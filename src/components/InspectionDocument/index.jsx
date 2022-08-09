@@ -302,12 +302,12 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <div
-                className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
+                className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
               >
                 <div>
                   <select
                     onChange={(e) => setDocumentsDropDownFilter(e.target.value)}
-                    className={`${styles.dropDown} input form-control`}
+                    className={`${styles.dropDown} statusBox input form-control`}
                   >
                     <option value="LeadOnboarding&OrderApproval">
                       Lead Onboarding &amp; Order Approval
@@ -333,7 +333,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
                     alt="Search"
                   ></img>
                   <input
-                    className={`${styles.searchBar} input form-control`}
+                    className={`${styles.searchBar} statusBox border_color input form-control`}
                     placeholder="Search"
                   ></input>
                 </div>

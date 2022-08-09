@@ -105,13 +105,13 @@ function Index() {
 
     {
       main: 'Custom Clearance & WareHouse',
-      Other: ['Review Queue', 'Credit Queue', 'Termsheets'],
+      Other: [],
       image: '/static/Warehouse.svg',
       route: '/bill-of-entry',
     },
     {
       main: 'Payments, Invoicing & Delivery',
-      Other: ['Review Queue', 'Credit Queue', 'Termsheets'],
+      Other: [],
       image: '/static/Masters.svg',
       route: '/payment',
     },
