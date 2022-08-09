@@ -101,5 +101,6 @@ export default {
   customClearance : '/api/core/custom-clearance',
   customClearanceDoc : '/api/core/custom-clearance/upload-doc',
 
-  
+   //Delivery 
+   delivery : '/api/core/delivery'
 }
