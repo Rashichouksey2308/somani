@@ -31,46 +31,46 @@ function Index() {
   let customData = _get(allCustomClearance, 'data[0]', {})
   let OrderId = _get(customData, 'order._id', {})
 
-  const uploadDoc = (e) => {
-
-    let fd = new FormData()
-    fd.append('document',  e.target.files[0])
-    // dispatch(UploadCustomDoc(fd))
-
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-  
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    try {
-      Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
-        headers: headers,
-      }).then((response) => {
+  const uploadDoc = async(e) => {
+    console.log(e,"response data")
+     let fd = new FormData()
+     fd.append('document',  e.target.files[0])
+     // dispatch(UploadCustomDoc(fd))
+ 
+     let cookie = Cookies.get('SOMANI')
+     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+   
+     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+     try {
+      let response= await  Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+         headers: headers,
+       })
+       console.log(response.data.data, 'response data123')
         if (response.data.code === 200) {
-          // dispatch(getCustomClearanceSuccess(response.data.data))
-          console.log(response.data.data, 'response data')
-          return  response.data; 
-          // let toastMessage = 'DOCUMENT UPDATED'
-          // if (!toast.isActive(toastMessage)) {
-          //   toast.error(toastMessage, { toastId: toastMessage })
-          // }
-        } else {
-          // dispatch(getCustomClearanceFailed(response.data.data))
-          // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          // if (!toast.isActive(toastMessage)) {
-          //   toast.error(toastMessage, { toastId: toastMessage })
-          // }
-        }
-      })
-    } catch (error) {
-      // dispatch(getCustomClearanceFailed())
-  
-      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-      // if (!toast.isActive(toastMessage)) {
-      //   toast.error(toastMessage, { toastId: toastMessage })
-      // }
-    }
-  }
+           // dispatch(getCustomClearanceSuccess(response.data.data))
+           
+           return  response.data.data; 
+           // let toastMessage = 'DOCUMENT UPDATED'
+           // if (!toast.isActive(toastMessage)) {
+           //   toast.error(toastMessage, { toastId: toastMessage })
+           // }
+         } else {
+           // dispatch(getCustomClearanceFailed(response.data.data))
+           // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+           // if (!toast.isActive(toastMessage)) {
+           //   toast.error(toastMessage, { toastId: toastMessage })
+           // }
+         }
+     } catch (error) {
+       // dispatch(getCustomClearanceFailed())
+   
+       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+       // if (!toast.isActive(toastMessage)) {
+       //   toast.error(toastMessage, { toastId: toastMessage })
+       // }
+     }
+   }
 
   return (
     <>

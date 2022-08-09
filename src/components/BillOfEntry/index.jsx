@@ -51,12 +51,13 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     document3: null,
   })
 
-  const uploadDoc1 = (e) => {
-    let docs = uploadDoc(e)
+  const uploadDoc1 = async (e) => {
+    let name = e.target.id
+    let docs = await uploadDoc(e)
 
     console.log(docs, uploadDoc(e), 'this is upload response')
     let newInput = { ...billOfEntryData }
-    newInput.document1 = docs
+    newInput[name] = docs
     setBillOfEntryData(newInput)
   }
 
@@ -914,6 +915,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <div className={styles.uploadBtnWrapper}>
                           <input
+                            id='document1'
                             onChange={(e) => uploadDoc1(e)}
                             type="file"
                             name="myfile"
@@ -939,7 +941,10 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         <div className={styles.uploadBtnWrapper}>
-                          <input type="file" name="myfile" />
+                          <input
+                            id='document2'
+                            onChange={(e) => uploadDoc1(e)}
+                            type="file" name="myfile" />
                           <button className={`${styles.upload_btn} btn`}>
                             Upload
                           </button>
@@ -961,7 +966,10 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         <div className={styles.uploadBtnWrapper}>
-                          <input type="file" name="myfile" />
+                          <input
+                            id='document3'
+                            onChange={(e) => uploadDoc1(e)}
+                            type="file" name="myfile" />
                           <button className={`${styles.upload_btn} btn`}>
                             Upload
                           </button>

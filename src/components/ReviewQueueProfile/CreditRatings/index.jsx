@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from '../profile.module.scss'
 import moment from  "moment"
@@ -43,7 +44,7 @@ function
                             <td>{rating?.ratingAgency}</td>
                             <td>{rating?.ratingTerm}</td>
                             <td>{rating?.instrument}</td>
-                            <td className="text-center"><img src={ rating?.rating_ ?"/static/arrow-up-green.svg" : "/static/arrow-down-red.svg" }  alt="Arrow Red" className="img-fluid" /></td>
+                            <td className="text-center"><img src={ !rating?.rating_ ?"/static/arrow-up-green.svg" : "/static/arrow-down-red.svg" }  alt="Arrow Red" className="img-fluid" /></td>
                             <td className={`${styles.stable} text-center`}>
                               {rating?.rating_}<span>({rating?.outlook})
                               </span></td>
