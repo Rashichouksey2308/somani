@@ -104,11 +104,9 @@ function Index({ TransitDetails }) {
               ))}
             </select>
             Dated 18TH MARCH 2021, ISSUE AT ABBOT POINT
-            <div className={`${styles.button}`}>
-              <span>
-                + <span>Add</span>
-              </span>
-            </div>
+            <button className={styles.add_btn}>
+              <span className={styles.add_sign}>+</span>Add
+            </button>
           </div>
         </div>
 
@@ -225,18 +223,29 @@ function Index({ TransitDetails }) {
           <p>The Requestor</p>
           <div className={`${styles.athorised}`}>
             <p>Authorised Signatory</p>
+
             <p>
               Name:{' '}
-              <select onChange={(e) => SetDesignationHanlder(e)}>
+              <select
+                onChange={(e) => SetDesignationHanlder(e)}
+                className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
+              >
                 <option value=""></option>
                 <option value="Bhawana Jain">Bhawana Jain </option>
                 <option value="Vipin Kumar">Vipin Kumar </option>
                 <option value="Devesh Jain">Devesh Jain </option>
                 <option value="Fatima Yannoulis">Fatima Yannoulis </option>
               </select>
+              <img
+                className={`${styles.arrow} img-fluid`}
+                src="/static/inputDropDown.svg"
+                alt="Search"
+              />
             </p>
+
             <div>
-              Designation: <input value={designation}></input>
+              Designation:{' '}
+              <input className="mt-4 pl-3" value={designation}></input>
             </div>
           </div>
         </div>

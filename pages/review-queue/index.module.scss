@@ -1,15 +1,19 @@
 @import "../../src/components/styles/Core/config";
 .container_inner {
     margin: 28px;
+    margin-bottom: 68px;
     @include respond(sm-desktop) {
         margin: 20px;
+        margin-bottom: 60px;
     }
     @include respond(phone) {
         margin: 15px;
+        margin-bottom: 71px;
     }
 }
 .filter {
-    margin-bottom: 15px;
+    min-height: 48px;
+    margin-bottom: 27px;
     @include respond(sm-desktop) {
         display: block !important;
     }
@@ -201,7 +205,7 @@
     }
 }
 .statusBox {
-    margin: 20px 0;
+    margin-bottom: 26px;
     border-radius: 8px;
     border: 1px solid #d2d7e5;
     box-shadow: 0 3px 12px #e5e7ed;
@@ -312,7 +316,7 @@
 }
 .datatable {
     border-radius: 6px;
-    margin-bottom: 76px;
+    margin-bottom: 26px;
     border: 1px solid #d2d7e5;
     @include respond(phone) {
         margin-bottom: 68px;
@@ -494,6 +498,4 @@
         }
     }
 }
-
-
 /*# sourceMappingURL=index.module.css.map */

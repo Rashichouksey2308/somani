@@ -1,8 +1,43 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
+import _get from "lodash/get";
 
-const index = () => {
+const Index = ({ finalCal, marginData }) => {
+  const [revisedMarginmoney, setRevisedMarginMoney] = useState({
+    isActive: true,
+
+    calculation: {
+      additionalAmountPerPDC: '',
+      revisedNetOrderValue: '',
+      marginMoney: '',
+      revisedMarginMoney: '',
+      marginMoneyReceived: '',
+      marginMoneyPayable: '',
+    },
+
+    invoiceDetail: {
+      buyerName: '',
+      buyerGSTIN: '',
+      buyerAddress: '',
+      isConsigneeSameAsBuyer: false,
+      consigneeName: '',
+      consigneeGSTIN: '',
+      consigneeAddress: '',
+      importerName: '',
+      branchOffice: '',
+      companyAddress: '',
+      importerGSTIN: '',
+      bankName: '',
+      branch: '',
+      branchAddress: '',
+      IFSCcode: '',
+      accountNo: '',
+    },
+  })
+
+
+
   return (
     <>
       <div className={`${styles.card}  accordionMargin card`}>
@@ -17,7 +52,7 @@ const index = () => {
             <span className={`${styles.comm_head} sub_heading mb-2`}>
               Commodity
             </span>
-            <span className={`${styles.comm_val} heading`}>Thermal Coal</span>
+            <span className={`${styles.comm_val} heading`}> {marginData?.order?.commodity}</span>
           </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <div className={`${styles.pay} mr-5`}>
@@ -31,7 +66,9 @@ const index = () => {
             </div>
             <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
             <select className={`${styles.options} accordion_DropDown`}>
-              <option>Crores</option>
+              <option>  {marginData?.order?.unitOfValue == 'Cr'
+                ? 'Crores'
+                : null}</option>
             </select>
             <span>+</span>
           </div>
@@ -60,7 +97,7 @@ const index = () => {
                     >
                       Quantity<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val}  heading`}>55,000 MT</div>
+                    <div className={`${styles.val}  heading`}>{marginData?.order?.quantity?.toLocaleString()}</div>
                   </div>
                 </div>
                 <div
@@ -78,7 +115,7 @@ const index = () => {
                     >
                       Unit Price<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>USD 70</div>
+                    <div className={`${styles.val} heading`}>{marginData?.order?.perUnitPrice}</div>
                   </div>
                 </div>
                 <div
@@ -96,7 +133,7 @@ const index = () => {
                     >
                       Conversion Rate<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>75</div>
+                    <div className={`${styles.val} heading`}>{marginData?.conversionRate}</div>
                   </div>
                 </div>
                 <div
@@ -118,7 +155,10 @@ const index = () => {
                     <div
                       className={`${styles.val} heading d-flex align-items-center`}
                     >
-                      4%
+                      {
+                        marginData?.order?.termsheet?.commercials
+                          ?.usanceInterestPercetage
+                      }
                       <div className={` d-flex align-items-center`}>
                         <label
                           className={`${styles.label_heading} ml-3 label_heading mb-0`}
@@ -139,6 +179,10 @@ const index = () => {
                                 name="group1"
                                 type={type}
                                 id={`inline-${type}-1`}
+                                defaultChecked={
+                                  marginData?.isUsanceInterestIncluded ===
+                                  true
+                                }
                               />
                               <Form.Check
                                 className={`${styles.radio} radio`}
@@ -147,6 +191,10 @@ const index = () => {
                                 name="group1"
                                 type={type}
                                 id={`inline-${type}-2`}
+                                defaultChecked={
+                                  marginData?.isUsanceInterestIncluded ===
+                                  false
+                                }
                               />
                             </div>
                           ))}
@@ -170,7 +218,10 @@ const index = () => {
                     >
                       Trade Margin (%)<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>75</div>
+                    <div className={`${styles.val} heading`}> {
+                      marginData?.order?.termsheet?.commercials
+                        ?.tradeMarginPercentage
+                    }</div>
                   </div>
                 </div>
                 <div
@@ -189,7 +240,7 @@ const index = () => {
                       Tolerance (+/-) Percentage
                       <strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>75</div>
+                    <div className={`${styles.val} heading`}>{marginData?.order?.tolerance}</div>
                   </div>
                 </div>
                 <div
@@ -207,7 +258,10 @@ const index = () => {
                     >
                       Margin Money (%)<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>75</div>
+                    <div className={`${styles.val} heading`}> {
+                      marginData?.order?.termsheet
+                        ?.transactionDetails?.marginMoney
+                    }</div>
                   </div>
                 </div>
                 <div
@@ -222,6 +276,7 @@ const index = () => {
                     <label
                       className={`${styles.label_heading} label_heading`}
                       id="textInput"
+                      defaultValue={marginData?.numberOfPDC}
                     >
                       {` No. of PDC's`}
                       <strong className="text-danger">*</strong>
@@ -274,7 +329,7 @@ const index = () => {
                       <span className={`${styles.blue}`}>{`(A*B)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      USD 38,50,000.00
+                      {finalCal.orderValue}
                     </div>
                   </div>
                 </div>
@@ -297,7 +352,7 @@ const index = () => {
                       <span className={`${styles.blue}`}>{`(J*C)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      USD 38,50,000.00
+                      {finalCal.orderValueInINR}
                     </div>
                   </div>
                 </div>
@@ -319,7 +374,7 @@ const index = () => {
                       <span className={`${styles.blue}`}>{`(K*D*90/365)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      USD 38,50,000.00
+                      {finalCal.usanceInterest}
                     </div>
                   </div>
                 </div>
@@ -341,7 +396,7 @@ const index = () => {
                       <span className={`${styles.blue}`}>{`(K*E)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      USD 38,50,000.00
+                      {finalCal.tradeMargin}
                     </div>
                   </div>
                 </div>
@@ -363,7 +418,7 @@ const index = () => {
                       <span className={`${styles.blue}`}>{`(K+L+M)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      USD 38,50,000.00
+                      {finalCal.grossOrderValue}
                     </div>
                   </div>
                 </div>
@@ -386,7 +441,7 @@ const index = () => {
                       <span className={`${styles.blue}`}>{`(N*F)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      USD 38,50,000.00
+                      {finalCal.toleranceValue}
                     </div>
                   </div>
                 </div>
@@ -408,7 +463,7 @@ const index = () => {
                       <span className={`${styles.blue}`}>{`(N+O)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      USD 38,50,000.00
+                      {finalCal.totalOrderValue}
                     </div>
                   </div>
                 </div>
@@ -430,7 +485,7 @@ const index = () => {
                       <span className={`${styles.blue}`}>{`(N/A)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      USD 38,50,000.00
+                      {finalCal.provisionalUnitPricePerTon}
                     </div>
                   </div>
                 </div>
@@ -452,7 +507,7 @@ const index = () => {
                       <span className={`${styles.blue}`}>{`(P*G)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      USD 38,50,000.00
+                      {finalCal.marginMoney}
                     </div>
                   </div>
                 </div>
@@ -474,7 +529,7 @@ const index = () => {
                       <span className={`${styles.blue}`}>{`(P-R)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      USD 38,50,000.00
+                      {finalCal.totalSPDC}
                     </div>
                   </div>
                 </div>
@@ -998,4 +1053,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index

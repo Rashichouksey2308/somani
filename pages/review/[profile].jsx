@@ -48,9 +48,9 @@ const Index = () => {
     <>
       <div className={`${styles.root_Container} `}>
         <div className={styles.wrapper}>
-          <div className={styles.head}>
+          <div className={`${styles.head} align-items-center`}>
             <img onClick={()=>  Router.push('/leads')}
-              className={`${styles.arrow} img-fluid`}
+              className={`${styles.arrow} img-fluid mr-2 image_arrow`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"
             />

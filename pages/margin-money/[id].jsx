@@ -8,6 +8,7 @@ import styles from './index.module.scss'
 import RevisedMargin from '../../src/components/RevisedMargin'
 import { Form } from 'react-bootstrap'
 
+import _get from "lodash/get";
 import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
 import Router from 'next/router'
@@ -28,6 +29,8 @@ function Index() {
 
   const marginData = margin?.data?.data[0]
   let id = sessionStorage.getItem('marginId')
+  const RevisedMarginMoneyTrue = _get(margin, "data.data[0].revisedMarginMoney.isActive", false)
+
   useEffect(() => {
     let id = sessionStorage.getItem('marginId')
     dispatch(GetMarginMoney({ orderId: id }))
@@ -120,11 +123,11 @@ function Index() {
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 1) *
         90) /
-        365,
+      365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculation.tradeMarginPercentage) / 100),
+      Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -140,7 +143,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculation.marginMoney) / 100),
+      Number(Number(forCalculation.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -182,11 +185,11 @@ function Index() {
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 1) *
         90) /
-        365,
+      365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculation.tradeMarginPercentage) / 100),
+      Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -202,7 +205,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculation.marginMoney) / 100),
+      Number(Number(forCalculation.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -327,11 +330,10 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -367,7 +369,7 @@ function Index() {
                 Margin Money
               </a>
             </li>
-            <li className={`${styles.navItem} nav-item`}>
+            {RevisedMarginMoneyTrue ? <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link`}
                 data-toggle="tab"
@@ -378,7 +380,7 @@ function Index() {
               >
                 Revised Margin Money
               </a>
-            </li>
+            </li> : null}
             {/* <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
                   </li> */}
@@ -966,7 +968,7 @@ function Index() {
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
                                 >
-                                  TGross Order Value (INR){' '}
+                                  Gross Order Value (INR){' '}
                                   <strong className="text-danger">*</strong>
                                   <span className={`${styles.blue}`}>
                                     {`(K+L+M)`}
@@ -1653,15 +1655,15 @@ function Index() {
                   </div>
                 </div>
 
-                <div
+                {RevisedMarginMoneyTrue ? <div
                   className="tab-pane fade"
                   id="revisedMargin"
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <RevisedMargin />
+                    <RevisedMargin marginData={marginData} finalCal={finalCal} />
                   </div>
-                </div>
+                </div> : null}
 
                 <div className="tab-pane fade" id="Documents" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>

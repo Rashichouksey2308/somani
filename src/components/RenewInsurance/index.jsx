@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import InspectionDocument from '../InspectionDocument'
@@ -37,7 +37,7 @@ const Index = () => {
   })
 
   const saveMarineData = (name, value) => {
-    let newInput = {...marineData}
+    let newInput = { ...marineData }
     newInput[name] = value
     setMarineData(newInput)
   }
@@ -70,14 +70,14 @@ const Index = () => {
   }
 
   const saveStorageData = (name, value) => {
-    let newInput = {...marineData}
+    let newInput = { ...marineData }
     newInput[name] = value
     setMarineData(newInput)
   }
 
   const [insuranceDocument, setInsuranceDocument] = useState({
-    storagePolicyDocument : null,
-    marinePolicyDocument: null
+    storagePolicyDocument: null,
+    marinePolicyDocument: null,
   })
 
   const uploadDocument2 = (e) => {
@@ -159,12 +159,21 @@ const Index = () => {
                     <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                       <div className="d-flex">
                         <select
-                        name='policyNumber' onChange={(e)=>saveMarineData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="policyNumber"
+                          onChange={(e) =>
+                            saveMarineData(e.target.name, e.target.value)
+                          }
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
                           <option selected></option>
-                          <option value={insuranceData?.marineInsurance?.policyNumber}>{insuranceData?.marineInsurance?.policyNumber}</option>
-                          <option value='IRDAN1277P09098'>IRDAN1277P09098</option>
-                      
+                          <option
+                            value={insuranceData?.marineInsurance?.policyNumber}
+                          >
+                            {insuranceData?.marineInsurance?.policyNumber}
+                          </option>
+                          <option value="IRDAN1277P09098">
+                            IRDAN1277P09098
+                          </option>
                         </select>
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -196,8 +205,10 @@ const Index = () => {
                       <input
                         className={`${styles.input_field} input form-control`}
                         required
-                        name='premiumAmount'
-                        onChange={(e)=>saveMarineData(e.target.name, e.target.value)}
+                        name="premiumAmount"
+                        onChange={(e) =>
+                          saveMarineData(e.target.name, e.target.value)
+                        }
                         type="text"
                       />
                       <label
@@ -281,7 +292,7 @@ const Index = () => {
           </div>
         </div>
 
-        <InspectionDocument />
+        <InspectionDocument documentName="Policy Document - Marine" />
       </div>
 
       <SubmitBar />
