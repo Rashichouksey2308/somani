@@ -113,7 +113,7 @@ function Index() {
       main: 'Payments, Invoicing & Delivery',
       Other: ['Review Queue', 'Credit Queue', 'Termsheets'],
       image: '/static/Masters.svg',
-      route: '',
+      route: '/payment',
     },
     {
       main: 'Masters',
