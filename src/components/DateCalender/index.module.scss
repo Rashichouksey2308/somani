@@ -15,7 +15,7 @@
     position: absolute;
     pointer-events: none;
     box-sizing: border-box;
-    transform: translateY(-29px);
+    transform: translateY(-28px);
     transition: 0.3s all ease-in-out;
     z-index: 1;
     max-width: 86%;
@@ -55,7 +55,7 @@
     }
     &:focus {
         &+label {
-            transform: translateY(-29px);
+            transform: translateY(-28px);
         }
     }
 }

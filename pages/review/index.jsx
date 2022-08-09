@@ -854,16 +854,13 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className="d-flex align-items-center">
-            <h1 className={`${styles.title} heading pt-3 pb-3`}>
-              <img
-                src={`${darkMode
-                  ? `/static/white-arrow.svg`
-                  : `/static/arrow-right.svg`
-                  }`}
-                alt="arrow right"
-                className="img-fluid image_arrow"
-              />
+          <div className={`${styles.title_header} d-flex align-items-center`}>
+            <img
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="arrow right"
+              className="img-fluid image_arrow mr-2"
+            />
+            <h1 className={`${styles.title} heading`}>
               {orderList?.company?.companyName}
             </h1>
             {uploadBtn ? (

@@ -18,7 +18,7 @@ const Index = ({
 
   return (
     <>
-      <div className='vessel_card'>
+      <div className='vessel_card w-100'>
         <DatePicker
           selected={
             defaultDate !== undefined ? moment(defaultDate).toDate() : startDate
