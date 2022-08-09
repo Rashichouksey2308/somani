@@ -319,7 +319,7 @@ const Index = ({ saveOrderData, orderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                  <DateCalender name="ExpectedDateOfShipment" saveDate={saveDate} labelName="Expected Date Of Shipment" />
+                  <DateCalender name="ExpectedDateOfShipment" saveDate={saveDate} dateFormat={"dd-MM-yyyy"} labelName="Expected Date Of Shipment" />
                   <img
                     className={`${styles.calanderIcon} img-fluid`}
                     src="/static/caldericon.svg"
