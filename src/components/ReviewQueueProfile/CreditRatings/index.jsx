@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from '../profile.module.scss'
-
+import moment from  "moment"
 function
   Index({ creditRating }) {
 
@@ -39,12 +39,14 @@ function
                       if (rating?.ratingTerm=== "Long Term" && rating?.rating !== null  ) {
                         return (
                           <tr key={index}>
-                            <td>{(rating?.dateOfIssuance)?.slice(0,10)}</td>
+                            <td>{moment((rating?.dateOfIssuance)?.slice(0,10)).format("DD-MM-YYYY")}</td>
                             <td>{rating?.ratingAgency}</td>
                             <td>{rating?.ratingTerm}</td>
                             <td>{rating?.instrument}</td>
                             <td className="text-center"><img src={ rating?.rating_ ?"/static/arrow-up-green.svg" : "/static/arrow-down-red.svg" }  alt="Arrow Red" className="img-fluid" /></td>
-                            <td className={`${styles.stable} text-center`}>{rating?.rating_}<span>({rating?.outlook})</span></td>
+                            <td className={`${styles.stable} text-center`}>
+                              {rating?.rating_}<span>({rating?.outlook})
+                              </span></td>
                             <td className="text-center">-</td>
                             <td className="text-center">-</td>
                           </tr>)

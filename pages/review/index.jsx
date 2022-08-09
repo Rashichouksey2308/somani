@@ -850,7 +850,10 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
   }
   console.log(gstData,"gstDAta")
 
-
+ const deleteData=(index)=>{
+  console.log("indexssd",index)
+    setCompanyComment([...companyComment.slice(0,index), ...companyComment.slice(index+1)])
+  }
 
   return (
     <>
@@ -1551,6 +1554,7 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
                     sanctionComment={sanctionComment}
                     strengthsComment={strengthsComment}
                     weaknessComment={weaknessComment}
+                    deleteData={deleteData}
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>

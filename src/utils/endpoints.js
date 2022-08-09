@@ -98,10 +98,9 @@ export default {
   updateForwardHedging: '/api/core/forward-hedging',
 
   //Custom Clearance
-  customClearance : '/api/core/custom-clearance'
- customClearanceDoc : '/api/core/custom-clearance/upload-doc',
+  customClearance: '/api/core/custom-clearance',
+  customClearanceDoc: '/api/core/custom-clearance/upload-doc',
 
-   //Delivery 
-   delivery : '/api/core/delivery'
-  
+  //Delivery
+  delivery: '/api/core/delivery',
 }
