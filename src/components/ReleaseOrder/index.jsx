@@ -7,6 +7,65 @@ import DateCalender from '../DateCalender'
 
 export default function Index() {
   const [editInput, setEditInput] = useState(true)
+  const [releaseDetail, setReleaseDetail] = useState([{
+    orderNumber: '',
+    releaseOrderDate: null,
+    netQuantityReleased: '',
+    unitOfMeasure: '',
+    document: null,
+  }])
+  const [dutyData, setDutyData] = useState([])
+
+
+  const handleDutyChange = (name, value, index) => {
+    // console.log(name,value,index,"name,value")
+    let tempArr = dutyData
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val[name] = value
+      }
+    })
+    // console.log(tempArr,"tempArr")
+    setDutyData(tempArr)
+  }
+
+  const setActions = (index, val) => {
+    setDutyData((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return { ...obj, actions: val }
+        }
+
+        return obj
+      })
+
+      return newState
+    })
+    let newInput = { ...billOfEntryData }
+    newInput.duty = dutyData
+    setBillOfEntryData(newInput)
+  }
+
+  const handleDeleteRow = (index) => {
+    setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
+  }
+
+  const addMoredutyDataRows = () => {
+    setDutyData([
+      ...dutyData,
+
+      {
+        sNo: '',
+        duty: '',
+        amount: '',
+        action: false,
+      },
+    ])
+  }
+
+
+
+
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -15,6 +74,7 @@ export default function Index() {
       setEditInput(true)
     }
   }
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>

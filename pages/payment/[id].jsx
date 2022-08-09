@@ -1,15 +1,25 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './payment.module.scss'
 import ReleaseOrder from '../../src/components/ReleaseOrder'
 import DeliveryOrder from '../../src/components/DeliveryOrder'
 import DeliveryPreview from '../../src/components/DeliveryPreview'
 import LiftingDetails from '../../src/components/LiftingDetails'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetAllDelivery, GetDelivery } from '../../src/redux/release&DeliveryOrder/action'
 
 function Index() {
+  const dispatch = useDispatch()
+  const { ReleaseOrderData } = useSelector((state) => state.Release)
   const [darkMode, setDarkMode] = useState(false)
+
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('ROrderID')
+    dispatch(GetDelivery(`?deliveryId=${id}`))
+  }, [dispatch])
 
   return (
     <>
@@ -18,11 +28,10 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -79,7 +88,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <ReleaseOrder />
+                    <ReleaseOrder ReleaseOrderData={ReleaseOrderData} />
                   </div>
                 </div>
 
@@ -89,7 +98,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <DeliveryOrder />
+                    <DeliveryOrder ReleaseOrderData={ReleaseOrderData} />
                   </div>
                 </div>
 
