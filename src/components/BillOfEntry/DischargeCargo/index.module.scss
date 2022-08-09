@@ -433,3 +433,112 @@
     height: 15px;
   }
 }
+.wrapper {
+  border-radius: 6px;
+
+  .title {
+    position: relative;
+    width: 90%;
+
+    .blue {
+      color: #3687e8;
+      font-size: 22px;
+      font-weight: 27px;
+      font-weight: bold;
+    }
+
+    div {
+      font-size: 20px;
+      font-weight: 25px;
+      font-weight: 500;
+
+      span {
+        color: #00000080;
+        font-size: 16px;
+        font-weight: 17px;
+        font-weight: 500;
+        letter-spacing: 0.53px;
+      }
+    }
+
+    img {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      right: -5rem;
+      top: -0.2rem;
+    }
+  }
+  .body {
+    padding: 0rem !important;
+
+    .table {
+      overflow-y: auto;
+      height: 400px;
+      font-size: 19px;
+      font-weight: 24px;
+      font-weight: 500;
+      tr {
+        height: 67px;
+        border-bottom: 2px solid red;
+        th {
+          vertical-align: revert;
+          &:first-child {
+            font-weight: bold;
+            padding-left: 35px;
+          }
+        }
+        td {
+          vertical-align: revert;
+          &:first-child {
+            font-weight: bold;
+            padding-left: 35px;
+          }
+        }
+      }
+    }
+    div {
+      font-size: 20px;
+      font-weight: 25px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: right;
+      padding: 15px;
+      margin-right: 35px;
+
+      span {
+        color: #00000080;
+
+        font-size: 16px;
+        font-weight: 17px;
+        font-weight: 500;
+        letter-spacing: 0.53px;
+      }
+    }
+  }
+}
+.uploadDoc {
+  text-align: center;
+  color: #3687e8;
+  border: 3px solid #3687e8;
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: bold;
+  border-radius: 5px;
+  background: transparent;
+  text-transform: capitalize;
+  padding: 7px 30px;
+  margin-right: 30px;
+  @include respond(md-desktop) {
+    font-size: 16px;
+  }
+  @include respond(sm-desktop) {
+    font-size: 14px;
+    padding: 4px 25px;
+  }
+  @include respond(phone) {
+    font-size: 12px;
+    padding: 0 15px;
+  }
+}
