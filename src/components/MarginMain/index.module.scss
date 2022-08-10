@@ -1,47 +1,49 @@
 @import "../../../src/components/styles/Core/config";
 .container_inner {
     margin: 28px;
+    min-height: 74vh;
     @include respond(sm-desktop) {
         margin: 20px;
+        margin-bottom: 60px;
     }
     @include respond(phone) {
         margin: 15px;
+        min-height: auto;
+        margin-bottom: 71px;
     }
 }
 .filter {
-    margin-bottom: 15px;
+    min-height: 48px;
+    margin-bottom: 27px;
     @include respond(sm-desktop) {
         display: block !important;
     }
-
     .head_header {
         display: flex;
-        margin: 15px 20px 0px 10px;
-        
+        margin: 15px 20px 0px 10px;        
         .arrow {
-          width: 13px;
-          height: 21px;
-          background: transparent;
-          margin-top: 10px;
+            width: 13px;
+            height: 21px;
+            background: transparent;
+            margin-top: 10px;
         }
         .heading {
-          padding-left: 18px;
-          font-weight: bold;
-          font-size: 30px;     
-          text-transform: capitalize;
-          margin-top: 0;
-           @include respond(md-desktop) {
-            font-size: 28px;
+            padding-left: 18px;
+            font-weight: bold;
+            font-size: 30px;     
+            text-transform: capitalize;
+            margin-top: 0;
+            @include respond(md-desktop) {
+                font-size: 28px;
             }
             @include respond(sm-desktop) {
                 font-size: 26px;
             }
             @include respond(phone) {
-                font-size: 24px;
-                    
+                font-size: 24px;                    
+            }
         }
-        }
-      }
+    }
     .search {
         width: 492px;
         position: relative;
@@ -106,8 +108,7 @@
             @include respond(md-desktop) {
                 padding: 8px 20px;
             }
-            @include respond(sm-desktop) {
-            }
+            @include respond(sm-desktop) {}
             &::after {
                 top: -15px;
                 left: 40px;
@@ -229,7 +230,6 @@
         }
     }
 }
-
 .datatable {
     border-radius: 6px;
     border: 1px solid #d2d7e5;
@@ -420,19 +420,15 @@
 .container{
     height: calc(100vh - 159px);
     @include respond(lg-desktop) {
-            height: calc(100vh - 155px);
-        }
-        @include respond(md-desktop) {
-                height: calc(100vh - 151px);
-            }
-        
-
+        height: calc(100vh - 155px);
+    }
+    @include respond(md-desktop) {
+        height: calc(100vh - 151px);
+    }
     @include respond(sm-desktop) {
         height: calc(100vh - 150px);
-        }
-    
-        @include respond(phone) {
-            height: calc(100vh - 165px);
-        }
-    
+    }    
+    @include respond(phone) {
+        height: calc(100vh - 165px);
+    }    
 }

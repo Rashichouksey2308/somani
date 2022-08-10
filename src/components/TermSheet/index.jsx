@@ -39,7 +39,7 @@ const Index = () => {
   let OrdID = sessionStorage.getItem('termOrdID')
   let newLcVal = removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) *  removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice)
 
-  console.log(newLcVal, 'THIS IS NEW LC VAL')
+  // console.log(newLcVal, 'THIS IS NEW LC VAL')
 
     useEffect(() => {
       {
@@ -325,7 +325,7 @@ const Index = () => {
     tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
     tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity)
     tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney)
-    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
+    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(termsheetDetails.commercials.tradeMarginPercentage)
     tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(termsheetDetails.commercials.overDueInterestPerMonth)
     tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(termsheetDetails.commercials.lcOpeningChargesPercentage)
     tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(termsheetDetails.commercials.usanceInterestPercetage)
@@ -466,7 +466,7 @@ const Index = () => {
               onChangeCha={onChangeCha}
               termsheet={termsheet}
             />
-            <UploadOther module='Agreements,Insurance,LcOpening' orderid={OrdID} />
+            <UploadOther module='LeadOnboarding&OrderApproval' orderid={OrdID} />
           </div>
         </div>
       </div>

@@ -18,6 +18,7 @@ import {
   GetMarginMoney,
 } from '../../src/redux/marginMoney/action'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { addPrefixOrSuffix } from '../../src/utils/helper'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
@@ -334,11 +335,10 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -407,14 +407,14 @@ function Index() {
         </div>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-12 accordion_body">
+            <div className="col-md-12 px-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane fade show active"
                   id="Margin"
                   role="tabpanel"
                 >
-                  <div className={`${styles.card}  accordionMargin card`}>
+                  <div className={`${styles.card} vessel_card accordionMargin card`}>
                     <div
                       className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
                       data-toggle="collapse"
@@ -487,7 +487,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.quantity?.toLocaleString()}
+                                  {addPrefixOrSuffix(marginData?.order?.quantity?.toLocaleString(), '')}
                                 </div>
                               </div>
                             </div>
@@ -592,7 +592,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.perUnitPrice}
+                                  {addPrefixOrSuffix(marginData?.order?.perUnitPrice, '')}
                                 </div>
                               </div>
                             </div>
@@ -725,8 +725,8 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {
-                                    marginData?.order?.termsheet?.commercials
-                                      ?.tradeMarginPercentage
+                                  addPrefixOrSuffix(marginData?.order?.termsheet?.commercials
+                                      ?.tradeMarginPercentage, '%', '')
                                   }
                                 </div>
                               </div>
@@ -748,7 +748,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.tolerance}
+                                  {addPrefixOrSuffix(marginData?.order?.tolerance, '%', '')}
                                 </div>
                               </div>
                             </div>
@@ -771,8 +771,8 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {
-                                    marginData?.order?.termsheet
-                                      ?.transactionDetails?.marginMoney
+                                   addPrefixOrSuffix( marginData?.order?.termsheet
+                                      ?.transactionDetails?.marginMoney, '%', '')
                                   }
                                 </div>
                               </div>
@@ -1137,7 +1137,7 @@ function Index() {
                   </div>
 
                   <div
-                    className={`${styles.card} ${styles.lastComponent} accordionMargin card`}
+                    className={`${styles.card} ${styles.lastComponent} vessel_card accordionMargin card`}
                   >
                     <div
                       className={`${styles.cardHeader}  d-flex align-items-center justify-content-between`}
@@ -1684,7 +1684,7 @@ function Index() {
                   <div className={`${styles.card}  accordion_body`}>
                     <UploadOther
                       orderid={id}
-                      module="LeadOnboardingOrderApproval"
+                      module="LeadOnboarding&OrderApproval"
                     />
                   </div>
                 </div>
