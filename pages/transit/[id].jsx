@@ -41,30 +41,44 @@ function Index() {
 
 
 
-  const docUploadFunction = (e) => {
+  const uploadDoc = async (e) => {
+    console.log(e, "response data")
+    let fd = new FormData()
+    fd.append('document', e.target.files[0])
+    // dispatch(UploadCustomDoc(fd))
+
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.post(`${API.corebaseUrl}${API.getVessel}`, payload, {
+      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
         headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          return response.data.data
-          console.log(response,'docData')
-        } else {
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
-        }
       })
-    } catch (error) {
-      let toastMessage = 'COULD NOT UPLOAD DOCUMENT DATA AT THIS TIME'
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
+      console.log(response.data.data, 'response data123')
+      if (response.data.code === 200) {
+        // dispatch(getCustomClearanceSuccess(response.data.data))
+
+        return response.data.data;
+        // let toastMessage = 'DOCUMENT UPDATED'
+        // if (!toast.isActive(toastMessage)) {
+        //   toast.error(toastMessage, { toastId: toastMessage })
+        // }
+      } else {
+        // dispatch(getCustomClearanceFailed(response.data.data))
+        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        // if (!toast.isActive(toastMessage)) {
+        //   toast.error(toastMessage, { toastId: toastMessage })
+        // }
       }
+    } catch (error) {
+      // dispatch(getCustomClearanceFailed())
+
+      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+      // if (!toast.isActive(toastMessage)) {
+      //   toast.error(toastMessage, { toastId: toastMessage })
+      // }
     }
   }
 
@@ -147,7 +161,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <BillLanding orderid={objID} docUploadFunction={docUploadFunction} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
+                    <BillLanding orderid={objID} docUploadFunction={uploadDoc} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="loi" role="tabpanel">
@@ -157,12 +171,12 @@ function Index() {
                 </div>
                 {commodity === 'iron' && <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <CIMS orderid={objID} docUploadFunction={docUploadFunction} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
+                    <CIMS orderid={objID} docUploadFunction={uploadDoc} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
                   </div>
                 </div>}
                 <div className="tab-pane fade" id="igm" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <IGM docUploadFunction={docUploadFunction} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} orderId={objID} />
+                    <IGM docUploadFunction={uploadDoc} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} orderId={objID} />
                   </div>
                 </div>
               </div>

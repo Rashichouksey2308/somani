@@ -15,25 +15,20 @@ export default function Index({ ReleaseOrderData }) {
   let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
   let InvoiceQuantity = 20000
   const [editInput, setEditInput] = useState(true)
-  const [netBalanceQuantity, setNetBalanceQuantity] = useState(0)
+  const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity)
   const [releaseDetail, setReleaseDetail] = useState([{
     orderNumber: 1,
-    releaseOrderDate: null,
-    netQuantityReleased: '',
+    releaseOrderDate: undefined,
+    netQuantityReleased: 0,
     unitOfMeasure: '',
     document: null,
   }])
+  console.log(releaseDetail, netBalanceQuantity, 'Release')
 
-  useEffect(() => {
-    let value = InvoiceQuantity
-    releaseDetail.forEach((item) => {
-      value = value - item.netQuantityReleased
-    })
-    setNetBalanceQuantity(value)
-  }, [releaseDetail])
+
 
   const handlereleaseDetailChange = (name, value, index) => {
-    // console.log(name,value,index,"name,value")
+    //console.log(name, value, index, "name,value,index")
     let tempArr = releaseDetail
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -41,7 +36,7 @@ export default function Index({ ReleaseOrderData }) {
       }
     })
     // console.log(tempArr,"tempArr")
-    setReleaseDetail(tempArr)
+    setReleaseDetail([...tempArr])
   }
 
   // const setActions = (index, val) => {
@@ -62,23 +57,28 @@ export default function Index({ ReleaseOrderData }) {
   // }
 
   const handleDeleteRow = (index) => {
-    setReleaseDetail([...releaseDetail.slice(0, index), ...releaseDetail.slice(index + 1)])
+    console.log(index, 'temparr')
+    let tempArr = [...releaseDetail]
+    tempArr.splice(index, 1)
+    setReleaseDetail(tempArr)
   }
 
-  const addMorereleaseDetailDataRows = () => {
+  console.log(releaseDetail, 'temparr')
+
+  const addMorereleaseDetailDataRows = (index) => {
     setReleaseDetail([
       ...releaseDetail,
       {
-        orderNumber: '',
-        releaseOrderDate: null,
-        netQuantityReleased: '',
+        orderNumber: index + 2,
+        releaseOrderDate: undefined,
+        netQuantityReleased: 0,
         unitOfMeasure: '',
         document: null,
       },
     ])
   }
   const saveDate = (value, name, index) => {
-    // console.log(value, name, 'save date')
+    console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
     handlereleaseDetailChange(name, text, index)
@@ -92,24 +92,56 @@ export default function Index({ ReleaseOrderData }) {
     }
   }
   const netQuantityChange = (e, index) => {
-    if (netBalanceQuantity >= e.target.value) {
-      handlereleaseDetailChange(e.target.id, e.target.value, index)
-    } else {
-      let toastMessage = 'The Amount Cannot BE Greater Than net Balance Quantity  '
+    console.log(netBalanceQuantity, e.target.value, "herere12e")
+    if (netBalanceQuantity <= e.target.value) {
+
+      // let temp = Number(e.target.value)
+      // if (e.target.value == "") {
+      //   temp = 0
+      // }
+
+      const toastMessage = 'Net Quantity Realesed cannot be Greater than net bALance Quantity'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
-    }
+    } else {
 
+    }
+    handlereleaseDetailChange(e.target.id, e.target.value, index)
+    // getData()
   }
+  console.log(netBalanceQuantity, "val2")
+  const getData = () => {
+    let value = InvoiceQuantity
+    releaseDetail.forEach((item) => {
+      value = value - item.netQuantityReleased
+    })
+    console.log(value, "val")
+
+    setNetBalanceQuantity(value)
+  }
+  console.log(releaseDetail, "val123")
+  useEffect(() => {
+    getData()
+  }, [releaseDetail])
+
+
+
+  const orderNo = (index) => {
+    let orderNo = index + 1
+    return orderNo
+  }
+
 
   const onSaveHAndler = () => {
     let payload = {
       deliveryId: '',
       releaseDetail: releaseDetail
     }
-    dispatch(UpdateDelivery(payload))
+    console.log(payload, 'releaseOrderDate')
+    // dispatch(UpdateDelivery(payload))
   }
+  console.log(netBalanceQuantity,'netBalanceQuantity')
 
   return (
     <>
@@ -147,21 +179,21 @@ export default function Index({ ReleaseOrderData }) {
                     <div className={`${styles.label} text`}>
                       Invoice Quantity
                     </div>
-                    <span className={styles.value}>500 Mt</span>
+                    <span className={styles.value}>{_get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity', '')}Mt</span>
                   </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                   >
                     <div className={`${styles.label} text`}>Bank Name</div>
-                    <span className={styles.value}>Bank of Spain</span>
+                    <span className={styles.value}>{_get(ReleaseOrderData, 'data[0].order.lc.lcApplication.lcIssuingBank', '')}</span>
                   </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                   >
                     <div className={`${styles.label} text`}>
-                      Documentary Credit No.{' '}
+                      Documentary Credit  No.{' '}
                     </div>
-                    <span className={styles.value}>23245</span>
+                    <span className={styles.value}>{_get(ReleaseOrderData, 'data[0].order.lc.lcApplication.documentaryCreditNumber', '')}</span>
                   </div>
                 </div>
               </div>
@@ -183,13 +215,13 @@ export default function Index({ ReleaseOrderData }) {
                         Release Order No.{' '}
                         <strong className="text-danger ml-n1">*</strong>
                       </div>
-                      <span className={`${styles.value}`}>{index + 1}</span>
+                      <span className={`${styles.value}`}>{orderNo(index)}</span>
                     </div>
                     <div
                       className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     >
                       <div className="d-flex">
-                        <DateCalender saveDate={saveDate} labelName="Release Order Date" />
+                        <DateCalender defaultDate={item.releaseOrderDate} index={index} saveDate={saveDate} name='releaseOrderDate' labelName="Release Order Date" />
                         <img
                           className={`${styles.calanderIcon} img-fluid`}
                           src="/static/caldericon.svg"
@@ -226,17 +258,17 @@ export default function Index({ ReleaseOrderData }) {
                           Upload
                         </button>
                       </div>
-                      <img onClick={(index) => handleDeleteRow(index)}
+                      {releaseDetail.length > 1 && <img onClick={() => handleDeleteRow(index)}
                         src="/static/delete 2.svg"
                         className={`${styles.delete_image} ml-1 mt-n4 img-fluid mr-2`}
                         alt="Delete"
-                      />
-                      <img
-                        onClick={(index) => addMorereleaseDetailDataRows(index)}
+                      />}
+                      {Number(netBalanceQuantity) > 0 && <img
+                        onClick={() => addMorereleaseDetailDataRows(index)}
                         src="/static/add-btn.svg"
                         className={`${styles.delete_image} mt-n4 img-fluid`}
                         alt="Add button"
-                      />
+                      />}
                     </div>
                   </div>
                 ))}
@@ -244,7 +276,7 @@ export default function Index({ ReleaseOrderData }) {
                 <div className="text-right">
                   <div className={`${styles.total_quantity} text `}>
                     Net Balance Quantity:{' '}
-                    <span className="form-check-label ml-2">{netBalanceQuantity} MT</span>
+                    <span className="form-check-label ml-2">{Number(netBalanceQuantity) > 0 ? netBalanceQuantity : 0} MT</span>
                   </div>
                 </div>
               </div>
