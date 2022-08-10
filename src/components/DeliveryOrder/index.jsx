@@ -5,7 +5,8 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import DateCalender from '../DateCalender'
 
-export default function Index() {
+export default function Index(props) {
+  console.log(props,"props")
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -67,11 +68,14 @@ export default function Index() {
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
                 <div className="row">
-                  <div
+                 
+                 {props.releaseOrderData.map((val,index)=>{
+                  return(<>
+                      <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     style={{ top: '5px' }}
                   >
-                    <div className="d-flex">
+                  <div className="d-flex">
                       <select
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
@@ -90,15 +94,42 @@ export default function Index() {
                         src="/static/inputDropDown.svg"
                         alt="Search"
                       />
-                    </div>
+                  </div>
                   </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                   >
-                    <div className={`${styles.label} text`}>
+                    {val.isDelete?
+                    <div className="d-flex">
+                      <input
+                      type="text"
+                      value={val.Quantity}
+                      name="Quantity"
+                      onChange={(e)=>{
+                        props.deliverChange(e.target.name,e.target.value,index)
+                      }}
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                     / >
+                        
+                      
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Quantity Released
+                      </label>
+                     
+                  </div>
+                    :
+                    
+                    <>
+                      <div className={`${styles.label} text`}>
                       Quantity Released
                     </div>
-                    <span className={styles.value}>5,000 MT</span>
+                    <span className={styles.value}>{val.Quantity}</span>
+                  
+                    </>
+                  
+                  }
                   </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
@@ -118,22 +149,101 @@ export default function Index() {
                         </div>
                         <span className={styles.value}>22-02-2022</span>
                       </div>
-                      <div className={`${styles.form_group} col-lg-4`}>
+                      {
+                         val.isDelete?
+                         <div className={`${styles.form_group} col-lg-4`}>
                         <img
                           src="/static/share.svg"
                           className={`${styles.shareImg} img-fluid`}
                           alt="Share"
                         />
                         <img
+                       
                           src="/static/cancel-3.svg"
                           className={`${styles.shareImg} img-fluid ml-3`}
                           alt="Cancel"
+                            onClick={(e)=>{
+                          props.onEdit(index,false)
+                        }}
                         />
+                        <img
+                        className={`${styles.shareImg} img-fluid`}
+                        src="/static/delete.svg"
+                        alt="Search"
+                        onClick={(e)=>{props.deleteNewDelivery(index)}}
+                      />
                       </div>
+                         :
+                        <div className={`${styles.form_group} col-lg-4`}>
+                         <img
+                          src="/static/mode_edit.svg"
+                          className={`${styles.shareImg} img-fluid`}
+                          alt="Edit"
+                          onClick={(e)=>{
+                          props.onEdit(index,true)
+                        }}
+                        />
+                        <img
+                        onClick={(e)=>{
+                          props.addNewDelivery()
+                        }}
+                          src="/static/add.svg"
+                          className={`${styles.shareImg} img-fluid ml-3`}
+                          alt="add"
+                        />
+                        <img
+                        className={`${styles.shareImg} img-fluid`}
+                        src="/static/delete.svg"
+                        alt="Search"
+                        onClick={(e)=>{props.deleteNewDelivery(index)}}
+                      />
+                      </div>
+                      
+                     
+                      }
                     </div>
                   </div>
+                  </>)
+                 })}
 
+            
+                </div>
+              </div>
+
+              <div
+                className={`${styles.dashboard_form} card-body`}
+                style={{ borderTop: '2px solid #CAD6E6' }}
+              >
+                <div className="row">
                   <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                    style={{ top: '5px' }}
+                  >
+                    <select
+                      className={`${styles.input_field} input form-control`}
+                    >
+                      <option value="Yes">Yes</option>
+                      <option value="No">N0</option>
+                     
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Last Mile Delivery
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <SaveBar rightBtn="Submit" />
+      </div>
+    </>
+  )
+}
+
+
+      {/* <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     style={{ top: '5px' }}
                   >
@@ -192,9 +302,9 @@ export default function Index() {
                         />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div
+                  {/* <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     style={{ top: '5px' }}
                   >
@@ -252,38 +362,4 @@ export default function Index() {
                         />
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className={`${styles.dashboard_form} card-body`}
-                style={{ borderTop: '2px solid #CAD6E6' }}
-              >
-                <div className="row">
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                    style={{ top: '5px' }}
-                  >
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Last Mile Delivery
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <SaveBar rightBtn="Submit" />
-      </div>
-    </>
-  )
-}
+                  </div> */}
