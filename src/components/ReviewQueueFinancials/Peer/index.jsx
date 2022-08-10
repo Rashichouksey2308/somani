@@ -14,7 +14,7 @@ function Index({peerData}) {
           aria-expanded="true" aria-controls="peerComparison">
           <h2 className="mb-0">Peer Comparison</h2>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
-            <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown`}>
               <option>Crores</option>
             </select>
