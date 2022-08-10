@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import styles from './index.module.scss'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 
-const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetails, onChangeCommercialTerms, onChangePaymentDueDate, onChangeTransactionDetails }) => {
+const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetails, onChangeCommercialTerms, onChangePaymentDueDate, onChangeTransactionDetails, newLcVal }) => {
     const [IsBlSelected, setIsBlSelected] = useState(false)
     const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
 
@@ -134,7 +134,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='lcValue' value={termsheetDetails?.transactionDetails?.lcValue ? termsheetDetails?.transactionDetails?.lcValue : null} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required />
+                            {/* <input id='lcValue' value={termsheetDetails?.transactionDetails?.lcValue ? termsheetDetails?.transactionDetails?.lcValue : null} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required /> */}
+                            <input id='lcValue' value={newLcVal} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required />
                             {/* <option value={termsheetDetails?.transactionDetails?.lcValue}>{termsheetDetails?.transactionDetails?.lcValue} </option>
                                 <option value="USD 2000">USD 2000</option>
                                 <option value="RS 1000">RS 1000</option> 
