@@ -52,7 +52,7 @@ function Index() {
       <div className={`container-fluid p-0 border-0 ${styles.container}`}>
         <div className={styles.container_inner}>
           {/*filter*/}
-          <div className={`${styles.filter} mb-4 d-flex align-items-center`}>
+          <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={styles.search}>
               <div className="input-group">
                 <div

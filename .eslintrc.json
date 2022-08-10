@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["next/core-web-vitals", "next", "prettier"],
+  "extends": ["next/babel","next/core-web-vitals", "next", "prettier"],
   "parserOptions": {
     "parser": "@babel/eslint-parser",
     "ecmaFeatures": {
