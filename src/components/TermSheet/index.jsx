@@ -375,9 +375,9 @@ const Index = () => {
     <>
       <div className='container-fluid px-0'>
         <div className={`${styles.card} tabHeader border-bottom-0 shadow-none`}>
-          <div className={styles.head_header}>
+          <div className={`${styles.head_header} align-items-center`}>
             <img
-              className={`${styles.arrow} img-fluid`}
+              className={`${styles.arrow} img-fluid image_arrow mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"
             />
