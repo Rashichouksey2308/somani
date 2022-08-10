@@ -359,8 +359,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   </div>
                 </div>
               </div>
-              <hr></hr>
             </div>
+            <hr className={styles.line}></hr>
             <div className={`${styles.dashboard_form} card-body`}>
               <h3 className={styles.form_heading}>BOE Details</h3>
               <div className="row mb-5">
