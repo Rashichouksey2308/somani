@@ -13,7 +13,7 @@ export default function Index({ ReleaseOrderData }) {
   const dispatch = useDispatch()
   console.log(ReleaseOrderData, 'ReleaseOrderData')
   let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
-  let InvoiceQuantity = 20000
+  let InvoiceQuantity = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity', 0)
   const [editInput, setEditInput] = useState(true)
   const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity)
   const [releaseDetail, setReleaseDetail] = useState([{
@@ -133,15 +133,17 @@ export default function Index({ ReleaseOrderData }) {
   }
 
 
-  const onSaveHAndler = () => {
+  const onSaveHAndler = async () => {
     let payload = {
-      deliveryId: '',
+      deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
       releaseDetail: releaseDetail
     }
-    console.log(payload, 'releaseOrderDate')
-    // dispatch(UpdateDelivery(payload))
+    //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
+   await dispatch(UpdateDelivery(payload))
+
+   
   }
-  console.log(netBalanceQuantity,'netBalanceQuantity')
+  console.log(netBalanceQuantity, 'netBalanceQuantity')
 
   return (
     <>

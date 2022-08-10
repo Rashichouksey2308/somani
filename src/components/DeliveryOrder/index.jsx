@@ -4,9 +4,10 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import DateCalender from '../DateCalender'
+import _get from 'lodash/get'
 
 export default function Index(props) {
-  console.log(props,"props")
+  console.log(props, "props")
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -42,7 +43,7 @@ export default function Index(props) {
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                   >
                     <div className={`${styles.label} text`}>Commodity</div>
-                    <span className={styles.value}>Iron</span>
+                    <span className={styles.value}>{_get(props, 'ReleaseOrder.data[0].order.commodity', '')}</span>
                   </div>
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
@@ -50,7 +51,7 @@ export default function Index(props) {
                     <div className={`${styles.label} text`}>
                       Invoice Quantity{' '}
                     </div>
-                    <span className={styles.value}>500 Mt</span>
+                    <span className={styles.value}>{_get(props, 'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity', '')} Mt</span>
                   </div>
 
                   <div
@@ -68,145 +69,145 @@ export default function Index(props) {
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
                 <div className="row">
-                 
-                 {props.releaseOrderData.map((val,index)=>{
-                  return(<>
-                      <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                    style={{ top: '5px' }}
-                  >
-                  <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option>01</option>
-                        <option>02</option>
-                        <option>03</option>
-                        <option>N/A</option>
-                      </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Released Order Number
-                      </label>
-                      <img
-                        className={`${styles.arrow} img-fluid`}
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
-                  </div>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    {val.isDelete?
-                    <div className="d-flex">
-                      <input
-                      type="text"
-                      value={val.Quantity}
-                      name="Quantity"
-                      onChange={(e)=>{
-                        props.deliverChange(e.target.name,e.target.value,index)
-                      }}
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                     / >
-                        
-                      
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Quantity Released
-                      </label>
-                     
-                  </div>
-                    :
-                    
-                    <>
-                      <div className={`${styles.label} text`}>
-                      Quantity Released
-                    </div>
-                    <span className={styles.value}>{val.Quantity}</span>
-                  
-                    </>
-                  
-                  }
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className={`${styles.label} text`}>
-                      Delivery Order No.
-                    </div>
-                    <span className={styles.value}>Ramal001-00002/01</span>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className="row" style={{ marginTop: '-42px' }}>
-                      <div className={`${styles.form_group} col-lg-8`}>
-                        <div className={`${styles.label} text`}>
-                          Delivery Order Date
-                        </div>
-                        <span className={styles.value}>22-02-2022</span>
-                      </div>
-                      {
-                         val.isDelete?
-                         <div className={`${styles.form_group} col-lg-4`}>
-                        <img
-                          src="/static/share.svg"
-                          className={`${styles.shareImg} img-fluid`}
-                          alt="Share"
-                        />
-                        <img
-                       
-                          src="/static/cancel-3.svg"
-                          className={`${styles.shareImg} img-fluid ml-3`}
-                          alt="Cancel"
-                            onClick={(e)=>{
-                          props.onEdit(index,false)
-                        }}
-                        />
-                        <img
-                        className={`${styles.shareImg} img-fluid`}
-                        src="/static/delete.svg"
-                        alt="Search"
-                        onClick={(e)=>{props.deleteNewDelivery(index)}}
-                      />
-                      </div>
-                         :
-                        <div className={`${styles.form_group} col-lg-4`}>
-                         <img
-                          src="/static/mode_edit.svg"
-                          className={`${styles.shareImg} img-fluid`}
-                          alt="Edit"
-                          onClick={(e)=>{
-                          props.onEdit(index,true)
-                        }}
-                        />
-                        <img
-                        onClick={(e)=>{
-                          props.addNewDelivery()
-                        }}
-                          src="/static/add.svg"
-                          className={`${styles.shareImg} img-fluid ml-3`}
-                          alt="add"
-                        />
-                        <img
-                        className={`${styles.shareImg} img-fluid`}
-                        src="/static/delete.svg"
-                        alt="Search"
-                        onClick={(e)=>{props.deleteNewDelivery(index)}}
-                      />
-                      </div>
-                      
-                     
-                      }
-                    </div>
-                  </div>
-                  </>)
-                 })}
 
-            
+                  {props.releaseOrderData.map((val, index) => {
+                    return (<>
+                      <div
+                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        style={{ top: '5px' }}
+                      >
+                        <div className="d-flex">
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          >
+                            <option>01</option>
+                            <option>02</option>
+                            <option>03</option>
+                            <option>N/A</option>
+                          </select>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Released Order Number
+                          </label>
+                          <img
+                            className={`${styles.arrow} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                      >
+                        {val.isDelete ?
+                          <div className="d-flex">
+                            <input
+                              type="text"
+                              value={val.Quantity}
+                              name="Quantity"
+                              onChange={(e) => {
+                                props.deliverChange(e.target.name, e.target.value, index)
+                              }}
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            />
+
+
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Quantity Released
+                            </label>
+
+                          </div>
+                          :
+
+                          <>
+                            <div className={`${styles.label} text`}>
+                              Quantity Released
+                            </div>
+                            <span className={styles.value}>{val.Quantity}</span>
+
+                          </>
+
+                        }
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                      >
+                        <div className={`${styles.label} text`}>
+                          Delivery Order No.
+                        </div>
+                        <span className={styles.value}>Ramal001-00002/01</span>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                      >
+                        <div className="row" style={{ marginTop: '-42px' }}>
+                          <div className={`${styles.form_group} col-lg-8`}>
+                            <div className={`${styles.label} text`}>
+                              Delivery Order Date
+                            </div>
+                            <span className={styles.value}>22-02-2022</span>
+                          </div>
+                          {
+                            val.isDelete ?
+                              <div className={`${styles.form_group} col-lg-4`}>
+                                <img
+                                  src="/static/share.svg"
+                                  className={`${styles.shareImg} img-fluid`}
+                                  alt="Share"
+                                />
+                                <img
+
+                                  src="/static/cancel-3.svg"
+                                  className={`${styles.shareImg} img-fluid ml-3`}
+                                  alt="Cancel"
+                                  onClick={(e) => {
+                                    props.onEdit(index, false)
+                                  }}
+                                />
+                                <img
+                                  className={`${styles.shareImg} img-fluid`}
+                                  src="/static/delete.svg"
+                                  alt="Search"
+                                  onClick={(e) => { props.deleteNewDelivery(index) }}
+                                />
+                              </div>
+                              :
+                              <div className={`${styles.form_group} col-lg-4`}>
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.shareImg} img-fluid`}
+                                  alt="Edit"
+                                  onClick={(e) => {
+                                    props.onEdit(index, true)
+                                  }}
+                                />
+                                <img
+                                  onClick={(e) => {
+                                    props.addNewDelivery()
+                                  }}
+                                  src="/static/add.svg"
+                                  className={`${styles.shareImg} img-fluid ml-3`}
+                                  alt="add"
+                                />
+                                <img
+                                  className={`${styles.shareImg} img-fluid`}
+                                  src="/static/delete.svg"
+                                  alt="Search"
+                                  onClick={(e) => { props.deleteNewDelivery(index) }}
+                                />
+                              </div>
+
+
+                          }
+                        </div>
+                      </div>
+                    </>)
+                  })}
+
+
                 </div>
               </div>
 
@@ -224,7 +225,7 @@ export default function Index(props) {
                     >
                       <option value="Yes">Yes</option>
                       <option value="No">N0</option>
-                     
+
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Last Mile Delivery
@@ -243,7 +244,7 @@ export default function Index(props) {
 }
 
 
-      {/* <div
+{/* <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     style={{ top: '5px' }}
                   >
@@ -304,7 +305,7 @@ export default function Index(props) {
                     </div>
                   </div> */}
 
-                  {/* <div
+{/* <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     style={{ top: '5px' }}
                   >
