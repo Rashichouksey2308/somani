@@ -166,6 +166,12 @@ export default function Index(props) {
                           props.onEdit(index,false)
                         }}
                         />
+                        <img
+                        className={`${styles.shareImg} img-fluid`}
+                        src="/static/delete.svg"
+                        alt="Search"
+                        onClick={(e)=>{props.deleteNewDelivery(index)}}
+                      />
                       </div>
                          :
                         <div className={`${styles.form_group} col-lg-4`}>
@@ -185,6 +191,12 @@ export default function Index(props) {
                           className={`${styles.shareImg} img-fluid ml-3`}
                           alt="add"
                         />
+                        <img
+                        className={`${styles.shareImg} img-fluid`}
+                        src="/static/delete.svg"
+                        alt="Search"
+                        onClick={(e)=>{props.deleteNewDelivery(index)}}
+                      />
                       </div>
                       
                      

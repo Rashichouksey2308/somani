@@ -250,6 +250,7 @@ function Index() {
                     addNewDelivery={addNewDelivery}
                     onEdit={onEdit}
                     deliverChange={deliverChange}
+                    deleteNewDelivery={deleteNewDelivery}
                     />
                   </div>
                 </div>
