@@ -15,9 +15,8 @@
             line-height: 27px;
             margin-bottom: 0;
             @include respond(phone) {
-                    font-size: $font_size_mobile_accordion;
-            
-                }
+                font-size: $font_size_mobile_accordion;            
+            }
         }
         span {
             font-size: 45px;
@@ -26,166 +25,150 @@
             line-height: 20px;
         }
     }
-
     .dashboard_form { 
         padding: 40px 35px 30px 35px;
         @include respond(phone) {
-                padding: 25px 20px 20px;
+            padding: 25px 20px 20px;
+        }
+        .bill_landing {
+            //background: #FFFFFF;
+            border: 2px solid #CAD6E6;
+            border-radius: 9px;
+            .vessel_card {
+                padding: 35px;        
             }
-                .bill_landing {
-                    //background: #FFFFFF;
-                    border: 2px solid #CAD6E6;
-                    border-radius: 9px;
-
-                    .vessel_card {
-                        padding: 35px;
-        
-    }
-}
-.comment_heading {
-    letter-spacing: 0.63px;
-    color: #3687E8;
-    text-transform: capitalize;
-    font-size: 19px;
-    line-height: 17px;
-    font-weight: bold;
-}
-
-.form_group {
-    position: relative;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    line-height: 25px;
-
-    @include respond(phone) {
-        margin-top: 15px;
-        margin-bottom: 15px;
-
-    }
-
-    p {
-        color: #111111;
-        font-size: 20px;
-        line-height: 60px;
-
-        @include respond(sm-desktop) {
-            font-size: 16px;
         }
-
-        @include respond(phone) {
-            font-size: 14px;
-        }
-
-        .grow_input {
-            letter-spacing: 0.19px;
-            color: #111111;
-            background: #C3C3C31F;
-            border: 1px solid #0000001F;
-            border-radius: 4px;
-            font-size: 20px;
-            line-height: 25px;
+        .comment_heading {
+            letter-spacing: 0.63px;
+            color: #3687E8;
+            text-transform: capitalize;
+            font-size: 19px;
+            line-height: 17px;
             font-weight: bold;
         }
-    }
-
-    .label {
-        font-size: 16px;
-        letter-spacing: 0.53px;
-        line-height: 0.5;
-        top: 26px;
-        left: 30px;
-        margin-bottom: 0;
-        position: absolute;
-        pointer-events: none;
-        box-sizing: border-box;
-        transform: translateY(-29px);
-        transition: 0.3s all ease-in-out;
-
-        @include respond(phone) {
-            font-size: $font_size_mobile_input_label;
-        }
-
-        @include respond(sm-desktop) {
-            font-size: $font_size_mobile_input_label;
-        }
-
-    }
-
-    .value {
-        font-size: 20px;
-        height: 60px;
-        outline: none;
-        box-shadow: none;
-        border-radius: 4px;
-        position: relative;
-        box-sizing: border-box;
-        letter-spacing: 0.19px;
-        padding: 13px 30px 13px 17px;
-        border: 1px solid #0000001F;
-
-        &:invalid+label {
-            background: none;
-            transform: translateY(0);
-        }
-
-        &:focus {
-            &+label {
-                transform: translateY(-29px);
-            }
-        }
-    }
-
-    .comment_name {
-        font-size: 20px;
-        line-height: 25px;
-        letter-spacing: 0.19px;
-        text-transform: capitalize;
-
-        .comment {
-            width: 90%;
-        }
-    }
-
-    .comment_para {
-        .comment {
-            font-size: 20px;
-            letter-spacing: 0.19px;
-            width: 90%;
-
+        .form_group {
+            position: relative;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            line-height: 25px;
             @include respond(phone) {
-                font-size: $font_size_mobile_text;
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+            p {
+                color: #111111;
+                font-size: 20px;
+                line-height: 60px;
+                @include respond(sm-desktop) {
+                    font-size: 16px;
+                }
+                @include respond(phone) {
+                    font-size: 14px;
+                }
+                .grow_input {
+                    letter-spacing: 0.19px;
+                    color: #111111;
+                    background: #C3C3C31F;
+                    border: 1px solid #0000001F;
+                    border-radius: 4px;
+                    font-size: 20px;
+                    line-height: 25px;
+                    font-weight: bold;
+                }
+            }
+            .label {
+                font-size: 16px;
+                letter-spacing: 0.53px;
+                line-height: 17px;
+                top: 22px;
+                left: 30px;
+                margin-bottom: 0;
+                position: absolute;
+                pointer-events: none;
+                box-sizing: border-box;
+                transform: translateY(-30px);
+                transition: 0.3s all ease-in-out;
+                z-index: 1;
+                max-width: 86%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &::before {
+                    top: 51%;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    content: "";
+                    z-index: -1;
+                    position: absolute;
+                    transform: translateY(-50%);
+                }
+                @include respond(phone) {
+                    font-size: $font_size_mobile_input_label;
+                }
+                @include respond(sm-desktop) {
+                    font-size: $font_size_mobile_input_label;
+                }
+            }
+            .value {
+                font-size: 20px;
+                height: 60px;
+                outline: none;
+                box-shadow: none;
+                border-radius: 4px;
+                position: relative;
+                box-sizing: border-box;
+                letter-spacing: 0.19px;
+                padding: 13px 30px 13px 17px;
+                border: 1px solid #0000001F;
+                &:invalid+label {
+                    background: none;
+                    transform: translateY(0);
+                }
+                &:focus {
+                    &+label {
+                        transform: translateY(-30px);
+                    }
+                }
+            }
+            .comment_name {
+                font-size: 20px;
+                line-height: 25px;
+                letter-spacing: 0.19px;
+                text-transform: capitalize;
+                .comment {
+                    width: 90%;
+                }
+            }
+            .comment_para {
+                .comment {
+                    font-size: 20px;
+                    letter-spacing: 0.19px;
+                    width: 90%;
+                    @include respond(phone) {
+                        font-size: $font_size_mobile_text;
+                    }
+                }
             }
         }
     }
 }
-    }
-}
-
 .arrow {
-
     margin-left: -40px;
     width: 13px;
     pointer-events: none;
-
     input[type="date"]::-webkit-inner-spin-button,
     input[type="date"]::-webkit-calendar-picker-indicator {
         display: none;
         -webkit-appearance: none;
     }
-
-
 }
-
 .customSelect {
     appearance: none;
     // position: relative;
-
 }
 .rowGroup {
-   
     border-top: 2px solid rgba(0, 0, 0, .1);;
-
-    
 }
 .noBorder{
     border-top: none !important;
@@ -193,5 +176,4 @@
 .nonEditable{
     background-color:rgba(0, 0, 0, 0)  !important;
     border:none !important;
-    
 }

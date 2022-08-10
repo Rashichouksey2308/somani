@@ -30,7 +30,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
     console.log(termsheetDetails?.commodityDetails?.orderCurrency, "789", termsheetDetails?.commodityDetails?.unitOfQuantity)
     return (
-        <div className={`${styles.main} main`}>
+        <div className={`${styles.main} vessel_card main`}>
             <div className={`${styles.head_container} border_color d-flex justify-content-between`} data-toggle="collapse" data-target="#termDetails" aria-expanded="true" aria-controls="termDetails">
                 <h3 className={styles.heading}>Termsheet</h3>
                 <span>+</span>

@@ -3,8 +3,7 @@
     box-shadow: 0 3px 6px #CAD0E2;
     border: 1px solid #D2D7E5;
     margin-bottom: 26px;
-    border-radius: 6px !important;
-    
+    border-radius: 6px !important;    
     .head_container {
         cursor: pointer;
         padding: 25px 35px !important;
@@ -16,9 +15,8 @@
             line-height: 27px;
             margin-bottom: 0;
             @include respond(phone) {
-                    font-size: $font_size_mobile_accordion;
-                   
-                }
+                font-size: $font_size_mobile_accordion;                   
+            }
         }
         span {
             font-size: 45px;
@@ -28,18 +26,16 @@
         }
     }
     .dashboard_form {
-        padding: 0 0 35px;
-        
+        padding: 0 0 35px;        
         .terms_para{
             font-size: 20px;
-            letter-spacing: 0.19px;
-          
+            letter-spacing: 0.19px;          
             line-height: 30px;
             padding: 25px 35px 10px;
             @include respond(phone) {
                 font-size: $font_size_mobile_text;
                 padding: 25px 20px 20px;
-                }
+            }
         }
         .igpl_para{
             background-color: #C3C3C31F;
@@ -60,14 +56,13 @@
             margin-bottom: 20px;
             margin-top: 20px;
             @include respond(phone) {
-                    font-size: $font_size_mobile_text;
-                    margin-top: 5px !important;
-                }
+                font-size: $font_size_mobile_text;
+                margin-top: 5px !important;
+            }
             .other_heading{
                 font-size: 22px;
                 font-weight: bold;
-                line-height: 27px;
-              
+                line-height: 27px;              
                 background-color: #FAFAFB;
                 padding: 15px 15px 15px 35px;
                 margin-bottom: 25px;
@@ -79,17 +74,15 @@
                     letter-spacing: 0.19px;
                     line-height: 25px;
                     @include respond(phone) {
-                            font-size: $font_size_mobile_text;
-                           
-                        }
-                    
+                        font-size: $font_size_mobile_text;                           
+                    }                    
                 }
                 .checkbox {
                     margin-top: -11px;
                     margin-right: 25px;
                     width: 20px;
-                    height: 20px;
-                        
+                    height: 20px;      
+                    min-width: 20px;
                 }
             }    
         }
@@ -101,7 +94,6 @@
         }
     }
 }
-
  .danger {
      color: #EA3F3F
  }

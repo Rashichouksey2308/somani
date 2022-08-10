@@ -325,20 +325,19 @@ function Index() {
 
   return (
     <>
-      <div className={`${styles.dashboardTab} tabHeader w-100`}>
-        <div className={`${styles.tabHeader} tabHeader `}>
-          <div className="d-flex align-items-center">
-            <h1 className={`${styles.title} heading`}>
+      <div className={`${styles.dashboardTab} w-100`}>
+        <div className={`${styles.tabHeader} tabHeader`}>
+          <div className={`${styles.title_header} d-flex align-items-center justify-content-between`}>
+            <div className="d-flex align-items-center">
               <img
-                src={`${darkMode
-                  ? `/static/white-arrow.svg`
-                  : `/static/arrow-right.svg`
-                  }`}
-                alt="arrow right"
-                className="img-fluid image_arrow"
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="arrow right"
+              className="img-fluid image_arrow mr-2"
               />
-              <span>Margin Money</span>
-            </h1>
+              <h1 className={`${styles.title} heading`}>
+                <span>Margin Money</span>
+              </h1>
+            </div>
             <div className="ml-auto">
               <button
                 type="button"
@@ -400,14 +399,14 @@ function Index() {
         </div>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-12 accordion_body">
+            <div className="col-md-12 px-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane fade show active"
                   id="Margin"
                   role="tabpanel"
                 >
-                  <div className={`${styles.card}  accordionMargin card`}>
+                  <div className={`${styles.card} vessel_card accordionMargin card`}>
                     <div
                       className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
                       data-toggle="collapse"
@@ -1130,7 +1129,7 @@ function Index() {
                   </div>
 
                   <div
-                    className={`${styles.card} ${styles.lastComponent} accordionMargin card`}
+                    className={`${styles.card} ${styles.lastComponent} vessel_card accordionMargin card`}
                   >
                     <div
                       className={`${styles.cardHeader}  d-flex align-items-center justify-content-between`}
