@@ -119,7 +119,7 @@
                 position: relative;
                 box-sizing: border-box;
                 letter-spacing: 0.19px;
-                // padding: 13px 30px 13px 17px;
+                padding: 13px 30px 13px 17px;
                 border: 1px solid #0000001F;
                 &:invalid+label {
                     background: none;
@@ -168,7 +168,7 @@
     // position: relative;
 }
 .rowGroup {
-    border-top: 2px solid rgba(0, 0, 0, .1);
+    border-top: 2px solid rgba(0, 0, 0, .1);;
 }
 .noBorder{
     border-top: none !important;

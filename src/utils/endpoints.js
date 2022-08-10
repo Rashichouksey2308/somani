@@ -39,6 +39,7 @@ export default {
   //marginMoney
   getMarginMoney: '/api/core/margin-money',
   updateMarginMoney: '/api/core/margin-money',
+  reviseMarginMoney: '/api/core/margin-money/revised',
 
   // companydetails
   getCompanyDetails: '/api/core/lead/fetchCompanyDetail',

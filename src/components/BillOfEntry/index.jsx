@@ -235,7 +235,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                  <div className={`${styles.radio_form} p-0 mt-n2`}>
+                  <div className={`${styles.radio_form} p-0 mt-n3`}>
                     <div className={`${styles.label} text`}>BOE Assessment</div>
                     {['radio'].map((type) => (
                       <div
@@ -273,11 +273,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   </div>
                 </div>
                 <div
-                  className={`${styles.form_group} col-lg-6 col-md-6 col-sm-6 `}
+                  className={`${styles.form_group} col-lg-6 col-md-6 col-sm-6  mt-4`}
                 >
-                  <div className={`${styles.label} text`}>
-                    PF Bond <strong className="text-danger ml-n1">*</strong>
-                  </div>
+                  <div className={`${styles.label} text`}>PD Bond</div>
                   <div className={`${styles.theme} d-flex align-items-center`}>
                     <div
                       className={`${styles.toggle_label} form-check-label mr-3`}
@@ -362,8 +360,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   </div>
                 </div>
               </div>
-              <hr></hr>
             </div>
+            <hr className={styles.line}></hr>
             <div className={`${styles.dashboard_form} card-body`}>
               <h3 className={styles.form_heading}>BOE Details</h3>
               <div className="row mb-5">
@@ -446,9 +444,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                  <div className={`${styles.label} text`}>
-                    CIRC Number<strong className="text-danger">*</strong>{' '}
-                  </div>
+                  <div className={`${styles.label} text`}>CIRC Number</div>
                   <span className={styles.value}>
                     {
                       customData?.order?.transit?.CIMS?.cimsDetails[0]
@@ -460,9 +456,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                  <div className={`${styles.label} text`}>
-                    CIRC Date<strong className="text-danger">*</strong>{' '}
-                  </div>
+                  <div className={`${styles.label} text`}>CIRC Date</div>
                   <span className={styles.value}>
                     {moment(
                       customData?.order?.transit?.CIMS?.cimsDetails[0]
@@ -501,16 +495,33 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
-                    name="boeDetails.conversionRate"
+                    name="boeDetails.invoiceNumber"
                     required
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
-                    Conversion Rate<strong className="text-danger">*</strong>
+                    Invoice No.<strong className="text-danger">*</strong>
                   </label>
                 </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <DateCalender
+                      name="boeDetails.invoiceDate"
+                      saveDate={saveBoeDetaiDate}
+                      labelName="Invoice Date"
+                    />
+                    <img
+                      className={`${styles.calanderIcon} img-fluid`}
+                      src="/static/caldericon.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
@@ -527,22 +538,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     Invoice Quantity<strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="number"
-                    name="boeDetails.invoiceNumber"
-                    required
-                    onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
-                    }
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Invoice No.<strong className="text-danger">*</strong>
-                  </label>
-                </div>
+
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
@@ -562,20 +558,28 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                  <div className="d-flex">
-                    <DateCalender
-                      name="boeDetails.invoiceDate"
-                      saveDate={saveBoeDetaiDate}
-                      labelName="Invoice Date"
-                    />
-                    <img
-                      className={`${styles.calanderIcon} img-fluid`}
-                      src="/static/caldericon.svg"
-                      alt="Search"
-                    />
-                  </div>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="number"
+                    name="boeDetails.conversionRate"
+                    required
+                    onChange={(e) =>
+                      saveBillOfEntryData(e.target.name, e.target.value)
+                    }
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Conversion Rate<strong className="text-danger">*</strong>
+                  </label>
                 </div>
                 <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <div className={`${styles.label} text`}>
+                    Assessable Value<strong className="text-danger">*</strong>{' '}
+                  </div>
+                  <span className={styles.value}>24,000</span>
+                </div>
+                {/* <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
@@ -590,7 +594,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <label className={`${styles.label_heading} label_heading`}>
                     BOE Rate<strong className="text-danger">*</strong>
                   </label>
-                </div>
+                </div> */}
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
@@ -602,7 +606,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       }
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option selected>Selcect Bank</option>
+                      <option selected>Select Bank</option>
                       <option value="HDFC">HDFC</option>
                       <option value="SBI">SBI</option>
                     </select>
@@ -916,7 +920,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <div className={styles.uploadBtnWrapper}>
                           <input
-                            id='document1'
+                            id="document1"
                             onChange={(e) => uploadDoc1(e)}
                             type="file"
                             name="myfile"
@@ -943,9 +947,11 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <div className={styles.uploadBtnWrapper}>
                           <input
-                            id='document2'
+                            id="document2"
                             onChange={(e) => uploadDoc1(e)}
-                            type="file" name="myfile" />
+                            type="file"
+                            name="myfile"
+                          />
                           <button className={`${styles.upload_btn} btn`}>
                             Upload
                           </button>
@@ -968,9 +974,11 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <div className={styles.uploadBtnWrapper}>
                           <input
-                            id='document3'
+                            id="document3"
                             onChange={(e) => uploadDoc1(e)}
-                            type="file" name="myfile" />
+                            type="file"
+                            name="myfile"
+                          />
                           <button className={`${styles.upload_btn} btn`}>
                             Upload
                           </button>

@@ -17,9 +17,8 @@ export default function Index({ OrderId, customData }) {
       quantity: '',
       quantityUnit: '',
       dateOfStorage: null,
-
     },
-    document: null
+    document: null,
   })
 
   const onChangeWarehouseDetails = (name, text) => {
@@ -83,11 +82,17 @@ export default function Index({ OrderId, customData }) {
               <div className={`${styles.dashboard_form} mt-3 card-body`}>
                 <div className="row">
                   <div className="col-lg-4 col-md-6 col-sm-6">
-                    <div className={`${styles.label} text`}>Commodity</div>
-                    <span className={styles.value}>{_get(customData, 'order.commodity', '')}</span>
+                    <div className={`${styles.label} text`}>
+                      Commodity<strong className="text-danger">*</strong>
+                    </div>
+                    <span className={styles.value}>
+                      {_get(customData, 'order.commodity', '')}
+                    </span>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
-                    <div className={`${styles.label} text`}>CMA Name</div>
+                    <div className={`${styles.label} text`}>
+                      CMA Name<strong className="text-danger">*</strong>
+                    </div>
                     <span className={styles.value}>Abcz</span>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
@@ -102,8 +107,10 @@ export default function Index({ OrderId, customData }) {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
                   >
                     <input
-                      id='quantity'
-                      onChange={(e) => onChangeWarehouseDetails(e.target.id, e.target.value)}
+                      id="quantity"
+                      onChange={(e) =>
+                        onChangeWarehouseDetails(e.target.id, e.target.value)
+                      }
                       className={`${styles.input_field} input form-control`}
                       type="number"
                       required
@@ -116,7 +123,11 @@ export default function Index({ OrderId, customData }) {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
                   >
                     <div className="d-flex">
-                      <DateCalender name='dateOfStorage' saveDate={saveDate} labelName="Date of Storage" />
+                      <DateCalender
+                        name="dateOfStorage"
+                        saveDate={saveDate}
+                        labelName="Date of Storage"
+                      />
                       <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -130,7 +141,12 @@ export default function Index({ OrderId, customData }) {
                   >
                     <div className="d-flex justify-content-start mt-2">
                       <div className={styles.uploadBtnWrapper}>
-                        <input id='document' onChange={(e) => onSaveDocument(e)} type="file" name="myfile" />
+                        <input
+                          id="document"
+                          onChange={(e) => onSaveDocument(e)}
+                          type="file"
+                          name="myfile"
+                        />
                         <button className={`${styles.upload_btn} btn`}>
                           Upload
                         </button>
@@ -153,9 +169,11 @@ export default function Index({ OrderId, customData }) {
           </div>
 
           <div className="mt-4 mb-5">
-            <UploadOther orderid={OrderId} module='customClearanceAndWarehousing' />
+            <UploadOther
+              orderid={OrderId}
+              module="customClearanceAndWarehousing"
+            />
           </div>
-
         </div>
         <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" />
       </div>
