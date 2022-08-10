@@ -44,7 +44,7 @@ function Index({chargesData}) {
             <label htmlFor="closed">Closed</label>
           </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
-            <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown`}>
               <option>Crores</option>
             </select>

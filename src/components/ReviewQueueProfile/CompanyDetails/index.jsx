@@ -30,7 +30,7 @@ function Index({order, companyDetail }) {
     return (
 
         <>
-            <div className={`${styles.card}  card`}>
+            <div className={`${styles.card} vessel_card card`}>
                 <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#companyDetails" aria-expanded="true" aria-controls="companyDetails">
                     <h2 className="mb-0">Company Details</h2>
                     <span>+</span>
@@ -72,7 +72,7 @@ function Index({order, companyDetail }) {
                             </div>
                             <div className="col-md-3">
                                 <div className={`${styles.label} label_heading`}>Active Compliant</div>
-                                <div className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.activeCompliance ? styles.success : styles.warning}`}>{companyDetail?.activeCompliance ? "YES" : "NO"}</div>
+                                <div className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.activeCompliance ? styles.success : styles.warning}`}>{companyDetail?.activeCompliance ? "Yes" : "No"}</div>
                             </div>
                             <div className="col-md-3">
                                 <div className={`${styles.label} label_heading`}>Contact Number</div>
