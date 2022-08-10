@@ -19,7 +19,8 @@ const Index = ({
   const { gstList } = useSelector((state) => state.buyer)
 
   // console.log(gstList?.data, "THIS IS GST LIST")
-  const [slider, setSlider] = useState(0)
+  const [slider, setSlider] = useState(60)
+  const [highlight, setHighlight] = useState(60)
   const sliderBackground = () => {
     return {
       background: `${(slider * 100) / 100}`,
@@ -33,7 +34,9 @@ const Index = ({
  
   useEffect(() => {getSlider()},)
   const getSlider =(val)=>{
+    console.log(slider,"slider8999")
     if(slider < 100){
+       console.log("okok212314")
       return(
        
             <div className={styles.slidecontainer}>
@@ -45,12 +48,13 @@ const Index = ({
                   name="turnOver"
                   list="tickmarks"
                   onChange={(e) => {
+                    console.log(Number(e.target.value),"sadaasd")
                     saveCompanyData(
                       e.target.name,
                       Number(e.target.value * 100),
                     )
                     if(Number(e.target.value==100)){
-                      setSlide(200)
+                      setSlider(200)
                     }else{
                        setSlider(Number(e.target.value))
                     }
@@ -84,6 +88,7 @@ const Index = ({
       )
     } 
      if(slider > 100 || slider < 500  ){
+       console.log("okok2123123")
       return(
        
             <div className={styles.slidecontainer}>
@@ -97,10 +102,23 @@ const Index = ({
                   onChange={(e) => {
                     saveCompanyData(
                       e.target.name,
-                      Number(e.target.value * 100),
+                      Number(e.target.value),
                     )
+                    console.log(e.target.value,"888")
+                    if(e.target.value==200){
+                      setHighlight(25)
+                    }
+                    if(e.target.value==300){
+                      setHighlight(50)
+                    }
+                    if(e.target.value==400){
+                      setHighlight(75)
+                    }
+                    if(e.target.value==500){
+                      setHighlight(100)
+                    }
                     if(Number(e.target.value) == 100){
-                       setSlide(80)
+                       setSlider(80)
                     }else if(Number(e.target.value) == 500){
                       setSlide(500)
                     }else{
@@ -113,8 +131,9 @@ const Index = ({
                   className={`${styles.slider} px-0 input form-control`}
                   id="myRange"
                   style={{
-                    background: `linear-gradient(90deg, #3687E8 ${(slider*2)/10}%, #C3C3C31F ${
-                      (slider*2)/10
+                    background: `linear-gradient(90deg, #3687E8 
+                      ${(highlight)}%, #C3C3C31F ${
+                      (highlight)
                     }%)`,
                   }}
                 />
@@ -138,10 +157,9 @@ const Index = ({
               </div>
                
       )
-    }
-     if(slider == 500 || val == 500 ){
-      console.log("okok")
-      return(
+    }else if(slider > 500){
+    console.log("okok212315")
+return(
        
             <div className={styles.slidecontainer}>
                 <input
@@ -191,8 +209,14 @@ const Index = ({
                
       )
     }
+   
+     if(slider == 500 ){
+      console.log("okok212312")
+      
+    }
     
   }
+  console.log(slider,"okok",highlight)
   return (
     <>
       <div className={`${styles.main} border_color`}>
@@ -462,6 +486,18 @@ const Index = ({
                 type="number"
                 value={slider}
                 onChange={(e)=>{
+                    if(e.target.value==200){
+                      setHighlight(25)
+                    }
+                    if(e.target.value==300){
+                      setHighlight(50)
+                    }
+                    if(e.target.value==400){
+                      setHighlight(75)
+                    }
+                    if(e.target.value==500){
+                      setHighlight(100)
+                    }
                   setSlider(Number(e.target.value))
                     getSlider()
                 }}

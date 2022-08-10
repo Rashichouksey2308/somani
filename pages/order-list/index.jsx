@@ -9,6 +9,7 @@ import { GetOrders } from '../../src/redux/registerBuyer/action'
 import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
 import _get from "lodash/get"
 import { GetCreditLimit } from '../../src/redux/companyDetail/action'
+import moment from 'moment'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0)
@@ -233,7 +234,9 @@ function Index() {
                           </td>
                           <td>{buyer.createdBy.fName}</td>
 
-                          <td>{buyer.createdAt.split('T')[0]}</td>
+                          <td>{
+                          moment(buyer.createdAt.split('T')[0]).format("DD-MM-YYYY")}
+                          </td>
                           <td>
                             <span
                               className={`${styles.status} ${

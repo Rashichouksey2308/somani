@@ -149,9 +149,11 @@ function Index({order, companyDetail }) {
                                 <div className='d-flex'>
                                 <select id='referedBy' onChange={onChangeHandler}
                                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                    name="Sourcing" >
+                                    name="Sourcing" 
+                                    value={order?.referedBy}
+                                    >
 
-                                    <option value="CHA">{order?.referedBy}</option>
+                                    <option value="CHA">{"CHA"}</option>
                                     <option value="Not CHA">Not CHA</option>
                                 </select>
                                 <label className={`${styles.label_heading} label_heading`}>

@@ -5,73 +5,73 @@ import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
 
-function getCustomClearance() {
+function getDelivery() {
   return {
-    type: types.GET_CUSTOM_CLEARANCE,
+    type: types.GET_DELIVERY,
   }
 }
-function getCustomClearanceSuccess(payload) {
+function getDeliverySuccess(payload) {
   return {
-    type: types.GET_CUSTOM_CLEARANCE_SUCCESS,
+    type: types.GET_DELIVERY_SUCCESS,
     payload,
   }
 }
-function getCustomClearanceFailed() {
+function getDeliveryFailed() {
   return {
-    type: types.GET_CUSTOM_CLEARANCE_FAILED,
+    type: types.GET_DELIVERY_FAILED,
   }
 }
-function getAllCustomClearance() {
+function getAllDelivery() {
   return {
-    type: types.GET_ALL_CUSTOM_CLEARANCE,
+    type: types.GET_ALL_DELIVERY,
   }
 }
-function getAllCustomClearanceSuccess(payload) {
+function getAllDeliverySuccess(payload) {
   return {
-    type: types.GET_ALL_CUSTOM_CLEARANCE_SUCCESS,
+    type: types.GET_ALL_DELIVERY_SUCCESS,
     payload,
   }
 }
-function getAllCustomClearanceFailed() {
+function getAllDeliveryFailed() {
   return {
-    type: types.GET_ALL_CUSTOM_CLEARANCE_FAILED,
+    type: types.GET_ALL_DELIVERY_FAILED,
   }
 }
 
-function updateCustomClearance() {
+function updateDelivery() {
   return {
-    type: types.UPDATE_CUSTOM_CLEARANCE,
+    type: types.UPDATE_DELIVERY,
   }
 }
-function updateCustomClearanceSuccess(payload) {
+function updateDeliverySuccess(payload) {
   return {
-    type: types.UPDATE_CUSTOM_CLEARANCE_SUCCESS,
+    type: types.UPDATE_DELIVERY_SUCCESS,
     payload,
   }
 }
-function updateCustomClearanceFailed() {
+function updateDeliveryFailed() {
   return {
-    type: types.UPDATE_CUSTOM_CLEARANCE_FAILED,
+    type: types.UPDATE_DELIVERY_FAILED,
   }
 }
 
-export const GetAllCustomClearance =
-  (payload) => async (dispatch, getState, api) => {
+export const GetAllDelivery = (payload) => async (dispatch, getState, api) => {
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.get(
-        `${API.corebaseUrl}${API.customClearance}${payload ? payload : ''}`,
+        `${API.corebaseUrl}${API.delivery}${payload ? payload : ''}`,
         {
           headers: headers,
         },
+
       ).then((response) => {
         if (response.data.code === 200) {
-          dispatch(getAllCustomClearanceSuccess(response.data.data))
+          dispatch(getAllDeliverySuccess(response.data.data))
         } else {
-          dispatch(getAllCustomClearanceFailed(response.data.data))
+          dispatch(getAllDeliveryFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -79,7 +79,7 @@ export const GetAllCustomClearance =
         }
       })
     } catch (error) {
-      dispatch(getAllCustomClearanceFailed())
+      dispatch(getAllDeliveryFailed())
 
       let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
       if (!toast.isActive(toastMessage)) {
@@ -88,7 +88,7 @@ export const GetAllCustomClearance =
     }
   }
 
-export const GetCustomClearance =
+export const GetDelivery =
   (payload) => async (dispatch, getState, api) => {
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -96,13 +96,13 @@ export const GetCustomClearance =
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.get(`${API.corebaseUrl}${API.customClearance}${payload}`, {
+      Axios.get(`${API.corebaseUrl}${API.delivery}${payload}`, {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
-          dispatch(getCustomClearanceSuccess(response.data.data))
+          dispatch(getDeliverySuccess(response.data.data))
         } else {
-          dispatch(getCustomClearanceFailed(response.data.data))
+          dispatch(getDeliveryFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -110,7 +110,7 @@ export const GetCustomClearance =
         }
       })
     } catch (error) {
-      dispatch(getCustomClearanceFailed())
+      dispatch(getDeliveryFailed())
 
       let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
       if (!toast.isActive(toastMessage)) {
@@ -119,7 +119,7 @@ export const GetCustomClearance =
     }
   }
 
-export const UpdateCustomClearance =
+export const UpdateDelivery =
   (payload) => async (dispatch, getState, api) => {
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -127,18 +127,18 @@ export const UpdateCustomClearance =
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.put(`${API.corebaseUrl}${API.customClearance}`, payload, {
+      Axios.put(`${API.corebaseUrl}${API.delivery}`, payload, {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
-          dispatch(updateCustomClearanceSuccess(response.data.data))
+          dispatch(updateDeliverySuccess(response.data.data))
 
           let toastMessage = 'SAVED SUCCESSFULLY'
           if (!toast.isActive(toastMessage)) {
             toast.success(toastMessage, { toastId: toastMessage })
           }
         } else {
-          dispatch(updateCustomClearanceFailed(response.data.data))
+          dispatch(updateDeliveryFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -146,7 +146,7 @@ export const UpdateCustomClearance =
         }
       })
     } catch (error) {
-      dispatch(updateCustomClearanceFailed())
+      dispatch(updateDeliveryFailed())
 
       let toastMessage = 'COULD NOT SUBMIT YOUR REQUEST'
       if (!toast.isActive(toastMessage)) {
@@ -155,36 +155,33 @@ export const UpdateCustomClearance =
     }
   }
 
-export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
-  let cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+export const UploadCustomDoc =
+  (payload) => async (dispatch, getState, api) => {
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-  try {
-    Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, payload, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(getCustomClearanceSuccess(response.data.data))
-        let toastMessage = 'DOCUMENT UPDATED'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      Axios.post(`${API.corebaseUrl}${API.delivery}`, payload, {
+        headers: headers,
+      }).then((response) => {
+        if (response.data.code === 200) {
+          dispatch(getDeliverySuccess(response.data.data))
+        } else {
+          dispatch(getDeliveryFailed(response.data.data))
+          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
         }
-      } else {
-        dispatch(getCustomClearanceFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+      })
+    } catch (error) {
+      dispatch(getDeliveryFailed())
+
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
       }
-    })
-  } catch (error) {
-    dispatch(getCustomClearanceFailed())
-
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
-      toast.error(toastMessage, { toastId: toastMessage })
     }
   }
-}

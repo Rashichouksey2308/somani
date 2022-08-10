@@ -9,12 +9,16 @@ import DateCalender from '../DateCalender'
 import moment from 'moment'
 import { useDispatch } from 'react-redux'
 import { UpdateCustomClearance } from 'redux/CustomClearance&Warehousing/action'
+import { useSelector } from 'react-redux'
 
-export default function Index({ customData, OrderId }) {
-
+export default function Index({ customData, OrderId, uploadDoc }) {
   const dispatch = useDispatch()
 
   const [saveContactTable, setContactTable] = useState(false)
+
+  const { customClearance } = useSelector((state) => state.Custom)
+
+  console.log(customClearance, 'this is custom doc')
 
   const [billOfEntryData, setBillOfEntryData] = useState({
     boeAssessment: '',
@@ -35,15 +39,27 @@ export default function Index({ customData, OrderId }) {
       boeRate: '',
       bankName: '',
     },
-    duty: [{
-      duty: dutyData?.duty,
-      amount: dutyData?.amount
-    }],
+    duty: [
+      {
+        duty: dutyData?.duty,
+        amount: dutyData?.amount,
+      },
+    ],
 
     document1: null,
     document2: null,
     document3: null,
   })
+
+  const uploadDoc1 = async (e) => {
+    let name = e.target.id
+    let docs = await uploadDoc(e)
+
+    console.log(docs, uploadDoc(e), 'this is upload response')
+    let newInput = { ...billOfEntryData }
+    newInput[name] = docs
+    setBillOfEntryData(newInput)
+  }
 
   console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
@@ -111,7 +127,7 @@ export default function Index({ customData, OrderId }) {
 
       return newState
     })
-    let newInput = {...billOfEntryData}
+    let newInput = { ...billOfEntryData }
     newInput.duty = dutyData
     setBillOfEntryData(newInput)
   }
@@ -201,7 +217,9 @@ export default function Index({ customData, OrderId }) {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 card border_color`}>
+          <div
+            className={`${styles.main}  vessel_card  mt-4 card border_color`}
+          >
             <div
               className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
             >
@@ -516,7 +534,9 @@ export default function Index({ customData, OrderId }) {
                     type="number"
                     name="boeDetails.invoiceNumber"
                     required
-                    onChange={(e)=>saveBillOfEntryData(e.target.name, e.target.value)}
+                    onChange={(e) =>
+                      saveBillOfEntryData(e.target.name, e.target.value)
+                    }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice No.<strong className="text-danger">*</strong>
@@ -529,8 +549,10 @@ export default function Index({ customData, OrderId }) {
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     required
-                    name='boeDetails.invoiceValue'
-                    onChange={(e)=>saveBillOfEntryData(e.target.name, e.target.value)}
+                    name="boeDetails.invoiceValue"
+                    onChange={(e) =>
+                      saveBillOfEntryData(e.target.name, e.target.value)
+                    }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Value<strong className="text-danger">*</strong>
@@ -540,7 +562,11 @@ export default function Index({ customData, OrderId }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender name='boeDetails.invoiceDate' saveDate={saveBoeDetaiDate} labelName="Invoice Date" />
+                    <DateCalender
+                      name="boeDetails.invoiceDate"
+                      saveDate={saveBoeDetaiDate}
+                      labelName="Invoice Date"
+                    />
                     <img
                       className={`${styles.calanderIcon} img-fluid`}
                       src="/static/caldericon.svg"
@@ -555,8 +581,10 @@ export default function Index({ customData, OrderId }) {
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     required
-                    name='boeDetails.boeRate'
-                    onChange={(e)=>saveBillOfEntryData(e.target.name, e.target.value)}
+                    name="boeDetails.boeRate"
+                    onChange={(e) =>
+                      saveBillOfEntryData(e.target.name, e.target.value)
+                    }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     BOE Rate<strong className="text-danger">*</strong>
@@ -567,11 +595,15 @@ export default function Index({ customData, OrderId }) {
                 >
                   <div className="d-flex">
                     <select
-                    name='boeDetails.bankName' onChange={(e)=>saveBillOfEntryData(e.target.name, e.target.value)}  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      name="boeDetails.bankName"
+                      onChange={(e) =>
+                        saveBillOfEntryData(e.target.name, e.target.value)
+                      }
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option selected>Selcect Bank</option>
-                      <option value='HDFC'>HDFC</option>
-                      <option value='SBI'>SBI</option>
+                      <option value="HDFC">HDFC</option>
+                      <option value="SBI">SBI</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Bank Name
@@ -882,7 +914,12 @@ export default function Index({ customData, OrderId }) {
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         <div className={styles.uploadBtnWrapper}>
-                          <input type="file" name="myfile" />
+                          <input
+                            id='document1'
+                            onChange={(e) => uploadDoc1(e)}
+                            type="file"
+                            name="myfile"
+                          />
                           <button className={`${styles.upload_btn} btn`}>
                             Upload
                           </button>
@@ -904,7 +941,10 @@ export default function Index({ customData, OrderId }) {
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         <div className={styles.uploadBtnWrapper}>
-                          <input type="file" name="myfile" />
+                          <input
+                            id='document2'
+                            onChange={(e) => uploadDoc1(e)}
+                            type="file" name="myfile" />
                           <button className={`${styles.upload_btn} btn`}>
                             Upload
                           </button>
@@ -926,7 +966,10 @@ export default function Index({ customData, OrderId }) {
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         <div className={styles.uploadBtnWrapper}>
-                          <input type="file" name="myfile" />
+                          <input
+                            id='document3'
+                            onChange={(e) => uploadDoc1(e)}
+                            type="file" name="myfile" />
                           <button className={`${styles.upload_btn} btn`}>
                             Upload
                           </button>

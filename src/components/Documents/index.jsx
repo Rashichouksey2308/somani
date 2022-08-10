@@ -10,6 +10,12 @@ const Index = ({
   uploadDocument1,
   uploadDocument2,
   darkMode,
+  documents,
+  onAddDoc,
+  deleteData,
+  addDoc,
+  removeDoc,
+  addTypeOfDoc
 }) => {
   const [list, setList] = useState([
     { typeDocument: 'Certificate', attachDoc: 'false' },
@@ -18,16 +24,16 @@ const Index = ({
 
   const [name, setName] = useState(null)
 
-  const onAddDoc = () => {
-    setList([
-      ...list,
-      {
-        typeDocument: '',
-        attachDoc: '',
-        actions: 'false',
-      },
-    ])
-  }
+  // const onAddDoc = (index) => {
+  //   setList([
+  //     ...list,
+  //     {
+  //       typeDocument: '',
+  //       attachDoc: '',
+  //       actions: 'false',
+  //     },
+  //   ])
+  // }
 
   const [secondDocName, setSecondDocName] = useState(null)
 
@@ -38,86 +44,98 @@ const Index = ({
       </div>
       <form id="documents">
         <div className={`${styles.input_container} row align-items-center`}>
-          <div className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4`}>
-            <label
-              className={`${styles.label_heading} label_heading mb-4`}
-              id="dropDoc"
-            >
-              Type Of Document
-            </label>
-            <div className="d-flex">
-              <select
-                id="dropDoc"
-                name="0"
-                onChange={(e) => {
-                  saveDocument(e)
-                }}
-                className={`${styles.input_field} ${styles.customSelect} input form-control`}
-              >
-                <option selected></option>
-                <option value="Incorporation Certificate" selected>
-                  Incorporation Certificate
-                </option>
-                <option value="GST Certification">GST Certification</option>
-              </select>
-              <img
-                className={`${styles.arrow} img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="Search"
-              />
-            </div>
-          </div>
-          <div
-            className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4 `}
-          >
-            <label className={`${styles.label_heading} label_heading mb-4`}>
-              Attach Document
-            </label>
-            {!name ? (
-              <div className={styles.uploadBtnWrapper}>
-                <input
-                  type="file"
-                  name="myfile"
-                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                  onChange={(e) => {
-                    setName(e.target.files[0].name)
-                    uploadDocument1(e)
-                  }}
-                />
-                <button className={`${styles.button_upload} btn`}>
-                  Upload
-                </button>
-              </div>
-            ) : (
-              <div className={styles.certificate}>
-                {name}
-                <img
-                  className={`${styles.close_image} float-right m-2 img-fluid`}
-                  src="/static/close.svg"
-                  onClick={() => setName(null)}
-                  alt="Close"
-                />{' '}
-              </div>
-            )}
-          </div>
+        
+          
 
-          <div
-            className={`${styles.each_input} col-md-6 col-sm-6  col-6 text-right text-sm-left col-lg-4 `}
-          >
-            <label className={`${styles.label_heading} label_heading mb-4`}>
-              Action
-            </label>
-            <div
-              onClick={() => setName(null)}
-              className={styles.image_card}
-              style={{ marginTop: 19 }}
-            >
-              <img className={styles.image_delete} src="/static/delete.svg" />
-            </div>
-          </div>
-          <hr className={styles.hr_line}></hr>
+       
+ {documents &&
+ 
 
-          {list &&
+ documents?.map((val,index)=>{
+   return(
+    <>
+              <div
+                  className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}
+                >
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      name="1"
+                      onChange={(e) => {
+                        addTypeOfDoc(e.target.value,index)
+                      }}
+                    >
+                      <option selected></option>
+                      <option value="GST Certification" selected>
+                        GST Certification
+                      </option>
+                      <option value="Incorporation Certification">
+                        Incorporation Certification
+                      </option>
+                    </select>
+                    <img
+                      className={`${styles.arrow} img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+
+                <div
+                  className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}
+                >
+                  {val.attachDoc=="" ? (
+                    <div className={styles.uploadBtnWrapper}>
+                      <input
+                        type="file"
+                        name="myfile"
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                        onChange={(e) => {
+                          addDoc(e.target.files[0].name,index)
+                          // uploadDocument2(e)
+                        }}
+                      />
+                      <button className={`${styles.button_upload} btn`}>
+                        Upload
+                      </button>
+                    </div>
+                  ) : (
+                    <div className={styles.certificate}>
+                      {val.attachDoc}
+                      <img
+                        className={`${styles.close_image} float-right m-2 img-fluid`}
+                        src="/static/close.svg"
+                        onClick={() => removeDoc(index)}
+                        alt="Close"
+                      />{' '}
+                    </div>
+                  )}
+                </div>
+
+                <div
+                  className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}
+                >
+                  <div
+                    onClick={() => setSecondDocName(null)}
+                    className={styles.image_card}
+                  >
+                    <img
+                      className={styles.image_delete}
+                      src="/static/delete.svg"
+                      alt="Delete"
+                      onClick={()=>{
+                        deleteData(index)
+                      }}
+                    />
+                  </div>
+                </div>
+                <hr className={styles.hr_line}></hr>
+    </>
+   )
+ })
+ }
+            
+          {/* {list &&
             list.map((val, index) => (
               <>
                 <div
@@ -157,7 +175,7 @@ const Index = ({
                         name="myfile"
                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                         onChange={(e) => {
-                          setSecondDocName(e.target.files[0].name)
+                          setSecondDocName(e.target.files[0].name,index)
                           uploadDocument2(e)
                         }}
                       />
@@ -189,12 +207,15 @@ const Index = ({
                       className={styles.image_delete}
                       src="/static/delete.svg"
                       alt="Delete"
+                      onClick={()=>{
+                        deleteData(index)
+                      }}
                     />
                   </div>
                 </div>
                 <hr className={styles.hr_line}></hr>
               </>
-            ))}
+            ))} */}
           {/* <div className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}>
           <div className="d-flex">
             <select

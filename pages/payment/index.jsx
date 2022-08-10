@@ -1,13 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './index.module.scss'
-import TableMain from '../../src/components/TableMain'
+import PaymentTableMain from '../../src/components/PaymentTableMain'
 import Filter from '../../src/components/Filter'
 import Router from 'next/router'
 
 function Index() {
-  const openRoute = () => {
-    Router.push('/payment/id')
-  }
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -102,12 +101,12 @@ function Index() {
             </div>
           </div>
         </div>
-        <TableMain
+        <PaymentTableMain
           tableName="Payment, Invoicing &amp; Delivery"
           pageType="DELIVERY ORDER NO."
           dateHeading="DELIVERY ORDER DATE"
           isStatus={true}
-          handleRoute={openRoute}
+          
         />
       </div>
     </div>

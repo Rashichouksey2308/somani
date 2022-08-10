@@ -63,7 +63,7 @@ const Index = ({ orderid, module }) => {
     dispatch(AddingDocument(fd))
   }
   return (
-    <div className={`${styles.upload_main} border_color card`}>
+    <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
         className={`${styles.head_container} border_color d-flex justify-content-between`}
         data-toggle="collapse"
@@ -80,9 +80,9 @@ const Index = ({ orderid, module }) => {
         aria-labelledby="uploadOther"
         data-parent="#uploadOther"
       >
-        <div className={`${styles.dashboard_form} card-body`}>
+        <div className={`${styles.dashboard_form} vessel_card card-body`}>
           <Form>
-            <div className="row align-items-center pb-4">
+            <div className="row align-items-center vessel_card pb-4">
               <div
                 className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
               >
@@ -108,7 +108,7 @@ const Index = ({ orderid, module }) => {
                 </div>
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">
-                <Form.Group className={styles.form_group}>
+                <Form.Group className={`${styles.form_group}`}>
                   <div className="d-flex">
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
@@ -224,7 +224,7 @@ const Index = ({ orderid, module }) => {
                     />
                   </div>
                 </Form.Group>
-                <Form.Group className={styles.form_group}>
+                <Form.Group className={`${styles.form_group}`}>
                   <input
                     onChange={(e) =>
                       setNewDoc({ ...newDoc, name: e.target.value })
