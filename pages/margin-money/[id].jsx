@@ -260,14 +260,12 @@ function Index() {
   })
   // console.log(invoiceData, 'invoiceData')
 
-  
-
   const saveInvoiceData = (name, value) => {
     const newInput = { ...invoiceData }
     newInput[name] = value
     console.log(newInput, 'nnto', name, value)
 
-    setInvoiceData({...newInput})
+    setInvoiceData({ ...newInput })
   }
 
   console.log(invoiceData, 'INVOICE DATA')
@@ -1266,7 +1264,7 @@ function Index() {
                                       inline
                                       label="Yes"
                                       defaultChecked={
-                                        invoiceData?.isConsigneeSameAsBuyer ===
+                                        invoiceData?.isConsigneeSameAsBuyer ==
                                         true
                                       }
                                       onChange={() => {
@@ -1285,7 +1283,7 @@ function Index() {
                                       inline
                                       label="No"
                                       defaultChecked={
-                                        invoiceData?.isConsigneeSameAsBuyer ===
+                                        invoiceData?.isConsigneeSameAsBuyer ==
                                         false
                                       }
                                       onChange={() => {
@@ -1341,7 +1339,6 @@ function Index() {
                                   }
                                   value={invoiceData?.consigneeGSTIN}
                                 >
-                                  <option value=""></option>
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1397,6 +1394,9 @@ function Index() {
                                   name="importerName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
+                                  defaultValue={
+                                    marginData?.invoiceDetail?.importerName
+                                  }
                                   onChange={(e) =>
                                     saveInvoiceData(
                                       e.target.name,
@@ -1404,12 +1404,11 @@ function Index() {
                                     )
                                   }
                                 >
-                                  <option
-                                    value={
-                                      marginData?.invoiceDetail?.importerName
-                                    }
-                                  >
-                                    {marginData?.invoiceDetail?.importerName}
+                                  <option value="Ramakrishna Traders">
+                                    Ramakrishna Traders
+                                  </option>
+                                  <option value="Balaji Traders">
+                                    Balaji Traders
                                   </option>
                                 </select>
                                 <label
@@ -1434,6 +1433,9 @@ function Index() {
                                   name="branchOffice"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
+                                  defaultValue={
+                                    marginData?.invoiceDetail?.importerName
+                                  }
                                   onChange={(e) =>
                                     saveInvoiceData(
                                       e.target.name,
@@ -1441,12 +1443,11 @@ function Index() {
                                     )
                                   }
                                 >
-                                  <option
-                                    value={
-                                      marginData?.invoiceDetail?.importerName
-                                    }
-                                  >
-                                    {'visakhapatnam'}
+                                  <option value="Visakhapatnam, India">
+                                    {'Visakhapatnam, India'}
+                                  </option>
+                                  <option value="Mumbai, India">
+                                    Mumbai, India
                                   </option>
                                 </select>
                                 <label
@@ -1519,6 +1520,9 @@ function Index() {
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
+                                  defaultValue={
+                                    marginData?.invoiceDetail?.importerName
+                                  }
                                   onChange={(e) =>
                                     saveInvoiceData(
                                       e.target.name,
@@ -1526,13 +1530,8 @@ function Index() {
                                     )
                                   }
                                 >
-                                  <option
-                                    value={
-                                      marginData?.invoiceDetail?.importerName
-                                    }
-                                  >
-                                    {marginData?.invoiceDetail?.bankName}
-                                  </option>
+                                  <option value="HDFC">HDFC</option>
+                                  <option value="SBI">SBI</option>
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -1556,6 +1555,9 @@ function Index() {
                                   name="branch"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
+                                  defaultValue={
+                                    marginData?.invoiceDetail?.branch
+                                  }
                                   onChange={(e) =>
                                     saveInvoiceData(
                                       e.target.name,
@@ -1563,12 +1565,11 @@ function Index() {
                                     )
                                   }
                                 >
-                                  <option
-                                    value={
-                                      marginData?.invoiceDetail?.importerName
-                                    }
-                                  >
-                                    {marginData?.invoiceDetail?.branch}
+                                  <option value="DELHI, INDIA">
+                                    DELHI, INDIA
+                                  </option>
+                                  <option value="VIZAG, INDIA">
+                                    VIZAG, INDIA
                                   </option>
                                 </select>
                                 <label

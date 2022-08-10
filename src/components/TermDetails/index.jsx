@@ -434,8 +434,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='forexHedging' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommercialTerms} required>
-                                    <option value={termsheetDetails?.commercials?.forexHedging}>{termsheetDetails?.commercials?.forexHedging} </option>
+                                <select id='forexHedging' className={`${styles.value} ${styles.customSelect}  input form-control`} value={termsheetDetails?.commercials?.forexHedging} onChange={onChangeCommercialTerms} required>
+                                    <option selected> </option>
                                     <option value="yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>
@@ -459,7 +459,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 <select id='version'
                                     value={termsheetDetails?.commercials?.version}
                                     className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeCommercialTerms} required>
-
+                                    <option selected></option>
                                     <option value="1.1">1.1</option>
                                     <option value="2.1">2.1</option>
                                 </select>
