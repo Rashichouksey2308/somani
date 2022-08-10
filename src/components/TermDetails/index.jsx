@@ -4,17 +4,17 @@ import { useEffect } from 'react'
 import styles from './index.module.scss'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 
-const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetails, onChangeCommercialTerms, onChangePaymentDueDate, onChangeTransactionDetails }) => {
+const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetails, onChangeCommercialTerms, onChangePaymentDueDate, onChangeTransactionDetails, newLcVal }) => {
     const [IsBlSelected, setIsBlSelected] = useState(false)
     const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
 
 
 
     const updateThirdPartyInspection = (e) => {
-        if (e.target.value === "false") {
+        if (e.target.value == false) {
             setThirdPartyInspection(false)
             onChangeTransactionDetails(e)
-        } else if (e.target.value === "true") {
+        } else if (e.target.value == true) {
             setThirdPartyInspection(true)
             onChangeTransactionDetails(e)
         }
@@ -98,9 +98,9 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                     onChangeCommodityDetails(e)
 
                                 }} type="text" required />
-                            <span className={styles.percent}></span>
 
                             <label className={`${styles.label} label_heading`}>Quantity<strong className="text-danger">*</strong></label>
+                            <span className={styles.percent}></span>
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             {/* <span className={styles.inr}><strong>{termsheetDetails?.commodityDetails?.orderCurrency}</strong></span> */}
@@ -134,7 +134,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='lcValue' value={termsheetDetails?.transactionDetails?.lcValue ? termsheetDetails?.transactionDetails?.lcValue : null} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required />
+                            {/* <input id='lcValue' value={termsheetDetails?.transactionDetails?.lcValue ? termsheetDetails?.transactionDetails?.lcValue : null} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required /> */}
+                            <input id='lcValue' value={newLcVal} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required />
                             {/* <option value={termsheetDetails?.transactionDetails?.lcValue}>{termsheetDetails?.transactionDetails?.lcValue} </option>
                                 <option value="USD 2000">USD 2000</option>
                                 <option value="RS 1000">RS 1000</option> 
@@ -187,8 +188,9 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='loadPort' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
-                                    <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option>
+                                <select id='loadPort' className={`${styles.value} ${styles.customSelect} input form-control`} value={termsheetDetails?.transactionDetails?.loadPort} onChange={onChangeTransactionDetails} required>
+                                    {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
+                                    <option selected></option>
                                     <option value="Abbot Port">Abbot Port</option>
                                     <option value="India Port">India Port</option>
                                 </select>
@@ -202,8 +204,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='countryOfOrigin' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
-                                    <option value={termsheetDetails?.transactionDetails?.countryOfOrigin}>{termsheetDetails?.transactionDetails?.countryOfOrigin} </option>
+                                <select id='countryOfOrigin' className={`${styles.value} ${styles.customSelect} input form-control`} value={termsheetDetails?.transactionDetails?.countryOfOrigin} onChange={onChangeTransactionDetails} required>
+                                <option selected></option>
                                     <option value="Australia">Australia</option>
                                     <option value="India">India</option>
                                 </select>
@@ -217,8 +219,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='shipmentType' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
-                                    <option value={termsheetDetails?.transactionDetails?.shipmentType}>{termsheetDetails?.transactionDetails?.shipmentType} </option>
+                                <select id='shipmentType' className={`${styles.value} ${styles.customSelect} input form-control`} value={termsheetDetails?.transactionDetails?.shipmentType} onChange={onChangeTransactionDetails} required>
+                                    <option selected></option>
                                     <option value="Bulk">Bulk</option>
                                     <option value="Liner">Liner</option>
                                 </select>
@@ -248,8 +250,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='portOfDischarge' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
-                                    <option value={termsheetDetails?.transactionDetails?.portOfDischarge}>{termsheetDetails?.transactionDetails?.portOfDischarge} </option>
+                                <select id='portOfDischarge' className={`${styles.value} ${styles.customSelect} input form-control`} value={termsheetDetails?.transactionDetails?.portOfDischarge} onChange={onChangeTransactionDetails} required>
+                                    <option selected></option>
                                     <option value="Visakhapatnam, India">Visakhapatnam, India</option>
                                     <option value="Vizag, India">Vizag, India</option>
                                 </select>
@@ -432,8 +434,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='forexHedging' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommercialTerms} required>
-                                    <option value={termsheetDetails?.commercials?.forexHedging}>{termsheetDetails?.commercials?.forexHedging} </option>
+                                <select id='forexHedging' className={`${styles.value} ${styles.customSelect}  input form-control`} value={termsheetDetails?.commercials?.forexHedging} onChange={onChangeCommercialTerms} required>
+                                    <option selected> </option>
                                     <option value="yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>
@@ -457,7 +459,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 <select id='version'
                                     value={termsheetDetails?.commercials?.version}
                                     className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeCommercialTerms} required>
-
+                                    <option selected></option>
                                     <option value="1.1">1.1</option>
                                     <option value="2.1">2.1</option>
                                 </select>

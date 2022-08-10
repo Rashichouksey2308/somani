@@ -68,8 +68,8 @@
             position: relative;
             margin-bottom: 10px;
             @include respond(phone) {
-                    margin-top: 20px
-                }
+                margin-top: 20px
+            }
             .search_image {
                 margin-left: -40px;
             }    
@@ -85,6 +85,21 @@
                 box-sizing: border-box;
                 transform: translateY(-30px);
                 transition: 0.3s all ease-in-out;
+                z-index: 1;
+                max-width: 86%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &::before {
+                    top: 51%;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    content: "";
+                    z-index: -1;
+                    position: absolute;
+                    transform: translateY(-50%);
+                }
                 z-index: 1;
                 max-width: 86%;
                 white-space: nowrap;
@@ -116,7 +131,7 @@
                 position: relative;
                 box-sizing: border-box;
                 letter-spacing: 0.19px;
-                padding: 13px 30px 13px 17px;
+                // padding: 13px 30px 13px 17px;
                 border: 1px solid #0000001F;
                 &:invalid + label {
                     //background: none;
@@ -137,11 +152,11 @@
             .percent {
                 position: absolute;
                 left: 100px;
-                 top: 14px;
+                top: 14px;
                 font-size: 20px;
             }
             .inr{
-               font-size: 20px;
+                font-size: 20px;
                 position: absolute;
                 left: 30px;
                 top: 14px;
