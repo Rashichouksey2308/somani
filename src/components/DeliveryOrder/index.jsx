@@ -265,16 +265,25 @@ export default function Index() {
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     style={{ top: '5px' }}
                   >
-                    <select
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Last Mile Delivery
-                    </label>
+                    <div className="d-flex">
+                      <select
+                        className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                      >
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Last Mile Delivery
+                      </label>
+                      <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
