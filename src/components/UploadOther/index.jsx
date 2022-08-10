@@ -371,7 +371,7 @@ const Index = ({ orderid, module }) => {
                         return (
                           <tr key={index} className="uploadRowTable">
                             <td className={`${styles.doc_name}`}>
-                              {document.originalName}
+                              {document.name}
                             </td>
                             <td>
                               <img

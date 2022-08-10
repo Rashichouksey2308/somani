@@ -39,7 +39,7 @@ const Index = () => {
   let OrdID = sessionStorage.getItem('termOrdID')
   let newLcVal = removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) *  removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice)
 
-  console.log(newLcVal, 'THIS IS NEW LC VAL')
+  // console.log(newLcVal, 'THIS IS NEW LC VAL')
 
     useEffect(() => {
       {
