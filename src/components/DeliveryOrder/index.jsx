@@ -77,12 +77,10 @@ export default function Index(props) {
                         style={{ top: '5px' }}
                       >
                         <div className="d-flex">
-                          <select
+                          <select name='orderNumber' onChange={(e) => props.deliverChange(e.target.name, e.target.value, index)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                            <option>01</option>
-                            <option>02</option>
-                            <option>03</option>
+                            {_get(props,'ReleaseOrder.data[0].releaseDetail', []).map((option,index)=>(<option value={option.orderNumber} key={index}>{option.orderNumber}</option>))}
                             <option>N/A</option>
                           </select>
                           <label
@@ -138,7 +136,7 @@ export default function Index(props) {
                         <div className={`${styles.label} text`}>
                           Delivery Order No.
                         </div>
-                        <span className={styles.value}>Ramal001-00002/01</span>
+                        <span className={styles.value}>{val.deliveryOrderNo}</span>
                       </div>
                       <div
                         className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
@@ -148,7 +146,7 @@ export default function Index(props) {
                             <div className={`${styles.label} text`}>
                               Delivery Order Date
                             </div>
-                            <span className={styles.value}>22-02-2022</span>
+                            <span className={styles.value}>{val.deliveryOrderDate}</span>
                           </div>
                           {
                             val.isDelete ?
