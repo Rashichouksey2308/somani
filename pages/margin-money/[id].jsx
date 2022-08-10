@@ -8,7 +8,7 @@ import styles from './index.module.scss'
 import RevisedMargin from '../../src/components/RevisedMargin'
 import { Form } from 'react-bootstrap'
 
-import _get from "lodash/get";
+import _get from 'lodash/get'
 import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
 import Router from 'next/router'
@@ -29,7 +29,11 @@ function Index() {
 
   const marginData = margin?.data?.data[0]
   let id = sessionStorage.getItem('marginId')
-  const RevisedMarginMoneyTrue = _get(margin, "data.data[0].revisedMarginMoney.isActive", false)
+  const RevisedMarginMoneyTrue = _get(
+    margin,
+    'data.data[0].revisedMarginMoney.isActive',
+    false,
+  )
 
   useEffect(() => {
     let id = sessionStorage.getItem('marginId')
@@ -67,7 +71,7 @@ function Index() {
       marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
   })
 
-  console.log(marginData?.order?.quantity, ' marginData?.order?.quantity')
+  // console.log(marginData?.order?.quantity, ' marginData?.order?.quantity')
   const saveForCalculation = (name, value) => {
     const newInput = { ...forCalculation }
     newInput[name] = value
@@ -123,11 +127,11 @@ function Index() {
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 1) *
         90) /
-      365,
+        365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-      Number(Number(forCalculation.tradeMarginPercentage) / 100),
+        Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -143,7 +147,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-      Number(Number(forCalculation.marginMoney) / 100),
+        Number(Number(forCalculation.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -152,7 +156,7 @@ function Index() {
       Number(totalSPDC) / Number(forCalculation.numberOfPDC),
     ).toFixed(2) //T
 
-    console.log(orderValue, 'orderValue')
+    // console.log(orderValue, 'orderValue')
     setFinalCal({
       orderValue: orderValue,
       orderValueCurrency: orderValueCurrency,
@@ -171,6 +175,7 @@ function Index() {
   useEffect(() => {
     getData2()
   }, [forCalculation])
+
   const getData2 = () => {
     let orderValue = parseFloat(
       Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice),
@@ -185,11 +190,11 @@ function Index() {
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 1) *
         90) /
-      365,
+        365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-      Number(Number(forCalculation.tradeMarginPercentage) / 100),
+        Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -205,7 +210,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-      Number(Number(forCalculation.marginMoney) / 100),
+        Number(Number(forCalculation.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -214,7 +219,7 @@ function Index() {
       Number(totalSPDC) / Number(forCalculation.numberOfPDC),
     ).toFixed(2) //T
 
-    console.log(orderValue, 'orderValue')
+    // console.log(orderValue, 'orderValue')
     setFinalCal({
       orderValue: orderValue,
       orderValueCurrency: orderValueCurrency,
@@ -239,8 +244,7 @@ function Index() {
     buyerName: marginData?.invoiceDetail?.buyerName || '',
     buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
     buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
-    isConsigneeSameAsBuyer:
-      marginData?.invoiceDetail?.isConsigneeSameAsBuyer || '',
+    isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer,
     consigneeName: marginData?.invoiceDetail?.consigneeName || '',
     consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
     consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
@@ -254,17 +258,19 @@ function Index() {
     IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
     accountNo: marginData?.invoiceDetail?.accountNo || '',
   })
-  console.log(invoiceData, 'invoiceData')
+  // console.log(invoiceData, 'invoiceData')
 
-  console.log(invoiceData, 'INVOICE DATA')
+  
 
   const saveInvoiceData = (name, value) => {
     const newInput = { ...invoiceData }
     newInput[name] = value
-    // console.log(newInput)
+    console.log(newInput, 'nnto', name, value)
 
-    setInvoiceData(newInput)
+    setInvoiceData({...newInput})
   }
+
+  console.log(invoiceData, 'INVOICE DATA')
 
   const setSame = (val) => {
     if (val == true) {
@@ -293,18 +299,18 @@ function Index() {
       additionalPDC: forCalculation.additionalPDC,
       invoiceDetail: { ...invoiceData },
       calculation: {
-        orderValue: orderValue,
-        orderValueCurrency: orderValueCurrency,
-        orderValueInINR: orderValueInINR,
-        usanceInterest: usanceInterest,
-        tradeMargin: tradeMargin,
-        grossOrderValue: grossOrderValue,
-        toleranceValue: toleranceValue,
-        totalOrderValue: totalOrderValue,
-        provisionalUnitPricePerTon: provisionalUnitPricePerTon,
-        marginMoney: marginMoney,
-        totalSPDC: totalSPDC,
-        amountPerSPDC: amountPerSPDC,
+        orderValue: finalCal.orderValue,
+        orderValueCurrency: finalCal.orderValueCurrency,
+        orderValueInINR: finalCal.orderValueInINR,
+        usanceInterest: finalCal.usanceInterest,
+        tradeMargin: finalCal.tradeMargin,
+        grossOrderValue: finalCal.grossOrderValue,
+        toleranceValue: finalCal.toleranceValue,
+        totalOrderValue: finalCal.totalOrderValue,
+        provisionalUnitPricePerTon: finalCal.provisionalUnitPricePerTon,
+        marginMoney: finalCal.marginMoney,
+        totalSPDC: finalCal.totalSPDC,
+        amountPerSPDC: finalCal.amountPerSPDC,
       },
     }
     if (
@@ -330,10 +336,11 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${darkMode
-                  ? `/static/white-arrow.svg`
-                  : `/static/arrow-right.svg`
-                  }`}
+                src={`${
+                  darkMode
+                    ? `/static/white-arrow.svg`
+                    : `/static/arrow-right.svg`
+                }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -369,18 +376,20 @@ function Index() {
                 Margin Money
               </a>
             </li>
-            {RevisedMarginMoneyTrue ? <li className={`${styles.navItem} nav-item`}>
-              <a
-                className={`${styles.navLink} navLink nav-link`}
-                data-toggle="tab"
-                href="#revisedMargin"
-                role="tab"
-                aria-controls="revisedMargin"
-                aria-selected="false"
-              >
-                Revised Margin Money
-              </a>
-            </li> : null}
+            {RevisedMarginMoneyTrue ? (
+              <li className={`${styles.navItem} nav-item`}>
+                <a
+                  className={`${styles.navLink} navLink nav-link`}
+                  data-toggle="tab"
+                  href="#revisedMargin"
+                  role="tab"
+                  aria-controls="revisedMargin"
+                  aria-selected="false"
+                >
+                  Revised Margin Money
+                </a>
+              </li>
+            ) : null}
             {/* <li className={`${styles.navItem} nav-item`}>
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
                   </li> */}
@@ -1655,15 +1664,20 @@ function Index() {
                   </div>
                 </div>
 
-                {RevisedMarginMoneyTrue ? <div
-                  className="tab-pane fade"
-                  id="revisedMargin"
-                  role="tabpanel"
-                >
-                  <div className={`${styles.card}  accordion_body`}>
-                    <RevisedMargin marginData={marginData} finalCal={finalCal} />
+                {RevisedMarginMoneyTrue ? (
+                  <div
+                    className="tab-pane fade"
+                    id="revisedMargin"
+                    role="tabpanel"
+                  >
+                    <div className={`${styles.card}  accordion_body`}>
+                      <RevisedMargin
+                        marginData={marginData}
+                        finalCal={finalCal}
+                      />
+                    </div>
                   </div>
-                </div> : null}
+                ) : null}
 
                 <div className="tab-pane fade" id="Documents" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>

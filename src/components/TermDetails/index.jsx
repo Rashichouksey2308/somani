@@ -11,10 +11,10 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
 
     const updateThirdPartyInspection = (e) => {
-        if (e.target.value === "false") {
+        if (e.target.value == false) {
             setThirdPartyInspection(false)
             onChangeTransactionDetails(e)
-        } else if (e.target.value === "true") {
+        } else if (e.target.value == true) {
             setThirdPartyInspection(true)
             onChangeTransactionDetails(e)
         }
@@ -188,8 +188,9 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='loadPort' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
-                                    <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option>
+                                <select id='loadPort' className={`${styles.value} ${styles.customSelect} input form-control`} value={termsheetDetails?.transactionDetails?.loadPort} onChange={onChangeTransactionDetails} required>
+                                    {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
+                                    <option selected></option>
                                     <option value="Abbot Port">Abbot Port</option>
                                     <option value="India Port">India Port</option>
                                 </select>
@@ -203,8 +204,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='countryOfOrigin' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
-                                    <option value={termsheetDetails?.transactionDetails?.countryOfOrigin}>{termsheetDetails?.transactionDetails?.countryOfOrigin} </option>
+                                <select id='countryOfOrigin' className={`${styles.value} ${styles.customSelect} input form-control`} value={termsheetDetails?.transactionDetails?.countryOfOrigin} onChange={onChangeTransactionDetails} required>
+                                <option selected></option>
                                     <option value="Australia">Australia</option>
                                     <option value="India">India</option>
                                 </select>
@@ -218,8 +219,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='shipmentType' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
-                                    <option value={termsheetDetails?.transactionDetails?.shipmentType}>{termsheetDetails?.transactionDetails?.shipmentType} </option>
+                                <select id='shipmentType' className={`${styles.value} ${styles.customSelect} input form-control`} value={termsheetDetails?.transactionDetails?.shipmentType} onChange={onChangeTransactionDetails} required>
+                                    <option selected></option>
                                     <option value="Bulk">Bulk</option>
                                     <option value="Liner">Liner</option>
                                 </select>
@@ -249,8 +250,8 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                         </div>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className='d-flex'>
-                                <select id='portOfDischarge' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
-                                    <option value={termsheetDetails?.transactionDetails?.portOfDischarge}>{termsheetDetails?.transactionDetails?.portOfDischarge} </option>
+                                <select id='portOfDischarge' className={`${styles.value} ${styles.customSelect} input form-control`} value={termsheetDetails?.transactionDetails?.portOfDischarge} onChange={onChangeTransactionDetails} required>
+                                    <option selected></option>
                                     <option value="Visakhapatnam, India">Visakhapatnam, India</option>
                                     <option value="Vizag, India">Vizag, India</option>
                                 </select>
