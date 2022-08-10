@@ -103,7 +103,7 @@ export default function Index({ OrderId, customData }) {
                     <select
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option value="">please Select A vessel</option>
+                      <option value="">Please select a vessel</option>
                       <option value=""></option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
@@ -321,12 +321,12 @@ export default function Index({ OrderId, customData }) {
             id="contained-modal-title-vcenter"
             className={`${styles.title}  d-flex justify-content-between align-items-center`}
           >
-            <div className={`${styles.blue}`}>BL Details </div>
+            <div className={`${styles.blue} ml-3`}>BL Details </div>
             <div>
               <span>Commodity: </span>Iron{' '}
             </div>
             <img
-              src="/static/close-2.svg"
+              src="/static/close.svg"
               alt="close"
               onClick={handleClose}
               className="img-fluid"
@@ -341,9 +341,9 @@ export default function Index({ OrderId, customData }) {
             border="0"
           >
             <tr className={`border_color`}>
-              <th>BL NUMBER</th>
-              <th>BL DATE</th>
-              <th>BL QUANTITY</th>
+              <th width="33%">BL NUMBER</th>
+              <th width="33%">BL DATE</th>
+              <th width="33%">BL QUANTITY</th>
             </tr>
             <tr className={`border_color`}>
               <td>2345678</td>
@@ -372,7 +372,7 @@ export default function Index({ OrderId, customData }) {
             </tr>
           </table>
           <div>
-            <span>Total Quantity: </span>8,000 MT{' '}
+            <span>Total Quantity: </span> &nbsp; 8,000 MT{' '}
           </div>
         </Modal.Body>
       </Modal>
