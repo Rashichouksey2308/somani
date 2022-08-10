@@ -246,6 +246,7 @@ function Index() {
                 >
                   <div className={`${styles.card}  accordion_body`}>
                     <DeliveryOrder 
+                    ReleaseOrder={ReleaseOrderData}
                     releaseOrderData={deliveryOrder} 
                     addNewDelivery={addNewDelivery}
                     onEdit={onEdit}
