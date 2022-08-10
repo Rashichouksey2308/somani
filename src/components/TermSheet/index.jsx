@@ -37,7 +37,9 @@ const Index = () => {
     dispatch(setPageName('termsheet'))
   }, [dispatch])
   let OrdID = sessionStorage.getItem('termOrdID')
-  let newLcVal =
+  let newLcVal = removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) *  removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice)
+
+  console.log(newLcVal, 'THIS IS NEW LC VAL')
 
     useEffect(() => {
       {
@@ -55,7 +57,8 @@ const Index = () => {
                 tolerance: sheet?.order?.tolerance,
               },
               transactionDetails: {
-                lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
+                // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
+                lcValue: newLcVal,
                 lcCurrency: sheet?.transactionDetails?.lcCurrency,
                 marginMoney: sheet?.transactionDetails?.marginMoney,
                 lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
@@ -314,9 +317,9 @@ const Index = () => {
       insurance: { ...prev.insurance, [Key]: value },
     }))
   }
-  console.log(termsheetDetails, "tempSheet")
+  // console.log(termsheetDetails, "tempSheet")
   const handleSave = () => {
-    console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
+    // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = termsheetDetails
 
     tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
@@ -327,7 +330,7 @@ const Index = () => {
     tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(termsheetDetails.commercials.lcOpeningChargesPercentage)
     tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(termsheetDetails.commercials.usanceInterestPercetage)
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    console.log(termsheetDetails, "tempSheet1")
+    // console.log(termsheetDetails, "tempSheet1")
 
     const UpdatedTermsheet = {
       ...tempSheet,
@@ -336,7 +339,7 @@ const Index = () => {
       additionalComments,
     }
 
-    console.log(termsheetDetails, 'updatedtermsheet')
+    // console.log(termsheetDetails, 'updatedtermsheet')
     dispatch(updateTermsheet(UpdatedTermsheet))
     //router.push('/termsheet')
   }
@@ -447,6 +450,7 @@ const Index = () => {
               termsheetDetails={termsheetDetails}
               handleSave={handleSave}
               termsheet={termsheet}
+              newLcVal={newLcVal}
             />
             <AdditionalComment
               setAdditionalComments={setAdditionalComments}
