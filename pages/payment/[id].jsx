@@ -9,7 +9,7 @@ import DeliveryPreview from '../../src/components/DeliveryPreview'
 import LiftingDetails from '../../src/components/LiftingDetails'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllDelivery, GetDelivery } from '../../src/redux/release&DeliveryOrder/action'
-import {GetAllLifting} from '../../src/redux/Lifting/action'
+import {GetAllLifting,UpdateLiftingData} from '../../src/redux/Lifting/action'
 import _get from 'lodash/get'
 
 function Index() {
@@ -27,9 +27,147 @@ function Index() {
   }, [dispatch])
 
   const {allLiftingData} = useSelector((state)=>state.Lifting)
-
+  console.log(allLiftingData,"allLiftingData")
   const liftingData = _get( allLiftingData, 'data[0]', '')
+  const [lifting,setLifting]=useState([])
+  const addNewLifting=(value)=>{
+   setLifting([...lifting,{
+    deliveryOrder:value,
+    detail:[
+      {
+        dateOfLifting:"",
+        liftingQuant:"",
+        modeOfTransportation:"RR",
+        eWayBill:"",
+        LRorRRDoc:"",
+        eWayBillDoc:""
+      }
+    ]
 
+   }])
+  }
+  const addNewSubLifting=(index)=>{
+    let tempArr=lifting
+    tempArr.forEach((val,i)=>{
+      if(i==index){
+        val.detail.push({
+        dateOfLifting:"",
+        liftingQuant:"",
+        modeOfTransportation:"RR",
+        eWayBill:"",
+        LRorRRDoc:"",
+        eWayBillDoc:""
+      })
+      }
+    })
+    setLifting([...tempArr])
+  }
+  const handleChange=(name,value,index,index2)=>{
+    console.log(name,value,index,index2,"date")
+     let tempArr=lifting
+     tempArr.forEach((val,i)=>{
+      if(i==index){
+       val.detail.forEach((val2,i2)=>{{
+        if(i2==index2){
+          console.log(val2,"val2.detail")
+           val2[name]=value
+        }
+       }})
+      }
+    })
+    setLifting([...tempArr])
+  }
+  const handleLiftingSubmit=()=>{
+    let data={
+    liftingId: "62f0e9d5c2d05d1eb492aaa5",
+    liftingOrders: [
+        // {
+        //     "deliveryOrder": "deliveryOrder",
+        //     "deliveryOrderDetail": [
+        //         {
+        //             "dateOfLifting": "2022-08-08T10:47:49.628Z",
+        //             "liftingQuantity": 10,
+        //             "unitOfQuantity": "deliveryOrder",
+        //             "modeOfTransport": "RR",
+        //             "ewayBillNo": "deliveryOrder",
+        //             "RRDocument": {
+        //                 "name": "String",
+        //                 "originalName": "String",
+        //                 "format": "String",
+        //                 "path": "String",
+        //                 "date": "2022-08-02T15:56:24.263Z",
+        //                 "uploadedBy": "629ee8ec0fdff545a0969515"
+        //             },
+        //             "LRDocument": {
+        //                 "name": "String",
+        //                 "originalName": "String",
+        //                 "format": "String",
+        //                 "path": "String",
+        //                 "date": "2022-08-02T15:56:24.263Z",
+        //                 "uploadedBy": "629ee8ec0fdff545a0969515"
+        //             },
+        //             "ewayBillDocument": {
+        //                 "name": "String",
+        //                 "originalName": "String",
+        //                 "format": "String",
+        //                 "path": "String",
+        //                 "date": "2022-08-02T15:56:24.263Z",
+        //                 "uploadedBy": "629ee8ec0fdff545a0969515"
+        //             }
+        //         }
+        //     ]
+        // }
+    ]
+}
+ 
+
+    console.log(data,"datatoSend")
+    // UpdateLiftingData(data)
+  }
+  console.log(lifting,"newLift")
+
+  const [deliveryOrder,setDeliveryOrder]=useState([
+    {
+      
+       "orderNumber" : 1,
+       "unitOfMeasure" : "MT",
+        "isDelete":false,
+         "Quantity":""
+   
+    }
+  ])
+  const addNewDelivery=(value)=>{
+   setDeliveryOrder([...deliveryOrder,{
+  
+        "orderNumber" : 1,
+       "unitOfMeasure" : "MT",
+        "isDelete":false,
+        "Quantity":""
+   }])
+  }
+    const deleteNewDelivery=(index)=>{
+   setDeliveryOrder([...deliveryOrder.slice(0,index), ...deliveryOrder.slice(index+1)])
+  }
+    const onEdit=(index,value)=>{
+    let tempArr=deliveryOrder
+    tempArr.forEach((val,i)=>{
+      if(i==index){
+       val.isDelete=value
+     
+      }
+    })
+    setDeliveryOrder([...tempArr])
+  }
+  const deliverChange=(name,value,index)=>{
+ let tempArr=deliveryOrder
+    tempArr.forEach((val,i)=>{
+      if(i==index){
+       val[name]=value
+     
+      }
+    })
+    setDeliveryOrder([...tempArr])
+  }
   return (
     <>
       <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -107,7 +245,12 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <DeliveryOrder ReleaseOrderData={ReleaseOrderData} />
+                    <DeliveryOrder 
+                    releaseOrderData={deliveryOrder} 
+                    addNewDelivery={addNewDelivery}
+                    onEdit={onEdit}
+                    deliverChange={deliverChange}
+                    />
                   </div>
                 </div>
 
@@ -117,7 +260,13 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <LiftingDetails liftingData={liftingData} />
+                    <LiftingDetails 
+                    liftingData={lifting} 
+                    addNewLifting={addNewLifting} 
+                    addNewSubLifting={addNewSubLifting} 
+                    handleChange={handleChange}
+                    handleLiftingSubmit={handleLiftingSubmit}
+                    />
                   </div>
                 </div>
               </div>

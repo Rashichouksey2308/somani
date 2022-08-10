@@ -4,11 +4,19 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import DateCalender from '../DateCalender'
+import API from '../../utils/endpoints'
+import toast from 'react-toastify'
+import Cookies from 'js-cookie'
+import Axios from 'axios'
 
-export default function Index() {
+
+
+
+export default function Index(props) {
+  console.log(props.liftingData,"liftingdata")
   const [editInput, setEditInput] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
-
+  const [currentOrder,setCurrentOrder]=useState("Ramal001-00001/05")
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
       setEditInput(false)
@@ -16,6 +24,55 @@ export default function Index() {
       setEditInput(true)
     }
   }
+  const saveDate = (value, name,index,index2) => {
+  
+    const d = new Date(value)
+    let text = d.toISOString()
+    props.handleChange(name,value,index,index2)
+    
+  }
+  const uploadDoc = async(e,type,index1,index2) => {
+    console.log(e,"response data")
+     let fd = new FormData()
+     fd.append('document',  e.target.files[0])
+     // dispatch(UploadCustomDoc(fd))
+ 
+     let cookie = Cookies.get('SOMANI')
+     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+   
+     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+     try {
+      let response= await  Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+         headers: headers,
+       })
+       console.log(response.data.data, 'response data123')
+        if (response.data.code === 200) {
+           // dispatch(getCustomClearanceSuccess(response.data.data))
+            props.handleChange(type,response.data.data,index1,index2)
+           return  response.data.data; 
+          
+           // let toastMessage = 'DOCUMENT UPDATED'
+           // if (!toast.isActive(toastMessage)) {
+           //   toast.error(toastMessage, { toastId: toastMessage })
+           // }
+         } else {
+           // dispatch(getCustomClearanceFailed(response.data.data))
+           // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+           // if (!toast.isActive(toastMessage)) {
+           //   toast.error(toastMessage, { toastId: toastMessage })
+           // }
+         }
+     } catch (error) {
+       // dispatch(getCustomClearanceFailed())
+   
+       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+       // if (!toast.isActive(toastMessage)) {
+       //   toast.error(toastMessage, { toastId: toastMessage })
+       // }
+     }
+  }
+ 
   return (
     <>
       {/* <div className={`${styles.dashboardTab} w-100`}> */}
@@ -74,9 +131,13 @@ export default function Index() {
                     <select
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       style={{ height: '46px', width: '277px' }}
+                      value={currentOrder}
+                      onChange={(e)=>{
+                        setCurrentOrder(e.target.value);
+                      }}
                     >
-                      <option>Ramal001-00001/05</option>
-                      <option>Ramal001-00001/02</option>
+                      <option value="Ramal001-00001/05">Ramal001-00001/05</option>
+                      <option value="Ramal001-00001/02">Ramal001-00001/02</option>
                     </select>
 
                     <img
@@ -96,20 +157,22 @@ export default function Index() {
                   </div>
                 </div>
               </div>
-              <button className={styles.add_btn}>
+              <button className={styles.add_btn} onClick={(e)=>{props.addNewLifting(currentOrder)}}>
                 <span className={styles.add_sign}>+</span>Add
               </button>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 card border_color`}>
+          {props.liftingData && props.liftingData.map((val,index)=>{
+            return(
+              <div className={`${styles.main} mt-4 card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between bg-transparent`}
-              data-toggle="collapse"
-              data-target="#upload"
+              data-toggle={`collapse`}
+              data-target={`#upload${index}`}
               aria-expanded="true"
-              aria-controls="upload"
+              aria-controls={`upload${index}`}
             >
-              <h3 className={`${styles.heading}`}>Ramal001-000001/05</h3>
+              <h3 className={`${styles.heading}`}>{val.deliveryOrder}</h3>
               <div className="d-flex">
                 <div className="d-flex mr-5">
                   <div className={`${styles.label_heading} mr-3 label_heading`}>
@@ -127,26 +190,39 @@ export default function Index() {
               </div>
             </div>
             <div
-              id="upload"
-              className="collapse"
-              aria-labelledby="upload"
-              data-parent="#upload"
+              id={`upload${index}`}
+              className={`collapse}`}
+              aria-labelledby={`upload${index}`}
+              data-parent={`#upload${index}`}
             >
-              <div className={`${styles.dashboard_form} mt-3 card-body`}>
+              {val.detail.map((val2,index2)=>{
+                return(
+                  <div className={`${styles.dashboard_form} mt-3 card-body`}>
                 <div className={`${styles.bill_landing} border_color`}>
                   <div className={`${styles.vessel_card}`}>
                     <div className="justify-content-between d-flex mt-4">
                       <div className={`${styles.form_heading}`}>
-                        Listing Details 1
+                        Listing Details {index2}
                       </div>
-                      <button className={styles.add_btn}>Add</button>
+                      <button className={styles.add_btn}
+                      onClick={(e)=>{
+                        props.addNewSubLifting(index)
+                      }}
+                      >Add</button>
                     </div>
                     <div className="row">
                       <div
                         className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                       >
                         <div className="d-flex">
-                          <DateCalender labelName="Date of Lifting" />
+                          <DateCalender
+                          saveDate={saveDate}
+                          index={index}
+                          index2={index2}
+                          name="dateOfLifting"
+                          labelName="Date of Lifting" dateFormat={"dd-MM-yyyyy"}
+                           
+                          />
                           <img
                             className={`${styles.calanderIcon} img-fluid`}
                             src="/static/caldericon.svg"
@@ -161,6 +237,10 @@ export default function Index() {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="number"
+                          name="liftingQuant"
+                          onChange={(e)=>{
+                            props.handleChange(e.target.name,e.target.value,index,index2)
+                          }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -183,17 +263,25 @@ export default function Index() {
                                 className={styles.radio}
                                 inline
                                 label="RR"
-                                name="group1"
+                                name="modeOfTransportation"
                                 type={type}
                                 id={`inline-${type}-1`}
+                                value={"RR"}
+                                  onChange={(e)=>{
+                                    props.handleChange(e.target.name,e.target.value,index,index2)
+                                  }}
                               />
                               <Form.Check
                                 className={`${styles.radio} ml-4`}
                                 inline
-                                label="e-Way Bill"
-                                name="group1"
+                                label="LR"
+                                name="modeOfTransportation"
                                 type={type}
                                 id={`inline-${type}-2`}
+                                 value={"LR"}
+                                onChange={(e)=>{
+                               props.handleChange(e.target.name,e.target.value,index,index2)
+                                }}
                               />
                             </div>
                           ))}
@@ -206,6 +294,10 @@ export default function Index() {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          name="eWayBill"
+                          onChange={(e)=>{
+                               props.handleChange(e.target.name,e.target.value,index,index2)
+                          }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -258,7 +350,7 @@ export default function Index() {
                           <tbody>
                             <tr className="table_row">
                               <td className={styles.doc_name}>
-                                RR <strong className="text-danger">*</strong>
+                                {val2.modeOfTransportation} <strong className="text-danger">*</strong>
                               </td>
                               <td>
                                 <img
@@ -273,12 +365,16 @@ export default function Index() {
 
                               <td colSpan="2">
                                 <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
-                                  <button
-                                    className={`${styles.upload_action} btn`}
-                                  >
-                                    Upload
-                                  </button>
+                                  <div className={styles.uploadBtnWrapper}>
+                          <input
+                            id='document3'
+                            onChange={(e) => uploadDoc(e,"LRorRRDoc",index,index2)}
+                            type="file" name="myfile" />
+                          <button className={`${styles.upload_btn} btn`}>
+                            Upload
+                          </button>
+                        </div>
+                                
                                 </div>
                               </td>
                             </tr>
@@ -300,12 +396,26 @@ export default function Index() {
 
                               <td colSpan="2">
                                 <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
+                                        <input
+                                        id='document3'
+                                        onChange={(e) => uploadDoc(e,"eWayBillDoc",index,index2)}
+                                        type="file" name="myfile" />
+                                        <button className={`${styles.upload_btn} btn`}>
+                                        Upload
+                                        </button>
+                        
+                                  {/* <input type="file" name="myfile2" 
+                                   onChange={(e)=>{
+
+                                    uploadDoc(e,"eWayBillDoc",index1,index2)
+                                  }}
+                                  />
                                   <button
                                     className={`${styles.upload_action} btn`}
+                                    
                                   >
                                     Upload
-                                  </button>
+                                  </button> */}
                                 </div>
                               </td>
                             </tr>
@@ -316,208 +426,18 @@ export default function Index() {
                   </div>
 
                   <hr></hr>
-                  <div className={`${styles.vessel_card} mt-4 mb-4`}>
+                  {/* <div className={`${styles.vessel_card} mt-4 mb-4`}>
                     <button className={`${styles.saveBtn}`}>Save</button>
-                  </div>
+                  </div> */}
                 </div>
-                <div className={`${styles.bill_landing} mt-4 border_color`}>
-                  <div className={`${styles.vessel_card}`}>
-                    <div className="justify-content-between d-flex mt-4">
-                      <div className={`${styles.form_heading}`}>
-                        Listing Details 1
-                      </div>
-                      <button className={styles.add_btn}>Add</button>
-                    </div>
-                    <div className="row">
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                      >
-                        <div className="d-flex">
-                          <DateCalender labelName="Date of Lifting" />
-                          <img
-                            className={`${styles.calanderIcon} img-fluid`}
-                            src="/static/caldericon.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                      >
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="number"
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Lifting Quantity
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                      >
-                        <div className={styles.radio_form}>
-                          <div className={`${styles.sub_heading} sub_heading`}>
-                            Mode of Transportation
-                            <strong className="text-danger">*</strong>
-                          </div>
-                          {['radio'].map((type, index) => (
-                            <div key={index} className={styles.radio_group}>
-                              <Form.Check
-                                className={styles.radio}
-                                inline
-                                label="RR"
-                                name="group1"
-                                type={type}
-                                id={`inline-${type}-1`}
-                              />
-                              <Form.Check
-                                className={`${styles.radio} ml-4`}
-                                inline
-                                label="e-Way Bill"
-                                name="group1"
-                                type={type}
-                                id={`inline-${type}-2`}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                      >
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="text"
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          E-way Bill No.
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className={`${styles.table_container} mt-5`}>
-                    <div className={styles.table_scroll_outer}>
-                      <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
-                          <thead>
-                            <tr>
-                              <th>
-                                DOCUMENT NAME{' '}
-                                <img
-                                  className={`${styles.sort_image} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>
-                                FORMAT{' '}
-                                <img
-                                  className={`${styles.sort_image} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>
-                                DOCUMENT DATE{' '}
-                                <img
-                                  className={`${styles.sort_image} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>ACTION</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                RR <strong className="text-danger">*</strong>
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
-
-                              <td colSpan="2">
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
-                                  <button
-                                    className={`${styles.upload_action} btn`}
-                                  >
-                                    Upload
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                E-Way Bill{' '}
-                                <strong className="text-danger">*</strong>
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
-
-                              <td colSpan="2">
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
-                                  <button
-                                    className={`${styles.upload_action} btn`}
-                                  >
-                                    Upload
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-
-                  <hr></hr>
-                  <div
-                    className={`${styles.vessel_card} d-flex justify-content-between align-items-center mt-4 mb-4`}
-                  >
-                    <button className={`${styles.saveBtn}`}>Save</button>
-                    <div className="d-flex">
-                      <div className={`${styles.label} mr-3 mt-1 text`}>
-                        Balance Quantity:
-                      </div>
-                      <div className={`${styles.do_number}`}>0 MT</div>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
+                )
+              })}
             </div>
           </div>
+            )
+          })}
 
           <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
             <div
@@ -770,7 +690,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar rightBtn="Submit" handleSave={props.handleLiftingSubmit} />
 
         {/* </div> */}
       </div>

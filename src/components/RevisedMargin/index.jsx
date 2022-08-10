@@ -824,7 +824,7 @@ const Index = ({ finalCal, marginData }) => {
                     Consignee Address<strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div className={`${styles.radio_form} col-md-12`}>
+                {/* <div className={`${styles.radio_form} col-md-12`}>
                   <div className={`${styles.label_heading} label_heading`}>
                     Same as Buyer{' '}
                     <span className="ml-4">{`In Case User Selects "No"`}</span>
@@ -904,7 +904,7 @@ const Index = ({ finalCal, marginData }) => {
                   >
                     Consignee Address<strong className="text-danger">*</strong>
                   </label>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className={`${styles.content} border_color`}>
