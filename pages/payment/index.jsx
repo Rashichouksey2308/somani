@@ -3,25 +3,10 @@ import React from 'react'
 import styles from './index.module.scss'
 import PaymentTableMain from '../../src/components/PaymentTableMain'
 import Filter from '../../src/components/Filter'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetAllDelivery, GetDelivery } from '../../src/redux/release&DeliveryOrder/action'
 import Router from 'next/router'
 
 function Index() {
-  const [currentPage, setCurrentPage] = useState(0);
-  const dispatch = useDispatch()
-  const { allReleaseOrder } = useSelector((state) => state.Release)
 
-  useEffect(() => {
-    dispatch(GetAllDelivery(`?page=${currentPage}&limit=7`))
-  }, [])
-
-
-  // const handleRoute = (sheet) => {
-  //   dispatch(GetDelivery(`?company=${sheet.company._id}`))
-  //   sessionStorage.setItem('deleviryID', sheet.company._id )
-  //   Router.push('/payment/id')
-  // }
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -121,7 +106,7 @@ function Index() {
           pageType="DELIVERY ORDER NO."
           dateHeading="DELIVERY ORDER DATE"
           isStatus={true}
-          handleRoute={openRoute}
+          
         />
       </div>
     </div>

@@ -15,7 +15,7 @@ function Index(props) {
   const dispatch = useDispatch()
  const [genData,setData]=useState([])
   
-  const { generic } = useSelector((state) => state.generic.allGeneric)
+  const { generic } = useSelector((state) => state?.generic?.allGeneric)
   console.log(genData,"generic22131")
 
  useEffect(() => {

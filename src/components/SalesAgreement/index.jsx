@@ -68,7 +68,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props.genericData.supplier}
+         data={props.genericData.buyer}
         />
       )
     }
@@ -93,7 +93,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-        data={props.genericData.supplier}
+        data={props.genericData.seller}
 
         />
       )
@@ -120,7 +120,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props.genericData.supplier}
+         data={props.genericData.cma}
         />
       )
     }
@@ -146,7 +146,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props.genericData.supplier}
+         data={props.genericData.shipping}
         />
       )
     }
@@ -181,7 +181,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
          active={active}
-         data={props.genericData.supplier}
+         data={props.genericData.deliveryTerms}
         />
       )
     }
@@ -219,7 +219,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
          active={active}
-         data={props?.genericData?.deliveryTerms}
+         data={props?.genericData?.placeOfExecution}
         
         />
       )

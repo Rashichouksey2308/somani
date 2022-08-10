@@ -2,27 +2,29 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllDelivery } from '../../redux/release&DeliveryOrder/action'
-import { Router } from 'next/router'
+import { GetAllDelivery, GetDelivery } from '../../redux/release&DeliveryOrder/action'
+import Router from 'next/router'
 
-function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handleEditRoute }) {
+function Index({ tableName, pageType, isStatus, dateHeading, handleEditRoute }) {
   const dispatch = useDispatch()
 
   const [currentPage, setCurrentPage] = useState(0);
   const { allReleaseOrder } = useSelector((state) => state.Release)
+  console.log(allReleaseOrder, 'allReleaseOrder')
 
   useEffect(() => {
     dispatch(GetAllDelivery(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
 
 
-  // const handleRoute = (sheet) => {
-  //   dispatch(GetDelivery(`?company=${sheet.company._id}`))
-  //   sessionStorage.setItem('deleviryID', sheet.company._id )
-  //   Router.push('/payment/id')
-  // }
+  const handleRoute = (sheet) => {
+    sessionStorage.setItem('ROrderID', sheet._id)
+    dispatch(GetDelivery(`?deliveryId=${sheet._id}`))
+    sessionStorage.setItem('company', sheet.company._id)
+    Router.push('/payment/id')
+  }
 
-  
+
 
 
   return (
@@ -36,7 +38,7 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handle
         >
           <span>
             Showing Page {currentPage + 1} out of{' '}
-            {Math.ceil(insuranceResponse?.totalCount / 7)}
+            {Math.ceil(allReleaseOrder?.totalCount / 7)}
           </span>
           <a
             onClick={() => {
@@ -60,7 +62,7 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handle
             onClick={() => {
               if (
                 currentPage + 1 <
-                Math.ceil(insuranceResponse?.totalCount / 7)
+                Math.ceil(allReleaseOrder?.totalCount / 7)
               ) {
                 setCurrentPage((prevState) => prevState + 1)
               }
@@ -120,7 +122,7 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handle
               </tr>
             </thead>
             <tbody>
-            { insuranceResponse && insuranceResponse?.data?.map((insured, index) => ( <tr key={index} className="table_row">
+              {allReleaseOrder && allReleaseOrder?.data?.map((insured, index) => (<tr key={index} className="table_row">
                 <td>{insured?.order?.orderId}</td>
                 <td
                   className={styles.buyerName}
@@ -137,12 +139,12 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handle
                   <span className={`${styles.status} ${styles.review}`}></span>
                   On-Hold
                 </td>
-                <td onClick={()=>handleEditRoute(insured)}>
+                <td onClick={() => handleEditRoute(insured)}>
                   <img
                     className={`${styles.edit_image} img-fluid mr-3`}
                     src="/static/mode_edit.svg"
                     alt="edit"
-                    
+
                   />
                 </td>
               </tr>))}
