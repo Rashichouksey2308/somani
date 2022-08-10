@@ -335,11 +335,10 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -408,14 +407,14 @@ function Index() {
         </div>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-12 accordion_body">
+            <div className="col-md-12 px-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane fade show active"
                   id="Margin"
                   role="tabpanel"
                 >
-                  <div className={`${styles.card}  accordionMargin card`}>
+                  <div className={`${styles.card} vessel_card accordionMargin card`}>
                     <div
                       className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
                       data-toggle="collapse"
@@ -1138,7 +1137,7 @@ function Index() {
                   </div>
 
                   <div
-                    className={`${styles.card} ${styles.lastComponent} accordionMargin card`}
+                    className={`${styles.card} ${styles.lastComponent} vessel_card accordionMargin card`}
                   >
                     <div
                       className={`${styles.cardHeader}  d-flex align-items-center justify-content-between`}
