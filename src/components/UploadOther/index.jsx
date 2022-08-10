@@ -328,7 +328,7 @@ const Index = ({ orderid, module }) => {
                 <tbody>
                   <tr></tr>
 
-                  <tr className="uploadRowTable">
+                  {/* <tr className="uploadRowTable">
                     <td className={styles.doc_name}>Container No. List</td>
                     <td>
                       <img
@@ -362,7 +362,7 @@ const Index = ({ orderid, module }) => {
                         alt="Share"
                       />
                     </td>
-                  </tr>
+                  </tr> */}
                   {documentsFetched &&
                     documentsFetched?.documents?.map((document, index) => {
                       if (document.deleted) {
@@ -371,7 +371,7 @@ const Index = ({ orderid, module }) => {
                         return (
                           <tr key={index} className="uploadRowTable">
                             <td className={`${styles.doc_name}`}>
-                              {document.name}
+                              {document.originalName}
                             </td>
                             <td>
                               <img
