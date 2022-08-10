@@ -57,6 +57,23 @@ function updateMarginMoneyFailed() {
   }
 }
 
+function updatingRevisedMarginMoney() {
+  return {
+    type: types.UPDATE_MARGINMONEY_REVISED,
+  }
+}
+function updatingRevisedMarginMoneySuccess(payload) {
+  return {
+    type: types.UPDATE_MARGINMONEY_REVISED_SUCCESSFULL,
+    payload,
+  }
+}
+function updatingRevisedMarginMoneyFailed() {
+  return {
+    type: types.UPDATE_MARGINMONEY_REVISED_FAILED,
+  }
+}
+
 export const GetAllMarginMoney =
   (payload) => async (dispatch, getState, api) => {
     try {
@@ -153,6 +170,41 @@ export const UpdateMarginMoney =
     } catch (error) {
       dispatch(updateMarginMoneyFailed())
       let toastMessage = 'UPDATE MARGIN MONEY REQUEST FAILED'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
+  }
+
+export const RevisedMarginMoney =
+  (payload) => async (dispatch, getState, api) => {
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      Axios.put(`${API.corebaseUrl}${API.reviseMarginMoney}`, payload, {
+        headers: headers,
+      }).then((response) => {
+        if (response.data.code === 200) {
+          dispatch(updatingRevisedMarginMoneySuccess(response.data))
+          let toastMessage = 'SAVED SUCCESSFULLY'
+          if (!toast.isActive(toastMessage)) {
+            toast.success(toastMessage, { toastId: toastMessage })
+          }
+          // router.push('/margin-money')
+        } else {
+          dispatch(updatingRevisedMarginMoneyFailed(response.data))
+          let toastMessage = 'UPDATE REQUEST FAILED'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        }
+      })
+    } catch (error) {
+      dispatch(updatingRevisedMarginMoneyFailed())
+      let toastMessage = 'REVISE MARGIN MONEY REQUEST FAILED'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
