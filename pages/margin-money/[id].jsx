@@ -18,6 +18,7 @@ import {
   GetMarginMoney,
 } from '../../src/redux/marginMoney/action'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { addPrefixOrSuffix } from '../../src/utils/helper'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
@@ -487,7 +488,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.quantity?.toLocaleString()}
+                                  {addPrefixOrSuffix(marginData?.order?.quantity?.toLocaleString(), '')}
                                 </div>
                               </div>
                             </div>
@@ -592,7 +593,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.perUnitPrice}
+                                  {addPrefixOrSuffix(marginData?.order?.perUnitPrice, '')}
                                 </div>
                               </div>
                             </div>
@@ -725,8 +726,8 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {
-                                    marginData?.order?.termsheet?.commercials
-                                      ?.tradeMarginPercentage
+                                  addPrefixOrSuffix(marginData?.order?.termsheet?.commercials
+                                      ?.tradeMarginPercentage, '%', '')
                                   }
                                 </div>
                               </div>
@@ -748,7 +749,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.tolerance}
+                                  {addPrefixOrSuffix(marginData?.order?.tolerance, '%', '')}
                                 </div>
                               </div>
                             </div>
@@ -771,8 +772,8 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {
-                                    marginData?.order?.termsheet
-                                      ?.transactionDetails?.marginMoney
+                                   addPrefixOrSuffix( marginData?.order?.termsheet
+                                      ?.transactionDetails?.marginMoney, '%', '')
                                   }
                                 </div>
                               </div>
@@ -1684,7 +1685,7 @@ function Index() {
                   <div className={`${styles.card}  accordion_body`}>
                     <UploadOther
                       orderid={id}
-                      module="LeadOnboardingOrderApproval"
+                      module="LeadOnboarding&OrderApproval"
                     />
                   </div>
                 </div>
