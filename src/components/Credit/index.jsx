@@ -241,7 +241,7 @@ const index = ({
 
   return (
     <>
-      <div className={`${styles.main} card border_color`}>
+      <div className={`${styles.main} vessel_card card border_color`}>
         <div
           className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -564,7 +564,7 @@ const index = ({
         </div>
       </div>
 
-      <div className={`${styles.main} card border_color`}>
+      <div className={`${styles.main} vessel_card card border_color`}>
         <div
           className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -863,24 +863,55 @@ const index = ({
                     <tbody key={index}>
                       <tr className="table_credit">
                         <td>
-                          <input
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            defaultValue={person.name}
+                            name="name"
+                            onChange={(e) => handlePersonChange(e, index)}
+                            readOnly={!saveContactTable}
+                          >
+                            <option>Ram Lal</option>
+                            <option>Ramakrishna</option>
+                          </select>
+                          <img
+                            className={`${styles.arrow} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                          {/* <input
                             className="input font-weight-bold"
                             defaultValue={person.name}
                             name="name"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
                             readOnly={!saveContactTable}
-                          />
+                          /> */}
                         </td>
                         <td>
-                          <input
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            defaultValue={person.designation}
+                            name="designation"
+                            onChange={(e) => handlePersonChange(e, index)}
+                            readOnly={!saveContactTable}
+                          >
+                            <option>Director</option>
+                            <option>Production Manager</option>
+                            <option>Lead Manager</option>
+                          </select>
+                          <img
+                            className={`${styles.arrow} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                          {/* <input
                             className="input"
                             defaultValue={person.designation}
                             name="designation"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
                             readOnly={!saveContactTable}
-                          />
+                          /> */}
                         </td>
                         <td>
                           <input
@@ -925,7 +956,7 @@ const index = ({
                           />
                         </td>
                         <td>
-                          <div>
+                          <div className="d-flex">
                             {!saveContactTable ? (
                               <img
                                 src="/static/mode_edit.svg"
@@ -971,7 +1002,7 @@ const index = ({
         </div>
       </div>
 
-      <div className={`${styles.main} card border_color`}>
+      <div className={`${styles.main} vessel_card card border_color`}>
         <div
           className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1538,6 +1569,81 @@ const index = ({
                     </button>
                   </div>
                 </div>
+                <div className={`${styles.form_group} col-md-8 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="text"
+                    required
+                    name="completeAddress"
+                    defaultValue={editData.completeAddress}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Address<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="text"
+                    name="branch"
+                    required
+                    defaultValue={editData.branch}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Branch<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="GSTIN"
+                    defaultValue={editData.GSTIN}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    GSTIN<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+
+                <div className={`${styles.btn_container} col-md-4`}>
+                  <button className={`${styles.gst_btn}`}>
+                    {' '}
+                    <input
+                      type="file"
+                      name={keyAddressData.GSTIN}
+                      // name="myfile"
+                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                      onChange={(e) => {
+                        uploadDocument(e)
+                      }}
+                    />
+                    <img
+                      className="img-fluid mr-2 mb-1"
+                      src="/static/file_upload.svg"
+                      alt="file upload"
+                    />
+                    GST Doc
+                  </button>
+                </div>
+                <button
+                  className={`${styles.add_btn}`}
+                  onClick={() => {
+                    updateKeyAddDataArr(editData, Index)
+                    setShowEditAddress(false)
+                  }}
+                >
+                  Update
+                </button>
               </div>
             ) : null}
             <div

@@ -12,7 +12,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
   }
 
   return (
-    <div className={`${styles.main} card border-color`}>
+    <div className={`${styles.main} vessel_card card border-color`}>
       <div
         className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between bg-transparent`}
         data-toggle="collapse"
