@@ -30,7 +30,7 @@ function Index() {
   const { allLiftingData } = useSelector((state) => state.Lifting)
   //console.log(allLiftingData, "allLiftingData")
   const liftingData = _get(allLiftingData, 'data[0]', '')
-  const [lifting, setLifting] = useState([])
+  const [lifting, setLifting] = useState([])  
   const addNewLifting = (value) => {
     setLifting([...lifting, {
       deliveryOrder: value,
@@ -47,6 +47,7 @@ function Index() {
 
     }])
   }
+  console.log(lifting,"listting to send")
   const addNewSubLifting = (index) => {
     let tempArr = lifting
     tempArr.forEach((val, i) => {
@@ -64,7 +65,7 @@ function Index() {
     setLifting([...tempArr])
   }
   const handleChange = (name, value, index, index2) => {
-    //console.log(name, value, index, index2, "date")
+    console.log(name, value, index, index2, "date")
     let tempArr = lifting
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -81,52 +82,72 @@ function Index() {
     setLifting([...tempArr])
   }
   const handleLiftingSubmit = () => {
-    let data = {
-      liftingId: "62f0e9d5c2d05d1eb492aaa5",
-      liftingOrders: [
-        // {
-        //     "deliveryOrder": "deliveryOrder",
-        //     "deliveryOrderDetail": [
-        //         {
-        //             "dateOfLifting": "2022-08-08T10:47:49.628Z",
-        //             "liftingQuantity": 10,
-        //             "unitOfQuantity": "deliveryOrder",
-        //             "modeOfTransport": "RR",
-        //             "ewayBillNo": "deliveryOrder",
-        //             "RRDocument": {
-        //                 "name": "String",
-        //                 "originalName": "String",
-        //                 "format": "String",
-        //                 "path": "String",
-        //                 "date": "2022-08-02T15:56:24.263Z",
-        //                 "uploadedBy": "629ee8ec0fdff545a0969515"
-        //             },
-        //             "LRDocument": {
-        //                 "name": "String",
-        //                 "originalName": "String",
-        //                 "format": "String",
-        //                 "path": "String",
-        //                 "date": "2022-08-02T15:56:24.263Z",
-        //                 "uploadedBy": "629ee8ec0fdff545a0969515"
-        //             },
-        //             "ewayBillDocument": {
-        //                 "name": "String",
-        //                 "originalName": "String",
-        //                 "format": "String",
-        //                 "path": "String",
-        //                 "date": "2022-08-02T15:56:24.263Z",
-        //                 "uploadedBy": "629ee8ec0fdff545a0969515"
-        //             }
-        //         }
-        //     ]
-        // }
-      ]
-    }
+   
+    let tempArr=[]
+    let temp2=[]
+    lifting.forEach((val,index)=>{
+      console.log(val,"val88")
+      if(val.detail.modeOfTransportation=="RR"){
+         val.detail.map((val2,index2)=>{
+         temp2.push(  {
+            dateOfLifting:val2.dateOfLifting,
+            liftingQuantity:val2.liftingQuant,
+            unitOfQuantity:val2.unitOfQuantity,
+            modeOfTransport:val2.modeOfTransportation,
+            ewayBillNo:val2.eWayBill,
+            ewayBillDocument:val2.eWayBillDoc,
+            RRDocument:val2.LRorRRDoc
 
 
-    //console.log(data, "datatoSend")
-    // UpdateLiftingData(data)
-  }
+
+
+           })
+        })
+         tempArr.push(
+         {
+          deliveryOrder:val.deliveryOrder,
+          deliveryOrderDetail:temp2
+           
+         }
+        
+         )
+      }else{
+         val.detail.map((val2,index2)=>{
+         temp2.push(  {
+            dateOfLifting:val2.dateOfLifting,
+            liftingQuantity:val2.liftingQuant,
+            unitOfQuantity:val2.unitOfQuantity,
+            modeOfTransport:val2.modeOfTransportation,
+            ewayBillNo:val2.eWayBill,
+            ewayBillDocument:val2.eWayBillDoc,
+            LRDocument:val2.LRorRRDoc
+
+
+
+
+           })
+        })
+         tempArr.push(
+         {
+          deliveryOrder:val.deliveryOrder,
+          deliveryOrderDetail:temp2
+           
+         }
+        
+         )
+      }
+    
+  
+    })
+  
+
+        let data = {
+          liftingId: _get(ReleaseOrderData,"data[0].order.lifting",""),
+          liftingOrders:tempArr
+        }
+        console.log(data, "datatoSend")
+        dispatch(UpdateLiftingData(data))
+      }
   //console.log(lifting, "newLift")
 
   const [deliveryOrder, setDeliveryOrder] = useState([
@@ -250,6 +271,30 @@ function Index() {
     })
     setDeliveryOrder([...tempArr])
   }
+ const onSaveDoHAndler = async () => {
+    let newarr = []
+    deliveryOrder.forEach((item) => {
+      newarr.push({
+        "orderNumber": item.orderNumber,
+        "unitOfMeasure": item.unitOfMeasure,
+        "netQuantityReleased": item.Quantity,
+        "deliveryOrderNumber": item.deliveryOrderNo,
+        "deliveryOrderDate": item.deliveryOrderDate,
+        "deliveryStatus": item.status
+      })
+    })
+
+    let payload = {
+      deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
+      deliveryDetail: newarr,
+      lastMileDelivery: Boolean(lastMileDelivery)
+    }
+    //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
+    await dispatch(UpdateDelivery(payload))
+
+
+  }
+  console.log(ReleaseOrderData,"lastmile987")
   return (
     <>
       <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -292,7 +337,9 @@ function Index() {
                 Delivery Order
               </a>
             </li>
-            <li className={`${styles.navItem} nav-item`}>
+             {_get(ReleaseOrderData,"data[0].lastMileDelivery",false)?
+             <>
+               <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -304,6 +351,8 @@ function Index() {
                 Lifting Details
               </a>
             </li>
+             </>
+             :null}
           </ul>
         </div>
 
@@ -347,7 +396,8 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <LiftingDetails 
+                  <LiftingDetails 
+                    data={ReleaseOrderData}
                     liftingData={lifting} 
                     addNewLifting={addNewLifting} 
                     addNewSubLifting={addNewSubLifting} 
