@@ -9,8 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useDispatch } from 'react-redux'
 import { UpdateInspection } from 'redux/Inspections/action'
 
-export default function Index({inspectionData}) {
-
+export default function Index({ inspectionData }) {
   const dispatch = useDispatch()
 
   const [startDate, setStartDate] = useState(new Date())
@@ -22,22 +21,26 @@ export default function Index({inspectionData}) {
   useEffect(() => {
     setAppointmentData({
       name: inspectionData?.thirdPartyAppointment?.name,
-      dateOfAppointment : inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: inspectionData?.thirdPartyAppointment?.address
+      dateOfAppointment:
+        inspectionData?.thirdPartyAppointment?.dateOfAppointment,
+      address: inspectionData?.thirdPartyAppointment?.address,
     })
-    setAddressData({name: inspectionData?.thirdPartyAppointment?.name,
-      dateOfAppointment : inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: inspectionData?.thirdPartyAppointment?.address})
+    setAddressData({
+      name: inspectionData?.thirdPartyAppointment?.name,
+      dateOfAppointment:
+        inspectionData?.thirdPartyAppointment?.dateOfAppointment,
+      address: inspectionData?.thirdPartyAppointment?.address,
+    })
   }, [inspectionData])
 
   const [addressData, setAddressData] = useState({
     name: '',
     dateOfAppointment: '',
-    address: ''
+    address: '',
   })
 
   const saveAppointmentData = (name, value) => {
-    let newInput = {...appointmentData}
+    let newInput = { ...appointmentData }
     newInput[name] = value
     setAppointmentData(newInput)
   }
@@ -53,21 +56,20 @@ export default function Index({inspectionData}) {
   }
 
   const handleEditInput = (name, value) => {
-    let newInput = {...addressData}
+    let newInput = { ...addressData }
     newInput[name] = value
     setAddressData(newInput)
-
   }
 
   const handleEditCancel = () => {
     setIsEdit(false)
-    setAddressData({address : ''})
+    setAddressData({ address: '' })
   }
 
   const handleOnAdd = () => {
     setAppointmentData(addressData)
   }
-  
+
   const handleSave = () => {
     const fd = new FormData()
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))
@@ -75,7 +77,6 @@ export default function Index({inspectionData}) {
 
     dispatch(UpdateInspection(fd))
   }
-  
 
   return (
     <>
@@ -102,8 +103,10 @@ export default function Index({inspectionData}) {
                     <input
                       className={`${styles.input_field} input form-control`}
                       type="text"
-                      name='name'
-                      onChange={(e)=>saveAppointmentData(e.target.name,e.target.value)}
+                      name="name"
+                      onChange={(e) =>
+                        saveAppointmentData(e.target.name, e.target.value)
+                      }
                       required
                     />
                     <label className={`${styles.label_heading} label_heading`}>
@@ -137,7 +140,7 @@ export default function Index({inspectionData}) {
                       }}
                     />
                     <img
-                      className={`${styles.calanderIcon} img-fluid`}
+                      className={`${styles.calanderIcon} image_arrow img-fluid`}
                       src="/static/caldericon.svg"
                       alt="Search"
                     />
@@ -166,13 +169,16 @@ export default function Index({inspectionData}) {
                       className={`${styles.edit_image} img-fluid mr-3`}
                       src="/static/mode_edit.svg"
                       alt="edit"
-                      onClick={()=> {handleEdit()}}
+                      onClick={() => {
+                        handleEdit()
+                      }}
                     />
                   </div>
                 </div>
               </div>
 
-             {isEdit && editData(handleEditCancel, handleEditInput, handleOnAdd)}
+              {isEdit &&
+                editData(handleEditCancel, handleEditInput, handleOnAdd)}
             </div>
           </div>
         </div>
@@ -185,57 +191,53 @@ export default function Index({inspectionData}) {
 const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
   return (
     <div className={`${styles.newAddressContainer} mt-3`}>
-    <div className={`${styles.newAddressHead}`}>
-      <span>Add a new address</span>
-    </div>
-    <div className={`${styles.newAddressContent} row`}>
-      <Form.Group
-        className={`${styles.form_group} col-md-4 col-sm-6`}
-      >
-        <input
-          className={`${styles.input_field} ${styles.customSelect} input form-control`}
-          name="addressType"
-          disabled
-          value='Registered Address'
-        />
+      <div className={`${styles.newAddressHead}`}>
+        <span>Add a new address</span>
+      </div>
+      <div className={`${styles.newAddressContent} row`}>
+        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+          <input
+            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+            name="addressType"
+            disabled
+            value="Registered Address"
+          />
 
-        <Form.Label
-          className={`${styles.label_heading} ${styles.select} label_heading`}
-        >
-          Address Type<strong className="text-danger">*</strong>
-        </Form.Label>
-      </Form.Group>
-      <Form.Group
-        className={`${styles.form_group}  col-md-12 col-sm-6`}
-      >
-        <Form.Control
-          className={`${styles.input_field} input form-control`}
-          required
-          type="text"
-          name="address"
-          onChange={(e) => {
-            handleEditInput(e.target.name, e.target.value)
-          }}
-        />
-        <Form.Label
-          className={`${styles.label_heading} label_heading`}
-        >
-          Address<strong className="text-danger">*</strong>
-        </Form.Label>
-      </Form.Group>
-    </div>
-    <div className="d-flex">
-      <div
-      onClick={()=> handleOnAdd()} className={`${styles.add} d-flex justify-content-center align-items-center`}
-      >
-        <span>Add</span>
+          <Form.Label
+            className={`${styles.label_heading} ${styles.select} label_heading`}
+          >
+            Address Type<strong className="text-danger">*</strong>
+          </Form.Label>
+        </Form.Group>
+        <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
+          <Form.Control
+            className={`${styles.input_field} input form-control`}
+            required
+            type="text"
+            name="address"
+            onChange={(e) => {
+              handleEditInput(e.target.name, e.target.value)
+            }}
+          />
+          <Form.Label className={`${styles.label_heading} label_heading`}>
+            Address<strong className="text-danger">*</strong>
+          </Form.Label>
+        </Form.Group>
       </div>
-      <div
-      onClick={()=>handleEditCancel()}  className={`${styles.cancel} d-flex justify-content-center align-items-center`}
-      >
-        <span>Cancel</span>
+      <div className="d-flex">
+        <div
+          onClick={() => handleOnAdd()}
+          className={`${styles.add} d-flex justify-content-center align-items-center`}
+        >
+          <span>Add</span>
+        </div>
+        <div
+          onClick={() => handleEditCancel()}
+          className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+        >
+          <span>Cancel</span>
+        </div>
       </div>
     </div>
-  </div>
   )
 }

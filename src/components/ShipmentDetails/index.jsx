@@ -75,7 +75,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     labelName="Laycan at Load Port from"
                   />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -106,7 +106,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     labelName="Laycan at Load Port to"
                   />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -136,7 +136,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     labelName="Last date of shipment"
                   />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -168,7 +168,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     labelName="ETA at Discharge Port from"
                   />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -198,7 +198,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     labelName="ETA at Discharge Port to"
                   />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -214,7 +214,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                    />
                     </div> */}
               </Form.Group>
-                <Form.Group className={`${styles.form_group} col-lg-4 col-md-6`}>
+              <Form.Group className={`${styles.form_group} col-lg-4 col-md-6`}>
                 <div className="d-flex">
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}

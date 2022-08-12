@@ -67,7 +67,7 @@ export default function Index() {
                           labelName="Date of Issue"
                         />
                         <img
-                          className={`${styles.calanderIcon} img-fluid`}
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
                         />
@@ -112,7 +112,7 @@ export default function Index() {
                           labelName="LC Credit Date"
                         />
                         <img
-                          className={`${styles.calanderIcon} img-fluid`}
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
                         />

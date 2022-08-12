@@ -242,7 +242,7 @@ export default function Index() {
                           labelName="Validity from"
                         />
                         <img
-                          className={`${styles.calanderIcon} img-fluid`}
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
                         />
@@ -258,7 +258,7 @@ export default function Index() {
                           labelName="Validity to"
                         />
                         <img
-                          className={`${styles.calanderIcon} img-fluid`}
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
                         />
@@ -316,7 +316,7 @@ export default function Index() {
                             labelName="Closing Date"
                           />
                           <img
-                            className={`${styles.calanderIcon} img-fluid`}
+                            className={`${styles.calanderIcon} image_arrow img-fluid`}
                             src="/static/caldericon.svg"
                             alt="Search"
                           />

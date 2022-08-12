@@ -251,7 +251,7 @@ function Index() {
                             labelName="(30) Date Of Ammendment"
                           />
                           <img
-                            className={`${styles.calanderIcon} img-fluid`}
+                            className={`${styles.calanderIcon} image_arrow img-fluid`}
                             src="/static/caldericon.svg"
                             alt="Search"
                           />

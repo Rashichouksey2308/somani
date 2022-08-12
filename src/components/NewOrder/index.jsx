@@ -47,10 +47,12 @@ const Index = ({ saveOrderData, orderData }) => {
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
             >
               {/* <option ></option> */}
-              <option value='INR' selected>INR</option>
-              <option value='USD'>USD</option>
-              <option value='EURO'>EURO</option>
-              <option value='BRITISH POUND'>BRITISH POUND</option>
+              <option value="INR" selected>
+                INR
+              </option>
+              <option value="USD">USD</option>
+              <option value="EURO">EURO</option>
+              <option value="BRITISH POUND">BRITISH POUND</option>
             </select>
           </div>
           <span>+</span>
@@ -63,7 +65,9 @@ const Index = ({ saveOrderData, orderData }) => {
       >
         <div className={`${styles.dashboard_form} card-body`}>
           <div className={styles.radio_form}>
-            <div className={`${styles.sub_heading} sub_heading`}>Transaction Type</div>
+            <div className={`${styles.sub_heading} sub_heading`}>
+              Transaction Type
+            </div>
             {['radio'].map((type) => (
               <div key={`inline-${type}`} className={styles.radio_group}>
                 <Form.Check
@@ -91,7 +95,7 @@ const Index = ({ saveOrderData, orderData }) => {
               </div>
             ))}
           </div>
-          <Form id='OrderDetailsForm'>
+          <Form id="OrderDetailsForm">
             <div className="row">
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
@@ -319,9 +323,14 @@ const Index = ({ saveOrderData, orderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                  <DateCalender name="ExpectedDateOfShipment" saveDate={saveDate} dateFormat={"dd-MM-yyyy"} labelName="Expected Date Of Shipment" />
+                  <DateCalender
+                    name="ExpectedDateOfShipment"
+                    saveDate={saveDate}
+                    dateFormat={'dd-MM-yyyy'}
+                    labelName="Expected Date Of Shipment"
+                  />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />

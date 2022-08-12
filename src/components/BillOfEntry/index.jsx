@@ -353,7 +353,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       labelName="BOE Date"
                     />
                     <img
-                      className={`${styles.calanderIcon} img-fluid`}
+                      className={`${styles.calanderIcon} image_arrow img-fluid`}
                       src="/static/caldericon.svg"
                       alt="Search"
                     />
@@ -515,7 +515,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       labelName="Invoice Date"
                     />
                     <img
-                      className={`${styles.calanderIcon} img-fluid`}
+                      className={`${styles.calanderIcon} image_arrow img-fluid`}
                       src="/static/caldericon.svg"
                       alt="Search"
                     />
