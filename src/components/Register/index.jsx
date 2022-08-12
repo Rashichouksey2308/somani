@@ -267,14 +267,21 @@ function Index() {
     //   }
     // }
     else {
+      let docTypeArr=[];
+      documents.forEach((val,index)=>{
+        docTypeArr.push(val.typeDocument)
+      })
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(orderDetails))
-      fd.append('documentType', JSON.stringify(documents.typeOfDocument))
-      fd.append('documents', documents.document1)
-      fd.append('documents', documents.document2)
+      fd.append('documentType', JSON.stringify(docTypeArr))
+      documents.forEach((val,index)=>{
+        fd.append(`documents`,val.attachDoc)
+      })
+    
+      // fd.append('documents', documents.document2)
       fd.append('gstList', JSON.stringify(gstListData))
-      //console.log(fd, "this is payload")
+      console.log(fd, "this is payload")
 
       dispatch(CreateBuyer(fd))
       
