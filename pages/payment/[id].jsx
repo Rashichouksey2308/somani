@@ -16,7 +16,7 @@ import { toast } from 'react-toastify'
 function Index() {
 
   const dispatch = useDispatch()
-
+  const { allLiftingData } = useSelector((state) => state.Lifting)
   const { ReleaseOrderData } = useSelector((state) => state.Release)
   //console.log(ReleaseOrderData, 'ReleaseOrderData')
   const [darkMode, setDarkMode] = useState(false)
@@ -27,7 +27,9 @@ function Index() {
     dispatch(GetAllLifting())
   }, [dispatch])
 
-  const { allLiftingData } = useSelector((state) => state.Lifting)
+
+
+
   //console.log(allLiftingData, "allLiftingData")
   const liftingData = _get(allLiftingData, 'data[0]', '')
   const [lifting, setLifting] = useState([])
@@ -142,6 +144,14 @@ function Index() {
 
     }
   ])
+  // useEffect(() => {
+  //   let deliveryOrderState = _get(ReleaseOrderData, 'data[0].deliveryDetail', [])
+  //   console.log(deliveryOrderState, 'deliveryOrderStateprev')
+  //   if (deliveryOrderState.length > 0) {
+  //     setDeliveryOrder((prevState) => [...deliveryOrderState]
+  //     )
+  //   }
+  // }, [ReleaseOrderData])
   const [quantity, setQuantity] = useState(0)
   //console.log(deliveryOrder, "deliveryOrder")
   const addNewDelivery = (value) => {
@@ -275,6 +285,7 @@ function Index() {
 
 
   }
+  console.log(ReleaseOrderData, 'ReleaseOrderData')
   return (
     <>
       <div className={`${styles.dashboardTab} tabHeader w-100`}>
