@@ -8,16 +8,17 @@ import DeliveryOrder from '../../src/components/DeliveryOrder'
 import DeliveryPreview from '../../src/components/DeliveryPreview'
 import LiftingDetails from '../../src/components/LiftingDetails'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllDelivery, GetDelivery } from '../../src/redux/release&DeliveryOrder/action'
+import { GetAllDelivery, GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action'
 import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action'
 import _get from 'lodash/get'
+import { toast } from 'react-toastify'
 
 function Index() {
 
   const dispatch = useDispatch()
 
   const { ReleaseOrderData } = useSelector((state) => state.Release)
-  console.log(ReleaseOrderData, 'ReleaseOrderData')
+  //console.log(ReleaseOrderData, 'ReleaseOrderData')
   const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
@@ -27,7 +28,7 @@ function Index() {
   }, [dispatch])
 
   const { allLiftingData } = useSelector((state) => state.Lifting)
-  console.log(allLiftingData, "allLiftingData")
+  //console.log(allLiftingData, "allLiftingData")
   const liftingData = _get(allLiftingData, 'data[0]', '')
   const [lifting, setLifting] = useState([])
   const addNewLifting = (value) => {
@@ -63,14 +64,14 @@ function Index() {
     setLifting([...tempArr])
   }
   const handleChange = (name, value, index, index2) => {
-    console.log(name, value, index, index2, "date")
+    //console.log(name, value, index, index2, "date")
     let tempArr = lifting
     tempArr.forEach((val, i) => {
       if (i == index) {
         val.detail.forEach((val2, i2) => {
           {
             if (i2 == index2) {
-              console.log(val2, "val2.detail")
+              //console.log(val2, "val2.detail")
               val2[name] = value
             }
           }
@@ -123,10 +124,10 @@ function Index() {
     }
 
 
-    console.log(data, "datatoSend")
+    //console.log(data, "datatoSend")
     // UpdateLiftingData(data)
   }
-  console.log(lifting, "newLift")
+  //console.log(lifting, "newLift")
 
   const [deliveryOrder, setDeliveryOrder] = useState([
     {
@@ -142,7 +143,7 @@ function Index() {
     }
   ])
   const [quantity, setQuantity] = useState(0)
-  console.log(deliveryOrder, "deliveryOrder")
+  //console.log(deliveryOrder, "deliveryOrder")
   const addNewDelivery = (value) => {
     setDeliveryOrder([...deliveryOrder, {
 
@@ -159,16 +160,36 @@ function Index() {
   const deleteNewDelivery = (index) => {
     setDeliveryOrder([...deliveryOrder.slice(0, index), ...deliveryOrder.slice(index + 1)])
   }
+  const [filteredDOArray, setFilteredDOArray] = useState([])
+  const [DOlimit, setDoLimit] = useState(0)
+  let [lastMileDelivery, setLastMileDelivery] = useState(false)
+  console.log(DOlimit, 'DOlimit')
+
+  useEffect(() => {
+    let limit = DOlimit
+    filteredDOArray.forEach((item, index) => {
+      limit = DOlimit - item.Quantity
+      setDoLimit(limit)
+    })
+
+    if (DOlimit < 0) {
+      let toastMessage = 'Delivery Order Quantity Cannot Be Greater than Realese Quantity'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
+  }, [filteredDOArray, deliveryOrder])
+  //console.log(filteredDOArray, 'filteredDOArray')
   const onEdit = (index, value) => {
     let tempArr = deliveryOrder
     tempArr.forEach((val, i) => {
       if (i == index) {
         val.isDelete = value
-
       }
     })
     setDeliveryOrder([...tempArr])
   }
+  console.log(quantity, DOlimit, filteredDOArray, 'deliveryOrder')
 
   const generateDoNumber = (index) => {
 
@@ -177,30 +198,83 @@ function Index() {
 
 
   }
+
   const deliverChange = (name, value, index) => {
     let tempArr = deliveryOrder
 
     tempArr.forEach((val, i) => {
       if (i == index) {
 
+        if (name === 'Quantity') {
+          let temparr = [...deliveryOrder]
+          let filteredArray = temparr.filter((item, index2) => {
+            //console.log(item, 'quantity1')
+            return item.orderNumber == deliveryOrder[index].orderNumber
+          })
+          setFilteredDOArray(filteredArray)
+
+          // //console.log(filteredArray, 'limit')
+          //  //console.log(DOlimit, 'limit')
+        }
+        if (name === 'Quantity') {
+          if (value <= 0) {
+            setDoLimit(quantity)
+          } else {
+            let tempLimit = quantity
+            filteredDOArray.forEach((item, index) => {
+              // console.log(item, 'deliveryOrder')
+              tempLimit = tempLimit - Number(item.Quantity)
+            })
+            //console.log(tempLimit, 'deliveryOrder')
+            setDoLimit(tempLimit)
+          }
+        }
+
         if (name === 'orderNumber') {
+
           let temparr = _get(ReleaseOrderData, 'data[0].releaseDetail', [])
           let filteredArray = temparr.filter((item, index) => {
-            // console.log(item, 'quantity1')
+            // //console.log(item, 'quantity1')
             return item.orderNumber == value
           })
-          // console.log(filteredArray, temparr, 'quantity1')
+          // //console.log(filteredArray, temparr, 'quantity1')
           setQuantity(filteredArray[0].netQuantityReleased)
+          setDoLimit(filteredArray[0].netQuantityReleased)
 
           let tempString = generateDoNumber(index)
           val.deliveryOrderNo = tempString
         }
         val[name] = value
       }
+
     })
     setDeliveryOrder([...tempArr])
   }
-  console.log(quantity, 'quantity1')
+  // //console.log(quantity, 'quantity1')
+
+  const onSaveDoHAndler = async () => {
+    let newarr = []
+    deliveryOrder.forEach((item) => {
+      newarr.push({
+        "orderNumber": item.orderNumber,
+        "unitOfMeasure": item.unitOfMeasure,
+        "Quantity": item.Quantity,
+        "deliveryOrderNo": item.deliveryOrderNo,
+        "deliveryOrderDate": item.deliveryOrderDate,
+        "status": item.status
+      })
+    })
+
+    let payload = {
+      deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
+      deliveryDetail: newarr,
+      lastMileDelivery: lastMileDelivery
+    }
+    //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
+    await dispatch(UpdateDelivery(payload))
+
+
+  }
   return (
     <>
       <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -279,6 +353,8 @@ function Index() {
                 >
                   <div className={`${styles.card}  accordion_body`}>
                     <DeliveryOrder
+                      setLastMileDelivery={setLastMileDelivery}
+                      onSaveHAndler={onSaveDoHAndler}
                       quantity={quantity}
                       ReleaseOrder={ReleaseOrderData}
                       releaseOrderData={deliveryOrder}
