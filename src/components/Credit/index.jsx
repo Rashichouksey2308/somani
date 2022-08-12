@@ -250,7 +250,7 @@ const index = ({
 
   return (
     <>
-      <div className={`${styles.main} card border_color`}>
+      <div className={`${styles.main} vessel_card card border_color`}>
         <div
           className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -573,7 +573,7 @@ const index = ({
         </div>
       </div>
 
-      <div className={`${styles.main} card border_color`}>
+      <div className={`${styles.main} vessel_card card border_color`}>
         <div
           className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -872,24 +872,55 @@ const index = ({
                     <tbody key={index}>
                       <tr className="table_credit">
                         <td>
-                          <input
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            defaultValue={person.name}
+                            name="name"
+                            onChange={(e) => handlePersonChange(e, index)}
+                            readOnly={!saveContactTable}
+                          >
+                            <option>Ram Lal</option>
+                            <option>Ramakrishna</option>
+                          </select>
+                          <img
+                            className={`${styles.arrow} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                          {/* <input
                             className="input font-weight-bold"
                             defaultValue={person.name}
                             name="name"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
                             readOnly={!saveContactTable}
-                          />
+                          /> */}
                         </td>
-                        <td>
-                          <input
+                        <td>                          
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            defaultValue={person.designation}
+                            name="designation"
+                            onChange={(e) => handlePersonChange(e, index)}
+                            readOnly={!saveContactTable}
+                          >
+                            <option>Director</option>
+                            <option>Production Manager</option>
+                            <option>Lead Manager</option>
+                          </select>
+                          <img
+                            className={`${styles.arrow} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                          {/* <input
                             className="input"
                             defaultValue={person.designation}
                             name="designation"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
                             readOnly={!saveContactTable}
-                          />
+                          /> */}
                         </td>
                         <td>
                           <input
@@ -934,7 +965,7 @@ const index = ({
                           />
                         </td>
                         <td>
-                          <div>
+                          <div className='d-flex'>
                             {!saveContactTable ? (
                               <img
                                 src="/static/mode_edit.svg"
@@ -980,7 +1011,7 @@ const index = ({
         </div>
       </div>
 
-      <div className={`${styles.main} card border_color`}>
+      <div className={`${styles.main} vessel_card card border_color`}>
         <div
           className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1482,7 +1513,7 @@ const index = ({
                  
                 </div>
                 <button
-                    // className={`${styles.add_btn}`}
+                    className={`${styles.add_btn}`}
                     onClick={() => {
                     updateKeyAddDataArr(editData,Index)
                     setShowEditAddress(false)}

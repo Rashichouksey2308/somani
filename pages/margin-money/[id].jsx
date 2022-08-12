@@ -330,18 +330,18 @@ function Index() {
 
   return (
     <>
-      <div className={`${styles.dashboardTab} tabHeader w-100`}>
+      <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className="d-flex align-items-center">
+          <div className={`${styles.title_header} d-flex align-items-center`}>
+            <img
+              src={`${darkMode
+                ? `/static/white-arrow.svg`
+                : `/static/arrow-right.svg`
+                }`}
+              alt="arrow right"
+              className="img-fluid mr-2 image_arrow"
+            />
             <h1 className={`${styles.title} heading`}>
-              <img
-                src={`${darkMode
-                  ? `/static/white-arrow.svg`
-                  : `/static/arrow-right.svg`
-                  }`}
-                alt="arrow right"
-                className="img-fluid image_arrow"
-              />
               <span>Margin Money</span>
             </h1>
             <div className="ml-auto">
