@@ -9,7 +9,7 @@ import DeliveryPreview from '../../src/components/DeliveryPreview'
 import LiftingDetails from '../../src/components/LiftingDetails'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllDelivery, GetDelivery } from '../../src/redux/release&DeliveryOrder/action'
-import {GetAllLifting,UpdateLiftingData} from '../../src/redux/Lifting/action'
+import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action'
 import _get from 'lodash/get'
 
 function Index() {
@@ -17,7 +17,7 @@ function Index() {
   const dispatch = useDispatch()
 
   const { ReleaseOrderData } = useSelector((state) => state.Release)
-
+  console.log(ReleaseOrderData, 'ReleaseOrderData')
   const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
@@ -26,61 +26,63 @@ function Index() {
     dispatch(GetAllLifting())
   }, [dispatch])
 
-  const {allLiftingData} = useSelector((state)=>state.Lifting)
-  console.log(allLiftingData,"allLiftingData")
-  const liftingData = _get( allLiftingData, 'data[0]', '')
-  const [lifting,setLifting]=useState([])
-  const addNewLifting=(value)=>{
-   setLifting([...lifting,{
-    deliveryOrder:value,
-    detail:[
-      {
-        dateOfLifting:"",
-        liftingQuant:"",
-        modeOfTransportation:"RR",
-        eWayBill:"",
-        LRorRRDoc:"",
-        eWayBillDoc:""
-      }
-    ]
-
-   }])
-  }
-  const addNewSubLifting=(index)=>{
-    let tempArr=lifting
-    tempArr.forEach((val,i)=>{
-      if(i==index){
-        val.detail.push({
-        dateOfLifting:"",
-        liftingQuant:"",
-        modeOfTransportation:"RR",
-        eWayBill:"",
-        LRorRRDoc:"",
-        eWayBillDoc:""
-      })
-      }
-    })
-    setLifting([...tempArr])
-  }
-  const handleChange=(name,value,index,index2)=>{
-    console.log(name,value,index,index2,"date")
-     let tempArr=lifting
-     tempArr.forEach((val,i)=>{
-      if(i==index){
-       val.detail.forEach((val2,i2)=>{{
-        if(i2==index2){
-          console.log(val2,"val2.detail")
-           val2[name]=value
+  const { allLiftingData } = useSelector((state) => state.Lifting)
+  console.log(allLiftingData, "allLiftingData")
+  const liftingData = _get(allLiftingData, 'data[0]', '')
+  const [lifting, setLifting] = useState([])
+  const addNewLifting = (value) => {
+    setLifting([...lifting, {
+      deliveryOrder: value,
+      detail: [
+        {
+          dateOfLifting: "",
+          liftingQuant: "",
+          modeOfTransportation: "RR",
+          eWayBill: "",
+          LRorRRDoc: "",
+          eWayBillDoc: ""
         }
-       }})
+      ]
+
+    }])
+  }
+  const addNewSubLifting = (index) => {
+    let tempArr = lifting
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val.detail.push({
+          dateOfLifting: "",
+          liftingQuant: "",
+          modeOfTransportation: "RR",
+          eWayBill: "",
+          LRorRRDoc: "",
+          eWayBillDoc: ""
+        })
       }
     })
     setLifting([...tempArr])
   }
-  const handleLiftingSubmit=()=>{
-    let data={
-    liftingId: "62f0e9d5c2d05d1eb492aaa5",
-    liftingOrders: [
+  const handleChange = (name, value, index, index2) => {
+    console.log(name, value, index, index2, "date")
+    let tempArr = lifting
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val.detail.forEach((val2, i2) => {
+          {
+            if (i2 == index2) {
+              console.log(val2, "val2.detail")
+              val2[name] = value
+            }
+          }
+        })
+      }
+    })
+    setLifting([...tempArr])
+  }
+  const handleLiftingSubmit = () => {
+    let data = {
+      liftingId: "62f0e9d5c2d05d1eb492aaa5",
+      liftingOrders: [
         // {
         //     "deliveryOrder": "deliveryOrder",
         //     "deliveryOrderDetail": [
@@ -117,57 +119,88 @@ function Index() {
         //         }
         //     ]
         // }
-    ]
-}
- 
+      ]
+    }
 
-    console.log(data,"datatoSend")
+
+    console.log(data, "datatoSend")
     // UpdateLiftingData(data)
   }
-  console.log(lifting,"newLift")
+  console.log(lifting, "newLift")
 
-  const [deliveryOrder,setDeliveryOrder]=useState([
+  const [deliveryOrder, setDeliveryOrder] = useState([
     {
-      
-       "orderNumber" : 1,
-       "unitOfMeasure" : "MT",
-        "isDelete":false,
-         "Quantity":""
-   
+
+      "orderNumber": 1,
+      "unitOfMeasure": "MT",
+      "isDelete": false,
+      "Quantity": "",
+      "deliveryOrderNo": '',
+      "deliveryOrderDate": "",
+      "status": ""
+
     }
   ])
-  const addNewDelivery=(value)=>{
-   setDeliveryOrder([...deliveryOrder,{
-  
-        "orderNumber" : 1,
-       "unitOfMeasure" : "MT",
-        "isDelete":false,
-        "Quantity":""
-   }])
+  const [quantity, setQuantity] = useState(0)
+  console.log(deliveryOrder, "deliveryOrder")
+  const addNewDelivery = (value) => {
+    setDeliveryOrder([...deliveryOrder, {
+
+      "orderNumber": 1,
+      "unitOfMeasure": "MT",
+      "isDelete": false,
+      "Quantity": "",
+      "deliveryOrderNo": '',
+      "deliveryOrderDate": "",
+      "status": ""
+
+    }])
   }
-    const deleteNewDelivery=(index)=>{
-   setDeliveryOrder([...deliveryOrder.slice(0,index), ...deliveryOrder.slice(index+1)])
+  const deleteNewDelivery = (index) => {
+    setDeliveryOrder([...deliveryOrder.slice(0, index), ...deliveryOrder.slice(index + 1)])
   }
-    const onEdit=(index,value)=>{
-    let tempArr=deliveryOrder
-    tempArr.forEach((val,i)=>{
-      if(i==index){
-       val.isDelete=value
-     
+  const onEdit = (index, value) => {
+    let tempArr = deliveryOrder
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val.isDelete = value
+
       }
     })
     setDeliveryOrder([...tempArr])
   }
-  const deliverChange=(name,value,index)=>{
- let tempArr=deliveryOrder
-    tempArr.forEach((val,i)=>{
-      if(i==index){
-       val[name]=value
-     
+
+  const generateDoNumber = (index) => {
+
+    let orderDONumber = index
+    return `Rama001-000001/${orderDONumber}`
+
+
+  }
+  const deliverChange = (name, value, index) => {
+    let tempArr = deliveryOrder
+
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+
+        if (name === 'orderNumber') {
+          let temparr = _get(ReleaseOrderData, 'data[0].releaseDetail', [])
+          let filteredArray = temparr.filter((item, index) => {
+            // console.log(item, 'quantity1')
+            return item.orderNumber == value
+          })
+          // console.log(filteredArray, temparr, 'quantity1')
+          setQuantity(filteredArray[0].netQuantityReleased)
+
+          let tempString = generateDoNumber(index)
+          val.deliveryOrderNo = tempString
+        }
+        val[name] = value
       }
     })
     setDeliveryOrder([...tempArr])
   }
+  console.log(quantity, 'quantity1')
   return (
     <>
       <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -245,12 +278,14 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <DeliveryOrder 
-                    releaseOrderData={deliveryOrder} 
-                    addNewDelivery={addNewDelivery}
-                    onEdit={onEdit}
-                    deliverChange={deliverChange}
-                    deleteNewDelivery={deleteNewDelivery}
+                    <DeliveryOrder
+                      quantity={quantity}
+                      ReleaseOrder={ReleaseOrderData}
+                      releaseOrderData={deliveryOrder}
+                      addNewDelivery={addNewDelivery}
+                      onEdit={onEdit}
+                      deliverChange={deliverChange}
+                      deleteNewDelivery={deleteNewDelivery}
                     />
                   </div>
                 </div>
@@ -261,12 +296,12 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <LiftingDetails 
-                    liftingData={lifting} 
-                    addNewLifting={addNewLifting} 
-                    addNewSubLifting={addNewSubLifting} 
-                    handleChange={handleChange}
-                    handleLiftingSubmit={handleLiftingSubmit}
+                    <LiftingDetails
+                      liftingData={lifting}
+                      addNewLifting={addNewLifting}
+                      addNewSubLifting={addNewSubLifting}
+                      handleChange={handleChange}
+                      handleLiftingSubmit={handleLiftingSubmit}
                     />
                   </div>
                 </div>
