@@ -15,7 +15,7 @@
             line-height: 27px;
             margin-bottom: 0;
             @include respond(phone) {
-                font-size: $font_size_mobile_accordion;                
+                font-size: $font_size_mobile_accordion;                   
             }
         }
         span {
@@ -74,14 +74,14 @@
                     letter-spacing: 0.19px;
                     line-height: 25px;
                     @include respond(phone) {
-                        font-size: $font_size_mobile_text;                        
+                        font-size: $font_size_mobile_text;                           
                     }                    
                 }
                 .checkbox {
                     margin-top: -11px;
                     margin-right: 25px;
                     width: 20px;
-                    height: 20px;
+                    height: 20px;      
                     min-width: 20px;
                 }
             }

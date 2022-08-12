@@ -8,16 +8,17 @@ import DeliveryOrder from '../../src/components/DeliveryOrder'
 import DeliveryPreview from '../../src/components/DeliveryPreview'
 import LiftingDetails from '../../src/components/LiftingDetails'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllDelivery, GetDelivery } from '../../src/redux/release&DeliveryOrder/action'
-import {GetAllLifting,UpdateLiftingData} from '../../src/redux/Lifting/action'
+import { GetAllDelivery, GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action'
+import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action'
 import _get from 'lodash/get'
+import { toast } from 'react-toastify'
 
 function Index() {
 
   const dispatch = useDispatch()
 
   const { ReleaseOrderData } = useSelector((state) => state.Release)
-
+  //console.log(ReleaseOrderData, 'ReleaseOrderData')
   const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
@@ -26,61 +27,63 @@ function Index() {
     dispatch(GetAllLifting())
   }, [dispatch])
 
-  const {allLiftingData} = useSelector((state)=>state.Lifting)
-  console.log(allLiftingData,"allLiftingData")
-  const liftingData = _get( allLiftingData, 'data[0]', '')
-  const [lifting,setLifting]=useState([])
-  const addNewLifting=(value)=>{
-   setLifting([...lifting,{
-    deliveryOrder:value,
-    detail:[
-      {
-        dateOfLifting:"",
-        liftingQuant:"",
-        modeOfTransportation:"RR",
-        eWayBill:"",
-        LRorRRDoc:"",
-        eWayBillDoc:""
-      }
-    ]
-
-   }])
-  }
-  const addNewSubLifting=(index)=>{
-    let tempArr=lifting
-    tempArr.forEach((val,i)=>{
-      if(i==index){
-        val.detail.push({
-        dateOfLifting:"",
-        liftingQuant:"",
-        modeOfTransportation:"RR",
-        eWayBill:"",
-        LRorRRDoc:"",
-        eWayBillDoc:""
-      })
-      }
-    })
-    setLifting([...tempArr])
-  }
-  const handleChange=(name,value,index,index2)=>{
-    console.log(name,value,index,index2,"date")
-     let tempArr=lifting
-     tempArr.forEach((val,i)=>{
-      if(i==index){
-       val.detail.forEach((val2,i2)=>{{
-        if(i2==index2){
-          console.log(val2,"val2.detail")
-           val2[name]=value
+  const { allLiftingData } = useSelector((state) => state.Lifting)
+  //console.log(allLiftingData, "allLiftingData")
+  const liftingData = _get(allLiftingData, 'data[0]', '')
+  const [lifting, setLifting] = useState([])
+  const addNewLifting = (value) => {
+    setLifting([...lifting, {
+      deliveryOrder: value,
+      detail: [
+        {
+          dateOfLifting: "",
+          liftingQuant: "",
+          modeOfTransportation: "RR",
+          eWayBill: "",
+          LRorRRDoc: "",
+          eWayBillDoc: ""
         }
-       }})
+      ]
+
+    }])
+  }
+  const addNewSubLifting = (index) => {
+    let tempArr = lifting
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val.detail.push({
+          dateOfLifting: "",
+          liftingQuant: "",
+          modeOfTransportation: "RR",
+          eWayBill: "",
+          LRorRRDoc: "",
+          eWayBillDoc: ""
+        })
       }
     })
     setLifting([...tempArr])
   }
-  const handleLiftingSubmit=()=>{
-    let data={
-    liftingId: "62f0e9d5c2d05d1eb492aaa5",
-    liftingOrders: [
+  const handleChange = (name, value, index, index2) => {
+    //console.log(name, value, index, index2, "date")
+    let tempArr = lifting
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val.detail.forEach((val2, i2) => {
+          {
+            if (i2 == index2) {
+              //console.log(val2, "val2.detail")
+              val2[name] = value
+            }
+          }
+        })
+      }
+    })
+    setLifting([...tempArr])
+  }
+  const handleLiftingSubmit = () => {
+    let data = {
+      liftingId: "62f0e9d5c2d05d1eb492aaa5",
+      liftingOrders: [
         // {
         //     "deliveryOrder": "deliveryOrder",
         //     "deliveryOrderDetail": [
@@ -117,60 +120,135 @@ function Index() {
         //         }
         //     ]
         // }
-    ]
-}
- 
+      ]
+    }
 
-    console.log(data,"datatoSend")
+
+    //console.log(data, "datatoSend")
     // UpdateLiftingData(data)
   }
-  console.log(lifting,"newLift")
+  //console.log(lifting, "newLift")
 
-  const [deliveryOrder,setDeliveryOrder]=useState([
+  const [deliveryOrder, setDeliveryOrder] = useState([
     {
-      
-       "orderNumber" : 1,
-       "unitOfMeasure" : "MT",
-        "isDelete":false,
-         "Quantity":""
-   
+
+      "orderNumber": 1,
+      "unitOfMeasure": "MT",
+      "isDelete": false,
+      "Quantity": "",
+      "deliveryOrderNo": '',
+      "deliveryOrderDate": "",
+      "status": ""
+
     }
   ])
-  const addNewDelivery=(value)=>{
-   setDeliveryOrder([...deliveryOrder,{
-  
-        "orderNumber" : 1,
-       "unitOfMeasure" : "MT",
-        "isDelete":false,
-        "Quantity":""
-   }])
+  const [quantity, setQuantity] = useState(0)
+  //console.log(deliveryOrder, "deliveryOrder")
+  const addNewDelivery = (value) => {
+    setDeliveryOrder([...deliveryOrder, {
+
+      "orderNumber": 1,
+      "unitOfMeasure": "MT",
+      "isDelete": false,
+      "Quantity": "",
+      "deliveryOrderNo": '',
+      "deliveryOrderDate": "",
+      "status": ""
+
+    }])
   }
-    const deleteNewDelivery=(index)=>{
-   setDeliveryOrder([...deliveryOrder.slice(0,index), ...deliveryOrder.slice(index+1)])
+  const deleteNewDelivery = (index) => {
+    setDeliveryOrder([...deliveryOrder.slice(0, index), ...deliveryOrder.slice(index + 1)])
   }
-    const onEdit=(index,value)=>{
-    let tempArr=deliveryOrder
-    tempArr.forEach((val,i)=>{
-      if(i==index){
-       val.isDelete=value
-     
+  const [filteredDOArray, setFilteredDOArray] = useState([])
+  const [DOlimit, setDoLimit] = useState(0)
+  let [lastMileDelivery, setLastMileDelivery] = useState(false)
+  console.log(DOlimit, 'DOlimit')
+
+  useEffect(() => {
+    let limit = DOlimit
+    filteredDOArray.forEach((item, index) => {
+      limit = DOlimit - item.Quantity
+      setDoLimit(limit)
+    })
+
+    if (DOlimit < 0) {
+      let toastMessage = 'Delivery Order Quantity Cannot Be Greater than Realese Quantity'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
+  }, [filteredDOArray, deliveryOrder])
+  //console.log(filteredDOArray, 'filteredDOArray')
+  const onEdit = (index, value) => {
+    let tempArr = deliveryOrder
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val.isDelete = value
       }
     })
     setDeliveryOrder([...tempArr])
   }
-  const deliverChange=(name,value,index)=>{
- let tempArr=deliveryOrder
-    tempArr.forEach((val,i)=>{
-      if(i==index){
-       val[name]=value
-     
+  console.log(quantity, DOlimit, filteredDOArray, 'deliveryOrder')
+
+  const generateDoNumber = (index) => {
+
+    let orderDONumber = index
+    return `Rama001-000001/${orderDONumber}`
+
+
+  }
+
+  const deliverChange = (name, value, index) => {
+    let tempArr = deliveryOrder
+
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+
+        if (name === 'Quantity') {
+          let temparr = [...deliveryOrder]
+          let filteredArray = temparr.filter((item, index2) => {
+            //console.log(item, 'quantity1')
+            return item.orderNumber == deliveryOrder[index].orderNumber
+          })
+          setFilteredDOArray(filteredArray)
+
+          // //console.log(filteredArray, 'limit')
+          //  //console.log(DOlimit, 'limit')
+        }
+        if (name === 'Quantity') {
+          if (value <= 0) {
+            setDoLimit(quantity)
+          } else {
+            let tempLimit = quantity
+            filteredDOArray.forEach((item, index) => {
+              // console.log(item, 'deliveryOrder')
+              tempLimit = tempLimit - Number(item.Quantity)
+            })
+            //console.log(tempLimit, 'deliveryOrder')
+            setDoLimit(tempLimit)
+          }
+        }
+
+        if (name === 'orderNumber') {
+
+          let temparr = _get(ReleaseOrderData, 'data[0].releaseDetail', [])
+          let filteredArray = temparr.filter((item, index) => {
+            // //console.log(item, 'quantity1')
+            return item.orderNumber == value
+          })
+          // //console.log(filteredArray, temparr, 'quantity1')
+          setQuantity(filteredArray[0].netQuantityReleased)
+          setDoLimit(filteredArray[0].netQuantityReleased)
+
+          let tempString = generateDoNumber(index)
+          val.deliveryOrderNo = tempString
+        }
+        val[name] = value
       }
+
     })
     setDeliveryOrder([...tempArr])
-  }
-  const generateDeliveryOrderNumber=()=>{
-    
-    // str.slice(0, 3)
   }
   return (
     <>
@@ -249,13 +327,16 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <DeliveryOrder 
-                    ReleaseOrder={ReleaseOrderData}
-                    releaseOrderData={deliveryOrder} 
-                    addNewDelivery={addNewDelivery}
-                    onEdit={onEdit}
-                    deliverChange={deliverChange}
-                    deleteNewDelivery={deleteNewDelivery}
+                    <DeliveryOrder
+                      setLastMileDelivery={setLastMileDelivery}
+                      onSaveHAndler={onSaveDoHAndler}
+                      quantity={quantity}
+                      ReleaseOrder={ReleaseOrderData}
+                      releaseOrderData={deliveryOrder}
+                      addNewDelivery={addNewDelivery}
+                      onEdit={onEdit}
+                      deliverChange={deliverChange}
+                      deleteNewDelivery={deleteNewDelivery}
                     />
                   </div>
                 </div>
@@ -267,7 +348,6 @@ function Index() {
                 >
                   <div className={`${styles.card}  accordion_body`}>
                     <LiftingDetails 
-                    data={ReleaseOrderData}
                     liftingData={lifting} 
                     addNewLifting={addNewLifting} 
                     addNewSubLifting={addNewSubLifting} 

@@ -7,6 +7,8 @@ const initialState = {
   margin: [],
   updatingMarginMoney: false,
   updatingMarginMoneyResponse: [],
+  revisedMarginMoney: false,
+  revisedMarginMoneyResponse: null
 }
 
 function MarginMoneyReducer(state = initialState, action) {
@@ -69,6 +71,26 @@ function MarginMoneyReducer(state = initialState, action) {
         ...state,
         updatingMarginMoney: false,
         updatingMarginMoneyResponse: [],
+      }
+      
+    case types.UPDATE_MARGINMONEY_REVISED:
+      return {
+        ...state,
+        revisedMarginMoney: true,
+        revisedMarginMoneyResponse: null
+      }
+
+    case types.UPDATE_MARGINMONEY_REVISED_SUCCESSFULL:
+      return {
+        ...state,
+        revisedMarginMoney: false,
+        revisedMarginMoneyResponse: action.payload,
+      }
+    case types.UPDATE_MARGINMONEY_REVISED_FAILED:
+      return {
+        ...state,
+        revisedMarginMoney: false,
+        revisedMarginMoneyResponse: null,
       }
 
     default:

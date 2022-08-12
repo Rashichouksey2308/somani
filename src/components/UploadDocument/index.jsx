@@ -80,7 +80,6 @@ const Index = ({ uploadDocument1, uploadDocument2 }) => {
                           className={styles.input_field}
                           type="file"
                           // placeholder="Nomination_Document.pdf"
-
                         />
                         <img
                           className={`${styles.close_image} img-fluid `}
