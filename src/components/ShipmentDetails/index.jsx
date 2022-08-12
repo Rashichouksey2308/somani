@@ -14,7 +14,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
   }
 
   return (
-    <div className={`${styles.main} border-color  card`}>
+    <div className={`${styles.main} vessel_card border-color card`}>
       <div
         className={`${styles.head_container} d-flex border_color head_container card-header justify-content-between bg-transparent`}
         data-toggle="collapse"
@@ -54,7 +54,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     Shipment Type<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow}  image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
@@ -235,7 +235,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     Port of Loading<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />

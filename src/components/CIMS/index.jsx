@@ -159,7 +159,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         Vessel Name<strong className="text-danger">*</strong>
                       </label>
                       <img
-                        className={`${styles.arrow} img-fluid`}
+                        className={`${styles.arrow} image_arrow img-fluid`}
                         src="/static/inputDropDown.svg"
                         alt="Search"
                       />
@@ -253,7 +253,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         Payment by<strong className="text-danger">*</strong>
                       </label>
                       <img
-                        className={`${styles.arrow} img-fluid`}
+                        className={`${styles.arrow}  image_arrow img-fluid`}
                         src="/static/inputDropDown.svg"
                         alt="Search"
                       />

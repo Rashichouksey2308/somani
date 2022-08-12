@@ -300,7 +300,7 @@ const handleEditAddressInput=(index)=>{
                   GSTIN<strong className="text-danger">*</strong>
                 </Form.Label>
                 <img
-                  className={`${styles.arrow} img-fluid`}
+                  className={`${styles.arrow} image_arrow img-fluid`}
                   src="/static/inputDropDown.svg"
                   alt="Search"
                 />
@@ -369,7 +369,7 @@ const handleEditAddressInput=(index)=>{
                           Address Type<strong className="text-danger">*</strong>
                         </Form.Label>
                         <img
-                          className={`${styles.arrow} img-fluid`}
+                          className={`${styles.arrow} image_arrow img-fluid`}
                           src="/static/inputDropDown.svg"
                           alt="Search"
                         />
@@ -450,7 +450,7 @@ const handleEditAddressInput=(index)=>{
                           GSTIN<strong className="text-danger">*</strong>
                         </Form.Label>
                         <img
-                          className={`${styles.arrow} img-fluid`}
+                          className={`${styles.arrow} image_arrow img-fluid`}
                           src="/static/inputDropDown.svg"
                           alt="Search"
                         />
@@ -609,7 +609,7 @@ const handleEditAddressInput=(index)=>{
                               <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
                             </select>
                             <img
-                              className={`${styles.arrow2} img-fluid`}
+                              className={`${styles.arrow2} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />

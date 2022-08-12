@@ -14,7 +14,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
   }
 
   return (
-    <div className={`${styles.main} card border-color`}>
+    <div className={`${styles.main} vessel_card card border-color`}>
       <div
         className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between bg-transparent`}
         data-toggle="collapse"
@@ -158,7 +158,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   Country Of Origin<strong className="text-danger">*</strong>
                 </Form.Label>
                   <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
@@ -194,7 +194,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   Supplier Name<strong className="text-danger">*</strong>
                 </Form.Label>
                 <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
@@ -214,7 +214,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   <strong className="text-danger">*</strong>
                 </Form.Label>
                     <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
@@ -233,7 +233,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   Port Of Discharge<strong className="text-danger">*</strong>
                 </Form.Label>
                 <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
@@ -253,7 +253,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   INCO Terms<strong className="text-danger">*</strong>
                 </Form.Label>
              <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />

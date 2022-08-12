@@ -64,7 +64,7 @@ const Index = ({
 
   return (
     <>
-      <div className={`${styles.main} card border_color `}>
+      <div className={`${styles.main} vessel_card card border_color `}>
         <div
           className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -81,13 +81,14 @@ const Index = ({
           aria-labelledby="recommendations"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.dashboard_form} mr-3`}>
+          <hr className={styles.line} style={{margin: "0"} }></hr>
+          <div className={`${styles.dashboard_form}`}>
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
               companyComment.map((comment, index) => (
                 <div key={index} className={`${styles.comment_para} d-flex `}>
                   <Form.Control
-                    className={`${styles.comment}`}
+                    className={`${styles.comment} border-0 shadow-none`}
                     as="textarea"
                     defaultValue={comment}
                     rows={3}
@@ -113,7 +114,7 @@ const Index = ({
                 </div>
               ))}
 
-            <div className="d-flex mt-4 pb-4">
+            <div className="d-flex mt-4 pb-4 position-relative">
               <input
                 as="textarea"
                 rows={3}
@@ -121,7 +122,7 @@ const Index = ({
                 className={`${styles.comment_field} form-control`}
                 onChange={(e) => setCompanyComments(e.target.value)}
               />
-              <label className={`${styles.label_heading}`}>Comments</label>
+              <label className={`${styles.label_heading} label_heading`}>Comments</label>
 
               <img
                 className="img-fluid ml-4"
@@ -135,7 +136,7 @@ const Index = ({
             </div>
           </div>
           <hr className={styles.line}></hr>
-          <div className={`${styles.dashboard_form} mr-3`}>
+          <div className={`${styles.dashboard_form}`}>
             <h5 className={styles.sub_heading}>Comments On Financials</h5>
             {financialsComment &&
               financialsComment.map((comment, index) => (
@@ -164,7 +165,7 @@ const Index = ({
                 </div>
               ))}
 
-            <div className="d-flex mt-4 pb-4">
+            <div className="d-flex mt-4 pb-4 position-relative">
               <input
                 as="textarea"
                 rows={3}
@@ -172,7 +173,7 @@ const Index = ({
                 className={`${styles.comment_field} form-control`}
                 onChange={(e) => setFinancialsComments(e.target.value)}
               />
-              <label className={`${styles.label_heading}`}>Comments</label>
+              <label className={`${styles.label_heading} label_heading`}>Comments</label>
 
               <img
                 className="img-fluid ml-4"
@@ -212,8 +213,27 @@ const Index = ({
                       groupExposureData.map((exp, index) => (
                         <tr key={index} className="table_row">
                           <td className={styles.number}>{(index += 1)} </td>
-                          <td>
-                            <input
+                          <td className='position-relative'>                            
+                            <select
+                              className={`${styles.input} ${styles.customSelect} input form-control`}
+                              name="name"
+                              defaultValue={exp.name}
+                              onChange={(e) => {
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value,
+                                )
+                              }}
+                              readOnly={!saveTable}
+                            >
+                              <option value='Simport Pvt. Ltd.'>Simport Pvt. Ltd.</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                            {/* <input
                               name="name"
                               defaultValue={exp.name}
                               onChange={(e) => {
@@ -224,7 +244,7 @@ const Index = ({
                               }}
                               className={styles.input}
                               readOnly={!saveTable}
-                            />
+                            /> */}
                           </td>
                           <td>
                             <input
@@ -254,8 +274,27 @@ const Index = ({
                               readOnly={!saveTable}
                             />
                           </td>
-                          <td>
-                            <input
+                          <td className='position-relative'>
+                            <select
+                              className={`${styles.input} ${styles.customSelect} input form-control`}
+                              name="accountConduct"
+                              onChange={(e) => {
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value,
+                                )
+                              }}
+                              readOnly={!saveTable}
+                            >
+                              <option value='Good'>Good</option>
+                              <option value='Satisfactory'>Satisfactory</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                            {/* <input
                               name="accountConduct"
                               defaultValue={exp.accountConduct}
                               onChange={(e) => {
@@ -266,7 +305,7 @@ const Index = ({
                               }}
                               className={styles.input}
                               readOnly={!saveTable}
-                            />
+                            /> */}
                           </td>
                           <td>
                             <div>
@@ -302,8 +341,26 @@ const Index = ({
                  
                       <tr className="table_row">
                         <td className={styles.number}>1 </td>
-                        <td>
-                          <input
+                        <td className='position-relative'>
+                          <select
+                            className={`${styles.input} ${styles.customSelect} input form-control`}
+                            name="name"
+                            onChange={(e) => {
+                              handleGroupExpChange(
+                                e.target.name,
+                                e.target.value,
+                              )
+                            }}
+                            readOnly={!saveTable}
+                          >
+                            <option value='Simport Pvt. Ltd.'>Simport Pvt. Ltd.</option>
+                          </select>
+                          <img
+                            className={`${styles.arrow} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                          {/* <input
                             name="name"
                             onChange={(e) => {
                               handleGroupExpChange(
@@ -313,7 +370,7 @@ const Index = ({
                             }}
                             className={styles.input}
                             readOnly={!saveTable}
-                          />
+                          /> */}
                         </td>
                         <td>
                           <input
@@ -341,8 +398,27 @@ const Index = ({
                             readOnly={!saveTable}
                           />
                         </td>
-                        <td>
-                          <input
+                        <td className='position-relative'>
+                          <select
+                            className={`${styles.input} ${styles.customSelect} input form-control`}
+                            name="accountConduct"
+                            onChange={(e) => {
+                              handleGroupExpChange(
+                                e.target.name,
+                                e.target.value,
+                              )
+                            }}
+                            readOnly={!saveTable}
+                          >
+                            <option value='Good'>Good</option>
+                            <option value='Satisfactory'>Satisfactory</option>
+                          </select>
+                          <img
+                            className={`${styles.arrow} img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                          {/* <input
                             name="accountConduct"
                             onChange={(e) => {
                               handleGroupExpChange(
@@ -352,7 +428,7 @@ const Index = ({
                             }}
                             className={styles.input}
                             readOnly={!saveTable}
-                          />
+                          /> */}
                         </td>
                         <td>
                           <div>
@@ -429,7 +505,7 @@ const Index = ({
             <div className={`${styles.strength} value`}>Strengths</div>
             {strengthsComment &&
               strengthsComment.map((strengths, index) => (
-                <div key={index} className="d-flex justify-content-between">
+                <div key={index} className={`${styles.textarea_main} d-flex justify-content-between`}>
                   <Form.Control
                     className={`${styles.paragraph} input`}
                     defaultValue={strengths}
@@ -478,6 +554,8 @@ const Index = ({
                 />
               </div>
             </div> */}
+            
+            <hr className={styles.line} style={{margin: "-1px -35px 0"} }></hr>
             <div className={`${styles.sub_heading} value`}>Weakness</div>
             <div className="d-flex mt-5 pb-4">
               <input
@@ -504,7 +582,7 @@ const Index = ({
             <div className={`${styles.strength} value`}>Weakness</div>
             {weaknessComment &&
               weaknessComment.map((weakness, index) => (
-                <div key={index} className="d-flex justify-content-between">
+                <div key={index} className={`${styles.textarea_main} d-flex justify-content-between`}>
                   <Form.Control
                     className={`${styles.paragraph} input`}
                     defaultValue={weakness}
@@ -555,6 +633,7 @@ const Index = ({
               </div>
             </div> */}
 
+            <hr className={styles.line} style={{margin: "-1px -35px 0"} }></hr>
             <div
               className={`${styles.sanction_terms} mt-4 d-flex justify-content-between align-items-center`}
             >
