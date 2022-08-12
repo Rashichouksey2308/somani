@@ -168,6 +168,10 @@ function Index() {
     })
     setDeliveryOrder([...tempArr])
   }
+  const generateDeliveryOrderNumber=()=>{
+    
+    // str.slice(0, 3)
+  }
   return (
     <>
       <div className={`${styles.dashboardTab} tabHeader w-100`}>
@@ -263,6 +267,7 @@ function Index() {
                 >
                   <div className={`${styles.card}  accordion_body`}>
                     <LiftingDetails 
+                    data={ReleaseOrderData}
                     liftingData={lifting} 
                     addNewLifting={addNewLifting} 
                     addNewSubLifting={addNewSubLifting} 

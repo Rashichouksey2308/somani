@@ -13,7 +13,7 @@ import Axios from 'axios'
 
 
 export default function Index(props) {
-  console.log(props.liftingData,"liftingdata")
+  console.log(props,"liftingdata")
   const [editInput, setEditInput] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
   const [currentOrder,setCurrentOrder]=useState("Ramal001-00001/05")
@@ -105,7 +105,7 @@ export default function Index(props) {
               <div className="row">
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Commodity</div>
-                  <span className={styles.value}>Coal</span>
+                  <span className={styles.value}>{props.data?.data[0]?.order?.commodity}</span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Consignor Name</div>
