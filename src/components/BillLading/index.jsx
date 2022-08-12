@@ -367,7 +367,7 @@ export default function Index({
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
-                              className={`${styles.arrow} img-fluid`}
+                              className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />

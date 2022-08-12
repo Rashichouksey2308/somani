@@ -1217,7 +1217,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <img
-                                  className={`img-fluid ${styles.arrow}`}
+                                  className={`img-fluid image_arrow ${styles.arrow}`}
                                   src="/static/inputDropDown.svg"
                                 ></img>
                               </div>
@@ -1354,7 +1354,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <img
-                                  className={`img-fluid ${styles.arrow}`}
+                                  className={`img-fluid image_arrow ${styles.arrow}`}
                                   src="/static/inputDropDown.svg"
                                 ></img>
                               </div>
@@ -1419,7 +1419,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <img
-                                  className={`img-fluid ${styles.arrow}`}
+                                  className={`img-fluid image_arrow ${styles.arrow}`}
                                   src="/static/inputDropDown.svg"
                                 ></img>
                               </div>
@@ -1458,7 +1458,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <img
-                                  className={`img-fluid ${styles.arrow}`}
+                                  className={`img-fluid image_arrow ${styles.arrow}`}
                                   src="/static/inputDropDown.svg"
                                 ></img>
                               </div>
@@ -1541,7 +1541,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <img
-                                  className={`img-fluid ${styles.arrow}`}
+                                  className={`img-fluid  image_arrow ${styles.arrow}`}
                                   src="/static/inputDropDown.svg"
                                 ></img>
                               </div>
@@ -1580,7 +1580,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <img
-                                  className={`img-fluid ${styles.arrow}`}
+                                  className={`img-fluid image_arrow ${styles.arrow}`}
                                   src="/static/inputDropDown.svg"
                                 ></img>
                               </div>

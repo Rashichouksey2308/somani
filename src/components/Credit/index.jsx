@@ -440,7 +440,7 @@ const index = ({
                     <strong className="text-danger">*</strong>
                   </label>
                   <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
@@ -505,7 +505,7 @@ const index = ({
                     <strong className="text-danger">*</strong>
                   </label>
                   <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
@@ -614,7 +614,7 @@ const index = ({
                     Supplier Name<strong className="text-danger">*</strong>
                   </label>
                   <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
@@ -691,7 +691,7 @@ const index = ({
                     Country of Origin<strong className="text-danger">*</strong>
                   </label>
                   <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
@@ -717,7 +717,7 @@ const index = ({
                     <strong className="text-danger">*</strong>
                   </label>
                   <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
@@ -1074,7 +1074,7 @@ const index = ({
                       Address Type<strong className="text-danger">*</strong>
                     </label>
                     <img
-                      className={`${styles.arrow} img-fluid`}
+                      className={`${styles.arrow} image_arrow img-fluid`}
                       src="/static/inputDropDown.svg"
                       alt="Search"
                     />
@@ -1308,7 +1308,7 @@ const index = ({
                       Address Type<strong className="text-danger">*</strong>
                     </label>
                     <img
-                      className={`${styles.arrow} img-fluid`}
+                      className={`${styles.arrow} image_arrow img-fluid`}
                       src="/static/inputDropDown.svg"
                       alt="Search"
                     />

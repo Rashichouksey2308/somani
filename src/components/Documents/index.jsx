@@ -74,7 +74,7 @@ const Index = ({
                       </option>
                     </select>
                     <img
-                      className={`${styles.arrow} img-fluid`}
+                      className={`${styles.arrow} image_arrow img-fluid`}
                       src="/static/inputDropDown.svg"
                       alt="Search"
                     />
