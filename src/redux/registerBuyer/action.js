@@ -187,8 +187,8 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage)) {
           toast.success(toastMessage, { toastId: toastMessage })
         }
-          Router.push('/leads')
-        
+        Router.push('/leads')
+
         // payload.history.goBack()
       } else {
         dispatch(createBuyerFailed(response.data.data))
@@ -338,12 +338,9 @@ export const GetOrders = (payload) => async (dispatch, getState, api) => {
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    Axios.get(
-      `${API.corebaseUrl}${API.getBuyers}${payload ? payload : ''}`,
-      {
-        headers: headers,
-      },
-    ).then((response) => {
+    Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload ? payload : ''}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getOrderSuccess(response.data.data))
       } else {

@@ -9,14 +9,11 @@ import toast from 'react-toastify'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
 
-
-
-
 export default function Index(props) {
-  console.log(props.liftingData,"liftingdata")
+  console.log(props.liftingData, 'liftingdata')
   const [editInput, setEditInput] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
-  const [currentOrder,setCurrentOrder]=useState("Ramal001-00001/05")
+  const [currentOrder, setCurrentOrder] = useState('Ramal001-00001/05')
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
       setEditInput(false)
@@ -24,55 +21,56 @@ export default function Index(props) {
       setEditInput(true)
     }
   }
-  const saveDate = (value, name,index,index2) => {
-  
+  const saveDate = (value, name, index, index2) => {
     const d = new Date(value)
     let text = d.toISOString()
-    props.handleChange(name,value,index,index2)
-    
+    props.handleChange(name, value, index, index2)
   }
-  const uploadDoc = async(e,type,index1,index2) => {
-    console.log(e,"response data")
-     let fd = new FormData()
-     fd.append('document',  e.target.files[0])
-     // dispatch(UploadCustomDoc(fd))
- 
-     let cookie = Cookies.get('SOMANI')
-     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-   
-     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-     try {
-      let response= await  Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
-         headers: headers,
-       })
-       console.log(response.data.data, 'response data123')
-        if (response.data.code === 200) {
-           // dispatch(getCustomClearanceSuccess(response.data.data))
-            props.handleChange(type,response.data.data,index1,index2)
-           return  response.data.data; 
-          
-           // let toastMessage = 'DOCUMENT UPDATED'
-           // if (!toast.isActive(toastMessage)) {
-           //   toast.error(toastMessage, { toastId: toastMessage })
-           // }
-         } else {
-           // dispatch(getCustomClearanceFailed(response.data.data))
-           // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-           // if (!toast.isActive(toastMessage)) {
-           //   toast.error(toastMessage, { toastId: toastMessage })
-           // }
-         }
-     } catch (error) {
-       // dispatch(getCustomClearanceFailed())
-   
-       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-       // if (!toast.isActive(toastMessage)) {
-       //   toast.error(toastMessage, { toastId: toastMessage })
-       // }
-     }
+  const uploadDoc = async (e, type, index1, index2) => {
+    console.log(e, 'response data')
+    let fd = new FormData()
+    fd.append('document', e.target.files[0])
+    // dispatch(UploadCustomDoc(fd))
+
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      let response = await Axios.post(
+        `${API.corebaseUrl}${API.customClearanceDoc}`,
+        fd,
+        {
+          headers: headers,
+        },
+      )
+      console.log(response.data.data, 'response data123')
+      if (response.data.code === 200) {
+        // dispatch(getCustomClearanceSuccess(response.data.data))
+        props.handleChange(type, response.data.data, index1, index2)
+        return response.data.data
+
+        // let toastMessage = 'DOCUMENT UPDATED'
+        // if (!toast.isActive(toastMessage)) {
+        //   toast.error(toastMessage, { toastId: toastMessage })
+        // }
+      } else {
+        // dispatch(getCustomClearanceFailed(response.data.data))
+        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        // if (!toast.isActive(toastMessage)) {
+        //   toast.error(toastMessage, { toastId: toastMessage })
+        // }
+      }
+    } catch (error) {
+      // dispatch(getCustomClearanceFailed())
+      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+      // if (!toast.isActive(toastMessage)) {
+      //   toast.error(toastMessage, { toastId: toastMessage })
+      // }
+    }
   }
- 
+
   return (
     <>
       {/* <div className={`${styles.dashboardTab} w-100`}> */}
@@ -132,279 +130,354 @@ export default function Index(props) {
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       style={{ height: '46px', width: '277px' }}
                       value={currentOrder}
-                      onChange={(e)=>{
-                        setCurrentOrder(e.target.value);
+                      onChange={(e) => {
+                        setCurrentOrder(e.target.value)
                       }}
                     >
-                      <option value="Ramal001-00001/05">Ramal001-00001/05</option>
-                      <option value="Ramal001-00001/02">Ramal001-00001/02</option>
+                      <option value="Ramal001-00001/05">
+                        Ramal001-00001/05
+                      </option>
+                      <option value="Ramal001-00001/02">
+                        Ramal001-00001/02
+                      </option>
                     </select>
 
                     <img
-                      className={`${styles.arrow} img-fluid`}
+                      className={`${styles.arrow} image_arrow img-fluid`}
                       src="/static/inputDropDown.svg"
                       alt="Search"
                     />
                   </div>
                 </div>
-
-                <div className="col-lg-4 pt-2">
-                  <div className="d-flex">
-                    <div className={`${styles.label} mr-3 text`}>
-                      DO Quantity
-                    </div>
-                    <div className={`${styles.do_number}`}>20,000 MT</div>
-                  </div>
-                </div>
               </div>
-              <button className={styles.add_btn} onClick={(e)=>{props.addNewLifting(currentOrder)}}>
+              <button
+                className={styles.add_btn}
+                onClick={(e) => {
+                  props.addNewLifting(currentOrder)
+                }}
+              >
                 <span className={styles.add_sign}>+</span>Add
               </button>
             </div>
           </div>
-          {props.liftingData && props.liftingData.map((val,index)=>{
-            return(
-              <div className={`${styles.main} mt-4 card border_color`}>
-            <div
-              className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between bg-transparent`}
-              data-toggle={`collapse`}
-              data-target={`#upload${index}`}
-              aria-expanded="true"
-              aria-controls={`upload${index}`}
-            >
-              <h3 className={`${styles.heading}`}>{val.deliveryOrder}</h3>
-              <div className="d-flex">
-                <div className="d-flex mr-5">
-                  <div className={`${styles.label_heading} mr-3 label_heading`}>
-                    DO Quantity
-                  </div>
-                  <div className={`${styles.do_number} mr-4`}>20,000 MT</div>
-                </div>
-                <div className="d-flex mr-5">
-                  <div className={`${styles.label_heading} mr-3 label_heading`}>
-                    Balance Quantity
-                  </div>
-                  <div className={`${styles.do_number} mr-4`}>8,000 MT</div>
-                </div>
-                <span>+</span>
-              </div>
-            </div>
-            <div
-              id={`upload${index}`}
-              className={`collapse}`}
-              aria-labelledby={`upload${index}`}
-              data-parent={`#upload${index}`}
-            >
-              {val.detail.map((val2,index2)=>{
-                return(
-                  <div className={`${styles.dashboard_form} mt-3 card-body`}>
-                <div className={`${styles.bill_landing} border_color`}>
-                  <div className={`${styles.vessel_card}`}>
-                    <div className="justify-content-between d-flex mt-4">
-                      <div className={`${styles.form_heading}`}>
-                        Listing Details {index2}
-                      </div>
-                      <button className={styles.add_btn}
-                      onClick={(e)=>{
-                        props.addNewSubLifting(index)
-                      }}
-                      >Add</button>
-                    </div>
-                    <div className="row">
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                      >
-                        <div className="d-flex">
-                          <DateCalender
-                          saveDate={saveDate}
-                          index={index}
-                          index2={index2}
-                          name="dateOfLifting"
-                          labelName="Date of Lifting" dateFormat={"dd-MM-yyyyy"}
-                           
-                          />
-                          <img
-                            className={`${styles.calanderIcon} img-fluid`}
-                            src="/static/caldericon.svg"
-                            alt="Search"
-                          />
+          {props.liftingData &&
+            props.liftingData.map((val, index) => {
+              return (
+                <div className={`${styles.main} mt-4 card border_color`}>
+                  <div
+                    className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between bg-transparent`}
+                    data-toggle={`collapse`}
+                    data-target={`#upload${index}`}
+                    aria-expanded="true"
+                    aria-controls={`upload${index}`}
+                  >
+                    <h3 className={`${styles.heading}`}>{val.deliveryOrder}</h3>
+                    <div className="d-flex">
+                      <div className="d-flex mr-5">
+                        <div
+                          className={`${styles.label_heading} mr-3 label_heading`}
+                        >
+                          DO Quantity
+                        </div>
+                        <div className={`${styles.do_number} mr-4`}>
+                          20,000 MT
                         </div>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                      >
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="number"
-                          name="liftingQuant"
-                          onChange={(e)=>{
-                            props.handleChange(e.target.name,e.target.value,index,index2)
-                          }}
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
+                      <div className="d-flex mr-5">
+                        <div
+                          className={`${styles.label_heading} mr-3 label_heading`}
                         >
-                          Lifting Quantity
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                      >
-                        <div className={styles.radio_form}>
-                          <div className={`${styles.sub_heading} sub_heading`}>
-                            Mode of Transportation
-                            <strong className="text-danger">*</strong>
-                          </div>
-                          {['radio'].map((type, index) => (
-                            <div key={index} className={styles.radio_group}>
-                              <Form.Check
-                                className={styles.radio}
-                                inline
-                                label="RR"
-                                name="modeOfTransportation"
-                                type={type}
-                                id={`inline-${type}-1`}
-                                value={"RR"}
-                                  onChange={(e)=>{
-                                    props.handleChange(e.target.name,e.target.value,index,index2)
-                                  }}
-                              />
-                              <Form.Check
-                                className={`${styles.radio} ml-4`}
-                                inline
-                                label="LR"
-                                name="modeOfTransportation"
-                                type={type}
-                                id={`inline-${type}-2`}
-                                 value={"LR"}
-                                onChange={(e)=>{
-                               props.handleChange(e.target.name,e.target.value,index,index2)
-                                }}
-                              />
-                            </div>
-                          ))}
+                          Balance Quantity
+                        </div>
+                        <div className={`${styles.do_number} mr-4`}>
+                          8,000 MT
                         </div>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                      >
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="text"
-                          name="eWayBill"
-                          onChange={(e)=>{
-                               props.handleChange(e.target.name,e.target.value,index,index2)
-                          }}
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          E-way Bill No.
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
+                      <span>+</span>
                     </div>
                   </div>
-
-                  <div className={`${styles.table_container} mt-5`}>
-                    <div className={styles.table_scroll_outer}>
-                      <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
+                  <div
+                    id={`upload${index}`}
+                    className={`collapse}`}
+                    aria-labelledby={`upload${index}`}
+                    data-parent={`#upload${index}`}
+                  >
+                    {val.detail.map((val2, index2) => {
+                      return (
+                        <div
+                          className={`${styles.dashboard_form} mt-3 card-body`}
                         >
-                          <thead>
-                            <tr>
-                              <th>
-                                DOCUMENT NAME{' '}
-                                <img
-                                  className={`${styles.sort_image} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>
-                                FORMAT{' '}
-                                <img
-                                  className={`${styles.sort_image} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>
-                                DOCUMENT DATE{' '}
-                                <img
-                                  className={`${styles.sort_image} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>ACTION</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                {val2.modeOfTransportation} <strong className="text-danger">*</strong>
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
-
-                              <td colSpan="2">
-                                <div className={styles.uploadBtnWrapper}>
-                                  <div className={styles.uploadBtnWrapper}>
-                          <input
-                            id='document3'
-                            onChange={(e) => uploadDoc(e,"LRorRRDoc",index,index2)}
-                            type="file" name="myfile" />
-                          <button className={`${styles.upload_btn} btn`}>
-                            Upload
-                          </button>
-                        </div>
-                                
+                          <div
+                            className={`${styles.bill_landing} border_color`}
+                          >
+                            <div className={`${styles.vessel_card}`}>
+                              <div className="justify-content-between d-flex mt-4">
+                                <div className={`${styles.form_heading}`}>
+                                  Listing Details {index2}
                                 </div>
-                              </td>
-                            </tr>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                E-Way Bill{' '}
-                                <strong className="text-danger">*</strong>
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
+                                <button
+                                  className={styles.add_btn}
+                                  onClick={(e) => {
+                                    props.addNewSubLifting(index)
+                                  }}
+                                >
+                                  Add
+                                </button>
+                              </div>
+                              <div className="row">
+                                <div
+                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
+                                >
+                                  <div className="d-flex">
+                                    <DateCalender
+                                      saveDate={saveDate}
+                                      index={index}
+                                      index2={index2}
+                                      name="dateOfLifting"
+                                      labelName="Date of Lifting"
+                                      dateFormat={'dd-MM-yyyyy'}
+                                    />
+                                    <img
+                                      className={`${styles.calanderIcon} img-fluid`}
+                                      src="/static/caldericon.svg"
+                                      alt="Search"
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
+                                >
+                                  <input
+                                    className={`${styles.input_field} input form-control`}
+                                    required
+                                    type="number"
+                                    name="liftingQuant"
+                                    onChange={(e) => {
+                                      props.handleChange(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                        index2,
+                                      )
+                                    }}
+                                  />
+                                  <label
+                                    className={`${styles.label_heading} label_heading`}
+                                  >
+                                    Lifting Quantity
+                                    <strong className="text-danger">*</strong>
+                                  </label>
+                                </div>
+                                <div
+                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                                >
+                                  <div className={styles.radio_form}>
+                                    <div
+                                      className={`${styles.sub_heading} sub_heading`}
+                                    >
+                                      Mode of Transportation
+                                      <strong className="text-danger">*</strong>
+                                    </div>
+                                    {['radio'].map((type, index) => (
+                                      <div
+                                        key={index}
+                                        className={styles.radio_group}
+                                      >
+                                        <Form.Check
+                                          className={styles.radio}
+                                          inline
+                                          label="RR"
+                                          name="modeOfTransportation"
+                                          type={type}
+                                          id={`inline-${type}-1`}
+                                          value={'RR'}
+                                          onChange={(e) => {
+                                            props.handleChange(
+                                              e.target.name,
+                                              e.target.value,
+                                              index,
+                                              index2,
+                                            )
+                                          }}
+                                        />
+                                        <Form.Check
+                                          className={`${styles.radio} ml-4`}
+                                          inline
+                                          label="LR"
+                                          name="modeOfTransportation"
+                                          type={type}
+                                          id={`inline-${type}-2`}
+                                          value={'LR'}
+                                          onChange={(e) => {
+                                            props.handleChange(
+                                              e.target.name,
+                                              e.target.value,
+                                              index,
+                                              index2,
+                                            )
+                                          }}
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                                <div
+                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                                >
+                                  <input
+                                    className={`${styles.input_field} input form-control`}
+                                    required
+                                    type="text"
+                                    name="eWayBill"
+                                    onChange={(e) => {
+                                      props.handleChange(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                        index2,
+                                      )
+                                    }}
+                                  />
+                                  <label
+                                    className={`${styles.label_heading} label_heading`}
+                                  >
+                                    E-way Bill No.
+                                    <strong className="text-danger">*</strong>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
 
-                              <td colSpan="2">
-                                <div className={styles.uploadBtnWrapper}>
-                                        <input
-                                        id='document3'
-                                        onChange={(e) => uploadDoc(e,"eWayBillDoc",index,index2)}
-                                        type="file" name="myfile" />
-                                        <button className={`${styles.upload_btn} btn`}>
-                                        Upload
-                                        </button>
-                        
-                                  {/* <input type="file" name="myfile2" 
+                            <div className={`${styles.table_container} mt-5`}>
+                              <div className={styles.table_scroll_outer}>
+                                <div className={styles.table_scroll_inner}>
+                                  <table
+                                    className={`${styles.table} table`}
+                                    cellPadding="0"
+                                    cellSpacing="0"
+                                    border="0"
+                                  >
+                                    <thead>
+                                      <tr>
+                                        <th>
+                                          DOCUMENT NAME{' '}
+                                          <img
+                                            className={`${styles.sort_image} mb-1`}
+                                            src="/static/icons8-sort-24.svg"
+                                            alt="Sort icon"
+                                          />
+                                        </th>
+                                        <th>
+                                          FORMAT{' '}
+                                          <img
+                                            className={`${styles.sort_image} mb-1`}
+                                            src="/static/icons8-sort-24.svg"
+                                            alt="Sort icon"
+                                          />
+                                        </th>
+                                        <th>
+                                          DOCUMENT DATE{' '}
+                                          <img
+                                            className={`${styles.sort_image} mb-1`}
+                                            src="/static/icons8-sort-24.svg"
+                                            alt="Sort icon"
+                                          />
+                                        </th>
+                                        <th>ACTION</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr className="table_row">
+                                        <td className={styles.doc_name}>
+                                          {val2.modeOfTransportation}{' '}
+                                          <strong className="text-danger">
+                                            *
+                                          </strong>
+                                        </td>
+                                        <td>
+                                          <img
+                                            src="/static/pdf.svg"
+                                            className={`${styles.pdfImage} img-fluid`}
+                                            alt="Pdf"
+                                          />
+                                        </td>
+                                        <td className={styles.doc_row}>
+                                          28-02-2022,5:30 PM
+                                        </td>
+
+                                        <td colSpan="2">
+                                          <div
+                                            className={styles.uploadBtnWrapper}
+                                          >
+                                            <div
+                                              className={
+                                                styles.uploadBtnWrapper
+                                              }
+                                            >
+                                              <input
+                                                id="document3"
+                                                onChange={(e) =>
+                                                  uploadDoc(
+                                                    e,
+                                                    'LRorRRDoc',
+                                                    index,
+                                                    index2,
+                                                  )
+                                                }
+                                                type="file"
+                                                name="myfile"
+                                              />
+                                              <button
+                                                className={`${styles.upload_btn} btn`}
+                                              >
+                                                Upload
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr className="table_row">
+                                        <td className={styles.doc_name}>
+                                          E-Way Bill{' '}
+                                          <strong className="text-danger">
+                                            *
+                                          </strong>
+                                        </td>
+                                        <td>
+                                          <img
+                                            src="/static/pdf.svg"
+                                            className={`${styles.pdfImage} img-fluid`}
+                                            alt="Pdf"
+                                          />
+                                        </td>
+                                        <td className={styles.doc_row}>
+                                          28-02-2022,5:30 PM
+                                        </td>
+
+                                        <td colSpan="2">
+                                          <div
+                                            className={styles.uploadBtnWrapper}
+                                          >
+                                            <input
+                                              id="document3"
+                                              onChange={(e) =>
+                                                uploadDoc(
+                                                  e,
+                                                  'eWayBillDoc',
+                                                  index,
+                                                  index2,
+                                                )
+                                              }
+                                              type="file"
+                                              name="myfile"
+                                            />
+                                            <button
+                                              className={`${styles.upload_btn} btn`}
+                                            >
+                                              Upload
+                                            </button>
+
+                                            {/* <input type="file" name="myfile2" 
                                    onChange={(e)=>{
 
                                     uploadDoc(e,"eWayBillDoc",index1,index2)
@@ -416,28 +489,26 @@ export default function Index(props) {
                                   >
                                     Upload
                                   </button> */}
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                                 </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
+                              </div>
+                            </div>
 
-                  <hr></hr>
-                  {/* <div className={`${styles.vessel_card} mt-4 mb-4`}>
+                            {/* <div className={`${styles.vessel_card} mt-4 mb-4`}>
                     <button className={`${styles.saveBtn}`}>Save</button>
                   </div> */}
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
-                
-              </div>
-                )
-              })}
-            </div>
-          </div>
-            )
-          })}
+              )
+            })}
 
           <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
             <div
@@ -502,7 +573,7 @@ export default function Index(props) {
                             Document Type
                           </Form.Label>
                           <img
-                            className={`${styles.arrow} img-fluid`}
+                            className={`${styles.arrow} image_arrow img-fluid`}
                             src="/static/inputDropDown.svg"
                             alt="Search"
                           />

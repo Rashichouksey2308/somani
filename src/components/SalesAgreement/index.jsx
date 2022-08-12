@@ -759,7 +759,7 @@ const onShowSideBar=()=>{
                 
               </select>
                <img
-                className={`${styles.arrow3} img-fluid`}
+                className={`${styles.arrow3} image_arrow img-fluid`}
                 src="/static/inputDropDown.svg"
                 alt="Search"
                 />

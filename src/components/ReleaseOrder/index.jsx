@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 
 export default function Index({ ReleaseOrderData }) {
   const dispatch = useDispatch()
-  console.log(ReleaseOrderData, 'ReleaseOrderData')
+  console.log(ReleaseOrderData, 'ReleaseOrderData123')
   let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
   let InvoiceQuantity = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity', 0)
   const [editInput, setEditInput] = useState(true)
@@ -25,7 +25,15 @@ export default function Index({ ReleaseOrderData }) {
   }])
   console.log(releaseDetail, netBalanceQuantity, 'Release')
 
-
+  // useEffect(() => {
+  //   let realseOrderState = _get(ReleaseOrderData, 'data[0].releaseDetail', [])
+  //   console.log(realseOrderState, 'realseOrderStateprev')
+  //   if (realseOrderState.length > 0) {
+  //     setReleaseDetail((prevState) => [...realseOrderState]
+  //     )
+  //   }
+  // }, [ReleaseOrderData])
+  console.log(releaseDetail, 'realseOrderStatecurre')
 
   const handlereleaseDetailChange = (name, value, index) => {
     //console.log(name, value, index, "name,value,index")
@@ -45,10 +53,8 @@ export default function Index({ ReleaseOrderData }) {
   //       if (i == index) {
   //         return { ...obj, actions: val }
   //       }
-
   //       return obj
   //     })
-
   //     return newState
   //   })
   //   let newInput = { ...billOfEntryData }
@@ -57,13 +63,13 @@ export default function Index({ ReleaseOrderData }) {
   // }
 
   const handleDeleteRow = (index) => {
-    console.log(index, 'temparr')
+    // console.log(index, 'temparr')
     let tempArr = [...releaseDetail]
     tempArr.splice(index, 1)
     setReleaseDetail(tempArr)
   }
 
-  console.log(releaseDetail, 'temparr')
+  // console.log(releaseDetail, 'temparr')
 
   const addMorereleaseDetailDataRows = (index) => {
     setReleaseDetail([
@@ -78,7 +84,7 @@ export default function Index({ ReleaseOrderData }) {
     ])
   }
   const saveDate = (value, name, index) => {
-    console.log(value, name, 'save date')
+    // console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
     handlereleaseDetailChange(name, text, index)
@@ -92,7 +98,7 @@ export default function Index({ ReleaseOrderData }) {
     }
   }
   const netQuantityChange = (e, index) => {
-    console.log(netBalanceQuantity, e.target.value, "herere12e")
+    // console.log(netBalanceQuantity, e.target.value, "herere12e")
     if (netBalanceQuantity <= e.target.value) {
 
       // let temp = Number(e.target.value)
@@ -116,11 +122,10 @@ export default function Index({ ReleaseOrderData }) {
     releaseDetail.forEach((item) => {
       value = value - item.netQuantityReleased
     })
-    console.log(value, "val")
-
+    // console.log(value, "val")
     setNetBalanceQuantity(value)
   }
-  console.log(releaseDetail, "val123")
+  // console.log(releaseDetail, "val123")
   useEffect(() => {
     getData()
   }, [releaseDetail])
@@ -133,17 +138,17 @@ export default function Index({ ReleaseOrderData }) {
   }
 
 
-  const onSaveHAndler = async () => {
+  const onSaveHAndler = () => {
     let payload = {
       deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
-      releaseDetail: releaseDetail
+      releaseDetail: [...releaseDetail]
     }
-    //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
-   await dispatch(UpdateDelivery(payload))
+    // console.log(payload)
+    dispatch(UpdateDelivery(payload))
 
-   
+
   }
-  console.log(netBalanceQuantity, 'netBalanceQuantity')
+  // console.log(netBalanceQuantity, 'netBalanceQuantity')
 
   return (
     <>
