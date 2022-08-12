@@ -59,7 +59,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Units of Measurement (UOM)<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -80,7 +80,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Currency<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -121,7 +121,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Tolerance (+/-) Percentage<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -196,7 +196,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Port Of Loading<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -211,7 +211,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Country Of Origin<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -226,7 +226,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Shipment Type<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -242,7 +242,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
                                 <label className={`${styles.label} label_heading`}>Part Shipment Allowed<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -257,7 +257,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Port Of Discharge<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow}  image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -279,7 +279,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
 
                                 <label className={`${styles.label} label_heading`}>Bill of Entry<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -297,7 +297,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>3rd Party Inspection Required<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow}  image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -312,7 +312,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
 
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -327,7 +327,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Storage of Goods<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -350,7 +350,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Computation of Due date<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -426,7 +426,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Exchange Fluctation<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -441,7 +441,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Forex Hedging<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />
@@ -465,7 +465,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                 </select>
                                 <label className={`${styles.label} label_heading`}>Version<strong className="text-danger">*</strong></label>
                                 <img
-                                    className={`${styles.arrow} img-fluid`}
+                                    className={`${styles.arrow} image_arrow img-fluid`}
                                     src="/static/inputDropDown.svg"
                                     alt="Search"
                                 />

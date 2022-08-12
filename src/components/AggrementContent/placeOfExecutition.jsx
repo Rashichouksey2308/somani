@@ -236,7 +236,7 @@ function Index(props) {
                               <option value={"TPA (CMA)"}>{"TPA (CMA)"}</option>
                                 </select>
                                 <img
-                                  className={`${styles.arrow2} img-fluid`}
+                                  className={`${styles.arrow2} image_arrow img-fluid`}
                                   src="/static/inputDropDown.svg"
                                   alt="Search"
                                 />
