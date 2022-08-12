@@ -596,7 +596,7 @@ function Index({companyData,orderList,GstDataHandler}) {
               <div
                 className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}
               >
-                <span>Key Managerial Personsd</span>
+                <span>Key Managerial Persons</span>
               </div>
               <div className={` ${styles.body}`}>
                 <Row>
@@ -784,7 +784,14 @@ function Index({companyData,orderList,GstDataHandler}) {
           aria-controls="summaryCharts"
         >
           <h2 className="mb-0">Summary Chart</h2>
-          <span>+</span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Filter By: </h5>
+            <select className={`${styles.selectHead} accordion_body accordion_DropDown form-select`} aria-label="Default select example"
+            >
+              <option selected value="Quarterly">Quarterly</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="summaryCharts"
@@ -908,7 +915,14 @@ function Index({companyData,orderList,GstDataHandler}) {
           aria-controls="salesDetails"
         >
           <h2 className="mb-0">Sales Details</h2>
-          <span>+</span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
+            <select className={`${styles.selectHead} accordion_body accordion_DropDown form-select`} aria-label="Default select example"
+            >
+              <option selected value="1">Crores</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="salesDetails"
@@ -935,9 +949,9 @@ function Index({companyData,orderList,GstDataHandler}) {
                   <tr className={styles.second_head}>
                     <td colSpan={2}></td>
                     <td>VALUE</td>
-                    <td>% ON GROSS REVENUE</td>
+                    <td className='border-left-0'>% ON GROSS REVENUE</td>
                     <td>VALUE</td>
-                    <td>% ON GROSS REVENUE</td>
+                    <td className='border-left-0'>% ON GROSS REVENUE</td>
                     {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
@@ -952,99 +966,99 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Gross Revenue
                     </td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.percentage}%</td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Recurring Sales
                     </td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage}%</td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Related Party Sales
                     </td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.percentage}%</td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Intra Organization Sales
                     </td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.percentage}%</td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       B2B Sales
                     </td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.percentage}%</td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       B2C Sales
                     </td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.percentage}%</td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Export Sales
                     </td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.percentage}%</td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.percentage}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.percentage}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Total Customers
                     </td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.current?.value}</td>
-                    <td></td>
+                    <td className='border-left-0'></td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value}</td>
-                    <td></td>
+                    <td className='border-left-0'></td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Total Invoices
                     </td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.current?.value}</td>
-                    <td></td>
+                    <td className='border-left-0'></td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value}</td>
-                    <td></td>
+                    <td className='border-left-0'></td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       <strong>Sales Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td><strong>-47.73%</strong></td>
+                    <td className='border-left-0'><strong>-47.73%</strong></td>
                     <td></td>
-                    <td></td>
+                    <td className='border-left-0'></td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       <strong>Quarterly Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td><strong>50%</strong></td>
+                    <td className='border-left-0'><strong>50%</strong></td>
                     <td></td>
-                    <td></td>
+                    <td className='border-left-0'></td>
                   </tr>
                 </table>
                 <table
@@ -1102,7 +1116,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                 >
                   <tr>
                     <th className={`${styles.first}`}>Principal/ HSN Wise Sales</th>
-                    <th colSpan={6}>Financial Period: MAR 2020 - APR 2021</th>
+                    <th colSpan={6}><span style={{color: "#2837566A"}}>Financial Period:</span> MAR 2020 - APR 2021</th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td>
@@ -1147,7 +1161,14 @@ function Index({companyData,orderList,GstDataHandler}) {
           aria-controls="purchaseDetails"
         >
           <h2 className="mb-0">Purchase Details</h2>
-          <span>+</span>
+          <div className="d-flex align-items-center">
+            <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
+            <select className={`${styles.selectHead} accordion_body accordion_DropDown form-select`} aria-label="Default select example"
+            >
+              <option selected value="1">Crores</option>
+            </select>
+            <span>+</span>
+          </div>
         </div>
         <div
           id="purchaseDetails"
@@ -1174,9 +1195,9 @@ function Index({companyData,orderList,GstDataHandler}) {
                   <tr className={styles.second_head}>
                     <td colSpan={2}></td>
                     <td>VALUE</td>
-                    <td>% ON GROSS REVENUE</td>
+                    <td className='border-left-0'>% ON GROSS REVENUE</td>
                     <td>VALUE</td>
-                    <td>% ON GROSS REVENUE</td>
+                    <td className='border-left-0'>% ON GROSS REVENUE</td>
                     {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
@@ -1191,18 +1212,18 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Gross Purchases
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.percentage}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.percentage}</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Recurring Purchases
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.percentage}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.percentage}</td>
                   </tr>
 
                   <tr>
@@ -1210,37 +1231,37 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Related Party Purchases
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.percentage}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.percentage}</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Intra Organization Purchases
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.percentage}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.percentage}</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       B2B  Purchases
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.percentage}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.percentage}</td>
                   </tr>
 
                   <tr>
                     <td colSpan={2}>
-                      Import   Purchases
+                      Import Purchases
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.percentage}</td>
                   </tr>
 
                   <tr>
@@ -1248,9 +1269,9 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Total Suppliers
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.percentage}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.percentage}</td>
                   </tr>
 
                   <tr>
@@ -1258,27 +1279,27 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Total Invoices
                     </td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.percentage}</td>
                     <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.percentage}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.percentage}</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       <strong>Purchases Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value}</strong></td>
                     <td></td>
-                    <td><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value}</strong></td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       <strong>Quarterly Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value}</strong></td>
                     <td></td>
-                    <td><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value}</strong></td>
                   </tr>
                 </table>
                 <table
