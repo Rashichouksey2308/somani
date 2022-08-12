@@ -221,7 +221,7 @@ export default function Index(props) {
                       className={`${styles.input_field} input form-control`}
                     >
                       <option value={true}>Yes</option>
-                      <option value={false}>N0</option>
+                      <option value={false}>No</option>
 
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
