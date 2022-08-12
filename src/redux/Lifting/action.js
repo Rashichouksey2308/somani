@@ -55,44 +55,39 @@ function updateLiftingDataFailed() {
   }
 }
 
-export const GetAllLifting =
-  (payload) => async (dispatch, getState, api) => {
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-    console.log(
-      `${API.corebaseUrl}${API.getVessel}`,
-      `API.corebaseUrl{API.getVessel}`,
-    )
+export const GetAllLifting = (payload) => async (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+  console.log(
+    `${API.corebaseUrl}${API.getVessel}`,
+    `API.corebaseUrl{API.getVessel}`,
+  )
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    try {
-      Axios.get(
-        `${API.corebaseUrl}${API.lifting}${payload ? payload : ''}`,
-        {
-          headers: headers,
-        },
-        
-      ).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(getAllLiftingSuccess(response.data.data))
-        } else {
-          dispatch(getAllLiftingFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.get(`${API.corebaseUrl}${API.lifting}${payload ? payload : ''}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getAllLiftingSuccess(response.data.data))
+      } else {
+        dispatch(getAllLiftingFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
         }
-      })
-    } catch (error) {
-      dispatch(getAllLiftingFailed())
-
-      let toastMessage = 'COULD NOT GET INSPECTION DATA AT THIS TIME'
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
       }
+    })
+  } catch (error) {
+    dispatch(getAllLiftingFailed())
+
+    let toastMessage = 'COULD NOT GET INSPECTION DATA AT THIS TIME'
+    if (!toast.isActive(toastMessage)) {
+      toast.error(toastMessage, { toastId: toastMessage })
     }
   }
+}
 
 export const GetLifting = (payload) => async (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
@@ -126,6 +121,7 @@ export const GetLifting = (payload) => async (dispatch, getState, api) => {
 
 export const UpdateLiftingData =
   (payload) => async (dispatch, getState, api) => {
+    console.log('sending')
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -139,7 +135,7 @@ export const UpdateLiftingData =
           dispatch(updateLiftingDataSuccess(response.data.data))
           let toastMessage = 'UPDATED SUCCESSFULLY'
           if (!toast.isActive(toastMessage)) {
-              toast.error(toastMessage, { toastId: toastMessage })
+            toast.error(toastMessage, { toastId: toastMessage })
           }
         } else {
           dispatch(updateLiftingDataFailed(response.data.data))

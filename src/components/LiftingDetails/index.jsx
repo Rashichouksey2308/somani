@@ -8,15 +8,16 @@ import API from '../../utils/endpoints'
 import toast from 'react-toastify'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
+import _get from 'lodash/get'
 
 
 
 
 export default function Index(props) {
-  console.log(props.liftingData,"liftingdata")
+  console.log(props.data,"liftingdata",props.liftingData)
   const [editInput, setEditInput] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
-  const [currentOrder,setCurrentOrder]=useState("Ramal001-00001/05")
+  const [currentOrder,setCurrentOrder]=useState("")
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
       setEditInput(false)
@@ -72,26 +73,23 @@ export default function Index(props) {
        // }
      }
   }
- 
+ const getQuan=(data,type)=>{
+     console.log(data,"data")
+     let a;
+  _get(props, 'data.data[0].deliveryDetail', []).forEach((d,index)=>{
+    console.log(data.deliveryOrder,"data.deliveryOrder",d.deliveryOrderNumber)
+     if(data.deliveryOrder==d.deliveryOrderNumber){
+  
+        console.log((Number(d.netQuantityReleased))-Number(_get(props.data, 'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity', 0)),"ploo")
+        a=(Number(d.netQuantityReleased))-Number(_get(props.data, 'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity', 0))
+      
+     }
+  })
+  return Math.abs(a)
+ }
   return (
     <>
-      {/* <div className={`${styles.dashboardTab} w-100`}> */}
-      {/* <div className={`${styles.tabHeader} tabHeader `}>
-          <div className="d-flex align-items-center">
-            <h1 className={`${styles.title} heading`}>
-              <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
-                alt="arrow right"
-                className="img-fluid image_arrow"
-              />
-              <span>Ramakrishna Traders - Ramal001-00001</span>
-            </h1>
-          </div>
-        </div> */}
+
 
       <div className={`${styles.backgroundMain} container-fluid`}>
         <div className={`${styles.vessel_card} m-2 border_color`}>
@@ -105,7 +103,7 @@ export default function Index(props) {
               <div className="row">
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Commodity</div>
-                  <span className={styles.value}>Coal</span>
+                  <span className={styles.value}>{props.data?.data[0]?.order?.commodity}</span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Consignor Name</div>
@@ -115,7 +113,9 @@ export default function Index(props) {
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Consignee Name</div>
-                  <span className={styles.value}>Bengal Energy Limited</span>
+                  <span className={styles.value}>
+                    {_get(props, 'data.data[0].company.companyName', '')}
+                  </span>
                 </div>
               </div>
             </div>
@@ -133,11 +133,18 @@ export default function Index(props) {
                       style={{ height: '46px', width: '277px' }}
                       value={currentOrder}
                       onChange={(e)=>{
-                        setCurrentOrder(e.target.value);
+                        console.log(e.target.value,"e.target.value")
+                         setCurrentOrder(e.target.value);
                       }}
                     >
-                      <option value="Ramal001-00001/05">Ramal001-00001/05</option>
-                      <option value="Ramal001-00001/02">Ramal001-00001/02</option>
+                      <option></option>
+                      {_get(props, 'data.data[0].deliveryDetail', []).map((val,index)=>{
+                        return(
+                         <option value={val.deliveryOrderNumber}>{val.deliveryOrderNumber}</option>
+                        )
+                      })}
+                     
+                      
                     </select>
 
                     <img
@@ -153,7 +160,7 @@ export default function Index(props) {
                     <div className={`${styles.label} mr-3 text`}>
                       DO Quantity
                     </div>
-                    <div className={`${styles.do_number}`}>20,000 MT</div>
+                    <div className={`${styles.do_number}`}>20,0000 MT</div>
                   </div>
                 </div>
               </div>
@@ -178,13 +185,13 @@ export default function Index(props) {
                   <div className={`${styles.label_heading} mr-3 label_heading`}>
                     DO Quantity
                   </div>
-                  <div className={`${styles.do_number} mr-4`}>20,000 MT</div>
+                  <div className={`${styles.do_number} mr-4`}>{_get(props.data, 'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity', '')}Mt</div>
                 </div>
                 <div className="d-flex mr-5">
                   <div className={`${styles.label_heading} mr-3 label_heading`}>
                     Balance Quantity
                   </div>
-                  <div className={`${styles.do_number} mr-4`}>8,000 MT</div>
+                  <div className={`${styles.do_number} mr-4`}>{getQuan(val)} MT</div>
                 </div>
                 <span>+</span>
               </div>
