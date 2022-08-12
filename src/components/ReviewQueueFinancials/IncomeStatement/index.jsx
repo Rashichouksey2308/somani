@@ -58,13 +58,13 @@ function Index({ incomeData }) {
                     <tr>
                       <td>Revenue From Operation</td>
                       <td className="text-center">
-                        {latestYearData?.revenue?.revenueFromOperations}
+                        {latestYearData?.revenue?.revenueFromOperations?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.revenue?.revenueFromOperations}
+                        {previousYearData?.revenue?.revenueFromOperations?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.revenue?.revenueFromOperations}
+                        {lastYearData?.revenue?.revenueFromOperations?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -77,13 +77,13 @@ function Index({ incomeData }) {
                     <tr>
                       <td>Other Income</td>
                       <td className="text-center">
-                        {latestYearData?.revenue?.otherIncome}
+                        {latestYearData?.revenue?.otherIncome?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.revenue?.otherIncome}
+                        {previousYearData?.revenue?.otherIncome?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.revenue?.otherIncome}
+                        {lastYearData?.revenue?.otherIncome?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -98,13 +98,13 @@ function Index({ incomeData }) {
                         <strong>Total Income</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{latestYearData?.revenue?.totalRev}</strong>
+                        <strong>{latestYearData?.revenue?.totalRev?.toLocaleString()}</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{previousYearData?.revenue?.totalRev}</strong>
+                        <strong>{previousYearData?.revenue?.totalRev?.toLocaleString()}</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{lastYearData?.revenue?.totalRev}</strong>
+                        <strong>{lastYearData?.revenue?.totalRev?.toLocaleString()}</strong>
                       </td>
                       <td className="text-center">
                         <img
@@ -118,13 +118,13 @@ function Index({ incomeData }) {
                     <tr>
                       <td>Purchases</td>
                       <td className="text-center">
-                        {latestYearData?.expenses?.purchaseStock}
+                        {latestYearData?.expenses?.purchaseStock?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.expenses?.purchaseStock}
+                        {previousYearData?.expenses?.purchaseStock?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.expenses?.purchaseStock}
+                        {lastYearData?.expenses?.purchaseStock?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -137,13 +137,13 @@ function Index({ incomeData }) {
                     <tr>
                       <td>Other Expenses (Ex Dep, Int, Tax)</td>
                       <td className="text-center">
-                        {latestYearData?.expenses?.othExp}
+                        {latestYearData?.expenses?.othExp?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.expenses?.othExp}
+                        {previousYearData?.expenses?.othExp?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.expenses?.othExp}
+                        {lastYearData?.expenses?.othExp?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -158,13 +158,13 @@ function Index({ incomeData }) {
                         <strong>Total Expenses</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{latestYearData?.expenses?.totExp}</strong>
+                        <strong>{latestYearData?.expenses?.totExp?.toLocaleString()}</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{previousYearData?.expenses?.totExp}</strong>
+                        <strong>{previousYearData?.expenses?.totExp?.toLocaleString()}</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{lastYearData?.expenses?.totExp}</strong>
+                        <strong>{lastYearData?.expenses?.totExp?.toLocaleString()}</strong>
                       </td>
                       <td className="text-center">
                         <img
@@ -180,22 +180,22 @@ function Index({ incomeData }) {
                         <strong>EBITA</strong>
                       </td>
                       <td className="text-center">
-                        {latestYearData?.revenue?.revenueFromOperations -
+                        {(latestYearData?.revenue?.revenueFromOperations -
                           latestYearData?.expenses?.totExp +
                           latestYearData?.expenses?.finCost +
-                          latestYearData?.expenses?.deprcnAmort}
+                          latestYearData?.expenses?.deprcnAmort)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.revenue?.revenueFromOperations -
+                        {(previousYearData?.revenue?.revenueFromOperations -
                           previousYearData?.expenses?.totExp +
                           previousYearData?.expenses?.finCost +
-                          previousYearData?.expenses?.deprcnAmort}
+                          previousYearData?.expenses?.deprcnAmort)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.revenue?.revenueFromOperations -
+                        {(lastYearData?.revenue?.revenueFromOperations -
                           lastYearData?.expenses?.totExp +
                           lastYearData?.expenses?.finCost +
-                          lastYearData?.expenses?.deprcnAmort}
+                          lastYearData?.expenses?.deprcnAmort)?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -208,13 +208,13 @@ function Index({ incomeData }) {
                     <tr>
                       <td>Depreciation</td>
                       <td className="text-center">
-                        {latestYearData?.expenses?.deprcnAmort}
+                        {(latestYearData?.expenses?.deprcnAmort)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.expenses?.deprcnAmort}
+                        {previousYearData?.expenses?.deprcnAmort?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.expenses?.deprcnAmort}
+                        {lastYearData?.expenses?.deprcnAmort?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -229,19 +229,19 @@ function Index({ incomeData }) {
                         <strong>EBIT</strong>
                       </td>
                       <td className="text-center">
-                        {latestYearData?.revenue?.revenueFromOperations -
+                        {(latestYearData?.revenue?.revenueFromOperations -
                           latestYearData?.expenses?.totExp +
-                          latestYearData?.expenses?.finCost}
+                          latestYearData?.expenses?.finCost)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.revenue?.revenueFromOperations -
+                        {(previousYearData?.revenue?.revenueFromOperations -
                           previousYearData?.expenses?.totExp +
-                          previousYearData?.expenses?.finCost}
+                          previousYearData?.expenses?.finCost)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.revenue?.revenueFromOperations -
+                        {(lastYearData?.revenue?.revenueFromOperations -
                           lastYearData?.expenses?.totExp +
-                          lastYearData?.expenses?.finCost}
+                          lastYearData?.expenses?.finCost)?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -254,13 +254,13 @@ function Index({ incomeData }) {
                     <tr>
                       <td>Interest Cost</td>
                       <td className="text-center">
-                        {latestYearData?.expenses?.finCost}
+                        {latestYearData?.expenses?.finCost?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.expenses?.finCost}
+                        {previousYearData?.expenses?.finCost?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.expenses?.finCost}
+                        {lastYearData?.expenses?.finCost?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -275,13 +275,13 @@ function Index({ incomeData }) {
                         <strong>PBT</strong>
                       </td>
                       <td className="text-center">
-                        {latestYearData?.profLossBefTax}
+                        {latestYearData?.profLossBefTax?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.profLossBefTax}
+                        {previousYearData?.profLossBefTax?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.profLossBefTax}
+                        {lastYearData?.profLossBefTax?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -294,13 +294,13 @@ function Index({ incomeData }) {
                     <tr>
                       <td>Less: Tax</td>
                       <td className="text-center">
-                        {latestYearData?.totalTaxExpense}
+                        {latestYearData?.totalTaxExpense?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.totalTaxExpense}
+                        {previousYearData?.totalTaxExpense?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.totalTaxExpense}
+                        {lastYearData?.totalTaxExpense?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -314,11 +314,11 @@ function Index({ incomeData }) {
                       <td>
                         <strong>PAT</strong>
                       </td>
-                      <td className="text-center">{latestYearData?.profitLoss}</td>
+                      <td className="text-center">{latestYearData?.profitLoss?.toLocaleString()}</td>
                       <td className="text-center">
                         {previousYearData?.profitLoss}
                       </td>
-                      <td className="text-center">{lastYearData?.profitLoss}</td>
+                      <td className="text-center">{lastYearData?.profitLoss?.toLocaleString()}</td>
                       <td className="text-center">
                         <img
                           src="/static/profit.svg"
@@ -331,17 +331,17 @@ function Index({ incomeData }) {
                       <td>Effective Tax Rate %</td>
                       <td className="text-center">
                         {(latestYearData?.totalTaxExpense /
-                          latestYearData?.profLossBefTax) *
+                          latestYearData?.profLossBefTax)?.toLocaleString() *
                           100}
                       </td>
                       <td className="text-center">
                         {(previousYearData?.totalTaxExpense /
-                          previousYearData?.profLossBefTax) *
+                          previousYearData?.profLossBefTax)?.toLocaleString() *
                           100}
                       </td>
                       <td className="text-center">
                         {(lastYearData?.totalTaxExpense /
-                          lastYearData?.profLossBefTax) *
+                          lastYearData?.profLossBefTax)?.toLocaleString() *
                           100}
                       </td>
                       <td className="text-center">
