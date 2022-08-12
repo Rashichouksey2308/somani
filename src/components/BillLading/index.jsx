@@ -65,8 +65,8 @@ export default function Index({
     !existingBlData.length === 0
       ? [...existingBlData]
       : shipmentTypeBulk
-      ? initialStateForBulk
-      : initialStateForLiner
+        ? initialStateForBulk
+        : initialStateForLiner
 
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
@@ -97,6 +97,15 @@ export default function Index({
     } else {
       setBolList([...bolList, initialStateForLiner])
     }
+  }
+
+  const uploadDoc1 = async (e) => {
+    let name = e.target.id
+    let docs = await docUploadFunction(e)
+
+    let newInput = { ...billOfEntryData }
+    newInput[name] = docs
+    setBillOfEntryData(newInput)
   }
 
   const handleDropdown = (e) => {
@@ -338,26 +347,26 @@ export default function Index({
                             >
                               {shipmentTypeBulk
                                 ? _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option
-                                      value={vessel?.vesselInformation?.name}
-                                      key={index}
-                                    >
-                                      {vessel?.vesselInformation?.name}
-                                    </option>
-                                  ))
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option
+                                    value={vessel?.vesselInformation?.name}
+                                    key={index}
+                                  >
+                                    {vessel?.vesselInformation?.name}
+                                  </option>
+                                ))
                                 : _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels[0].vesselInformation',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option value={vessel?.name} key={index}>
-                                      {vessel?.name}
-                                    </option>
-                                  ))}
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels[0].vesselInformation',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option value={vessel?.name} key={index}>
+                                    {vessel?.name}
+                                  </option>
+                                ))}
                               <option value="option">option</option>
                             </select>
                             <label

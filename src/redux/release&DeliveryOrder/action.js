@@ -132,6 +132,8 @@ export const UpdateDelivery =
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateDeliverySuccess(response.data.data))
+          let id = sessionStorage.getItem('ROrderID')
+          dispatch(GetDelivery(`?deliveryId=${id}`))
 
           let toastMessage = 'SAVED SUCCESSFULLY'
           if (!toast.isActive(toastMessage)) {
