@@ -8,7 +8,7 @@ import _get from 'lodash/get'
 import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
 
-export default function Index({ OrderId, customData }) {
+export default function Index({ OrderId, customData, uploadDoc }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
@@ -55,6 +55,14 @@ export default function Index({ OrderId, customData }) {
     let newData = { ...dischargeOfCargo }
     newData.dischargeOfCargo[name] = text
     setDischargeOfCargo(newData)
+  }
+  const uploadDoc1 = async (e) => {
+    let name = e.target.id
+    let docs = await uploadDoc(e)
+
+    let newInput = { ...dischargeOfCargo }
+    newInput[name] = docs
+    setBillOfEntryData(newInput)
   }
 
   const onSaveDocument = (e) => {

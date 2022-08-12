@@ -171,9 +171,10 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   // }
 
   const handleSave = () => {
+    const billOfEntry = { billOfEntry: [billOfEntryData] }
     const fd = new FormData()
     fd.append('customClearanceId', customData?._id)
-    fd.append('billOfEntry', JSON.stringify(billOfEntryData))
+    fd.append('billOfEntry', JSON.stringify(billOfEntry))
 
     dispatch(UpdateCustomClearance(fd))
   }
