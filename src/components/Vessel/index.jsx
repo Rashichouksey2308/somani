@@ -119,7 +119,7 @@ function Index({
                             )}
                           </select>
                           <img
-                            className={`${styles.arrow2} img-fluid`}
+                            className={`${styles.arrow2} image_arrow img-fluid`}
                             src="/static/inputDropDown.svg"
                             alt="Search"
                           />
@@ -161,7 +161,7 @@ function Index({
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
-                              className={`${styles.arrow} img-fluid`}
+                              className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
@@ -260,7 +260,7 @@ function Index({
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
-                              className={`${styles.arrow} img-fluid`}
+                              className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
@@ -289,7 +289,7 @@ function Index({
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
-                              className={`${styles.arrow} img-fluid`}
+                              className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
@@ -318,7 +318,7 @@ function Index({
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
-                              className={`${styles.arrow} img-fluid`}
+                              className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
@@ -542,7 +542,7 @@ function Index({
                                         </strong>
                                       </label>
                                       <img
-                                        className={`${styles.arrow} img-fluid`}
+                                        className={`${styles.arrow} image_arrow img-fluid`}
                                         src="/static/inputDropDown.svg"
                                         alt="Search"
                                       />

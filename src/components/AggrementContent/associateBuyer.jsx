@@ -111,7 +111,7 @@ function Index() {
                   GSTIN<strong className="text-danger">*</strong>
                 </Form.Label>
                 <img
-                  className={`${styles.arrow} img-fluid`}
+                  className={`${styles.arrow} image_arrow img-fluid`}
                   src="/static/inputDropDown.svg"
                   alt="Search"
                 />
@@ -227,7 +227,7 @@ function Index() {
                               <option>{val.name}</option>
                             </select>
                             <img
-                              className={`${styles.arrow2} img-fluid`}
+                              className={`${styles.arrow2} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />

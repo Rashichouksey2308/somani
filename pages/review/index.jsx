@@ -1575,7 +1575,7 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <div className={`${styles.main} card border_color mb-4`}>
+                    <div className={`${styles.main} vessel_card card border_color mb-4`}>
                       <div
                         className={`${styles.head_container} card-header bg-transparent border_color head_container d-flex justify-content-between`}
                         data-toggle="collapse"
@@ -1645,7 +1645,7 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
                                       Document Type
                                     </Form.Label>
                                     <img
-                                      className={`${styles.arrow} img-fluid`}
+                                      className={`${styles.arrow} image_arrow img-fluid`}
                                       src="/static/inputDropDown.svg"
                                       alt="Search"
                                     />
