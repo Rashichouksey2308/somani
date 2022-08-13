@@ -104,5 +104,6 @@ export default {
 
   //Delivery
   delivery: '/api/core/delivery',
+  uploadDoc :'/api/core/delivery/upload-doc',
   lifting: '/api/core/lifting'
 }
