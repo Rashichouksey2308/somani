@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux'
 import { GetAllOrders } from 'redux/registerBuyer/action'
 import { GetCompanyDetails } from 'redux/companyDetail/action'
 import { toast } from 'react-toastify'
+import _get from 'lodash/get'
 
 Chart.register(
   ArcElement,
@@ -358,7 +359,8 @@ const basicInfo = (camData) => {
                     City
                   </span>
                   <span className={`${styles.value} `}>
-                    {camData?.company?.keyAddress[0]?.city}
+                    {_get(camData, 'company.keyAddress[0].city', '')}
+                    {/* {camData?.company?.keyAddress[0]?.city} */}
                   </span>
                 </Col>
               </Row>
@@ -374,7 +376,8 @@ const basicInfo = (camData) => {
                     State
                   </span>
                   <span className={`${styles.value}`}>
-                    {camData?.company?.keyAddress[0]?.state}
+                  {_get(camData, 'company.keyAddress[0].state', '')}
+                    {/* {camData?.company?.keyAddress[0]?.state} */}
                   </span>
                 </Col>
               </Row>
@@ -1022,7 +1025,7 @@ const creditProfile = (
                   </span>
                   <span className={`${styles.value} `}>
                     {latestAuditorData?.nameOfAuditor ===
-                    previousAuditorData?.nameOfAuditor
+                      previousAuditorData?.nameOfAuditor
                       ? ' NO'
                       : 'Yes'}
                   </span>
