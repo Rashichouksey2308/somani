@@ -181,7 +181,7 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
         dispatch(updateCreditSuccess(response.data))
         const toastMessage = 'UPDATE REQUEST SENT'
         if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
+          toast.success(toastMessage, { toastId: toastMessage })
         }
         let id1 = sessionStorage.getItem('orderID')
         let id2 = sessionStorage.getItem('companyID')
@@ -212,14 +212,14 @@ export const UpdateCreditCalculate = (payload) => async (dispatch, getState, api
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateCreditCalculate}`, payload, {
+    Axios.post(`${API.corebaseUrl}${API.updateCreditCalculate}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateCreditCalSuccess(response.data.data))
         const toastMessage = 'UPDATE REQUEST SENT'
         if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
+          toast.success(toastMessage, { toastId: toastMessage })
         }
         let id1 = sessionStorage.getItem('orderID')
         let id2 = sessionStorage.getItem('companyID')
@@ -364,7 +364,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
         dispatch(updatetermsheetsuccess(response.data))
         let toastMessage = 'TERMSHEET UPDATED SUCCESSFULL'
         if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
+          toast.success(toastMessage, { toastId: toastMessage })
         }
       } else {
         dispatch(updatetermsheetfailed(response.data))

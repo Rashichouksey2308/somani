@@ -23,7 +23,8 @@ const index = ({
   personData,
   addPersonArr,
   deleteComponent,
-  updateKeyAddDataArr
+  updateKeyAddDataArr,
+  deleteAddress
 }) => {
   // console.log(creditDetail, 'this is credit detail')
   console.log(debtData,"debtData")
@@ -986,6 +987,7 @@ const index = ({
                               />
                             )}
                             <img
+                            onClick={() => deleteAddress(index)}
                               src="/static/delete 2.svg"
                               className="img-fluid"
                               alt="delete"
