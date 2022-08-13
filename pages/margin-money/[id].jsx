@@ -1202,12 +1202,8 @@ function Index() {
                                   {/* <option value="GTSDT789652JKH">
                                     {marginData?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
-                                  <option value="GTSDT789652JKH">
-                                    GTSDT789652JKH
-                                  </option>
-                                  <option value="GTSDT789652JKH">
-                                    GTSDT789652JKH
-                                  </option>
+                                  <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                  <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -1219,7 +1215,7 @@ function Index() {
                                 <img
                                   className={`img-fluid image_arrow ${styles.arrow}`}
                                   src="/static/inputDropDown.svg"
-                                ></img>
+                                />
                               </div>
                             </div>
                             <div
