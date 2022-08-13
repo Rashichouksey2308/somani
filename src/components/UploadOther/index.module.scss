@@ -198,7 +198,7 @@
       line-height: 19px;
       font-weight: bold;
       width: fit-content;
-      padding-left: 20px;
+      padding: 0 30px 0 20px;
       height: 40px;
       box-shadow: none;
     }
@@ -463,6 +463,20 @@
     -webkit-appearance: none;
   }
 }
+img {
+    &.arrow2 {
+        width: 13px !important;
+        margin-left: -25px;
+        // position: absolute;
+        pointer-events: none;
+        filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
+        input[type='date']::-webkit-inner-spin-button,
+        input[type='date']::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+    }
+} 
 .customSelect {
   appearance: none;
   // position: relative;
