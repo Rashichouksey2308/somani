@@ -256,16 +256,21 @@ const Index = ({ orderid, module }) => {
               <div
                 className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
               >
-                <div>
+                <div className='d-flex align-items-center'>
                   <select
-                    className={`${styles.dropDown} statusBox input form-control`}
+                    className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
                     <option>Lead Onboarding &amp; Order Approval</option>
-                    <option>Agreements, Insurance & LC Opening</option>
+                    <option>Agreements, Insurance &amp; LC Opening</option>
                     <option>Loading-Transit-Unloading</option>
                     <option>Custom Clearance And Warehousing</option>
                     <option value="Others">Others</option>
                   </select>
+                  <img
+                    className={`${styles.arrow2} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
                 </div>
                 <div
                   className={`d-flex align-items-center ${styles.searchBarContainer} `}

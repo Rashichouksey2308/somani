@@ -59,19 +59,19 @@ function Index({ cashData }) {
                       <td className="text-center">
                         {
                           latestYearData?.cashFlowsFromUsedInOperatingActivities
-                            ?.cashFlowsFromUsedInOperatingActivities
+                            ?.cashFlowsFromUsedInOperatingActivities?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
                         {
                           previousYearData?.cashFlowsFromUsedInOperatingActivities
-                            ?.cashFlowsFromUsedInOperatingActivities
+                            ?.cashFlowsFromUsedInOperatingActivities?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
                         {
                           lastYearData?.cashFlowsFromUsedInOperatingActivities
-                            ?.cashFlowsFromUsedInOperatingActivities
+                            ?.cashFlowsFromUsedInOperatingActivities?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
@@ -87,19 +87,19 @@ function Index({ cashData }) {
                       <td className="text-center">
                         {
                           latestYearData?.cashFlowsFromUsedInInvestingActivities
-                            ?.cashFlowsFromUsedInInvestingActivities
+                            ?.cashFlowsFromUsedInInvestingActivities?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
                         {
                           previousYearData?.cashFlowsFromUsedInInvestingActivities
-                            ?.cashFlowsFromUsedInInvestingActivities
+                            ?.cashFlowsFromUsedInInvestingActivities?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
                         {
                           lastYearData?.cashFlowsFromUsedInInvestingActivities
-                            ?.cashFlowsFromUsedInInvestingActivities
+                            ?.cashFlowsFromUsedInInvestingActivities?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
@@ -116,19 +116,19 @@ function Index({ cashData }) {
                       <td className="text-center">
                         {
                           latestYearData?.cashFlowsFromUsedInFinancingActivities
-                            ?.cashFlowsFromUsedInFinancingActivities
+                            ?.cashFlowsFromUsedInFinancingActivities?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
                         {
                           previousYearData?.cashFlowsFromUsedInFinancingActivities
-                            ?.cashFlowsFromUsedInFinancingActivities
+                            ?.cashFlowsFromUsedInFinancingActivities?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
                         {
                           lastYearData?.cashFlowsFromUsedInFinancingActivities
-                            ?.cashFlowsFromUsedInFinancingActivities
+                            ?.cashFlowsFromUsedInFinancingActivities?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
@@ -145,21 +145,21 @@ function Index({ cashData }) {
                         {
                           latestYearData
                             ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
-                            ?.increaseDecreaseInCashAndCashEquivalents
+                            ?.increaseDecreaseInCashAndCashEquivalents?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
                         {
                           previousYearData
                             ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
-                            ?.increaseDecreaseInCashAndCashEquivalents
+                            ?.increaseDecreaseInCashAndCashEquivalents?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">
                         {
                           lastYearData
                             ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
-                            ?.increaseDecreaseInCashAndCashEquivalents
+                            ?.increaseDecreaseInCashAndCashEquivalents?.toLocaleString()
                         }
                       </td>
                       <td className="text-center">

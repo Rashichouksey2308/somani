@@ -304,25 +304,22 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
               <div
                 className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
               >
-                <div>
+                <div className='d-flex align-items-center'>
                   <select
                     onChange={(e) => setDocumentsDropDownFilter(e.target.value)}
-                    className={`${styles.dropDown} statusBox input form-control`}
+                    className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
-                    <option value="LeadOnboarding&OrderApproval">
-                      Lead Onboarding &amp; Order Approval
-                    </option>
-                    <option value="Agreements,Insurance&LCOpening">
-                      Agreements, Insurance & LC Opening
-                    </option>
-                    <option value="Loading-Transit-Unloading">
-                      Loading-Transit-Unloading
-                    </option>
-                    <option value="CustomClearanceAndWarehousing">
-                      Custom Clearance And Warehousing
-                    </option>
+                    <option value="LeadOnboarding&OrderApproval">Lead Onboarding &amp; Order Approval</option>
+                    <option value="Agreements,Insurance&LCOpening">Agreements, Insurance &amp; LC Opening</option>
+                    <option value="Loading-Transit-Unloading">Loading-Transit-Unloading</option>
+                    <option value="CustomClearanceAndWarehousing">Custom Clearance And Warehousing</option>
                     <option value="Others">Others</option>
                   </select>
+                  <img
+                    className={`${styles.arrow2} img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
                 </div>
                 <div
                   className={`d-flex align-items-center ${styles.searchBarContainer} `}

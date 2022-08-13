@@ -64,7 +64,7 @@ const Index = ({ finalCal, marginData }) => {
                 <span className={`heading`}>Payment Initiated</span>
               </div>
             </div>
-            <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown`}>
               <option>  {marginData?.order?.unitOfValue == 'Cr'
                 ? 'Crores'
@@ -161,7 +161,7 @@ const Index = ({ finalCal, marginData }) => {
                       }
                       <div className={` d-flex align-items-center`}>
                         <label
-                          className={`${styles.label_heading} ml-3 label_heading mb-0`}
+                          className={`${styles.label_heading} ml-3 text-nowrap label_heading mb-0`}
                           id="textInput"
                         >
                           Include in Calculation
@@ -674,7 +674,7 @@ const Index = ({ finalCal, marginData }) => {
       </div>
 
       <div
-        className={`${styles.card} accordionMargin card`}
+        className={`${styles.card} vessel_card accordionMargin card`}
         style={{ marginBottom: '150px' }}
       >
         <div
@@ -712,22 +712,28 @@ const Index = ({ finalCal, marginData }) => {
                   </label>
                 </div>
                 <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                  <select
-                    id="Code"
-                    name="typeOfBussiness"
-                    className={`${styles.input_field} input form-control`}
-                    required
-                  >
-                    <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                    <option value="Retailer">Retailer</option>
-                    <option value="Trading">Trading</option>
-                  </select>
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
-                    Buyer GSTIN<strong className="text-danger">*</strong>
-                  </label>
+                  <div className="d-flex">
+                    <select
+                      id="Code"
+                      name="typeOfBussiness"
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      required
+                    >
+                      <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                      <option value="Retailer">Retailer</option>
+                      <option value="Trading">Trading</option>
+                    </select>
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Buyer GSTIN<strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`img-fluid image_arrow ${styles.arrow}`}
+                      src="/static/inputDropDown.svg"
+                    />
+                  </div>
                 </div>
                 <div className={`${styles.each_input} col-md-4 col-sm-6`}>
                   <input
