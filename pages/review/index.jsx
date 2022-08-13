@@ -1685,16 +1685,21 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
                            <div
                       className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
                     >
-                      <div>
+                      <div className='d-flex align-items-center'>
                         <select
-                          className={`${styles.dropDown} input form-control`}
+                          className={`${styles.dropDown} ${styles.customSelect} input form-control`}
                         >
                           <option>Lead Onboarding &amp; Order Approval</option>
-                          <option>Agreements, Insurance & LC Opening</option>
+                          <option>Agreements, Insurance &amp; LC Opening</option>
                           <option>Loading-Transit-Unloading</option>
                           <option>Custom Clearance And Warehousing</option>
                           <option value="Others">Others</option>
                         </select>
+                        <img
+                          className={`${styles.arrow2} img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
                       </div>
                       <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
                         <img className={` ${styles.searchImage} img-fluid`} src="/static/search-grey.svg" alt="Search"></img>

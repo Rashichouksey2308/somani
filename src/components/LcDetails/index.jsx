@@ -320,12 +320,8 @@ export default function Index() {
                               id="docType"
                               onChange={(e) => handleDropdown(e)}
                             >
-                              <option>
-                                Lead Onboarding &amp; Order Approval
-                              </option>
-                              <option>
-                                Agreements, Insurance &amp; LC Opening
-                              </option>
+                              <option>Lead Onboarding &amp; Order Approval</option>
+                              <option>Agreements, Insurance &amp; LC Opening</option>
                               <option>Loading-Transit-Unloading</option>
                               <option>Custom Clearance And Warehousing</option>
                               <option value="Others">Others</option>

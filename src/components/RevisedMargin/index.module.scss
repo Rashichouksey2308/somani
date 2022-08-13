@@ -1,253 +1,260 @@
 .card {
-  margin-bottom: 1rem;
-
-  // box-shadow: 0 3px 6px #cad0e2;
-  .cardHeader {
-    cursor: pointer;
-    border-bottom: none;
-    padding: 25px 35px !important;
-
-    h2 {
-      font-size: 22px;
-      color: #3687e8;
-      font-weight: bold;
-      line-height: 27px;
-    }
-
-    span {
-      font-size: 45px;
-      color: #3687e8;
-      font-weight: normal;
-      line-height: 20px;
-    }
-
-    .label {
-      font-size: 16px;
-
-      font-weight: 500;
-      line-height: 17px;
-      margin-bottom: 10px;
-      letter-spacing: 0.53px;
-    }
-
-    .categories {
-      margin-right: 1rem;
-      width: 80%;
-
-      .label {
-        margin-right: 1rem;
-        margin-bottom: 0px;
-      }
-
-      .status {
-        height: 31px;
-        background: #ea3f3f42 0% 0% no-repeat padding-box;
-        letter-spacing: 0px;
-
-        span {
-          padding-left: 0.5rem;
-          padding-right: 0.5rem;
-          width: 100%;
-          opacity: 1 !important;
-          font-size: 16px;
-          font-weight: bold;
-          height: 19px;
-          color: #ea3f3f;
-        }
-      }
-    }
-    .commodity {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      .comm_head {
-        letter-spacing: 0.53px;
-        text-transform: capitalize;
-        font-size: 16px;
-        line-height: 17px;
-        font-weight: 500;
-        background: transparent;
-      }
-      .comm_val {
-        text-transform: capitalize;
-        font-weight: 500;
-        line-height: 25px;
-        font-size: 20px;
-      }
-    }
-
-    .unit_container {
-      .unit_label {
-        font-size: 18px;
-        text-transform: capitalize;
-        font-weight: bold;
-        margin-top: 10px;
-        padding-right: 10px;
-        line-height: 23px;
-      }
-
-      .options {
-        font-size: 18px;
-        line-height: 23px;
-        color: #3687e8;
-        text-transform: capitalize;
-        border-radius: 14px;
-        border: none;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 50px;
-        padding: 4px 6px 4px 8px;
-      }
-      .pay {
-        display: flex;
-        .round {
-          width: 15px;
-          height: 15px;
-          border-radius: 50%;
-          /* UI Properties */
-          background: #ff9d00 0% 0% no-repeat padding-box;
-        }
-        span {
-          font-size: 20px;
-          letter-spacing: 0px;
-          color: #111111;
-        }
-      }
-    }
-  }
-
-  .cardBody {
-    padding: 0px;
-    .content {
-      padding: 25px 35px;
-      border-top: 2px solid red;
-    }
-    span {
-      text-transform: capitalize;
-      font-weight: bold;
-      font-size: 20px;
-      line-height: 25px;
-    }
-    .input_container {
-      margin-top: 20px;
-      margin-bottom: 10px;
-      padding-bottom: 14px;
-      .filed {
-        margin: 30px 0 20px;
-        .alphabet {
-          width: 26px;
-          height: 26px;
-          /* UI Properties */
-          background: #f0f8ff;
-          border-radius: 6px;
-          span {
-            font-size: 16px;
-            font-weight: bold;
-            letter-spacing: 0.53px;
+    margin-bottom: 1rem;
+    // box-shadow: 0 3px 6px #cad0e2;
+    .cardHeader {
+        cursor: pointer;
+        border-bottom: none;
+        padding: 25px 35px !important;
+        h2 {
+            font-size: 22px;
             color: #3687e8;
-          }
+            font-weight: bold;
+            line-height: 27px;
         }
-        .val_wrapper {
-          .val {
+        span {
+            font-size: 45px;
+            color: #3687e8;
+            font-weight: normal;
+            line-height: 20px;
+        }
+        .label {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 17px;
+            margin-bottom: 10px;
+            letter-spacing: 0.53px;
+        }
+        .categories {
+            margin-right: 1rem;
+            width: 80%;
+            .label {
+                margin-right: 1rem;
+                margin-bottom: 0px;
+            }
+            .status {
+                height: 31px;
+                background: #ea3f3f42;
+                letter-spacing: 0px;
+                span {
+                    padding-left: 0.5rem;
+                    padding-right: 0.5rem;
+                    width: 100%;
+                    opacity: 1 !important;
+                    font-size: 16px;
+                    font-weight: bold;
+                    height: 19px;
+                    color: #ea3f3f;
+                }
+            }
+        }
+        .commodity {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            .comm_head {
+                letter-spacing: 0.53px;
+                text-transform: capitalize;
+                font-size: 16px;
+                line-height: 17px;
+                font-weight: 500;
+                background: transparent;
+            }
+            .comm_val {
+                text-transform: capitalize;
+                font-weight: 500;
+                line-height: 25px;
+                font-size: 20px;
+            }
+        }
+        .unit_container {
+            .unit_label {
+                font-size: 18px;
+                text-transform: capitalize;
+                font-weight: bold;
+                margin-top: 10px;
+                padding-right: 10px;
+                line-height: 23px;
+            }
+            .options {
+                font-size: 18px;
+                line-height: 23px;
+                color: #3687e8;
+                text-transform: capitalize;
+                border-radius: 14px;
+                border: none;
+                font-weight: bold;
+                text-align: center;
+                margin-right: 50px;
+                padding: 4px 6px 4px 8px;
+            }
+            .pay {
+                display: flex;
+                .round {
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    /* UI Properties */
+                    background: #ff9d00;
+                }
+                span {
+                    font-size: 20px;
+                    letter-spacing: 0px;
+                    color: #111111;
+                }
+            }
+        }
+    }
+    .cardBody {
+        padding: 0px;
+        .content {
+            padding: 25px 35px;
+            border-top: 2px solid red;
+        }
+        span {
             text-transform: capitalize;
+            font-weight: bold;
             font-size: 20px;
             line-height: 25px;
-            font-weight: medium;
-          }
-          .green {
-            color: #43c34d !important;
-          }
-          .blue {
-            color: #3687e8 !important;
-          }
         }
-      }
-      .each_input {
-        position: relative;
-        margin: 30px 0 20px;
-
-        .label_heading {
-          top: 27px;
-          left: 30px;
-          font-size: 16px;
-          line-height: 0.5;
-          margin-bottom: 0;
-          letter-spacing: 0.53px;
-          position: absolute;
-          pointer-events: none;
-          box-sizing: border-box;
-          transform: translateY(-31px);
-          transition: 0.3s all ease-in-out;
-        }
-
-        .input_field {
-          height: 60px;
-          border-radius: 4px;
-          font-size: 20px;
-          font-weight: 500;
-          outline: none;
-          box-shadow: none;
-          position: relative;
-          box-sizing: border-box;
-
-          &:invalid + label {
-            transform: translateY(0);
-          }
-
-          &:focus {
-            & + label {
-              transform: translateY(-31px);
+        .input_container {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-bottom: 14px;
+            .filed {
+                margin: 30px 0 20px;
+                .alphabet {
+                    width: 26px;
+                    height: 26px;
+                    /* UI Properties */
+                    background: #f0f8ff;
+                    border-radius: 6px;
+                    span {
+                        font-size: 16px;
+                        font-weight: bold;
+                        letter-spacing: 0.53px;
+                        color: #3687e8;
+                    }
+                }
+                .val_wrapper {
+                    .val {
+                        text-transform: capitalize;
+                        font-size: 20px;
+                        line-height: 25px;
+                        font-weight: medium;
+                    }
+                    .green {
+                        color: #43c34d !important;
+                    }
+                    .blue {
+                        color: #3687e8 !important;
+                    }
+                }
             }
-          }
-        }
-
-        .phone_card {
-          display: flex;
-
-          .code_phone {
-            font-size: 19px;
-            letter-spacing: 0.18px;
-            color: #3687e8;
-            text-transform: capitalize;
-            outline: none;
-            border-radius: 4px 0 0 4px;
-          }
-        }
-
-        .range_field {
-          background-color: #3687e8;
-          border-radius: 4px;
-        }
-      }
-      .radio_form {
-        padding-top: 20px;
-
-        .radio_group {
-          display: flex;
-
-          .radio {
-            font-size: 20px;
-            color: #111111;
-            letter-spacing: 0.19px;
-            padding-right: 25px;
-          }
-        }
-      }
-      .phone {
-        .label_heading {
-          left: 90px;
-          transform: translate(-61px, -31px);
-        }
-
-        .input_field {
-          &:focus {
-            & + label {
-              transform: translate(-61px, -31px);
+            .each_input {
+                position: relative;
+                margin: 30px 0 20px;
+                .label_heading {
+                    top: 22px;
+                    left: 30px;
+                    font-size: 16px;
+                    line-height: 17px;
+                    margin-bottom: 0;
+                    letter-spacing: 0.53px;
+                    position: absolute;
+                    pointer-events: none;
+                    box-sizing: border-box;
+                    transform: translateY(-30px);
+                    transition: 0.3s all ease-in-out;
+                    z-index: 1;
+                    max-width: 86%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    &::before {
+                        top: 51%;
+                        left: 0;
+                        width: 100%;
+                        height: 2px;
+                        content: "";
+                        z-index: -1;
+                        position: absolute;
+                        transform: translateY(-50%);
+                    }
+                }
+                .input_field {
+                    height: 60px;
+                    border-radius: 4px;
+                    font-size: 20px;
+                    font-weight: 500;
+                    outline: none;
+                    box-shadow: none;
+                    position: relative;
+                    box-sizing: border-box;
+                    &:invalid+label {
+                        transform: translateY(0);
+                    }
+                    &:focus {
+                        &+label {
+                            transform: translateY(-30px);
+                        }
+                    }
+                }
+                .phone_card {
+                    display: flex;
+                    .code_phone {
+                        font-size: 19px;
+                        letter-spacing: 0.18px;
+                        color: #3687e8;
+                        text-transform: capitalize;
+                        outline: none;
+                        border-radius: 4px 0 0 4px;
+                    }
+                }
+                .range_field {
+                    background-color: #3687e8;
+                    border-radius: 4px;
+                }
             }
-          }
+            .radio_form {
+                padding-top: 20px;
+                .radio_group {
+                    display: flex;
+                    .radio {
+                        font-size: 20px;
+                        color: #111111;
+                        letter-spacing: 0.19px;
+                        padding-right: 25px;
+                    }
+                }
+            }
+            .phone {
+                .label_heading {
+                    left: 90px;
+                    transform: translate(-61px, -30px);
+                }
+                .input_field {
+                    &:focus {
+                        &+label {
+                            transform: translate(-61px, -30px);
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
+}
+.customSelect {
+    appearance: none;
+    // position: relative;
+}
+.arrow {
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+    input[type='date']::-webkit-inner-spin-button,
+    input[type='date']::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
 }
