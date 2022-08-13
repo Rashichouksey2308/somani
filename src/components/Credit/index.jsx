@@ -23,10 +23,10 @@ const index = ({
   personData,
   addPersonArr,
   deleteComponent,
-  updateKeyAddDataArr
+  updateKeyAddDataArr,
 }) => {
   // console.log(creditDetail, 'this is credit detail')
-  console.log(debtData,"debtData")
+  console.log(debtData, 'debtData')
   const dispatch = useDispatch()
 
   const [saveTable, setSaveTable] = useState(false)
@@ -57,42 +57,43 @@ const index = ({
     pinCode: null,
   })
 
-  console.log(keyAddressData,"keyAddressData")
+  console.log(keyAddressData, 'keyAddressData')
   useEffect(() => {
-    const newInput = {...keyAddressData}
+    const newInput = { ...keyAddressData }
     newInput.GSTIN_document.name = gstDocument.name
     newInput.GSTIN_document.path = gstDocument.path
     newInput.GSTIN_document.date = gstDocument.date
-      setKeyAddressData(newInput)
+    setKeyAddressData(newInput)
   }, [gstDocument])
-  
+
   //const [deleteRow, setDeleteRow] = useState(true)
 
   const [debt, setDebtData] = useState([])
-  
-  const addMoreDebtRows=()=>{
-    setDebtData([...debt,
+
+  const addMoreDebtRows = () => {
+    setDebtData([
+      ...debt,
       {
-    bankName: '',
-    primaryBank: '',
-    conduct: '',
-    limit: "",
-    action:false
-  }
+        bankName: '',
+        primaryBank: '',
+        conduct: '',
+        limit: '',
+        action: false,
+      },
     ])
   }
 
   console.log(debt, 'THIS IS DEBT')
 
-  const handleDebtChange = (name,value,index) => {
-    console.log(name,value,index,"name,value")
-    let tempArr=debt;
-    tempArr.forEach((val,i)=>{
-    if(i==index){
+  const handleDebtChange = (name, value, index) => {
+    console.log(name, value, index, 'name,value')
+    let tempArr = debt
+    tempArr.forEach((val, i) => {
+      if (i == index) {
         val[name] = value
-    }
+      }
     })
-    console.log(tempArr,"tempArr")
+    console.log(tempArr, 'tempArr')
     setDebtData(tempArr)
   }
   console.log()
@@ -100,20 +101,18 @@ const index = ({
   const onDebtSave = () => {
     addDebtArr(debt)
   }
-  const setActions=(index,val)=>{
-    setDebtData(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-       
+  const setActions = (index, val) => {
+    setDebtData((prevState) => {
+      const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return {...obj, actions: val};
+          return { ...obj, actions: val }
         }
 
-        
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
+      return newState
+    })
   }
 
   const [keyPersonData, setKeyPersonData] = useState(personData, {
@@ -149,11 +148,9 @@ const index = ({
   }
 
   const handleChange = (name, value) => {
-   
     const newInput = { ...keyAddressData }
     newInput[name] = value
-    
-    
+
     // console.log(newInput)
     setKeyAddressData(newInput)
   }
@@ -191,41 +188,37 @@ const index = ({
     let text = d.toISOString()
     saveSupplierData(name, text)
   }
-  const handleRemoveRow=(index)=>{
-   
-   setDebtData([...debt.slice(0,index), ...debt.slice(index+1)])
+  const handleRemoveRow = (index) => {
+    setDebtData([...debt.slice(0, index), ...debt.slice(index + 1)])
   }
-  
-  const [showAddress,setShowAddress]=useState(false)
-   const [Index,setIndex]=useState("0")
-  const [showEditAddress,setShowEditAddress]=useState(false)
-  const [editData,setEditData]=useState(
-    {
-      GSTIN: "",
-      GSTIN_document: "",
-      addressType:"",
-      branch: "",
-      city: "",
-      state: "",
-      email: "",
-      completeAddress: "",
-      contact: {
-        callingCode: "",
-        number: "",
-      },
-      pinCode: "",
+
+  const [showAddress, setShowAddress] = useState(false)
+  const [Index, setIndex] = useState('0')
+  const [showEditAddress, setShowEditAddress] = useState(false)
+  const [editData, setEditData] = useState({
+    GSTIN: '',
+    GSTIN_document: '',
+    addressType: '',
+    branch: '',
+    city: '',
+    state: '',
+    email: '',
+    completeAddress: '',
+    contact: {
+      callingCode: '',
+      number: '',
     },
-  )
-  const editAddress=(index)=>{
+    pinCode: '',
+  })
+  const editAddress = (index) => {
     setShowAddress(false)
     setShowEditAddress(true)
     setIndex(index)
-    let tempArr=keyAddData
-  setEditData(
-       {
+    let tempArr = keyAddData
+    setEditData({
       GSTIN: tempArr[index].GSTIN,
       GSTIN_document: tempArr[index].GSTIN_document,
-      addressType:tempArr[index].addressType,
+      addressType: tempArr[index].addressType,
       branch: tempArr[index].branch,
       city: tempArr[index].city,
       state: tempArr[index].state,
@@ -236,17 +229,15 @@ const index = ({
         number: tempArr[index].contact.number,
       },
       pinCode: tempArr[index].pinCode,
-    },
-  )
+    })
   }
-  const changeData =(name,value)=>{
+  const changeData = (name, value) => {
     const newInput = { ...editData }
     newInput[name] = value
     // console.log(newInput)
     setEditData(newInput)
   }
-  console.log(keyAddressData,"editData")
-
+  console.log(keyAddressData, 'editData')
 
   return (
     <>
@@ -390,7 +381,7 @@ const index = ({
                     labelName="Stock Coverage of Commodity"
                   />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -736,7 +727,7 @@ const index = ({
                     labelName="Oldest Shipment Date"
                   />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -776,7 +767,7 @@ const index = ({
                     labelName="Latest Shipment Date"
                   />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -896,7 +887,7 @@ const index = ({
                             readOnly={!saveContactTable}
                           /> */}
                         </td>
-                        <td>                          
+                        <td>
                           <select
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             defaultValue={person.designation}
@@ -965,7 +956,7 @@ const index = ({
                           />
                         </td>
                         <td>
-                          <div className='d-flex'>
+                          <div className="d-flex">
                             {!saveContactTable ? (
                               <img
                                 src="/static/mode_edit.svg"
@@ -1023,185 +1014,559 @@ const index = ({
           <span>+</span>
         </div>
         <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
-        <div className={`${styles.dashboard_form} card-body`}>
-         <div className={`w-100 d-flex justify-content-between align-items-center`}>
-
-          {keyAddData.map((address,index)=>{
-            return(
-              <>
-              <AddressComponent
-              index={index}
-              Title={address.addressType}
-              address={address.completeAddress}
-              number={address.contact?.number}
-              callingCode={address.contact?.callingCode}
-              branch={address.branch}
-              gstIn={address.GSTIN}
-              email={address.email}
-              deleteComponent={deleteComponent}
-              editAddress={editAddress}
-            />
-              </>
-            )
-          })}
-         </div>
-          {showAddress?
-          <div
-            className={`${styles.main} card border_color`}
-            style={{ margin: '10px 35px 32px 32px' }}
-          >
+          <div className={`${styles.dashboard_form} card-body`}>
             <div
-              className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
-              
+              className={`w-100 d-flex justify-content-between align-items-center`}
             >
-              <h3 className={`${styles.heading}`}>Add a new address</h3>
-              <img onClick={()=>{
-                setShowAddress(false)
-              }} src="/static/accordion_close_black.svg" />
+              {keyAddData.map((address, index) => {
+                return (
+                  <>
+                    <AddressComponent
+                      index={index}
+                      Title={address.addressType}
+                      address={address.completeAddress}
+                      number={address.contact?.number}
+                      callingCode={address.contact?.callingCode}
+                      branch={address.branch}
+                      gstIn={address.GSTIN}
+                      email={address.email}
+                      deleteComponent={deleteComponent}
+                      editAddress={editAddress}
+                    />
+                  </>
+                )
+              })}
             </div>
-            <div className={`${styles.dashboard_form} card-body border_color`}>
-              <div className="d-flex">
-                <div className={`${styles.sub_heading} heading_card`}>
-                  Communication Address
+            {showAddress ? (
+              <div
+                className={`${styles.main} card border_color`}
+                style={{ margin: '10px 35px 32px 32px' }}
+              >
+                <div
+                  className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
+                >
+                  <h3 className={`${styles.heading}`}>Add a new address</h3>
+                  <img
+                    onClick={() => {
+                      setShowAddress(false)
+                    }}
+                    src="/static/accordion_close_black.svg"
+                  />
                 </div>
-                <div className={styles.radio_form}>
-                  {['checkbox'].map((type) => (
-                    <div key={`inline-${type}`} className={styles.radio_group}>
-                      <Form.Check
-                        className={styles.radio}
-                        inline
-                        label="Yes"
-                        name="group1"
-                        type={type}
-                        id={`inline-${type}-1`}
-                      />
-                      <Form.Check
-                        className={styles.radio}
-                        inline
-                        label="No"
-                        name="group1"
-                        type={type}
-                        id={`inline-${type}-2`}
-                      />
+                <div
+                  className={`${styles.dashboard_form} card-body border_color`}
+                >
+                  <div className="d-flex">
+                    <div className={`${styles.sub_heading} heading_card`}>
+                      Communication Address
                     </div>
-                  ))}
+                    <div className={styles.radio_form}>
+                      {['checkbox'].map((type) => (
+                        <div
+                          key={`inline-${type}`}
+                          className={styles.radio_group}
+                        >
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            label="Yes"
+                            name="group1"
+                            type={type}
+                            id={`inline-${type}-1`}
+                          />
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            label="No"
+                            name="group1"
+                            type={type}
+                            id={`inline-${type}-2`}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                          name="addressType"
+                          onChange={(e) => {
+                            handleChange(e.target.name, e.target.value)
+                          }}
+                        >
+                          <option value="Factory">Factory</option>
+                          <option value="Warehouse">Warehouse</option>
+                          <option value="Corporate Office">
+                            Corporate Office
+                          </option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Address Type<strong className="text-danger">*</strong>
+                        </label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <div className="d-flex">
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          type="text"
+                          name="pinCode"
+                          onChange={(e) => {
+                            handleChange(e.target.name, e.target.value)
+                          }}
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Pin Code<strong className="text-danger">*</strong>
+                        </label>
+                        <img
+                          className={`${styles.search_image} img-fluid`}
+                          src="/static/search-grey.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="state"
+                        onChange={(e) => {
+                          handleChange(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        State<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+
+                    <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="city"
+                        onChange={(e) => {
+                          handleChange(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        City<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="email"
+                        onChange={(e) => {
+                          handleChange(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Email ID<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <div className="d-flex">
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          type="tel"
+                          onChange={(e) => {
+                            if (phoneValidation(e.target.value)) {
+                              mobileFunction(e)
+                            } else {
+                              let toastMessage = 'Enter a valid Phone Number'
+                              if (!toast.isActive(toastMessage)) {
+                                toast.error(toastMessage, {
+                                  toastId: toastMessage,
+                                })
+                              }
+                            }
+                          }}
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Phone Number<strong className="text-danger">*</strong>
+                        </label>
+                        <img
+                          className={`${styles.search_image} img-fluid`}
+                          src="/static/add.svg"
+                          alt="add"
+                        />
+                      </div>
+                    </div>
+                    <div className={`${styles.form_group} col-md-8 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        required
+                        name="completeAddress"
+                        onChange={(e) => {
+                          handleChange(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Address<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="branch"
+                        required
+                        onChange={(e) => {
+                          handleChange(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Branch<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="GSTIN"
+                        onChange={(e) => {
+                          handleChange(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        GSTIN<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+
+                    <div className={`${styles.btn_container} col-md-4`}>
+                      <button className={`${styles.gst_btn}`}>
+                        {' '}
+                        <input
+                          type="file"
+                          name={keyAddressData.GSTIN}
+                          // name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                          onChange={(e) => {
+                            uploadDocument(e)
+                          }}
+                        />
+                        <img
+                          className="img-fluid mr-2 mb-1"
+                          src="/static/file_upload.svg"
+                          alt="file upload"
+                        />
+                        GST Doc
+                      </button>
+                    </div>
+                    <button
+                      // className={`${styles.add_btn}`}
+                      onClick={() => handleClick()}
+                    >
+                      Add
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="row">
-                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+            ) : null}
+            {showEditAddress ? (
+              <div
+                className={`${styles.main} card border_color`}
+                style={{ margin: '10px 35px 32px 32px' }}
+              >
+                <div
+                  className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
+                >
+                  <h3 className={`${styles.heading}`}>Edit address</h3>
+                  <img
+                    onClick={() => {
+                      setShowEditAddress(false)
+                    }}
+                    src="/static/accordion_close_black.svg"
+                  />
+                </div>
+                <div
+                  className={`${styles.dashboard_form} card-body border_color`}
+                >
                   <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                      name="addressType"
-                      onChange={(e) => {
-                        handleChange(e.target.name, e.target.value)
+                    <div className={`${styles.sub_heading} heading_card`}>
+                      Communication Address
+                    </div>
+                    <div className={styles.radio_form}>
+                      {['checkbox'].map((type) => (
+                        <div
+                          key={`inline-${type}`}
+                          className={styles.radio_group}
+                        >
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            label="Yes"
+                            name="group1"
+                            type={type}
+                            id={`inline-${type}-1`}
+                          />
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            label="No"
+                            name="group1"
+                            type={type}
+                            id={`inline-${type}-2`}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                          name="addressType"
+                          defaultValue={editData.addressType}
+                          onChange={(e) => {
+                            changeData(e.target.name, e.target.value)
+                          }}
+                        >
+                          <option value="Factory">Factory</option>
+                          <option value="Warehouse">Warehouse</option>
+                          <option value="Corporate Office">
+                            Corporate Office
+                          </option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Address Type<strong className="text-danger">*</strong>
+                        </label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <div className="d-flex">
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          type="text"
+                          name="pinCode"
+                          defaultValue={editData.pinCode}
+                          onChange={(e) => {
+                            changeData(e.target.name, e.target.value)
+                          }}
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Pin Code<strong className="text-danger">*</strong>
+                        </label>
+                        <img
+                          className={`${styles.search_image} img-fluid`}
+                          src="/static/search-grey.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+
+                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="state"
+                        defaultValue={editData.state}
+                        onChange={(e) => {
+                          changeData(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        State<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+
+                    <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="city"
+                        defaultValue={editData.city}
+                        onChange={(e) => {
+                          changeData(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        City<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="email"
+                        defaultValue={editData.email}
+                        onChange={(e) => {
+                          changeData(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Email ID<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <div className="d-flex">
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          type="tel"
+                          defaultValue={editData.contact.number}
+                          onChange={(e) => {
+                            if (phoneValidation(e.target.value)) {
+                              changeData(e.target.name, e.target.value)
+                            } else {
+                              let toastMessage = 'Enter a valid Phone Number'
+                              if (!toast.isActive(toastMessage)) {
+                                toast.error(toastMessage, {
+                                  toastId: toastMessage,
+                                })
+                              }
+                            }
+                          }}
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Phone Number<strong className="text-danger">*</strong>
+                        </label>
+                        <img
+                          className={`${styles.search_image} img-fluid`}
+                          src="/static/add.svg"
+                          alt="add"
+                        />
+                      </div>
+                    </div>
+                    <div className={`${styles.form_group} col-md-8 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        required
+                        name="completeAddress"
+                        defaultValue={editData.completeAddress}
+                        onChange={(e) => {
+                          changeData(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Address<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="branch"
+                        required
+                        defaultValue={editData.branch}
+                        onChange={(e) => {
+                          changeData(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Branch<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="GSTIN"
+                        defaultValue={editData.GSTIN}
+                        onChange={(e) => {
+                          changeData(e.target.name, e.target.value)
+                        }}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        GSTIN<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+
+                    <div className={`${styles.btn_container} col-md-4`}>
+                      <button className={`${styles.gst_btn}`}>
+                        {' '}
+                        <input
+                          type="file"
+                          name={keyAddressData.GSTIN}
+                          // name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                          onChange={(e) => {
+                            uploadDocument(e)
+                          }}
+                        />
+                        <img
+                          className="img-fluid mr-2 mb-1"
+                          src="/static/file_upload.svg"
+                          alt="file upload"
+                        />
+                        GST Doc
+                      </button>
+                    </div>
+                    <button
+                      // className={`${styles.add_btn}`}
+                      onClick={() => {
+                        updateKeyAddDataArr(editData, Index)
+                        setShowEditAddress(false)
                       }}
                     >
-                      <option value='Factory'>Factory</option>
-                      <option value='Warehouse'>Warehouse</option>
-                      <option value='Corporate Office'>Corporate Office</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Address Type<strong className="text-danger">*</strong>
-                    </label>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                  <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      name="pinCode"
-                      onChange={(e) => {
-                        handleChange(e.target.name, e.target.value)
-                      }}
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Pin Code<strong className="text-danger">*</strong>
-                    </label>
-                    <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-
-                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="state"
-                    onChange={(e) => {
-                      handleChange(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    State<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-
-                <div className={`${styles.form_group} col-md-2 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="city"
-                    onChange={(e) => {
-                      handleChange(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    City<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="email"
-                    onChange={(e) => {
-                      handleChange(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Email ID<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="tel"
-                      onChange={(e) => {
-                        if (phoneValidation(e.target.value)) {
-                          mobileFunction(e)
-                        } else {
-                          let toastMessage = 'Enter a valid Phone Number'
-                          if (!toast.isActive(toastMessage)) {
-                            toast.error(toastMessage, { toastId: toastMessage })
-                          }
-                        }
-                      }}
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Phone Number<strong className="text-danger">*</strong>
-                    </label>
-                    <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/add.svg"
-                      alt="add"
-                    />
+                      Update
+                    </button>
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-md-8 col-sm-6`}>
@@ -1210,8 +1575,9 @@ const index = ({
                     type="text"
                     required
                     name="completeAddress"
+                    defaultValue={editData.completeAddress}
                     onChange={(e) => {
-                      handleChange(e.target.name, e.target.value)
+                      changeData(e.target.name, e.target.value)
                     }}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -1224,249 +1590,7 @@ const index = ({
                     type="text"
                     name="branch"
                     required
-                    onChange={(e) => {
-                      handleChange(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Branch<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="GSTIN"
-                    onChange={(e) => {
-                      handleChange(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    GSTIN<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-
-                <div className={`${styles.btn_container} col-md-4`}>
-                  <button className={`${styles.gst_btn}`}>
-                    {' '}
-                    <input
-                      type="file"
-                      name={keyAddressData.GSTIN}
-                      // name="myfile"
-                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                      onChange={(e) => {
-                        uploadDocument(e)
-                      }}
-                    />
-                    <img
-                      className="img-fluid mr-2 mb-1"
-                      src="/static/file_upload.svg"
-                      alt="file upload"
-                    />
-                    GST Doc
-                  </button>
-                 
-                </div>
-                <button
-                    // className={`${styles.add_btn}`}
-                    onClick={() => handleClick()}
-                  >
-                    Add
-                  </button>
-              </div>
-            </div>
-          </div>
-          :null}
-           {showEditAddress?
-          <div
-            className={`${styles.main} card border_color`}
-            style={{ margin: '10px 35px 32px 32px' }}
-          >
-            <div
-              className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
-              
-            >
-              <h3 className={`${styles.heading}`}>Edit address</h3>
-              <img onClick={()=>{
-                setShowEditAddress(false)
-              }} src="/static/accordion_close_black.svg" />
-            </div>
-            <div className={`${styles.dashboard_form} card-body border_color`}>
-              <div className="d-flex">
-                <div className={`${styles.sub_heading} heading_card`}>
-                  Communication Address
-                </div>
-                <div className={styles.radio_form}>
-                  {['checkbox'].map((type) => (
-                    <div key={`inline-${type}`} className={styles.radio_group}>
-                      <Form.Check
-                        className={styles.radio}
-                        inline
-                        label="Yes"
-                        name="group1"
-                        type={type}
-                        id={`inline-${type}-1`}
-                      />
-                      <Form.Check
-                        className={styles.radio}
-                        inline
-                        label="No"
-                        name="group1"
-                        type={type}
-                        id={`inline-${type}-2`}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="row">
-                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                      name="addressType"
-                      defaultValue={editData.addressType}
-                      onChange={(e) => {
-                        changeData(e.target.name, e.target.value)
-                      }}
-                    >
-                      <option value='Factory'>Factory</option>
-                      <option value='Warehouse'>Warehouse</option>
-                      <option value='Corporate Office'>Corporate Office</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Address Type<strong className="text-danger">*</strong>
-                    </label>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                  <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      name="pinCode"
-                      defaultValue={editData.pinCode}
-                      onChange={(e) => {
-                        changeData(e.target.name, e.target.value)
-                      }}
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Pin Code<strong className="text-danger">*</strong>
-                    </label>
-                    <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-
-                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="state"
-                     
-                    defaultValue={editData.state}
-                    onChange={(e) => {
-                      changeData(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    State<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-
-                <div className={`${styles.form_group} col-md-2 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="city"
-                     defaultValue={editData.city}
-                    onChange={(e) => {
-                      changeData(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    City<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="email"
-                    defaultValue={editData.email}
-                    onChange={(e) => {
-                      changeData(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Email ID<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="tel"
-                        defaultValue={editData.contact.number}
-                    
-                      onChange={(e) => {
-                        if (phoneValidation(e.target.value)) {
-                           changeData(e.target.name, e.target.value)
-                        } else {
-                          let toastMessage = 'Enter a valid Phone Number'
-                          if (!toast.isActive(toastMessage)) {
-                            toast.error(toastMessage, { toastId: toastMessage })
-                          }
-                        }
-                      }}
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Phone Number<strong className="text-danger">*</strong>
-                    </label>
-                    <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/add.svg"
-                      alt="add"
-                    />
-                  </div>
-                </div>
-                <div className={`${styles.form_group} col-md-8 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="text"
-                    required
-                    name="completeAddress"
-                     defaultValue={editData.completeAddress}
-                    onChange={(e) => {
-                      changeData(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Address<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="text"
-                    name="branch"
-                    required
-                      defaultValue={editData.branch}
+                    defaultValue={editData.branch}
                     onChange={(e) => {
                       changeData(e.target.name, e.target.value)
                     }}
@@ -1510,25 +1634,21 @@ const index = ({
                     />
                     GST Doc
                   </button>
-                 
                 </div>
                 <button
-                    className={`${styles.add_btn}`}
-                    onClick={() => {
-                    updateKeyAddDataArr(editData,Index)
-                    setShowEditAddress(false)}
-                    }
-
-                  >
-                    Update
-                  </button>
+                  className={`${styles.add_btn}`}
+                  onClick={() => {
+                    updateKeyAddDataArr(editData, Index)
+                    setShowEditAddress(false)
+                  }}
+                >
+                  Update
+                </button>
               </div>
-            </div>
-          </div>
-          :null}
-           <div
+            ) : null}
+            <div
               className={`${styles.add_row} pr-3 d-flex justify-content-end`}
-              onClick={()=>{
+              onClick={() => {
                 setShowAddress(true)
               }}
             >
@@ -1606,7 +1726,7 @@ const index = ({
               </div> */}
 
           {/* <div className={`${styles.dashboard_form} card-body`}> */}
-            {/* <div className="d-flex justify-content-between">
+          {/* <div className="d-flex justify-content-between">
               <div className={`${styles.address_card} value background1`}>
                 <div className="d-flex justify-content-between">
                   <div>
@@ -1712,7 +1832,7 @@ const index = ({
                 email
               />
             </div> */}
-            {/* <div
+          {/* <div
               className={`${styles.add_row} pr-3 d-flex justify-content-end`}
             >
               <span>+</span>
@@ -1720,7 +1840,6 @@ const index = ({
             </div>
           
           </div> */}
-          
         </div>
       </div>
 
@@ -1764,28 +1883,32 @@ const index = ({
                   <tbody>
                     {debt?.map((profile, index) => (
                       <tr key={index}>
-                        <td>{
-                          index
-                          }</td>
+                        <td>{index}</td>
                         <td>
                           <input
                             name="primaryBank"
                             onChange={(e) =>
-                              handleDebtChange(e.target.name, e.target.checked ,index)
+                              handleDebtChange(
+                                e.target.name,
+                                e.target.checked,
+                                index,
+                              )
                             }
                             className={`${styles.checkBox}`}
                             type="checkbox"
                             disabled={!profile.actions}
-                            
                           />
-
                         </td>
                         <td>
                           <select
                             name="bankName"
                             disabled={profile.actions}
                             onChange={(e) =>
-                              handleDebtChange(e.target.name, e.target.value ,index)
+                              handleDebtChange(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
                             }
                             className={`${styles.dropDown} font-weight-bold heading`}
                           >
@@ -1796,8 +1919,12 @@ const index = ({
                         </td>
                         <td>
                           <select
-                           onChange={(e) =>
-                              handleDebtChange(e.target.name, e.target.value ,index)
+                            onChange={(e) =>
+                              handleDebtChange(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
                             }
                             name="limitType"
                             className={`${styles.dropDown} heading`}
@@ -1814,8 +1941,12 @@ const index = ({
                             className="input"
                             name="limit"
                             disabled={!profile.actions}
-                           onChange={(e) =>
-                              handleDebtChange(e.target.name,e.target.value,index)
+                            onChange={(e) =>
+                              handleDebtChange(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
                             }
                             defaultValue={profile.limit}
                             // readOnly={!saveTable}
@@ -1825,7 +1956,11 @@ const index = ({
                         <td>
                           <select
                             onChange={(e) =>
-                              handleDebtChange(e.target.name, e.target.value ,index)
+                              handleDebtChange(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
                             }
                             name="conduct"
                             className={`${styles.dropDown} heading`}
@@ -1845,7 +1980,7 @@ const index = ({
                                 src="/static/mode_edit.svg"
                                 className={`${styles.edit_image} mr-3 img-fluid`}
                                 onClick={() => {
-                                  setActions(index,true)
+                                  setActions(index, true)
                                 }}
                               />
                             ) : (
@@ -1854,7 +1989,7 @@ const index = ({
                                 className={`${styles.edit_image} mr-3 img-fluid`}
                                 alt="save"
                                 onClick={(e) => {
-                                  setActions(index,false)
+                                  setActions(index, false)
                                 }}
                               />
                             )}

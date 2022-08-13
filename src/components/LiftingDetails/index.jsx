@@ -238,7 +238,7 @@ export default function Index(props) {
                                       dateFormat={'dd-MM-yyyyy'}
                                     />
                                     <img
-                                      className={`${styles.calanderIcon} img-fluid`}
+                                      className={`${styles.calanderIcon} image_arrow img-fluid`}
                                       src="/static/caldericon.svg"
                                       alt="Search"
                                     />

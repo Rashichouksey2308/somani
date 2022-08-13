@@ -5,14 +5,24 @@ import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import _get from "lodash/get";
+import _get from 'lodash/get'
 import { useDispatch, useSelector } from 'react-redux'
-import { UpdateTransitDetails, GetTransitDetails } from '../../redux/TransitDetails/action'
+import {
+  UpdateTransitDetails,
+  GetTransitDetails,
+} from '../../redux/TransitDetails/action'
 import UploadOther from '../UploadOther'
 
-export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid }) {
+export default function Index({
+  isShipmentTypeBULK,
+  TransitDetails,
+  vesselData,
+  orderid,
+}) {
   let transId = _get(TransitDetails, `data[0]`, '')
-  let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk'
+  let shipmentTypeBulk =
+    _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
+    'Bulk'
   const [editInput, setEditInput] = useState(true)
   const [startBlDate, setBlDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
@@ -25,8 +35,8 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
       cimsCharges: '',
       paymentBy: '',
       document1: null,
-      document2: null
-    }
+      document2: null,
+    },
   ])
   const dispatch = useDispatch()
   const onChangeVessel = (e, index) => {
@@ -34,19 +44,34 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     let filteredVessel = {}
 
     // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
-    if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
-      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
-        if (vessel.vesselInformation[0].name === VesselName) {
-          filteredVessel = vessel
-        }
-      })
+    if (
+      _get(
+        TransitDetails,
+        `data[0].order.vessel.vessels[0].shipmentType`,
+        '',
+      ) === 'Bulk'
+    ) {
+      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach(
+        (vessel, index) => {
+          if (vessel.vesselInformation[0].name === VesselName) {
+            filteredVessel = vessel
+          }
+        },
+      )
     } else {
-      filteredVessel = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
-      let tempArray = _get(TransitDetails, `data[0].order.vessel.vessels[0].vesselInformation`, [])
+      filteredVessel = _get(
+        TransitDetails,
+        `data[0].order.vessel.vessels[0]`,
+        {},
+      )
+      let tempArray = _get(
+        TransitDetails,
+        `data[0].order.vessel.vessels[0].vesselInformation`,
+        [],
+      )
       tempArray.forEach((vessel, index) => {
         if (vessel.name === VesselName) {
           filteredVessel.vesselInformation = [vessel]
-
         }
       })
     }
@@ -61,33 +86,33 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
   const onChangeCims = (e, index) => {
     const name = e.target.id
     const value = e.target.value
-    setCimsDetails(prevState => {
+    setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
             ...obj,
-            [name]: value
+            [name]: value,
           }
         }
-        return obj;
-      });
-      return newState;
+        return obj
+      })
+      return newState
     })
   }
 
   const saveDate = (startDate, name, index) => {
     console.log(startDate, name, 'Event1')
-    setCimsDetails(prevState => {
+    setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
             ...obj,
-            [name]: startDate
+            [name]: startDate,
           }
         }
-        return obj;
-      });
-      return newState;
+        return obj
+      })
+      return newState
     })
   }
 
@@ -99,20 +124,22 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     }
   }
   const onAddHandler = () => {
-    setCimsDetails([...cimsDetails, {
-      vesselName: '',
-      quantity: '',
-      circNumber: '',
-      circDate: '',
-      cimsCharges: '',
-      paymentBy: '',
-      document1: null,
-      document2: null
-    }])
+    setCimsDetails([
+      ...cimsDetails,
+      {
+        vesselName: '',
+        quantity: '',
+        circNumber: '',
+        circDate: '',
+        cimsCharges: '',
+        paymentBy: '',
+        document1: null,
+        document2: null,
+      },
+    ])
   }
 
   const handleSave = () => {
-
     // const billOfLanding = [...bolList]
     const cims = { cimsDetails: cimsDetails }
 
@@ -120,42 +147,63 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
     fd.append('cims', JSON.stringify(cims))
     fd.append('transitId', transId._id)
     dispatch(UpdateTransitDetails(fd))
-    
-
   }
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
         {cimsDetails.map((list, index) => (
-          <div key={index} className={`${styles.vessel_card} mt-3 border_color`}>
+          <div
+            key={index}
+            className={`${styles.vessel_card} mt-3 border_color`}
+          >
             <div className={`${styles.main} border_color mt-4 card `}>
               <div
                 className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
               >
                 <h3 className={`${styles.heading}`}>CIMS Details</h3>
-                <button onClick={() => onAddHandler()} className={styles.add_btn}>
+                <button
+                  onClick={() => onAddHandler()}
+                  className={styles.add_btn}
+                >
                   <span className={styles.add_sign}>+</span>Add
                 </button>
               </div>
               <div className={`${styles.dashboard_form} mt-2 card-body`}>
-
                 <div className="row">
                   <div
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                   >
                     <div className="d-flex">
-                      <select onChange={(e) => onChangeVessel(e, index)}
+                      <select
+                        onChange={(e) => onChangeVessel(e, index)}
                         className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                       >
-                        {shipmentTypeBulk ? _get(TransitDetails, "data[0].order.vessel.vessels", []).map((vessel, index) => (
-                          <option value={vessel?.vesselInformation?.name} key={index}>{vessel?.vesselInformation?.name}</option>
-                        )) :
-                          _get(TransitDetails, "data[0].order.vessel.vessels[0].vesselInformation", []).map((vessel, index) => (
-                            <option value={vessel?.name} key={index}>{vessel?.name}</option>
-                          ))
-                        }
+                        {shipmentTypeBulk
+                          ? _get(
+                              TransitDetails,
+                              'data[0].order.vessel.vessels',
+                              [],
+                            ).map((vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation?.name}
+                                key={index}
+                              >
+                                {vessel?.vesselInformation?.name}
+                              </option>
+                            ))
+                          : _get(
+                              TransitDetails,
+                              'data[0].order.vessel.vessels[0].vesselInformation',
+                              [],
+                            ).map((vessel, index) => (
+                              <option value={vessel?.name} key={index}>
+                                {vessel?.name}
+                              </option>
+                            ))}
                       </select>
-                      <label className={`${styles.label_heading} label_heading`}>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
                         Vessel Name<strong className="text-danger">*</strong>
                       </label>
                       <img
@@ -169,8 +217,12 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                   >
                     <input
-                      id='quantity'
-                      defaultValue={_get(TransitDetails, "data[0].order.quantity", '')}
+                      id="quantity"
+                      defaultValue={_get(
+                        TransitDetails,
+                        'data[0].order.quantity',
+                        '',
+                      )}
                       onChange={(e, index) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
                       type="number"
@@ -183,7 +235,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                   >
                     <input
-                      id='circNumber'
+                      id="circNumber"
                       onChange={(e, index) => onChangeCims(e, index)}
                       defaultValue={list.circNumber}
                       className={`${styles.input_field} input form-control`}
@@ -200,8 +252,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                     <div className="d-flex">
                       {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
-                        defaultDate=''
-
+                        defaultDate=""
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
                         className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -213,10 +264,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                       />
 
                       <img
-                        className={`${styles.calanderIcon} img-fluid`}
+                        className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
-
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -229,7 +279,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                   >
                     <input
-                      id='cimsCharges'
+                      id="cimsCharges"
                       onChange={(e, index) => onChangeCims(e, index)}
                       defaultValue={list.cimsCharges}
                       className={`${styles.input_field} input form-control`}
@@ -249,7 +299,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         <option value={list.paymentBy}>{list.paymentBy}</option>
                         <option>N/A</option>
                       </select>
-                      <label className={`${styles.label_heading} label_heading`}>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
                         Payment by<strong className="text-danger">*</strong>
                       </label>
                       <img
@@ -260,7 +312,6 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                     </div>
                   </div>
                 </div>
-
               </div>
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
@@ -315,7 +366,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
-                            <input onChange={(e) => uploadDoc1(e, index)} type="file" name="myfile" />
+                            <input
+                              onChange={(e) => uploadDoc1(e, index)}
+                              type="file"
+                              name="myfile"
+                            />
                             <button className={`${styles.upload_btn} btn`}>
                               Upload
                             </button>
@@ -323,7 +378,9 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         </td>
                       </tr>
                       <tr className="table_row">
-                        <td className={styles.doc_name}>CIMS Payment Receipt</td>
+                        <td className={styles.doc_name}>
+                          CIMS Payment Receipt
+                        </td>
                         <td>
                           <img
                             src="/static/pdf.svg"
@@ -334,7 +391,11 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
-                            <input onChange={(e) => docUploadFunction(e)} type="file" name="myfile" />
+                            <input
+                              onChange={(e) => docUploadFunction(e)}
+                              type="file"
+                              name="myfile"
+                            />
                             <button className={`${styles.upload_btn} btn`}>
                               Upload
                             </button>
@@ -347,7 +408,7 @@ export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, 
               </div>
             </div>
 
-            <UploadOther orderid={orderid} module='Loading-Transit-Unloading' />
+            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         ))}
         <SaveBar handleSave={handleSave} rightBtn="Submit" />

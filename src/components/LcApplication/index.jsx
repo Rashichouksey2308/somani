@@ -136,7 +136,7 @@ function Index({
                             dateFormat={'dd-MM-yyyy'}
                           />
                           <img
-                            className={`${styles.calanderIcon} img-fluid`}
+                            className={`${styles.calanderIcon} image_arrow img-fluid`}
                             src="/static/caldericon.svg"
                             alt="Search"
                           />
@@ -560,7 +560,7 @@ function Index({
                             labelName="(44C) Latest Date Of Shipment"
                           />
                           <img
-                            className={`${styles.calanderIcon} img-fluid`}
+                            className={`${styles.calanderIcon} image_arrow img-fluid`}
                             src="/static/caldericon.svg"
                             alt="Search"
                           />

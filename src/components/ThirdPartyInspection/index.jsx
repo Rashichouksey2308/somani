@@ -328,7 +328,7 @@ export default function Index({ addButton, inspectionData }) {
                       dateFormat={`dd-MM-yyyy`}
                     />
                     <img
-                      className={`${styles.calanderIcon} img-fluid`}
+                      className={`${styles.calanderIcon} image_arrow img-fluid`}
                       src="/static/caldericon.svg"
                       alt="Search"
                     />
@@ -999,7 +999,7 @@ const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
                 dateFormat={`dd-MM-yyyy`}
               />
               <img
-                className={`${styles.calanderIcon} img-fluid`}
+                className={`${styles.calanderIcon} image_arrow img-fluid`}
                 src="/static/caldericon.svg"
                 alt="Search"
               />

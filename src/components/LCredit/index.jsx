@@ -325,7 +325,7 @@ function Index() {
                             labelName="(31C) Date Of Issue"
                           />
                           <img
-                            className={`${styles.calanderIcon} img-fluid`}
+                            className={`${styles.calanderIcon} image_arrow img-fluid`}
                             src="/static/caldericon.svg"
                             alt="Search"
                           />

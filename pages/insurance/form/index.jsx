@@ -115,7 +115,10 @@ const Index = () => {
                         className={styles.radio}
                         inline
                         label="Marine Insurance"
-                        defaultChecked={insuranceData?.quotationRequest?.insuranceType === 'Marine Insurance'}
+                        defaultChecked={
+                          insuranceData?.quotationRequest?.insuranceType ===
+                          'Marine Insurance'
+                        }
                         name="group1"
                         type={type}
                         value="Marine Insurance"
@@ -129,7 +132,10 @@ const Index = () => {
                         className={styles.radio}
                         inline
                         label="Storage Insurance"
-                        defaultChecked={insuranceData?.quotationRequest?.insuranceType === 'Storage Insurance'}
+                        defaultChecked={
+                          insuranceData?.quotationRequest?.insuranceType ===
+                          'Storage Insurance'
+                        }
                         name="group1"
                         type={type}
                         value="Storage Insurance"
@@ -147,7 +153,10 @@ const Index = () => {
                         inline
                         label="Both"
                         name="group1"
-                        defaultChecked={insuranceData?.quotationRequest?.insuranceType === 'Both'}
+                        defaultChecked={
+                          insuranceData?.quotationRequest?.insuranceType ===
+                          'Both'
+                        }
                         type={type}
                         value="Both"
                         onChange={(e) => {
@@ -181,7 +190,8 @@ const Index = () => {
               data-parent="#marineInsurance"
             >
               <div className={` ${styles.cardBody} card-body  border_color`}>
-                {insuranceData?.quotationRequest?.insuranceType === 'Marine Insurance' ? (
+                {insuranceData?.quotationRequest?.insuranceType ===
+                'Marine Insurance' ? (
                   <>
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body}`}>
@@ -222,7 +232,12 @@ const Index = () => {
                             >
                               Vessel Name
                             </div>
-                            <div className={styles.col_body}>{insuranceData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.name}</div>
+                            <div className={styles.col_body}>
+                              {
+                                insuranceData?.order?.vessel?.vessels[0]
+                                  ?.vesselInformation[0]?.name
+                              }
+                            </div>
                           </Col>
 
                           <Col lg={4} md={6} sm={6}>
@@ -231,7 +246,12 @@ const Index = () => {
                             >
                               IMO Number
                             </div>
-                            <div className={styles.col_body}>{insuranceData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.IMONumber}</div>
+                            <div className={styles.col_body}>
+                              {
+                                insuranceData?.order?.vessel?.vessels[0]
+                                  ?.vesselInformation[0]?.IMONumber
+                              }
+                            </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -239,7 +259,12 @@ const Index = () => {
                             >
                               Year of Built
                             </div>
-                            <div className={styles.col_body}>{insuranceData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.yearOfBuilt?.slice(0, 4)}</div>
+                            <div className={styles.col_body}>
+                              {insuranceData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.yearOfBuilt?.slice(
+                                0,
+                                4,
+                              )}
+                            </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -247,7 +272,12 @@ const Index = () => {
                             >
                               Port of Loading
                             </div>
-                            <div className={styles.col_body}>{insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.portOfLoading}</div>
+                            <div className={styles.col_body}>
+                              {
+                                insuranceData?.order?.vessel?.vessels[0]
+                                  ?.transitDetails?.portOfLoading
+                              }
+                            </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -256,7 +286,10 @@ const Index = () => {
                               Port of Discharge
                             </div>
                             <div className={styles.col_body}>
-                            {insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.portOfDischarge}
+                              {
+                                insuranceData?.order?.vessel?.vessels[0]
+                                  ?.transitDetails?.portOfDischarge
+                              }
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
@@ -267,9 +300,21 @@ const Index = () => {
                               }}
                               className={`${styles.input_field} input form-control`}
                             >
-                              <option selected>{insuranceData?.quotationRequest?.lossPayee}</option>
-                              <option value={insuranceData?.order?.lc?.lcApplication?.lcIssuingBank}>{insuranceData?.order?.lc?.lcApplication?.lcIssuingBank}</option>
-                              <option value='SBI BANK'>SBI BANK</option>
+                              <option selected>
+                                {insuranceData?.quotationRequest?.lossPayee}
+                              </option>
+                              <option
+                                value={
+                                  insuranceData?.order?.lc?.lcApplication
+                                    ?.lcIssuingBank
+                                }
+                              >
+                                {
+                                  insuranceData?.order?.lc?.lcApplication
+                                    ?.lcIssuingBank
+                                }
+                              </option>
+                              <option value="SBI BANK">SBI BANK</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -283,11 +328,15 @@ const Index = () => {
                               <DateCalender
                                 name="laycanFrom"
                                 saveDate={saveDate}
-                                defaultDate={insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanFrom?.split('T')[0]}
+                                defaultDate={
+                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanFrom?.split(
+                                    'T',
+                                  )[0]
+                                }
                                 labelName="Laycan from"
                               />
                               <img
-                                className={`${styles.calanderIcon} img-fluid`}
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
                                 alt="Search"
                               />
@@ -297,12 +346,16 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="laycanTo"
-                                defaultDate={insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanTo?.split('T')[0]}
+                                defaultDate={
+                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanTo?.split(
+                                    'T',
+                                  )[0]
+                                }
                                 saveDate={saveDate}
                                 labelName="Laycan to"
                               />
                               <img
-                                className={`${styles.calanderIcon} img-fluid`}
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
                                 alt="Search"
                               />
@@ -312,12 +365,16 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="expectedTimeOfDispatch"
-                                defaultDate={insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort?.split('T')[0]}
+                                defaultDate={
+                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort?.split(
+                                    'T',
+                                  )[0]
+                                }
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
                               />
                               <img
-                                className={`${styles.calanderIcon} img-fluid`}
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
                                 alt="Search"
                               />
@@ -327,12 +384,16 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="expectedTimeOfArrival"
-                                defaultDate={insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort?.split('T')[0]}
+                                defaultDate={
+                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort?.split(
+                                    'T',
+                                  )[0]
+                                }
                                 saveDate={saveDate}
                                 labelName="Expected time of Arrival"
                               />
                               <img
-                                className={`${styles.calanderIcon} img-fluid`}
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
                                 alt="Search"
                               />
@@ -343,9 +404,14 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="number"
                               name="sumInsured"
-                              defaultValue={insuranceData?.quotationRequest?.sumInsured}
+                              defaultValue={
+                                insuranceData?.quotationRequest?.sumInsured
+                              }
                               onChange={(e) => {
-                                saveQuotationData(e.target.name, Number(e.target.value * 10000000))
+                                saveQuotationData(
+                                  e.target.name,
+                                  Number(e.target.value * 10000000),
+                                )
                               }}
                               required
                             />
@@ -365,7 +431,9 @@ const Index = () => {
                         <h5>Additional Information (if Any)</h5>
                         <textarea
                           name="additionalInfo"
-                          defaultValue={insuranceData?.quotationRequest?.additionalInfo}
+                          defaultValue={
+                            insuranceData?.quotationRequest?.additionalInfo
+                          }
                           onChange={(e) => {
                             saveQuotationData(e.target.name, e.target.value)
                           }}
@@ -417,7 +485,12 @@ const Index = () => {
                             >
                               Vessel Name
                             </div>
-                            <div className={styles.col_body}>{insuranceData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.name}</div>
+                            <div className={styles.col_body}>
+                              {
+                                insuranceData?.order?.vessel?.vessels[0]
+                                  ?.vesselInformation[0]?.name
+                              }
+                            </div>
                           </Col>
 
                           <Col lg={4} md={6} sm={6}>
@@ -426,7 +499,12 @@ const Index = () => {
                             >
                               IMO Number
                             </div>
-                            <div className={styles.col_body}>{insuranceData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.IMONumber}</div>
+                            <div className={styles.col_body}>
+                              {
+                                insuranceData?.order?.vessel?.vessels[0]
+                                  ?.vesselInformation[0]?.IMONumber
+                              }
+                            </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -434,7 +512,12 @@ const Index = () => {
                             >
                               Year of Built
                             </div>
-                            <div className={styles.col_body}>{insuranceData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.yearOfBuilt?.slice(0, 4)}</div>
+                            <div className={styles.col_body}>
+                              {insuranceData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.yearOfBuilt?.slice(
+                                0,
+                                4,
+                              )}
+                            </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -442,7 +525,12 @@ const Index = () => {
                             >
                               Port of Loading
                             </div>
-                            <div className={styles.col_body}>{insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.portOfLoading}</div>
+                            <div className={styles.col_body}>
+                              {
+                                insuranceData?.order?.vessel?.vessels[0]
+                                  ?.transitDetails?.portOfLoading
+                              }
+                            </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
                             <div
@@ -451,20 +539,35 @@ const Index = () => {
                               Port of Discharge
                             </div>
                             <div className={styles.col_body}>
-                            {insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.portOfDischarge}
+                              {
+                                insuranceData?.order?.vessel?.vessels[0]
+                                  ?.transitDetails?.portOfDischarge
+                              }
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
-                          <select
+                            <select
                               name="lossPayee"
                               onChange={(e) => {
                                 saveQuotationData(e.target.name, e.target.value)
                               }}
                               className={`${styles.input_field} input form-control`}
                             >
-                              <option selected>{insuranceData?.quotationRequest?.lossPayee}</option>
-                              <option value={insuranceData?.order?.lc?.lcApplication?.lcIssuingBank}>{insuranceData?.order?.lc?.lcApplication?.lcIssuingBank}</option>
-                              <option value='SBI BANK'>SBI BANK</option>
+                              <option selected>
+                                {insuranceData?.quotationRequest?.lossPayee}
+                              </option>
+                              <option
+                                value={
+                                  insuranceData?.order?.lc?.lcApplication
+                                    ?.lcIssuingBank
+                                }
+                              >
+                                {
+                                  insuranceData?.order?.lc?.lcApplication
+                                    ?.lcIssuingBank
+                                }
+                              </option>
+                              <option value="SBI BANK">SBI BANK</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -477,12 +580,16 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="laycanFrom"
-                                defaultDate={insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanFrom?.split('T')[0]}
+                                defaultDate={
+                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanFrom?.split(
+                                    'T',
+                                  )[0]
+                                }
                                 saveDate={saveDate}
                                 labelName="Laycan from"
                               />
                               <img
-                                className={`${styles.calanderIcon} img-fluid`}
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
                                 alt="Search"
                               />
@@ -492,12 +599,16 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="laycanTo"
-                                defaultDate={insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanTo?.split('T')[0]}
+                                defaultDate={
+                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanTo?.split(
+                                    'T',
+                                  )[0]
+                                }
                                 saveDate={saveDate}
                                 labelName="Laycan to"
                               />
                               <img
-                                className={`${styles.calanderIcon} img-fluid`}
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
                                 alt="Search"
                               />
@@ -507,12 +618,16 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="expectedTimeOfDispatch"
-                                defaultDate={insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort?.split('T')[0]}
+                                defaultDate={
+                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort?.split(
+                                    'T',
+                                  )[0]
+                                }
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
                               />
                               <img
-                                className={`${styles.calanderIcon} img-fluid`}
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
                                 alt="Search"
                               />
@@ -522,12 +637,16 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="expectedTimeOfArrival"
-                                defaultDate={insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort?.split('T')[0]}
+                                defaultDate={
+                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort?.split(
+                                    'T',
+                                  )[0]
+                                }
                                 saveDate={saveDate}
                                 labelName="Expected time of Arrival"
                               />
                               <img
-                                className={`${styles.calanderIcon} img-fluid`}
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
                                 alt="Search"
                               />
@@ -538,9 +657,14 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="number"
                               name="sumInsured"
-                              defaultValue={insuranceData?.quotationRequest?.sumInsured}
+                              defaultValue={
+                                insuranceData?.quotationRequest?.sumInsured
+                              }
                               onChange={(e) =>
-                                saveQuotationData(e.target.name, Number(e.target.value * 10000000))
+                                saveQuotationData(
+                                  e.target.name,
+                                  Number(e.target.value * 10000000),
+                                )
                               }
                               required
                             />
@@ -568,7 +692,17 @@ const Index = () => {
                               }
                               className={`${styles.input_field} input form-control`}
                             >
-                              <option value={insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}>{insuranceData?.quotationRequest?.storageDetails?.placeOfStorage}</option>
+                              <option
+                                value={
+                                  insuranceData?.quotationRequest
+                                    ?.storageDetails?.placeOfStorage
+                                }
+                              >
+                                {
+                                  insuranceData?.quotationRequest
+                                    ?.storageDetails?.placeOfStorage
+                                }
+                              </option>
                               <option value="Visakhapatnam, AP, India">
                                 Visakhapatnam, AP, India
                               </option>
@@ -588,7 +722,10 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
-                              defaultValue={insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance}
+                              defaultValue={
+                                insuranceData?.quotationRequest?.storageDetails
+                                  ?.periodOfInsurance
+                              }
                               name="storageDetails.periodOfInsurance"
                               onChange={(e) =>
                                 saveQuotationData(e.target.name, e.target.value)
@@ -606,7 +743,10 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
-                              defaultValue={insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress}
+                              defaultValue={
+                                insuranceData?.quotationRequest?.storageDetails
+                                  ?.storagePlotAddress
+                              }
                               name="storageDetails.storagePlotAddress"
                               onChange={(e) =>
                                 saveQuotationData(e.target.name, e.target.value)
@@ -628,7 +768,9 @@ const Index = () => {
                         <h5>Additional Information (if Any)</h5>
                         <textarea
                           name="additionalInfo"
-                          defaultValue={insuranceData?.quotationRequest?.additionalInfo}
+                          defaultValue={
+                            insuranceData?.quotationRequest?.additionalInfo
+                          }
                           onChange={(e) => {
                             saveQuotationData(e.target.name, e.target.value)
                           }}

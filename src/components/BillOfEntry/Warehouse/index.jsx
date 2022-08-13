@@ -129,7 +129,7 @@ export default function Index({ OrderId, customData }) {
                         labelName="Date of Storage"
                       />
                       <img
-                        className={`${styles.calanderIcon} img-fluid`}
+                        className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                       />
