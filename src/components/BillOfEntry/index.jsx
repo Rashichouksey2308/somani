@@ -630,7 +630,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                 </div>
               </div>
 
-              <div className={`${styles.bill_landing}  border_color mt-4`}>
+              <div className={`${styles.bill_landing} card border_color mt-4`}>
                 <div className={`${styles.vessel_card} mt-3`}>
                   <div className={`${styles.card_sub_heading}`}>Duty</div>
                 </div>
@@ -761,7 +761,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="d-flex mt-2">
                         <div
-                          className={`${styles.label}`}
+                          className={`${styles.label} text`}
                           style={{ marginLeft: '30px' }}
                         >
                           Total Custom Duty:
