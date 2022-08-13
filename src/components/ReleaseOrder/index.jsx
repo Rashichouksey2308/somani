@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { UpdateDelivery } from '../../redux/release&DeliveryOrder/action'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
+import API from '../../utils/endpoints'
+import Cookies from 'js-cookie'
+
 
 export default function Index({ ReleaseOrderData }) {
   const dispatch = useDispatch()
@@ -35,8 +38,15 @@ export default function Index({ ReleaseOrderData }) {
   // }, [ReleaseOrderData])
   console.log(releaseDetail, 'realseOrderStatecurre')
 
+  const handleDocUplaod = async (name, e, index) => {
+    console.log(e, name, index, "name,value,index1")
+    const doc = await uploadDoc(e)
+    console.log(doc,'name,value,index2.1')
+    handlereleaseDetailChange(name, doc, index)
+  }
+
   const handlereleaseDetailChange = (name, value, index) => {
-    //console.log(name, value, index, "name,value,index")
+    console.log(name, value, index, "name,value,index2")
     let tempArr = releaseDetail
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -47,6 +57,49 @@ export default function Index({ ReleaseOrderData }) {
     setReleaseDetail([...tempArr])
   }
 
+
+  const uploadDoc = async (e) => {
+    console.log(e, "response data")
+    let fd = new FormData()
+    fd.append('document', e.target.files[0])
+    // dispatch(UploadCustomDoc(fd))
+
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      let response = await Axios.post(`${API.corebaseUrl}${API.uploadDoc}`, fd, {
+        headers: headers,
+      })
+      console.log(response.data.data, 'response data123')
+      if (response.data.code === 200) {
+        // dispatch(getCustomClearanceSuccess(response.data.data))
+        console.log(response.data.data, 'name,value,index3')
+        return response.data.data;
+
+
+        // let toastMessage = 'DOCUMENT UPDATED'
+        // if (!toast.isActive(toastMessage)) {
+        //   toast.error(toastMessage, { toastId: toastMessage })
+        // }
+      } else {
+        // dispatch(getCustomClearanceFailed(response.data.data))
+        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        // if (!toast.isActive(toastMessage)) {
+        //   toast.error(toastMessage, { toastId: toastMessage })
+        // }
+      }
+    } catch (error) {
+      // dispatch(getCustomClearanceFailed())
+
+      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+      // if (!toast.isActive(toastMessage)) {
+      //   toast.error(toastMessage, { toastId: toastMessage })
+      // }
+    }
+  }
   // const setActions = (index, val) => {
   //   setReleaseDetail((prevState) => {
   //     const newState = prevState.map((obj, i) => {
@@ -257,7 +310,8 @@ export default function Index({ ReleaseOrderData }) {
                     >
                       <div className={styles.uploadBtnWrapper}>
                         <input
-                          id='netQuantityReleased'
+                          onChange={(e) => handleDocUplaod(e.target.id, e, index)}
+                          id='document'
                           type="file"
                           name="myfile"
                         />
