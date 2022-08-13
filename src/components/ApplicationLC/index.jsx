@@ -40,7 +40,7 @@ function Index() {
             <h1 className={`${styles.heading} heading`}>Application for LC</h1>
           </div>
         </div> */}
-          <div className={`${styles.term_container} container-fluid`}>
+          <div className={`${styles.term_container} card container-fluid`}>
             <Row>
               <Col
                 sm={12}
@@ -160,8 +160,11 @@ function Index() {
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          41A &nbsp; &nbsp;{' '}
-                          <span>CREDIT AVAILABLE WITH BY</span>
+                          41A &nbsp; &nbsp; <span>CREDIT AVAILABLE WITH</span>
+                          <br />
+                          <br />
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          <span>BY</span>
                         </td>
                         <td>
                           {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
@@ -170,6 +173,7 @@ function Index() {
                       <tr className="table_row">
                         <td width="40%">
                           42C &nbsp; &nbsp; <span>AT SIGHT</span>
+                          <br />
                           <br />
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                           <span>NO. OF DAYS</span>
@@ -423,8 +427,9 @@ function Index() {
                         <td width="40%">
                           78 &nbsp; &nbsp;{' '}
                           <span>
-                            INSTRUCTIONS TO PAYING / ACCEPTING / NEGOTIATING
-                            BANK
+                            INSTRUCTIONS TO PAYING / ACCEPTING /
+                            <br />
+                            &nbsp; &nbsp; &nbsp; &nbsp; NEGOTIATING BANK
                           </span>
                         </td>
                         <td>

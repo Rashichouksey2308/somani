@@ -120,7 +120,7 @@ const index = () => {
                     <div className="d-flex">
                       <DateCalender labelName="Expected time of Dispatch" />
                       <img
-                        className={`${styles.calanderIcon} img-fluid`}
+                        className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                       />
@@ -194,7 +194,7 @@ const index = () => {
                     <div className="d-flex">
                       <DateCalender labelName="Insurance from" />
                       <img
-                        className={`${styles.calanderIcon} img-fluid`}
+                        className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                       />
@@ -205,7 +205,7 @@ const index = () => {
                     <div className="d-flex">
                       <DateCalender labelName="Insurance to" />
                       <img
-                        className={`${styles.calanderIcon} img-fluid`}
+                        className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                       />
@@ -395,7 +395,7 @@ const index = () => {
                     <div className="d-flex">
                       <DateCalender labelName="Expected time of Dispatch" />
                       <img
-                        className={`${styles.calanderIcon} img-fluid`}
+                        className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                       />
@@ -469,7 +469,7 @@ const index = () => {
                     <div className="d-flex">
                       <DateCalender labelName=" Insurance from" />
                       <img
-                        className={`${styles.calanderIcon} img-fluid`}
+                        className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                       />
@@ -480,7 +480,7 @@ const index = () => {
                     <div className="d-flex">
                       <DateCalender labelName="Insurance to" />
                       <img
-                        className={`${styles.calanderIcon} img-fluid`}
+                        className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
                         alt="Search"
                       />

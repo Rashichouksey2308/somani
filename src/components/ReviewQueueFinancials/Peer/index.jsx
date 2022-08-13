@@ -53,8 +53,8 @@ function Index({peerData}) {
                           .format('MMM-YY')
                           .toUpperCase()}</td>
                       <td className="text-center">{peers.revenue?.toLocaleString()}</td>
-                      <td className="text-center">{peers.ebidtaMargin?.toLocaleString()}</td>
-                      <td className="text-center">{peers.patMargin?.toLocaleString()}</td>
+                      <td className="text-center">{peers.ebidtaMargin?.toLocaleString()} %</td>
+                      <td className="text-center">{peers.patMargin?.toLocaleString()}%</td>
                       <td className="text-center">{peers.borrowings?.toLocaleString()}</td>
                     </tr>))}
                     {/* <tr>

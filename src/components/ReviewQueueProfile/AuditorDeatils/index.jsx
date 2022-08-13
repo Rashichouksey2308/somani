@@ -130,12 +130,8 @@ function Index({ directorData }) {
                                 <label className={`accordion_Text`}>
                                   DSC Registered
                                 </label>{' '}
-                                {director?.dscRegistered}{' '}
-                                <img
-                                  src="/static/approved.svg"
-                                  alt="Approved"
-                                  className="img-fluid mt-n1"
-                                />
+                                {director?.dscRegistered ? 'Yes' : 'No'}{' '}
+                               
                               </div>
                               <div className={`${styles.detailsBox}  col-md-2`}>
                                 <label className={`accordion_Text`}>
@@ -195,7 +191,7 @@ function Index({ directorData }) {
                                 <label className={`accordion_Text`}>
                                   Authorised Signatory
                                 </label>
-                                {director?.authorizedSignatory}
+                                {director?.authorizedSignatory ? 'Yes' : 'No'}
                               </div>
                               <div
                                 className={`${styles.detailsBox}  col-md-2 mt-5`}

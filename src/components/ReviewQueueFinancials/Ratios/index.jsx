@@ -239,13 +239,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Return On Capital Emplyed (%)</td>
                       <td className="text-center">
-                        {latestYearData?.returnOnEquity?.toLocaleString()}
+                        {latestYearData?.returnOnEquity?.toLocaleString()} %
                       </td>
                       <td className="text-center">
-                        {previousYearData?.returnOnEquity?.toLocaleString()}
+                        {previousYearData?.returnOnEquity?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {lastYearData?.returnOnEquity?.toLocaleString()}
+                        {lastYearData?.returnOnEquity?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         <img
@@ -258,13 +258,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Return On Total Assets (%)</td>
                       <td className="text-center">
-                        {latestYearData?.returnOnAssets?.toLocaleString()}
+                        {latestYearData?.returnOnAssets?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {previousYearData?.returnOnAssets?.toLocaleString()}
+                        {previousYearData?.returnOnAssets?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {lastYearData?.returnOnAssets?.toLocaleString()}
+                        {lastYearData?.returnOnAssets?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         <img
@@ -439,13 +439,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Asset Growth Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.totalAssetsGrowth?.toLocaleString()}
+                        {latestYearData?.totalAssetsGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {previousYearData?.totalAssetsGrowth?.toLocaleString()}
+                        {previousYearData?.totalAssetsGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {lastYearData?.totalAssetsGrowth?.toLocaleString()}
+                        {lastYearData?.totalAssetsGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         <img
@@ -458,13 +458,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Net Worth Growth Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.netWorthGrowth?.toLocaleString()}
+                        {latestYearData?.netWorthGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {previousYearData?.netWorthGrowth?.toLocaleString()}
+                        {previousYearData?.netWorthGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {lastYearData?.netWorthGrowth?.toLocaleString()}
+                        {lastYearData?.netWorthGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         <img
@@ -477,13 +477,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Sales Growth Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.netSalesGrowth?.toLocaleString()}
+                        {latestYearData?.netSalesGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {previousYearData?.netSalesGrowth?.toLocaleString()}
+                        {previousYearData?.netSalesGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {lastYearData?.netSalesGrowth?.toLocaleString()}
+                        {lastYearData?.netSalesGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         <img

@@ -392,6 +392,8 @@
             display: table-cell;
             overflow-x: auto;
             .table {
+              margin-bottom: 0px;
+
               th {
                 font-size: 15px;
                 color: #8492a6;
@@ -534,7 +536,7 @@
         font-weight: 500;
         left: 30px;
         margin-bottom: 15px;
-        color: #00000080;
+        //color: #00000080;
       }
       .value {
         font-size: 20px;
@@ -684,6 +686,8 @@
         display: table-cell;
         overflow-x: auto;
         .table {
+          margin-bottom: 0px;
+
           border-top: 3px solid #d9dde8;
           th {
             font-size: 15px;
