@@ -75,7 +75,7 @@ const Index = ({
                   <option value="50" label="50"></option>
                   <option value="100" label="100"></option>
                   <option value="500" label="500"></option>
-                  <option value="1000" label="1000"></option>
+                  {/* <option value="1000" label="1000"></option> */}
                  
                 </datalist>
                 <div

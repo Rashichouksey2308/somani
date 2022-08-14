@@ -33,7 +33,7 @@ Chart.register(
   BarElement,
 )
 // Chart.register(linear);
-function Index({companyData,orderList,GstDataHandler}) {
+function Index({ companyData, orderList, GstDataHandler }) {
   const dispatch = useDispatch()
   const GstData = companyData?.GST
   console.log(companyData, 'companyData')
@@ -80,12 +80,12 @@ function Index({companyData,orderList,GstDataHandler}) {
     //console.log(payload, 'payload')
 
     dispatch(VerifyGstKarza(payload))
-    
+
   }
 
   const handleChangeGstin = (e) => {
     const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === e.target.value)
-    console.log(filteredgstin.length,'filteredgstin')
+    console.log(filteredgstin.length, 'filteredgstin')
     if (filteredgstin.length === 1) {
       filteredgstin?.map((gstData) => {
         const data = { ...gstData }
@@ -485,7 +485,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                     <div className={`${styles.col_header} label_heading`}>
                       Date of Registration
                     </div>
-                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.rgdt}</div>
+                    <div className={styles.col_body}>{moment(gstFilteredData?.detail?.summaryInformation?.businessProfile?.rgdt).format('DD-MM-YYYY')}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
@@ -644,7 +644,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Gross Turnover
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossTurnover}
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossTurnover?.toLocaleString()}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -652,7 +652,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Gross Purchases
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossPurchases}
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossPurchases?.toLocaleString()}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -660,7 +660,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Gross Margins %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossMargin}
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossMargin?.toLocaleString()}%
                     </div>
                   </Col>
                   <Col md={3}>
@@ -668,7 +668,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Total clients
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.ttlCustomer}
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.ttlCustomer?.toLocaleString()}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -676,7 +676,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Total Invoices
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.ttlInv}
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.ttlInv?.toLocaleString()}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -684,7 +684,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Intra Organisation Sales %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.intraOrgSalesPercent}
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.intraOrgSalesPercent}%
                     </div>
                   </Col>
                   <Col md={3}>
@@ -692,7 +692,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Related Party Sales %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.relatedPartySales}
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.relatedPartySales}%
                     </div>
                   </Col>
                   <Col md={3}>
@@ -700,7 +700,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       Export Sales %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.exportSalesPercent}
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.exportSalesPercent}%
                     </div>
                   </Col>
                   <Col md={3}>
@@ -708,7 +708,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       GST Paid
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.gstPaid}
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.gstPaid?.toLocaleString()}
                     </div>
                   </Col>
                   <Col md={3}>
@@ -716,7 +716,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       GST Payble
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.gstPayable}
+                      {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.gstPayable?.toLocaleString()}
                     </div>
                   </Col>
                 </Row>
@@ -965,10 +965,10 @@ function Index({companyData,orderList,GstDataHandler}) {
                     <td colSpan={2}>
                       Gross Revenue
                     </td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.percentage}%</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.percentage?.toLocaleString()}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
@@ -983,63 +983,54 @@ function Index({companyData,orderList,GstDataHandler}) {
                     <td colSpan={2}>
                       Related Party Sales
                     </td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.percentage}%</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.percentage?.toLocaleString()}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Intra Organization Sales
                     </td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.percentage}%</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.percentage?.toLocaleString()}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       B2B Sales
                     </td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.percentage}%</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.percentage?.toLocaleString()}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       B2C Sales
                     </td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.percentage}%</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.percentage?.toLocaleString()}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Export Sales
                     </td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.percentage}%</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.percentage?.toLocaleString()}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Total Customers
                     </td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.current?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.current?.value?.toLocaleString()}</td>
                     <td className='border-left-0'></td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value}</td>
-                    <td className='border-left-0'></td>
-                  </tr>
-                  <tr>
-                    <td colSpan={2}>
-                      Total Invoices
-                    </td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.current?.value}</td>
-                    <td className='border-left-0'></td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value?.toLocaleString()}</td>
                     <td className='border-left-0'></td>
                   </tr>
                   <tr>
@@ -1081,31 +1072,31 @@ function Index({companyData,orderList,GstDataHandler}) {
                   </tr>
                   <tr>
                     <td>Average Monthly Sales</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgMonthlySales?.current}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgMonthlySales?.current?.toLocaleString()}</td>
 
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgMonthlySales?.previous}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgMonthlySales?.previous?.toLocaleString()}</td>
                   </tr>
                   <tr>
                     <td>Average Quarterly Sales</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgQuarterlySales?.current}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgQuarterlySales?.current?.toLocaleString()}</td>
 
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgQuarterlySales?.previous}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgQuarterlySales?.previous?.toLocaleString()}</td>
                   </tr>
                   <tr>
                     <td>Average Sales per Customer</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.previous}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.previous?.toLocaleString()}</td>
 
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.current}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.current?.toLocaleString()}</td>
                   </tr>
                   <tr>
                     <td>Average Sales per Invoice</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalinv?.previous}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalinv?.current}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalinv?.previous?.toLocaleString()}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalinv?.current?.toLocaleString()}</td>
                   </tr>
                   <tr>
                     <td>Average Invoices per Customer</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalcust?.previous}</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalcust?.current}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalcust?.previous?.toLocaleString()}</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgttlvalcust?.current?.toLocaleString()}</td>
                   </tr>
                 </table>
                 <table
@@ -1116,7 +1107,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                 >
                   <tr>
                     <th className={`${styles.first}`}>Principal/ HSN Wise Sales</th>
-                    <th colSpan={6}><span style={{color: "#2837566A"}}>Financial Period:</span> MAR 2020 - APR 2021</th>
+                    <th colSpan={6}><span style={{ color: "#2837566A" }}>Financial Period:</span> MAR 2020 - APR 2021</th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td>
@@ -1134,9 +1125,9 @@ function Index({companyData,orderList,GstDataHandler}) {
                   {gstFilteredData && gstFilteredData?.detail?.salesDetailAnnual?.hsnWiseSales?.map((sales, index) => (
                     <tr key={index}>
                       <td className={` ${styles.first}`}>{sales.hsnDesc}</td>
-                      <td>{sales.hsnSc}</td>
-                      <td>{sales.turnover}</td>
-                      <td>{sales.sharePercent}</td>
+                      <td>{sales.hsnSc?.toLocaleString()}</td>
+                      <td>{sales.turnover?.toLocaleString()}</td>
+                      <td>{sales.sharePercent?.toLocaleString()}%</td>
 
                       {/* <td>24</td>
                       <td>19</td>
@@ -1211,95 +1202,95 @@ function Index({companyData,orderList,GstDataHandler}) {
                     <td colSpan={2}>
                       Gross Purchases
                     </td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.percentage}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.percentage?.toLocaleString()}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Recurring Purchases
                     </td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.percentage}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.percentage?.toLocaleString()}%</td>
                   </tr>
 
                   <tr>
                     <td colSpan={2}>
                       Related Party Purchases
                     </td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.percentage}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.percentage?.toLocaleString()}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       Intra Organization Purchases
                     </td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.percentage}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.percentage?.toLocaleString()}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       B2B  Purchases
                     </td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.percentage}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.percentage?.toLocaleString()}%</td>
                   </tr>
 
                   <tr>
                     <td colSpan={2}>
                       Import Purchases
                     </td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.percentage?.toLocaleString()}%</td>
                   </tr>
 
                   <tr>
                     <td colSpan={2}>
                       Total Suppliers
                     </td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.percentage}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.percentage?.toLocaleString()}%</td>
                   </tr>
 
                   <tr>
                     <td colSpan={2}>
                       Total Invoices
                     </td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.percentage}</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.percentage}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.percentage?.toLocaleString()}%</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value?.toLocaleString()}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.percentage?.toLocaleString()}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       <strong>Purchases Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value?.toLocaleString()}</strong></td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value?.toLocaleString()}</strong></td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       <strong>Quarterly Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value?.toLocaleString()}</strong></td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value?.toLocaleString()}</strong></td>
                   </tr>
                 </table>
                 <table
@@ -1322,33 +1313,33 @@ function Index({companyData,orderList,GstDataHandler}) {
                   </tr>
                   <tr>
                     <td>Average Monthly Purchases</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.previous}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.previous?.toLocaleString()}</td>
 
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.current}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.current?.toLocaleString()}</td>
                   </tr>
                   <tr>
                     <td>Average Quarterly Purchases</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.previous}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.previous?.toLocaleString()}</td>
 
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.current}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.current?.toLocaleString()}</td>
                   </tr>
                   <tr>
                     <td>Average Purchases per Supplier</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerSupplier?.previous}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerSupplier?.previous?.toLocaleString()}</td>
 
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerSupplier?.current}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerSupplier?.current?.toLocaleString()}</td>
                   </tr>
                   <tr>
                     <td>Average Purchases per Invoices</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.previous}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.previous?.toLocaleString()}</td>
 
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.current}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.current?.toLocaleString()}</td>
                   </tr>
                   <tr>
                     <td>Average Invoices per Supplier</td>
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.previous}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.previous?.toLocaleString()}</td>
 
-                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.current}</td>
+                    <td>{gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.current?.toLocaleString()}</td>
                   </tr>
                 </table>
                 <table
@@ -1378,7 +1369,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                       <td className={` ${styles.first}`}>{sales.hsnDesc}</td>
                       <td>{sales.hsnSc}</td>
                       <td>{sales.turnover}</td>
-                      <td>{sales.sharePercent}</td>
+                      <td>{sales.sharePercent}%</td>
 
                       {/* <td>24</td>
                       <td>19</td>
@@ -1404,13 +1395,13 @@ function Index({companyData,orderList,GstDataHandler}) {
           <h2 className="mb-0">Compliance</h2>
           <div className={`${styles.subHeadContainer} d-flex mr-4 ml-auto`}>
             <div className={` ${styles.complaintExtra} d-flex align-items-center`}>
-              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</div>{gstFilteredData?.detail?.complianceDetail?.filingHistory}
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</div>{gstFilteredData?.detail?.complianceDetail?.filingHistory?.toLocaleString()}
             </div>
             <div className={`${styles.complaintExtra} d-flex align-items-center`}>
-              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</div>{gstFilteredData?.detail?.complianceDetail?.filingFrequency}
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</div>{gstFilteredData?.detail?.complianceDetail?.filingFrequency?.toLocaleString()}
             </div>
             <div className={`${styles.complaintExtra} d-flex align-items-center`}>
-              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</div>{gstFilteredData?.detail?.complianceDetail?.financialPeriod}
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</div>{gstFilteredData?.detail?.complianceDetail?.financialPeriod?.toLocaleString()}
             </div>
           </div>
           <span>+</span>
@@ -1537,10 +1528,10 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal / supplierDetailsUnit.toFixed(2)}</td>
-                            <td>{customer?.percentageOfTotalSales}%</td>
+                            <td>{(customer?.ttlVal / supplierDetailsUnit)?.toFixed(2)}</td>
+                            <td>{customer?.percentageOfTotalSales?.toLocaleString()}%</td>
                             <td>{customer?.invoice}</td>
-                            <td>{customer?.salesPerInvoice}</td>
+                            <td>{customer?.salesPerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1575,10 +1566,10 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal}</td>
+                            <td>{customer?.ttlVal?.toLocaleString()}</td>
                             <td>{customer?.percentageOfTotalSales}%</td>
                             <td>{customer?.invoice}</td>
-                            <td>{customer?.salesPerInvoice}</td>
+                            <td>{customer?.salesPerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
 
@@ -1613,10 +1604,10 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal}</td>
+                            <td>{customer?.ttlVal?.toLocaleString()}</td>
                             <td>{customer?.percentageOfTotalSales}%</td>
                             <td>{customer?.invoice}</td>
-                            <td>{customer?.salesPerInvoice}</td>
+                            <td>{customer?.salesPerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1650,10 +1641,10 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                           <tr key={index}>
                             <td>{customer?.stateName}</td>
                             <td>{customer?.stateCode}</td>
-                            <td>{customer?.ttlVal}</td>
-                            <td>{customer?.percentageOfTotalSales}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.salesPerInvoice}</td>
+                            <td>{customer?.ttlVal?.toLocaleString()}</td>
+                            <td>{customer?.percentageOfTotalSales?.toLocaleString()}%</td>
+                            <td>{customer?.invoice?.toLocaleString()}</td>
+                            <td>{customer?.salesPerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1722,10 +1713,10 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{(customer?.ttlVal / customerDetailsUnit).toFixed(2)}</td>
-                            <td>{customer?.percentageOfTotalPurchase}%</td>
+                            <td>{(customer?.ttlVal / customerDetailsUnit).toFixed(2)?.toLocaleString()}</td>
+                            <td>{customer?.percentageOfTotalPurchase?.toLocaleString()}%</td>
                             <td>{customer?.invoice}</td>
-                            <td>{customer?.purchasePerInvoice}</td>
+                            <td>{customer?.purchasePerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1760,10 +1751,10 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal}</td>
-                            <td>{customer?.percentageOfTotalPurchase}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.purchasePerInvoice}</td>
+                            <td>{customer?.ttlVal?.toLocaleString()}</td>
+                            <td>{customer?.percentageOfTotalPurchase?.toLocaleString()}%</td>
+                            <td>{customer?.invoice?.toLocaleString()}</td>
+                            <td>{customer?.purchasePerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1798,10 +1789,10 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal}</td>
-                            <td>{customer?.percentageOfTotalPurchase}%</td>
+                            <td>{customer?.ttlVal?.toLocaleString()}</td>
+                            <td>{customer?.percentageOfTotalPurchase?.toLocaleString()}%</td>
                             <td>{customer?.invoice}</td>
-                            <td>{customer?.purchasePerInvoice}</td>
+                            <td>{customer?.purchasePerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1837,11 +1828,11 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                         {gstFilteredData && gstFilteredData?.detail?.supplierDetail?.statewisePurchase?.map((customer, index) => (
                           <tr key={index}>
                             <td>{customer?.stateName}</td>
-                            <td>{customer?.stateCode}</td>
-                            <td>{customer?.ttlVal}</td>
-                            <td>{customer?.percentageOfTotalPurchase}%</td>
-                            <td>{customer?.invoice}</td>
-                            <td>{customer?.purchasePerInvoice}</td>
+                            <td>{customer?.stateCode?.toLocaleString()}</td>
+                            <td>{customer?.ttlVal?.toLocaleString()}</td>
+                            <td>{customer?.percentageOfTotalPurchase?.toLocaleString()}%</td>
+                            <td>{customer?.invoice?.toLocaleString()}</td>
+                            <td>{customer?.purchasePerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1910,31 +1901,31 @@ const gstSales = (head, gstFilteredData) => {
                         <tr>
                           <td>Total Sales</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.totalSales}</td>
+                            <td key={index}>{sales?.totalSales?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2B Sales</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.b2bSales}</td>
+                            <td key={index}>{sales?.b2bSales?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2C Sales</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.b2cSales}</td>
+                            <td key={index}>{sales?.b2cSales?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Export Sales</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.exportSales}</td>
+                            <td key={index}>{sales?.exportSales?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Growth Trend</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.growthTrend}</td>
+                            <td key={index}>{sales?.growthTrend?.toLocaleString()}</td>
                           ))}
                         </tr>
                       </tbody>
@@ -1962,13 +1953,13 @@ const gstSales = (head, gstFilteredData) => {
                         <tr>
                           <td>New Customers</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
-                            <td key={index}>{sales?.newCustomer}</td>
+                            <td key={index}>{sales?.newCustomer?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Recurring Customers</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
-                            <td key={index}>{sales?.RecurringCustomer}</td>
+                            <td key={index}>{sales?.RecurringCustomer?.toLocaleString()}</td>
                           ))}
                         </tr>
 
@@ -1998,13 +1989,13 @@ const gstSales = (head, gstFilteredData) => {
                         <tr>
                           <td>New</td>
                           {gstFilteredData?.detail?.salesDeatail?.clients.map((sales, index) => (
-                            <td key={index}>{sales?.new}</td>
+                            <td key={index}>{sales?.new?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Recurring</td>
                           {gstFilteredData?.detail?.salesDeatail?.clients.map((sales, index) => (
-                            <td key={index}>{sales?.Recurring}</td>
+                            <td key={index}>{sales?.Recurring?.toLocaleString()}</td>
                           ))}
                         </tr>
 
@@ -2033,25 +2024,25 @@ const gstSales = (head, gstFilteredData) => {
                         <tr>
                           <td>Total</td>
                           {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.total}</td>
+                            <td key={index}>{sales?.total?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2B</td>
                           {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.b2b}</td>
+                            <td key={index}>{sales?.b2b?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2C</td>
                           {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.b2c}</td>
+                            <td key={index}>{sales?.b2c?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Export</td>
                           {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.export}</td>
+                            <td key={index}>{sales?.export?.toLocaleString()}</td>
                           ))}
                         </tr>
                       </tbody>
@@ -2116,31 +2107,31 @@ const gstPurchase = (head, gstFilteredData) => {
                         <tr>
                           <td>Total Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.totalPurchase}</td>
+                            <td key={index}>{sales?.totalPurchase?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2B Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.b2b}</td>
+                            <td key={index}>{sales?.b2b?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2C Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.b2c}</td>
+                            <td key={index}>{sales?.b2c?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Import</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.import}</td>
+                            <td key={index}>{sales?.import?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Growth Trend</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.growthTrend}</td>
+                            <td key={index}>{sales?.growthTrend?.toLocaleString()}</td>
                           ))}
                         </tr>
                       </tbody>
@@ -2169,12 +2160,12 @@ const gstPurchase = (head, gstFilteredData) => {
                         <tr>
                           <td>New Suppliers</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map((sales, index) => (
-                            <td key={index}>{sales?.newSuppliers}</td>
+                            <td key={index}>{sales?.newSuppliers?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map((sales, index) => (
-                            <td key={index}>{sales?.recurringSuppliers}</td>
+                            <td key={index}>{sales?.recurringSuppliers?.toLocaleString()}</td>
                           ))}
                         </tr>
 
@@ -2203,13 +2194,13 @@ const gstPurchase = (head, gstFilteredData) => {
                         <tr>
                           <td>New</td>
                           {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map((sales, index) => (
-                            <td key={index}>{sales?.new}</td>
+                            <td key={index}>{sales?.new?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Recurring</td>
                           {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map((sales, index) => (
-                            <td key={index}>{sales?.recurring}</td>
+                            <td key={index}>{sales?.recurring?.toLocaleString()}</td>
                           ))}
                         </tr>
 
@@ -2238,25 +2229,25 @@ const gstPurchase = (head, gstFilteredData) => {
                         <tr>
                           <td>Total</td>
                           {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((sales, index) => (
-                            <td key={index}>{sales?.total}</td>
+                            <td key={index}>{sales?.total?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2B</td>
                           {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((sales, index) => (
-                            <td key={index}>{sales?.b2b}</td>
+                            <td key={index}>{sales?.b2b?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2C</td>
                           {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((sales, index) => (
-                            <td key={index}>{sales?.b2c}</td>
+                            <td key={index}>{sales?.b2c?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Import</td>
                           {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((sales, index) => (
-                            <td key={index}>{sales?.import}</td>
+                            <td key={index}>{sales?.import?.toLocaleString()}</td>
                           ))}
                         </tr>
                       </tbody>

@@ -80,13 +80,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Working Capital Turnover Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.workingCapitalTurnover}
+                        {latestYearData?.workingCapitalTurnover?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.workingCapitalTurnover}
+                        {previousYearData?.workingCapitalTurnover?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.workingCapitalTurnover}
+                        {lastYearData?.workingCapitalTurnover?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -99,21 +99,21 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Fixed Assets Turnover Ratio</td>
                       <td className="text-center">
-                        {latestIncomeData?.revenue?.revenueFromOperations /
+                        {(latestIncomeData?.revenue?.revenueFromOperations /
                           (latestBalanceData?.assets?.propertyPlantAndEquipment +
                             latestBalanceData?.assets?.propertyPlantAndEquipment /
-                              2)}
+                              2))?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousIncomeData?.revenue?.revenueFromOperations /
+                        {(previousIncomeData?.revenue?.revenueFromOperations /
                           (previousBalanceData?.assets?.propertyPlantAndEquipment +
                             previousBalanceData?.assets?.propertyPlantAndEquipment /
-                              2)}
+                              2))?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastIncomeData?.revenue?.revenueFromOperations /
+                        {(lastIncomeData?.revenue?.revenueFromOperations /
                           (lastBalanceData?.assets?.propertyPlantAndEquipment +
-                            lastBalanceData?.assets?.propertyPlantAndEquipment / 2)}
+                            lastBalanceData?.assets?.propertyPlantAndEquipment / 2))?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -126,13 +126,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Working Capital Cycle (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysWorkingCapital}
+                        {latestYearData?.daysWorkingCapital?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysWorkingCapital}
+                        {previousYearData?.daysWorkingCapital?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysWorkingCapital}
+                        {lastYearData?.daysWorkingCapital?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -146,13 +146,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Debtors Period (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysOfSalesOutstanding}
+                        {latestYearData?.daysOfSalesOutstanding?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysOfSalesOutstanding}
+                        {previousYearData?.daysOfSalesOutstanding?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysOfSalesOutstanding}
+                        {lastYearData?.daysOfSalesOutstanding?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -165,13 +165,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Inventory Period (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysOfInventoryOutstanding}
+                        {latestYearData?.daysOfInventoryOutstanding?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysOfInventoryOutstanding}
+                        {previousYearData?.daysOfInventoryOutstanding?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysOfInventoryOutstanding}
+                        {lastYearData?.daysOfInventoryOutstanding?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -184,13 +184,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Creditors Period (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysOfPayablesOutstanding}
+                        {latestYearData?.daysOfPayablesOutstanding?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysOfPayablesOutstanding}
+                        {previousYearData?.daysOfPayablesOutstanding?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysOfPayablesOutstanding}
+                        {lastYearData?.daysOfPayablesOutstanding?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -211,10 +211,10 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Operating Profit Margin (EBITDA Margin)</td>
                       <td className="text-center">
-                        {(latestIncomeData?.revenue?.revenueFromOperations -
+                        {((latestIncomeData?.revenue?.revenueFromOperations -
                           latestIncomeData?.expenses?.totExp +
                           latestIncomeData?.expenses?.finCost) /
-                          latestYearData?.ebitdaMargin}
+                          latestYearData?.ebitdaMargin)?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         {(previousIncomeData?.revenue?.revenueFromOperations -
@@ -223,10 +223,10 @@ function Index({ ratioData }) {
                           previousYearData?.ebitdaMargin}
                       </td>
                       <td className="text-center">
-                        {(lastIncomeData?.revenue?.revenueFromOperations -
+                        {((lastIncomeData?.revenue?.revenueFromOperations -
                           lastIncomeData?.expenses?.totExp +
                           lastIncomeData?.expenses?.finCost) /
-                          lastYearData?.ebitdaMargin}
+                          lastYearData?.ebitdaMargin)?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -239,13 +239,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Return On Capital Emplyed (%)</td>
                       <td className="text-center">
-                        {latestYearData?.returnOnEquity}
+                        {latestYearData?.returnOnEquity?.toLocaleString()} %
                       </td>
                       <td className="text-center">
-                        {previousYearData?.returnOnEquity}
+                        {previousYearData?.returnOnEquity?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {lastYearData?.returnOnEquity}
+                        {lastYearData?.returnOnEquity?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         <img
@@ -258,13 +258,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Return On Total Assets (%)</td>
                       <td className="text-center">
-                        {latestYearData?.returnOnAssets}
+                        {latestYearData?.returnOnAssets?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {previousYearData?.returnOnAssets}
+                        {previousYearData?.returnOnAssets?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {lastYearData?.returnOnAssets}
+                        {lastYearData?.returnOnAssets?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         <img
@@ -319,7 +319,7 @@ function Index({ ratioData }) {
                       <td>Debt Equity Ratio</td>
                       <td className="text-center">{latestYearData?.debtEquity}</td>
                       <td className="text-center">
-                        {previousYearData?.debtEquity}
+                        {previousYearData?.debtEquity?.toLocaleString()}
                       </td>
                       <td className="text-center">{lastYearData?.debtEquity}</td>
                       <td className="text-center">
@@ -333,12 +333,12 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Debt EBITDA Ratio (EBITDA Coverage)</td>
                       <td className="text-center">
-                        {latestYearData?.debtToEbitda}
+                        {latestYearData?.debtToEbitda?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.debtToEbitda}
+                        {previousYearData?.debtToEbitda?.toLocaleString()}
                       </td>
-                      <td className="text-center">{lastYearData?.debtToEbitda}</td>
+                      <td className="text-center">{lastYearData?.debtToEbitda?.toLocaleString()}</td>
                       <td className="text-center">
                         <img
                           src="/static/average.svg"
@@ -350,13 +350,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Interest Coverage Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.interestCoverage}
+                        {latestYearData?.interestCoverage?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.interestCoverage}
+                        {previousYearData?.interestCoverage?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.interestCoverage}
+                        {lastYearData?.interestCoverage?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -370,13 +370,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Debt Service Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.longTermDebtCoverage}
+                        {latestYearData?.longTermDebtCoverage?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.longTermDebtCoverage}
+                        {previousYearData?.longTermDebtCoverage?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.longTermDebtCoverage}
+                        {lastYearData?.longTermDebtCoverage?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         <img
@@ -399,12 +399,12 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Curent Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.currentRatio}
+                        {latestYearData?.currentRatio?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.currentRatio}
+                        {previousYearData?.currentRatio?.toLocaleString()}
                       </td>
-                      <td className="text-center">{lastYearData?.currentRatio}</td>
+                      <td className="text-center">{lastYearData?.currentRatio?.toLocaleString()}</td>
                       <td className="text-center">
                         <img
                           src="/static/profit.svg"
@@ -415,11 +415,11 @@ function Index({ ratioData }) {
                     </tr>
                     <tr>
                       <td>Quick Ratio</td>
-                      <td className="text-center">{latestYearData?.quickRatio}</td>
+                      <td className="text-center">{latestYearData?.quickRatio?.toLocaleString()}</td>
                       <td className="text-center">
-                        {previousYearData?.quickRatio}
+                        {previousYearData?.quickRatio?.toLocaleString()}
                       </td>
-                      <td className="text-center">{lastYearData?.quickRatio}</td>
+                      <td className="text-center">{lastYearData?.quickRatio?.toLocaleString()}</td>
                       <td className="text-center">
                         <img
                           src="/static/average.svg"
@@ -439,13 +439,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Asset Growth Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.totalAssetsGrowth}
+                        {latestYearData?.totalAssetsGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {previousYearData?.totalAssetsGrowth}
+                        {previousYearData?.totalAssetsGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {lastYearData?.totalAssetsGrowth}
+                        {lastYearData?.totalAssetsGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         <img
@@ -458,13 +458,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Net Worth Growth Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.netWorthGrowth}
+                        {latestYearData?.netWorthGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {previousYearData?.netWorthGrowth}
+                        {previousYearData?.netWorthGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {lastYearData?.netWorthGrowth}
+                        {lastYearData?.netWorthGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         <img
@@ -477,13 +477,13 @@ function Index({ ratioData }) {
                     <tr>
                       <td>Sales Growth Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.netSalesGrowth}
+                        {latestYearData?.netSalesGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {previousYearData?.netSalesGrowth}
+                        {previousYearData?.netSalesGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        {lastYearData?.netSalesGrowth}
+                        {lastYearData?.netSalesGrowth?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         <img

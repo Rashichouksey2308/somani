@@ -233,7 +233,7 @@ function Index() {
                       <div className="d-flex">
                         <DateCalender labelName="Incorporation Date" />
                         <img
-                          className={`${styles.calanderIcon} img-fluid`}
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
                         />

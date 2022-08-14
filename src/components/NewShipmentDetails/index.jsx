@@ -62,9 +62,15 @@ const index = ({ saveShipmentData, shipment }) => {
 
               <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
                 <div className="d-flex">
-                  <DateCalender  dateFormat={"dd-MM-yyyy"} value={shipment.ETAofDischarge.fromDate} name='ETAofDischarge.fromDate'  saveDate={saveDate}  labelName="Laycan at Load Port from" />
+                  <DateCalender
+                    dateFormat={'dd-MM-yyyy'}
+                    value={shipment.ETAofDischarge.fromDate}
+                    name="ETAofDischarge.fromDate"
+                    saveDate={saveDate}
+                    labelName="Laycan at Load Port from"
+                  />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -85,9 +91,15 @@ const index = ({ saveShipmentData, shipment }) => {
               </Form.Group>
               <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
                 <div className="d-flex">
-                  <DateCalender  dateFormat={"dd-MM-yyyy"} value={shipment.ETAofDischarge.toDate} name="ETAofDischarge.toDate" saveDate={saveDate} labelName="Laycan at Load Port to" />
+                  <DateCalender
+                    dateFormat={'dd-MM-yyyy'}
+                    value={shipment.ETAofDischarge.toDate}
+                    name="ETAofDischarge.toDate"
+                    saveDate={saveDate}
+                    labelName="Laycan at Load Port to"
+                  />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -107,9 +119,14 @@ const index = ({ saveShipmentData, shipment }) => {
               </Form.Group>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                  <DateCalender  dateFormat={"dd-MM-yyyy"} name="lastDateOfShipment" saveDate={saveDate} labelName="Last date of shipment" />
+                  <DateCalender
+                    dateFormat={'dd-MM-yyyy'}
+                    name="lastDateOfShipment"
+                    saveDate={saveDate}
+                    labelName="Last date of shipment"
+                  />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -131,9 +148,14 @@ const index = ({ saveShipmentData, shipment }) => {
 
               <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
                 <div className="d-flex">
-                  <DateCalender name="loadPort.fromDate" dateFormat={"dd-MM-yyyy"} saveDate={saveDate} labelName="ETA at Discharge Port from" />
+                  <DateCalender
+                    name="loadPort.fromDate"
+                    dateFormat={'dd-MM-yyyy'}
+                    saveDate={saveDate}
+                    labelName="ETA at Discharge Port from"
+                  />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -157,9 +179,14 @@ const index = ({ saveShipmentData, shipment }) => {
               </Form.Group>
               <Form.Group className={`${styles.form_group}  col-md-2 col-sm-6`}>
                 <div className="d-flex">
-                  <DateCalender name="loadPort.toDate" dateFormat={"dd-MM-yyyy"} saveDate={saveDate} labelName="ETA at Discharge Port to" />
+                  <DateCalender
+                    name="loadPort.toDate"
+                    dateFormat={'dd-MM-yyyy'}
+                    saveDate={saveDate}
+                    labelName="ETA at Discharge Port to"
+                  />
                   <img
-                    className={`${styles.calanderIcon} img-fluid`}
+                    className={`${styles.calanderIcon} image_arrow img-fluid`}
                     src="/static/caldericon.svg"
                     alt="Search"
                   />
@@ -191,7 +218,9 @@ const index = ({ saveShipmentData, shipment }) => {
                     }}
                   >
                     {/* <option selected></option> */}
-                    <option value="Calcutta Port" selected>Calcutta Port</option>
+                    <option value="Calcutta Port" selected>
+                      Calcutta Port
+                    </option>
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
