@@ -111,7 +111,7 @@ function Index({
                             ) : (
                               <>
                                 {' '}
-                                <option value={false}>NO</option>
+                                <option value={false}>No</option>
                                 <option value={true}>Yes</option>
                               </>
                             )}
