@@ -417,6 +417,7 @@ const index = ({
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="existingProcurementOfCommodity"
+                    required
                     onChange={(e) => {
                       saveProductData(e.target.name, e.target.value)
                     }}
@@ -600,6 +601,7 @@ const index = ({
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="supplierName"
+                    required
                     onChange={(e) => {
                       saveSupplierData(e.target.name, e.target.value)
                     }}
@@ -870,23 +872,25 @@ const index = ({
                   </thead>
                   {personData?.map((person, index) => (
                     <tbody key={index}>
-                      <tr className="table_credit">
+                      <tr className="table_credit shadow-none">
                         <td>
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                            defaultValue={person.name}
-                            name="name"
-                            onChange={(e) => handlePersonChange(e, index)}
-                            readOnly={!saveContactTable}
-                          >
-                            <option>Ram Lal</option>
-                            <option>Ramakrishna</option>
-                          </select>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          <div className='d-flex mr-4'>
+                            <select
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                              defaultValue={person.name}
+                              name="name"
+                              onChange={(e) => handlePersonChange(e, index)}
+                              readOnly={!saveContactTable}
+                            >
+                              <option>Ram Lal</option>
+                              <option>Ramakrishna</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow} ml-n4 img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
                           {/* <input
                             className="input font-weight-bold"
                             defaultValue={person.name}
@@ -896,23 +900,25 @@ const index = ({
                             readOnly={!saveContactTable}
                           /> */}
                         </td>
-                        <td>                          
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                            defaultValue={person.designation}
-                            name="designation"
-                            onChange={(e) => handlePersonChange(e, index)}
-                            readOnly={!saveContactTable}
-                          >
-                            <option>Director</option>
-                            <option>Production Manager</option>
-                            <option>Lead Manager</option>
-                          </select>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                        <td>
+                          <div className='d-flex mr-4'>
+                            <select
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                              defaultValue={person.designation}
+                              name="designation"
+                              onChange={(e) => handlePersonChange(e, index)}
+                              readOnly={!saveContactTable}
+                            >
+                              <option>Director</option>
+                              <option>Production Manager</option>
+                              <option>Lead Manager</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow} ml-n4 img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
                           {/* <input
                             className="input"
                             defaultValue={person.designation}
@@ -969,7 +975,7 @@ const index = ({
                             {!saveContactTable ? (
                               <img
                                 src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                className={`${styles.edit_image} mr-3`}
                                 onClick={(e) => {
                                   setContactTable(true)
                                 }}
@@ -977,7 +983,7 @@ const index = ({
                             ) : (
                               <img
                                 src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                className={`${styles.edit_image} mr-3`}
                                 alt="save"
                                 onClick={(e) => {
                                   setContactTable(false)
@@ -987,7 +993,6 @@ const index = ({
                             )}
                             <img
                               src="/static/delete 2.svg"
-                              className="img-fluid"
                               alt="delete"
                             />
                           </div>
@@ -1177,10 +1182,21 @@ const index = ({
                     Email ID<strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <div className="d-flex">
+                <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
+                  <div className={`${styles.phone_card} d-flex pr-4`}>
+                    <select
+                      name="callingCode"
+                      id="Code"
+                      className={`${styles.code_phone} input border-right-0`}
+                      > 
+                      <option>+91</option>
+                      <option>+1</option>
+                      <option>+92</option>
+                      <option>+95</option>
+                      <option>+24</option>
+                    </select>
                     <input
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field} input border-left-0 form-control`}
                       required
                       type="tel"
                       onChange={(e) => {
@@ -1266,14 +1282,14 @@ const index = ({
                     />
                     GST Doc
                   </button>
-                 
-                </div>
-                <button
-                    // className={`${styles.add_btn}`}
+                  <button
+                    className={`${styles.add_btn}`}
                     onClick={() => handleClick()}
                   >
                     Add
                   </button>
+                 
+                </div>
               </div>
             </div>
           </div>

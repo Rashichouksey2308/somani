@@ -53,10 +53,10 @@ function Index({ auditorsDetails }) {
                                     <tr>
                                         <td>Change in Auditor</td>
                                         <td className={`${latestYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? styles.danger:null}`}>
-                                            {latestYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? " NO" : "Yes"} {`${latestYearData?.nameOfAuditor !== previousYearData?.nameOfAuditor  ?moment(latestYearData?.financialEndDate).format("YYYY"):""}`}</td>
-                                        <td>{ previousYearData?.nameOfAuditor === lastYearData?.regstrnNum ? " NO" : "Yes"}{`/ ${previousYearData?.nameOfAuditor !== lastYearData?.regstrnNum ?moment(previousYearData?.financialEndDate).format("YYYY"):null}`}</td>
+                                            {latestYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? " No" : "Yes"} {`${latestYearData?.nameOfAuditor !== previousYearData?.nameOfAuditor  ?moment(latestYearData?.financialEndDate).format("YYYY"):""}`}</td>
+                                        <td>{ previousYearData?.nameOfAuditor === lastYearData?.regstrnNum ? " No" : "Yes"}{`/ ${previousYearData?.nameOfAuditor !== lastYearData?.regstrnNum ?moment(previousYearData?.financialEndDate).format("YYYY"):null}`}</td>
                                         <td className={`${previousYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? styles.danger:null}`}>
-                                            {previousYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? " NO" : "Yes"}
+                                            {previousYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? " No" : "Yes"}
                                               {`${previousYearData?.nameOfAuditor !== previousYearData?.nameOfAuditor  ?moment(lastYearData?.financialEndDate).format("YYYY"):""}`}
                                         </td>
                                         

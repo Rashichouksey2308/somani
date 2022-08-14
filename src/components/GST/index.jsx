@@ -1126,9 +1126,9 @@ function Index({companyData,orderList,GstDataHandler}) {
                     <td>TURNOVER</td>
                     <td>% SHARE</td>
 
-                    <td>CUSTOMERS</td>
+                    {/* <td>CUSTOMERS</td>
                     <td>INVOICES</td>
-                    <td>AVG. SALES PER CUSTOMER</td>
+                    <td>AVG. SALES PER CUSTOMER</td> */}
                   </tr>
 
                   {gstFilteredData && gstFilteredData?.detail?.salesDetailAnnual?.hsnWiseSales?.map((sales, index) => (
@@ -1138,9 +1138,9 @@ function Index({companyData,orderList,GstDataHandler}) {
                       <td>{sales.turnover}</td>
                       <td>{sales.sharePercent}</td>
 
-                      <td>24</td>
+                      {/* <td>24</td>
                       <td>19</td>
-                      <td>1.05</td>
+                      <td>1.05</td> */}
                     </tr>
                   ))}
                 </table>
@@ -1359,7 +1359,7 @@ function Index({companyData,orderList,GstDataHandler}) {
                 >
                   <tr>
                     <th className={`${styles.first}`}>Principal/ HSN Wise Sales</th>
-                    <th colSpan={6}>Financial Period:1</th>
+                    <th colSpan={6}><span style={{color: "#2837566A"}}>Financial Period:</span> MAR 2020 - APR 2021</th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td>
@@ -1369,9 +1369,9 @@ function Index({companyData,orderList,GstDataHandler}) {
                     <td>TURNOVER</td>
                     <td>% SHARE</td>
 
-                    <td>CUSTOMERS</td>
+                    {/* <td>CUSTOMERS</td>
                     <td>INVOICES</td>
-                    <td>AVG. SALES PER CUSTOMER</td>
+                    <td>AVG. SALES PER CUSTOMER</td> */}
                   </tr>
                   {gstFilteredData && gstFilteredData?.detail?.purchaseDetailAnnual?.hsnWisePurchase?.map((sales, index) => (
                     <tr key={index}>
@@ -1380,9 +1380,9 @@ function Index({companyData,orderList,GstDataHandler}) {
                       <td>{sales.turnover}</td>
                       <td>{sales.sharePercent}</td>
 
-                      <td>24</td>
+                      {/* <td>24</td>
                       <td>19</td>
-                      <td>1.05</td>
+                      <td>1.05</td> */}
                     </tr>
                   ))}
                 </table>
