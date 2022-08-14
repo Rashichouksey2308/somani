@@ -1195,17 +1195,17 @@ const index = ({
                     </div>
                     <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                       <div className={`${styles.phone_card} d-flex pr-4`}>
-                    <select
-                      name="callingCode"
-                      id="Code"
-                      className={`${styles.code_phone} input border-right-0`}
-                      > 
-                      <option>+91</option>
-                      <option>+1</option>
-                      <option>+92</option>
-                      <option>+95</option>
-                      <option>+24</option>
-                    </select>
+                        <select
+                          name="callingCode"
+                          id="Code"
+                          className={`${styles.code_phone} input border-right-0`}
+                          > 
+                          <option>+91</option>
+                          <option>+1</option>
+                          <option>+92</option>
+                          <option>+95</option>
+                          <option>+24</option>
+                        </select>
                         <input
                           className={`${styles.input_field} input border-left-0 form-control`}
                           required
@@ -1284,39 +1284,39 @@ const index = ({
                       </label>
                     </div>
 
-                <div className={`${styles.btn_container} col-md-4`}>
-                  <button className={`${styles.gst_btn}`}>
-                    {' '}
-                    <input
-                      type="file"
-                      name={keyAddressData.GSTIN}
-                      // name="myfile"
-                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                      onChange={(e) => {
-                        uploadDocument(e)
-                      }}
-                    />
-                    <img
-                      className="img-fluid mr-2 mb-1"
-                      src="/static/file_upload.svg"
-                      alt="file upload"
-                    />
-                    GST Doc
-                  </button>
-                  <button
-                    className={`${styles.add_btn}`}
-                    onClick={() => handleClick()}
-                  >
-                    Add
-                  </button>
-                 
+                    <div className={`${styles.btn_container} col-md-4`}>
+                      <button className={`${styles.gst_btn}`}>
+                        {' '}
+                        <input
+                          type="file"
+                          name={keyAddressData.GSTIN}
+                          // name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                          onChange={(e) => {
+                            uploadDocument(e)
+                          }}
+                        />
+                        <img
+                          className="img-fluid mr-2 mb-1"
+                          src="/static/file_upload.svg"
+                          alt="file upload"
+                        />
+                        GST Doc
+                      </button>
+                      <button
+                        className={`${styles.add_btn}`}
+                        onClick={() => handleClick()}
+                      >
+                        Add
+                      </button>
+                    
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          :null}
+            ):null}
            {showEditAddress?
-          <div
+          (<div
             className={`${styles.main} card border_color`}
             style={{ margin: '10px 35px 32px 32px' }}
           >
@@ -1411,7 +1411,7 @@ const index = ({
                     required
                     type="text"
                     name="state"
-                     
+                    
                     defaultValue={editData.state}
                     onChange={(e) => {
                       changeData(e.target.name, e.target.value)
@@ -1422,156 +1422,156 @@ const index = ({
                   </label>
                 </div>
 
-                    <div className={`${styles.form_group} col-md-2 col-sm-6`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="city"
-                        defaultValue={editData.city}
-                        onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        City<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
+                <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="city"
+                    defaultValue={editData.city}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    City<strong className="text-danger">*</strong>
+                  </label>
+                </div>
 
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="email"
-                        defaultValue={editData.email}
-                        onChange={(e) => {
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="email"
+                    defaultValue={editData.email}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Email ID<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <div className="d-flex">
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="tel"
+                      defaultValue={editData.contact.number}
+                      onChange={(e) => {
+                        if (phoneValidation(e.target.value)) {
                           changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Email ID<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <div className="d-flex">
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="tel"
-                          defaultValue={editData.contact.number}
-                          onChange={(e) => {
-                            if (phoneValidation(e.target.value)) {
-                              changeData(e.target.name, e.target.value)
-                            } else {
-                              let toastMessage = 'Enter a valid Phone Number'
-                              if (!toast.isActive(toastMessage)) {
-                                toast.error(toastMessage, {
-                                  toastId: toastMessage,
-                                })
-                              }
-                            }
-                          }}
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Phone Number<strong className="text-danger">*</strong>
-                        </label>
-                        <img
-                          className={`${styles.search_image} img-fluid`}
-                          src="/static/add.svg"
-                          alt="add"
-                        />
-                      </div>
-                    </div>
-                    <div className={`${styles.form_group} col-md-8 col-sm-6`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="text"
-                        required
-                        name="completeAddress"
-                        defaultValue={editData.completeAddress}
-                        onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Address<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="text"
-                        name="branch"
-                        required
-                        defaultValue={editData.branch}
-                        onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Branch<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="GSTIN"
-                        defaultValue={editData.GSTIN}
-                        onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        GSTIN<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-
-                    <div className={`${styles.btn_container} col-md-4`}>
-                      <button className={`${styles.gst_btn}`}>
-                        {' '}
-                        <input
-                          type="file"
-                          name={keyAddressData.GSTIN}
-                          // name="myfile"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => {
-                            uploadDocument(e)
-                          }}
-                        />
-                        <img
-                          className="img-fluid mr-2 mb-1"
-                          src="/static/file_upload.svg"
-                          alt="file upload"
-                        />
-                        GST Doc
-                      </button>
-                    </div>
-                    <button
-                      // className={`${styles.add_btn}`}
-                      onClick={() => {
-                        updateKeyAddDataArr(editData, Index)
-                        setShowEditAddress(false)
+                        } else {
+                          let toastMessage = 'Enter a valid Phone Number'
+                          if (!toast.isActive(toastMessage)) {
+                            toast.error(toastMessage, {
+                              toastId: toastMessage,
+                            })
+                          }
+                        }
                       }}
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
                     >
-                      Update
-                    </button>
+                      Phone Number<strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`${styles.search_image} img-fluid`}
+                      src="/static/add.svg"
+                      alt="add"
+                    />
                   </div>
                 </div>
+                <div className={`${styles.form_group} col-md-8 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="text"
+                    required
+                    name="completeAddress"
+                    defaultValue={editData.completeAddress}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Address<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="text"
+                    name="branch"
+                    required
+                    defaultValue={editData.branch}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Branch<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="GSTIN"
+                    defaultValue={editData.GSTIN}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    GSTIN<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+
+                <div className={`${styles.btn_container} col-md-4`}>
+                  <button className={`${styles.gst_btn}`}>
+                    {' '}
+                    <input
+                      type="file"
+                      name={keyAddressData.GSTIN}
+                      // name="myfile"
+                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                      onChange={(e) => {
+                        uploadDocument(e)
+                      }}
+                    />
+                    <img
+                      className="img-fluid mr-2 mb-1"
+                      src="/static/file_upload.svg"
+                      alt="file upload"
+                    />
+                    GST Doc
+                  </button>
+                </div>
+                <button
+                  // className={`${styles.add_btn}`}
+                  onClick={() => {
+                    updateKeyAddDataArr(editData, Index)
+                    setShowEditAddress(false)
+                  }}
+                >
+                  Update
+                </button>
+              </div>
+            </div>
                 <div className={`${styles.form_group} col-md-8 col-sm-6`}>
                   <input
                     className={`${styles.input_field} input form-control`}
