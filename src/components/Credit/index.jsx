@@ -408,6 +408,7 @@ const index = ({
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="existingProcurementOfCommodity"
+                    required
                     onChange={(e) => {
                       saveProductData(e.target.name, e.target.value)
                     }}
@@ -591,6 +592,7 @@ const index = ({
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="supplierName"
+                    required
                     onChange={(e) => {
                       saveSupplierData(e.target.name, e.target.value)
                     }}
@@ -861,23 +863,25 @@ const index = ({
                   </thead>
                   {personData?.map((person, index) => (
                     <tbody key={index}>
-                      <tr className="table_credit">
+                      <tr className="table_credit shadow-none">
                         <td>
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                            defaultValue={person.name}
-                            name="name"
-                            onChange={(e) => handlePersonChange(e, index)}
-                            readOnly={!saveContactTable}
-                          >
-                            <option>Ram Lal</option>
-                            <option>Ramakrishna</option>
-                          </select>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          <div className='d-flex mr-4'>
+                            <select
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                              defaultValue={person.name}
+                              name="name"
+                              onChange={(e) => handlePersonChange(e, index)}
+                              readOnly={!saveContactTable}
+                            >
+                              <option>Ram Lal</option>
+                              <option>Ramakrishna</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow} ml-n4 img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
                           {/* <input
                             className="input font-weight-bold"
                             defaultValue={person.name}
@@ -888,22 +892,24 @@ const index = ({
                           /> */}
                         </td>
                         <td>
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                            defaultValue={person.designation}
-                            name="designation"
-                            onChange={(e) => handlePersonChange(e, index)}
-                            readOnly={!saveContactTable}
-                          >
-                            <option>Director</option>
-                            <option>Production Manager</option>
-                            <option>Lead Manager</option>
-                          </select>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          <div className='d-flex mr-4'>
+                            <select
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                              defaultValue={person.designation}
+                              name="designation"
+                              onChange={(e) => handlePersonChange(e, index)}
+                              readOnly={!saveContactTable}
+                            >
+                              <option>Director</option>
+                              <option>Production Manager</option>
+                              <option>Lead Manager</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow} ml-n4 img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
                           {/* <input
                             className="input"
                             defaultValue={person.designation}
@@ -960,7 +966,7 @@ const index = ({
                             {!saveContactTable ? (
                               <img
                                 src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                className={`${styles.edit_image} mr-3`}
                                 onClick={(e) => {
                                   setContactTable(true)
                                 }}
@@ -968,7 +974,7 @@ const index = ({
                             ) : (
                               <img
                                 src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                className={`${styles.edit_image} mr-3`}
                                 alt="save"
                                 onClick={(e) => {
                                   setContactTable(false)
@@ -978,7 +984,6 @@ const index = ({
                             )}
                             <img
                               src="/static/delete 2.svg"
-                              className="img-fluid"
                               alt="delete"
                             />
                           </div>
@@ -1188,10 +1193,21 @@ const index = ({
                         Email ID<strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <div className="d-flex">
+                    <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
+                      <div className={`${styles.phone_card} d-flex pr-4`}>
+                        <select
+                          name="callingCode"
+                          id="Code"
+                          className={`${styles.code_phone} input border-right-0`}
+                          > 
+                          <option>+91</option>
+                          <option>+1</option>
+                          <option>+92</option>
+                          <option>+95</option>
+                          <option>+24</option>
+                        </select>
                         <input
-                          className={`${styles.input_field} input form-control`}
+                          className={`${styles.input_field} input border-left-0 form-control`}
                           required
                           type="tel"
                           onChange={(e) => {
@@ -1287,288 +1303,275 @@ const index = ({
                         />
                         GST Doc
                       </button>
+                      <button
+                        className={`${styles.add_btn}`}
+                        onClick={() => handleClick()}
+                      >
+                        Add
+                      </button>
+                    
                     </div>
-                    <button
-                      // className={`${styles.add_btn}`}
-                      onClick={() => handleClick()}
-                    >
-                      Add
-                    </button>
                   </div>
                 </div>
               </div>
-            ) : null}
-            {showEditAddress ? (
-              <div
-                className={`${styles.main} card border_color`}
-                style={{ margin: '10px 35px 32px 32px' }}
-              >
-                <div
-                  className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
-                >
-                  <h3 className={`${styles.heading}`}>Edit address</h3>
-                  <img
-                    onClick={() => {
-                      setShowEditAddress(false)
-                    }}
-                    src="/static/accordion_close_black.svg"
-                  />
+            ):null}
+           {showEditAddress?
+          (<div
+            className={`${styles.main} card border_color`}
+            style={{ margin: '10px 35px 32px 32px' }}
+          >
+            <div
+              className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
+              
+            >
+              <h3 className={`${styles.heading}`}>Edit address</h3>
+              <img onClick={()=>{
+                setShowEditAddress(false)
+              }} src="/static/accordion_close_black.svg" />
+            </div>
+            <div className={`${styles.dashboard_form} card-body border_color`}>
+              <div className="d-flex">
+                <div className={`${styles.sub_heading} heading_card`}>
+                  Communication Address
                 </div>
-                <div
-                  className={`${styles.dashboard_form} card-body border_color`}
-                >
+                <div className={styles.radio_form}>
+                  {['checkbox'].map((type) => (
+                    <div key={`inline-${type}`} className={styles.radio_group}>
+                      <Form.Check
+                        className={styles.radio}
+                        inline
+                        label="Yes"
+                        name="group1"
+                        type={type}
+                        id={`inline-${type}-1`}
+                      />
+                      <Form.Check
+                        className={styles.radio}
+                        inline
+                        label="No"
+                        name="group1"
+                        type={type}
+                        id={`inline-${type}-2`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="row">
+                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
                   <div className="d-flex">
-                    <div className={`${styles.sub_heading} heading_card`}>
-                      Communication Address
-                    </div>
-                    <div className={styles.radio_form}>
-                      {['checkbox'].map((type) => (
-                        <div
-                          key={`inline-${type}`}
-                          className={styles.radio_group}
-                        >
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="Yes"
-                            name="group1"
-                            type={type}
-                            id={`inline-${type}-1`}
-                          />
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="No"
-                            name="group1"
-                            type={type}
-                            id={`inline-${type}-2`}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <div className="d-flex">
-                        <select
-                          className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                          name="addressType"
-                          defaultValue={editData.addressType}
-                          onChange={(e) => {
-                            changeData(e.target.name, e.target.value)
-                          }}
-                        >
-                          <option value="Factory">Factory</option>
-                          <option value="Warehouse">Warehouse</option>
-                          <option value="Corporate Office">
-                            Corporate Office
-                          </option>
-                        </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Address Type<strong className="text-danger">*</strong>
-                        </label>
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <div className="d-flex">
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="text"
-                          name="pinCode"
-                          defaultValue={editData.pinCode}
-                          onChange={(e) => {
-                            changeData(e.target.name, e.target.value)
-                          }}
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Pin Code<strong className="text-danger">*</strong>
-                        </label>
-                        <img
-                          className={`${styles.search_image} img-fluid`}
-                          src="/static/search-grey.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="state"
-                        defaultValue={editData.state}
-                        onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        State<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-
-                    <div className={`${styles.form_group} col-md-2 col-sm-6`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="city"
-                        defaultValue={editData.city}
-                        onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        City<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="email"
-                        defaultValue={editData.email}
-                        onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Email ID<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <div className="d-flex">
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="tel"
-                          defaultValue={editData.contact.number}
-                          onChange={(e) => {
-                            if (phoneValidation(e.target.value)) {
-                              changeData(e.target.name, e.target.value)
-                            } else {
-                              let toastMessage = 'Enter a valid Phone Number'
-                              if (!toast.isActive(toastMessage)) {
-                                toast.error(toastMessage, {
-                                  toastId: toastMessage,
-                                })
-                              }
-                            }
-                          }}
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Phone Number<strong className="text-danger">*</strong>
-                        </label>
-                        <img
-                          className={`${styles.search_image} img-fluid`}
-                          src="/static/add.svg"
-                          alt="add"
-                        />
-                      </div>
-                    </div>
-                    <div className={`${styles.form_group} col-md-8 col-sm-6`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="text"
-                        required
-                        name="completeAddress"
-                        defaultValue={editData.completeAddress}
-                        onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Address<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="text"
-                        name="branch"
-                        required
-                        defaultValue={editData.branch}
-                        onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Branch<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="GSTIN"
-                        defaultValue={editData.GSTIN}
-                        onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
-                        }}
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        GSTIN<strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-
-                    <div className={`${styles.btn_container} col-md-4`}>
-                      <button className={`${styles.gst_btn}`}>
-                        {' '}
-                        <input
-                          type="file"
-                          name={keyAddressData.GSTIN}
-                          // name="myfile"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => {
-                            uploadDocument(e)
-                          }}
-                        />
-                        <img
-                          className="img-fluid mr-2 mb-1"
-                          src="/static/file_upload.svg"
-                          alt="file upload"
-                        />
-                        GST Doc
-                      </button>
-                    </div>
-                    <button
-                      // className={`${styles.add_btn}`}
-                      onClick={() => {
-                        updateKeyAddDataArr(editData, Index)
-                        setShowEditAddress(false)
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                      name="addressType"
+                      defaultValue={editData.addressType}
+                      onChange={(e) => {
+                        changeData(e.target.name, e.target.value)
                       }}
                     >
-                      Update
-                    </button>
+                      <option value='Factory'>Factory</option>
+                      <option value='Warehouse'>Warehouse</option>
+                      <option value='Corporate Office'>Corporate Office</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Address Type<strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`${styles.arrow} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
                   </div>
                 </div>
+                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                  <div className="d-flex">
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="text"
+                      name="pinCode"
+                      defaultValue={editData.pinCode}
+                      onChange={(e) => {
+                        changeData(e.target.name, e.target.value)
+                      }}
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Pin Code<strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`${styles.search_image} img-fluid`}
+                      src="/static/search-grey.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+
+                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="state"
+                    
+                    defaultValue={editData.state}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    State<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+
+                <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="city"
+                    defaultValue={editData.city}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    City<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="email"
+                    defaultValue={editData.email}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Email ID<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <div className="d-flex">
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      required
+                      type="tel"
+                      defaultValue={editData.contact.number}
+                      onChange={(e) => {
+                        if (phoneValidation(e.target.value)) {
+                          changeData(e.target.name, e.target.value)
+                        } else {
+                          let toastMessage = 'Enter a valid Phone Number'
+                          if (!toast.isActive(toastMessage)) {
+                            toast.error(toastMessage, {
+                              toastId: toastMessage,
+                            })
+                          }
+                        }
+                      }}
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                    >
+                      Phone Number<strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`${styles.search_image} img-fluid`}
+                      src="/static/add.svg"
+                      alt="add"
+                    />
+                  </div>
+                </div>
+                <div className={`${styles.form_group} col-md-8 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="text"
+                    required
+                    name="completeAddress"
+                    defaultValue={editData.completeAddress}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Address<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="text"
+                    name="branch"
+                    required
+                    defaultValue={editData.branch}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Branch<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="GSTIN"
+                    defaultValue={editData.GSTIN}
+                    onChange={(e) => {
+                      changeData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    GSTIN<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+
+                <div className={`${styles.btn_container} col-md-4`}>
+                  <button className={`${styles.gst_btn}`}>
+                    {' '}
+                    <input
+                      type="file"
+                      name={keyAddressData.GSTIN}
+                      // name="myfile"
+                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                      onChange={(e) => {
+                        uploadDocument(e)
+                      }}
+                    />
+                    <img
+                      className="img-fluid mr-2 mb-1"
+                      src="/static/file_upload.svg"
+                      alt="file upload"
+                    />
+                    GST Doc
+                  </button>
+                </div>
+                <button
+                  // className={`${styles.add_btn}`}
+                  onClick={() => {
+                    updateKeyAddDataArr(editData, Index)
+                    setShowEditAddress(false)
+                  }}
+                >
+                  Update
+                </button>
+              </div>
+            </div>
                 <div className={`${styles.form_group} col-md-8 col-sm-6`}>
                   <input
                     className={`${styles.input_field} input form-control`}
