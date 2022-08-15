@@ -456,7 +456,7 @@ export default function Index({
                       labelName="IGM Filing Date"
                     />
                     <img
-                      className={`${styles.calanderIcon} img-fluid`}
+                      className={`${styles.calanderIcon} image_arrow img-fluid`}
                       src="/static/caldericon.svg"
                       alt="Search"
                     />

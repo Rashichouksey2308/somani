@@ -123,7 +123,7 @@ function Index() {
                       <tr key={index} className={`${styles.table_row} table_row`}>
                         <td>{sheet.order.orderId}</td>
                         <td onClick={() => { handleRoute(sheet) }} className={`${styles.buyerName}`}>{sheet.company.companyName}</td>
-                        <td>{sheet.order.existingCustomer ? "yes" : "No"}</td>
+                        <td>{sheet.order.existingCustomer ? "Yes" : "No"}</td>
                         <td>{(sheet.createdAt).slice(0, 10)}</td>
                         <td>
                           <span className={`${styles.status} ${styles.approved}`}></span>

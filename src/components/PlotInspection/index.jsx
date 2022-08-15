@@ -70,7 +70,7 @@ export default function Index({ inspectionData }) {
                       dateFormat={`dd-MM-yyyy`}
                     />
                     <img
-                      className={`${styles.calanderIcon} img-fluid`}
+                      className={`${styles.calanderIcon} image_arrow img-fluid`}
                       src="/static/caldericon.svg"
                       alt="Search"
                     />

@@ -45,8 +45,8 @@ function Index({
     return a + 1
   }
 
-  const uploadDocHandler1 =  (e) => {
-     console.log(uploadDocHandler(e), 'vesselDocUpload')
+  const uploadDocHandler1 = (e) => {
+    console.log(uploadDocHandler(e), 'vesselDocUpload')
   }
 
   return (
@@ -76,8 +76,6 @@ function Index({
           <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
-
-
                 return (
                   <div
                     key={index}
@@ -113,7 +111,7 @@ function Index({
                             ) : (
                               <>
                                 {' '}
-                                <option value={false}>NO</option>
+                                <option value={false}>No</option>
                                 <option value={true}>Yes</option>
                               </>
                             )}
@@ -338,7 +336,7 @@ function Index({
                               required
                             />
                             <img
-                              className={`${styles.calanderIcon} img-fluid`}
+                              className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
                             />
@@ -357,7 +355,7 @@ function Index({
                               labelName="Laycan to"
                             />
                             <img
-                              className={`${styles.calanderIcon} img-fluid`}
+                              className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
                             />
@@ -376,7 +374,7 @@ function Index({
                               labelName="ETA at Load Port"
                             />
                             <img
-                              className={`${styles.calanderIcon} img-fluid`}
+                              className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
                             />
@@ -407,7 +405,7 @@ function Index({
                               minDate={lastDate}
                             />
                             <img
-                              className={`${styles.calanderIcon} img-fluid`}
+                              className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
                             />
@@ -778,16 +776,19 @@ function Index({
                           >
                             {' '}
                             <div className={styles.uploadBtnWrapper}>
-                              <input onChange={(e) => uploadDocHandler1(e)} type="file" name="myfile" />
-                              <button
-
-                                className={`${styles.upload_btn}`}
-                              >
+                              <input
+                                onChange={(e) => uploadDocHandler1(e)}
+                                type="file"
+                                name="myfile"
+                              />
+                              <button className={`${styles.upload_btn}`}>
                                 Upload Excel
                               </button>
                             </div>
                             <div className={`${styles.upload_text}`}>
-                              <strong className="text-danger ml-n2 mr-1">*</strong>
+                              <strong className="text-danger ml-n2 mr-1">
+                                *
+                              </strong>
                               ONLY .XLS FILES ARE ALLOWED
                               <br /> &amp; MAX FILE SIZE UP TO 50MB
                             </div>

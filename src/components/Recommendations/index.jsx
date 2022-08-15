@@ -771,7 +771,7 @@ const Index = ({
             </div>
             {sanctionComment &&
               sanctionComment.map((sanction, index) => (
-                <div key={index} className="d-flex justify-content-between">
+                <div key={index} className={`${styles.textarea_main} d-flex justify-content-between`}>
                   <Form.Control
                     className={`${styles.paragraph} input`}
                     defaultValue={sanction}
