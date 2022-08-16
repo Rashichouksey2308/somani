@@ -2618,7 +2618,7 @@ const sectionTerms = (
                     {filteredCreditRating &&
                       filteredCreditRating.length > 0 &&
                       filteredCreditRating.map((val, index) => (
-                        <td key={index}>{val.derived.value}</td>
+                        <td key={index}>{val?.derived?.value}</td>
                       ))}{' '}
                   </>
                 ) : (
