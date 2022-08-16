@@ -1847,6 +1847,7 @@ function Index() {
                         invoiceDataRevised={invoiceDataRevised}
                         saveForCalculation={saveForCalculation}
                         calcRevised={calcRevised}
+                        handleUpdateRevisedMarginMoney={handleUpdateRevisedMarginMoney}
                       />
                     </div>
                   </div>
@@ -1862,6 +1863,7 @@ function Index() {
                   <DownloadBar
                     downLoadButtonName={`Download`}
                     isPrevious={true}
+                    handleUpdate={handleUpdate}
                     leftButtonName={`Save`}
                     rightButtonName={`Preview`}
                   />
