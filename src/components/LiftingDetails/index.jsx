@@ -119,7 +119,7 @@ export default function Index(props) {
             </div>
           </div>
           <div className={`${styles.wrapper} border_color mt-4 card`}>
-            <div className="d-lg-flex align-items-center justify-content-between d-inline-block  pl-4">
+            <div className="d-lg-flex align-items-center justify-content-between d-inline-block  pl-3">
               <div className="row w-75">
                 <div className="col-lg-2">
                   <h2 className="pt-2">Delivery Order</h2>
@@ -320,6 +320,36 @@ export default function Index(props) {
                                       </div>
                                     ))}
                                   </div>
+                                </div>
+                                <div
+                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                                >
+                                  <input
+                                    className={`${styles.input_field} input form-control`}
+                                    required
+                                    type="text"
+                                  />
+                                  <label
+                                    className={`${styles.label_heading} label_heading`}
+                                  >
+                                    RR/LR No.
+                                    <strong className="text-danger">*</strong>
+                                  </label>
+                                </div>
+                                <div
+                                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                                >
+                                  <input
+                                    className={`${styles.input_field} input form-control`}
+                                    required
+                                    type="text"
+                                  />
+                                  <label
+                                    className={`${styles.label_heading} label_heading`}
+                                  >
+                                    Destination
+                                    <strong className="text-danger">*</strong>
+                                  </label>
                                 </div>
                                 <div
                                   className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}

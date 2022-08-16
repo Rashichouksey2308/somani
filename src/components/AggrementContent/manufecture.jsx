@@ -334,10 +334,10 @@ const editNewAddress=(name,value)=>{
        "name": props.data?.name,
         "shortName": props.data?.shortName,
         "bankDetails": {
-            "bankName": props.data?.bankDetails.bankName,
-            "accountNo": props.data?.bankDetails.accountNo,
-            "swiftCode": props.data?.bankDetails.swiftCode,
-            "city": props.data?.bankDetails.city
+            "bankName": props.data?.bankDetails?.bankName,
+            "accountNo": props.data?.bankDetails?.accountNo,
+            "swiftCode": props.data?.bankDetails?.swiftCode,
+            "city": props.data?.bankDetails?.city
         },
         "addresses": props.data?.addresses,
         "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails,
