@@ -53,6 +53,31 @@
                     line-height: 17px;
                 }
             }
+            .unit {
+                margin-right: 49px;
+                .unit_label {
+                    font-size: 18px;
+                    font-weight: bold;
+                    line-height: 23px;
+                }                                
+                .select {
+                    font-size: 18px;
+                    color: #3687e8;
+                    font-weight: bold;
+                    line-height: 23px;
+                    height: 48px;
+                    min-width: 129px;
+                    outline: none;
+                    margin-left: 8px;
+                    padding: 13px 25px;
+                    border-radius: 24px;
+                    border: 2px solid #D9DDE9;
+                }
+                .arrow {
+                    right: 15px;
+                    position: absolute;
+                }
+            }
         }
         .navTabs {
             border-bottom: none;

@@ -676,7 +676,7 @@ function Index() {
 
 
 
-            <Paginatebar openbar={openbar} />
+            <Paginatebar openbar={openbar} rightButtonTitle="Share To Buyer" leftButtonTitle='Termsheet' />
             {open ? <TermsheetPopUp close={close} open={open} /> : null}
         </>
 
