@@ -26,6 +26,8 @@ const Index = ({ orderid, module }) => {
     name: '',
     module: module,
   })
+  const [moduleSelected, setModuleSelected] = useState('')
+  const [filteredDoc, setFilteredDoc] = useState([])
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -258,12 +260,13 @@ const Index = ({ orderid, module }) => {
               >
                 <div className='d-flex align-items-center'>
                   <select
+                    onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
-                    <option>Lead Onboarding &amp; Order Approval</option>
-                    <option>Agreements, Insurance &amp; LC Opening</option>
-                    <option>Loading-Transit-Unloading</option>
-                    <option>Custom Clearance And Warehousing</option>
+                    <option value='LeadOnboarding&OrderApproval'>Lead Onboarding &amp; Order Approval</option>
+                    <option value='Agreements&Insurance&LC&Opening'>Agreements, Insurance &amp; LC Opening</option>
+                    <option value='Loading-Transit-Unloading'>Loading-Transit-Unloading</option>
+                    <option value='CustomClearanceAndWarehousing'>Custom Clearance And Warehousing</option>
                     <option value="Others">Others</option>
                   </select>
                   <img

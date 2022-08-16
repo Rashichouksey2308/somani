@@ -1779,7 +1779,7 @@ function Index() {
                             </thead>
                             <tbody>
 
-                              <tr className="uploadRowTable">
+                              {/* <tr className="uploadRowTable">
                                 <td className={`${styles.doc_name}`}>
                                   Insurance Quotation
                                 </td>
@@ -1817,7 +1817,7 @@ function Index() {
                                     alt="Share"
                                   />
                                 </td>
-                              </tr>
+                              </tr> */}
                               {documentsFetched && documentsFetched?.documents?.map((document, index) => {
                                 if (document.deleted) {
                                   return null

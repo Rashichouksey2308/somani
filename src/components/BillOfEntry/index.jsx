@@ -10,6 +10,7 @@ import moment from 'moment'
 import { useDispatch } from 'react-redux'
 import { UpdateCustomClearance } from 'redux/CustomClearance&Warehousing/action'
 import { useSelector } from 'react-redux'
+import _get from 'lodash/get'
 
 export default function Index({ customData, OrderId, uploadDoc }) {
   const dispatch = useDispatch()
@@ -193,9 +194,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       className={styles.radio}
                       inline
                       label="Bulk"
-                      checked={
-                        customData?.order?.vessel?.vessels[0]?.shipmentType ==
-                        'Bulk'
+                      checked={_get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
+                        // customData?.order?.vessel?.vessels[0]?.shipmentType ==
+                        // 'Bulk'
                       }
                       name="group1"
                       type={type}
@@ -205,9 +206,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       className={styles.radio}
                       inline
                       label="Liner"
-                      checked={
-                        customData?.order?.vessel?.vessels[0]?.shipmentType ==
-                        'Liner'
+                      checked={_get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner'
+                        // customData?.order?.vessel?.vessels[0]?.shipmentType ==
+                        // 'Liner'
                       }
                       name="group1"
                       type={type}
