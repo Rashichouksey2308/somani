@@ -909,9 +909,19 @@ function Index() {
             />
             <h1 className={`${styles.title} heading`}>
               {orderList?.company?.companyName}
-            </h1>
+            </h1>            
+            <div className={`${styles.unit} ml-auto d-flex align-items-center`}>
+              <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>Unit :</h5>
+              <div className="d-flex align-items-center position-relative">
+                <select className={`${styles.select} ${styles.customSelect} accordion_body form-select`} aria-label="Default select example">
+                  <option selected value="Crores">Crores</option>
+                </select>              
+                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg"
+                alt="Search"/>
+              </div>
+            </div>
             {uploadBtn ? (
-              <div className="ml-auto">
+              <div className="">
                 {uploadButton(dispatch, orderList, companyData)}{' '}
               </div>
             ) : null}
