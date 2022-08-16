@@ -1528,7 +1528,7 @@ const operationalDetails = (camData) => {
           aria-expanded="true"
           aria-controls="operationalDetails"
         >
-          <h2 className="mb-0">Credit Profile</h2>
+          <h2 className="mb-0">Operational Details</h2>
           <span>+</span>
         </div>
         <div
@@ -1596,7 +1596,7 @@ const operationalDetails = (camData) => {
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} pl-5`}>
+                  <span className={`${styles.key}`}>
                     Daily Consumption of Commodity
                   </span>
                   <span className={`${styles.value} `}>
@@ -3259,7 +3259,7 @@ const customerRating = (dataline, lineOption) => {
                   </div>
                   <div className={`${styles.creditScore}`}>
                     <div className={`${styles.tickContainer}`}>
-                      <img src="static/darktick.svg"></img>
+                      <img src="static/star.svg"></img>
                     </div>
                     <div className={`${styles.content}`}>
                       <span className={`${styles.content_heading}`}>
@@ -3291,13 +3291,13 @@ const customerRating = (dataline, lineOption) => {
                   className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}
                 >
                   <div>
-                    <span>BUSINESS PROFILE</span>
+                    <span>REVENUE PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
                         style={{ backgroundColor: '#FF4230' }}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>80%</span>
+                      <span>40%</span>
                     </div>
                   </div>
                 </div>
@@ -3305,13 +3305,13 @@ const customerRating = (dataline, lineOption) => {
                   className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}
                 >
                   <div>
-                    <span>BUSINESS PROFILE</span>
+                    <span>FINANCIAL PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
                         style={{ backgroundColor: '#83C400' }}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>80%</span>
+                      <span>90%</span>
                     </div>
                   </div>
                 </div>
