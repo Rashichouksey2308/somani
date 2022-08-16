@@ -1540,7 +1540,7 @@ const operationalDetails = (camData) => {
           <div className={`${styles.info_wrapper} card-body border_color`}>
             <div className={`${styles.content} mb-4`}>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key}`}>
                     Plant Production Capacity
                   </span>
@@ -1550,7 +1550,7 @@ const operationalDetails = (camData) => {
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
-                  md={5}
+                  md={6}
                 >
                   <span className={`${styles.key} pl-5`}>
                     Stock in Transit - Commodity
@@ -1561,13 +1561,13 @@ const operationalDetails = (camData) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key}`}>Capacity Utilization</span>
                   <span className={`${styles.value} pr-5`}>
                     {camData?.productSummary?.capacityUtilization}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} pl-5`}>
                     Stock Coverage of Commodity
                   </span>
@@ -1577,7 +1577,7 @@ const operationalDetails = (camData) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key}`}>
                     Available Stock of Commodity
                   </span>
@@ -1585,7 +1585,7 @@ const operationalDetails = (camData) => {
                     {camData?.productSummary?.availableStock}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} pl-5`}>
                     Avg Monthly Electricity Bill
                   </span>
@@ -1595,7 +1595,7 @@ const operationalDetails = (camData) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key}`}>
                     Daily Consumption of Commodity
                   </span>
@@ -1944,7 +1944,7 @@ const financeDetails = (
           data-parent="#profileAccordion"
         >
           <div className={`${styles.order_wrapper2} card-body`}>
-            <Row>
+            <Row className='no-gutters'>
               <Col className={`${styles.leftCol} p-0 border_color`} md={5}>
                 <table
                   className={`${styles.table} table  border_color `}
@@ -1952,7 +1952,7 @@ const financeDetails = (
                   cellSpacing="0"
                 >
                   <tr>
-                    <th>Liabilities</th>
+                    <th className={styles.bold_heading}>Liabilities</th>
                     <th>
                       {moment(companyData?.financial?.balanceSheet[0]?.date)
                         .format('MMM-YY')
@@ -2026,7 +2026,7 @@ const financeDetails = (
                   </tr>
 
                   <tr>
-                    <th colSpan={3} className={`${styles.Border}`}>
+                    <th colSpan={3} className={`${styles.bold_heading} ${styles.Border}`}>
                       Assets
                     </th>
                   </tr>
@@ -2092,7 +2092,7 @@ const financeDetails = (
                     </td>
                   </tr>
                   <tr>
-                    <th colSpan={3} className={`${styles.Border}`}>
+                    <th colSpan={3} className={`${styles.Border} ${styles.bold_heading}`}>
                       P/L
                     </th>
                   </tr>
@@ -2139,7 +2139,7 @@ const financeDetails = (
                   cellSpacing="0"
                 >
                   <tr>
-                    <th>Ratios</th>
+                    <th className={styles.bold_heading}>Ratios</th>
                     <th>
                       {' '}
                       {moment(
@@ -2917,14 +2917,11 @@ const trends = (
                 <div className={`${styles.chart}`}>
                   <Line data={TotalRevenueDataLine} options={lineOption} />
                 </div>
-                <div
-                  className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}
-                >
-                  <div
-                    className={styles.round}
-                    style={{ backgroundColor: `red` }}
-                  ></div>
-                  <span className={` heading ml-2 mb-4`}>Gross revenue</span>
+                <div className={`${styles.name}`}>
+                  <div className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}>
+                    <div className={styles.round} style={{ backgroundColor: `red` }}></div>
+                    <span className={` heading ml-2`}>Gross Revenue</span>
+                  </div>
                 </div>
               </Col>
               <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
@@ -2940,6 +2937,12 @@ const trends = (
                 </div>
                 <div className={`${styles.chart}`}>
                   <Line data={TotalPurchasesDataLine} options={lineOption} />
+                </div>                
+                <div className={`${styles.name}`}>
+                  <div className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}>
+                    <div className={styles.round} style={{ backgroundColor: `red` }}></div>
+                    <span className={` heading ml-2`}>Gross Purchases</span>
+                  </div>
                 </div>
               </Col>
             </Row>
@@ -3037,7 +3040,7 @@ const skewness = (data, options, tempArr, gstData) => {
                 </Row>
               </Col>
               <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
-                <div className={`${styles.head_wrapper}`}>
+                <div className={`${styles.head_wrapper} card_sub_header`}>
                   <span className={`${styles.head}`}>Gross Purchases</span>
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
