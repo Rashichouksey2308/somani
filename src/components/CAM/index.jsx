@@ -974,7 +974,7 @@ const creditProfile = (
           <div className={`${styles.info_wrapper} card-body border_color`}>
             <div className={`${styles.content} mb-4`}>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
                     Main Banker
                   </span>
@@ -993,7 +993,7 @@ const creditProfile = (
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
                     Open Charges
                   </span>
@@ -1001,7 +1001,7 @@ const creditProfile = (
                     {openChargesLength()}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>
                     Credit Rating Agency
                   </span>
@@ -1009,7 +1009,7 @@ const creditProfile = (
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
                     Name of Auditor
                   </span>
@@ -1020,14 +1020,14 @@ const creditProfile = (
                     }
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>
                     Change in Auditor
                   </span>
                   <span className={`${styles.value} value `}>
                     {latestAuditorData?.nameOfAuditor ===
                       previousAuditorData?.nameOfAuditor
-                      ? ' NO'
+                      ? ' No'
                       : 'Yes'}
                   </span>
                 </Col>
@@ -1127,7 +1127,7 @@ const shareHolding = (data, options, tempArr, camData) => {
         >
           <div className={`${styles.order_wrapper} card-body`}>
             <Row>
-              <Col className={`${styles.leftCol} border_color`} md={5}>
+              <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
                   <Doughnut data={data} options={options} />
                   <div className={styles.total_value}>
@@ -1152,7 +1152,7 @@ const shareHolding = (data, options, tempArr, camData) => {
                   })}
                 </div>
               </Col>
-              <Col md={7} className={`px-0`}>
+              <Col md={8} className={`px-0`}>
                 <table
                   className={`${styles.table} table  border_color `}
                   cellPadding="0"
@@ -1261,7 +1261,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
         >
           <div className={`${styles.order_wrapper} card-body`}>
             <Row>
-              <Col className={`${styles.leftCol} border_color`} md={5}>
+              <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
                   <Doughnut data={data} options={options} />
                   <div className={styles.total_value}>
@@ -1286,9 +1286,9 @@ const chargeDetails = (data, options, tempArr, camData) => {
                   })}
                 </div>
               </Col>
-              <Col md={7} className={`px-0`}>
+              <Col md={8} className={`px-0`}>
                 <table
-                  className={`${styles.table} table  border_color `}
+                  className={`${styles.table} table border_color `}
                   cellPadding="0"
                   cellSpacing="0"
                 >
@@ -2348,7 +2348,7 @@ const compilanceStatus = (companyData, camData) => {
           <div className={`${styles.info_wrapper} card-body border_color`}>
             <div className={`${styles.content} mb-4`}>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>GST Return Filing</span>
                   <span
                     className={`${styles.value} value pr-5`}
@@ -2368,7 +2368,7 @@ const compilanceStatus = (companyData, camData) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>EPF Status</span>
                   <span
                     className={`${styles.value} value pr-5`}
@@ -2377,7 +2377,7 @@ const compilanceStatus = (companyData, camData) => {
                     {companyData?.compliance.other?.epfStatus ? 'YES' : 'NO'}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>BIFR</span>
                   <span className={`${styles.value} value`}>
                     {companyData?.compliance.other?.bifr ? 'YES' : 'NO'}
@@ -2385,13 +2385,13 @@ const compilanceStatus = (companyData, camData) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Litigation Status</span>
                   <span className={`${styles.value} value pr-5`}>
                     {camData?.company?.litigationStatus}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>
                     Defaulter Company
                   </span>
@@ -2403,13 +2403,13 @@ const compilanceStatus = (companyData, camData) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
                     Last Balance Sheet Dates
                   </span>
                   <span className={`${styles.value} value pr-5`}>14-05-2022</span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>Active Directors</span>
                   <span className={`${styles.value} value`}>4,320</span>
                 </Col>
