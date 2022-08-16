@@ -72,7 +72,7 @@ function Index(props) {
   return (
     
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} vessel_card`}>
         <Form className={`${styles.form}`}>
           <div className="row border-color ">
        <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
