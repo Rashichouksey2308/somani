@@ -244,7 +244,7 @@ const handleEditAddressInput=(index)=>{
 }
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} vessel_card`}>
         <Form className={`${styles.form}`}>
           <div className="row border-color ">
        <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>

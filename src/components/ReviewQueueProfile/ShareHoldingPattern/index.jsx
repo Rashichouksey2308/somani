@@ -17,18 +17,18 @@ function Index({ shareHolding }) {
   ]
 
   
-  const EquityValues = shareHolding?.filter((item) => {
-    return item.type === 'EquityShares1Member'
-  })
-  const topEquityValues = EquityValues?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5)
-  // const top
+  // const EquityValues = shareHolding?.filter((item) => {
+  //   return item.type === 'EquityShares1Member'
+  // })
+  // const topEquityValues = EquityValues?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5)
+  // // const top
 
-  const prefrenceValues = shareHolding?.filter((item) => {
-    return !item.type === 'EquityShares1Member'
-  })
-  const topPrefrenceValues = shareHolding?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5)
+  // const prefrenceValues = shareHolding?.filter((item) => {
+  //   return !item.type === 'EquityShares1Member'
+  // })
+  // const topPrefrenceValues = shareHolding?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5)
 
-// console.log(EquityValues, '    ', topEquityValues, prefrenceValues, 'ljdhfdlgujldj')
+// // console.log(EquityValues, '    ', topEquityValues, prefrenceValues, 'ljdhfdlgujldj')
 
   const equitydata = {
     labels: [

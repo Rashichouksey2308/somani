@@ -217,7 +217,7 @@ function Index(props) {
   return (
 
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} vessel_card`}>
         <Form className={`${styles.form}`}>
           <div className="row border-color ">
             <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
@@ -287,7 +287,7 @@ function Index(props) {
         <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
           <div className={`${styles.multiAddContainer} d-flex justify-content-between align-items-center flex-wrap`}>
-            {addressList.map((val, index) => {
+            {addressList?.map((val, index) => {
               return (
                 <div
                   key={index}
@@ -589,7 +589,7 @@ function Index(props) {
                     <th>ACTION</th>
                   </tr>
                   <tbody>
-                    {list.length > 0 && list.map((val, index) => {
+                    {list?.length > 0 && list?.map((val, index) => {
                       return (
                         <>
                           {val.actions == "true" ?

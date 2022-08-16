@@ -8,18 +8,33 @@
             margin-top: 10px;
         }
         .label_heading {
-            top: 26px;
+            top: 22px;
             left: 30px;
             font-size: 16px;
             font-weight: 500;
-            line-height: 0.5;
+            line-height: 17px;
             margin-bottom: 0;
             letter-spacing: 0.53px;
             position: absolute;
             pointer-events: none;
             box-sizing: border-box;
-            transform: translateY(-28px);
+            transform: translateY(-30px);
             transition: 0.3s all ease-in-out;
+            z-index: 1;
+            max-width: 86%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &::before {
+                top: 51%;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                content: '';
+                z-index: -1;
+                position: absolute;
+                transform: translateY(-50%);
+            }
             @include respond(sm-desktop) {
                 font-size: 16px;
             }
@@ -45,7 +60,7 @@
             }
             &:focus {
                 &+label {
-                    transform: translateY(-28px);
+                    transform: translateY(-30px);
                 }
             }
             @include respond(md-desktop) {
@@ -62,7 +77,7 @@
             }
         }
         .select {
-            top: 28px;
+            top: 22px;
             left: 30px;
         }
     }
@@ -164,17 +179,32 @@
                     margin: 20px 0px 20px;
                 }
                 .label_heading {
-                    top: 25px;
+                    top: 22px;
                     left: 30px;
                     font-size: 16px;
-                    line-height: 0.5;
+                    line-height: 17px;
                     margin-bottom: 0;
                     letter-spacing: 0.53px;
                     position: absolute;
                     pointer-events: none;
                     box-sizing: border-box;
-                    transform: translateY(-31px);
+                    transform: translateY(-30px);
                     transition: 0.3s all ease-in-out;
+                    z-index: 1;
+                    max-width: 86%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    &::before {
+                        top: 51%;
+                        left: 0;
+                        width: 100%;
+                        height: 2px;
+                        content: '';
+                        z-index: -1;
+                        position: absolute;
+                        transform: translateY(-50%);
+                    }
                     @include respond(lg-desktop) {
                         font-size: $font_size_mobile_input_label;
                     }
@@ -222,7 +252,7 @@
                     }
                     &:focus {
                         &+label {
-                            transform: translateY(-31px);
+                            transform: translateY(-30px);
                         }
                     }
                 }
@@ -309,12 +339,12 @@
             .phone {
                 .label_heading {
                     left: 90px;
-                    transform: translate(-61px, -31px);
+                    transform: translate(-61px, -30px);
                 }
                 .input_field {
                     &:focus {
                         &+label {
-                            transform: translate(-61px, -31px);
+                            transform: translate(-61px, -30px);
                         }
                     }
                 }
@@ -391,17 +421,32 @@
         margin: 20px 0px 20px;
     }
     .label_heading {
-        top: 25px;
+        top: 22px;
         left: 30px;
         font-size: 16px;
-        line-height: 0.5;
+        line-height: 17px;
         margin-bottom: 0;
         letter-spacing: 0.53px;
         position: absolute;
         pointer-events: none;
         box-sizing: border-box;
-        transform: translateY(-31px);
+        transform: translateY(-30px);
         transition: 0.3s all ease-in-out;
+        z-index: 1;
+        max-width: 86%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &::before {
+            top: 51%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            content: '';
+            z-index: -1;
+            position: absolute;
+            transform: translateY(-50%);
+        }
         @include respond(lg-desktop) {
             font-size: $font_size_mobile_input_label;
         }
@@ -449,7 +494,7 @@
         }
         &:focus {
             &+label {
-                transform: translateY(-31px);
+                transform: translateY(-30px);
             }
         }
     }
@@ -536,12 +581,12 @@
 .phone {
     .label_heading {
         left: 90px;
-        transform: translate(-61px, -31px);
+        transform: translate(-61px, -30px);
     }
     .input_field {
         &:focus {
             &+label {
-                transform: translate(-61px, -31px);
+                transform: translate(-61px, -30px);
             }
         }
     }
@@ -818,79 +863,66 @@ img {
 .newAddressContainer2{
     margin: 19px 17px 41px !important;
 }
- .paymet {
-     div {
-         input {
-             width: 993px;
-             height: 103px;
-             border: 1px solid var(--unnamed-color-0000001f);
-             background: #C3C3C31F 0% 0% no-repeat padding-box;
-             border: 1px solid #0000001F;
-             border-radius: 4px;
-
-             margin-bottom: 0px !important;
-         }
-
-         // margin-bottom: 2rem !important;
-     }
-
-     span {
-         font-size: 20px;
-         font-weight: bold;
-         line-height: 25px;
-         letter-spacing: 0px;
-     }
-
-     .comment {
-         margin-top: 1rem !important;
-
-         input {
-             width: 85%;
-             margin-bottom: 0px !important;
-         }
-
-         div {
-             width: 15%;
-
-             img {
-                 margin-right: 1rem !important;
-                 margin-bottom: 0rem !important;
-             }
-         }
-     }
-
-     .button_container {
-         margin-top: 4rem !important;
-         margin-bottom: 4rem !important;
-
-         .button {
-             width: 310px;
-             height: 48px;
-             font-size: 20px;
-             font-weight: bold;
-             line-height: 25px;
-             letter-spacing: 0px;
-             letter-spacing: 0px;
-             color: #3687E8;
-             border: 3px solid #3687E8;
-             border-radius: 5px;
-
-         }
-
-         .file_text {
-             margin-left: 5rem;
-             width: 25%;
-
-             span {
-                 font-size: 15px;
-                 font-weight: bold;
-                 line-height: 24px;
-                 color: #8492A6;
-
-                 .danger {
-                     color: #EA3F3F;
-                 }
-             }
-         }
-     }
- }
+.paymet {
+    div {
+        input {
+            width: 993px;
+            height: 103px;
+            border: 1px solid var(--unnamed-color-0000001f);
+            background: #C3C3C31F 0% 0% no-repeat padding-box;
+            border: 1px solid #0000001F;
+            border-radius: 4px;
+            margin-bottom: 0px !important;
+        }
+        // margin-bottom: 2rem !important;
+    }
+    span {
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 25px;
+        letter-spacing: 0px;
+    }
+    .comment {
+        margin-top: 1rem !important;
+        input {
+            width: 85%;
+            margin-bottom: 0px !important;
+        }
+        div {
+            width: 15%;
+            img {
+                margin-right: 1rem !important;
+                margin-bottom: 0rem !important;
+            }
+        }
+    }
+    .button_container {
+        margin-top: 4rem !important;
+        margin-bottom: 4rem !important;
+        .button {
+            width: 310px;
+            height: 48px;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 25px;
+            letter-spacing: 0px;
+            letter-spacing: 0px;
+            color: #3687E8;
+            border: 3px solid #3687E8;
+            border-radius: 5px;
+        }
+        .file_text {
+            margin-left: 5rem;
+            width: 25%;
+            span {
+                font-size: 15px;
+                font-weight: bold;
+                line-height: 24px;
+                color: #8492A6;
+                .danger {
+                    color: #EA3F3F;
+                }
+            }
+        }
+    }
+}
