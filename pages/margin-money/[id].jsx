@@ -344,10 +344,10 @@ function Index() {
   
 
   const [calcRevised, setCalcRevised] = useState({
-    additionalAmountPerPDC: marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
-    revisedNetOrderValue: marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
-    marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
-    revisedMarginMoney: marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
+    additionalAmountPerPDC: '',
+    revisedNetOrderValue: '',
+    marginMoney: '',
+    revisedMarginMoney: '',
     marginMoneyReceived: '',
     marginMoneyPayable: '',
   })
@@ -377,8 +377,6 @@ function Index() {
     getRevisedData()
   }, [marginData])
 
-  
-  
 
   const getRevisedData = () => {
 
@@ -414,11 +412,11 @@ function Index() {
   
   const getRevisedData2 = () => {
 
-    let additionalAmountPerPDC = parseFloat((marginData?.calculation?.totalSPDC - Number(revisedCalc.additionalAmountPerPDC))/Number(forCalculation.additionalPDC)).toFixed(2)
+    let additionalAmountPerPDC = parseFloat((Number(marginData?.calculation?.totalSPDC) - Number(revisedCalc.additionalAmountPerPDC ? revisedCalc.additionalAmountPerPDC : 0))/Number(forCalculation.additionalPDC)).toFixed(2)
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
-    let revisedNetOrderValueNew = parseFloat(marginData?.revisedMarginMoney?.totalOrderValue - Number(marginData?.calculation?.totalOrderValue)).toFixed(2)
-    let marginMoneyRevised = marginData?.calculation?.marginMoney
-    let revisedMarginMoneyNew = Number(marginData?.revisedMarginMoney?.marginMoney)
+    let revisedNetOrderValueNew = parseFloat(Number(marginData?.revisedMarginMoney?.totalOrderValue ? marginData?.revisedMarginMoney?.totalOrderValue : 0 ) - Number(marginData?.calculation?.totalOrderValue)).toFixed(2)
+    let marginMoneyRevised = Number(marginData?.calculation?.marginMoney).toFixed(2)
+    let revisedMarginMoneyNew = Number(marginData?.revisedMarginMoney?.marginMoney ? marginData?.revisedMarginMoney?.marginMoney : 0 )
 
   setCalcRevised({
     additionalAmountPerPDC: additionalAmountPerPDC,
