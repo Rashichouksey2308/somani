@@ -23,7 +23,7 @@ const Index = ({
           selected={
             defaultDate !== undefined ? moment(defaultDate).toDate() : startDate
           }
-          dateFormat={dateFormat ? dateFormat : 'dd/MM/yyyy'}
+          dateFormat={dateFormat ? dateFormat : 'dd-MM-yyyy'}
           name={name}
           className={`${styles.input_field} input form-control`}
           onChange={(startDate) => {
