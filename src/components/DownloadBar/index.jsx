@@ -12,6 +12,7 @@ function index({
   rightButtonName,
   isApprove,
   handleUpdate,
+  handleUpdateRevised
 }) {
   return (
     <div className={`${styles.root} card`}>
@@ -36,7 +37,7 @@ function index({
           <div
             className={`${styles.reject} ml-3`}
             onClick={() => {
-              handleUpdate()
+              handleUpdate() ? handleUpdate() : handleUpdateRevised()
             }}
           >
             <span>{leftButtonName}</span>

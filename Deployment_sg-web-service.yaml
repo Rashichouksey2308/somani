@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sg-node-web-service-dev
+  name: sg-node-web-service-uat
 spec:
   selector:
-    app: sg-node-web-service-dev
+    app: sg-node-web-service-uat
   type: LoadBalancer
   ports:
     - protocol: TCP
@@ -17,20 +17,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sg-node-web-service-dev
+  name: sg-node-web-service-uat
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sg-node-web-service-dev
+      app: sg-node-web-service-uat
   template:
     metadata:
       labels:
-        app: sg-node-web-service-dev
+        app: sg-node-web-service-uat
     spec:
       containers:
-        - name: sg-node-web-service-dev
-          image: 733473813367.dkr.ecr.ap-south-1.amazonaws.com/somani-dev-web:latest
+        - name: sg-node-web-service-uat
+          image: 997525033467.dkr.ecr.ap-south-1.amazonaws.com/sg-web-app:v0.2-uat
           ports:
             - containerPort: 3010
       imagePullSecrets:
