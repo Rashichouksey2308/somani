@@ -627,6 +627,12 @@ body.light-mode .label {
 body.dark-mode .label {
   color: #FFFFFF;
 }
+body.light-mode .label1 {
+  color: rgba(17, 17, 17, 0.7);
+}
+body.dark-mode .label1 {
+  color: rgba(255, 255, 255, 0.7);
+}
 body.light-mode .value {
   color: #111111; 
 }
