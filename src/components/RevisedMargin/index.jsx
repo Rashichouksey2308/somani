@@ -1,43 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
-import _get from "lodash/get";
+import _get from 'lodash/get'
 
-const Index = ({ finalCal, marginData }) => {
-  const [revisedMarginmoney, setRevisedMarginMoney] = useState({
-    isActive: true,
+const Index = ({
+  finalCal,
+  marginData,
+  saveInvoiceDataRevisedRevised,
+  setSameRevised,
+  invoiceDataRevised,
+  saveForCalculation,
+  calcRevised
 
-    calculation: {
-      additionalAmountPerPDC: '',
-      revisedNetOrderValue: '',
-      marginMoney: '',
-      revisedMarginMoney: '',
-      marginMoneyReceived: '',
-      marginMoneyPayable: '',
-    },
-
-    invoiceDetail: {
-      buyerName: '',
-      buyerGSTIN: '',
-      buyerAddress: '',
-      isConsigneeSameAsBuyer: false,
-      consigneeName: '',
-      consigneeGSTIN: '',
-      consigneeAddress: '',
-      importerName: '',
-      branchOffice: '',
-      companyAddress: '',
-      importerGSTIN: '',
-      bankName: '',
-      branch: '',
-      branchAddress: '',
-      IFSCcode: '',
-      accountNo: '',
-    },
-  })
-
-
-
+}) => {
   return (
     <>
       <div className={`${styles.card}  accordionMargin card`}>
@@ -52,7 +27,10 @@ const Index = ({ finalCal, marginData }) => {
             <span className={`${styles.comm_head} sub_heading mb-2`}>
               Commodity
             </span>
-            <span className={`${styles.comm_val} heading`}> {marginData?.order?.commodity}</span>
+            <span className={`${styles.comm_val} heading`}>
+              {' '}
+              {marginData?.order?.commodity}
+            </span>
           </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <div className={`${styles.pay} mr-5`}>
@@ -66,9 +44,10 @@ const Index = ({ finalCal, marginData }) => {
             </div>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown`}>
-              <option>  {marginData?.order?.unitOfValue == 'Cr'
-                ? 'Crores'
-                : null}</option>
+              <option>
+                {' '}
+                {marginData?.order?.unitOfValue == 'Cr' ? 'Crores' : null}
+              </option>
             </select>
             <span>+</span>
           </div>
@@ -97,7 +76,9 @@ const Index = ({ finalCal, marginData }) => {
                     >
                       Quantity<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val}  heading`}>{marginData?.order?.quantity?.toLocaleString()}</div>
+                    <div className={`${styles.val}  heading`}>
+                      {marginData?.order?.quantity?.toLocaleString()}
+                    </div>
                   </div>
                 </div>
                 <div
@@ -115,7 +96,9 @@ const Index = ({ finalCal, marginData }) => {
                     >
                       Unit Price<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>{marginData?.order?.perUnitPrice}</div>
+                    <div className={`${styles.val} heading`}>
+                      {marginData?.order?.perUnitPrice}
+                    </div>
                   </div>
                 </div>
                 <div
@@ -133,7 +116,9 @@ const Index = ({ finalCal, marginData }) => {
                     >
                       Conversion Rate<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>{marginData?.conversionRate}</div>
+                    <div className={`${styles.val} heading`}>
+                      {marginData?.conversionRate}
+                    </div>
                   </div>
                 </div>
                 <div
@@ -180,8 +165,7 @@ const Index = ({ finalCal, marginData }) => {
                                 type={type}
                                 id={`inline-${type}-1`}
                                 defaultChecked={
-                                  marginData?.isUsanceInterestIncluded ===
-                                  true
+                                  marginData?.isUsanceInterestIncluded === true
                                 }
                               />
                               <Form.Check
@@ -192,8 +176,7 @@ const Index = ({ finalCal, marginData }) => {
                                 type={type}
                                 id={`inline-${type}-2`}
                                 defaultChecked={
-                                  marginData?.isUsanceInterestIncluded ===
-                                  false
+                                  marginData?.isUsanceInterestIncluded === false
                                 }
                               />
                             </div>
@@ -218,10 +201,13 @@ const Index = ({ finalCal, marginData }) => {
                     >
                       Trade Margin (%)<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}> {
-                      marginData?.order?.termsheet?.commercials
-                        ?.tradeMarginPercentage
-                    }</div>
+                    <div className={`${styles.val} heading`}>
+                      {' '}
+                      {
+                        marginData?.order?.termsheet?.commercials
+                          ?.tradeMarginPercentage
+                      }
+                    </div>
                   </div>
                 </div>
                 <div
@@ -240,7 +226,9 @@ const Index = ({ finalCal, marginData }) => {
                       Tolerance (+/-) Percentage
                       <strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>{marginData?.order?.tolerance}</div>
+                    <div className={`${styles.val} heading`}>
+                      {marginData?.order?.tolerance}
+                    </div>
                   </div>
                 </div>
                 <div
@@ -258,10 +246,13 @@ const Index = ({ finalCal, marginData }) => {
                     >
                       Margin Money (%)<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}> {
-                      marginData?.order?.termsheet
-                        ?.transactionDetails?.marginMoney
-                    }</div>
+                    <div className={`${styles.val} heading`}>
+                      {' '}
+                      {
+                        marginData?.order?.termsheet?.transactionDetails
+                          ?.marginMoney
+                      }
+                    </div>
                   </div>
                 </div>
                 <div
@@ -302,6 +293,11 @@ const Index = ({ finalCal, marginData }) => {
                     </label>
                     <input
                       type="number"
+                      name="additionalPDC"
+                      onChange={(e) =>
+                        saveForCalculation(e.target.name, e.target.value)
+                      }
+                      defaultValue={marginData?.additionalPDC}
                       className={`${styles.input_field} form-control`}
                       style={{ color: '#FF9D00' }}
                     />
@@ -554,8 +550,8 @@ const Index = ({ finalCal, marginData }) => {
                       Additional Amount per SPDC (INR){' '}
                       <strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} ${styles.green} heading`}>
-                      USD 38,50,000.00
+                     <div className={`${styles.val} ${styles.green} heading`}>
+                      {calcRevised.additionalAmountPerPDC}
                     </div>
                   </div>
                 </div>
@@ -577,7 +573,7 @@ const Index = ({ finalCal, marginData }) => {
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      USD 38,50,000.00
+                      {calcRevised.revisedNetOrderValue}
                     </div>
                   </div>
                 </div>
@@ -598,7 +594,7 @@ const Index = ({ finalCal, marginData }) => {
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      USD 38,50,000.00
+                      {calcRevised.marginMoney}
                     </div>
                   </div>
                 </div>
@@ -620,7 +616,7 @@ const Index = ({ finalCal, marginData }) => {
                       <span className={`${styles.blue}`}>{`(R)`}</span>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      USD 38,50,000.00
+                      {calcRevised.revisedMarginMoney}
                     </div>
                   </div>
                 </div>
@@ -700,34 +696,52 @@ const Index = ({ finalCal, marginData }) => {
                   <input
                     type="text"
                     id="textInput"
-                    name="companyPan"
+                    name="buyerName"
+                    defaultValue={marginData?.invoiceDetail?.buyerName}
                     className={`${styles.input_field} input form-control`}
                     required
+                    onChange={(e) =>
+                      saveInvoiceDataRevisedRevised(
+                        e.target.name,
+                        e.target.value,
+                      )
+                    }
                   />
                   <label
                     className={`${styles.label_heading} label_heading`}
                     id="textInput"
                   >
-                    Buyer Name<strong className="text-danger">*</strong>
+                    Buyer Name
+                    <strong className="text-danger">*</strong>
                   </label>
                 </div>
                 <div className={`${styles.each_input} col-md-4 col-sm-6`}>
                   <div className="d-flex">
                     <select
                       id="Code"
-                      name="typeOfBussiness"
+                      name="buyerGSTIN"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
+                      onChange={(e) =>
+                        saveInvoiceDataRevisedRevised(
+                          e.target.name,
+                          e.target.value,
+                        )
+                      }
+                      value={marginData?.invoiceDetail?.buyerGSTIN}
                     >
+                      {/* <option value="GTSDT789652JKH">
+                                    {marginData?.invoiceDetail?.buyerGSTIN}
+                                  </option> */}
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                      <option value="Retailer">Retailer</option>
-                      <option value="Trading">Trading</option>
+                      <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                     </select>
                     <label
                       className={`${styles.label_heading} label_heading`}
                       id="textInput"
                     >
-                      Buyer GSTIN<strong className="text-danger">*</strong>
+                      Buyer GSTIN
+                      <strong className="text-danger">*</strong>
                     </label>
                     <img
                       className={`img-fluid image_arrow ${styles.arrow}`}
@@ -739,20 +753,29 @@ const Index = ({ finalCal, marginData }) => {
                   <input
                     type="text"
                     id="textInput"
-                    name="companyPan"
+                    name="buyerAddress"
+                    defaultValue={marginData?.invoiceDetail?.buyerAddress}
                     className={`${styles.input_field} input form-control`}
                     required
+                    onChange={(e) =>
+                      saveInvoiceDataRevisedRevised(
+                        e.target.name,
+                        e.target.value,
+                      )
+                    }
                   />
                   <label
                     className={`${styles.label_heading} label_heading`}
                     id="textInput"
                   >
-                    Buyer Address<strong className="text-danger">*</strong>
+                    Buyer Address
+                    <strong className="text-danger">*</strong>
                   </label>
                 </div>
                 <div className={`${styles.radio_form} col-md-12`}>
                   <div className={`${styles.label_heading} label_heading`}>
-                    Same as Buyer<strong className="text-danger">*</strong>
+                    Is Consignee same as Buyer
+                    <strong className="text-danger">*</strong>
                   </div>
                   <Form>
                     {['radio'].map((type) => (
@@ -764,7 +787,16 @@ const Index = ({ finalCal, marginData }) => {
                           className={`${styles.radio} radio`}
                           inline
                           label="Yes"
-                          onChange={() => saveOrderData('IncoTerms', 'FOB')}
+                          defaultChecked={
+                            invoiceDataRevised?.isConsigneeSameAsBuyer == true
+                          }
+                          onChange={() => {
+                            saveInvoiceDataRevisedRevised(
+                              'isConsigneeSameAsBuyer',
+                              true,
+                            )
+                            setSameRevised(true)
+                          }}
                           name="group1"
                           type={type}
                           id={`inline-${type}-1`}
@@ -773,7 +805,16 @@ const Index = ({ finalCal, marginData }) => {
                           className={`${styles.radio} radio`}
                           inline
                           label="No"
-                          onChange={() => saveOrderData('IncoTerms', 'CFR')}
+                          defaultChecked={
+                            invoiceDataRevised?.isConsigneeSameAsBuyer == false
+                          }
+                          onChange={() => {
+                            saveInvoiceDataRevisedRevised(
+                              'isConsigneeSameAsBuyer',
+                              false,
+                            )
+                            setSameRevised(false)
+                          }}
                           name="group1"
                           type={type}
                           id={`inline-${type}-2`}
@@ -786,7 +827,14 @@ const Index = ({ finalCal, marginData }) => {
                   <input
                     type="text"
                     id="textInput"
-                    name="companyPan"
+                    name="consigneeName"
+                    value={invoiceDataRevised?.consigneeName}
+                    onChange={(e) =>
+                      saveInvoiceDataRevisedRevised(
+                        e.target.name,
+                        e.target.value,
+                      )
+                    }
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -798,76 +846,48 @@ const Index = ({ finalCal, marginData }) => {
                   </label>
                 </div>
                 <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                  <select
-                    id="Code"
-                    name="typeOfBussiness"
-                    className={`${styles.input_field} input form-control`}
-                    required
-                  >
-                    <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                    <option value="Retailer">Retailer</option>
-                    <option value="Trading">Trading</option>
-                  </select>
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
-                    Consignee GSTIN<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                  <input
-                    type="text"
-                    id="textInput"
-                    name="companyPan"
-                    className={`${styles.input_field} input form-control`}
-                    required
-                  />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
-                    Consignee Address<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                {/* <div className={`${styles.radio_form} col-md-12`}>
-                  <div className={`${styles.label_heading} label_heading`}>
-                    Same as Buyer{' '}
-                    <span className="ml-4">{`In Case User Selects "No"`}</span>
+                  <div className="d-flex">
+                    <select
+                      id="Code"
+                      name="consigneeGSTIN"
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      required
+                      onChange={(e) =>
+                        saveInvoiceDataRevisedRevised(
+                          e.target.name,
+                          e.target.value,
+                        )
+                      }
+                      value={invoiceDataRevised?.consigneeGSTIN}
+                    >
+                      <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                      <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                    </select>
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Consignee GSTIN
+                      <strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`img-fluid image_arrow ${styles.arrow}`}
+                      src="/static/inputDropDown.svg"
+                    ></img>
                   </div>
-                  <Form>
-                    {['radio'].map((type) => (
-                      <div
-                        key={`inline-${type}`}
-                        className={styles.radio_group}
-                      >
-                        <Form.Check
-                          className={`${styles.radio} radio`}
-                          inline
-                          label="Yes"
-                          onChange={() => saveOrderData('IncoTerms', 'FOB')}
-                          name="group1"
-                          type={type}
-                          id={`inline-${type}-1`}
-                        />
-                        <Form.Check
-                          className={`${styles.radio} radio`}
-                          inline
-                          label="No"
-                          onChange={() => saveOrderData('IncoTerms', 'CFR')}
-                          name="group1"
-                          type={type}
-                          id={`inline-${type}-2`}
-                        />
-                      </div>
-                    ))}
-                  </Form>
                 </div>
                 <div className={`${styles.each_input} col-md-4 col-sm-6`}>
                   <input
                     type="text"
                     id="textInput"
-                    name="companyPan"
+                    name="consigneeAddress"
+                    onChange={(e) =>
+                      saveInvoiceDataRevisedRevised(
+                        e.target.name,
+                        e.target.value,
+                      )
+                    }
+                    value={invoiceDataRevised?.consigneeAddress}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -875,51 +895,93 @@ const Index = ({ finalCal, marginData }) => {
                     className={`${styles.label_heading} label_heading`}
                     id="textInput"
                   >
-                    Consignee Name
+                    Consignee Address
+                    <strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                  <select
-                    id="Code"
-                    name="typeOfBussiness"
-                    className={`${styles.input_field} input form-control`}
-                    required
-                  >
-                    <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                    <option value="Retailer">Retailer</option>
-                    <option value="Trading">Trading</option>
-                  </select>
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
-                    Consignee GSTIN<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.each_input} col-md-4 col-sm-6`}>
-                  <input
-                    type="text"
-                    id="textInput"
-                    name="companyPan"
-                    className={`${styles.input_field} input form-control`}
-                    required
-                  />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
-                    Consignee Address<strong className="text-danger">*</strong>
-                  </label>
-                </div> */}
               </div>
             </div>
             <div className={`${styles.content} border_color`}>
               <div className={`${styles.input_container} row`}>
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                  <div className="d-flex">
+                    <select
+                      id="Code"
+                      name="importerName"
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      required
+                      defaultValue={marginData?.invoiceDetail?.importerName}
+                      onChange={(e) =>
+                        saveInvoiceDataRevisedRevised(
+                          e.target.name,
+                          e.target.value,
+                        )
+                      }
+                    >
+                      <option value="Ramakrishna Traders">
+                        Ramakrishna Traders
+                      </option>
+                      <option value="Balaji Traders">Balaji Traders</option>
+                    </select>
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Importer Name
+                      <strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`img-fluid image_arrow ${styles.arrow}`}
+                      src="/static/inputDropDown.svg"
+                    ></img>
+                  </div>
+                </div>
+                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                  <div className="d-flex">
+                    <select
+                      id="Code"
+                      name="branchOffice"
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      required
+                      defaultValue={marginData?.invoiceDetail?.importerName}
+                      onChange={(e) =>
+                        saveInvoiceDataRevisedRevised(
+                          e.target.name,
+                          e.target.value,
+                        )
+                      }
+                    >
+                      <option value="Visakhapatnam, India">
+                        {'Visakhapatnam, India'}
+                      </option>
+                      <option value="Mumbai, India">Mumbai, India</option>
+                    </select>
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Branch Office
+                      <strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`img-fluid image_arrow ${styles.arrow}`}
+                      src="/static/inputDropDown.svg"
+                    ></img>
+                  </div>
+                </div>
+
+                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <input
                     type="text"
                     id="textInput"
-                    name="companyPan"
+                    name="companyAddres"
+                    onChange={(e) =>
+                      saveInvoiceDataRevisedRevised(
+                        e.target.name,
+                        e.target.value,
+                      )
+                    }
+                    defaultValue={'Address'}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -927,14 +989,22 @@ const Index = ({ finalCal, marginData }) => {
                     className={`${styles.label_heading} label_heading`}
                     id="textInput"
                   >
-                    Importer Name<strong className="text-danger">*</strong>
+                    Company Address*
+                    <strong className="text-danger">*</strong>
                   </label>
                 </div>
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <input
                     type="text"
                     id="textInput"
-                    name="companyPan"
+                    name="importerGSTIN"
+                    onChange={(e) =>
+                      saveInvoiceDataRevisedRevised(
+                        e.target.name,
+                        e.target.value,
+                      )
+                    }
+                    defaultValue={marginData?.invoiceDetail?.importerGSTIN}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -942,14 +1012,109 @@ const Index = ({ finalCal, marginData }) => {
                     className={`${styles.label_heading} label_heading`}
                     id="textInput"
                   >
-                    Branch Office<strong className="text-danger">*</strong>
+                    Importer GSTIN
+                    <strong className="text-danger">*</strong>
+                  </label>
+                </div>
+
+                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                  <div className="d-flex">
+                    <select
+                      id="Code"
+                      name="bankName"
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      required
+                      defaultValue={marginData?.invoiceDetail?.importerName}
+                      onChange={(e) =>
+                        saveInvoiceDataRevisedRevised(
+                          e.target.name,
+                          e.target.value,
+                        )
+                      }
+                    >
+                      <option value="HDFC">HDFC</option>
+                      <option value="SBI">SBI</option>
+                    </select>
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Bank Name
+                      <strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`img-fluid  image_arrow ${styles.arrow}`}
+                      src="/static/inputDropDown.svg"
+                    ></img>
+                  </div>
+                </div>
+                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                  <div className="d-flex">
+                    <select
+                      id="Code"
+                      name="branch"
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      required
+                      defaultValue={marginData?.invoiceDetail?.branch}
+                      onChange={(e) =>
+                        saveInvoiceDataRevisedRevised(
+                          e.target.name,
+                          e.target.value,
+                        )
+                      }
+                    >
+                      <option value="DELHI, INDIA">DELHI, INDIA</option>
+                      <option value="VIZAG, INDIA">VIZAG, INDIA</option>
+                    </select>
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Branch
+                      <strong className="text-danger">*</strong>
+                    </label>
+                    <img
+                      className={`img-fluid image_arrow ${styles.arrow}`}
+                      src="/static/inputDropDown.svg"
+                    ></img>
+                  </div>
+                </div>
+
+                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                  <input
+                    type="text"
+                    id="textInput"
+                    name="branchAddress"
+                    onChange={(e) =>
+                      saveInvoiceDataRevisedRevised(
+                        e.target.name,
+                        e.target.value,
+                      )
+                    }
+                    defaultValue={marginData?.invoiceDetail?.branchAddress}
+                    className={`${styles.input_field} input form-control`}
+                    required
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                    id="textInput"
+                  >
+                    Branch Address
+                    <strong className="text-danger">*</strong>
                   </label>
                 </div>
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <input
                     type="text"
                     id="textInput"
-                    name="companyPan"
+                    name="IFSCcode"
+                    onChange={(e) =>
+                      saveInvoiceDataRevisedRevised(
+                        e.target.name,
+                        e.target.value,
+                      )
+                    }
+                    defaultValue={marginData?.invoiceDetail?.IFSCcode}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -957,14 +1122,22 @@ const Index = ({ finalCal, marginData }) => {
                     className={`${styles.label_heading} label_heading`}
                     id="textInput"
                   >
-                    Company Address<strong className="text-danger">*</strong>
+                    IFSC Code
+                    <strong className="text-danger">*</strong>
                   </label>
                 </div>
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <input
                     type="text"
                     id="textInput"
-                    name="companyPan"
+                    name="accountNo"
+                    onChange={(e) =>
+                      saveInvoiceDataRevisedRevised(
+                        e.target.name,
+                        e.target.value,
+                      )
+                    }
+                    defaultValue={marginData?.invoiceDetail?.accountNo}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -972,82 +1145,8 @@ const Index = ({ finalCal, marginData }) => {
                     className={`${styles.label_heading} label_heading`}
                     id="textInput"
                   >
-                    Importer GSTIN<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                  <input
-                    type="text"
-                    id="textInput"
-                    name="companyPan"
-                    className={`${styles.input_field} input form-control`}
-                    required
-                  />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
-                    Bank Name<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                  <input
-                    type="text"
-                    id="textInput"
-                    name="companyPan"
-                    className={`${styles.input_field} input form-control`}
-                    required
-                  />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
-                    Branch<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                  <input
-                    type="text"
-                    id="textInput"
-                    name="companyPan"
-                    className={`${styles.input_field} input form-control`}
-                    required
-                  />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
-                    Branch Address<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                  <input
-                    type="text"
-                    id="textInput"
-                    name="companyPan"
-                    className={`${styles.input_field} input form-control`}
-                    required
-                  />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
-                    IFSC Code<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
-                  <input
-                    type="text"
-                    id="textInput"
-                    name="companyPan"
-                    className={`${styles.input_field} input form-control`}
-                    required
-                  />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
-                  >
-                    A/C Number<strong className="text-danger">*</strong>
+                    A/C Number
+                    <strong className="text-danger">*</strong>
                   </label>
                 </div>
               </div>

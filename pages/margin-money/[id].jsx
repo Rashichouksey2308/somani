@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   UpdateMarginMoney,
   GetMarginMoney,
+  RevisedMarginMoney,
 } from '../../src/redux/marginMoney/action'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import { addPrefixOrSuffix } from '../../src/utils/helper'
@@ -79,6 +80,7 @@ function Index() {
     // console.log(newInput)
     setForCalculation(newInput)
     getData2()
+    getRevisedData2()
   }
 
   const [finalCal, setFinalCal] = useState({
@@ -97,7 +99,9 @@ function Index() {
   })
   useEffect(() => {
     getData()
+
   }, [marginData])
+
   const getData = () => {
     setForCalculation({
       isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded,
@@ -264,7 +268,7 @@ function Index() {
   const saveInvoiceData = (name, value) => {
     const newInput = { ...invoiceData }
     newInput[name] = value
-    console.log(newInput, 'nnto', name, value)
+    // console.log(newInput, 'nnto', name, value)
 
     setInvoiceData({ ...newInput })
   }
@@ -328,16 +332,151 @@ function Index() {
     dispatch(UpdateMarginMoney(obj))
   }
 
+  const [revisedCalc, setRevisedCalc] = useState({
+    additionalAmountPerPDC: marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
+    revisedNetOrderValue: marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
+    marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
+    revisedMarginMoney: marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
+    marginMoneyReceived: marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
+    marginMoneyPayable: marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
+  })
+
+  
+
+  const [calcRevised, setCalcRevised] = useState({
+    additionalAmountPerPDC: marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
+    revisedNetOrderValue: marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
+    marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
+    revisedMarginMoney: marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
+    marginMoneyReceived: '',
+    marginMoneyPayable: '',
+  })
+
+  console.log(calcRevised, "THIS IS CALC REVISED")
+
+  const [invoiceDataRevised, setInvoiceDataRevised] = useState({
+    buyerName: '',
+    buyerGSTIN: '',
+    buyerAddress: '',
+    isConsigneeSameAsBuyer: false,
+    consigneeName: '',
+    consigneeGSTIN: '',
+    consigneeAddress: '',
+    importerName: '',
+    branchOffice: '',
+    companyAddress: '',
+    importerGSTIN: '',
+    bankName: '',
+    branch: '',
+    branchAddress: '',
+    IFSCcode: '',
+    accountNo: '',
+  })
+
+  useEffect(() => {
+    getRevisedData()
+  }, [marginData])
+
+  
+  
+
+  const getRevisedData = () => {
+
+  setRevisedCalc({
+    additionalAmountPerPDC: marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
+    revisedNetOrderValue: marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
+    marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
+    revisedMarginMoney: marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
+    marginMoneyReceived: marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
+    marginMoneyPayable: marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
+  })
+
+  let additionalAmountPerPDC = parseFloat((marginData?.calculation?.totalSPDC - Number(revisedCalc.additionalAmountPerPDC))/Number(forCalculation.additionalPDC)).toFixed(2)
+  console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
+  let revisedNetOrderValueNew = parseFloat(marginData?.revisedMarginMoney?.totalOrderValue - marginData?.revisedMarginMoney?.totalOrderValue).toFixed(2)
+  let marginMoneyRevised = marginData?.calculation?.marginMoney
+  let revisedMarginMoneyNew = marginData?.revisedMarginMoney?.marginMoney
+
+  setCalcRevised({
+    additionalAmountPerPDC: additionalAmountPerPDC,
+    revisedNetOrderValue: revisedNetOrderValueNew,
+    marginMoney: marginMoneyRevised,
+    revisedMarginMoney: revisedMarginMoneyNew,
+    marginMoneyReceived: '',
+    marginMoneyPayable: '',
+  })
+
+  }
+
+  useEffect(() => {
+    getRevisedData2()
+  }, [revisedCalc])
+  
+  const getRevisedData2 = () => {
+
+    let additionalAmountPerPDC = parseFloat((marginData?.calculation?.totalSPDC - Number(revisedCalc.additionalAmountPerPDC))/Number(forCalculation.additionalPDC)).toFixed(2)
+    console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
+    let revisedNetOrderValueNew = parseFloat(marginData?.revisedMarginMoney?.totalOrderValue - Number(marginData?.calculation?.totalOrderValue)).toFixed(2)
+    let marginMoneyRevised = marginData?.calculation?.marginMoney
+    let revisedMarginMoneyNew = Number(marginData?.revisedMarginMoney?.marginMoney)
+
+  setCalcRevised({
+    additionalAmountPerPDC: additionalAmountPerPDC,
+    revisedNetOrderValue: revisedNetOrderValueNew,
+    marginMoney: marginMoneyRevised,
+    revisedMarginMoney: revisedMarginMoneyNew,
+    marginMoneyReceived: '',
+    marginMoneyPayable: '',
+  })
+
+  }
+
+ 
+  const saveInvoiceDataRevisedRevised = (name, value) => {
+    const newInput = { ...invoiceDataRevised }
+    newInput[name] = value
+    // console.log(newInput, 'nnto', name, value)
+
+    setInvoiceDataRevised({ ...newInput })
+  }
+
+  const setSameRevised = (val) => {
+    if (val == true) {
+      setInvoiceDataRevised({
+        ...invoiceDataRevised,
+        consigneeName: invoiceDataRevised.buyerName,
+        consigneeGSTIN: invoiceDataRevised.buyerGSTIN,
+        consigneeAddress: invoiceDataRevised.buyerAddress,
+      })
+    } else {
+      setInvoiceDataRevised({
+        ...invoiceDataRevised,
+        consigneeName: '',
+        consigneeGSTIN: '',
+        consigneeAddress: '',
+      })
+    }
+  }
+
+  const handleUpdateRevisedMarginMoney = () => {
+    let fd = new FormData()
+    fd.append('isActive', true)
+    fd.append('additionalPDC', forCalculation.additionalPDC)
+    fd.append('calculation', JSON.stringify(calcRevised))
+    fd.append('invoiceDetail', JSON.stringify(invoiceDataRevised))
+
+    dispatch(RevisedMarginMoney(fd))
+  }
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.title_header} d-flex align-items-center`}>
             <img
-              src={`${darkMode
-                ? `/static/white-arrow.svg`
-                : `/static/arrow-right.svg`
-                }`}
+              src={`${
+                darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
+              }`}
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
             />
@@ -414,7 +553,9 @@ function Index() {
                   id="Margin"
                   role="tabpanel"
                 >
-                  <div className={`${styles.card} vessel_card accordionMargin card`}>
+                  <div
+                    className={`${styles.card} vessel_card accordionMargin card`}
+                  >
                     <div
                       className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
                       data-toggle="collapse"
@@ -487,7 +628,10 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {addPrefixOrSuffix(marginData?.order?.quantity?.toLocaleString(), '')}
+                                  {addPrefixOrSuffix(
+                                    marginData?.order?.quantity?.toLocaleString(),
+                                    '',
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -592,7 +736,10 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {addPrefixOrSuffix(marginData?.order?.perUnitPrice, '')}
+                                  {addPrefixOrSuffix(
+                                    marginData?.order?.perUnitPrice,
+                                    '',
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -724,10 +871,12 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {
-                                  addPrefixOrSuffix(marginData?.order?.termsheet?.commercials
-                                      ?.tradeMarginPercentage, '%', '')
-                                  }
+                                  {addPrefixOrSuffix(
+                                    marginData?.order?.termsheet?.commercials
+                                      ?.tradeMarginPercentage,
+                                    '%',
+                                    '',
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -748,7 +897,11 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {addPrefixOrSuffix(marginData?.order?.tolerance, '%', '')}
+                                  {addPrefixOrSuffix(
+                                    marginData?.order?.tolerance,
+                                    '%',
+                                    '',
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -770,10 +923,12 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {
-                                   addPrefixOrSuffix( marginData?.order?.termsheet
-                                      ?.transactionDetails?.marginMoney, '%', '')
-                                  }
+                                  {addPrefixOrSuffix(
+                                    marginData?.order?.termsheet
+                                      ?.transactionDetails?.marginMoney,
+                                    '%',
+                                    '',
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -1202,8 +1357,12 @@ function Index() {
                                   {/* <option value="GTSDT789652JKH">
                                     {marginData?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
-                                  <option value="GTSDT789652JKH">GTSDT789652JKH</option>
-                                  <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                                  <option value="GTSDT789652JKH">
+                                    GTSDT789652JKH
+                                  </option>
+                                  <option value="GTSDT789652JKH">
+                                    GTSDT789652JKH
+                                  </option>
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -1671,6 +1830,13 @@ function Index() {
                       <RevisedMargin
                         marginData={marginData}
                         finalCal={finalCal}
+                        saveInvoiceDataRevisedRevised={
+                          saveInvoiceDataRevisedRevised
+                        }
+                        setSameRevised={setSameRevised}
+                        invoiceDataRevised={invoiceDataRevised}
+                        saveForCalculation={saveForCalculation}
+                        calcRevised={calcRevised}
                       />
                     </div>
                   </div>
@@ -1693,6 +1859,7 @@ function Index() {
         downLoadButtonName={`Download`}
         isPrevious={true}
         handleUpdate={handleUpdate}
+        handleUpdateRevised={handleUpdateRevisedMarginMoney}
         leftButtonName={`Save`}
         rightButtonName={`Preview`}
         handleApprove={routeChange}
