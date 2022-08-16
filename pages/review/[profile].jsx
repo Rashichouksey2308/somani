@@ -9,7 +9,9 @@ import styles from './profile.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { UpdateBuyer } from '../../src/redux/registerBuyer/action'
 import router from 'next/router'
-import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { GetBuyer } from '../../src/redux/registerBuyer/action'
+
 const Index = () => {
   const dispatch = useDispatch()
 
@@ -22,10 +24,17 @@ const Index = () => {
   const [rejectPayloadData, setRejectPayloadData] = useState({
     action: 'REJECT',
   })
+
+  useEffect(() => {
+    const orderId = sessionStorage.getItem('orderId')
+    const companyId = sessionStorage.getItem('company')
+    dispatch(GetBuyer({ companyId: companyId, orderId: orderId }))
+  }, [dispatch])
+  
   useEffect(() => {
     dispatch(setPageName('review-queue'))
-     dispatch(setDynamicName(buyerList?.companyName))
-  },[buyerList, dispatch])
+    dispatch(setDynamicName(buyerList?.companyName))
+  }, [buyerList, dispatch])
   const handleApprove = () => {
     const payload = { ...payloadData, orderReviewId: buyerList._id }
 
@@ -49,7 +58,7 @@ const Index = () => {
       <div className={`${styles.root_Container} `}>
         <div className={styles.wrapper}>
           <div className={`${styles.head} align-items-center`}>
-            <img onClick={()=>  Router.push('/leads')}
+            <img onClick={() => Router.push('/leads')}
               className={`${styles.arrow} img-fluid mr-2 image_arrow`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"

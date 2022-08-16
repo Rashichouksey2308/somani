@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../../src/redux/registerBuyer/action'
 import { setPageName, setDynamicName } from '../../../src/redux/userData/action'
 import { GetTermsheet } from '../../../src/redux/buyerProfile/action'
+import moment from 'moment';
 
 
 function Index() {
@@ -229,12 +230,12 @@ function Index() {
                   {termsheet && termsheet?.data?.map((term, index) => (<tbody Key={index}>
                     <tr>
                       <td className={`${styles.first}`} onClick={() => handleRoute(term,index)}>
-                        {term?.order?.orderId}
+                        {term?.order?.applicationId ? term.order.applicationId : term.order.orderId}
                       </td>
                       <td className={`${styles.buyerName}`} onClick={() => handleRoute(term,index)} >{term?.order?.commodity}</td>
 
                       <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
-                      <td>{term?.order?.createdAt?.slice(0, 10)}</td>
+                      <td>{moment((term?.order?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
                       <td>
                         <span
                           className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'

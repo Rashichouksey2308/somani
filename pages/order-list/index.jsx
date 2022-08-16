@@ -40,13 +40,13 @@ function Index() {
       , " ")))
   }, [dispatch, singleOrder])
 
-  // const handleRoute = () => {
-  //   dispatch(GetOrders(`?company=${singleOrder?.data[0]?.company?._id}`))
-  //   dispatch(GetCreditLimit({ companyId: singleOrder?.data[0]?.company?._id }))
-  //   setTimeout(() => {
-  //     Router.push('/new-order')
-  //   }, 1000);
-  // }
+  const handleRouteNewOrder = () => {
+    dispatch(GetOrders(`?company=${singleOrder?.data[0]?.company?._id}`))
+    dispatch(GetCreditLimit({ companyId: singleOrder?.data[0]?.company?._id }))
+    setTimeout(() => {
+      Router.push('/new-order')
+    }, 1000);
+  }
 
   // buyer.queue === 'Rejected'
   //                             ? 'Rejected'
@@ -59,6 +59,9 @@ function Index() {
     // console.log(buyer,'butyer')
     console.log(" before go to get document")
     if (buyer.queue === 'CreditQueue') {
+      sessionStorage.setItem('orderId', buyer._id);
+      sessionStorage.setItem('company', buyer.company._id);
+
       dispatch(GetAllOrders({ orderId: buyer._id }))
       //dispatch(GetDocuments({order: buyer._id}))
       dispatch(GetCompanyDetails({ company: buyer.company._id }))
@@ -90,7 +93,7 @@ function Index() {
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary d-flex align-items-center`}
-              onClick={() => handleRoute()}
+              onClick={() => handleRouteNewOrder()}
             >
               <span className={`ml-4 mb-1`}>+</span>
               <span className={`mr-3 ml-1 `}>New Order</span>
