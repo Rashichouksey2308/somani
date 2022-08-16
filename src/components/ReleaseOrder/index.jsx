@@ -217,7 +217,7 @@ export default function Index({ ReleaseOrderData }) {
             >
               <h3 className={`${styles.heading}`}>Release Order</h3>
 
-              <span>+</span>
+              <span onClick={(e) => setTabOpen(false)}>+</span>
             </div>
             <div
               id="lcApplication"
