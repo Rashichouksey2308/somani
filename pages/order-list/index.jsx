@@ -59,6 +59,9 @@ function Index() {
     // console.log(buyer,'butyer')
     console.log(" before go to get document")
     if (buyer.queue === 'CreditQueue') {
+      sessionStorage.setItem('orderId', buyer._id);
+      sessionStorage.setItem('company', buyer.company._id);
+
       dispatch(GetAllOrders({ orderId: buyer._id }))
       //dispatch(GetDocuments({order: buyer._id}))
       dispatch(GetCompanyDetails({ company: buyer.company._id }))
