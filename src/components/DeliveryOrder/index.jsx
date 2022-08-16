@@ -26,7 +26,9 @@ export default function Index(props) {
                   <div className={`${styles.label_heading} mr-3 label_heading`}>
                     Shipment Type
                   </div>
-                  <div className={`${styles.shipment_type} mr-4`}>Bulk</div>
+                  <div className={`${styles.shipment_type} heading mr-4`}>
+                    Bulk
+                  </div>
                 </div>
                 <span>+</span>
               </div>
@@ -169,8 +171,10 @@ export default function Index(props) {
                         <div
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
-                          <div className="row" style={{ marginTop: '-42px' }}>
-                            <div className={`${styles.form_group} col-lg-8`}>
+                          <div className="row" style={{ marginTop: '-41px' }}>
+                            <div
+                              className={`${styles.form_group} ml-n5 col-lg-6`}
+                            >
                               <div className={`${styles.label} text`}>
                                 Delivery Order Date
                               </div>
@@ -179,7 +183,7 @@ export default function Index(props) {
                               </span>
                             </div>
                             {val.isDelete ? (
-                              <div className={`${styles.form_group} col-lg-4`}>
+                              <div className={`${styles.form_group} col-lg-6`}>
                                 <img
                                   src="/static/share.svg"
                                   className={`${styles.shareImg} img-fluid`}
@@ -194,7 +198,7 @@ export default function Index(props) {
                                   }}
                                 />
                                 <img
-                                  className={`${styles.shareImg} img-fluid`}
+                                  className={`${styles.shareImg} ml-3 img-fluid`}
                                   src="/static/delete.svg"
                                   alt="Search"
                                   onClick={(e) => {
@@ -203,7 +207,7 @@ export default function Index(props) {
                                 />
                               </div>
                             ) : (
-                              <div className={`${styles.form_group} col-lg-4`}>
+                              <div className={`${styles.form_group} col-lg-6`}>
                                 <img
                                   src="/static/mode_edit.svg"
                                   className={`${styles.shareImg} img-fluid`}
@@ -221,7 +225,7 @@ export default function Index(props) {
                                   alt="add"
                                 />
                                 <img
-                                  className={`${styles.shareImg} img-fluid`}
+                                  className={`${styles.shareImg} ml-3 img-fluid`}
                                   src="/static/delete.svg"
                                   alt="Search"
                                   onClick={(e) => {
@@ -247,18 +251,27 @@ export default function Index(props) {
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     style={{ top: '5px' }}
                   >
-                    <select
-                      onChange={(e) =>
-                        props.setLastMileDelivery(e.target.value)
-                      }
-                      className={`${styles.input_field} input form-control`}
-                    >
-                      <option value={true}>Yes</option>
-                      <option value={false}>No</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Last Mile Delivery
-                    </label>
+                    <div className="d-flex">
+                      <select
+                        onChange={(e) =>
+                          props.setLastMileDelivery(e.target.value)
+                        }
+                        className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                      >
+                        <option value={true}>Yes</option>
+                        <option value={false}>No</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Last Mile Delivery
+                      </label>
+                      <img
+                        className={`${styles.arrow} img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
