@@ -53,7 +53,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                             <div className="d-flex">
 
                                 <select id='unitOfQuantity' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommodityDetails} required>
-                                    <option value={termsheetDetails?.commodityDetails?.unitOfQuantity}>{termsheetDetails?.commodityDetails?.unitOfQuantity == "mt" ? "MT" : null} </option>
+                                    <option value={termsheetDetails?.commodityDetails?.unitOfQuantity}>{termsheetDetails?.commodityDetails?.unitOfQuantity } </option>
 
 
                                 </select>

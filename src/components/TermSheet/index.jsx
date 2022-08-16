@@ -323,6 +323,7 @@ const Index = () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = termsheetDetails
 
+    tempSheet.transactionDetails.lcValue = newLcVal
     tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
     tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity)
     tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney)
