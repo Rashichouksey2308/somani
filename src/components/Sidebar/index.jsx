@@ -100,7 +100,7 @@ function Index() {
         },
       ],
       image: '/static/Loading, Transit & Unloading.svg',
-      route: '/loading',
+      route: '',
     },
 
     {
