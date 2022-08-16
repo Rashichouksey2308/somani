@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
-import _get from "lodash/get";
+import _get from 'lodash/get'
+import DownloadBar from '../DownloadBar'
 
 const Index = ({ finalCal, marginData }) => {
   const [revisedMarginmoney, setRevisedMarginMoney] = useState({
@@ -36,8 +37,6 @@ const Index = ({ finalCal, marginData }) => {
     },
   })
 
-
-
   return (
     <>
       <div className={`${styles.card}  accordionMargin card`}>
@@ -52,7 +51,10 @@ const Index = ({ finalCal, marginData }) => {
             <span className={`${styles.comm_head} sub_heading mb-2`}>
               Commodity
             </span>
-            <span className={`${styles.comm_val} heading`}> {marginData?.order?.commodity}</span>
+            <span className={`${styles.comm_val} heading`}>
+              {' '}
+              {marginData?.order?.commodity}
+            </span>
           </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <div className={`${styles.pay} mr-5`}>
@@ -66,9 +68,10 @@ const Index = ({ finalCal, marginData }) => {
             </div>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown`}>
-              <option>  {marginData?.order?.unitOfValue == 'Cr'
-                ? 'Crores'
-                : null}</option>
+              <option>
+                {' '}
+                {marginData?.order?.unitOfValue == 'Cr' ? 'Crores' : null}
+              </option>
             </select>
             <span>+</span>
           </div>
@@ -97,7 +100,9 @@ const Index = ({ finalCal, marginData }) => {
                     >
                       Quantity<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val}  heading`}>{marginData?.order?.quantity?.toLocaleString()}</div>
+                    <div className={`${styles.val}  heading`}>
+                      {marginData?.order?.quantity?.toLocaleString()}
+                    </div>
                   </div>
                 </div>
                 <div
@@ -115,7 +120,9 @@ const Index = ({ finalCal, marginData }) => {
                     >
                       Unit Price<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>{marginData?.order?.perUnitPrice}</div>
+                    <div className={`${styles.val} heading`}>
+                      {marginData?.order?.perUnitPrice}
+                    </div>
                   </div>
                 </div>
                 <div
@@ -133,7 +140,9 @@ const Index = ({ finalCal, marginData }) => {
                     >
                       Conversion Rate<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>{marginData?.conversionRate}</div>
+                    <div className={`${styles.val} heading`}>
+                      {marginData?.conversionRate}
+                    </div>
                   </div>
                 </div>
                 <div
@@ -180,8 +189,7 @@ const Index = ({ finalCal, marginData }) => {
                                 type={type}
                                 id={`inline-${type}-1`}
                                 defaultChecked={
-                                  marginData?.isUsanceInterestIncluded ===
-                                  true
+                                  marginData?.isUsanceInterestIncluded === true
                                 }
                               />
                               <Form.Check
@@ -192,8 +200,7 @@ const Index = ({ finalCal, marginData }) => {
                                 type={type}
                                 id={`inline-${type}-2`}
                                 defaultChecked={
-                                  marginData?.isUsanceInterestIncluded ===
-                                  false
+                                  marginData?.isUsanceInterestIncluded === false
                                 }
                               />
                             </div>
@@ -218,10 +225,13 @@ const Index = ({ finalCal, marginData }) => {
                     >
                       Trade Margin (%)<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}> {
-                      marginData?.order?.termsheet?.commercials
-                        ?.tradeMarginPercentage
-                    }</div>
+                    <div className={`${styles.val} heading`}>
+                      {' '}
+                      {
+                        marginData?.order?.termsheet?.commercials
+                          ?.tradeMarginPercentage
+                      }
+                    </div>
                   </div>
                 </div>
                 <div
@@ -240,7 +250,9 @@ const Index = ({ finalCal, marginData }) => {
                       Tolerance (+/-) Percentage
                       <strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>{marginData?.order?.tolerance}</div>
+                    <div className={`${styles.val} heading`}>
+                      {marginData?.order?.tolerance}
+                    </div>
                   </div>
                 </div>
                 <div
@@ -258,10 +270,13 @@ const Index = ({ finalCal, marginData }) => {
                     >
                       Margin Money (%)<strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}> {
-                      marginData?.order?.termsheet
-                        ?.transactionDetails?.marginMoney
-                    }</div>
+                    <div className={`${styles.val} heading`}>
+                      {' '}
+                      {
+                        marginData?.order?.termsheet?.transactionDetails
+                          ?.marginMoney
+                      }
+                    </div>
                   </div>
                 </div>
                 <div
@@ -1055,6 +1070,12 @@ const Index = ({ finalCal, marginData }) => {
           </div>
         </div>
       </div>
+
+      <DownloadBar
+        downLoadButtonName={`Download`}
+        isPrevious={true}
+        leftButtonName={`Save`}
+      />
     </>
   )
 }
