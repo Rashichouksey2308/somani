@@ -150,7 +150,7 @@
                 cursor: pointer;
                 width: 260px;
                 height: 48px;
-                background: #3687e8 0% 0% no-repeat padding-box;
+                background: #3687e8;
                 border-radius: 5px;
                 color: #ffffff;
                 display: flex;
@@ -176,13 +176,13 @@
             font-size: 16px;
             letter-spacing: 0.53px;
             line-height: 17px;
-            top: 21px;
+            top: 22px;
             left: 30px;
             margin-bottom: 0;
             position: absolute;
             pointer-events: none;
             box-sizing: border-box;
-            transform: translateY(-29px);
+            transform: translateY(-30px);
             transition: 0.3s all ease-in-out;
             z-index: 1;
             max-width: 86%;
@@ -236,7 +236,7 @@
             }
             &:focus {
               & + label {
-                transform: translateY(-29px);
+                transform: translateY(-30px);
               }
             }
           }
@@ -245,14 +245,14 @@
         .phone {
           .label_heading {
             left: 90px;
-            transform: translate(-61px, -31px);
+            transform: translate(-61px, -30px);
           }
           .input_field {
             border-top-left-radius: 0px;
             border-bottom-left-radius: 0px;
             &:focus {
               & + label {
-                transform: translate(-61px, -31px);
+                transform: translate(-61px, -30px);
               }
             }
           }
@@ -321,7 +321,7 @@
     cursor: pointer;
     width: 260px;
     height: 48px;
-    background: #3687e8 0% 0% no-repeat padding-box;
+    background: #3687e8;
     border-radius: 5px;
     color: #ffffff;
     display: flex;
@@ -334,7 +334,7 @@
     cursor: pointer;
     width: 260px;
     height: 48px;
-    background: #3687e8 0% 0% no-repeat padding-box;
+    background: #3687e8;
     border-radius: 5px;
     color: #ffffff;
     display: flex;
@@ -651,7 +651,7 @@ img {
     }
 
     .label_heading {
-      top: 27px;
+      top: 22px;
       left: 30px;
       font-size: 16px;
       line-height: 17px;
@@ -660,7 +660,7 @@ img {
       position: absolute;
       pointer-events: none;
       box-sizing: border-box;
-      transform: translateY(-31px);
+      transform: translateY(-30px);
       transition: 0.3s all ease-in-out;
       z-index: 1;
       max-width: 86%;
@@ -702,7 +702,7 @@ img {
       }
       &:focus {
         & + label {
-          transform: translateY(-31px);
+          transform: translateY(-30px);
         }
       }
       @include respond(md-desktop) {
@@ -786,7 +786,7 @@ img {
     pointer-events: none;
     line-height: 17px;
     box-sizing: border-box;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
     margin-left: 20px;
     transition: 0.3s all ease-in-out;
     background: #ffffff;
