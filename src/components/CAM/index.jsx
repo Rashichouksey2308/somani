@@ -306,6 +306,7 @@ function Index({
 export default Index
 
 const basicInfo = (camData) => {
+  // console
   return (
     <>
       <div className={`${styles.card} card`}>

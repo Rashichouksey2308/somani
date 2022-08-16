@@ -68,7 +68,7 @@ function Index() {
   const [manualDocModule, setManualDocModule] = useState(true)
   const [filteredDoc, setFilteredDoc] = useState([])
   const [gstData, setGstData] = useState({})
- // console.log(newDoc, "newDoc")
+  // console.log(newDoc, "newDoc")
 
   const { documentsFetched } = useSelector((state) => state.review)
   //console.log(documentsFetched, 'documentsFetched')
@@ -94,7 +94,7 @@ function Index() {
     dispatch(setDynamicName(orderList?.company?.companyName))
   }, [orderList, dispatch])
 
-console.log(orderList?.termsheet?.order,'termsheetOrder')
+  console.log(orderList?.termsheet?.order, 'termsheetOrder')
   useEffect(() => {
     const id = sessionStorage.getItem('orderID')
     dispatch(GetDocuments(`?order=${id}`))
@@ -204,7 +204,7 @@ console.log(orderList?.termsheet?.order,'termsheetOrder')
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.countryOfOrigin.trim() === '') {
+    } else if (orderDetails?.countryOfOrigin?.trim() === '') {
       let toastMessage = 'the country Of Origin can not be Empty'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -395,9 +395,12 @@ console.log(orderList?.termsheet?.order,'termsheetOrder')
   const [weaknessComment, setWeaknessComment] = useState(
     orderList?.company?.recommendations?.weakness,
   )
-const deleteComponent=(index)=>{
-   
-    setKeyAddData([...keyAddData.slice(0,index), ...keyAddData.slice(index+1)])
+  const deleteComponent = (index) => {
+
+    setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)])
+  }
+  const deleteAddress = (index) => {
+    setPersonData([...personData.slice(0, index), ...personData.slice(index + 1)])
   }
   const addCompanyCommentArr = (companyComments) => {
     let newArr = [...companyComment]
@@ -428,6 +431,45 @@ const deleteComponent=(index)=>{
     let newArr = [...weaknessComment]
     newArr.push(weaknessComments)
     setWeaknessComment(newArr)
+  }
+
+
+  const dltCompanyCommentArr = (index) => {
+    // let newArr = [...companyComment]
+    // newArr.pop(index)
+    // setCompanyComment(newArr)
+    setCompanyComment([...companyComment.slice(0,index), ...companyComment.slice(index+1)])
+  
+  }
+  const dltFinancialsCommentArr = (index) => {
+    // let newArr = [...financialsComment]
+    // newArr.pop(index)
+    setFinancialsComment([...financialsComment.slice(0, index), ...financialsComment.slice(index + 1)])
+    // setFinancialsComment(newArr)
+  }
+  const dltSanctionCommentArr = (index) => {
+    // let newArr = [...sanctionComment]
+    // newArr.pop(index)
+    // setSanctionComment(newArr)
+    setSanctionComment([...sanctionComment.slice(0, index), ...sanctionComment.slice(index + 1)])
+  }
+  const dltApproveRemarkArr = (index) => {
+    // let newArr = [...approveComment]
+    // newArr.pop(index)
+    // setApproveComment(newArr)
+    setApproveComment([...approveComment.slice(0, index), ...approveComment.slice(index + 1)])
+  }
+  const dltStrengthsCommentArr = (index) => {
+    // let newArr = [...strengthsComment]
+    // newArr.pop(index)
+    // setStrengthsComment(newArr)
+    setStrengthsComment([...strengthsComment.slice(0, index), ...strengthsComment.slice(index + 1)])
+  }
+  const dltWeaknessCommentArr = (index) => {
+    // let newArr = [...weaknessComment]
+    // newArr.pop(index)
+    // setWeaknessComment(newArr)
+    setWeaknessComment([...weaknessComment.slice(0, index), ...weaknessComment.slice(index + 1)])
   }
 
   const [debtData, setDebtData] = useState([
@@ -564,16 +606,16 @@ const deleteComponent=(index)=>{
     newArr.push(keyAddressData)
     setKeyAddData(newArr)
   }
-  const updateKeyAddDataArr = (newData,index) => {
-    
-        setKeyAddData(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        
+  const updateKeyAddDataArr = (newData, index) => {
+
+    setKeyAddData(prevState => {
+      const newState = prevState.map((obj, i) => {
+
         if (i == index) {
-         
+
           return newData;
         }
-// 👇️ otherwise return object as is
+        // 👇️ otherwise return object as is
         return obj;
       });
 
@@ -586,41 +628,41 @@ const deleteComponent=(index)=>{
     newArr.push(debt)
     setDebtData(newArr)
   }
-console.log(companyData?.compliance?.alerts,"ompanyData?.compliance?.alerts")
-const [level,setLevel]=useState({
-  high:[],
-  low:[],
-  medium:[],
-  sever:[]
+  console.log(companyData?.compliance?.alerts, "ompanyData?.compliance?.alerts")
+  const [level, setLevel] = useState({
+    high: [],
+    low: [],
+    medium: [],
+    sever: []
 
-})
-useEffect(() => {
-  let a={
-  high:[],
-  low:[],
-  medium:[],
-  sever:[]
+  })
+  useEffect(() => {
+    let a = {
+      high: [],
+      low: [],
+      medium: [],
+      sever: []
 
-}
-  if(companyData?.compliance?.alerts){
-    companyData?.compliance?.alerts.forEach((val,index)=>{
-       if(val.severity=="low"){
-         a.low.push(val)
-       }
-       if(val.severity=="high"){
-         a.high.push(val)
-       }
-       if(val.severity=="medium"){
-         a.medium.push(val)
-       }
-       if(val.severity=="severe"){
-         a.sever.push(val)
-       }
-    })
-    setLevel(a)
-  }
-},[companyData?.compliance?.alerts])
-console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
+    }
+    if (companyData?.compliance?.alerts) {
+      companyData?.compliance?.alerts.forEach((val, index) => {
+        if (val.severity == "low") {
+          a.low.push(val)
+        }
+        if (val.severity == "high") {
+          a.high.push(val)
+        }
+        if (val.severity == "medium") {
+          a.medium.push(val)
+        }
+        if (val.severity == "severe") {
+          a.sever.push(val)
+        }
+      })
+      setLevel(a)
+    }
+  }, [companyData?.compliance?.alerts])
+  console.log(companyData?.compliance?.litigations[0]?.highPriority, "sddssds")
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
     // newArr.push(keyPersonData)
@@ -845,14 +887,14 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
   console.log(newDoc, "documents")
 
   const GstDataHandler = (data) => {
-    console.log(data,"gst")
+    console.log(data, "gst")
     setGstData(data)
   }
-  console.log(gstData,"gstDAta")
+  console.log(gstData, "gstDAta")
 
- const deleteData=(index)=>{
-  console.log("indexssd",index)
-    setCompanyComment([...companyComment.slice(0,index), ...companyComment.slice(index+1)])
+  const deleteData = (index) => {
+    //console.log("indexssd",index)
+    setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)])
   }
 
   return (
@@ -1546,7 +1588,8 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
                     keyAddData={keyAddData}
                     deleteComponent={deleteComponent}
                     updateKeyAddDataArr={updateKeyAddDataArr}
-  
+                    deleteAddress={deleteAddress}
+
 
                   />
                   <Recommendations
@@ -1556,10 +1599,15 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
                     addGroupExpArr={addGroupExpArr}
                     financialsComment={financialsComment}
                     addWeaknessCommentArr={addWeaknessCommentArr}
+                    dltWeaknessCommentArr={dltWeaknessCommentArr}
                     addStrengthsCommentArr={addStrengthsCommentArr}
+                    dltStrengthsCommentArr={dltStrengthsCommentArr}
                     addSanctionCommentArr={addSanctionCommentArr}
+                    dltSanctionCommentArr={dltSanctionCommentArr}
                     addFinancialsCommentArr={addFinancialsCommentArr}
+                    dltFinancialsCommentArr={dltFinancialsCommentArr}
                     addCompanyCommentArr={addCompanyCommentArr}
+                    dltCompanyCommentArr={dltCompanyCommentArr}
                     companyComment={companyComment}
                     sanctionComment={sanctionComment}
                     strengthsComment={strengthsComment}
@@ -1570,7 +1618,7 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM
-                  gstData={gstData}
+                    gstData={gstData}
                     camData={orderList}
                     companyData={companyData}
                     addApproveRemarkArr={addApproveRemarkArr}
@@ -1692,35 +1740,35 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
                         </div>
 
                         <div className={styles.table_container}>
-                           <div
-                      className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
-                    >
-                      <div className='d-flex align-items-center'>
-                        <select
-                          className={`${styles.dropDown} ${styles.customSelect} input form-control`}
-                        >
-                          <option>Lead Onboarding &amp; Order Approval</option>
-                          <option>Agreements, Insurance &amp; LC Opening</option>
-                          <option>Loading-Transit-Unloading</option>
-                          <option>Custom Clearance And Warehousing</option>
-                          <option value="Others">Others</option>
-                        </select>
-                        <img
-                          className={`${styles.arrow2} img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                      <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
-                        <img className={` ${styles.searchImage} img-fluid`} src="/static/search-grey.svg" alt="Search"></img>
-                        <input
-                          className={`${styles.searchBar} input form-control`}
-                          placeholder="Search"
-                        >
-                          
-                        </input>
-                      </div>
-              </div>
+                          <div
+                            className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
+                          >
+                            <div className='d-flex align-items-center'>
+                              <select
+                                className={`${styles.dropDown} ${styles.customSelect} input form-control`}
+                              >
+                                <option>Lead Onboarding &amp; Order Approval</option>
+                                <option>Agreements, Insurance &amp; LC Opening</option>
+                                <option>Loading-Transit-Unloading</option>
+                                <option>Custom Clearance And Warehousing</option>
+                                <option value="Others">Others</option>
+                              </select>
+                              <img
+                                className={`${styles.arrow2} img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                            <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
+                              <img className={` ${styles.searchImage} img-fluid`} src="/static/search-grey.svg" alt="Search"></img>
+                              <input
+                                className={`${styles.searchBar} input form-control`}
+                                placeholder="Search"
+                              >
+
+                              </input>
+                            </div>
+                          </div>
                           <table
                             className={`${styles.table} table`}
                             cellPadding="0"
@@ -1736,11 +1784,11 @@ console.log(companyData?.compliance?.litigations[0]?.highPriority,"sddssds")
                                 <th>STATUS</th>
                                 <th>ACTION</th>
 
-                              
+
                               </tr>
                             </thead>
                             <tbody>
-                              
+
                               <tr className="uploadRowTable">
                                 <td className={`${styles.doc_name}`}>
                                   Insurance Quotation
