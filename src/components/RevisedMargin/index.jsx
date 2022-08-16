@@ -11,7 +11,8 @@ const Index = ({
   setSameRevised,
   invoiceDataRevised,
   saveForCalculation,
-  calcRevised
+  calcRevised,
+  handleUpdateRevisedMarginMoney
 
 }) => {
   return (
@@ -1160,6 +1161,7 @@ const Index = ({
         downLoadButtonName={`Download`}
         isPrevious={true}
         leftButtonName={`Save`}
+        handleUpdate={handleUpdateRevisedMarginMoney}
       />
     </>
   )
