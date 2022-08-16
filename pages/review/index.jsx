@@ -1071,7 +1071,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion shadow-none" id="profileAccordion">
-                    <CompanyDetails order={orderList?.company} companyId={companyData?.company} companyDetail={companyData} />
+                    <CompanyDetails order={orderList?.company}  companyDetail={companyData} />
                     <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorData={companyData} />
                     <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />

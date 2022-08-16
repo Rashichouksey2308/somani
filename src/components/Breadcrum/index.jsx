@@ -17,6 +17,8 @@ export default function Index({isQuery}) {
     ||isQuery?.match("/generic")
     ||isQuery?.match("/letter-table/letter-amend/id")
      ||isQuery == "/transit"
+     ||isQuery == "/review-queue"
+
     ) {
       show.units=false
       show.currency=false
@@ -49,6 +51,7 @@ export default function Index({isQuery}) {
   const router = useRouter();
   const pageName = useSelector((state) => state?.user.pageName)
   const id = useSelector((state) => state?.user.id)
+  const order = useSelector((state) => state?.user.order)
  console.log(id,"pageName",pageName)
   useEffect(() => {
 
@@ -89,7 +92,7 @@ export default function Index({isQuery}) {
       }}
        if ("margin-money" == pageName) {
         if(id!==null) {
-        router.route = "/Leads"  + "/Margin Money" +`/${id}`+ "/Order ID";
+        router.route = "/Leads"  + "/Margin Money" +`/${id}`+ `/${order}`;
         console.log("router123",router.route)
       }else{
         router.route = "/Leads" + "/Margin Money";

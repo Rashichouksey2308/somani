@@ -4,3 +4,5 @@ export const CHANGE_THEME_SUCCESS = 'CHANGE_THEME_SUCCESS'
 export const PAGE_NAME = 'PAGE_NAME'
 
 export const DYNAMIC_PAGE = 'DYNAMIC_PAGE'
+
+export const DYNAMIC_ORDER = 'DYNAMIC_ORDER'

@@ -377,7 +377,7 @@ const basicInfo = (camData) => {
                     State
                   </span>
                   <span className={`${styles.value} value`}>
-                  {_get(camData, 'company.keyAddress[0].state', '')}
+                    {_get(camData, 'company.keyAddress[0].state', '')}
                     {/* {camData?.company?.keyAddress[0]?.state} */}
                   </span>
                 </Col>
@@ -1074,29 +1074,34 @@ const directorDetails = (camData) => {
               </tr>
 
               {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map(
-                (director, index) => (
-                  <tr key={index}>
-                    <td
-                      className={`d-flex justify-content-start align-content-center`}
-                    >
-                      <div className={`${styles.icon} `}>
-                        <span
-                          className={`d-flex justify-content-center align-content-center`}
-                        >
-                          AJ
-                        </span>
-                      </div>
+                (director, index) => {
+                  let name = director?.name
+                  let [fName, lName] = director?.name.split(' ')
 
-                      <span className={` ${styles.name} ml-3  `}>
-                        {director?.name}
-                      </span>
-                    </td>
-                    <td>{director?.pan[0]}</td>
-                    <td>{director.din}</td>
-                    <td>{director.tenureStartDate}</td>
-                    <td>30%</td>
-                  </tr>
-                ),
+                  return (
+                    <tr key={index}>
+                      <td
+                        className={`d-flex justify-content-start align-content-center`}
+                      >
+                        <div className={`${styles.icon} `}>
+                          <span
+                            className={`d-flex justify-content-center align-content-center`}
+                          >
+                            {fName.charAt(0)}{lName.charAt(0)}
+                          </span>
+                        </div>
+
+                        <span className={` ${styles.name} ml-3  `}>
+                          {director?.name}
+                        </span>
+                      </td>
+                      <td>{director?.pan[0]}</td>
+                      <td>{director.din}</td>
+                      <td>{director.tenureStartDate}</td>
+                      <td>30%</td>
+                    </tr>
+                  )
+                },
               )}
             </table>
           </div>
@@ -2937,7 +2942,7 @@ const trends = (
                 </div>
                 <div className={`${styles.chart}`}>
                   <Line data={TotalPurchasesDataLine} options={lineOption} />
-                </div>                
+                </div>
                 <div className={`${styles.name}`}>
                   <div className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}>
                     <div className={styles.round} style={{ backgroundColor: `red` }}></div>

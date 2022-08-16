@@ -2,14 +2,15 @@
 import React, { useState } from 'react'
 import styles from '../profile.module.scss'
 import CommonSave from '../../CommonSave'
-import { useDispatch} from 'react-redux'
-import {UpdateCompanyDetails} from '../../../redux/companyDetail/action'
+import { useDispatch } from 'react-redux'
+import { UpdateCompanyDetails } from '../../../redux/companyDetail/action'
 
-function Index({order, companyDetail }) {
+function Index({ order, companyDetail }) {
+   // console.log(companyDetail, 'companyDetail')
 
 
     const [updateCompany, setUpdateCompany] = useState({
-        _id: companyDetail?.company
+
     })
 
     const dispatch = useDispatch()
@@ -22,10 +23,14 @@ function Index({order, companyDetail }) {
     }
 
     const saveHandler = () => {
-        //console.log(updateCompany,"updateCompany")
-        dispatch(UpdateCompanyDetails(updateCompany))
+        const payload = {
+            ...updateCompany,
+            _id: companyDetail?.company
+        }
+        // console.log(updateCompany, "updateCompany")
+        dispatch(UpdateCompanyDetails(payload))
     }
-    console.log(order,'order', companyDetail)
+    console.log(order, 'order', companyDetail)
 
     return (
 
@@ -80,7 +85,7 @@ function Index({order, companyDetail }) {
                             </div>
                             <div className="col-md-3">
                                 <div className={`${styles.label} label_heading`}>Email Domain</div>
-                                <div className={`${styles.value} accordion_Text`}>{companyDetail?.profile?.companyDetail?.emailDomain} <img src='/static/approved.svg' alt='approved' className='img-fluid'/></div>
+                                <div className={`${styles.value} accordion_Text`}>{companyDetail?.profile?.companyDetail?.emailDomain} <img src='/static/approved.svg' alt='approved' className='img-fluid' /></div>
                             </div>
                             <div className="col-md-3">
                                 <div className={`${styles.label} label_heading`}>Number of Shareholders</div>
@@ -126,69 +131,69 @@ function Index({order, companyDetail }) {
                         </div>
                         <div className="row">
                             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                                 <div className='d-flex'>
-                                <select id='sourceChanel' onChange={onChangeHandler}
-                                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                    name="Sourcing">
-                                    <option value="SocialMedia">{order?.sourceChanel}</option>
-                                    <option value="Website">Website</option>
-                                    
-                                </select>
-                                <label className={`${styles.label_heading} label_heading`}>
-                                    Sourcing Channel
-                                    <strong className="text-danger">*</strong>
-                                </label>
-                                <img
-                                    className={`${styles.arrow} image_arrow img-fluid`}
-                                    src="/static/inputDropDown.svg"
-                                    alt="Search"
-                                />
-                           </div>
+                                <div className='d-flex'>
+                                    <select id='sourceChanel' onChange={onChangeHandler}
+                                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                        name="Sourcing">
+                                        <option value="SocialMedia">{order?.sourceChanel}</option>
+                                        <option value="Website">Website</option>
+
+                                    </select>
+                                    <label className={`${styles.label_heading} label_heading`}>
+                                        Sourcing Channel
+                                        <strong className="text-danger">*</strong>
+                                    </label>
+                                    <img
+                                        className={`${styles.arrow} image_arrow img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                    />
+                                </div>
                             </div>
                             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                                 <div className='d-flex'>
-                                <select id='referedBy' onChange={onChangeHandler}
-                                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                    name="Sourcing" 
-                                    value={order?.referedBy}
+                                    <select id='referedBy' onChange={onChangeHandler}
+                                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                        name="Sourcing"
+                                        value={order?.referedBy}
                                     >
 
-                                    <option value="CHA">{"CHA"}</option>
-                                    <option value="Not CHA">Not CHA</option>
-                                </select>
-                                <label className={`${styles.label_heading} label_heading`}>
-                                    Referred By
-                                    <strong className="text-danger">*</strong>
-                                </label>
-                                <img
-                                    className={`${styles.arrow} image_arrow img-fluid`}
-                                    src="/static/inputDropDown.svg"
-                                    alt="Search"
-                                />
-                        </div>
+                                        <option value="CHA">{"CHA"}</option>
+                                        <option value="Not CHA">Not CHA</option>
+                                    </select>
+                                    <label className={`${styles.label_heading} label_heading`}>
+                                        Referred By
+                                        <strong className="text-danger">*</strong>
+                                    </label>
+                                    <img
+                                        className={`${styles.arrow} image_arrow img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                    />
+                                </div>
                             </div>
                             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                                  <div className='d-flex'>
-                                <select id='referalName' onChange={onChangeHandler}
-                                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                    name="Sourcing">
+                                <div className='d-flex'>
+                                    <select id='referalName' onChange={onChangeHandler}
+                                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                        name="Sourcing">
 
-                                    <option value="">Bhutani Traders</option>
+                                        <option value="">Bhutani Traders</option>
 
-                                </select>
-                                <label className={`${styles.label_heading} label_heading`}>
-                                    Referral Name
-                                    <strong className="text-danger">*</strong>
-                                </label>
-                                 <img
-                                    className={`${styles.arrow} image_arrow img-fluid`}
-                                    src="/static/inputDropDown.svg"
-                                    alt="Search"
-                                />
-                        </div>
+                                    </select>
+                                    <label className={`${styles.label_heading} label_heading`}>
+                                        Referral Name
+                                        <strong className="text-danger">*</strong>
+                                    </label>
+                                    <img
+                                        className={`${styles.arrow} image_arrow img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                    />
+                                </div>
                             </div>
                             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                             <button onClick={saveHandler} className={`${styles.saveBtn} `}>Save</button>
+                                <button onClick={saveHandler} className={`${styles.saveBtn} `}>Save</button>
                             </div>
 
                             {/* <div className='mt-3 ml-3'>

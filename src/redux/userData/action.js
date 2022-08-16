@@ -29,6 +29,12 @@ function dynamicPage(value = null) {
     value,
   }
 }
+function dynamicOrder(value = null) {
+  return {
+    type: types.DYNAMIC_ORDER,
+    value,
+  }
+}
 
 export const ChangeTheme = () => async (dispatch, getState, api) => {
   dispatch(changeTheme())
@@ -70,4 +76,9 @@ export const setPageName = (value) => async (dispatch, getState, api) => {
 export const setDynamicName = (value) => async (dispatch, getState, api) => {
 
   dispatch(dynamicPage(value))
+}
+
+export const setDynamicOrder = (value) => async (dispatch, getState, api) => {
+
+  dispatch(dynamicOrder(value))
 }
