@@ -147,7 +147,7 @@ const Index = ({
               financialsComment.map((comment, index) => (
                 <div key={index} className={`${styles.comment_para} d-flex `}>
                   <Form.Control
-                    className={`${styles.comment}`}
+                    className={`${styles.comment} border-0 shadow-none`}
                     defaultValue={comment}
                     as="textarea"
                     rows={3}

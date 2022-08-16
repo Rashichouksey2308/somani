@@ -70,7 +70,7 @@ const[financeData,setFinanceData]=useState(finance)
   }
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} vessel_card`}>
         <Form className={`${styles.form} border-bottom-0`}>
           <div className="row border-color ">
 
