@@ -327,7 +327,7 @@ function Index() {
                 Delivery Order
               </a>
             </li>
-            {_get(ReleaseOrderData, 'data[0].lastMileDelivery', false) ? (
+            {_get(ReleaseOrderData, 'data[0].lastMileDelivery', true) ? (
               <>
                 <li className={`${styles.navItem} nav-item`}>
                   <a
