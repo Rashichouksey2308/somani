@@ -16,6 +16,11 @@ const Index = ({
   addStrengthsCommentArr,
   addWeaknessCommentArr,
   addSanctionCommentArr,
+  dltCompanyCommentArr,
+  dltFinancialsCommentArr,
+  dltStrengthsCommentArr,
+  dltWeaknessCommentArr,
+  dltSanctionCommentArr,
   groupExposureData,
   addGroupExpArr,
   saveSuggestedCreditData,
@@ -160,6 +165,7 @@ const Index = ({
                       src="/static/delete 2.svg"
                       className="img-fluid"
                       alt="delete"
+                      onClick={() => dltFinancialsCommentArr(index)}
                     />
                   </div>
                 </div>
@@ -518,6 +524,7 @@ const Index = ({
                       src="/static/delete 2.svg"
                       className="img-fluid mr-4"
                       alt="delete"
+                      onClick={() => dltStrengthsCommentArr(index)}
                     />
                     <img
                       src="/static/mode_edit.svg"
@@ -595,6 +602,9 @@ const Index = ({
                       src="/static/delete 2.svg"
                       className="img-fluid mr-4"
                       alt="delete"
+                      onClick={(e) => {
+                        dltWeaknessCommentArr(index)
+                      }}
                     />
                     <img
                       src="/static/mode_edit.svg"
@@ -774,6 +784,7 @@ const Index = ({
                       src="/static/delete 2.svg"
                       className="img-fluid mr-4"
                       alt="delete"
+                      onClick={() => dltSanctionCommentArr(index)}
                     />
                     <img
                       src="/static/mode_edit.svg"
