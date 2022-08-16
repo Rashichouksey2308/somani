@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import { data } from 'jquery'
 import _get from "lodash/get";
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
+import moment from 'moment'
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -25,7 +26,7 @@ const Index = () => {
   const [additionalComments, setAdditionalComments] = useState([])
   const [order, setOrder] = useState('')
   console.log(termsheetDetails, 'termsheetDetails')
-  console.log(additionalComments,'additionalCommentType')
+  console.log(additionalComments, 'additionalCommentType')
 
 
 
@@ -37,64 +38,64 @@ const Index = () => {
     dispatch(setPageName('termsheet'))
   }, [dispatch])
   let OrdID = sessionStorage.getItem('termOrdID')
-  let newLcVal = removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) *  removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice)
+  let newLcVal = removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) * removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice)
 
   // console.log(newLcVal, 'THIS IS NEW LC VAL')
 
-    useEffect(() => {
-      {
-        termsheet &&
-          termsheet?.data?.map((sheet) =>
+  useEffect(() => {
+    {
+      termsheet &&
+        termsheet?.data?.map((sheet) =>
 
-            setTermsheetDetails({
-              termsheetId: sheet._id,
-              commodityDetails: {
-                unitOfQuantity: sheet?.order?.unitOfQuantity,
-                orderCurrency: sheet?.order?.orderCurrency,
-                quantity: sheet?.order?.quantity,
-                perUnitPrice: sheet?.order?.perUnitPrice,
-                commodity: sheet?.order?.commodity,
-                tolerance: sheet?.order?.tolerance,
-              },
-              transactionDetails: {
-                // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
-                lcValue: newLcVal,
-                lcCurrency: sheet?.transactionDetails?.lcCurrency,
-                marginMoney: sheet?.transactionDetails?.marginMoney,
-                lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
-                incoTerms: sheet?.order?.incoTerm,
-                loadPort: sheet?.transactionDetails?.loadPort,
-                countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
-                shipmentType: sheet?.transactionDetails?.shipmentType,
-                partShipmentAllowed: sheet?.transactionDetails?.partShipmentAllowed,
-                portOfDischarge: sheet?.transactionDetails?.portOfDischarge,
-                billOfEntity: sheet?.transactionDetails?.billOfEntity,
-                thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
-                storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
-              },
-              paymentDueDate: {
-                computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
-                daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
-                daysFromVesselDischargeDate:
-                  sheet?.paymentDueDate?.daysFromVesselDischargeDate,
-              },
-              commercials: {
-                tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
-                lcOpeningValue: sheet?.commercials?.lcOpeningValue,
-                lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
-                lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
-                lcOpeningChargesPercentage: sheet?.commercials?.lcOpeningChargesPercentage,
-                usanceInterestPercetage: sheet?.commercials?.usanceInterestPercetage,
-                overDueInterestPerMonth: sheet?.commercials?.overDueInterestPerMonth,
-                exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
-                forexHedging: sheet?.commercials?.forexHedging,
-                otherTermsAndConditions: sheet?.commercials?.otherTermsAndConditions,
-                version: sheet?.commercials?.version,
-              },
-            }),
-          )
-      }
-    }, [termsheet])
+          setTermsheetDetails({
+            termsheetId: sheet._id,
+            commodityDetails: {
+              unitOfQuantity: sheet?.order?.unitOfQuantity,
+              orderCurrency: sheet?.order?.orderCurrency,
+              quantity: sheet?.order?.quantity,
+              perUnitPrice: sheet?.order?.perUnitPrice,
+              commodity: sheet?.order?.commodity,
+              tolerance: sheet?.order?.tolerance,
+            },
+            transactionDetails: {
+              // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
+              lcValue: newLcVal,
+              lcCurrency: sheet?.transactionDetails?.lcCurrency,
+              marginMoney: sheet?.transactionDetails?.marginMoney,
+              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
+              incoTerms: sheet?.order?.incoTerm,
+              loadPort: sheet?.transactionDetails?.loadPort,
+              countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
+              shipmentType: sheet?.transactionDetails?.shipmentType,
+              partShipmentAllowed: sheet?.transactionDetails?.partShipmentAllowed,
+              portOfDischarge: sheet?.transactionDetails?.portOfDischarge,
+              billOfEntity: sheet?.transactionDetails?.billOfEntity,
+              thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
+              storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+            },
+            paymentDueDate: {
+              computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
+              daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
+              daysFromVesselDischargeDate:
+                sheet?.paymentDueDate?.daysFromVesselDischargeDate,
+            },
+            commercials: {
+              tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
+              lcOpeningValue: sheet?.commercials?.lcOpeningValue,
+              lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
+              lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
+              lcOpeningChargesPercentage: sheet?.commercials?.lcOpeningChargesPercentage,
+              usanceInterestPercetage: sheet?.commercials?.usanceInterestPercetage,
+              overDueInterestPerMonth: sheet?.commercials?.overDueInterestPerMonth,
+              exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
+              forexHedging: sheet?.commercials?.forexHedging,
+              otherTermsAndConditions: sheet?.commercials?.otherTermsAndConditions,
+              version: sheet?.commercials?.version,
+            },
+          }),
+        )
+    }
+  }, [termsheet])
 
   useEffect(() => {
     {
@@ -412,7 +413,8 @@ const Index = () => {
                         Created On
                       </h3>
                       <p className={`${styles.value} accordion_Text`}>
-                        {(sheet?.company?.createdAt).slice(0, 10)}
+                        {moment((sheet?.company?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+
                       </p>
                     </div>
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>
@@ -420,7 +422,8 @@ const Index = () => {
                         Last Modified
                       </h3>
                       <p className={`${styles.value} accordion_Text`}>
-                        {(sheet?.company?.updatedAt).slice(0, 10)}
+
+                        {moment((sheet?.company?.updatedAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
                       </p>
                     </div>
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>
@@ -428,7 +431,8 @@ const Index = () => {
                         Approved Date
                       </h3>
                       <p className={`${styles.value} accordion_Text`}>
-                        {sheet?.order?.cam?.approvedAt?.slice(0, 10)}
+
+                        {sheet?.order?.cam?.approvedAt ? moment(sheet?.order?.cam?.approvedAt?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : ''}
                       </p>
                     </div>
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>

@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   UpdateMarginMoney,
   GetMarginMoney,
+  RevisedMarginMoney,
 } from '../../src/redux/marginMoney/action'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import { addPrefixOrSuffix } from '../../src/utils/helper'
@@ -79,6 +80,7 @@ function Index() {
     // console.log(newInput)
     setForCalculation(newInput)
     getData2()
+    getRevisedData2()
   }
 
   const [finalCal, setFinalCal] = useState({
@@ -97,7 +99,9 @@ function Index() {
   })
   useEffect(() => {
     getData()
+
   }, [marginData])
+
   const getData = () => {
     setForCalculation({
       isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded,
@@ -264,7 +268,7 @@ function Index() {
   const saveInvoiceData = (name, value) => {
     const newInput = { ...invoiceData }
     newInput[name] = value
-    console.log(newInput, 'nnto', name, value)
+    // console.log(newInput, 'nnto', name, value)
 
     setInvoiceData({ ...newInput })
   }
@@ -326,6 +330,140 @@ function Index() {
     }
 
     dispatch(UpdateMarginMoney(obj))
+  }
+
+  const [revisedCalc, setRevisedCalc] = useState({
+    additionalAmountPerPDC: marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
+    revisedNetOrderValue: marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
+    marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
+    revisedMarginMoney: marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
+    marginMoneyReceived: marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
+    marginMoneyPayable: marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
+  })
+
+  
+
+  const [calcRevised, setCalcRevised] = useState({
+    additionalAmountPerPDC: '',
+    revisedNetOrderValue: '',
+    marginMoney: '',
+    revisedMarginMoney: '',
+    marginMoneyReceived: '',
+    marginMoneyPayable: '',
+  })
+
+  console.log(calcRevised, "THIS IS CALC REVISED")
+
+  const [invoiceDataRevised, setInvoiceDataRevised] = useState({
+    buyerName: '',
+    buyerGSTIN: '',
+    buyerAddress: '',
+    isConsigneeSameAsBuyer: false,
+    consigneeName: '',
+    consigneeGSTIN: '',
+    consigneeAddress: '',
+    importerName: '',
+    branchOffice: '',
+    companyAddress: '',
+    importerGSTIN: '',
+    bankName: '',
+    branch: '',
+    branchAddress: '',
+    IFSCcode: '',
+    accountNo: '',
+  })
+
+  useEffect(() => {
+    getRevisedData()
+  }, [marginData])
+
+
+  const getRevisedData = () => {
+
+  setRevisedCalc({
+    additionalAmountPerPDC: marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
+    revisedNetOrderValue: marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
+    marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
+    revisedMarginMoney: marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
+    marginMoneyReceived: marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
+    marginMoneyPayable: marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
+  })
+
+  let additionalAmountPerPDC = parseFloat((marginData?.calculation?.totalSPDC - Number(revisedCalc.additionalAmountPerPDC))/Number(forCalculation.additionalPDC)).toFixed(2)
+  console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
+  let revisedNetOrderValueNew = parseFloat(marginData?.revisedMarginMoney?.totalOrderValue - marginData?.revisedMarginMoney?.totalOrderValue).toFixed(2)
+  let marginMoneyRevised = marginData?.calculation?.marginMoney
+  let revisedMarginMoneyNew = marginData?.revisedMarginMoney?.marginMoney
+
+  setCalcRevised({
+    additionalAmountPerPDC: additionalAmountPerPDC,
+    revisedNetOrderValue: revisedNetOrderValueNew,
+    marginMoney: marginMoneyRevised,
+    revisedMarginMoney: revisedMarginMoneyNew,
+    marginMoneyReceived: '',
+    marginMoneyPayable: '',
+  })
+
+  }
+
+  useEffect(() => {
+    getRevisedData2()
+  }, [revisedCalc])
+  
+  const getRevisedData2 = () => {
+
+    let additionalAmountPerPDC = parseFloat((Number(marginData?.calculation?.totalSPDC) - Number(revisedCalc.additionalAmountPerPDC ? revisedCalc.additionalAmountPerPDC : 0))/Number(forCalculation.additionalPDC)).toFixed(2)
+    console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
+    let revisedNetOrderValueNew = parseFloat(Number(marginData?.revisedMarginMoney?.totalOrderValue ? marginData?.revisedMarginMoney?.totalOrderValue : 0 ) - Number(marginData?.calculation?.totalOrderValue)).toFixed(2)
+    let marginMoneyRevised = Number(marginData?.calculation?.marginMoney).toFixed(2)
+    let revisedMarginMoneyNew = Number(marginData?.revisedMarginMoney?.marginMoney ? marginData?.revisedMarginMoney?.marginMoney : 0 )
+
+  setCalcRevised({
+    additionalAmountPerPDC: additionalAmountPerPDC,
+    revisedNetOrderValue: revisedNetOrderValueNew,
+    marginMoney: marginMoneyRevised,
+    revisedMarginMoney: revisedMarginMoneyNew,
+    marginMoneyReceived: '',
+    marginMoneyPayable: '',
+  })
+
+  }
+
+ 
+  const saveInvoiceDataRevisedRevised = (name, value) => {
+    const newInput = { ...invoiceDataRevised }
+    newInput[name] = value
+    // console.log(newInput, 'nnto', name, value)
+
+    setInvoiceDataRevised({ ...newInput })
+  }
+
+  const setSameRevised = (val) => {
+    if (val == true) {
+      setInvoiceDataRevised({
+        ...invoiceDataRevised,
+        consigneeName: invoiceDataRevised.buyerName,
+        consigneeGSTIN: invoiceDataRevised.buyerGSTIN,
+        consigneeAddress: invoiceDataRevised.buyerAddress,
+      })
+    } else {
+      setInvoiceDataRevised({
+        ...invoiceDataRevised,
+        consigneeName: '',
+        consigneeGSTIN: '',
+        consigneeAddress: '',
+      })
+    }
+  }
+
+  const handleUpdateRevisedMarginMoney = () => {
+    let fd = new FormData()
+    fd.append('isActive', true)
+    fd.append('additionalPDC', forCalculation.additionalPDC)
+    fd.append('calculation', JSON.stringify(calcRevised))
+    fd.append('invoiceDetail', JSON.stringify(invoiceDataRevised))
+
+    dispatch(RevisedMarginMoney(fd))
   }
 
   return (
@@ -1700,6 +1838,14 @@ function Index() {
                       <RevisedMargin
                         marginData={marginData}
                         finalCal={finalCal}
+                        saveInvoiceDataRevisedRevised={
+                          saveInvoiceDataRevisedRevised
+                        }
+                        setSameRevised={setSameRevised}
+                        invoiceDataRevised={invoiceDataRevised}
+                        saveForCalculation={saveForCalculation}
+                        calcRevised={calcRevised}
+                        handleUpdateRevisedMarginMoney={handleUpdateRevisedMarginMoney}
                       />
                     </div>
                   </div>
@@ -1715,6 +1861,7 @@ function Index() {
                   <DownloadBar
                     downLoadButtonName={`Download`}
                     isPrevious={true}
+                    handleUpdate={handleUpdate}
                     leftButtonName={`Save`}
                     rightButtonName={`Preview`}
                   />
@@ -1728,6 +1875,7 @@ function Index() {
         downLoadButtonName={`Download`}
         isPrevious={true}
         handleUpdate={handleUpdate}
+        handleUpdateRevised={handleUpdateRevisedMarginMoney}
         leftButtonName={`Save`}
         rightButtonName={`Preview`}
         handleApprove={routeChange}

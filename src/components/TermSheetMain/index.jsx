@@ -8,6 +8,7 @@ import { getAllTermsheet, GetTermsheet } from 'redux/buyerProfile/action'
 import { setPageName, setDynamicName } from '../../redux/userData/action'
 import { getDisplayName } from 'next/dist/shared/lib/utils'
 import Filter from '../Filter'
+import moment from 'moment'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -21,7 +22,7 @@ function Index() {
 
   const handleRoute = (sheet) => {
     dispatch(GetTermsheet(`?company=${sheet.company._id}`))
-    sessionStorage.setItem('termsheetId', sheet.company._id )
+    sessionStorage.setItem('termsheetId', sheet.company._id)
     Router.push('/termsheet/order-list')
   }
   return (
@@ -49,7 +50,7 @@ function Index() {
                 />
               </div>
             </div>
-            <Filter/>
+            <Filter />
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -121,10 +122,10 @@ function Index() {
                   <tbody>
                     {allTermsheets && allTermsheets?.data?.map((sheet, index) => (
                       <tr key={index} className={`${styles.table_row} table_row`}>
-                        <td>{sheet.order.orderId}</td>
+                        <td>{sheet.order.applicationId ? sheet.order.applicationId : sheet.order.orderId}</td>
                         <td onClick={() => { handleRoute(sheet) }} className={`${styles.buyerName}`}>{sheet.company.companyName}</td>
                         <td>{sheet.order.existingCustomer ? "Yes" : "No"}</td>
-                        <td>{(sheet.createdAt).slice(0, 10)}</td>
+                        <td>{moment((sheet.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
                         <td>
                           <span className={`${styles.status} ${styles.approved}`}></span>
                           {sheet.status}

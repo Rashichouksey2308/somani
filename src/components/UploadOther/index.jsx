@@ -12,11 +12,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const Index = ({ orderid, module }) => {
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(GetDocuments(`?order=${orderid}`))
-  }, [dispatch, orderid])
+
   console.log(orderid, 'orderid')
   const { documentsFetched } = useSelector((state) => state.review)
+  console.log(documentsFetched, 'documentsFetched')
 
   const [editInput, setEditInput] = useState(true)
   const [manualDocModule, setManualDocModule] = useState(true)
@@ -26,6 +25,18 @@ const Index = ({ orderid, module }) => {
     name: '',
     module: module,
   })
+  const [moduleSelected, setModuleSelected] = useState('LeadOnboarding,OrderApproval')
+  const [filteredDoc, setFilteredDoc] = useState([])
+
+  useEffect(() => {
+    const tempArray = documentsFetched?.documents?.filter((doc) => { return doc.module === 'LeadOnboarding,OrderApproval' })
+    console.log(tempArray, filteredDoc, moduleSelected, 'moduleSelected')
+    setFilteredDoc(tempArray)
+    dispatch(GetDocuments(`?order=${orderid}`))
+
+  }, [dispatch, orderid])
+
+  console.log(documentsFetched, filteredDoc, moduleSelected, 'moduleSelected')
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -34,6 +45,13 @@ const Index = ({ orderid, module }) => {
       setEditInput(true)
     }
   }
+  const DocDlt = (index) => {
+    let tempArray = filteredDoc
+    tempArray.pop(index)
+    setFilteredDoc(tempArray)
+
+  }
+
 
   const handleNewDocModule = (e) => {
     if (e.target.value === 'others') {
@@ -258,12 +276,13 @@ const Index = ({ orderid, module }) => {
               >
                 <div className='d-flex align-items-center'>
                   <select
+                    onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
-                    <option>Lead Onboarding &amp; Order Approval</option>
-                    <option>Agreements, Insurance &amp; LC Opening</option>
-                    <option>Loading-Transit-Unloading</option>
-                    <option>Custom Clearance And Warehousing</option>
+                    <option value='LeadOnboarding&OrderApproval'>Lead Onboarding &amp; Order Approval</option>
+                    <option value='Agreements&Insurance&LC&Opening'>Agreements, Insurance &amp; LC Opening</option>
+                    <option value='Loading-Transit-Unloading'>Loading-Transit-Unloading</option>
+                    <option value='CustomClearanceAndWarehousing'>Custom Clearance And Warehousing</option>
                     <option value="Others">Others</option>
                   </select>
                   <img
@@ -369,7 +388,7 @@ const Index = ({ orderid, module }) => {
                     </td>
                   </tr> */}
                   {documentsFetched &&
-                    documentsFetched?.documents?.map((document, index) => {
+                    filteredDoc?.map((document, index) => {
                       if (document.deleted) {
                         return null
                       } else {
@@ -398,13 +417,15 @@ const Index = ({ orderid, module }) => {
                             </td>
                             <td colSpan="2">
                               <img
-                                onClick={() =>
+                                onClick={(e) => {
+                                  DocDlt(index)
                                   dispatch(
                                     DeleteDocument({
                                       orderDocumentId: documentsFetched._id,
                                       name: document.name,
                                     }),
                                   )
+                                }
                                 }
                                 src="/static/delete.svg"
                                 className={`${styles.delete_image} img-fluid mr-3`}

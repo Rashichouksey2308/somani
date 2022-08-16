@@ -6,17 +6,23 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
-import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import _get from "lodash/get"
 import { GetCreditLimit } from '../../src/redux/companyDetail/action'
 import moment from 'moment'
+import {
+  GetAllBuyer,
+  GetAllOrders,
+  GetBuyer,
+} from '../../src/redux/registerBuyer/action'
+import { GetCompanyDetails } from '../../src/redux/companyDetail/action'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
 
   const { singleOrder } = useSelector((state) => state.buyer)
-  console.log(singleOrder,'singleorder')
+  console.log(singleOrder, 'singleorder')
 
   // useEffect(() => {
   //   dispatch(GetOrders(`?page=${currentPage}`))
@@ -26,21 +32,44 @@ function Index() {
   //   "pageData.field_landing_page_flexi_content[0].component.content.field_form[0].field_car_number[2].field_placeholder",
   //   "Ex. 1234"
   // )}
-  
- useEffect(() => {
-     dispatch(setPageName('leads'))
-     dispatch(setDynamicName(_get(singleOrder,
-      'data[0].company.companyName'
-      ," ")))
-  },[dispatch, singleOrder])
 
-  const handleRoute = () => {
+  useEffect(() => {
+    dispatch(setPageName('leads'))
+    dispatch(setDynamicName(_get(singleOrder,
+      'data[0].company.companyName'
+      , " ")))
+  }, [dispatch, singleOrder])
+
+  const handleRouteNewOrder = () => {
     dispatch(GetOrders(`?company=${singleOrder?.data[0]?.company?._id}`))
-    dispatch(GetCreditLimit({companyId: singleOrder?.data[0]?.company?._id }))
+    dispatch(GetCreditLimit({ companyId: singleOrder?.data[0]?.company?._id }))
     setTimeout(() => {
       Router.push('/new-order')
     }, 1000);
-    
+  }
+
+  // buyer.queue === 'Rejected'
+  //                             ? 'Rejected'
+  //                             : buyer.queue === 'ReviewQueue'
+  //                               ? 'Review'
+  //                               : buyer.queue === 'CreditQueue'
+  //                                 ? 'Approved'
+  //                                 : 'Rejected'
+  const handleRoute = (buyer) => {
+    // console.log(buyer,'butyer')
+    console.log(" before go to get document")
+    if (buyer.queue === 'CreditQueue') {
+      dispatch(GetAllOrders({ orderId: buyer._id }))
+      //dispatch(GetDocuments({order: buyer._id}))
+      dispatch(GetCompanyDetails({ company: buyer.company._id }))
+      sessionStorage.setItem('orderID', buyer._id)
+      sessionStorage.setItem('companyID', buyer.company._id)
+      Router.push('/review')
+    }
+    if (buyer.queue === 'ReviewQueue') {
+      dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
+      Router.push('/review/id')
+    }
   }
 
   return (
@@ -50,18 +79,18 @@ function Index() {
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            
-             <div className={styles.head_header}>
-                    <img className={`${styles.arrow} img-fluid`}
-                        src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-                    <h1 className={`${styles.heading} heading`}>{_get(singleOrder,'data[0].company.companyName', "")}</h1>
-                </div>
-        
+
+            <div className={styles.head_header}>
+              <img className={`${styles.arrow} img-fluid`}
+                src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
+              <h1 className={`${styles.heading} heading`}>{_get(singleOrder, 'data[0].company.companyName', "")}</h1>
+            </div>
+
 
             <button
               type="button"
               className={`${styles.btnPrimary} btn ml-auto btn-primary d-flex align-items-center`}
-              onClick={() => handleRoute()}
+              onClick={() => handleRouteNewOrder()}
             >
               <span className={`ml-4 mb-1`}>+</span>
               <span className={`mr-3 ml-1 `}>New Order</span>
@@ -178,7 +207,7 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage+1 < Math.ceil(singleOrder?.totalCount / 10)) {
+                    if (currentPage + 1 < Math.ceil(singleOrder?.totalCount / 10)) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
@@ -223,7 +252,7 @@ function Index() {
                           key={index}
                           className={`${styles.table_row} table_row`}
                         >
-                          <td>{buyer.orderId}</td>
+                          <td>{buyer?.applicationId ? buyer?.applicationId : buyer?.order?.orderId}</td>
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
@@ -235,28 +264,27 @@ function Index() {
                           <td>{buyer.createdBy.fName}</td>
 
                           <td>{
-                          moment(buyer.createdAt.split('T')[0]).format("DD-MM-YYYY")}
+                            moment(buyer.createdAt.split('T')[0]).format("DD-MM-YYYY")}
                           </td>
                           <td>
                             <span
-                              className={`${styles.status} ${
-                                buyer.queue === 'Rejected'
-                                  ? styles.rejected
-                                  : buyer.queue === 'ReviewQueue'
+                              className={`${styles.status} ${buyer.queue === 'Rejected'
+                                ? styles.rejected
+                                : buyer.queue === 'ReviewQueue'
                                   ? styles.review
                                   : buyer.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
+                                    ? styles.approved
+                                    : styles.rejected
+                                }`}
                             ></span>
 
                             {buyer.queue === 'Rejected'
                               ? 'Rejected'
                               : buyer.queue === 'ReviewQueue'
-                              ? 'Review'
-                              : buyer.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
+                                ? 'Review'
+                                : buyer.queue === 'CreditQueue'
+                                  ? 'Approved'
+                                  : 'Rejected'}
                           </td>
                         </tr>
                       ))}

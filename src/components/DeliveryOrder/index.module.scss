@@ -66,6 +66,8 @@
       .head_container {
         padding: 25px 35px !important;
         border-bottom: 2px solid #cad6e6;
+        cursor: pointer;
+        height: 80px;
 
         .heading {
           color: #3687e8;
@@ -351,6 +353,7 @@
         left: 30px;
         margin-bottom: 15px;
         color: #00000080;
+        white-space: nowrap;
       }
 
       .value {
@@ -439,6 +442,7 @@
   padding: 7px;
   width: 36px;
   height: 36px;
+  cursor: pointer;
 }
 
 .add_image {
