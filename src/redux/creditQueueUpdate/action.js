@@ -204,32 +204,25 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
     'Content-Type': 'multipart/form-data',
   }
   try {
-    let response = await Axios.post(
-      `${API.corebaseUrl}${API.addDocuments}`,
-      payload,
-      {
-        headers: headers,
-      },
-    )
-    console.log(response, 'ok respose')
-    // Axios.post(`${API.corebaseUrl}${API.addDocuments}`, payload, {
-    //   headers: headers,
-    // }).then((response) => {
-    //   console.log(response, 'response add docu')
-    //   if (response.data.code === 200) {
-    //     dispatch(addingDocumentsSuccess(response.data.data))
-    //     let toastMessage = 'Document Successfully Added'
-    //     if (!toast.isActive(toastMessage)) {
-    //       toast.error(toastMessage, { toastId: toastMessage })
-    //     }
-    //   } else {
-    //     dispatch(addingDocumentsFailed(response.data.data))
-    //     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-    //     if (!toast.isActive(toastMessage)) {
-    //       toast.error(toastMessage, { toastId: toastMessage })
-    //     }
-    //   }
-    // })
+
+    Axios.post(`${API.corebaseUrl}${API.addDocuments}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      console.log(response, 'response add docu')
+      if (response.data.code === 200) {
+        dispatch(addingDocumentsSuccess(response.data.data))
+        let toastMessage = 'Document Successfully Added'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      } else {
+        dispatch(addingDocumentsFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        if (!toast.isActive(toastMessage)) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      }
+    })
   } catch (error) {
     dispatch(addingDocumentsFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'

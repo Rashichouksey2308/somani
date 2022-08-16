@@ -32,7 +32,7 @@ function Index() {
 
   //console.log(allLiftingData, "allLiftingData")
   const liftingData = _get(allLiftingData, 'data[0]', '')
-  const [lifting, setLifting] = useState([])  
+  const [lifting, setLifting] = useState([])
   const addNewLifting = (value) => {
     setLifting([...lifting, {
       deliveryOrder: value,
@@ -49,7 +49,7 @@ function Index() {
 
     }])
   }
-  console.log(lifting,"listting to send")
+  console.log(lifting, "listting to send")
   const addNewSubLifting = (index) => {
     let tempArr = lifting
     tempArr.forEach((val, i) => {
@@ -84,72 +84,72 @@ function Index() {
     setLifting([...tempArr])
   }
   const handleLiftingSubmit = () => {
-   
-    let tempArr=[]
-    let temp2=[]
-    lifting.forEach((val,index)=>{
-      console.log(val,"val88")
-      if(val.detail.modeOfTransportation=="RR"){
-         val.detail.map((val2,index2)=>{
-         temp2.push(  {
-            dateOfLifting:val2.dateOfLifting,
-            liftingQuantity:val2.liftingQuant,
-            unitOfQuantity:val2.unitOfQuantity,
-            modeOfTransport:val2.modeOfTransportation,
-            ewayBillNo:val2.eWayBill,
-            ewayBillDocument:val2.eWayBillDoc,
-            RRDocument:val2.LRorRRDoc
+
+    let tempArr = []
+    let temp2 = []
+    lifting.forEach((val, index) => {
+      console.log(val, "val88")
+      if (val.detail.modeOfTransportation == "RR") {
+        val.detail.map((val2, index2) => {
+          temp2.push({
+            dateOfLifting: val2.dateOfLifting,
+            liftingQuantity: val2.liftingQuant,
+            unitOfQuantity: val2.unitOfQuantity,
+            modeOfTransport: val2.modeOfTransportation,
+            ewayBillNo: val2.eWayBill,
+            ewayBillDocument: val2.eWayBillDoc,
+            RRDocument: val2.LRorRRDoc
 
 
 
 
-           })
+          })
         })
-         tempArr.push(
-         {
-          deliveryOrder:val.deliveryOrder,
-          deliveryOrderDetail:temp2
-           
-         }
-        
-         )
-      }else{
-         val.detail.map((val2,index2)=>{
-         temp2.push(  {
-            dateOfLifting:val2.dateOfLifting,
-            liftingQuantity:val2.liftingQuant,
-            unitOfQuantity:val2.unitOfQuantity,
-            modeOfTransport:val2.modeOfTransportation,
-            ewayBillNo:val2.eWayBill,
-            ewayBillDocument:val2.eWayBillDoc,
-            LRDocument:val2.LRorRRDoc
+        tempArr.push(
+          {
+            deliveryOrder: val.deliveryOrder,
+            deliveryOrderDetail: temp2
+
+          }
+
+        )
+      } else {
+        val.detail.map((val2, index2) => {
+          temp2.push({
+            dateOfLifting: val2.dateOfLifting,
+            liftingQuantity: val2.liftingQuant,
+            unitOfQuantity: val2.unitOfQuantity,
+            modeOfTransport: val2.modeOfTransportation,
+            ewayBillNo: val2.eWayBill,
+            ewayBillDocument: val2.eWayBillDoc,
+            LRDocument: val2.LRorRRDoc
 
 
 
 
-           })
+          })
         })
-         tempArr.push(
-         {
-          deliveryOrder:val.deliveryOrder,
-          deliveryOrderDetail:temp2
-           
-         }
-        
-         )
+        tempArr.push(
+          {
+            deliveryOrder: val.deliveryOrder,
+            deliveryOrderDetail: temp2
+
+          }
+
+        )
       }
-    
-  
+
+
     })
-  
 
-        let data = {
-          liftingId: _get(ReleaseOrderData,"data[0].order.lifting",""),
-          liftingOrders:tempArr
-        }
-        console.log(data, "datatoSend")
-        dispatch(UpdateLiftingData(data))
-      }
+
+    let data = {
+      liftingId: _get(ReleaseOrderData, "data[0].order.lifting", ""),
+      liftingOrders: tempArr
+    }
+    console.log(data, "datatoSend")
+    dispatch(UpdateLiftingData(data))
+  }
   //console.log(lifting, "newLift")
 
   const [deliveryOrder, setDeliveryOrder] = useState([
@@ -224,8 +224,10 @@ function Index() {
 
   const generateDoNumber = (index) => {
 
-    let orderDONumber = index
-    return `Rama001-000001/${orderDONumber}`
+    let orderDONumber = index < 10 ? `0${index}` : index
+    let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '')
+    let string = `${orderId.slice(0,7)}-${orderId.slice(7)}`
+    return `${string}/${orderDONumber}`
 
 
   }
@@ -269,8 +271,8 @@ function Index() {
             return item.orderNumber == value
           })
           // //console.log(filteredArray, temparr, 'quantity1')
-          setQuantity(filteredArray[0].netQuantityReleased)
-          setDoLimit(filteredArray[0].netQuantityReleased)
+          setQuantity(filteredArray[0]?.netQuantityReleased)
+          setDoLimit(filteredArray[0]?.netQuantityReleased)
 
           let tempString = generateDoNumber(index)
           val.deliveryOrderNo = tempString
@@ -281,7 +283,7 @@ function Index() {
     })
     setDeliveryOrder([...tempArr])
   }
- const onSaveDoHAndler = async () => {
+  const onSaveDoHAndler = async () => {
     let newarr = []
     deliveryOrder.forEach((item) => {
       newarr.push({
@@ -346,22 +348,22 @@ function Index() {
                 Delivery Order
               </a>
             </li>
-             {_get(ReleaseOrderData,"data[0].lastMileDelivery",false)?
-             <>
-               <li className={`${styles.navItem} nav-item`}>
-              <a
-                className={`${styles.navLink} navLink nav-link `}
-                data-toggle="tab"
-                href="#liftingDetails"
-                role="tab"
-                aria-controls="liftingDetails"
-                aria-selected="false"
-              >
-                Lifting Details
-              </a>
-            </li>
-             </>
-             :null}
+            {_get(ReleaseOrderData, "data[0].lastMileDelivery", false) ?
+              <>
+                <li className={`${styles.navItem} nav-item`}>
+                  <a
+                    className={`${styles.navLink} navLink nav-link `}
+                    data-toggle="tab"
+                    href="#liftingDetails"
+                    role="tab"
+                    aria-controls="liftingDetails"
+                    aria-selected="false"
+                  >
+                    Lifting Details
+                  </a>
+                </li>
+              </>
+              : null}
           </ul>
         </div>
 
@@ -405,13 +407,13 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                  <LiftingDetails 
-                    data={ReleaseOrderData}
-                    liftingData={lifting} 
-                    addNewLifting={addNewLifting} 
-                    addNewSubLifting={addNewSubLifting} 
-                    handleChange={handleChange}
-                    handleLiftingSubmit={handleLiftingSubmit}
+                    <LiftingDetails
+                      data={ReleaseOrderData}
+                      liftingData={lifting}
+                      addNewLifting={addNewLifting}
+                      addNewSubLifting={addNewSubLifting}
+                      handleChange={handleChange}
+                      handleLiftingSubmit={handleLiftingSubmit}
                     />
                   </div>
                 </div>
