@@ -29,7 +29,7 @@ const Index = ({ onChangeDropDown, termsheet, otherTermConditions, handleSave, o
                                 <h3 className={`${styles.other_heading} row_head`}>CHA / Stevedoring Charges</h3>
                                 <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                                     <div className=' d-flex align-items-center'>
-                                        <input id=">Customs clearing charges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.customClearingCharges} onChange={onChangeCha} />
+                                        <input id="customClearingCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.customClearingCharges} onChange={onChangeCha} />
                                         <label className={`${styles.checkbox_label} termsheet_Text`}>Customs clearing charges / handling charges / CHA Fee</label>
                                     </div>
 
