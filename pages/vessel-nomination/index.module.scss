@@ -13,7 +13,7 @@
   }
   .filter {
     // margin: 15px 0;
-    margin: 0 0 27px 10px;
+    margin: 0 0 27px 0;
     @include respond(sm-desktop) {
       display: block !important;
     }

@@ -396,13 +396,13 @@
           font-size: 16px;
           letter-spacing: 0.53px;
           line-height: 17px;
-          top: 21px;
+          top: 22px;
           left: 30px;
           margin-bottom: 0;
           position: absolute;
           pointer-events: none;
           box-sizing: border-box;
-          transform: translateY(-29px);
+          transform: translateY(-30px);
           transition: 0.3s all ease-in-out;
           z-index: 1;
           max-width: 86%;
@@ -443,7 +443,7 @@
           }
           &:focus {
             & + label {
-              transform: translateY(-29px);
+              transform: translateY(-30px);
             }
           }
         }
