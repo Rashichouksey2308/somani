@@ -893,7 +893,7 @@ const orderSummary = (camData) => {
           aria-labelledby="orderSummary"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.order_wrapper} border_color`}>
+          <div className={`${styles.order_wrapper} px-0 border_color`}>
             <table
               className={`${styles.table} table  border_color`}
               cellPadding="0"
@@ -1059,7 +1059,7 @@ const directorDetails = (camData) => {
           aria-labelledby="directorDetails"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.order_wrapper} card-body`}>
+          <div className={`${styles.order_wrapper} px-0 card-body`}>
             <table
               className={`${styles.table} table  border_color`}
               cellPadding="0"
@@ -1152,7 +1152,7 @@ const shareHolding = (data, options, tempArr, camData) => {
                   })}
                 </div>
               </Col>
-              <Col md={7} className={`pl-0`}>
+              <Col md={7} className={`px-0`}>
                 <table
                   className={`${styles.table} table  border_color `}
                   cellPadding="0"
@@ -1286,7 +1286,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                   })}
                 </div>
               </Col>
-              <Col md={7} className={`pl-0`}>
+              <Col md={7} className={`px-0`}>
                 <table
                   className={`${styles.table} table  border_color `}
                   cellPadding="0"
@@ -1407,7 +1407,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                   <div className={`${styles.fill}`}></div>
                 </div>
 
-                <div className={`mt-4`}>
+                <div className={`mt-4 mb-4`}>
                   <div
                     className={`${styles.label} d-flex justify-content-between align-content-center  `}
                   >
@@ -1424,7 +1424,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                     ></div>
                   </div>
                 </div>
-                <div className={`mt-4`}>
+                <div className={`mt-4 mb-4`}>
                   <div
                     className={`${styles.label} d-flex justify-content-between align-content-center  `}
                   >
@@ -1441,7 +1441,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                     ></div>
                   </div>
                 </div>
-                <div className={`mt-4`}>
+                <div className={`mt-4 mb-4`}>
                   <div
                     className={`${styles.label} d-flex justify-content-between align-content-center  `}
                   >
@@ -1459,7 +1459,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                   </div>
                 </div>
               </Col>
-              <Col md={7} className={`pl-0`}>
+              <Col md={7} className={`px-0`}>
                 <table
                   className={`${styles.table} table  border_color `}
                   cellPadding="0"
@@ -1640,7 +1640,7 @@ const revenuDetails = (gstData) => {
           aria-labelledby="revenuDetails"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.order_wrapper} card-body`}>
+          <div className={`${styles.order_wrapper} p-0 card-body`}>
             <table
               className={`${styles.table} table  border_color`}
               cellPadding="0"
@@ -2924,7 +2924,7 @@ const trends = (
                   </div>
                 </div>
               </Col>
-              <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
+              <Col md={6} className={`${styles.rightCol} px-0 border_color`}>
                 <div className={`${styles.head_wrapper}  card_sub_header`}>
                   <span className={`${styles.head}`}>Gross Purchases</span>
                   <span className={`${styles.child} ml-2`}>
@@ -3039,7 +3039,7 @@ const skewness = (data, options, tempArr, gstData) => {
                   </Col>
                 </Row>
               </Col>
-              <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
+              <Col md={6} className={`${styles.rightCol} px-0 border_color`}>
                 <div className={`${styles.head_wrapper} card_sub_header`}>
                   <span className={`${styles.head}`}>Gross Purchases</span>
                   <span className={`${styles.child} ml-2`}>
