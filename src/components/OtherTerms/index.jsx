@@ -101,10 +101,10 @@ const Index = ({ onChangeDropDown, termsheet, otherTermConditions, handleSave, o
                                         <input id="handlingLosses" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.handlingLosses} onChange={onChangeCha} />
                                         <label className={`${styles.checkbox_label} termsheet_Text`}>Handling Losses</label>
                                     </div>
-                                    <div className='pt-4 d-flex align-items-center'>
+                                    {/* <div className='pt-4 d-flex align-items-center'>
                                         <input id="insuranceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges} onChange={onChangeCha} />
                                         <label className={`${styles.checkbox_label} termsheet_Text`}>Insurance Charges ( While transferring the material to customs bonded ware house )</label>
-                                    </div>
+                                    </div> */}
                                     <div className='pt-4 d-flex align-items-center'>
                                         <input id="waterSprinklingCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.waterSprinklingCharges} onChange={onChangeCha} />
                                         <label className={`${styles.checkbox_label} termsheet_Text`}>Water Sprinkling Charges</label>
