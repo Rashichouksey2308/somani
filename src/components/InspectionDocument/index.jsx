@@ -135,8 +135,18 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                     <td colSpan={2}>
                     { lcDoc && lcDoc.lcDraftDoc === null ?  <>
-      
-                      <div className={styles.uploadBtnWrapper}>
+                   <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                         onChange={(e) => uploadDocument1(e)}
+                        />
+                        <button className={`${styles.button_upload} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                      {/* <div className={styles.uploadBtnWrapper}>
                       <input
                         type="file"
                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -146,7 +156,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                        <button  className={`${styles.uploadDoc} btn`}>
                         Upload
                       </button>
-                    </div>
+                    </div> */}
                       </>:
                       <div className={styles.certificate}>
                       {lcDoc?.lcDraftDoc?.name}
