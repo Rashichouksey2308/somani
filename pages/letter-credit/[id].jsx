@@ -166,10 +166,21 @@ function Index() {
     setClauseArr(newClause)
   }
 
+  const [lcDoc, setLcDoc] = useState({
+    lcDraftDoc : null
+  })
+
+  const uploadDocument1 = (e) => {
+    const newInput = {...lcDoc}
+    newInput.lcDraftDoc = e.target.files[0]
+    setLcDoc(newInput)
+  }
+
   const handleSubmit = () => {
     let fd = new FormData()
     fd.append('lcApplication', JSON.stringify(lcData))
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+    fd.append('document1', lcDoc.lcDraftDoc)
 
     dispatch(UpdateAmendment(fd))
     // Router.push('/letter-credit/id')
@@ -478,6 +489,7 @@ function Index() {
           {/* Document*/}
           <InspectionDocument
             orderId={lcModuleData?.order?._id}
+            uploadDocument1={uploadDocument1}
             documentName="LC DRAFT"
           />
         </div>

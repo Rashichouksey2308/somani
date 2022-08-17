@@ -176,7 +176,7 @@ function Index() {
 
   const inputRef = useRef(null)
 
-  // console.log(clauseObj, 'this is ccccc')
+  console.log(clauseObj, 'this is ccccc')
 
   const [clauseArr, setClauseArr] = useState([])
   // console.log(clauseArr, 'new arr')
@@ -224,11 +224,22 @@ function Index() {
     setClauseArr(newClause)
   }
 
+  const [lcDoc, setLcDoc] = useState({
+    lcDraftDoc : null
+  })
+
+  const uploadDocument1 = (e) => {
+    const newInput = {...lcDoc}
+    newInput.lcDraftDoc = e.target.files[0]
+    setLcDoc(newInput)
+  }
+
   const handleSubmit = () => {
     setLcData(clauseData)
     let fd = new FormData()
     fd.append('lcApplication', JSON.stringify(lcData))
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+    fd.append('document1', lcDoc.lcDraftDoc)
 
     // console.log(fd, 'IBJJJ')
     dispatch(UpdateLcAmendment(fd))
@@ -548,6 +559,7 @@ function Index() {
           <div className="mt-4 mb-5">
             <InspectionDocument
               orderId={lcModuleData?.order?._id}
+              uploadDocument1={uploadDocument1}
               documentName="LC DRAFT"
             />
           </div>
