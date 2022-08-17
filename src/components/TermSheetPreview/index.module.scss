@@ -1,382 +1,328 @@
 @import "../styles/Core/config";
-.root_container{
-    padding:25px;
-    width: 100%;
-    margin-bottom: 10rem;
+.root_container {
+    margin: 28px;
+    // width: 100%;
+    // margin-bottom: 10rem;
     background: #ffffff00;
-//      border-bottom: 1px solid #d2d7e5; */
-//   box-shadow: 0 8px 13px -5px #cad0e2;
-    
+    //   border-bottom: 1px solid #d2d7e5;
+    //   box-shadow: 0 8px 13px -5px #cad0e2;
+    margin-bottom: 152px;
+    @include respond(sm-desktop) {
+        margin: 20px;
+        margin-bottom: 144px;
+    }
+    @include respond(phone) {
+        margin: 15px;
+        margin-bottom: 121px;
+    }
     .head_container {
-            width: 100%;
-            .head_header {
-                display: flex;
-                justify-content: flex-start;
+        width: 100%;
+        .head_header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            @include respond(phone) {
                 align-items: center;
+                padding: 0.75rem 0rem;
+            }
+            .arrow {
+                width: 13px;
+                height: 21px;
+                background: transparent;
                 @include respond(phone) {
-                        align-items: center;
-                        padding: 0.75rem 0rem;
-                    }   
-    
-                .arrow {
-                    width: 13px;
-                    height: 21px;
-                    background: transparent;
-                @include respond(phone) {
-                       
-                        height: 18px;
-                    }
-                }
-    
-                .heading {
-
-                    padding: 12px 0 12px 12px;
-                    font-weight: bold;
-                    font-size: 30px;
-                   
-                    text-transform: capitalize;
-                    margin: 0;
-                    @include respond(phone) {
-                        padding: 12px 0 12px 12px;
-                            font-size: 20px;
-                            margin: 0px;
-                            padding-left: 10px;
-                        }
-    
+                    height: 18px;
                 }
             }
-    
-          
+            .heading {
+                padding: 12px 0 12px 12px;
+                font-weight: bold;
+                font-size: 30px;
+                text-transform: capitalize;
+                margin: 0;
+                @include respond(phone) {
+                    padding: 12px 0 12px 12px;
+                    font-size: 20px;
+                    margin: 0px;
+                    padding-left: 10px;
+                }
+            }
         }
-  .term_container {
-      padding: 10px 36px 18px 36px;
-      height: 126px;
-      background: #D8EAFF 0% 0% no-repeat padding-box;
-      border: 1px solid #D2D7E5;
-      border-radius: 6px;
+    }
+    .term_container {
+        padding: 10px 36px 18px 36px;
+        height: 126px;
+        margin-bottom: 26px;
+        background: #D8EAFF;
+        border: 1px solid #D2D7E5;
+        border-radius: 6px;
+        span {
+            color: #3687E8;
+            font-size: 34px;
+            line-height: 41px;
+            font-weight: bold;
 
-      span {
-          color: #3687E8;
-          font-size: 34px;
-          line-height: 41px;
-          font-weight: bold;
-        
-      }
-
-      div {
-          flex-direction: column;
-
-          .termSub_head {
-              font-size: 20px;
-              line-height: 41px;
-              font-weight: bold;
-              color: #111111;
-              margin-right: 0.5rem;
-              @include respond(lg-desktop) {
-                font-size: 15px;
-              }
-          }
-
-          .termValue {
-              font-size: 20px;
-              line-height: 41px;
-              color: #11111148;
-              white-space: nowrap;
-            @include respond(lg-desktop) {
+        }
+        div {
+            flex-direction: column;
+            .termSub_head {
+                font-size: 20px;
+                color: #111111;
+                font-weight: 500;
+                line-height: 41px;
+                margin-right: 0.5rem;
+                @include respond(lg-desktop) {
                     font-size: 15px;
                 }
-          }
-      }
-  }
-    .content{
-    margin-top: 32px;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-bottom: 10rem;
-    @include respond(phone) {
-            padding-right: 10px;
-                padding-left: 10px;
-        }
-    .row_head{
-
-        .content_header {
-        height: 67px;
-        padding-left: 36px;
-        font-size: 22px;
-        line-height: 27px;
-        font-weight: bold;
-        color: #3687E8;
-        border-right: 2px solid #e5e5e5;
-        @include respond(phone) {
-             font-size: 15px;
-         
-            padding-left: 20px;
             }
-        span{
-            width:100%;
-            display: flex;
-            justify-content: flex-start;     
-            align-items: center;
-        }
-
-    }
-        .content_header_other{
-        height: 67px;
-        font-size: 22px;
-        line-height: 27px;
-        font-weight: bold;
-        color: #3687E8;
-        padding-left: 36px;
-        @include respond(phone) {
-                font-size: 15px;
-                white-space: nowrap;
-                padding-left: 20px;
-            }
-
-    span {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-        }
-    }
-        .sub_content_other {
+            .termValue {
                 font-size: 20px;
-                line-height: 24px;
-                list-style: none;
-              
-                padding:25px 0px 25px 37px;
-                @include respond(phone) {
-                     font-size: 15px;
-                     padding-left: 12px;
-                
-                    }
-
+                color: #111111;
+                font-weight: normal;
+                line-height: 41px;
+                white-space: nowrap;
+                opacity: 0.7;
+                @include respond(lg-desktop) {
+                    font-size: 15px;
+                }
+            }
         }
-    .sub_content{
-        border-right: 2px solid #e5e5e5;
-        
-       ol{
+    }
+    .content {
+        padding-right: 15px;
+        padding-left: 15px;
+        // margin-bottom: 10rem;
+        @include respond(phone) {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        .row_head {
+            .content_header {
+                height: 67px;
+                padding-left: 36px;
+                font-size: 22px;
+                line-height: 27px;
+                font-weight: bold;
+                color: #3687E8;
+                border-right: 2px solid #e5e5e5;
+                @include respond(phone) {
+                    font-size: 15px;
+                    padding-left: 20px;
+                }
+                span {
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                }
+            }
+            .content_header_other {
+                height: 67px;
+                font-size: 22px;
+                line-height: 27px;
+                font-weight: bold;
+                color: #3687E8;
+                padding-left: 36px;
+                @include respond(phone) {
+                    font-size: 15px;
+                    white-space: nowrap;
+                    padding-left: 20px;
+                }
+                span {
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                }
+            }
+        }
+        .sub_content_other {
             font-size: 20px;
             line-height: 24px;
             list-style: none;
-           
-            opacity: 0.7;
-            padding-left: 12px;
+            padding: 25px 0px 25px 37px;
             @include respond(phone) {
-                    font-size: 15px;
-                    
-                    
-                }
-        li{
-            margin-bottom: 0.5rem;
-            padding-bottom: 15px;
+                font-size: 15px;
+                padding-left: 12px;
+            }
         }
-       }
-    }
-    
-    .sub_contentValue{
-       
-        
-            ul {
+        .sub_content {
+            border-right: 2px solid #e5e5e5;
+            ol {
                 font-size: 20px;
                 line-height: 24px;
                 list-style: none;
-               
+                padding-left: 12px;
+                @include respond(phone) {
+                    font-size: 15px;
+                }
+                li {
+                    margin-bottom: 0.5rem;
+                    padding-bottom: 15px;
+                }
+            }
+        }
+        .sub_contentValue {
+            ul {
+                font-size: 20px;
+                font-weight: 500;
+                line-height: 24px;
+                list-style: none;
                 opacity: 1;
                 padding-left: 12px;
                 @include respond(phone) {
-                        font-size: 15px;
-                
-                
-                    }
-            }
-                          li {
-                              margin-bottom: 0.5rem;
-                              padding-bottom: 15px;
-                          }
-    }
-    }
-    .checkMarks{
-     width: 100%;
-     display: flex;
-     justify-content: space-between;
-     align-items: flex-start;
-     .left{
-         width:48%;
-         margin-top: 30px;
-         .head{
-            font-size:22px;
-            font-weight: bold;
-            line-height: 27px;
-            color: #111111;
-            padding:20px 0 20px 30px;
-            height: 67px;
-            
-            // background-color: #FAFAFB;
-         }
-         .checkContent{
-            padding-left: 15px;
-             padding-top:1rem;
-             div{
-                font-size: 20px;
-                line-height: 30px;
-                letter-spacing: 0.19px;
-                padding: 15px;
-                input{
-                    margin-right:1.5rem
+                    font-size: 15px;
                 }
-             }
-         }
-     }
-         .right {
-             width: 50%;
-             margin-top: 30px;
- 
+            }
+            li {
+                margin-bottom: 0.5rem;
+                padding-bottom: 15px;
+            }
+        }
+    }
+    .checkMarks {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        .left {
+            width: 48%;
+            margin-top: 30px;
             .head {
-                font-size:22px;
+                font-size: 22px;
                 font-weight: bold;
                 line-height: 27px;
                 color: #111111;
-                padding:20px 0 20px 30px;
+                padding: 20px 0 20px 30px;
                 height: 67px;
-               
+                // background-color: #FAFAFB;
+            }
+            .checkContent {
+                padding-left: 15px;
+                padding-top: 1rem;
+                div {
+                    font-size: 20px;
+                    line-height: 30px;
+                    letter-spacing: 0.19px;
+                    padding: 15px;
+                    input {
+                        margin-right: 1.5rem
+                    }
                 }
-                                  .checkContent {
-                                      //padding-left: 15px;
-                                      padding-top: 1rem;
-                
-                                      div {
-                                          font-size: 20px;
-                                          line-height: 30px;
-                                          letter-spacing: 0.19px;
-                                          padding: 15px 0px 15px 28px;
-                                          padding-left: 0px;
-                
-                                          input {
-                                              margin-right: 1.5rem
-                                          }
-                                          .subhead{
-                                            font-size:22px;
-                                            font-weight: bold;
-                                            line-height: 27px;
-                                            color: #111111;
-                                            padding:20px 0 20px 30px;
-                                            height: 67px;
-                                            
-                                           
-                                          }
-                                          .headSpace{}
-                                      }
-                                  }
-                                  
-         }
-        
+            }
+        }
+        .right {
+            width: 50%;
+            margin-top: 30px;
+            .head {
+                font-size: 22px;
+                font-weight: bold;
+                line-height: 27px;
+                color: #111111;
+                padding: 20px 0 20px 30px;
+                height: 67px;
+            }
+            .checkContent {
+                //padding-left: 15px;
+                padding-top: 1rem;
+                div {
+                    font-size: 20px;
+                    line-height: 30px;
+                    letter-spacing: 0.19px;
+                    padding: 15px 0px 15px 28px;
+                    padding-left: 0px;
+                    input {
+                        margin-right: 1.5rem
+                    }
+                    .subhead {
+                        font-size: 22px;
+                        font-weight: bold;
+                        line-height: 27px;
+                        color: #111111;
+                        padding: 20px 0 20px 30px;
+                        height: 67px;
+                    }
+                    .headSpace {}
+                }
+            }
+        }
     }
-    .footer{
+    .footer {
         text-align: justify;
         text-align-last: center;
         margin-top: 1rem;
         margin-bottom: 1rem;
-        font-size:  20px;
-        line-height:30px;
+        font-size: 20px;
+        line-height: 30px;
         letter-spacing: 0.19px;
-           
-                
-                padding-left: 20px !important;
-                padding-right: 20px !important;
-                @include respond(phone) {
-                        font-size: 15px;
-                
-                
-                    }
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        @include respond(phone) {
+            font-size: 15px;
+        }
     }
-} 
-
- .dashboard_form {
-     padding: 0 0 35px;
-
-     .terms_para {
-         font-size: 20px;
-         letter-spacing: 0.19px;
-
-         line-height: 30px;
-         padding: 25px 35px 10px;
-
-         @include respond(phone) {
-             font-size: $font_size_mobile_text;
-             padding: 25px 20px 20px;
-         }
-     }
-
-     .igpl_para {
-         background-color: #C3C3C31F;
-         border: 1px solid #0000001F;
-         border-radius: 4px;
-         padding: 5px 15px 5px 8px;
-         margin: 0 10px 0 0;
-         line-height: 30px;
-     }
-
-     .form_group {
-         position: relative;
-         margin-bottom: 20px;
-         margin-top: 20px;
-         
-       
-
-         @include respond(phone) {
-             font-size: $font_size_mobile_text;
-             margin-top: 5px !important;
-         }
-
-         .other_heading {
-             font-size: 22px;
-             font-weight: bold;
-             line-height: 27px;
-
-             background-color: #FAFAFB;
-             padding: 15px 15px 15px 35px;
-             margin-bottom: 25px;
-         }
-
-         .checkbox_container {
-             padding: 15px 35px;
-
-             .checkbox_label {
-                 font-size: 20px;
-                 letter-spacing: 0.19px;
-                 line-height: 25px;
-
-                 @include respond(phone) {
-                     font-size: $font_size_mobile_text;
-
-                 }
-
-             }
-
-             .checkbox {
+}
+.dashboard_form {
+    padding: 0 0 35px;
+    .terms_para {
+        font-size: 20px;
+        letter-spacing: 0.19px;
+        line-height: 30px;
+        padding: 25px 35px 10px;
+        @include respond(phone) {
+            font-size: $font_size_mobile_text;
+            padding: 25px 20px 20px;
+        }
+    }
+    .igpl_para {
+        background-color: #C3C3C31F;
+        border: 1px solid #0000001F;
+        border-radius: 4px;
+        padding: 5px 15px 5px 8px;
+        margin: 0 10px 0 0;
+        line-height: 30px;
+    }
+    .form_group {
+        position: relative;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        @include respond(phone) {
+            font-size: $font_size_mobile_text;
+            margin-top: 5px !important;
+        }
+        .other_heading {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 27px;
+            background-color: #FAFAFB;
+            padding: 15px 15px 15px 35px;
+            margin-bottom: 25px;
+        }
+        .checkbox_container {
+            padding: 15px 35px;
+            .checkbox_label {
+                font-size: 20px;
+                letter-spacing: 0.19px;
+                line-height: 25px;
+                @include respond(phone) {
+                    font-size: $font_size_mobile_text;
+                }
+            }
+            .checkbox {
                 width: 20px;
                 height: 20px;
                 min-width: 20px;
                 margin-top: -5px;
                 margin-right: 25px;
-             }
-         }
-     }
-     .formLeft{
-            padding-left: 0px !important;
-     }
+            }
+        }
+    }
+    .formLeft {
+        padding-left: 0px !important;
+    }
     .formRight {
         padding-right: 0px !important;
     }
-
 }
-
- .danger{
+.danger {
     color: #EA3F3F
- }
-
-
- 
+}

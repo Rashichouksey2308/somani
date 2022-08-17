@@ -1086,7 +1086,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                   <span
                                     className={`${styles.blue}`}
-                                  >{`(K*D*90/365)`}</span>
+                                  >{`(K*D*90/365)`} </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {finalCal.usanceInterest}

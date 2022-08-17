@@ -238,7 +238,7 @@ function Index() {
     <>
       {' '}
       <div className="container-fluid p-0 border-0">
-        <div className={styles.container_inner}>
+        <div className={`${styles.container_inner} vessel_card`}>
           <div className={`${styles.head_header}`}>
             <img
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
@@ -410,7 +410,7 @@ function Index() {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            Clause<strong className="text-danger">*</strong>
+                            Clause
                           </label>
                           <img
                             className={`${styles.arrow} image_arrow img-fluid`}

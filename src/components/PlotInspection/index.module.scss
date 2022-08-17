@@ -91,7 +91,7 @@
             content: '';
             z-index: -1;
             position: absolute;
-            transform: translateY(-50%);
+            transform: translateY(-30%);
           }
           @include respond(sm-desktop) {
             font-size: 16px;

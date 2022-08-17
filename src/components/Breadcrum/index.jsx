@@ -111,6 +111,15 @@ export default function Index({isQuery}) {
       }
      
     }
+    if ("termsheet-preview" == pageName) {
+      if(id!==null) {
+        router.route = "/Leads"  + "/Termsheet" +`/${id}`+ `/${order}`;
+        console.log("router123",router.route)
+      }else{
+         router.route = "/Leads" + "/Termsheet";
+      }
+     
+    }
       if ("generic" == pageName) {
       if(id!==null) {
         router.route = "/Agreements & LC Module"  + "/Generic" +`/${id}` + "/Order ID";

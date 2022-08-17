@@ -40,7 +40,9 @@ function Index() {
             <h1 className={`${styles.heading} heading`}>Application for LC</h1>
           </div>
         </div> */}
-          <div className={`${styles.term_container} card container-fluid`}>
+          <div
+            className={`${styles.term_container} previewCard container-fluid`}
+          >
             <Row>
               <Col
                 sm={12}
@@ -417,7 +419,7 @@ function Index() {
                       </tr>{' '}
                       <tr className="table_row">
                         <td width="40%">
-                          21B &nbsp; &nbsp; <span>CHARGES</span>
+                          71B &nbsp; &nbsp; <span>CHARGES</span>
                         </td>
                         <td>
                           {lcModuleData?.lcApplication?.charges?.toUpperCase()}
