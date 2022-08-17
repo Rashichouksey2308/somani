@@ -195,6 +195,7 @@
           overflow-x: auto;
           .table {
             border: 1px solid #cad6e6;
+            margin-bottom: 0px;
             th {
               font-size: 15px;
               line-height: 18px;
@@ -502,6 +503,7 @@
         display: table-cell;
         overflow-x: auto;
         .table {
+          margin-bottom: 0px;
           th {
             font-size: 15px;
             color: #8492a6;
@@ -845,30 +847,31 @@
   }
 }
 .arrow {
-    margin-left: -40px;
-    width: 13px;
-    pointer-events: none;
-    input[type='date']::-webkit-inner-spin-button,
-    input[type='date']::-webkit-calendar-picker-indicator {
-        display: none;
-        -webkit-appearance: none;
-    }
+  margin-left: -40px;
+  width: 13px;
+  pointer-events: none;
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
 }
 img {
-    &.arrow2 {
-        width: 13px !important;
-        margin-left: -25px;
-        // position: absolute;
-        pointer-events: none;
-        filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
-        input[type='date']::-webkit-inner-spin-button,
-        input[type='date']::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-        }
+  &.arrow2 {
+    width: 13px !important;
+    margin-left: -25px;
+    // position: absolute;
+    pointer-events: none;
+    filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
+      brightness(103%) contrast(82%);
+    input[type='date']::-webkit-inner-spin-button,
+    input[type='date']::-webkit-calendar-picker-indicator {
+      display: none;
+      -webkit-appearance: none;
     }
+  }
 }
 .customSelect {
-    appearance: none;
-    // position: relative;
+  appearance: none;
+  // position: relative;
 }
