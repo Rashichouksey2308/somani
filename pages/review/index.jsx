@@ -58,6 +58,9 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
   const [uploadBtn, setUploadBtn] = useState(false)
   const [complienceFilter, setComplienceFilter] = useState('')
+  const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([])
+  const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([])
+
   const [newDoc, setNewDoc] = useState({
     document: [],
     order: orderList?.termsheet?.order,
@@ -65,6 +68,26 @@ function Index() {
     name: '',
     module: 'LeadOnboarding,OrderApproval',
   })
+  useEffect(() => {
+    if(companyData){
+     let statutory=[]
+     let balance=[]
+      companyData.compliance?.alerts?.forEach((val,index)=>{
+        if(val.alert.trim()=="isIbbi" 
+        
+        
+        ){
+          balance.push(val)
+        }else{
+          statutory.push(val)
+        }
+      })
+
+      setComplienceStatutoryFilter(statutory)
+      setComplienceBalanceFilter(balance)
+    }
+  },[companyData])
+  console.log(complienceFilter,"complienceFilter")
   const [manualDocModule, setManualDocModule] = useState(true)
   const [filteredDoc, setFilteredDoc] = useState([])
   const [gstData, setGstData] = useState({})
@@ -1327,7 +1350,7 @@ function Index() {
                       <div
                         className={` ${styles.cardBody_details} card-body border_color`}
                       >
-                        {table2(companyData, complienceFilter)}
+                        {table2(complienceStatutoryFilter, complienceBalanceFilter,complienceFilter)}
                       </div>
                     </div>
                   </div>
@@ -1978,54 +2001,10 @@ const ligitations = (companyData) => {
   )
 }
 
-const table2 = (companyData, complienceFilter) => {
-  let StatutoryComplianceData = []
-  let BankingDefaultsData = []
-
-  useEffect(() => {
-    companyData?.compliance?.alerts?.forEach(
-      (data) => {
-        console.log(data, 'filteredDataa1')
-  
-        if (data.alert.toLowerCase() === 'epftransactiondefault' ||
-          data.alert.toLowerCase() === 'iecindeniedentity' ||
-          data.alert.toLowerCase() === 'gsttransactiondefault' ||
-          data.alert.toLowerCase() === 'gstinactive' ||
-          data.alert.toLowerCase() === 'epftransactiondelay' ||
-          data.alert.toLowerCase() === 'epfclosed' ||
-          data.alert.toLowerCase() === 'tdspaymentdelay' ||
-          data.alert.toLowerCase() === 'gsttransactiondelay') {
-          console.log(data, 'filteredDataa2')
-  
-        }
-  
-  
-  
-      })
-  }, [])
-  
-// const data =  companyData?.compliance?.alerts?.forEach(
-//     (data) => {
-
-//       if (data.alert.toLowerCase() === 'epftransactiondefault' ||
-//         data.alert.toLowerCase() === 'iecindeniedentity' ||
-//         data.alert.toLowerCase() === 'gsttransactiondefault' ||
-//         data.alert.toLowerCase() === 'gstinactive' ||
-//         data.alert.toLowerCase() === 'epftransactiondelay' ||
-//         data.alert.toLowerCase() === 'epfclosed' ||
-//         data.alert.toLowerCase() === 'tdspaymentdelay' ||
-//         data.alert.toLowerCase() === 'gsttransactiondelay') {
-//         console.log(data, 'filteredDataa')
-
-//       }
-
-
-
-//     })
-
- // console.log(filteredData, 'filteredDataa')
-  const length = StatutoryComplianceData?.length
-
+const table2 = (sat,balance, complienceFilter) => {
+ 
+   console.log(sat,balance,"oi")
+  let length=complienceFilter=="StatutoryCompliance"?sat.length:balance.length
   return (
     <table
       className={`${styles.table_details} table border-color`}
@@ -2046,23 +2025,41 @@ const table2 = (companyData, complienceFilter) => {
       <tbody>
         <tr>
           <td className={styles.firstCell} rowSpan={length + 1}>
-            Statutory Compliance
+            {complienceFilter=="StatutoryCompliance"?`Statutory Compliance`:`Banking Defaults`}
           </td>
+          {/* <td></td>
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
-          <td></td>
+          <td></td> */}
         </tr>
-        {StatutoryComplianceData?.map((alert, index) => (
-          <tr key={index}>
+        {complienceFilter=="StatutoryCompliance"
+        ?
+         sat.length && sat?.map((alert, index) => {
+            return(
+            <tr key={index}>
             <td> {alert.alert}</td>
             <td> {alert.severity}</td>
             <td> {alert.source}</td>
             <td> {alert.idType}</td>
             <td> {alert.value}</td>
           </tr>
-        ))}
+            )
+          })
+        :
+          balance.length>0 && balance?.map((alert, index) => {
+            return(
+            <tr key={index}>
+            <td> {alert.alert}</td>
+            <td> {alert.severity}</td>
+            <td> {alert.source}</td>
+            <td> {alert.idType}</td>
+            <td> {alert.value}</td>
+          </tr>
+            )
+          })
+        }
+      
 
 
       </tbody>
