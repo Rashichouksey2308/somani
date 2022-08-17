@@ -54,29 +54,22 @@
     }
 }
 .no_sidebar {
-    margin-left: 102px !important;
-  
+    margin-left: 102px !important;  
 }
 .no_sidebar_mobile {
     margin-left: 0px !important;
-
 }
 .collapse_sidebar_mobile{
-
 }
 .collapse_sidebar{
-
+    width: 102px !important;
+    height: 100vh;
+    @include respond(lg-desktop) {
         width: 102px !important;
-        height: 100vh;
-        @include respond(lg-desktop) {
-            width: 102px !important;
-        }
-    
+    }
 }
 .sidebarContainer_mobile {
-   
     height: 100vh;
     position: fixed;
     z-index: 10;
-
 }

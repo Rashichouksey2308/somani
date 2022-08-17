@@ -100,7 +100,7 @@ function Index() {
           </div>
           <div className={`${styles.datatable} datatable table_container card`}>
             <div
-              className={`${styles.tableFilter} d-flex justify-content-between`}
+              className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >
               <h3 className="heading_card">Margin Money</h3>
               <div
