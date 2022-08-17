@@ -52,10 +52,10 @@ function Index({peerData}) {
                       <td className="text-center">{moment(peers?.finyrEnddate)
                           .format('MMM-YY')
                           .toUpperCase()}</td>
-                      <td className="text-center">{peers.revenue?.toLocaleString()}</td>
-                      <td className="text-center">{peers.ebidtaMargin?.toLocaleString()} %</td>
-                      <td className="text-center">{peers.patMargin?.toLocaleString()}%</td>
-                      <td className="text-center">{peers.borrowings?.toLocaleString()}</td>
+                      <td className="text-center">{peers.revenue?.toFixed(2).toLocaleString()}</td>
+                      <td className="text-center">{peers.ebidtaMargin?.toFixed(2).toLocaleString()} %</td>
+                      <td className="text-center">{peers.patMargin?.toFixed(2).toLocaleString()}%</td>
+                      <td className="text-center">{peers.borrowings?.toFixed(2).toLocaleString()}</td>
                     </tr>))}
                     {/* <tr>
                       <td>Ascent Hotels Private Limited</td>

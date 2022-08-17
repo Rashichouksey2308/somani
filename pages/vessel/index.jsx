@@ -42,7 +42,7 @@ export default function Home() {
   const [partShipmentAllowed, setPartShipmentAllowed] = useState(partShipment)
   const [companyName, setCompanyName] = useState("")
 
-  console.log(containerExcel,'containerExcel')
+  console.log(containerExcel, 'containerExcel')
 
 
 
@@ -261,23 +261,36 @@ export default function Home() {
       return newState;
     })
   }
+  console.log(list, 'vessel liner state')
+  // const onVesselInfoChangeHandlerForLiner = (e, index) => {
+  //   const name = e.target.id
+  //   const value = e.target.value
+  //   let tempState = [...list]
+  //   let tempArr = [...list[0].vesselInformation]
+  //   tempArr.forEach((val, i) => {
+  //     if (i == index) {
+  //       val[name] = value
+  //     }
+  //   })
+  //   tempState[0].vesselInformation = [...tempArr]
+  //   setList(tempState)
+  //   //console.log(tempArr, 'tempArr')
+  // }
+  // //console.log(list, 'arrayvessel')
 
   const onVesselInfoChangeHandlerForLiner = (e, index) => {
     const name = e.target.id
     const value = e.target.value
-    let tempArr = list[0].vesselInformation
-    tempArr.forEach((val, i) => {
-      if (i == index) {
-        val[name] = value
-      }
-    })
-    //console.log(tempArr, 'tempArr')
+    let array = [...list]
+    let vesselArray = { ...array[0].vesselInformation[index], [name]: value }
+    array[0].vesselInformation[index] = vesselArray
+
+    setList([...array])
   }
-  //console.log(list, 'arrayvessel')
 
   const uploadDocHandler = (e) => {
     let uploadDocType = e.target.id
-    console.log(uploadDocType,'containerExcel')
+    console.log(uploadDocType, 'containerExcel')
 
     let fd = new FormData()
     fd.append('document', e.target.files[0])
@@ -355,7 +368,7 @@ export default function Home() {
     dispatch(UpdateVessel(payload))
   }
   console.log(Vessel, "Vessel")
-  console.log( containerExcel,' containerExcel')
+  console.log(containerExcel, ' containerExcel')
 
 
 

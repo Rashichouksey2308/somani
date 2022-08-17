@@ -96,7 +96,7 @@ const Index = () => {
         )
     }
   }, [termsheet])
-  console.log(termsheet, termsheetDetails, 'dkfgdfhjgdjfhgdkjfgdkjg')
+//  console.log(termsheet, termsheetDetails, 'dkfgdfhjgdjfhgdkjfgdkjg')
 
   useEffect(() => {
     {
