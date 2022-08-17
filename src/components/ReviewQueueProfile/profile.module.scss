@@ -246,6 +246,8 @@
                 display: table-cell;
                 overflow-x: auto;
                 .table {
+                        max-height: 300px;
+                        display: inline-block;
                     th {
                         font-size: 15px;
                         color: #8492a6;
