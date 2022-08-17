@@ -1,154 +1,155 @@
-@import "../../../src/components/styles/Core/config";
+@import '../../../src/components/styles/Core/config';
 .main {
-    margin-bottom: 26px;
-    border-radius: 6px !important;
-    .head_container {
-        cursor: pointer;
-        border-bottom: none;
-        padding: 25px 35px !important;
-        .heading {
-            color: #3687e8;
-            font-size:22px;
-            font-weight: bold;
-            text-transform: capitalize;
-            @include respond(md-desktop) {
-                font-size: 20px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 18px;
-            }
-            @include respond(phone) {
-                font-size: 15px;
-            }
-        }
-        span {
-            font-size: 45px;
-            color: #3687e8;
-            font-weight: normal;
-            line-height: 20px;
-            @include respond(md-desktop) {
-                font-size: 42px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 35px;
-            }
-            @include respond(phone) {
-                font-size: 30px;
-            }
-        }
+  margin-bottom: 26px;
+  border-radius: 6px !important;
+  .head_container {
+    cursor: pointer;
+    border-bottom: none;
+    padding: 25px 35px !important;
+    .heading {
+      color: #3687e8;
+      font-size: 22px;
+      font-weight: bold;
+      text-transform: capitalize;
+      @include respond(md-desktop) {
+        font-size: 20px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 18px;
+      }
+      @include respond(phone) {
+        font-size: 15px;
+      }
     }
-    .dashboard_form { 
-        padding: 25px 35px !important;
-        border-top: 2px solid #CAD6E6;
-        @include respond(phone) {}
-        .form_group {        
-            position: relative;
-            margin-bottom: 20px;
-            margin-top: 20px;
-            @include respond(phone) {
-                margin-top: 10px;
-            }
-            .label_heading {
-                top: 22px;
-                left: 30px;
-                font-size: 16px;
-                line-height: 17px;
-                margin-bottom: 0;
-                letter-spacing: 0.53px;
-                position: absolute;
-                pointer-events: none;
-                box-sizing: border-box;
-                transform: translateY(-30px);
-                transition: 0.3s all ease-in-out;
-                z-index: 1;
-                max-width: 86%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                &::before {
-                    top: 51%;
-                    left: 0;
-                    width: 100%;
-                    height: 2px;
-                    content: "";
-                    z-index: -1;
-                    position: absolute;
-                    transform: translateY(-50%);
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                    //top: 20px;
-                }
-            }
-            .input_field {
-                height: 60px;
-                background-color: #C3C3C31F;
-                border: 1px solid #0000001F;
-                border-radius: 4px;
-                font-size: 20px;
-                font-weight: 500;
-                outline: none;
-                box-shadow: none;
-                position: relative;
-                box-sizing: border-box;
-                &:invalid + label {
-                    background: none;
-                    transform:translateY(0);
-                }
-                &:focus {
-                    & + label {
-                        transform:translateY(-30px);
-                    }
-                }
-                @include respond(md-desktop) {
-                    font-size: 18px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                    height: 55px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                    height: 45px;
-                    padding: 0px 12px 0px 12px;
-                }
-            }    
-        }
+    span {
+      font-size: 45px;
+      color: #3687e8;
+      font-weight: normal;
+      line-height: 20px;
+      @include respond(md-desktop) {
+        font-size: 42px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 35px;
+      }
+      @include respond(phone) {
+        font-size: 30px;
+      }
     }
+  }
+  .dashboard_form {
+    padding: 25px 35px !important;
+    border-top: 2px solid #cad6e6;
+    @include respond(phone) {
+    }
+    .form_group {
+      position: relative;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      @include respond(phone) {
+        margin-top: 10px;
+      }
+      .label_heading {
+        top: 22px;
+        left: 30px;
+        font-size: 16px;
+        line-height: 17px;
+        margin-bottom: 0;
+        letter-spacing: 0.53px;
+        position: absolute;
+        pointer-events: none;
+        box-sizing: border-box;
+        transform: translateY(-30px);
+        transition: 0.3s all ease-in-out;
+        z-index: 0;
+        max-width: 86%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &::before {
+          top: 51%;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          content: '';
+          z-index: -1;
+          position: absolute;
+          transform: translateY(-50%);
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+        }
+        @include respond(phone) {
+          font-size: 14px;
+          //top: 20px;
+        }
+      }
+      .input_field {
+        height: 60px;
+        background-color: #c3c3c31f;
+        border: 1px solid #0000001f;
+        border-radius: 4px;
+        font-size: 20px;
+        font-weight: 500;
+        outline: none;
+        box-shadow: none;
+        position: relative;
+        box-sizing: border-box;
+        &:invalid + label {
+          background: none;
+          transform: translateY(0);
+        }
+        &:focus {
+          & + label {
+            transform: translateY(-30px);
+          }
+        }
+        @include respond(md-desktop) {
+          font-size: 18px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+          height: 55px;
+        }
+        @include respond(phone) {
+          font-size: 14px;
+          height: 45px;
+          padding: 0px 12px 0px 12px;
+        }
+      }
+    }
+  }
 }
 .button {
-    padding: 25px 35px !important;
-    cursor: pointer;
-    width: 260px;
-    height: 48px;
-    background: #3687E8 0% 0% no-repeat padding-box;
-    border-radius: 5px;
-    color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 25px 35px !important;
+  cursor: pointer;
+  width: 260px;
+  height: 48px;
+  background: #3687e8 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .customSelect {
-    appearance: none;
-    // position: relative;
+  appearance: none;
+  // position: relative;
 }
 .arrow {
-    margin-left: -40px;
-    width: 13px;
-    pointer-events: none;
-    input[type="date"]::-webkit-inner-spin-button,
-    input[type="date"]::-webkit-calendar-picker-indicator {
-        display: none;
-        -webkit-appearance: none;
-    }
+  margin-left: -40px;
+  width: 13px;
+  pointer-events: none;
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
 }
 .calanderIcon {
-    margin-left: -40px;
-    margin-top: 15px;
-    width: 23px;
-    height: 26px;
-    pointer-events: none;
+  margin-left: -40px;
+  margin-top: 15px;
+  width: 23px;
+  height: 26px;
+  pointer-events: none;
 }
