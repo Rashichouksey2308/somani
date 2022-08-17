@@ -4,133 +4,205 @@ import { useEffect } from 'react'
 import styles from './index.module.scss'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 
-const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetails, onChangeCommercialTerms, onChangePaymentDueDate, onChangeTransactionDetails, newLcVal }) => {
-    const [IsBlSelected, setIsBlSelected] = useState(false)
-    const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
+const Index = ({
+  termsheet,
+  handleSave,
+  termsheetDetails,
+  onChangeCommodityDetails,
+  onChangeCommercialTerms,
+  onChangePaymentDueDate,
+  onChangeTransactionDetails,
+  newLcVal,
+}) => {
+  const [IsBlSelected, setIsBlSelected] = useState(false)
+  const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
 
-
-
-    const updateThirdPartyInspection = (e) => {
-        if (e.target.value == false) {
-            setThirdPartyInspection(false)
-            onChangeTransactionDetails(e)
-        } else if (e.target.value == true) {
-            setThirdPartyInspection(true)
-            onChangeTransactionDetails(e)
-        }
+  const updateThirdPartyInspection = (e) => {
+    if (e.target.value == false) {
+      setThirdPartyInspection(false)
+      onChangeTransactionDetails(e)
+    } else if (e.target.value == true) {
+      setThirdPartyInspection(true)
+      onChangeTransactionDetails(e)
     }
+  }
 
-    const payementchangeFunc = (value) => {
-        if (value === "DaysfromBLDate") {
-            setIsBlSelected(false)
-        } else if (value === "DaysfromVesselDischargeDate") {
-            setIsBlSelected(true)
-        }
+  const payementchangeFunc = (value) => {
+    if (value === 'DaysfromBLDate') {
+      setIsBlSelected(false)
+    } else if (value === 'DaysfromVesselDischargeDate') {
+      setIsBlSelected(true)
     }
+  }
 
-    console.log(termsheetDetails?.commodityDetails?.orderCurrency, "789", termsheetDetails?.commodityDetails?.unitOfQuantity)
-    return (
-        <div className={`${styles.main} vessel_card main`}>
-            <div className={`${styles.head_container} border_color d-flex justify-content-between`} data-toggle="collapse" data-target="#termDetails" aria-expanded="true" aria-controls="termDetails">
-                <h3 className={styles.heading}>Termsheet</h3>
-                <span>+</span>
+  console.log(
+    termsheetDetails?.commodityDetails?.orderCurrency,
+    '789',
+    termsheetDetails?.commodityDetails?.unitOfQuantity,
+  )
+  return (
+    <div className={`${styles.main} vessel_card main`}>
+      <div
+        className={`${styles.head_container} border_color d-flex justify-content-between`}
+        data-toggle="collapse"
+        data-target="#termDetails"
+        aria-expanded="true"
+        aria-controls="termDetails"
+      >
+        <h3 className={styles.heading}>Termsheet</h3>
+        <span>+</span>
+      </div>
+      <div
+        id="termDetails"
+        className="collapse"
+        aria-labelledby="termDetails"
+        data-parent="#termDetails"
+      >
+        <div className={`${styles.dashboard_form} card-body`}>
+          <h3 className={`${styles.sub_heading}`}>Commodity details</h3>
+
+          <div className="row">
+            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div className="d-flex">
+                <input
+                  id="commodity"
+                  className={`${styles.value} input form-control`}
+                  defaultValue={termsheetDetails?.commodityDetails?.commodity}
+                  onChange={onChangeCommodityDetails}
+                  type="text"
+                  required
+                />
+                <label className={`${styles.label} label_heading`}>
+                  Commodity<strong className="text-danger">*</strong>
+                </label>
+                <img
+                  className={`${styles.search_image} img-fluid`}
+                  src="/static/search-grey.svg"
+                  alt="Search"
+                />
+              </div>
             </div>
-            <div id="termDetails" className="collapse" aria-labelledby="termDetails" data-parent="#termDetails">
+            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div className="d-flex">
+                <select
+                  id="unitOfQuantity"
+                  className={`${styles.value} ${styles.customSelect}  input form-control`}
+                  onChange={onChangeCommodityDetails}
+                  required
+                >
+                  <option
+                    value={termsheetDetails?.commodityDetails?.unitOfQuantity}
+                  >
+                    {termsheetDetails?.commodityDetails?.unitOfQuantity}{' '}
+                  </option>
+                </select>
+                <label className={`${styles.label} label_heading`}>
+                  Units of Measurement (UOM)
+                  <strong className="text-danger">*</strong>
+                </label>
+                <img
+                  className={`${styles.arrow} image_arrow img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
+            </div>
+            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div className="d-flex">
+                <select
+                  value={
+                    termsheetDetails?.commodityDetails?.orderCurrency == 'INR'
+                      ? 'Rupee'
+                      : termsheetDetails?.commodityDetails?.orderCurrency
+                  }
+                  id="orderCurrency"
+                  className={`${styles.value} ${styles.customSelect}  input form-control`}
+                  onChange={onChangeCommodityDetails}
+                  required
+                >
+                  <option value="USD">USD</option>
+                  <option value="Rupee">INR</option>
+                  <option value="Euro">Euro</option>
+                  <option value="BritishPound">British Pound</option>
+                </select>
+                <label className={`${styles.label} label_heading`}>
+                  Currency<strong className="text-danger">*</strong>
+                </label>
+                <img
+                  className={`${styles.arrow} image_arrow img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
+            </div>
+            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <input
+                id="quantity"
+                className={`${styles.value} input form-control`}
+                //  value={termsheetDetails?.commodityDetails?.quantity}
+                value={addPrefixOrSuffix(
+                  termsheetDetails?.commodityDetails?.quantity,
+                  termsheetDetails?.commodityDetails?.unitOfQuantity.toUpperCase(),
+                  '',
+                )}
+                onChange={(e) => {
+                  onChangeCommodityDetails(e)
+                }}
+                type="text"
+                required
+              />
 
-                <div className={`${styles.dashboard_form} card-body`}>
-                    <h3 className={`${styles.sub_heading}`}>Commodity details</h3>
+              <label className={`${styles.label} label_heading`}>
+                Quantity<strong className="text-danger">*</strong>
+              </label>
+              <span className={styles.percent}></span>
+            </div>
+            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              {/* <span className={styles.inr}><strong>{termsheetDetails?.commodityDetails?.orderCurrency}</strong></span> */}
+              <input
+                id="perUnitPrice"
+                className={`${styles.value} ${styles.inrValue} input form-control`}
+                value={addPrefixOrSuffix(
+                  termsheetDetails?.commodityDetails?.perUnitPrice,
+                  termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
+                  'front',
+                )}
+                onChange={onChangeCommodityDetails}
+                type="text"
+                required
+              />
 
-
-                    <div className='row'>
-                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <div className='d-flex'>
-                                <input id='commodity' className={`${styles.value} input form-control`} defaultValue={termsheetDetails?.commodityDetails?.commodity} onChange={onChangeCommodityDetails} type="text" required />
-                                <label className={`${styles.label} label_heading`}>Commodity<strong className="text-danger">*</strong></label>
-                                <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
-                            </div>
-                        </div>
-                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <div className="d-flex">
-
-                                <select id='unitOfQuantity' className={`${styles.value} ${styles.customSelect}  input form-control`} onChange={onChangeCommodityDetails} required>
-                                    <option value={termsheetDetails?.commodityDetails?.unitOfQuantity}>{termsheetDetails?.commodityDetails?.unitOfQuantity } </option>
-
-
-                                </select>
-                                <label className={`${styles.label} label_heading`}>Units of Measurement (UOM)<strong className="text-danger">*</strong></label>
-                                <img
-                                    className={`${styles.arrow} image_arrow img-fluid`}
-                                    src="/static/inputDropDown.svg"
-                                    alt="Search"
-                                />
-                            </div>
-                        </div>
-                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <div className='d-flex'>
-                                <select
-                                    value={termsheetDetails?.commodityDetails?.orderCurrency == "INR" ? "Rupee" : termsheetDetails?.commodityDetails?.orderCurrency} id='orderCurrency' className={`${styles.value} ${styles.customSelect}  input form-control`}
-                                    onChange={onChangeCommodityDetails} required>
-                                    <option value="USD">USD</option>
-                                    <option value="Rupee">INR</option>
-                                    <option value="Euro">Euro</option>
-                                    <option value="BritishPound">British Pound</option>
-
-
-
-                                </select>
-                                <label className={`${styles.label} label_heading`}>Currency<strong className="text-danger">*</strong></label>
-                                <img
-                                    className={`${styles.arrow} image_arrow img-fluid`}
-                                    src="/static/inputDropDown.svg"
-                                    alt="Search"
-                                />
-                            </div>
-                        </div>
-                        <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-                            <input id='quantity' className={`${styles.value} input form-control`}
-                                //  value={termsheetDetails?.commodityDetails?.quantity}
-                                value={addPrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity,
-                                    termsheetDetails?.commodityDetails?.unitOfQuantity.toUpperCase()
-                                    , "")}
-
-                                onChange={(e) => {
-
-                                    onChangeCommodityDetails(e)
-
-                                }} type="text" required />
-
-                            <label className={`${styles.label} label_heading`}>Quantity<strong className="text-danger">*</strong></label>
-                            <span className={styles.percent}></span>
-                        </div>
-                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            {/* <span className={styles.inr}><strong>{termsheetDetails?.commodityDetails?.orderCurrency}</strong></span> */}
-                            <input id='perUnitPrice' className={`${styles.value} ${styles.inrValue} input form-control`}
-                                value={addPrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice, termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(), "front")}
-                                onChange={onChangeCommodityDetails} type="text" required />
-
-
-                            <label className={`${styles.label} label_heading`}>Unit Price<strong className="text-danger">*</strong></label>
-                        </div>
-                        <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                            <div className='d-flex'>
-
-                                <select id='tolerance' value={termsheetDetails?.commodityDetails?.tolerance} className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeCommodityDetails} required>
-
-                                    <option value="10">±10%</option>
-                                    <option value="20">±20%</option>
-                                </select>
-                                <label className={`${styles.label} label_heading`}>Tolerance (+/-) Percentage<strong className="text-danger">*</strong></label>
-                                <img
-                                    className={`${styles.arrow} image_arrow img-fluid`}
-                                    src="/static/inputDropDown.svg"
-                                    alt="Search"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className={`${styles.dashboard_form} card-body`}>
-                    <h3 className={styles.sub_heading}>Transaction Details</h3>
+              <label className={`${styles.label} label_heading`}>
+                Unit Price<strong className="text-danger">*</strong>
+              </label>
+            </div>
+            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div className="d-flex">
+                <select
+                  id="tolerance"
+                  value={termsheetDetails?.commodityDetails?.tolerance}
+                  className={`${styles.value} ${styles.customSelect} input form-control`}
+                  onChange={onChangeCommodityDetails}
+                  required
+                >
+                  <option value="10">±10%</option>
+                  <option value="20">±20%</option>
+                </select>
+                <label className={`${styles.label} label_heading`}>
+                  Tolerance (+/-) Percentage
+                  <strong className="text-danger">*</strong>
+                </label>
+                <img
+                  className={`${styles.arrow} image_arrow img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={`${styles.dashboard_form} card-body`}>
+          <h3 className={styles.sub_heading}>Transaction Details</h3>
 
                     <div className='row'>
                         <div className={`${styles.form_group} col-md-4 col-sm-6`} >
@@ -149,18 +221,7 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                     termsheetDetails?.transactionDetails?.marginMoney?.toString(),
                                     "%"
                                     , "")}
-                                onChange={(e)=>{
-                                    var key =  e.which
-                                       console.log(key,"55")
-                                    onChangeTransactionDetails(e)
-                                }}
-                                 onKeyPress={(e) =>  {
-                                       var key =  e.which
-                                       console.log(key,"55")
-                                          if( key == 8 || key == 46 ){
-                                            console.log("herer back")
-                                          }
-                                 }}
+                                onChange={onChangeTransactionDetails}
                                 required
                             />
                             {/* <span className={styles.percent}><strong>%</strong></span> */}
