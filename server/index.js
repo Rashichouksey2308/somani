@@ -3,8 +3,8 @@ const express = require('express')
 const compression = require('compression')
 const next = require('next')
 const helmet = require('helmet')
-
-const port = parseInt(process.env.PORT, 10) || 3010
+require('dotenv').config()
+const port = process.env.PORT || 3010
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handler = app.getRequestHandler()
