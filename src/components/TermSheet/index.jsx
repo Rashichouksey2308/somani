@@ -470,6 +470,7 @@ const Index = () => {
               onChangeLcOpening={onChangeLcOpening}
               onChangeCha={onChangeCha}
               termsheet={termsheet}
+              termsheetDetails={termsheetDetails}
             />
             <UploadOther module='LeadOnboarding&OrderApproval' orderid={OrdID} />
           </div>
