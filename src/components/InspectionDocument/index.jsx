@@ -134,6 +134,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
                     </td>
                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                     <td colSpan={2}>
+                    {false?  <>
                       <button className={`${styles.uploadDoc} btn`}>
                         Upload
                       </button>
@@ -142,6 +143,18 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
                         onChange={(e) => uploadDocument1(e)}
                         name="myfile"
                       />
+                      </>:
+                      <div className={styles.certificate}>
+                      {"name"}
+                      <img
+                        className={`${styles.close_image} float-right m-2 img-fluid`}
+                        src="/static/close.svg"
+                       
+                        alt="Close"
+                      />{' '}
+                    </div>
+                      }
+                    
                     </td>
                   </tr>
                 </tbody>
@@ -165,6 +178,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
                   <p className={styles.drop_para}>
                     Drop Files here or
                     <br />
+                    {false?
                     <div className={styles.uploadBtnWrapper}>
                       <input
                         type="file"
@@ -173,7 +187,17 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
                         name="myfile"
                       />
                       <a href="#">Browse</a>
+                    </div>:
+                      <div className={styles.certificate2}>
+                      {"name"}
+                      <img
+                        className={`${styles.close_image} float-right m-2 img-fluid`}
+                        src="/static/close.svg"
+                        
+                        alt="Close"
+                      />{' '}
                     </div>
+                    }
                   </p>
                 </div>
               </div>
