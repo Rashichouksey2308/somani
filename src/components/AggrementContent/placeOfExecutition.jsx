@@ -168,30 +168,25 @@ function Index(props) {
 
     <>
       <div className={`${styles.container} vessel_card`}>
-        <Form className={`${styles.form}`}>
-        
-        </Form>
        
-        <div className={`${styles.tableContainer} border-color card p-0`}>
-          <div
+       
+        <div className={`${styles.tableContainer} card p-0`}>
+          {/* <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-            data-toggle="collapse"
-            data-target="#customerDetail"
-            aria-expanded="true"
-            aria-controls="customerDetail"
+           
           >
             <div className={styles.header}>
-              {/* <h2 className={`mb-0`}>Authorised Signatory Details</h2> */}
+           
               <span className=" d-flex align-items-center justify-content-between">
-
-                +
+          
+               
               </span>
             </div>
-          </div>
+          </div> */}
           <div
             id="customerDetail"
-            className={`collapse ${styles.body}  value_card card-body row`}
-            aria-labelledby="customerDetail"
+            className={` ${styles.body}  value_card card-body row`}
+           
 
           >
             <div className={styles.table_scroll_outer}>

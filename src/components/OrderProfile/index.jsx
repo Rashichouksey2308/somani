@@ -50,7 +50,7 @@ function Index() {
         {fields("INCO Terms", buyerList?.order?.incoTerm, false)}
         {/* {fields("Transaction Type",buyerList?.order?.transactionType)} */}
         {fields("Port Of Discharge", buyerList?.order?.portOfDischarge, false)}
-        {fields("Expected Date Of Shipment", moment(buyerList?.order?.ExpectedDateOfShipment?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY"), false)},false)}
+        {fields("Expected Date Of Shipment", moment(buyerList?.order?.ExpectedDateOfShipment?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY"), false)}
         {fields("Document Name", buyerList?.company?.documents[0]?.typeOfDocument, true)}
 
       </div>

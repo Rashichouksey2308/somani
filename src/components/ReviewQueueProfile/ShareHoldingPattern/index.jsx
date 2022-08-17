@@ -7,6 +7,7 @@ function Index({ shareHolding }) {
 
   const [totalShares, setTotalShares] = useState(0)
 
+
   console.log(shareHolding, "shareholding")
   Chart.register(ArcElement)
   let tempArr = [
@@ -16,19 +17,22 @@ function Index({ shareHolding }) {
 
   ]
 
-  
-  // const EquityValues = shareHolding?.filter((item) => {
-  //   return item.type === 'EquityShares1Member'
-  // })
-  // const topEquityValues = EquityValues?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5)
-  // // const top
 
-  // const prefrenceValues = shareHolding?.filter((item) => {
-  //   return !item.type === 'EquityShares1Member'
-  // })
-  // const topPrefrenceValues = shareHolding?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5)
+  const EquityValues = shareHolding?.filter((item) => {
+    return item.type === 'EquityShares1Member'
+  })
+  const equityShareNo = []
+  const topEquityValues = EquityValues?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5).forEach((item) => equityShareNo.push(item.numberOfShares))
+  // const top
 
-// // console.log(EquityValues, '    ', topEquityValues, prefrenceValues, 'ljdhfdlgujldj')
+  const prefrenceValues = shareHolding?.filter((item) => {
+    return !item.type === 'EquityShares1Member'
+  })
+  const topprefrencesShareNo = []
+  const topPrefrenceValues = prefrenceValues?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5).forEach((item) => topPrefrenceValues.push(item.numberOfShares))
+
+  setTimeout(console.log(equityShareNo, topEquityValues, 'topprefrencesShareNo'), 5000);
+
 
   const equitydata = {
     labels: [
@@ -40,9 +44,9 @@ function Index({ shareHolding }) {
     datasets: [
       {
         label: '',
-        data: [25, 24, 25],
+        data: equityShareNo,
 
-        backgroundColor: ['#4CAF50', '#2884DE', '#FFCE00'],
+        backgroundColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
       },
     ],
   }

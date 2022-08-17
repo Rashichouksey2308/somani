@@ -22,7 +22,7 @@ const Index = () => {
     transactionType: '',
     commodity: '',
     quantity: null,
-    unitOfQuantity: '',
+    unitOfQuantity: 'KG',
     orderValue: null,
     orderCurrency: '',
     unitOfValue: 'INR',

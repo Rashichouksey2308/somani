@@ -367,7 +367,7 @@ export default function Index({ addButton, inspectionData }) {
             ? Discharge(inspectionData, saveInspectionDetails, saveDate)
             : ''}
 
-          <div className={`${styles.main} card border-color`}>
+          <div className={`${styles.main} vessel_card card border-color`}>
             <div
               className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
               data-toggle="collapse"

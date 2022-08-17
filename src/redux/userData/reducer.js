@@ -4,6 +4,7 @@ const initialState = {
   isDark: false,
   pageName: 'dashboard',
   id: null,
+  order: ''
 }
 function UserReducer(state = initialState, action) {
   switch (action.type) {
@@ -24,6 +25,11 @@ function UserReducer(state = initialState, action) {
         ...state,
 
         id: action.value,
+      }
+    case types.DYNAMIC_ORDER:
+      return {
+        ...state,
+        order: action.value
       }
     default:
       return state
