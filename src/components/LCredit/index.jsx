@@ -228,6 +228,8 @@ function Index() {
     lcDraftDoc : null
   })
 
+  console.log(lcDoc, "THIS IS LOC DOC")
+
   const uploadDocument1 = (e) => {
     const newInput = {...lcDoc}
     newInput.lcDraftDoc = e.target.files[0]
@@ -558,6 +560,7 @@ function Index() {
           {/* Document*/}
           <div className="mt-4 mb-5">
             <InspectionDocument
+              lcDoc={lcDoc}
               orderId={lcModuleData?.order?._id}
               uploadDocument1={uploadDocument1}
               documentName="LC DRAFT"

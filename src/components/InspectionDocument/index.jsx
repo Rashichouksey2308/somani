@@ -10,7 +10,7 @@ import {
 } from 'redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Index = ({ orderId, uploadDocument1, module, documentName }) => {
+const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
   const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
   const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState(
@@ -134,18 +134,22 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
                     </td>
                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                     <td colSpan={2}>
-                    {false?  <>
-                      <button className={`${styles.uploadDoc} btn`}>
-                        Upload
-                      </button>
+                    { lcDoc && lcDoc.lcDraftDoc === null ?  <>
+      
+                      <div className={styles.uploadBtnWrapper}>
                       <input
                         type="file"
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                         onChange={(e) => uploadDocument1(e)}
                         name="myfile"
                       />
+                       <button  className={`${styles.uploadDoc} btn`}>
+                        Upload
+                      </button>
+                    </div>
                       </>:
                       <div className={styles.certificate}>
-                      {"name"}
+                      {lcDoc?.lcDraftDoc?.name}
                       <img
                         className={`${styles.close_image} float-right m-2 img-fluid`}
                         src="/static/close.svg"
