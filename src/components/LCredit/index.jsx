@@ -410,7 +410,7 @@ function Index() {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            Clause<strong className="text-danger">*</strong>
+                            Clause
                           </label>
                           <img
                             className={`${styles.arrow} image_arrow img-fluid`}
