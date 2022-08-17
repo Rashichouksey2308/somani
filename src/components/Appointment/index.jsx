@@ -84,7 +84,7 @@ export default function Index({ inspectionData }) {
         className={`${styles.backgroundMain} container-fluid p-0 background2`}
       >
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} card border-color`}>
+          <div className={`${styles.main} vessel_card card border-color`}>
             <div
               className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
             >

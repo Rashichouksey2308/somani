@@ -438,8 +438,8 @@ function Index() {
     // let newArr = [...companyComment]
     // newArr.pop(index)
     // setCompanyComment(newArr)
-    setCompanyComment([...companyComment.slice(0,index), ...companyComment.slice(index+1)])
-  
+    setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)])
+
   }
   const dltFinancialsCommentArr = (index) => {
     // let newArr = [...financialsComment]
@@ -909,15 +909,15 @@ function Index() {
             />
             <h1 className={`${styles.title} heading`}>
               {orderList?.company?.companyName}
-            </h1>            
+            </h1>
             <div className={`${styles.unit} ml-auto d-flex align-items-center`}>
               <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>Unit :</h5>
               <div className="d-flex align-items-center position-relative">
                 <select className={`${styles.select} ${styles.customSelect} accordion_body form-select`} aria-label="Default select example">
                   <option selected value="Crores">Crores</option>
-                </select>              
+                </select>
                 <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg"
-                alt="Search"/>
+                  alt="Search" />
               </div>
             </div>
             {uploadBtn ? (
@@ -1071,7 +1071,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion shadow-none" id="profileAccordion">
-                    <CompanyDetails order={orderList?.company} companyId={companyData?.company} companyDetail={companyData} />
+                    <CompanyDetails order={orderList?.company} companyDetail={companyData} />
                     <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorData={companyData} />
                     <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
@@ -1312,8 +1312,8 @@ function Index() {
                       <div className={`${styles.categories} mb-0 d-flex align-items-center`}>
                         <label className={styles.label}>Categories:</label>
                         <select onChange={(e) => setComplienceFilter(e.target.value)} className={`${styles.form_control} form-control`}>
-                          <option value="Statutory Compliance">Statutory Compliance</option>
-                          <option value="Banking Defaults">Banking Defaults</option>
+                          <option value="StatutoryCompliance">Statutory Compliance</option>
+                          <option value="BankingDefaults">Banking Defaults</option>
                         </select>
                         <span>+</span>
                       </div>
@@ -1490,7 +1490,8 @@ function Index() {
                                 id={'high'}
                               />
                               <span className={styles.control__content}>
-                                <span>{`High Risk (${companyData?.compliance?.litigations[0]?.highRisk})`}</span>
+                                <span>High Risk</span>
+                                {/* <span>{`High Risk (${companyData?.compliance?.litigations[0]?.highRisk ? companyData?.compliance?.litigations[0]?.highRisk : 0})`}</span> */}
                               </span>
                             </label>
 
@@ -1506,7 +1507,8 @@ function Index() {
                                 id={'medium'}
                               />
                               <span className={styles.control__content}>
-                                <span>{`Medium Risk (${companyData?.compliance?.litigations[0]?.mediumRisk})`}</span>
+                                <span>Medium Risk</span>
+                                {/* <span>{`Medium Risk (${companyData?.compliance?.litigations[0]?.mediumRisk ? companyData?.compliance?.litigations[0]?.mediumRisk : 0})`}</span> */}
                               </span>
                             </label>
                             <label
@@ -1521,7 +1523,8 @@ function Index() {
                                 id={'Relevance'}
                               />
                               <span className={styles.control__content}>
-                                <span>{`High Relevance (${companyData?.compliance?.litigations[0]?.highPriority.length})`}</span>
+                                <span>High Relevence</span>
+                                {/* <span>{`High Relevance (${companyData?.compliance?.litigations[0]?.highPriority ? companyData?.compliance?.litigations[0]?.highPriority : 0})`}</span> */}
                               </span>
                             </label>
                           </div>

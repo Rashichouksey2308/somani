@@ -25,6 +25,9 @@ const Index = ({
           }
           dateFormat={dateFormat ? dateFormat : 'dd-MM-yyyy'}
           name={name}
+          onKeyDown={(e) => {
+            e.preventDefault()
+          }}
           className={`${styles.input_field} input form-control`}
           onChange={(startDate) => {
             setStartDate(startDate)

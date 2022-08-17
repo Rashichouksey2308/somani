@@ -34,7 +34,7 @@ const Index = ({ saveOrderData, orderData }) => {
               {/* <option selected></option> */}
               <option value='KG'>KG</option>
               <option value='L'>L</option>
-              <option value='MT' selected>MT</option>
+              <option value='MT'>MT</option>
             </select>
           </div>
 

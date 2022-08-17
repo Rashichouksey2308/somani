@@ -1907,7 +1907,7 @@ const index = ({
                         <td>
                           <select
                             name="bankName"
-                            disabled={profile.actions}
+                            disabled={!profile.actions}
                             onChange={(e) =>
                               handleDebtChange(
                                 e.target.name,

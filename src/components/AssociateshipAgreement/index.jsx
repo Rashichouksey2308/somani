@@ -14,12 +14,12 @@ function Index() {
       <div className={`${styles.content} card`}>
           <div className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
           <div className={`d-flex `}>
-            <h2 className="mb-0 mr-4" onClick={()=>setActive("none")}> Agreement</h2>
-         <h2 className="mb-0 mr-4" onClick={()=>setActive("one")} > Undertaking 1</h2>
-         <h2 className="mb-0" onClick={()=>setActive("tow")}>  Undertaking 2</h2>
+          <h2 className={`mb-0 mr-4 ${active=="none"?styles.underLine:null}`}onClick={()=>setActive("none")}> Agreement</h2>
+         <h2  className={`mb-0 mr-4 ${active=="one"?styles.underLine:null}`}onClick={()=>setActive("one")} > Undertaking 1</h2>
+         <h2 className={`mb-0  ${active=="tow"?styles.underLine:null}`} onClick={()=>setActive("tow")}>  Undertaking 2</h2>
           </div>
                                           
-     <div
+     {/* <div
                     className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
                   >
                    
@@ -38,7 +38,7 @@ function Index() {
                         className={`${styles.image_reverse} img-fluid`}
                       />
                     </a>
-                  </div>
+                  </div> */}
                                               
                                            
           </div>

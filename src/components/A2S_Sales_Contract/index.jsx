@@ -7,6 +7,7 @@ import moment from 'moment'
 
 
 function Index(props) {
+  console.log(props.preview,"55")
   const [data, setData] = useState({
     seller: "",
     buyer: "",
@@ -35,28 +36,28 @@ function Index(props) {
     if (window) {
       if (props.preview) {
         const data = JSON.parse(sessionStorage.getItem("preview"))
-        console.log(data.seller.name, "datapreview")
+      
         setData({
-          seller: data.seller,
-          buyer: data.buyer,
+          seller: data?.seller,
+          buyer: data?.buyer,
           shortseller: data?.shortseller,
           shortbuyer: data?.shortbuyer,
-          sellerSignature: data.sellerSignature,
-          buyerSignature: data.buyerSignature,
-          dateOfExecution: data.dateOfExecution,
+          sellerSignature: data?.sellerSignature,
+          buyerSignature: data?.buyerSignature,
+          dateOfExecution: data?.dateOfExecution,
           placeOfExecution: data?.placeOfExecution,
-          details: data.details,
-          detailsOfEndBuyer: data.detailsOfEndBuyer,
+          details: data?.details,
+          detailsOfEndBuyer: data?.detailsOfEndBuyer,
           detailsOfComm: data?.detailsOfComm,
-          quan: data.quan,
-          unitPrice: data.unitPrice,
-          totalOrderValue: data.totalOrderValue,
-          lordPort: data.lordPort,
-          dischargePort: data.dischargePort,
-          lastDate: data.lastDate,
-          terms: data.terms,
-          addComm: data.addComm,
-          spec: data.spec,
+          quan: data?.quan,
+          unitPrice: data?.unitPrice,
+          totalOrderValue: data?.totalOrderValue,
+          lordPort: data?.lordPort,
+          dischargePort: data?.dischargePort,
+          lastDate: data?.lastDate,
+          terms: data?.terms,
+          addComm: data?.addComm,
+          spec: data?.spec,
         })
       } else {
         const data = JSON.parse(sessionStorage.getItem("genericSelected"))
@@ -112,7 +113,10 @@ function Index(props) {
                 <div className={`${styles.approve} mr-3`}><span
                   onClick={(e) => {
                     sessionStorage.setItem("preview", JSON.stringify(data))
+                    console.log("at preview")
+
                     Router.push("agreement/preview")
+                    props.setPreviewValue(true)
                   }}
                 >Preview</span></div>
                 <div className={styles.reject}><span>Save</span></div>
@@ -254,7 +258,7 @@ Andhra Pradesh, 530016 India
             <Col md={1} className={styles.left}>12</Col>
             <Col md={4} className={styles.left}>Payment Terms </Col>
             <Col md={7} className={styles.right}>
-              <ol type="A">
+             <div> <ol type="A">
                 <li>
                   <p className="text_sales">All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer’s account and shall be solely the Buyer’s responsibility.</p>
                 </li>
@@ -284,7 +288,7 @@ Andhra Pradesh, 530016 India
                 </li>
 
               </ol>
-              <p className="text_sales">All the above documents are subject to receipt from shipper.</p>
+              <p className="text_sales">All the above documents are subject to receipt from shipper.</p></div>
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -637,7 +641,7 @@ Andhra Pradesh, 530016 India
           <Col md={12} className={`d-flex justify-content-around`}>
             {
               preview ?
-                <>{data?.buyerSignature}</>
+                <><span>{data?.buyerSignature}</span></>
                 :
                 <>
                   <input
@@ -653,7 +657,7 @@ Andhra Pradesh, 530016 India
             }
             {
               preview ?
-                <>{data?.sellerSignature}</>
+                <><span> {data?.sellerSignature}</span></>
                 :
                 <>
                   <input

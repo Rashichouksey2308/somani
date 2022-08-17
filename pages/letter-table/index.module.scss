@@ -1,48 +1,40 @@
 @import "../../src/components/styles/Core/config";
-
 .filter {
     margin: 15px 0;
     @include respond(sm-desktop) {
         display: block !important;
     }
-        .head_header {
-            display: flex;
-            padding-left: 10px;
-           
-    
+    .head_header {
+        display: flex;
+        padding-left: 10px;
+        @include respond(phone) {
+            align-items: center;
+            padding: 0.75rem 0rem;
+        }
+        .arrow {
+            width: 13px;
+            height: 21px;
+            background: transparent;
+            margin-top: 10px;
             @include respond(phone) {
-                align-items: center;
-                padding: 0.75rem 0rem;
-            }
-    
-            .arrow {
-                width: 13px;
-                height: 21px;
-                background: transparent;
-                margin-top: 10px;
-    
-                @include respond(phone) {
-                    margin-top: 0px;
-                    height: 18px;
-                }
-            }
-    
-            .heading {
-                padding-left: 18px;
-                font-weight: bold;
-                font-size: 34px;
-                line-height: 41px;
-    
-                text-transform: capitalize;
-                margin-top: 0;
-    
-                @include respond(phone) {
-                    font-size: $font_size_mobile_head;
-                    margin: 0px;
-                    padding-left: 10px;
-                }
+                margin-top: 0px;
+                height: 18px;
             }
         }
+        .heading {
+            padding-left: 18px;
+            font-weight: bold;
+            font-size: 34px;
+            line-height: 41px;
+            text-transform: capitalize;
+            margin-top: 0;
+            @include respond(phone) {
+                font-size: $font_size_mobile_head;
+                margin: 0px;
+                padding-left: 10px;
+            }
+        }
+    }
     .filterIcon {
         width: 48px;
         height: 48px;
@@ -254,8 +246,8 @@
                     }
                     img{
                         opacity: 0.4;
-                             width: 14px;
-                            height: 14px;
+                        width: 14px;
+                        height: 14px;
                     }
                     @include respond(md-desktop) {
                         font-size: 14px;
@@ -299,8 +291,7 @@
                         }
                     }
                 }
-                .buyerName {
-                   
+                .buyerName {                   
                     font-weight: bold;
                     text-transform: capitalize;
                     cursor: pointer;

@@ -204,10 +204,10 @@ function Index() {
                     (transaction, index) => {
                       return (
                         <tr key={index} className="table_row">
-                          <td className={`${styles.buyerName}`}>
+                          <td >
                             {_get(transaction, 'order.orderId', '')}
                           </td>
-                          <td onClick={() => handleRoute(transaction)}>
+                          <td className={`${styles.buyerName}`} onClick={() => handleRoute(transaction)}>
                             {_get(transaction, 'order.commodity', '')}
                           </td>
                           <td>
@@ -231,85 +231,7 @@ function Index() {
                       )
                     },
                   )}
-                  <tr className="table_row">
-                    <td>BHUTD001-0002</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => {
-                        Router.push('/transit/id')
-                        dispatch(setDynamicName('BHUTD001-0002'))
-                      }}
-                    >
-                      Iron
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>BHUTD001-0002</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => {
-                        Router.push('/transit/id')
-                      }}
-                    >
-                      Iron
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>
-                      Yes
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>BHUTD001-0002</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => {
-                        Router.push('/transit/id')
-                      }}
-                    >
-                      Iron
-                    </td>
-                    <td>Bhutani Traders</td>
-                    <td>Abcz</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.expired}`}
-                      ></span>
-                      No
-                    </td>
-                    <td>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>
-                  </tr>
+                 
                 </tbody>
               </table>
             </div>

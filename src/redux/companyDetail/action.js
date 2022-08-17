@@ -159,6 +159,11 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateCompanyDetailsSuccess(response.data.data))
+        let toastMessage = 'Successfully updated company details'
+        if (!toast.isActive(toastMessage)) {
+          toast.success(toastMessage, { toastId: toastMessage })
+        }
+
       } else {
         dispatch(updateCompanyDetailsFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'

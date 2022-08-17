@@ -18,7 +18,7 @@ import {
   GetMarginMoney,
   RevisedMarginMoney,
 } from '../../src/redux/marginMoney/action'
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
 import { addPrefixOrSuffix } from '../../src/utils/helper'
 // import { Row, Col } from 'react-bootstrap'
 
@@ -43,6 +43,7 @@ function Index() {
 
     dispatch(setPageName('margin-money'))
     dispatch(setDynamicName(marginData?.company.companyName))
+    dispatch(setDynamicOrder(marginData?.order.orderId))
   }, [dispatch, marginData?.company.companyName])
 
   useEffect(() => {
