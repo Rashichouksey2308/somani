@@ -25,13 +25,16 @@ const Index = ({
           }
           dateFormat={dateFormat ? dateFormat : 'dd-MM-yyyy'}
           name={name}
+          onKeyDown={(e) => {
+            e.preventDefault()
+          }}
           className={`${styles.input_field} input form-control`}
           onChange={(startDate) => {
             setStartDate(startDate)
             saveDate(startDate, name, index)
             console.log(startDate, name, 'Event')
           }}
-          // minDate={lastDate}
+           minDate={lastDate}
         />
         <label className={`${styles.label_heading} label_heading`}>
           {labelName}

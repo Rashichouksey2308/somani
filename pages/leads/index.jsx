@@ -189,7 +189,7 @@ function Index() {
           {/*leads table*/}
           <div className={`${styles.datatable} datatable card`}>
             <div
-              className={`${styles.tableFilter} d-flex justify-content-between`}
+              className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >
               <h3 className="heading_card">Leads</h3>
               <div

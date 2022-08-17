@@ -61,7 +61,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
     }
   }
   return (
-    <div className={`${styles.upload_main} upload_main`}>
+    <div
+      className={`${styles.upload_main} vessel_card border_color upload_main`}
+    >
       <div
         className={`${styles.head_container} border_color d-flex justify-content-between`}
         data-toggle="collapse"
@@ -304,15 +306,23 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
               <div
                 className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
               >
-                <div className='d-flex align-items-center'>
+                <div className="d-flex align-items-center">
                   <select
                     onChange={(e) => setDocumentsDropDownFilter(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
-                    <option value="LeadOnboarding&OrderApproval">Lead Onboarding &amp; Order Approval</option>
-                    <option value="Agreements,Insurance&LCOpening">Agreements, Insurance &amp; LC Opening</option>
-                    <option value="Loading-Transit-Unloading">Loading-Transit-Unloading</option>
-                    <option value="CustomClearanceAndWarehousing">Custom Clearance And Warehousing</option>
+                    <option value="LeadOnboarding&OrderApproval">
+                      Lead Onboarding &amp; Order Approval
+                    </option>
+                    <option value="Agreements,Insurance&LCOpening">
+                      Agreements, Insurance &amp; LC Opening
+                    </option>
+                    <option value="Loading-Transit-Unloading">
+                      Loading-Transit-Unloading
+                    </option>
+                    <option value="CustomClearanceAndWarehousing">
+                      Custom Clearance And Warehousing
+                    </option>
                     <option value="Others">Others</option>
                   </select>
                   <img
