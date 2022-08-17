@@ -18,6 +18,7 @@ import { Form } from 'react-bootstrap'
 import AssignmentLetter from '../../src/components/AssignmentLetter'
 
 function Index() {
+  const [preview,setPreview]=useState(false)
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
     if (
@@ -31,7 +32,9 @@ function Index() {
       setDarkMode(false)
     }
   }, [])
-
+ const setPreviewValue=(val)=>{
+  setPreview(val)
+ }
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
@@ -158,7 +161,10 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion shadow-none" id="profileAccordion">
-                    <Contract />
+                    <Contract
+                    preview={preview}
+                    setPreviewValue={setPreviewValue}
+                     />
                   </div>
                 </div>
                 <div
