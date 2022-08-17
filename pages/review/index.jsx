@@ -1907,10 +1907,11 @@ function Index() {
           handleApprove={onNext}
         />
       ) : null}
-      {selectedTab == 'gst' ? (
+      {selectedTab == 'GST' ? (
         <DownloadBar
           downLoadButtonName={`GST Report`}
           isPrevious={true}
+          isApprove={true}
           leftButtonName={`Previous`}
           rightButtonName={`Next`}
           handleApprove={onNext}
@@ -1978,12 +1979,52 @@ const ligitations = (companyData) => {
 }
 
 const table2 = (companyData, complienceFilter) => {
-  const filteredData = companyData?.compliance?.alerts?.filter(
-    (data) =>
-      data.severity.trim().toLowerCase() ===
-      complienceFilter.trim().toLowerCase(),
-  )
-  const length = filteredData?.length
+  let StatutoryComplianceData = []
+  let BankingDefaultsData = []
+
+  useEffect(() => {
+    companyData?.compliance?.alerts?.forEach(
+      (data) => {
+        console.log(data, 'filteredDataa1')
+  
+        if (data.alert.toLowerCase() === 'epftransactiondefault' ||
+          data.alert.toLowerCase() === 'iecindeniedentity' ||
+          data.alert.toLowerCase() === 'gsttransactiondefault' ||
+          data.alert.toLowerCase() === 'gstinactive' ||
+          data.alert.toLowerCase() === 'epftransactiondelay' ||
+          data.alert.toLowerCase() === 'epfclosed' ||
+          data.alert.toLowerCase() === 'tdspaymentdelay' ||
+          data.alert.toLowerCase() === 'gsttransactiondelay') {
+          console.log(data, 'filteredDataa2')
+  
+        }
+  
+  
+  
+      })
+  }, [])
+  
+// const data =  companyData?.compliance?.alerts?.forEach(
+//     (data) => {
+
+//       if (data.alert.toLowerCase() === 'epftransactiondefault' ||
+//         data.alert.toLowerCase() === 'iecindeniedentity' ||
+//         data.alert.toLowerCase() === 'gsttransactiondefault' ||
+//         data.alert.toLowerCase() === 'gstinactive' ||
+//         data.alert.toLowerCase() === 'epftransactiondelay' ||
+//         data.alert.toLowerCase() === 'epfclosed' ||
+//         data.alert.toLowerCase() === 'tdspaymentdelay' ||
+//         data.alert.toLowerCase() === 'gsttransactiondelay') {
+//         console.log(data, 'filteredDataa')
+
+//       }
+
+
+
+//     })
+
+ // console.log(filteredData, 'filteredDataa')
+  const length = StatutoryComplianceData?.length
 
   return (
     <table
@@ -2013,7 +2054,7 @@ const table2 = (companyData, complienceFilter) => {
           <td></td>
           <td></td>
         </tr>
-        {filteredData?.map((alert, index) => (
+        {StatutoryComplianceData?.map((alert, index) => (
           <tr key={index}>
             <td> {alert.alert}</td>
             <td> {alert.severity}</td>
@@ -2023,52 +2064,7 @@ const table2 = (companyData, complienceFilter) => {
           </tr>
         ))}
 
-        <tr>
-          <td className={styles.firstCell} rowSpan="6">
-            Banking Defaults
-          </td>
-          <td> IBBI</td>
-          <td>Severe</td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-        <tr>
-          <td> Credit Rating Suspended</td>
-          <td> High</td>
-          <td>ICRA</td>
-          <td>Establishment ID</td>
-          <td>MRMRT0015543000, UKDDN0020827000</td>
-        </tr>
-        <tr>
-          <td> Credit Rating Withdrawn</td>
-          <td>High</td>
-          <td> BRICKWORK</td>
-          <td> Date Of Issuance</td>
-          <td>30-04-2020</td>
-        </tr>
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> BRICKWORK</td>
-          <td> Date Of Issuance</td>
-          <td>30-04-2020</td>
-        </tr>
 
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> BRICKWORK</td>
-          <td> Date Of Issuance</td>
-          <td>30-04-2020</td>
-        </tr>
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> BRICKWORK</td>
-          <td> Date Of Issuance</td>
-          <td>30-04-2020</td>
-        </tr>
       </tbody>
     </table>
   )
