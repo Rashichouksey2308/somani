@@ -12,6 +12,20 @@ function Index({ cashData }) {
 
   const lastYearData = cashData?.financial?.cashFlowStatement[2]
 
+  const latestBalanceData = cashData?.financial?.balanceSheet[0]
+
+  const previousBalanceData = cashData?.financial?.balanceSheet[1]
+
+  const lastYearBalanceData = cashData?.financial?.balanceSheet[2]
+
+  const latestIncomeStatement = cashData?.financial?.incomeStatement[0]
+
+  const previousIncomeStatement = cashData?.financial?.incomeStatement[1]
+
+  const lastYearIncomeStatement = cashData?.financial?.incomeStatement[2]
+
+  console.log(cashData, 'lastYearData')
+
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -172,9 +186,9 @@ function Index({ cashData }) {
                     </tr>
                     <tr>
                       <td>Free Cash Flow</td>
-                      <td className="text-center">1,900.00</td>
-                      <td className="text-center">1,900.00</td>
-                      <td className="text-center">1,900.00</td>
+                      <td className="text-center">{(latestYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities - latestBalanceData?.assets?.propertyPlantAndEquipment - latestYearData?.previous?.propertyPlantAndEquipment) + latestIncomeStatement?.expenses?.deprcnAmort}</td>
+                      <td className="text-center">{(previousYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities - previousBalanceData?.assets?.propertyPlantAndEquipment - previousYearData?.previous?.propertyPlantAndEquipment) + previousIncomeStatement?.expenses?.deprcnAmort}</td>
+                      <td className="text-center">{(lastYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities - lastYearBalanceData?.assets?.propertyPlantAndEquipment - lastYearData?.previous?.propertyPlantAndEquipment) + lastYearIncomeStatement?.expenses?.deprcnAmort}</td>
                       <td className="text-center">
                         <img
                           src="/static/loss.svg"
@@ -185,9 +199,9 @@ function Index({ cashData }) {
                     </tr>
                     <tr>
                       <td>Capex</td>
-                      <td className="text-center">1,900.00</td>
-                      <td className="text-center">1,900.00</td>
-                      <td className="text-center">1,900.00</td>
+                      <td className="text-center">{(latestBalanceData?.assets?.propertyPlantAndEquipment - latestYearData?.previous?.propertyPlantAndEquipment) + latestIncomeStatement?.expenses?.deprcnAmort}</td>
+                      <td className="text-center">{(previousBalanceData?.assets?.propertyPlantAndEquipment - previousYearData?.previous?.propertyPlantAndEquipment) + previousIncomeStatement?.expenses?.deprcnAmort}</td>
+                      <td className="text-center">{(lastYearBalanceData?.assets?.propertyPlantAndEquipment - lastYearData?.previous?.propertyPlantAndEquipment) + lastYearIncomeStatement?.expenses?.deprcnAmort}</td>
                       <td className="text-center">
                         <img
                           src="/static/loss.svg"
