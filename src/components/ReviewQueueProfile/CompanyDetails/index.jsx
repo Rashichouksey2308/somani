@@ -304,7 +304,9 @@ function Index({ order, companyDetail }) {
                   />
                 </div>
               </div>
-              <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div
+                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
+              >
                 <button onClick={saveHandler} className={`${styles.saveBtn} `}>
                   Save
                 </button>
