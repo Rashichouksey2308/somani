@@ -685,6 +685,8 @@ function Index() {
       setLevel(a)
     }
   }, [companyData?.compliance?.alerts])
+
+
   console.log(companyData?.compliance?.litigations[0]?.highPriority, "sddssds")
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
@@ -920,6 +922,159 @@ function Index() {
     setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)])
   }
 
+const [totalCourt,setTotalCourt]=useState({
+  pending:0,
+  disposed:0,
+  total:0,
+  high:0,
+  medium:0,
+  relevence:0
+ }) 
+ const [Supreme,setSupreme]=useState([])
+ const [District,setDistrict]=useState([])
+ const [High,setHigh]=useState([])
+ const [Tribunal,setTribunal]=useState([])
+ const [filterType,setFilterType]=useState({
+  filterBy:{
+    pending:false,
+    disposed:false,
+    total:false
+  },
+  party:"",
+  class:"Criminal",
+  risk:""
+
+ })
+ console.log(filterType,"filterType")
+  useEffect(() => {
+   if(companyData){
+     filterLitigation()
+   }
+  },[companyData,filterType])
+ const filterLitigation=()=>{
+  let count={
+  pending:0,
+  disposed:0,
+  total:0,
+  high:0,
+  medium:0,
+  relevence:0}
+  companyData?.compliance.districtCourt.cases.forEach((val,index)=>{
+    count.total=count.total+1
+    if(val.caseStatus=="Disposed"){
+      count.disposed=count.disposed+1
+    }
+    if(val.caseStatus=="Pending"){
+      count.pending=count.pending+1
+    }
+     if(val.severity_ == "HIGH" ||val.severity_ == "high"){
+      count.high=count.high+1
+    }
+     if(val.severity_ == "medium"){
+      count.medium=count.medium+1
+    }
+     if(val.severity_ == null){
+      count.relevence=count.relevence+1
+    }
+  })
+   companyData?.compliance.highCourt.cases.forEach((val,index)=>{
+    count.total=count.total+1
+    if(val.caseStatus=="Disposed"){
+      count.disposed=count.disposed+1
+    }
+    if(val.caseStatus=="Pending"){
+      count.pending=count.pending+1
+    }
+     if(val.severity_ == "HIGH" ||val.severity_ == "high"){
+      count.high=count.high+1
+    }
+     if(val.severity_ == "medium"){
+      count.medium=count.medium+1
+    }
+     if(val.severity_ == null){
+      count.relevence=count.relevence+1
+    }
+  })
+   companyData?.compliance.supremeCourt.cases.forEach((val,index)=>{
+    count.total=count.total+1
+    if(val.caseStatus=="Disposed"){
+      count.disposed=count.disposed+1
+    }
+    if(val.caseStatus=="Pending"){
+      count.pending=count.pending+1
+    }
+     if(val.severity_ == "HIGH" ||val.severity_ == "high"){
+      count.high=count.high+1
+    }
+     if(val.severity_ == "medium"){
+      count.medium=count.medium+1
+    }
+     if(val.severity_ == null){
+      count.relevence=count.relevence+1
+    }
+  })
+   companyData?.compliance.supremeCourt.cases.forEach((val,index)=>{
+    count.total=count.total+1
+    if(val.caseStatus=="Disposed"){
+      count.disposed=count.disposed+1
+    }
+    if(val.caseStatus=="Pending"){
+      count.pending=count.pending+1
+    }
+     if(val.severity_ == "HIGH" ||val.severity_ == "high"){
+      count.high=count.high+1
+    }
+     if(val.severity_ == "medium"){
+      count.medium=count.medium+1
+    }
+     if(val.severity_ == null){
+      count.relevence=count.relevence+1
+    }
+  })
+ console.log(filterType.filterBy.pending==true?"pending":
+        filterType.filterBy.disposed==true?"disposed":"total","oiii")
+ let high= companyData?.compliance.districtCourt.cases.filter((val)=>{
+  console.log(val.caseStatus.toLowerCase(),filterType.filterBy.pending==true?"pending":null,"7899")
+      if( 
+        val.caseStatus.toLowerCase()==filterType.filterBy.pending==true?"pending":null
+        // || val.caseStatus.toLowerCase()==filterType.filterBy.dispose==true?"disposed":null
+         
+        
+        ){
+
+        return val
+      }
+  })
+  // let high3= companyData?.compliance.districtCourt.cases.filter((val)=>{
+  //     if(val.severity_ == filterType.risk || val.severity_ == filterType.risk
+  //       || 
+  //       val.civilCriminal == filterType.class
+  //       && 
+  //       val.caseStatus.toLowerCase()==filterType.filterBy.pending==true?"pending":
+  //       filterType.filterBy.disposed==true?"disposed":"total"){
+  //       return val
+  //     }
+  // })
+  // let high4= companyData?.compliance.supremeCourt.cases.filter((val)=>{
+  //     if(val.severity_ == filterType.risk || val.severity_ == filterType.risk|| 
+  //       val.civilCriminal == filterType.class&& 
+  //       val.caseStatus.toLowerCase()==filterType.filterBy.pending==true?"pending":
+  //       filterType.filterBy.disposed==true?"disposed":"total"){
+  //       return val
+  //     }
+  // })
+  // let high5= companyData?.compliance.supremeCourt.cases.filter((val)=>{
+  //     if(val.severity_ == filterType.risk || val.severity_ == filterType.risk|| 
+  //       val.civilCriminal == filterType.class&& 
+  //       val.caseStatus.toLowerCase()==filterType.filterBy.pending==true?"pending":
+  //       filterType.filterBy.disposed==true?"disposed":"total"){
+  //       return val
+  //     }
+  // })
+  console.log(high,"highCourt",filterType)
+ 
+  setTotalCourt(count)
+ }
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -1404,6 +1559,10 @@ function Index() {
                                     type="checkbox"
                                     value=""
                                     id="flexCheckDefault"
+                                    onChange={()=>{
+                                      filterType.filterBy.pending=!filterType.filterBy.pending
+                                      setFilterType({...filterType})
+                                    }}
                                   />
                                   <label
                                     className="form-check-label"
@@ -1411,8 +1570,7 @@ function Index() {
                                   >
                                     Pending (
                                     {
-                                      companyData?.compliance?.litigations[0]
-                                        ?.pendingCase
+                                      totalCourt.pending
                                     }
                                     )
                                   </label>
@@ -1422,16 +1580,20 @@ function Index() {
                                     className="form-check-input"
                                     type="checkbox"
                                     value=""
-                                    id="flexCheckDefault"
+                                    id="flexCheckDefault1"
+                                    onChange={()=>{
+                                      filterType.filterBy.disposed=!filterType.filterBy.disposed
+                                      setFilterType({...filterType})
+                                    }}
                                   />
                                   <label
                                     className="form-check-label"
-                                    htmlFor="flexCheckDefault"
+                                    htmlFor="flexCheckDefault1"
+                                   
                                   >
                                     Disposed (
                                     {
-                                      companyData?.compliance?.litigations[0]
-                                        ?.disposedCase
+                                      totalCourt.disposed
                                     }
                                     )
                                   </label>
@@ -1441,16 +1603,19 @@ function Index() {
                                     className="form-check-input"
                                     type="checkbox"
                                     value=""
-                                    id="flexCheckDefault"
+                                    id="flexCheckDefault3"
+                                     onChange={()=>{
+                                      filterType.filterBy.total=!filterType.filterBy.total
+                                      setFilterType({...filterType})
+                                    }}
                                   />
                                   <label
                                     className="form-check-label"
-                                    htmlFor="flexCheckDefault"
+                                    htmlFor="flexCheckDefault3"
                                   >
                                     Total Cases (
                                     {
-                                      companyData?.compliance?.litigations[0]
-                                        ?.totalCase
+                                       totalCourt.total
                                     }
                                     )
                                   </label>
@@ -1464,13 +1629,21 @@ function Index() {
                               >
                                 <div className="form-check">
                                   <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                                  <label className="form-check-label" htmlFor="flexRadioDefault1">
+                                  <label className="form-check-label" htmlFor="flexRadioDefault1"
+                                  onChange={()=>{
+                                      setFilterType({...filterType,party:"Respondent"})
+                                    }}
+                                  >
                                     Respondent
                                   </label>
                                 </div>
                                 <div className="form-check ml-4">
                                   <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
-                                  <label className="form-check-label" htmlFor="flexRadioDefault2">
+                                  <label className="form-check-label" htmlFor="flexRadioDefault2"
+                                  onChange={()=>{
+                                      setFilterType({...filterType,party:"Petitioner"})
+                                    }}
+                                  >
                                     Petitioner
                                   </label>
                                 </div>
@@ -1483,14 +1656,26 @@ function Index() {
                                 className={` d-flex align-items-center justify-content-start`}
                               >
                                 <div className="form-check">
-                                  <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault3" />
-                                  <label className="form-check-label" htmlFor="flexRadioDefault3">
+                                  <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault3"
+
+                                  onChange={()=>{
+                                    
+                                      setFilterType({...filterType,class:"Civil"})
+                                    }} />
+                                  <label className="form-check-label" htmlFor="flexRadioDefault3"
+                                   
+                                  >
                                     Civil
                                   </label>
                                 </div>
                                 <div className="form-check ml-3">
-                                  <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault4" checked />
-                                  <label className="form-check-label" htmlFor="flexRadioDefault4">
+                                  <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault4" checked 
+                                   onChange={()=>{
+                                      setFilterType({...filterType,class:"Criminal"})
+                                    }}/>
+                                  <label className="form-check-label" htmlFor="flexRadioDefault4"
+                                  
+                                  >
                                     Criminal
                                   </label>
                                 </div>
@@ -1511,11 +1696,15 @@ function Index() {
                                 name="topics"
                                 value={'high'}
                                 id={'high'}
+                                 onChange={()=>{
+                                      setFilterType({...filterType,risk:"high"})
+                                }}
                               />
                               <span className={styles.control__content}>
                                 <span>High Risk</span>
-                                {/* <span>{`High Risk (${companyData?.compliance?.litigations[0]?.highRisk ? companyData?.compliance?.litigations[0]?.highRisk : 0})`}</span> */}
-                              </span>
+                               <span>({totalCourt.high})</span>
+                              </span>  
+                             
                             </label>
 
                             <label
@@ -1528,10 +1717,13 @@ function Index() {
                                 name="topics"
                                 value={'medium'}
                                 id={'medium'}
+                                 onChange={()=>{
+                                      setFilterType({...filterType,risk:"medium"})
+                                }}
                               />
                               <span className={styles.control__content}>
                                 <span>Medium Risk</span>
-                                {/* <span>{`Medium Risk (${companyData?.compliance?.litigations[0]?.mediumRisk ? companyData?.compliance?.litigations[0]?.mediumRisk : 0})`}</span> */}
+                              <span>({totalCourt.medium})</span>
                               </span>
                             </label>
                             <label
@@ -1544,10 +1736,13 @@ function Index() {
                                 name="topics"
                                 value={'Relevance'}
                                 id={'Relevance'}
+                                onChange={()=>{
+                                      setFilterType({...filterType,risk:"relevence"})
+                                }}
                               />
                               <span className={styles.control__content}>
                                 <span>High Relevence</span>
-                                {/* <span>{`High Relevance (${companyData?.compliance?.litigations[0]?.highPriority ? companyData?.compliance?.litigations[0]?.highPriority : 0})`}</span> */}
+                                 <span>({totalCourt.relevence})</span>
                               </span>
                             </label>
                           </div>
