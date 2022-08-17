@@ -1907,10 +1907,11 @@ function Index() {
           handleApprove={onNext}
         />
       ) : null}
-      {selectedTab == 'gst' ? (
+      {selectedTab == 'GST' ? (
         <DownloadBar
           downLoadButtonName={`GST Report`}
           isPrevious={true}
+          isApprove={true}
           leftButtonName={`Previous`}
           rightButtonName={`Next`}
           handleApprove={onNext}
