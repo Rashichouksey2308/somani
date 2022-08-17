@@ -66,7 +66,7 @@ function Index(props) {
 
   return (
         <>
-        <div className={styles.login}>
+        <div className={`${styles.login} vessel_card`}>
             <div className='row no-gutters'>
                 <div className={`${styles.loginBanner} col-sm-4 col-md-5`}>
                     <img src='/static/login.png' alt='Login Banner' className='img-fluid'/>

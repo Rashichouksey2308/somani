@@ -867,7 +867,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
                   </div>
                 </div>
               </Col>
-              <Col md={6} sm={12} className={styles.col2}>
+              <Col md={6} sm={12} className={styles.col}>
                 <div className={styles.chart_container}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
