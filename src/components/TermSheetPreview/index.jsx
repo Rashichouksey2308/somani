@@ -155,7 +155,7 @@ function Index() {
           <h1 className={`${styles.heading} heading`}>Termsheet Preview</h1>
         </div>
       </div> */}
-                <div className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
+                <div className={`${styles.term_container} container-fluid`}>
                     <Row className={`h-50`}>
                         <Col md={4} className={`d-flex justify-content-start align-items-start`}>
                             {termsheet && termsheet?.data?.map((sheet, index) => (
@@ -213,7 +213,7 @@ function Index() {
                             <Col md={8} sm={6} xs={6}>{""}</Col>
                         </Row>
                         <Row>
-                            <Col md={4} sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
+                            <Col md={4} sm={6} xs={6} className={`${styles.sub_content} border_color label1 pb-3 pt-4 d-flex justify-content-start align-content-center`}>
 
                                 <ol>
                                     <li>1. Commodity Name</li>
@@ -455,7 +455,7 @@ function Index() {
                         <Row className={`${styles.row_head} row_head`}>
                             <Col md={4} sm={6} xs={6} className={`${styles.content_header_other}  d-flex justify-content-center align-content-center`}>
 
-                                <span>Other Terms & Conditions</span>
+                                <span>Other Terms &amp; Conditions</span>
 
                             </Col>
                             <Col md={8} sm={6} xs={6}>{``}</Col>
@@ -566,15 +566,15 @@ function Index() {
                                         <div className={`${styles.checkbox_container} label_heading d-flex flex-column`}>
                                             <div className='d-flex align-items-center'>
                                                 <input id="marineInsurance" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.insurance?.marineInsurance} />
-                                                <label className={`${styles.checkbox_label} termsheet_Text`}>Marine Insurance ( if Applicable)</label>
+                                                <label className={`${styles.checkbox_label} termsheet_Text`}>Marine Insurance ( if applicable)</label>
                                             </div>
                                             <div className='pt-4 d-flex align-items-center'>
                                                 <input id="storageInsurance" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.insurance?.storageInsurance} />
-                                                <label className={`${styles.checkbox_label} termsheet_Text`}>Storage Insurance(Fire & Burgalary)</label>
+                                                <label className={`${styles.checkbox_label} termsheet_Text`}>Storage Insurance(Fire &amp; Burglary)</label>
                                             </div>
                                             <div className='pt-4 d-flex align-items-center'>
                                                 <input id="insuranceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges} />
-                                                <label className={`${styles.checkbox_label} termsheet_Text`}>Insurance Charges ( While transferring the material to customs bonded ware house )</label>
+                                                <label className={`${styles.checkbox_label} termsheet_Text`}>Insurance Charges ( While transferring the material to customs bonded warehouse )</label>
                                             </div>
                                         </div>
                                     </div>
@@ -647,11 +647,11 @@ function Index() {
                                             </div>
                                             <div className='pt-4 d-flex align-items-center'>
                                                 <input id="igstWithCess" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.igstWithCess} />
-                                                <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle2">IGST with CESS, if Applicable</label>
+                                                <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle2">IGST with CESS, if applicable</label>
                                             </div>
                                             <div className='pt-4 d-flex align-items-center'>
                                                 <input id="cimsCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.cmaFeesIncludingSupervisionAndSurvey} />
-                                                <label className={`${styles.checkbox_label} termsheet_Text`}>CIMS Charges (incase Commodity is Coal)</label>
+                                                <label className={`${styles.checkbox_label} termsheet_Text`}>CIMS Charges (incase commodity is Coal)</label>
                                             </div>
                                             <div className='pt-4 d-flex align-items-center'>
                                                 <input id="taxCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.cmaFeesIncludingSupervisionAndSurvey} />
@@ -667,7 +667,7 @@ function Index() {
                     </div>
 
                     <div className={`${styles.footer}`}>
-                        All necessary documents to be filed with Customs department for discharge of goods & Customs clearance can be filed by {otherTermConditions?.buyer?.bank} or its nominated person.
+                        All necessary documents to be filed with Customs department for discharge of goods &amp; Customs clearance can be filed by {otherTermConditions?.buyer?.bank} or its nominated person.
                         <p><span className={styles.danger}>*</span> GST charges extra wherever applicable</p>
                     </div>
                 </Card>
