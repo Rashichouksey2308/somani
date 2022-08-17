@@ -936,7 +936,7 @@ const index = ({
                             defaultValue={person.contact.number}
                             name="contact.number"
                             // onChange={(e)=>{handlePersonChange(e,index)}}
-                            onChange={(e) => {
+                            onBlur={(e) => {
                               if (phoneValidation(e.target.value)) {
                                 handlePersonChange(e, index)
                               } else {
@@ -1212,7 +1212,7 @@ const index = ({
                           className={`${styles.input_field} input border-left-0 form-control`}
                           required
                           type="tel"
-                          onChange={(e) => {
+                          onBlur={(e) => {
                             if (phoneValidation(e.target.value)) {
                               mobileFunction(e)
                             } else {
@@ -1466,7 +1466,7 @@ const index = ({
                       required
                       type="tel"
                       defaultValue={editData.contact.number}
-                      onChange={(e) => {
+                      onBlur={(e) => {
                         if (phoneValidation(e.target.value)) {
                           changeData(e.target.name, e.target.value)
                         } else {

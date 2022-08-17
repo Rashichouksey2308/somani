@@ -34,7 +34,7 @@ function AddressComponent({
               />
               <img
                 onClick={() => {
-                  console.log('index', index)
+                  // console.log('index', index)
                   deleteComponent(index)
                 }}
                 src="/static/delete 2.svg"

@@ -291,6 +291,8 @@ function Index() {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()
     document.getElementById('documents').reset()
+    document.querySelector(companyInput).value=''
+
   }
 
 
