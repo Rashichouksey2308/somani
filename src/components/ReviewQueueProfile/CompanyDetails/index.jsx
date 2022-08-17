@@ -50,7 +50,7 @@ function Index({ order, companyDetail }) {
         >
           <div className={`${styles.cardBody} card-body border_color`}>
             <div className="row">
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Company Name
                 </div>
@@ -58,13 +58,13 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.companyName}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>CIN</div>
                 <div className={`${styles.value} accordion_Text`}>
                   {companyDetail?.profile?.companyDetail?.CIN}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Company PAN
                 </div>
@@ -77,7 +77,7 @@ function Index({ order, companyDetail }) {
                   />
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   IEC Number
                 </div>
@@ -85,7 +85,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.IEC}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Type of Business
                 </div>
@@ -93,7 +93,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.typeOfBusiness[0]}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Date of Incorporation
                 </div>
@@ -101,7 +101,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.dateOfIncorporation}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Listing Status
                 </div>
@@ -109,7 +109,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.listingStatus}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-md-3 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Constitution
                 </div>
@@ -117,7 +117,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.Constitution}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Active Compliant
                 </div>
@@ -131,7 +131,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.activeCompliance ? 'Yes' : 'No'}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Contact Number
                 </div>
@@ -139,7 +139,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.contactNumber}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Email Domain
                 </div>
@@ -152,7 +152,7 @@ function Index({ order, companyDetail }) {
                   />
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Number of Shareholders
                 </div>
@@ -160,7 +160,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.numberOfShareholders}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Shell/ Hawala Score
                 </div>
@@ -168,7 +168,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.hawalaScore}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Paid-Up Capital (Cr)
                 </div>
@@ -176,7 +176,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.paidUpCapital}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Last Balance Sheet
                 </div>
@@ -190,7 +190,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.lastBalanceSheet}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Employee Count
                 </div>
@@ -198,19 +198,19 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.employeeCount}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Existing Limit (Cr)
                 </div>
                 <div className={`${styles.value} accordion_Text`}>10.00</div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Utilized Limit (Cr)
                 </div>
                 <div className={`${styles.value} accordion_Text`}>2.00</div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Registered Address
                 </div>
@@ -218,7 +218,7 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.registeredAddress}
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Corporate Address
                 </div>
@@ -232,7 +232,9 @@ function Index({ order, companyDetail }) {
                             </div> */}
             </div>
             <div className="row mt-3">
-              <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div
+                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
+              >
                 <div className="d-flex">
                   <select
                     id="sourceChanel"
@@ -254,7 +256,9 @@ function Index({ order, companyDetail }) {
                   />
                 </div>
               </div>
-              <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div
+                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
+              >
                 <div className="d-flex">
                   <select
                     id="referedBy"
@@ -277,7 +281,9 @@ function Index({ order, companyDetail }) {
                   />
                 </div>
               </div>
-              <div className={`${styles.form_group} ml-4 col-md-4 col-sm-6`}>
+              <div
+                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
+              >
                 <div className="d-flex">
                   <select
                     id="referalName"
@@ -298,7 +304,9 @@ function Index({ order, companyDetail }) {
                   />
                 </div>
               </div>
-              <div className={`${styles.form_group} ml-3 col-md-4 col-sm-6`}>
+              <div
+                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
+              >
                 <button onClick={saveHandler} className={`${styles.saveBtn} `}>
                   Save
                 </button>

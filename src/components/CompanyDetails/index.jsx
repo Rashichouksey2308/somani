@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
@@ -417,7 +417,7 @@ return(
  
     
   }
-  
+
   return (
     <>
       <div className={`${styles.main} border_color`}>
@@ -438,7 +438,6 @@ return(
                   name="unitOfQuantity"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
-                 
                   <option>MT</option>
                 </select>
               </div>
@@ -520,8 +519,8 @@ return(
               <input
                 type="text"
                 onBlur={(e) => saveCompanyData(e.target.name, e.target.value)}
-                defaultValue={gstList?.data?.companyData?.companyName}
-                id="textInput"
+                value={gstList?.data?.companyData?.companyName}
+                id="companyInput"
                 name="companyName"
                 className={`${styles.input_field} input form-control`}
                 required
@@ -674,14 +673,14 @@ return(
               </label>
             </div>
             <div className={`${styles.each_input} col-md-6 col-lg-4 col-sm-6`}>
-              <div className={`${styles.turnover_input} d-flex align-items-center justify-content-start`}>
+              <div
+                className={`${styles.turnover_input} d-flex align-items-center justify-content-start`}
+              >
                 <div
                   className={`${styles.sub_heading} sub_heading label-heading`}
                 >
-                  Turn Over (in Crores)<strong className="text-danger">*</strong>
-                
-                    
-                
+                  Turn Over (in Crores)
+                  <strong className="text-danger">*</strong>
                 </div>
                 <input className={`${styles.input_container} form-control input`} 
                 type="number"
@@ -705,14 +704,10 @@ return(
                     setSliderType(3)
                   }
                     getSlider()
-                }}
+                  }}
                 />
               </div>
-                {
-                  getSlider()
-                
-              }
-   
+              {getSlider()}
             </div>
             <div
               className={`${styles.each_input} col-md-6 col-lg-4  col-sm-6`}
