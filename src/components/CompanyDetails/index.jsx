@@ -20,7 +20,9 @@ const Index = ({
 
   // console.log(gstList?.data, "THIS IS GST LIST")
   const [slider, setSlider] = useState(60)
+  
   const [highlight, setHighlight] = useState(60)
+   const [highlight3, setHighlight3] = useState(60)
   const sliderBackground = () => {
     return {
       background: `${(slider * 100) / 100}`,
@@ -32,10 +34,10 @@ const Index = ({
     getSlider(val)
   }
  
-  useEffect(() => {getSlider()},)
+  useEffect(() => {getSlider()},[slider])
   const getSlider =(val)=>{
     console.log(slider,"slider8999")
-      if(slider >=  600){
+    if(slider >=  600){
      console.log("slider3")
 return(
        
@@ -52,6 +54,7 @@ return(
                       e.target.name,
                       Number(e.target.value * 100),
                     )
+                    
                     if(Number(e.target.value)==500){
                       setSlide(400)
                     }else{
@@ -59,18 +62,36 @@ return(
                     }
                     
                     getSlider()
+                      if(e.target.value==500){
+                      setHighlight3(16)
+                    }
+                    if(e.target.value==600){
+                      setHighlight3(20)
+                    }
+                    if(e.target.value==700){
+                      setHighlight3(45)
+                    }
+                    if(e.target.value==800){
+                      setHighlight3(60)
+                    }  
+                    if(e.target.value==900){
+                      setHighlight3(80)
+                    }
+                    if(e.target.value==1000){
+                      setHighlight3(100)
+                    }
                   }}
                   className={`${styles.slider} px-0 input form-control`}
                   id="myRange"
                   style={{
-                    background: `linear-gradient(90deg, #3687E8 ${(slider)}%, #C3C3C31F ${
-                      slider
+                    background: `linear-gradient(90deg, #3687E8 ${(highlight3)}%, #C3C3C31F ${
+                      highlight3
                     }%)`,
                   }}
                 />
                 <datalist id="tickmarks">
                    
-                 <option value="500" label="500"></option>
+                  <option value="500" label="500"></option>
                   <option value="600" label="600"></option>
                   <option value="700" label="700"></option>
                   <option value="800" label="800"></option>
@@ -78,69 +99,12 @@ return(
                   <option value="1000" label="1000"></option>
                  
                 </datalist>
-                {/* <div
-                  className={`${styles.more_label} d-flex justify-content-end mr-n2`}
-                >
-                  or less
-                </div> */}
+               
               </div>
                
       )
     }
-    if(slider < 100){
-       console.log("slider1")
-      return(
-       
-            <div className={styles.slidecontainer}>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  step="25"
-                  name="turnOver"
-                  list="tickmarks"
-                  onChange={(e) => {
-                    console.log(Number(e.target.value),"sadaasd")
-                    saveCompanyData(
-                      e.target.name,
-                      Number(e.target.value * 100),
-                    )
-                    if(Number(e.target.value==100)){
-                      setSlider(200)
-                    }else{
-                       setSlider(Number(e.target.value))
-                    }
-                   
-                    getSlider()
-                  }}
-                  className={`${styles.slider} px-0 input form-control`}
-                  id="myRange"
-                  style={{
-                    background: `linear-gradient(90deg, #3687E8 ${(slider)}%, #C3C3C31F ${
-                      slider
-                    }%)`,
-                  }}
-                />
-                <datalist id="tickmarks">
-                  <option value="0" label="0"></option>
-                  <option value="25" label="25"></option>
-                  <option value="50" label="50"></option>
-                  <option value="75" label="75"></option>
-                  <option value="100" label="100"></option>
-                  {/* <option value="500" label="500"></option> */}
-                  {/* <option value="1000" label="1000"></option> */}
-                 
-                </datalist>
-                <div
-                  className={`${styles.more_label} d-flex justify-content-end mr-n2`}
-                >
-                  or more
-                </div>
-              </div>
-               
-      )
-    } 
-     if(slider > 100 || slider < 500  ){
+    if(slider > 100 && slider <= 500  ){
        console.log("slider2")
       return(
        
@@ -148,7 +112,7 @@ return(
                 <input
                   type="range"
                   min="100"
-                  max="500"
+                  max="600"
                   step="100"
                   name="turnOver"
                   list="tickmarks"
@@ -158,20 +122,26 @@ return(
                       Number(e.target.value),
                     )
                     console.log(e.target.value,"888")
+                  if(e.target.value==100){
+                      setHighlight(0)
+                    }
                     if(e.target.value==200){
-                      setHighlight(25)
+                      setHighlight(20)
                     }
                     if(e.target.value==300){
-                      setHighlight(50)
+                      setHighlight(45)
                     }
                     if(e.target.value==400){
-                      setHighlight(75)
-                    }
+                      setHighlight(60)
+                    }  
                     if(e.target.value==500){
+                      setHighlight(80)
+                    }
+                    if(e.target.value==600){
                       setHighlight(100)
                     }
                     if(Number(e.target.value) == 100){
-                       setSlider(80)
+                       setSlider(0)
                     }else if(Number(e.target.value) == 500){
                       setSlide(500)
                     }else{
@@ -212,15 +182,65 @@ return(
                
       )
     }
+    if(slider <= 100){
+     console.log("slider1")
+      return(
+       
+            <div className={styles.slidecontainer}>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="25"
+                  name="turnOver"
+                  list="tickmarks"
+                  onChange={(e) => {
+                    console.log(Number(e.target.value),"sadaasd")
+                    saveCompanyData(
+                      e.target.name,
+                      Number(e.target.value * 100),
+                    )
+                    if(Number(e.target.value==100)){
+                      setSlider(200)
+                    }else{
+                       setSlider(Number(e.target.value))
+                    }
+                   
+                    getSlider()
+                  }}
+                  className={`${styles.slider} px-0 input form-control`}
+                  id="myRange"
+                  style={{
+                    background: `linear-gradient(90deg, #3687E8 ${(slider)}%, #C3C3C31F ${
+                      slider
+                    }%)`,
+                  }}
+                />
+                <datalist id="tickmarks">
+                  <option value="0" label="0"></option>
+                  <option value="25" label="25"></option>
+                  <option value="50" label="50"></option>
+                  <option value="75" label="75"></option>
+                  <option value="100" label="100"></option>
+                  {/* <option value="200" label="200"></option> */}
+                  {/* <option value="1000" label="1000"></option> */}
+                 
+                </datalist>
+                <div
+                  className={`${styles.more_label} d-flex justify-content-end mr-n2`}
+                >
+                  or more
+                </div>
+              </div>
+               
+      )
+    } 
    
    
-    //  if(slider == 500 ){
-    //   console.log("okok212312")
-      
-    // }
+ 
     
   }
-  console.log(slider,"okok",highlight)
+  
   return (
     <>
       <div className={`${styles.main} border_color`}>
