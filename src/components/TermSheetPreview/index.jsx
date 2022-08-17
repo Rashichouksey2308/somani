@@ -7,6 +7,11 @@ import { Form } from 'react-bootstrap'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetTermsheet } from 'redux/buyerProfile/action'
+import { setPageName, setDynamicName,setDynamicOrder } from '../../redux/userData/action'
+import moment from 'moment'
+
+
+import _get from 'lodash/get'
 
 
 
@@ -15,15 +20,27 @@ import { GetTermsheet } from 'redux/buyerProfile/action'
 function Index() {
     const dispatch = useDispatch()
     const { termsheet } = useSelector((state) => state.order)
+    console.log(termsheet,'termsheet')
     let Id = sessionStorage.getItem('termID')
+    let orderId= _get(termsheet,'data[0].order.orderId', 'Order Id')
 
     useEffect(() => {
         dispatch(GetTermsheet(`?termsheetId=${Id}`))
+        dispatch(setPageName('termsheet'))
+        dispatch(setDynamicName(orderId));
+       // dispatch(setDynamicOrder(orderId))
     }, [dispatch, Id])
+
+
+    // useEffect(() => {
+    //     dispatch(setPageName('termsheet-preview'))
+    //     dispatch(setDynamicOrder(orderId))
+    // },[dispatch, termsheet])
 
 
     const [termsheetDetails, setTermsheetDetails] = useState({})
     const [otherTermConditions, setOtherTermConditions] = useState({})
+    const date =  new Date()
 
 
     useEffect(() => {
@@ -40,7 +57,7 @@ function Index() {
                         tolerance: sheet?.order?.tolerance,
                     },
                     transactionDetails: {
-                        lcValue: 0,
+                        lcValue: sheet?.transactionDetails?.lcValue,
                         lcCurrency: sheet?.transactionDetails?.lcValue,
                         marginMoney: sheet?.transactionDetails?.marginMoney,
                         lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
@@ -178,7 +195,9 @@ function Index() {
                             <span>TERMSHEET</span>
                         </Col>
                         <Col md={4} className={`d-flex justify-content-end  align-items-end`}>
-                            <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>22-02-2022</span></div>
+                           {/* <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((new Date()).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div> */}
+                            <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((date), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div>
+
                         </Col>
 
                     </Row>
@@ -225,8 +244,8 @@ function Index() {
                             <Col md={8} sm={6} xs={6} className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                                 <ul>
                                     <li>{termsheetDetails?.commodityDetails?.commodity}</li>
-                                    <li>{termsheetDetails?.commodityDetails?.unitOfQuantity} MT (± 10%)</li>
-                                    <li>USD {termsheetDetails?.commodityDetails?.perUnitPrice}/MT</li>
+                                    <li>{termsheetDetails?.commodityDetails?.unitOfQuantity}  (± 10%)</li>
+                                    <li>USD {termsheetDetails?.commodityDetails?.perUnitPrice}/{termsheetDetails?.commodityDetails?.unitOfQuantity}</li>
                                 </ul>
                             </Col>
                         </Row>
@@ -270,7 +289,7 @@ function Index() {
                                     <li>{termsheetDetails?.transactionDetails?.partShipmentAllowed}</li>
                                     <li>{termsheetDetails?.transactionDetails?.portOfDischarge}</li>
                                     <li>{termsheetDetails?.transactionDetails?.billOfEntity}</li>
-                                    <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq}</li>
+                                    <li>{termsheetDetails?.transactionDetails?.thirdPartyInspectionReq ? "YES" : "NO"}</li>
 
                                 </ul>
                             </Col>
@@ -388,6 +407,7 @@ function Index() {
                                     <li> {termsheetDetails.commercials?.lcOpeningChargesPercentage}</li>
                                     <li> {termsheetDetails.commercials?.overDueInterestPerMonth}</li>
                                     <li> {termsheetDetails.commercials?.exchangeFluctuation}</li>
+                                    <li> {termsheetDetails.commercials?.forexHedging}</li>
                                     <li> {termsheetDetails.commercials?.otherTermsAndConditions}</li>
 
 

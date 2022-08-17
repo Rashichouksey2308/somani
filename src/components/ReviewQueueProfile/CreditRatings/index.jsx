@@ -37,7 +37,7 @@ function
                   <tbody>
 
                     {creditRating && creditRating.map((rating, index) => {
-                      if (rating?.ratingTerm === "Long Term" && rating?.rating !== null) {
+                    
                         return (
                           <tr key={index}>
                             <td>{moment((rating?.dateOfIssuance)?.slice(0, 10)).format("DD-MM-YYYY")}</td>
@@ -51,7 +51,7 @@ function
                             <td className="text-center">-</td>
                             <td className="text-center">-</td>
                           </tr>)
-                      }
+                      
                     })}
                   </tbody>
                 </table>
