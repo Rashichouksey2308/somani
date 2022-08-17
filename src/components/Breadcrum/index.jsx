@@ -16,6 +16,7 @@ export default function Index({isQuery}) {
     ||isQuery?.match("/termsheet-preview")
     ||isQuery?.match("/generic")
     ||isQuery?.match("/letter-table/letter-amend/id")
+     ||isQuery=="/agreement/preview"
      ||isQuery == "/transit"
      ||isQuery == "/review-queue"
 

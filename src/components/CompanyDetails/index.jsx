@@ -35,8 +35,60 @@ const Index = ({
   useEffect(() => {getSlider()},)
   const getSlider =(val)=>{
     console.log(slider,"slider8999")
+      if(slider >=  600){
+     console.log("slider3")
+return(
+       
+            <div className={styles.slidecontainer}>
+                <input
+                  type="range"
+                  min="500"
+                  max="1000"
+                  step="100"
+                  name="turnOver"
+                  list="tickmarks"
+                  onChange={(e) => {
+                    saveCompanyData(
+                      e.target.name,
+                      Number(e.target.value * 100),
+                    )
+                    if(Number(e.target.value)==500){
+                      setSlide(400)
+                    }else{
+                       setSlider(Number(e.target.value))
+                    }
+                    
+                    getSlider()
+                  }}
+                  className={`${styles.slider} px-0 input form-control`}
+                  id="myRange"
+                  style={{
+                    background: `linear-gradient(90deg, #3687E8 ${(slider)}%, #C3C3C31F ${
+                      slider
+                    }%)`,
+                  }}
+                />
+                <datalist id="tickmarks">
+                   
+                 <option value="500" label="500"></option>
+                  <option value="600" label="600"></option>
+                  <option value="700" label="700"></option>
+                  <option value="800" label="800"></option>
+                  <option value="900" label="900"></option>
+                  <option value="1000" label="1000"></option>
+                 
+                </datalist>
+                {/* <div
+                  className={`${styles.more_label} d-flex justify-content-end mr-n2`}
+                >
+                  or less
+                </div> */}
+              </div>
+               
+      )
+    }
     if(slider < 100){
-       console.log("okok212314")
+       console.log("slider1")
       return(
        
             <div className={styles.slidecontainer}>
@@ -44,7 +96,7 @@ const Index = ({
                   type="range"
                   min="0"
                   max="100"
-                  step="20"
+                  step="25"
                   name="turnOver"
                   list="tickmarks"
                   onChange={(e) => {
@@ -73,8 +125,9 @@ const Index = ({
                   <option value="0" label="0"></option>
                   <option value="25" label="25"></option>
                   <option value="50" label="50"></option>
+                  <option value="75" label="75"></option>
                   <option value="100" label="100"></option>
-                  <option value="500" label="500"></option>
+                  {/* <option value="500" label="500"></option> */}
                   {/* <option value="1000" label="1000"></option> */}
                  
                 </datalist>
@@ -88,7 +141,7 @@ const Index = ({
       )
     } 
      if(slider > 100 || slider < 500  ){
-       console.log("okok2123123")
+       console.log("slider2")
       return(
        
             <div className={styles.slidecontainer}>
@@ -144,6 +197,7 @@ const Index = ({
                   <option value="300" label="300"></option>
                   <option value="400" label="400"></option>
                   <option value="500" label="500"></option>
+                  <option value="600" label="600"></option>
                 
                   
                  
@@ -157,63 +211,13 @@ const Index = ({
               </div>
                
       )
-    }else if(slider > 500){
-    console.log("okok212315")
-return(
-       
-            <div className={styles.slidecontainer}>
-                <input
-                  type="range"
-                  min="500"
-                  max="1000"
-                  step="100"
-                  name="turnOver"
-                  list="tickmarks"
-                  onChange={(e) => {
-                    saveCompanyData(
-                      e.target.name,
-                      Number(e.target.value * 100),
-                    )
-                    if(Number(e.target.value)==500){
-                      setSlide(400)
-                    }else{
-                       setSlider(Number(e.target.value))
-                    }
-                    
-                    getSlider()
-                  }}
-                  className={`${styles.slider} px-0 input form-control`}
-                  id="myRange"
-                  style={{
-                    background: `linear-gradient(90deg, #3687E8 ${(slider)}%, #C3C3C31F ${
-                      slider
-                    }%)`,
-                  }}
-                />
-                <datalist id="tickmarks">
-                   
-                 <option value="500" label="500"></option>
-                  <option value="600" label="600"></option>
-                  <option value="700" label="700"></option>
-                  <option value="800" label="800"></option>
-                  <option value="900" label="900"></option>
-                  <option value="1000" label="1000"></option>
-                 
-                </datalist>
-                {/* <div
-                  className={`${styles.more_label} d-flex justify-content-end mr-n2`}
-                >
-                  or less
-                </div> */}
-              </div>
-               
-      )
     }
    
-     if(slider == 500 ){
-      console.log("okok212312")
+   
+    //  if(slider == 500 ){
+    //   console.log("okok212312")
       
-    }
+    // }
     
   }
   console.log(slider,"okok",highlight)
