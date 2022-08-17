@@ -63,7 +63,7 @@ const Index = () => {
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
               marginMoney: sheet?.transactionDetails?.marginMoney,
               lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
-              incoTerms: sheet?.order?.incoTerm,
+              incoTerms: sheet?.transactionDetails?.incoTerms ? sheet?.transactionDetails?.incoTerms : sheet?.order?.incoTerm,
               loadPort: sheet?.transactionDetails?.loadPort,
               countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
               shipmentType: sheet?.transactionDetails?.shipmentType,
@@ -96,6 +96,7 @@ const Index = () => {
         )
     }
   }, [termsheet])
+  console.log(termsheet, termsheetDetails, 'dkfgdfhjgdjfhgdkjfgdkjg')
 
   useEffect(() => {
     {
