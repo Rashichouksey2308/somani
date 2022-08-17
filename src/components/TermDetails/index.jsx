@@ -149,7 +149,18 @@ const Index = ({ termsheet, handleSave, termsheetDetails, onChangeCommodityDetai
                                     termsheetDetails?.transactionDetails?.marginMoney?.toString(),
                                     "%"
                                     , "")}
-                                onChange={onChangeTransactionDetails}
+                                onChange={(e)=>{
+                                    var key =  e.which
+                                       console.log(key,"55")
+                                    onChangeTransactionDetails(e)
+                                }}
+                                 onKeyPress={(e) =>  {
+                                       var key =  e.which
+                                       console.log(key,"55")
+                                          if( key == 8 || key == 46 ){
+                                            console.log("herer back")
+                                          }
+                                 }}
                                 required
                             />
                             {/* <span className={styles.percent}><strong>%</strong></span> */}
