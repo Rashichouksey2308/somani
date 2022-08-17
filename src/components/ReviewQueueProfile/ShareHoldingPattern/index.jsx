@@ -22,14 +22,27 @@ function Index({ shareHolding }) {
     return item.type === 'EquityShares1Member'
   })
   const equityShareNo = []
-  const topEquityValues = EquityValues?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5).forEach((item) => equityShareNo.push(item.numberOfShares))
+  let totalEquityShare = 0
+  let totalEquitySharePercentage = 0
+  const topEquityValues = EquityValues?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5).forEach((item) => {
+    equityShareNo.push(item.numberOfShares)
+    totalEquityShare += item.numberOfShares
+    totalEquitySharePercentage += item.percentageShareHolding
+  })
   // const top
 
   const prefrenceValues = shareHolding?.filter((item) => {
     return !item.type === 'EquityShares1Member'
   })
   const topprefrencesShareNo = []
-  const topPrefrenceValues = prefrenceValues?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5).forEach((item) => topPrefrenceValues.push(item.numberOfShares))
+  let totalPrefrenceShare = 0
+  let totalPrefrenceSharePercentage = 0
+
+  const topPrefrenceValues = prefrenceValues?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5).forEach((item) => {
+    topPrefrenceValues.push(item.numberOfShares)
+    totalPrefrenceShare += item.numberOfShares
+    totalPrefrenceSharePercentage += item.percentageShareHolding
+  })
 
   setTimeout(console.log(equityShareNo, topEquityValues, 'topprefrencesShareNo'), 5000);
 
@@ -181,15 +194,16 @@ function Index({ shareHolding }) {
                       <th>DIRECTOR</th>
                     </tr>
                     {shareHolding?.map((shareHolder, index) => {
+                      console.log(shareHolder.percentageShareHolding, 'mapping')
 
-                      if (shareHolder.type === "EquitySharesMember") {
+                      if (shareHolder.type === "EquityShares1Member") {
 
                         return (
                           <tr key={index}>
                             <td className={`${styles.legends} ${styles.green} border-bottom-0`}><span></span></td>
                             <td className={`${styles.name} border-bottom-0`}>{shareHolder.fullName}</td>
                             <td className="border-bottom-0">{shareHolder.numberOfShares}</td>
-                            <td className="border-bottom-0">{shareHolder.percentageShareHolding}</td>
+                            <td className="border-bottom-0">{(shareHolder.percentageShareHolding).toFixed(2)}%</td>
                             <td className="border-bottom-0">{shareHolder.pan}</td>
                             <td className="border-bottom-0">{shareHolder.director ? 'Yes' : 'No'}</td>
                           </tr>
@@ -199,8 +213,8 @@ function Index({ shareHolding }) {
                     <tr>
                       <td></td>
                       <td className="border-top-0"></td>
-                      <td>40</td>
-                      <td>100%</td>
+                      <td>{totalEquityShare}</td>
+                      <td>{(totalEquitySharePercentage).toFixed(2)}%</td>
                       <td className="border-top-0"></td>
                       <td className="border-top-0"></td>
                     </tr>
@@ -250,8 +264,8 @@ function Index({ shareHolding }) {
                     <tr>
                       <td></td>
                       <td className="border-top-0"></td>
-                      <td>40</td>
-                      <td>100%</td>
+                      <td>{totalPrefrenceShare}</td>
+                      <td>{(totalPrefrenceSharePercentage).toFixed(2)}%</td>
                       <td className="border-top-0"></td>
                       <td className="border-top-0"></td>
                     </tr>
