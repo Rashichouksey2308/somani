@@ -127,7 +127,18 @@ function Index() {
 
   const [drop, setDrop] = useState('')
 
+  const [fieldType, setFieldType] = useState(false)
+
+
   const dropDownChange = (e) => {
+
+    if(e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry'){
+      setFieldType(true)
+    }else{
+      setFieldType(false)
+      
+    }
+
     let newInput = { ...clauseObj }
 
     let val1 = e.target.options[e.target.selectedIndex].text
@@ -151,12 +162,24 @@ function Index() {
     setLcData(newInput1)
   }
 
+  const saveDropDownDate = (value, name) => {
+    const d = new Date(value)
+    let text = d.toISOString()
+    arrChange(name, text)
+  }
+
   const addToArr = () => {
     const newArr = [...clauseArr]
-
+    if(clauseArr.map((e)=>e.dropDownValue).includes(clauseObj.dropDownValue)){
+      let toastMessage = 'Please select a different Clause from drop down'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+    }else{
     newArr.push(clauseObj)
-
+    
     setClauseArr(newArr)
+    }
   }
 
   const removeFromArr = (arr) => {
@@ -166,10 +189,21 @@ function Index() {
     setClauseArr(newClause)
   }
 
+  const [lcDoc, setLcDoc] = useState({
+    lcDraftDoc : null
+  })
+
+  const uploadDocument1 = (e) => {
+    const newInput = {...lcDoc}
+    newInput.lcDraftDoc = e.target.files[0]
+    setLcDoc(newInput)
+  }
+
   const handleSubmit = () => {
     let fd = new FormData()
     fd.append('lcApplication', JSON.stringify(lcData))
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+    fd.append('document1', lcDoc.lcDraftDoc)
 
     dispatch(UpdateAmendment(fd))
     // Router.push('/letter-credit/id')
@@ -374,13 +408,29 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex">
-                          <input
+                        {!fieldType ? <input
                             className={`${styles.input_field} input form-control`}
-                            type="text"
-                            onChange={(e) =>
-                              arrChange('newValue', e.target.value)
+                            required
+                            type='text'
+                            ref={inputRef}
+                            defaultValue={
+                              editInput ? editCurrent?.newValue : ''
                             }
-                          />
+                            onChange={(e) =>
+                              {inputRef.current.value = '';
+                              arrChange('newValue', e.target.value)}
+                            }
+                          /> :  
+                          <><DateCalender
+                              name="newValue"
+                              // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
+                              saveDate={saveDropDownDate}
+                              // labelName="New Value" 
+                              />
+                              <img
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search" /></>}
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
@@ -478,6 +528,7 @@ function Index() {
           {/* Document*/}
           <InspectionDocument
             orderId={lcModuleData?.order?._id}
+            uploadDocument1={uploadDocument1}
             documentName="LC DRAFT"
           />
         </div>

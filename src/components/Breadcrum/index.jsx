@@ -19,6 +19,7 @@ export default function Index({isQuery}) {
      ||isQuery=="/agreement/preview"
      ||isQuery == "/transit"
      ||isQuery == "/review-queue"
+      ||isQuery == "/margin-preview"
 
     ) {
       show.units=false
