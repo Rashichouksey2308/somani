@@ -44,7 +44,7 @@ function Index(props) {
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader d-flex align-items-center`}>
         <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className={`${styles.arrow} img-fluid mr-2 image_arrow`}/>
-        <h1 className={`${styles.title} heading`}>{genericData.company.companyName}</h1>
+        <h1 className={`${styles.title} heading`}>{genericData?.company?.companyName}</h1>
         <div className={"ml-auto d-flex"}>
           <div className="ml-auto  mr-2">
             <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
