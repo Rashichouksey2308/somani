@@ -121,19 +121,18 @@
                     margin: 22px 0 20px;
                 }
                 label {
-                    top: 38px;
+                    top: 35px;
                     left: 15px;
                     font-size: 16px;
                     z-index: 200;
                     color: #00000080;
-                    line-height: 0.5;
+                    line-height: 17px;
                     font-weight: 500;
                     margin-bottom: 0;
                     letter-spacing: 0.53px;
                     position: absolute;
                     pointer-events: none;
                     box-sizing: border-box;
-                    background: #ffffff;
                     transform: translateY(-30px);
                     transition: 0.3s all ease-in-out;
                     z-index: 1;
@@ -169,13 +168,17 @@
                     padding: 19px 30px 19px 17px;
                     border: 1px solid #0000001F;
                     &:invalid+label {
-                        background: none;
                         transform: translateY(0);
+                        &::before {
+                            background: none;
+                        }
                     }
                     &:focus {
                         &+label {
-                            background: #ffffff;
                             transform: translateY(-30px);
+                            &::before {
+                                background: #ffffff;
+                            }
                         }
                     }
                     &:-webkit-autofill,
@@ -221,15 +224,19 @@
             }
             .password {
                 label {
-                    top: 25px;
+                    top: 22px;
                 }
                 .formControl {
                     &:invalid+label {
-                        background: none;
+                        &::before {
+                            background: none;
+                        }
                     }
                     &:focus {
                         &+label {
-                            background: #ffffff;
+                            &::before {
+                                background: #ffffff;
+                            }
                         }
                     }
                 }
