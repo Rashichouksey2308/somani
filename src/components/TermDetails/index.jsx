@@ -251,15 +251,22 @@ const Index = ({
               </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`} >
-              <select id='incoTerms' className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required>
-                {/* <option value={termsheetDetails?.transactionDetails?.incoTerm}>{termsheetDetails?.transactionDetails?.incoTerm} </option> */}
-                <option selected={termsheetDetails?.transactionDetails?.incoTerms === 'CFR'} value="CFR">CFR</option>
-                <option selected={termsheetDetails?.transactionDetails?.incoTerms === 'FOB'} value="FOB">FOB</option>
-                <option selected={termsheetDetails?.transactionDetails?.incoTerms === 'CIF'} value="CIF">CIF</option>
-              </select>
+              <div className='d-flex'>
+                <select id='incoTerms' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
+                  {/* <option value={termsheetDetails?.transactionDetails?.incoTerm}>{termsheetDetails?.transactionDetails?.incoTerm} </option> */}
+                  <option selected={termsheetDetails?.transactionDetails?.incoTerms === 'CFR'} value="CFR">CFR</option>
+                  <option selected={termsheetDetails?.transactionDetails?.incoTerms === 'FOB'} value="FOB">FOB</option>
+                  <option selected={termsheetDetails?.transactionDetails?.incoTerms === 'CIF'} value="CIF">CIF</option>
+                </select>
 
-              {/* <input id='incoTerm' defaultValue={termsheetDetails?.transactionDetails?.incoTerms} className={`${styles.value} input form-control`} type="text" required /> */}
-              <label className={`${styles.label} label_heading`}>INCO Terms<strong className="text-danger">*</strong></label>
+                {/* <input id='incoTerm' defaultValue={termsheetDetails?.transactionDetails?.incoTerms} className={`${styles.value} input form-control`} type="text" required /> */}
+                <label className={`${styles.label} label_heading`}>INCO Terms<strong className="text-danger">*</strong></label>
+                <img
+                  className={`${styles.arrow} img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className='d-flex'>
@@ -393,6 +400,19 @@ const Index = ({
                 />
               </div>
             </div>}
+            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div className='d-flex'>
+                <select id='loadPort' className={`${styles.value} ${styles.customSelect} input form-control`} required>
+                  <option value="Load Port">Load Port</option>
+                </select>
+                <label className={`${styles.label} label_heading`}>Load Port<strong className="text-danger">*</strong></label>
+                <img
+                  className={`${styles.arrow} image_arrow img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
+            </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className='d-flex'>
                 <select id='storageOfGoods' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
