@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { handleCurrencyOrder } from 'utils/helper'
 
-
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
@@ -29,9 +28,7 @@ function Index() {
     }
   }, [])
 
-  const {gstList} = useSelector((state)=>state.buyer)
-
-  
+  const { gstList } = useSelector((state) => state.buyer)
 
   const dispatch = useDispatch()
   const [termsCheck, setTermsCheck] = useState(false)
@@ -58,7 +55,7 @@ function Index() {
   })
 
   useEffect(() => {
-    const newInput = {...companyDetails}
+    const newInput = { ...companyDetails }
     newInput.companyName = gstList?.data?.companyData?.companyName
     setCompanyDetails(newInput)
     setGstListData(gstList?.data?.gstList)
@@ -66,18 +63,15 @@ function Index() {
 
   const [gstListData, setGstListData] = useState(gstList?.data?.gstList)
 
-
   const handleCommunication = (e) => {
     let communicationArr = { ...companyDetails }
-    if(e.target.checked){
-    communicationArr.communicationMode.push(e.target.name)
-    }else{
+    if (e.target.checked) {
+      communicationArr.communicationMode.push(e.target.name)
+    } else {
       communicationArr.communicationMode.pop(e.target.name)
     }
     setCompanyDetails(communicationArr)
-
   }
-
 
   const mobileFunction = (e) => {
     const newObj = { ...companyDetails }
@@ -125,8 +119,6 @@ function Index() {
   })
   // console.log(orderDetails, "orderDetailjdefhk")
 
-  
-
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails }
     newInput[name] = value
@@ -134,8 +126,11 @@ function Index() {
   }
 
   const handleCurrOrder = () => {
-    const newInput = {...orderDetails}
-    let curr = handleCurrencyOrder(orderDetails.orderCurrency, orderDetails.orderValue)
+    const newInput = { ...orderDetails }
+    let curr = handleCurrencyOrder(
+      orderDetails.orderCurrency,
+      orderDetails.orderValue,
+    )
     newInput.orderValue = curr
     setOrderDetails(newInput)
   }
@@ -169,7 +164,6 @@ function Index() {
     setTermsCheck(!termsCheck)
   }
 
-
   const submitData = () => {
     handleCurrOrder()
     if (companyDetails.companyName === '') {
@@ -184,8 +178,7 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    }
-    else if (companyDetails.transactionType === null) {
+    } else if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -221,8 +214,7 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    }
-     else if (orderDetails.orderValue === null) {
+    } else if (orderDetails.orderValue === null) {
       let toastMessage = 'Please Fill A valid order value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -267,96 +259,90 @@ function Index() {
     //   }
     // }
     else {
-      let docTypeArr=[];
-      documents.forEach((val,index)=>{
+      let docTypeArr = []
+      documents.forEach((val, index) => {
         docTypeArr.push(val.typeDocument)
       })
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(orderDetails))
       fd.append('documentType', JSON.stringify(docTypeArr))
-      documents.forEach((val,index)=>{
-        fd.append(`documents`,val.attachDoc)
+      documents.forEach((val, index) => {
+        fd.append(`documents`, val.attachDoc)
       })
-    
+
       // fd.append('documents', documents.document2)
       fd.append('gstList', JSON.stringify(gstListData))
-      console.log(fd, "this is payload")
+      console.log(fd, 'this is payload')
 
       dispatch(CreateBuyer(fd))
-      
     }
   }
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()
     document.getElementById('documents').reset()
+    document.querySelector(companyInput).value = ''
   }
-
-
-
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // console.log(companyDetails.companyName, "companyName")
-
     }, 3000)
     return () => clearTimeout(delayDebounceFn)
   }, [companyDetails.companyName])
-const [documents, setDocuments] = useState([
-    {  typeOfDocument: "",
-        attachDoc: "",
-    }
+
+  const [documents, setDocuments] = useState([
+    { typeOfDocument: '', attachDoc: '' },
   ])
-    const onAddDoc = (index) => {
+  
+  const onAddDoc = (index) => {
     setDocuments([
       ...documents,
       {
         typeDocument: '',
         attachDoc: '',
-       
       },
     ])
   }
-  const addDoc = (val,index) => {
-    setDocuments(prevState => {
+  const addDoc = (val, index) => {
+    setDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: val };
+          return { ...obj, attachDoc: val }
         }
-        return obj;
-      });
-      return newState;
-    })}
+        return obj
+      })
+      return newState
+    })
+  }
   const removeDoc = (index) => {
-    setDocuments(prevState => {
+    setDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: "" };
+          return { ...obj, attachDoc: '' }
         }
-        return obj;
-      });
-      return newState;
+        return obj
+      })
+      return newState
     })
-   
   }
-    const addTypeOfDoc = (val,index) => {
-    setDocuments(prevState => {
+  const addTypeOfDoc = (val, index) => {
+    setDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, typeDocument: val};
+          return { ...obj, typeDocument: val }
         }
-        return obj;
-      });
-      return newState;
+        return obj
+      })
+      return newState
     })
-   
   }
-   const deleteData=(index)=>{
-  console.log("indexssd",index)
-    setDocuments([...documents.slice(0,index), ...documents.slice(index+1)])
+  const deleteData = (index) => {
+    console.log('indexssd', index)
+    setDocuments([...documents.slice(0, index), ...documents.slice(index + 1)])
   }
-  console.log(documents,"documents")
+  console.log(documents, 'documents')
   return (
     <Card className={`${styles.card}`}>
       <Card.Header className={`${styles.head_container} border-0 p-0`}>
@@ -402,7 +388,12 @@ const [documents, setDocuments] = useState([
           removeDoc={removeDoc}
           addTypeOfDoc={addTypeOfDoc}
         />
-        <Terms chanegTermsCheck={chanegTermsCheck} termsCheck={termsCheck} darkMode={darkMode} submitData={submitData} />
+        <Terms
+          chanegTermsCheck={chanegTermsCheck}
+          termsCheck={termsCheck}
+          darkMode={darkMode}
+          submitData={submitData}
+        />
       </Card.Body>
     </Card>
   )

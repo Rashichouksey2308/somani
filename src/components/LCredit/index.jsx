@@ -8,6 +8,7 @@ import { GetLcModule, UpdateLcAmendment } from 'redux/lcModule/action'
 import SubmitBar from '../../components/PreviousBar/SubmitBar'
 import Router from 'next/router'
 import InspectionDocument from '../InspectionDocument'
+import { toast } from 'react-toastify'
 
 function Index() {
   const dispatch = useDispatch()
@@ -16,9 +17,12 @@ function Index() {
   const [editCurrent, setEditCurrent] = useState()
 
   const handleEdit = (val) => {
+    console.log("THIS IS HANDLE EDIT", val)
     setEditCurrent(val)
     setEditInput(true)
   }
+
+  console.log(editCurrent, "THIS IS EDIT LC", editInput)
 
   const { lcModule } = useSelector((state) => state.lc)
 
@@ -179,12 +183,22 @@ function Index() {
   // console.log(clauseObj, 'this is ccccc')
 
   const [clauseArr, setClauseArr] = useState([])
-  // console.log(clauseArr, 'new arr')
+  // console.log(clauseArr, 'new arr', clauseArr.map((e)=>e.dropDownValue))
 
   const [drop, setDrop] = useState('')
 
+  const [fieldType, setFieldType] = useState(false)
+
   const dropDownChange = (e) => {
-    inputRef.current.value = ''
+
+    if(e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry'){
+      setFieldType(true)
+    }else{
+      setFieldType(false)
+      
+    }
+    
+  
 
     let newInput = { ...clauseObj }
 
@@ -196,9 +210,12 @@ function Index() {
     newInput['dropDownValue'] = val1
 
     setClauseObj(newInput)
+    
+    
   }
 
   const arrChange = (name, value) => {
+    // console.log(value, "arr change value")
     const newInput = { ...clauseObj }
     newInput[name] = value
     setClauseObj(newInput)
@@ -209,12 +226,24 @@ function Index() {
     setClauseData(newInput1)
   }
 
+  const saveDropDownDate = (value, name) => {
+    const d = new Date(value)
+    let text = d.toISOString()
+    arrChange(name, text)
+  }
+
   const addToArr = () => {
     const newArr = [...clauseArr]
-
+    if(clauseArr.map((e)=>e.dropDownValue).includes(clauseObj.dropDownValue)){
+      let toastMessage = 'Please select a different Clause from drop down'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+    }else{
     newArr.push(clauseObj)
-
+    
     setClauseArr(newArr)
+    }
   }
 
   const removeFromArr = (arr) => {
@@ -224,11 +253,24 @@ function Index() {
     setClauseArr(newClause)
   }
 
+  const [lcDoc, setLcDoc] = useState({
+    lcDraftDoc : null
+  })
+
+  console.log(lcDoc, "THIS IS LOC DOC")
+
+  const uploadDocument1 = (e) => {
+    const newInput = {...lcDoc}
+    newInput.lcDraftDoc = e.target.files[0]
+    setLcDoc(newInput)
+  }
+
   const handleSubmit = () => {
     setLcData(clauseData)
     let fd = new FormData()
     fd.append('lcApplication', JSON.stringify(lcData))
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+    fd.append('document1', lcDoc.lcDraftDoc)
 
     // console.log(fd, 'IBJJJ')
     dispatch(UpdateLcAmendment(fd))
@@ -344,7 +386,7 @@ function Index() {
                         <div className="d-flex">
                           <select
                             defaultValue={
-                              editInput ? editCurrent?.dropDownValue : ''
+                              editInput ? editCurrent.dropDownValue : ''
                             }
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -411,7 +453,7 @@ function Index() {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            Clause<strong className="text-danger">*</strong>
+                            Clause
                           </label>
                           <img
                             className={`${styles.arrow} image_arrow img-fluid`}
@@ -439,18 +481,29 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex">
-                          <input
+                         {!fieldType ? <input
                             className={`${styles.input_field} input form-control`}
                             required
-                            type="text"
+                            type='text'
                             ref={inputRef}
                             defaultValue={
                               editInput ? editCurrent?.newValue : ''
                             }
                             onChange={(e) =>
-                              arrChange('newValue', e.target.value)
+                              {inputRef.current.value = '';
+                              arrChange('newValue', e.target.value)}
                             }
-                          />
+                          /> :  
+                          <><DateCalender
+                              name="newValue"
+                              // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
+                              saveDate={saveDropDownDate}
+                              // labelName="New Value" 
+                              />
+                              <img
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search" /></>}
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
@@ -548,7 +601,9 @@ function Index() {
           {/* Document*/}
           <div className="mt-4 mb-5">
             <InspectionDocument
+              lcDoc={lcDoc}
               orderId={lcModuleData?.order?._id}
+              uploadDocument1={uploadDocument1}
               documentName="LC DRAFT"
             />
           </div>

@@ -228,7 +228,7 @@ function Index(props) {
   const [sideBar,setSidebar] =useState(
     [
     {name:"Supplier",state:"current",value:"Supplier",image:"/static/currnet.svg"},
-    {name:"Seller",state:"default",value:"Seller",image:"/static/Group 3256.svg"},
+    {name:"Seller",state:"default",value:"Seller",type:"/static/Group 3256.svg"},
     {name:"Buyer",state:"default",value:"Buyer",image:"/static/Group 3256.svg"},
     {name:"Associate Buyer",state:"default",value:"Associate Buyer",image:"/static/Group 3256.svg"},
     {name:"Financing Bank",state:"default",value:"Financing Bank",image:"/static/Group 3256.svg"},

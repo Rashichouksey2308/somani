@@ -84,6 +84,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
         .replaceAll('$', '')
         .replaceAll('€', '')
         .replaceAll('£', '')
+        .replace(/ /g, '')
 
       let newValue = symbol + '  ' + removedValue?.toString()
       console.log(newValue, 'newValue')
@@ -97,6 +98,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
       if (unitOfValue == '') {
         return ''
       }
+
       let removedValue = unitOfValue
         ?.toString()
         .replaceAll('M', '')
@@ -104,10 +106,10 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
         .replaceAll('%', '')
         .replaceAll('K', '')
         .replaceAll('G', '')
-        .trim()
+        .replace(/ /g, '')
 
-      let newValue = `${removedValue}${type}`
-      console.log('999', type, removedValue)
+      let newValue = `${removedValue.trim()}${` `}${type}`
+      console.log('999', type, removedValue, newValue)
       return newValue
     } else {
       return ''

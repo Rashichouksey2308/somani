@@ -279,7 +279,7 @@ function Index() {
                             </Col>
                             <Col md={8} sm={6} xs={6} className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                                 <ul>
-                                    <li>USD {termsheetDetails?.transactionDetails?.lcValue}</li>
+                                    <li>{termsheetDetails?.commodityDetails?.orderCurrency} {termsheetDetails?.transactionDetails?.lcValue}</li>
                                     <li>{termsheetDetails?.transactionDetails?.lcOpeningBank}</li>
                                     <li>{termsheetDetails?.transactionDetails?.marginMoney}%</li>
                                     <li>{termsheetDetails?.transactionDetails?.incoTerms}</li>
@@ -368,7 +368,7 @@ function Index() {
                             </Col>
                             <Col md={8} sm={6} xs={6} className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                                 <ul>
-                                    <li>{termsheetDetails?.transactionDetails?.storageOfGoods}</li>
+                                    <li>{termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate} days from thr Vessel/Container(s) at discharge port  or {termsheetDetails?.paymentDueDate?.daysFromBlDate} days from the BL date, Whichever is Earlier, through TT orLC (inCase of LC all BAnk charges to be borne by the buyer)</li>
 
                                 </ul>
                             </Col>
@@ -401,11 +401,11 @@ function Index() {
                             </Col>
                             <Col md={8} sm={6} xs={6} className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                                 <ul>
-                                    <li> {termsheetDetails.commercials?.tradeMarginPercentage} </li>
-                                    <li> {termsheetDetails.commercials?.lcOpeningChargesUnit} </li>
-                                    <li> {termsheetDetails.commercials?.lcOpeningChargesPercentage} </li>
-                                    <li> {termsheetDetails.commercials?.lcOpeningChargesPercentage}</li>
-                                    <li> {termsheetDetails.commercials?.overDueInterestPerMonth}</li>
+                                    <li> {termsheetDetails.commercials?.tradeMarginPercentage}% </li>
+                                    <li>{termsheetDetails?.commodityDetails?.orderCurrency} {termsheetDetails.commercials?.lcOpeningChargesUnit} </li>
+                                    <li> {termsheetDetails.commercials?.lcOpeningChargesPercentage}% </li>
+                                    <li> {termsheetDetails.commercials?.lcOpeningChargesPercentage}%</li>
+                                    <li> {termsheetDetails.commercials?.overDueInterestPerMonth}%</li>
                                     <li> {termsheetDetails.commercials?.exchangeFluctuation}</li>
                                     <li> {termsheetDetails.commercials?.forexHedging}</li>
                                     <li> {termsheetDetails.commercials?.otherTermsAndConditions}</li>
@@ -605,7 +605,7 @@ function Index() {
                                         <div className={`${styles.checkbox_container}  label_heading d-flex flex-column`}>
                                             <div className='d-flex align-items-center'>
                                                 <input id="lcOpeningCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.lcOpeningCharges} />
-                                                <label className={`${styles.checkbox_label} termsheet_Text`}>LC Opening Charges ( on LC value subject to minimum of USD 1500)</label>
+                                                <label className={`${styles.checkbox_label} termsheet_Text`}>LC Opening Charges ( on LC value subject to minimum of {termsheetDetails?.commodityDetails?.orderCurrency} {termsheetDetails?.commercials?.lcOpeningChargesUnit})</label>
                                             </div>
                                             <div className='pt-4 d-flex align-items-center'>
                                                 <input id="lcAmendmentCost" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.lcAmendmentCost} />
@@ -696,7 +696,7 @@ function Index() {
 
 
 
-            <Paginatebar openbar={openbar} rightButtonTitle="Share To Buyer" leftButtonTitle='Termsheet' />
+            <Paginatebar openbar={openbar} rightButtonTitle="Send To Buyer" leftButtonTitle='Termsheet' />
             {open ? <TermsheetPopUp close={close} open={open} /> : null}
         </>
 
