@@ -96,7 +96,7 @@ const Index = () => {
         )
     }
   }, [termsheet])
-//  console.log(termsheet, termsheetDetails, 'dkfgdfhjgdjfhgdkjfgdkjg')
+  //  console.log(termsheet, termsheetDetails, 'dkfgdfhjgdjfhgdkjfgdkjg')
 
   useEffect(() => {
     {
@@ -215,6 +215,8 @@ const Index = () => {
                 sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
               cimsCharges:
                 sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
+              taxCollectedatSource:
+               sheet?.otherTermsAndConditions?.dutyAndTaxes?.taxCollectedatSource,
             },
             insurance: {
               marineInsurance:

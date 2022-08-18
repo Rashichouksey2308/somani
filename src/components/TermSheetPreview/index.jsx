@@ -7,7 +7,7 @@ import { Form } from 'react-bootstrap'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetTermsheet } from 'redux/buyerProfile/action'
-import { setPageName, setDynamicName,setDynamicOrder } from '../../redux/userData/action'
+import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
 import moment from 'moment'
 
 
@@ -20,15 +20,15 @@ import _get from 'lodash/get'
 function Index() {
     const dispatch = useDispatch()
     const { termsheet } = useSelector((state) => state.order)
-    console.log(termsheet,'termsheet')
+    console.log(termsheet, 'termsheet')
     let Id = sessionStorage.getItem('termID')
-    let orderId= _get(termsheet,'data[0].order.orderId', 'Order Id')
+    let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id')
 
     useEffect(() => {
         dispatch(GetTermsheet(`?termsheetId=${Id}`))
         dispatch(setPageName('termsheet'))
         dispatch(setDynamicName(orderId));
-       // dispatch(setDynamicOrder(orderId))
+        // dispatch(setDynamicOrder(orderId))
     }, [dispatch, Id])
 
 
@@ -40,12 +40,45 @@ function Index() {
 
     const [termsheetDetails, setTermsheetDetails] = useState({})
     const [otherTermConditions, setOtherTermConditions] = useState({})
-    const date =  new Date()
+    const [additionalComments, setAdditionalComments] = useState({})
+    const date = new Date()
 
+
+    useEffect(() => {
+        const commentData = _get(termsheet, 'data[0].additionalComments', [])
+        console.log(commentData, 'comment')
+        commentData.forEach((comment) => {
+            console.log(comment, 'comment', comment?.additionalCommentType === "Deliveries/Due Date/Payment")
+            if (comment.additionalCommentType === "Deliveries/Due Date/Payment") {
+
+                setAdditionalComments(preve => {
+                    return { ...preve, deliveriesDueDatePayment: comment.comment }
+                })
+                // setAdditionalComments({
+                //     ...additionalComments,
+                //     deliveriesDueDatePayment: comment.comment
+                // })
+            }
+            if (comment.additionalCommentType === "Storage of Goods") {
+
+                setAdditionalComments(preve => {
+                    return { ...preve, storageofGoods: comment.comment }
+                })
+                // setAdditionalComments({
+                //     ...additionalComments,
+                //     storageofGoods: comment.comment
+                // })
+            }
+        })
+    }, [termsheet])
+
+    console.log(additionalComments, 'additionalComments')
 
     useEffect(() => {
         {
             termsheet && termsheet?.data?.map((sheet) => (
+
+
                 setTermsheetDetails({
                     termsheetId: sheet?._id,
                     commodityDetails: {
@@ -141,7 +174,8 @@ function Index() {
                     dutyAndTaxes: {
                         customsDutyWithAllGovtCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.customsDutyWithAllGovtCess,
                         igstWithCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
-                        cimsCharges: sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges
+                        cimsCharges: sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
+                        taxCollectedatSource: sheet?.otherTermsAndConditions?.dutyAndTaxes?.taxCollectedatSource,
                     },
                     insurance: {
                         marineInsurance: sheet?.otherTermsAndConditions?.insurance?.marineInsurance,
@@ -195,7 +229,7 @@ function Index() {
                             <span>TERMSHEET</span>
                         </Col>
                         <Col md={4} className={`d-flex justify-content-end  align-items-end`}>
-                           {/* <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((new Date()).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div> */}
+                            {/* <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((new Date()).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div> */}
                             <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((date), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div>
 
                         </Col>
@@ -342,7 +376,7 @@ function Index() {
                             </Col>
                             <Col md={8} sm={6} xs={6} className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                                 <ul>
-                                    <li>{termsheetDetails?.transactionDetails?.storageOfGoods}</li>
+                                    <li>{additionalComments.storageofGoods}</li>
 
                                 </ul>
                             </Col>
@@ -368,7 +402,7 @@ function Index() {
                             </Col>
                             <Col md={8} sm={6} xs={6} className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                                 <ul>
-                                    <li>{termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate} days from thr Vessel/Container(s) at discharge port  or {termsheetDetails?.paymentDueDate?.daysFromBlDate} days from the BL date, Whichever is Earlier, through TT orLC (inCase of LC all BAnk charges to be borne by the buyer)</li>
+                                    <li>{additionalComments.deliveriesDueDatePayment}</li>
 
                                 </ul>
                             </Col>
@@ -482,7 +516,7 @@ function Index() {
                         </Row>
                         <Row>
                             <Col md={12} className={`${styles.sub_content_other} termsheet_Text label_heading  d-flex justify-content-start align-content-center`}>
-                                {termsheetDetails.commercials?.otherTermsAndConditions}
+                                Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. {otherTermConditions?.buyer?.bank} will provide proof of all expenses to the Buyer.
 
 
                             </Col>
