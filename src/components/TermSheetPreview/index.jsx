@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect ,useRef} from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Container, Card } from 'react-bootstrap'
 import Paginatebar from '../Paginatebar'
@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetTermsheet } from 'redux/buyerProfile/action'
 import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
 import moment from 'moment'
-
+import jsPDF from "jspdf";
+import ReactDOMServer from "react-dom/server";
 
 import _get from 'lodash/get'
 
@@ -18,6 +19,7 @@ import _get from 'lodash/get'
 
 
 function Index() {
+    const toPrint=useRef()
     const dispatch = useDispatch()
     const { termsheet } = useSelector((state) => state.order)
     console.log(termsheet, 'termsheet')
@@ -195,10 +197,26 @@ function Index() {
     const close = () => {
         setOpen(false)
     }
+    const exportPDF = () => {
+    let element = (
+      <div style={{ display: "flex", flexWrap: "wrap" ,backgroundColor:"red",width:"50rem",height:"50rem"}}>
+
+        <span>Sample Text</span>
+      </div>
+    );
+    const doc = new jsPDF("p", "pt", "letter");
+    doc.html(ReactDOMServer.renderToString(element), {
+      callback: function (doc) {
+        doc.save('sample.pdf');
+      }
+    });
+  };
     return (
 
         <>
-            <div className={`${styles.root_container} `}>
+            <div className={`${styles.root_container}  `}
+              ref={toPrint}
+            >
                 {/* <div  className={styles.head_container}>
         <div className={styles.head_header}>
           <img className={styles.arrow}
@@ -237,24 +255,7 @@ function Index() {
                     </Row>
 
                 </div>
-                {/* <div  className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
-       <Row className={`h-50`}>
-           <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
-           <span>TERMSHEET</span>
-           </Col>
-       </Row>
-       {termsheet && termsheet?.data?.map((sheet, index) => (
-        <Row key={index}  className={`h-50`}>
-        
-           <Col md={6} sm={6} xs={6} className={`d-flex justify-content-start align-items-center`}>
-           <div><span className={styles.termSub_head}>Buyer:</span><span className={styles.termValue}>{sheet.company.companyName}</span></div>
-           </Col>
-            <Col md={6} sm={6} xs={6} className={`d-flex justify-content-end  align-items-center`}>
-           <div><span className={styles.termSub_head}>Order ID:</span> <span className={styles.termValue}>{sheet.order.orderId}</span></div>
-           </Col>
-           
-       </Row>))}
-      </div> */}
+
                 <Card className={`${styles.content} ${styles.customCard}`}>
                     <div>
                         <Row className={`${styles.row_head} row_head`}>
@@ -730,7 +731,7 @@ function Index() {
 
 
 
-            <Paginatebar openbar={openbar} rightButtonTitle="Send To Buyer" leftButtonTitle='Termsheet' />
+            <Paginatebar exportPDF={exportPDF} openbar={openbar} rightButtonTitle="Send To Buyer" leftButtonTitle='Termsheet' />
             {open ? <TermsheetPopUp close={close} open={open} /> : null}
         </>
 

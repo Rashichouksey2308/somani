@@ -163,6 +163,28 @@ function Index(props) {
  
 
   }
+  const handleChangeInput2=(name,value,index)=>{
+   
+ 
+ 
+
+    setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return {...obj,phoneNo:value};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
+
+    
+
+  }
 
   return (
     <>
@@ -351,9 +373,9 @@ function Index(props) {
                           ></input></td>
                           <td><input type="text" placeholder={val.phoneNo}
                           name= "phoneNo"
-                          // onChange={(e)=>{
-                          //   handleChangeInput(e.target.name,e.target.value,index)
-                          // }}
+                          onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                          }}
                           ></input></td>
                           <td className={`d-flex`}>
                             <div

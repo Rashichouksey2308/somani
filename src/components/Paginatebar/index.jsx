@@ -1,10 +1,12 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-function index({ openbar, leftButtonTitle, rightButtonTitle }) {
+function index({ openbar, leftButtonTitle, rightButtonTitle ,exportPDF}) {
   return (
     <div className={styles.root}>
-      <div className={styles.reject}><span>{leftButtonTitle}</span>
+      <div className={styles.reject}
+      onClick={exportPDF}
+      ><span>{leftButtonTitle}</span>
         <img src="/static/file_download.svg" className='img-fluid' alt="FileDownload" />
       </div>
       <div className={styles.navigate}>
