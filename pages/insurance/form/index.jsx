@@ -81,10 +81,10 @@ const Index = () => {
   return (
     <>
       <div
-        className={`${styles.card} p-0 datatable bg-transparent card border-0 container-fluid`}
+        className={`${styles.card} p-0 vessel_card datatable bg-transparent card border-0 container-fluid`}
       >
         <div className={`${styles.accordion_body} bg-transparent`}>
-          <div className={`${styles.head_container} align-items-center`}>
+          <div className={`${styles.head_container} ml-5 align-items-center`}>
             <div className={`${styles.head_header}`}>
               <img
                 className={`${styles.arrow} img-fluid mr-2 image_arrow`}
@@ -293,35 +293,45 @@ const Index = () => {
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
-                            <select
-                              name="lossPayee"
-                              onChange={(e) => {
-                                saveQuotationData(e.target.name, e.target.value)
-                              }}
-                              className={`${styles.input_field} input form-control`}
-                            >
-                              <option selected>
-                                {insuranceData?.quotationRequest?.lossPayee}
-                              </option>
-                              <option
-                                value={
-                                  insuranceData?.order?.lc?.lcApplication
-                                    ?.lcIssuingBank
-                                }
+                            <div className="d-flex">
+                              <select
+                                name="lossPayee"
+                                onChange={(e) => {
+                                  saveQuotationData(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }}
+                                className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                {
-                                  insuranceData?.order?.lc?.lcApplication
-                                    ?.lcIssuingBank
-                                }
-                              </option>
-                              <option value="SBI BANK">SBI BANK</option>
-                            </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Loss Payee
-                              <strong className="text-danger">*</strong>
-                            </label>
+                                <option selected>
+                                  {insuranceData?.quotationRequest?.lossPayee}
+                                </option>
+                                <option
+                                  value={
+                                    insuranceData?.order?.lc?.lcApplication
+                                      ?.lcIssuingBank
+                                  }
+                                >
+                                  {
+                                    insuranceData?.order?.lc?.lcApplication
+                                      ?.lcIssuingBank
+                                  }
+                                </option>
+                                <option value="SBI BANK">SBI BANK</option>
+                              </select>
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                              >
+                                Loss Payee
+                                <strong className="text-danger">*</strong>
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
                             <div className="d-flex">
@@ -685,37 +695,47 @@ const Index = () => {
                         <h5>Storage Details</h5>
                         <Row>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                            <select
-                              name="storageDetails.placeOfStorage"
-                              onChange={(e) =>
-                                saveQuotationData(e.target.name, e.target.value)
-                              }
-                              className={`${styles.input_field} input form-control`}
-                            >
-                              <option
-                                value={
-                                  insuranceData?.quotationRequest
-                                    ?.storageDetails?.placeOfStorage
+                            <div className="d-flex">
+                              <select
+                                name="storageDetails.placeOfStorage"
+                                onChange={(e) =>
+                                  saveQuotationData(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
                                 }
+                                className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                {
-                                  insuranceData?.quotationRequest
-                                    ?.storageDetails?.placeOfStorage
-                                }
-                              </option>
-                              <option value="Visakhapatnam, AP, India">
-                                Visakhapatnam, AP, India
-                              </option>
-                              <option value="Mumbai, India">
-                                Mumbai, India
-                              </option>
-                            </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Place of Storage
-                              <strong className="text-danger">*</strong>
-                            </label>
+                                <option
+                                  value={
+                                    insuranceData?.quotationRequest
+                                      ?.storageDetails?.placeOfStorage
+                                  }
+                                >
+                                  {
+                                    insuranceData?.quotationRequest
+                                      ?.storageDetails?.placeOfStorage
+                                  }
+                                </option>
+                                <option value="Visakhapatnam, AP, India">
+                                  Visakhapatnam, AP, India
+                                </option>
+                                <option value="Mumbai, India">
+                                  Mumbai, India
+                                </option>
+                              </select>
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                              >
+                                Place of Storage
+                                <strong className="text-danger">*</strong>
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
                           </Col>
                           <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                             <input

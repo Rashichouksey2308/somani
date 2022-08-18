@@ -80,7 +80,7 @@ function Index({ directorData }) {
                           </div>
                           <div className={`${styles.detailsBox}   col-md-2`}>
                             <label className={`accordion_Text`}>DIN</label>
-                            <span className={`${moment(director?.dscStatus).format('DD MM YYYY') < moment(new Date).format('DD MM YYYY') && director?.dinStatus ? styles.success : styles.danger}`}>
+                            <span className={`${moment(director?.dscStatus).format('DD MM YYYY') < moment(new Date).format('DD MM YYYY')  ? styles.success : styles.danger}`}>
                               {director?.din}
                             </span>
                           </div>

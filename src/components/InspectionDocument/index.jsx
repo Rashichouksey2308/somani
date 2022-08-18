@@ -10,7 +10,7 @@ import {
 } from 'redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Index = ({ orderId, uploadDocument1, module, documentName }) => {
+const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
   const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
   const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState(
@@ -134,14 +134,41 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
                     </td>
                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                     <td colSpan={2}>
-                      <button className={`${styles.uploadDoc} btn`}>
-                        Upload
-                      </button>
+                    { lcDoc && lcDoc.lcDraftDoc === null ?  <>
+                   <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                         onChange={(e) => uploadDocument1(e)}
+                        />
+                        <button className={`${styles.button_upload} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                      {/* <div className={styles.uploadBtnWrapper}>
                       <input
                         type="file"
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                         onChange={(e) => uploadDocument1(e)}
                         name="myfile"
                       />
+                       <button  className={`${styles.uploadDoc} btn`}>
+                        Upload
+                      </button>
+                    </div> */}
+                      </>:
+                      <div className={styles.certificate}>
+                      {lcDoc?.lcDraftDoc?.name}
+                      <img
+                        className={`${styles.close_image} float-right m-2 img-fluid`}
+                        src="/static/close.svg"
+                       
+                        alt="Close"
+                      />{' '}
+                    </div>
+                      }
+                    
                     </td>
                   </tr>
                 </tbody>
@@ -165,6 +192,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
                   <p className={styles.drop_para}>
                     Drop Files here or
                     <br />
+                    {false?
                     <div className={styles.uploadBtnWrapper}>
                       <input
                         type="file"
@@ -173,7 +201,17 @@ const Index = ({ orderId, uploadDocument1, module, documentName }) => {
                         name="myfile"
                       />
                       <a href="#">Browse</a>
+                    </div>:
+                      <div className={styles.certificate2}>
+                      {"name"}
+                      <img
+                        className={`${styles.close_image} float-right m-2 img-fluid`}
+                        src="/static/close.svg"
+                        
+                        alt="Close"
+                      />{' '}
                     </div>
+                    }
                   </p>
                 </div>
               </div>

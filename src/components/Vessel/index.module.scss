@@ -1,689 +1,654 @@
 @import '../styles/Core/config';
 .dashboardTab {
-    // border: 1px solid #D2D7E5;
-    .tabHeader {
-        margin-bottom: 10px;
-        padding: 28px 38px 24px 38px;
-        .tab_header {
-            height: 48px;
-            .title {
-                font-size: 34px;
-                font-weight: bold;
-                line-height: 41px;
-                margin: 0;
-                padding-left: 18px;
-                @include respond(md-desktop) {
-                    font-size: 32px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 28px;
-                }
-                @include respond(phone) {
-                    font-size: 24px;
-                }
-            }
-            img {
-                width: 13px;
-                height: 21px;
-                margin: 0;
-                @include respond(sm-desktop) {}
-                @include respond(phone) {
-                    width: 10px;
-                    height: 15px;
-                }
-            }
-            .lastModified {
-                font-size: 14px;
-                color: rgba(40, 55, 86, 0.6);
-                font-weight: normal;
-                line-height: 16px;
-                margin-top: 7px;
-                @include respond(md-desktop) {
-                    font-size: 14px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 12px;
-                }
-                @include respond(phone) {
-                    font-size: 11px;
-                }
-                span {
-                    color: #283756;
-                    font-weight: bold;
-                    line-height: 17px;
-                    @include respond(md-desktop) {
-                        font-size: 42px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 35px;
-                    }
-                    @include respond(phone) {
-                        font-size: 30px;
-                    }
-                }
-            }
+  // border: 1px solid #D2D7E5;
+  .tabHeader {
+    margin-bottom: 10px;
+    padding: 28px 38px 24px 38px;
+    .tab_header {
+      height: 48px;
+      .title {
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 41px;
+        margin: 0;
+        padding-left: 18px;
+        @include respond(md-desktop) {
+          font-size: 32px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 28px;
         }
         @include respond(phone) {
-            font-size: 30px;
+          font-size: 24px;
         }
-    }
-}
-.backgroundMain {
-    margin: 18px 28px 28px;
-    margin-bottom: 112px;
-    @include respond(sm-desktop) {
-        margin: 10px 20px 20px;
+      }
+      img {
+        width: 13px;
+        height: 21px;
+        margin: 0;
+        @include respond(sm-desktop) {
+        }
+        @include respond(phone) {
+          width: 10px;
+          height: 15px;
+        }
+      }
+      .lastModified {
+        font-size: 14px;
+        color: rgba(40, 55, 86, 0.6);
+        font-weight: normal;
+        line-height: 16px;
+        margin-top: 7px;
+        @include respond(md-desktop) {
+          font-size: 14px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 12px;
+        }
+        @include respond(phone) {
+          font-size: 11px;
+        }
+        span {
+          color: #283756;
+          font-weight: bold;
+          line-height: 17px;
+          @include respond(md-desktop) {
+            font-size: 42px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 35px;
+          }
+          @include respond(phone) {
+            font-size: 30px;
+          }
+        }
+      }
     }
     @include respond(phone) {
-        margin: 5px 15px 15px;
-        margin-bottom: 71px;
+      font-size: 30px;
+    }
+  }
+}
+.backgroundMain {
+  margin: 18px 28px 28px;
+  margin-bottom: 112px;
+  @include respond(sm-desktop) {
+    margin: 10px 20px 20px;
+  }
+  @include respond(phone) {
+    margin: 5px 15px 15px;
+    margin-bottom: 71px;
+  }
+  .main {
+    border-radius: 6px;
+    margin-bottom: 26px;
+    .head_container {
+      height: 80px;
+      padding: 25px 35px !important;
+      border-bottom: 2px solid #cad6e6;
+      .heading {
+        font-size: 22px;
+        color: #3687e8;
+        font-weight: bold;
+        line-height: 27px;
+        margin: 0;
+        @include respond(md-desktop) {
+          font-size: 20px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 18px;
+        }
+        @include respond(phone) {
+          font-size: 15px;
+        }
+      }
+      span {
+        font-size: 45px;
+        color: #3687e8;
+        font-weight: normal;
+        line-height: 20px;
+        @include respond(md-desktop) {
+          font-size: 42px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 35px;
+        }
+        @include respond(phone) {
+          font-size: 30px;
+        }
+      }
+      .dropDown {
+        border: 1px solid #0000001f;
+        border-radius: 4px;
+        font-size: 20px;
+        line-height: 25px;
+        font-weight: 500;
+        padding: 5px 20px 5px 10px;
+        outline: none;
+        min-width: 80px;
+        @include respond(md-desktop) {
+          font-size: 18px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+        }
+        @include respond(phone) {
+          font-size: 10px;
+          line-height: 18px;
+        }
+      }
+      .dropDown_label {
+        letter-spacing: 0.53px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 17px;
+        padding-right: 10px;
+        margin-bottom: 0;
+        @include respond(md-desktop) {
+          font-size: 14px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 12px;
+        }
+        @include respond(phone) {
+          font-size: 10px;
+        }
+      }
+      .add_btn {
+        color: #3687e8;
+        text-transform: capitalize;
+        border: 3px solid #3687e8;
+        border-radius: 5px;
+        font-size: 18px;
+        line-height: 23px;
+        font-weight: bold;
+        background-color: transparent;
+        margin: 0 15px 0 30px;
+        width: 78px;
+        height: 36px;
+        @include respond(md-desktop) {
+          font-size: 16px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 14px;
+        }
+        @include respond(phone) {
+          font-size: 12px;
+          width: 50px;
+          height: 26px;
+          text-align: center;
+          border-radius: 3px;
+        }
+      }
+    }
+  }
+  .dashboard_form {
+    padding: 20px 35px 25px 40px;
+    .sub_heading {
+      text-align: left;
+      font-size: 22px;
+      line-height: 27px;
+      font-weight: bold;
+      //text-transform: capitalize;
+      @include respond(md-desktop) {
+        font-size: 18px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 16px;
+        line-height: 20px;
+      }
+      @include respond(phone) {
+        font-size: 14px;
+        line-height: 15px;
+      }
+    }
+    .form_group {
+      margin-top: 40px;
+      position: relative;
+      margin-bottom: 10px;
+      @include respond(sm-desktop) {
+      }
+      @include respond(phone) {
+        margin: 15px;
+      }
+      .search_image {
+        margin-left: -40px;
+      }
+      .label_heading {
+        font-size: 16px;
+        letter-spacing: 0.53px;
+        line-height: 0.5;
+        top: 22px;
+        left: 30px;
+        margin-bottom: 0;
+        position: absolute;
+        pointer-events: none;
+        box-sizing: border-box;
+        transform: translateY(-30px);
+        transition: 0.3s all ease-in-out;
+        z-index: 0;
+        max-width: 86%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &::before {
+          top: 51%;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          content: '';
+          z-index: -1;
+          position: absolute;
+          transform: translateY(-50%);
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+        }
+        @include respond(phone) {
+          font-size: 14px;
+          //top: 20px;
+        }
+      }
+      .input_field {
+        font-size: 20px;
+        height: 60px;
+        outline: none;
+        box-shadow: none;
+        border-radius: 4px;
+        position: relative;
+        box-sizing: border-box;
+        letter-spacing: 0.19px;
+        padding: 13px 30px 13px 17px;
+        border: 1px solid #0000001f;
+        &:invalid + label {
+          transform: translateY(0);
+        }
+        &:focus {
+          & + label {
+            transform: translateY(-30px);
+          }
+        }
+        @include respond(md-desktop) {
+          font-size: 18px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+          height: 55px;
+        }
+        @include respond(phone) {
+          font-size: 14px;
+          height: 45px;
+          padding: 0px 12px 0px 12px;
+        }
+      }
     }
     .main {
-        border-radius: 6px;
-        margin-bottom: 26px;
-        .head_container {
-            height: 80px;
-            padding: 25px 35px !important;
-            border-bottom: 2px solid #cad6e6;
-            .heading {
-                font-size: 22px;
-                color: #3687e8;
-                font-weight: bold;
-                line-height: 27px;
-                margin: 0;
-                @include respond(md-desktop) {
-                    font-size: 20px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 18px;
-                }
-                @include respond(phone) {
-                    font-size: 15px;
-                }
-            }
-            span {
-                font-size: 45px;
-                color: #3687e8;
-                font-weight: normal;
-                line-height: 20px;
-                @include respond(md-desktop) {
-                    font-size: 42px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 35px;
-                }
-                @include respond(phone) {
-                    font-size: 30px;
-                }
-            }
-            .dropDown {
-                border: 1px solid #0000001f;
-                border-radius: 4px;
-                font-size: 20px;
-                line-height: 25px;
-                font-weight: 500;
-                padding: 5px 20px 5px 10px;
-                outline: none;
-                min-width: 80px;
-                @include respond(md-desktop) {
-                    font-size: 18px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(phone) {
-                    font-size: 10px;
-                    line-height: 18px;
-                }
-            }
-            .dropDown_label {
-                letter-spacing: 0.53px;
-                font-weight: 500;
-                font-size: 16px;
-                line-height: 17px;
-                padding-right: 10px;
-                margin-bottom: 0;
-                @include respond(md-desktop) {
-                    font-size: 14px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 12px;
-                }
-                @include respond(phone) {
-                    font-size: 10px;
-                }
-            }
-            .add_btn {
-                color: #3687e8;
-                text-transform: capitalize;
-                border: 3px solid #3687e8;
-                border-radius: 5px;
-                font-size: 18px;
-                line-height: 23px;
-                font-weight: bold;
-                background-color: transparent;
-                margin: 0 15px 0 30px;
-                width: 78px;
-                height: 36px;
-                @include respond(md-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 14px;
-                }
-                @include respond(phone) {
-                    font-size: 12px;
-                    width: 50px;
-                    height: 26px;
-                    text-align: center;
-                    border-radius: 3px;
-                }
-            }
-        }
-    }
-    .dashboard_form {
-        padding: 20px 35px 25px 40px;
-        .sub_heading {
-            text-align: left;
-            font-size: 22px;
-            line-height: 27px;
-            font-weight: bold;
-            //text-transform: capitalize;
-            @include respond(md-desktop) {
-                font-size: 18px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 16px;
-                line-height: 20px;
-            }
-            @include respond(phone) {
-                font-size: 14px;
-                line-height: 15px;
-            }
-        }
-        .form_group {
-            margin-top: 40px;
-            position: relative;
-            margin-bottom: 10px;
-            @include respond(sm-desktop) {
-            }
-            @include respond(phone) {
-                margin: 15px;
-            }
-            .search_image {
-                margin-left: -40px;
-            }
-            .label_heading {
-                font-size: 16px;
-                letter-spacing: 0.53px;
-                line-height: 0.5;
-                top: 22px;
-                left: 30px;
-                margin-bottom: 0;
-                position: absolute;
-                pointer-events: none;
-                box-sizing: border-box;
-                transform: translateY(-30px);
-                transition: 0.3s all ease-in-out;
-                z-index: 1;
-                max-width: 86%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                &::before {
-                  top: 51%;
-                  left: 0;
-                  width: 100%;
-                  height: 2px;
-                  content: '';
-                  z-index: -1;
-                  position: absolute;
-                  transform: translateY(-50%);
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                    //top: 20px;
-                }
-            }
-            .input_field {
-                font-size: 20px;
-                height: 60px;
-                outline: none;
-                box-shadow: none;
-                border-radius: 4px;
-                position: relative;
-                box-sizing: border-box;
-                letter-spacing: 0.19px;
-                padding: 13px 30px 13px 17px;
-                border: 1px solid #0000001f;
-                &:invalid + label {
-                    transform: translateY(0);
-                }
-                &:focus {
-                    & + label {
-                        transform: translateY(-30px);
-                    }
-                }
-                @include respond(md-desktop) {
-                    font-size: 18px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                    height: 55px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                    height: 45px;
-                    padding: 0px 12px 0px 12px;
-                }
-            }
-        }
-        .main {
-            border-radius: 6px;
-            margin-bottom: 26px;
-            .head_container {
-                height: 80px;
-                padding: 25px 35px !important;
-                border-bottom: 2px solid #CAD6E6;
-                .heading{
-                    font-size: 22px;
-                    color: #3687e8;
-                    font-weight: bold;
-                    line-height: 27px;
-                    margin: 0;
-                    @include respond(md-desktop) {
-                        font-size: 20px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 18px;
-                    }
-                    @include respond(phone) {
-                        font-size: 15px;
-                    }          
-                }
-                span {
-                    font-size: 45px;
-                    color: #3687e8;
-                    font-weight: normal;
-                    line-height: 20px;
-                    @include respond(md-desktop) {
-                        font-size: 42px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 35px;
-                    }
-                    @include respond(phone) {
-                        font-size: 30px;
-                    }
-                }
-                .dropDown{
-                    border: 1px solid #0000001F;
-                    border-radius: 4px;
-                    font-size: 20px;
-                    line-height: 25px;
-                    font-weight: 500;
-                    padding: 5px 20px 5px 10px;
-                    outline: none;
-                    min-width: 80px;
-                    @include respond(md-desktop) {
-                        font-size: 18px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 16px;
-                    }
-                    @include respond(phone) {
-                        font-size: 10px;
-                        line-height: 18px;
-                    }
-                }
-                .dropDown_label{
-                    letter-spacing: 0.53px;
-                    font-weight: 500;
-                    font-size: 16px;
-                    line-height: 17px; 
-                    padding-right:10px;
-                    margin-bottom: 0;
-                    position: relative;
-                    z-index: 1;
-                    max-width: 86%;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    &::before {
-                        top: 51%;
-                        left: 0;
-                        width: 100%;
-                        height: 2px;
-                        content: "";
-                        z-index: -1;
-                        position: absolute;
-                        transform: translateY(-50%);
-                    }
-                    @include respond(md-desktop) {
-                        font-size: 14px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 12px;
-                    }
-                    @include respond(phone) {
-                        font-size: 10px;
-                    }
-                }
-                .add_btn {
-                    color: #3687E8;
-                    text-transform: capitalize;
-                    border: 3px solid #3687E8;
-                    border-radius: 5px;
-                    font-size: 18px;
-                    line-height: 23px;
-                    font-weight: bold;
-                    background-color: transparent;
-                    margin: 0 15px 0 30px;
-                    width: 78px;
-                    height: 36px;
-                    @include respond(md-desktop) {
-                        font-size: 16px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 14px;
-                    }
-                    @include respond(phone) {
-                        font-size: 12px;
-                        width: 50px;
-                        height: 26px;
-                        text-align: center;
-                        border-radius: 3px;
-                    }
-                }        
-            }
-            @include respond(phone) {
-                font-size: 12px;
-                width: 50px;
-                height: 26px;
-                text-align: center;
-                border-radius: 3px;
-            }
-        }
-    }
-    .dashboard_form {
-        padding: 20px 35px 25px 40px;
-        .sub_heading {
-            text-align: left;
-            font-size:22px;
-            line-height: 27px;
-            font-weight: bold;
-            //text-transform: capitalize;
-            @include respond(md-desktop) {
-                font-size: 18px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 16px;
-                line-height: 20px;
-            }
-            @include respond(phone) {
-                font-size: 14px;                
-                line-height: 15px;
-            }
-        }
-        .form_group {
-            margin-top: 40px;
-            position: relative;
-            margin-bottom: 10px;
-            @include respond(sm-desktop) {}
-            @include respond(phone) {
-                margin: 15px;
-            }
-            .search_image {
-                margin-left: -40px;
-            }
-            .label_heading {
-                font-size: 16px;
-                letter-spacing: 0.53px;
-                line-height: 17px;
-                top: 22px;
-                left: 30px;
-                margin-bottom: 0;
-                position: absolute;
-                pointer-events: none;
-                box-sizing: border-box;
-                transform: translateY(-30px);
-                transition: 0.3s all ease-in-out;
-                z-index: 1;
-                max-width: 86%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                &::before {
-                    top: 51%;
-                    left: 0;
-                    width: 100%;
-                    height: 2px;
-                    content: "";
-                    z-index: -1;
-                    position: absolute;
-                    transform: translateY(-50%);
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                    //top: 20px;
-                }
-            }
-            .input_field {
-                font-size: 20px;
-                height: 60px;
-                outline: none;
-                box-shadow: none;
-                border-radius: 4px;
-                position: relative;
-                box-sizing: border-box;
-                letter-spacing: 0.19px;
-                padding: 13px 30px 13px 17px;
-                border: 1px solid #0000001F;
-                &:invalid + label {
-                    transform:translateY(0);
-                }
-                &:focus {
-                    & + label {
-                        transform:translateY(-30px);
-                    }
-                }
-                @include respond(md-desktop) {
-                    font-size: 18px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                    height: 55px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                    height: 45px;
-                    padding: 0px 12px 0px 12px;
-                }
-            }       
-        }    
-    }
-    .dashboard_form {
-        padding: 20px 35px 25px 40px;
-        .vessel_card {
-            background: #FFFFFF;
-            border: 1px solid rgba(112, 112, 112, 0.4);
-            border-radius: 6px;
-            padding: 35px;
-            .add_btn {
-                color: #3687E8;
-                text-transform: capitalize;
-                border: 3px solid #3687E8;
-                border-radius: 5px;
-                font-size: 18px;
-                font-weight: bold;
-                line-height: 23px;
-                background-color: transparent;
-                margin: 0 15px 0 30px;
-                width: 78px;
-                height: 36px;
-                @include respond(md-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 14px;
-                }
-                @include respond(phone) {
-                    font-size: 12px;
-                    width: 50px;
-                    height: 26px;
-                    text-align: center;
-                    border-radius: 3px;
-                }
-            }
-        }
-        .sub_heading {
-            text-align: left;
+      border-radius: 6px;
+      margin-bottom: 26px;
+      .head_container {
+        height: 80px;
+        padding: 25px 35px !important;
+        border-bottom: 2px solid #cad6e6;
+        .heading {
+          font-size: 22px;
+          color: #3687e8;
+          font-weight: bold;
+          line-height: 27px;
+          margin: 0;
+          @include respond(md-desktop) {
             font-size: 20px;
-            font-weight: bold;
-            letter-spacing: 0px;
-            //color: #111111;
-            @include respond(md-desktop) {
-                font-size: 18px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 16px;
-                line-height: 20px;
-            }
-            @include respond(phone) {
-                font-size: 14px;
-                line-height: 15px;
-            }
+          }
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 15px;
+          }
         }
-        .form_group {
-            margin-top: 40px;
-            position: relative;
-            margin-bottom: 10px;
-            @include respond(phone) {
-                margin: 15px;
-            }
-            .search_image {
-                margin-left: -40px;
-            }
-            .upload_btn {
-                text-align: center;
-                color: #3687E8;
-                text-transform: capitalize;
-                border: 3px solid #3687E8;
-                border-radius: 5px;
-                width: 226px;
-                height: 48px;
-                font-size: 20px;
-                font-weight: bold;
-                line-height: 25px;
-                background-color: transparent;
-                white-space: nowrap;
-                @include respond(md-desktop) {
-                    font-size: 18px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                    width: 200px;
-                    height: 40px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                    width: 180px;
-                    height: 32px;
-                }
-            }
-            .upload_text {
-                color: #8492A6;
-                text-transform: uppercase;
-                font-size: 15px;
-                line-height: 24px;
-                font-weight: bold;
-                margin-left: 30px;
-                @include respond(sm-desktop) {
-                    font-size: 14px;
-                }
-                @include respond(phone) {
-                    font-size: 12px;
-                }
-            }
-            .label_heading {
-                font-size: 16px;
-                letter-spacing: 0.53px;
-                line-height: 17px;
-                top: 22px;
-                left: 30px;
-                margin-bottom: 0;
-                position: absolute;
-                pointer-events: none;
-                box-sizing: border-box;
-                transform: translateY(-30px);
-                transition: 0.3s all ease-in-out;
-                z-index: 1;
-                max-width: 86%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                &::before {
-                    top: 51%;
-                    left: 0;
-                    width: 100%;
-                    height: 2px;
-                    content: "";
-                    z-index: -1;
-                    position: absolute;
-                    transform: translateY(-50%);
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                    //top: 20px;
-                }
-            }
-            .input_field {
-                font-size: 20px;
-                height: 60px;
-                outline: none;
-                box-shadow: none;
-                border-radius: 4px;
-                position: relative;
-                box-sizing: border-box;
-                letter-spacing: 0.19px;
-                padding: 13px 30px 13px 17px;
-                border: 1px solid #0000001F;
-                &.cursor {
-                    cursor: pointer;
-                }
-                &:invalid+label {
-                    transform: translateY(0);
-                }
-                &:focus {
-                    &+label {
-                        transform: translateY(-30px);
-                    }
-                }
-                @include respond(md-desktop) {
-                    font-size: 18px;
-                }
-                @include respond(sm-desktop) {
-                    font-size: 16px;
-                    height: 55px;
-                }
-                @include respond(phone) {
-                    font-size: 14px;
-                    height: 45px;
-                    padding: 0px 12px 0px 12px;
-                }
-            }
+        span {
+          font-size: 45px;
+          color: #3687e8;
+          font-weight: normal;
+          line-height: 20px;
+          @include respond(md-desktop) {
+            font-size: 42px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 35px;
+          }
+          @include respond(phone) {
+            font-size: 30px;
+          }
         }
+        .dropDown {
+          border: 1px solid #0000001f;
+          border-radius: 4px;
+          font-size: 20px;
+          line-height: 25px;
+          font-weight: 500;
+          padding: 5px 20px 5px 10px;
+          outline: none;
+          min-width: 80px;
+          @include respond(md-desktop) {
+            font-size: 18px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 16px;
+          }
+          @include respond(phone) {
+            font-size: 10px;
+            line-height: 18px;
+          }
+        }
+        .dropDown_label {
+          letter-spacing: 0.53px;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 17px;
+          padding-right: 10px;
+          margin-bottom: 0;
+          position: relative;
+          z-index: 0;
+          max-width: 86%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          &::before {
+            top: 51%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            content: '';
+            z-index: -1;
+            position: absolute;
+            transform: translateY(-50%);
+          }
+          @include respond(md-desktop) {
+            font-size: 14px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 12px;
+          }
+          @include respond(phone) {
+            font-size: 10px;
+          }
+        }
+        .add_btn {
+          color: #3687e8;
+          text-transform: capitalize;
+          border: 3px solid #3687e8;
+          border-radius: 5px;
+          font-size: 18px;
+          line-height: 23px;
+          font-weight: bold;
+          background-color: transparent;
+          margin: 0 15px 0 30px;
+          width: 78px;
+          height: 36px;
+          @include respond(md-desktop) {
+            font-size: 16px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 14px;
+          }
+          @include respond(phone) {
+            font-size: 12px;
+            width: 50px;
+            height: 26px;
+            text-align: center;
+            border-radius: 3px;
+          }
+        }
+      }
+      @include respond(phone) {
+        font-size: 12px;
+        width: 50px;
+        height: 26px;
+        text-align: center;
+        border-radius: 3px;
+      }
     }
-    .input_field {
+  }
+  .dashboard_form {
+    padding: 20px 35px 25px 40px;
+    .sub_heading {
+      text-align: left;
+      font-size: 22px;
+      line-height: 27px;
+      font-weight: bold;
+      //text-transform: capitalize;
+      @include respond(md-desktop) {
+        font-size: 18px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 16px;
+        line-height: 20px;
+      }
+      @include respond(phone) {
+        font-size: 14px;
+        line-height: 15px;
+      }
+    }
+    .form_group {
+      margin-top: 40px;
+      position: relative;
+      margin-bottom: 10px;
+      @include respond(sm-desktop) {
+      }
+      @include respond(phone) {
+        margin: 15px;
+      }
+      .search_image {
+        margin-left: -40px;
+      }
+      .label_heading {
+        font-size: 16px;
+        letter-spacing: 0.53px;
+        line-height: 17px;
+        top: 22px;
+        left: 30px;
+        margin-bottom: 0;
+        position: absolute;
+        pointer-events: none;
+        box-sizing: border-box;
+        transform: translateY(-30px);
+        transition: 0.3s all ease-in-out;
+        z-index: 0;
+        max-width: 86%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &::before {
+          top: 51%;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          content: '';
+          z-index: -1;
+          position: absolute;
+          transform: translateY(-50%);
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+        }
+        @include respond(phone) {
+          font-size: 14px;
+          //top: 20px;
+        }
+      }
+      .input_field {
+        font-size: 20px;
+        height: 60px;
+        outline: none;
+        box-shadow: none;
+        border-radius: 4px;
+        position: relative;
+        box-sizing: border-box;
+        letter-spacing: 0.19px;
+        padding: 13px 30px 13px 17px;
+        border: 1px solid #0000001f;
+        &:invalid + label {
+          transform: translateY(0);
+        }
+        &:focus {
+          & + label {
+            transform: translateY(-30px);
+          }
+        }
+        @include respond(md-desktop) {
+          font-size: 18px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+          height: 55px;
+        }
+        @include respond(phone) {
+          font-size: 14px;
+          height: 45px;
+          padding: 0px 12px 0px 12px;
+        }
+      }
+    }
+  }
+  .dashboard_form {
+    padding: 20px 35px 25px 40px;
+    .vessel_card {
+      //background: #ffffff;
+      border: 1px solid rgba(112, 112, 112, 0.4);
+      border-radius: 6px;
+      padding: 35px;
+      .add_btn {
+        color: #3687e8;
+        text-transform: capitalize;
+        border: 3px solid #3687e8;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 23px;
+        background-color: transparent;
+        margin: 0 15px 0 30px;
+        width: 78px;
+        height: 36px;
+        @include respond(md-desktop) {
+          font-size: 16px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 14px;
+        }
+        @include respond(phone) {
+          font-size: 12px;
+          width: 50px;
+          height: 26px;
+          text-align: center;
+          border-radius: 3px;
+        }
+      }
+    }
+    .sub_heading {
+      text-align: left;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 0px;
+      //color: #111111;
+      @include respond(md-desktop) {
+        font-size: 18px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 16px;
+        line-height: 20px;
+      }
+      @include respond(phone) {
+        font-size: 14px;
+        line-height: 15px;
+      }
+    }
+    .form_group {
+      margin-top: 40px;
+      position: relative;
+      margin-bottom: 10px;
+      @include respond(phone) {
+        margin: 15px;
+      }
+      .search_image {
+        margin-left: -40px;
+      }
+      .upload_btn {
+        text-align: center;
+        color: #3687e8;
+        text-transform: capitalize;
+        border: 3px solid #3687e8;
+        border-radius: 5px;
+        width: 226px;
+        height: 48px;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 25px;
+        background-color: transparent;
+        white-space: nowrap;
+        @include respond(md-desktop) {
+          font-size: 18px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+          width: 200px;
+          height: 40px;
+        }
+        @include respond(phone) {
+          font-size: 14px;
+          width: 180px;
+          height: 32px;
+        }
+      }
+      .upload_text {
+        color: #8492a6;
+        text-transform: uppercase;
+        font-size: 15px;
+        line-height: 24px;
+        font-weight: bold;
+        margin-left: 30px;
+        @include respond(sm-desktop) {
+          font-size: 14px;
+        }
+        @include respond(phone) {
+          font-size: 12px;
+        }
+      }
+      .label_heading {
+        font-size: 16px;
+        letter-spacing: 0.53px;
+        line-height: 17px;
+        top: 22px;
+        left: 30px;
+        margin-bottom: 0;
+        position: absolute;
+        pointer-events: none;
+        box-sizing: border-box;
+        transform: translateY(-30px);
+        transition: 0.3s all ease-in-out;
+        z-index: 0;
+        max-width: 86%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &::before {
+          top: 51%;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          content: '';
+          z-index: -1;
+          position: absolute;
+          transform: translateY(-50%);
+        }
+        @include respond(sm-desktop) {
+          font-size: 16px;
+        }
+        @include respond(phone) {
+          font-size: 14px;
+          //top: 20px;
+        }
+      }
+      .input_field {
         font-size: 20px;
         height: 60px;
         outline: none;
@@ -695,62 +660,99 @@
         padding: 13px 30px 13px 17px;
         border: 1px solid #0000001f;
         &.cursor {
-            cursor: pointer;
+          cursor: pointer;
         }
         &:invalid + label {
-            transform: translateY(0);
+          transform: translateY(0);
         }
         &:focus {
-            & + label {
-                transform: translateY(-30px);
-            }
+          & + label {
+            transform: translateY(-30px);
+          }
         }
         @include respond(md-desktop) {
-            font-size: 18px;
+          font-size: 18px;
         }
         @include respond(sm-desktop) {
-            font-size: 16px;
-            height: 55px;
+          font-size: 16px;
+          height: 55px;
         }
         @include respond(phone) {
-            font-size: 14px;
-            height: 45px;
-            padding: 0px 12px 0px 12px;
+          font-size: 14px;
+          height: 45px;
+          padding: 0px 12px 0px 12px;
         }
+      }
     }
+  }
+  .input_field {
+    font-size: 20px;
+    height: 60px;
+    outline: none;
+    box-shadow: none;
+    border-radius: 4px;
+    position: relative;
+    box-sizing: border-box;
+    letter-spacing: 0.19px;
+    padding: 13px 30px 13px 17px;
+    border: 1px solid #0000001f;
+    &.cursor {
+      cursor: pointer;
+    }
+    &:invalid + label {
+      transform: translateY(0);
+    }
+    &:focus {
+      & + label {
+        transform: translateY(-30px);
+      }
+    }
+    @include respond(md-desktop) {
+      font-size: 18px;
+    }
+    @include respond(sm-desktop) {
+      font-size: 16px;
+      height: 55px;
+    }
+    @include respond(phone) {
+      font-size: 14px;
+      height: 45px;
+      padding: 0px 12px 0px 12px;
+    }
+  }
 }
 .calanderIcon {
-    margin-left: -40px;
-    margin-top: 15px;
-    width: 23px;
-    height: 26px;
-    pointer-events: none;
+  margin-left: -40px;
+  margin-top: 15px;
+  width: 23px;
+  height: 26px;
+  pointer-events: none;
 }
 .arrow {
-    margin-left: -40px;
-    width: 13px;
+  margin-left: -40px;
+  width: 13px;
+  pointer-events: none;
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
+img {
+  &.arrow2 {
+    width: 13px !important;
+    right: 12px;
+    height: 38px;
+    position: absolute;
     pointer-events: none;
     input[type='date']::-webkit-inner-spin-button,
     input[type='date']::-webkit-calendar-picker-indicator {
-        display: none;
-        -webkit-appearance: none;
+      display: none;
+      -webkit-appearance: none;
     }
-}
-img {
-    &.arrow2 {
-        width: 13px !important;
-        right: 12px;
-        height: 38px;
-        position: absolute;
-        pointer-events: none;
-        input[type='date']::-webkit-inner-spin-button,
-        input[type='date']::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-        }
-    }
+  }
 }
 .customSelect {
-    appearance: none;
-    // position: relative;
+  appearance: none;
+  // position: relative;
 }

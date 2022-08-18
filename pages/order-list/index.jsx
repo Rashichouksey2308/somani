@@ -83,8 +83,8 @@ function Index() {
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
 
-            <div className={styles.head_header}>
-              <img className={`${styles.arrow} img-fluid`}
+            <div className={`${styles.head_header} align-items-center`}>
+              <img className={`${styles.arrow} img-fluid mr-2 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
               <h1 className={`${styles.heading} heading`}>{_get(singleOrder, 'data[0].company.companyName', "")}</h1>
             </div>
@@ -183,7 +183,7 @@ function Index() {
           {/*leads table*/}
           <div className={`${styles.datatable} datatable card`}>
             <div
-              className={`${styles.tableFilter} d-flex justify-content-between`}
+              className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >
               <h3 className="heading_card">All Orders</h3>
               <div

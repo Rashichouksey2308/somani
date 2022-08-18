@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
+import Filter from '../../../src/components/Filter'
 import { useDispatch, useSelector } from 'react-redux'
 import { getGenericData } from '../../../src/redux/generic/actionsType'
 
@@ -70,13 +71,14 @@ const getDate = async () =>{
                 />
               </div>
             </div>
+            <Filter />
           </div>
 
          
           {/*leads table*/}
           <div className={`${styles.datatable} datatable card`}>
             <div
-              className={`${styles.tableFilter} d-flex justify-content-between`}
+              className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >
               <h3 className="heading_card">All Orders</h3>
               <div

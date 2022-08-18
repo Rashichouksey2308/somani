@@ -15,11 +15,10 @@ const Index = ({
   deleteData,
   addDoc,
   removeDoc,
-  addTypeOfDoc
+  addTypeOfDoc,
 }) => {
   const [list, setList] = useState([
     { typeDocument: 'Certificate', attachDoc: 'false' },
-  
   ])
 
   const [name, setName] = useState(null)
@@ -44,97 +43,90 @@ const Index = ({
       </div>
       <form id="documents">
         <div className={`${styles.input_container} row align-items-center`}>
-        
-          
-
-       
- {documents &&
- 
-
- documents?.map((val,index)=>{
-   return(
-    <>
-              <div
-                  className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}
-                >
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      name="1"
-                      onChange={(e) => {
-                        addTypeOfDoc(e.target.value,index)
-                      }}
-                    >
-                      <option selected></option>
-                      <option value="GST Certification" selected>
-                        GST Certification
-                      </option>
-                      <option value="Incorporation Certification">
-                        Incorporation Certification
-                      </option>
-                    </select>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-
-                <div
-                  className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}
-                >
-                  {val.attachDoc=="" ? (
-                    <div className={styles.uploadBtnWrapper}>
-                      <input
-                        type="file"
-                        name="myfile"
-                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+          {documents &&
+            documents?.map((val, index) => {
+              return (
+                <>
+                  <div
+                    className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}
+                  >
+                    <div className="d-flex">
+                      <select
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        name="1"
                         onChange={(e) => {
-                          addDoc(e.target.files[0].name,index)
-                          // uploadDocument2(e)
+                          addTypeOfDoc(e.target.value, index)
+                        }}
+                      >
+                        <option selected></option>
+                        <option value="GST Certification" selected>
+                          GST Certification
+                        </option>
+                        <option value="Incorporation Certification">
+                          Incorporation Certification
+                        </option>
+                      </select>
+                      <img
+                        className={`${styles.arrow} image_arrow img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}
+                  >
+                    {val.attachDoc == '' ? (
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                          onChange={(e) => {
+                            addDoc(e.target.files[0].name, index)
+                            // uploadDocument2(e)
+                          }}
+                        />
+                        <button className={`${styles.button_upload} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.certificate}>
+                        {val.attachDoc}
+                        <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                          onClick={() => removeDoc(index)}
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )}
+                  </div>
+
+                  <div
+                    className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}
+                  >
+                    <div
+                      onClick={() => setSecondDocName(null)}
+                      className={styles.image_card}
+                    >
+                      <img
+                        className={styles.image_delete}
+                        src="/static/delete.svg"
+                        alt="Delete"
+                        onClick={() => {
+                          deleteData(index)
                         }}
                       />
-                      <button className={`${styles.button_upload} btn`}>
-                        Upload
-                      </button>
                     </div>
-                  ) : (
-                    <div className={styles.certificate}>
-                      {val.attachDoc}
-                      <img
-                        className={`${styles.close_image} float-right m-2 img-fluid`}
-                        src="/static/close.svg"
-                        onClick={() => removeDoc(index)}
-                        alt="Close"
-                      />{' '}
-                    </div>
-                  )}
-                </div>
-
-                <div
-                  className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}
-                >
-                  <div
-                    onClick={() => setSecondDocName(null)}
-                    className={styles.image_card}
-                  >
-                    <img
-                      className={styles.image_delete}
-                      src="/static/delete.svg"
-                      alt="Delete"
-                      onClick={()=>{
-                        deleteData(index)
-                      }}
-                    />
                   </div>
-                </div>
-                <hr className={styles.hr_line}></hr>
-    </>
-   )
- })
- }
-            
+                  <hr className={styles.hr_line}></hr>
+                </>
+              )
+            })}
+
           {/* {list &&
             list.map((val, index) => (
               <>

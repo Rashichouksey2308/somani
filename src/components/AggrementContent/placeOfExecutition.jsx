@@ -193,9 +193,9 @@ function Index(props) {
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
                   <tr>
-                    <th>Agreement Name</th>
-                    <th>Place of Execution</th>
-                    <th>Actions</th>
+                    <th className='border-0'>Agreement Name</th>
+                    <th className='border-0'>Place of Execution</th>
+                    <th className='border-0'>Actions</th>
                     
                   </tr>
                   <tbody>
@@ -245,7 +245,7 @@ function Index(props) {
                               ></input></td>
                             
                               <td className={`d-flex`}>
-                                <img className={`${styles.image} img-fluid mr-3`} onClick={() => (onEditRemove(index))} src="/static/mode_edit.svg" alt="edit" />
+                                <img className={`${styles.image} img-fluid mr-3`} onClick={() => (onEditRemove(index))} src="/static/save-3.svg" alt="save" />
                                 <img onClick={() => (handleRemove(index))} src="/static/delete 2.svg"></img>
                               </td>
 

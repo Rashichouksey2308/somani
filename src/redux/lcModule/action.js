@@ -186,7 +186,7 @@ export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage)) {
           toast.success(toastMessage, { toastId: toastMessage })
         }
-        // router.push('/margin-money')
+        Router.push('/margin-money')
       } else {
         dispatch(updatingAmendmentFailed(response.data.data))
         let toastMessage = 'UPDATE REQUEST FAILED'

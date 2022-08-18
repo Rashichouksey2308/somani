@@ -150,7 +150,7 @@ export default function Index({
   }
   return (
     <>
-      <div className={`${styles.backgroundMain} container-fluid`}>
+      <div className={`${styles.backgroundMain} vessel_card container-fluid`}>
         {cimsDetails.map((list, index) => (
           <div
             key={index}

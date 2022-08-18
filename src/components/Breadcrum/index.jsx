@@ -19,6 +19,7 @@ export default function Index({isQuery}) {
      ||isQuery=="/agreement/preview"
      ||isQuery == "/transit"
      ||isQuery == "/review-queue"
+      ||isQuery == "/margin-preview"
 
     ) {
       show.units=false
@@ -105,6 +106,15 @@ export default function Index({isQuery}) {
     if ("termsheet" == pageName) {
       if(id!==null) {
         router.route = "/Leads"  + "/Termsheet" +`/${id}`;
+        console.log("router123",router.route)
+      }else{
+         router.route = "/Leads" + "/Termsheet";
+      }
+     
+    }
+    if ("termsheet-preview" == pageName) {
+      if(id!==null) {
+        router.route = "/Leads"  + "/Termsheet" +`/${id}`+ `/${order}`;
         console.log("router123",router.route)
       }else{
          router.route = "/Leads" + "/Termsheet";

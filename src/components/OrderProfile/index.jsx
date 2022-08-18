@@ -3,11 +3,11 @@ import styles from './index.module.scss'
 import { Card } from 'react-bootstrap'
 import { useSelector, useDispatch} from 'react-redux'
 import moment from 'moment'
+import { ViewDocument } from 'redux/ViewDoc/action'
 // import {GetBuyer} from '../../redux/registerBuyer/action'
 
 
 function Index() {
-  const dispatch = useDispatch()
 
 
   // useEffect(() => {
@@ -51,7 +51,7 @@ function Index() {
         {/* {fields("Transaction Type",buyerList?.order?.transactionType)} */}
         {fields("Port Of Discharge", buyerList?.order?.portOfDischarge, false)}
         {fields("Expected Date Of Shipment", moment(buyerList?.order?.ExpectedDateOfShipment?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY"), false)}
-        {fields("Document Name", buyerList?.company?.documents[0]?.typeOfDocument, true)}
+        {fields("Document Name", buyerList?.company?.documents[0]?.typeOfDocument, true,null , buyerList?.company?.documents[0]?.path)}
 
       </div>
     </div>
@@ -60,7 +60,9 @@ function Index() {
 }
 
 export default Index
-const fields = (head, value, isButton, value2) => {
+const fields = (head, value, isButton, value2, value3) => {
+  const dispatch = useDispatch()
+
   return (
     <>
       <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
@@ -69,7 +71,7 @@ const fields = (head, value, isButton, value2) => {
           <span className={`${styles.value} value `}>
             {value}      {value2 ? value2 : ''}
           </span>
-          {isButton ? <a onClick={() => window.open(value)} className={styles.button}>View</a> : null}
+          {isButton ? <a onClick={() => dispatch(ViewDocument({"path":value3}))} className={styles.button}>View</a> : null}
         </div>
       </div>
     </>
