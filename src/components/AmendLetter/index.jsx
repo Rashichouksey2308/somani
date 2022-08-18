@@ -16,7 +16,7 @@ function Index() {
 
   let lcModuleData = _get(lcModule,  'data[0]', [])
 
-  console.log(lcModuleData, 'THIS IS LC MODULE DATA')
+  // console.log(lcModuleData, 'THIS IS LC MODULE DATA')
 
   useEffect(() => {
     let id = sessionStorage.getItem('lcAmmend')
@@ -62,7 +62,7 @@ function Index() {
                 Documentary Credit Number: <span>{lcModuleData?.lcApplication?.documentaryCreditNumber}</span>
               </div>
               <div className={styles.sub_heading}>
-                Date: <span>{moment(lcModuleData?.createdAt.slice(0, 10)).format('DD.MM.yyy')}</span>
+                Date: <span>{moment(lcModuleData?.createdAt?.slice(0, 10)).format('DD.MM.yyy')}</span>
               </div>
             </div>
           </div>
