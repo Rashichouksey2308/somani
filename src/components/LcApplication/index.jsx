@@ -592,7 +592,7 @@ function Index({
                   className={`${styles.dashboard_form} border_color`}
                   style={{ borderTop: '2px solid #CAD6E6' }}
                 >
-                  <div className={styles.doc_card}>
+                  <div className={`${styles.doc_card} mb-5`}>
                     <div className={`${styles.sub_heading} value`}>
                       46A DOCUMENT REQUIRED
                     </div>
@@ -655,7 +655,7 @@ function Index({
                   className={`${styles.dashboard_form} border_color`}
                   style={{ borderTop: '2px solid #CAD6E6' }}
                 >
-                  <div className={styles.doc_card}>
+                  <div className={`${styles.doc_card} mb-5`}>
                     <div className={`${styles.sub_heading}  value`}>
                       47A ADDITIONAL CONDITIONS
                     </div>
@@ -715,8 +715,10 @@ function Index({
                     ))}
                   </div>
                 </div>
-                <hr></hr>
-                <div className={`${styles.dashboard_form}`}>
+                <div
+                  className={`${styles.dashboard_form}`}
+                  style={{ borderTop: '2px solid #CAD6E6' }}
+                >
                   <div className={styles.doc_card}>
                     <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
                       <div className="d-flex">

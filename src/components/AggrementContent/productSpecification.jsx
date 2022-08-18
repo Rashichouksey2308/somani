@@ -91,9 +91,8 @@ function Index(props) {
             </div>
             <div className={`${styles.file_text}`}>
               <span>
-                <span className={`${styles.danger} mr-2`}>* </span>ONLY .XLS
-                FILES ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX FILE SIZE UP TO
-                50 MB
+                <span className={`${styles.danger}`}>* </span>ONLY .XLS FILES
+                ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX FILE SIZE UP TO 50 MB
               </span>
             </div>
           </div>

@@ -63,6 +63,28 @@ function Index() {
   const handleRemove=(index)=>{
      setList([...list.slice(0,index), ...list.slice(index+1)])
 }
+const handleChangeInput2=(name,value,index)=>{
+   
+ 
+ 
+
+    setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return {...obj,phoneNo:value};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
+
+    
+
+  }
   return (
     <>
       <div className={`${styles.container} vessel_card`}>

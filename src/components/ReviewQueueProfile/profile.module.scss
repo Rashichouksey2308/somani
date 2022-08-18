@@ -163,7 +163,10 @@
             .table_scroll_inner {
                 display: table-cell;
                 overflow-x: auto;
+                overflow-y: auto;
                 .table {
+                      height: 300px;
+                      display: inline-block;
                     th {
                         font-size: 15px;
                         color: #8492a6;
@@ -245,7 +248,10 @@
             .table_scroll_inner {
                 display: table-cell;
                 overflow-x: auto;
+                overflow-y: auto;
                 .table {
+                  height: 300px;
+                  display: inline-block;
                     th {
                         font-size: 15px;
                         color: #8492a6;
