@@ -307,6 +307,7 @@ function Index() {
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="number"
+                          required
                           name="numberOfAmendment"
                           onChange={(e) =>
                             saveAmendmentData(e.target.name, e.target.value)
@@ -398,7 +399,7 @@ function Index() {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            Clause<strong className="text-danger">*</strong>
+                            Clause
                           </label>
                           <img
                             className={`${styles.arrow} image_arrow img-fluid`}
