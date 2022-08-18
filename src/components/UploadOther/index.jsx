@@ -34,7 +34,7 @@ const Index = ({ orderid, module }) => {
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderid}`))
 
-  }, [dispatch, orderid])
+  }, [dispatch, orderid,moduleSelected])
 
   console.log(documentsFetched, filteredDoc, moduleSelected, 'moduleSelected')
 
@@ -80,6 +80,20 @@ const Index = ({ orderid, module }) => {
 
     dispatch(AddingDocument(fd))
   }
+  const [filterValue,setFilterValue]=useState("")
+  const filterDocBySearch=(val)=>{
+    
+     const tempArray = documentsFetched?.documents?.filter((doc) => { 
+          console.log(doc.name,val,"ser")
+          if(doc.name.toLowerCase().includes(val)){
+            return  doc
+          }
+     
+    })
+    setFilteredDoc(tempArray)
+     
+  }
+  console.log(filterValue,"filterValue")
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
@@ -302,6 +316,9 @@ const Index = ({ orderid, module }) => {
                   <input
                     className={`${styles.searchBar}  statusBox border_color input form-control`}
                     placeholder="Search"
+                    onChange={(e)=>{
+                      filterDocBySearch(e.target.value)
+                    }}
                   ></input>
                 </div>
               </div>

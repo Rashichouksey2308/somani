@@ -57,9 +57,9 @@ function Index({ directorData }) {
                         <div
                           className={`${styles.cardHeader} ${styles.collapsed}  card-header row no-gutters bg-transparent collapsed`}
                           data-toggle="collapse"
-                          data-target="#director1"
+                          data-target={`#director${index}`}
                           aria-expanded="true"
-                          aria-controls="director1"
+                          aria-controls={`director${index}`}
                         >
                           <div className={`${styles.detailsBox}  col-md-2`}>
                             <label className={`accordion_Text`}>Name</label>
@@ -108,9 +108,9 @@ function Index({ directorData }) {
                         </div>
                       </div>
                       <div
-                        id="director1"
+                        id={`director${index}`}
                         className="collapse show"
-                        aria-labelledby="director1"
+                        aria-labelledby={`director${index}`}
                         data-parent="#directorDetails"
                       >
                         <div
