@@ -50,7 +50,7 @@ function Index({
     <>
       {' '}
       <div className="container-fluid p-0 border-0">
-        <div className={styles.container_inner}>
+        <div className={`${styles.container_inner}`}>
           <div className={`${styles.head_header}`}>
             <img
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
@@ -60,9 +60,9 @@ function Index({
             <h1 className={`${styles.heading}`}>Letter of Credit </h1>
           </div>
 
-          <div className={`${styles.wrapper} vessel_card card`}>
+          <div className={`${styles.wrapper} border_color vessel_card card`}>
             <div
-              className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
+              className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#lcApplication"
               aria-expanded="true"
