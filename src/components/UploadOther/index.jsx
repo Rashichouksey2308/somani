@@ -29,7 +29,7 @@ const Index = ({ orderid, module }) => {
   const [filteredDoc, setFilteredDoc] = useState([])
 
   useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => { return doc.module === 'LeadOnboarding,OrderApproval' })
+    const tempArray = documentsFetched?.documents?.filter((doc) => { return doc.module === moduleSelected })
     console.log(tempArray, filteredDoc, moduleSelected, 'moduleSelected')
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderid}`))
