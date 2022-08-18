@@ -285,7 +285,7 @@ export default function Home() {
     let vesselArray = { ...array[0].vesselInformation[index], [name]: value }
     array[0].vesselInformation[index] = vesselArray
 
-    setList([...array])
+    setList(array)
   }
 
   const uploadDocHandler = (e) => {
@@ -353,7 +353,7 @@ export default function Home() {
     const payload = {
       vesselId: id,
       partShipmentAllowed: partShipmentAllowed,
-      vessels: [...list]
+      vessels: list
     }
     if (containerListDocument) {
       payload.containerListDocument = containerListDocument
