@@ -9,6 +9,7 @@ import {
   DeleteDocument,
 } from '../../../src/redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
+import { ViewDocument } from 'redux/ViewDoc/action'
 
 const Index = ({ orderid, module }) => {
   const dispatch = useDispatch()
@@ -29,12 +30,12 @@ const Index = ({ orderid, module }) => {
   const [filteredDoc, setFilteredDoc] = useState([])
 
   useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => { return doc.module === 'LeadOnboarding,OrderApproval' })
+    const tempArray = documentsFetched?.documents?.filter((doc) => { return doc.module === moduleSelected })
     console.log(tempArray, filteredDoc, moduleSelected, 'moduleSelected')
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderid}`))
 
-  }, [dispatch, orderid])
+  }, [dispatch, orderid,moduleSelected])
 
   console.log(documentsFetched, filteredDoc, moduleSelected, 'moduleSelected')
 
@@ -80,6 +81,20 @@ const Index = ({ orderid, module }) => {
 
     dispatch(AddingDocument(fd))
   }
+  const [filterValue,setFilterValue]=useState("")
+  const filterDocBySearch=(val)=>{
+    
+     const tempArray = documentsFetched?.documents?.filter((doc) => { 
+          console.log(doc.name,val,"ser")
+          if(doc.name.toLowerCase().includes(val)){
+            return  doc
+          }
+     
+    })
+    setFilteredDoc(tempArray)
+     
+  }
+  console.log(filterValue,"filterValue")
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
@@ -302,6 +317,9 @@ const Index = ({ orderid, module }) => {
                   <input
                     className={`${styles.searchBar}  statusBox border_color input form-control`}
                     placeholder="Search"
+                    onChange={(e)=>{
+                      filterDocBySearch(e.target.value)
+                    }}
                   ></input>
                 </div>
               </div>
@@ -431,10 +449,14 @@ const Index = ({ orderid, module }) => {
                                 className={`${styles.delete_image} img-fluid mr-3`}
                                 alt="Bin"
                               />
-                              <img
+                               <img
                                 src="/static/upload.svg"
                                 className="img-fluid mr-3"
                                 alt="Share"
+                                onClick={()=>{
+                                  dispatch(ViewDocument({path: document.path,
+                                    orderId: documentsFetched._id}))
+                                }}
                               />
                               <img
                                 src="/static/drive_file.svg"

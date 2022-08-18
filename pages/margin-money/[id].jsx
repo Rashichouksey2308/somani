@@ -466,7 +466,7 @@ function Index() {
 
     dispatch(RevisedMarginMoney(fd))
   }
-
+const [active,setActive]=useState("Margin Money")
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -500,7 +500,9 @@ function Index() {
             </div>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
-            <li className={`${styles.navItem}  nav-item`}>
+            <li className={`${styles.navItem}  nav-item`}
+            onClick={() =>setActive("Margin Money")}
+            >
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
                 data-toggle="tab"
@@ -508,12 +510,15 @@ function Index() {
                 role="tab"
                 aria-controls="Margin"
                 aria-selected="true"
+                o
               >
                 Margin Money
               </a>
             </li>
             {RevisedMarginMoneyTrue ? (
-              <li className={`${styles.navItem} nav-item`}>
+              <li className={`${styles.navItem} nav-item`}
+               onClick={() =>setActive("Revised Margin Money")}
+              >
                 <a
                   className={`${styles.navLink} navLink nav-link`}
                   data-toggle="tab"
@@ -530,7 +535,9 @@ function Index() {
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
                   </li> */}
 
-            <li className={`${styles.navItem} nav-item`}>
+            <li className={`${styles.navItem} nav-item`}
+            onClick={() =>setActive("Document")}
+            >
               <a
                 className={`${styles.navLink} navLink nav-link`}
                 data-toggle="tab"
@@ -1818,7 +1825,7 @@ function Index() {
                       </div>
                     </div>
                   </div>
-
+                
                   <DownloadBar
                     downLoadButtonName={`Download`}
                     isPrevious={true}
@@ -1859,13 +1866,13 @@ function Index() {
                       module="LeadOnboarding&OrderApproval"
                     />
                   </div>
-                  <DownloadBar
+                  {/* <DownloadBar
                     downLoadButtonName={`Download`}
                     isPrevious={true}
                     handleUpdate={handleUpdate}
                     leftButtonName={`Save`}
                     rightButtonName={`Preview`}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>

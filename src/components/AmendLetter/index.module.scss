@@ -1,126 +1,126 @@
-@import "../styles/Core/config";
+@import '../styles/Core/config';
 .root_container {
-    margin: 28px;
-    // width: 100%;
-    margin-bottom: 154px;
-    border-bottom: none !important;
-    @include respond(sm-desktop) {
-        margin: 20px;
-        margin-bottom: 146px;
+  margin: 28px;
+  // width: 100%;
+  margin-bottom: 154px;
+  border-bottom: none !important;
+  @include respond(sm-desktop) {
+    margin: 20px;
+    margin-bottom: 146px;
+  }
+  @include respond(phone) {
+    margin: 15px;
+    margin-bottom: 121px;
+  }
+  .head_container {
+    width: 100%;
+    .head_header {
+      height: 48px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 0 0 27px 10px;
+      @include respond(phone) {
+        align-items: center;
+        padding: 0.75rem 0rem;
+      }
+      .arrow {
+        width: 13px;
+        height: 21px;
+        background: transparent;
+        @include respond(phone) {
+          height: 18px;
+        }
+      }
+      .heading {
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 41px;
+        padding-left: 18px;
+        margin: 0;
+        @include respond(phone) {
+          padding: 12px 0 12px 12px;
+          font-size: 20px;
+          margin: 0px;
+          padding-left: 10px;
+        }
+      }
     }
-    @include respond(phone) {
-        margin: 15px;
-        margin-bottom: 121px;
+  }
+  .term_container {
+    padding: 10px 36px;
+    height: 126px;
+    background: #d8eaff;
+    border: 1px solid #d2d7e5;
+    border-radius: 6px;
+    margin-bottom: 26px;
+    h3 {
+      color: #3687e8;
+      font-size: 34px;
+      line-height: 41px;
+      font-weight: bold;
     }
-    .head_container {
+    .sub_heading {
+      //color: #111111;
+      font-size: 20px;
+      line-height: 25px;
+      font-weight: 500;
+      span {
+        line-height: 24px;
+        opacity: 0.7;
+        font-weight: normal;
+      }
+    }
+  }
+  .content {
+    .datatable {
+      box-shadow: none !important;
+      border: none !important;
+      .table_scroll_outer {
         width: 100%;
-        .head_header {
-            height: 48px;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin: 0 0 27px 10px;
-            @include respond(phone) {
-                align-items: center;
-                padding: 0.75rem 0rem;
-            }
-            .arrow {
-                width: 13px;
-                height: 21px;
-                background: transparent;
-                @include respond(phone) {
-                    height: 18px;
-                }
-            }
-            .heading {
-                font-size: 34px;
-                font-weight: bold;
-                line-height: 41px;
-                padding-left: 18px;
-                margin: 0;
-                @include respond(phone) {
-                    padding: 12px 0 12px 12px;
-                    font-size: 20px;
-                    margin: 0px;
-                    padding-left: 10px;
-                }
-            }
-        }
-    }
-    .term_container {
-        padding: 10px 36px;
-        height: 126px;
-        background: #D8EAFF;
-        border: 1px solid #D2D7E5;
-        border-radius: 6px;
-        margin-bottom: 26px;
-        h3 {
-            color: #3687E8;
-            font-size: 34px;
-            line-height: 41px;
-            font-weight: bold;
-        }
-        .sub_heading {
-            color: #111111;
-            font-size: 20px;
-            line-height: 25px;
-            font-weight: 500;
-            span {
-                line-height: 24px;
+        display: table;
+        table-layout: fixed;
+        .table_scroll_inner {
+          display: table-cell;
+          overflow-x: auto;
+          .table {
+            td {
+              font-size: 20px;
+              font-weight: 500;
+              line-height: 25px;
+              padding: 24px 15px;
+              border: 1px solid #cad6e6;
+              // white-space: nowrap;
+              span {
                 opacity: 0.7;
+                line-height: 24px;
                 font-weight: normal;
-            }
-        }
-    }
-    .content {
-        .datatable {
-            box-shadow: none !important;
-            border: none !important;
-            .table_scroll_outer {
-                width: 100%;
-                display: table;
-                table-layout: fixed;
-                .table_scroll_inner {
-                    display: table-cell;
-                    overflow-x: auto;
-                    .table {
-                        td {
-                            font-size: 20px;
-                            font-weight: 500;
-                            line-height: 25px;
-                            padding: 24px 15px;
-                            border: 1px solid #CAD6E6;
-                            // white-space: nowrap;
-                            span {
-                                opacity: 0.7;
-                                line-height: 24px;
-                                font-weight: normal;
-                            }
-                            &:first-child {
-                                padding-left: 35px;
-                                @include respond(sm-desktop) {
-                                    padding-left: 15px;
-                                }
-                            }
-                            @include respond(md-desktop) {
-                                font-size: 17px;
-                                padding: 18px 10px;
-                            }
-                            @include respond(sm-desktop) {
-                                font-size: 15px;
-                                padding: 15px 10px;
-                            }
-                            @include respond(phone) {
-                                font-size: 14px;
-                                padding: 10px;
-                            }
-                        }
-                    }
+              }
+              &:first-child {
+                padding-left: 35px;
+                @include respond(sm-desktop) {
+                  padding-left: 15px;
                 }
+              }
+              @include respond(md-desktop) {
+                font-size: 17px;
+                padding: 18px 10px;
+              }
+              @include respond(sm-desktop) {
+                font-size: 15px;
+                padding: 15px 10px;
+              }
+              @include respond(phone) {
+                font-size: 14px;
+                padding: 10px;
+              }
             }
+          }
         }
-        .line {
-            border: 2px solid #CAD6E6;
-        }
+      }
     }
+    .line {
+      border: 2px solid #cad6e6;
+    }
+  }
 }

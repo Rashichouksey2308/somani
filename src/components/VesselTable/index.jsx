@@ -20,7 +20,7 @@ function Index() {
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
-          <div className={styles.head_header}>
+          <div className={`${styles.head_header} align-items-center`}>
             <img
               className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"

@@ -9,22 +9,46 @@ import {
   DeleteDocument,
 } from 'redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
+import { ViewDocument } from 'redux/ViewDoc/action'
 
 const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
+
   const dispatch = useDispatch()
+
   const [editInput, setEditInput] = useState(true)
-  const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState(
-    'LeadOnboarding&OrderApproval',
-  )
+
+  // const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState(
+  //   'LeadOnboarding&OrderApproval',
+  // )
 
   const { documentsFetched } = useSelector((state) => state.review)
 
+  // useEffect(() => {
+  //   sessionStorage.setItem('docId', orderId)
+  //   dispatch(GetDocuments(`?order=${orderId}`))
+  // }, [dispatch, orderId])
+
+  const [filteredDoc, setFilteredDoc] = useState([])
+  // console.log(filteredDoc,'filtered doc')
+  const [moduleSelected, setModuleSelected] = useState('LeadOnboarding,OrderApproval')
+
+
   useEffect(() => {
-    sessionStorage.setItem('docId', orderId)
+    const tempArray = documentsFetched?.documents?.filter((doc) => { return doc.module === moduleSelected})
+    setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderId}`))
+
   }, [dispatch, orderId])
 
+  const DocDlt = (index) => {
+    let tempArray = filteredDoc
+    tempArray.pop(index)
+    setFilteredDoc(tempArray)
+
+  }
+
   const [manualDocModule, setManualDocModule] = useState(true)
+
   const [newDoc, setNewDoc] = useState({
     document: [],
     order: orderId,
@@ -39,6 +63,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
   }
 
   const uploadDocumentHandler = (e) => {
+    console.log(e, "UPLOAD HANDLER")
     e.preventDefault()
 
     const fd = new FormData()
@@ -192,7 +217,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                   <p className={styles.drop_para}>
                     Drop Files here or
                     <br />
-                    {false?
+                    {true?
                     <div className={styles.uploadBtnWrapper}>
                       <input
                         type="file"
@@ -220,7 +245,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                   <div className="d-flex">
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
-                      id="module"
+                      id="name"
                       onChange={(e) => handleDropdown(e)}
                     >
                       {module === 'Loading-Transit-Unloading' ? (
@@ -328,7 +353,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                   <button
                     onClick={(e) => uploadDocumentHandler(e)}
                     className={`${styles.upload_button} btn`}
-                    disabled={editInput}
+                    disabled={!editInput}
                   >
                     Upload
                   </button>
@@ -345,22 +370,14 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                 className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
               >
                 <div className="d-flex align-items-center">
-                  <select
-                    onChange={(e) => setDocumentsDropDownFilter(e.target.value)}
+                <select
+                    onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
-                    <option value="LeadOnboarding&OrderApproval">
-                      Lead Onboarding &amp; Order Approval
-                    </option>
-                    <option value="Agreements,Insurance&LCOpening">
-                      Agreements, Insurance &amp; LC Opening
-                    </option>
-                    <option value="Loading-Transit-Unloading">
-                      Loading-Transit-Unloading
-                    </option>
-                    <option value="CustomClearanceAndWarehousing">
-                      Custom Clearance And Warehousing
-                    </option>
+                    <option value='LeadOnboarding&OrderApproval'>Lead Onboarding &amp; Order Approval</option>
+                    <option value='Agreements&Insurance&LC&Opening'>Agreements, Insurance &amp; LC Opening</option>
+                    <option value='Loading-Transit-Unloading'>Loading-Transit-Unloading</option>
+                    <option value='CustomClearanceAndWarehousing'>Custom Clearance And Warehousing</option>
                     <option value="Others">Others</option>
                   </select>
                   <img
@@ -428,7 +445,70 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {documentsFetched &&
+                {documentsFetched &&
+                    filteredDoc?.map((document, index) => {
+                      if (document.deleted) {
+                        return null
+                      } else {
+                        return (
+                          <tr key={index} className="uploadRowTable">
+                            <td className={`${styles.doc_name}`}>
+                              {document.name}
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>{document.date}</td>
+                            <td className={styles.doc_row}>
+                              {document.uploadedBy?.fName}{' '}
+                              {document.uploadedBy?.lName}
+                            </td>
+                            <td>
+                              <span
+                                className={`${styles.status} ${styles.approved}`}
+                              ></span>
+                              {document?.verification?.status}
+                            </td>
+                            <td colSpan="2">
+                              <img
+                                onClick={(e) => {
+                                  DocDlt(index)
+                                  dispatch(
+                                    DeleteDocument({
+                                      orderDocumentId: documentsFetched._id,
+                                      name: document.name,
+                                    }),
+                                  )
+                                }
+                                }
+                                src="/static/delete.svg"
+                                className={`${styles.delete_image} img-fluid mr-3`}
+                                alt="Bin"
+                              />
+                              <img
+                                src="/static/upload.svg"
+                                className="img-fluid mr-3"
+                                alt="Share"
+                                onClick={()=>{
+                                  dispatch(ViewDocument({path: document.path,
+                                    orderId: documentsFetched._id}))
+                                }}
+                              />
+                              <img
+                                src="/static/drive_file.svg"
+                                className={`${styles.edit_image} img-fluid mr-3`}
+                                alt="Share"
+                              />
+                            </td>
+                          </tr>
+                        )
+                      }
+                    })}
+                  {/* {documentsFetched &&
                     documentsFetched?.documents?.map((document, index) => {
                       if (document.deleted) {
                         return null
@@ -474,6 +554,10 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                                 src="/static/upload.svg"
                                 className="img-fluid mr-3"
                                 alt="Share"
+                                onClick={()=>{
+                                  dispatch(ViewDocument({path: document.path,
+                                    orderId: documentsFetched._id}))
+                                }}
                               />
                               <img
                                 src="/static/drive_file.svg"
@@ -486,8 +570,8 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                       } else {
                         return null
                       }
-                    })}
-                  <tr className="table_row">
+                    })} */}
+                  {/* <tr className="table_row">
                     <td className={styles.doc_name}>Container No. List</td>
                     <td>
                       <img
@@ -521,7 +605,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                         alt="Share"
                       />
                     </td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </table>
             </div>

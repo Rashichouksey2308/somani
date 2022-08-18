@@ -407,8 +407,12 @@ export default function Index({
                 </div>
               </div>
             </div>
-
-            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
+            <div className="mt-4">
+              <UploadOther
+                orderid={orderid}
+                module="Loading-Transit-Unloading"
+              />
+            </div>
           </div>
         ))}
         <SaveBar handleSave={handleSave} rightBtn="Submit" />

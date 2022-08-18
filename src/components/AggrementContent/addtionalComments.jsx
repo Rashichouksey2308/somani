@@ -83,7 +83,7 @@ function Index(props) {
     <>
       <div className={`${styles.container} vessel_card`}>
         <div className={`${styles.paymet} card-body p-0`}>
-     <div className={`d-flex justify-content-between align-items-between mb-5`}>
+     <div className={`d-flex justify-content-between align-items-between mb-4`}>
        <input placeholder={`5000 Wet Metric Tons (Wmt) +/- 10Pct Of Mmd: Manganeseore Of Gabon Origin (44,50Pct Mn Typical - 5Pct Moisture), Ciffo Visakhapatnam Port Packing In Bulk.`}
        onChange={(e)=>{
         setValue(e.target.value)

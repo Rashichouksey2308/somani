@@ -815,10 +815,10 @@ function Index() {
 
 
 
-        list[0].children[i].children[0].classList.remove('active')
+list[0].children[i].children[0].classList.remove('active')
 
-        tab[0].children[i].classList.remove('show')
-        tab[0].children[i].classList.remove('active')
+tab[0].children[i].classList.remove('show')
+tab[0].children[i].classList.remove('active')
 
 
       }
@@ -1013,7 +1013,7 @@ const [totalCourt,setTotalCourt]=useState({
       count.relevence=count.relevence+1
     }
   })
-   companyData?.compliance.supremeCourt.cases.forEach((val,index)=>{
+   companyData?.compliance.tribunalCourts.cases.forEach((val,index)=>{
     count.total=count.total+1
     if(val.caseStatus=="Disposed"){
       count.disposed=count.disposed+1
@@ -1031,47 +1031,174 @@ const [totalCourt,setTotalCourt]=useState({
       count.relevence=count.relevence+1
     }
   })
- console.log(filterType.filterBy.pending==true?"pending":
-        filterType.filterBy.disposed==true?"disposed":"total","oiii")
- let high= companyData?.compliance.districtCourt.cases.filter((val)=>{
-  console.log(val.caseStatus.toLowerCase(),filterType.filterBy.pending==true?"pending":null,"7899")
-      if( 
-        val.caseStatus.toLowerCase()==filterType.filterBy.pending==true?"pending":null
-        // || val.caseStatus.toLowerCase()==filterType.filterBy.dispose==true?"disposed":null
-         
-        
-        ){
+  let districtCourt=[]
+  let supremeCourt=[]
+  let highCourt=[]
+  let tribunalCourts=[]
+  //civil
+  districtCourt=companyData?.compliance.districtCourt.cases.filter((val)=>{
 
-        return val
-      }
+    if( 
+      val.civilCriminal==filterType.class
+      
+        
+      
+      ){
+
+      return val
+    }
   })
-  // let high3= companyData?.compliance.districtCourt.cases.filter((val)=>{
-  //     if(val.severity_ == filterType.risk || val.severity_ == filterType.risk
-  //       || 
-  //       val.civilCriminal == filterType.class
-  //       && 
-  //       val.caseStatus.toLowerCase()==filterType.filterBy.pending==true?"pending":
-  //       filterType.filterBy.disposed==true?"disposed":"total"){
-  //       return val
-  //     }
-  // })
-  // let high4= companyData?.compliance.supremeCourt.cases.filter((val)=>{
-  //     if(val.severity_ == filterType.risk || val.severity_ == filterType.risk|| 
-  //       val.civilCriminal == filterType.class&& 
-  //       val.caseStatus.toLowerCase()==filterType.filterBy.pending==true?"pending":
-  //       filterType.filterBy.disposed==true?"disposed":"total"){
-  //       return val
-  //     }
-  // })
-  // let high5= companyData?.compliance.supremeCourt.cases.filter((val)=>{
-  //     if(val.severity_ == filterType.risk || val.severity_ == filterType.risk|| 
-  //       val.civilCriminal == filterType.class&& 
-  //       val.caseStatus.toLowerCase()==filterType.filterBy.pending==true?"pending":
-  //       filterType.filterBy.disposed==true?"disposed":"total"){
-  //       return val
-  //     }
-  // })
-  console.log(high,"highCourt",filterType)
+  supremeCourt=companyData?.compliance.supremeCourt.cases.filter((val)=>{
+
+    if( 
+      val.civilCriminal==filterType.class
+      
+        
+      
+      ){
+
+      return val
+    }
+  })
+  highCourt=companyData?.compliance.highCourt.cases.filter((val)=>{
+
+    if( 
+      val.civilCriminal==filterType.class
+      
+        
+      
+      ){
+
+      return val
+    }
+  })
+  tribunalCourts=companyData?.compliance.tribunalCourts.cases.filter((val)=>{
+
+    if( 
+      val.civilCriminal==filterType.class
+      
+        
+      
+      ){
+
+      return val
+    }
+  })
+  //risk:
+  districtCourt=companyData?.compliance.districtCourt.cases.filter((val)=>{
+
+    if( 
+      val.severity_==filterType.risk=="high"?"High"||"high":filterType.risk
+      
+        
+      
+      ){
+
+      return val
+    }
+  })
+  supremeCourt=companyData?.compliance.supremeCourt.cases.filter((val)=>{
+
+    if( 
+     val.severity_==filterType.risk=="high"?"High"||"high":filterType.risk
+      
+        
+      
+      ){
+
+      return val
+    }
+  })
+  highCourt=companyData?.compliance.highCourt.cases.filter((val)=>{
+
+    if( 
+      val.severity_==filterType.risk=="high"?"High"||"high":filterType.risk
+      
+        
+      
+      ){
+
+      return val
+    }
+  })
+  tribunalCourts=companyData?.compliance.tribunalCourts.cases.filter((val)=>{
+
+    if( 
+      val.severity_==filterType.risk=="high"?"High"||"high":filterType.risk
+      
+        
+      
+      ){
+
+      return val
+    }
+  })
+  //filterBY
+  districtCourt=companyData?.compliance.districtCourt.cases.filter((val)=>{
+   
+    if( 
+      val.caseStatus==filterType.pending?"Pending":null||
+      val.caseStatus==filterType.disposed?"Disposed":null
+      
+        
+      
+      ){
+
+      return val
+    }else{
+      return val
+    }
+  })
+  supremeCourt=companyData?.compliance.supremeCourt.cases.filter((val)=>{
+
+     if( 
+      val.caseStatus==filterType.pending?"Pending":null||
+      val.caseStatus==filterType.disposed?"Disposed":null
+      
+        
+      
+      ){
+
+      return val
+    }else{
+      return val
+    }
+  })
+  highCourt=companyData?.compliance.highCourt.cases.filter((val)=>{
+   if( 
+      val.caseStatus==filterType.pending?"Pending":null||
+      val.caseStatus==filterType.disposed?"Disposed":null
+      
+        
+      
+      ){
+
+      return val
+    }else{
+      return val
+    }
+  })
+  tribunalCourts=companyData?.compliance.tribunalCourts.cases.filter((val)=>{
+
+    if( 
+      val.caseStatus==filterType.pending?"Pending":null||
+      val.caseStatus==filterType.disposed?"Disposed":null
+      
+        
+      
+      ){
+
+      return val
+    }else{
+      return val
+    }
+  })
+  console.log(districtCourt,"districtCourt99")
+
+  setSupreme(supremeCourt)
+  setTribunal(tribunalCourts)
+  setHigh(highCourt)
+  setDistrict(districtCourt)
  
   setTotalCourt(count)
  }
@@ -1777,7 +1904,7 @@ const [totalCourt,setTotalCourt]=useState({
                           /> */}
                         </div>
 
-                        <div>{ligitations(companyData)}</div>
+                        <div>{ligitations(Supreme,District,High,Tribunal,companyData)}</div>
                       </div>
                     </div>
                   </div>
@@ -2164,33 +2291,35 @@ const uploadButton = (dispatch, orderList, companyData) => {
   )
 }
 
-const ligitations = (companyData) => {
-  const highCourtData = companyData?.compliance?.highCourt
-  const supremeCourtData = companyData?.compliance?.supremeCourt
-  const districtCourtData = companyData?.compliance?.districtCourt
-  const tribunalCourtsData = companyData?.compliance?.tribunalCourts
+const ligitations = (Supreme,District,High,Tribunal,companyData) => {
+  console.log(District,"District")
+  
 
   return (
     <>
       <LigitationsTable
-        data={supremeCourtData}
+        data={Supreme}
         Heading={'Supreme Court'}
         val={'LigitationsTable1'}
+        totalData={companyData?.compliance?.supremeCourt}
       />
       <LigitationsTable
-        data={highCourtData}
+        data={High}
         Heading={'High Court'}
         val={'LigitationsTable2'}
+        totalData={companyData?.compliance?.highCourt}
       />
       <LigitationsTable
-        data={districtCourtData}
+        data={District}
         Heading={'District Court'}
         val={'LigitationsTable3'}
+        totalData={companyData?.compliance?.districtCourt}
       />
       <LigitationsTable
-        data={tribunalCourtsData}
+        data={Tribunal}
         Heading={'Tribunal Courts'}
         val={'LigitationsTable4'}
+        totalData={companyData?.compliance?.tribunalCourts}
       />
     </>
   )

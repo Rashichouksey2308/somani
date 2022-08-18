@@ -8,7 +8,7 @@
 .label_heading {
     font-size: 16px;
     letter-spacing: 0.53px;
-    line-height: 0.5;
+    line-height: 17px;
     top: 22px;
     left: 30px;
     margin-bottom: 0;
@@ -17,7 +17,7 @@
     box-sizing: border-box;
     transform: translateY(-30px);
     transition: 0.3s all ease-in-out;
-    z-index: 1;
+    z-index: 0;
     max-width: 86%;
     white-space: nowrap;
     overflow: hidden;
@@ -44,7 +44,6 @@
     height: 60px;
     outline: none;
     line-height: 25px;
-    box-shadow: none;
     border-radius: 4px;
     position: relative;
     box-sizing: border-box;
@@ -53,6 +52,7 @@
     padding: 13px 30px 13px 17px;
     border: 1px solid #0000001F;
     cursor: pointer;
+    box-shadow: none !important;
     &:invalid+label {
         transform: translateY(0);
     }
