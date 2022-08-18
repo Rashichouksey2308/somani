@@ -84,7 +84,7 @@ const Index = () => {
         className={`${styles.card} p-0 vessel_card datatable bg-transparent card border-0 container-fluid`}
       >
         <div className={`${styles.accordion_body} bg-transparent`}>
-          <div className={`${styles.head_container} align-items-center`}>
+          <div className={`${styles.head_container} ml-5 align-items-center`}>
             <div className={`${styles.head_header}`}>
               <img
                 className={`${styles.arrow} img-fluid mr-2 image_arrow`}
