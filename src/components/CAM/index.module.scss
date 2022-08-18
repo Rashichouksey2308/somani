@@ -967,13 +967,24 @@
       }
       .score {
         position: absolute;
-        z-index: 1000;
+        z-index: 1;
         color: #008015;
         font-size: 30px;
         font-weight: bold;
         line-height: 37px;
         top: 0%;
         left: 3%;
+        &::before {
+          top: 50%;
+          left: 50%;
+          width: 50px;
+          height: 38px;
+          content: "";
+          z-index: -1;
+          position: absolute;
+          background: #ffffff;
+          transform: translate(-50%, -50%);
+        }
       }
       .arrow {
         position: absolute;

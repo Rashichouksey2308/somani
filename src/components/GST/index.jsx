@@ -725,7 +725,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
           </div>
         </div>
       </div>
-      <Modal show={show} className={`${styles.verify_gst} card verify_gst`}>
+      <Modal show={show} className={`${styles.verify_gst} vessel_card card verify_gst`}>
         <Modal.Header className={`${styles.card_header} card-header bg-transparent`}>
           <Modal.Title>
             <h3>Verify GST</h3>
@@ -746,12 +746,12 @@ function Index({ companyData, orderList, GstDataHandler }) {
               <div className="tab-pane fade show active" id="viaEmail" role="tabpanel" aria-labelledby="via-email">
                 <div className={`${styles.labelFloat} form-group`}>
                   <input type='text' id='email' name="email" className={`${styles.formControl} ${styles.input} input form-control`} onChange={(e) => setCredential({ ...credential, username: e.target.value })} required />
-                  <label className={`label_heading_login`} htmlFor='email'>Email or Username</label>
+                  <label className={`label_heading_login label_heading bg-transparent`} htmlFor='email'>Email or Username</label>
                 </div>
                 <div className={`${styles.labelFloat} ${styles.password} form-group`}>
                   <div className='input-group align-items-center' id='password'>
                     <input type='password' name="password" className={`${styles.formControl} ${styles.input} input form-control`} onChange={(e) => setCredential({ ...credential, password: e.target.value })} required />
-                    <label className={`label_heading_login`} htmlFor='password'>Password</label>
+                    <label className={`label_heading_login label_heading bg-transparent`} htmlFor='password'>Password</label>
                     <img src='/static/eye.svg' alt='Show Password' className='img-fluid' />
                   </div>
                 </div>
