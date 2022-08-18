@@ -60,6 +60,9 @@ function Index() {
   const [complienceFilter, setComplienceFilter] = useState('')
   const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([])
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([])
+  
+const { fetchingKarzaGst } = useSelector((state) => state.review)
+
 
   const [newDoc, setNewDoc] = useState({
     document: [],
@@ -1966,6 +1969,7 @@ const [totalCourt,setTotalCourt]=useState({
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM
+                  fetchingKarzaGst={fetchingKarzaGst}
                     gstData={gstData}
                     camData={orderList}
                     companyData={companyData}
