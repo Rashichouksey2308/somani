@@ -92,7 +92,7 @@
             line-height: 25px;
             font-weight: bold;
             display: inline-block;
-            margin: 0 !important;
+            margin-bottom: 0 !important;
         }
         .multiAddContainer {
             .registeredAddress {
@@ -107,7 +107,7 @@
         }
         .registeredAddress {
             padding: 25px 25px 20px 35px !important;
-            margin-top: 1rem;
+            margin-top: 1.625rem;
             margin-bottom: 1rem;
             // background: #FFFFFF;
             border: 2px solid #CAD6E6;
@@ -355,8 +355,9 @@
             line-height: 25px;
             font-weight: bold;
             padding: 0rem !important;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
+            // margin-top: 1rem;
+            margin-bottom: 10px !important;
+            display: inline-block;
         }
     }
     .tableContainer {
@@ -874,6 +875,8 @@ img {
             border: 1px solid #0000001F;
             border-radius: 4px;
             margin-bottom: 0px !important;
+            padding: 0 15px;
+            outline: none;
         }
         // margin-bottom: 2rem !important;
     }
