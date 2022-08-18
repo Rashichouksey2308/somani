@@ -23,13 +23,13 @@ export default function Index({ inspectionData }) {
       name: inspectionData?.thirdPartyAppointment?.name,
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: inspectionData?.thirdPartyAppointment?.address,
+      address: { fullAddress: inspectionData?.thirdPartyAppointment?.address },
     })
     setAddressData({
       name: inspectionData?.thirdPartyAppointment?.name,
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: inspectionData?.thirdPartyAppointment?.address,
+      address: { fullAddress: inspectionData?.thirdPartyAppointment?.address },
     })
   }, [inspectionData])
 
@@ -162,7 +162,7 @@ export default function Index({ inspectionData }) {
                         Registered Address
                       </div>
                       <div className={`${styles.address_detail} mt-3`}>
-                        {appointmentData?.address}
+                        {appointmentData?.address?.fullAddress}
                       </div>
                     </div>
                     <img

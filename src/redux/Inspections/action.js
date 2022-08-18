@@ -139,7 +139,7 @@ export const UpdateInspection =
           dispatch(updateInspectionSuccess(response.data.data))
           let toastMessage = 'UPDATED SUCCESSFULLY'
           if (!toast.isActive(toastMessage)) {
-              toast.error(toastMessage, { toastId: toastMessage })
+              toast.success(toastMessage, { toastId: toastMessage })
           }
         } else {
           dispatch(updateInspectionFailed(response.data.data))
