@@ -15,6 +15,15 @@ function Index() {
 
   let lcModuleData = lcModule?.data[0]
 
+  const [editInput, setEditInput] = useState(false)
+  const [editCurrent, setEditCurrent] = useState()
+
+  const handleEdit = (val) => {
+    console.log('THIS IS HANDLE EDIT', val)
+    setEditCurrent(val)
+    setEditInput(true)
+  }
+
   useEffect(() => {
     let id = sessionStorage.getItem('lcAmmend')
     dispatch(GetLcModule(`?lcModuleId=${id}`))
@@ -321,6 +330,9 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
+                            defaultValue={
+                              editInput ? editCurrent.dropDownValue : ''
+                            }
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
@@ -401,7 +413,11 @@ function Index() {
                           style={{ opacity: '0.5' }}
                           required
                           type="text"
-                          value={clauseObj?.existingValue}
+                          value={
+                            editInput
+                              ? editCurrent.existingValue
+                              : clauseObj?.existingValue
+                          }
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -493,6 +509,7 @@ function Index() {
                                         src="/static/mode_edit.svg"
                                         className="img-fluid ml-n5"
                                         alt="edit"
+                                        onClick={() => handleEdit(clause)}
                                       />
                                       <img
                                         src="/static/delete 2.svg"

@@ -82,8 +82,8 @@ function Index(props) {
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
-        <div className={`${styles.paymet} card-body`}>
-     <div className={`d-flex justify-content-between align-items-between`}>
+        <div className={`${styles.paymet} card-body p-0`}>
+     <div className={`d-flex justify-content-between align-items-between mb-5`}>
        <input placeholder={`5000 Wet Metric Tons (Wmt) +/- 10Pct Of Mmd: Manganeseore Of Gabon Origin (44,50Pct Mn Typical - 5Pct Moisture), Ciffo Visakhapatnam Port Packing In Bulk.`}
        onChange={(e)=>{
         setValue(e.target.value)
@@ -97,7 +97,7 @@ function Index(props) {
      </div>
    
      <span>Additional Comments</span>
-     <ol >
+     <ol className='p-0 m-0'>
      {addressList?.length>0 && addressList.map((val,index)=>{
      return(
       <>
@@ -113,7 +113,7 @@ function Index(props) {
               }}
 
                 />
-       <div className={`d-flex justify-content-evenly align-items-center`}>
+       <div className={`d-flex justify-content-end align-items-center`}>
          {/* <img className="img-fluid ml-4" src="/static/add-btn.svg" alt="add button"
           onClick={()=>{
                     handleEditAddressInput(index)

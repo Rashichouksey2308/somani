@@ -9,10 +9,11 @@ import {
   DeleteDocument,
 } from 'redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
+import { ViewDocument } from 'redux/ViewDoc/action'
 
 const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
   const dispatch = useDispatch()
-  const [editInput, setEditInput] = useState(true)
+  const [editInput, setEditInput] = useState(false)
   const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState(
     'LeadOnboarding&OrderApproval',
   )
@@ -39,6 +40,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
   }
 
   const uploadDocumentHandler = (e) => {
+    console.log(e, "UPLOAD HANDLER")
     e.preventDefault()
 
     const fd = new FormData()
@@ -192,7 +194,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                   <p className={styles.drop_para}>
                     Drop Files here or
                     <br />
-                    {false?
+                    {true?
                     <div className={styles.uploadBtnWrapper}>
                       <input
                         type="file"
@@ -474,6 +476,10 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                                 src="/static/upload.svg"
                                 className="img-fluid mr-3"
                                 alt="Share"
+                                onClick={()=>{
+                                  dispatch(ViewDocument({path: document.path,
+                                    orderId: documentsFetched._id}))
+                                }}
                               />
                               <img
                                 src="/static/drive_file.svg"
