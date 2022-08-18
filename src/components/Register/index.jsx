@@ -121,7 +121,7 @@ function Index() {
   // console.log(orderDetails, "orderDetailjdefhk")
 
   const saveCompanyData = (name, value) => {
-    console.log(value,"turn")
+    console.log(value, "turn")
     const newInput = { ...companyDetails }
     newInput[name] = value
     setCompanyDetails(newInput)
@@ -167,7 +167,7 @@ function Index() {
   }
 
   const submitData = () => {
-    
+
     // handleCurrOrder()
     if (companyDetails.companyName === '') {
       let toastMessage = 'Please Fill The Company Name'
@@ -266,12 +266,12 @@ function Index() {
       documents.forEach((val, index) => {
         docTypeArr.push(val.typeDocument)
       })
-      let sendOrder={...orderDetails}
-      sendOrder.quantity=Number(removePrefixOrSuffix(orderDetails.quantity))
-      sendOrder.orderValue=(removePrefixOrSuffix(orderDetails.orderValue)*10000000)
-      console.log(sendOrder,"sendOrder",removePrefixOrSuffix(orderDetails.orderValue))
+      let sendOrder = { ...orderDetails }
+      sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
+      sendOrder.orderValue = (removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
+      console.log(sendOrder, "sendOrder", removePrefixOrSuffix(orderDetails.orderValue))
       const fd = new FormData()
-      fd.append('companyProfile',JSON.stringify(companyDetails))
+      fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(sendOrder))
       fd.append('documentType', JSON.stringify(docTypeArr))
       documents.forEach((val, index) => {
@@ -289,7 +289,9 @@ function Index() {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()
     document.getElementById('documents').reset()
-    document.querySelector(companyInput).value = ''
+    document.getElementById('companyInput').value = ''
+
+    // document.querySelector(companyInput).value = ''
   }
 
   useEffect(() => {
@@ -302,7 +304,7 @@ function Index() {
   const [documents, setDocuments] = useState([
     { typeOfDocument: '', attachDoc: '' },
   ])
-  
+
   const onAddDoc = (index) => {
     setDocuments([
       ...documents,
@@ -382,10 +384,10 @@ function Index() {
           saveOrderData={saveOrderData}
           saveCompanyData={saveCompanyData}
         />
-        <OrderDetails 
-        darkMode={darkMode} 
-        saveOrderData={saveOrderData}
-        orderDetails={orderDetails} />
+        <OrderDetails
+          darkMode={darkMode}
+          saveOrderData={saveOrderData}
+          orderDetails={orderDetails} />
         <Documents
           darkMode={darkMode}
           saveDocument={saveDocument}

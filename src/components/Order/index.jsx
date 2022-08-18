@@ -113,7 +113,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="quantity"
-                  defaultValue={addPrefixOrSuffix(orderDetail?.quantity,orderDetail.unitOfQuantity.toUpperCase())}
+                  defaultValue={addPrefixOrSuffix(orderDetail?.quantity,orderDetail?.unitOfQuantity?.toUpperCase())}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -129,7 +129,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="orderValue"
-                  defaultValue={addPrefixOrSuffix(orderDetail?.orderValue,orderDetail.unitOfValue)}
+                  defaultValue={addPrefixOrSuffix(orderDetail?.orderValue,orderDetail?.unitOfValue)}
                  
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
