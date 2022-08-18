@@ -11,6 +11,7 @@
   }
 }
 .filter {
+  min-height: 48px;
   margin: 0 0 27px 10px;
   @include respond(sm-desktop) {
     display: block !important;
@@ -21,7 +22,6 @@
       width: 13px;
       height: 21px;
       background: transparent;
-      margin-top: 10px;
     }
     .heading {
       font-size: 34px;
