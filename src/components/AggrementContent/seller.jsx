@@ -17,27 +17,27 @@ let seller={
 }
 function Index(props) {
   console.log(props.data,"1234")
-const[sellerData,setSellerData]=useState(seller)
- const [list,setList]=useState([])
-  const [addressType,setAddressType]=useState("Registered")
-  const [newAddress,setNewAddress]=useState(
-                {
-                "addressType": "Registered",
-                "fullAddress": "",
-                "pinCode": "",
-                "country": "",
-                "gstin": "",
-                "state": "",
-                "city": ""
-            }
-  )
-  const [addressList,setAddressList]=useState([])
-   let masterList=[
-  {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
-   {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
+    const[sellerData,setSellerData]=useState(seller)
+    const [list,setList]=useState([])
+    const [addressType,setAddressType]=useState("Registered")
+    const [newAddress,setNewAddress]=useState(
+              {
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          }
+    )
+    const [addressList,setAddressList]=useState([])
+    let masterList=[
+    {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
+    {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
     {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
-     {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
- ]
+    {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+    ]
 useEffect(() => {
    if(window){
     if(sessionStorage.getItem("Seller")){
@@ -92,109 +92,131 @@ useEffect(() => {
     }
   },[props])
   console.log(props,"props")
-  const onEdit=(index)=>{
-    let tempArr=list;
-    // tempArr[index].actions.edit="false"
+const onEdit=(index)=>{
+  let tempArr=list;
+  // tempArr[index].actions.edit="false"
 
-       setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        // 👇️ if id equals 2, update country property
-        if (i == index) {
-          return {...obj, actions: 'false'};
-        }
+      setList(prevState => {
+    const newState = prevState.map((obj ,i)=> {
+      // 👇️ if id equals 2, update country property
+      if (i == index) {
+        return {...obj, actions: 'false'};
+      }
 
-        // 👇️ otherwise return object as is
-        return obj;
-      });
-
-      return newState;
+      // 👇️ otherwise return object as is
+      return obj;
     });
 
-  }
-  const onEditRemove=(index)=>{
-    let tempArr=list;
-    // tempArr[index].actions.edit="false"
+    return newState;
+  });
 
-       setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        // 👇️ if id equals 2, update country property
-        if (i == index) {
-          return {...obj, actions: 'true'};
-        }
-
-        // 👇️ otherwise return object as is
-        return obj;
-      });
-
-      return newState;
-    });
-
-  }
-  const addMoreRows=()=>{
-      setList([...list,{
-      name:"",designation:"",email:"",phoneNo:"",
-      actions:"false"
-    }])
- }
-  const handleRemove=(index)=>{
-     setList([...list.slice(0,index), ...list.slice(index+1)])
 }
-  const handleInput=(name,value,key)=>{
-   
-  const newInput = { ...sellerData }
+const onEditRemove=(index)=>{
+  let tempArr=list;
+  // tempArr[index].actions.edit="false"
 
-      newInput[name] = value
-      setSellerData(newInput)
+      setList(prevState => {
+    const newState = prevState.map((obj ,i)=> {
+      // 👇️ if id equals 2, update country property
+      if (i == index) {
+        return {...obj, actions: 'true'};
+      }
 
-  }
-  const handleChangeInput=(name,value,index)=>{
- let arrayToSave={
-     name:"",designation:"",email:"",phoneNo:"",
-      actions:"false"
-   }
-     masterList.forEach((val,index)=>{
-    if(val.name==value){
-      arrayToSave.name=val.name
-      arrayToSave.designation=val.designation
-      arrayToSave.email=val.email
-      arrayToSave.phoneNo=val.phoneNo
-    }
-   })
-  setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-       
-        if (i == index) {
-          return arrayToSave;
-        }
-
-        
-        return obj;
-      });
-
-      return newState;
+      // 👇️ otherwise return object as is
+      return obj;
     });
 
+    return newState;
+  });
+
+}
+const addMoreRows=()=>{
+    setList([...list,{
+    name:"",designation:"",email:"",phoneNo:"",
+    actions:"false"
+  }])
+}
+const handleRemove=(index)=>{
+    setList([...list.slice(0,index), ...list.slice(index+1)])
+}
+const handleInput=(name,value,key)=>{
+  
+const newInput = { ...sellerData }
+
+    newInput[name] = value
+    setSellerData(newInput)
+
+}
+const handleChangeInput=(name,value,index)=>{
+let arrayToSave={
+    name:"",designation:"",email:"",phoneNo:"",
+    actions:"false"
   }
+    masterList.forEach((val,index)=>{
+  if(val.name==value){
+    arrayToSave.name=val.name
+    arrayToSave.designation=val.designation
+    arrayToSave.email=val.email
+    arrayToSave.phoneNo=val.phoneNo
+  }
+  })
+setList(prevState => {
+    const newState = prevState.map((obj ,i)=> {
+      
+      if (i == index) {
+        return arrayToSave;
+      }
+
+      
+      return obj;
+    });
+
+    return newState;
+  });
+
+}
+const handleChangeInput2=(name,value,index)=>{
+  
+
+
+
+  setList(prevState => {
+    const newState = prevState.map((obj ,i)=> {
+      
+      if (i == index) {
+        return {...obj,phoneNo:value};
+      }
+
+      
+      return obj;
+    });
+
+    return newState;
+  });
+
+  
+
+}
+  
+const handleAddressInput=()=>{
+
+  setAddressList(current => [...current, newAddress])
     
-  const handleAddressInput=()=>{
+    setNewAddress({
+                "addressType": "Registered",
+                "fullAddress": "",
+                "pinCode": "",
+                "country": "",
+                "gstin": "",
+                "state": "",
+                "city": ""
+            })
+}
+const onAddressRemove=(index)=>{
+setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
 
-    setAddressList(current => [...current, newAddress])
-     
-      setNewAddress({
-                  "addressType": "Registered",
-                  "fullAddress": "",
-                  "pinCode": "",
-                  "country": "",
-                  "gstin": "",
-                  "state": "",
-                  "city": ""
-              })
-  }
- const onAddressRemove=(index)=>{
- setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
-
-  }
-  const setAddress=(name,value)=>{
+}
+const setAddress=(name,value)=>{
    const newInput = { ...newAddress }
    newInput[name] = value
    setNewAddress(newInput)
@@ -224,60 +246,60 @@ const handleEditAddressInput=(index)=>{
  
 }
 const editNewAddress=(name,value)=>{
-    setIsEdit(true)
-   const newInput = { ...EditAddress }
-   newInput[name] = value
-   setEditAddress(newInput)
+  setIsEdit(true)
+  const newInput = { ...EditAddress }
+  newInput[name] = value
+  setEditAddress(newInput)
 
+}
+const cancelEditAddress=()=>{
+setIsEdit(false)
+setEditAddress(
+  {
+  "addressType": "",
+  "fullAddress": "",
+  "pinCode": "",
+  "country": "",
+  "gstin": "",
+  "state": "",
+  "city": ""
   }
-  const cancelEditAddress=()=>{
-    setIsEdit(false)
-  setEditAddress(
-                {
-                "addressType": "",
-                "fullAddress": "",
-                "pinCode": "",
-                "country": "",
-                "gstin": "",
-                "state": "",
-                "city": ""
-            }
-      )
+)
 
 
-  }
-  const saveNewAddress=()=>{
-    console.log(EditAddress,"EditAddress",toEditIndex)
-    setAddressList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        
-        if (i == toEditIndex) {
-          console.log("here")
-          return EditAddress;
-        }
+}
+const saveNewAddress=()=>{
+  console.log(EditAddress,"EditAddress",toEditIndex)
+  setAddressList(prevState => {
+    const newState = prevState.map((obj ,i)=> {
+      
+      if (i == toEditIndex) {
+        console.log("here")
+        return EditAddress;
+      }
 // 👇️ otherwise return object as is
-        return obj;
-      });
-
-      return newState;
+      return obj;
     });
-    setIsEdit(false)
-    setEditAddress(
-                {
-                "addressType": "",
-                "fullAddress": "",
-                "pinCode": "",
-                "country": "",
-                "gstin": "",
-                "state": "",
-                "city": ""
-            }
-    )
+
+    return newState;
+  });
+  setIsEdit(false)
+  setEditAddress(
+              {
+              "addressType": "",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          }
+  )
 
 
 
-  }
-  
+}
+
   return (
     <>      
       <div className={`${styles.container} vessel_card`}>
@@ -291,7 +313,7 @@ const editNewAddress=(name,value)=>{
                   required
                   type="text"
                   name="name"
-                  value={sellerData.shortName}
+                  value={sellerData.name}
                   onChange={(e) => {
                     handleInput(e.target.name,e.target.value)
                   }}
@@ -696,9 +718,9 @@ const editNewAddress=(name,value)=>{
                           ></input></td>
                           <td><input type="text" placeholder={val.phoneNo}
                           name= "phoneNo"
-                          // onChange={(e)=>{
-                          //   handleChangeInput(e.target.name,e.target.value,index)
-                          // }}
+                          onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                          }}
                           ></input></td>
                           <td className={`d-flex`}>
                             <div

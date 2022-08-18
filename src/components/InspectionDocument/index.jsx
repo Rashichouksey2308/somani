@@ -29,7 +29,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
   // }, [dispatch, orderId])
 
   const [filteredDoc, setFilteredDoc] = useState([])
-  console.log(filteredDoc,'filtered doc')
+  // console.log(filteredDoc,'filtered doc')
   const [moduleSelected, setModuleSelected] = useState('LeadOnboarding,OrderApproval')
 
 

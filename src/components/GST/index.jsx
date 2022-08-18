@@ -80,6 +80,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
     //console.log(payload, 'payload')
 
     dispatch(VerifyGstKarza(payload))
+    handleClose()
 
   }
 
@@ -521,7 +522,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     <div className={`${styles.col_header} label_heading`}>
                       Latest Return Filed GSTR 3B
                     </div>
-                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1}</div>
+                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b}</div>
                   </Col>
                 </Row>
 
@@ -1125,9 +1126,9 @@ function Index({ companyData, orderList, GstDataHandler }) {
                   {gstFilteredData && gstFilteredData?.detail?.salesDetailAnnual?.hsnWiseSales?.map((sales, index) => (
                     <tr key={index}>
                       <td className={` ${styles.first}`}>{sales.hsnDesc}</td>
-                      <td>{sales.hsnSc?.toFixed(2).toLocaleString()}</td>
-                      <td>{sales.turnover?.toFixed(2).toLocaleString()}</td>
-                      <td>{sales.sharePercent?.toFixed(2).toLocaleString()}%</td>
+                      <td>{sales?.hsnSc?.toLocaleString()}</td>
+                      <td>{sales?.turnover?.toFixed(2).toLocaleString()}</td>
+                      <td>{sales?.sharePercent?.toFixed(2).toLocaleString()}%</td>
 
                       {/* <td>24</td>
                       <td>19</td>
@@ -1395,13 +1396,13 @@ function Index({ companyData, orderList, GstDataHandler }) {
           <h2 className="mb-0">Compliance</h2>
           <div className={`${styles.subHeadContainer} d-flex mr-4 ml-auto`}>
             <div className={` ${styles.complaintExtra} d-flex align-items-center`}>
-              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</div>{gstFilteredData?.detail?.complianceDetail?.filingHistory?.toFixed(2).toLocaleString()}
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing History:</div>{gstFilteredData?.detail?.complianceDetail?.filingHistory?.toLocaleString()}
             </div>
             <div className={`${styles.complaintExtra} d-flex align-items-center`}>
-              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</div>{gstFilteredData?.detail?.complianceDetail?.filingFrequency?.toFixed(2).toLocaleString()}
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Filing Frequency:</div>{gstFilteredData?.detail?.complianceDetail?.filingFrequency?.toLocaleString()}
             </div>
             <div className={`${styles.complaintExtra} d-flex align-items-center`}>
-              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</div>{gstFilteredData?.detail?.complianceDetail?.financialPeriod?.toFixed(2).toLocaleString()}
+              <div className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</div>{gstFilteredData?.detail?.complianceDetail?.financialPeriod?.toLocaleString()}
             </div>
           </div>
           <span>+</span>
@@ -1713,7 +1714,7 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{(customer?.ttlVal / customerDetailsUnit).toFixed(2)?.toFixed(2).toLocaleString()}</td>
+                            <td>{(customer?.ttlVal / customerDetailsUnit).toFixed(2)?.toLocaleString()}</td>
                             <td>{customer?.percentageOfTotalPurchase?.toFixed(2).toLocaleString()}%</td>
                             <td>{customer?.invoice}</td>
                             <td>{customer?.purchasePerInvoice?.toFixed(2).toLocaleString()}</td>
@@ -1751,10 +1752,10 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal?.toFixed(2).toLocaleString()}</td>
-                            <td>{customer?.percentageOfTotalPurchase?.toFixed(2).toLocaleString()}%</td>
-                            <td>{customer?.invoice?.toFixed(2).toLocaleString()}</td>
-                            <td>{customer?.purchasePerInvoice?.toFixed(2).toLocaleString()}</td>
+                            <td>{customer?.ttlVal?.toLocaleString()}</td>
+                            <td>{customer?.percentageOfTotalPurchase?.toLocaleString()}%</td>
+                            <td>{customer?.invoice?.toLocaleString()}</td>
+                            <td>{customer?.purchasePerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1828,7 +1829,7 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                         {gstFilteredData && gstFilteredData?.detail?.supplierDetail?.statewisePurchase?.map((customer, index) => (
                           <tr key={index}>
                             <td>{customer?.stateName}</td>
-                            <td>{customer?.stateCode?.toFixed(2).toLocaleString()}</td>
+                            <td>{customer?.stateCode?.toLocaleString()}</td>
                             <td>{customer?.ttlVal?.toFixed(2).toLocaleString()}</td>
                             <td>{customer?.percentageOfTotalPurchase?.toFixed(2).toLocaleString()}%</td>
                             <td>{customer?.invoice?.toFixed(2).toLocaleString()}</td>
@@ -1925,7 +1926,7 @@ const gstSales = (head, gstFilteredData) => {
                         <tr>
                           <td>Growth Trend</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.growthTrend?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.growthTrend?.toLocaleString()}</td>
                           ))}
                         </tr>
                       </tbody>

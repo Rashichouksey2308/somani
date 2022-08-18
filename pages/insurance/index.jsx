@@ -32,9 +32,10 @@ function Index() {
   }
 
   const changeRoute = (insured) => {
-    sessionStorage.setItem('companyInsuredId', insured?.company?._id)
-    dispatch(GettingAllInsurance(`?company=${insured?.company?._id}`))
-    Router.push('/insurance/id')
+    sessionStorage.setItem('quotationId', insured._id)
+    dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`))
+    
+    Router.push('/insurance/form')
   }
 
   const handleEditRoute = (insured) => {

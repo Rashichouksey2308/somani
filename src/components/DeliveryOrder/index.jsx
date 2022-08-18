@@ -80,7 +80,7 @@ export default function Index(props) {
                 </div>
               </div>
               <div
-                className={`${styles.dashboard_form} card-body`}
+                className={`${styles.dashboard_form} border_color card-body`}
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
                 <div className="row">
@@ -248,7 +248,7 @@ export default function Index(props) {
               </div>
 
               <div
-                className={`${styles.dashboard_form} card-body`}
+                className={`${styles.dashboard_form} border_color card-body`}
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
                 <div className="row">

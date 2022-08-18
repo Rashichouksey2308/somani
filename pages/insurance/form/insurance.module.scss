@@ -198,8 +198,10 @@
   }
   .cardBody {
     padding: 0px;
-    border-top: 2px solid red !important;
+    //border-top: 2px solid red !important;
     .content {
+      border-top: 2px solid #d2d7e5 !important;
+
       .body {
         padding: 25px 35px !important;
         h5 {
@@ -287,7 +289,7 @@
         }
         .input_field {
           height: 60px;
-          background-color: #c3c3c31f;
+          //background-color: #c3c3c31f;
           border: 1px solid #0000001f;
           border-radius: 4px;
           font-size: 20px;

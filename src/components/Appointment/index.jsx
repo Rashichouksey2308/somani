@@ -23,20 +23,21 @@ export default function Index({ inspectionData }) {
       name: inspectionData?.thirdPartyAppointment?.name,
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: inspectionData?.thirdPartyAppointment?.address,
+      address: { fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress },
     })
     setAddressData({
       name: inspectionData?.thirdPartyAppointment?.name,
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: inspectionData?.thirdPartyAppointment?.address,
+      address: { fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress },
     })
   }, [inspectionData])
+  console.log(appointmentData, 'appointmentData')
 
   const [addressData, setAddressData] = useState({
     name: '',
     dateOfAppointment: '',
-    address: '',
+    address: { fullAddress: '' },
   })
 
   const saveAppointmentData = (name, value) => {
@@ -44,6 +45,7 @@ export default function Index({ inspectionData }) {
     newInput[name] = value
     setAppointmentData(newInput)
   }
+
 
   const saveDate = (value, name) => {
     const d = new Date(value)
@@ -55,15 +57,23 @@ export default function Index({ inspectionData }) {
     setIsEdit(true)
   }
 
+  // const handleEditInput = (name, value) => {
+  //   let newInput = { ...addressData }
+  //   newInput[name] = value
+  //   setAddressData(newInput)
+  // }
   const handleEditInput = (name, value) => {
-    let newInput = { ...addressData }
-    newInput[name] = value
+    const newInput = { ...addressData }
+    const namesplit = name.split('.')
+    namesplit.length > 1
+      ? (newInput[namesplit[0]][namesplit[1]] = value)
+      : (newInput[name] = value)
     setAddressData(newInput)
   }
 
   const handleEditCancel = () => {
     setIsEdit(false)
-    setAddressData({ address: '' })
+    setAddressData({ ...addressData, address: { fullAddress: '' } })
   }
 
   const handleOnAdd = () => {
@@ -162,7 +172,7 @@ export default function Index({ inspectionData }) {
                         Registered Address
                       </div>
                       <div className={`${styles.address_detail} mt-3`}>
-                        {appointmentData?.address}
+                        {appointmentData?.address?.fullAddress}
                       </div>
                     </div>
                     <img
@@ -214,7 +224,7 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
             className={`${styles.input_field} input form-control`}
             required
             type="text"
-            name="address"
+            name="address.fullAddress"
             onChange={(e) => {
               handleEditInput(e.target.name, e.target.value)
             }}

@@ -9,6 +9,7 @@ import {
   DeleteDocument,
 } from '../../../src/redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
+import { ViewDocument } from 'redux/ViewDoc/action'
 
 const Index = ({ orderid, module }) => {
   const dispatch = useDispatch()
@@ -448,10 +449,14 @@ const Index = ({ orderid, module }) => {
                                 className={`${styles.delete_image} img-fluid mr-3`}
                                 alt="Bin"
                               />
-                              <img
+                               <img
                                 src="/static/upload.svg"
                                 className="img-fluid mr-3"
                                 alt="Share"
+                                onClick={()=>{
+                                  dispatch(ViewDocument({path: document.path,
+                                    orderId: documentsFetched._id}))
+                                }}
                               />
                               <img
                                 src="/static/drive_file.svg"

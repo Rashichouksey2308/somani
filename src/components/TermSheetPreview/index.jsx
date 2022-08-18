@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect ,useRef} from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Container, Card } from 'react-bootstrap'
 import Paginatebar from '../Paginatebar'
@@ -7,9 +7,10 @@ import { Form } from 'react-bootstrap'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetTermsheet } from 'redux/buyerProfile/action'
-import { setPageName, setDynamicName,setDynamicOrder } from '../../redux/userData/action'
+import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
 import moment from 'moment'
-
+import jsPDF from "jspdf";
+import ReactDOMServer from "react-dom/server";
 
 import _get from 'lodash/get'
 
@@ -18,17 +19,18 @@ import _get from 'lodash/get'
 
 
 function Index() {
+    const toPrint=useRef()
     const dispatch = useDispatch()
     const { termsheet } = useSelector((state) => state.order)
-    console.log(termsheet,'termsheet')
+    console.log(termsheet, 'termsheet')
     let Id = sessionStorage.getItem('termID')
-    let orderId= _get(termsheet,'data[0].order.orderId', 'Order Id')
+    let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id')
 
     useEffect(() => {
         dispatch(GetTermsheet(`?termsheetId=${Id}`))
         dispatch(setPageName('termsheet'))
         dispatch(setDynamicName(orderId));
-       // dispatch(setDynamicOrder(orderId))
+        // dispatch(setDynamicOrder(orderId))
     }, [dispatch, Id])
 
 
@@ -40,12 +42,45 @@ function Index() {
 
     const [termsheetDetails, setTermsheetDetails] = useState({})
     const [otherTermConditions, setOtherTermConditions] = useState({})
-    const date =  new Date()
+    const [additionalComments, setAdditionalComments] = useState({})
+    const date = new Date()
 
+
+    useEffect(() => {
+        const commentData = _get(termsheet, 'data[0].additionalComments', [])
+        console.log(commentData, 'comment')
+        commentData.forEach((comment) => {
+            console.log(comment, 'comment', comment?.additionalCommentType === "Deliveries/Due Date/Payment")
+            if (comment.additionalCommentType === "Deliveries/Due Date/Payment") {
+
+                setAdditionalComments(preve => {
+                    return { ...preve, deliveriesDueDatePayment: comment.comment }
+                })
+                // setAdditionalComments({
+                //     ...additionalComments,
+                //     deliveriesDueDatePayment: comment.comment
+                // })
+            }
+            if (comment.additionalCommentType === "Storage of Goods") {
+
+                setAdditionalComments(preve => {
+                    return { ...preve, storageofGoods: comment.comment }
+                })
+                // setAdditionalComments({
+                //     ...additionalComments,
+                //     storageofGoods: comment.comment
+                // })
+            }
+        })
+    }, [termsheet])
+
+    console.log(additionalComments, 'additionalComments')
 
     useEffect(() => {
         {
             termsheet && termsheet?.data?.map((sheet) => (
+
+
                 setTermsheetDetails({
                     termsheetId: sheet?._id,
                     commodityDetails: {
@@ -141,7 +176,8 @@ function Index() {
                     dutyAndTaxes: {
                         customsDutyWithAllGovtCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.customsDutyWithAllGovtCess,
                         igstWithCess: sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
-                        cimsCharges: sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges
+                        cimsCharges: sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
+                        taxCollectedatSource: sheet?.otherTermsAndConditions?.dutyAndTaxes?.taxCollectedatSource,
                     },
                     insurance: {
                         marineInsurance: sheet?.otherTermsAndConditions?.insurance?.marineInsurance,
@@ -161,10 +197,26 @@ function Index() {
     const close = () => {
         setOpen(false)
     }
+    const exportPDF = () => {
+    let element = (
+      <div style={{ display: "flex", flexWrap: "wrap" ,backgroundColor:"red",width:"50rem",height:"50rem"}}>
+
+        <span>Sample Text</span>
+      </div>
+    );
+    const doc = new jsPDF("p", "pt", "letter");
+    doc.html(ReactDOMServer.renderToString(element), {
+      callback: function (doc) {
+        doc.save('sample.pdf');
+      }
+    });
+  };
     return (
 
         <>
-            <div className={`${styles.root_container} `}>
+            <div className={`${styles.root_container}  `}
+              ref={toPrint}
+            >
                 {/* <div  className={styles.head_container}>
         <div className={styles.head_header}>
           <img className={styles.arrow}
@@ -195,7 +247,7 @@ function Index() {
                             <span>TERMSHEET</span>
                         </Col>
                         <Col md={4} className={`d-flex justify-content-end  align-items-end`}>
-                           {/* <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((new Date()).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div> */}
+                            {/* <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((new Date()).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div> */}
                             <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((date), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div>
 
                         </Col>
@@ -203,24 +255,7 @@ function Index() {
                     </Row>
 
                 </div>
-                {/* <div  className={`${styles.term_container} mb-3 mt-3 container-fluid`}>
-       <Row className={`h-50`}>
-           <Col sm={12} className={`d-flex justify-content-center align-items-center`}>
-           <span>TERMSHEET</span>
-           </Col>
-       </Row>
-       {termsheet && termsheet?.data?.map((sheet, index) => (
-        <Row key={index}  className={`h-50`}>
-        
-           <Col md={6} sm={6} xs={6} className={`d-flex justify-content-start align-items-center`}>
-           <div><span className={styles.termSub_head}>Buyer:</span><span className={styles.termValue}>{sheet.company.companyName}</span></div>
-           </Col>
-            <Col md={6} sm={6} xs={6} className={`d-flex justify-content-end  align-items-center`}>
-           <div><span className={styles.termSub_head}>Order ID:</span> <span className={styles.termValue}>{sheet.order.orderId}</span></div>
-           </Col>
-           
-       </Row>))}
-      </div> */}
+
                 <Card className={`${styles.content} ${styles.customCard}`}>
                     <div>
                         <Row className={`${styles.row_head} row_head`}>
@@ -342,7 +377,7 @@ function Index() {
                             </Col>
                             <Col md={8} sm={6} xs={6} className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                                 <ul>
-                                    <li>{termsheetDetails?.transactionDetails?.storageOfGoods}</li>
+                                    <li>{additionalComments.storageofGoods}</li>
 
                                 </ul>
                             </Col>
@@ -368,7 +403,7 @@ function Index() {
                             </Col>
                             <Col md={8} sm={6} xs={6} className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                                 <ul>
-                                    <li>{termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate} days from thr Vessel/Container(s) at discharge port  or {termsheetDetails?.paymentDueDate?.daysFromBlDate} days from the BL date, Whichever is Earlier, through TT orLC (inCase of LC all BAnk charges to be borne by the buyer)</li>
+                                    <li>{additionalComments.deliveriesDueDatePayment}</li>
 
                                 </ul>
                             </Col>
@@ -482,7 +517,7 @@ function Index() {
                         </Row>
                         <Row>
                             <Col md={12} className={`${styles.sub_content_other} termsheet_Text label_heading  d-flex justify-content-start align-content-center`}>
-                                {termsheetDetails.commercials?.otherTermsAndConditions}
+                                Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. {otherTermConditions?.buyer?.bank} will provide proof of all expenses to the Buyer.
 
 
                             </Col>
@@ -696,7 +731,7 @@ function Index() {
 
 
 
-            <Paginatebar openbar={openbar} rightButtonTitle="Send To Buyer" leftButtonTitle='Termsheet' />
+            <Paginatebar exportPDF={exportPDF} openbar={openbar} rightButtonTitle="Send To Buyer" leftButtonTitle='Termsheet' />
             {open ? <TermsheetPopUp close={close} open={open} /> : null}
         </>
 

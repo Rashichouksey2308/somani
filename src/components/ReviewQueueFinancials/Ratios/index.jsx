@@ -317,11 +317,11 @@ function Index({ ratioData }) {
                     </tr>
                     <tr>
                       <td>Debt Equity Ratio</td>
-                      <td className="text-center">{latestYearData?.debtEquity}</td>
+                      <td className="text-center">{latestYearData?.debtEquity.toFixed(2).toLocaleString()}</td>
                       <td className="text-center">
                         {previousYearData?.debtEquity?.toFixed(2).toLocaleString()}
                       </td>
-                      <td className="text-center">{lastYearData?.debtEquity}</td>
+                      <td className="text-center">{lastYearData?.debtEquity.toFixed(2).toLocaleString()}</td>
                       <td className="text-center">
                         <img
                           src="/static/profit.svg"

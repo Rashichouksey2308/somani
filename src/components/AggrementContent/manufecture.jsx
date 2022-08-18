@@ -21,15 +21,7 @@ let supplier={
         ],
         "multiParty": true,
         "multiPartyAddresses": [
-            {
-                "addressType": "addressType",
-                "fullAddress": "addressType",
-                "pinCode": "addressType",
-                "country": "addressType",
-                "gstin": "addressType",
-                "state": "addressType",
-                "city": "addressType"
-            }
+         
           ]
         
 }
@@ -60,26 +52,54 @@ function Index(props) {
                 "city": ""
             }
   )
-  const [addressType,setAddressType]=useState("Registered")
- let masterList=[
-  {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
-   {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
-    {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
-     {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
- ]
+const [addressType,setAddressType]=useState("Registered")
 
-  useEffect(() => {
-    let tempArr=supplierState.authorisedSignatoryDetails
-    tempArr.forEach((val,index)=>{
-      val.actions = "true"
-    })
-    setList(tempArr)
-    let tempArr2=supplierState.addresses
-    setAddressList(tempArr2)
-  },[])
+//multiParty
+  const [multiList,setMultiList]=useState([])
+  const [newMultiAddress,setNewMultiAddress]=useState(
+              {
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          }
+  )
+  const [MultiEditAddress,setMultiEditAddress]=useState(
+            {
+            "addressType": "",
+            "fullAddress": "",
+            "pinCode": "",
+            "country": "",
+            "gstin": "",
+            "state": "",
+            "city": ""
+        }
+  )
+  const [addressMutliType,setMultiAddressType]=useState("Registered")
+  let masterList=[
+  {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
+  {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
+  {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
+  {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+  ]
+
+useEffect(() => {
+  let tempArr=supplierState.authorisedSignatoryDetails
+  tempArr.forEach((val,index)=>{
+  val.actions = "true"
+  })
+  setList(tempArr)
+  let tempArr2=supplierState.addresses
+  setAddressList(tempArr2)
+  let tempArr3=supplierState?.multiPartyAddresses
+  setMultiList(tempArr3)
+},[])
  
 
-  console.log(supplierState,"supplierState")
+
   useEffect(() => {
     if(props.saveData==true && props.active=="Supplier"){
        let data={
@@ -166,10 +186,12 @@ function Index(props) {
   }
   
   const handleChangeInput=(name,value,index)=>{
+   
    let arrayToSave={
-     name:"",designation:"",email:"",phoneNo:"",
+      name:"",designation:"",email:"",phoneNo:"",
       actions:"false"
    }
+   
    masterList.forEach((val,index)=>{
     if(val.name==value){
       arrayToSave.name=val.name
@@ -193,11 +215,33 @@ function Index(props) {
 
       return newState;
     });
-    console.log(tempArr,"987")
+
     // setList(tempArr)
 
   }
-  console.log(list,"87")
+ const handleChangeInput2=(name,value,index)=>{
+   
+ 
+ 
+
+    setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return {...obj,phoneNo:value};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
+
+    
+
+  }
+
   const handleAddressInput=()=>{
 
     setAddressList(current => [...current, newAddress])
@@ -300,9 +344,109 @@ const editNewAddress=(name,value)=>{
 
   }
 
-  console.log(addressList,"addressList")
-  console.log(supplierState,"supplierState")
-  console.log(list,"list")
+//multi address
+
+  const handleAddressMultiInput=()=>{
+
+  setMultiList(current => [...current, newMultiAddress])
+    
+    setNewMultiAddress({
+                "addressType": "Registered",
+                "fullAddress": "",
+                "pinCode": "",
+                "country": "",
+                "gstin": "",
+                "state": "",
+                "city": ""
+            })
+  }
+  const onAddressMultiRemove=(index)=>{
+  setMultiList([...multiList.slice(0,index), ...multiList.slice(index+1)])
+
+  }
+  const setMultiAddress=(name,value)=>{
+  const newInput = { ...newMultiAddress }
+  newInput[name] = value
+  setNewMultiAddress(newInput)
+
+  }
+  const [isEditMulti,setIsEditMulti]= useState(false)
+  const [toEditIndexMulti,setToEditIndexMulti]= useState(0)
+  const handleEditAddressMuliInput=(index)=>{
+  setIsEditMulti(true)
+  setToEditIndexMulti(index)
+  let tempArr=multiList;
+
+  tempArr.forEach((val,i)=>{
+    if(i==index){
+        setMultiEditAddress({
+        "addressType": val.addressType,
+        "fullAddress": val.fullAddress,
+        "pinCode": val.pinCode,
+        "country": val.country,
+        "gstin": val.gstin,
+        "state": val.state,
+        "city": val.city
+    })
+    }
+  })
+
+
+  }
+  const editNewMultiAddress=(name,value)=>{
+  setIsEditMulti(true)
+  const newInput = { ...MultiEditAddress }
+  newInput[name] = value
+  setMultiEditAddress(newInput)
+
+  }
+  const cancelEditMultiAddress=()=>{
+  setIsEditMulti(false)
+  setMultiEditAddress(
+              {
+              "addressType": "",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          }
+    )
+
+
+  }
+  const saveNewMultiAddress=()=>{
+
+  setMultiList(prevState => {
+    const newState = prevState.map((obj ,i)=> {
+      
+      if (i == toEditIndex) {
+        console.log("here")
+        return MultiEditAddress;
+      }
+  // 👇️ otherwise return object as is
+      return obj;
+    });
+
+    return newState;
+  });
+  setIsEditMulti(false)
+  setMultiEditAddress(
+              {
+              "addressType": "",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          }
+  )
+
+
+
+  }
   useEffect(() => {
    if(window){
     
@@ -323,11 +467,12 @@ const editNewAddress=(name,value)=>{
         "addresses": savedData.addresses,
         "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
         "multiParty": savedData.multiParty,
-        "multiPartyAddresses": savedData.multiPartyAddresses
+        "savedData": savedData.multiPartyAddresses
         
        }
        setList(savedData.authorisedSignatoryDetails)
        setAddressList(savedData.addresses)
+       setMultiList(savedData.authorisedSignatoryDetails)
        setSupplierState(supplier)
     }else{
        let supplier={
@@ -347,6 +492,7 @@ const editNewAddress=(name,value)=>{
        }
        setList(props.data?.authorisedSignatoryDetails)
        setAddressList(props.data?.addresses)
+       setMultiList(props.data?.authorisedSignatoryDetails)
        setSupplierState(supplier)
     }
    
@@ -527,7 +673,7 @@ const editNewAddress=(name,value)=>{
                           name="addressType"
                           
                           onChange={(e) => {
-                            setAddressType(e.target.value)
+                            setMultiAddressType(e.target.value)
                             setAddress(e.target.name,e.target.value)
                           }}
                         >
@@ -813,9 +959,9 @@ const editNewAddress=(name,value)=>{
                           ></input></td>
                           <td><input type="text" placeholder={val.phoneNo}
                           name= "phoneNo"
-                          // onChange={(e)=>{
-                          //   handleChangeInput(e.target.name,e.target.value,index)
-                          // }}
+                          onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                          }}
                           ></input></td>
                           <td className={`d-flex`}>
                             <div
@@ -854,8 +1000,48 @@ const editNewAddress=(name,value)=>{
           </div>
         </div>
         {props.multiPart==true?
-        <div className={styles.manufacture}>
+        <>
          
+        <div className={styles.manufacture}>
+         <div className={`${styles.addressContainer} m-0`}>
+          {multiList.length>0?<span className={`mb-3`}> {props.multiPartValue} Addresses</span>:null}
+          <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
+           {multiList?.map((val,index)=>{
+            return(
+            <div
+            key={index}
+              className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
+            >
+              <div className={`${styles.registeredAddressHeading}`}>
+                <span>{val.addressType}  Address</span>
+                <div className={`${styles.address_text}`}>
+                  {val.fullAddress} {" "} {val.pinCode} {" "} {val.country}
+                </div>
+              </div>
+              <div className={`d-flex ${styles.actions} `}>
+                <div
+                  className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
+                  onClick={()=>{
+                    handleEditAddressMuliInput(index)
+                  }}
+                >
+                  <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
+                </div>
+                <div
+                  className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
+                  onClick={()=>{
+                    onAddressMultiRemove(index)
+                  }}
+                  >
+                    <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
+                </div>
+              </div>
+            </div>
+            )
+           }) }
+
+          </div>
+        </div>
            <span className={``}>{props.multiPartValue} Details</span>
            
           <div className={`row`}>
@@ -881,7 +1067,7 @@ const editNewAddress=(name,value)=>{
                   />
             </Form.Group>
             <div className={`${styles.newAddressContainer} ${styles.newAddressContainer2} m-0`}>
-                  <div className={styles.newAddressHead}><span>Add a new address</span></div>
+                  <div className={styles.newAddressHead}><span>Add a new {props.multiPartValue} address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex">
@@ -890,13 +1076,13 @@ const editNewAddress=(name,value)=>{
                           name="addressType"
                           
                           onChange={(e) => {
-                            setAddressType(e.target.value)
-                            setAddress(e.target.name,e.target.value)
+                            setMultiAddressType(e.target.value)
+                            setMultiAddress(e.target.name,e.target.value)
                           }}
                         >
                           <option value="Registered">Registered Office</option>
                           <option value="Branch">Branch </option>
-                            <option value="Supplier">Supplier Address </option>
+                          <option value="Supplier">Supplier Address </option>
                           
                         </select>
                         <Form.Label
@@ -911,7 +1097,7 @@ const editNewAddress=(name,value)=>{
                         />
                       </div>
                     </Form.Group>
-                {addressType=="Registered" || addressType=="Supplier"?
+                {addressMutliType=="Registered" || addressMutliType=="Supplier"?
                     <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
@@ -919,9 +1105,9 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="fullAddress"
-                        value={newAddress.fullAddress}
+                        value={newMultiAddress.fullAddress}
                         onChange={(e) => {
-                          setAddress(e.target.name,e.target.value)
+                          setMultiAddress(e.target.name,e.target.value)
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -935,9 +1121,9 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="pinCode"
-                        value={newAddress.pinCode}
+                        value={newMultiAddress.pinCode}
                         onChange={(e) => {
-                          setAddress(e.target.name,e.target.value)
+                          setMultiAddress(e.target.name,e.target.value)
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -954,10 +1140,10 @@ const editNewAddress=(name,value)=>{
                         className={`${styles.input_field} input form-control`}
                         required
                         type="text"
-                        value={newAddress.country}
+                        value={newMultiAddress.country}
                         name="country"
                           onChange={(e) => {
-                          setAddress(e.target.name,e.target.value)
+                          setMultiAddress(e.target.name,e.target.value)
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -976,9 +1162,9 @@ const editNewAddress=(name,value)=>{
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="gstin"
-                          value={newAddress.gstin}
+                          value={newMultiAddress.gstin}
                           onChange={(e) => {
-                            setAddress(e.target.name,e.target.value)
+                            setMultiAddress(e.target.name,e.target.value)
                           }}
                         >
                           <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
@@ -1002,9 +1188,9 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="pinCode"
-                        value={newAddress.pinCode}
+                        value={newMultiAddress.pinCode}
                         onChange={(e) => {
-                          setAddress(e.target.name,e.target.value)
+                          setMultiAddress(e.target.name,e.target.value)
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1022,9 +1208,9 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="country"
-                        value={newAddress.country}
+                        value={newMultiAddress.country}
                         onChange={(e) => {
-                          setAddress(e.target.name,e.target.value)
+                          setMultiAddress(e.target.name,e.target.value)
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1037,9 +1223,9 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="state"
-                        value={newAddress.state}
+                        value={newMultiAddress.state}
                         onChange={(e) => {
-                          setAddress(e.target.name,e.target.value)
+                          setMultiAddress(e.target.name,e.target.value)
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1052,9 +1238,9 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="city"
-                        value={newAddress.city}
+                        value={newMultiAddress.city}
                         onChange={(e) => {
-                          setAddress(e.target.name,e.target.value)
+                          setMultiAddress(e.target.name,e.target.value)
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1067,9 +1253,9 @@ const editNewAddress=(name,value)=>{
                         required
                         type="text"
                         name="fullAddress"
-                        value={newAddress.fullAddress}
+                        value={newMultiAddress.fullAddress}
                         onChange={(e) => {
-                          setAddress(e.target.name,e.target.value)
+                          setMultiAddress(e.target.name,e.target.value)
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1083,7 +1269,7 @@ const editNewAddress=(name,value)=>{
                   <div className="d-flex">
                     <div className={`${styles.add} d-flex justify-content-center align-items-center`}
                     onClick={()=>{
-                    // handleAddressInput()
+                    handleAddressMultiInput()
                     }}
                     >
                     <span>Add</span>
@@ -1097,6 +1283,7 @@ const editNewAddress=(name,value)=>{
 
           </div>
         </div>
+        </>
         :null}
         
 
