@@ -254,10 +254,10 @@ return(
                   onChange={(e) => {
                     saveCompanyData(
                       e.target.name,
-                      Number(e.target.value * 100),
+                      Number(e.target.value),
                     )
-                    let high=((Math.abs(Number(e.target.value)-500)/1000)*100)
-                   
+                    let high=((Math.abs(Number(e.target.value)-500)/1000)*200)
+                  
                     setHighlight3(high)
                     if(Number(e.target.value)==500){
                       setSliderType(2)
@@ -310,7 +310,7 @@ return(
                       Number(e.target.value),
                     )
 
-                    let high=((Math.abs(Number(e.target.value))/600)*100)
+                    let high=((Math.abs(Number(e.target.value)-50)/600)*100)
                   
                     setHighlight(high)
                     if(Number(e.target.value) == 100){

@@ -54,16 +54,16 @@ function Index() {
 
             <div className="d-flex justify-content-between">
               <div>
-                <div className={styles.sub_heading}>
-                  Order ID: <span>{lcModuleData?.order?.orderId}</span>
+                <div className={`${styles.sub_heading} term_para`}>
+                  Order ID: <span className='label1'>{lcModuleData?.order?.orderId}</span>
                 </div>
-                <div className={styles.sub_heading}>
-                  Buyer: <span>{lcModuleData?.company.companyName}</span>
+                <div className={`${styles.sub_heading} term_para`}>
+                  Buyer: <span className='label1'>{lcModuleData?.company.companyName}</span>
                 </div>
               </div>
               <div>
-                <div className={`${styles.sub_heading} mt-4`}>
-                  Date: <span>16.02.2022</span>
+                <div className={`${styles.sub_heading} term_para mt-4`}>
+                  Date:  <span className='label1'>16.02.2022</span>
                 </div>
               </div>
             </div>
@@ -82,26 +82,28 @@ function Index() {
                     <tbody>
                       <tr className="table_row">
                         <td width="40%">
-                          40A &nbsp; &nbsp;{' '}
+                          <span className={`${styles.serial_no} term_para`}>40A {' '}</span>
                           <span>FORM OF DOCUMENTARY CREDIT</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          40E &nbsp; &nbsp; <span>APPLICABLE RULES</span>
+                          <span className={`${styles.serial_no} term_para`}>40E </span>
+                          <span>APPLICABLE RULES</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          31D &nbsp; &nbsp; <span>DATE OF EXPIRY</span>
+                          <span className={`${styles.serial_no} term_para`}>31D </span>
+                          <span>DATE OF EXPIRY</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {moment(
                             lcModuleData?.lcApplication?.dateOfExpiry?.split(
                               'T',
@@ -111,141 +113,147 @@ function Index() {
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          31D &nbsp; &nbsp; <span>PLACE OF EXPIRY</span>
+                          <span className={`${styles.serial_no} term_para`}>31D </span>
+                          <span>PLACE OF EXPIRY</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          51D &nbsp; &nbsp; <span>LC ISSUING BANK</span>
+                          <span className={`${styles.serial_no} term_para`}>51D </span>
+                          <span>LC ISSUING BANK</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          50 &nbsp; &nbsp; <span>APPLICANT</span>
+                          <span className={`${styles.serial_no} term_para`}>50 </span>
+                          <span>APPLICANT</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.applicant?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          59 &nbsp; &nbsp; <span>BENEFICIARY</span>
+                          <span className={`${styles.serial_no} term_para`}>59 </span>
+                          <span>BENEFICIARY</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          32B &nbsp; &nbsp;
+                          <span className={`${styles.serial_no} term_para`}>32B </span>
                           <span>CURRENCY CODE &amp; AMOUNT</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          39A &nbsp; &nbsp;
+                          <span className={`${styles.serial_no} term_para`}>39A </span>
                           <span>TOLERANCE (+/-) PERCENTAGE</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           +/-{' '}
                           {lcModuleData?.lcApplication?.tolerancePercentage?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          41A &nbsp; &nbsp; <span>CREDIT AVAILABLE WITH</span>
-                          <br />
-                          <br />
-                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <span>BY</span>
+                          <span className={`${styles.serial_no} term_para`}>41A </span>
+                          <span>CREDIT AVAILABLE WITH<wbr />BY</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          42C &nbsp; &nbsp; <span>AT SIGHT</span>
-                          <br />
-                          <br />
-                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <span>NO. OF DAYS</span>
+                          <span className={`${styles.serial_no} term_para`}>42C </span>
+                          <span>AT SIGHT<br />NO. OF DAYS</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.atSight?.toUpperCase()}{' '}
                           <br /> {lcModuleData?.lcApplication?.numberOfDays}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          42A &nbsp; &nbsp; <span>DRAWEE</span>
+                          <span className={`${styles.serial_no} term_para`}>42A </span>
+                          <span>DRAWEE</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.drawee?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          42P &nbsp; &nbsp; <span>DEFERRED PAYMENT</span>
+                          <span className={`${styles.serial_no} term_para`}>42P </span>
+                          <span>DEFERRED PAYMENT</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          43P &nbsp; &nbsp; <span>PARTIAL SHIPMENT</span>
+                          <span className={`${styles.serial_no} term_para`}>43P </span>
+                          <span>PARTIAL SHIPMENT</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          43T &nbsp; &nbsp; <span>TRANSHIPMENTS</span>
+                          <span className={`${styles.serial_no} term_para`}>43T </span>
+                          <span>TRANSHIPMENTS</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          44A &nbsp; &nbsp; <span>SHIPMENT FROM</span>
+                          <span className={`${styles.serial_no} term_para`}>44A </span>
+                          <span>SHIPMENT FROM</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          44E &nbsp; &nbsp; <span>PORT OF LOADING</span>
+                          <span className={`${styles.serial_no} term_para`}>44E </span>
+                          <span>PORT OF LOADING</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          44F &nbsp; &nbsp; <span>PORT OF DISCHARGE</span>
+                          <span className={`${styles.serial_no} term_para`}>44F </span>
+                          <span>PORT OF DISCHARGE</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
                         <td width="40%">
-                          44C &nbsp; &nbsp; <span>LATEST DATE OF SHIPMENT</span>
+                          <span className={`${styles.serial_no} term_para`}>44C </span>
+                          <span>LATEST DATE OF SHIPMENT</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {moment(
                             lcModuleData?.lcApplication?.latestDateOfShipment?.split(
                               'T',
@@ -255,10 +263,10 @@ function Index() {
                       </tr>{' '}
                       <tr className="table_row">
                         <td className="border-bottom-0" width="40%">
-                          45A &nbsp; &nbsp;{' '}
+                          <span className={`${styles.serial_no} term_para`}>45A {' '}</span>
                           <span>DESCRIPTION OF THE GOODS</span>
                         </td>
-                        <td className="border-bottom-0">
+                        <td className="border-bottom-0 term_para">
                           {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}
                         </td>
                       </tr>
@@ -368,82 +376,82 @@ function Index() {
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
-                          48 &nbsp; &nbsp; <span>PRESENTATION PERIOD</span>
+                          <span className={`${styles.serial_no} term_para`}>48 </span>
+                          <span>PRESENTATION PERIOD</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
                         <td width="40%">
-                          49 &nbsp; &nbsp;{' '}
+                          <span className={`${styles.serial_no} term_para`}>49 {' '}</span>
                           <span>CONFIRMATION INSTRUCTIONS</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
                         <td width="40%">
-                          53A &nbsp; &nbsp; <span>REIMBURSING BANK</span>
+                          <span className={`${styles.serial_no} term_para`}>53A </span>
+                          <span>REIMBURSING BANK</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
                         <td width="40%">
-                          57 &nbsp; &nbsp; <span>ADVISE THROUGH BANK</span>
+                          <span className={`${styles.serial_no} term_para`}>57 </span>
+                          <span>ADVISE THROUGH BANK</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
                         <td width="40%">
-                          57A &nbsp; &nbsp;{' '}
+                          <span className={`${styles.serial_no} term_para`}>57A {' '}</span>
                           <span>SECOND ADVISING BANK, IF APPLICABLE</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
                         <td width="40%">
-                          58A &nbsp; &nbsp;{' '}
+                          <span className={`${styles.serial_no} term_para`}>58A {' '}</span>
                           <span>REQUESTED CONFIRMATION PARTY</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
                         <td width="40%">
-                          71B &nbsp; &nbsp; <span>CHARGES</span>
+                          <span className={`${styles.serial_no} term_para`}>71B </span>
+                          <span>CHARGES</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.charges?.toUpperCase()}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
                         <td width="40%">
-                          78 &nbsp; &nbsp;{' '}
-                          <span>
-                            INSTRUCTIONS TO PAYING / ACCEPTING /
-                            <br />
-                            &nbsp; &nbsp; &nbsp; &nbsp; NEGOTIATING BANK
-                          </span>
+                          <span className={`${styles.serial_no} term_para`}>78 {' '}</span>
+                          <span>INSTRUCTIONS TO PAYING / ACCEPTING /<br />NEGOTIATING BANK</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
                         <td width="40%">
-                          72 &nbsp; &nbsp;{' '}
+                          <span className={`${styles.serial_no} term_para`}>72 {' '}</span>
                           <span>SENDER TO RECEIVER INFORMATION</span>
                         </td>
-                        <td>
+                        <td className='term_para'>
                           {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}
                         </td>
                       </tr>

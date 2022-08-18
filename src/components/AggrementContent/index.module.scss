@@ -92,7 +92,7 @@
             line-height: 25px;
             font-weight: bold;
             display: inline-block;
-            margin: 0 0 19px;
+            margin-bottom: 0 !important;
         }
         .multiAddContainer {
             .registeredAddress {
@@ -102,12 +102,12 @@
             // }
         }
         .containerChild {
-            margin-top: 1rem;
+            // margin-top: 1rem;
             // margin-bottom: 1rem;
         }
         .registeredAddress {
             padding: 25px 25px 20px 35px !important;
-            margin-top: 1rem;
+            margin-top: 1.625rem;
             margin-bottom: 1rem;
             // background: #FFFFFF;
             border: 2px solid #CAD6E6;
@@ -355,8 +355,9 @@
             line-height: 25px;
             font-weight: bold;
             padding: 0rem !important;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
+            // margin-top: 1rem;
+            margin-bottom: 10px !important;
+            display: inline-block;
         }
     }
     .tableContainer {
@@ -864,15 +865,18 @@ img {
     margin: 19px 17px 41px !important;
 }
 .paymet {
+    margin: 19px 35px 41px;
     div {
         input {
             width: 993px;
             height: 103px;
             border: 1px solid var(--unnamed-color-0000001f);
-            background: #C3C3C31F 0% 0% no-repeat padding-box;
+            background: #C3C3C31F;
             border: 1px solid #0000001F;
             border-radius: 4px;
             margin-bottom: 0px !important;
+            padding: 0 15px;
+            outline: none;
         }
         // margin-bottom: 2rem !important;
     }
@@ -883,15 +887,23 @@ img {
         letter-spacing: 0px;
     }
     .comment {
-        margin-top: 1rem !important;
+        margin-top: 0.5rem !important;
+        margin-bottom: 1rem !important;
+        padding-bottom: 1rem !important;
+        border-bottom: 1px solid #0000001F;
+        &:last-child {
+            border-bottom: none;
+        }
         input {
-            width: 85%;
+            width: 90%;
+            outline: none;
+            border: none;
             margin-bottom: 0px !important;
         }
         div {
-            width: 15%;
+            width: 10%;
             img {
-                margin-right: 1rem !important;
+                // margin-right: 1rem !important;
                 margin-bottom: 0rem !important;
             }
         }

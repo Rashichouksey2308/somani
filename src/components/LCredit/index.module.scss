@@ -102,7 +102,7 @@
       .body {
         padding: 25px 35px !important;
         .label_heading {
-          top: 21px;
+          top: 22px;
           left: 30px;
           font-size: 16px;
           line-height: 17px;
@@ -113,7 +113,7 @@
           transform: translateY(-30px);
           transition: 0.3s all ease-in-out;
           white-space: nowrap;
-          z-index: 1;
+          z-index: 0;
           max-width: 86%;
           white-space: nowrap;
           overflow: hidden;
@@ -140,8 +140,8 @@
         }
         .input_field {
           height: 60px;
-          //background-color: #c3c3c31f;
-          border: 1px solid #0000001f;
+          // background-color: #c3c3c31f;
+          // border: 1px solid #0000001f;
           border-radius: 4px;
           font-size: 20px;
           font-weight: 500;
@@ -155,7 +155,7 @@
           }
           &:focus {
             & + label {
-              transform: translateY(-31px);
+              transform: translateY(-30px);
             }
           }
           @include respond(md-desktop) {
@@ -211,7 +211,7 @@
           pointer-events: none;
           line-height: 17px;
           box-sizing: border-box;
-          transform: translateY(-10px);
+          transform: translateY(-8px);
           margin-left: 20px;
           transition: 0.3s all ease-in-out;
           @include respond(sm-desktop) {
@@ -328,7 +328,7 @@
         }
       }
       .line {
-        border: 2px solid #cad6e6;
+        border: 0.5px solid #cad6e6;
       }
     }
   }
