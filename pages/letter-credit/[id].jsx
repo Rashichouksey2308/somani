@@ -15,6 +15,16 @@ function Index() {
 
   let lcModuleData = lcModule?.data[0]
 
+  
+  const [editInput, setEditInput] = useState(false)
+  const [editCurrent, setEditCurrent] = useState()
+
+  const handleEdit = (val) => {
+    console.log("THIS IS HANDLE EDIT", val)
+    setEditCurrent(val)
+    setEditInput(true)
+  }
+
   useEffect(() => {
     let id = sessionStorage.getItem('lcAmmend')
     dispatch(GetLcModule(`?lcModuleId=${id}`))
@@ -128,6 +138,8 @@ function Index() {
   const [drop, setDrop] = useState('')
 
   const [fieldType, setFieldType] = useState(false)
+
+  const inputRef = useRef(null)
 
 
   const dropDownChange = (e) => {
@@ -484,6 +496,7 @@ function Index() {
                                         src="/static/mode_edit.svg"
                                         className="img-fluid ml-n5"
                                         alt="edit"
+                                        onClick={()=> handleEdit(clause)}
                                       />
                                       <img
                                         src="/static/delete 2.svg"
