@@ -587,149 +587,156 @@ function Index({
                     </Row>
                   </div>
                 </div>
-                <hr className={styles.line}></hr>
-
-                <div className={`${styles.dashboard_form}`}>
-                  <div className={`${styles.sub_heading} value`}>
-                    46A DOCUMENT REQUIRED
-                  </div>
-                  <div className="d-flex mt-5 pb-4">
-                    <input
-                      as="textarea"
-                      rows={3}
-                      className={`${styles.comment_field} input form-control`}
-                      onChange={(e) => addComment(e.target.value)}
-                      value={currentComment}
-                    />
-                    <img
-                      className="img-fluid ml-4"
-                      src="/static/add-btn.svg"
-                      alt="add button"
-                      onClick={() => addDocArr()}
-                    />
-                  </div>
-                  {lcDocuments?.map((comment, index) => (
-                    <div
-                      key={index}
-                      className="d-flex justify-content-between pt-4 pb-3"
-                    >
-                      <div className={`${styles.number} mr-n3`}>
-                        {getSn(index)}
-                      </div>
-                      <Form.Control
-                        className={`${styles.paragraph} input`}
-                        as="textarea"
-                        defaultValue={comment}
-                        rows={3}
-                        readOnly={editStren}
-                        onChange={(e) => {
-                          lcDocEdit(e, index)
-                        }}
-                      />
-                      <div>
-                        <img
-                          src="/static/mode_edit.svg"
-                          className="img-fluid"
-                          alt="edit"
-                          onClick={(e) => {
-                            setEditStren(!editStren)
-                          }}
-                        />
-                        <img
-                          src="/static/delete 2.svg"
-                          className="img-fluid ml-3"
-                          alt="delete"
-                          onClick={() => {
-                            deleteLcDoc(index)
-                          }}
-                        />
-                      </div>
+                {/* <hr className={styles.line}></hr> */}
+                <div
+                  className={`${styles.dashboard_form} border_color`}
+                  style={{ borderTop: '2px solid #CAD6E6' }}
+                >
+                  <div className={styles.doc_card}>
+                    <div className={`${styles.sub_heading} value`}>
+                      46A DOCUMENT REQUIRED
                     </div>
-                  ))}
-                </div>
-                <hr className={styles.line}></hr>
-
-                <div className={`${styles.dashboard_form}`}>
-                  <div className={`${styles.sub_heading} value`}>
-                    47A ADDITIONAL CONDITIONS
-                  </div>
-                  <div className="d-flex mt-5 pb-4">
-                    <input
-                      as="textarea"
-                      rows={3}
-                      className={`${styles.comment_field} input form-control`}
-                      onChange={(e) => addConditionComment(e.target.value)}
-                      value={currentComment2}
-                    />
-                    <img
-                      className="img-fluid ml-4"
-                      src="/static/add-btn.svg"
-                      alt="add button"
-                      onClick={() => addConditionArr()}
-                    />
-                  </div>
-                  {lcCondition?.map((comment, index) => (
-                    <div
-                      key={index}
-                      className="d-flex justify-content-between pt-4 pb-3"
-                    >
-                      <div className={`${styles.number} mr-n3`}>
-                        {getSn(index)}
-                      </div>
-                      <Form.Control
-                        className={`${styles.paragraph} input`}
+                    <div className="d-flex mt-5 pb-4">
+                      <input
                         as="textarea"
-                        defaultValue={comment}
                         rows={3}
-                        readOnly={edit}
-                        onChange={(e) => {
-                          lcConditionEdit(e, index)
-                        }}
+                        className={`${styles.comment_field} input form-control`}
+                        onChange={(e) => addComment(e.target.value)}
+                        value={currentComment}
                       />
-                      <div>
-                        <img
-                          src="/static/mode_edit.svg"
-                          className="img-fluid"
-                          alt="edit"
-                          onClick={(e) => {
-                            setEdit(!edit)
-                          }}
-                        />
-
-                        <img
-                          src="/static/delete 2.svg"
-                          className="img-fluid ml-3"
-                          alt="delete"
-                          onClick={() => {
-                            deleteLcCondition(index)
-                          }}
-                        />
-                      </div>
+                      <img
+                        className="img-fluid ml-4"
+                        src="/static/add-btn.svg"
+                        alt="add button"
+                        onClick={() => addDocArr()}
+                      />
                     </div>
-                  ))}
+                    {lcDocuments?.map((comment, index) => (
+                      <div
+                        key={index}
+                        className="d-flex justify-content-between pt-4 pb-3"
+                      >
+                        <div className={`${styles.number} mr-n3`}>
+                          {getSn(index)}
+                        </div>
+                        <Form.Control
+                          className={`${styles.paragraph} input`}
+                          as="textarea"
+                          defaultValue={comment}
+                          rows={3}
+                          readOnly={editStren}
+                          onChange={(e) => {
+                            lcDocEdit(e, index)
+                          }}
+                        />
+                        <div>
+                          <img
+                            src="/static/mode_edit.svg"
+                            className="img-fluid"
+                            alt="edit"
+                            onClick={(e) => {
+                              setEditStren(!editStren)
+                            }}
+                          />
+                          <img
+                            src="/static/delete 2.svg"
+                            className="img-fluid ml-3"
+                            alt="delete"
+                            onClick={() => {
+                              deleteLcDoc(index)
+                            }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+                <div
+                  className={`${styles.dashboard_form} border_color`}
+                  style={{ borderTop: '2px solid #CAD6E6' }}
+                >
+                  <div className={styles.doc_card}>
+                    <div className={`${styles.sub_heading}  value`}>
+                      47A ADDITIONAL CONDITIONS
+                    </div>
+                    <div className="d-flex mt-5 pb-4">
+                      <input
+                        as="textarea"
+                        rows={3}
+                        className={`${styles.comment_field} input form-control`}
+                        onChange={(e) => addConditionComment(e.target.value)}
+                        value={currentComment2}
+                      />
+                      <img
+                        className="img-fluid ml-4"
+                        src="/static/add-btn.svg"
+                        alt="add button"
+                        onClick={() => addConditionArr()}
+                      />
+                    </div>
+                    {lcCondition?.map((comment, index) => (
+                      <div
+                        key={index}
+                        className="d-flex justify-content-between pt-4 pb-3"
+                      >
+                        <div className={`${styles.number} mr-n3`}>
+                          {getSn(index)}
+                        </div>
+                        <Form.Control
+                          className={`${styles.paragraph} input`}
+                          as="textarea"
+                          defaultValue={comment}
+                          rows={3}
+                          readOnly={edit}
+                          onChange={(e) => {
+                            lcConditionEdit(e, index)
+                          }}
+                        />
+                        <div>
+                          <img
+                            src="/static/mode_edit.svg"
+                            className="img-fluid"
+                            alt="edit"
+                            onClick={(e) => {
+                              setEdit(!edit)
+                            }}
+                          />
 
+                          <img
+                            src="/static/delete 2.svg"
+                            className="img-fluid ml-3"
+                            alt="delete"
+                            onClick={() => {
+                              deleteLcCondition(index)
+                            }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
                 <hr></hr>
                 <div className={`${styles.dashboard_form}`}>
-                  <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
-                    <div className="d-flex">
-                      <div className={`${styles.number}`}>2.</div>
-                      <h5>PRODUCT SPECIFICATION</h5>
-                    </div>
-                    <div>
-                      <img
-                        src="/static/mode_edit.svg"
-                        className="img-fluid"
-                        alt="edit"
-                      />
-                      <img
-                        src="/static/delete 2.svg"
-                        className="img-fluid ml-3"
-                        alt="delete"
-                      />
+                  <div className={styles.doc_card}>
+                    <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
+                      <div className="d-flex">
+                        <div className={`${styles.number}`}>2.</div>
+                        <h5>PRODUCT SPECIFICATION</h5>
+                      </div>
+                      <div>
+                        <img
+                          src="/static/mode_edit.svg"
+                          className="img-fluid"
+                          alt="edit"
+                        />
+                        <img
+                          src="/static/delete 2.svg"
+                          className="img-fluid ml-3"
+                          alt="delete"
+                        />
+                      </div>
                     </div>
                   </div>
-
                   <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
@@ -788,205 +795,212 @@ function Index({
                     </div>
                   </div>
                 </div>
-
-                <hr className={styles.line}></hr>
-                <div className={`${styles.dashboard_form}`}>
-                  <div className={` ${styles.content}`}>
-                    <div className={` ${styles.body} p-0`}>
-                      <Row>
-                        <Col className="mb-4 mt-4" md={12}>
-                          <textarea
-                            className={`${styles.input_field} input form-control`}
-                            style={{ height: '103px' }}
-                            required
-                            type="text"
-                            name="presentaionPeriod"
-                            defaultValue={lcData?.presentaionPeriod}
-                            onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value)
-                            }}
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (48) Presentation Period
-                            <strong className="text-danger">*</strong>
-                          </label>
-                        </Col>
-                        <Col className="mb-4 mt-4" md={12}>
-                          <textarea
-                            className={`${styles.input_field} input form-control`}
-                            style={{ height: '103px' }}
-                            required
-                            type="text"
-                            name="confirmationInstructions"
-                            defaultValue={lcData?.confirmationInstructions}
-                            onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value)
-                            }}
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (49) Confirmation Instructions
-                            <strong className="text-danger">*</strong>
-                          </label>
-                        </Col>
-                        <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
-                          <div className="d-flex">
-                            <select
-                              name="reimbursingBank"
+                <div
+                  className={`${styles.dashboard_form} border_color`}
+                  style={{ borderTop: '2px solid #CAD6E6' }}
+                >
+                  <div className={styles.doc_card}>
+                    <div className={` ${styles.content}`}>
+                      <div className={` ${styles.body} p-0`}>
+                        <Row>
+                          <Col className="mb-4 mt-4" md={12}>
+                            <textarea
+                              className={`${styles.input_field} input form-control`}
+                              style={{ height: '103px' }}
+                              required
+                              type="text"
+                              name="presentaionPeriod"
+                              defaultValue={lcData?.presentaionPeriod}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value)
                               }}
-                              className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
                             >
-                              <option selected>
-                                {lcData?.reimbursingBank}
-                              </option>
-                              <option value="Bnp Paribas Paribas - Bnpafrppxx">
-                                Bnp Paribas Paribas - Bnpafrppxx
-                              </option>
-                              <option value="Balaji Traders">
-                                Balaji Traders
-                              </option>
-                            </select>
-                            <label className={`${styles.labels} label_heading`}>
-                              (53A) Reimbursing Bank
+                              (48) Presentation Period
                               <strong className="text-danger">*</strong>
                             </label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
-                        </Col>
-                        <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
-                          <div className="d-flex">
-                            <select
-                              name="adviceThroughBank"
+                          </Col>
+                          <Col className="mb-4 mt-4" md={12}>
+                            <textarea
+                              className={`${styles.input_field} input form-control`}
+                              style={{ height: '103px' }}
+                              required
+                              type="text"
+                              name="confirmationInstructions"
+                              defaultValue={lcData?.confirmationInstructions}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value)
                               }}
-                              className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
                             >
-                              <option selected>
-                                {lcData?.adviceThroughBank}
-                              </option>
-                              <option value="Bnp Paribas Paribas - Bnpafrppxx">
-                                Bnp Paribas Paribas - Bnpafrppxx
-                              </option>
-                              <option value="Balaji Traders">
-                                Balaji Traders
-                              </option>
-                            </select>
-                            <label className={`${styles.labels} label_heading`}>
-                              (57) Advise Through Bank
+                              (49) Confirmation Instructions
                               <strong className="text-danger">*</strong>
                             </label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
+                          </Col>
+                          <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
+                            <div className="d-flex">
+                              <select
+                                name="reimbursingBank"
+                                onChange={(e) => {
+                                  saveLcData(e.target.name, e.target.value)
+                                }}
+                                className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
+                              >
+                                <option selected>
+                                  {lcData?.reimbursingBank}
+                                </option>
+                                <option value="Bnp Paribas Paribas - Bnpafrppxx">
+                                  Bnp Paribas Paribas - Bnpafrppxx
+                                </option>
+                                <option value="Balaji Traders">
+                                  Balaji Traders
+                                </option>
+                              </select>
+                              <label
+                                className={`${styles.labels} label_heading`}
+                              >
+                                (53A) Reimbursing Bank
+                                <strong className="text-danger">*</strong>
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+                          <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
+                            <div className="d-flex">
+                              <select
+                                name="adviceThroughBank"
+                                onChange={(e) => {
+                                  saveLcData(e.target.name, e.target.value)
+                                }}
+                                className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
+                              >
+                                <option selected>
+                                  {lcData?.adviceThroughBank}
+                                </option>
+                                <option value="Bnp Paribas Paribas - Bnpafrppxx">
+                                  Bnp Paribas Paribas - Bnpafrppxx
+                                </option>
+                                <option value="Balaji Traders">
+                                  Balaji Traders
+                                </option>
+                              </select>
+                              <label
+                                className={`${styles.labels} label_heading`}
+                              >
+                                (57) Advise Through Bank
+                                <strong className="text-danger">*</strong>
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </Col>
+
+                          <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              name="secondAdvisingBank"
+                              defaultValue={lcData?.secondAdvisingBank}
+                              onChange={(e) => {
+                                saveLcData(e.target.name, e.target.value)
+                              }}
                             />
-                          </div>
-                        </Col>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              (57A) Second Advising Bank, if Applicable
+                            </label>
+                          </Col>
+                          <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              name="requestedConfirmationParty"
+                              defaultValue={lcData?.requestedConfirmationParty}
+                              onChange={(e) => {
+                                saveLcData(e.target.name, e.target.value)
+                              }}
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              (58A) Requested Confirmation Party
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
+                          <Col className="mb-4 mt-4" md={12}>
+                            <textarea
+                              className={`${styles.input_field} input form-control`}
+                              style={{ height: '103px' }}
+                              required
+                              type="text"
+                              name="charges"
+                              defaultValue={lcData?.charges}
+                              onChange={(e) => {
+                                saveLcData(e.target.name, e.target.value)
+                              }}
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              (71B) Charges
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
+                          <Col className="mb-4 mt-4" md={12}>
+                            <textarea
+                              className={`${styles.input_field} input form-control`}
+                              style={{ height: '139px' }}
+                              required
+                              type="text"
+                              name="instructionToBank"
+                              defaultValue={lcData?.instructionToBank}
+                              onChange={(e) => {
+                                saveLcData(e.target.name, e.target.value)
+                              }}
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              (78) Instructions To Paying / Accepting /
+                              Negotiating Bank
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </Col>
 
-                        <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
-                          <input
-                            className={`${styles.input_field} input form-control`}
-                            required
-                            type="text"
-                            name="secondAdvisingBank"
-                            defaultValue={lcData?.secondAdvisingBank}
-                            onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value)
-                            }}
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (57A) Second Advising Bank, if Applicable
-                          </label>
-                        </Col>
-                        <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
-                          <input
-                            className={`${styles.input_field} input form-control`}
-                            required
-                            type="text"
-                            name="requestedConfirmationParty"
-                            defaultValue={lcData?.requestedConfirmationParty}
-                            onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value)
-                            }}
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (58A) Requested Confirmation Party
-                            <strong className="text-danger">*</strong>
-                          </label>
-                        </Col>
-                        <Col className="mb-4 mt-4" md={12}>
-                          <textarea
-                            className={`${styles.input_field} input form-control`}
-                            style={{ height: '103px' }}
-                            required
-                            type="text"
-                            name="charges"
-                            defaultValue={lcData?.charges}
-                            onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value)
-                            }}
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (71B) Charges
-                            <strong className="text-danger">*</strong>
-                          </label>
-                        </Col>
-                        <Col className="mb-4 mt-4" md={12}>
-                          <textarea
-                            className={`${styles.input_field} input form-control`}
-                            style={{ height: '139px' }}
-                            required
-                            type="text"
-                            name="instructionToBank"
-                            defaultValue={lcData?.instructionToBank}
-                            onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value)
-                            }}
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (78) Instructions To Paying / Accepting /
-                            Negotiating Bank
-                            <strong className="text-danger">*</strong>
-                          </label>
-                        </Col>
-
-                        <Col className="mb-4 mt-4" md={12}>
-                          <textarea
-                            className={`${styles.input_field} input form-control`}
-                            style={{ height: '103px' }}
-                            required
-                            type="text"
-                            name="senderToReceiverInformation"
-                            defaultValue={lcData?.senderToReceiverInformation}
-                            onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value)
-                            }}
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (72) Sender To Receiver Information
-                          </label>
-                        </Col>
-                      </Row>
+                          <Col className="mb-4 mt-4" md={12}>
+                            <textarea
+                              className={`${styles.input_field} input form-control`}
+                              style={{ height: '103px' }}
+                              required
+                              type="text"
+                              name="senderToReceiverInformation"
+                              defaultValue={lcData?.senderToReceiverInformation}
+                              onChange={(e) => {
+                                saveLcData(e.target.name, e.target.value)
+                              }}
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              (72) Sender To Receiver Information
+                            </label>
+                          </Col>
+                        </Row>
+                      </div>
                     </div>
                   </div>
                 </div>
