@@ -458,13 +458,18 @@ function Index() {
   }
 
   const handleUpdateRevisedMarginMoney = () => {
-    let fd = new FormData()
-    fd.append('isActive', true)
-    fd.append('additionalPDC', forCalculation.additionalPDC)
-    fd.append('calculation', JSON.stringify(calcRevised))
-    fd.append('invoiceDetail', JSON.stringify(invoiceDataRevised))
 
-    dispatch(RevisedMarginMoney(fd))
+    let obj = {
+      marginMoneyId: marginData?._id,
+      additionalPDC: forCalculation.additionalPDC,
+      revisedMarginMoney:{
+      isActive : true,
+      invoiceDetail: { ...invoiceDataRevised },
+      calculation: {...calcRevised},
+      }
+    }
+
+    dispatch(RevisedMarginMoney(obj))
   }
 const [active,setActive]=useState("Margin Money")
   return (

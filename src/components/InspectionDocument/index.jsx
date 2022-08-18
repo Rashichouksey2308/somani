@@ -38,7 +38,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderId}`))
 
-  }, [dispatch, orderId])
+  }, [dispatch, orderId, moduleSelected])
 
   const DocDlt = (index) => {
     let tempArray = filteredDoc

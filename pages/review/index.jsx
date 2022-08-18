@@ -51,6 +51,8 @@ import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
 import { GetDocuments, AddingDocument, DeleteDocument } from '../../src/redux/creditQueueUpdate/action'
 import moment from 'moment'
 import { toast } from 'react-toastify'
+import UploadOther from '../../src/components/UploadOther'
+
 
 function Index() {
   const dispatch = useDispatch()
@@ -61,13 +63,13 @@ function Index() {
   const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([])
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([])
 
-  const [newDoc, setNewDoc] = useState({
-    document: [],
-    order: orderList?.termsheet?.order,
-    type: 'notrelevent',
-    name: '',
-    module: 'LeadOnboarding,OrderApproval',
-  })
+  // const [newDoc, setNewDoc] = useState({
+  //   document: [],
+  //   order: orderList?.termsheet?.order,
+  //   type: 'notrelevent',
+  //   name: '',
+  //   module: 'LeadOnboarding,OrderApproval',
+  // })
   useEffect(() => {
     if(companyData){
      let statutory=[]
@@ -88,12 +90,12 @@ function Index() {
     }
   },[companyData])
   console.log(complienceFilter,"complienceFilter")
-  const [manualDocModule, setManualDocModule] = useState(true)
-  const [filteredDoc, setFilteredDoc] = useState([])
+  // const [manualDocModule, setManualDocModule] = useState(true)
+  // const [filteredDoc, setFilteredDoc] = useState([])
   const [gstData, setGstData] = useState({})
   // console.log(newDoc, "newDoc")
 
-  const { documentsFetched } = useSelector((state) => state.review)
+  // const { documentsFetched } = useSelector((state) => state.review)
   //console.log(documentsFetched, 'documentsFetched')
 
   const { orderList } = useSelector((state) => state.buyer)
@@ -118,11 +120,11 @@ function Index() {
   }, [orderList, dispatch])
 
   console.log(orderList?.termsheet?.order, 'termsheetOrder')
-  useEffect(() => {
-    const id = sessionStorage.getItem('orderID')
-    dispatch(GetDocuments(`?order=${id}`))
-  }, [dispatch, companyData, orderList?.termsheet?.order])
-
+  // useEffect(() => {
+   
+  //   dispatch(GetDocuments(`?order=${id}`))
+  // }, [dispatch, companyData, orderList?.termsheet?.order])
+  const id = sessionStorage.getItem('orderID')
 
 
 
@@ -882,34 +884,34 @@ tab[0].children[i].classList.remove('active')
   }
 
 
-  const handleNewDocModule = (e) => {
-    if (e.target.value === 'others') {
-      setManualDocModule(false)
-    } else {
-      setManualDocModule(true)
-      setNewDoc({ ...newDoc, name: e.target.value })
-    }
-  }
+  // const handleNewDocModule = (e) => {
+  //   if (e.target.value === 'others') {
+  //     setManualDocModule(false)
+  //   } else {
+  //     setManualDocModule(true)
+  //     setNewDoc({ ...newDoc, name: e.target.value })
+  //   }
+  // }
 
-  const uploadDocumentHandler = () => {
-    const fd = new FormData()
-    console.log(newDoc, newDoc.document, "pdfFile", newDoc.module)
-    fd.append('document', newDoc.document)
-    fd.append('module', newDoc.module)
-    fd.append('order', orderList?.termsheet?.order)
-    // fd.append('type', newDoc.type))
-    fd.append('name', newDoc.name)
+  // const uploadDocumentHandler = () => {
+  //   const fd = new FormData()
+  //   console.log(newDoc, newDoc.document, "pdfFile", newDoc.module)
+  //   fd.append('document', newDoc.document)
+  //   fd.append('module', newDoc.module)
+  //   fd.append('order', orderList?.termsheet?.order)
+  //   // fd.append('type', newDoc.type))
+  //   fd.append('name', newDoc.name)
 
-    dispatch(AddingDocument(fd))
-  }
+  //   dispatch(AddingDocument(fd))
+  // }
 
 
-  const uploadDocument2 = (e) => {
-    const newUploadDoc1 = { ...newDoc }
-    newUploadDoc1.document = e.target.files[0]
-    setNewDoc(newUploadDoc1)
-  }
-  console.log(newDoc, "documents")
+  // const uploadDocument2 = (e) => {
+  //   const newUploadDoc1 = { ...newDoc }
+  //   newUploadDoc1.document = e.target.files[0]
+  //   setNewDoc(newUploadDoc1)
+  // }
+  // console.log(newDoc, "documents")
 
   const GstDataHandler = (data) => {
     console.log(data, "gst")
@@ -1975,260 +1977,16 @@ const [totalCourt,setTotalCourt]=useState({
                     approvedCredit={approvedCredit}
                   />
                 </div>
+
+
                 <div
                   className="tab-pane fade"
                   id="DocumentsTab"
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <div className={`${styles.main} vessel_card card border_color mb-4`}>
-                      <div
-                        className={`${styles.head_container} card-header bg-transparent border_color head_container d-flex justify-content-between`}
-                        data-toggle="collapse"
-                        data-target="#documents"
-                        aria-expanded="true"
-                        aria-controls="documents"
-                      >
-                        <h3 className={styles.heading}>
-                          Upload Other Documents
-                        </h3>
-                        <span>+</span>
-                      </div>
-                      <div
-                        id="documents"
-                        className="collapse"
-                        aria-labelledby="documents"
-                        data-parent="#profileAccordion"
-                      >
-                        <div className={`${styles.dashboard_form} border_color card-body`}>
-                          <Form>
-                            <div className="row align-items-center pb-4">
-                              <div
-                                className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
-                              >
-                                <div className="text-center">
-                                  <img
-                                    className={`${styles.upload_image} img-fluid`}
-                                    src="/static/browse.svg"
-                                    alt="Browse"
-                                  />
-                                  <p className={styles.drop_para}>
-                                    Drop Files here or<br />
+                  <UploadOther module='LeadOnboarding&OrderApproval' orderid={id} />
 
-                                    <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        onChange={(e) => uploadDocument2(e)}
-                                        type="file"
-                                        name="myfile"
-                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-
-                                      />
-                                      <a href="#">Browse</a>
-                                    </div>
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="col-md-4 offset-md-1 col-sm-6">
-                                <Form.Group className={styles.form_group}>
-                                  <div className='d-flex'>
-                                    <select onChange={(e) => handleNewDocModule(e)}
-                                      className={`${styles.value} ${styles.customSelect} input form-control`}
-                                      id="docType"
-                                    >
-                                      <option value="CertificateofIncorporation">Certificate of Incorporation</option>
-                                      <option value="IECCertificate">IEC Certificate</option>
-                                      <option value="BusinessRegistrationCertificate ">Business Registration Certificate </option>
-                                      <option value="PANCard">PAN Card</option>
-                                      <option value="GSTCertificate">GST Certificate</option>
-                                      <option value="BankReferenceLetter">Bank Reference Letter</option>
-                                      <option value="FinancialYear ">Financial Year </option>
-
-                                      <option value="others">Others</option>
-                                    </select>
-                                    <Form.Label
-                                      className={`${styles.label} label_heading`}
-                                    >
-                                      Document Type
-                                    </Form.Label>
-                                    <img
-                                      className={`${styles.arrow} image_arrow img-fluid`}
-                                      src="/static/inputDropDown.svg"
-                                      alt="Search"
-                                    />
-                                  </div>
-                                </Form.Group>
-                                <Form.Group className={styles.form_group}>
-                                  <Form.Label
-                                    className={`${styles.label} label_heading`}
-                                  >
-                                    Please Specify Document Name
-                                  </Form.Label>
-                                  <input
-                                    onChange={(e) => setNewDoc({ ...newDoc, name: e.target.value })}
-                                    className={`${styles.value} input form-control`}
-                                    type="text"
-                                    placeholder="Insurance Quotation"
-                                    disabled={manualDocModule}
-                                  />
-                                </Form.Group>
-                                <div onClick={uploadDocumentHandler} className={styles.uploadBtnWrapper}>
-                                  <input
-                                  />
-                                  <button
-                                    className={`${styles.upload_button} btn`}
-
-
-                                  >
-                                    Upload
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </Form>
-                        </div>
-
-                        <div className={styles.table_container}>
-                          <div
-                            className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
-                          >
-                            <div className='d-flex align-items-center'>
-                              <select
-                                className={`${styles.dropDown} ${styles.customSelect} input form-control`}
-                              >
-                                <option>Lead Onboarding &amp; Order Approval</option>
-                                <option>Agreements, Insurance &amp; LC Opening</option>
-                                <option>Loading-Transit-Unloading</option>
-                                <option>Custom Clearance And Warehousing</option>
-                                <option value="Others">Others</option>
-                              </select>
-                              <img
-                                className={`${styles.arrow2} img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
-                            </div>
-                            <div className={`d-flex align-items-center ${styles.searchBarContainer} `}>
-                              <img className={` ${styles.searchImage} img-fluid`} src="/static/search-grey.svg" alt="Search"></img>
-                              <input
-                                className={`${styles.searchBar} input form-control`}
-                                placeholder="Search"
-                              >
-
-                              </input>
-                            </div>
-                          </div>
-                          <table
-                            className={`${styles.table} table`}
-                            cellPadding="0"
-                            cellSpacing="0"
-                            border="0"
-                          >
-                            <thead>
-                              <tr>
-                                <th>DOCUMENT NAME</th>
-                                <th>FORMAT</th>
-                                <th>DOCUMENT DATE</th>
-                                <th>UPLOADED BY</th>
-                                <th>STATUS</th>
-                                <th>ACTION</th>
-
-
-                              </tr>
-                            </thead>
-                            <tbody>
-
-                              {/* <tr className="uploadRowTable">
-                                <td className={`${styles.doc_name}`}>
-                                  Insurance Quotation
-                                </td>
-                                <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                </td>
-                                <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
-                                </td>
-                                <td className={styles.doc_row}>John Doe</td>
-                                <td>
-                                  <span
-                                    className={`${styles.status} ${styles.approved}`}
-                                  ></span>
-                                  Verified
-                                </td>
-                                <td colSpan="2">
-                                  <img
-                                    src="/static/delete.svg"
-                                    className={`${styles.delete_image} img-fluid mr-3`}
-                                    alt="Bin"
-                                  />
-                                  <img
-                                    src="/static/upload.svg"
-                                    className="img-fluid mr-3"
-                                    alt="Share"
-                                  />
-                                  <img
-                                    src="/static/drive_file.svg"
-                                    className={`${styles.edit_image} img-fluid mr-3`}
-                                    alt="Share"
-                                  />
-                                </td>
-                              </tr> */}
-                              {documentsFetched && documentsFetched?.documents?.map((document, index) => {
-                                if (document.deleted) {
-                                  return null
-                                } else {
-                                  return (
-                                    <tr key={index} className="uploadRowTable">
-                                      <td className={`${styles.doc_name}`}>
-                                        {document.name}
-                                      </td>
-                                      <td>
-                                        <img
-                                          src="/static/pdf.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
-                                      </td>
-                                      <td className={styles.doc_row}>
-                                        {document.date}
-                                      </td>
-                                      <td className={styles.doc_row}>{document.uploadedBy?.fName} {document.uploadedBy?.lName}</td>
-                                      <td>
-                                        <span
-                                          className={`${styles.status} ${styles.approved}`}
-                                        ></span>
-                                        {document?.verification?.status}
-                                      </td>
-                                      <td colSpan="2">
-                                        <img
-                                          onClick={() => dispatch(DeleteDocument({ orderDocumentId: documentsFetched._id, name: document.name }))}
-                                          src="/static/delete.svg"
-                                          className={`${styles.delete_image} img-fluid mr-3`}
-                                          alt="Bin"
-                                        />
-                                        <img
-                                          src="/static/upload.svg"
-                                          className="img-fluid mr-3"
-                                          alt="Share"
-                                        />
-                                        <img
-                                          src="/static/drive_file.svg"
-                                          className={`${styles.edit_image} img-fluid mr-3`}
-                                          alt="Share"
-                                        />
-                                      </td>
-                                    </tr>
-                                  )
-                                }
-                              })}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
