@@ -2,7 +2,8 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 
-function index({data,Heading, val }) {
+function index({data,Heading, val,totalData }) {
+  console.log(data,"dati")
   const totalNumberOfCases = data?.length
   //const pendingCases = data.filter((e)=> e.)
   console.log(totalNumberOfCases,'totalNumberOfCases')
@@ -23,7 +24,7 @@ function index({data,Heading, val }) {
             <Col md={3} sm={2}>
               <div className={`${styles.head} mb-0 d-flex align-items-center `}>
                 <span className={``}>Pending Case</span>
-                <span className={`${styles.lower} sub_heading`}>{data?.pendingCase}</span>
+                <span className={`${styles.lower} sub_heading`}>{totalData?.pendingCase}</span>
               </div>
             </Col>
             <Col md={2} sm={2}>
@@ -31,7 +32,7 @@ function index({data,Heading, val }) {
                 className={`${styles.head}  mb-0 d-flex align-items-center `}
               >
                 <span>Disposed case</span>
-                <span className={`${styles.lower} sub_heading`}>{data?.disposedCase}</span>
+                <span className={`${styles.lower} sub_heading`}>{totalData?.disposedCase}</span>
               </div>
             </Col>
             <Col md={3} sm={2}>
@@ -40,7 +41,7 @@ function index({data,Heading, val }) {
                 <div className={styles.chart}>
                   <div className={styles.container}>
                     <div className={styles.fill}></div>
-                    <span className={`sub_heading`}>{data?.totalCase}</span>
+                    <span className={`sub_heading`}>{totalData?.totalCase}</span>
                   </div>
                 </div>
               </div>
@@ -76,7 +77,7 @@ function index({data,Heading, val }) {
                 </tr>
               </thead>
               <tbody>
-               {data && data?.cases?.map((courtCase, index)=> (
+               {data && data?.map((courtCase, index)=> (
                  <tr key={index}>
                   <td>{index+1}</td>
                   <td className="">{courtCase.cin}</td>
