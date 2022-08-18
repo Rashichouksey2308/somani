@@ -2250,6 +2250,7 @@ const [totalCourt,setTotalCourt]=useState({
           leftButtonName={``}
           rightButtonName={`Next`}
           handleApprove={onNext}
+          handleReject={()=>{console.log("download pdf")}}
         />
       ) : null}
       {selectedTab == 'GST' ? (

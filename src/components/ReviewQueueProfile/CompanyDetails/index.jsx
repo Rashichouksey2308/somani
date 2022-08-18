@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { UpdateCompanyDetails } from '../../../redux/companyDetail/action'
 
 function Index({ order, companyDetail }) {
-  // console.log(companyDetail, 'companyDetail')
+  console.log(companyDetail, 'companyDetail')
 
   const [updateCompany, setUpdateCompany] = useState({})
 
@@ -136,7 +136,7 @@ function Index({ order, companyDetail }) {
                   Contact Number
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.contactNumber}
+                 +91 {companyDetail?.profile?.companyDetail?.contactNumber}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
