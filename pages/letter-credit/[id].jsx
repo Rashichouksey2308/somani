@@ -7,6 +7,7 @@ import DateCalender from '../../src/components/DateCalender'
 import SaveBar from '../../src/components/SaveBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action'
+import Router from 'next/router'
 
 function Index() {
   const dispatch = useDispatch()
@@ -209,6 +210,16 @@ function Index() {
     const newInput = { ...lcDoc }
     newInput.lcDraftDoc = e.target.files[0]
     setLcDoc(newInput)
+  }
+
+  const handleRightButton = () => {
+    let fd = new FormData()
+    fd.append('lcApplication', JSON.stringify(lcData))
+    fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+    fd.append('document1', lcDoc.lcDraftDoc)
+
+    dispatch(UpdateAmendment(fd))
+
   }
 
   const handleSubmit = () => {
@@ -560,7 +571,7 @@ function Index() {
           />
         </div>
       </div>
-      <SaveBar handleSave={handleSubmit} rightBtn="Share" />
+      <SaveBar handleSave={handleSubmit} rightBtnClick={handleRightButton} rightBtn="Share" />
     </>
   )
 }

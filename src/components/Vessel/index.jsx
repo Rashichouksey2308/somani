@@ -54,7 +54,7 @@ function Index({
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div
-            className={`${styles.tab_header} d-flex align-items-center justify-content-between`}
+            className={`${styles.tab_header} d-lg-flex d-inline-block align-items-center justify-content-between`}
           >
             <img
               src="/static/keyboard_arrow_right-3.svg"
@@ -64,7 +64,7 @@ function Index({
             <h1 className={`${styles.title} heading`}>{companyName}</h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
-                <span>Last Modified:</span> 28 Jan,11:34am
+                <div>Last Modified:</div> 28 Jan,11:34am
               </div>
             </div>
           </div>
@@ -507,7 +507,20 @@ function Index({
                                     className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
                                   >
                                     <div className="d-flex">
-                                      <select
+                                    <input
+                                    id="yearOfBuilt"
+                                    defaultValue={vesselInfo.yearOfBuilt}
+                                    className={`${styles.input_field} input form-control`}
+                                    type="number"
+                                    onChange={(e) =>
+                                      onVesselInfoChangeHandlerForBulk(
+                                        e,
+                                        index,
+                                      )
+                                    }
+                                    required
+                                  />
+                                      {/* <select
                                         id="yearOfBuilt"
                                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                         required
@@ -520,7 +533,7 @@ function Index({
                                             index,
                                           )
                                         }
-                                      >
+                                      > 
                                         <option
                                           value={moment(
                                             vesselInfo.yearOfBuilt,
@@ -530,7 +543,7 @@ function Index({
                                             vesselInfo.yearOfBuilt,
                                           ).format('YYYY')}
                                         </option>
-                                      </select>
+                                      </select>*/}
                                       <label
                                         className={`${styles.label_heading} label_heading`}
                                       >
@@ -742,6 +755,7 @@ function Index({
                                 <div
                                   className={`${styles.form_group} col-md-4 col-sm-6`}
                                 >
+                                  
                                   <input
                                     id="yearOfBuilt"
                                     defaultValue={newVessel.yearOfBuilt}

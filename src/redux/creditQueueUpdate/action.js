@@ -217,7 +217,7 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
         dispatch(addingDocumentsSuccess(response.data.data))
         let toastMessage = 'Document Successfully Added'
         if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
+          toast.success(toastMessage, { toastId: toastMessage })
         }
       } else {
         dispatch(addingDocumentsFailed(response.data.data))
