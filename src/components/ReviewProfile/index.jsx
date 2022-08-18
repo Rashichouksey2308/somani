@@ -16,7 +16,7 @@ function Index({ handleChange, reviewedProfile }) {
   ]
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
 
-  const DropDown = (values, name) => {
+  const DropDown = (values, name, disabled) => {
     return (
       <td>
         <div className="d-flex align-items-center">
@@ -27,6 +27,7 @@ function Index({ handleChange, reviewedProfile }) {
             onChange={(e) => {
               handleChange(e.target.name, e.target.value)
             }}
+            disabled={disabled}
           >
             {' '}
             {values.map((options) => {
@@ -46,7 +47,38 @@ function Index({ handleChange, reviewedProfile }) {
   const clearData = () => {
     document.getElementById('ReviewProfileForm').reset()
   }
-
+  const [fields,setFields]=useState([
+    {
+      isEdit:true
+    },
+    {
+      isEdit:true
+    },
+    {
+      isEdit:true
+    },
+    {
+      isEdit:true
+    },
+    {
+      isEdit:true
+    },
+    {
+      isEdit:true
+    },
+    {
+      isEdit:true
+    },
+    {
+      isEdit:true
+    },
+  ])
+  const handleCheckBox=(index)=>{
+    let tempArr=[...fields]
+    tempArr[index].isEdit=!tempArr[index].isEdit
+    setFields([...tempArr])
+  }
+  console.log(fields,"fields")
   // console.log(reviewedProfile, "this is reviewed")
 
   return (
@@ -119,14 +151,19 @@ function Index({ handleChange, reviewedProfile }) {
                     </div>
                   </td>
                   <td>
+                    {!reviewedProfile?.transactionType?.apiResponse?
                     <input
-                      //onChange={(e) => handleCheckBox(e)}
+                      onChange={(e) => handleCheckBox(0)}
                       className={styles.checkBox}
                       type="checkbox"
+                     
+                      
                     />
+                    :null}
+                    
                   </td>
                   {!reviewedProfile?.transactionType?.apiResponse &&
-                    DropDown(transactionTypeDropdown, 'transactionType')}
+                    DropDown(transactionTypeDropdown, 'transactionType', fields[0].isEdit)}
                 </tr>
                 <tr className={`${styles.table_row} border_color table_row`}>
                   <td>Type Of Business</td>
@@ -145,14 +182,16 @@ function Index({ handleChange, reviewedProfile }) {
                     </div>
                   </td>
                   <td>
+                   {!reviewedProfile?.typeOfBusiness?.apiResponse?
                     <input
-                      //onChange={(e) => handleCheckBox(e)}
+                      onChange={(e) => handleCheckBox(1)}
                       className={styles.checkBox}
                       type="checkbox"
                     />
+                   :null}
                   </td>
                   {!reviewedProfile?.typeOfBusiness?.apiResponse &&
-                    DropDown(typeOfBusinessDropdown, 'typeOfBusiness')}
+                    DropDown(typeOfBusinessDropdown, 'typeOfBusiness',fields[1].isEdit)}
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
@@ -172,11 +211,13 @@ function Index({ handleChange, reviewedProfile }) {
                     </div>
                   </td>
                   <td>
+                     {!reviewedProfile?.turnOver?.apiResponse?
                     <input
-                      //onChange={(e) => handleCheckBox(e)}
+                     onChange={(e) => handleCheckBox(3)}
                       className={styles.checkBox}
                       type="checkbox"
                     />
+                   :null}
                   </td>
                   <td>
                     {!reviewedProfile?.turnOver?.apiResponse && (
@@ -188,6 +229,7 @@ function Index({ handleChange, reviewedProfile }) {
                         onBlur={(e) =>
                           handleChange(e.target.name, Number(e.target.value * 10000000))
                         }
+                        disabled={fields[3].isEdit}
                       />
                     )}
                   </td>
@@ -210,14 +252,16 @@ function Index({ handleChange, reviewedProfile }) {
                     </div>
                   </td>
                   <td>
+                    {!reviewedProfile?.commodity?.apiResponse?
                     <input
-                      //onChange={(e) => handleCheckBox(e)}
+                     onChange={(e) => handleCheckBox(4)}
                       className={styles.checkBox}
                       type="checkbox"
                     />
+                   :null}
                   </td>
                   {!reviewedProfile?.commodity?.apiResponse &&
-                    DropDown(commodityDropdown, 'commodity')}
+                    DropDown(commodityDropdown, 'commodity',fields[4].isEdit)}
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
@@ -237,11 +281,13 @@ function Index({ handleChange, reviewedProfile }) {
                     </div>
                   </td>
                   <td>
+                     {!reviewedProfile?.orderValues?.apiResponse?
                     <input
-                      //onChange={(e) => handleCheckBox(e)}
+                     onChange={(e) => handleCheckBox(5)}
                       className={styles.checkBox}
                       type="checkbox"
                     />
+                   :null}
                   </td>
                   <td>
                     {!reviewedProfile?.orderValues?.apiResponse && (
@@ -253,6 +299,7 @@ function Index({ handleChange, reviewedProfile }) {
                         onBlur={(e) =>
                           handleChange(e.target.name, Number(e.target.value * 10000000))
                         }
+                        disabled={fields[5].isEdit}
                       />
                     )}
                   </td>
@@ -275,14 +322,17 @@ function Index({ handleChange, reviewedProfile }) {
                     </div>
                   </td>
                   <td>
+                    {!reviewedProfile?.countryOfOrigin?.apiResponse?
                     <input
-                      //onChange={(e) => handleCheckBox(e)}
+                      onChange={(e) => handleCheckBox(6)}
                       className={styles.checkBox}
                       type="checkbox"
+                      disabled={fields[6].isEdit}
                     />
+                   :null}
                   </td>
                   {!reviewedProfile?.countryOfOrigin?.apiResponse &&
-                    DropDown(countryOfOriginDropdown, 'countryOfOrigin')}
+                    DropDown(countryOfOriginDropdown, 'countryOfOrigin',fields[6].isEdit)}
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
@@ -302,14 +352,16 @@ function Index({ handleChange, reviewedProfile }) {
                     </div>
                   </td>
                   <td>
+                    {!reviewedProfile?.portOfDischarge?.apiResponse?
                     <input
-                      //onChange={(e) => handleCheckBox(e)}
+                     onChange={(e) => handleCheckBox(7)}
                       className={styles.checkBox}
                       type="checkbox"
                     />
+                   :null}
                   </td>
                   {!reviewedProfile?.portOfDischarge?.apiResponse &&
-                    DropDown(portOfDischargeDropdown, 'portOfDischarge')}
+                    DropDown(portOfDischargeDropdown, 'portOfDischarge',fields[7].isEdit)}
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
@@ -336,12 +388,13 @@ function Index({ handleChange, reviewedProfile }) {
                     </div>
                   </td>
                   <td>
+                    {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse?
                     <input
-                      name="ExpectedDateOfShipment"
-                      //onChange={(e) => handleCheckBox(e)}
+                      onChange={(e) => handleCheckBox(8)}
                       className={styles.checkBox}
                       type="checkbox"
                     />
+                   :null}
                   </td>
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse && (
@@ -353,6 +406,7 @@ function Index({ handleChange, reviewedProfile }) {
                         onBlur={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
+                        disabled={fields[8].isEdit}
                       />
                     )}
                   </td>

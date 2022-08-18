@@ -1220,16 +1220,21 @@ const [totalCourt,setTotalCourt]=useState({
             <h1 className={`${styles.title} heading`}>
               {orderList?.company?.companyName}
             </h1>
-            <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
+            {selectedTab=="CAM"?
+             <>
+              <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
               <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>Unit :</h5>
               <div className="d-flex align-items-center position-relative">
-                <select className={`${styles.select} ${styles.customSelect} accordion_body form-select`} aria-label="Default select example">
-                  <option selected value="Crores">Crores</option>
-                </select>
-                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg"
-                  alt="Search" />
+              <select className={`${styles.select} ${styles.customSelect} accordion_body form-select`} aria-label="Default select example">
+              <option selected value="Crores">Crores</option>
+              </select>
+              <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg"
+              alt="Search" />
               </div>
-            </div>
+              </div>
+            </>
+            :null  
+          }
             {uploadBtn ? (
               <div className="">
                 {uploadButton(dispatch, orderList, companyData)}{' '}

@@ -3242,7 +3242,7 @@ const customerRating = (dataline, lineOption) => {
                       ></circle>
                     </svg>
                     <img
-                      src={`/static/gauge.svg`}
+                      src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
                     ></img>
                     <div className={`${styles.score}`}>9.0</div>

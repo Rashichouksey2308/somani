@@ -3,6 +3,7 @@ import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
+import { addPrefixOrSuffix } from 'utils/helper'
 
 const Index = ({ orderDetail, saveOrderData }) => {
   const saveDate = (value, name) => {
@@ -10,7 +11,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
     let text = d.toISOString()
     saveOrderData(name, text)
   }
-
+  console.log(orderDetail,"orderDetail")
   return (
     <div className={`${styles.main} vessel_card card border-color`}>
       <div
@@ -26,7 +27,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
             <h5 className={`${styles.unit_label} accordion_Text`}>
               Quantity :
             </h5>
-            <select className={`${styles.options} accordion_DropDown`} name='unitOfQuantity' onChange={(e)=>{saveOrderData(e.target.name, e.target.value)}}>
+            <select className={`${styles.options} accordion_DropDown`} name='unitOfQuantity' 
+            onChange={(e)=>{saveOrderData(e.target.name, e.target.value)}}>
               <option>{orderDetail?.unitOfQuantity.toUpperCase()}</option>
               {/* <option selected>MT</option> */}
             </select>
@@ -34,7 +36,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
-            <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' onChange={(e)=>saveOrderData(e.target.name, e.target.value)}>
+            <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' 
+            onChange={(e)=>saveOrderData(e.target.name, e.target.value)}>
               <option>{orderDetail?.unitOfValue=="Cr"?"Crores":null}</option>
               {/* <option selected>Crores</option> */}
               <option>Million</option>
@@ -110,7 +113,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="quantity"
-                  defaultValue={orderDetail?.quantity}
+                  defaultValue={addPrefixOrSuffix(orderDetail?.quantity,orderDetail.unitOfQuantity.toUpperCase())}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -126,7 +129,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="orderValue"
-                  defaultValue={orderDetail?.orderValue}
+                  defaultValue={addPrefixOrSuffix(orderDetail?.orderValue,orderDetail.unitOfValue)}
+                 
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -154,11 +158,17 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                   <select className={`${styles.input_field} ${styles.customSelect} input form-control`} name='countryOfOrigin'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} required>
-                  <option value="volvo">{orderDetail?.countryOfOrigin}</option>
+                   <select className={`${styles.input_field} ${styles.customSelect} input form-control`} 
+                   name='countryOfOrigin'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} 
+                   value={orderDetail?.countryOfOrigin}
+                   required>
+                  
+                 
                   <option value="India">India</option>
-                  <option value="America">America</option>
-                  <option value="Russia">Russia</option>
+                  <option value="America">Australia</option>
+                  <option value="Russia"> Sri Lanka</option>
+                  <option value="Russia"> Qatar</option>
+                  <option value="Russia"> Dubai</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Country Of Origin<strong className="text-danger">*</strong>
