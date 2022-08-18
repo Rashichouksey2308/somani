@@ -90,7 +90,13 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleRoute, handle
                     alt="Sort icon"
                   />{' '}
                 </th>
-                <th>BUYER NAME</th>
+                <th>BUYER NAME{' '}
+                  <img
+                    className={`mb-1`}
+                    src="/static/icons8-sort-24.svg"
+                    alt="Sort icon"
+                  />{' '}
+                </th>
                 <th>COMMODITY</th>
                 <th>{pageType}</th>
                 {/* {isVesselHeader ? (
