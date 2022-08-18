@@ -20,8 +20,8 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
                 <div className={`${styles.dashboard_form} card-body`}>
                     <Form>
                         <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.<select onChange={(e) => onChangeDropDown(e)} className={styles.igpl_para}>
-                            <option value={`(IGPL)`}>Indo German International Private Limited (IGPL)</option>
-                            <option value={`(EISL)`}> Emergent Industrial Solutions Limited (EISL)</option>
+                            <option value={`Indo German International Private Limited (IGPL)`}>Indo German International Private Limited (IGPL)</option>
+                            <option value={`Emergent Industrial Solutions Limited (EISL)`}> Emergent Industrial Solutions Limited (EISL)</option>
                         </select>
 
                             will provide proof of all expenses to the Buyer.</div>
@@ -206,8 +206,12 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
                                             <label className={`${styles.checkbox_label} termsheet_Text`} htmlFor="vehicle2">IGST with Cess, if applicable</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
-                                            <input id="cimsCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.cmaFeesIncludingSupervisionAndSurvey} onChange={onChangeDutyAndTaxes} />
+                                            <input id="cimsCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.cimsCharges} onChange={onChangeDutyAndTaxes} />
                                             <label className={`${styles.checkbox_label} termsheet_Text`}>CIMS Charges (incase Commodity is Coal)</label>
+                                        </div>
+                                        <div className='pt-4 d-flex align-items-center'>
+                                            <input id="taxCollectedatSource" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.taxCollectedatSource} onChange={onChangeDutyAndTaxes} />
+                                            <label className={`${styles.checkbox_label} termsheet_Text`}>Tax Collected at Source ( if applicable )</label>
                                         </div>
                                     </div>
                                 </div>
