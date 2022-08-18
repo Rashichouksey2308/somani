@@ -153,7 +153,7 @@ export const UpdateLcAmendment = (payload) => async (dispatch, getState, api) =>
         if (!toast.isActive(toastMessage)) {
           toast.success(toastMessage, { toastId: toastMessage })
         }
-        Router.push('/amend-letter')
+        Router.push('/letter-credit/id')
       } else {
         dispatch(updatingLcAmendmentFailed(response.data.data))
         let toastMessage = 'UPDATE REQUEST FAILED'
