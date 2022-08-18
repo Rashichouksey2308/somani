@@ -437,17 +437,21 @@
             border: 2px solid #E6EAF0;
             border-radius: 6px;
             p {
-                padding: 15px;
                 font-size: 20px;
                 font-weight: bold;
                 line-height: 25px;
+                padding: 22px 35px 10px;
                 margin: 0 !important;
             }
             .row {
                 margin: 0 !important;
                 padding: 15px;
                 div {
+                    width: 20%;
                     max-width: 160px;
+                    input {
+                        transform: scale(1.5);
+                    }
                 }
             }
             .hr {
