@@ -5,7 +5,7 @@ import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule, UpdateLcAmendment } from 'redux/lcModule/action'
-import SubmitBar from '../../components/PreviousBar/SubmitBar'
+import ShareBar from '../LCredit/ShareBar'
 import Router from 'next/router'
 import InspectionDocument from '../InspectionDocument'
 import { toast } from 'react-toastify'
@@ -17,12 +17,12 @@ function Index() {
   const [editCurrent, setEditCurrent] = useState()
 
   const handleEdit = (val) => {
-    console.log("THIS IS HANDLE EDIT", val)
+    console.log('THIS IS HANDLE EDIT', val)
     setEditCurrent(val)
     setEditInput(true)
   }
 
-  console.log(editCurrent, "THIS IS EDIT LC", editInput)
+  console.log(editCurrent, 'THIS IS EDIT LC', editInput)
 
   const { lcModule } = useSelector((state) => state.lc)
 
@@ -190,15 +190,14 @@ function Index() {
   const [fieldType, setFieldType] = useState(false)
 
   const dropDownChange = (e) => {
-
-    if(e.target.value == 'latestDateOfShipment' || e.target.value == 'dateOfExpiry'){
+    if (
+      e.target.value == 'latestDateOfShipment' ||
+      e.target.value == 'dateOfExpiry'
+    ) {
       setFieldType(true)
-    }else{
+    } else {
       setFieldType(false)
-      
     }
-    
-  
 
     let newInput = { ...clauseObj }
 
@@ -210,8 +209,6 @@ function Index() {
     newInput['dropDownValue'] = val1
 
     setClauseObj(newInput)
-    
-    
   }
 
   const arrChange = (name, value) => {
@@ -234,15 +231,17 @@ function Index() {
 
   const addToArr = () => {
     const newArr = [...clauseArr]
-    if(clauseArr.map((e)=>e.dropDownValue).includes(clauseObj.dropDownValue)){
+    if (
+      clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
+    ) {
       let toastMessage = 'Please select a different Clause from drop down'
-      if(!toast.isActive(toastMessage)){
-        toast.error(toastMessage, {toastId: toastMessage})
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
       }
-    }else{
-    newArr.push(clauseObj)
-    
-    setClauseArr(newArr)
+    } else {
+      newArr.push(clauseObj)
+
+      setClauseArr(newArr)
     }
   }
 
@@ -254,13 +253,13 @@ function Index() {
   }
 
   const [lcDoc, setLcDoc] = useState({
-    lcDraftDoc : null
+    lcDraftDoc: null,
   })
 
-  console.log(lcDoc, "THIS IS LOC DOC")
+  console.log(lcDoc, 'THIS IS LOC DOC')
 
   const uploadDocument1 = (e) => {
-    const newInput = {...lcDoc}
+    const newInput = { ...lcDoc }
     newInput.lcDraftDoc = e.target.files[0]
     setLcDoc(newInput)
   }
@@ -274,6 +273,7 @@ function Index() {
 
     // console.log(fd, 'IBJJJ')
     dispatch(UpdateLcAmendment(fd))
+    Router.push('/amend-letter')
   }
 
   return (
@@ -480,29 +480,35 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex">
-                         {!fieldType ? <input
-                            className={`${styles.input_field} input form-control`}
-                            required
-                            type='text'
-                            ref={inputRef}
-                            defaultValue={
-                              editInput ? editCurrent?.newValue : ''
-                            }
-                            onChange={(e) =>
-                              {inputRef.current.value = '';
-                              arrChange('newValue', e.target.value)}
-                            }
-                          /> :  
-                          <><DateCalender
-                              name="newValue"
-                              // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
-                              saveDate={saveDropDownDate}
-                              // labelName="New Value" 
+                          {!fieldType ? (
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              required
+                              type="text"
+                              ref={inputRef}
+                              defaultValue={
+                                editInput ? editCurrent?.newValue : ''
+                              }
+                              onChange={(e) => {
+                                inputRef.current.value = ''
+                                arrChange('newValue', e.target.value)
+                              }}
+                            />
+                          ) : (
+                            <>
+                              <DateCalender
+                                name="newValue"
+                                // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
+                                saveDate={saveDropDownDate}
+                                // labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
                                 src="/static/caldericon.svg"
-                                alt="Search" /></>}
+                                alt="Search"
+                              />
+                            </>
+                          )}
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
@@ -608,7 +614,7 @@ function Index() {
           </div>
         </div>
       </div>
-      <SubmitBar handleSubmit={handleSubmit} />
+      <ShareBar handleSubmit={handleSubmit} />
     </>
   )
 }
