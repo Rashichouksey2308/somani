@@ -19,7 +19,7 @@
           font-size: 28px;
         }
         @include respond(phone) {
-          font-size: 24px;
+          font-size: 22px;
         }
       }
       img {
@@ -39,14 +39,9 @@
         font-weight: normal;
         line-height: 16px;
         margin-top: 7px;
-        @include respond(md-desktop) {
-          font-size: 14px;
-        }
-        @include respond(sm-desktop) {
-          font-size: 12px;
-        }
+
         @include respond(phone) {
-          font-size: 11px;
+          font-size: 12px;
         }
         span {
           color: #283756;

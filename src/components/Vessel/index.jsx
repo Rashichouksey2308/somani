@@ -54,7 +54,7 @@ function Index({
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div
-            className={`${styles.tab_header} d-flex align-items-center justify-content-between`}
+            className={`${styles.tab_header} d-lg-flex d-inline-block align-items-center justify-content-between`}
           >
             <img
               src="/static/keyboard_arrow_right-3.svg"
@@ -64,7 +64,7 @@ function Index({
             <h1 className={`${styles.title} heading`}>{companyName}</h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
-                <span>Last Modified:</span> 28 Jan,11:34am
+                <div>Last Modified:</div> 28 Jan,11:34am
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule, UpdateLcAmendment } from 'redux/lcModule/action'
-import ShareBar from '../LCredit/ShareBar'
+import SaveBar from '../SaveBar'
 import Router from 'next/router'
 import InspectionDocument from '../InspectionDocument'
 import { toast } from 'react-toastify'
@@ -273,7 +273,7 @@ function Index() {
 
     // console.log(fd, 'IBJJJ')
     dispatch(UpdateLcAmendment(fd))
-    Router.push('/amend-letter')
+    //Router.push('/amend-letter')
   }
 
   return (
@@ -611,12 +611,16 @@ function Index() {
               orderId={lcModuleData?.order?._id}
               uploadDocument1={uploadDocument1}
               documentName="LC DRAFT"
-              module='Agreements&Insurance&LC&Opening'
+              module="Agreements&Insurance&LC&Opening"
             />
           </div>
         </div>
       </div>
-      <ShareBar handleSubmit={handleSubmit} />
+      <SaveBar
+        handleSave={handleSubmit}
+        //rightBtnClick={handleRoute}
+        rightBtn="Share"
+      />
     </>
   )
 }
