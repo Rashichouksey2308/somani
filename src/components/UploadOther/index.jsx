@@ -246,6 +246,7 @@ const Index = ({ orderid, module }) => {
                           </option>
                         </>
                       )}
+                      <option value='others'>Other</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
                       Document Type

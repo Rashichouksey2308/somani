@@ -86,7 +86,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
   const handleChangeGstin = (e) => {
     const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === e.target.value)
-    console.log(filteredgstin.length, 'filteredgstin')
+    // console.log(filteredgstin.length, 'filteredgstin')
     if (filteredgstin.length === 1) {
       filteredgstin?.map((gstData) => {
         const data = { ...gstData }
@@ -975,10 +975,10 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     <td colSpan={2}>
                       Recurring Sales
                     </td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage}%</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.value?.toFixed(2)}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage.toFixed(2)}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.value.toFixed(2)}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage.toFixed(2)}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
@@ -1351,7 +1351,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
                 >
                   <tr>
                     <th className={`${styles.first}`}>Principal/ HSN Wise Sales</th>
-                    <th colSpan={6}><span style={{color: "#2837566A"}}>Financial Period:</span> MAR 2020 - APR 2021</th>
+                    <th colSpan={6}><span style={{ color: "#2837566A" }}>Financial Period:</span> MAR 2020 - APR 2021</th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td>
@@ -1606,7 +1606,7 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
                             <td>{customer?.ttlVal?.toFixed(2).toLocaleString()}</td>
-                            <td>{customer?.percentageOfTotalSales}%</td>
+                            <td>{customer?.percentageOfTotalSales.toFixed(2)}%</td>
                             <td>{customer?.invoice}</td>
                             <td>{customer?.salesPerInvoice?.toFixed(2).toLocaleString()}</td>
                           </tr>

@@ -108,7 +108,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
         .replaceAll('G', '')
         .replace(/ /g, '')
 
-      let newValue = `${removedValue.trim()}${` `}${type}`
+      let newValue = `${removedValue?.trim()}${` `}${type}`
       console.log('999', type, removedValue, newValue)
       return newValue
     } else {
