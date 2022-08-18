@@ -688,7 +688,6 @@ const Index = () => {
                         </Row>
                       </div>
                     </div>
-                    <hr></hr>
 
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body}`}>
@@ -782,7 +781,6 @@ const Index = () => {
                         </Row>
                       </div>
                     </div>
-                    <hr></hr>
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body}`}>
                         <h5>Additional Information (if Any)</h5>

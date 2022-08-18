@@ -6,6 +6,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 function Index(props) {
   const [addressList, setAddressList] = useState([])
   const [value, setValue] = useState('')
+  const [editField, setEditField] = useState(false)
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Product Specifications') {
@@ -116,14 +117,26 @@ function Index(props) {
                     <div
                       className={`d-flex justify-content-evenly align-items-center`}
                     >
-                      <img
-                        className="img-fluid ml-4"
-                        src="/static/add-btn.svg"
-                        alt="add button"
-                        onClick={() => {
-                          handleEditAddressInput(index)
-                        }}
-                      ></img>
+                      {!editField ? (
+                        <img
+                          className="img-fluid ml-4 mr-4"
+                          src="/static/mode_edit.svg"
+                          alt="edit button"
+                          onClick={() => {
+                            handleEditAddressInput(index)
+                            setEditField(true)
+                          }}
+                        ></img>
+                      ) : (
+                        <img
+                          src="/static/save-3.svg"
+                          className={`${styles.edit_image} ml-4 mr-4`}
+                          alt="save"
+                          onClick={(e) => {
+                            setEditField(false)
+                          }}
+                        />
+                      )}
                       <img
                         src="/static/delete 2.svg"
                         className="img-fluid"

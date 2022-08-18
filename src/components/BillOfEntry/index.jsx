@@ -194,7 +194,12 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       className={styles.radio}
                       inline
                       label="Bulk"
-                      checked={_get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
+                      checked={
+                        _get(
+                          customData,
+                          'order.vessel.vessels[0].shipmentType',
+                          '',
+                        ) == 'Bulk'
                         // customData?.order?.vessel?.vessels[0]?.shipmentType ==
                         // 'Bulk'
                       }
@@ -206,7 +211,12 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       className={styles.radio}
                       inline
                       label="Liner"
-                      checked={_get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner'
+                      checked={
+                        _get(
+                          customData,
+                          'order.vessel.vessels[0].shipmentType',
+                          '',
+                        ) == 'Liner'
                         // customData?.order?.vessel?.vessels[0]?.shipmentType ==
                         // 'Liner'
                       }
