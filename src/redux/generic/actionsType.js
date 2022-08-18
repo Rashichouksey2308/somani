@@ -61,7 +61,7 @@ export const updateGenericData =
           dispatch(submitGenericSuccess(response.data))
           let toastMessage = 'Submmitted'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
+            toast.success(toastMessage, { toastId: toastMessage })
           }
         } else {
           dispatch(submitGenericFailed(response.data.data))

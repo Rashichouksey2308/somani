@@ -4,6 +4,7 @@ import API from '../../utils/endpoints'
 import * as types from './actionType'
 import { toast } from 'react-toastify'
 
+
 const errorMessage = {
   status: 400,
   message: 'Something went wrong',
@@ -167,15 +168,18 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
 export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
   try {
     let cookie = Cookies.get('SOMANI')
+
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    dispatch(VerifyingGst())
     Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(VerifyingGstSuccess(response.data.data))
+
       } else {
         dispatch(VerifyingGstFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
@@ -213,7 +217,7 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
         dispatch(addingDocumentsSuccess(response.data.data))
         let toastMessage = 'Document Successfully Added'
         if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
+          toast.success(toastMessage, { toastId: toastMessage })
         }
       } else {
         dispatch(addingDocumentsFailed(response.data.data))

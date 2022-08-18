@@ -117,7 +117,8 @@ function Index({ shareHolding }) {
         <div id="shareholding" className="collapse" aria-labelledby="shareholding" data-parent="#profileAccordion">
           <div className={`${styles.graphTable} ${styles.cardBody} card-body border_color`}>
             <h3 className="label_heading">Equity Capital</h3>
-            <div className={styles.table_scroll_outer}>
+            <div className={styles.tableParent}>
+              <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 {/* <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <tbody>
@@ -222,7 +223,10 @@ function Index({ shareHolding }) {
                 </table>
               </div>
             </div>
+            </div>
+           
             <h3 className="label_heading">Preference Capital</h3>
+             <div className={styles.tableParent}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
@@ -272,6 +276,7 @@ function Index({ shareHolding }) {
                   </tbody>
                 </table>
               </div>
+            </div>
             </div>
           </div>
         </div>

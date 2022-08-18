@@ -86,7 +86,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
   const handleChangeGstin = (e) => {
     const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === e.target.value)
-    console.log(filteredgstin.length, 'filteredgstin')
+    // console.log(filteredgstin.length, 'filteredgstin')
     if (filteredgstin.length === 1) {
       filteredgstin?.map((gstData) => {
         const data = { ...gstData }
@@ -726,7 +726,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
           </div>
         </div>
       </div>
-      <Modal show={show} className={`${styles.verify_gst} card verify_gst`}>
+      <Modal show={show} className={`${styles.verify_gst} vessel_card card verify_gst`}>
         <Modal.Header className={`${styles.card_header} card-header bg-transparent`}>
           <Modal.Title>
             <h3>Verify GST</h3>
@@ -747,12 +747,12 @@ function Index({ companyData, orderList, GstDataHandler }) {
               <div className="tab-pane fade show active" id="viaEmail" role="tabpanel" aria-labelledby="via-email">
                 <div className={`${styles.labelFloat} form-group`}>
                   <input type='text' id='email' name="email" className={`${styles.formControl} ${styles.input} input form-control`} onChange={(e) => setCredential({ ...credential, username: e.target.value })} required />
-                  <label className={`label_heading_login`} htmlFor='email'>Email or Username</label>
+                  <label className={`label_heading_login label_heading bg-transparent`} htmlFor='email'>Email or Username</label>
                 </div>
                 <div className={`${styles.labelFloat} ${styles.password} form-group`}>
                   <div className='input-group align-items-center' id='password'>
                     <input type='password' name="password" className={`${styles.formControl} ${styles.input} input form-control`} onChange={(e) => setCredential({ ...credential, password: e.target.value })} required />
-                    <label className={`label_heading_login`} htmlFor='password'>Password</label>
+                    <label className={`label_heading_login label_heading bg-transparent`} htmlFor='password'>Password</label>
                     <img src='/static/eye.svg' alt='Show Password' className='img-fluid' />
                   </div>
                 </div>
@@ -975,10 +975,10 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     <td colSpan={2}>
                       Recurring Sales
                     </td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage}%</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.value}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.value?.toFixed(2)}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage.toFixed(2)}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.value.toFixed(2)}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage.toFixed(2)}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
@@ -1351,7 +1351,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
                 >
                   <tr>
                     <th className={`${styles.first}`}>Principal/ HSN Wise Sales</th>
-                    <th colSpan={6}><span style={{color: "#2837566A"}}>Financial Period:</span> MAR 2020 - APR 2021</th>
+                    <th colSpan={6}><span style={{ color: "#2837566A" }}>Financial Period:</span> MAR 2020 - APR 2021</th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td>
@@ -1606,7 +1606,7 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
                             <td>{customer?.ttlVal?.toFixed(2).toLocaleString()}</td>
-                            <td>{customer?.percentageOfTotalSales}%</td>
+                            <td>{customer?.percentageOfTotalSales.toFixed(2)}%</td>
                             <td>{customer?.invoice}</td>
                             <td>{customer?.salesPerInvoice?.toFixed(2).toLocaleString()}</td>
                           </tr>

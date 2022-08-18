@@ -43,7 +43,7 @@ function Index() {
       >
 
         {fields("Commodity", buyerList?.order?.commodity)}
-        {fields("Quantity", buyerList?.order?.quantity, false, buyerList?.order?.unitOfQuantity,)}
+        {fields("Quantity", buyerList?.order?.quantity, false, buyerList?.order?.unitOfQuantity.toUpperCase())}
         {fields("Order values", (buyerList?.order?.orderValue)?.toLocaleString(), false)}
         {fields("Supplier Name", buyerList?.order?.supplierName, false)}
         {fields("Country Of Origin", buyerList?.order?.countryOfOrigin, false)}

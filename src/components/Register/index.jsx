@@ -12,6 +12,7 @@ import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { handleCurrencyOrder } from 'utils/helper'
+import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
@@ -120,6 +121,7 @@ function Index() {
   // console.log(orderDetails, "orderDetailjdefhk")
 
   const saveCompanyData = (name, value) => {
+    console.log(value,"turn")
     const newInput = { ...companyDetails }
     newInput[name] = value
     setCompanyDetails(newInput)
@@ -165,7 +167,8 @@ function Index() {
   }
 
   const submitData = () => {
-    handleCurrOrder()
+    
+    // handleCurrOrder()
     if (companyDetails.companyName === '') {
       let toastMessage = 'Please Fill The Company Name'
       if (!toast.isActive(toastMessage)) {
@@ -263,9 +266,13 @@ function Index() {
       documents.forEach((val, index) => {
         docTypeArr.push(val.typeDocument)
       })
+      let sendOrder={...orderDetails}
+      sendOrder.quantity=Number(removePrefixOrSuffix(orderDetails.quantity))
+      sendOrder.orderValue=(removePrefixOrSuffix(orderDetails.orderValue)*10000000)
+      console.log(sendOrder,"sendOrder",removePrefixOrSuffix(orderDetails.orderValue))
       const fd = new FormData()
-      fd.append('companyProfile', JSON.stringify(companyDetails))
-      fd.append('orderDetails', JSON.stringify(orderDetails))
+      fd.append('companyProfile',JSON.stringify(companyDetails))
+      fd.append('orderDetails', JSON.stringify(sendOrder))
       fd.append('documentType', JSON.stringify(docTypeArr))
       documents.forEach((val, index) => {
         fd.append(`documents`, val.attachDoc)
@@ -375,7 +382,10 @@ function Index() {
           saveOrderData={saveOrderData}
           saveCompanyData={saveCompanyData}
         />
-        <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData} />
+        <OrderDetails 
+        darkMode={darkMode} 
+        saveOrderData={saveOrderData}
+        orderDetails={orderDetails} />
         <Documents
           darkMode={darkMode}
           saveDocument={saveDocument}

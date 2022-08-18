@@ -17,7 +17,7 @@ import {
   CategoryScale,
   Filler,
 } from 'chart.js'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { GetAllOrders } from 'redux/registerBuyer/action'
 import { GetCompanyDetails } from 'redux/companyDetail/action'
 import { toast } from 'react-toastify'
@@ -34,7 +34,9 @@ Chart.register(
   Filler,
 )
 
+
 function Index({
+  fetchingKarzaGst,
   gstData,
   camData,
   companyData,
@@ -45,7 +47,7 @@ function Index({
 }) {
   const dispatch = useDispatch()
   console.log(gstData, 'gstData')
-
+  console.log(fetchingKarzaGst,'fetchingKarzaGst')
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
@@ -53,7 +55,7 @@ function Index({
       dispatch(GetAllOrders({ orderId: id1 }))
       dispatch(GetCompanyDetails({ company: id2 }))
     }
-  }, [dispatch])
+  }, [dispatch,fetchingKarzaGst])
 
   console.log(camData, 'THIS IS CAM DATA')
   // console.log(companyData, 'THIS IS COMPANY DATA')
@@ -3240,7 +3242,7 @@ const customerRating = (dataline, lineOption) => {
                       ></circle>
                     </svg>
                     <img
-                      src={`/static/gauge.svg`}
+                      src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
                     ></img>
                     <div className={`${styles.score}`}>9.0</div>

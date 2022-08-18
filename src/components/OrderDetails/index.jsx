@@ -3,8 +3,9 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
+import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 
-const Index = ({ saveOrderData, darkMode }) => {
+const Index = ({ saveOrderData, darkMode,orderDetails }) => {
   const saveDate = (value, name) => {
     // console.log(e.target.value, "this is date")
     console.log('savedata', value)
@@ -12,6 +13,7 @@ const Index = ({ saveOrderData, darkMode }) => {
     let text = d.toISOString()
     saveOrderData(name, text)
   }
+  console.log(orderDetails,"orderDetails")
   return (
     <div className={`${styles.main} border_color`}>
       <div className={`${styles.heading} heading_card_switch_blue`}>
@@ -49,14 +51,15 @@ const Index = ({ saveOrderData, darkMode }) => {
             className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}
           >
             <input
-              type="number"
+              type="text"
               id="textInput"
               name="quantity"
               onChange={(e) => {
-                saveOrderData(e.target.name, Number(e.target.value))
+                saveOrderData(e.target.name, e.target.value)
               }}
               className={`${styles.input_field} input form-control`}
               required
+              value={addPrefixOrSuffix(orderDetails?.quantity?.toString(),orderDetails.unitOfQuantity=="mt"?"MT":orderDetails.unitOfQuantity)}
             />
             <label
               className={`${styles.label_heading}  label_heading`}
@@ -69,13 +72,18 @@ const Index = ({ saveOrderData, darkMode }) => {
             className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}
           >
             <input
-              type="number"
+              type="text"
               id="textInput"
               name="orderValue"
               onChange={(e) => {
-                saveOrderData(e.target.name, Number(e.target.value * 10000000))
+                // saveOrderData(e.target.name, e.target.value * 10000000)
+                saveOrderData(e.target.name, e.target.value)
               }}
               className={`${styles.input_field} input form-control`}
+              value={
+                addPrefixOrSuffix(orderDetails?.orderValue?.toString(),
+              orderDetails?.unitOfValue=="Millions"?"Mn":
+              orderDetails?.unitOfValue=="Crores"?"Cr":orderDetails?.unitOfValue)}
               required
             />
             <label
@@ -116,8 +124,12 @@ const Index = ({ saveOrderData, darkMode }) => {
                 required
               >
                 <option value="" selected></option>
+                
                 <option value="India">India</option>
-                <option value="America">America</option>
+                <option value="America">Australia</option>
+                <option value="America">Sri Lanka</option>
+                <option value="America">Qatar</option>
+                <option value="America">Dubai</option>
               </select>
               <label
                 className={`${styles.label_heading} label_heading`}

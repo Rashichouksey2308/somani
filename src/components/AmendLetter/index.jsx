@@ -2,12 +2,27 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Container, Card } from 'react-bootstrap'
 import LCAmendBar from '../LCAmendBar'
-import TermsheetPopUp from '../TermsheetPopUp'
-import { Form } from 'react-bootstrap'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
+import _get from 'lodash/get'
+import { GetLcModule } from 'redux/lcModule/action'
+import moment from 'moment'
 
 function Index() {
+
+  const dispatch = useDispatch()
+
+  const { lcModule } = useSelector((state) => state.lc)
+
+  let lcModuleData = _get(lcModule,  'data[0]', [])
+
+  // console.log(lcModuleData, 'THIS IS LC MODULE DATA')
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('lcAmmend')
+    dispatch(GetLcModule(`?lcModuleId=${id}`))
+  }, [dispatch])
+
   return (
     <>
       <div
@@ -36,18 +51,18 @@ function Index() {
           <div className="d-flex justify-content-between mt-n2">
             <div>
               <div className={styles.sub_heading}>
-                Order ID: <span>2FCH6589</span>
+                Order ID: <span>{lcModuleData?.order?.orderId}</span>
               </div>
               <div className={styles.sub_heading}>
-                Buyer: <span>M/s Vishnu Chemicals Limited</span>
+                Buyer: <span>{lcModuleData?.company?.companyName}</span>
               </div>
             </div>
             <div className="text-right">
               <div className={styles.sub_heading}>
-                Documentary Credit Number: <span>ABSD123456</span>
+                Documentary Credit Number: <span>{lcModuleData?.lcApplication?.documentaryCreditNumber}</span>
               </div>
               <div className={styles.sub_heading}>
-                Date: <span>16.02.2022</span>
+                Date: <span>{moment(lcModuleData?.createdAt?.slice(0, 10)).format('DD.MM.yyy')}</span>
               </div>
             </div>
           </div>
@@ -69,31 +84,31 @@ function Index() {
                         40A &nbsp; &nbsp;{' '}
                         <span>FORM OF DOCUMENTARY CREDIT</span>
                       </td>
-                      <td>IRREVOCABLE</td>
+                      <td>{lcModuleData?.lcApplication?.formOfDocumentaryCredit}</td>
                     </tr>
                     <tr className="table_row">
                       <td width="40%">
                         40E &nbsp; &nbsp; <span>APPLICABLE RULES</span>
                       </td>
-                      <td>UCP LATEST VERSION</td>
+                      <td>{lcModuleData?.lcApplication?.applicableRules}</td>
                     </tr>
                     <tr className="table_row">
                       <td width="40%">
                         31D &nbsp; &nbsp; <span>DATE OF EXPIRY</span>
                       </td>
-                      <td>22.02.2022</td>
+                      <td>{moment(lcModuleData?.lcApplication?.dateOfExpiry?.slice(0, 10)).format('DD.MM.yyy')}</td>
                     </tr>
                     <tr className="table_row">
                       <td width="40%">
                         31D &nbsp; &nbsp; <span>PLACE OF EXPIRY</span>
                       </td>
-                      <td>GUJARAT PORT, INDIA</td>
+                      <td>{lcModuleData?.lcApplication?.placeOfExpiry}</td>
                     </tr>
                     <tr className="table_row">
                       <td width="40%">
                         51D &nbsp; &nbsp; <span>LC ISSUING BANK</span>
                       </td>
-                      <td>FIRST CLASS EUROPEAN BANK</td>
+                      <td>{lcModuleData?.lcApplication?.lcIssuingBank}</td>
                     </tr>
                   </tbody>
                 </table>

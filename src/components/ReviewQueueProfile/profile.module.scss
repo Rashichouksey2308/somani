@@ -163,7 +163,10 @@
             .table_scroll_inner {
                 display: table-cell;
                 overflow-x: auto;
+                overflow-y: auto;
                 .table {
+                      height: 300px;
+                      display: inline-block;
                     th {
                         font-size: 15px;
                         color: #8492a6;
@@ -238,61 +241,78 @@
             line-height: 25px;
             margin-bottom: 15px;
         }
-        .table_scroll_outer {
-            width: 100%;
-            display: table;
-            table-layout: fixed;
-            .table_scroll_inner {
-                display: table-cell;
-                overflow-x: auto;
-                .table {
+        .tableParent{
+            height: 300px;
+            // display: inline-block;
+            overflow-y: auto;
+            overflow-x: auto;
+            .table_scroll_outer {
+                width: 100%;
+                display: table;
+                table-layout: fixed;
+            
+                .table_scroll_inner {
+                  display: table-cell;
+                  
+                  
+            
+                  .table {
+            
                     th {
-                        font-size: 15px;
-                        color: #8492a6;
-                        font-weight: bold;
-                        line-height: 18px;
-                        padding: 13px 30px;
-                        white-space: nowrap;
-                        vertical-align: middle;
-                        text-transform: uppercase;
-                        border: 3px solid #f0f2f6;
+                      font-size: 15px;
+                      color: #8492a6;
+                      font-weight: bold;
+                      line-height: 18px;
+                      padding: 13px 30px;
+                      white-space: nowrap;
+                      vertical-align: middle;
+                      text-transform: uppercase;
+                      border: 3px solid #f0f2f6;
                     }
+            
                     td {
-                        font-size: 19px;
-                        font-weight: 500;
-                        line-height: 24px;
-                        padding: 15px 30px;
-                        white-space: nowrap;
-                        vertical-align: middle;
-                        border: 3px solid #f0f2f6;
-                        &.name {
-                            color: #111111;
-                        }
+                      font-size: 19px;
+                      font-weight: 500;
+                      line-height: 24px;
+                      padding: 15px 30px;
+                      white-space: nowrap;
+                      vertical-align: middle;
+                      border: 3px solid #f0f2f6;
+            
+                      &.name {
+                        color: #111111;
+                      }
+            
+                      span {
+                        width: 17px;
+                        height: 17px;
+                        border-radius: 4px;
+                        display: inline-block;
+                      }
+            
+                      &.green {
                         span {
-                            width: 17px;
-                            height: 17px;
-                            border-radius: 4px;
-                            display: inline-block;
+                          background: #4caf50;
                         }
-                        &.green {
-                            span {
-                                background: #4caf50;
-                            }
+                      }
+            
+                      &.blue {
+                        span {
+                          background: #2884de;
                         }
-                        &.blue {
-                            span {
-                                background: #2884de;
-                            }
+                      }
+            
+                      &.yellow {
+                        span {
+                          background: #ffce00;
                         }
-                        &.yellow {
-                            span {
-                                background: #ffce00;
-                            }
-                        }
+                      }
                     }
+                  }
                 }
-            }
+              }
         }
+        
     }
     .directorDetails {
         // .scroll_outer {
@@ -431,31 +451,38 @@
             border: 2px solid #E6EAF0;
             border-radius: 6px;
             p {
-                padding: 15px;
                 font-size: 20px;
                 font-weight: bold;
                 line-height: 25px;
+                padding: 22px 35px 10px;
                 margin: 0 !important;
             }
             .row {
                 margin: 0 !important;
-                padding: 15px;
+                padding: 22px 35px 10px;
                 div {
+                    width: 20%;
                     max-width: 160px;
+                    input {
+                        transform: scale(1.5);
+                    }
+                    label {
+                        margin-left: 10px;
+                    }
                 }
             }
             .hr {
                 border-top: 2px solid #E6EAF0
             }
             span {
-                padding: 15px;
+                padding: 10px 35px;
                 color: #3687E8;
                 font-size: 20px;
                 font-weight: 500;
                 line-height: 25px;
             }
             .table {
-                padding: 15px;
+                padding: 15px 35px;
                 .table_details {
                     border-collapse: collapse;
                     thead {
