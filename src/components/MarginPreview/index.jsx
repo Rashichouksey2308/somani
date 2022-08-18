@@ -1,10 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Container, Card } from 'react-bootstrap'
 import Paginatebar from '../Paginatebar'
 import TermsheetPopUp from '../TermsheetPopUp'
 import { Form } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { setPageName } from 'redux/userData/action'
+import { setDynamicName } from 'redux/userData/action'
+import { setDynamicOrder } from 'redux/userData/action'
+import { GetMarginMoney } from 'redux/marginMoney/action'
+import _get from 'lodash/get'
+import moment from 'moment'
+
 function Index() {
+
+  const dispatch = useDispatch()
+
+  const { margin } = useSelector((state) => state.marginMoney)
+
+  const marginData = _get( margin,  'data.data[0]', {})
+
+  useEffect(() => {
+    let id = sessionStorage.getItem('marginId')
+    dispatch(GetMarginMoney({ orderId: id }))
+
+    dispatch(setPageName('margin-money'))
+    dispatch(setDynamicName(marginData?.company.companyName))
+    dispatch(setDynamicOrder(marginData?.order.orderId))
+  }, [dispatch, marginData?.company?.companyName])
+
   let tempArr = [
     {
       head: "Commodity Details", details: [
@@ -14,13 +38,17 @@ function Index() {
       ]
     }
   ]
+
   const [open, setOpen] = useState(false)
+
   const openbar = () => {
     setOpen(true)
   }
+
   const close = () => {
     setOpen(false)
   }
+
   return (
     <>
       <div className={`${styles.root_container} tabHeader bg-transparent`}>
@@ -36,18 +64,18 @@ function Index() {
             <Col md={4} className={`${styles.left}`}>
               <div>
                 <span className={styles.termSub_head}>Order ID:</span>
-                <span className={styles.termValue}>2FCH6589</span>
+                <span className={styles.termValue}>{marginData?.order?.orderId}</span>
               </div>
               <div>
                 <span className={styles.termSub_head}>Buyer:</span>
-                <span className={styles.termValue}>M/s Vishnu Chemicals Limited</span>
+                <span className={styles.termValue}>{marginData?.company?.companyName}</span>
               </div>
             </Col>
             <Col md={4} className="text-center">
               <span>MARGIN MONEY</span>
             </Col>
             <Col md={4} className={`${styles.left} ${styles.right}`}>
-              <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>22-02-2022</span></div>
+              <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{ moment( marginData?.createdAt?.slice(0, 10)).format('DD-MM-yy')}</span></div>
             </Col>
           </Row>
         </div>
@@ -63,17 +91,17 @@ function Index() {
                 <tbody>
                   <tr>
                     <td><span className={`${styles.sno}`}>A</span><span className={`ml-2`}>Quantity</span></td>
-                    <td className={`${styles.good} good`}>75000 MT</td>
-                    <td>55000 MT</td>
+                    <td className={`${styles.good} good`}>{marginData?.order?.quantity} MT</td>
+                    <td>{marginData?.order?.quantity} MT</td>
                   </tr>
                   <tr>
                     <td><span className={`${styles.sno}`}>B</span><span className={`ml-2`}>Unit Price</span></td>
-                    <td className={`${styles.good} good`}>USD 72</td>
-                    <td>USD 70</td>
+                    <td className={`${styles.good} good`}>{marginData?.calculation?.provisionalUnitPricePerTon}</td>
+                    <td>{marginData?.calculation?.provisionalUnitPricePerTon}</td>
                   </tr>
                   <tr>
                     <td><span className={`${styles.sno}`}>I</span><span className={`ml-2`}>Additional PDC’s</span></td>
-                    <td className={`${styles.highlight} satisfactory`}>1</td>
+                    <td className={`${styles.highlight} satisfactory`}>{marginData?.additionalPDC}</td>
                     <td>-</td>
                   </tr>
                 </tbody>
@@ -91,23 +119,24 @@ function Index() {
                 <tbody>
                   <tr>
                     <td><span className={`${styles.sno}`}>J</span><span className={`ml-2`}>Order Value</span><span className={`${styles.formula} ml-2`}>(A*B)</span></td>
-                    <td >75000 MT</td>
-                    <td>55000 MT</td>
+                    <td >{((marginData?.order?.orderValue).toLocaleString())}</td>
+                    <td >{((marginData?.order?.orderValue).toLocaleString())}</td>
                   </tr>
                   <tr>
                     <td><span className={`${styles.sno}`}>M</span><span className={`ml-2`}>Trade Margin (INR)</span> <span>(K*E)</span></td>
-                    <td >₹ 326,316,177.00</td>
-                    <td>₹ 326,316,177.00</td>
+                    <td >{(marginData?.calculation?.tradeMargin).toLocaleString()}</td>
+                    <td >{(marginData?.calculation?.tradeMargin).toLocaleString()}</td>
+                    
                   </tr>
                   <tr>
                     <td><span className={`${styles.sno}`}>N</span><span className={`ml-2`}>Gross Order Value (INR)</span> <span>(K+L+M)</span></td>
-                    <td>₹ 326,316,177.00</td>
-                    <td>₹ 326,316,177.00</td>
+                    <td>{(marginData?.calculation?.grossOrderValue).toLocaleString()}</td>
+                    <td>{(marginData?.calculation?.grossOrderValue).toLocaleString()}</td>
                   </tr>
                   <tr className={`${styles.bordertop} border_color`}>
                     <td><span className={`${styles.sno}`}>T</span><span className={`ml-2`}>Additional Amount Per SPDC (INR) </span> <span>[(S-Previous Value)/I)]</span></td>
-                    <td className={`${styles.good} ${styles.highlight2} satisfactory`}>₹ 326,316,177.00</td>
-                    <td>₹ 326,316,177.00</td>
+                    <td className={`${styles.good} ${styles.highlight2} satisfactory`}>{(marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC).toLocaleString()}</td>
+                    <td>{(marginData?.calculation?.amountPerSPDC).toLocaleString()}</td>
                   </tr>
                 </tbody>
               </table>

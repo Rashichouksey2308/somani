@@ -38,6 +38,7 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(viewingDocumentSuccess(response.data.data))
+        window.open(response.data.data.signedUrl)
       } else {
         dispatch(viewingDocumentFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'

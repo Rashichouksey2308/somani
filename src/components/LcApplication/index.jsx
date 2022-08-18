@@ -50,7 +50,7 @@ function Index({
     <>
       {' '}
       <div className="container-fluid p-0 border-0">
-        <div className={styles.container_inner}>
+        <div className={`${styles.container_inner}`}>
           <div className={`${styles.head_header}`}>
             <img
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
@@ -60,9 +60,9 @@ function Index({
             <h1 className={`${styles.heading}`}>Letter of Credit </h1>
           </div>
 
-          <div className={`${styles.wrapper} vessel_card card`}>
+          <div className={`${styles.wrapper} border_color vessel_card card`}>
             <div
-              className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
+              className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#lcApplication"
               aria-expanded="true"
@@ -592,7 +592,7 @@ function Index({
                   className={`${styles.dashboard_form} border_color`}
                   style={{ borderTop: '2px solid #CAD6E6' }}
                 >
-                  <div className={styles.doc_card}>
+                  <div className={`${styles.doc_card} mb-5`}>
                     <div className={`${styles.sub_heading} value`}>
                       46A DOCUMENT REQUIRED
                     </div>
@@ -655,7 +655,7 @@ function Index({
                   className={`${styles.dashboard_form} border_color`}
                   style={{ borderTop: '2px solid #CAD6E6' }}
                 >
-                  <div className={styles.doc_card}>
+                  <div className={`${styles.doc_card} mb-5`}>
                     <div className={`${styles.sub_heading}  value`}>
                       47A ADDITIONAL CONDITIONS
                     </div>
@@ -715,8 +715,10 @@ function Index({
                     ))}
                   </div>
                 </div>
-                <hr></hr>
-                <div className={`${styles.dashboard_form}`}>
+                <div
+                  className={`${styles.dashboard_form}`}
+                  style={{ borderTop: '2px solid #CAD6E6' }}
+                >
                   <div className={styles.doc_card}>
                     <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
                       <div className="d-flex">

@@ -41,9 +41,20 @@ function Index() {
 
   const handleRoute = (margin) => {
     // console.log(margin, "THIS IS MARGIN MONEY")
-    dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
     sessionStorage.setItem('marginId', margin?.order?._id )
+    dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
+    
     Router.push('/margin-money/id')
+  }
+
+  const handlePreviewRoute = (margin) => {
+    // console.log(margin, "THIS IS MARGIN MONEY")
+
+    sessionStorage.setItem('marginId', margin?.order?._id )
+    dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
+    
+    Router.push('/margin-preview')
+    
   }
 
   return (
@@ -204,7 +215,7 @@ function Index() {
                             className="img-fluid"
                             alt="Preview"
                             onClick={() => {
-                              Router.push('/margin-preview')
+                              handlePreviewRoute(margin)
                             }}
                           />
                         </td>

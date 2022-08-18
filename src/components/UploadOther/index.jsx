@@ -26,7 +26,7 @@ const Index = ({ orderid, module }) => {
     name: '',
     module: module,
   })
-  const [moduleSelected, setModuleSelected] = useState('LeadOnboarding,OrderApproval')
+  const [moduleSelected, setModuleSelected] = useState('LeadOnboarding&OrderApproval')
   const [filteredDoc, setFilteredDoc] = useState([])
 
   useEffect(() => {
