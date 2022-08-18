@@ -93,9 +93,9 @@ const Index = ({
                   required
                 >
                   <option
-                    value={termsheetDetails?.commodityDetails?.unitOfQuantity}
+                    value={termsheetDetails?.commodityDetails?.unitOfQuantity=="mt"?"MT":termsheetDetails?.commodityDetails?.unitOfQuantity}
                   >
-                    {termsheetDetails?.commodityDetails?.unitOfQuantity}{' '}
+                    {termsheetDetails?.commodityDetails?.unitOfQuantity=="mt"?"MT":termsheetDetails?.commodityDetails?.unitOfQuantity}{' '}
                   </option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
@@ -165,7 +165,7 @@ const Index = ({
                 id="perUnitPrice"
                 className={`${styles.value} ${styles.inrValue} input form-control`}
                 value={addPrefixOrSuffix(
-                  termsheetDetails?.commodityDetails?.perUnitPrice,
+                  termsheetDetails?.commodityDetails?.perUnitPrice==undefined ?0 : termsheetDetails?.commodityDetails?.perUnitPrice,
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                   'front',
                 )}

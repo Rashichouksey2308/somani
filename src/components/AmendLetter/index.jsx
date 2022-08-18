@@ -10,7 +10,9 @@ import { useDispatch, useSelector } from 'react-redux'
 function Index() {
   return (
     <>
-      <div className={`${styles.root_container} bg-transparent shadow-none tabHeader`}>
+      <div
+        className={`${styles.root_container} card border-0 bg-transparent shadow-none tabHeader`}
+      >
         <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
@@ -21,7 +23,7 @@ function Index() {
             <h1 className={`${styles.heading} heading`}>Application for LC</h1>
           </div>
         </div>
-        <div className={`${styles.term_container} container-fluid`}>
+        <div className={`${styles.term_container} previewCard container-fluid`}>
           <Row className={`h-50`}>
             <Col
               sm={12}
@@ -40,7 +42,7 @@ function Index() {
                 Buyer: <span>M/s Vishnu Chemicals Limited</span>
               </div>
             </div>
-            <div className='text-right'>
+            <div className="text-right">
               <div className={styles.sub_heading}>
                 Documentary Credit Number: <span>ABSD123456</span>
               </div>
