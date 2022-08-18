@@ -315,6 +315,7 @@ function Index() {
                         <div className="d-flex">
                           <select
                             name="lcIssuingBank"
+                            required
                             onChange={(e) =>
                               saveAmendmentData(e.target.name, e.target.value)
                             }
