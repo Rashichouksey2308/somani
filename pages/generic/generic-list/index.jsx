@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
+import Filter from '../../../src/components/Filter'
 import { useDispatch, useSelector } from 'react-redux'
 import { getGenericData } from '../../../src/redux/generic/actionsType'
 
@@ -70,6 +71,7 @@ const getDate = async () =>{
                 />
               </div>
             </div>
+            <Filter />
           </div>
 
          
