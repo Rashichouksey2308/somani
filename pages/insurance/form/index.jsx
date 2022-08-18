@@ -792,7 +792,7 @@ const Index = () => {
                           onChange={(e) => {
                             saveQuotationData(e.target.name, e.target.value)
                           }}
-                          className={`${styles.remark_field} form-control`}
+                          className={`${styles.remark_field} text form-control`}
                           as
                           rows={3}
                         />
