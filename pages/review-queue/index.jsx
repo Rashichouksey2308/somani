@@ -36,7 +36,9 @@ function Index() {
   })
 
   const handleRoute = (buyer) => {
-    dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
+    sessionStorage.setItem('orderId', buyer._id);
+    sessionStorage.setItem('company', buyer.company._id);
+    //dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
     Router.push('/review/id')
   }
 
@@ -96,7 +98,7 @@ function Index() {
                 </div>
               )}
             </div>
-            <Filter/>
+            <Filter />
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
@@ -205,8 +207,8 @@ function Index() {
                   />
                 </a>
                 <a
-                   onClick={() => {
-                    if (currentPage+1 < Math.ceil(allBuyerList?.data?.totalCount / 7)) {
+                  onClick={() => {
+                    if (currentPage + 1 < Math.ceil(allBuyerList?.data?.totalCount / 7)) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
 

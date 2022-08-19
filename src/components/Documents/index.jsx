@@ -84,7 +84,7 @@ const Index = ({
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={(e) => {
-                            addDoc(e.target.files[0].name, index)
+                            addDoc(e.target.files[0], index)
                             // uploadDocument2(e)
                           }}
                         />
@@ -94,7 +94,7 @@ const Index = ({
                       </div>
                     ) : (
                       <div className={styles.certificate}>
-                        {val.attachDoc}
+                        {val.attachDoc.name}
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"

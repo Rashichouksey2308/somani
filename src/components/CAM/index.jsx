@@ -47,7 +47,7 @@ function Index({
 }) {
   const dispatch = useDispatch()
   console.log(gstData, 'gstData')
-  console.log(fetchingKarzaGst,'fetchingKarzaGst')
+  console.log(fetchingKarzaGst, 'fetchingKarzaGst')
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
@@ -55,7 +55,7 @@ function Index({
       dispatch(GetAllOrders({ orderId: id1 }))
       dispatch(GetCompanyDetails({ company: id2 }))
     }
-  }, [dispatch,fetchingKarzaGst])
+  }, [dispatch, fetchingKarzaGst])
 
   console.log(camData, 'THIS IS CAM DATA')
   // console.log(companyData, 'THIS IS COMPANY DATA')
@@ -65,56 +65,6 @@ function Index({
       return camData?._id === rating.order
     })
 
-  // let suggestedValue =
-  //   filteredCreditRating && filteredCreditRating.length > 0
-  //     ? filteredCreditRating[0]?.suggested?.value
-  //     : ''
-  // let derivedValue =
-  //   filteredCreditRating && filteredCreditRating.length > 0
-  //     ? filteredCreditRating[0]?.derived?.value
-  //     : ''
-  // let approvedCreditValue = approvedCredit.approvedCreditValue
-
-  // let suggestedOrder = camData?.suggestedOrderValue
-  // let appliedOrder = camData?.orderValue
-  // let approvedOrderValue = approvedCredit.approvedOrderValue
-
-  // function getPercentageIncrease(numA, numB) {
-  //   if (!numA) {
-  //     return 0
-  //   }
-  //   return (Math.abs(numA - numB) / numB) * 100
-  // }
-
-  // const gettingPercentageCredit = () => {
-  //   if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
-  //     // if diff is < 30% than error if approve vlaue not given
-  //     if (!approvedCreditValue) {
-  //       let toastMessage =
-  //         'More than 30% diff in derived and suggested value,Approved credit value required'
-  //       if (!toast.isActive(toastMessage)) {
-  //         toast.error(toastMessage, { toastId: toastMessage })
-  //         return false
-  //       }
-  //     }
-  //     return true
-  //   }
-  // }
-
-  // const gettingPercentageOrder = () => {
-  //   if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
-  //     // if diff is < 30% than error if approve vlaue not given
-  //     if (!approvedOrderValue) {
-  //       let toastMessage =
-  //         'More than 30% diff in applied and suggested order value,Approved order value required'
-  //       if (!toast.isActive(toastMessage)) {
-  //         toast.error(toastMessage, { toastId: toastMessage })
-  //         return false
-  //       }
-  //     }
-  //     return true
-  //   }
-  // }
 
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
@@ -131,15 +81,15 @@ function Index({
 
   const [sanctionComments, setSanctionComments] = useState('')
 
-  const latestBalanceData = companyData?.financial?.balanceSheet[0]
+  const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', [])
 
-  const previousBalanceData = companyData?.financial?.balanceSheet[1]
+  const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', [])
 
-  const latestIncomeData = companyData?.financial?.incomeStatement[0]
-  const previousIncomeData = companyData?.financial?.incomeStatement[1]
+  const latestIncomeData = _get(companyData, 'financial.incomeStatement[0]', [])
+  const previousIncomeData = _get(companyData, 'financial.incomeStatement[1]', [])
 
-  const latestYearData = companyData?.financial?.ratioAnalysis[0]
-  const previousYearData = companyData?.financial?.ratioAnalysis[1]
+  const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', [])
+  const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', [])
 
   const openChargesLength = () => {
     const filteredData =
@@ -161,10 +111,8 @@ function Index({
     return length
   }
 
-  const latestAuditorData =
-    camData?.company?.detailedCompanyInfo?.profile?.auditorDetail[0]
-  const previousAuditorData =
-    camData?.company?.detailedCompanyInfo?.profile?.auditorDetail[1]
+  const latestAuditorData = _get(camData, 'company.detailedCompanyInfo.profile.auditorDetail[0]', [])
+  const previousAuditorData = _get(camData, 'company.detailedCompanyInfo.profile.auditorDetail[1]', [])
 
   let tempArr = [
     { name: 'Sagar Sinha', value: '21', color: '#9675CE' },
@@ -461,7 +409,7 @@ const basicInfo = (camData) => {
                     Port of Loading
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    Vishakapatnam, AP
+                    {camData?.portOfDischarge}
                   </span>
                 </Col>
                 <Col
@@ -482,7 +430,8 @@ const basicInfo = (camData) => {
                     Exp. Date of Shipment
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.ExpectedDateOfShipment.split('T')[0]}
+                    {/* {camData?.ExpectedDateOfShipment.split('T')[0]} */}
+                    {moment((camData?.ExpectedDateOfShipment)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -490,11 +439,13 @@ const basicInfo = (camData) => {
                     ETA at Discharge port
                   </span>
                   <span className={`${styles.value} value`}>
-                    {
+                    {/* {
                       camData?.shipmentDetail?.ETAofDischarge?.fromDate?.split(
                         'T',
                       )[0]
-                    }
+                    } */}
+                    {moment((camData?.shipmentDetail?.ETAofDischarge?.fromDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+
                   </span>
                 </Col>
               </Row>
@@ -504,7 +455,8 @@ const basicInfo = (camData) => {
                     Laycan from
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]}
+                    {/* {camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]} */}
+                    {moment((camData?.shipmentDetail?.loadPort?.fromDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -512,7 +464,9 @@ const basicInfo = (camData) => {
                     Laycan to
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.shipmentDetail?.loadPort?.toDate?.split('T')[0]}
+                    {/* {camData?.shipmentDetail?.loadPort?.toDate?.split('T')[0]} */}
+                    {moment((camData?.shipmentDetail?.loadPort?.toDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+
                   </span>
                 </Col>
               </Row>
@@ -1017,8 +971,7 @@ const creditProfile = (
                   </span>
                   <span className={`${styles.value} value pr-5`}>
                     {
-                      camData?.company?.detailedCompanyInfo?.profile
-                        ?.auditorDetail[0]?.nameOfAuditor
+                      latestAuditorData?.nameOfAuditor
                     }
                   </span>
                 </Col>
@@ -1174,28 +1127,45 @@ const shareHolding = (data, options, tempArr, camData) => {
 
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
-                      (share, index) => (
-                        <tr key={index}>
-                          <td
-                            className={`d-flex justify-content-start align-content-center`}
-                          >
-                            <div className={`${styles.icon} `}>
-                              <span
-                                className={`d-flex justify-content-center align-content-center`}
-                              >
-                                AJ
-                              </span>
-                            </div>
+                      (share, index) => {
+                        console
+                        let name = share?.fullName
+                        let [fName, lName] = name?.split(' ')
 
-                            <span className={` ${styles.name} ml-3  `}>
-                              {share?.fullName}
-                            </span>
-                          </td>
-                          <td>{share?.numberOfShares}</td>
-                          <td>{share?.percentageShareHolding}</td>
-                          <td>{share?.director ? 'Yes' : 'No'}</td>
-                        </tr>
-                      ),
+                        let colors = [{
+                          primary: "blue",
+                          secondary: "#3687E8"
+                        }, {
+                          primary: "green",
+                          secondary: "#43C34D"
+                        }, {
+                          primary: "yellow",
+                          secondary: "#FF9D00"
+                        }]
+                        let randColor = colors[Math.floor(Math.random() * colors.length)];
+                        return (
+                          <tr key={index}>
+                            <td
+                              className={`d-flex justify-content-start align-content-center`}
+                            >
+                              <div style={{ background: `${randColor.primary}` }} className={`${styles.icon}   `}>
+                                <span style={{ color: `${randColor.secondary}` }}
+                                  className={`d-flex justify-content-center align-content-center`}
+                                >
+                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}{lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                                </span>
+                              </div>
+
+                              <span className={` ${styles.name} ml-3  `}>
+                                {share?.fullName}
+                              </span>
+                            </td>
+                            <td>{share?.numberOfShares}</td>
+                            <td>{share?.percentageShareHolding}</td>
+                            <td>{share?.director ? 'Yes' : 'No'}</td>
+                          </tr>
+                        )
+                      },
                     )}
                   {/* <tr>
                     <td
@@ -1306,7 +1276,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                   </tr>
 
                   {camData &&
-                    camData?.company?.detailedCompanyInfo?.financial?.openCharges.map(
+                    camData?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
                       (charge, index) => (
                         <tr key={index}>
                           <td
@@ -1483,7 +1453,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                     camData?.company?.debtProfile?.map((debt, index) => (
                       <tr key={index}>
                         <td>{debt?.bankName}</td>
-                        <td defaultValue={debt?.limitType} disabled={true}></td>
+                        <td> {debt?.limitType} </td>
 
                         <td>{debt?.limit}</td>
                         <td className={`${styles.conduct} danger`}>
@@ -1961,12 +1931,12 @@ const financeDetails = (
                   <tr>
                     <th className={`${styles.bold_heading} value`}>Liabilities</th>
                     <th>
-                      {moment(companyData?.financial?.balanceSheet[0]?.date)
+                      {moment(latestBalanceData?.date)
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
                     <th>
-                      {moment(companyData?.financial?.balanceSheet[1]?.date)
+                      {moment(previousBalanceData?.date)
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
@@ -1975,44 +1945,42 @@ const financeDetails = (
                     <td>Net Worth</td>
                     <td>
                       {
-                        companyData?.financial?.balanceSheet[0]
-                          ?.equityLiabilities?.totalEquity?.toLocaleString()
+                        latestBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.balanceSheet[1]
-                          ?.equityLiabilities?.totalEquity?.toLocaleString()
+                        previousBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()
                       }
                     </td>
                   </tr>
                   <tr>
                     <td>Total Borrowings</td>
                     <td>
-                      {companyData?.financial?.balanceSheet[0]
+                      {latestBalanceData
                         ?.equityLiabilities?.borrowingsCurrent +
-                        companyData?.financial?.balanceSheet[0]
+                        latestBalanceData
                           ?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
                     </td>
                     <td>
-                      {companyData?.financial?.balanceSheet[1]
+                      {previousBalanceData
                         ?.equityLiabilities?.borrowingsCurrent +
-                        companyData?.financial?.balanceSheet[1]
+                        previousBalanceData
                           ?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Creditors</td>
                     <td>
-                      {companyData?.financial?.balanceSheet[0]
+                      {latestBalanceData
                         ?.equityLiabilities?.tradePay +
-                        companyData?.financial?.balanceSheet[0]
+                        latestBalanceData
                           ?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
                     </td>
                     <td>
-                      {companyData?.financial?.balanceSheet[1]
+                      {previousBalanceData
                         ?.equityLiabilities?.tradePay +
-                        companyData?.financial?.balanceSheet[1]
+                        previousBalanceData
                           ?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
                     </td>
                   </tr>
@@ -2020,13 +1988,13 @@ const financeDetails = (
                     <td>Other Current Liabilities</td>
                     <td>
                       {
-                        companyData?.financial?.balanceSheet[0]
+                        latestBalanceData
                           ?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.balanceSheet[1]
+                        previousBalanceData
                           ?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()
                       }
                     </td>
@@ -2042,13 +2010,13 @@ const financeDetails = (
                     <td>Working Capital Turnover ratio</td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.workingCapitalTurnover?.toFixed(2)
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.workingCapitalTurnover?.toFixed(2).toLocaleString()
                       }
                     </td>
@@ -2057,13 +2025,13 @@ const financeDetails = (
                     <td>Debtors period</td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.daysOfSalesOutstanding?.toFixed(2).toLocaleString()
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.daysOfSalesOutstanding?.toFixed(2).toLocaleString()
                       }
                     </td>
@@ -2072,13 +2040,13 @@ const financeDetails = (
                     <td>Creditors Period</td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.daysOfPayablesOutstanding?.toFixed(2).toLocaleString()
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.daysOfPayablesOutstanding?.toFixed(2)
                       }
                     </td>
@@ -2087,13 +2055,13 @@ const financeDetails = (
                     <td>Inventory Period</td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.daysOfInventoryOutstanding
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.daysOfInventoryOutstanding
                       }
                     </td>
@@ -2108,13 +2076,13 @@ const financeDetails = (
                     <td>Interest Coverage</td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.interestCoverage?.toFixed(2).toLocaleString()
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.interestCoverage?.toFixed(2).toLocaleString()
                       }
                     </td>
@@ -2122,19 +2090,19 @@ const financeDetails = (
                   <tr>
                     <td>Current Ratio</td>
                     <td>
-                      {companyData?.financial?.ratioAnalysis[0]?.currentRatio?.toFixed(2).toLocaleString()}
+                      {latestYearData?.currentRatio?.toFixed(2).toLocaleString()}
                     </td>
                     <td>
-                      {companyData?.financial?.ratioAnalysis[1]?.currentRatio?.toFixed(2).toLocaleString()}
+                      {previousYearData?.currentRatio?.toFixed(2).toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Debt Equity</td>
                     <td>
-                      {companyData?.financial?.ratioAnalysis[0]?.debtEquity?.toFixed(2).toLocaleString()}
+                      {latestYearData?.debtEquity?.toFixed(2).toLocaleString()}
                     </td>
                     <td>
-                      {companyData?.financial?.ratioAnalysis[1]?.debtEquity?.toFixed(2).toLocaleString()}
+                      {previousYearData?.debtEquity?.toFixed(2).toLocaleString()}
                     </td>
                   </tr>
                 </table>
@@ -2150,7 +2118,7 @@ const financeDetails = (
                     <th>
                       {' '}
                       {moment(
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.financialEndDate,
                       )
                         .format('MMM-YY')
@@ -2159,7 +2127,7 @@ const financeDetails = (
                     <th>
                       {' '}
                       {moment(
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.financialEndDate,
                       )
                         .format('MMM-YY')
@@ -2170,16 +2138,12 @@ const financeDetails = (
                     <td>Cash from Operations</td>
                     <td>
                       {
-                        companyData?.financial?.cashFlowStatement[0]
-                          ?.cashFlowsFromUsedInOperatingActivities
-                          ?.cashFlowsFromUsedInOperatingActivities?.toFixed(2).toLocaleString()
+                        _get(companyData, 'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.cashFlowStatement[1]
-                          ?.cashFlowsFromUsedInOperatingActivities
-                          ?.cashFlowsFromUsedInOperatingActivities?.toFixed(2).toLocaleString()
+                        _get(companyData, 'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                   </tr>
@@ -2187,16 +2151,12 @@ const financeDetails = (
                     <td>Cash from Financing</td>
                     <td>
                       {
-                        companyData?.financial?.cashFlowStatement[0]
-                          ?.cashFlowsFromUsedInFinancingActivities
-                          ?.cashFlowsFromUsedInFinancingActivities?.toFixed(2).toLocaleString()
+                        _get(companyData, 'financial?.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.cashFlowStatement[1]
-                          ?.cashFlowsFromUsedInFinancingActivities
-                          ?.cashFlowsFromUsedInFinancingActivities?.toFixed(2).toLocaleString()
+                        _get(companyData, 'financial?.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                   </tr>
@@ -2204,16 +2164,12 @@ const financeDetails = (
                     <td>Cash from Investing</td>
                     <td>
                       {
-                        companyData?.financial?.cashFlowStatement[0]
-                          ?.cashFlowsFromUsedInInvestingActivities
-                          ?.cashFlowsFromUsedInInvestingActivities?.toFixed(2).toLocaleString()
+                        _get(companyData, 'financial?.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.cashFlowStatement[1]
-                          ?.cashFlowsFromUsedInInvestingActivities
-                          ?.cashFlowsFromUsedInInvestingActivities?.toFixed(2).toLocaleString()
+                        _get(companyData, 'financial?.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                   </tr>
@@ -2228,13 +2184,13 @@ const financeDetails = (
                     <td>Working Capital Turnover ratio</td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.workingCapitalTurnover?.toFixed(2).toLocaleString()
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.workingCapitalTurnover?.toFixed(2).toLocaleString()
                       }
                     </td>
@@ -2243,13 +2199,13 @@ const financeDetails = (
                     <td>Debtors period</td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.daysOfSalesOutstanding?.toFixed(2).toLocaleString()
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.daysOfSalesOutstanding?.toFixed(2).toLocaleString()
                       }
                     </td>
@@ -2258,13 +2214,13 @@ const financeDetails = (
                     <td>Creditors Period</td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.daysOfPayablesOutstanding?.toFixed(2).toLocaleString()
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.daysOfPayablesOutstanding?.toFixed(2).toLocaleString()
                       }
                     </td>
@@ -2273,13 +2229,13 @@ const financeDetails = (
                     <td>Inventory Period</td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.daysOfInventoryOutstanding?.toFixed(2).toLocaleString()
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.daysOfInventoryOutstanding?.toFixed(2).toLocaleString()
                       }
                     </td>
@@ -2294,13 +2250,13 @@ const financeDetails = (
                     <td>Interest Coverage</td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[0]
+                        latestYearData
                           ?.interestCoverage?.toFixed(2).toLocaleString()
                       }
                     </td>
                     <td>
                       {
-                        companyData?.financial?.ratioAnalysis[1]
+                        previousYearData
                           ?.interestCoverage?.toFixed(2).toLocaleString()
                       }
                     </td>
@@ -2308,19 +2264,19 @@ const financeDetails = (
                   <tr>
                     <td>Current Ratio</td>
                     <td>
-                      {companyData?.financial?.ratioAnalysis[0]?.currentRatio?.toFixed(2).toLocaleString()}
+                      {latestYearData?.currentRatio?.toFixed(2).toLocaleString()}
                     </td>
                     <td>
-                      {companyData?.financial?.ratioAnalysis[1]?.currentRatio?.toFixed(2).toLocaleString()}
+                      {previousYearData?.currentRatio?.toFixed(2).toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Debt Equity</td>
                     <td>
-                      {companyData?.financial?.ratioAnalysis[0]?.debtEquity?.toFixed(2).toLocaleString()}
+                      {latestYearData?.debtEquity?.toFixed(2).toLocaleString()}
                     </td>
                     <td>
-                      {companyData?.financial?.ratioAnalysis[1]?.debtEquity?.toFixed(2).toLocaleString()}
+                      {previousYearData?.debtEquity?.toFixed(2).toLocaleString()}
                     </td>
                   </tr>
                 </table>

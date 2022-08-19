@@ -252,9 +252,9 @@ export default function Home() {
     console.log(name, value, 'arrayvesselbulk')
     if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
       let toastMessage = 'provide a valid year'
-      if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
-        return
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+         return
       }
     }
     let array = { ...list[index].vesselInformation[0], [name]: value }
@@ -301,7 +301,7 @@ export default function Home() {
   //   const value = e.target.value
   //   if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
   //     let toastMessage = 'Provide a Valid Year'
-  //     if (!toast.isActive(toastMessage)) {
+  //     if (!toast.isActive(toastMessage.toUpperCase())) {
   //       toast.error(toastMessage, { toastId: toastMessage })
   //       return
   //     }
@@ -340,14 +340,13 @@ export default function Home() {
           }
         } else {
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       let toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }

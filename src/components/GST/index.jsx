@@ -733,7 +733,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body onHide={() => console.log("modal Closed")} className={`${styles.card_body} card-body`}>
-          <p className="card-text">Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator. OTP</p>
+          <p className="card-text">Please verify your email to verify you GST</p>
           <ul className={`${styles.nav_tabs} nav nav-tabs`} id="verifyGST" role="tablist">
             <li className={`${styles.nav_item} nav-item`}>
               <a className={`${styles.nav_link} nav-link active`} id="via-email" data-toggle="tab" href="#viaEmail" role="tab" aria-controls="viaEmail" aria-selected="true"><img src="/static/email-icon.png" className='img-fluid' alt='Via Email' />Via Email</a>
@@ -1280,18 +1280,18 @@ function Index({ companyData, orderList, GstDataHandler }) {
                       <strong>Purchases Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value?.toFixed(2).toLocaleString()}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value?.toFixed(2).toLocaleString()}%</strong></td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value?.toFixed(2).toLocaleString()}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value?.toFixed(2).toLocaleString()}%</strong></td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       <strong>Quarterly Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value?.toFixed(2).toLocaleString()}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value?.toFixed(2).toLocaleString()}%</strong></td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value?.toFixed(2).toLocaleString()}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value?.toFixed(2).toLocaleString()}%</strong></td>
                   </tr>
                 </table>
                 <table

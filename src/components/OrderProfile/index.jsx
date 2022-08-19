@@ -18,6 +18,7 @@ function Index() {
 
   const { buyerList } = useSelector((state) => state.buyer)
   console.log(buyerList, "this is buyer list")
+
   return (
     <div className={`${styles.wrapper} card`} >
       <div
@@ -51,7 +52,14 @@ function Index() {
         {/* {fields("Transaction Type",buyerList?.order?.transactionType)} */}
         {fields("Port Of Discharge", buyerList?.order?.portOfDischarge, false)}
         {fields("Expected Date Of Shipment", moment(buyerList?.order?.ExpectedDateOfShipment?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY"), false)}
-        {fields("Document Name", buyerList?.company?.documents[0]?.typeOfDocument, true,null , buyerList?.company?.documents[0]?.path)}
+        {
+          buyerList?.company?.documents.map((val,index)=>{
+            return(
+            <>
+            {fields("Document Type", val?.typeOfDocument, true,null , val?.path)}
+            </>)
+          })
+        }
 
       </div>
     </div>
