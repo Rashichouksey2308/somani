@@ -1133,13 +1133,13 @@ const shareHolding = (data, options, tempArr, camData) => {
                         let [fName, lName] = name?.split(' ')
 
                         let colors = [{
-                          primary: "blue",
+                          primary: "rgba(54, 135, 232, 0.1)",
                           secondary: "#3687E8"
                         }, {
-                          primary: "green",
+                          primary: "rgba(67, 195, 77, 0.1)",
                           secondary: "#43C34D"
                         }, {
-                          primary: "yellow",
+                          primary: "#FFECCF",
                           secondary: "#FF9D00"
                         }]
                         let randColor = colors[Math.floor(Math.random() * colors.length)];
