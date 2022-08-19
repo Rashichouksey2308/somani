@@ -29,8 +29,10 @@ function Index({ handleChange, reviewedProfile }) {
               handleChange(e.target.name, e.target.value)
             }}
             disabled={disabled}
+            
           >
             {' '}
+            <option>Select an option</option>
             {values.map((options) => {
               return <option>{options}</option>
             })}{' '}

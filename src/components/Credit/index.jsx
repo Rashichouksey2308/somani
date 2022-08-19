@@ -19,6 +19,7 @@ const index = ({
   saveSupplierData,
   keyAddData,
   debtData,
+  setDebtData,
   addDebtArr,
   personData,
   addPersonArr,
@@ -69,11 +70,11 @@ const index = ({
 
   //const [deleteRow, setDeleteRow] = useState(true)
 
-  const [debt, setDebtData] = useState([])
+  // const [debt, setDebtData] = useState([])
 
   const addMoreDebtRows = () => {
     setDebtData([
-      ...debt,
+      ...debtData,
       {
         bankName: '',
         primaryBank: '',
@@ -84,11 +85,11 @@ const index = ({
     ])
   }
 
-  console.log(debt, 'THIS IS DEBT')
+  console.log(debtData, 'THIS IS DEBT')
 
   const handleDebtChange = (name, value, index) => {
     console.log(name, value, index, 'name,value')
-    let tempArr = debt
+    let tempArr = debtData
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value
@@ -102,6 +103,7 @@ const index = ({
   const onDebtSave = () => {
     addDebtArr(debt)
   }
+
   const setActions = (index, val) => {
     setDebtData((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -190,7 +192,7 @@ const index = ({
     saveSupplierData(name, text)
   }
   const handleRemoveRow = (index) => {
-    setDebtData([...debt.slice(0, index), ...debt.slice(index + 1)])
+    setDebtData([...debtData.slice(0, index), ...debtData.slice(index + 1)])
   }
 
   const [showAddress, setShowAddress] = useState(false)
@@ -1887,7 +1889,7 @@ const index = ({
                     </tr>
                   </thead>
                   <tbody>
-                    {debt?.map((profile, index) => (
+                    {debtData?.map((profile, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>
