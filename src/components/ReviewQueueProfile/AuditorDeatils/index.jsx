@@ -58,7 +58,7 @@ function Index({ directorData }) {
                           className={`${styles.cardHeader} ${styles.collapsed}  card-header row no-gutters bg-transparent collapsed`}
                           data-toggle="collapse"
                           data-target={`#director${index}`}
-                          aria-expanded="true"
+                          aria-expanded={index==0?"true":"false"}
                           aria-controls={`director${index}`}
                         >
                           <div className={`${styles.detailsBox}  col-md-2`}>

@@ -7,6 +7,7 @@ import Cookies from 'js-cookie'
 import API from '../../src/utils/endpoints'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import Router from 'next/router';
 
 
 
@@ -43,17 +44,16 @@ function Index(props) {
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader d-flex align-items-center`}>
-        <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className={`${styles.arrow} img-fluid mr-2 image_arrow`}/>
+        <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className={`${styles.arrow} img-fluid mr-2 image_arrow`}
+        onClick={()=>{Router.push('/generic/generic-list')}}
+        />
         <h1 className={`${styles.title} heading`}>{genericData?.company?.companyName}</h1>
         <div className={"ml-auto d-flex"}>
           <div className="ml-auto  mr-2">
             <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
 
           </div>
-          {/* <div className="ml-auto">
-                <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-                <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
-              </div> */}
+          
         </div>
         <ul className={`${styles.navTabs} border-0 nav nav-tabs`}>
 
