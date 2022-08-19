@@ -284,7 +284,7 @@ function Index() {
       let sendOrder = { ...orderDetails }
       sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
       sendOrder.orderValue = (removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
-      console.log(sendOrder, "sendOrder", removePrefixOrSuffix(orderDetails.orderValue))
+      console.log(sendOrder.quantity, "sendOrder",)
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(sendOrder))
