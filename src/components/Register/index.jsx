@@ -12,6 +12,7 @@ import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { handleCurrencyOrder } from 'utils/helper'
+import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
@@ -121,7 +122,16 @@ function Index() {
 
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails }
-    newInput[name] = value
+    
+    if(name=="turnOver"){
+       let tempValue=Number(value)*10000000
+       newInput[name] = tempValue   
+       console.log(tempValue, "turn",name)
+    }else{
+     newInput[name] = value   
+    }
+    
+    
     setCompanyDetails(newInput)
   }
 
@@ -137,7 +147,20 @@ function Index() {
 
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
-    newInput[name] = value
+
+    if (name == "quantity") {
+      let tempVal = addPrefixOrSuffix(value.toString(), orderDetails.unitOfQuantity == "mt" ? "MT" : orderDetails.unitOfQuantity)
+      newInput[name] = tempVal
+    }
+    if (name == "orderValue") {
+      let tempVal = addPrefixOrSuffix(value.toString(),
+        orderDetails?.unitOfValue == "Millions" ? "Mn" :
+          orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue)
+      newInput[name] = tempVal
+    } else {
+      newInput[name] = value
+    }
+
     setOrderDetails(newInput)
   }
 
@@ -165,7 +188,8 @@ function Index() {
   }
 
   const submitData = () => {
-    handleCurrOrder()
+
+    // handleCurrOrder()
     if (companyDetails.companyName === '') {
       let toastMessage = 'Please Fill The Company Name'
       if (!toast.isActive(toastMessage)) {
@@ -208,17 +232,18 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.quantity === null) {
+    } else if (Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0 ) {
       let toastMessage = 'Please Fill A valid quantity'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.orderValue === null) {
+    } else if (Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000) <= 0) {
       let toastMessage = 'Please Fill A valid order value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
+      return
     }
 
     // else if (orderDetails.supplierName.trim() === '') {
@@ -251,6 +276,7 @@ function Index() {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
+      return
     }
     //  else if (!documents.document1 && !documents.document1) {
     //   let toastMessage = 'Please Check Document Upload'
@@ -263,9 +289,13 @@ function Index() {
       documents.forEach((val, index) => {
         docTypeArr.push(val.typeDocument)
       })
+      let sendOrder = { ...orderDetails }
+      sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
+      sendOrder.orderValue =  Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
+      console.log(sendOrder.quantity, "orderDetails12",)
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(companyDetails))
-      fd.append('orderDetails', JSON.stringify(orderDetails))
+      fd.append('orderDetails', JSON.stringify(sendOrder))
       fd.append('documentType', JSON.stringify(docTypeArr))
       documents.forEach((val, index) => {
         fd.append(`documents`, val.attachDoc)
@@ -273,7 +303,7 @@ function Index() {
 
       // fd.append('documents', documents.document2)
       fd.append('gstList', JSON.stringify(gstListData))
-      console.log(fd, 'this is payload')
+      console.log(sendOrder, 'this is payload')
 
       dispatch(CreateBuyer(fd))
     }
@@ -282,9 +312,12 @@ function Index() {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()
     document.getElementById('documents').reset()
-    document.querySelector(companyInput).value = ''
-  }
+    document.getElementById('companyInput').value = ''
 
+    // document.querySelector(companyInput).value = ''
+  }
+  console.log(Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0,'orderDetails12')
+  // console.log((orderDetails?.quantity?.slice(orderDetails?.quantity?.length - 2, orderDetails?.quantity?.length) === '' ), "orderDetails12")
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // console.log(companyDetails.companyName, "companyName")
@@ -295,7 +328,7 @@ function Index() {
   const [documents, setDocuments] = useState([
     { typeOfDocument: '', attachDoc: '' },
   ])
-  
+
   const onAddDoc = (index) => {
     setDocuments([
       ...documents,
@@ -375,7 +408,10 @@ function Index() {
           saveOrderData={saveOrderData}
           saveCompanyData={saveCompanyData}
         />
-        <OrderDetails darkMode={darkMode} saveOrderData={saveOrderData} />
+        <OrderDetails
+          darkMode={darkMode}
+          saveOrderData={saveOrderData}
+          orderDetails={orderDetails} />
         <Documents
           darkMode={darkMode}
           saveDocument={saveDocument}

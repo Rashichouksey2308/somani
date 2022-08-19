@@ -5,10 +5,8 @@ import { Chart, ArcElement, registerables } from 'chart.js'
 
 function Index({ shareHolding }) {
 
-  const [totalShares, setTotalShares] = useState(0)
 
-
-  console.log(shareHolding, "shareholding")
+ // console.log(shareHolding, "shareholding")
   Chart.register(ArcElement)
   let tempArr = [
     { name: 'Sail', value: '21', color: '#9675CE' },
@@ -26,8 +24,11 @@ function Index({ shareHolding }) {
   let totalEquitySharePercentage = 0
   const topEquityValues = EquityValues?.sort((a, b) => b.numberOfShares - a.numberOfShares).slice(0, 5).forEach((item) => {
     equityShareNo.push(item.numberOfShares)
-    totalEquityShare += item.numberOfShares
-    totalEquitySharePercentage += item.percentageShareHolding
+
+  })
+  EquityValues?.forEach((equity) => {
+    totalEquityShare += equity.numberOfShares
+    totalEquitySharePercentage += equity.percentageShareHolding
   })
   // const top
 
@@ -44,7 +45,7 @@ function Index({ shareHolding }) {
     totalPrefrenceSharePercentage += item.percentageShareHolding
   })
 
-  setTimeout(console.log(equityShareNo, topEquityValues, 'topprefrencesShareNo'), 5000);
+  //setTimeout(console.log(equityShareNo, topEquityValues, 'topprefrencesShareNo'), 5000);
 
 
   const equitydata = {
@@ -117,9 +118,10 @@ function Index({ shareHolding }) {
         <div id="shareholding" className="collapse" aria-labelledby="shareholding" data-parent="#profileAccordion">
           <div className={`${styles.graphTable} ${styles.cardBody} card-body border_color`}>
             <h3 className="label_heading">Equity Capital</h3>
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-                {/* <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+            <div className={styles.tableParent}>
+              <div className={styles.table_scroll_outer}>
+                <div className={styles.table_scroll_inner}>
+                  {/* <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <tbody>
                     <tr>
                       <th rowSpan="7">
@@ -174,103 +176,107 @@ function Index({ shareHolding }) {
                   </tbody>
                 </table> */}
 
-                <table className={`${styles.table} table mb-4`} cellPadding="0" cellSpacing="0" border="0">
-                  <tbody>
-                    <tr>
-                      <th rowSpan={shareHolding ? shareHolding?.length : '7'}>
-                        <div className={styles.chart}>
-                          <Doughnut data={equitydata} options={options} />
-                          <div className={`${styles.total_value} `}>
-                            <span className={styles.headSpan}>₹ 24.00 Cr</span>
-                            <span className={styles.subSpan}>50%</span>
+                  <table className={`${styles.table} table mb-4`} cellPadding="0" cellSpacing="0" border="0">
+                    <tbody>
+                      <tr>
+                        <th rowSpan={shareHolding ? shareHolding?.length : '7'}>
+                          <div className={styles.chart}>
+                            <Doughnut data={equitydata} options={options} />
+                            <div className={`${styles.total_value} `}>
+                              <span className={styles.headSpan}>₹ 24.00 Cr</span>
+                              <span className={styles.subSpan}>50%</span>
+                            </div>
                           </div>
-                        </div>
-                      </th>
-                      <th></th>
-                      <th>FULL NAME</th>
-                      <th>NO. OF SHARES</th>
-                      <th>% SHAREHOLDING</th>
-                      <th>PAN</th>
-                      <th>DIRECTOR</th>
-                    </tr>
-                    {shareHolding?.map((shareHolder, index) => {
-                      console.log(shareHolder.percentageShareHolding, 'mapping')
+                        </th>
+                        <th></th>
+                        <th>FULL NAME</th>
+                        <th>NO. OF SHARES</th>
+                        <th>% SHAREHOLDING</th>
+                        <th>PAN</th>
+                        <th>DIRECTOR</th>
+                      </tr>
+                      {shareHolding?.map((shareHolder, index) => {
+                        console.log(shareHolder.percentageShareHolding, 'mapping')
 
-                      if (shareHolder.type === "EquityShares1Member") {
+                        if (shareHolder.type === "EquitySharesMember") {
 
-                        return (
-                          <tr key={index}>
-                            <td className={`${styles.legends} ${styles.green} border-bottom-0`}><span></span></td>
-                            <td className={`${styles.name} border-bottom-0`}>{shareHolder.fullName}</td>
-                            <td className="border-bottom-0">{shareHolder.numberOfShares}</td>
-                            <td className="border-bottom-0">{(shareHolder.percentageShareHolding).toFixed(2)}%</td>
-                            <td className="border-bottom-0">{shareHolder.pan}</td>
-                            <td className="border-bottom-0">{shareHolder.director ? 'Yes' : 'No'}</td>
-                          </tr>
-                        )
-                      }
-                    })}
-                    <tr>
-                      <td></td>
-                      <td className="border-top-0"></td>
-                      <td>{totalEquityShare}</td>
-                      <td>{(totalEquitySharePercentage).toFixed(2)}%</td>
-                      <td className="border-top-0"></td>
-                      <td className="border-top-0"></td>
-                    </tr>
-                  </tbody>
-                </table>
+                          return (
+                            <tr key={index}>
+                              <td className={`${styles.legends} ${styles.green} border-bottom-0`}><span></span></td>
+                              <td className={`${styles.name} border-bottom-0`}>{shareHolder.fullName}</td>
+                              <td className="border-bottom-0">{shareHolder.numberOfShares}</td>
+                              <td className="border-bottom-0">{(shareHolder.percentageShareHolding)?.toLocaleString(undefined, {minimumFractionDigits: 2})}%</td>
+                              <td className="border-bottom-0">{shareHolder.pan}</td>
+                              <td className="border-bottom-0">{shareHolder.director ? 'Yes' : 'No'}</td>
+                            </tr>
+                          )
+                        }
+                      })}
+                      <tr>
+                        <td></td>
+                        <td className="border-top-0"></td>
+                        <td>{totalEquityShare}</td>
+                        <td>{(totalEquitySharePercentage).toFixed(2)}%</td>
+                        <td className="border-top-0"></td>
+                        <td className="border-top-0"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
+
             <h3 className="label_heading">Preference Capital</h3>
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
-                  <tbody>
-                    <tr>
-                      <th rowSpan="7">
+            <div className={styles.tableParent}>
+              <div className={styles.table_scroll_outer}>
+                <div className={styles.table_scroll_inner}>
+                  <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+                    <tbody>
+                      <tr>
+                        <th rowSpan="7">
 
-                        <div className={styles.chart}>
-                          <Doughnut data={prefrencedata} options={options} />
-                          <div className={`${styles.total_value} `}>
-                            <span className={styles.headSpan}>₹ 24.00 Cr</span>
-                            <span className={styles.subSpan}>50%</span>
+                          <div className={styles.chart}>
+                            <Doughnut data={prefrencedata} options={options} />
+                            <div className={`${styles.total_value} `}>
+                              <span className={styles.headSpan}>₹ 24.00 Cr</span>
+                              <span className={styles.subSpan}>50%</span>
+                            </div>
                           </div>
-                        </div>
-                      </th>
-                      <th></th>
-                      <th>FULL NAME</th>
-                      <th>NO. OF SHARES</th>
-                      <th>% SHAREHOLDING</th>
-                      <th>PAN</th>
-                      <th>DIRECTOR</th>
-                    </tr>
-                    {shareHolding?.map((shareHolder, index) => {
+                        </th>
+                        <th></th>
+                        <th>FULL NAME</th>
+                        <th>NO. OF SHARES</th>
+                        <th>% SHAREHOLDING</th>
+                        <th>PAN</th>
+                        <th>DIRECTOR</th>
+                      </tr>
+                      {shareHolding?.map((shareHolder, index) => {
 
-                      if (!shareHolder.type === "EquitySharesMember") {
+                        if (!shareHolder.type === "EquitySharesMember") {
 
-                        return (
-                          <tr key={index}>
-                            <td className={`${styles.legends} ${styles.green} border-bottom-0`}><span></span></td>
-                            <td className={`${styles.name} border-bottom-0`}>{shareHolder.fullName}</td>
-                            <td className="border-bottom-0">{shareHolder.numberOfShares}</td>
-                            <td className="border-bottom-0">{shareHolder.percentageShareHolding}</td>
-                            <td className="border-bottom-0">{shareHolder.pan}</td>
-                            <td className="border-bottom-0">{shareHolder.director ? 'Yes' : 'No'}</td>
-                          </tr>
-                        )
-                      }
-                    })}
-                    <tr>
-                      <td></td>
-                      <td className="border-top-0"></td>
-                      <td>{totalPrefrenceShare}</td>
-                      <td>{(totalPrefrenceSharePercentage).toFixed(2)}%</td>
-                      <td className="border-top-0"></td>
-                      <td className="border-top-0"></td>
-                    </tr>
-                  </tbody>
-                </table>
+                          return (
+                            <tr key={index}>
+                              <td className={`${styles.legends} ${styles.green} border-bottom-0`}><span></span></td>
+                              <td className={`${styles.name} border-bottom-0`}>{shareHolder.fullName}</td>
+                              <td className="border-bottom-0">{shareHolder.numberOfShares}</td>
+                              <td className="border-bottom-0">{shareHolder.percentageShareHolding}</td>
+                              <td className="border-bottom-0">{shareHolder.pan}</td>
+                              <td className="border-bottom-0">{shareHolder.director ? 'Yes' : 'No'}</td>
+                            </tr>
+                          )
+                        }
+                      })}
+                      <tr>
+                        <td></td>
+                        <td className="border-top-0"></td>
+                        <td>{totalPrefrenceShare}</td>
+                        <td>{(totalPrefrenceSharePercentage).toFixed(2)}%</td>
+                        <td className="border-top-0"></td>
+                        <td className="border-top-0"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

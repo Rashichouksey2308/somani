@@ -9,6 +9,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import moment from 'moment'
+import { addPrefixOrSuffix } from 'utils/helper'
 
 function Index() {
   const dispatch = useDispatch()
@@ -163,7 +164,9 @@ function Index() {
                         </td>
                         <td className='term_para'>
                           +/-{' '}
-                          {lcModuleData?.lcApplication?.tolerancePercentage?.toUpperCase()}
+                          {addPrefixOrSuffix(lcModuleData?.lcApplication?.tolerancePercentage?.toUpperCase(),
+                                    '%',
+                                    '',)}
                         </td>
                       </tr>
                       <tr className="table_row">

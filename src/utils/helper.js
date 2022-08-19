@@ -106,9 +106,17 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
         .replaceAll('%', '')
         .replaceAll('K', '')
         .replaceAll('G', '')
+        .replaceAll('M', '')
+        .replaceAll('Cr', '')
+        .replaceAll('i', '')
+        .replaceAll('l', '')
+        .replaceAll('o', '')
+        .replaceAll('n', '')
+        .replaceAll('s', '')
         .replace(/ /g, '')
 
-      let newValue = `${removedValue.trim()}${` `}${type}`
+      console.log(removedValue, 'removedValue')
+      let newValue = `${removedValue}${` `}${type}`
       console.log('999', type, removedValue, newValue)
       return newValue
     } else {
@@ -117,7 +125,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
   }
 }
 export const removePrefixOrSuffix = (unitOfValue, type) => {
-  console.log(unitOfValue, 'unitOfValue')
+  console.log(unitOfValue, 'unitOfValueremove')
   if (unitOfValue !== undefined || unitOfValue !== 'undefined') {
     let newValue = unitOfValue
       ?.toString()
@@ -130,6 +138,16 @@ export const removePrefixOrSuffix = (unitOfValue, type) => {
       .replaceAll('$', '')
       .replaceAll('€', '')
       .replaceAll('£', '')
+      .replaceAll('C', '')
+      .replaceAll('r', '')
+      .replaceAll('i', '')
+      .replaceAll('l', '')
+      .replaceAll('o', '')
+      .replaceAll('n', '')
+      .replaceAll('s', '')
+      .replaceAll('M', '')
+      .replace(/ /g, '')
+    console.log(newValue, 'newValueremove')
     return Number(newValue)
   }
 }

@@ -165,7 +165,7 @@ export default function Home() {
     setList(newArr)
   }
 
-  console.log(list, 'vessels123')
+  // console.log(list, 'vessels123')
   //const [shipmentType, setShipmentType] = useState('Bulk')
 
   const [startDate, setStartDate] = useState(null)
@@ -244,8 +244,19 @@ export default function Home() {
   }
   const onVesselInfoChangeHandlerForBulk = (e, index) => {
     const name = e.target.id
-    const value = e.target.value
-    console.log(name, value, 'arrayvessel')
+    let value = e.target.value
+    if (name === 'yearOfBuilt' && value.length === 4) {
+      value = new Date(e.target.value)
+      console.log(value, 'fghfhf')
+    } 
+    console.log(name, value, 'arrayvesselbulk')
+    if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
+      let toastMessage = 'provide a valid year'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+        return
+      }
+    }
     let array = { ...list[index].vesselInformation[0], [name]: value }
     console.log(array, 'arrayvessel')
     setList(prevState => {
@@ -262,31 +273,45 @@ export default function Home() {
     })
   }
   console.log(list, 'vessel liner state')
-  // const onVesselInfoChangeHandlerForLiner = (e, index) => {
-  //   const name = e.target.id
-  //   const value = e.target.value
-  //   let tempState = [...list]
-  //   let tempArr = [...list[0].vesselInformation]
-  //   tempArr.forEach((val, i) => {
-  //     if (i == index) {
-  //       val[name] = value
-  //     }
-  //   })
-  //   tempState[0].vesselInformation = [...tempArr]
-  //   setList(tempState)
-  //   //console.log(tempArr, 'tempArr')
-  // }
-  // //console.log(list, 'arrayvessel')
 
   const onVesselInfoChangeHandlerForLiner = (e, index) => {
     const name = e.target.id
-    const value = e.target.value
-    let array = [...list]
-    let vesselArray = { ...array[0].vesselInformation[index], [name]: value }
-    array[0].vesselInformation[index] = vesselArray
-
-    setList(array)
+    let value = e.target.value
+    if (name === 'yearOfBuilt' && value.length === 4) {
+      value = new Date(e.target.value)
+      console.log(value, 'fghfhf')
+    }
+    console.log(name, value, 'arrayvesselliner')
+    let tempState = [...list]
+    let tempArr = [...list[0].vesselInformation]
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val[name] = value
+      }
+    })
+    tempState[0].vesselInformation = [...tempArr]
+    setList(tempState)
+    //console.log(tempArr, 'tempArr')
   }
+  //console.log(list, 'arrayvessel')
+
+  // const onVesselInfoChangeHandlerForLiner = (e, index) => {
+
+  //   const name = e.target.id
+  //   const value = e.target.value
+  //   if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
+  //     let toastMessage = 'Provide a Valid Year'
+  //     if (!toast.isActive(toastMessage)) {
+  //       toast.error(toastMessage, { toastId: toastMessage })
+  //       return
+  //     }
+  //   }
+  //   let array = [...list]
+  //   let vesselArray = { ...array[0].vesselInformation[index], [name]: value }
+  //   array[0].vesselInformation[index] = vesselArray
+
+  //   setList(array)
+  // }
 
   const uploadDocHandler = (e) => {
     let uploadDocType = e.target.id

@@ -31,7 +31,7 @@ import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
-
+import { removePrefixOrSuffix } from '../../src/utils/helper'
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
 
@@ -151,6 +151,26 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
     transactionPeriodDays: orderList?.transactionPeriodDays,
     manufacturerName: orderList?.manufacturerName,
   })
+  useEffect(() => {
+    setOrderDetails({
+    transactionType: orderList?.transactionType,
+    commodity: orderList?.commodity,
+    quantity: orderList?.quantity,
+    unitOfQuantity: orderList?.unitOfQuantity,
+    orderValue: orderList?.orderValue,
+    orderCurrency: orderList?.orderCurrency,
+    unitOfValue: orderList?.unitOfValue,
+    supplierName: orderList?.supplierName,
+    countryOfOrigin: orderList?.countryOfOrigin,
+    portOfDischarge: orderList?.portOfDischarge,
+    ExpectedDateOfShipment: orderList?.ExpectedDateOfShipment,
+    incoTerm: orderList?.incoTerm,
+    grade: orderList?.grade,
+    tolerance: orderList?.tolerance,
+    transactionPeriodDays: orderList?.transactionPeriodDays,
+    manufacturerName: orderList?.manufacturerName,
+  })
+  },[orderList])
 
   const [shipment, setShipment] = useState({
     ETAofDischarge: {
@@ -166,6 +186,7 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
   })
 
   const saveOrderData = (name, value) => {
+    console.log(value,"value888")
     const newInput = { ...orderDetails }
     newInput[name] = value
     // console.log(newInput)
@@ -281,17 +302,20 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
       }
       return
     } else {
+      let orderToSend={...orderDetails}
+      orderToSend.quantity=removePrefixOrSuffix(orderDetails.quantity)
+      orderToSend.orderValue=removePrefixOrSuffix(orderDetails.orderValue)* 10000000
       if (orderDetails.unitOfValue === 'Cr' || 'Crores') {
         const obj = {
-          ...orderDetails,
+          ...orderToSend,
           shipmentDetail: { ...shipment },
           order: orderList._id,
-          orderValue: orderDetails.orderValue * 10000000,
+          orderValue:removePrefixOrSuffix(orderDetails.orderValue)  * 10000000,
         }
         dispatch(UpdateOrderShipment(obj))
       } else {
         const obj = {
-          ...orderDetails,
+          ...orderToSend,
           shipmentDetail: { ...shipment },
           order: orderList._id,
         }
@@ -1220,16 +1244,21 @@ const [totalCourt,setTotalCourt]=useState({
             <h1 className={`${styles.title} heading`}>
               {orderList?.company?.companyName}
             </h1>
-            <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
+            {selectedTab=="CAM"?
+             <>
+              <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
               <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>Unit :</h5>
               <div className="d-flex align-items-center position-relative">
-                <select className={`${styles.select} ${styles.customSelect} accordion_body form-select`} aria-label="Default select example">
-                  <option selected value="Crores">Crores</option>
-                </select>
-                <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg"
-                  alt="Search" />
+              <select className={`${styles.select} ${styles.customSelect} accordion_body form-select`} aria-label="Default select example">
+              <option selected value="Crores">Crores</option>
+              </select>
+              <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg"
+              alt="Search" />
               </div>
-            </div>
+              </div>
+            </>
+            :null  
+          }
             {uploadBtn ? (
               <div className="">
                 {uploadButton(dispatch, orderList, companyData)}{' '}
@@ -1917,7 +1946,7 @@ const [totalCourt,setTotalCourt]=useState({
                 <div className="tab-pane fade" id="Orders" role="tabpanel">
                   <div className={`${styles.card}`}>
                     <Order
-                      orderDetail={orderList}
+                      orderDetail={orderDetails}
                       saveOrderData={saveOrderData}
                     />
                     <ShipmentDetails
