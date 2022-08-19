@@ -426,7 +426,7 @@ function Index() {
                         <input
                           className={`${styles.input_field} input form-control`}
                           style={{ opacity: '0.5' }}
-                          required
+                          disabled
                           type="text"
                           value={
                             editInput
@@ -452,7 +452,7 @@ function Index() {
                                 editInput ? editCurrent?.newValue : ''
                               }
                               onChange={(e) => {
-                                inputRef.current.value = ''
+                                // inputRef.current.value = ''
                                 arrChange('newValue', e.target.value)
                               }}
                             />
