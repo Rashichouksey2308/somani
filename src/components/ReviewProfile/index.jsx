@@ -163,7 +163,7 @@ function Index({ handleChange, reviewedProfile }) {
                     
                   </td>
                   {!reviewedProfile?.transactionType?.apiResponse &&
-                    DropDown(transactionTypeDropdown, 'transactionType', fields[0].isEdit)}
+                    DropDown(transactionTypeDropdown, 'transactionType', fields[0]?.isEdit)}
                 </tr>
                 <tr className={`${styles.table_row} border_color table_row`}>
                   <td>Type Of Business</td>
@@ -229,7 +229,7 @@ function Index({ handleChange, reviewedProfile }) {
                         onBlur={(e) =>
                           handleChange(e.target.name, Number(e.target.value * 10000000))
                         }
-                        disabled={fields[3].isEdit}
+                        disabled={fields[3]?.isEdit}
                       />
                     )}
                   </td>
@@ -299,7 +299,7 @@ function Index({ handleChange, reviewedProfile }) {
                         onBlur={(e) =>
                           handleChange(e.target.name, Number(e.target.value * 10000000))
                         }
-                        disabled={fields[5].isEdit}
+                        disabled={fields[5]?.isEdit}
                       />
                     )}
                   </td>
@@ -361,7 +361,7 @@ function Index({ handleChange, reviewedProfile }) {
                    :null}
                   </td>
                   {!reviewedProfile?.portOfDischarge?.apiResponse &&
-                    DropDown(portOfDischargeDropdown, 'portOfDischarge',fields[7].isEdit)}
+                    DropDown(portOfDischargeDropdown, 'portOfDischarge',fields[7]?.isEdit)}
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
@@ -406,7 +406,7 @@ function Index({ handleChange, reviewedProfile }) {
                         onBlur={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
-                        disabled={fields[8].isEdit}
+                        disabled={fields[8]?.isEdit}
                       />
                     )}
                   </td>
