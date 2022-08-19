@@ -106,13 +106,10 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
   console.log(orderList, 'this is order list')
 
   const { companyData } = useSelector((state) => state.companyDetails)
-  console.log(companyData, 'this is company data')
+ 
 
-  // useEffect(()=> {
-  //   const filtered = documentsFetched?.document.filter((doc)=> !doc.deleted )
-  //   setFilteredDoc(prev => [...prev, filtered ])
 
-  // },[documentsFetched])
+console.log(selectedTab,"selectedTab")
 
 
 
@@ -132,6 +129,30 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
 
 
   const [selectedTab, setSelectedTab] = useState('Profile')
+  console.log("🚀 ~ file: index.jsx ~ line 132 ~ Index ~ selectedTab", selectedTab)
+
+  useEffect(() => {
+     let isError=false
+      if(selectedTab=="Profile" && companyData.profile.error){
+      isError=true
+
+      }
+      if(selectedTab=="Financials" && companyData.financial.error){
+
+      isError=true
+      }
+      if(selectedTab=="Compliance" && companyData.compliance.error){
+
+      isError=true
+      }
+  
+    if(isError){
+        let toastMessage = 'Can not fetch the data from external Api'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
+  },[selectedTab])
 
   const [orderDetails, setOrderDetails] = useState({
     transactionType: orderList?.transactionType,
@@ -857,7 +878,7 @@ tab[0].children[i].classList.remove('active')
       tab[0].children[3].classList.add('active')
 
     }
-    setSelectedTab(e.target.attributes[4].nodeValue)
+    // setSelectedTab(e.target.attributes[4].nodeValue)
   }
   const onNext = () => {
     let list = document.getElementsByClassName('nav-tabs')
@@ -1230,6 +1251,7 @@ const [totalCourt,setTotalCourt]=useState({
  
   setTotalCourt(count)
  }
+ 
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -1269,7 +1291,9 @@ const [totalCourt,setTotalCourt]=useState({
             </div> */}
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
-            <li className={`${styles.navItem}  nav-item`}>
+            <li className={`${styles.navItem}  nav-item`}
+            
+            >
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
                 data-toggle="tab"
@@ -1278,8 +1302,11 @@ const [totalCourt,setTotalCourt]=useState({
                 aria-controls="Profile"
                 aria-selected="true"
                 onClick={(e) => {
+                  setSelectedTab("Profile")
                   currentOpenLink(e)
                   setUploadBtn(false)
+                  
+                 
                 }}
               >
                 Profile
@@ -1296,6 +1323,7 @@ const [totalCourt,setTotalCourt]=useState({
                 onClick={(e) => {
                   currentOpenLink(e)
                   setUploadBtn(true)
+                   setSelectedTab("Financials")
                 }}
               >
                 Financials
@@ -1312,6 +1340,7 @@ const [totalCourt,setTotalCourt]=useState({
                 onClick={(e) => {
                   currentOpenLink(e)
                   setUploadBtn(true)
+                   setSelectedTab("GST")
                 }}
               >
                 GST
@@ -1328,6 +1357,7 @@ const [totalCourt,setTotalCourt]=useState({
                 onClick={(e) => {
                   currentOpenLink(e)
                   setUploadBtn(true)
+                  setSelectedTab("Compliance")
                 }}
               >
                 Compliance
@@ -1344,6 +1374,7 @@ const [totalCourt,setTotalCourt]=useState({
                 onClick={(e) => {
                   currentOpenLink(e)
                   setUploadBtn(false)
+                  setSelectedTab("Orders")
                 }}
               >
                 Orders
@@ -1360,6 +1391,7 @@ const [totalCourt,setTotalCourt]=useState({
                 onClick={(e) => {
                   currentOpenLink(e)
                   setUploadBtn(false)
+                    setSelectedTab("Credit")
                 }}
               >
                 Credit
@@ -1376,6 +1408,7 @@ const [totalCourt,setTotalCourt]=useState({
                 onClick={(e) => {
                   currentOpenLink(e)
                   setUploadBtn(false)
+                   
                 }}
               >
                 Documents
@@ -1392,6 +1425,7 @@ const [totalCourt,setTotalCourt]=useState({
                 onClick={(e) => {
                   currentOpenLink(e)
                   setUploadBtn(true)
+                   setSelectedTab("CAM")
                 }}
               >
                 CAM
@@ -1409,6 +1443,7 @@ const [totalCourt,setTotalCourt]=useState({
                   role="tabpanel"
                 >
                   <div className="accordion shadow-none" id="profileAccordion">
+                     
                     <CompanyDetails order={orderList?.company} companyDetail={companyData} />
                     <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorData={companyData} />
