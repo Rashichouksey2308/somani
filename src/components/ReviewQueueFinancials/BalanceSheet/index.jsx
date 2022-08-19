@@ -22,16 +22,9 @@ function Index({ balanceData }) {
     }
   }, [])
 
-  // const latestYearData = balanceData?.financial?.balanceSheet[0]
-
-
-  // const previousYearData = balanceData?.financial?.balanceSheet[1]
-
-  // const lastYearData = balanceData?.financial?.balanceSheet[1]
-
-  const latestYearData = _get(balanceData,'financial?.balanceSheet[0]',{}) 
-  const previousYearData = _get(balanceData,'financial?.balanceSheet[1]',{}) 
-  const lastYearData = _get(balanceData,'financial?.balanceSheet[2]',{}) 
+  const latestYearData = _get(balanceData,'financial.balanceSheet[0]',{}) 
+  const previousYearData = _get(balanceData,'financial.balanceSheet[1]',{}) 
+  const lastYearData = _get(balanceData,'financial.balanceSheet[2]',{}) 
 
   // const checkTrend = (latest,previous,last) => {
   //   if(latest>=previous && previous>last){
@@ -208,7 +201,7 @@ function Index({ balanceData }) {
                       <td className="text-center">
                         <strong>
                           {lastYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString() +
-                            lastYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()?.toLocaleString()}
+                            lastYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()?.toFixed(2)}
                         </strong>
                       </td>
                       <td className="text-center">
