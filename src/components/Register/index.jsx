@@ -224,13 +224,21 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0 ) {
+    } else if (Number(removePrefixOrSuffix(orderDetails.quantity)) <=0 || orderDetails.quantity === null || isNaN(Number(removePrefixOrSuffix(orderDetails.quantity)))) {
       let toastMessage = 'Please Fill A valid quantity'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000) <= 0) {
+    }
+    // else if (isNaN(orderDetails.quantity)) {
+    //   let toastMessage = 'Please Fill A valid quantity'
+    //   if (!toast.isActive(toastMessage)) {
+    //     toast.error(toastMessage, { toastId: toastMessage })
+    //   }
+    //   return
+    // }
+    else if (Number(removePrefixOrSuffix(orderDetails.orderValue)) <=0 || orderDetails.orderValue === null || isNaN(Number(removePrefixOrSuffix(orderDetails.orderValue)))) {
       let toastMessage = 'Please Fill A valid order value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -283,7 +291,8 @@ function Index() {
       })
       let sendOrder = { ...orderDetails }
       sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
-      sendOrder.orderValue =  Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
+      sendOrder.orderValue = Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
+
       console.log(sendOrder.quantity, "orderDetails12",)
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(companyDetails))
@@ -295,11 +304,12 @@ function Index() {
 
       // fd.append('documents', documents.document2)
       fd.append('gstList', JSON.stringify(gstListData))
-      console.log(sendOrder, 'this is payload')
+      console.log(sendOrder, isNaN(orderDetails.quantity), 'this is payload')
 
-      dispatch(CreateBuyer(fd))
+       dispatch(CreateBuyer(fd))
     }
   }
+  console.log(orderDetails, 'this is payload2')
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()
@@ -308,7 +318,8 @@ function Index() {
 
     // document.querySelector(companyInput).value = ''
   }
-  console.log(Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0,'orderDetails12')
+  console.log(Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0, orderDetails.orderValue === isNaN, 'this is payload')
+  console.log(Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0, 'orderDetails12')
   // console.log((orderDetails?.quantity?.slice(orderDetails?.quantity?.length - 2, orderDetails?.quantity?.length) === '' ), "orderDetails12")
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
