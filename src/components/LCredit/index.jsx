@@ -235,7 +235,7 @@ function Index() {
       clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
     ) {
       let toastMessage = 'Please select a different Clause from drop down'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {

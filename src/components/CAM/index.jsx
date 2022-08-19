@@ -92,7 +92,7 @@ function Index({
   //     if (!approvedCreditValue) {
   //       let toastMessage =
   //         'More than 30% diff in derived and suggested value,Approved credit value required'
-  //       if (!toast.isActive(toastMessage)) {
+  //       if (!toast.isActive(toastMessage.toUpperCase())) {
   //         toast.error(toastMessage, { toastId: toastMessage })
   //         return false
   //       }
@@ -107,7 +107,7 @@ function Index({
   //     if (!approvedOrderValue) {
   //       let toastMessage =
   //         'More than 30% diff in applied and suggested order value,Approved order value required'
-  //       if (!toast.isActive(toastMessage)) {
+  //       if (!toast.isActive(toastMessage.toUpperCase())) {
   //         toast.error(toastMessage, { toastId: toastMessage })
   //         return false
   //       }

@@ -100,16 +100,15 @@ export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(getAllVesselFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(getAllVesselFailed())
 
     let toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -132,16 +131,15 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(getVesselFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(getVesselFailed())
 
     let toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -160,22 +158,20 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(updateVesselSuccess(response.data.data))
         let toastMessage = 'VESSEL UPDATED SUCCESSFULLY'
-        if (!toast.isActive(toastMessage)) {
-          toast.success(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       } else {
         dispatch(updateVesselFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(updateVesselFailed())
 
     let toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -194,22 +190,20 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(uploadDocVesselSuccess(response.data.data))
         let toastMessage = 'DOCUMENT UPLOADED SUCCESSFULL'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       } else {
         dispatch(uploadDocVesselFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(uploadDocVesselFailed())
 
     let toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }

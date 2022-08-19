@@ -60,22 +60,20 @@ export const updateGenericData =
         if (response.data.code === 200) {
           dispatch(submitGenericSuccess(response.data))
           let toastMessage = 'Submmitted'
-          if (!toast.isActive(toastMessage)) {
-            toast.success(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         } else {
           dispatch(submitGenericFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(submitGenericFailed())
 
       let toastMessage = 'PUT GENERIC API FAILED'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }
@@ -99,7 +97,7 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
     } else {
       dispatch(getGenericFailed(response.data.data))
       let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }
@@ -107,7 +105,7 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
     dispatch(getGenericFailed())
 
     let toastMessage = 'PUT GENERIC API FAILED'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }

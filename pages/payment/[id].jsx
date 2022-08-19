@@ -211,7 +211,7 @@ function Index() {
     if (DOlimit < 0) {
       let toastMessage =
         'Delivery Order Quantity Cannot Be Greater than Realese Quantity'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }

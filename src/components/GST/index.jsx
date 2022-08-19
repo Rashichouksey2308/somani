@@ -1280,18 +1280,18 @@ function Index({ companyData, orderList, GstDataHandler }) {
                       <strong>Purchases Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value?.toFixed(2).toLocaleString()}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value?.toFixed(2).toLocaleString()}%</strong></td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value?.toFixed(2).toLocaleString()}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value?.toFixed(2).toLocaleString()}%</strong></td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       <strong>Quarterly Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value?.toFixed(2).toLocaleString()}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value?.toFixed(2).toLocaleString()}%</strong></td>
                     <td></td>
-                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value?.toFixed(2).toLocaleString()}</strong></td>
+                    <td className='border-left-0'><strong>-{gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value?.toFixed(2).toLocaleString()}%</strong></td>
                   </tr>
                 </table>
                 <table

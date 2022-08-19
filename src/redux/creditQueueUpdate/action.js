@@ -112,21 +112,19 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(updatingCamSuccess(response.data.data))
         let toastMessage = 'CAM APPROVED'
-        if (!toast.isActive(toastMessage)) {
-          toast.success(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       } else {
         dispatch(updatingCamFailed(response.data.data))
         let toastMessage = response.data.message
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(updatingCamFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -150,16 +148,13 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
         dispatch(gettingDocumentsSuccess(response.data.data))
       } else {
         dispatch(gettingDocumentsFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+       
       }
     })
   } catch (error) {
     dispatch(gettingDocumentsFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -183,15 +178,14 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(VerifyingGstFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(VerifyingGstFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -216,21 +210,19 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(addingDocumentsSuccess(response.data.data))
         let toastMessage = 'Document Successfully Added'
-        if (!toast.isActive(toastMessage)) {
-          toast.success(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       } else {
         dispatch(addingDocumentsFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(addingDocumentsFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -249,21 +241,19 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(deleteDocumentsSuccess(response.data.data))
         let toastMessage = 'Document Successfully DELETED'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       } else {
         dispatch(deleteDocumentsFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(deleteDocumentsFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }

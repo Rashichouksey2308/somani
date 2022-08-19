@@ -95,16 +95,15 @@ export const GettingAllInsurance =
         } else {
           dispatch(getAllInsuranceFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(getAllInsuranceFailed())
 
       let toastMessage = 'GET INSURANCE API FAILED'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }
@@ -126,22 +125,20 @@ export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(createInsuranceSuccess(response.data.data))
         let toastMessage = 'INSURANC CREATED'
-        if (!toast.isActive(toastMessage)) {
-          toast.success(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       } else {
         dispatch(createInsuranceFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(createInsuranceFailed())
 
     let toastMessage = 'COULD NOT CREATE INSURANCE AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -161,22 +158,20 @@ export const UpdateInsurance =
         if (response.data.code === 200) {
           dispatch(updateInsuranceSuccess(response.data))
           let toastMessage = 'SAVED SUCCESSFULLY'
-          if (!toast.isActive(toastMessage)) {
-            toast.success(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         //   router.push('/margin-money')
         } else {
           dispatch(updateInsuranceFailed(response.data))
           let toastMessage = 'UPDATE REQUEST FAILED'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(updateInsuranceFailed())
       let toastMessage = 'UPDATE INSURANCE REQUEST FAILED'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }
@@ -195,22 +190,20 @@ export const UpdateQuotation =
         if (response.data.code === 200) {
           dispatch(updateQuotationSuccess(response.data))
           let toastMessage = 'SAVED SUCCESSFULLY'
-          if (!toast.isActive(toastMessage)) {
-            toast.success(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         //   router.push('/margin-money')
         } else {
           dispatch(updateQuotationFailed(response.data))
           let toastMessage = 'UPDATE REQUEST FAILED'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(updateQuotationFailed())
       let toastMessage = 'UPDATE QUOTATION REQUEST FAILED'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }
