@@ -49,7 +49,7 @@ function Index() {
       },
     },
     email: '',
-    turnOver: '',
+    turnOver: 500000000,
     communicationMode: [],
 
     turnOverUnit: 'Cr',
