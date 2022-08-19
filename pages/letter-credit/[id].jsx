@@ -568,9 +568,12 @@ function Index() {
 
           {/* Document*/}
           <InspectionDocument
+            lcDoc={lcDoc}
             orderId={lcModuleData?.order?._id}
             uploadDocument1={uploadDocument1}
             documentName="LC DRAFT"
+            module='Agreements&Insurance&LC&Opening'
+
           />
         </div>
       </div>

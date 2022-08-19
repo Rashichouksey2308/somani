@@ -26,16 +26,19 @@ const Index = ({ orderid, module }) => {
     name: '',
     module: module,
   })
-  const [moduleSelected, setModuleSelected] = useState('LeadOnboarding&OrderApproval')
+  const [moduleSelected, setModuleSelected] = useState(
+    'LeadOnboarding&OrderApproval',
+  )
   const [filteredDoc, setFilteredDoc] = useState([])
 
   useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => { return doc.module === moduleSelected })
+    const tempArray = documentsFetched?.documents?.filter((doc) => {
+      return doc.module === moduleSelected
+    })
     console.log(tempArray, filteredDoc, moduleSelected, 'moduleSelected')
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderid}`))
-
-  }, [dispatch, orderid,moduleSelected])
+  }, [dispatch, orderid, moduleSelected])
 
   console.log(documentsFetched, filteredDoc, moduleSelected, 'moduleSelected')
 
@@ -50,9 +53,7 @@ const Index = ({ orderid, module }) => {
     let tempArray = filteredDoc
     tempArray.pop(index)
     setFilteredDoc(tempArray)
-
   }
-
 
   const handleNewDocModule = (e) => {
     if (e.target.value === 'others') {
@@ -81,20 +82,17 @@ const Index = ({ orderid, module }) => {
 
     dispatch(AddingDocument(fd))
   }
-  const [filterValue,setFilterValue]=useState("")
-  const filterDocBySearch=(val)=>{
-    
-     const tempArray = documentsFetched?.documents?.filter((doc) => { 
-          console.log(doc.name,val,"ser")
-          if(doc.name.toLowerCase().includes(val)){
-            return  doc
-          }
-     
+  const [filterValue, setFilterValue] = useState('')
+  const filterDocBySearch = (val) => {
+    const tempArray = documentsFetched?.documents?.filter((doc) => {
+      console.log(doc.name, val, 'ser')
+      if (doc.name.toLowerCase().includes(val)) {
+        return doc
+      }
     })
     setFilteredDoc(tempArray)
-     
   }
-  console.log(filterValue,"filterValue")
+  console.log(filterValue, 'filterValue')
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
@@ -246,7 +244,7 @@ const Index = ({ orderid, module }) => {
                           </option>
                         </>
                       )}
-                      <option value='others'>Other</option>
+                      <option value="others">Other</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
                       Document Type
@@ -290,15 +288,23 @@ const Index = ({ orderid, module }) => {
               <div
                 className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
               >
-                <div className='d-flex align-items-center'>
+                <div className="d-flex align-items-center">
                   <select
                     onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
-                    <option value='LeadOnboarding&OrderApproval'>Lead Onboarding &amp; Order Approval</option>
-                    <option value='Agreements&Insurance&LC&Opening'>Agreements, Insurance &amp; LC Opening</option>
-                    <option value='Loading-Transit-Unloading'>Loading-Transit-Unloading</option>
-                    <option value='CustomClearanceAndWarehousing'>Custom Clearance And Warehousing</option>
+                    <option value="LeadOnboarding&OrderApproval">
+                      Lead Onboarding &amp; Order Approval
+                    </option>
+                    <option value="Agreements&Insurance&LC&Opening">
+                      Agreements, Insurance &amp; LC Opening
+                    </option>
+                    <option value="Loading-Transit-Unloading">
+                      Loading-Transit-Unloading
+                    </option>
+                    <option value="CustomClearanceAndWarehousing">
+                      Custom Clearance And Warehousing
+                    </option>
                     <option value="Others">Others</option>
                   </select>
                   <img
@@ -318,7 +324,7 @@ const Index = ({ orderid, module }) => {
                   <input
                     className={`${styles.searchBar}  statusBox border_color input form-control`}
                     placeholder="Search"
-                    onChange={(e)=>{
+                    onChange={(e) => {
                       filterDocBySearch(e.target.value)
                     }}
                   ></input>
@@ -444,24 +450,27 @@ const Index = ({ orderid, module }) => {
                                       name: document.name,
                                     }),
                                   )
-                                }
-                                }
+                                }}
                                 src="/static/delete.svg"
-                                className={`${styles.delete_image} img-fluid mr-3`}
+                                className={`${styles.delete_image} mr-3`}
                                 alt="Bin"
                               />
-                               <img
+                              <img
                                 src="/static/upload.svg"
-                                className="img-fluid mr-3"
+                                className="mr-3"
                                 alt="Share"
-                                onClick={()=>{
-                                  dispatch(ViewDocument({path: document.path,
-                                    orderId: documentsFetched._id}))
+                                onClick={() => {
+                                  dispatch(
+                                    ViewDocument({
+                                      path: document.path,
+                                      orderId: documentsFetched._id,
+                                    }),
+                                  )
                                 }}
                               />
                               <img
                                 src="/static/drive_file.svg"
-                                className={`${styles.edit_image} img-fluid mr-3`}
+                                className={`${styles.edit_image} mr-3`}
                                 alt="Share"
                               />
                             </td>

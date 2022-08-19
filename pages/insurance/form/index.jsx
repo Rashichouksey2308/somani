@@ -174,7 +174,7 @@ const Index = () => {
 
           <div className={`${styles.wrapper} border_color card datatable`}>
             <div
-              className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
+              className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#marineInsurance"
               aria-expanded="true"
@@ -193,7 +193,7 @@ const Index = () => {
                 {insuranceData?.quotationRequest?.insuranceType ===
                 'Marine Insurance' ? (
                   <>
-                    <div className={` ${styles.content}`}>
+                    <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
                         <Row>
                           <Col lg={4} md={6} sm={6}>
