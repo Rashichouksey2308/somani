@@ -140,7 +140,10 @@ function Index() {
 
   const [fieldType, setFieldType] = useState(false)
 
+  const inputRef = useRef(null)
+
   const dropDownChange = (e) => {
+    inputRef.current.value = ''
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
@@ -194,7 +197,7 @@ function Index() {
       setClauseArr(newArr)
     }
   }
-  const inputRef = useRef(null)
+ 
 
   const removeFromArr = (arr) => {
     const newClause = clauseArr.filter((item) => {
