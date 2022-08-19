@@ -1529,10 +1529,10 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{(customer?.ttlVal / supplierDetailsUnit)?.toFixed(2)}</td>
+                            <td>{(customer?.ttlVal / supplierDetailsUnit)?.toLocaleString()}</td>
                             <td>{customer?.percentageOfTotalSales?.toFixed(2).toLocaleString()}%</td>
                             <td>{customer?.invoice}</td>
-                            <td>{customer?.salesPerInvoice?.toFixed(2).toLocaleString()}</td>
+                            <td>{customer?.salesPerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1605,10 +1605,10 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal?.toFixed(2).toLocaleString()}</td>
+                            <td>{Number(customer?.ttlVal)?.toLocaleString()}</td>
                             <td>{customer?.percentageOfTotalSales.toFixed(2)}%</td>
                             <td>{customer?.invoice}</td>
-                            <td>{customer?.salesPerInvoice?.toFixed(2).toLocaleString()}</td>
+                            <td>{Number(customer?.salesPerInvoice)?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1642,10 +1642,10 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                           <tr key={index}>
                             <td>{customer?.stateName}</td>
                             <td>{customer?.stateCode}</td>
-                            <td>{customer?.ttlVal?.toFixed(2).toLocaleString()}</td>
+                            <td>{customer?.ttlVal?.toLocaleString()}</td>
                             <td>{customer?.percentageOfTotalSales?.toFixed(2).toLocaleString()}%</td>
                             <td>{customer?.invoice?.toFixed(2).toLocaleString()}</td>
-                            <td>{customer?.salesPerInvoice?.toFixed(2).toLocaleString()}</td>
+                            <td>{customer?.salesPerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1714,10 +1714,10 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{(customer?.ttlVal / customerDetailsUnit).toFixed(2)?.toLocaleString()}</td>
-                            <td>{customer?.percentageOfTotalPurchase?.toFixed(2).toLocaleString()}%</td>
+                            <td>{(customer?.ttlVal / customerDetailsUnit)?.toLocaleString()}</td>
+                            <td>{customer?.percentageOfTotalPurchase?.toLocaleString()}%</td>
                             <td>{customer?.invoice}</td>
-                            <td>{customer?.purchasePerInvoice?.toFixed(2).toLocaleString()}</td>
+                            <td>{customer?.purchasePerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1753,7 +1753,7 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
                             <td>{customer?.ttlVal?.toLocaleString()}</td>
-                            <td>{customer?.percentageOfTotalPurchase?.toLocaleString()}%</td>
+                            <td>{customer?.percentageOfTotalPurchase?.toFixed(2)}%</td>
                             <td>{customer?.invoice?.toLocaleString()}</td>
                             <td>{customer?.purchasePerInvoice?.toLocaleString()}</td>
                           </tr>
@@ -1790,10 +1790,10 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           <tr key={index}>
                             <td>{customer?.name}</td>
                             <td>{customer?.pan}</td>
-                            <td>{customer?.ttlVal?.toFixed(2).toLocaleString()}</td>
-                            <td>{customer?.percentageOfTotalPurchase?.toFixed(2).toLocaleString()}%</td>
+                            <td>{customer?.ttlVal?.toLocaleString()}</td>
+                            <td>{customer?.percentageOfTotalPurchase?.toFixed(2)}%</td>
                             <td>{customer?.invoice}</td>
-                            <td>{customer?.purchasePerInvoice?.toFixed(2).toLocaleString()}</td>
+                            <td>{customer?.purchasePerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1830,10 +1830,10 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                           <tr key={index}>
                             <td>{customer?.stateName}</td>
                             <td>{customer?.stateCode?.toLocaleString()}</td>
-                            <td>{customer?.ttlVal?.toFixed(2).toLocaleString()}</td>
+                            <td>{customer?.ttlVal?.toLocaleString()}</td>
                             <td>{customer?.percentageOfTotalPurchase?.toFixed(2).toLocaleString()}%</td>
                             <td>{customer?.invoice?.toFixed(2).toLocaleString()}</td>
-                            <td>{customer?.purchasePerInvoice?.toFixed(2).toLocaleString()}</td>
+                            <td>{customer?.purchasePerInvoice?.toLocaleString()}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1902,25 +1902,25 @@ const gstSales = (head, gstFilteredData) => {
                         <tr>
                           <td>Total Sales</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.totalSales?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.totalSales?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2B Sales</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.b2bSales?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.b2bSales?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2C Sales</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.b2cSales?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.b2cSales?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Export Sales</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map((sales, index) => (
-                            <td key={index}>{sales?.exportSales?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.exportSales?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
@@ -1954,13 +1954,13 @@ const gstSales = (head, gstFilteredData) => {
                         <tr>
                           <td>New Customers</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
-                            <td key={index}>{sales?.newCustomer?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.newCustomer?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Recurring Customers</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
-                            <td key={index}>{sales?.RecurringCustomer?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.RecurringCustomer?.toLocaleString()}</td>
                           ))}
                         </tr>
 
@@ -2025,25 +2025,25 @@ const gstSales = (head, gstFilteredData) => {
                         <tr>
                           <td>Total</td>
                           {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.total?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.total?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2B</td>
                           {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.b2b?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.b2b?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2C</td>
                           {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.b2c?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.b2c?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Export</td>
                           {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map((sales, index) => (
-                            <td key={index}>{sales?.export?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.export?.toLocaleString()}</td>
                           ))}
                         </tr>
                       </tbody>
@@ -2108,31 +2108,31 @@ const gstPurchase = (head, gstFilteredData) => {
                         <tr>
                           <td>Total Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.totalPurchase?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.totalPurchase?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2B Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.b2b?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.b2b?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>B2C Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.b2c?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.b2c?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Import</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.import?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.import?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           <td>Growth Trend</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map((sales, index) => (
-                            <td key={index}>{sales?.growthTrend?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.growthTrend?.toFixed(2)?.toLocaleString()}</td>
                           ))}
                         </tr>
                       </tbody>
@@ -2161,12 +2161,12 @@ const gstPurchase = (head, gstFilteredData) => {
                         <tr>
                           <td>New Suppliers</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map((sales, index) => (
-                            <td key={index}>{sales?.newSuppliers?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.newSuppliers?.toLocaleString()}</td>
                           ))}
                         </tr>
                         <tr>
                           {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map((sales, index) => (
-                            <td key={index}>{sales?.recurringSuppliers?.toFixed(2).toLocaleString()}</td>
+                            <td key={index}>{sales?.recurringSuppliers?.toLocaleString()}</td>
                           ))}
                         </tr>
 
