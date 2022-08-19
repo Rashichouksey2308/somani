@@ -103,7 +103,9 @@ export default function Index({ inspectionData }) {
             <div
               className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
             >
-              <h3 className={`${styles.heading}`}>Appointment of Third</h3>
+              <h3 className={`${styles.heading}`}>
+                Appointment of Third Party
+              </h3>
               <span>+</span>
             </div>
 
@@ -211,18 +213,30 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
       </div>
       <div className={`${styles.newAddressContent} row`}>
         <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-          <input
-            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-            name="addressType"
-            disabled
-            value="Registered Address"
-          />
-
-          <Form.Label
-            className={`${styles.label_heading} ${styles.select} label_heading`}
-          >
-            Address Type<strong className="text-danger">*</strong>
-          </Form.Label>
+          <div className="d-flex">
+            <select
+              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+              name="addressType"
+              onChange={(e) => {
+                setAddressType(e.target.value)
+                setAddress(e.target.name, e.target.value)
+              }}
+            >
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch </option>
+              <option value="Supplier">Supplier Address </option>
+            </select>
+            <Form.Label
+              className={`${styles.label_heading} ${styles.select}  label_heading`}
+            >
+              Address Type<strong className="text-danger">*</strong>
+            </Form.Label>
+            <img
+              className={`${styles.arrow} image_arrow img-fluid`}
+              src="/static/inputDropDown.svg"
+              alt="Search"
+            />
+          </div>
         </Form.Group>
         <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
           <Form.Control
@@ -246,7 +260,6 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
             required
             type="text"
             name="pinCode"
-            value={newAddress.pinCode}
             onChange={(e) => {
               setAddress(e.target.name, e.target.value)
             }}
@@ -267,7 +280,6 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
             className={`${styles.input_field} input form-control`}
             required
             type="text"
-            value={newAddress.country}
             name="country"
             onChange={(e) => {
               setAddress(e.target.name, e.target.value)
