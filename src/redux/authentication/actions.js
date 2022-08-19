@@ -278,9 +278,8 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
         dispatch(loggingUserFailed(response.data))
         // Cookies.remove('token')
         let toastMessage = 'Please check your credentials and Try Again!'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
