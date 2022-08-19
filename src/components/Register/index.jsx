@@ -121,9 +121,17 @@ function Index() {
   // console.log(orderDetails, "orderDetailjdefhk")
 
   const saveCompanyData = (name, value) => {
-    console.log(value, "turn")
     const newInput = { ...companyDetails }
-    newInput[name] = value
+    
+    if(name=="turnOver"){
+       let tempValue=Number(value)*10000000
+       newInput[name] = tempValue   
+       console.log(tempValue, "turn",name)
+    }else{
+     newInput[name] = value   
+    }
+    
+    
     setCompanyDetails(newInput)
   }
 

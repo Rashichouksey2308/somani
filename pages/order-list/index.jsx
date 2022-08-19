@@ -58,6 +58,7 @@ function Index() {
   const handleRoute = (buyer) => {
     // console.log(buyer,'butyer')
     console.log(" before go to get document")
+    sessionStorage.setItem('company', buyer.company._id);
     if (buyer.queue === 'CreditQueue') {
       sessionStorage.setItem('orderId', buyer._id);
       sessionStorage.setItem('company', buyer.company._id);
