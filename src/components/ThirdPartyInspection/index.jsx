@@ -428,7 +428,7 @@ export default function Index({ addButton, inspectionData }) {
                           <tr className="table_row">
                             <td className={styles.doc_name}>
                               Certificate of Origin
-                              <strong className="text-danger ml-2">*</strong>
+                              <strong className="text-danger ml-1">*</strong>
                               <span>View</span>
                             </td>
                             <td>
@@ -484,8 +484,8 @@ export default function Index({ addButton, inspectionData }) {
                           </tr>
                           <tr className="table_row">
                             <td className={styles.doc_name}>
-                              Certificate of Ouality
-                              <strong className="text-danger ml-2">*</strong>
+                              Certificate of Quality
+                              <strong className="text-danger ml-1">*</strong>
                               <span>View</span>
                             </td>
                             <td>
@@ -547,7 +547,7 @@ export default function Index({ addButton, inspectionData }) {
                           <tr className="table_row">
                             <td className={styles.doc_name}>
                               Certificate of Weight
-                              <strong className="text-danger ml-2">*</strong>
+                              <strong className="text-danger ml-1">*</strong>
                               <span>View</span>
                             </td>
                             <td>
@@ -613,16 +613,18 @@ export default function Index({ addButton, inspectionData }) {
                   </div>
 
                   <div
-                    className={`${styles.any_document} ${styles.dashboard_form} mb-3`}
+                    className={`${styles.any_document} ${styles.dashboard_form}  mb-2`}
                   >
                     <strong className="text-danger">*</strong>
                     Any one document is mandatory
                   </div>
-                  <hr className="line border-color"></hr>
 
-                  <div className={`${styles.dashboard_form} card-body`}>
+                  <div
+                    className={`${styles.dashboard_form}  border_color card-body`}
+                    style={{ borderTop: '2px solid #CAD6E6' }}
+                  >
                     <Form>
-                      <div className="row align-items-center pb-4">
+                      <div className="row align-items-center mt-4 pb-4">
                         <div
                           className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
                         >

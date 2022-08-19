@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 
 const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
-
   const dispatch = useDispatch()
 
   const [editInput, setEditInput] = useState(true)
@@ -30,21 +29,22 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
 
   const [filteredDoc, setFilteredDoc] = useState([])
   // console.log(filteredDoc,'filtered doc')
-  const [moduleSelected, setModuleSelected] = useState('LeadOnboarding,OrderApproval')
-
+  const [moduleSelected, setModuleSelected] = useState(
+    'LeadOnboarding,OrderApproval',
+  )
 
   useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => { return doc.module == moduleSelected})
+    const tempArray = documentsFetched?.documents?.filter((doc) => {
+      return doc.module == moduleSelected
+    })
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderId}`))
-
   }, [dispatch, orderId, moduleSelected])
 
   const DocDlt = (index) => {
     let tempArray = filteredDoc
     tempArray.pop(index)
     setFilteredDoc(tempArray)
-
   }
 
   const [manualDocModule, setManualDocModule] = useState(true)
@@ -63,7 +63,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
   }
 
   const uploadDocumentHandler = (e) => {
-    console.log(e, "UPLOAD HANDLER")
+    console.log(e, 'UPLOAD HANDLER')
     e.preventDefault()
 
     const fd = new FormData()
@@ -159,19 +159,20 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                     </td>
                     <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                     <td colSpan={2}>
-                    { lcDoc && lcDoc.lcDraftDoc === null ?  <>
-                   <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          name="myfile"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                         onChange={(e) => uploadDocument1(e)}
-                        />
-                        <button className={`${styles.button_upload} btn`}>
-                          Upload
-                        </button>
-                      </div>
-                      {/* <div className={styles.uploadBtnWrapper}>
+                      {lcDoc && lcDoc.lcDraftDoc === null ? (
+                        <>
+                          <div className={styles.uploadBtnWrapper}>
+                            <input
+                              type="file"
+                              name="myfile"
+                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                              onChange={(e) => uploadDocument1(e)}
+                            />
+                            <button className={`${styles.button_upload} btn`}>
+                              Upload
+                            </button>
+                          </div>
+                          {/* <div className={styles.uploadBtnWrapper}>
                       <input
                         type="file"
                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -182,18 +183,17 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                         Upload
                       </button>
                     </div> */}
-                      </>:
-                      <div className={styles.certificate}>
-                      {lcDoc?.lcDraftDoc?.name}
-                      <img
-                        className={`${styles.close_image} float-right m-2 img-fluid`}
-                        src="/static/close.svg"
-                       
-                        alt="Close"
-                      />{' '}
-                    </div>
-                      }
-                    
+                        </>
+                      ) : (
+                        <div className={styles.certificate}>
+                          {lcDoc?.lcDraftDoc?.name}
+                          <img
+                            className={`${styles.close_image} float-right ml-2 img-fluid`}
+                            src="/static/close.svg"
+                            alt="Close"
+                          />{' '}
+                        </div>
+                      )}
                     </td>
                   </tr>
                 </tbody>
@@ -217,26 +217,26 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                   <p className={styles.drop_para}>
                     Drop Files here or
                     <br />
-                    {true?
-                    <div className={styles.uploadBtnWrapper}>
-                      <input
-                        type="file"
-                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                        onChange={(e) => uploadDocument2(e)}
-                        name="myfile"
-                      />
-                      <a href="#">Browse</a>
-                    </div>:
+                    {true ? (
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                          onChange={(e) => uploadDocument2(e)}
+                          name="myfile"
+                        />
+                        <a href="#">Browse</a>
+                      </div>
+                    ) : (
                       <div className={styles.certificate2}>
-                      {"name"}
-                      <img
-                        className={`${styles.close_image} float-right m-2 img-fluid`}
-                        src="/static/close.svg"
-                        
-                        alt="Close"
-                      />{' '}
-                    </div>
-                    }
+                        {'name'}
+                        <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )}
                   </p>
                 </div>
               </div>
@@ -370,14 +370,22 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                 className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
               >
                 <div className="d-flex align-items-center">
-                <select
+                  <select
                     onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
-                    <option value='LeadOnboarding&OrderApproval'>Lead Onboarding &amp; Order Approval</option>
-                    <option value='Agreements&Insurance&LC&Opening'>Agreements, Insurance &amp; LC Opening</option>
-                    <option value='Loading-Transit-Unloading'>Loading-Transit-Unloading</option>
-                    <option value='CustomClearanceAndWarehousing'>Custom Clearance And Warehousing</option>
+                    <option value="LeadOnboarding&OrderApproval">
+                      Lead Onboarding &amp; Order Approval
+                    </option>
+                    <option value="Agreements&Insurance&LC&Opening">
+                      Agreements, Insurance &amp; LC Opening
+                    </option>
+                    <option value="Loading-Transit-Unloading">
+                      Loading-Transit-Unloading
+                    </option>
+                    <option value="CustomClearanceAndWarehousing">
+                      Custom Clearance And Warehousing
+                    </option>
                     <option value="Others">Others</option>
                   </select>
                   <img
@@ -445,7 +453,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                   </tr>
                 </thead>
                 <tbody>
-                {documentsFetched &&
+                  {documentsFetched &&
                     filteredDoc?.map((document, index) => {
                       if (document.deleted) {
                         return null
@@ -483,8 +491,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                                       name: document.name,
                                     }),
                                   )
-                                }
-                                }
+                                }}
                                 src="/static/delete.svg"
                                 className={`${styles.delete_image} img-fluid mr-3`}
                                 alt="Bin"
@@ -493,9 +500,13 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                                 src="/static/upload.svg"
                                 className="img-fluid mr-3"
                                 alt="Share"
-                                onClick={()=>{
-                                  dispatch(ViewDocument({path: document.path,
-                                    orderId: documentsFetched._id}))
+                                onClick={() => {
+                                  dispatch(
+                                    ViewDocument({
+                                      path: document.path,
+                                      orderId: documentsFetched._id,
+                                    }),
+                                  )
                                 }}
                               />
                               <img
