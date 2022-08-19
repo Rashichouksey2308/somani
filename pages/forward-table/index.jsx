@@ -143,10 +143,11 @@ function Index() {
                   {allForwardHedging &&
                     allForwardHedging?.data?.map((list, index) => (
                       <tr key={index} className="table_row">
-                        <td className={`${styles.buyerName} heading`}>
-                          {list?.order?.orderId}
-                        </td>
-                        <td onClick={() => handleRoute(list)}>
+                        <td>{list?.order?.orderId}</td>
+                        <td
+                          className={`${styles.buyerName}`}
+                          onClick={() => handleRoute(list)}
+                        >
                           {list?.company?.companyName}
                         </td>
                         <td>{list?.order?.commodity} </td>
