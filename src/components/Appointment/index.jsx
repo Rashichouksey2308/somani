@@ -23,13 +23,19 @@ export default function Index({ inspectionData }) {
       name: inspectionData?.thirdPartyAppointment?.name,
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: { fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress },
+      address: {
+        fullAddress:
+          inspectionData?.thirdPartyAppointment?.address?.fullAddress,
+      },
     })
     setAddressData({
       name: inspectionData?.thirdPartyAppointment?.name,
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: { fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress },
+      address: {
+        fullAddress:
+          inspectionData?.thirdPartyAppointment?.address?.fullAddress,
+      },
     })
   }, [inspectionData])
   console.log(appointmentData, 'appointmentData')
@@ -45,7 +51,6 @@ export default function Index({ inspectionData }) {
     newInput[name] = value
     setAppointmentData(newInput)
   }
-
 
   const saveDate = (value, name) => {
     const d = new Date(value)
@@ -94,7 +99,7 @@ export default function Index({ inspectionData }) {
         className={`${styles.backgroundMain} container-fluid p-0 background2`}
       >
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} vessel_card card border-color`}>
+          <div className={`${styles.main} vessel_card card`}>
             <div
               className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
             >
@@ -162,10 +167,12 @@ export default function Index({ inspectionData }) {
                 <div
                   className={`${styles.form_group} col-lg-12 col-md-12 col-sm-12`}
                 >
-                  <label className={`${styles.comment_heading}`}>Address</label>
+                  <label className={`${styles.comment_heading} `}>
+                    Address
+                  </label>
 
                   <div
-                    className={`${styles.comment_field} w-100 d-flex justify-content-between mt-2 form-control`}
+                    className={`${styles.comment_field} border_color w-100 bg-transparent d-flex justify-content-between mt-2 form-control`}
                   >
                     <div className="m-3">
                       <div className={`${styles.address_type}`}>
@@ -200,24 +207,36 @@ export default function Index({ inspectionData }) {
 
 const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
   return (
-    <div className={`${styles.newAddressContainer} mt-3`}>
-      <div className={`${styles.newAddressHead}`}>
+    <div className={`${styles.newAddressContainer} border_color mt-3`}>
+      <div className={`${styles.newAddressHead} border_color`}>
         <span>Add a new address</span>
       </div>
       <div className={`${styles.newAddressContent} row`}>
         <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-          <input
-            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-            name="addressType"
-            disabled
-            value="Registered Address"
-          />
-
-          <Form.Label
-            className={`${styles.label_heading} ${styles.select} label_heading`}
-          >
-            Address Type<strong className="text-danger">*</strong>
-          </Form.Label>
+          <div className="d-flex">
+            <select
+              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+              name="addressType"
+              onChange={(e) => {
+                setAddressType(e.target.value)
+                setAddress(e.target.name, e.target.value)
+              }}
+            >
+              <option value="Registered">Registered Office</option>
+              <option value="Branch">Branch </option>
+              <option value="Supplier">Supplier Address </option>
+            </select>
+            <Form.Label
+              className={`${styles.label_heading} ${styles.select}  label_heading`}
+            >
+              Address Type<strong className="text-danger">*</strong>
+            </Form.Label>
+            <img
+              className={`${styles.arrow} image_arrow img-fluid`}
+              src="/static/inputDropDown.svg"
+              alt="Search"
+            />
+          </div>
         </Form.Group>
         <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
           <Form.Control
@@ -232,6 +251,48 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
           <Form.Label className={`${styles.label_heading} label_heading`}>
             Address<strong className="text-danger">*</strong>
           </Form.Label>
+        </Form.Group>
+        <Form.Group
+          className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
+        >
+          <Form.Control
+            className={`${styles.input_field} input form-control`}
+            required
+            type="text"
+            name="pinCode"
+            onChange={(e) => {
+              setAddress(e.target.name, e.target.value)
+            }}
+          />
+          <Form.Label className={`${styles.label_heading} label_heading`}>
+            Pin Code<strong className="text-danger">*</strong>
+          </Form.Label>
+          <img
+            className={`${styles.search_image} img-fluid`}
+            src="/static/search-grey.svg"
+            alt="Search"
+          />
+        </Form.Group>
+        <Form.Group
+          className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
+        >
+          <Form.Control
+            className={`${styles.input_field} input form-control`}
+            required
+            type="text"
+            name="country"
+            onChange={(e) => {
+              setAddress(e.target.name, e.target.value)
+            }}
+          />
+          <Form.Label className={`${styles.label_heading} label_heading`}>
+            Country<strong className="text-danger">*</strong>
+          </Form.Label>
+          <img
+            className={`${styles.search_image} img-fluid`}
+            src="/static/search-grey.svg"
+            alt="Search"
+          />
         </Form.Group>
       </div>
       <div className="d-flex">
