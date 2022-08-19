@@ -16,7 +16,13 @@
                 font-weight: bold;
                 line-height: 41px;
                 margin: 0;
+                // width: 61%;
+                max-width: 80%;
+                overflow: hidden;
+                position: relative;
                 padding-left: 18px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
                 @include respond(phone) {
                     font-size: $font_size_mobile_head;
                     margin: 0px;
@@ -55,6 +61,7 @@
             }
             .unit {
                 margin-right: 49px;
+                white-space: nowrap;
                 .unit_label {
                     font-size: 18px;
                     font-weight: bold;

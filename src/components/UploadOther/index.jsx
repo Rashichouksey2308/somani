@@ -14,6 +14,7 @@ import { ViewDocument } from 'redux/ViewDoc/action'
 const Index = ({ orderid, module }) => {
   const dispatch = useDispatch()
 
+
   console.log(orderid, 'orderid')
   const { documentsFetched } = useSelector((state) => state.review)
   console.log(documentsFetched, 'documentsFetched')
@@ -32,6 +33,7 @@ const Index = ({ orderid, module }) => {
   const [filteredDoc, setFilteredDoc] = useState([])
 
   useEffect(() => {
+    sessionStorage.setItem('docFetchID', orderid)
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       return doc.module === moduleSelected
     })
@@ -39,6 +41,16 @@ const Index = ({ orderid, module }) => {
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderid}`))
   }, [dispatch, orderid, moduleSelected])
+
+
+  useEffect(() => {
+    const tempArray = documentsFetched?.documents?.filter((doc) => {
+      return doc.module === moduleSelected
+    })
+    console.log(tempArray, filteredDoc, moduleSelected, 'moduleSelected')
+    setFilteredDoc(tempArray)
+  }, [orderid, documentsFetched])
+
 
   console.log(documentsFetched, filteredDoc, moduleSelected, 'moduleSelected')
 

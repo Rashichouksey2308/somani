@@ -22,6 +22,7 @@ const Index = ({
   dltWeaknessCommentArr,
   dltSanctionCommentArr,
   groupExposureData,
+  setGroupExposureData,
   addGroupExpArr,
   saveSuggestedCreditData,
   deleteData
@@ -56,14 +57,54 @@ const Index = ({
     outstandingLimit: null,
   })
 
-  const handleGroupExpChange = (name, value) => {
-    const newInput = { ...exposureData }
-    newInput[name] = value
-    setExposureData(newInput)
-  }
+  // const handleGroupExpChange = (name, value) => {
+  //   const newInput = { ...exposureData }
+  //   newInput[name] = value
+  //   setExposureData(newInput)
+  // }
 
   const onExpSave = () => {
     addGroupExpArr(exposureData)
+  }
+
+  const addMoreExpRows = () => {
+    setGroupExposureData([
+      ...groupExposureData,
+      {
+        accountConduct: '',
+        limit: null,
+        name: '',
+        outstandingLimit: null,
+        action: false
+      },
+    ])
+  }
+
+
+  const handleGroupExpChange = (name, value, index) => {
+    // console.log(name, value, index, 'name,value')
+    let tempArr = groupExposureData
+    tempArr.forEach((val, i) => {
+      if (i == index) {
+        val[name] = value
+      }
+    })
+    // console.log(tempArr, 'tempArr')
+    setGroupExposureData(tempArr)
+  }
+
+  const setActions = (index, val) => {
+    setGroupExposureData((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return { ...obj, actions: val }
+        }
+
+        return obj
+      })
+
+      return newState
+    })
   }
  
 
@@ -216,82 +257,79 @@ const Index = ({
                   </thead>
                   <tbody>
                     {groupExposureData &&
-                      groupExposureData.map((exp, index) => (
-                        <tr key={index} className="table_row">
-                          <td className={styles.number}>{(index += 1)} </td>
-                          <td className='position-relative'>                            
+                      groupExposureData?.map((profile, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td className='position-relative'>                            
                             <select
                               className={`${styles.input} ${styles.customSelect} input form-control`}
                               name="name"
-                              defaultValue={exp.name}
+                              disabled={!profile.actions}
+                              defaultValue={profile?.name}
                               onChange={(e) => {
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
+                                  index
                                 )
                               }}
-                              readOnly={!saveTable}
                             >
+                              <option >Select an option</option>
                               <option value='Simport Pvt. Ltd.'>Simport Pvt. Ltd.</option>
+                              <option value='Somani'>Somani</option>
                             </select>
                             <img
                               className={`${styles.arrow} img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
-                            {/* <input
-                              name="name"
-                              defaultValue={exp.name}
-                              onChange={(e) => {
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value,
-                                )
-                              }}
-                              className={styles.input}
-                              readOnly={!saveTable}
-                            /> */}
                           </td>
                           <td>
                             <input
                               name="limit"
-                              defaultValue={exp.limit}
+                              defaultValue={profile?.limit}
+                              disabled={!profile.actions}
                               onChange={(e) => {
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
+                                  index
                                 )
                               }}
                               className={styles.input}
-                              readOnly={!saveTable}
+                              
                             />
                           </td>
                           <td>
                             <input
                               name="outstandingLimit"
-                              defaultValue={exp.outstandingLimit}
+                              defaultValue={profile?.outstandingLimit}
+                              disabled={!profile.actions}
                               onChange={(e) => {
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
+                                  index
                                 )
                               }}
                               className={styles.input}
-                              readOnly={!saveTable}
                             />
                           </td>
                           <td className='position-relative'>
                             <select
                               className={`${styles.input} ${styles.customSelect} input form-control`}
                               name="accountConduct"
+                              disabled={!profile.actions}
+                              defaultValue={profile?.accountConduct}
                               onChange={(e) => {
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
+                                  index
                                 )
                               }}
-                              readOnly={!saveTable}
                             >
+                              <option>Select an Option</option>
                               <option value='Good'>Good</option>
                               <option value='Satisfactory'>Satisfactory</option>
                             </select>
@@ -300,173 +338,41 @@ const Index = ({
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
-                            {/* <input
-                              name="accountConduct"
-                              defaultValue={exp.accountConduct}
-                              onChange={(e) => {
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value,
-                                )
-                              }}
-                              className={styles.input}
-                              readOnly={!saveTable}
-                            /> */}
                           </td>
-                          <td>
-                            <div>
-                              {!saveTable ? (
-                                <img
-                                  src="/static/mode_edit.svg"
-                                  className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
-                                  onClick={(e) => {
-                                    setSaveTable(true)
-                                  }}
-                                />
-                              ) : (
-                                <img
-                                  src="/static/save-3.svg"
-                                  className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
-                                  alt="save"
-                                  onClick={(e) => {
-                                    onExpSave(exposureData)
-                                    setSaveTable(false)
-                                  }}
-                                />
-                              )}
-                              <img
-                                src="/static/delete 2.svg"
-                                className={`${styles.delete_image} img-fluid`}
-                                alt="delete"
-                              />
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-
-                 
-                      <tr className="table_row">
-                        <td className={styles.number}>1 </td>
-                        <td className='position-relative'>
-                          <select
-                            className={`${styles.input} ${styles.customSelect} input form-control`}
-                            name="name"
-                            onChange={(e) => {
-                              handleGroupExpChange(
-                                e.target.name,
-                                e.target.value,
-                              )
-                            }}
-                            readOnly={!saveTable}
-                          >
-                            <option value='Simport Pvt. Ltd.'>Simport Pvt. Ltd.</option>
-                          </select>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                          {/* <input
-                            name="name"
-                            onChange={(e) => {
-                              handleGroupExpChange(
-                                e.target.name,
-                                e.target.value,
-                              )
-                            }}
-                            className={styles.input}
-                            readOnly={!saveTable}
-                          /> */}
-                        </td>
-                        <td>
-                          <input
-                            name="limit"
-                            onChange={(e) => {
-                              handleGroupExpChange(
-                                e.target.name,
-                                e.target.value,
-                              )
-                            }}
-                            className={styles.input}
-                            readOnly={!saveTable}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            name="outstandingLimit"
-                            onChange={(e) => {
-                              handleGroupExpChange(
-                                e.target.name,
-                                e.target.value,
-                              )
-                            }}
-                            className={styles.input}
-                            readOnly={!saveTable}
-                          />
-                        </td>
-                        <td className='position-relative'>
-                          <select
-                            className={`${styles.input} ${styles.customSelect} input form-control`}
-                            name="accountConduct"
-                            onChange={(e) => {
-                              handleGroupExpChange(
-                                e.target.name,
-                                e.target.value,
-                              )
-                            }}
-                            readOnly={!saveTable}
-                          >
-                            <option value='Good'>Good</option>
-                            <option value='Satisfactory'>Satisfactory</option>
-                          </select>
-                          <img
-                            className={`${styles.arrow} img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                          {/* <input
-                            name="accountConduct"
-                            onChange={(e) => {
-                              handleGroupExpChange(
-                                e.target.name,
-                                e.target.value,
-                              )
-                            }}
-                            className={styles.input}
-                            readOnly={!saveTable}
-                          /> */}
-                        </td>
                         <td>
                           <div>
-                            {!saveTable ? (
+                            {!profile.actions ? (
                               <img
                                 src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
-                                onClick={(e) => {
-                                  setSaveTable(true)
-                                  //onExpSave(exposureData)
+                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                onClick={() => {
+                                  setActions(index, true)
                                 }}
                               />
                             ) : (
                               <img
                                 src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-1 mr-md-3 img-fluid`}
+                                className={`${styles.edit_image} mr-3 img-fluid`}
                                 alt="save"
                                 onClick={(e) => {
-                                  setSaveTable(false)
+                                  setActions(index, false)
                                 }}
                               />
                             )}
                             <img
                               src="/static/delete 2.svg"
                               className={`${styles.delete_image} img-fluid`}
+                              onClick={() => {
+                                handleRemoveRow(index)
+                              }}
                               alt="delete"
                             />
                           </div>
                         </td>
                       </tr>
-                   
+                    ))}
                   </tbody>
+                  
                 </table>
               </div>
             </div>
@@ -474,7 +380,8 @@ const Index = ({
               className={`${styles.add_image} p-3 d-flex justify-content-end`}
             >
               <div  onClick={(e) => {
-                 onExpSave(exposureData)
+                //  onExpSave(exposureData)
+                addMoreExpRows()
                   }}>
                 <span>+</span>Add More Rows
               </div>
