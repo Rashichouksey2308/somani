@@ -468,18 +468,40 @@ export default function Index({ addButton, inspectionData }) {
                               </div>
                             </td>
                             <td>
+                            { false ?  <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
                                   type="file"
-                                  onChange={(e) => uploadDocument1(e)}
                                   name="myfile"
+                                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                onChange={(e) => uploadDocument1(e)}
                                 />
-                                {/* <button
-                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button> */}
+                                <button className={`${styles.button_upload} btn`}>
+                                  Upload
+                                </button>
                               </div>
+                              {/* <div className={styles.uploadBtnWrapper}>
+                              <input
+                                type="file"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                                onChange={(e) => uploadDocument1(e)}
+                                name="myfile"
+                              />
+                              <button  className={`${styles.uploadDoc} btn`}>
+                                Upload
+                              </button>
+                              </div> */}
+                              </>:
+                              <div className={styles.certificate}>
+                              {/* {lcDoc?.lcDraftDoc?.name} */}
+                                <img
+                                className={`${styles.close_image} float-right m-2 img-fluid`}
+                                src="/static/close.svg"
+                              
+                                alt="Close"
+                                />{' '}
+                              </div>
+                            }
                             </td>
                           </tr>
                           <tr className="table_row">
@@ -529,19 +551,41 @@ export default function Index({ addButton, inspectionData }) {
                                 </div>
                               </div>
                             </td>
-                            <td>
-                              <div className={`${styles.uploadBtnWrapper}`}>
+                            <td>                              
+                            { false ?  <>
+                              <div className={styles.uploadBtnWrapper}>
                                 <input
                                   type="file"
-                                  onChange={(e) => uploadDocument2(e)}
                                   name="myfile"
+                                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                onChange={(e) => uploadDocument1(e)}
                                 />
-                                {/* <button
-                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button> */}
+                                <button className={`${styles.button_upload} btn`}>
+                                  Upload
+                                </button>
                               </div>
+                              {/* <div className={styles.uploadBtnWrapper}>
+                              <input
+                                type="file"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                                onChange={(e) => uploadDocument1(e)}
+                                name="myfile"
+                              />
+                              <button  className={`${styles.uploadDoc} btn`}>
+                                Upload
+                              </button>
+                              </div> */}
+                              </>:
+                              <div className={styles.certificate}>
+                              {/* {lcDoc?.lcDraftDoc?.name} */}
+                                <img
+                                className={`${styles.close_image} float-right m-2 img-fluid`}
+                                src="/static/close.svg"
+                              
+                                alt="Close"
+                                />{' '}
+                              </div>
+                            }
                             </td>
                           </tr>
                           <tr className="table_row">
@@ -593,18 +637,40 @@ export default function Index({ addButton, inspectionData }) {
                               </div>
                             </td>
                             <td>
+                            { false ?  <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
                                   type="file"
-                                  onChange={(e) => uploadDocument3(e)}
                                   name="myfile"
+                                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                onChange={(e) => uploadDocument1(e)}
                                 />
-                                {/* <button
-                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button> */}
+                                <button className={`${styles.button_upload} btn`}>
+                                  Upload
+                                </button>
                               </div>
+                              {/* <div className={styles.uploadBtnWrapper}>
+                              <input
+                                type="file"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                                onChange={(e) => uploadDocument1(e)}
+                                name="myfile"
+                              />
+                              <button  className={`${styles.uploadDoc} btn`}>
+                                Upload
+                              </button>
+                              </div> */}
+                              </>:
+                              <div className={styles.certificate}>
+                              {/* {lcDoc?.lcDraftDoc?.name} */}
+                                <img
+                                className={`${styles.close_image} float-right m-2 img-fluid`}
+                                src="/static/close.svg"
+                              
+                                alt="Close"
+                                />{' '}
+                              </div>
+                            }
                             </td>
                           </tr>
                         </tbody>
@@ -675,17 +741,17 @@ export default function Index({ addButton, inspectionData }) {
                             </div>
                           </Form.Group>
                           <Form.Group className={styles.form_group}>
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Please Specify Document Name
-                            </Form.Label>
                             <Form.Control
                               className={`${styles.value} input form-control`}
                               type="text"
                               disabled={editInput}
                               required
                             />
+                            <Form.Label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Please Specify Document Name
+                            </Form.Label>
                           </Form.Group>
 
                           <button

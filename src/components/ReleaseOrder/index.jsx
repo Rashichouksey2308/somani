@@ -336,20 +336,41 @@ export default function Index({ ReleaseOrderData }) {
                       className="col-lg-3 col-md-4 col-sm-6 text-center"
                       style={{ top: '50px' }}
                     >
-                      <div className={styles.uploadBtnWrapper}>
+                      { false ?  <>
+                        <div className={styles.uploadBtnWrapper}>
+                          <input
+                            type="file"
+                            name="myfile"
+                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                          onChange={(e) => uploadDocument1(e)}
+                          />
+                          <button className={`${styles.button_upload} btn`}>
+                            Upload
+                          </button>
+                        </div>
+                        {/* <div className={styles.uploadBtnWrapper}>
                         <input
-                          onChange={(e) =>
-                            handleDocUplaod(e.target.id, e, index)
-                          }
-                          id="document"
                           type="file"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                          onChange={(e) => uploadDocument1(e)}
                           name="myfile"
                         />
-                        <button className={`${styles.upload_btn} btn`}>
+                        <button  className={`${styles.uploadDoc} btn`}>
                           Upload
                         </button>
-                      </div>
-                      {releaseDetail.length > 1 && (
+                        </div> */}
+                        </>:
+                        <div className={styles.certificate}>
+                        {/* {lcDoc?.lcDraftDoc?.name} */}
+                          <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                        
+                          alt="Close"
+                          />{' '}
+                        </div>
+                      }
+                      {/* {releaseDetail.length > 1 && (
                         <img
                           onClick={() => handleDeleteRow(index)}
                           src="/static/delete 2.svg"
@@ -364,7 +385,7 @@ export default function Index({ ReleaseOrderData }) {
                           className={`${styles.delete_image} mt-n4 img-fluid`}
                           alt="Add button"
                         />
-                      )}
+                      )} */}
                     </div>
                   </div>
                 ))}
