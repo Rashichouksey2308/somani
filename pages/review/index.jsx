@@ -680,7 +680,6 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
     newArr.push(debt)
     setDebtData(newArr)
   }
-  console.log(companyData?.compliance?.alerts, "ompanyData?.compliance?.alerts")
   const [level, setLevel] = useState({
     high: [],
     low: [],
@@ -1965,6 +1964,7 @@ const [totalCourt,setTotalCourt]=useState({
                     saveProductData={saveProductData}
                     handleProductSave={handleProductSave}
                     debtData={debtData}
+                    setDebtData={setDebtData}
                     personData={personData}
                     saveSupplierData={saveSupplierData}
                     keyAddData={keyAddData}

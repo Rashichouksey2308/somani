@@ -106,7 +106,6 @@ export default function Index({ inspectionData }) {
               <h3 className={`${styles.heading}`}>
                 Appointment of Third Party
               </h3>
-              <span>+</span>
             </div>
 
             <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
@@ -147,8 +146,9 @@ export default function Index({ inspectionData }) {
                     <DatePicker
                       name="dateOfAppointment"
                       selected={startDate}
+                      //min={moment().format('YYYY-MM-DD')}
                       dateFormat="dd/MM/yyyy"
-                      className={`${styles.input_field} input form-control`}
+                      className={`${styles.input_field} ${styles.cursor_none} input form-control`}
                       onChange={(startDate) => {
                         setStartDate(startDate)
                         saveDate(startDate, 'dateOfAppointment')
