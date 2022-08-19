@@ -81,99 +81,99 @@ const Index = () => {
     handleCurr()
     if (orderData?.transactionType?.trim() === '') {
       let toastMessage = 'Invalid Transaction Type'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.commodity?.trim() === '') {
       let toastMessage = 'Commodity can not be Empty'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.quantity === '') {
       let toastMessage = 'Quantity can not be Empty '
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.unitOfQuantity?.trim() === '') {
       let toastMessage = 'Please Provide unit Of Quantity'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.orderValue === '') {
       let toastMessage = 'Please check the Order value  '
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } 
     // else if (orderData?.orderCurrency?.trim() === '') {
     //   let toastMessage = 'Order Currency cannot be empty'
-    //   if (!toast.isActive(toastMessage)) {
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
     //     toast.error(toastMessage, { toastId: toastMessage })
     //   }
     //   return
     // } 
     else if (orderData?.unitOfValue?.trim() === '') {
       let toastMessage = 'Please set the unit of value'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.supplierName?.trim() === '') {
       let toastMessage = 'Supplier Name cannot be empty'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData.countryOfOrigin.trim() === '') {
       let toastMessage = 'Country Of Origin can not be Empty'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.portOfDischarge?.trim() === '') {
       let toastMessage = 'Port Of Discharge can not be Empty'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.ExpectedDateOfShipment?.trim() === '') {
       let toastMessage = 'Expected Date Of Shipment can not be Empty'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.incoTerm?.trim() === '') {
       let toastMessage = 'the incoTerm can not be Empty'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.grade?.trim() === '') {
       let toastMessage = 'Grade can not be Empty'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.tolerance === '') {
       let toastMessage = 'Tolerance can not be Empty'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.transactionPeriodDays === '') {
       let toastMessage = 'Transaction Period Days can not be Empty'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderData?.manufacturerName?.trim() === '') {
       let toastMessage = 'Manufacturer Name can not be Empty'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return

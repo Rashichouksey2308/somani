@@ -92,18 +92,16 @@ export const GetAllTransitDetails = (payload) => async (dispatch, getState, api)
             } else {
                 dispatch(getAllTransitDetailsFailed(response.data.data))
                 let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-                if (!toast.isActive(toastMessage)) {
-                    toast.error(toastMessage, { toastId: toastMessage })
-                }
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })         }
             }
         })
     } catch (error) {
         dispatch(getAllTransitDetailsFailed())
 
         let toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME'
-        if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
     }
 }
 
@@ -124,18 +122,16 @@ export const GetTransitDetails = (payload) => async (dispatch, getState, api) =>
             } else {
                 dispatch(getTransitDetailsFailed(response.data.data))
                 let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-                if (!toast.isActive(toastMessage)) {
-                    toast.error(toastMessage, { toastId: toastMessage })
-                }
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })         }
             }
         })
     } catch (error) {
         dispatch(getTransitDetailsFailed())
 
         let toastMessage = 'COULD NOT GET   TRANSIT DATA AT THIS TIME'
-        if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
     }
 }
 
@@ -152,24 +148,21 @@ export const UpdateTransitDetails = (payload) => async (dispatch, getState, api)
             if (response.data.code === 200) {
                 dispatch(updateTransitDetailsSuccess(response.data.data))
                 let toastMessage = 'UPDATE SUCCESSFULL'
-                if (!toast.isActive(toastMessage)) {
-                    toast.error(toastMessage, { toastId: toastMessage })
-                }
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })         }
             } else {
                 dispatch(updateTransitDetailsFailed(response.data.data))
                 let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-                if (!toast.isActive(toastMessage)) {
-                    toast.error(toastMessage, { toastId: toastMessage })
-                }
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })         }
             }
         })
     } catch (error) {
         dispatch(updateTransitDetailsFailed())
 
         let toastMessage = 'COULD NOT UPDATE TRANSIT DATA AT THIS TIME'
-        if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
     }
 }
 
@@ -187,17 +180,15 @@ export const GetAdditionalData = (payload) => async (dispatch, getState, api) =>
             } else {
                 dispatch(getAdditionalDataFailed(response.data.data))
                 let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-                if (!toast.isActive(toastMessage)) {
-                    toast.error(toastMessage, { toastId: toastMessage })
-                }
+                if (!toast.isActive(toastMessage.toUpperCase())) {
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })         }
             }
         })
     } catch (error) {
         dispatch(getAdditionalDataFailed())
 
         let toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME'
-        if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
     }
 }

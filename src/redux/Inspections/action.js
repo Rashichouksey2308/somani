@@ -79,16 +79,15 @@ export const GetAllInspection =
         } else {
           dispatch(getAllInspectionFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(getAllInspectionFailed())
 
       let toastMessage = 'COULD NOT GET INSPECTION DATA AT THIS TIME'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }
@@ -109,16 +108,15 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(getInspectionFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(getInspectionFailed())
 
     let toastMessage = 'COULD NOT GET   INSPECTION DATA AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -138,22 +136,20 @@ export const UpdateInspection =
         if (response.data.code === 200) {
           dispatch(updateInspectionSuccess(response.data.data))
           let toastMessage = 'UPDATED SUCCESSFULLY'
-          if (!toast.isActive(toastMessage)) {
-              toast.success(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+              toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         } else {
           dispatch(updateInspectionFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(updateInspectionFailed())
 
       let toastMessage = 'COULD NOT UPDATE INSPECTION DATA AT THIS TIME'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }

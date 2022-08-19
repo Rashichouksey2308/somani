@@ -74,16 +74,15 @@ export const GetAllForwardHedging =
         } else {
           dispatch(getAllForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(getAllForwardHedgingFailed())
 
       let toastMessage = 'COULD NOT GET FORWARD HEDGING AT THIS TIME'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }
@@ -105,16 +104,15 @@ export const GetForwardHedging =
         } else {
           dispatch(getForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(getForwardHedgingFailed())
 
       let toastMessage = 'COULD NOT GET   FORWARD HEDGING AT THIS TIME'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }
@@ -135,22 +133,20 @@ export const UpdateForwardHedging =
           dispatch(updateForwardHedgingSuccess(response.data.data))
           
           let toastMessage = 'SAVED SUCCESSFULLY'
-          if (!toast.isActive(toastMessage)) {
-            toast.success(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         } else {
           dispatch(updateForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(updateForwardHedgingFailed())
 
       let toastMessage = 'COULD NOT UPDATE FORWARDHEDGING AT THIS TIME'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }

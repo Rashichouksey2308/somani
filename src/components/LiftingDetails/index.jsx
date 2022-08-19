@@ -52,20 +52,18 @@ export default function Index(props) {
         return response.data.data
 
         // let toastMessage = 'DOCUMENT UPDATED'
-        // if (!toast.isActive(toastMessage)) {
-        //   toast.error(toastMessage, { toastId: toastMessage })
-        // }
+        // if (!toast.isActive(toastMessage.toUpperCase())) {
+        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
       } else {
         // dispatch(getCustomClearanceFailed(response.data.data))
         // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        // if (!toast.isActive(toastMessage)) {
-        //   toast.error(toastMessage, { toastId: toastMessage })
-        // }
+        // if (!toast.isActive(toastMessage.toUpperCase())) {
+        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
       }
     } catch (error) {
       // dispatch(getCustomClearanceFailed())
       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-      // if (!toast.isActive(toastMessage)) {
+      // if (!toast.isActive(toastMessage.toUpperCase())) {
       //   toast.error(toastMessage, { toastId: toastMessage })
       // }
     }

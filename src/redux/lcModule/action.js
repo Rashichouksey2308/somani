@@ -88,16 +88,15 @@ export const GetLcModule = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(getLcModuleFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(getLcModuleFailed())
 
     let toastMessage = 'COULD NOT GET LC AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -116,22 +115,20 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(updateLcModuleSuccess(response.data.data))
         let toastMessage = 'SAVED SUCCESSFULLY'
-        if (!toast.isActive(toastMessage)) {
-          toast.success(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
         // router.push('/margin-money')
       } else {
         dispatch(updateLcModuleFailed(response.data.data))
         let toastMessage = 'UPDATE REQUEST FAILED'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(updateLcModuleFailed())
     let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -150,22 +147,20 @@ export const UpdateLcAmendment = (payload) => async (dispatch, getState, api) =>
       if (response.data.code === 200) {
         dispatch(updatingLcAmendmentSuccess(response.data.data))
         let toastMessage = 'SAVED SUCCESSFULLY'
-        if (!toast.isActive(toastMessage)) {
-          toast.success(toastMessage, { toastId: toastMessage })
-        }
-        Router.push('/letter-credit/id')
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+        Router.push('/lc-module')
       } else {
         dispatch(updatingLcAmendmentFailed(response.data.data))
         let toastMessage = 'UPDATE REQUEST FAILED'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(updatingLcAmendmentFailed())
     let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -183,23 +178,21 @@ export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(updatingAmendmentSuccess(response.data.data))
         let toastMessage = 'SAVED SUCCESSFULLY'
-        if (!toast.isActive(toastMessage)) {
-          toast.success(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
         // router.push('/margin-money')
         Router.push('/amend-letter')
       } else {
         dispatch(updatingAmendmentFailed(response.data.data))
         let toastMessage = 'UPDATE REQUEST FAILED'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(updatingAmendmentFailed())
     let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }

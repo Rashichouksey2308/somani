@@ -2,15 +2,16 @@
 import React from 'react'
 import styles from '../index.module.scss'
 import moment from 'moment'
+import _get from 'lodash/get'
 
 function Index({ incomeData }) {
   // console.log(incomeData?.financial?.incomeStatement[0], 'THIS IS INCOME DATA')
 
-  const latestYearData = incomeData?.financial?.incomeStatement[0]
+  const latestYearData = _get(incomeData, 'financial.incomeStatement[0]', [])
 
-  const previousYearData = incomeData?.financial?.incomeStatement[1]
+  const previousYearData = _get(incomeData, 'financial.incomeStatement[1]', [])
 
-  const lastYearData = incomeData?.financial?.incomeStatement[2]
+  const lastYearData = _get(incomeData, 'financial.incomeStatement[2]', [])
 
   return (
     <>

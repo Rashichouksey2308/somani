@@ -42,16 +42,15 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(viewingDocumentFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(viewingDocumentFailed())
 
     let toastMessage = 'COULD NOT GET DATA AT THIS TIME'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }

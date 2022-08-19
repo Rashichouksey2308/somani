@@ -80,9 +80,9 @@ export default function Index({
   const [lastDate, setlastDate] = useState(new Date())
   console.log(bolList, existingBlData, 'existingBlData')
 
-  useEffect(() => {
-    setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
-  }, [TransitDetails])
+  // useEffect(() => {
+  //   setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+  // }, [TransitDetails])
 
   const partShipmentAllowed = _get(
     TransitDetails,
