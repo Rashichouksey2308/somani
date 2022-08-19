@@ -71,7 +71,7 @@ function Index(props) {
                 <div className={`${styles.loginBanner} col-sm-4 col-md-5`}>
                     <img src='/static/login.png' alt='Login Banner' className='img-fluid'/>
                     <div className={styles.pattern}><img src='/static/login-pattern.png' alt='banner pattern' className='img-fluid' /></div>
-                    <div className={styles.caption}>{`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s`}</div>
+                    <div className={styles.caption}>{``}</div>
                 </div>
                 {/* <div className='col-sm-6'> background: #171E27 0% 0% no-repeat padding-box;
                     <div className='row no-gutters'> */}
