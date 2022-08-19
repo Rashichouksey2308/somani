@@ -17,6 +17,11 @@
                 line-height: 41px;
                 margin: 0;
                 padding-left: 18px;
+                white-space: nowrap;
+                position: relative;
+                text-overflow: ellipsis;
+                max-width: 64%;
+                overflow: hidden;
                 @include respond(phone) {
                     font-size: $font_size_mobile_head;
                     margin: 0px;

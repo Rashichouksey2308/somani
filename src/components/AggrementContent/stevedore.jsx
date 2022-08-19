@@ -22,15 +22,26 @@ function Index(props) {
   const [list,setList]=useState([])
   const [addressList,setAddressList]=useState([])
   const [newAddress,setNewAddress]=useState(
-                {
-                "addressType": "Registered",
-                "fullAddress": "",
-                "pinCode": "",
-                "country": "",
-                "gstin": "",
-                "state": "",
-                "city": ""
-            }
+          {
+          "addressType": "Registered",
+          "fullAddress": "",
+          "pinCode": "",
+          "country": "",
+          "gstin": "",
+          "state": "",
+          "city": ""
+      }
+  )
+  const [EditAddress,setEditAddress]=useState(
+          {
+          "addressType": "",
+          "fullAddress": "",
+          "pinCode": "",
+          "country": "",
+          "gstin": "",
+          "state": "",
+          "city": ""
+      }
   )
   const [addressType,setAddressType]=useState("Registered")
  
@@ -44,12 +55,12 @@ function Index(props) {
     let tempArr2=seteveState.addresses
     setAddressList(tempArr2)
   },[])
-  let masterList=[
-  {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
-   {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
+    let masterList=[
+    {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
+    {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
     {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
-     {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
- ]
+    {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+    ]
 useEffect(() => {
    if(window){
     console.log(sessionStorage.getItem("Stevedore"),".getItem")
@@ -218,49 +229,106 @@ const handleChangeInput=(name,value,index)=>{
     
 
   }
-  const handleAddressInput=()=>{
-      // let tempArr=[...addressList]
-    setAddressList(current => [...current, newAddress])
-      // setAddressList([...addressList],newAddress)
-      setNewAddress( {
-                  "addressType": "",
-                  "fullAddress": "",
-                  "pinCode": "",
-                  "country": "",
-                  "gstin": "",
-                  "state": "",
-                  "city": ""
-              })
-  }
- const onAddressRemove=(index)=>{
- setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
+const handleAddressInput=()=>{
 
-  }
- 
-  const setAddress=(name,value)=>{
-   const newInput = { ...newAddress }
-   newInput[name] = value
-   setNewAddress(newInput)
+setAddressList(current => [...current, newAddress])
+  
+  setNewAddress({
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          })
+}
+const onAddressRemove=(index)=>{
+setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
 
-  }
+}
+const setAddress=(name,value)=>{
+const newInput = { ...newAddress }
+newInput[name] = value
+setNewAddress(newInput)
+
+}
+const [isEdit,setIsEdit]= useState(false)
+const [toEditIndex,setToEditIndex]= useState(0)
 const handleEditAddressInput=(index)=>{
-    let tempArr=addressList;
+setIsEdit(true)
+setToEditIndex(index)
+let tempArr=addressList;
+
+tempArr.forEach((val,i)=>{
+  if(i==index){
+      setEditAddress({
+      "addressType": val.addressType,
+      "fullAddress": val.fullAddress,
+      "pinCode": val.pinCode,
+      "country": val.country,
+      "gstin": val.gstin,
+      "state": val.state,
+      "city": val.city
+  })
+  }
+})
+
+
+}
+const editNewAddress=(name,value)=>{
+setIsEdit(true)
+const newInput = { ...EditAddress }
+newInput[name] = value
+setEditAddress(newInput)
+
+}
+const cancelEditAddress=()=>{
+setIsEdit(false)
+setEditAddress(
+            {
+            "addressType": "",
+            "fullAddress": "",
+            "pinCode": "",
+            "country": "",
+            "gstin": "",
+            "state": "",
+            "city": ""
+        }
+  )
+
+
+}
+const saveNewAddress=()=>{
+console.log(EditAddress,"EditAddress",toEditIndex)
+setAddressList(prevState => {
+  const newState = prevState.map((obj ,i)=> {
     
-    tempArr.forEach((val,i)=>{
-     if(i==index){
-          setNewAddress({
-          "addressType": val.addressType,
-          "fullAddress": val.fullAddress,
-          "pinCode": val.pinCode,
-          "country": val.country,
-          "gstin": val.gstin,
-          "state": val.state,
-          "city": val.city
-      })
-     }
-    })
- 
- 
+    if (i == toEditIndex) {
+      console.log("here")
+      return EditAddress;
+    }
+// 👇️ otherwise return object as is
+    return obj;
+  });
+
+  return newState;
+});
+setIsEdit(false)
+setEditAddress(
+            {
+            "addressType": "",
+            "fullAddress": "",
+            "pinCode": "",
+            "country": "",
+            "gstin": "",
+            "state": "",
+            "city": ""
+        }
+)
+
+
+
 }
   return (
     <>
@@ -329,48 +397,51 @@ const handleEditAddressInput=(index)=>{
             </Form.Group>
           </div>
         </Form>
-        <div className={`${styles.addressContainer}`}>
+      <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
-          <div className={`${styles.multiAddContainer} d-flex justify-content-between align-items-center flex-wrap`}>
-                      {addressList.map((val,index)=>{
+          <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
+           {addressList?.map((val,index)=>{
             return(
-           <div key={index}
-            className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
-          >
-            <div className={`${styles.registeredAddressHeading}`}>
-              <span>{val.addressType} Address</span>
-              <div className={`${styles.address_text}`}>
-               {val.fullAddress} {" "} {val.pinCode} {" "} {val.country}
+            <div
+            key={index}
+              className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
+            >
+              <div className={`${styles.registeredAddressHeading}`}>
+                <span>{val.addressType} Address</span>
+                <div className={`${styles.address_text}`}>
+                  {val.fullAddress} {" "} {val.pinCode} {" "} {val.country}
+                </div>
+              </div>
+              <div className={`d-flex ${styles.actions} `}>
+                <div
+                  className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
+                  onClick={()=>{
+                    handleEditAddressInput(index)
+                  }}
+                >
+                  <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
+                </div>
+                <div
+                  className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
+                  onClick={()=>{
+                    onAddressRemove(index)
+                  }}
+                  >
+                    <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
+                </div>
               </div>
             </div>
-            <div className={`d-flex justify-content-between align-items-start ${styles.actions} `}>
-            <div
-              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center mt-n2`}
-              onClick={()=>{
-                handleEditAddressInput(index)
-              }}
-            >
-              <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit"/>
-            </div>
-            <div
-              className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items align-items-center mr-n3 mt-n2`}
-            onClick={()=>{
-              onAddressRemove(index)
-            }}
-            >
-              <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete"/>
-            </div>
-            </div>
-             </div>
             )
            }) }
+
           </div>
         </div>
-           <div className={`${styles.newAddressContainer}`}>
-                  <div className={styles.newAddressHead}><span className={`mb-3`}>Add a new address</span></div>
+        {isEdit && editData(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)}
+         <div className={`${styles.newAddressContainer} m-0`}>
+                  <div className={styles.newAddressHead}><span>Add a new address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <div className='d-flex'>
+                      <div className="d-flex">
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
@@ -382,7 +453,8 @@ const handleEditAddressInput=(index)=>{
                         >
                           <option value="Registered">Registered Office</option>
                           <option value="Branch">Branch </option>
-                          <option value="Supplier">Supplier Address </option>                        
+                            <option value="Supplier">Supplier Address </option>
+                          
                         </select>
                         <Form.Label
                           className={`${styles.label_heading} ${styles.select}  label_heading`}
@@ -404,6 +476,7 @@ const handleEditAddressInput=(index)=>{
                         required
                         type="text"
                         name="fullAddress"
+                        value={newAddress.fullAddress}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -419,6 +492,7 @@ const handleEditAddressInput=(index)=>{
                         required
                         type="text"
                         name="pinCode"
+                        value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -437,6 +511,7 @@ const handleEditAddressInput=(index)=>{
                         className={`${styles.input_field} input form-control`}
                         required
                         type="text"
+                        value={newAddress.country}
                         name="country"
                           onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
@@ -454,10 +529,11 @@ const handleEditAddressInput=(index)=>{
                     </>
                     :<>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <div className='d-flex'>
+                      <div className="d-flex">
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="gstin"
+                          value={newAddress.gstin}
                           onChange={(e) => {
                             setAddress(e.target.name,e.target.value)
                           }}
@@ -483,6 +559,7 @@ const handleEditAddressInput=(index)=>{
                         required
                         type="text"
                         name="pinCode"
+                        value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -502,6 +579,7 @@ const handleEditAddressInput=(index)=>{
                         required
                         type="text"
                         name="country"
+                        value={newAddress.country}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -516,6 +594,7 @@ const handleEditAddressInput=(index)=>{
                         required
                         type="text"
                         name="state"
+                        value={newAddress.state}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -530,6 +609,7 @@ const handleEditAddressInput=(index)=>{
                         required
                         type="text"
                         name="city"
+                        value={newAddress.city}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -544,6 +624,7 @@ const handleEditAddressInput=(index)=>{
                         required
                         type="text"
                         name="fullAddress"
+                        value={newAddress.fullAddress}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -568,7 +649,7 @@ const handleEditAddressInput=(index)=>{
                     <span>Cancel</span>
                     </div>
                   </div>
-        </div>
+         </div>
         <div className={`${styles.tableContainer} border-color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -681,3 +762,224 @@ const handleEditAddressInput=(index)=>{
 }
 
 export default Index
+const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)=>{
+  return(
+    <div className={`${styles.newAddressContainer}`}>
+                  <div className={styles.newAddressHead}><span className={`mb-3`}>Add Edit address</span></div>
+                    <div className={`${styles.newAddressContent} row`}>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <div className='d-flex'>
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="addressType"
+                          
+                          onChange={(e) => {
+                            setAddressType(e.target.value)
+                            editNewAddress(e.target.name,e.target.value)
+                          }}
+                        >
+                          <option value="Registered">Registered Office</option>
+                          <option value="Branch">Branch </option>
+                            <option value="Supplier">Supplier Address </option>
+                          
+                        </select>
+                        <Form.Label
+                          className={`${styles.label_heading} ${styles.select}  label_heading`}
+                        >
+                          Address Type<strong className="text-danger">*</strong>
+                        </Form.Label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </Form.Group>
+                {addressType=="Registered" || addressType=="Supplier"?
+                    <>
+                    <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="fullAddress"
+                        value={EditAddress.fullAddress}
+                        onChange={(e) => {
+                          editNewAddress(e.target.name,e.target.value)
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Address<strong className="text-danger">*</strong>
+                      </Form.Label>
+                        
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="pinCode"
+                        value={EditAddress.pinCode}
+                        onChange={(e) => {
+                          editNewAddress(e.target.name,e.target.value)
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Pin Code<strong className="text-danger">*</strong>
+                      </Form.Label>
+                        <img
+                            className={`${styles.search_image} img-fluid`}
+                            src="/static/search-grey.svg"
+                            alt="Search"
+                          />
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        value={EditAddress.country}
+                        name="country"
+                          onChange={(e) => {
+                          editNewAddress(e.target.name,e.target.value)
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Country<strong className="text-danger">*</strong>
+                      </Form.Label>
+                        <img
+                            className={`${styles.search_image} img-fluid`}
+                            src="/static/search-grey.svg"
+                            alt="Search"
+                          />
+                    </Form.Group>
+                    </>
+                    :<>
+                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <div className='d-flex'>
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="gstin"
+                          value={EditAddress.gstin}
+                          onChange={(e) => {
+                            editNewAddress(e.target.name,e.target.value)
+                          }}
+                        >
+                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          
+                        </select>
+                        <Form.Label
+                          className={`${styles.label_heading} ${styles.select}  label_heading`}
+                        >
+                          GSTIN<strong className="text-danger">*</strong>
+                        </Form.Label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </Form.Group>
+                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="pinCode"
+                         value={EditAddress.pinCode}
+                        onChange={(e) => {
+                          editNewAddress(e.target.name,e.target.value)
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Pin Code<strong className="text-danger">*</strong>
+                      </Form.Label>
+                        <img
+                            className={`${styles.search_image} img-fluid`}
+                            src="/static/search-grey.svg"
+                            alt="Search"
+                          />
+                    </Form.Group>
+                      <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="country"
+                         value={EditAddress.country}
+                        onChange={(e) => {
+                          editNewAddress(e.target.name,e.target.value)
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Short Name
+                      </Form.Label>
+                    </Form.Group>
+                      <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="state"
+                        value={EditAddress.state}
+                        onChange={(e) => {
+                          editNewAddress(e.target.name,e.target.value)
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        State<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                      <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="city"
+                         value={EditAddress.city}
+                        onChange={(e) => {
+                          editNewAddress(e.target.name,e.target.value)
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        City<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                      <Form.Group className={`${styles.form_group} col-md-12 col-sm-6`}>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="fullAddress"
+                         value={EditAddress.fullAddress}
+                        onChange={(e) => {
+                          editNewAddress(e.target.name,e.target.value)
+                        }}
+                      />
+                      <Form.Label className={`${styles.label_heading} label_heading`}>
+                        Address<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    </>}
+                      
+                    
+                    </div>
+                  <div className="d-flex">
+                    <div className={`${styles.add} d-flex justify-content-center align-items-center`}
+                    onClick={()=>{
+                    saveNewAddress()
+                    }}
+                    >
+                    <span>Update</span>
+                    </div>
+                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                    onClick={()=>{
+                      cancelEditAddress()
+                    }}
+                    >
+                    <span>Cancel</span>
+                    </div>
+                  </div>
+              </div>
+  )
+}

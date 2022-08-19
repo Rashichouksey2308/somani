@@ -242,107 +242,107 @@ useEffect(() => {
 
   }
 
-  const handleAddressInput=()=>{
+const handleAddressInput=()=>{
 
-    setAddressList(current => [...current, newAddress])
-     
-      setNewAddress({
-                  "addressType": "Registered",
-                  "fullAddress": "",
-                  "pinCode": "",
-                  "country": "",
-                  "gstin": "",
-                  "state": "",
-                  "city": ""
-              })
-  }
- const onAddressRemove=(index)=>{
- setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
+setAddressList(current => [...current, newAddress])
+  
+  setNewAddress({
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          })
+}
+const onAddressRemove=(index)=>{
+setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
 
-  }
-  const setAddress=(name,value)=>{
-   const newInput = { ...newAddress }
-   newInput[name] = value
-   setNewAddress(newInput)
+}
+const setAddress=(name,value)=>{
+const newInput = { ...newAddress }
+newInput[name] = value
+setNewAddress(newInput)
 
-  }
+}
 const [isEdit,setIsEdit]= useState(false)
 const [toEditIndex,setToEditIndex]= useState(0)
 const handleEditAddressInput=(index)=>{
-    setIsEdit(true)
-    setToEditIndex(index)
-    let tempArr=addressList;
-    
-    tempArr.forEach((val,i)=>{
-     if(i==index){
-          setEditAddress({
-          "addressType": val.addressType,
-          "fullAddress": val.fullAddress,
-          "pinCode": val.pinCode,
-          "country": val.country,
-          "gstin": val.gstin,
-          "state": val.state,
-          "city": val.city
-      })
-     }
-    })
- 
- 
+setIsEdit(true)
+setToEditIndex(index)
+let tempArr=addressList;
+
+tempArr.forEach((val,i)=>{
+  if(i==index){
+      setEditAddress({
+      "addressType": val.addressType,
+      "fullAddress": val.fullAddress,
+      "pinCode": val.pinCode,
+      "country": val.country,
+      "gstin": val.gstin,
+      "state": val.state,
+      "city": val.city
+  })
+  }
+})
+
+
 }
 const editNewAddress=(name,value)=>{
-    setIsEdit(true)
-   const newInput = { ...EditAddress }
-   newInput[name] = value
-   setEditAddress(newInput)
+setIsEdit(true)
+const newInput = { ...EditAddress }
+newInput[name] = value
+setEditAddress(newInput)
 
-  }
-  const cancelEditAddress=()=>{
-    setIsEdit(false)
-  setEditAddress(
-                {
-                "addressType": "",
-                "fullAddress": "",
-                "pinCode": "",
-                "country": "",
-                "gstin": "",
-                "state": "",
-                "city": ""
-            }
-      )
-
-
-  }
-  const saveNewAddress=()=>{
-    console.log(EditAddress,"EditAddress",toEditIndex)
-    setAddressList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        
-        if (i == toEditIndex) {
-          console.log("here")
-          return EditAddress;
+}
+const cancelEditAddress=()=>{
+setIsEdit(false)
+setEditAddress(
+            {
+            "addressType": "",
+            "fullAddress": "",
+            "pinCode": "",
+            "country": "",
+            "gstin": "",
+            "state": "",
+            "city": ""
         }
+  )
+
+
+}
+const saveNewAddress=()=>{
+console.log(EditAddress,"EditAddress",toEditIndex)
+setAddressList(prevState => {
+  const newState = prevState.map((obj ,i)=> {
+    
+    if (i == toEditIndex) {
+      console.log("here")
+      return EditAddress;
+    }
 // 👇️ otherwise return object as is
-        return obj;
-      });
+    return obj;
+  });
 
-      return newState;
-    });
-    setIsEdit(false)
-    setEditAddress(
-                {
-                "addressType": "",
-                "fullAddress": "",
-                "pinCode": "",
-                "country": "",
-                "gstin": "",
-                "state": "",
-                "city": ""
-            }
-    )
+  return newState;
+});
+setIsEdit(false)
+setEditAddress(
+            {
+            "addressType": "",
+            "fullAddress": "",
+            "pinCode": "",
+            "country": "",
+            "gstin": "",
+            "state": "",
+            "city": ""
+        }
+)
 
 
 
-  }
+}
 
 //multi address
 
@@ -661,7 +661,8 @@ const editNewAddress=(name,value)=>{
 
           </div>
         </div>
-        {isEdit && editData(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)}
+        {
+        isEdit && editData(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)}
         
               <div className={`${styles.newAddressContainer} m-0`}>
                   <div className={styles.newAddressHead}><span>Add a new address</span></div>
