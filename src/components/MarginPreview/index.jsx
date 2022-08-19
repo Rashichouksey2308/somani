@@ -119,24 +119,24 @@ function Index() {
                 <tbody>
                   <tr>
                     <td><span className={`${styles.sno}`}>J</span><span className={`ml-2`}>Order Value</span><span className={`${styles.formula} ml-2`}>(A*B)</span></td>
-                    <td >{((marginData?.order?.orderValue).toLocaleString())}</td>
-                    <td >{((marginData?.order?.orderValue).toLocaleString())}</td>
+                    <td >{((marginData?.order?.orderValue)?.toLocaleString()??0)}</td>
+                    <td >{((marginData?.order?.orderValue)?.toLocaleString())??0}</td>
                   </tr>
                   <tr>
                     <td><span className={`${styles.sno}`}>M</span><span className={`ml-2`}>Trade Margin (INR)</span> <span>(K*E)</span></td>
-                    <td >{(marginData?.calculation?.tradeMargin).toLocaleString()}</td>
-                    <td >{(marginData?.calculation?.tradeMargin).toLocaleString()}</td>
+                    <td >{(marginData?.calculation?.tradeMargin)?.toLocaleString()??0}</td>
+                    <td >{(marginData?.calculation?.tradeMargin)?.toLocaleString()??0}</td>
                     
                   </tr>
                   <tr>
                     <td><span className={`${styles.sno}`}>N</span><span className={`ml-2`}>Gross Order Value (INR)</span> <span>(K+L+M)</span></td>
-                    <td>{(marginData?.calculation?.grossOrderValue).toLocaleString()}</td>
-                    <td>{(marginData?.calculation?.grossOrderValue).toLocaleString()}</td>
+                    <td>{(marginData?.calculation?.grossOrderValue)?.toLocaleString()??0}</td>
+                    <td>{(marginData?.calculation?.grossOrderValue)?.toLocaleString()??0}</td>
                   </tr>
                   <tr className={`${styles.bordertop} border_color`}>
                     <td><span className={`${styles.sno}`}>T</span><span className={`ml-2`}>Additional Amount Per SPDC (INR) </span> <span>[(S-Previous Value)/I)]</span></td>
-                    <td className={`${styles.good} ${styles.highlight2} satisfactory`}>{(marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC).toLocaleString()}</td>
-                    <td>{(marginData?.calculation?.amountPerSPDC).toLocaleString()}</td>
+                    <td className={`${styles.good} ${styles.highlight2} satisfactory`}>{(marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC)?.toLocaleString()??0}</td>
+                    <td>{(marginData?.calculation?.amountPerSPDC)?.toLocaleString()??0}</td>
                   </tr>
                 </tbody>
               </table>
