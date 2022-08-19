@@ -67,11 +67,11 @@
   "scripts": {
     "dev":"next dev",
     "lint-staged": "lint-staged",
-    "build": "NODE_ENV=production next build",
+    "build": "NODE_ENV=development next build",
     "test:ci": "jest --maxWorkers=2 --ci",
     "test": "jest --watch",
     "start": "nodemon -w server server/index.js",
-    "serve": "NODE_ENV=production node server/index.js",
+    "serve": "NODE_ENV=development node server/index.js",
     "clean": "rimraf node_modules/.cache .next",
     "now-start": "yarn serve",
     "lint:fix": "standard --fix --verbose | snazzy",
