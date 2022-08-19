@@ -222,6 +222,7 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
                 setAddress(e.target.name, e.target.value)
               }}
             >
+               <option>Select an option</option>
               <option value="Registered">Registered Office</option>
               <option value="Branch">Branch </option>
               <option value="Supplier">Supplier Address </option>

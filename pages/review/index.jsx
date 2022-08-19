@@ -1754,6 +1754,9 @@ function Index() {
                       <div className={`${styles.categories} mb-0 d-flex align-items-center`}>
                         <label className={styles.label}>Categories:</label>
                         <select onChange={(e) => setComplienceFilter(e.target.value)} className={`${styles.form_control} form-control`}>
+                          <option>
+                                Select an option
+                              </option>
                           <option value="StatutoryCompliance">Statutory Compliance</option>
                           <option value="BankingDefaults">Banking Defaults</option>
                         </select>
@@ -1784,11 +1787,17 @@ function Index() {
                             {orderList?.company?.litigationStatus !==
                               'Active' ? (
                               <>
+                              <option>
+                                Select an option
+                              </option>
                                 <option value="Pending">Pending</option>
                                 <option value="Active">Active</option>
                               </>
                             ) : (
                               <>
+                              <option>
+                                Select an option
+                              </option>
                                 <option value="Active">Active</option>
                                 <option value="Pending">Pending</option>
                               </>

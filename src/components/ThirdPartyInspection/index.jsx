@@ -455,15 +455,21 @@ export default function Index({ addButton, inspectionData }) {
                                   Please Specify
                                 </button>
                                 <div
-                                  className="dropdown-menu"
+                                  className={`${styles.dropdown_menu} dropdown-menu`}
                                   aria-labelledby="dropdownMenuButton"
                                 >
-                                  <a className="dropdown-item" href="#">
-                                    Action
-                                  </a>
-                                  <a className="dropdown-item" href="#">
-                                    Another action
-                                  </a>
+                                  <a className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`} href="#"><img
+                                    src="/static/hold-white.svg"
+                                    className="img-fluid mr-2"
+                                    alt="On Hold"/>{' '}On Hold</a>
+                                  <a className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`} href="#"><img
+                                    src="/static/close-white.svg"
+                                    className="img-fluid mr-2"
+                                    alt="Rejected"/> Rejected</a>
+                                  <a className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`} href="#"><img
+                                    src="/static/check.svg"
+                                    className="img-fluid mr-2"
+                                    alt="Approved"/> Approved</a>
                                 </div>
                               </div>
                             </td>
@@ -524,30 +530,31 @@ export default function Index({ addButton, inspectionData }) {
                               {' '}
                               <div className="dropdown">
                                 <button
-                                  className={`${styles.specify_field} ${styles.hold_field} btn btn-secondary dropdown-toggle`}
+                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
                                   id="dropdownMenuButton"
                                   data-toggle="dropdown"
                                   aria-haspopup="true"
                                   aria-expanded="false"
                                 >
-                                  <img
-                                    src="/static/hold-white.svg"
-                                    className="img-fluid mr-2"
-                                    alt="close"
-                                  />{' '}
-                                  On Hold
+                                  Please Specify
                                 </button>
                                 <div
-                                  className="dropdown-menu"
+                                  className={`${styles.dropdown_menu} dropdown-menu`}
                                   aria-labelledby="dropdownMenuButton"
                                 >
-                                  <a className="dropdown-item" href="#">
-                                    Action
-                                  </a>
-                                  <a className="dropdown-item" href="#">
-                                    Another action
-                                  </a>
+                                  <a className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`} href="#"><img
+                                    src="/static/hold-white.svg"
+                                    className="img-fluid mr-2"
+                                    alt="On Hold"/>{' '}On Hold</a>
+                                  <a className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`} href="#"><img
+                                    src="/static/close-white.svg"
+                                    className="img-fluid mr-2"
+                                    alt="Rejected"/> Rejected</a>
+                                  <a className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`} href="#"><img
+                                    src="/static/check.svg"
+                                    className="img-fluid mr-2"
+                                    alt="Approved"/> Approved</a>
                                 </div>
                               </div>
                             </td>
@@ -607,32 +614,33 @@ export default function Index({ addButton, inspectionData }) {
                             </td>
                             <td>
                               {' '}
-                              <div className="dropdown">
+                              <div className="dropdown">                                
                                 <button
-                                  className={`${styles.specify_field} ${styles.rejected_field} btn btn-secondary dropdown-toggle`}
+                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
                                   id="dropdownMenuButton"
                                   data-toggle="dropdown"
                                   aria-haspopup="true"
                                   aria-expanded="false"
                                 >
-                                  <img
-                                    src="/static/close-white.svg"
-                                    className="img-fluid mr-2"
-                                    alt="close"
-                                  />
-                                  Rejected
+                                  Please Specify
                                 </button>
                                 <div
-                                  className="dropdown-menu"
+                                  className={`${styles.dropdown_menu} dropdown-menu`}
                                   aria-labelledby="dropdownMenuButton"
                                 >
-                                  <a className="dropdown-item" href="#">
-                                    Action
-                                  </a>
-                                  <a className="dropdown-item" href="#">
-                                    Another action
-                                  </a>
+                                  <a className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`} href="#"><img
+                                    src="/static/hold-white.svg"
+                                    className="img-fluid mr-2"
+                                    alt="On Hold"/>{' '}On Hold</a>
+                                  <a className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`} href="#"><img
+                                    src="/static/close-white.svg"
+                                    className="img-fluid mr-2"
+                                    alt="Rejected"/> Rejected</a>
+                                  <a className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`} href="#"><img
+                                    src="/static/check.svg"
+                                    className="img-fluid mr-2"
+                                    alt="Approved"/> Approved</a>
                                 </div>
                               </div>
                             </td>
@@ -781,7 +789,7 @@ export default function Index({ addButton, inspectionData }) {
                                 Lead Onboarding &amp; Order Approval
                               </option>
                               <option>
-                                Agreements, Insurance & LC Opening
+                                Agreements, Insurance &amp; LC Opening
                               </option>
                               <option>Loading-Transit-Unloading</option>
                               <option>Custom Clearance And Warehousing</option>

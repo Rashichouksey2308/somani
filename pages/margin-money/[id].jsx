@@ -603,6 +603,9 @@ function Index() {
                           className={`${styles.options} mr-4 accordion_DropDown`}
                         >
                           <option>
+                                Select an option
+                              </option>
+                          <option>
                             {' '}
                             {marginData?.order?.unitOfValue == 'Cr'
                               ? 'Crores'
@@ -1379,6 +1382,9 @@ function Index() {
                                   }
                                   defaultValue={marginData?.invoiceDetail?.buyerGSTIN}
                                 >
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value={marginData?.invoiceDetail?.buyerGSTIN}>
                                     {marginData?.invoiceDetail?.buyerGSTIN}
                                   </option>
@@ -1517,9 +1523,9 @@ function Index() {
                                   }
                                   value={invoiceData?.consigneeGSTIN}
                                 >
-                                  <option >
-
-                                  </option>
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1582,6 +1588,9 @@ function Index() {
                                     )
                                   }
                                 >
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value="Ramakrishna Traders">
                                     Ramakrishna Traders
                                   </option>
@@ -1621,6 +1630,9 @@ function Index() {
                                     )
                                   }
                                 >
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value="Visakhapatnam, India">
                                     {'Visakhapatnam, India'}
                                   </option>
@@ -1708,6 +1720,9 @@ function Index() {
                                     )
                                   }
                                 >
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value="HDFC">HDFC</option>
                                   <option value="SBI">SBI</option>
                                 </select>
@@ -1743,6 +1758,9 @@ function Index() {
                                     )
                                   }
                                 >
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value="DELHI, INDIA">
                                     DELHI, INDIA
                                   </option>
