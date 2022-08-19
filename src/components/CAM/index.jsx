@@ -47,7 +47,7 @@ function Index({
 }) {
   const dispatch = useDispatch()
   console.log(gstData, 'gstData')
-  console.log(fetchingKarzaGst,'fetchingKarzaGst')
+  console.log(fetchingKarzaGst, 'fetchingKarzaGst')
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
@@ -55,7 +55,7 @@ function Index({
       dispatch(GetAllOrders({ orderId: id1 }))
       dispatch(GetCompanyDetails({ company: id2 }))
     }
-  }, [dispatch,fetchingKarzaGst])
+  }, [dispatch, fetchingKarzaGst])
 
   console.log(camData, 'THIS IS CAM DATA')
   // console.log(companyData, 'THIS IS COMPANY DATA')
@@ -65,7 +65,7 @@ function Index({
       return camData?._id === rating.order
     })
 
-  
+
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
     saveApprovedCreditData(name, value)
@@ -85,8 +85,8 @@ function Index({
 
   const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', [])
 
-  const latestIncomeData = _get(companyData, 'financial.incomeStatement[0]', [] )
-  const previousIncomeData = _get(companyData, 'financial.incomeStatement[1]', [] )
+  const latestIncomeData = _get(companyData, 'financial.incomeStatement[0]', [])
+  const previousIncomeData = _get(companyData, 'financial.incomeStatement[1]', [])
 
   const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', [])
   const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', [])
@@ -409,7 +409,7 @@ const basicInfo = (camData) => {
                     Port of Loading
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                   {camData?.portOfDischarge}
+                    {camData?.portOfDischarge}
                   </span>
                 </Col>
                 <Col
@@ -430,7 +430,8 @@ const basicInfo = (camData) => {
                     Exp. Date of Shipment
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.ExpectedDateOfShipment.split('T')[0]}
+                    {/* {camData?.ExpectedDateOfShipment.split('T')[0]} */}
+                    {moment((camData?.ExpectedDateOfShipment)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -438,11 +439,13 @@ const basicInfo = (camData) => {
                     ETA at Discharge port
                   </span>
                   <span className={`${styles.value} value`}>
-                    {
+                    {/* {
                       camData?.shipmentDetail?.ETAofDischarge?.fromDate?.split(
                         'T',
                       )[0]
-                    }
+                    } */}
+                    {moment((camData?.shipmentDetail?.ETAofDischarge?.fromDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+
                   </span>
                 </Col>
               </Row>
@@ -452,7 +455,8 @@ const basicInfo = (camData) => {
                     Laycan from
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]}
+                    {/* {camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]} */}
+                    {moment((camData?.shipmentDetail?.loadPort?.fromDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -460,7 +464,9 @@ const basicInfo = (camData) => {
                     Laycan to
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.shipmentDetail?.loadPort?.toDate?.split('T')[0]}
+                    {/* {camData?.shipmentDetail?.loadPort?.toDate?.split('T')[0]} */}
+                    {moment((camData?.shipmentDetail?.loadPort?.toDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+
                   </span>
                 </Col>
               </Row>
@@ -1121,28 +1127,45 @@ const shareHolding = (data, options, tempArr, camData) => {
 
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
-                      (share, index) => (
-                        <tr key={index}>
-                          <td
-                            className={`d-flex justify-content-start align-content-center`}
-                          >
-                            <div className={`${styles.icon} `}>
-                              <span
-                                className={`d-flex justify-content-center align-content-center`}
-                              >
-                                AJ
-                              </span>
-                            </div>
+                      (share, index) => {
+                        console
+                        let name = share?.fullName
+                        let [fName, lName] = name?.split(' ')
 
-                            <span className={` ${styles.name} ml-3  `}>
-                              {share?.fullName}
-                            </span>
-                          </td>
-                          <td>{share?.numberOfShares}</td>
-                          <td>{share?.percentageShareHolding}</td>
-                          <td>{share?.director ? 'Yes' : 'No'}</td>
-                        </tr>
-                      ),
+                        let colors = [{
+                          primary: "blue",
+                          secondary: "#3687E8"
+                        }, {
+                          primary: "green",
+                          secondary: "#43C34D"
+                        }, {
+                          primary: "yellow",
+                          secondary: "#FF9D00"
+                        }]
+                        let randColor = colors[Math.floor(Math.random() * colors.length)];
+                        return (
+                          <tr key={index}>
+                            <td
+                              className={`d-flex justify-content-start align-content-center`}
+                            >
+                              <div style={{ background: `${randColor.primary}` }} className={`${styles.icon}   `}>
+                                <span style={{ color: `${randColor.secondary}` }}
+                                  className={`d-flex justify-content-center align-content-center`}
+                                >
+                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}{lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                                </span>
+                              </div>
+
+                              <span className={` ${styles.name} ml-3  `}>
+                                {share?.fullName}
+                              </span>
+                            </td>
+                            <td>{share?.numberOfShares}</td>
+                            <td>{share?.percentageShareHolding}</td>
+                            <td>{share?.director ? 'Yes' : 'No'}</td>
+                          </tr>
+                        )
+                      },
                     )}
                   {/* <tr>
                     <td
@@ -2008,7 +2031,7 @@ const financeDetails = (
                     </td>
                     <td>
                       {
-                          previousYearData
+                        previousYearData
                           ?.daysOfSalesOutstanding?.toFixed(2).toLocaleString()
                       }
                     </td>
@@ -2115,12 +2138,12 @@ const financeDetails = (
                     <td>Cash from Operations</td>
                     <td>
                       {
-                        _get(companyData, 'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities', '').toLocaleString(undefined, {minimumFractionDigits: 2})
+                        _get(companyData, 'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                     <td>
                       {
-                         _get(companyData, 'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities', '').toLocaleString(undefined, {minimumFractionDigits: 2})
+                        _get(companyData, 'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                   </tr>
@@ -2128,12 +2151,12 @@ const financeDetails = (
                     <td>Cash from Financing</td>
                     <td>
                       {
-                        _get(companyData, 'financial?.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities', '').toLocaleString(undefined, {minimumFractionDigits: 2})
+                        _get(companyData, 'financial?.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                     <td>
                       {
-                        _get(companyData, 'financial?.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities', '').toLocaleString(undefined, {minimumFractionDigits: 2})
+                        _get(companyData, 'financial?.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                   </tr>
@@ -2141,12 +2164,12 @@ const financeDetails = (
                     <td>Cash from Investing</td>
                     <td>
                       {
-                        _get(companyData, 'financial?.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities', '').toLocaleString(undefined, {minimumFractionDigits: 2})
+                        _get(companyData, 'financial?.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                     <td>
                       {
-                       _get(companyData, 'financial?.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities', '').toLocaleString(undefined, {minimumFractionDigits: 2})
+                        _get(companyData, 'financial?.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
                       }
                     </td>
                   </tr>
