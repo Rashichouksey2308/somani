@@ -2,24 +2,27 @@
 @import "../../src/components/styles/Core/config";
 .dashboardTab {
     .tabHeader {
-        padding: 31px 28px 33px 38px;
+        padding: 28px 28px 33px 38px;
         margin-bottom: 10px;
-        .arrow {
-            width: 13px;
-            height: 21px;
-            background: transparent;
-            margin-top: 0;
-        }
-        .title {
-            font-size: 34px;
-            font-weight: bold;
-            line-height: 41px;
-            margin: 0;
-            padding-left: 18px;
-            img {
+        .tabHeaderInner {
+            height: 48px;
+            .arrow {
                 width: 13px;
                 height: 21px;
-                margin: -5px 25px 0 0;
+                background: transparent;
+                margin-top: 0;
+            }
+            .title {
+                font-size: 34px;
+                font-weight: bold;
+                line-height: 41px;
+                margin: 0;
+                padding-left: 18px;
+                img {
+                    width: 13px;
+                    height: 21px;
+                    margin: -5px 25px 0 0;
+                }
             }
         }
         .btnPrimary {
