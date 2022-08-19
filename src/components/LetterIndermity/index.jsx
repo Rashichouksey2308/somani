@@ -7,6 +7,10 @@ import { GetLcModule } from 'redux/lcModule/action'
 import Filter from '../Filter'
 import _get from 'lodash/get'
 import SavePreviewBar from '../LetterIndermity/SavePreviewBar'
+import {
+  UpdateTransitDetails,
+  GetTransitDetails,
+} from '../../redux/TransitDetails/action'
 
 function Index({ TransitDetails }) {
   const [billsofLanding, setBillsofLanding] = useState([
@@ -16,6 +20,7 @@ function Index({ TransitDetails }) {
     },
   ])
   const bolArray = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
+  console.log(TransitDetails, bolArray, 'bolArray')
 
   const handleRoute = () => {
     Router.push('/loi-preview')
@@ -36,9 +41,33 @@ function Index({ TransitDetails }) {
     }
   }
 
-  const BolDropDown = ({ e, element }) => {
-    let selectedObj = bolArray
+  const BolDropDown = (e) => {
+    let index = e.target.value
+    let selectedObj = bolArray[index]
   }
+
+  const OnAddHandler = () => {
+    let tempArray = billsofLanding
+    tempArray.push({
+      blnumber: '',
+      loadingPort: '',
+    })
+    setBillsofLanding(tempArray)
+  }
+
+  console.log(billsofLanding, 'billsofLanding')
+
+  const saveData = () => {
+    // // const billOfLanding = [...bolList]
+    // const bol = { billOfLanding: bolList }
+
+    // let fd = new FormData()
+    // fd.append('bl', JSON.stringify(bol))
+    // fd.append('transitId', transId._id)
+    // dispatch(UpdateTransitDetails(fd))
+    // console.log(fd, bol, 'filteredVessel')
+  }
+
 
   return (
     <div className={`${styles.root} card container-fluid  border-0`}>
@@ -67,47 +96,49 @@ function Index({ TransitDetails }) {
             </div>
           </div>
           <div>
-            <span>DATE:</span> 05 APRIL 2021
+            <span>DATE:</span> {new Date().toJSON().slice(0, 10).replace(/-/g, '/')}
           </div>
         </div>
         <span>Dear Sir, </span>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Ship:</span>
           {'  '}
-          <div className={`ml-3`}>MV CRIMSON ARK</div>
+          <div className={`ml-3`}>{_get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName', '').toUpperCase()}</div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Voyage:</span>
           {'  '}
           <div className={`ml-3`}>
-            FROM ABBOT POINT, AUSTRALIA TO ANY PORT(S) IN INDIA
+            FROM {_get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()} TO ANY PORT(S) IN INDIA
           </div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Cargo:</span>
           {'  '}
           <div className={`ml-3`}>
-            36,750 MT LAKE VERMONT PREMIUM HARD COKING COAL
+            {_get(TransitDetails, 'data[0].order.quantity', '').toLocaleString()} {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()} {_get(TransitDetails, 'data[0].order.commodity', '').toUpperCase()}
           </div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Bill(s) of Lading:</span>
           {'  '}
-          <div
-            className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
-          >
-            <select onChange={(e) => BolDropDown(e)}>
-              {bolArray.map((element, index) => (
-                <option key={index} value={index}>
-                  BL-{index + 1}
-                </option>
-              ))}
-            </select>
-            Dated 18TH MARCH 2021, ISSUE AT ABBOT POINT
-            <button className={styles.add_btn}>
-              <span className={styles.add_sign}>+</span>Add
-            </button>
-          </div>
+          {billsofLanding.map((bills, index1) => (
+            <div key={index1}
+              className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
+            >
+              <select onChange={(e) => BolDropDown(e)}>
+                {bolArray.map((element, index2) => (
+                  <option key={`${index1}-${index2}`} value={index2}>
+                    BL-{index1 + 1}
+                  </option>
+                ))}
+              </select>
+              Dated 18TH MARCH 2021, ISSUE AT {_get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()} {index1}
+              <button onClick={() => OnAddHandler()} className={styles.add_btn}>
+                <span className={styles.add_sign}>+</span>Add
+              </button>
+            </div>
+          ))}
         </div>
 
         <div className={styles.body}>

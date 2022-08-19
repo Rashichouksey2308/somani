@@ -223,6 +223,7 @@ function Index(props) {
                                   onChange={(e) => {
                                     handleChangeInput(e.target.name, e.target.value, index)
                                   }}>
+                              <option>Select an option</option>
                               <option value={"Sales Agreement"}>{"Sales Agreement"}</option>
                               <option value={"Associateship Agreement"}>{"Associateship Agreement"}</option>
                               <option value={"TPA (Seller)"}>{"TPA (Seller)"}</option>

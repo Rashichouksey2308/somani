@@ -161,6 +161,7 @@ const Index = ({ orderid, module }) => {
                       {module === 'LeadOnboarding&OrderApproval' ? (
                         <>
                           {' '}
+                           <option>Select an option</option>
                           <option value="CertificateofIncorporation">
                             Certificate of Incorporation
                           </option>
@@ -305,6 +306,7 @@ const Index = ({ orderid, module }) => {
                     onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
+                     <option>Select an option</option>
                     <option value="LeadOnboarding&OrderApproval">
                       Lead Onboarding &amp; Order Approval
                     </option>

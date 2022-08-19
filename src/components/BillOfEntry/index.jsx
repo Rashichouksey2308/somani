@@ -716,6 +716,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                                   disabled={!val.actions}
                                   className={`${styles.dutyDropdown}`}
                                 >
+                                   <option>Select an option</option>
                                   <option>{val.duty}</option>
                                   <option value="BCD">BCD</option>
                                   <option value="IGST">IGST</option>

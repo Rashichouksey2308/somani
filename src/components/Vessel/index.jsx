@@ -34,6 +34,8 @@ function Index({
   list,
   orderID,
   id1,
+  onDeleteVessel,
+  OnAddvesselInformationDelete
 }) {
   const dispatch = useDispatch()
   // useEffect(() => {
@@ -105,6 +107,7 @@ function Index({
                             {partShipmentAllowed ? (
                               <>
                                 {' '}
+                                 <option>Select an option</option>
                                 <option value={true}>Yes</option>
                                 <option value={false}>No</option>
                               </>
@@ -124,7 +127,17 @@ function Index({
                         </div>
 
                         {list[index].shipmentType === 'Bulk' ? (
-                          <button
+                          <>
+                          {index > 1?
+                            <button
+                            className={styles.add_btn}
+                            onClick={(e) => {
+                              onDeleteVessel(index)
+                            }}
+                          >
+                            Delete
+                          </button>:
+                        <button
                             className={styles.add_btn}
                             onClick={(e) => {
                               onAddVessel()
@@ -132,6 +145,9 @@ function Index({
                           >
                             Add
                           </button>
+                         
+                          }
+                           </>
                         ) : null}
                       </div>
                     </div>
@@ -147,6 +163,7 @@ function Index({
                                 shipmentTypeChangeHandler(e, index)
                               }
                             >
+                               <option>Select an option</option>
                               <option value="Bulk" selected>
                                 Bulk
                               </option>
@@ -208,6 +225,7 @@ function Index({
                             style={{ color: '#3687E8' }}
                             required
                           >
+                             <option>Select an option</option>
                             <option>USD</option>
                             <option>INR</option>
                           </select>
@@ -246,9 +264,10 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                             >
-                              <option value={val.countryOfOrigin}>
+                               <option>Select an option</option>
+                              {/* <option value={val.countryOfOrigin}>
                                 {val.countryOfOrigin}
-                              </option>
+                              </option> */}
                               <option value="india">India</option>
                             </select>
                             <label
@@ -275,9 +294,10 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                             >
-                              <option value={val.portOfLoading}>
+                               <option>Select an option</option>
+                              {/* <option value={val.portOfLoading}>
                                 {val.portOfLoading}
-                              </option>
+                              </option> */}
                               <option value="perth">Perth</option>
                             </select>
                             <label
@@ -304,9 +324,10 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                             >
-                              <option value={val.portOfDischarge}>
+                               <option>Select an option</option>
+                              {/* <option value={val.portOfDischarge}>
                                 {val.portOfDischarge}
-                              </option>
+                              </option> */}
                               <option value="navasheva">Navasheva</option>
                             </select>
                             <label
@@ -678,12 +699,21 @@ function Index({
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
                                 </h3>
-                                <button
+                                {
+                                  index > 1?
+                                  <button
+                                  onClick={() => OnAddvesselInformationDelete(index)}
+                                  className={styles.add_btn}
+                                >
+                                  Delete
+                                </button>
+                                  :<button
                                   onClick={() => OnAddvesselInformation()}
                                   className={styles.add_btn}
                                 >
                                   Add
                                 </button>
+                                }
                               </div>
                               <div className="row">
                                 <div
@@ -794,6 +824,7 @@ function Index({
                                 onChange={(e) => uploadDocHandler1(e)}
                                 type="file"
                                 name="myfile"
+                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" 
                               />
                               <button className={`${styles.upload_btn}`}>
                                 Upload Excel

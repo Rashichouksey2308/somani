@@ -20,6 +20,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllOrders } from 'redux/registerBuyer/action'
 import { GetCompanyDetails } from 'redux/companyDetail/action'
+import { GetDocuments } from 'redux/creditQueueUpdate/action'
+import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import _get from 'lodash/get'
 
@@ -46,16 +48,25 @@ function Index({
   approvedCredit,
 }) {
   const dispatch = useDispatch()
-  console.log(gstData, 'gstData')
-  console.log(fetchingKarzaGst, 'fetchingKarzaGst')
+  // console.log(gstData, 'gstData')
+  // console.log(fetchingKarzaGst, 'fetchingKarzaGst')
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
       let id2 = sessionStorage.getItem('companyID')
       dispatch(GetAllOrders({ orderId: id1 }))
       dispatch(GetCompanyDetails({ company: id2 }))
+      // dispatch(GetDocuments(`?order=${id1}`))
+
     }
   }, [dispatch, fetchingKarzaGst])
+  useEffect(() => {
+  
+      let id1 = sessionStorage.getItem('orderID')
+      dispatch(GetDocuments(`?order=${id1}`))
+
+    
+  }, [dispatch])
 
   console.log(camData, 'THIS IS CAM DATA')
   // console.log(companyData, 'THIS IS COMPANY DATA')
@@ -65,6 +76,9 @@ function Index({
       return camData?._id === rating.order
     })
 
+    const { documentsFetched } = useSelector((state) => state.review)
+
+    console.log(documentsFetched, 'THIS IS DOCUMENTS FETCHED')
 
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
@@ -248,7 +262,7 @@ function Index({
         onApprove,
         onApproveOrder,
       )}
-      {Documents()}
+      {Documents(documentsFetched)}
     </>
   )
 }
@@ -1129,7 +1143,7 @@ const shareHolding = (data, options, tempArr, camData) => {
                     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
                       (share, index) => {
                         
-                        let name = share?.fullName
+                        let name = share?.fullName ?? 'N A'
                         let [fName, lName] = name?.split(' ')
 
                         let colors = [{
@@ -2722,7 +2736,8 @@ const sectionTerms = (
     </>
   )
 }
-const Documents = () => {
+const Documents = (documentsFetched) => {
+  const dispatch = useDispatch()
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2744,7 +2759,20 @@ const Documents = () => {
         >
           <div className={`${styles.terms_wrapper} card-body border_color`}>
             <Row className={`${styles.row}`}>
-              <Col md={3} className={`mb-3`}>
+              { documentsFetched && documentsFetched?.documents?.map((doc, index) => ( <Col md={3} key={index} className={`mb-3`}>
+                <div
+                  className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
+                >
+                  <img src="./static/icon file copy.svg"></img>
+                  <div className={`${styles.view} ml-4`}>
+                    <span>{doc.name}</span>
+                    <span onClick={()=> dispatch(ViewDocument({path: doc.path,
+                      orderId : documentsFetched._id
+                    })) } className={`${styles.highlight} mt-2`}>VIEW</span>
+                  </div>
+                </div>
+              </Col>))}
+              {/* <Col md={3}>
                 <div
                   className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
                 >
@@ -2820,18 +2848,7 @@ const Documents = () => {
                     <span className={`${styles.highlight} mt-2`}>VIEW</span>
                   </div>
                 </div>
-              </Col>
-              <Col md={3}>
-                <div
-                  className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
-                >
-                  <img src="./static/icon file copy.svg"></img>
-                  <div className={`${styles.view} ml-4`}>
-                    <span>Insurance Certificate</span>
-                    <span className={`${styles.highlight} mt-2`}>VIEW</span>
-                  </div>
-                </div>
-              </Col>
+              </Col> */}
             </Row>
           </div>
         </div>
@@ -2866,6 +2883,7 @@ const trends = (
               className={`${styles.select} accordion_body form-select`}
               aria-label="Default select example"
             >
+               <option>Select an option</option>
               <option selected value="1">
                 Quarterly
               </option>
@@ -2952,6 +2970,7 @@ const skewness = (data, options, tempArr, gstData) => {
               className={`${styles.select} accordion_body form-select`}
               aria-label="Default select example"
             >
+               <option>Select an option</option>
               <option selected value="1">
                 Quarterly
               </option>

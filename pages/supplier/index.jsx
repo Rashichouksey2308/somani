@@ -160,6 +160,9 @@ function Index() {
                     >
                       <>
                         {' '}
+                        <option>
+                                Select an option
+                        </option>
                         <option value={true}>Active</option>
                         <option value={false}>Not active</option>
                       </>
@@ -212,6 +215,9 @@ function Index() {
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           required
                         >
+                           <option>
+                                Select an option
+                        </option>
                           <option value="India">Private Limited</option>
                           <option value="America">ABC</option>
                         </select>
@@ -246,6 +252,9 @@ function Index() {
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
+                           <option>
+                                Select an option
+                        </option>
                           <option value="India">India</option>
                           <option value="America">USA</option>
                         </select>
@@ -458,6 +467,9 @@ function Index() {
                               id="Code"
                               className={`${styles.code_phone} input border-right-0`}
                             >
+                              <option>
+                              Select an option
+                              </option>
                               <option>+91</option>
                               <option>+1</option>
                               <option>+92</option>
@@ -488,7 +500,10 @@ function Index() {
                               name="callingCode"
                               id="Code"
                               className={`${styles.code_phone} input border-right-0`}
-                            >
+                            > 
+                             <option>
+                              Select an option
+                              </option>
                               <option>+91</option>
                               <option>+1</option>
                               <option>+92</option>
@@ -975,7 +990,7 @@ function Index() {
                   <input
                     as="textarea"
                     rows={3}
-                    placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
+                    placeholder=""
                     className={`${styles.comment_field} mr-n5 form-control`}
                   />
                   <label className={`${styles.label_textarea} text`}>
@@ -1152,7 +1167,7 @@ function Index() {
                   <input
                     as="textarea"
                     rows={3}
-                    placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
+                    placeholder=""
                     className={`${styles.comment_field} form-control`}
                   />
                   <label className={`${styles.label_textarea}  text`}>
