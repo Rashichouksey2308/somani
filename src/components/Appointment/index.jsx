@@ -23,13 +23,19 @@ export default function Index({ inspectionData }) {
       name: inspectionData?.thirdPartyAppointment?.name,
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: { fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress },
+      address: {
+        fullAddress:
+          inspectionData?.thirdPartyAppointment?.address?.fullAddress,
+      },
     })
     setAddressData({
       name: inspectionData?.thirdPartyAppointment?.name,
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: { fullAddress: inspectionData?.thirdPartyAppointment?.address?.fullAddress },
+      address: {
+        fullAddress:
+          inspectionData?.thirdPartyAppointment?.address?.fullAddress,
+      },
     })
   }, [inspectionData])
   console.log(appointmentData, 'appointmentData')
@@ -45,7 +51,6 @@ export default function Index({ inspectionData }) {
     newInput[name] = value
     setAppointmentData(newInput)
   }
-
 
   const saveDate = (value, name) => {
     const d = new Date(value)
@@ -98,9 +103,7 @@ export default function Index({ inspectionData }) {
             <div
               className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
             >
-              <h3 className={`${styles.heading}`}>
-                Appointment of Third Party
-              </h3>
+              <h3 className={`${styles.heading}`}>Appointment of Third</h3>
               <span>+</span>
             </div>
 
@@ -162,7 +165,9 @@ export default function Index({ inspectionData }) {
                 <div
                   className={`${styles.form_group} col-lg-12 col-md-12 col-sm-12`}
                 >
-                  <label className={`${styles.comment_heading}`}>Address</label>
+                  <label className={`${styles.comment_heading} `}>
+                    Address
+                  </label>
 
                   <div
                     className={`${styles.comment_field} w-100 d-flex justify-content-between mt-2 form-control`}
@@ -232,6 +237,50 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
           <Form.Label className={`${styles.label_heading} label_heading`}>
             Address<strong className="text-danger">*</strong>
           </Form.Label>
+        </Form.Group>
+        <Form.Group
+          className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
+        >
+          <Form.Control
+            className={`${styles.input_field} input form-control`}
+            required
+            type="text"
+            name="pinCode"
+            value={newAddress.pinCode}
+            onChange={(e) => {
+              setAddress(e.target.name, e.target.value)
+            }}
+          />
+          <Form.Label className={`${styles.label_heading} label_heading`}>
+            Pin Code<strong className="text-danger">*</strong>
+          </Form.Label>
+          <img
+            className={`${styles.search_image} img-fluid`}
+            src="/static/search-grey.svg"
+            alt="Search"
+          />
+        </Form.Group>
+        <Form.Group
+          className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
+        >
+          <Form.Control
+            className={`${styles.input_field} input form-control`}
+            required
+            type="text"
+            value={newAddress.country}
+            name="country"
+            onChange={(e) => {
+              setAddress(e.target.name, e.target.value)
+            }}
+          />
+          <Form.Label className={`${styles.label_heading} label_heading`}>
+            Country<strong className="text-danger">*</strong>
+          </Form.Label>
+          <img
+            className={`${styles.search_image} img-fluid`}
+            src="/static/search-grey.svg"
+            alt="Search"
+          />
         </Form.Group>
       </div>
       <div className="d-flex">

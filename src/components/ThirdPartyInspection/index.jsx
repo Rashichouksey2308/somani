@@ -703,11 +703,11 @@ export default function Index({ addButton, inspectionData }) {
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
                         <div
-                          className={`${styles.search_container} p-2 pl-4 d-flex justify-content-between align-items-center`}
+                          className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
                         >
-                          <div>
+                          <div className="d-flex align-items-center">
                             <select
-                              className={`${styles.dropDown} input form-control`}
+                              className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                             >
                               <option>
                                 Lead Onboarding &amp; Order Approval
@@ -719,7 +719,13 @@ export default function Index({ addButton, inspectionData }) {
                               <option>Custom Clearance And Warehousing</option>
                               <option value="Others">Others</option>
                             </select>
+                            <img
+                              className={`${styles.arrow2} ${styles.customSelect} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
                           </div>
+
                           <div
                             className={`d-flex align-items-center ${styles.searchBarContainer} `}
                           >
@@ -729,7 +735,7 @@ export default function Index({ addButton, inspectionData }) {
                               alt="Search"
                             ></img>
                             <input
-                              className={`${styles.searchBar} input form-control`}
+                              className={`${styles.searchBar}  statusBox border_color input form-control`}
                               placeholder="Search"
                             ></input>
                           </div>
