@@ -295,9 +295,8 @@ return(
                   } else {
                     //red mark
                     let toastMessage = 'Invalid Pan'
-                    if (!toast.isActive(toastMessage)) {
-                      toast.error(toastMessage, { toastId: toastMessage })
-                    }
+                    if (!toast.isActive(toastMessage.toUpperCase())) {
+                      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })             }
                   }
                 }}
                 className={`${styles.input_field} input form-control`}
@@ -424,9 +423,8 @@ return(
                     } else {
                       //red mark
                       let toastMessage = 'Phone no. invalid'
-                      if (!toast.isActive(toastMessage)) {
-                        toast.error(toastMessage, { toastId: toastMessage })
-                      }
+                      if (!toast.isActive(toastMessage.toUpperCase())) {
+                        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })               }
                     }
                   }}
                   className={`${styles.input_field} input form-control border-left-0`}
@@ -452,9 +450,8 @@ return(
                   } else {
                     //red mark
                     let toastMessage = 'Email Invalid'
-                    if (!toast.isActive(toastMessage)) {
-                      toast.error(toastMessage, { toastId: toastMessage })
-                    }
+                    if (!toast.isActive(toastMessage.toUpperCase())) {
+                      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })             }
                   }
                 }}
                 name="email"

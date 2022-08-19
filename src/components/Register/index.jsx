@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { handleCurrencyOrder } from 'utils/helper'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
+import { debounce } from "lodash"
 
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
@@ -148,20 +149,20 @@ function Index() {
 
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
-    
-     if(name=="quantity"){
-      let tempVal=addPrefixOrSuffix(value.toString(),orderDetails.unitOfQuantity=="mt"?"MT":orderDetails.unitOfQuantity)
+
+    if (name == "quantity") {
+      let tempVal = addPrefixOrSuffix(value.toString(), orderDetails.unitOfQuantity == "mt" ? "MT" : orderDetails.unitOfQuantity)
       newInput[name] = tempVal
-     }
-      if(name == "orderValue"){
-      let tempVal= addPrefixOrSuffix(value.toString(),
-              orderDetails?.unitOfValue=="Millions"?"Mn":
-              orderDetails?.unitOfValue=="Crores"?"Cr":orderDetails?.unitOfValue)
-              newInput[name] = tempVal
-     }else{
+    }
+    if (name == "orderValue") {
+      let tempVal = addPrefixOrSuffix(value.toString(),
+        orderDetails?.unitOfValue == "Millions" ? "Mn" :
+          orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue)
+      newInput[name] = tempVal
+    } else {
       newInput[name] = value
-     }
-    
+    }
+
     setOrderDetails(newInput)
   }
 
@@ -193,25 +194,25 @@ function Index() {
     // handleCurrOrder()
     if (companyDetails.companyName === '') {
       let toastMessage = 'Please Fill The Company Name'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (companyDetails.companyPan.trim().length !== 10) {
       let toastMessage = 'Please Fill A valid Company Pan'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (companyDetails.mobile.primary.number.trim().length !== 10) {
       let toastMessage = 'Please Provide a Valid Phone Number '
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
@@ -223,63 +224,73 @@ function Index() {
         )
     ) {
       let toastMessage = 'Please Fill A valid Email Id'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderDetails.commodity.trim() === '') {
       let toastMessage = 'Please Fill A valid Commodity'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.quantity === null) {
+    } else if (Number(removePrefixOrSuffix(orderDetails.quantity)) <=0 || orderDetails.quantity === null || isNaN(Number(removePrefixOrSuffix(orderDetails.quantity)))) {
       let toastMessage = 'Please Fill A valid quantity'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.orderValue === null) {
+    }
+    // else if (isNaN(orderDetails.quantity)) {
+    //   let toastMessage = 'Please Fill A valid quantity'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage, { toastId: toastMessage })
+    //   }
+    //   return
+    // }
+    else if (Number(removePrefixOrSuffix(orderDetails.orderValue)) <=0 || orderDetails.orderValue === null || isNaN(Number(removePrefixOrSuffix(orderDetails.orderValue)))) {
       let toastMessage = 'Please Fill A valid order value'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
+      return
     }
 
     // else if (orderDetails.supplierName.trim() === '') {
     //   let toastMessage = 'Please Fill A valid Supplier Name'
-    //   if (!toast.isActive(toastMessage)) {
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
     //     toast.error(toastMessage, { toastId: toastMessage })
     //   }
     //   return
     // }
     else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'Please Fill A valid Country Of origin'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderDetails.portOfDischarge.trim() === '') {
       let toastMessage = 'Please Fill A valid Port Of Discharge'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (!orderDetails.ExpectedDateOfShipment) {
       let toastMessage = 'Please Fill A Expected date of Shipment'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
     } else if (orderDetails.incoTerm === '') {
       let toastMessage = 'Please Select A INCO Term'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
+      return
     }
     //  else if (!documents.document1 && !documents.document1) {
     //   let toastMessage = 'Please Check Document Upload'
-    //   if (!toast.isActive(toastMessage)) {
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
     //     toast.error(toastMessage, { toastId: toastMessage })
     //   }
     // }
@@ -290,8 +301,9 @@ function Index() {
       })
       let sendOrder = { ...orderDetails }
       sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
-      sendOrder.orderValue = (removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
-      console.log(sendOrder.quantity, "sendOrder",)
+      sendOrder.orderValue = Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
+
+      console.log(sendOrder.quantity, "orderDetails12",)
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(sendOrder))
@@ -306,11 +318,12 @@ function Index() {
 
       // fd.append('documents', documents.document2)
       fd.append('gstList', JSON.stringify(gstListData))
-      console.log(fd, 'this is payload')
+      console.log(sendOrder, isNaN(orderDetails.quantity), 'this is payload')
 
-      dispatch(CreateBuyer(fd))
+       dispatch(CreateBuyer(fd))
     }
   }
+  console.log(orderDetails, 'this is payload2')
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()
@@ -319,7 +332,9 @@ function Index() {
 
     // document.querySelector(companyInput).value = ''
   }
-console.log(orderDetails,"orderDetails12")
+  console.log(Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0, orderDetails.orderValue === isNaN, 'this is payload')
+  console.log(Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0, 'orderDetails12')
+  // console.log((orderDetails?.quantity?.slice(orderDetails?.quantity?.length - 2, orderDetails?.quantity?.length) === '' ), "orderDetails12")
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // console.log(companyDetails.companyName, "companyName")

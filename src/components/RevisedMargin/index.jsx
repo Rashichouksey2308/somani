@@ -369,7 +369,13 @@ const Index = ({
                     >
                       Usance Interest (%) for 90 days (INR)
                       <strong className="text-danger">*</strong>
-                      <span className={`${styles.blue}`}>{`(K*D*90/365)`}</span>
+                      <span className={`${styles.blue}`}>{`(K*D*90/365)`}
+                        
+                        <div className={`${styles.tooltip}`}>
+                          <img className={`ml-2 mt-n1 img-fluid`} src="/static/info-circle.svg"/>
+                          <span className={`${styles.tooltiptext}`}>Indicative Figures</span>
+                        </div>
+                      </span>
                     </label>
                     <div className={`${styles.val} heading`}>
                       {finalCal.usanceInterest}
@@ -551,8 +557,12 @@ const Index = ({
                     >
                       Additional Amount per SPDC (INR){' '}
                       <strong className="text-danger">*</strong>
+                      <div className={`${styles.tooltip}`}>
+                        <img className={`ml-2 mt-n1 img-fluid`} src="/static/info-circle.svg"/>
+                        <span className={`${styles.tooltiptext}`}>[(S-Previous Value)/I)]</span>
+                      </div>
                     </label>
-                     <div className={`${styles.val} ${styles.green} heading`}>
+                    <div className={`${styles.val} ${styles.green} heading`}>
                       {calcRevised.additionalAmountPerPDC}
                     </div>
                   </div>
@@ -573,6 +583,10 @@ const Index = ({
                     >
                       Revised Net Order Value ()INR
                       <strong className="text-danger">*</strong>
+                      <div className={`${styles.tooltip}`}>
+                        <img className={`ml-2 mt-n1 img-fluid`} src="/static/info-circle.svg"/>
+                        <span className={`${styles.tooltiptext}`}>P - Total Order Value (Previous)</span>
+                      </div>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
                       {calcRevised.revisedNetOrderValue}

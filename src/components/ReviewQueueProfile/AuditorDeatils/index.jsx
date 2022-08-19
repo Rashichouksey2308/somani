@@ -319,10 +319,10 @@ function Index({ directorData }) {
                                 >
                                   <thead>
                                     <tr>
-                                      <th style={{background: "none !important"}}>CIN</th>
-                                      <th style={{background: "none !important"}}>ENTITY NAME</th>
-                                      <th style={{background: "none !important"}}>TENURE START DATE</th>
-                                      <th style={{background: "none !important"}}>TENURE END DATE</th>
+                                      <th>CIN</th>
+                                      <th>ENTITY NAME</th>
+                                      <th>TENURE START DATE</th>
+                                      <th>TENURE END DATE</th>
                                     </tr>
                                   </thead>
                                   <tbody>

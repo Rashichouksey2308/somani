@@ -184,25 +184,23 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
         // document.getElementById('CompanyDetailsForm').reset()
         // document.getElementById('OrderDetailsForm').reset()
         let toastMessage = 'Lead Created Successfully'
-        if (!toast.isActive(toastMessage)) {
-          toast.success(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
         Router.push('/leads')
 
         // payload.history.goBack()
       } else {
         dispatch(createBuyerFailed(response.data.data))
         let toastMessage = response.data.message
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     console.log(error, 'API FAILED')
     dispatch(createBuyerFailed())
     let toastMessage = error.message
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -267,9 +265,8 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(getBuyerFailed(response.data.data))
         let toastMessage = 'Could not fetch Company Details'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
@@ -293,9 +290,8 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(getAllBuyerFailed(response.data))
         let toastMessage = 'Could not fetch Company Details'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
@@ -320,9 +316,8 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(getAllOrderFailed(response.data.data))
         let toastMessage = 'Getting orders failed'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
@@ -346,9 +341,8 @@ export const GetOrders = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(getOrderFailed(response.data.data))
         let toastMessage = 'Getting Order List Failed'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
@@ -399,9 +393,8 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(getGstFailed(response.data))
         let toastMessage = 'Could not fetch Gst at this moment'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
