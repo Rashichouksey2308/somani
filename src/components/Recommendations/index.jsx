@@ -106,7 +106,7 @@ const Index = ({
       return newState
     })
   }
- 
+
 
   return (
     <>
@@ -127,7 +127,7 @@ const Index = ({
           aria-labelledby="recommendations"
           data-parent="#profileAccordion"
         >
-          <hr className={styles.line} style={{margin: "0"} }></hr>
+          <hr className={styles.line} style={{ margin: "0" }}></hr>
           <div className={`${styles.dashboard_form}`}>
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
@@ -154,7 +154,7 @@ const Index = ({
                       src="/static/delete 2.svg"
                       className="img-fluid"
                       alt="delete"
-                      onClick={(e)=>{deleteData(index)}}
+                      onClick={(e) => { deleteData(index) }}
                     />
                   </div>
                 </div>
@@ -248,7 +248,7 @@ const Index = ({
                   <thead>
                     <tr>
                       <th>S.NO.</th>
-                      <th>NAME OF THE BUYER</th>
+                      <th>NAME OF THE COMPANY</th>
                       <th>LIMIT AMOUNT</th>
                       <th>OUTSTANDING LIMIT</th>
                       <th>ACCOUNT CONDUCT</th>
@@ -258,10 +258,22 @@ const Index = ({
                   <tbody>
                     {groupExposureData &&
                       groupExposureData?.map((profile, index) => (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td className='position-relative'>                            
-                            <select
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td className='position-relative'>
+                            <input className={`${styles.input}  input form-control`}
+                              name="name"
+                              disabled={!profile.actions}
+                              defaultValue={profile?.name}
+                              onChange={(e) => {
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value,
+                                  index
+                                )
+                              }}
+                            ></input>
+                            {/* <select
                               className={`${styles.input} ${styles.customSelect} input form-control`}
                               name="name"
                               disabled={!profile.actions}
@@ -275,14 +287,16 @@ const Index = ({
                               }}
                             >
                               <option >Select an option</option>
-                              <option value='Simport Pvt. Ltd.'>Simport Pvt. Ltd.</option>
-                              <option value='Somani'>Somani</option>
-                            </select>
+                              <option value='Emerging Traders'>Emerging Traders</option>
+                              <option value='Bhutani Traders'>Krishna Taders</option>
+                              <option value='Krishna Traders'>Krishna Traders</option>
+
+                            </select> 
                             <img
                               className={`${styles.arrow} img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
-                            />
+                            />*/}
                           </td>
                           <td>
                             <input
@@ -297,7 +311,7 @@ const Index = ({
                                 )
                               }}
                               className={styles.input}
-                              
+
                             />
                           </td>
                           <td>
@@ -339,50 +353,50 @@ const Index = ({
                               alt="Search"
                             />
                           </td>
-                        <td>
-                          <div>
-                            {!profile.actions ? (
+                          <td>
+                            <div>
+                              {!profile.actions ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  onClick={() => {
+                                    setActions(index, true)
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    setActions(index, false)
+                                  }}
+                                />
+                              )}
                               <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                src="/static/delete 2.svg"
+                                className={`${styles.delete_image} img-fluid`}
                                 onClick={() => {
-                                  setActions(index, true)
+                                  handleRemoveRow(index)
                                 }}
+                                alt="delete"
                               />
-                            ) : (
-                              <img
-                                src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                                alt="save"
-                                onClick={(e) => {
-                                  setActions(index, false)
-                                }}
-                              />
-                            )}
-                            <img
-                              src="/static/delete 2.svg"
-                              className={`${styles.delete_image} img-fluid`}
-                              onClick={() => {
-                                handleRemoveRow(index)
-                              }}
-                              alt="delete"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
-                  
+
                 </table>
               </div>
             </div>
             <div
               className={`${styles.add_image} p-3 d-flex justify-content-end`}
             >
-              <div  onClick={(e) => {
+              <div onClick={(e) => {
                 //  onExpSave(exposureData)
                 addMoreExpRows()
-                  }}>
+              }}>
                 <span>+</span>Add More Rows
               </div>
             </div>
@@ -468,8 +482,8 @@ const Index = ({
                 />
               </div>
             </div> */}
-            
-            <hr className={styles.line} style={{margin: "-1px -35px 0"} }></hr>
+
+            <hr className={styles.line} style={{ margin: "-1px -35px 0" }}></hr>
             <div className={`${styles.sub_heading} value`}>Weakness</div>
             <div className="d-flex mt-5 pb-4">
               <input
@@ -550,7 +564,7 @@ const Index = ({
               </div>
             </div> */}
 
-            <hr className={styles.line} style={{margin: "-1px -35px 0"} }></hr>
+            <hr className={styles.line} style={{ margin: "-1px -35px 0" }}></hr>
             <div
               className={`${styles.sanction_terms} mt-4 d-flex justify-content-between align-items-center`}
             >
@@ -596,11 +610,11 @@ const Index = ({
                 <td>{creditDetail?.company?.creditLimit?.availableLimit}</td>
                 <td>-</td>
 
-                { filteredCreditRating ? <> {filteredCreditRating &&
+                {filteredCreditRating ? <> {filteredCreditRating &&
                   filteredCreditRating.length > 0 &&
                   filteredCreditRating.map((val, index) => (
                     <td key={index}>{val.derived.value}</td>
-                  ))} </> : <td>-</td> }
+                  ))} </> : <td>-</td>}
 
                 <td>
                   <input
@@ -608,7 +622,7 @@ const Index = ({
                     type="text"
                     name='suggestedCreditLimit'
                     defaultValue={creditDetail?.suggestedCreditLimit}
-                    onChange={(e)=>{saveSuggestedCreditData(e.target.name, Number(e.target.value * 10000000))}}
+                    onChange={(e) => { saveSuggestedCreditData(e.target.name, Number(e.target.value * 10000000)) }}
                   ></input>
                 </td>
               </tr>
@@ -625,7 +639,7 @@ const Index = ({
                     type="number"
                     name='suggestedOrderValue'
                     defaultValue={creditDetail?.suggestedOrderValue}
-                    onChange={(e)=>{saveSuggestedCreditData(e.target.name, Number(e.target.value * 10000000))}}
+                    onChange={(e) => { saveSuggestedCreditData(e.target.name, Number(e.target.value * 10000000)) }}
                   ></input>
                 </td>
               </tr>
