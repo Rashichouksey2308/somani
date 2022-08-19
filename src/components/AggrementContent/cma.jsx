@@ -47,7 +47,7 @@ function Index(props) {
    const [addressEditType,setAddressEditType]=useState("Registered")
   useEffect(() => {
     let tempArr = cmaState.authorisedSignatoryDetails
-    tempArr.forEach((val, index) => {
+    tempArr?.forEach((val, index) => {
       val.actions = "true"
     })
     setList(tempArr)
