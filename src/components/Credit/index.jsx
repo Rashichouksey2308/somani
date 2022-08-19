@@ -941,7 +941,7 @@ const index = ({
                                 handlePersonChange(e, index)
                               } else {
                                 let toastMessage = 'Enter a valid Phone Number'
-                                if (!toast.isActive(toastMessage)) {
+                                if (!toast.isActive(toastMessage.toUpperCase())) {
                                   toast.error(toastMessage, {
                                     toastId: toastMessage,
                                   })
@@ -1217,7 +1217,7 @@ const index = ({
                               mobileFunction(e)
                             } else {
                               let toastMessage = 'Enter a valid Phone Number'
-                              if (!toast.isActive(toastMessage)) {
+                              if (!toast.isActive(toastMessage.toUpperCase())) {
                                 toast.error(toastMessage, {
                                   toastId: toastMessage,
                                 })
@@ -1471,7 +1471,7 @@ const index = ({
                               changeData(e.target.name, e.target.value)
                             } else {
                               let toastMessage = 'Enter a valid Phone Number'
-                              if (!toast.isActive(toastMessage)) {
+                              if (!toast.isActive(toastMessage.toUpperCase())) {
                                 toast.error(toastMessage, {
                                   toastId: toastMessage,
                                 })

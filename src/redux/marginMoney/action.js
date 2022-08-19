@@ -93,16 +93,15 @@ export const GetAllMarginMoney =
         } else {
           dispatch(getAllMarginMoneyFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(getAllMarginMoneyFailed())
 
       let toastMessage = 'GET MARGIN MONEY API FAILED'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }
@@ -126,16 +125,15 @@ export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
       } else {
         dispatch(getMarginMoneyFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(getMarginMoneyFailed())
 
     let toastMessage = 'GET MARGIN MONEY API FAILED'
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
@@ -155,22 +153,20 @@ export const UpdateMarginMoney =
         if (response.data.code === 200) {
           dispatch(updateMarginMoneySuccess(response.data))
           let toastMessage = 'SAVED SUCCESSFULLY'
-          if (!toast.isActive(toastMessage)) {
-            toast.success(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
           router.push('/margin-money')
         } else {
           dispatch(updateMarginMoneyFailed(response.data))
           let toastMessage = 'UPDATE REQUEST FAILED'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(updateMarginMoneyFailed())
       let toastMessage = 'UPDATE MARGIN MONEY REQUEST FAILED'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }
@@ -190,22 +186,20 @@ export const RevisedMarginMoney =
         if (response.data.code === 200) {
           dispatch(updatingRevisedMarginMoneySuccess(response.data))
           let toastMessage = 'SAVED SUCCESSFULLY'
-          if (!toast.isActive(toastMessage)) {
-            toast.success(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
           // router.push('/margin-money')
         } else {
           dispatch(updatingRevisedMarginMoneyFailed(response.data))
           let toastMessage = 'UPDATE REQUEST FAILED'
-          if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage })
-          }
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
         }
       })
     } catch (error) {
       dispatch(updatingRevisedMarginMoneyFailed())
       let toastMessage = 'REVISE MARGIN MONEY REQUEST FAILED'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     }

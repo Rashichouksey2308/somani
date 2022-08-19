@@ -88,20 +88,18 @@ export default function Index({ ReleaseOrderData }) {
         return response.data.data
 
         // let toastMessage = 'DOCUMENT UPDATED'
-        // if (!toast.isActive(toastMessage)) {
-        //   toast.error(toastMessage, { toastId: toastMessage })
-        // }
+        // if (!toast.isActive(toastMessage.toUpperCase())) {
+        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
       } else {
         // dispatch(getCustomClearanceFailed(response.data.data))
         // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        // if (!toast.isActive(toastMessage)) {
-        //   toast.error(toastMessage, { toastId: toastMessage })
-        // }
+        // if (!toast.isActive(toastMessage.toUpperCase())) {
+        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
       }
     } catch (error) {
       // dispatch(getCustomClearanceFailed())
       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-      // if (!toast.isActive(toastMessage)) {
+      // if (!toast.isActive(toastMessage.toUpperCase())) {
       //   toast.error(toastMessage, { toastId: toastMessage })
       // }
     }
@@ -166,7 +164,7 @@ export default function Index({ ReleaseOrderData }) {
 
       const toastMessage =
         'Net Quantity Realesed cannot be Greater than net bALance Quantity'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {

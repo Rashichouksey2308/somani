@@ -39,22 +39,20 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
         dispatch(placeNewOrderSuccess(response.data.data))
 
         let toastMessage = 'ORDER PLACED'
-        if (!toast.isActive(toastMessage)) {
-          toast.success(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
         Router.push('/order-list')
       } else {
         dispatch(placeNewOrderFailed(response.data.data))
         let toastMessage = 'FAILED TO PLACE NEW ORDER'
-        if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage })
-        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }
     })
   } catch (error) {
     dispatch(placeNewOrderFailed())
     let toastMessage = error.message
-    if (!toast.isActive(toastMessage)) {
+    if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage, { toastId: toastMessage })
     }
   }
