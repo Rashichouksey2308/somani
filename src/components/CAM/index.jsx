@@ -409,7 +409,7 @@ const basicInfo = (camData) => {
                     Port of Loading
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    Vishakapatnam, AP
+                   {camData?.portOfDischarge}
                   </span>
                 </Col>
                 <Col
