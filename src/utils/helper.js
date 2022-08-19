@@ -125,7 +125,7 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
   }
 }
 export const removePrefixOrSuffix = (unitOfValue, type) => {
-  console.log(unitOfValue, 'unitOfValue')
+  console.log(unitOfValue, 'unitOfValueremove')
   if (unitOfValue !== undefined || unitOfValue !== 'undefined') {
     let newValue = unitOfValue
       ?.toString()
@@ -146,7 +146,8 @@ export const removePrefixOrSuffix = (unitOfValue, type) => {
       .replaceAll('n', '')
       .replaceAll('s', '')
       .replaceAll('M', '')
-    console.log(newValue, 'newValue')
+      .replace(/ /g, '')
+    console.log(newValue, 'newValueremove')
     return Number(newValue)
   }
 }

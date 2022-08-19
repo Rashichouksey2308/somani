@@ -121,9 +121,17 @@ function Index() {
   // console.log(orderDetails, "orderDetailjdefhk")
 
   const saveCompanyData = (name, value) => {
-    console.log(value, "turn")
     const newInput = { ...companyDetails }
-    newInput[name] = value
+    
+    if(name=="turnOver"){
+       let tempValue=Number(value)*10000000
+       newInput[name] = tempValue   
+       console.log(tempValue, "turn",name)
+    }else{
+     newInput[name] = value   
+    }
+    
+    
     setCompanyDetails(newInput)
   }
 
@@ -139,7 +147,20 @@ function Index() {
 
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
-    newInput[name] = value
+
+    if (name == "quantity") {
+      let tempVal = addPrefixOrSuffix(value.toString(), orderDetails.unitOfQuantity == "mt" ? "MT" : orderDetails.unitOfQuantity)
+      newInput[name] = tempVal
+    }
+    if (name == "orderValue") {
+      let tempVal = addPrefixOrSuffix(value.toString(),
+        orderDetails?.unitOfValue == "Millions" ? "Mn" :
+          orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue)
+      newInput[name] = tempVal
+    } else {
+      newInput[name] = value
+    }
+
     setOrderDetails(newInput)
   }
 
@@ -211,17 +232,18 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.quantity === null) {
+    } else if (Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0 ) {
       let toastMessage = 'Please Fill A valid quantity'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
       return
-    } else if (orderDetails.orderValue === null) {
+    } else if (Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000) <= 0) {
       let toastMessage = 'Please Fill A valid order value'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
+      return
     }
 
     // else if (orderDetails.supplierName.trim() === '') {
@@ -254,6 +276,7 @@ function Index() {
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
+      return
     }
     //  else if (!documents.document1 && !documents.document1) {
     //   let toastMessage = 'Please Check Document Upload'
@@ -268,8 +291,8 @@ function Index() {
       })
       let sendOrder = { ...orderDetails }
       sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
-      sendOrder.orderValue = (removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
-      console.log(sendOrder, "sendOrder", removePrefixOrSuffix(orderDetails.orderValue))
+      sendOrder.orderValue =  Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
+      console.log(sendOrder.quantity, "orderDetails12",)
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(sendOrder))
@@ -280,7 +303,7 @@ function Index() {
 
       // fd.append('documents', documents.document2)
       fd.append('gstList', JSON.stringify(gstListData))
-      console.log(fd, 'this is payload')
+      console.log(sendOrder, 'this is payload')
 
       dispatch(CreateBuyer(fd))
     }
@@ -293,7 +316,8 @@ function Index() {
 
     // document.querySelector(companyInput).value = ''
   }
-
+  console.log(Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0,'orderDetails12')
+  // console.log((orderDetails?.quantity?.slice(orderDetails?.quantity?.length - 2, orderDetails?.quantity?.length) === '' ), "orderDetails12")
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // console.log(companyDetails.companyName, "companyName")

@@ -6,6 +6,7 @@ import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import moment from 'moment'
 function Index({ handleChange, reviewedProfile }) {
+  console.log("🚀 ~ file: index.jsx ~ line 9 ~ Index ~ reviewedProfile", reviewedProfile)
   const transactionTypeDropdown = ['Import', 'Domestic']
   const commodityDropdown = ['Iron', 'Crude', 'Steel']
   const countryOfOriginDropdown = ['America', 'India', 'Russia']
@@ -79,7 +80,7 @@ function Index({ handleChange, reviewedProfile }) {
     setFields([...tempArr])
   }
   console.log(fields,"fields")
-  // console.log(reviewedProfile, "this is reviewed")
+  console.log(reviewedProfile, "this is reviewed")
 
   return (
     <div className={`${styles.leads} leads `}>
@@ -327,7 +328,7 @@ function Index({ handleChange, reviewedProfile }) {
                       onChange={(e) => handleCheckBox(6)}
                       className={styles.checkBox}
                       type="checkbox"
-                      disabled={fields[6].isEdit}
+                      
                     />
                    :null}
                   </td>
