@@ -16,7 +16,7 @@ const Index = ({
 }) => {
   const [IsBlSelected, setIsBlSelected] = useState(false)
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
-
+  console.log(termsheetDetails,"termsheetDetails")
   const updateThirdPartyInspection = (e) => {
     if (e.target.value == false) {
       setThirdPartyInspection(false)
@@ -385,7 +385,7 @@ const Index = ({
                 />
               </div>
             </div>
-            {thirdPartyInspection && <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+            {termsheetDetails.transactionDetails?.thirdPartyInspectionReq =="true" ? <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className='d-flex'>
                 <select onChange={onChangeTransactionDetails} className={`${styles.value} ${styles.customSelect} input form-control`} required>
                   <option value="Load Port">Load Port</option>
@@ -399,8 +399,8 @@ const Index = ({
                   alt="Search"
                 />
               </div>
-            </div>}
-            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+            </div>:null}
+            {/* <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className='d-flex'>
                 <select id='loadPort' className={`${styles.value} ${styles.customSelect} input form-control`} required>
                   <option value="Load Port">Load Port</option>
@@ -412,7 +412,7 @@ const Index = ({
                   alt="Search"
                 />
               </div>
-            </div>
+            </div> */}
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className='d-flex'>
                 <select id='storageOfGoods' className={`${styles.value} ${styles.customSelect} input form-control`} onChange={onChangeTransactionDetails} required>
