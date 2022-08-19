@@ -1128,7 +1128,7 @@ const shareHolding = (data, options, tempArr, camData) => {
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
                       (share, index) => {
-                        console
+                        
                         let name = share?.fullName
                         let [fName, lName] = name?.split(' ')
 
@@ -1277,16 +1277,31 @@ const chargeDetails = (data, options, tempArr, camData) => {
 
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
-                      (charge, index) => (
+                      (charge, index) => {
+                        let name = charge?.nameOfChargeHolder1
+                        let [fName, lName] = name?.split(' ')
+
+                        let colors = [{
+                          primary: "rgba(54, 135, 232, 0.1)",
+                          secondary: "#3687E8"
+                        }, {
+                          primary: "rgba(67, 195, 77, 0.1)",
+                          secondary: "#43C34D"
+                        }, {
+                          primary: "#FFECCF",
+                          secondary: "#FF9D00"
+                        }]
+                        let randColor = colors[Math.floor(Math.random() * colors.length)];
+                        return(
                         <tr key={index}>
                           <td
                             className={`d-flex justify-content-start align-content-center`}
                           >
-                            <div className={`${styles.icon} `}>
-                              <span
+                            <div  style={{ background: `${randColor.primary}` }}  className={`${styles.icon} `}>
+                              <span  style={{ color: `${randColor.secondary}` }} 
                                 className={`d-flex justify-content-center align-content-center`}
                               >
-                                AJ
+                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}{lName?.charAt(0) ? lName?.charAt(0) : 'A'}
                               </span>
                             </div>
 
@@ -1298,7 +1313,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
 
                           <td>{charge?.dateOfCreationOfCharge}</td>
                         </tr>
-                      ),
+                      )},
                     )}
                   {/* <tr>
                     <td

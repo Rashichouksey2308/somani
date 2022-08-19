@@ -1997,6 +1997,7 @@ const [totalCourt,setTotalCourt]=useState({
                     strengthsComment={strengthsComment}
                     weaknessComment={weaknessComment}
                     deleteData={deleteData}
+                    setGroupExposureData={setGroupExposureData}
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>
