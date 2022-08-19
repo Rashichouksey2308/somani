@@ -190,6 +190,7 @@ function Index() {
   const [fieldType, setFieldType] = useState(false)
 
   const dropDownChange = (e) => {
+    inputRef.current.value = ''
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'

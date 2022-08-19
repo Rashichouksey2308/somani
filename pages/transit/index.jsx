@@ -225,6 +225,7 @@ function Index() {
                               className={`${styles.edit_image} img-fluid mr-3`}
                               src="/static/mode_edit.svg"
                               alt="edit"
+                              onClick={() => handleRoute(transaction)}
                             />
                           </td>
                         </tr>

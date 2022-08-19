@@ -994,7 +994,92 @@
     }
   }
 }
+.wrapper {
+  border-radius: 6px;
 
+  .title {
+    position: relative;
+    width: 90%;
+
+    .blue {
+      color: #3687e8;
+      font-size: 22px;
+      font-weight: 27px;
+      font-weight: bold;
+    }
+
+    div {
+      font-size: 20px;
+      font-weight: 25px;
+      font-weight: 500;
+      margin-right: 25px;
+
+      span {
+        color: #00000080;
+        font-size: 16px;
+        font-weight: 17px;
+        font-weight: 500;
+        letter-spacing: 0.53px;
+      }
+    }
+
+    img {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      right: -5rem;
+      top: -0.2rem;
+    }
+  }
+  .body {
+    padding: 0rem !important;
+
+    .table {
+      overflow-y: auto;
+      height: 400px;
+      font-size: 19px;
+      font-weight: 24px;
+      font-weight: 500;
+      tr {
+        height: 67px;
+        border-bottom: 2px solid red;
+        th {
+          vertical-align: revert;
+          &:first-child {
+            font-weight: bold;
+            padding-left: 35px;
+          }
+        }
+        td {
+          vertical-align: revert;
+          &:first-child {
+            font-weight: bold;
+            padding-left: 35px;
+          }
+        }
+      }
+    }
+    div {
+      font-size: 20px;
+      font-weight: 25px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: right;
+      padding: 15px;
+      margin-right: 35px;
+
+      span {
+        color: #00000080;
+
+        font-size: 16px;
+        font-weight: 17px;
+        font-weight: 500;
+        letter-spacing: 0.53px;
+      }
+    }
+  }
+}
 .switch {
   position: relative;
   display: inline-block;
@@ -1209,4 +1294,52 @@ input:checked + .slider:before {
 
   @include respond(phone) {
   }
+}
+.certificate {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #111111;
+  background-color: #C3C3C31F;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+}
+.certificate2 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #3687e8;
+  background-color: #C3C3C31F;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+}
+.uploadBtnWrapper {
+  overflow: hidden;
+  position: relative;
+  display: block;
+  line-height: 60px; 
+  input {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      cursor: pointer;
+      position: absolute;
+  }
+} 
+.button_upload {
+  width: 106px;
+  height: 38px;
+  border: 3px solid #3687E8;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #3687E8;
+  line-height: 23px;
+  text-transform: capitalize;
 }

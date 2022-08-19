@@ -257,18 +257,40 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                         </td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
-                          {' '}
+                        { false ?  <>
                           <div className={styles.uploadBtnWrapper}>
-                            <button className={`${styles.uploadDoc} btn`}>
+                            <input
+                              type="file"
+                              name="myfile"
+                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                            onChange={(e) => uploadDocument1(e)}
+                            />
+                            <button className={`${styles.button_upload} btn`}>
                               Upload
                             </button>
-                            <input
-                              id="document1"
-                              type="file"
-                              onChange={(e) => onSaveDocument(e)}
-                              name="myfile"
-                            />
                           </div>
+                          {/* <div className={styles.uploadBtnWrapper}>
+                          <input
+                            type="file"
+                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                            onChange={(e) => uploadDocument1(e)}
+                            name="myfile"
+                          />
+                          <button  className={`${styles.uploadDoc} btn`}>
+                            Upload
+                          </button>
+                          </div> */}
+                          </>:
+                          <div className={styles.certificate}>
+                          {/* {lcDoc?.lcDraftDoc?.name} */}
+                            <img
+                            className={`${styles.close_image} float-right m-2 img-fluid`}
+                            src="/static/close.svg"
+                          
+                            alt="Close"
+                            />{' '}
+                          </div>
+                        }
                         </td>
                       </tr>
 
@@ -286,18 +308,40 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                         </td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
-                          {' '}
+                        { false ?  <>
                           <div className={styles.uploadBtnWrapper}>
-                            <button className={`${styles.uploadDoc} btn`}>
+                            <input
+                              type="file"
+                              name="myfile"
+                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                            onChange={(e) => uploadDocument1(e)}
+                            />
+                            <button className={`${styles.button_upload} btn`}>
                               Upload
                             </button>
-                            <input
-                              id="document2"
-                              type="file"
-                              onChange={(e) => onSaveDocument(e)}
-                              name="myfile"
-                            />
                           </div>
+                          {/* <div className={styles.uploadBtnWrapper}>
+                          <input
+                            type="file"
+                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                            onChange={(e) => uploadDocument1(e)}
+                            name="myfile"
+                          />
+                          <button  className={`${styles.uploadDoc} btn`}>
+                            Upload
+                          </button>
+                          </div> */}
+                          </>:
+                          <div className={styles.certificate}>
+                          {/* {lcDoc?.lcDraftDoc?.name} */}
+                            <img
+                            className={`${styles.close_image} float-right m-2 img-fluid`}
+                            src="/static/close.svg"
+                          
+                            alt="Close"
+                            />{' '}
+                          </div>
+                        }
                         </td>
                       </tr>
                     </tbody>

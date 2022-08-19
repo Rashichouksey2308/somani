@@ -24,7 +24,7 @@ const Index = ({ labelName, saveDate, name, defaultDate ,index}) => {
           saveDate(startDate, name, index)
           console.log(startDate, name,'Event')
         }}
-       // minDate={lastDate}
+       minDate={lastDate}
       />
       <label className={`${styles.label_heading} label_heading`}>
         {labelName}

@@ -975,7 +975,7 @@ function Index() {
                   <input
                     as="textarea"
                     rows={3}
-                    placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
+                    placeholder=""
                     className={`${styles.comment_field} mr-n5 form-control`}
                   />
                   <label className={`${styles.label_textarea} text`}>
@@ -1152,7 +1152,7 @@ function Index() {
                   <input
                     as="textarea"
                     rows={3}
-                    placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
+                    placeholder=""
                     className={`${styles.comment_field} form-control`}
                   />
                   <label className={`${styles.label_textarea}  text`}>

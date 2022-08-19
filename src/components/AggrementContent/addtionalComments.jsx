@@ -32,26 +32,7 @@ function Index(props) {
  setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
 
   }
-  //  useEffect(() => {
-  //  if(window){
-    
-    
-  //     if(sessionStorage.getItem("Comments")){
-  //     console.log("herer23123")
-      
-  //     let savedData=JSON.parse(sessionStorage.getItem("Comments"))
-     
-      
-  //      setAddressList(savedData.comments)
-      
-  //   }else{
-     
-  //      setAddressList(props.data?.addresses)
-       
-  //   }
-   
-  //  }
-  // },[props])
+
   const handleEditAddressInput=(value,index)=>{
     
      setAddressList(prevState => {
@@ -84,7 +65,7 @@ function Index(props) {
       <div className={`${styles.container} vessel_card`}>
         <div className={`${styles.paymet} card-body p-0`}>
      <div className={`d-flex justify-content-between align-items-between mb-4`}>
-       <input placeholder={`5000 Wet Metric Tons (Wmt) +/- 10Pct Of Mmd: Manganeseore Of Gabon Origin (44,50Pct Mn Typical - 5Pct Moisture), Ciffo Visakhapatnam Port Packing In Bulk.`}
+       <input placeholder={``}
        onChange={(e)=>{
         setValue(e.target.value)
        }}
@@ -92,7 +73,8 @@ function Index(props) {
        <img className="img-fluid ml-4" src="/static/add-btn.svg" alt="add button"
        onClick={()=>{
                     handleAddressInput()
-                    }}
+                   setValue("")
+          }}
        ></img>
      </div>
    
@@ -119,11 +101,11 @@ function Index(props) {
                     handleEditAddressInput(index)
             }}
          ></img> */}
-         <img className={`${styles.image}`} src="/static/mode_edit.svg" alt="edit"/>
+         {/* <img className={`${styles.image}`} src="/static/mode_edit.svg" alt="edit"/> */}
          <img src="/static/delete 2.svg" className="img-fluid ml-3" alt="delete"
          onClick={()=>{
                     onAddressRemove(index)
-                  }}
+        }}
          />
        </div>
      </li>
