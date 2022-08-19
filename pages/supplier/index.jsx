@@ -160,6 +160,9 @@ function Index() {
                     >
                       <>
                         {' '}
+                        <option>
+                                Select an option
+                        </option>
                         <option value={true}>Active</option>
                         <option value={false}>Not active</option>
                       </>
@@ -212,6 +215,9 @@ function Index() {
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           required
                         >
+                           <option>
+                                Select an option
+                        </option>
                           <option value="India">Private Limited</option>
                           <option value="America">ABC</option>
                         </select>
@@ -246,6 +252,9 @@ function Index() {
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
+                           <option>
+                                Select an option
+                        </option>
                           <option value="India">India</option>
                           <option value="America">USA</option>
                         </select>
@@ -458,6 +467,9 @@ function Index() {
                               id="Code"
                               className={`${styles.code_phone} input border-right-0`}
                             >
+                              <option>
+                              Select an option
+                              </option>
                               <option>+91</option>
                               <option>+1</option>
                               <option>+92</option>
@@ -488,7 +500,10 @@ function Index() {
                               name="callingCode"
                               id="Code"
                               className={`${styles.code_phone} input border-right-0`}
-                            >
+                            > 
+                             <option>
+                              Select an option
+                              </option>
                               <option>+91</option>
                               <option>+1</option>
                               <option>+92</option>

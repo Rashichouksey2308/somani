@@ -422,6 +422,12 @@ export default function Home() {
 const onDeleteVessel=(index)=>{
  setList([...list.slice(0, index), ...list.slice(index + 1)])
 }
+const OnAddvesselInformationDelete=(index)=>{
+let tempArr=[...list]
+tempArr[0].vesselInformation.splice(index, 1);
+console.log(tempArr,"tempArr")
+setList(tempArr)
+}
 
 
   return (
@@ -448,6 +454,7 @@ const onDeleteVessel=(index)=>{
         uploadDocHandler={uploadDocHandler}
         shippingInfoChangeHandler={shippingInfoChangeHandler}
         onDeleteVessel={onDeleteVessel}
+        OnAddvesselInformationDelete={OnAddvesselInformationDelete}
       />
       <div className="mt-5">
         <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" />

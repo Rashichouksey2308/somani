@@ -278,6 +278,9 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
+                              <option>
+                                Select an option
+                              </option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -408,6 +411,9 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
+                              <option>
+                                Select an option
+                              </option>
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -544,6 +550,9 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
+                              <option>
+                                Select an option
+                              </option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -674,6 +683,9 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
+                              <option>
+                                Select an option
+                              </option>
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -801,6 +813,9 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
+                              <option>
+                                Select an option
+                              </option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -931,6 +946,9 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
+                              <option>
+                                Select an option
+                              </option>
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -1068,6 +1086,9 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
+                              <option>
+                                Select an option
+                              </option>
                               <option value={storageData?.nameOfInsurer}>
                                 {storageData.nameOfInsurer}
                               </option>
@@ -1207,6 +1228,9 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
+                              <option>
+                                Select an option
+                              </option>
                               <option value={storageData?.lossPayee}>
                                 {storageData?.lossPayee}
                               </option>

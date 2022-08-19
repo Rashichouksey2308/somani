@@ -34,7 +34,8 @@ function Index({
   list,
   orderID,
   id1,
-  onDeleteVessel
+  onDeleteVessel,
+  OnAddvesselInformationDelete
 }) {
   const dispatch = useDispatch()
   // useEffect(() => {
@@ -106,6 +107,7 @@ function Index({
                             {partShipmentAllowed ? (
                               <>
                                 {' '}
+                                 <option>Select an option</option>
                                 <option value={true}>Yes</option>
                                 <option value={false}>No</option>
                               </>
@@ -161,6 +163,7 @@ function Index({
                                 shipmentTypeChangeHandler(e, index)
                               }
                             >
+                               <option>Select an option</option>
                               <option value="Bulk" selected>
                                 Bulk
                               </option>
@@ -222,6 +225,7 @@ function Index({
                             style={{ color: '#3687E8' }}
                             required
                           >
+                             <option>Select an option</option>
                             <option>USD</option>
                             <option>INR</option>
                           </select>
@@ -260,9 +264,10 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                             >
-                              <option value={val.countryOfOrigin}>
+                               <option>Select an option</option>
+                              {/* <option value={val.countryOfOrigin}>
                                 {val.countryOfOrigin}
-                              </option>
+                              </option> */}
                               <option value="india">India</option>
                             </select>
                             <label
@@ -289,9 +294,10 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                             >
-                              <option value={val.portOfLoading}>
+                               <option>Select an option</option>
+                              {/* <option value={val.portOfLoading}>
                                 {val.portOfLoading}
-                              </option>
+                              </option> */}
                               <option value="perth">Perth</option>
                             </select>
                             <label
@@ -318,9 +324,10 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                             >
-                              <option value={val.portOfDischarge}>
+                               <option>Select an option</option>
+                              {/* <option value={val.portOfDischarge}>
                                 {val.portOfDischarge}
-                              </option>
+                              </option> */}
                               <option value="navasheva">Navasheva</option>
                             </select>
                             <label
@@ -692,12 +699,21 @@ function Index({
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
                                 </h3>
-                                <button
+                                {
+                                  index > 1?
+                                  <button
+                                  onClick={() => OnAddvesselInformationDelete(index)}
+                                  className={styles.add_btn}
+                                >
+                                  Delete
+                                </button>
+                                  :<button
                                   onClick={() => OnAddvesselInformation()}
                                   className={styles.add_btn}
                                 >
                                   Add
                                 </button>
+                                }
                               </div>
                               <div className="row">
                                 <div

@@ -2883,6 +2883,7 @@ const trends = (
               className={`${styles.select} accordion_body form-select`}
               aria-label="Default select example"
             >
+               <option>Select an option</option>
               <option selected value="1">
                 Quarterly
               </option>
@@ -2969,6 +2970,7 @@ const skewness = (data, options, tempArr, gstData) => {
               className={`${styles.select} accordion_body form-select`}
               aria-label="Default select example"
             >
+               <option>Select an option</option>
               <option selected value="1">
                 Quarterly
               </option>

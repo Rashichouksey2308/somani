@@ -332,7 +332,7 @@ setEditAddress(
                     handleInput(e.target.name,e.target.value)
                   }}
                 >
-                   <option value=""></option>
+                    <option>Select an option</option>
                   <option value="Indo German International">Indo German International</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -452,6 +452,7 @@ setEditAddress(
                             setAddress(e.target.name,e.target.value)
                           }}
                         >
+                           <option>Select an option</option>
                           <option value="Registered">Registered Office</option>
                           <option value="Branch">Branch </option>
                             <option value="Supplier">Supplier Address </option>
@@ -539,6 +540,7 @@ setEditAddress(
                             setAddress(e.target.name,e.target.value)
                           }}
                         >
+                           <option>Select an option</option>
                           <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                           
                         </select>
@@ -707,6 +709,7 @@ setEditAddress(
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
+                               <option>Select an option</option>
                             <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
                               <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
                               <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
@@ -795,6 +798,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                             editNewAddress(e.target.name,e.target.value)
                           }}
                         >
+                           <option>Select an option</option>
                           <option value="Registered">Registered </option>
                           <option value="Branch">Branch </option>
                           <option value="Supplier">Supplier  </option>
@@ -882,6 +886,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                             editNewAddress(e.target.name,e.target.value)
                           }}
                         >
+                           <option>Select an option</option>
                           <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                           
                         </select>
