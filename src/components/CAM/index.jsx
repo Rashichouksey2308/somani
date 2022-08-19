@@ -1143,7 +1143,7 @@ const shareHolding = (data, options, tempArr, camData) => {
                     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
                       (share, index) => {
                         
-                        let name = share?.fullName
+                        let name = share?.fullName ?? 'N A'
                         let [fName, lName] = name?.split(' ')
 
                         let colors = [{
