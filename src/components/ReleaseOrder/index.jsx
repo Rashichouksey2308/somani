@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, Modal } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import UploadOther from '../UploadOther'
 import DateCalender from '../DateCalender'
@@ -13,6 +13,10 @@ import Cookies from 'js-cookie'
 
 export default function Index({ ReleaseOrderData }) {
   const dispatch = useDispatch()
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
   console.log(ReleaseOrderData, 'ReleaseOrderData123')
   let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
   let InvoiceQuantity = _get(
@@ -387,8 +391,80 @@ export default function Index({ ReleaseOrderData }) {
           </div>
         </div>
 
-        <SaveBar handleSave={onSaveHAndler} rightBtn="Submit" />
+        <SaveBar
+          handleSave={onSaveHAndler}
+          rightBtn="Generate Delivery Order"
+          rightBtnClick={handleShow}
+        />
       </div>
+
+      <Modal
+        show={show}
+        size="lg"
+        onHide={handleClose}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className={styles.wrapper}
+        backdropClassName={styles.backdrop}
+      >
+        <Modal.Header className={styles.head}>
+          <Modal.Title
+            id="contained-modal-title-vcenter"
+            className={`${styles.title}  d-flex justify-content-between align-items-center`}
+          >
+            <div className={`${styles.blue} ml-3`}>Release Order Details </div>
+
+            <img
+              src="/static/close.svg"
+              alt="close"
+              onClick={handleClose}
+              className="img-fluid"
+            ></img>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={`${styles.body} container-fluid`}>
+          <table
+            className={`${styles.table} table `}
+            cellPadding="0"
+            cellSpacing="0"
+            border="0"
+          >
+            <tr className={`border_color`}>
+              <th width="33%">RELEASE ORDER NO.</th>
+              <th width="33%">RELEASE ORDER DATE</th>
+              <th width="33%">QUANTITY RELEASED</th>
+            </tr>
+            <tr className={`border_color`}>
+              <td>01</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>02</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>03</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>04</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>05</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+          </table>
+          <div>
+            <span>Balance Quantity: </span> &nbsp; 15,000 MT{' '}
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

@@ -316,7 +316,7 @@ export default function Index({
             return (
               <div
                 key={index}
-                className={`${styles.main} mt-4 card border_color`}
+                className={`${styles.main} vessel_card mt-4 card border_color`}
               >
                 <div
                   className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
