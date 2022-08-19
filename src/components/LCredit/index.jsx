@@ -230,18 +230,25 @@ function Index() {
   }
 
   const addToArr = () => {
-    const newArr = [...clauseArr]
-    if (
-      clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
-    ) {
-      let toastMessage = 'Please select a different Clause from drop down'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      }
+    if (clauseObj.existingValue === '' || clauseObj.newValue === '') {
+      let toastMessage = 'CANNOT ADD A CLOUSE WITH EMPTY VALUES'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
     } else {
-      newArr.push(clauseObj)
+      const newArr = [...clauseArr]
+      if (
+        clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
+      ) {
+        let toastMessage = 'Please select a different Clause from drop down'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      } else {
+        newArr.push(clauseObj)
 
-      setClauseArr(newArr)
+        setClauseArr(newArr)
+      }
     }
   }
 
@@ -501,7 +508,7 @@ function Index() {
                                 name="newValue"
                                 // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
                                 saveDate={saveDropDownDate}
-                                // labelName="New Value"
+                              // labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}

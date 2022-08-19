@@ -46,7 +46,7 @@ function Index(props) {
   const [addressType,setAddressType]=useState("Registered")
   useEffect(() => {
     let tempArr = cmaState.authorisedSignatoryDetails
-    tempArr.forEach((val, index) => {
+    tempArr?.forEach((val, index) => {
       val.actions = "true"
     })
     setList(tempArr)
@@ -441,7 +441,7 @@ setEditAddress(
 
           </div>
         </div>
-        {isEdit && editData(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)}
+        {isEdit && editData(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressType )}
          <div className={`${styles.newAddressContainer} m-0`}>
                   <div className={styles.newAddressHead}><span>Add a new address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
@@ -770,7 +770,7 @@ setEditAddress(
 }
 
 export default Index
-const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)=>{
+const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressType)=>{
   return(
     <div className={`${styles.newAddressContainer}`}>
                   <div className={styles.newAddressHead}><span className={`mb-3`}>Add Edit address</span></div>
