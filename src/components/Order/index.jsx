@@ -129,7 +129,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="orderValue"
-                  value={addPrefixOrSuffix(orderDetail?.orderValue,orderDetail?.unitOfValue)}
+                  defaultValue={addPrefixOrSuffix(orderDetail?.orderValue,orderDetail.unitOfValue)}
                  
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)

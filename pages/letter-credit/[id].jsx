@@ -8,6 +8,7 @@ import SaveBar from '../../src/components/SaveBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action'
 import Router from 'next/router'
+import { removePrefixOrSuffix } from '../../src/utils/helper'
 
 function Index() {
   const dispatch = useDispatch()
@@ -213,8 +214,10 @@ function Index() {
   }
 
   const handleRightButton = () => {
+    let sendLcData = {...lcData}
+    sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData.tolerancePercentage))
     let fd = new FormData()
-    fd.append('lcApplication', JSON.stringify(lcData))
+    fd.append('lcApplication', JSON.stringify(sendLcData))
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
     fd.append('document1', lcDoc.lcDraftDoc)
 
