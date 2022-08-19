@@ -1430,7 +1430,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                     camData?.company?.debtProfile?.map((debt, index) => (
                       <tr key={index}>
                         <td>{debt?.bankName}</td>
-                        <td defaultValue={debt?.limitType} disabled={true}></td>
+                        <td> {debt?.limitType} </td>
 
                         <td>{debt?.limit}</td>
                         <td className={`${styles.conduct} danger`}>
