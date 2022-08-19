@@ -185,7 +185,7 @@ function Index() {
       clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
     ) {
       let toastMessage = 'Please select a different Clause from drop down'
-      if (!toast.isActive(toastMessage)) {
+      if (!toast.isActive(toastMessage.toUpperCase()).toUpperCase()) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
@@ -214,7 +214,7 @@ function Index() {
   }
 
   const handleRightButton = () => {
-    let sendLcData = {...lcData}
+    let sendLcData = { ...lcData }
     sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData.tolerancePercentage))
     let fd = new FormData()
     fd.append('lcApplication', JSON.stringify(sendLcData))
@@ -462,7 +462,7 @@ function Index() {
                                 name="newValue"
                                 // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
                                 saveDate={saveDropDownDate}
-                                // labelName="New Value"
+                              // labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
