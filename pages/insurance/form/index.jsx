@@ -24,6 +24,7 @@ const Index = () => {
   const { insuranceResponse } = useSelector((state) => state.insurance)
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
+  console.log(insuranceData, 'This is InsuranceData')
 
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
@@ -116,7 +117,7 @@ const Index = () => {
                         inline
                         label="Marine Insurance"
                         defaultChecked={
-                          insuranceData?.quotationRequest?.insuranceType ===
+                          insuranceData?.quotationRequest?.insuranceType ==
                           'Marine Insurance'
                         }
                         name="group1"
@@ -133,7 +134,7 @@ const Index = () => {
                         inline
                         label="Storage Insurance"
                         defaultChecked={
-                          insuranceData?.quotationRequest?.insuranceType ===
+                          insuranceData?.quotationRequest?.insuranceType ==
                           'Storage Insurance'
                         }
                         name="group1"
@@ -154,7 +155,7 @@ const Index = () => {
                         label="Both"
                         name="group1"
                         defaultChecked={
-                          insuranceData?.quotationRequest?.insuranceType ===
+                          insuranceData?.quotationRequest?.insuranceType ==
                           'Both'
                         }
                         type={type}
@@ -190,8 +191,7 @@ const Index = () => {
               data-parent="#marineInsurance"
             >
               <div className={` ${styles.cardBody} card-body  border_color`}>
-                {insuranceData?.quotationRequest?.insuranceType ===
-                'Marine Insurance' ? (
+                {insuranceType == 'Marine Insurance' ? (
                   <>
                     <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
@@ -435,7 +435,7 @@ const Index = () => {
                         </Row>
                       </div>
                     </div>
-                    <hr></hr>
+
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body}`}>
                         <h5>Additional Information (if Any)</h5>
