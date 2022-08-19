@@ -34,6 +34,7 @@ function Index({
   list,
   orderID,
   id1,
+  onDeleteVessel
 }) {
   const dispatch = useDispatch()
   // useEffect(() => {
@@ -124,7 +125,17 @@ function Index({
                         </div>
 
                         {list[index].shipmentType === 'Bulk' ? (
-                          <button
+                          <>
+                          {index > 1?
+                            <button
+                            className={styles.add_btn}
+                            onClick={(e) => {
+                              onDeleteVessel(index)
+                            }}
+                          >
+                            Delete
+                          </button>:
+                        <button
                             className={styles.add_btn}
                             onClick={(e) => {
                               onAddVessel()
@@ -132,6 +143,9 @@ function Index({
                           >
                             Add
                           </button>
+                         
+                          }
+                           </>
                         ) : null}
                       </div>
                     </div>
@@ -794,6 +808,7 @@ function Index({
                                 onChange={(e) => uploadDocHandler1(e)}
                                 type="file"
                                 name="myfile"
+                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" 
                               />
                               <button className={`${styles.upload_btn}`}>
                                 Upload Excel
