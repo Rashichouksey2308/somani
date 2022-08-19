@@ -139,7 +139,20 @@ function Index() {
 
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
-    newInput[name] = value
+    
+     if(name=="quantity"){
+      let tempVal=addPrefixOrSuffix(value.toString(),orderDetails.unitOfQuantity=="mt"?"MT":orderDetails.unitOfQuantity)
+      newInput[name] = tempVal
+     }
+      if(name == "orderValue"){
+      let tempVal= addPrefixOrSuffix(value.toString(),
+              orderDetails?.unitOfValue=="Millions"?"Mn":
+              orderDetails?.unitOfValue=="Crores"?"Cr":orderDetails?.unitOfValue)
+              newInput[name] = tempVal
+     }else{
+      newInput[name] = value
+     }
+    
     setOrderDetails(newInput)
   }
 
@@ -293,7 +306,7 @@ function Index() {
 
     // document.querySelector(companyInput).value = ''
   }
-
+console.log(orderDetails,"orderDetails12")
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // console.log(companyDetails.companyName, "companyName")
