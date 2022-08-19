@@ -119,11 +119,12 @@ function Index(props) {
                     handleEditAddressInput(index)
             }}
          ></img> */}
-         <img src="/static/delete 2.svg" className="img-fluid ml-4" alt="delete"
+         <img className={`${styles.image}`} src="/static/mode_edit.svg" alt="edit"/>
+         <img src="/static/delete 2.svg" className="img-fluid ml-3" alt="delete"
          onClick={()=>{
                     onAddressRemove(index)
                   }}
-         ></img>
+         />
        </div>
      </li>
       </>

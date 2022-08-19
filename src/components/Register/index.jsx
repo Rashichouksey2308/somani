@@ -56,6 +56,7 @@ function Index() {
     turnOverUnit: 'Cr',
   })
 
+  console.log(companyDetails.turnOver,"companyDetails tin")
   useEffect(() => {
     const newInput = { ...companyDetails }
     newInput.companyName = gstList?.data?.companyData?.companyName
@@ -307,9 +308,13 @@ function Index() {
       fd.append('companyProfile', JSON.stringify(companyDetails))
       fd.append('orderDetails', JSON.stringify(sendOrder))
       fd.append('documentType', JSON.stringify(docTypeArr))
+     
       documents.forEach((val, index) => {
-        fd.append(`documents`, val.attachDoc)
+        console.log(val.attachDoc,"doc")
+       fd.append(`documents`, val.attachDoc)
+        
       })
+      
 
       // fd.append('documents', documents.document2)
       fd.append('gstList', JSON.stringify(gstListData))
