@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, Modal } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import UploadOther from '../UploadOther'
 import DateCalender from '../DateCalender'
@@ -13,6 +13,10 @@ import Cookies from 'js-cookie'
 
 export default function Index({ ReleaseOrderData }) {
   const dispatch = useDispatch()
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
   console.log(ReleaseOrderData, 'ReleaseOrderData123')
   let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
   let InvoiceQuantity = _get(
@@ -336,20 +340,41 @@ export default function Index({ ReleaseOrderData }) {
                       className="col-lg-3 col-md-4 col-sm-6 text-center"
                       style={{ top: '50px' }}
                     >
-                      <div className={styles.uploadBtnWrapper}>
+                      { false ?  <>
+                        <div className={styles.uploadBtnWrapper}>
+                          <input
+                            type="file"
+                            name="myfile"
+                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                          onChange={(e) => uploadDocument1(e)}
+                          />
+                          <button className={`${styles.button_upload} btn`}>
+                            Upload
+                          </button>
+                        </div>
+                        {/* <div className={styles.uploadBtnWrapper}>
                         <input
-                          onChange={(e) =>
-                            handleDocUplaod(e.target.id, e, index)
-                          }
-                          id="document"
                           type="file"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                          onChange={(e) => uploadDocument1(e)}
                           name="myfile"
                         />
-                        <button className={`${styles.upload_btn} btn`}>
+                        <button  className={`${styles.uploadDoc} btn`}>
                           Upload
                         </button>
-                      </div>
-                      {releaseDetail.length > 1 && (
+                        </div> */}
+                        </>:
+                        <div className={styles.certificate}>
+                        {/* {lcDoc?.lcDraftDoc?.name} */}
+                          <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                        
+                          alt="Close"
+                          />{' '}
+                        </div>
+                      }
+                      {/* {releaseDetail.length > 1 && (
                         <img
                           onClick={() => handleDeleteRow(index)}
                           src="/static/delete 2.svg"
@@ -364,7 +389,7 @@ export default function Index({ ReleaseOrderData }) {
                           className={`${styles.delete_image} mt-n4 img-fluid`}
                           alt="Add button"
                         />
-                      )}
+                      )} */}
                     </div>
                   </div>
                 ))}
@@ -387,8 +412,80 @@ export default function Index({ ReleaseOrderData }) {
           </div>
         </div>
 
-        <SaveBar handleSave={onSaveHAndler} rightBtn="Submit" />
+        <SaveBar
+          handleSave={onSaveHAndler}
+          rightBtn="Generate Delivery Order"
+          rightBtnClick={handleShow}
+        />
       </div>
+
+      <Modal
+        show={show}
+        size="lg"
+        onHide={handleClose}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className={styles.wrapper}
+        backdropClassName={styles.backdrop}
+      >
+        <Modal.Header className={styles.head}>
+          <Modal.Title
+            id="contained-modal-title-vcenter"
+            className={`${styles.title}  d-flex justify-content-between align-items-center`}
+          >
+            <div className={`${styles.blue} ml-3`}>Release Order Details </div>
+
+            <img
+              src="/static/close.svg"
+              alt="close"
+              onClick={handleClose}
+              className="img-fluid"
+            ></img>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={`${styles.body} container-fluid`}>
+          <table
+            className={`${styles.table} table `}
+            cellPadding="0"
+            cellSpacing="0"
+            border="0"
+          >
+            <tr className={`border_color`}>
+              <th width="33%">RELEASE ORDER NO.</th>
+              <th width="33%">RELEASE ORDER DATE</th>
+              <th width="33%">QUANTITY RELEASED</th>
+            </tr>
+            <tr className={`border_color`}>
+              <td>01</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>02</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>03</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>04</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td>05</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+          </table>
+          <div>
+            <span>Balance Quantity: </span> &nbsp; 15,000 MT{' '}
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

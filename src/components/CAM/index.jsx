@@ -20,6 +20,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllOrders } from 'redux/registerBuyer/action'
 import { GetCompanyDetails } from 'redux/companyDetail/action'
+import { GetDocuments } from 'redux/creditQueueUpdate/action'
+import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import _get from 'lodash/get'
 
@@ -46,16 +48,25 @@ function Index({
   approvedCredit,
 }) {
   const dispatch = useDispatch()
-  console.log(gstData, 'gstData')
-  console.log(fetchingKarzaGst, 'fetchingKarzaGst')
+  // console.log(gstData, 'gstData')
+  // console.log(fetchingKarzaGst, 'fetchingKarzaGst')
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
       let id2 = sessionStorage.getItem('companyID')
       dispatch(GetAllOrders({ orderId: id1 }))
       dispatch(GetCompanyDetails({ company: id2 }))
+      // dispatch(GetDocuments(`?order=${id1}`))
+
     }
   }, [dispatch, fetchingKarzaGst])
+  useEffect(() => {
+  
+      let id1 = sessionStorage.getItem('orderID')
+      dispatch(GetDocuments(`?order=${id1}`))
+
+    
+  }, [dispatch])
 
   console.log(camData, 'THIS IS CAM DATA')
   // console.log(companyData, 'THIS IS COMPANY DATA')
@@ -65,6 +76,9 @@ function Index({
       return camData?._id === rating.order
     })
 
+    const { documentsFetched } = useSelector((state) => state.review)
+
+    console.log(documentsFetched, 'THIS IS DOCUMENTS FETCHED')
 
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
@@ -248,7 +262,7 @@ function Index({
         onApprove,
         onApproveOrder,
       )}
-      {Documents()}
+      {Documents(documentsFetched)}
     </>
   )
 }
@@ -1128,8 +1142,8 @@ const shareHolding = (data, options, tempArr, camData) => {
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
                       (share, index) => {
-                        console
-                        let name = share?.fullName
+                        
+                        let name = share?.fullName ?? 'N A'
                         let [fName, lName] = name?.split(' ')
 
                         let colors = [{
@@ -1277,16 +1291,31 @@ const chargeDetails = (data, options, tempArr, camData) => {
 
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
-                      (charge, index) => (
+                      (charge, index) => {
+                        let name = charge?.nameOfChargeHolder1
+                        let [fName, lName] = name?.split(' ')
+
+                        let colors = [{
+                          primary: "rgba(54, 135, 232, 0.1)",
+                          secondary: "#3687E8"
+                        }, {
+                          primary: "rgba(67, 195, 77, 0.1)",
+                          secondary: "#43C34D"
+                        }, {
+                          primary: "#FFECCF",
+                          secondary: "#FF9D00"
+                        }]
+                        let randColor = colors[Math.floor(Math.random() * colors.length)];
+                        return(
                         <tr key={index}>
                           <td
                             className={`d-flex justify-content-start align-content-center`}
                           >
-                            <div className={`${styles.icon} `}>
-                              <span
+                            <div  style={{ background: `${randColor.primary}` }}  className={`${styles.icon} `}>
+                              <span  style={{ color: `${randColor.secondary}` }} 
                                 className={`d-flex justify-content-center align-content-center`}
                               >
-                                AJ
+                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}{lName?.charAt(0) ? lName?.charAt(0) : 'A'}
                               </span>
                             </div>
 
@@ -1298,7 +1327,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
 
                           <td>{charge?.dateOfCreationOfCharge}</td>
                         </tr>
-                      ),
+                      )},
                     )}
                   {/* <tr>
                     <td
@@ -2707,7 +2736,8 @@ const sectionTerms = (
     </>
   )
 }
-const Documents = () => {
+const Documents = (documentsFetched) => {
+  const dispatch = useDispatch()
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2729,7 +2759,20 @@ const Documents = () => {
         >
           <div className={`${styles.terms_wrapper} card-body border_color`}>
             <Row className={`${styles.row}`}>
-              <Col md={3} className={`mb-3`}>
+              { documentsFetched && documentsFetched?.documents?.map((doc, index) => ( <Col md={3} key={index} className={`mb-3`}>
+                <div
+                  className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
+                >
+                  <img src="./static/icon file copy.svg"></img>
+                  <div className={`${styles.view} ml-4`}>
+                    <span>{doc.name}</span>
+                    <span onClick={()=> dispatch(ViewDocument({path: doc.path,
+                      orderId : documentsFetched._id
+                    })) } className={`${styles.highlight} mt-2`}>VIEW</span>
+                  </div>
+                </div>
+              </Col>))}
+              {/* <Col md={3}>
                 <div
                   className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
                 >
@@ -2805,18 +2848,7 @@ const Documents = () => {
                     <span className={`${styles.highlight} mt-2`}>VIEW</span>
                   </div>
                 </div>
-              </Col>
-              <Col md={3}>
-                <div
-                  className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
-                >
-                  <img src="./static/icon file copy.svg"></img>
-                  <div className={`${styles.view} ml-4`}>
-                    <span>Insurance Certificate</span>
-                    <span className={`${styles.highlight} mt-2`}>VIEW</span>
-                  </div>
-                </div>
-              </Col>
+              </Col> */}
             </Row>
           </div>
         </div>

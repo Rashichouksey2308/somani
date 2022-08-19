@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 
 function index({ isDownload, openbar, rightBtn }) {
   return (
-    <div className={`${styles.root} `}>
+    <div className={`${styles.root} background1`}>
       {isDownload ? (
         <div className={styles.reject}>
           <span>Letter of Indemnity</span>

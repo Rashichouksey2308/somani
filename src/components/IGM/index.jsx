@@ -303,7 +303,7 @@ export default function Index({
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
-                    Port Of Landing{' '}
+                    Port Of Loading{' '}
                     <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
@@ -327,9 +327,7 @@ export default function Index({
                     )}
                   </span>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 `}>
                   <div className="d-flex">
                     <select
                       onChange={(e) => onChangeConsignee(e)}
@@ -355,8 +353,8 @@ export default function Index({
                 </div>
 
                 <div
-                  className="col-lg-4 col-md-6 col-sm-6 "
-                  style={{ marginTop: '35px', marginLeft: '118px' }}
+                  className="col-lg-4 col-md-6"
+                  style={{ marginTop: '35px' }}
                 >
                   <div className={`${styles.label} text`}>
                     Consignee Branch<strong className="text-danger">*</strong>{' '}
@@ -364,7 +362,7 @@ export default function Index({
                   <span className={styles.value}>{consigneeInfo.branch}</span>
                 </div>
                 <div
-                  className="col-lg-4 col-md-6 col-sm-6"
+                  className="col-lg-4 col-md-6 "
                   style={{ marginTop: '35px' }}
                 >
                   <div className={`${styles.label} text`}>
@@ -423,7 +421,7 @@ export default function Index({
                           ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
-                      Vessel Name<strong className="text-danger">*</strong>
+                      Vessel Name
                     </label>
                     <img
                       className={`${styles.arrow} image_arrow img-fluid`}
