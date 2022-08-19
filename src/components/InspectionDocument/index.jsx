@@ -34,7 +34,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
 
 
   useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => { return doc.module === moduleSelected})
+    const tempArray = documentsFetched?.documents?.filter((doc) => { return doc.module == moduleSelected})
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderId}`))
 

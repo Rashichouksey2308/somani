@@ -30,7 +30,7 @@ function Index() {
   const handleAmmendRoute = (lc) => {
     dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`))
     sessionStorage.setItem('lcAmmend', lc.order.lc)
-    Router.push('/letter-credit')
+    Router.push('/letter-credit/id')
   }
 console.log(lcModule,"lcModule")
   return (
@@ -134,7 +134,7 @@ console.log(lcModule,"lcModule")
                             {' '}
                             <button
                               className={styles.updateBtn}
-                              onClick={() => handleRoute(lc)}
+                              onClick={() => handleAmmendRoute(lc)}
                             >
                               Update
                             </button>
