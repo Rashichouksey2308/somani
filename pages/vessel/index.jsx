@@ -253,7 +253,8 @@ export default function Home() {
     if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
       let toastMessage = 'provide a valid year'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) return
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+         return
       }
     }
     let array = { ...list[index].vesselInformation[0], [name]: value }
