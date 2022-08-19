@@ -546,6 +546,15 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
     },
   ])
 
+  const [groupExposureData, setGroupExposureData] = useState([
+    {
+      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
+      limit: orderList?.company?.groupExposureDetail?.limit,
+      name: orderList?.company?.groupExposureDetail?.name,
+      outstandingLimit:
+        orderList?.company?.groupExposureDetail?.outstandingLimit,
+    },
+  ])
 
 
   useEffect(() => {
@@ -609,15 +618,6 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
     setWeaknessComment(weaknessArr)
   }, [orderList, orderList?.company])
 
-  const [groupExposureData, setGroupExposureData] = useState([
-    {
-      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
-      limit: orderList?.company?.groupExposureDetail?.limit,
-      name: orderList?.company?.groupExposureDetail?.name,
-      outstandingLimit:
-        orderList?.company?.groupExposureDetail?.outstandingLimit,
-    },
-  ])
 
   const [suggestedCredit, setSuggestedCredit] = useState({
     suggestedCreditLimit: orderList?.suggestedCreditLimit,
@@ -1235,14 +1235,16 @@ const [totalCourt,setTotalCourt]=useState({
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.title_header} d-flex align-items-center`}>
-            <img
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="arrow right"
-              className="img-fluid image_arrow mr-2"
-            />
-            <h1 className={`${styles.title} heading`}>
-              {orderList?.company?.companyName}
-            </h1>
+            <div className={`d-flex align-items-center flex-grow-1`}>
+              <img
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow right"
+                className="img-fluid image_arrow mr-2"
+              />
+              <h1 className={`${styles.title} heading`}>
+                {/* {orderList?.company?.companyName} */}INDO GERMAN INTERNATIONAL PRIVATE LIMITED
+              </h1>
+            </div>
             {selectedTab=="CAM"?
              <>
               <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
@@ -1259,7 +1261,7 @@ const [totalCourt,setTotalCourt]=useState({
             :null  
           }
             {uploadBtn ? (
-              <div className="">
+              <div className="ml-auto">
                 {uploadButton(dispatch, orderList, companyData)}{' '}
               </div>
             ) : null}
@@ -1977,6 +1979,7 @@ const [totalCourt,setTotalCourt]=useState({
                   <Recommendations
                     creditDetail={orderList}
                     groupExposureData={groupExposureData}
+                    setGroupExposureData={setGroupExposureData}
                     saveSuggestedCreditData={saveSuggestedCreditData}
                     addGroupExpArr={addGroupExpArr}
                     financialsComment={financialsComment}

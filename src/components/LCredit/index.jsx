@@ -465,7 +465,7 @@ function Index() {
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <input
                           className={`${styles.input_field} input form-control`}
-                          required
+                          disabled
                           type="text"
                           value={
                             editInput
@@ -491,7 +491,7 @@ function Index() {
                                 editInput ? editCurrent?.newValue : ''
                               }
                               onChange={(e) => {
-                                inputRef.current.value = ''
+                                // inputRef.current.value = ''
                                 arrChange('newValue', e.target.value)
                               }}
                             />
